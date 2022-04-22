@@ -21,8 +21,8 @@ namespace IdApp.Controls.LoadingCollectionView
         /// </summary>
         public ICommand LoadMoreCommand
         {
-            get { return (ICommand)GetValue(LoadMoreCommandProperty); }
-            set { SetValue(LoadMoreCommandProperty, value); }
+            get => (ICommand)this.GetValue(LoadMoreCommandProperty);
+            set => this.SetValue(LoadMoreCommandProperty, value);
         }
 
         /// <summary>
@@ -36,8 +36,8 @@ namespace IdApp.Controls.LoadingCollectionView
         /// </summary>
         public ICommand ItemSelectedCommand
         {
-            get { return (ICommand)GetValue(ItemSelectedCommandProperty); }
-            set { SetValue(ItemSelectedCommandProperty, value); }
+            get => (ICommand)this.GetValue(ItemSelectedCommandProperty);
+            set => this.SetValue(ItemSelectedCommandProperty, value);
         }
 
         /// <summary>

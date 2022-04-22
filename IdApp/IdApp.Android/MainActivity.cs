@@ -200,8 +200,9 @@ namespace IdApp.Android
 						break;
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				Waher.Events.Log.Critical(ex);
 				// TODO: Handle read & connection errors.
 			}
 		}

@@ -384,8 +384,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public DateTime Created
 		{
-			get { return (DateTime)GetValue(CreatedProperty); }
-			set { SetValue(CreatedProperty, value); }
+			get => (DateTime)this.GetValue(CreatedProperty);
+			set => this.SetValue(CreatedProperty, value);
 		}
 
 		/// <summary>
@@ -399,8 +399,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public DateTime? Updated
 		{
-			get { return (DateTime?)GetValue(UpdatedProperty); }
-			set { SetValue(UpdatedProperty, value); }
+			get { return (DateTime?)this.GetValue(UpdatedProperty); }
+			set => this.SetValue(UpdatedProperty, value);
 		}
 
 		/// <summary>
@@ -414,8 +414,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string LegalId
 		{
-			get { return (string)GetValue(LegalIdProperty); }
-			set { SetValue(LegalIdProperty, value); }
+			get => (string)this.GetValue(LegalIdProperty);
+			set => this.SetValue(LegalIdProperty, value);
 		}
 
 		/// <summary>
@@ -434,8 +434,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string BareJid
 		{
-			get { return (string)GetValue(BareJidProperty); }
-			set { SetValue(BareJidProperty, value); }
+			get => (string)this.GetValue(BareJidProperty);
+			set => this.SetValue(BareJidProperty, value);
 		}
 
 		/// <summary>
@@ -449,8 +449,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string PublicKey
 		{
-			get { return (string)GetValue(PublicKeyProperty); }
-			set { SetValue(PublicKeyProperty, value); }
+			get => (string)this.GetValue(PublicKeyProperty);
+			set => this.SetValue(PublicKeyProperty, value);
 		}
 
 		/// <summary>
@@ -464,8 +464,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public IdentityState State
 		{
-			get { return (IdentityState)GetValue(StateProperty); }
-			set { SetValue(StateProperty, value); }
+			get => (IdentityState)this.GetValue(StateProperty);
+			set => this.SetValue(StateProperty, value);
 		}
 
 		/// <summary>
@@ -479,8 +479,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public DateTime? From
 		{
-			get { return (DateTime?)GetValue(FromProperty); }
-			set { SetValue(FromProperty, value); }
+			get { return (DateTime?)this.GetValue(FromProperty); }
+			set => this.SetValue(FromProperty, value);
 		}
 
 		/// <summary>
@@ -494,8 +494,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public DateTime? To
 		{
-			get { return (DateTime?)GetValue(ToProperty); }
-			set { SetValue(ToProperty, value); }
+			get { return (DateTime?)this.GetValue(ToProperty); }
+			set => this.SetValue(ToProperty, value);
 		}
 
 		/// <summary>
@@ -509,8 +509,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string FirstName
 		{
-			get { return (string)GetValue(FirstNameProperty); }
-			set { SetValue(FirstNameProperty, value); }
+			get => (string)this.GetValue(FirstNameProperty);
+			set => this.SetValue(FirstNameProperty, value);
 		}
 
 		/// <summary>
@@ -524,8 +524,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string MiddleNames
 		{
-			get { return (string)GetValue(MiddleNamesProperty); }
-			set { SetValue(MiddleNamesProperty, value); }
+			get => (string)this.GetValue(MiddleNamesProperty);
+			set => this.SetValue(MiddleNamesProperty, value);
 		}
 
 		/// <summary>
@@ -539,8 +539,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string LastNames
 		{
-			get { return (string)GetValue(LastNamesProperty); }
-			set { SetValue(LastNamesProperty, value); }
+			get => (string)this.GetValue(LastNamesProperty);
+			set => this.SetValue(LastNamesProperty, value);
 		}
 
 		/// <summary>
@@ -554,8 +554,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string PersonalNumber
 		{
-			get { return (string)GetValue(PersonalNumberProperty); }
-			set { SetValue(PersonalNumberProperty, value); }
+			get => (string)this.GetValue(PersonalNumberProperty);
+			set => this.SetValue(PersonalNumberProperty, value);
 		}
 
 		/// <summary>
@@ -569,8 +569,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string Address
 		{
-			get { return (string)GetValue(AddressProperty); }
-			set { SetValue(AddressProperty, value); }
+			get => (string)this.GetValue(AddressProperty);
+			set => this.SetValue(AddressProperty, value);
 		}
 
 		/// <summary>
@@ -584,8 +584,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string Address2
 		{
-			get { return (string)GetValue(Address2Property); }
-			set { SetValue(Address2Property, value); }
+			get => (string)this.GetValue(Address2Property);
+			set => this.SetValue(Address2Property, value);
 		}
 
 		/// <summary>
@@ -599,8 +599,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string ZipCode
 		{
-			get { return (string)GetValue(ZipCodeProperty); }
-			set { SetValue(ZipCodeProperty, value); }
+			get => (string)this.GetValue(ZipCodeProperty);
+			set => this.SetValue(ZipCodeProperty, value);
 		}
 
 		/// <summary>
@@ -614,8 +614,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string Area
 		{
-			get { return (string)GetValue(AreaProperty); }
-			set { SetValue(AreaProperty, value); }
+			get => (string)this.GetValue(AreaProperty);
+			set => this.SetValue(AreaProperty, value);
 		}
 
 		/// <summary>
@@ -629,8 +629,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string City
 		{
-			get { return (string)GetValue(CityProperty); }
-			set { SetValue(CityProperty, value); }
+			get => (string)this.GetValue(CityProperty);
+			set => this.SetValue(CityProperty, value);
 		}
 
 		/// <summary>
@@ -644,8 +644,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string Region
 		{
-			get { return (string)GetValue(RegionProperty); }
-			set { SetValue(RegionProperty, value); }
+			get => (string)this.GetValue(RegionProperty);
+			set => this.SetValue(RegionProperty, value);
 		}
 
 		/// <summary>
@@ -659,8 +659,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string Country
 		{
-			get { return (string)GetValue(CountryProperty); }
-			set { SetValue(CountryProperty, value); }
+			get => (string)this.GetValue(CountryProperty);
+			set => this.SetValue(CountryProperty, value);
 		}
 
 		/// <summary>
@@ -674,8 +674,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string CountryCode
 		{
-			get { return (string)GetValue(CountryCodeProperty); }
-			set { SetValue(CountryCodeProperty, value); }
+			get => (string)this.GetValue(CountryCodeProperty);
+			set => this.SetValue(CountryCodeProperty, value);
 		}
 
 		/// <summary>
@@ -689,8 +689,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public string PhoneNr
 		{
-			get { return (string)GetValue(PhoneNrProperty); }
-			set { SetValue(PhoneNrProperty, value); }
+			get => (string)this.GetValue(PhoneNrProperty);
+			set => this.SetValue(PhoneNrProperty, value);
 		}
 
 		/// <summary>
@@ -714,8 +714,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public ImageSource QrCode
 		{
-			get { return (ImageSource)GetValue(QrCodeProperty); }
-			set { SetValue(QrCodeProperty, value); }
+			get => (ImageSource)this.GetValue(QrCodeProperty);
+			set => this.SetValue(QrCodeProperty, value);
 		}
 
 		/// <summary>
@@ -729,8 +729,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool HasQrCode
 		{
-			get { return (bool)GetValue(HasQrCodeProperty); }
-			set { SetValue(HasQrCodeProperty, value); }
+			get => (bool)this.GetValue(HasQrCodeProperty);
+			set => this.SetValue(HasQrCodeProperty, value);
 		}
 
 		/// <summary>
@@ -744,8 +744,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public int QrCodeWidth
 		{
-			get { return (int)GetValue(QrCodeWidthProperty); }
-			set { SetValue(QrCodeWidthProperty, value); }
+			get => (int)this.GetValue(QrCodeWidthProperty);
+			set => this.SetValue(QrCodeWidthProperty, value);
 		}
 
 		/// <summary>
@@ -759,8 +759,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public int QrCodeHeight
 		{
-			get { return (int)GetValue(QrCodeHeightProperty); }
-			set { SetValue(QrCodeHeightProperty, value); }
+			get => (int)this.GetValue(QrCodeHeightProperty);
+			set => this.SetValue(QrCodeHeightProperty, value);
 		}
 
 		/// <summary>
@@ -768,8 +768,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsApproved
 		{
-			get { return (bool)GetValue(IsApprovedProperty); }
-			set { SetValue(IsApprovedProperty, value); }
+			get => (bool)this.GetValue(IsApprovedProperty);
+			set => this.SetValue(IsApprovedProperty, value);
 		}
 
 		/// <summary>
@@ -783,8 +783,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsCreated
 		{
-			get { return (bool)GetValue(IsCreatedProperty); }
-			set { SetValue(IsCreatedProperty, value); }
+			get => (bool)this.GetValue(IsCreatedProperty);
+			set => this.SetValue(IsCreatedProperty, value);
 		}
 
 		/// <summary>
@@ -798,8 +798,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsForReview
 		{
-			get { return (bool)GetValue(IsForReviewProperty); }
-			set { SetValue(IsForReviewProperty, value); }
+			get => (bool)this.GetValue(IsForReviewProperty);
+			set => this.SetValue(IsForReviewProperty, value);
 		}
 
 		/// <summary>
@@ -813,8 +813,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsNotForReview
 		{
-			get { return (bool)GetValue(IsNotForReviewProperty); }
-			set { SetValue(IsNotForReviewProperty, value); }
+			get => (bool)this.GetValue(IsNotForReviewProperty);
+			set => this.SetValue(IsNotForReviewProperty, value);
 		}
 
 		/// <summary>
@@ -828,8 +828,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool ThirdParty
 		{
-			get { return (bool)GetValue(ThirdPartyProperty); }
-			set { SetValue(ThirdPartyProperty, value); }
+			get => (bool)this.GetValue(ThirdPartyProperty);
+			set => this.SetValue(ThirdPartyProperty, value);
 		}
 
 		/// <summary>
@@ -843,8 +843,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool ThirdPartyInContacts
 		{
-			get { return (bool)GetValue(ThirdPartyInContactsProperty); }
-			set { SetValue(ThirdPartyInContactsProperty, value); }
+			get => (bool)this.GetValue(ThirdPartyInContactsProperty);
+			set => this.SetValue(ThirdPartyInContactsProperty, value);
 		}
 
 		/// <summary>
@@ -858,8 +858,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool ThirdPartyNotInContacts
 		{
-			get { return (bool)GetValue(ThirdPartyNotInContactsProperty); }
-			set { SetValue(ThirdPartyNotInContactsProperty, value); }
+			get => (bool)this.GetValue(ThirdPartyNotInContactsProperty);
+			set => this.SetValue(ThirdPartyNotInContactsProperty, value);
 		}
 
 		/// <summary>
@@ -873,8 +873,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsPersonal
 		{
-			get { return (bool)GetValue(IsPersonalProperty); }
-			set { SetValue(IsPersonalProperty, value); }
+			get => (bool)this.GetValue(IsPersonalProperty);
+			set => this.SetValue(IsPersonalProperty, value);
 		}
 
 		/// <summary>
@@ -888,8 +888,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool Subscribed
 		{
-			get { return (bool)GetValue(SubscribedProperty); }
-			set { SetValue(SubscribedProperty, value); }
+			get => (bool)this.GetValue(SubscribedProperty);
+			set => this.SetValue(SubscribedProperty, value);
 		}
 
 		/// <summary>
@@ -903,8 +903,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool NotSubscribed
 		{
-			get { return (bool)GetValue(NotSubscribedProperty); }
-			set { SetValue(NotSubscribedProperty, value); }
+			get => (bool)this.GetValue(NotSubscribedProperty);
+			set => this.SetValue(NotSubscribedProperty, value);
 		}
 
 		/// <summary>
@@ -918,8 +918,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool FirstNameIsChecked
 		{
-			get { return (bool)GetValue(FirstNameIsCheckedProperty); }
-			set { SetValue(FirstNameIsCheckedProperty, value); }
+			get => (bool)this.GetValue(FirstNameIsCheckedProperty);
+			set => this.SetValue(FirstNameIsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -933,8 +933,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool MiddleNamesIsChecked
 		{
-			get { return (bool)GetValue(MiddleNamesIsCheckedProperty); }
-			set { SetValue(MiddleNamesIsCheckedProperty, value); }
+			get => (bool)this.GetValue(MiddleNamesIsCheckedProperty);
+			set => this.SetValue(MiddleNamesIsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -948,8 +948,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool LastNamesIsChecked
 		{
-			get { return (bool)GetValue(LastNamesIsCheckedProperty); }
-			set { SetValue(LastNamesIsCheckedProperty, value); }
+			get => (bool)this.GetValue(LastNamesIsCheckedProperty);
+			set => this.SetValue(LastNamesIsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -963,8 +963,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool PersonalNumberIsChecked
 		{
-			get { return (bool)GetValue(PersonalNumberIsCheckedProperty); }
-			set { SetValue(PersonalNumberIsCheckedProperty, value); }
+			get => (bool)this.GetValue(PersonalNumberIsCheckedProperty);
+			set => this.SetValue(PersonalNumberIsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -978,8 +978,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool AddressIsChecked
 		{
-			get { return (bool)GetValue(AddressIsCheckedProperty); }
-			set { SetValue(AddressIsCheckedProperty, value); }
+			get => (bool)this.GetValue(AddressIsCheckedProperty);
+			set => this.SetValue(AddressIsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -993,8 +993,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool Address2IsChecked
 		{
-			get { return (bool)GetValue(Address2IsCheckedProperty); }
-			set { SetValue(Address2IsCheckedProperty, value); }
+			get => (bool)this.GetValue(Address2IsCheckedProperty);
+			set => this.SetValue(Address2IsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -1008,8 +1008,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool ZipCodeIsChecked
 		{
-			get { return (bool)GetValue(ZipCodeIsCheckedProperty); }
-			set { SetValue(ZipCodeIsCheckedProperty, value); }
+			get => (bool)this.GetValue(ZipCodeIsCheckedProperty);
+			set => this.SetValue(ZipCodeIsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -1023,8 +1023,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool AreaIsChecked
 		{
-			get { return (bool)GetValue(AreaIsCheckedProperty); }
-			set { SetValue(AreaIsCheckedProperty, value); }
+			get => (bool)this.GetValue(AreaIsCheckedProperty);
+			set => this.SetValue(AreaIsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -1038,8 +1038,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool CityIsChecked
 		{
-			get { return (bool)GetValue(CityIsCheckedProperty); }
-			set { SetValue(CityIsCheckedProperty, value); }
+			get => (bool)this.GetValue(CityIsCheckedProperty);
+			set => this.SetValue(CityIsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -1053,8 +1053,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool RegionIsChecked
 		{
-			get { return (bool)GetValue(RegionIsCheckedProperty); }
-			set { SetValue(RegionIsCheckedProperty, value); }
+			get => (bool)this.GetValue(RegionIsCheckedProperty);
+			set => this.SetValue(RegionIsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -1068,8 +1068,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool CountryCodeIsChecked
 		{
-			get { return (bool)GetValue(CountryCodeIsCheckedProperty); }
-			set { SetValue(CountryCodeIsCheckedProperty, value); }
+			get => (bool)this.GetValue(CountryCodeIsCheckedProperty);
+			set => this.SetValue(CountryCodeIsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -1083,8 +1083,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool CarefulReviewIsChecked
 		{
-			get { return (bool)GetValue(CarefulReviewIsCheckedProperty); }
-			set { SetValue(CarefulReviewIsCheckedProperty, value); }
+			get => (bool)this.GetValue(CarefulReviewIsCheckedProperty);
+			set => this.SetValue(CarefulReviewIsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -1098,8 +1098,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool ApprovePiiIsChecked
 		{
-			get { return (bool)GetValue(ApprovePiiIsCheckedProperty); }
-			set { SetValue(ApprovePiiIsCheckedProperty, value); }
+			get => (bool)this.GetValue(ApprovePiiIsCheckedProperty);
+			set => this.SetValue(ApprovePiiIsCheckedProperty, value);
 		}
 
 		/// <summary>
@@ -1113,8 +1113,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsForReviewFirstName
 		{
-			get { return (bool)GetValue(IsForReviewFirstNameProperty); }
-			set { SetValue(IsForReviewFirstNameProperty, value); }
+			get => (bool)this.GetValue(IsForReviewFirstNameProperty);
+			set => this.SetValue(IsForReviewFirstNameProperty, value);
 		}
 
 		/// <summary>
@@ -1128,8 +1128,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsForReviewMiddleNames
 		{
-			get { return (bool)GetValue(IsForReviewMiddleNamesProperty); }
-			set { SetValue(IsForReviewMiddleNamesProperty, value); }
+			get => (bool)this.GetValue(IsForReviewMiddleNamesProperty);
+			set => this.SetValue(IsForReviewMiddleNamesProperty, value);
 		}
 
 		/// <summary>
@@ -1143,8 +1143,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsForReviewLastNames
 		{
-			get { return (bool)GetValue(IsForReviewLastNamesProperty); }
-			set { SetValue(IsForReviewLastNamesProperty, value); }
+			get => (bool)this.GetValue(IsForReviewLastNamesProperty);
+			set => this.SetValue(IsForReviewLastNamesProperty, value);
 		}
 
 		/// <summary>
@@ -1158,8 +1158,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsForReviewPersonalNumber
 		{
-			get { return (bool)GetValue(IsForReviewPersonalNumberProperty); }
-			set { SetValue(IsForReviewPersonalNumberProperty, value); }
+			get => (bool)this.GetValue(IsForReviewPersonalNumberProperty);
+			set => this.SetValue(IsForReviewPersonalNumberProperty, value);
 		}
 
 		/// <summary>
@@ -1173,8 +1173,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsForReviewAddress
 		{
-			get { return (bool)GetValue(IsForReviewAddressProperty); }
-			set { SetValue(IsForReviewAddressProperty, value); }
+			get => (bool)this.GetValue(IsForReviewAddressProperty);
+			set => this.SetValue(IsForReviewAddressProperty, value);
 		}
 
 		/// <summary>
@@ -1188,8 +1188,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsForReviewAddress2
 		{
-			get { return (bool)GetValue(IsForReviewAddress2Property); }
-			set { SetValue(IsForReviewAddress2Property, value); }
+			get => (bool)this.GetValue(IsForReviewAddress2Property);
+			set => this.SetValue(IsForReviewAddress2Property, value);
 		}
 
 		/// <summary>
@@ -1203,8 +1203,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsForReviewCity
 		{
-			get { return (bool)GetValue(IsForReviewCityProperty); }
-			set { SetValue(IsForReviewCityProperty, value); }
+			get => (bool)this.GetValue(IsForReviewCityProperty);
+			set => this.SetValue(IsForReviewCityProperty, value);
 		}
 
 		/// <summary>
@@ -1218,8 +1218,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsForReviewZipCode
 		{
-			get { return (bool)GetValue(IsForReviewZipCodeProperty); }
-			set { SetValue(IsForReviewZipCodeProperty, value); }
+			get => (bool)this.GetValue(IsForReviewZipCodeProperty);
+			set => this.SetValue(IsForReviewZipCodeProperty, value);
 		}
 
 		/// <summary>
@@ -1233,8 +1233,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsForReviewArea
 		{
-			get { return (bool)GetValue(IsForReviewAreaProperty); }
-			set { SetValue(IsForReviewAreaProperty, value); }
+			get => (bool)this.GetValue(IsForReviewAreaProperty);
+			set => this.SetValue(IsForReviewAreaProperty, value);
 		}
 
 		/// <summary>
@@ -1248,8 +1248,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsForReviewRegion
 		{
-			get { return (bool)GetValue(IsForReviewRegionProperty); }
-			set { SetValue(IsForReviewRegionProperty, value); }
+			get => (bool)this.GetValue(IsForReviewRegionProperty);
+			set => this.SetValue(IsForReviewRegionProperty, value);
 		}
 
 		/// <summary>
@@ -1263,8 +1263,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public bool IsForReviewCountry
 		{
-			get { return (bool)GetValue(IsForReviewCountryProperty); }
-			set { SetValue(IsForReviewCountryProperty, value); }
+			get => (bool)this.GetValue(IsForReviewCountryProperty);
+			set => this.SetValue(IsForReviewCountryProperty, value);
 		}
 
 		#endregion

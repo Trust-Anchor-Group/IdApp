@@ -77,80 +77,87 @@ namespace IdApp.Services.Push
 		/// </summary>
 		public async Task CheckPushNotificationToken()
 		{
-			DateTime Now = DateTime.Now;
-			PushNotificationClient PushNotificationClient = (this.XmppService as XmppService)?.PushNotificationClient;
-
-			if (this.XmppService.IsOnline && !(PushNotificationClient is null) && Now.Subtract(this.lastTokenCheck).TotalHours >= 1)
+			try
 			{
-				this.lastTokenCheck = Now;
+				DateTime Now = DateTime.Now;
+				PushNotificationClient PushNotificationClient = (this.XmppService as XmppService)?.PushNotificationClient;
 
-				DateTime TP = await RuntimeSettings.GetAsync("PUSH.TP", DateTime.MinValue);
-				DateTime LastTP = await RuntimeSettings.GetAsync("PUSH.LAST_TP", DateTime.MinValue);
-				bool Reconfig = false;
-
-				if (TP != LastTP || DateTime.UtcNow.Subtract(LastTP).TotalDays >= 7)    // Firebase recommends updating token, while app still works, but not more often than once a week, unless it changes.
+				if (this.XmppService.IsOnline && !(PushNotificationClient is null) && Now.Subtract(this.lastTokenCheck).TotalHours >= 1)
 				{
-					string Token = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
-					Waher.Networking.XMPP.Push.PushMessagingService Service;
-					ClientType ClientType;
+					this.lastTokenCheck = Now;
 
-					if (string.IsNullOrEmpty(Token))
+					DateTime TP = await RuntimeSettings.GetAsync("PUSH.TP", DateTime.MinValue);
+					DateTime LastTP = await RuntimeSettings.GetAsync("PUSH.LAST_TP", DateTime.MinValue);
+					bool Reconfig = false;
+
+					if (TP != LastTP || DateTime.UtcNow.Subtract(LastTP).TotalDays >= 7)    // Firebase recommends updating token, while app still works, but not more often than once a week, unless it changes.
 					{
-						IGetPushNotificationToken GetToken = DependencyService.Get<IGetPushNotificationToken>();
-						if (GetToken is null)
-							return;
+						string Token = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
+						Waher.Networking.XMPP.Push.PushMessagingService Service;
+						ClientType ClientType;
 
-						TokenInformation TokenInformation = await GetToken.GetToken();
-
-						Token = TokenInformation.Token;
 						if (string.IsNullOrEmpty(Token))
-							return;
+						{
+							IGetPushNotificationToken GetToken = DependencyService.Get<IGetPushNotificationToken>();
+							if (GetToken is null)
+								return;
 
-						Service = TokenInformation.Service;
-						ClientType = TokenInformation.ClientType;
+							TokenInformation TokenInformation = await GetToken.GetToken();
 
-						await RuntimeSettings.SetAsync("PUSH.TOKEN", Token);
-						await RuntimeSettings.SetAsync("PUSH.SERVICE", Service);
-						await RuntimeSettings.SetAsync("PUSH.CLIENT", ClientType);
+							Token = TokenInformation.Token;
+							if (string.IsNullOrEmpty(Token))
+								return;
+
+							Service = TokenInformation.Service;
+							ClientType = TokenInformation.ClientType;
+
+							await RuntimeSettings.SetAsync("PUSH.TOKEN", Token);
+							await RuntimeSettings.SetAsync("PUSH.SERVICE", Service);
+							await RuntimeSettings.SetAsync("PUSH.CLIENT", ClientType);
+						}
+						else
+						{
+							Service = (Waher.Networking.XMPP.Push.PushMessagingService)await RuntimeSettings.GetAsync("PUSH.SERVICE", Waher.Networking.XMPP.Push.PushMessagingService.Firebase);
+							ClientType = (ClientType)await RuntimeSettings.GetAsync("PUSH.CLIENT", ClientType.Other);
+						}
+
+						await PushNotificationClient.NewTokenAsync(Token, Service, ClientType);
+						await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
+
+						Reconfig = true;
 					}
-					else
+
+					long ConfigNr = await RuntimeSettings.GetAsync("PUSH.CONFIG_NR", 0);
+					if (ConfigNr != currentTokenConfiguration || Reconfig)
 					{
-						Service = (Waher.Networking.XMPP.Push.PushMessagingService)await RuntimeSettings.GetAsync("PUSH.SERVICE", Waher.Networking.XMPP.Push.PushMessagingService.Firebase);
-						ClientType = (ClientType)await RuntimeSettings.GetAsync("PUSH.CLIENT", ClientType.Other);
+						await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", 0);
+						await PushNotificationClient.ClearRulesAsync();
+
+						// Push Notification rule for chat messages received when offline:
+
+						StringBuilder Content = new();
+
+						Content.Append("FromJid:=GetAttribute(Stanza,'from');");
+						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
+						Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
+						Content.Append("Body:=InnerText(GetElement(Stanza,'body'));");
+						Content.Append("{'title':'");
+						Content.Append(AppResources.MessageFrom);
+						Content.Append(" ' + FriendlyName,");
+						Content.Append("'body':Body,");
+						Content.Append("'fromJid':FromJid,");
+						Content.Append("'rosterName':FriendlyName}");
+
+						await PushNotificationClient.AddRuleAsync(MessageType.Chat, string.Empty, string.Empty, "Messages",
+							"Stanza", string.Empty, Content.ToString());
+
+						await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", currentTokenConfiguration);
 					}
-
-					await PushNotificationClient.NewTokenAsync(Token, Service, ClientType);
-					await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
-
-					Reconfig = true;
 				}
-
-				long ConfigNr = await RuntimeSettings.GetAsync("PUSH.CONFIG_NR", 0);
-				if (ConfigNr != currentTokenConfiguration || Reconfig)
-				{
-					await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", 0);
-					await PushNotificationClient.ClearRulesAsync();
-
-					// Push Notification rule for chat messages received when offline:
-
-					StringBuilder Content = new();
-
-					Content.Append("FromJid:=GetAttribute(Stanza,'from');");
-					Content.Append("ToJid:=GetAttribute(Stanza,'to');");
-					Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
-					Content.Append("Body:=InnerText(GetElement(Stanza,'body'));");
-					Content.Append("{'title':'");
-					Content.Append(AppResources.MessageFrom);
-					Content.Append(" ' + FriendlyName,");
-					Content.Append("'body':Body,");
-					Content.Append("'fromJid':FromJid,");
-					Content.Append("'rosterName':FriendlyName}");
-
-					await PushNotificationClient.AddRuleAsync(MessageType.Chat, string.Empty, string.Empty, "Messages",
-						"Stanza", string.Empty, Content.ToString());
-
-					await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", currentTokenConfiguration);
-				}
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
 			}
 		}
 

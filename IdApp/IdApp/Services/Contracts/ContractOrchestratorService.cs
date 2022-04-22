@@ -181,7 +181,7 @@ namespace IdApp.Services.Contracts
 			{
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					await this.NavigationService.GoToAsync(nameof(Pages.Contracts.PetitionContract.PetitionContractPage), 
+					await this.NavigationService.GoToAsync(nameof(PetitionContractPage), 
 						new PetitionContractNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
 				});
 			}
@@ -416,8 +416,7 @@ namespace IdApp.Services.Contracts
 					if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
 					{
 						await this.SettingsService.SaveState(Constants.KeyPrefixes.ContractTemplatePrefix + contract.ContractId, DateTime.Now);
-						await this.NavigationService.GoToAsync(nameof(Pages.Contracts.NewContract.NewContractPage),
-							new NewContractNavigationArgs(contract));
+						await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(contract));
 					}
 					else
 					{

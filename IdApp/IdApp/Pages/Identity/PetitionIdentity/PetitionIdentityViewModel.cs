@@ -123,8 +123,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public DateTime Created
         {
-            get { return (DateTime)GetValue(CreatedProperty); }
-            set { SetValue(CreatedProperty, value); }
+            get => (DateTime)this.GetValue(CreatedProperty);
+            set => this.SetValue(CreatedProperty, value);
         }
 
         /// <summary>
@@ -138,8 +138,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public DateTime? Updated
         {
-            get { return (DateTime?)GetValue(UpdatedProperty); }
-            set { SetValue(UpdatedProperty, value); }
+            get { return (DateTime?)this.GetValue(UpdatedProperty); }
+            set => this.SetValue(UpdatedProperty, value);
         }
 
         /// <summary>
@@ -153,8 +153,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string LegalId
         {
-            get { return (string)GetValue(LegalIdProperty); }
-            set { SetValue(LegalIdProperty, value); }
+            get => (string)this.GetValue(LegalIdProperty);
+            set => this.SetValue(LegalIdProperty, value);
         }
 
         /// <summary>
@@ -168,8 +168,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string State
         {
-            get { return (string)GetValue(StateProperty); }
-            set { SetValue(StateProperty, value); }
+            get => (string)this.GetValue(StateProperty);
+            set => this.SetValue(StateProperty, value);
         }
 
         /// <summary>
@@ -183,8 +183,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public DateTime? From
         {
-            get { return (DateTime?)GetValue(FromProperty); }
-            set { SetValue(FromProperty, value); }
+            get { return (DateTime?)this.GetValue(FromProperty); }
+            set => this.SetValue(FromProperty, value);
         }
 
         /// <summary>
@@ -198,8 +198,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public DateTime? To
         {
-            get { return (DateTime?)GetValue(ToProperty); }
-            set { SetValue(ToProperty, value); }
+            get { return (DateTime?)this.GetValue(ToProperty); }
+            set => this.SetValue(ToProperty, value);
         }
 
         /// <summary>
@@ -213,8 +213,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string FirstName
         {
-            get { return (string)GetValue(FirstNameProperty); }
-            set { SetValue(FirstNameProperty, value); }
+            get => (string)this.GetValue(FirstNameProperty);
+            set => this.SetValue(FirstNameProperty, value);
         }
 
         /// <summary>
@@ -228,8 +228,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string MiddleNames
         {
-            get { return (string)GetValue(MiddleNamesProperty); }
-            set { SetValue(MiddleNamesProperty, value); }
+            get => (string)this.GetValue(MiddleNamesProperty);
+            set => this.SetValue(MiddleNamesProperty, value);
         }
 
         /// <summary>
@@ -243,8 +243,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string LastNames
         {
-            get { return (string)GetValue(LastNamesProperty); }
-            set { SetValue(LastNamesProperty, value); }
+            get => (string)this.GetValue(LastNamesProperty);
+            set => this.SetValue(LastNamesProperty, value);
         }
 
         /// <summary>
@@ -258,8 +258,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string PersonalNumber
         {
-            get { return (string)GetValue(PersonalNumberProperty); }
-            set { SetValue(PersonalNumberProperty, value); }
+            get => (string)this.GetValue(PersonalNumberProperty);
+            set => this.SetValue(PersonalNumberProperty, value);
         }
 
         /// <summary>
@@ -273,8 +273,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string Address
         {
-            get { return (string)GetValue(AddressProperty); }
-            set { SetValue(AddressProperty, value); }
+            get => (string)this.GetValue(AddressProperty);
+            set => this.SetValue(AddressProperty, value);
         }
 
         /// <summary>
@@ -288,8 +288,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string Address2
         {
-            get { return (string)GetValue(Address2Property); }
-            set { SetValue(Address2Property, value); }
+            get => (string)this.GetValue(Address2Property);
+            set => this.SetValue(Address2Property, value);
         }
 
         /// <summary>
@@ -303,8 +303,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string ZipCode
         {
-            get { return (string)GetValue(ZipCodeProperty); }
-            set { SetValue(ZipCodeProperty, value); }
+            get => (string)this.GetValue(ZipCodeProperty);
+            set => this.SetValue(ZipCodeProperty, value);
         }
 
         /// <summary>
@@ -318,8 +318,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string Area
         {
-            get { return (string)GetValue(AreaProperty); }
-            set { SetValue(AreaProperty, value); }
+            get => (string)this.GetValue(AreaProperty);
+            set => this.SetValue(AreaProperty, value);
         }
 
         /// <summary>
@@ -333,8 +333,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string City
         {
-            get { return (string)GetValue(CityProperty); }
-            set { SetValue(CityProperty, value); }
+            get => (string)this.GetValue(CityProperty);
+            set => this.SetValue(CityProperty, value);
         }
 
         /// <summary>
@@ -348,8 +348,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string Region
         {
-            get { return (string)GetValue(RegionProperty); }
-            set { SetValue(RegionProperty, value); }
+            get => (string)this.GetValue(RegionProperty);
+            set => this.SetValue(RegionProperty, value);
         }
 
         /// <summary>
@@ -363,8 +363,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string CountryCode
         {
-            get { return (string)GetValue(CountryCodeProperty); }
-            set { SetValue(CountryCodeProperty, value); }
+            get => (string)this.GetValue(CountryCodeProperty);
+            set => this.SetValue(CountryCodeProperty, value);
         }
 
         /// <summary>
@@ -378,8 +378,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string Country
         {
-            get { return (string)GetValue(CountryProperty); }
-            set { SetValue(CountryProperty, value); }
+            get => (string)this.GetValue(CountryProperty);
+            set => this.SetValue(CountryProperty, value);
         }
 
         /// <summary>
@@ -393,8 +393,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string PhoneNr
         {
-            get { return (string)GetValue(PhoneNrProperty); }
-            set { SetValue(PhoneNrProperty, value); }
+            get => (string)this.GetValue(PhoneNrProperty);
+            set => this.SetValue(PhoneNrProperty, value);
         }
 
         /// <summary>
@@ -408,8 +408,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public bool IsApproved
         {
-            get { return (bool)GetValue(IsApprovedProperty); }
-            set { SetValue(IsApprovedProperty, value); }
+            get => (bool)this.GetValue(IsApprovedProperty);
+            set => this.SetValue(IsApprovedProperty, value);
         }
 
         /// <summary>
@@ -423,8 +423,8 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public string Purpose
         {
-            get { return (string)GetValue(PurposeProperty); }
-            set { SetValue(PurposeProperty, value); }
+            get => (string)this.GetValue(PurposeProperty);
+            set => this.SetValue(PurposeProperty, value);
         }
 
         #endregion

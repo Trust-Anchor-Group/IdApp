@@ -571,6 +571,11 @@
             If the view is flipping
             </summary>
         </member>
+        <member name="E:IdApp.Controls.FlipView.FlipView.Flipped">
+            <summary>
+            When the front has flipped to the back, or back to front
+            </summary>
+        </member>
         <member name="E:IdApp.Controls.FlipView.FlipView.BeforeFlipping">
             <summary>
             Event raised before flipping the view.
@@ -2772,11 +2777,23 @@
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
-            <param name="contract">The contract to use as template.</param>
+            <param name="Template">The contract to use as template.</param>
         </member>
-        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.Contract">
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
+            </summary>
+            <param name="Template">The contract to use as template.</param>
+            <param name="SetVisibility">If visibility should be set by default.</param>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.Template">
             <summary>
             The contract to use as template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.SetVisibility">
+            <summary>
+            If visibility should be set by default.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.NewContractPage">
@@ -8481,6 +8498,26 @@
             HasPending of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsPendingVisibleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsPendingVisible"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsPendingVisible">
+            <summary>
+            IsPendingVisible of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsFrontViewShowingProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsFrontViewShowing"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsFrontViewShowing">
+            <summary>
+            IsFrontViewShowing of eDaler to process
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PendingAmountProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PendingAmount"/>
@@ -8551,6 +8588,16 @@
             HasEvents of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreEventsVisibleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreEventsVisible"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreEventsVisible">
+            <summary>
+            AreEventsVisible of eDaler to process
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreEventsProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreEvents"/>
@@ -8571,6 +8618,16 @@
             HasTotals of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTotalsVisibleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTotalsVisible"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTotalsVisible">
+            <summary>
+            AreTotalsVisible of eDaler to process
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokensProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens"/>
@@ -8579,6 +8636,16 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens">
             <summary>
             HasTokens of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTokensVisibleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTokensVisible"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTokensVisible">
+            <summary>
+            AreTokensVisible of eDaler to process
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PendingPayments">
@@ -8634,6 +8701,11 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.FlipCommand">
             <summary>
             The command to bind to for flipping the wallet.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.CreateTokenCommand">
+            <summary>
+            The command to bind to for creating tokens
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LoadMoreTokensCommand">
@@ -9129,16 +9201,6 @@
             Content-Type of glyph
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphWidth">
-            <summary>
-            Width of glyph
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphHeight">
-            <summary>
-            Height of glyph
-            </summary>
-        </member>
         <member name="P:IdApp.Pages.Wallet.TokenItem.Ordinal">
             <summary>
             Ordinal of token, within batch.
@@ -9257,6 +9319,46 @@
         <member name="P:IdApp.Pages.Wallet.TokenItem.Tags">
             <summary>
             Any custom Token Tags provided during creation of the token.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenItem.GlyphImageProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenItem.GlyphImage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphImage">
+            <summary>
+            Gets or sets the image representing the glyph.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenItem.HasGlyphImageProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenItem.HasGlyphImage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.HasGlyphImage">
+            <summary>
+            Gets or sets the value representing of a glyph is available or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenItem.GlyphWidthProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenItem.GlyphWidth"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphWidth">
+            <summary>
+            Gets or sets the value representing of a glyph is available or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenItem.GlyphHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenItem.GlyphHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphHeight">
+            <summary>
+            Gets or sets the value representing of a glyph is available or not.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenTotalItem">
@@ -12023,6 +12125,11 @@
         <member name="F:IdApp.Resx.FontAwesome.Rotate">
             <summary>
             rotate
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.FontAwesome.StarOfLife">
+            <summary>
+            star-of-life
             </summary>
         </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">
@@ -15468,6 +15575,12 @@
             
             Note: Personal notes are deleted when ownership of token is transferred.</param>
         </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.GetCreationAttributes">
+            <summary>
+            Gets token creation attributes from the broker.
+            </summary>
+            <returns>Token creation attributes.</returns>
+        </member>
         <member name="T:IdApp.Services.Wallet.INeuroWalletOrchestratorService">
             <summary>
             Orchestrates eDaler operations.
@@ -15727,6 +15840,12 @@
             <param name="Personal">If the xml note contains personal information. (default=false).
             
             Note: Personal notes are deleted when ownership of token is transferred.</param>
+        </member>
+        <member name="M:IdApp.Services.Wallet.NeuroWallet.GetCreationAttributes">
+            <summary>
+            Gets token creation attributes from the broker.
+            </summary>
+            <returns>Token creation attributes.</returns>
         </member>
         <member name="M:IdApp.Services.Wallet.NeuroWalletOrchestratorService.OpenWallet">
             <summary>

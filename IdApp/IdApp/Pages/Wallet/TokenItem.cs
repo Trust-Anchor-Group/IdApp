@@ -1,16 +1,18 @@
 ﻿using NeuroFeatures;
 using NeuroFeatures.Tags;
 using System;
+using System.IO;
 using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Security;
+using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet
 {
 	/// <summary>
 	/// Encapsulates a <see cref="Token"/> object.
 	/// </summary>
-	public class TokenItem
+	public class TokenItem : BindableObject
 	{
 		private readonly Token token;
 
@@ -21,6 +23,30 @@ namespace IdApp.Pages.Wallet
 		public TokenItem(Token Token)
 		{
 			this.token = Token;
+
+			if (!(this.Glyph is null) && this.GlyphContentType.StartsWith("image/"))
+			{
+				this.GlyphImage = ImageSource.FromStream(() => new MemoryStream(this.Glyph));
+				this.HasGlyphImage = true;
+
+				double s = 32.0 / this.token.GlyphWidth;
+				double s2 = 32.0 / this.token.GlyphHeight;
+
+				if (s2 < s)
+					s = s2;
+				else if (s > 1)
+					s = 1;
+
+				this.GlyphWidth = (int)(this.token.GlyphWidth * s + 0.5);
+				this.GlyphHeight = (int)(this.token.GlyphHeight * s + 0.5);
+			}
+			else
+			{
+				this.GlyphImage = null;
+				this.HasGlyphImage = false;
+				this.GlyphWidth = 0;
+				this.GlyphHeight = 0;
+			}
 		}
 
 		/// <summary>
@@ -102,16 +128,6 @@ namespace IdApp.Pages.Wallet
 		/// Content-Type of glyph
 		/// </summary>
 		public string GlyphContentType => this.token.GlyphContentType;
-
-		/// <summary>
-		/// Width of glyph
-		/// </summary>
-		public int GlyphWidth => this.token.GlyphWidth;
-
-		/// <summary>
-		/// Height of glyph
-		/// </summary>
-		public int GlyphHeight => this.token.GlyphHeight;
 
 		/// <summary>
 		/// Ordinal of token, within batch.
@@ -232,5 +248,65 @@ namespace IdApp.Pages.Wallet
 		/// Any custom Token Tags provided during creation of the token.
 		/// </summary>
 		public TokenTag[] Tags => this.token.Tags;
+
+		/// <summary>
+		/// See <see cref="GlyphImage"/>
+		/// </summary>
+		public static readonly BindableProperty GlyphImageProperty =
+			BindableProperty.Create(nameof(GlyphImage), typeof(ImageSource), typeof(TokenItem), default(ImageSource));
+
+		/// <summary>
+		/// Gets or sets the image representing the glyph.
+		/// </summary>
+		public ImageSource GlyphImage
+		{
+			get => (ImageSource)this.GetValue(GlyphImageProperty);
+			set => this.SetValue(GlyphImageProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasGlyphImage"/>
+		/// </summary>
+		public static readonly BindableProperty HasGlyphImageProperty =
+			BindableProperty.Create(nameof(HasGlyphImage), typeof(bool), typeof(TokenItem), default(bool));
+
+		/// <summary>
+		/// Gets or sets the value representing of a glyph is available or not.
+		/// </summary>
+		public bool HasGlyphImage
+		{
+			get => (bool)this.GetValue(HasGlyphImageProperty);
+			set => this.SetValue(HasGlyphImageProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="GlyphWidth"/>
+		/// </summary>
+		public static readonly BindableProperty GlyphWidthProperty =
+			BindableProperty.Create(nameof(GlyphWidth), typeof(int), typeof(TokenItem), default(int));
+
+		/// <summary>
+		/// Gets or sets the value representing of a glyph is available or not.
+		/// </summary>
+		public int GlyphWidth
+		{
+			get => (int)this.GetValue(GlyphWidthProperty);
+			set => this.SetValue(GlyphWidthProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="GlyphHeight"/>
+		/// </summary>
+		public static readonly BindableProperty GlyphHeightProperty =
+			BindableProperty.Create(nameof(GlyphHeight), typeof(int), typeof(TokenItem), default(int));
+
+		/// <summary>
+		/// Gets or sets the value representing of a glyph is available or not.
+		/// </summary>
+		public int GlyphHeight
+		{
+			get => (int)this.GetValue(GlyphHeightProperty);
+			set => this.SetValue(GlyphHeightProperty, value);
+		}
 	}
 }

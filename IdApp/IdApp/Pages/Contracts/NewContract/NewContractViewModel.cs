@@ -49,15 +49,24 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			await base.DoBind();
 
+			bool FirstTime = false;
+			ContractVisibility? Visibility = null;
+
 			if (this.NavigationService.TryPopArgs(out NewContractNavigationArgs args))
 			{
-				this.template = args.Contract;
+				this.template = args.Template;
+
+				if (args.SetVisibility)
+					Visibility = args.Template.Visibility;
+
+				FirstTime = true;
 			}
 			else if (!(this.stateTemplateWhileScanning is null))
 			{
 				this.template = this.stateTemplateWhileScanning;
 				this.stateTemplateWhileScanning = null;
 			}
+
 			this.templateId = this.template?.ContractId ?? string.Empty;
 			this.IsTemplate = this.template?.CanActAsTemplate ?? false;
 
@@ -66,7 +75,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.Public, AppResources.ContractVisibility_Public));
 			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable));
 
-			await this.PopulateTemplateForm();
+			await this.PopulateTemplateForm(FirstTime, Visibility);
 		}
 
 		/// <inheritdoc/>
@@ -181,8 +190,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool IsTemplate
 		{
-			get { return (bool)GetValue(IsTemplateProperty); }
-			set { SetValue(IsTemplateProperty, value); }
+			get => (bool)this.GetValue(IsTemplateProperty);
+			set => this.SetValue(IsTemplateProperty, value);
 		}
 
 		/// <summary>
@@ -201,8 +210,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public ContractVisibilityModel SelectedContractVisibilityItem
 		{
-			get { return (ContractVisibilityModel)GetValue(SelectedContractVisibilityItemProperty); }
-			set { SetValue(SelectedContractVisibilityItemProperty, value); }
+			get => (ContractVisibilityModel)this.GetValue(SelectedContractVisibilityItemProperty);
+			set => this.SetValue(SelectedContractVisibilityItemProperty, value);
 		}
 
 		/// <summary>
@@ -216,8 +225,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool VisibilityIsEnabled
 		{
-			get { return (bool)GetValue(VisibilityIsEnabledProperty); }
-			set { SetValue(VisibilityIsEnabledProperty, value); }
+			get => (bool)this.GetValue(VisibilityIsEnabledProperty);
+			set => this.SetValue(VisibilityIsEnabledProperty, value);
 		}
 
 		/// <summary>
@@ -246,8 +255,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public string SelectedRole
 		{
-			get { return (string)GetValue(SelectedRoleProperty); }
-			set { SetValue(SelectedRoleProperty, value); }
+			get => (string)this.GetValue(SelectedRoleProperty);
+			set => this.SetValue(SelectedRoleProperty, value);
 		}
 
 		/// <summary>
@@ -261,8 +270,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public StackLayout Roles
 		{
-			get { return (StackLayout)GetValue(RolesProperty); }
-			set { SetValue(RolesProperty, value); }
+			get => (StackLayout)this.GetValue(RolesProperty);
+			set => this.SetValue(RolesProperty, value);
 		}
 
 		/// <summary>
@@ -276,8 +285,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public StackLayout Parameters
 		{
-			get { return (StackLayout)GetValue(ParametersProperty); }
-			set { SetValue(ParametersProperty, value); }
+			get => (StackLayout)this.GetValue(ParametersProperty);
+			set => this.SetValue(ParametersProperty, value);
 		}
 
 		/// <summary>
@@ -291,8 +300,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public StackLayout HumanReadableText
 		{
-			get { return (StackLayout)GetValue(HumanReadableTextProperty); }
-			set { SetValue(HumanReadableTextProperty, value); }
+			get => (StackLayout)this.GetValue(HumanReadableTextProperty);
+			set => this.SetValue(HumanReadableTextProperty, value);
 		}
 
 		/// <summary>
@@ -306,8 +315,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool HasRoles
 		{
-			get { return (bool)GetValue(HasRolesProperty); }
-			set { SetValue(HasRolesProperty, value); }
+			get => (bool)this.GetValue(HasRolesProperty);
+			set => this.SetValue(HasRolesProperty, value);
 		}
 
 		/// <summary>
@@ -321,8 +330,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool HasParameters
 		{
-			get { return (bool)GetValue(HasParametersProperty); }
-			set { SetValue(HasParametersProperty, value); }
+			get => (bool)this.GetValue(HasParametersProperty);
+			set => this.SetValue(HasParametersProperty, value);
 		}
 
 		/// <summary>
@@ -336,8 +345,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool ParametersOk
 		{
-			get { return (bool)GetValue(ParametersOkProperty); }
-			set { SetValue(ParametersOkProperty, value); }
+			get => (bool)this.GetValue(ParametersOkProperty);
+			set => this.SetValue(ParametersOkProperty, value);
 		}
 
 		/// <summary>
@@ -351,8 +360,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool HasHumanReadableText
 		{
-			get { return (bool)GetValue(HasHumanReadableTextProperty); }
-			set { SetValue(HasHumanReadableTextProperty, value); }
+			get => (bool)this.GetValue(HasHumanReadableTextProperty);
+			set => this.SetValue(HasHumanReadableTextProperty, value);
 		}
 
 		/// <summary>
@@ -366,8 +375,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool CanAddParts
 		{
-			get { return (bool)GetValue(CanAddPartsProperty); }
-			set { SetValue(CanAddPartsProperty, value); }
+			get => (bool)this.GetValue(CanAddPartsProperty);
+			set => this.SetValue(CanAddPartsProperty, value);
 		}
 
 		#endregion
@@ -399,7 +408,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			Label ToRemove = null;
 			int State = 0;
 
-			if ((this.Roles is null))
+			if (this.Roles is null)
 				return;
 
 			foreach (View View in this.Roles.Children)
@@ -464,9 +473,6 @@ namespace IdApp.Pages.Contracts.NewContract
 					case 1:
 						if (View is Button Button)
 						{
-							TapGestureRecognizer OpenLegalId = new();
-							OpenLegalId.Tapped += this.LegalId_Tapped;
-
 							Label = new Label
 							{
 								Text = legalId,
@@ -475,6 +481,9 @@ namespace IdApp.Pages.Contracts.NewContract
 								HorizontalTextAlignment = TextAlignment.Center,
 								FontAttributes = FontAttributes.Bold
 							};
+
+							TapGestureRecognizer OpenLegalId = new();
+							OpenLegalId.Tapped += this.LegalId_Tapped;
 
 							Label.GestureRecognizers.Add(OpenLegalId);
 
@@ -765,7 +774,7 @@ namespace IdApp.Pages.Contracts.NewContract
 						return;
 				}
 
-				if ((this.SelectedRole is null))
+				if (this.SelectedRole is null)
 				{
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
 					return;
@@ -809,7 +818,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				Layout.Children.Add(Element);
 		}
 
-		private async Task PopulateTemplateForm()
+		private async Task PopulateTemplateForm(bool FirstTime, ContractVisibility? Visibility)
 		{
 			this.ClearTemplate(true);
 
@@ -910,6 +919,23 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			this.Parameters = parametersLayout;
 			this.HasParameters = this.Parameters.Children.Count > 0;
+
+			if (FirstTime)
+			{
+				if (!(this.template.Parts is null))
+				{
+					foreach (Part Part in this.template.Parts)
+					{
+						if (this.TagProfile.LegalIdentity.Id == Part.LegalId)
+							this.SelectedRole = Part.Role;
+						else
+							this.AddRole(Part.Role, Part.LegalId);
+					}
+				}
+
+				if (Visibility.HasValue)
+					this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == Visibility.Value);
+			}
 
 			await this.ValidateParameters();
 			this.EvaluateCommands(this.ProposeCommand);

@@ -65,8 +65,8 @@ namespace IdApp.Controls.FlipView
         /// </summary>
         public View FrontView
         {
-            get => (View)GetValue(FrontViewProperty);
-            set => SetValue(FrontViewProperty, value);
+            get => (View)this.GetValue(FrontViewProperty);
+            set => this.SetValue(FrontViewProperty, value);
         }
 
         /// <summary>
@@ -83,6 +83,11 @@ namespace IdApp.Controls.FlipView
         /// If the view is flipping
         /// </summary>
         public bool IsFlipping => this.isFlipping;
+
+        /// <summary>
+        /// When the front has flipped to the back, or back to front
+        /// </summary>
+        public event EventHandler Flipped;
 
         /// <summary>
         /// Event raised before flipping the view.
@@ -149,8 +154,8 @@ namespace IdApp.Controls.FlipView
         /// </summary>
         public View BackView
         {
-            get { return (View)GetValue(BackViewProperty); }
-            set { SetValue(BackViewProperty, value); }
+            get => (View)this.GetValue(BackViewProperty);
+            set => this.SetValue(BackViewProperty, value);
         }
 
         private void AddChild(View childView)
@@ -167,7 +172,10 @@ namespace IdApp.Controls.FlipView
         private void OrganizeViews()
         {
             if (this.backView is not null && this.frontView is not null)
+            {
                 this.contentHolder.RaiseChild(this.isFlipped ? this.backView : this.frontView); ;
+               this.RaiseEvent(this.Flipped);
+            }
         }
 
         /// <summary>
