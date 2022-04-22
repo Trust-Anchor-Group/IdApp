@@ -8413,6 +8413,29 @@
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
         </member>
+        <member name="T:IdApp.Pages.Wallet.ItemTypeTemplateSelector">
+            <summary>
+            Data Template Selector, based on Item Type.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ItemTypeTemplateSelector.PendingPaymentTemplate">
+            <summary>
+            ATemplate to use for pending payments
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ItemTypeTemplateSelector.AccountEventTemplate">
+            <summary>
+            Template to use for account events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ItemTypeTemplateSelector.DefaultTemplate">
+            <summary>
+            Template to use for other items.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ItemTypeTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.MyWalletPage">
             <summary>
             A page that allows the user to view the contents of its wallet, pending payments and recent account events.
@@ -8648,14 +8671,9 @@
             AreTokensVisible of eDaler to process
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PendingPayments">
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PaymentItems">
             <summary>
-            Holds a list of pending payments
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Events">
-            <summary>
-            Holds a list of account events
+            Holds a list of pending payments and account events
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Totals">
@@ -8688,14 +8706,9 @@
             The command to bind to for making a payment
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.ShowPendingCommand">
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.ShowPaymentItemCommand">
             <summary>
-            The command to bind to for displaying information about a pending payment.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.ShowEventCommand">
-            <summary>
-            The command to bind to for displaying information about an account event.
+            The command to bind to for displaying information about a pending payment or an account event.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.FlipCommand">
@@ -8721,63 +8734,6 @@
         <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.BindTokens">
             <summary>
             Binds token information to the view.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem">
-            <summary>
-            Encapsulates a <see cref="N:IdApp.Pages.Wallet.PendingPayment"/> object.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.#ctor(EDaler.PendingPayment,System.String)">
-            <summary>
-            Encapsulates a <see cref="N:IdApp.Pages.Wallet.PendingPayment"/> object.
-            </summary>
-            <param name="PendingPayment">Pending payment.</param>
-            <param name="FriendlyName">Friendly name.</param>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.Id">
-            <summary>
-            Associated transaction ID
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.Expires">
-            <summary>
-            When pending payment expires
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.ExpiresStr">
-            <summary>
-            String representation of <see cref="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.Expires"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.Currency">
-            <summary>
-            Currency of pending payment
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.Amount">
-            <summary>
-            Amount pending
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.From">
-            <summary>
-            Sender of payment
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.To">
-            <summary>
-            Recipient of payment
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.Uri">
-            <summary>
-            Corresponding eDaler URI.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.FriendlyName">
-            <summary>
-            Friendly name of recipient.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.WalletNavigationArgs">
@@ -8861,6 +8817,63 @@
         <member name="M:IdApp.Pages.Wallet.Payment.PaymentPage.ShowQrCode">
             <summary>
             Scrolls to display the QR-code.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.PendingPaymentItem">
+            <summary>
+            Encapsulates a <see cref="N:IdApp.Pages.Wallet.PendingPayment"/> object.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.PendingPaymentItem.#ctor(EDaler.PendingPayment,System.String)">
+            <summary>
+            Encapsulates a <see cref="N:IdApp.Pages.Wallet.PendingPayment"/> object.
+            </summary>
+            <param name="PendingPayment">Pending payment.</param>
+            <param name="FriendlyName">Friendly name.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.Id">
+            <summary>
+            Associated transaction ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.Expires">
+            <summary>
+            When pending payment expires
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.ExpiresStr">
+            <summary>
+            String representation of <see cref="P:IdApp.Pages.Wallet.PendingPaymentItem.Expires"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.Currency">
+            <summary>
+            Currency of pending payment
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.Amount">
+            <summary>
+            Amount pending
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.From">
+            <summary>
+            Sender of payment
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.To">
+            <summary>
+            Recipient of payment
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.Uri">
+            <summary>
+            Corresponding eDaler URI.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.FriendlyName">
+            <summary>
+            Friendly name of recipient.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.PendingPayment.PendingPaymentPage">
