@@ -130,6 +130,8 @@ namespace IdApp.Android
 				PendingIntent PendingIntent = PendingIntent.GetActivity(this, 0, Intent, 0);
 				nfcAdapter.EnableForegroundDispatch(this, PendingIntent, Filters, null);
 			}
+
+			RemoveAllNotifications();
 		}
 
 		protected override async void OnNewIntent(Intent intent)
@@ -209,6 +211,12 @@ namespace IdApp.Android
 		public override void OnBackPressed()
 		{
 			Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
+		}
+
+		private void RemoveAllNotifications()
+		{
+			NotificationManager Manager = (NotificationManager)this.GetSystemService(Context.NotificationService);
+			Manager.CancelAll();
 		}
 	}
 }
