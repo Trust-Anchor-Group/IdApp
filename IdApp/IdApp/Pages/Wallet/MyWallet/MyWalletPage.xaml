@@ -204,6 +204,9 @@
                                         <Label Grid.Column="3" Grid.Row="0" Text="{Binding Path=Currency}" FontSize="18" 
                                                Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"
                                                HorizontalTextAlignment="Start" VerticalOptions="Center"/>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ClickedCommand}" CommandParameter="{Binding .}"/>
+                                        </Grid.GestureRecognizers>
                                     </Grid>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>

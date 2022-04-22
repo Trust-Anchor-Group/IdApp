@@ -423,6 +423,9 @@
   <data name="ExpiredEDalerUri" xml:space="preserve">
     <value>Den här eDaler-koden har upphört att gälla.</value>
   </data>
+  <data name="Expires" xml:space="preserve">
+    <value>Upphör</value>
+  </data>
   <data name="ExpiresAt" xml:space="preserve">
     <value>(Går ut {0})</value>
   </data>
@@ -728,6 +731,9 @@
   </data>
   <data name="Options" xml:space="preserve">
     <value>Alternativ</value>
+  </data>
+  <data name="Ordinal" xml:space="preserve">
+    <value>Ordningsnummer</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>Annat</value>
@@ -1221,6 +1227,21 @@
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
     <value>Du kan välja att skapa ett konto hos denna leverantör. Skriv in namnet på kontot du skulle vilja använda, och tryck på Skapa Nytt-knappen. Du kan också välja att skanna en inbjudan eller överföringskod, för att använda ett konto som har förberetts åt dig, hos en annan tjänsteleverantör. Klicka på knappen för att skanna inbjudan, för att scanna en inbjudnings- eller överföringskod.</value>
   </data>
+  <data name="TokenDetails" xml:space="preserve">
+    <value>Tokendetaljer</value>
+  </data>
+  <data name="TokenDetailsDescription" xml:space="preserve">
+    <value>Här nedan följer detaljer som kodats in i detta token. Clicka på länkar för att få mer information.</value>
+  </data>
+  <data name="TokenId" xml:space="preserve">
+    <value>Token-ID</value>
+  </data>
+  <data name="TokenIdMethod" xml:space="preserve">
+    <value>Metod för Token-ID</value>
+  </data>
+  <data name="TokenVisibility" xml:space="preserve">
+    <value>Tokens synlighet</value>
+  </data>
   <data name="TransactionAccepted" xml:space="preserve">
     <value>Transaktionen har accepterats och behandlats.</value>
   </data>
@@ -1298,6 +1319,9 @@
   </data>
   <data name="ValidatingInformation" xml:space="preserve">
     <value>Validerar information</value>
+  </data>
+  <data name="Valuation" xml:space="preserve">
+    <value>Värdering</value>
   </data>
   <data name="VerificationCode" xml:space="preserve">
     <value>Verifieringskod</value>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
@@ -44,7 +43,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.FlipCommand = new Command(async _ => await FlipWallet());
 			this.CreateTokenCommand = new Command(async _ => await CreateToken());
 			this.LoadMoreTokensCommand = new Command(async _ => await LoadMoreTokens());
-			this.TokenSelectedCommand = new Command(async P => await TokenSelected(P));
 
 			this.PaymentItems = new ObservableCollection<IItemGroupCollection>()
 			{
@@ -589,11 +587,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public ICommand LoadMoreTokensCommand { get; }
 
-		/// <summary>
-		/// Command executed when a token has been selected.
-		/// </summary>
-		public ICommand TokenSelectedCommand { get; }
-
 		#endregion
 
 		private async Task GoBack()
@@ -717,7 +710,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 							if (!(e.Tokens is null))
 							{
 								foreach (Token Token in e.Tokens)
-									this.Tokens.Add(new TokenItem(Token));
+									this.Tokens.Add(new TokenItem(Token, this));
 
 								this.HasTokens = true;
 							}
@@ -816,11 +809,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		private Task LoadMoreTokens()
-		{
-			return Task.CompletedTask;  // TODO
-		}
-
-		private Task TokenSelected(object P)
 		{
 			return Task.CompletedTask;  // TODO
 		}

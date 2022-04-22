@@ -13,7 +13,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 	public class AccountEventViewModel : XmppViewModel
 	{
 		/// <summary>
-		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
+		/// Creates an instance of the <see cref="AccountEventViewModel"/> class.
 		/// </summary>
 		public AccountEventViewModel()
 			: base()

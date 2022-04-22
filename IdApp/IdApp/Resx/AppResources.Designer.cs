@@ -979,6 +979,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expires.
+        /// </summary>
+        internal static string Expires {
+            get {
+                return ResourceManager.GetString("Expires", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (Expires {0}).
         /// </summary>
         internal static string ExpiresAt {
@@ -1893,6 +1902,15 @@ namespace IdApp.Resx {
         internal static string Options {
             get {
                 return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ordinal.
+        /// </summary>
+        internal static string Ordinal {
+            get {
+                return ResourceManager.GetString("Ordinal", resourceCulture);
             }
         }
         
@@ -3355,6 +3373,51 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Token Details.
+        /// </summary>
+        internal static string TokenDetails {
+            get {
+                return ResourceManager.GetString("TokenDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Following are details encoded into the token. Click on any links for more information..
+        /// </summary>
+        internal static string TokenDetailsDescription {
+            get {
+                return ResourceManager.GetString("TokenDetailsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token ID.
+        /// </summary>
+        internal static string TokenId {
+            get {
+                return ResourceManager.GetString("TokenId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token ID Method.
+        /// </summary>
+        internal static string TokenIdMethod {
+            get {
+                return ResourceManager.GetString("TokenIdMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token Visibility.
+        /// </summary>
+        internal static string TokenVisibility {
+            get {
+                return ResourceManager.GetString("TokenVisibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transaction has been accepted and processed..
         /// </summary>
         internal static string TransactionAccepted {
@@ -3594,6 +3657,15 @@ namespace IdApp.Resx {
         internal static string ValidatingInformation {
             get {
                 return ResourceManager.GetString("ValidatingInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valuation.
+        /// </summary>
+        internal static string Valuation {
+            get {
+                return ResourceManager.GetString("Valuation", resourceCulture);
             }
         }
         

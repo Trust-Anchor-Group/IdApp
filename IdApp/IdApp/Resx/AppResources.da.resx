@@ -1431,4 +1431,28 @@
   <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
     <value>Ingen Neuro-Features service fundet på mægler.</value>
   </data>
+  <data name="Expires" xml:space="preserve">
+    <value>Udløber</value>
+  </data>
+  <data name="Ordinal" xml:space="preserve">
+    <value>Ordenstal</value>
+  </data>
+  <data name="TokenDetails" xml:space="preserve">
+    <value>Oplysninger om token</value>
+  </data>
+  <data name="TokenDetailsDescription" xml:space="preserve">
+    <value>Følgende er detaljer kodet ind i tokenet. Klik på eventuelle links for mere information.</value>
+  </data>
+  <data name="TokenId" xml:space="preserve">
+    <value>Token ID</value>
+  </data>
+  <data name="TokenIdMethod" xml:space="preserve">
+    <value>Token ID-metode</value>
+  </data>
+  <data name="TokenVisibility" xml:space="preserve">
+    <value>Synlighed af token</value>
+  </data>
+  <data name="Valuation" xml:space="preserve">
+    <value>Vurdering</value>
+  </data>
 </root>

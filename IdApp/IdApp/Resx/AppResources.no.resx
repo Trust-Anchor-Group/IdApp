@@ -1431,4 +1431,28 @@
   <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
     <value>Finner ingen neuro-funksjoner-tjeneste på megler.</value>
   </data>
+  <data name="Expires" xml:space="preserve">
+    <value>Utløper</value>
+  </data>
+  <data name="Ordinal" xml:space="preserve">
+    <value>Ordinal</value>
+  </data>
+  <data name="TokenDetails" xml:space="preserve">
+    <value>Detaljer for token</value>
+  </data>
+  <data name="TokenDetailsDescription" xml:space="preserve">
+    <value>Nedenfor finner du detaljer som er kodet inn i tokenet. Klikk på eventuelle lenker for mer informasjon.</value>
+  </data>
+  <data name="TokenId" xml:space="preserve">
+    <value>Token-ID</value>
+  </data>
+  <data name="TokenIdMethod" xml:space="preserve">
+    <value>Token ID-metode</value>
+  </data>
+  <data name="TokenVisibility" xml:space="preserve">
+    <value>Synlighet for token</value>
+  </data>
+  <data name="Valuation" xml:space="preserve">
+    <value>Verdivurdering</value>
+  </data>
 </root>

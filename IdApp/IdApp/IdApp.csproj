@@ -158,6 +158,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Pages\Wallet\TokenDetails\TokenDetailsPage.xaml.cs">
+      <DependentUpon>TokenDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
