@@ -117,11 +117,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 			Dictionary<string, string> FriendlyNames = new();
 			string FriendlyName;
 
-			ObservableCollection<PendingPaymentItem> PendingCollection = (ObservableCollection<PendingPaymentItem>)this.PaymentItems.FirstOrDefault(el => el.Name == "PendingPayment");
-			ObservableCollection<AccountEventItem> EventCollection = (ObservableCollection<AccountEventItem>)this.PaymentItems.FirstOrDefault(el => el.Name == "AccountEvent");
 
-			PendingCollection.Clear();
-			EventCollection.Clear();
+			ObservableCollection <IItemGroupCollection> NewPaymentItems = new ObservableCollection<IItemGroupCollection>();
+			ItemGroupCollection<PendingPaymentItem> NewPendingCollection = new ItemGroupCollection<PendingPaymentItem>("PendingPayment", new ObservableCollection<PendingPaymentItem>());
+			ItemGroupCollection<AccountEventItem> NewEventCollection = new ItemGroupCollection<AccountEventItem>("AccountEvent", new ObservableCollection<AccountEventItem>());
+
+			NewPaymentItems.Add(NewPendingCollection);
+			NewPaymentItems.Add(NewEventCollection);
 
 			if (PendingPayments is not null)
 			{
@@ -133,7 +135,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 						FriendlyNames[Payment.To] = FriendlyName;
 					}
 
-					PendingCollection.Add(new PendingPaymentItem(Payment, FriendlyName));
+					NewPendingCollection.Add(new PendingPaymentItem(Payment, FriendlyName));
 				}
 			}
 
@@ -147,9 +149,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 						FriendlyNames[Event.Remote] = FriendlyName;
 					}
 
-					EventCollection.Add(new AccountEventItem(Event, this, FriendlyName));
+					NewEventCollection.Add(new AccountEventItem(Event, this, FriendlyName));
 				}
 			}
+
+			this.PaymentItems = NewPaymentItems;
 		}
 
 		private void EvaluateAllCommands()
