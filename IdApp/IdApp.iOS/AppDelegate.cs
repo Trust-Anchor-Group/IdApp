@@ -65,6 +65,13 @@ namespace IdApp.iOS
             }
         }
 
+        public override void WillEnterForeground(UIApplication uiApplication)
+        {
+            base.WillEnterForeground(uiApplication);
+
+            RemoveAllNotifications();
+        }
+
         /// <summary>
         /// Method is called when an URL with a registered schema is being opened.
         /// </summary>
@@ -100,6 +107,8 @@ namespace IdApp.iOS
 
         private void RegisterRemoteNotifications()
         {
+            RemoveAllNotifications();
+
             // For display notification sent via APNS
             UNUserNotificationCenter.Current.Delegate = this;
             // For data message sent via FCM
@@ -167,6 +176,13 @@ namespace IdApp.iOS
 
             DependencyService.Get<INotificationManager>().ReceiveNotification(title, message);
             */
+        }
+
+        private void RemoveAllNotifications()
+        {
+            UNUserNotificationCenter UNCenter = UNUserNotificationCenter.Current;
+            UNCenter.RemoveAllDeliveredNotifications();
+            UNCenter.RemoveAllPendingNotificationRequests();
         }
     }
 }
