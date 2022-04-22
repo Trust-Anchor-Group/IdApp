@@ -119,8 +119,14 @@ namespace IdApp.Pages.Wallet.MyWallet
 			Dictionary<string, string> FriendlyNames = new();
 			string FriendlyName;
 
+
+//			ObservableCollection <IItemGroupCollection> NewPaymentItems = new();
+
 			ItemGroupCollection<PendingPaymentItem> NewPendingCollection = new("PendingPayment", new ObservableCollection<PendingPaymentItem>());
 			ItemGroupCollection<AccountEventItem> NewEventCollection = new("AccountEvent", new ObservableCollection<AccountEventItem>());
+
+			//NewPaymentItems.Add(NewPendingCollection);
+			//NewPaymentItems.Add(NewEventCollection);
 
 			if (PendingPayments is not null)
 			{
