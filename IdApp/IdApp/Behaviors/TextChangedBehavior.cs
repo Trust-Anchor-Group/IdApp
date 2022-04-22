@@ -19,8 +19,8 @@ namespace IdApp.Behaviors
         /// </summary>
         public ICommand TextChangedCommand
         {
-            get { return (ICommand)GetValue(TextChangedCommandProperty); }
-            set { SetValue(TextChangedCommandProperty, value); }
+            get => (ICommand)this.GetValue(TextChangedCommandProperty);
+            set => this.SetValue(TextChangedCommandProperty, value);
         }
 
         /// <summary>
@@ -34,8 +34,8 @@ namespace IdApp.Behaviors
         /// </summary>
         public object TextChangedCommandParameter
         {
-            get { return (object) GetValue(TextChangedCommandParameterProperty); }
-            set { SetValue(TextChangedCommandParameterProperty, value); }
+            get => (object)this.GetValue(TextChangedCommandParameterProperty);
+            set => this.SetValue(TextChangedCommandParameterProperty, value);
         }
 
         /// <inheritdoc/>

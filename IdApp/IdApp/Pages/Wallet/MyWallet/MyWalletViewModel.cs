@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml;
 using EDaler;
 using EDaler.Uris;
 using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Pages.Contracts.NewContract;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
+using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MyWallet
@@ -37,6 +40,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.ShowPendingCommand = new Command(async Item => await ShowPending(Item));
 			this.ShowEventCommand = new Command(async Item => await ShowEvent(Item));
 			this.FlipCommand = new Command(async _ => await FlipWallet());
+			this.CreateTokenCommand = new Command(async _ => await CreateToken());
 			this.LoadMoreTokensCommand = new Command(async _ => await LoadMoreTokens());
 			this.TokenSelectedCommand = new Command(async P => await TokenSelected(P));
 
@@ -154,7 +158,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			try
 			{
 				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
-				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(50);
+				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(20);
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency,
 					PendingPayments, Events, More, this.XmppService.Wallet.LastEvent));
@@ -188,8 +192,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public Balance Balance
 		{
-			get { return (Balance)GetValue(BalanceProperty); }
-			set { SetValue(BalanceProperty, value); }
+			get => (Balance)this.GetValue(BalanceProperty);
+			set => this.SetValue(BalanceProperty, value);
 		}
 
 		/// <summary>
@@ -203,8 +207,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public decimal Amount
 		{
-			get { return (decimal)GetValue(AmountProperty); }
-			set { SetValue(AmountProperty, value); }
+			get => (decimal)this.GetValue(AmountProperty);
+			set => this.SetValue(AmountProperty, value);
 		}
 
 		/// <summary>
@@ -218,8 +222,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public string Currency
 		{
-			get { return (string)GetValue(CurrencyProperty); }
-			set { SetValue(CurrencyProperty, value); }
+			get => (string)this.GetValue(CurrencyProperty);
+			set => this.SetValue(CurrencyProperty, value);
 		}
 
 		/// <summary>
@@ -233,8 +237,54 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool HasPending
 		{
-			get { return (bool)GetValue(HasPendingProperty); }
-			set { SetValue(HasPendingProperty, value); }
+			get => (bool)this.GetValue(HasPendingProperty);
+			set
+			{
+				this.SetValue(HasPendingProperty, value);
+				this.CalcViewDependencies();
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="IsPendingVisible"/>
+		/// </summary>
+		public static readonly BindableProperty IsPendingVisibleProperty =
+			BindableProperty.Create(nameof(IsPendingVisible), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// IsPendingVisible of eDaler to process
+		/// </summary>
+		public bool IsPendingVisible
+		{
+			get => (bool)this.GetValue(IsPendingVisibleProperty);
+			set => this.SetValue(IsPendingVisibleProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsFrontViewShowing"/>
+		/// </summary>
+		public static readonly BindableProperty IsFrontViewShowingProperty =
+			BindableProperty.Create(nameof(IsFrontViewShowing), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// IsFrontViewShowing of eDaler to process
+		/// </summary>
+		public bool IsFrontViewShowing
+		{
+			get => (bool)this.GetValue(IsFrontViewShowingProperty);
+			set
+			{
+				this.SetValue(IsFrontViewShowingProperty, value);
+				this.CalcViewDependencies();
+			}
+		}
+
+		private void CalcViewDependencies()
+		{
+			this.IsPendingVisible = this.HasPending && this.IsFrontViewShowing;
+			this.AreEventsVisible = this.HasEvents && this.IsFrontViewShowing;
+			this.AreTotalsVisible = this.HasTotals && !this.IsFrontViewShowing;
+			this.AreTokensVisible = this.HasTokens && !this.IsFrontViewShowing;
 		}
 
 		/// <summary>
@@ -248,8 +298,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public decimal PendingAmount
 		{
-			get { return (decimal)GetValue(PendingAmountProperty); }
-			set { SetValue(PendingAmountProperty, value); }
+			get => (decimal)this.GetValue(PendingAmountProperty);
+			set => this.SetValue(PendingAmountProperty, value);
 		}
 
 		/// <summary>
@@ -263,8 +313,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public string PendingCurrency
 		{
-			get { return (string)GetValue(PendingCurrencyProperty); }
-			set { SetValue(PendingCurrencyProperty, value); }
+			get => (string)this.GetValue(PendingCurrencyProperty);
+			set => this.SetValue(PendingCurrencyProperty, value);
 		}
 
 		/// <summary>
@@ -278,8 +328,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public DateTime Timestamp
 		{
-			get { return (DateTime)GetValue(TimestampProperty); }
-			set { SetValue(TimestampProperty, value); }
+			get => (DateTime)this.GetValue(TimestampProperty);
+			set => this.SetValue(TimestampProperty, value);
 		}
 
 		/// <summary>
@@ -293,8 +343,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public DateTime LastEvent
 		{
-			get { return (DateTime)GetValue(LastEventProperty); }
-			set { SetValue(LastEventProperty, value); }
+			get => (DateTime)this.GetValue(LastEventProperty);
+			set => this.SetValue(LastEventProperty, value);
 		}
 
 		/// <summary>
@@ -308,8 +358,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public string EDalerFrontGlyph
 		{
-			get { return (string)GetValue(EDalerFrontGlyphProperty); }
-			set { SetValue(EDalerFrontGlyphProperty, value); }
+			get => (string)this.GetValue(EDalerFrontGlyphProperty);
+			set => this.SetValue(EDalerFrontGlyphProperty, value);
 		}
 
 		/// <summary>
@@ -323,8 +373,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public string EDalerBackGlyph
 		{
-			get { return (string)GetValue(EDalerBackGlyphProperty); }
-			set { SetValue(EDalerBackGlyphProperty, value); }
+			get => (string)this.GetValue(EDalerBackGlyphProperty);
+			set => this.SetValue(EDalerBackGlyphProperty, value);
 		}
 
 		/// <summary>
@@ -338,8 +388,27 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool HasEvents
 		{
-			get { return (bool)GetValue(HasEventsProperty); }
-			set { SetValue(HasEventsProperty, value); }
+			get => (bool)this.GetValue(HasEventsProperty);
+			set
+			{
+				this.SetValue(HasEventsProperty, value);
+				this.CalcViewDependencies();
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="AreEventsVisible"/>
+		/// </summary>
+		public static readonly BindableProperty AreEventsVisibleProperty =
+			BindableProperty.Create(nameof(AreEventsVisible), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// AreEventsVisible of eDaler to process
+		/// </summary>
+		public bool AreEventsVisible
+		{
+			get => (bool)this.GetValue(AreEventsVisibleProperty);
+			set => this.SetValue(AreEventsVisibleProperty, value);
 		}
 
 		/// <summary>
@@ -353,8 +422,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool HasMoreEvents
 		{
-			get { return (bool)GetValue(HasMoreEventsProperty); }
-			set { SetValue(HasMoreEventsProperty, value); }
+			get => (bool)this.GetValue(HasMoreEventsProperty);
+			set => this.SetValue(HasMoreEventsProperty, value);
 		}
 
 		/// <summary>
@@ -368,8 +437,27 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool HasTotals
 		{
-			get { return (bool)GetValue(HasTotalsProperty); }
-			set { SetValue(HasTotalsProperty, value); }
+			get => (bool)this.GetValue(HasTotalsProperty);
+			set
+			{
+				this.SetValue(HasTotalsProperty, value);
+				this.CalcViewDependencies();
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="AreTotalsVisible"/>
+		/// </summary>
+		public static readonly BindableProperty AreTotalsVisibleProperty =
+			BindableProperty.Create(nameof(AreTotalsVisible), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// AreTotalsVisible of eDaler to process
+		/// </summary>
+		public bool AreTotalsVisible
+		{
+			get => (bool)this.GetValue(AreTotalsVisibleProperty);
+			set => this.SetValue(AreTotalsVisibleProperty, value);
 		}
 
 		/// <summary>
@@ -383,8 +471,27 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool HasTokens
 		{
-			get { return (bool)GetValue(HasTokensProperty); }
-			set { SetValue(HasTokensProperty, value); }
+			get => (bool)this.GetValue(HasTokensProperty);
+			set
+			{
+				this.SetValue(HasTokensProperty, value);
+				this.CalcViewDependencies();
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="AreTokensVisible"/>
+		/// </summary>
+		public static readonly BindableProperty AreTokensVisibleProperty =
+			BindableProperty.Create(nameof(AreTokensVisible), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// AreTokensVisible of eDaler to process
+		/// </summary>
+		public bool AreTokensVisible
+		{
+			get => (bool)this.GetValue(AreTokensVisibleProperty);
+			set => this.SetValue(AreTokensVisibleProperty, value);
 		}
 
 		/// <summary>
@@ -441,6 +548,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// The command to bind to for flipping the wallet.
 		/// </summary>
 		public ICommand FlipCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for creating tokens
+		/// </summary>
+		public ICommand CreateTokenCommand { get; }
 
 		/// <summary>
 		/// Command executed when more tokens need to be loaded.
@@ -544,7 +656,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				try
 				{
-					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, 50);
+					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, 20);
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
@@ -570,6 +682,86 @@ namespace IdApp.Pages.Wallet.MyWallet
 				{
 					this.LogService.LogException(ex);
 				}
+			}
+		}
+
+		internal void ViewsFlipped(bool IsFrontViewShowing)
+		{
+			this.IsFrontViewShowing = IsFrontViewShowing;
+		}
+
+		private async Task CreateToken()
+		{
+			try
+			{
+				// TODO: Let user choose from a list of token templates.
+
+				Contract Template = await this.XmppService.Contracts.GetContract("29ddb488-0078-df7a-7c14-d84cc772a148@legal.lab.tagroot.io");  // Creation of demo contract
+				Template.Visibility = ContractVisibility.Public;
+
+				if (Template.ForMachinesLocalName == "Create" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
+				{
+					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
+					XmlDocument Doc = new();
+					Doc.LoadXml(Template.ForMachines.OuterXml);
+
+					XmlNamespaceManager NamespaceManager = new(Doc.NameTable);
+					NamespaceManager.AddNamespace("nft", NeuroFeaturesClient.NamespaceNeuroFeatures);
+
+					string CreatorRole = Doc.SelectSingleNode("/nft:Create/nft:Creator/nft:RoleReference/@role", NamespaceManager)?.Value;
+					string OwnerRole = Doc.SelectSingleNode("/nft:Create/nft:Owner/nft:RoleReference/@role", NamespaceManager)?.Value;
+					string TrustProviderRole = Doc.SelectSingleNode("/nft:Create/nft:TrustProvider/nft:RoleReference/@role", NamespaceManager)?.Value;
+					string CurrencyParameter = Doc.SelectSingleNode("/nft:Create/nft:Currency/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
+					string CommissionParameter = Doc.SelectSingleNode("/nft:Create/nft:CommissionPercent/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
+
+					if (Template.Parts is null)
+					{
+						List<Part> Parts = new();
+
+						if (!string.IsNullOrEmpty(CreatorRole))
+						{
+							Parts.Add(new Part()
+							{
+								LegalId = this.TagProfile.LegalIdentity.Id,
+								Role = CreatorRole
+							});
+						}
+
+						if (!string.IsNullOrEmpty(TrustProviderRole))
+						{
+							Parts.Add(new Part()
+							{
+								LegalId = e.TrustProviderId,
+								Role = TrustProviderRole
+							});
+						}
+
+						Template.Parts = Parts.ToArray();
+						Template.PartsMode = ContractParts.ExplicitlyDefined;
+					}
+					else
+					{
+						foreach (Part Part in Template.Parts)
+						{
+							if (Part.Role == CreatorRole || Part.Role == OwnerRole)
+								Part.LegalId = this.TagProfile.LegalIdentity.Id;
+							else if (Part.Role == TrustProviderRole)
+								Part.LegalId = e.TrustProviderId;
+						}
+					}
+
+					if (!string.IsNullOrEmpty(CurrencyParameter))
+						Template[CurrencyParameter] = e.Currency;
+
+					if (!string.IsNullOrEmpty(CommissionParameter))
+						Template[CommissionParameter] = e.Commission;
+				}
+
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(Template, true));
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 

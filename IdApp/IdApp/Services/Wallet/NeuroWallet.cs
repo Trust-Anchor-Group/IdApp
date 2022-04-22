@@ -453,6 +453,15 @@ namespace IdApp.Services.Wallet
 			return this.NeuroFeaturesClient.AddXmlNoteAsync(TokenId, XmlNote, Personal);
 		}
 
+		/// <summary>
+		/// Gets token creation attributes from the broker.
+		/// </summary>
+		/// <returns>Token creation attributes.</returns>
+		public Task<CreationAttributesEventArgs> GetCreationAttributes()
+		{
+			return this.NeuroFeaturesClient.GetCreationAttributesAsync();
+		}
+
 		#endregion
 
 	}

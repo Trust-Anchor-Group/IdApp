@@ -179,8 +179,8 @@ namespace IdApp.Pages.Things.MyThings
 		/// </summary>
 		public bool ShowThingsMissing
 		{
-			get { return (bool)GetValue(ShowThingsMissingProperty); }
-			set { SetValue(ShowThingsMissingProperty, value); }
+			get => (bool)this.GetValue(ShowThingsMissingProperty);
+			set => this.SetValue(ShowThingsMissingProperty, value);
 		}
 
 		/// <summary>
@@ -214,8 +214,8 @@ namespace IdApp.Pages.Things.MyThings
 		/// </summary>
 		public ContactInfo SelectedThing
 		{
-			get { return (ContactInfo)GetValue(SelectedThingProperty); }
-			set { SetValue(SelectedThingProperty, value); }
+			get => (ContactInfo)this.GetValue(SelectedThingProperty);
+			set => this.SetValue(SelectedThingProperty, value);
 		}
 
 	}

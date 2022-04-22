@@ -129,8 +129,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public bool HasPhoto
 		{
-			get { return (bool)GetValue(HasPhotoProperty); }
-			set { SetValue(HasPhotoProperty, value); }
+			get => (bool)this.GetValue(HasPhotoProperty);
+			set => this.SetValue(HasPhotoProperty, value);
 		}
 
 		/// <summary>
@@ -148,8 +148,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public ImageSource Image
 		{
-			get { return (ImageSource)GetValue(ImageProperty); }
-			set { SetValue(ImageProperty, value); }
+			get => (ImageSource)this.GetValue(ImageProperty);
+			set => this.SetValue(ImageProperty, value);
 		}
 
 		/// <summary>
@@ -163,8 +163,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public int ImageRotation
 		{
-			get { return (int)GetValue(ImageRotationProperty); }
-			set { SetValue(ImageRotationProperty, value); }
+			get => (int)this.GetValue(ImageRotationProperty);
+			set => this.SetValue(ImageRotationProperty, value);
 		}
 
 		/// <summary>
@@ -198,8 +198,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string SelectedCountry
 		{
-			get { return (string)GetValue(SelectedCountryProperty); }
-			set { SetValue(SelectedCountryProperty, value); }
+			get => (string)this.GetValue(SelectedCountryProperty);
+			set => this.SetValue(SelectedCountryProperty, value);
 		}
 
 		/// <summary>
@@ -213,8 +213,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string FirstName
 		{
-			get { return (string)GetValue(FirstNameProperty); }
-			set { SetValue(FirstNameProperty, value); }
+			get => (string)this.GetValue(FirstNameProperty);
+			set => this.SetValue(FirstNameProperty, value);
 		}
 
 		/// <summary>
@@ -228,8 +228,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string MiddleNames
 		{
-			get { return (string)GetValue(MiddleNamesProperty); }
-			set { SetValue(MiddleNamesProperty, value); }
+			get => (string)this.GetValue(MiddleNamesProperty);
+			set => this.SetValue(MiddleNamesProperty, value);
 		}
 
 		/// <summary>
@@ -243,8 +243,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string LastNames
 		{
-			get { return (string)GetValue(LastNamesProperty); }
-			set { SetValue(LastNamesProperty, value); }
+			get => (string)this.GetValue(LastNamesProperty);
+			set => this.SetValue(LastNamesProperty, value);
 		}
 
 		/// <summary>
@@ -258,8 +258,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string PersonalNumber
 		{
-			get { return (string)GetValue(PersonalNumberProperty); }
-			set { SetValue(PersonalNumberProperty, value); }
+			get => (string)this.GetValue(PersonalNumberProperty);
+			set => this.SetValue(PersonalNumberProperty, value);
 		}
 
 		/// <summary>
@@ -273,8 +273,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string PersonalNumberPlaceholder
 		{
-			get { return (string)GetValue(PersonalNumberPlaceholderProperty); }
-			set { SetValue(PersonalNumberPlaceholderProperty, value); }
+			get => (string)this.GetValue(PersonalNumberPlaceholderProperty);
+			set => this.SetValue(PersonalNumberPlaceholderProperty, value);
 		}
 
 		/// <summary>
@@ -288,8 +288,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string Address
 		{
-			get { return (string)GetValue(AddressProperty); }
-			set { SetValue(AddressProperty, value); }
+			get => (string)this.GetValue(AddressProperty);
+			set => this.SetValue(AddressProperty, value);
 		}
 
 		/// <summary>
@@ -303,8 +303,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string Address2
 		{
-			get { return (string)GetValue(Address2Property); }
-			set { SetValue(Address2Property, value); }
+			get => (string)this.GetValue(Address2Property);
+			set => this.SetValue(Address2Property, value);
 		}
 
 		/// <summary>
@@ -318,8 +318,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string ZipCode
 		{
-			get { return (string)GetValue(ZipCodeProperty); }
-			set { SetValue(ZipCodeProperty, value); }
+			get => (string)this.GetValue(ZipCodeProperty);
+			set => this.SetValue(ZipCodeProperty, value);
 		}
 
 		/// <summary>
@@ -333,8 +333,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string Area
 		{
-			get { return (string)GetValue(AreaProperty); }
-			set { SetValue(AreaProperty, value); }
+			get => (string)this.GetValue(AreaProperty);
+			set => this.SetValue(AreaProperty, value);
 		}
 
 		/// <summary>
@@ -348,8 +348,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string City
 		{
-			get { return (string)GetValue(CityProperty); }
-			set { SetValue(CityProperty, value); }
+			get => (string)this.GetValue(CityProperty);
+			set => this.SetValue(CityProperty, value);
 		}
 
 		/// <summary>
@@ -363,8 +363,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string Region
 		{
-			get { return (string)GetValue(RegionProperty); }
-			set { SetValue(RegionProperty, value); }
+			get => (string)this.GetValue(RegionProperty);
+			set => this.SetValue(RegionProperty, value);
 		}
 
 		/// <summary>
@@ -378,8 +378,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string DeviceId
 		{
-			get { return (string)GetValue(DeviceIdProperty); }
-			set { SetValue(DeviceIdProperty, value); }
+			get => (string)this.GetValue(DeviceIdProperty);
+			set => this.SetValue(DeviceIdProperty, value);
 		}
 
 		/// <summary>
@@ -398,8 +398,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public bool IsConnected
 		{
-			get { return (bool)GetValue(IsConnectedProperty); }
-			set { SetValue(IsConnectedProperty, value); }
+			get => (bool)this.GetValue(IsConnectedProperty);
+			set => this.SetValue(IsConnectedProperty, value);
 		}
 
 		/// <summary>
@@ -413,8 +413,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public string ConnectionStateText
 		{
-			get { return (string)GetValue(ConnectionStateTextProperty); }
-			set { SetValue(ConnectionStateTextProperty, value); }
+			get => (string)this.GetValue(ConnectionStateTextProperty);
+			set => this.SetValue(ConnectionStateTextProperty, value);
 		}
 
 		#endregion
@@ -775,8 +775,9 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 				return SkBitmap.Encode(SKEncodedImageFormat.Jpeg, 80);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				this.LogService.LogException(ex);
 			}
 
 			return null;

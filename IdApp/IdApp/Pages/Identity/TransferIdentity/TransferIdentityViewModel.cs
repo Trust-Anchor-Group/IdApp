@@ -91,8 +91,8 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		/// </summary>
 		public string Uri
 		{
-			get { return (string)GetValue(UriProperty); }
-			set { SetValue(UriProperty, value); }
+			get => (string)this.GetValue(UriProperty);
+			set => this.SetValue(UriProperty, value);
 		}
 
 		/// <summary>
@@ -106,8 +106,8 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		/// </summary>
 		public ImageSource QrCode
 		{
-			get { return (ImageSource)GetValue(QrCodeProperty); }
-			set { SetValue(QrCodeProperty, value); }
+			get => (ImageSource)this.GetValue(QrCodeProperty);
+			set => this.SetValue(QrCodeProperty, value);
 		}
 
 		/// <summary>
@@ -121,8 +121,8 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		/// </summary>
 		public int QrCodeWidth
 		{
-			get { return (int)GetValue(QrCodeWidthProperty); }
-			set { SetValue(QrCodeWidthProperty, value); }
+			get => (int)this.GetValue(QrCodeWidthProperty);
+			set => this.SetValue(QrCodeWidthProperty, value);
 		}
 
 		/// <summary>
@@ -136,8 +136,8 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		/// </summary>
 		public int QrCodeHeight
 		{
-			get { return (int)GetValue(QrCodeHeightProperty); }
-			set { SetValue(QrCodeHeightProperty, value); }
+			get => (int)this.GetValue(QrCodeHeightProperty);
+			set => this.SetValue(QrCodeHeightProperty, value);
 		}
 
 		#endregion

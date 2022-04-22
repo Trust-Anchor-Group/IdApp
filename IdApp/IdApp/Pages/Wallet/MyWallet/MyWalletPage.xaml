@@ -12,7 +12,8 @@
                        x:DataType="model:MyWalletViewModel"
                        x:Class="IdApp.Pages.Wallet.MyWallet.MyWalletPage"
                        Title="{x:Static resx:AppResources.Wallet}">
-    <flipView:FlipView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="WalletFlipView" BackViewShowing="WalletFlipView_BackViewShowing">
+    <flipView:FlipView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="WalletFlipView" 
+                       BackViewShowing="WalletFlipView_BackViewShowing" Flipped="WalletFlipView_Flipped">
         <flipView:FlipView.GestureRecognizers>
             <TapGestureRecognizer Tapped="WalletFlipView_Tapped" />
         </flipView:FlipView.GestureRecognizers>
@@ -48,7 +49,7 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <Label Grid.Column="0" Grid.Row="2" IsVisible="{Binding Path=HasPending}" HorizontalOptions="Start" TextColor="{StaticResource PendingColor}">
+                        <Label Grid.Column="0" Grid.Row="2" IsVisible="{Binding Path=IsPendingVisible}" HorizontalOptions="Start" TextColor="{StaticResource PendingColor}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="(-"/>
@@ -64,7 +65,7 @@
 
                 <ScrollView Grid.Column="0" Grid.Row="1">
                     <StackLayout Margin="{StaticResource DefaultMargin}" Spacing="16">
-                        <StackLayout x:Name="PendingPaymentsLayout" IsVisible="{Binding Path=HasPending}"
+                        <StackLayout x:Name="PendingPaymentsLayout" IsVisible="{Binding Path=IsPendingVisible}"
                              Spacing="16" Orientation="Vertical" VerticalOptions="Start"
                              BindableLayout.ItemsSource="{Binding Path=PendingPayments}">
                             <BindableLayout.ItemTemplate>
@@ -90,7 +91,7 @@
                             </BindableLayout.ItemTemplate>
                         </StackLayout>
 
-                        <StackLayout x:Name="AccountEventsLayout" IsVisible="{Binding Path=HasEvents}"
+                        <StackLayout x:Name="AccountEventsLayout" IsVisible="{Binding Path=AreEventsVisible}"
                              Spacing="16" Orientation="Vertical" VerticalOptions="StartAndExpand"
                              BindableLayout.ItemsSource="{Binding Path=Events}">
                             <BindableLayout.ItemTemplate>
@@ -165,7 +166,7 @@
                         </Grid.RowDefinitions>
                         <Image x:Name="ImgBack" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Source="{Binding Path=EDalerBackGlyph}" Opacity="0.5"/>
                         <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Timestamp, Converter={converters:DateTimeToStringConverter}}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}"/>
-                        <StackLayout Grid.Column="0" Grid.Row="1" x:Name="TokenTotalsLayout" IsVisible="{Binding Path=HasTotals}"
+                        <StackLayout Grid.Column="0" Grid.Row="1" x:Name="TokenTotalsLayout" IsVisible="{Binding Path=AreTotalsVisible}"
                              Spacing="16" Orientation="Vertical" VerticalOptions="StartAndExpand"
                              BindableLayout.ItemsSource="{Binding Path=Totals}">
                             <BindableLayout.ItemTemplate>
@@ -190,21 +191,32 @@
                 </Frame>
 
                 <ScrollView Grid.Column="0" Grid.Row="1">
-                    <StackLayout Margin="{StaticResource DefaultMargin}" Spacing="16" x:Name="TokensLayout" IsVisible="{Binding Path=HasTokens}">
-                        <loading:LoadingListView HasUnevenRows="True" SeparatorVisibility="None" VerticalOptions="StartAndExpand"
-                                 ItemsSource="{Binding Path=Tokens}"
-                                 LoadMoreCommand="{Binding Path=LoadMoreTokensCommand}"
-                                 ItemSelectedCommand="{Binding Path=TokenSelectedCommand}">
-                            <loading:LoadingListView.ItemTemplate>
+                    <StackLayout Margin="{StaticResource DefaultMargin}" Spacing="16">
+                        <StackLayout x:Name="TokensLayout" IsVisible="{Binding Path=AreTokensVisible}"
+                             Spacing="16" Orientation="Vertical" VerticalOptions="Start"
+                             BindableLayout.ItemsSource="{Binding Path=Tokens}">
+                            <BindableLayout.ItemTemplate>
                                 <DataTemplate x:DataType="objectmodel:TokenItem">
-                                    <Grid ColumnDefinitions="2*,*,*" RowDefinitions="auto">
-                                        <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
-                                        <Label Grid.Column="1" Grid.Row="0" Text="{Binding Path=Value, Converter={converters:MoneyToString}}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"/>
-                                        <Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Currency}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"/>
+                                    <Grid ColumnDefinitions="*,4*,2*,*" RowDefinitions="auto">
+                                        <Image Grid.Column="0" Grid.Row="0" 
+                                               Source="{Binding Path=GlyphImage}" IsVisible="{Binding Path=HasGlyphImage}" 
+                                               WidthRequest="{Binding Path=GlyphWidth, Mode=OneTime}" 
+                                               HeightRequest="{Binding Path=GlyphHeight, Mode=OneTime}"
+                                               VerticalOptions="Center" HorizontalOptions="Center" />
+                                        <Label Grid.Column="1" Grid.Row="0" Text="{Binding Path=FriendlyName}" 
+                                               Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" 
+                                               FontAttributes="Bold" FontSize="18" HorizontalTextAlignment="Start" 
+                                               VerticalOptions="Center"/>
+                                        <Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Value, Converter={converters:MoneyToString}}" 
+                                               Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontSize="18" 
+                                               HorizontalTextAlignment="End" VerticalOptions="Center"/>
+                                        <Label Grid.Column="3" Grid.Row="0" Text="{Binding Path=Currency}" FontSize="18" 
+                                               Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"
+                                               HorizontalTextAlignment="Start" VerticalOptions="Center"/>
                                     </Grid>
                                 </DataTemplate>
-                            </loading:LoadingListView.ItemTemplate>
-                        </loading:LoadingListView>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
                     </StackLayout>
                 </ScrollView>
 
@@ -213,9 +225,11 @@
                                            LeftButton1Text="{x:Static resx:FontAwesome.ArrowLeft}"
                                            LeftButton2Text="{x:Static resx:FontAwesome.Rotate}"
                                            CenterButtonText="{x:Static resx:FontAwesome.ScanQr}" 
+                                           RightButton1Text="{x:Static resx:FontAwesome.StarOfLife}"
                                            LeftButton1Command="{Binding Path=BackCommand}" 
                                            LeftButton2Command="{Binding Path=FlipCommand}" 
-                                           CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"/>
+                                           CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
+                                           RightButton1Command="{Binding Path=CreateTokenCommand}"/>
             </Grid>
         </flipView:FlipView.BackView>
     </flipView:FlipView>

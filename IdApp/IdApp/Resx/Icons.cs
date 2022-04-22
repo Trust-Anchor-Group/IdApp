@@ -155,5 +155,10 @@
         /// rotate
         /// </summary>
         public const string Rotate = "\uf2f1";
+
+        /// <summary>
+        /// star-of-life
+        /// </summary>
+        public const string StarOfLife = "\uf621";
     }
 }
