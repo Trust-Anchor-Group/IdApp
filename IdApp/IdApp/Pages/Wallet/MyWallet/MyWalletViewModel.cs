@@ -120,12 +120,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 			string FriendlyName;
 
 
-			ObservableCollection <IItemGroupCollection> NewPaymentItems = new();
+//			ObservableCollection <IItemGroupCollection> NewPaymentItems = new();
+
 			ItemGroupCollection<PendingPaymentItem> NewPendingCollection = new("PendingPayment", new ObservableCollection<PendingPaymentItem>());
 			ItemGroupCollection<AccountEventItem> NewEventCollection = new("AccountEvent", new ObservableCollection<AccountEventItem>());
 
-			NewPaymentItems.Add(NewPendingCollection);
-			NewPaymentItems.Add(NewEventCollection);
+			//NewPaymentItems.Add(NewPendingCollection);
+			//NewPaymentItems.Add(NewEventCollection);
 
 			if (PendingPayments is not null)
 			{
@@ -155,7 +156,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 				}
 			}
 
-			this.PaymentItems = NewPaymentItems;
+			this.PaymentItems[0] = NewPendingCollection;
+			this.PaymentItems[1] = NewEventCollection;
 		}
 
 		private void EvaluateAllCommands()
