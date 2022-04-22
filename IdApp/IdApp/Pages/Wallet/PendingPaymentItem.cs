@@ -1,12 +1,12 @@
 ﻿using IdApp.Resx;
 using System;
 
-namespace IdApp.Pages.Wallet.MyWallet
+namespace IdApp.Pages.Wallet
 {
 	/// <summary>
 	/// Encapsulates a <see cref="PendingPayment"/> object.
 	/// </summary>
-	public class PendingPaymentItem
+	public class PendingPaymentItem : IItemGroup
 	{
 		private readonly EDaler.PendingPayment pendingPayment;
 		private readonly string friendlyName;

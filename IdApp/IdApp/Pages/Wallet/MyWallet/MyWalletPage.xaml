@@ -8,26 +8,74 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.MyWallet;assembly=IdApp"
                        xmlns:objectmodel="clr-namespace:IdApp.Pages.Wallet;assembly=IdApp"
                        xmlns:flipView="clr-namespace:IdApp.Controls.FlipView;assembly=IdApp"
-                       xmlns:loading="clr-namespace:IdApp.Controls.LoadingListView;assembly=IdApp"
+                       xmlns:loading="clr-namespace:IdApp.Controls.LoadingCollectionView;assembly=IdApp"
                        x:DataType="model:MyWalletViewModel"
                        x:Class="IdApp.Pages.Wallet.MyWallet.MyWalletPage"
                        Title="{x:Static resx:AppResources.Wallet}">
+    <views:ContentBasePage.Resources>
+        <DataTemplate x:Key="DefaultTemplate">
+            <Grid />
+        </DataTemplate>
+
+        <DataTemplate x:Key="PendingPaymentTemplate" x:DataType="objectmodel:PendingPaymentItem">
+            <Grid ColumnDefinitions="2*,*" RowDefinitions="auto,auto" >
+                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
+                <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=ExpiresStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Italic"/>
+                <Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="TailTruncation" TextColor="{StaticResource PendingColor}" HorizontalTextAlignment="End">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="-" FontSize="30" FontAttributes="Bold"/>
+                            <Span Text="{Binding Path=Amount, Converter={converters:MoneyToString}}" FontSize="30" FontAttributes="Bold"/>
+                            <Span Text=" "/>
+                            <Span Text="{Binding Path=Currency}" FontSize="20"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="AccountEventTemplate" x:DataType="objectmodel:AccountEventItem">
+            <Grid ColumnDefinitions="2*,*" RowDefinitions="auto,auto,auto" >
+                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
+                <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=TimestampStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"/>
+                <Label Grid.Column="1" Grid.Row="0" LineBreakMode="TailTruncation" HorizontalTextAlignment="End">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Path=Change, Converter={converters:MoneyToString}}" FontSize="18" FontAttributes="Bold" TextColor="{Binding Path=TextColor}"/>
+                            <Span Text=" "/>
+                            <Span Text="{Binding Path=Currency}" FontSize="16" TextColor="{Binding Path=TextColor}"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Column="1" Grid.Row="1" LineBreakMode="TailTruncation" HorizontalTextAlignment="End">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text=" ("/>
+                            <Span Text="{Binding Path=Balance, Converter={converters:MoneyToString}}" FontSize="14"/>
+                            <Span Text=" "/>
+                            <Span Text="{Binding Path=Currency}" FontSize="12"/>
+                            <Span Text=" ) "/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" LineBreakMode="TailTruncation"/>
+            </Grid>
+        </DataTemplate>
+
+        <objectmodel:ItemTypeTemplateSelector x:Key="ItemStyleSelector"
+                                              DefaultTemplate="{StaticResource DefaultTemplate}"
+                                              PendingPaymentTemplate="{StaticResource PendingPaymentTemplate}" 
+                                              AccountEventTemplate="{StaticResource AccountEventTemplate}"/>
+    </views:ContentBasePage.Resources>
+
     <flipView:FlipView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="WalletFlipView" 
                        BackViewShowing="WalletFlipView_BackViewShowing" Flipped="WalletFlipView_Flipped">
         <flipView:FlipView.GestureRecognizers>
             <TapGestureRecognizer Tapped="WalletFlipView_Tapped" />
         </flipView:FlipView.GestureRecognizers>
         <flipView:FlipView.FrontView>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="200"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Frame Grid.Column="0" Grid.Row="0" HeightRequest="150" BorderColor="Black" CornerRadius="6" HasShadow="True" Margin="5"
+            <Grid RowDefinitions="200,*,auto">
+                <Frame Grid.Row="0" HeightRequest="150" BorderColor="Black" CornerRadius="6" HasShadow="True" Margin="5"
                        BackgroundColor="{StaticResource HeadingBackground}">
                     <Grid HeightRequest="150" WidthRequest="10000">
                         <Grid.ColumnDefinitions>
@@ -63,75 +111,18 @@
                     </Grid>
                 </Frame>
 
-                <ScrollView Grid.Column="0" Grid.Row="1">
-                    <StackLayout Margin="{StaticResource DefaultMargin}" Spacing="16">
-                        <StackLayout x:Name="PendingPaymentsLayout" IsVisible="{Binding Path=IsPendingVisible}"
-                             Spacing="16" Orientation="Vertical" VerticalOptions="Start"
-                             BindableLayout.ItemsSource="{Binding Path=PendingPayments}">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate x:DataType="model:PendingPaymentItem">
-                                    <Grid ColumnDefinitions="2*,*" RowDefinitions="auto,auto">
-                                        <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
-                                        <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=ExpiresStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Italic"/>
-                                        <Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="TailTruncation" TextColor="{StaticResource PendingColor}" HorizontalTextAlignment="End">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="-" FontSize="30" FontAttributes="Bold"/>
-                                                    <Span Text="{Binding Path=Amount, Converter={converters:MoneyToString}}" FontSize="30" FontAttributes="Bold"/>
-                                                    <Span Text=" "/>
-                                                    <Span Text="{Binding Path=Currency}" FontSize="20"/>
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Grid.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.ShowPendingCommand, Source={x:Reference PendingPaymentsLayout}}" CommandParameter="{Binding}" />
-                                        </Grid.GestureRecognizers>
-                                    </Grid>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-                        </StackLayout>
+                <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}" >
+                    <loading:LoadingCollectionView VerticalOptions="StartAndExpand" IsGrouped="True"
+                                                   ItemsSource="{Binding Path=PaymentItems}"
+                                                   ItemTemplate="{StaticResource ItemStyleSelector}"
+                                                   ItemSelectedCommand="{Binding Path=ShowPaymentItemCommand}" >
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
+                        </CollectionView.ItemsLayout>
+                    </loading:LoadingCollectionView>
+                </StackLayout>
 
-                        <StackLayout x:Name="AccountEventsLayout" IsVisible="{Binding Path=AreEventsVisible}"
-                             Spacing="16" Orientation="Vertical" VerticalOptions="StartAndExpand"
-                             BindableLayout.ItemsSource="{Binding Path=Events}">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate x:DataType="objectmodel:AccountEventItem">
-                                    <Grid ColumnDefinitions="2*,*" RowDefinitions="auto,auto,auto">
-                                        <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
-                                        <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=TimestampStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"/>
-                                        <Label Grid.Column="1" Grid.Row="0" LineBreakMode="TailTruncation" HorizontalTextAlignment="End">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{Binding Path=Change, Converter={converters:MoneyToString}}" FontSize="18" FontAttributes="Bold" TextColor="{Binding Path=TextColor}"/>
-                                                    <Span Text=" "/>
-                                                    <Span Text="{Binding Path=Currency}" FontSize="16" TextColor="{Binding Path=TextColor}"/>
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Grid.Column="1" Grid.Row="1" LineBreakMode="TailTruncation" HorizontalTextAlignment="End">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text=" ("/>
-                                                    <Span Text="{Binding Path=Balance, Converter={converters:MoneyToString}}" FontSize="14"/>
-                                                    <Span Text=" "/>
-                                                    <Span Text="{Binding Path=Currency}" FontSize="12"/>
-                                                    <Span Text=" ) "/>
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" LineBreakMode="TailTruncation"/>
-                                        <Grid.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.ShowEventCommand, Source={x:Reference AccountEventsLayout}}" CommandParameter="{Binding}" />
-                                        </Grid.GestureRecognizers>
-                                    </Grid>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-                        </StackLayout>
-                    </StackLayout>
-                </ScrollView>
-
-                <mainTabBar:MainTabBarView x:Name="WalletFrontTabBar"
-                                           Grid.Column="0" Grid.Row="2" 
+                <mainTabBar:MainTabBarView x:Name="WalletFrontTabBar" Grid.Row="2" 
                                            LeftButton1Text="{x:Static resx:FontAwesome.ArrowLeft}"
                                            LeftButton2Text="{x:Static resx:FontAwesome.Rotate}"
                                            CenterButtonText="{x:Static resx:FontAwesome.ScanQr}" 

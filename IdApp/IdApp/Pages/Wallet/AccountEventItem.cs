@@ -7,7 +7,7 @@ namespace IdApp.Pages.Wallet
 	/// <summary>
 	/// Encapsulates a <see cref="AccountEvent"/> object.
 	/// </summary>
-	public class AccountEventItem
+	public class AccountEventItem : IItemGroup
 	{
 		private readonly EDaler.AccountEvent accountEvent;
 		private readonly MyWallet.MyWalletViewModel viewModel;

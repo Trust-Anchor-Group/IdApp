@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
@@ -37,15 +38,20 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
 			this.RequestPaymentCommand = new Command(async _ => await RequestPayment(), _ => this.IsConnected);
 			this.MakePaymentCommand = new Command(async _ => await MakePayment(), _ => this.IsConnected);
-			this.ShowPendingCommand = new Command(async Item => await ShowPending(Item));
-			this.ShowEventCommand = new Command(async Item => await ShowEvent(Item));
+			//this.ShowPendingCommand = new Command(async Item => await ShowPending(Item));
+			//this.ShowEventCommand = new Command(async Item => await ShowEvent(Item));
+			this.ShowPaymentItemCommand = new Command(async Item => await ShowPaymentItem(Item));
 			this.FlipCommand = new Command(async _ => await FlipWallet());
 			this.CreateTokenCommand = new Command(async _ => await CreateToken());
 			this.LoadMoreTokensCommand = new Command(async _ => await LoadMoreTokens());
 			this.TokenSelectedCommand = new Command(async P => await TokenSelected(P));
 
-			this.PendingPayments = new ObservableCollection<PendingPaymentItem>();
-			this.Events = new ObservableCollection<AccountEventItem>();
+			this.PaymentItems = new ObservableCollection<IItemGroupCollection>();
+			this.PaymentItems.Add(new ItemGroupCollection<PendingPaymentItem>("PendingPayment", new ObservableCollection<PendingPaymentItem>()));
+			this.PaymentItems.Add(new ItemGroupCollection<AccountEventItem>("AccountEvent", new ObservableCollection<AccountEventItem>()));
+			//this.PendingPayments = new ObservableCollection<PendingPaymentItem>();
+			//this.Events = new ObservableCollection<AccountEventItem>();
+
 			this.Totals = new ObservableCollection<TokenTotalItem>();
 			this.Tokens = new ObservableCollection<TokenItem>();
 		}
@@ -111,8 +117,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 			Dictionary<string, string> FriendlyNames = new();
 			string FriendlyName;
 
-			this.PendingPayments.Clear();
-			if (!(PendingPayments is null))
+			ObservableCollection<PendingPaymentItem> PendingCollection = (ObservableCollection<PendingPaymentItem>)this.PaymentItems.FirstOrDefault(el => el.Name == "PendingPayment");
+			ObservableCollection<AccountEventItem> EventCollection = (ObservableCollection<AccountEventItem>)this.PaymentItems.FirstOrDefault(el => el.Name == "AccountEvent");
+
+			PendingCollection.Clear();
+			EventCollection.Clear();
+
+			if (PendingPayments is not null)
 			{
 				foreach (EDaler.PendingPayment Payment in PendingPayments)
 				{
@@ -122,12 +133,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 						FriendlyNames[Payment.To] = FriendlyName;
 					}
 
-					this.PendingPayments.Add(new PendingPaymentItem(Payment, FriendlyName));
+					PendingCollection.Add(new PendingPaymentItem(Payment, FriendlyName));
 				}
 			}
 
-			this.Events.Clear();
-			if (!(Events is null))
+			if (Events is not null)
 			{
 				foreach (EDaler.AccountEvent Event in Events)
 				{
@@ -137,7 +147,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 						FriendlyNames[Event.Remote] = FriendlyName;
 					}
 
-					this.Events.Add(new AccountEventItem(Event, this, FriendlyName));
+					EventCollection.Add(new AccountEventItem(Event, this, FriendlyName));
 				}
 			}
 		}
@@ -494,6 +504,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			set => this.SetValue(AreTokensVisibleProperty, value);
 		}
 
+		/*
 		/// <summary>
 		/// Holds a list of pending payments
 		/// </summary>
@@ -503,6 +514,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// Holds a list of account events
 		/// </summary>
 		public ObservableCollection<AccountEventItem> Events { get; }
+		*/
+
+		/// <summary>
+		/// Holds a list of pending payments and account events
+		/// </summary>
+		public ObservableCollection<IItemGroupCollection> PaymentItems { get; private set; }
 
 		/// <summary>
 		/// Holds a list of token totals
@@ -534,6 +551,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public ICommand MakePaymentCommand { get; }
 
+		/*
 		/// <summary>
 		/// The command to bind to for displaying information about a pending payment.
 		/// </summary>
@@ -543,6 +561,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// The command to bind to for displaying information about an account event.
 		/// </summary>
 		public ICommand ShowEventCommand { get; }
+		*/
+
+		/// <summary>
+		/// The command to bind to for displaying information about a pending payment or an account event.
+		/// </summary>
+		public ICommand ShowPaymentItemCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for flipping the wallet.
@@ -587,6 +611,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectContactAction.MakePayment));
 		}
 
+		/*
 		private async Task ShowPending(object P)
 		{
 			if (P is not PendingPaymentItem Item)
@@ -607,6 +632,25 @@ namespace IdApp.Pages.Wallet.MyWallet
 				return;
 
 			await this.NavigationService.GoToAsync(nameof(AccountEvent.AccountEventPage), new AccountEvent.AccountEventNavigationArgs(Item));
+		}
+		*/
+
+		private async Task ShowPaymentItem(object Item)
+        {
+			if (Item is PendingPaymentItem PendingItem)
+			{
+				if (!this.XmppService.Wallet.TryParseEDalerUri(PendingItem.Uri, out EDalerUri Uri, out string Reason))
+				{
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.InvalidEDalerUri, Reason));
+					return;
+				}
+
+				await this.NavigationService.GoToAsync(nameof(PendingPayment.PendingPaymentPage), new EDalerUriNavigationArgs(Uri, PendingItem.FriendlyName));
+			}
+			else if (Item is AccountEventItem EventItem)
+			{
+				await this.NavigationService.GoToAsync(nameof(AccountEvent.AccountEventPage), new AccountEvent.AccountEventNavigationArgs(EventItem));
+			}
 		}
 
 		private Task FlipWallet()
