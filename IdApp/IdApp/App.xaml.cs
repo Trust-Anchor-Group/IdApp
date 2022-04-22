@@ -57,6 +57,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using IdApp.Resx;
 using NeuroFeatures;
+using Waher.Networking.XMPP.Push;
 
 namespace IdApp
 {
@@ -186,6 +187,7 @@ namespace IdApp
 					typeof(Expression).Assembly,                // Indexes basic script functions
 					typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
 					typeof(NeuroFeaturesClient).Assembly,       // Indexes Neuro-Features client framework
+					typeof(PushNotificationClient).Assembly,    // Indexes Push Notification client framework
 					typeof(XmppServerlessMessaging).Assembly);  // Indexes End-to-End encryption mechanisms
 			}
 
