@@ -9,7 +9,7 @@
                        xmlns:objectmodel="clr-namespace:IdApp.Pages.Wallet;assembly=IdApp"
                        xmlns:flipView="clr-namespace:IdApp.Controls.FlipView;assembly=IdApp"
                        xmlns:loading="clr-namespace:IdApp.Controls.LoadingCollectionView;assembly=IdApp"
-                       x:DataType="model:MyWalletViewModel"
+                       x:DataType="model:MyWalletViewModel" x:Name="ThisPage"
                        x:Class="IdApp.Pages.Wallet.MyWallet.MyWalletPage"
                        Title="{x:Static resx:AppResources.Wallet}">
     <views:ContentBasePage.Resources>
@@ -31,6 +31,9 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Path=BindingContext.ShowPaymentItemCommand, Source={x:Reference ThisPage}}" CommandParameter="{Binding}" />
+                </Grid.GestureRecognizers>
             </Grid>
         </DataTemplate>
 
@@ -59,6 +62,9 @@
                     </Label.FormattedText>
                 </Label>
                 <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" LineBreakMode="TailTruncation"/>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Path=BindingContext.ShowPaymentItemCommand, Source={x:Reference ThisPage}}" CommandParameter="{Binding}" />
+                </Grid.GestureRecognizers>
             </Grid>
         </DataTemplate>
 
@@ -112,10 +118,9 @@
                 </Frame>
 
                 <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}" >
-                    <loading:LoadingCollectionView VerticalOptions="StartAndExpand" IsGrouped="True"
+                    <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single"
                                                    ItemsSource="{Binding Path=PaymentItems}"
-                                                   ItemTemplate="{StaticResource ItemStyleSelector}"
-                                                   ItemSelectedCommand="{Binding Path=ShowPaymentItemCommand}" >
+                                                   ItemTemplate="{StaticResource ItemStyleSelector}" >
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
                         </CollectionView.ItemsLayout>
