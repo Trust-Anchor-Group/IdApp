@@ -526,18 +526,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 			set => this.SetValue(AreTokensVisibleProperty, value);
 		}
 
-		/* The grouped collection is bugged on Android
-		/// <summary>
-		/// Holds a list of pending payments
-		/// </summary>
-		public ObservableCollection<PendingPaymentItem> PendingPayments { get; }
-
-		/// <summary>
-		/// Holds a list of account events
-		/// </summary>
-		public ObservableCollection<AccountEventItem> Events { get; }
-		*/
-
 		/// <summary>
 		/// Holds a list of pending payments and account events
 		/// </summary>

@@ -7485,6 +7485,9 @@
             Transaction ID corresponding to event.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.AccountEventItem.UniqueName">
+            <inheritdoc/>
+        </member>
         <member name="P:IdApp.Pages.Wallet.AccountEventItem.Remote">
             <summary>
             Remote endpoint in transaction.
@@ -8413,6 +8416,41 @@
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
         </member>
+        <member name="T:IdApp.Pages.Wallet.IItemGroup">
+            <summary>
+            Grouped item interface.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.IItemGroup.UniqueName">
+            <summary>
+            Unique name used to compare items.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.IItemGroupCollection">
+            <summary>
+            Grouped item collection interface.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.IItemGroupCollection.UniqueName">
+            <summary>
+            Unique name used to compare items.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.ItemGroupCollection`1">
+            <summary>
+            Encapsulates a grouped item collection.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ItemGroupCollection`1.UniqueName">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ItemGroupCollection`1.#ctor(System.String,System.Collections.ObjectModel.ObservableCollection{`0})">
+            <summary>
+            Encapsulates a grouped item collection.
+            </summary>
+            <param name="name">Group's unique name.</param>
+            <param name="Items">Group's item collection.</param>
+        </member>
         <member name="T:IdApp.Pages.Wallet.ItemTypeTemplateSelector">
             <summary>
             Data Template Selector, based on Item Type.
@@ -8830,6 +8868,9 @@
             <summary>
             Associated transaction ID
             </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.UniqueName">
+            <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.Expires">
             <summary>
