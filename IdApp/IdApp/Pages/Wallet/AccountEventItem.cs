@@ -46,6 +46,9 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public Guid TransactionId => this.accountEvent.TransactionId;
 
+		/// <inheritdoc/>
+		public string UniqueName => TransactionId.ToString();
+
 		/// <summary>
 		/// Remote endpoint in transaction.
 		/// </summary>

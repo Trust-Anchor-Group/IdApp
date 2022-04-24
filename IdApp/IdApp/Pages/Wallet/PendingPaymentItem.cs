@@ -27,6 +27,9 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public Guid Id => this.pendingPayment.Id;
 
+		/// <inheritdoc/>
+		public string UniqueName => Id.ToString();
+
 		/// <summary>
 		/// When pending payment expires
 		/// </summary>

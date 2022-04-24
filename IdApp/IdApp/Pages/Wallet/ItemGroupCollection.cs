@@ -2,22 +2,44 @@
 
 namespace IdApp.Pages.Wallet
 {
+    /// <summary>
+    /// Grouped item interface.
+    /// </summary>
     public interface IItemGroup
     {
+        /// <summary>
+        /// Unique name used to compare items.
+        /// </summary>
+        public string UniqueName { get; }
     }
 
+    /// <summary>
+    /// Grouped item collection interface.
+    /// </summary>
     public interface IItemGroupCollection
     {
-        public string Name { get; set; }
+        /// <summary>
+        /// Unique name used to compare items.
+        /// </summary>
+        public string UniqueName { get; }
     }
 
+    /// <summary>
+    /// Encapsulates a grouped item collection.
+    /// </summary>
     public class ItemGroupCollection<T> : ObservableCollection<T>, IItemGroupCollection where T : IItemGroup
     {
-        public string Name { get; set; }
+        /// <inheritdoc/>
+        public string UniqueName { get; }
 
+        /// <summary>
+        /// Encapsulates a grouped item collection.
+        /// </summary>
+        /// <param name="name">Group's unique name.</param>
+        /// <param name="Items">Group's item collection.</param>
         public ItemGroupCollection(string name, ObservableCollection<T> Items) : base(Items)
         {
-            Name = name;
+            UniqueName = name;
         }
     }
 }
