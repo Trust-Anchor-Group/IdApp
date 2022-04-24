@@ -119,6 +119,7 @@
 
                 <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}" >
                     <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single"
+                                                   ItemSizingStrategy="MeasureAllItems"
                                                    ItemsSource="{Binding Path=PaymentItems}"
                                                    ItemTemplate="{StaticResource ItemStyleSelector}" >
                         <CollectionView.ItemsLayout>
