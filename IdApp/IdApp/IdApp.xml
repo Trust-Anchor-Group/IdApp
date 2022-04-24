@@ -7559,7 +7559,7 @@
         </member>
         <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.#ctor">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriViewModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.DoBind">
@@ -7760,7 +7760,7 @@
         </member>
         <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.#ctor">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriViewModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.DoBind">
@@ -8726,11 +8726,6 @@
             Command executed when more tokens need to be loaded.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.TokenSelectedCommand">
-            <summary>
-            Command executed when a token has been selected.
-            </summary>
-        </member>
         <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.BindTokens">
             <summary>
             Binds token information to the view.
@@ -9123,16 +9118,498 @@
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
         </member>
+        <member name="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to eDaler URIs.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs.#ctor(IdApp.Pages.Wallet.TokenItem)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs"/> class.
+            </summary>
+            <param name="Token">Information about a token.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs.Token">
+            <summary>
+            Account event
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage">
+            <summary>
+            A page that allows the user to view information about a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel">
+            <summary>
+            The view model to bind to for when displaying the contents of a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Created"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Created">
+            <summary>
+            When token was created.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.UpdatedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Updated"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Updated">
+            <summary>
+            When token was last updated.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ExpiresProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Expires"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Expires">
+            <summary>
+            When token expires.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ArchiveRequiredProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ArchiveRequired"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ArchiveRequired">
+            <summary>
+            Required archiving time after token expires.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ArchiveOptionalProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ArchiveOptional"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ArchiveOptional">
+            <summary>
+            Optional archiving time after required archiving time.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.SignatureTimestampProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.SignatureTimestamp"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.SignatureTimestamp">
+            <summary>
+            Signature timestamp
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.SignatureProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Signature"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Signature">
+            <summary>
+            Token signature
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaDigestProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaDigest"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaDigest">
+            <summary>
+            Digest of schema used to validate token definition XML.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaHashFunctionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaHashFunction"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaHashFunction">
+            <summary>
+            Hash function used to compute <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaDigest"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatorCanDestroyProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatorCanDestroy"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatorCanDestroy">
+            <summary>
+            If the creator can destroy the token.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerCanDestroyBatchProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerCanDestroyBatch"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerCanDestroyBatch">
+            <summary>
+            If the owner can destroy the entire batch of tokens, if owner of every token in the batch.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerCanDestroyIndividualProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerCanDestroyIndividual"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerCanDestroyIndividual">
+            <summary>
+            If the owner can destroy an individual token.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierCanDestroyProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierCanDestroy"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierCanDestroy">
+            <summary>
+            If a certifier can destroy the token.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.FriendlyNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.FriendlyName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.FriendlyName">
+            <summary>
+            Friendly name of token.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphContentTypeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphContentType"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphContentType">
+            <summary>
+            Content-Type of glyph
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OrdinalProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Ordinal"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Ordinal">
+            <summary>
+            Ordinal of token, within batch.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ValueProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Value"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Value">
+            <summary>
+            (Last) Value of token
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.WitnessProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Witness"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Witness">
+            <summary>
+            Witnesses
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierJidsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierJids"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierJids">
+            <summary>
+            JIDs of certifiers
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Certifier"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Certifier">
+            <summary>
+            Certifiers
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenIdMethodProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenIdMethod"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenIdMethod">
+            <summary>
+            Method of assigning the Token ID.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenIdProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenId">
+            <summary>
+            Token ID
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.VisibilityProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Visibility"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Visibility">
+            <summary>
+            Visibility of token
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatorProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Creator"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Creator">
+            <summary>
+            Creator of token
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatorJidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatorJid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatorJid">
+            <summary>
+            JID of <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Creator"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Owner"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Owner">
+            <summary>
+            Current owner
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.BatchSizeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.BatchSize"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.BatchSize">
+            <summary>
+            Number of tokens in batch being created.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProvider"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProvider">
+            <summary>
+            Trust Provider asserting the validity of the token
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerJidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerJid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerJid">
+            <summary>
+            JID of owner
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Currency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Currency">
+            <summary>
+            Currency of <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Value"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ReferenceProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Reference"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Reference">
+            <summary>
+            Any reference provided by the token creator.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Definition"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Definition">
+            <summary>
+            XML Definition of token.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionNamespaceProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionNamespace"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionNamespace">
+            <summary>
+            XML Namespace used in the <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Definition"/>
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreationContractProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreationContract"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreationContract">
+            <summary>
+            Contract used to create the contract.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnershipContractProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnershipContract"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnershipContract">
+            <summary>
+            Contract used to define the current ownership
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ValuatorProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Valuator"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Valuator">
+            <summary>
+            Valuators
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.AssessorProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Assessor"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Assessor">
+            <summary>
+            Assessors
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderJidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderJid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderJid">
+            <summary>
+            JID of <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProvider"/>
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TagsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Tags"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Tags">
+            <summary>
+            Any custom Token Tags provided during creation of the token.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphImageProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphImage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphImage">
+            <summary>
+            Gets or sets the image representing the glyph.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HasGlyphImageProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HasGlyphImage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HasGlyphImage">
+            <summary>
+            Gets or sets the value representing of a glyph is available or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphWidthProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphWidth"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphWidth">
+            <summary>
+            Gets or sets the value representing the width of the glyph.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphHeight">
+            <summary>
+            Gets or sets the value representing the height of the glyph.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenItem">
             <summary>
             Encapsulates a <see cref="T:NeuroFeatures.Token"/> object.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.TokenItem.#ctor(NeuroFeatures.Token)">
+        <member name="M:IdApp.Pages.Wallet.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Pages.XmppViewModel)">
             <summary>
             Encapsulates a <see cref="T:NeuroFeatures.Token"/> object.
             </summary>
             <param name="Token">Token</param>
+            <param name="Model">View model</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.TokenItem.Created">
             <summary>
@@ -9361,7 +9838,7 @@
         </member>
         <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphWidth">
             <summary>
-            Gets or sets the value representing of a glyph is available or not.
+            Gets or sets the value representing the width of the glyph.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenItem.GlyphHeightProperty">
@@ -9371,7 +9848,12 @@
         </member>
         <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphHeight">
             <summary>
-            Gets or sets the value representing of a glyph is available or not.
+            Gets or sets the value representing the height of the glyph.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.ClickedCommand">
+            <summary>
+            Command executed when the token has been clicked or tapped.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenTotalItem">
@@ -10304,6 +10786,11 @@
               Looks up a localized string similar to This eDaler code has expired..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Expires">
+            <summary>
+              Looks up a localized string similar to Expires.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ExpiresAt">
             <summary>
               Looks up a localized string similar to (Expires {0}).
@@ -10812,6 +11299,11 @@
         <member name="P:IdApp.Resx.AppResources.Options">
             <summary>
               Looks up a localized string similar to Options.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Ordinal">
+            <summary>
+              Looks up a localized string similar to Ordinal.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Other">
@@ -11624,6 +12116,31 @@
               Looks up a localized string similar to You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Scan Invitation button to scan an invitation code..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.TokenDetails">
+            <summary>
+              Looks up a localized string similar to Token Details.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TokenDetailsDescription">
+            <summary>
+              Looks up a localized string similar to Following are details encoded into the token. Click on any links for more information..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TokenId">
+            <summary>
+              Looks up a localized string similar to Token ID.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TokenIdMethod">
+            <summary>
+              Looks up a localized string similar to Token ID Method.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TokenVisibility">
+            <summary>
+              Looks up a localized string similar to Token Visibility.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.TransactionAccepted">
             <summary>
               Looks up a localized string similar to Transaction has been accepted and processed..
@@ -11757,6 +12274,11 @@
         <member name="P:IdApp.Resx.AppResources.ValidatingInformation">
             <summary>
               Looks up a localized string similar to Validating information.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Valuation">
+            <summary>
+              Looks up a localized string similar to Valuation.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.VerificationCode">

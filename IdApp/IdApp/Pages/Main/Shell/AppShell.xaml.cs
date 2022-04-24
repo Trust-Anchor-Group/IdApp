@@ -126,6 +126,7 @@ namespace IdApp.Pages.Main.Shell
 			Routing.RegisterRoute(nameof(Wallet.PaymentAcceptance.PaymentAcceptancePage), typeof(Wallet.PaymentAcceptance.PaymentAcceptancePage));
 			Routing.RegisterRoute(nameof(Wallet.PendingPayment.PendingPaymentPage), typeof(Wallet.PendingPayment.PendingPaymentPage));
 			Routing.RegisterRoute(nameof(Wallet.AccountEvent.AccountEventPage), typeof(Wallet.AccountEvent.AccountEventPage));
+			Routing.RegisterRoute(nameof(Wallet.TokenDetails.TokenDetailsPage), typeof(Wallet.TokenDetails.TokenDetailsPage));
 		}
 
 		private async Task GoToPage(string route)

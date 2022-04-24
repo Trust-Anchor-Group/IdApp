@@ -1,7 +1,10 @@
-﻿using NeuroFeatures;
+﻿using IdApp.Pages.Wallet.TokenDetails;
+using NeuroFeatures;
 using NeuroFeatures.Tags;
 using System;
 using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Security;
@@ -15,14 +18,17 @@ namespace IdApp.Pages.Wallet
 	public class TokenItem : BindableObject
 	{
 		private readonly Token token;
+		private readonly XmppViewModel model;
 
 		/// <summary>
 		/// Encapsulates a <see cref="Token"/> object.
 		/// </summary>
 		/// <param name="Token">Token</param>
-		public TokenItem(Token Token)
+		/// <param name="Model">View model</param>
+		public TokenItem(Token Token, XmppViewModel Model)
 		{
 			this.token = Token;
+			this.model = Model;
 
 			if (!(this.Glyph is null) && this.GlyphContentType.StartsWith("image/"))
 			{
@@ -47,6 +53,8 @@ namespace IdApp.Pages.Wallet
 				this.GlyphWidth = 0;
 				this.GlyphHeight = 0;
 			}
+
+			this.ClickedCommand = new Command(async _ => await this.TokenClicked());
 		}
 
 		/// <summary>
@@ -286,7 +294,7 @@ namespace IdApp.Pages.Wallet
 			BindableProperty.Create(nameof(GlyphWidth), typeof(int), typeof(TokenItem), default(int));
 
 		/// <summary>
-		/// Gets or sets the value representing of a glyph is available or not.
+		/// Gets or sets the value representing the width of the glyph.
 		/// </summary>
 		public int GlyphWidth
 		{
@@ -301,12 +309,22 @@ namespace IdApp.Pages.Wallet
 			BindableProperty.Create(nameof(GlyphHeight), typeof(int), typeof(TokenItem), default(int));
 
 		/// <summary>
-		/// Gets or sets the value representing of a glyph is available or not.
+		/// Gets or sets the value representing the height of the glyph.
 		/// </summary>
 		public int GlyphHeight
 		{
 			get => (int)this.GetValue(GlyphHeightProperty);
 			set => this.SetValue(GlyphHeightProperty, value);
+		}
+
+		/// <summary>
+		/// Command executed when the token has been clicked or tapped.
+		/// </summary>
+		public ICommand ClickedCommand { get; }
+
+		private async Task TokenClicked()
+		{
+			await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage), new TokenDetailsNavigationArgs(this));
 		}
 	}
 }

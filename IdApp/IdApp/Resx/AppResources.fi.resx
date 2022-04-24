@@ -1431,4 +1431,28 @@
   <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
     <value>Välittäjältä ei löytynyt Neuro-Features-palvelua.</value>
   </data>
+  <data name="Expires" xml:space="preserve">
+    <value>Päättyy</value>
+  </data>
+  <data name="Ordinal" xml:space="preserve">
+    <value>Järjestysluku</value>
+  </data>
+  <data name="TokenDetails" xml:space="preserve">
+    <value>Tunnuksen tiedot</value>
+  </data>
+  <data name="TokenDetailsDescription" xml:space="preserve">
+    <value>Seuraavassa on tietoja, jotka on koodattu tunnukseen. Napsauta mitä tahansa linkkejä saadaksesi lisätietoja.</value>
+  </data>
+  <data name="TokenId" xml:space="preserve">
+    <value>Tunnuksen tunnus</value>
+  </data>
+  <data name="TokenIdMethod" xml:space="preserve">
+    <value>Tunnuksen tunnusmenetelmä</value>
+  </data>
+  <data name="TokenVisibility" xml:space="preserve">
+    <value>Tunnuksen näkyvyys</value>
+  </data>
+  <data name="Valuation" xml:space="preserve">
+    <value>Arviointi</value>
+  </data>
 </root>

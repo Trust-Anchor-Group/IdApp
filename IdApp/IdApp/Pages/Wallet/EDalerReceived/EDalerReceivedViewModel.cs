@@ -14,7 +14,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 	public class EDalerReceivedViewModel : XmppViewModel
 	{
 		/// <summary>
-		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
+		/// Creates an instance of the <see cref="EDalerReceivedViewModel"/> class.
 		/// </summary>
 		public EDalerReceivedViewModel()
 		: base()
