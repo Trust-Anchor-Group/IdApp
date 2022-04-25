@@ -2682,7 +2682,7 @@
             The data model for a contract.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.Tag.ITagProfile,IdApp.Services.Xmpp.IXmppService)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.Tag.ITagProfile,IdApp.Services.Xmpp.IXmppService,IdApp.Services.Contracts.ISmartContracts)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel"/> class.
             </summary>
@@ -2691,14 +2691,16 @@
             <param name="Contract">Contract</param>
             <param name="TagProfile">TAG profile</param>
             <param name="XmppService">XMPP service.</param>
+            <param name="SmartContracts">Smart Contracts interface.</param>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.Tag.ITagProfile,IdApp.Services.Xmpp.IXmppService)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.Tag.ITagProfile,IdApp.Services.Xmpp.IXmppService,IdApp.Services.Contracts.ISmartContracts)">
             <summary>
             Gets a displayable name for a contract.
             </summary>
             <param name="Contract">Contract</param>
             <param name="TagProfile">TAG Profile</param>
             <param name="XmppService">XMPP Service</param>
+            <param name="SmartContracts">Smart Contracts interface.</param>
             <returns>Displayable Name</returns>
         </member>
         <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetCategory(Waher.Networking.XMPP.Contracts.Contract)">
@@ -12967,13 +12969,14 @@
             <param name="LegalId">Legal ID</param>
             <returns>Contact information, if found.</returns>
         </member>
-        <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(System.String,Waher.Networking.XMPP.XmppClient,IdApp.Services.Tag.ITagProfile)">
+        <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(Waher.Persistence.CaseInsensitiveString,Waher.Networking.XMPP.XmppClient,IdApp.Services.Tag.ITagProfile,IdApp.Services.Contracts.ISmartContracts)">
             <summary>
             Gets the friendly name of a remote identity (Legal ID or Bare JID).
             </summary>
             <param name="RemoteId">Remote Identity</param>
             <param name="Client">XMPP Client</param>
             <param name="TagProfile">TAG Profile</param>
+            <param name="SmartContracts">Smart Contracts interface.</param>
             <returns>Friendly name.</returns>
         </member>
         <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(System.Collections.Generic.IEnumerable{Waher.Networking.XMPP.Contracts.Property})">
@@ -14375,6 +14378,11 @@
         <member name="P:IdApp.Services.ServiceReferences.PushNotificationService">
             <summary>
             Push Notification Service
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.SmartContracts">
+            <summary>
+            Smart Contracts Interface
             </summary>
         </member>
         <member name="T:IdApp.Services.Settings.ISettingsService">

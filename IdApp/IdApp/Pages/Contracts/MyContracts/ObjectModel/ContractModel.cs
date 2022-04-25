@@ -12,6 +12,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Contracts.HumanReadable;
 using Waher.Networking.XMPP.Contracts.HumanReadable.BlockElements;
 using Waher.Networking.XMPP.Contracts.HumanReadable.InlineElements;
+using IdApp.Services.Contracts;
 
 namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
 {
@@ -43,11 +44,12 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
         /// <param name="Contract">Contract</param>
         /// <param name="TagProfile">TAG profile</param>
         /// <param name="XmppService">XMPP service.</param>
+        /// <param name="SmartContracts">Smart Contracts interface.</param>
         public static async Task<ContractModel> Create(string ContractId, DateTime Timestamp, Contract Contract, ITagProfile TagProfile,
-            IXmppService XmppService)
+            IXmppService XmppService, ISmartContracts SmartContracts)
         {
             string Category = await GetCategory(Contract) ?? Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
-            string Name = await GetName(Contract, TagProfile, XmppService) ?? Contract.ContractId;
+            string Name = await GetName(Contract, TagProfile, XmppService, SmartContracts) ?? Contract.ContractId;
 
             return new ContractModel(ContractId, Timestamp, Contract, Category, Name);
         }
@@ -58,8 +60,10 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
         /// <param name="Contract">Contract</param>
         /// <param name="TagProfile">TAG Profile</param>
         /// <param name="XmppService">XMPP Service</param>
+        /// <param name="SmartContracts">Smart Contracts interface.</param>
         /// <returns>Displayable Name</returns>
-        public static async Task<string> GetName(Contract Contract, ITagProfile TagProfile, IXmppService XmppService)
+        public static async Task<string> GetName(Contract Contract, ITagProfile TagProfile, IXmppService XmppService, 
+            ISmartContracts SmartContracts)
 		{
             if (Contract.Parts is null)
                 return null;
@@ -82,7 +86,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
                     continue;   // Self
                 }
 
-                string FriendlyName = await ContactInfo.GetFriendlyName(Part.LegalId, XmppService.Xmpp, TagProfile);
+                string FriendlyName = await ContactInfo.GetFriendlyName(Part.LegalId, XmppService.Xmpp, TagProfile, SmartContracts);
 
                 if (sb is null)
                     sb = new StringBuilder(FriendlyName);

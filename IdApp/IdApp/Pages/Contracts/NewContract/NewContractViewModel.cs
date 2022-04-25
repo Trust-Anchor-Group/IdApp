@@ -476,7 +476,7 @@ namespace IdApp.Pages.Contracts.NewContract
 						{
 							Label = new Label
 							{
-								Text = await ContactInfo.GetFriendlyName(legalId, this.XmppService.Xmpp, this.TagProfile),
+								Text = await ContactInfo.GetFriendlyName(legalId, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts),
 								StyleId = legalId,
 								HorizontalOptions = LayoutOptions.FillAndExpand,
 								HorizontalTextAlignment = TextAlignment.Center,
