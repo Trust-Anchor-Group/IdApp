@@ -1455,4 +1455,25 @@
   <data name="Valuation" xml:space="preserve">
     <value>Verdivurdering</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Skaper</value>
+  </data>
+  <data name="CreatorJid" xml:space="preserve">
+    <value>Adresse til oppretter</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Eier</value>
+  </data>
+  <data name="OwnerJid" xml:space="preserve">
+    <value>Eieradresse</value>
+  </data>
+  <data name="TokenPartsInfoText" xml:space="preserve">
+    <value>Nedenfor finner du en liste over parter som er relatert til dette tokenet.</value>
+  </data>
+  <data name="TrustProvider" xml:space="preserve">
+    <value>Klarer leverandør</value>
+  </data>
+  <data name="TrustProviderJid" xml:space="preserve">
+    <value>Klarer leverandøradresse</value>
+  </data>
 </root>

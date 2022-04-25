@@ -1455,4 +1455,25 @@
   <data name="Valuation" xml:space="preserve">
     <value>Évaluation</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Créateur</value>
+  </data>
+  <data name="CreatorJid" xml:space="preserve">
+    <value>Adresse du créateur</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Propriétaire</value>
+  </data>
+  <data name="OwnerJid" xml:space="preserve">
+    <value>Adresse du propriétaire</value>
+  </data>
+  <data name="TokenPartsInfoText" xml:space="preserve">
+    <value>Voici une liste des parties liées à ce jeton.</value>
+  </data>
+  <data name="TrustProvider" xml:space="preserve">
+    <value>Fournisseur de confiance</value>
+  </data>
+  <data name="TrustProviderJid" xml:space="preserve">
+    <value>Adresse du fournisseur de confiance</value>
+  </data>
 </root>

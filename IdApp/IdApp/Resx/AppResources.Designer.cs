@@ -763,6 +763,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creator.
+        /// </summary>
+        internal static string Creator {
+            get {
+                return ResourceManager.GetString("Creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator Address.
+        /// </summary>
+        internal static string CreatorJid {
+            get {
+                return ResourceManager.GetString("CreatorJid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It seems like the database hasn&apos;t been closed correctly, and may therefore be damaged. An attempt can be made to repair the database by first wiping it. How would you like to proceed?.
         /// </summary>
         internal static string DatabaseCorruptInfoText {
@@ -1920,6 +1938,24 @@ namespace IdApp.Resx {
         internal static string Other {
             get {
                 return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Owner.
+        /// </summary>
+        internal static string Owner {
+            get {
+                return ResourceManager.GetString("Owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Owner Address.
+        /// </summary>
+        internal static string OwnerJid {
+            get {
+                return ResourceManager.GetString("OwnerJid", resourceCulture);
             }
         }
         
@@ -3409,6 +3445,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Following is a list of parties related to this token..
+        /// </summary>
+        internal static string TokenPartsInfoText {
+            get {
+                return ResourceManager.GetString("TokenPartsInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token Visibility.
         /// </summary>
         internal static string TokenVisibility {
@@ -3459,6 +3504,24 @@ namespace IdApp.Resx {
         internal static string TransferIdentityInformationText {
             get {
                 return ResourceManager.GetString("TransferIdentityInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trust Provider.
+        /// </summary>
+        internal static string TrustProvider {
+            get {
+                return ResourceManager.GetString("TrustProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trust Provider Address.
+        /// </summary>
+        internal static string TrustProviderJid {
+            get {
+                return ResourceManager.GetString("TrustProviderJid", resourceCulture);
             }
         }
         

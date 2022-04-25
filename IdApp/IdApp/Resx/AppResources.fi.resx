@@ -1455,4 +1455,25 @@
   <data name="Valuation" xml:space="preserve">
     <value>Arviointi</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Luoja</value>
+  </data>
+  <data name="CreatorJid" xml:space="preserve">
+    <value>Luojan osoite</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Omistaja</value>
+  </data>
+  <data name="OwnerJid" xml:space="preserve">
+    <value>Omistajan osoite</value>
+  </data>
+  <data name="TokenPartsInfoText" xml:space="preserve">
+    <value>Seuraavassa on luettelo tähän tunnukseen liittyvistä osapuolista.</value>
+  </data>
+  <data name="TrustProvider" xml:space="preserve">
+    <value>Luottamuksen tarjoaja</value>
+  </data>
+  <data name="TrustProviderJid" xml:space="preserve">
+    <value>Luottamuspalvelun osoite</value>
+  </data>
 </root>

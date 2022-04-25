@@ -10707,6 +10707,16 @@
               Looks up a localized string similar to Create new.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Creator">
+            <summary>
+              Looks up a localized string similar to Creator.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.CreatorJid">
+            <summary>
+              Looks up a localized string similar to Creator Address.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.DatabaseCorruptInfoText">
             <summary>
               Looks up a localized string similar to It seems like the database hasn&apos;t been closed correctly, and may therefore be damaged. An attempt can be made to repair the database by first wiping it. How would you like to proceed?.
@@ -11350,6 +11360,16 @@
         <member name="P:IdApp.Resx.AppResources.Other">
             <summary>
               Looks up a localized string similar to Other.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Owner">
+            <summary>
+              Looks up a localized string similar to Owner.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OwnerJid">
+            <summary>
+              Looks up a localized string similar to Owner Address.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Parameters">
@@ -12177,6 +12197,11 @@
               Looks up a localized string similar to Token ID Method.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.TokenPartsInfoText">
+            <summary>
+              Looks up a localized string similar to Following is a list of parties related to this token..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.TokenVisibility">
             <summary>
               Looks up a localized string similar to Token Visibility.
@@ -12205,6 +12230,16 @@
         <member name="P:IdApp.Resx.AppResources.TransferIdentityInformationText">
             <summary>
               Looks up a localized string similar to Scan the QR invitation code below from a device that is being initialized, to transfer the Digital Identity on this device to the second device. Once the code is scanned and the identity transferred, it will be removed from this device..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TrustProvider">
+            <summary>
+              Looks up a localized string similar to Trust Provider.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TrustProviderJid">
+            <summary>
+              Looks up a localized string similar to Trust Provider Address.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.TypeOfReport">

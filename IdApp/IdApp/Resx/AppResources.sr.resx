@@ -1455,4 +1455,25 @@
   <data name="Valuation" xml:space="preserve">
     <value>Izračunavanje</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Stvoritelja</value>
+  </data>
+  <data name="CreatorJid" xml:space="preserve">
+    <value>Adresa kreatora</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Vlasnik</value>
+  </data>
+  <data name="OwnerJid" xml:space="preserve">
+    <value>Adresa vlasnika</value>
+  </data>
+  <data name="TokenPartsInfoText" xml:space="preserve">
+    <value>Sledi lista strana koje se odnose na ovaj simbol.</value>
+  </data>
+  <data name="TrustProvider" xml:space="preserve">
+    <value>Dobavljač pouzdanosti</value>
+  </data>
+  <data name="TrustProviderJid" xml:space="preserve">
+    <value>Adresa dobavljača pouzdanosti</value>
+  </data>
 </root>

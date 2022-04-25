@@ -1455,4 +1455,25 @@
   <data name="Valuation" xml:space="preserve">
     <value>Bewertung</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Schöpfer</value>
+  </data>
+  <data name="CreatorJid" xml:space="preserve">
+    <value>Adresse des Erstellers</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Eigentümer</value>
+  </data>
+  <data name="OwnerJid" xml:space="preserve">
+    <value>Adresse des Eigentümers</value>
+  </data>
+  <data name="TokenPartsInfoText" xml:space="preserve">
+    <value>Im Folgenden finden Sie eine Liste der Parteien, die mit diesem Token in Verbindung stehen.</value>
+  </data>
+  <data name="TrustProvider" xml:space="preserve">
+    <value>Vertrauensanbieter</value>
+  </data>
+  <data name="TrustProviderJid" xml:space="preserve">
+    <value>Adresse des Vertrauensanbieters</value>
+  </data>
 </root>

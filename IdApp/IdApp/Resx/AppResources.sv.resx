@@ -351,6 +351,12 @@
   <data name="CreateNew" xml:space="preserve">
     <value>Skapa nytt</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Skapare</value>
+  </data>
+  <data name="CreatorJid" xml:space="preserve">
+    <value>Skaparens adress</value>
+  </data>
   <data name="DatabaseCorruptInfoText" xml:space="preserve">
     <value>Applikationen ser ut att inte ha stängts korrekt. Databasen kan därför vara skadad. Ett försök att reparera den genom att nollställa den kan göras. Hur vill du fortsätta?</value>
   </data>
@@ -737,6 +743,12 @@
   </data>
   <data name="Other" xml:space="preserve">
     <value>Annat</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Ägare</value>
+  </data>
+  <data name="OwnerJid" xml:space="preserve">
+    <value>Ägarens adress</value>
   </data>
   <data name="Parameters" xml:space="preserve">
     <value>Parametrar</value>
@@ -1239,6 +1251,9 @@
   <data name="TokenIdMethod" xml:space="preserve">
     <value>Metod för Token-ID</value>
   </data>
+  <data name="TokenPartsInfoText" xml:space="preserve">
+    <value>Här följer en lista över parter relaterade till denna token.</value>
+  </data>
   <data name="TokenVisibility" xml:space="preserve">
     <value>Tokens synlighet</value>
   </data>
@@ -1256,6 +1271,12 @@
   </data>
   <data name="TransferIdentityInformationText" xml:space="preserve">
     <value>Skanna inbjudningskoden i form av QR-koden nedan, från en enhet som håller på att initieras, för att överföra den digitala identiteten från denna enhet till den andra enheten. När koden har skannats och identiteten överförts, kommer den att tas bort från denna enhet.</value>
+  </data>
+  <data name="TrustProvider" xml:space="preserve">
+    <value>Förtroendegivare</value>
+  </data>
+  <data name="TrustProviderJid" xml:space="preserve">
+    <value>Förtroendegivarens adress</value>
   </data>
   <data name="UnableToAccessInvitation" xml:space="preserve">
     <value>Kunde inte komma åt information om inbjudan.</value>
