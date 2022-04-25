@@ -1096,6 +1096,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For inclusion as part in a contract..
+        /// </summary>
+        internal static string ForInclusionInContract {
+            get {
+                return ResourceManager.GetString("ForInclusionInContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         internal static string From {
@@ -2523,6 +2532,24 @@ namespace IdApp.Resx {
         internal static string PurposeEducationalOrExperimental {
             get {
                 return ResourceManager.GetString("PurposeEducationalOrExperimental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reviewing contract where you are part..
+        /// </summary>
+        internal static string PurposeReviewContract {
+            get {
+                return ResourceManager.GetString("PurposeReviewContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reviewing token where you are part..
+        /// </summary>
+        internal static string PurposeReviewToken {
+            get {
+                return ResourceManager.GetString("PurposeReviewToken", resourceCulture);
             }
         }
         

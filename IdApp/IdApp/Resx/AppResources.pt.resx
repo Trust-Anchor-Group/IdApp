@@ -1479,4 +1479,13 @@
   <data name="TrustProviderJid" xml:space="preserve">
     <value>Endereço do provedor de confiança</value>
   </data>
+  <data name="ForInclusionInContract" xml:space="preserve">
+    <value>Para inclusão como parte de um contrato.</value>
+  </data>
+  <data name="PurposeReviewContract" xml:space="preserve">
+    <value>Revendo contrato onde você faz parte.</value>
+  </data>
+  <data name="PurposeReviewToken" xml:space="preserve">
+    <value>Revisando o token onde você faz parte.</value>
+  </data>
 </root>

@@ -9717,9 +9717,9 @@
             Command to copy a Token ID to the clipboard.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CopyIdCommand">
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ViewIdCommand">
             <summary>
-            Command to copy a Legal ID to the clipboard.
+            Command to view a Legal ID.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OpenChatCommand">
@@ -10979,6 +10979,11 @@
               Looks up a localized string similar to First name.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ForInclusionInContract">
+            <summary>
+              Looks up a localized string similar to For inclusion as part in a contract..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.From">
             <summary>
               Looks up a localized string similar to From.
@@ -11772,6 +11777,16 @@
         <member name="P:IdApp.Resx.AppResources.PurposeEducationalOrExperimental">
             <summary>
               Looks up a localized string similar to Educational or experimental use..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PurposeReviewContract">
+            <summary>
+              Looks up a localized string similar to Reviewing contract where you are part..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PurposeReviewToken">
+            <summary>
+              Looks up a localized string similar to Reviewing token where you are part..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PurposeWorkEducationalOrExperimental">

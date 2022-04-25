@@ -510,7 +510,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			try
 			{
 				if (sender is Label label && !string.IsNullOrEmpty(label.StyleId))
-					await this.ContractOrchestratorService.OpenLegalIdentity(label.StyleId, "For inclusion as part in a contract.");
+					await this.ContractOrchestratorService.OpenLegalIdentity(label.StyleId, AppResources.ForInclusionInContract);
 			}
 			catch (Exception ex)
 			{

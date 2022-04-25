@@ -1479,4 +1479,13 @@
   <data name="TrustProviderJid" xml:space="preserve">
     <value>Luottamuspalvelun osoite</value>
   </data>
+  <data name="ForInclusionInContract" xml:space="preserve">
+    <value>Sisällytettäväksi osana sopimusta.</value>
+  </data>
+  <data name="PurposeReviewContract" xml:space="preserve">
+    <value>Tarkistetaan sopimusta, johon kuulut.</value>
+  </data>
+  <data name="PurposeReviewToken" xml:space="preserve">
+    <value>Tarkistetaan tunnussanomaa, johon kuulut.</value>
+  </data>
 </root>

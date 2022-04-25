@@ -28,7 +28,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			: base()
 		{
 			this.CopyTokenIdCommand = new Command(async P => await this.CopyTokenId(P));
-			this.CopyIdCommand = new Command(async P => await this.CopyId(P));
+			this.ViewIdCommand = new Command(async P => await this.ViewId(P));
 			this.OpenChatCommand = new Command(async P => await this.OpenChat(P));
 		}
 
@@ -889,9 +889,9 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		public ICommand CopyTokenIdCommand { get; }
 
 		/// <summary>
-		/// Command to copy a Legal ID to the clipboard.
+		/// Command to view a Legal ID.
 		/// </summary>
-		public ICommand CopyIdCommand { get; }
+		public ICommand ViewIdCommand { get; }
 
 		/// <summary>
 		/// Command to open a chat page.
@@ -912,16 +912,14 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			}
 		}
 
-		private async Task CopyId(object Parameter)
+		private async Task ViewId(object Parameter)
 		{
 			try
 			{
-				await Clipboard.SetTextAsync($"iotid:{Parameter}");
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
+				await this.ContractOrchestratorService.OpenLegalIdentity(Parameter.ToString(), AppResources.PurposeReviewToken);
 			}
 			catch (Exception ex)
 			{
-				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -955,6 +953,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				default:
 					return;
 			}
+
 			try
 			{
 				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName));

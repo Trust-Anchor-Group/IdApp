@@ -462,6 +462,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>
   </data>
+  <data name="ForInclusionInContract" xml:space="preserve">
+    <value>För inkludering som part i ett kontrakt.</value>
+  </data>
   <data name="From" xml:space="preserve">
     <value>Från</value>
   </data>
@@ -938,6 +941,12 @@
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
     <value>Utbildning eller experimentell användning.</value>
+  </data>
+  <data name="PurposeReviewContract" xml:space="preserve">
+    <value>För granskning av ett kontrakt där du är part.</value>
+  </data>
+  <data name="PurposeReviewToken" xml:space="preserve">
+    <value>För granskning av en token där du är part.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
     <value>Detta val tillåter dig att använda Tag ID för utbildnings eller experimentella syften. När man använder detta val medförs inga kostnader. Kontot kan tas bort när det inte längre används. Det finns heller ingen garanti att den utvalda tjänsteleverantören kommer att fortsätta driften under en längre tid.</value>

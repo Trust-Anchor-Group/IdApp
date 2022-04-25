@@ -801,7 +801,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			try
 			{
 				if (sender is StackLayout Layout && !string.IsNullOrEmpty(Layout.StyleId))
-					await this.ContractOrchestratorService.OpenLegalIdentity(Layout.StyleId, "Reviewing contract where you are part.");
+					await this.ContractOrchestratorService.OpenLegalIdentity(Layout.StyleId, AppResources.PurposeReviewContract);
 			}
 			catch (Exception ex)
 			{
