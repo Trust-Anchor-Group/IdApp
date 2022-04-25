@@ -53,7 +53,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.TransferCommand = new Command(async _ => await Transfer(), _ => this.IsConnected);
 			this.CompromiseCommand = new Command(async _ => await Compromise(), _ => this.IsConnected);
 			this.ChangePinCommand = new Command(async _ => await ChangePin(), _ => this.IsConnected);
-			this.CopyCommand = new Command(_ => this.CopyHtmlToClipboard());
+			this.CopyCommand = new Command(_ => this.CopyIdToClipboard());
 			this.AddContactCommand = new Command(async _ => await this.AddContact(), _ => this.ThirdPartyNotInContacts);
 			this.RemoveContactCommand = new Command(async _ => await this.RemoveContact(), _ => this.ThirdPartyInContacts);
 			this.SendPaymentToCommand = new Command(async _ => await this.SendPaymentTo(), _ => this.ThirdParty);
@@ -300,7 +300,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// <summary>
 		/// Copies ID to clipboard
 		/// </summary>
-		private async void CopyHtmlToClipboard()
+		private async void CopyIdToClipboard()
 		{
 			try
 			{
