@@ -412,7 +412,7 @@
     <value>ID</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Sua id foi copiada para a prancheta.</value>
+    <value>Um link para a ID foi copiado para a prancheta.</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identidade</value>

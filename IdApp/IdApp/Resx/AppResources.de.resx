@@ -412,7 +412,7 @@
     <value>ID</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Ihre ID wurde in die Zwischenablage kopiert.</value>
+    <value>Ein Link zur ID wurde in die Zwischenablage kopiert.</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identität</value>

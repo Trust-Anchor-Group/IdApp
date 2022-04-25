@@ -412,7 +412,7 @@
     <value>IDENTIFICACIÓN</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Su ID fue copiado en el portapapeles.</value>
+    <value>Se copió un enlace al ID en el portapapeles.</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identidad</value>

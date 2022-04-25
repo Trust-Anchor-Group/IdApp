@@ -508,7 +508,7 @@
     <value>ID</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Ditt ID kopierades till klippboken.</value>
+    <value>En länk till IDt kopierades till klippboken.</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identitet</value>

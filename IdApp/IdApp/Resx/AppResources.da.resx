@@ -412,7 +412,7 @@
     <value>ID</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Dit id blev kopieret til Udklipsholder.</value>
+    <value>Et link til id'et blev kopieret til udklipsholderen.</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identitet</value>

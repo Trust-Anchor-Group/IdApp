@@ -306,6 +306,28 @@ namespace IdApp.Services
 		private static readonly Dictionary<CaseInsensitiveString, LegalIdentity> identityCache = new();
 
 		/// <summary>
+		/// Gets the friendly name of a remote identity (Legal ID or Bare JID).
+		/// </summary>
+		/// <param name="RemoteId">Remote Identity</param>
+		/// <param name="Client">XMPP Client</param>
+		/// <param name="TagProfile">TAG Profile</param>
+		/// <param name="SmartContracts">Smart Contracts interface.</param>
+		/// <returns>Friendly name.</returns>
+		public static async Task<string[]> GetFriendlyName(string[] RemoteId, XmppClient Client, ITagProfile TagProfile, ISmartContracts SmartContracts)
+		{
+			if (RemoteId is null)
+				return null;
+
+			int i, c = RemoteId.Length;
+			string[] Result = new string[c];
+
+			for (i = 0; i < c; i++)
+				Result[i] = await GetFriendlyName(RemoteId[i], Client, TagProfile, SmartContracts);
+
+			return Result;
+		}
+
+		/// <summary>
 		/// Gets the friendly name from a set of meta-data tags.
 		/// </summary>
 		/// <param name="MetaData">Meta-data tags.</param>

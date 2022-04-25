@@ -1231,7 +1231,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your ID was copied to the clipboard..
+        ///   Looks up a localized string similar to A link to the ID was copied to the clipboard..
         /// </summary>
         internal static string IdCopiedSuccessfully {
             get {

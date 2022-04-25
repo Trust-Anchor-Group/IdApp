@@ -4676,7 +4676,7 @@
             The command for unsubscribing from the presence of a contact
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CopyHtmlToClipboard">
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CopyIdToClipboard">
             <summary>
             Copies ID to clipboard
             </summary>
@@ -9392,14 +9392,14 @@
             Witnesses
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierJidsProperty">
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.WitnessFriendlyNameProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierJids"/>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.WitnessFriendlyName"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierJids">
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.WitnessFriendlyName">
             <summary>
-            JIDs of certifiers
+            WitnessFriendlyNamees
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierProperty">
@@ -9410,6 +9410,26 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Certifier">
             <summary>
             Certifiers
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierFriendlyNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierFriendlyName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierFriendlyName">
+            <summary>
+            CertifierFriendlyNames
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierJidsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierJids"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierJids">
+            <summary>
+            JIDs of certifiers
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenIdMethodProperty">
@@ -9452,6 +9472,16 @@
             Creator of token
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatorFriendlyNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatorFriendlyName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatorFriendlyName">
+            <summary>
+            CreatorFriendlyName of token
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatorJidProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatorJid"/>
@@ -9470,6 +9500,26 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Owner">
             <summary>
             Current owner
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerFriendlyNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerFriendlyName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerFriendlyName">
+            <summary>
+            Current owner
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerJidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerJid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerJid">
+            <summary>
+            JID of owner
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.BatchSizeProperty">
@@ -9492,14 +9542,24 @@
             Trust Provider asserting the validity of the token
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerJidProperty">
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderFriendlyNameProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerJid"/>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderFriendlyName"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnerJid">
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderFriendlyName">
             <summary>
-            JID of owner
+            Trust Provider asserting the validity of the token
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderJidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderJid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderJid">
+            <summary>
+            JID of <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProvider"/>
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CurrencyProperty">
@@ -9572,6 +9632,16 @@
             Valuators
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ValuatorFriendlyNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ValuatorFriendlyName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ValuatorFriendlyName">
+            <summary>
+            ValuatorFriendlyNames
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.AssessorProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Assessor"/>
@@ -9582,14 +9652,14 @@
             Assessors
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderJidProperty">
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.AssessorFriendlyNameProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderJid"/>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.AssessorFriendlyName"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProviderJid">
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.AssessorFriendlyName">
             <summary>
-            JID of <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TrustProvider"/>
+            AssessorFriendlyNames
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TagsProperty">
@@ -9640,6 +9710,21 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphHeight">
             <summary>
             Gets or sets the value representing the height of the glyph.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CopyTokenIdCommand">
+            <summary>
+            Command to copy a Token ID to the clipboard.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CopyIdCommand">
+            <summary>
+            Command to copy a Legal ID to the clipboard.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OpenChatCommand">
+            <summary>
+            Command to open a chat page.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenItem">
@@ -10971,7 +11056,7 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.IdCopiedSuccessfully">
             <summary>
-              Looks up a localized string similar to Your ID was copied to the clipboard..
+              Looks up a localized string similar to A link to the ID was copied to the clipboard..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Identity">
@@ -12970,6 +13055,16 @@
             <returns>Contact information, if found.</returns>
         </member>
         <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(Waher.Persistence.CaseInsensitiveString,Waher.Networking.XMPP.XmppClient,IdApp.Services.Tag.ITagProfile,IdApp.Services.Contracts.ISmartContracts)">
+            <summary>
+            Gets the friendly name of a remote identity (Legal ID or Bare JID).
+            </summary>
+            <param name="RemoteId">Remote Identity</param>
+            <param name="Client">XMPP Client</param>
+            <param name="TagProfile">TAG Profile</param>
+            <param name="SmartContracts">Smart Contracts interface.</param>
+            <returns>Friendly name.</returns>
+        </member>
+        <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(System.String[],Waher.Networking.XMPP.XmppClient,IdApp.Services.Tag.ITagProfile,IdApp.Services.Contracts.ISmartContracts)">
             <summary>
             Gets the friendly name of a remote identity (Legal ID or Bare JID).
             </summary>
