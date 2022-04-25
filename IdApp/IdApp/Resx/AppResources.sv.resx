@@ -351,6 +351,9 @@
   <data name="CreateNew" xml:space="preserve">
     <value>Skapa nytt</value>
   </data>
+  <data name="CreationContract" xml:space="preserve">
+    <value>Skapelsekontrakt</value>
+  </data>
   <data name="Creator" xml:space="preserve">
     <value>Skapare</value>
   </data>
@@ -755,6 +758,9 @@
   </data>
   <data name="OwnerJid" xml:space="preserve">
     <value>Ägarens adress</value>
+  </data>
+  <data name="OwnershipContract" xml:space="preserve">
+    <value>Ägarskapskontrakt</value>
   </data>
   <data name="Parameters" xml:space="preserve">
     <value>Parametrar</value>

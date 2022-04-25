@@ -763,6 +763,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creation Contract.
+        /// </summary>
+        internal static string CreationContract {
+            get {
+                return ResourceManager.GetString("CreationContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creator.
         /// </summary>
         internal static string Creator {
@@ -1974,6 +1983,15 @@ namespace IdApp.Resx {
         internal static string OwnerJid {
             get {
                 return ResourceManager.GetString("OwnerJid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ownership Contract.
+        /// </summary>
+        internal static string OwnershipContract {
+            get {
+                return ResourceManager.GetString("OwnershipContract", resourceCulture);
             }
         }
         

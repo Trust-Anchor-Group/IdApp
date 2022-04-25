@@ -1479,8 +1479,14 @@
   <data name="TrustProviderJid" xml:space="preserve">
     <value>Adresa dobavljača pouzdanosti</value>
   </data>
+  <data name="CreationContract" xml:space="preserve">
+    <value>Ugovor o kreiranju</value>
+  </data>
   <data name="ForInclusionInContract" xml:space="preserve">
     <value>Za uključivanje kao deo ugovora.</value>
+  </data>
+  <data name="OwnershipContract" xml:space="preserve">
+    <value>Vlasnički ugovor</value>
   </data>
   <data name="PurposeReviewContract" xml:space="preserve">
     <value>Redigovanje ugovora tamo gde ste deo.</value>

@@ -1479,8 +1479,14 @@
   <data name="TrustProviderJid" xml:space="preserve">
     <value>Klarer leverandøradresse</value>
   </data>
+  <data name="CreationContract" xml:space="preserve">
+    <value>Opprette kontrakt</value>
+  </data>
   <data name="ForInclusionInContract" xml:space="preserve">
     <value>For inkludering som en del av en kontrakt.</value>
+  </data>
+  <data name="OwnershipContract" xml:space="preserve">
+    <value>Eierkontrakt</value>
   </data>
   <data name="PurposeReviewContract" xml:space="preserve">
     <value>Se gjennom kontrakten der du er en del.</value>

@@ -1479,8 +1479,14 @@
   <data name="TrustProviderJid" xml:space="preserve">
     <value>Adresse du fournisseur de confiance</value>
   </data>
+  <data name="CreationContract" xml:space="preserve">
+    <value>Contrat de création</value>
+  </data>
   <data name="ForInclusionInContract" xml:space="preserve">
     <value>Pour l’inclusion dans le cadre d’un contrat.</value>
+  </data>
+  <data name="OwnershipContract" xml:space="preserve">
+    <value>Contrat de propriété</value>
   </data>
   <data name="PurposeReviewContract" xml:space="preserve">
     <value>Examiner le contrat dont vous faites partie.</value>

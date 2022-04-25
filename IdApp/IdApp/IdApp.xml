@@ -9551,6 +9551,11 @@
             Command to view a Legal ID.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ViewContractCommand">
+            <summary>
+            Command to view a smart contract.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OpenChatCommand">
             <summary>
             Command to open a chat page.
@@ -10623,6 +10628,11 @@
               Looks up a localized string similar to Create new.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.CreationContract">
+            <summary>
+              Looks up a localized string similar to Creation Contract.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Creator">
             <summary>
               Looks up a localized string similar to Creator.
@@ -11296,6 +11306,11 @@
         <member name="P:IdApp.Resx.AppResources.OwnerJid">
             <summary>
               Looks up a localized string similar to Owner Address.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OwnershipContract">
+            <summary>
+              Looks up a localized string similar to Ownership Contract.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Parameters">

@@ -29,6 +29,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			this.CopyTokenIdCommand = new Command(async P => await this.CopyTokenId(P));
 			this.ViewIdCommand = new Command(async P => await this.ViewId(P));
+			this.ViewContractCommand = new Command(async P => await this.ViewContract(P));
 			this.OpenChatCommand = new Command(async P => await this.OpenChat(P));
 		}
 
@@ -896,6 +897,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		public ICommand ViewIdCommand { get; }
 
 		/// <summary>
+		/// Command to view a smart contract.
+		/// </summary>
+		public ICommand ViewContractCommand { get; }
+
+		/// <summary>
 		/// Command to open a chat page.
 		/// </summary>
 		public ICommand OpenChatCommand { get; }
@@ -919,6 +925,18 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			try
 			{
 				await this.ContractOrchestratorService.OpenLegalIdentity(Parameter.ToString(), AppResources.PurposeReviewToken);
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task ViewContract(object Parameter)
+		{
+			try
+			{
+				await this.ContractOrchestratorService.OpenContract(Parameter.ToString(), AppResources.PurposeReviewToken);
 			}
 			catch (Exception ex)
 			{
