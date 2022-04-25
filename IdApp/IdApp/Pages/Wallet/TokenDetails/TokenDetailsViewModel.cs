@@ -19,7 +19,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 	/// <summary>
 	/// The view model to bind to for when displaying the contents of a token.
 	/// </summary>
-	public class TokenDetailsViewModel : XmppViewModel
+	public class TokenDetailsViewModel : QrXmppViewModel
 	{
 		/// <summary>
 		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
@@ -89,6 +89,8 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.HasGlyphImage = args.Token.HasGlyphImage;
 				this.GlyphWidth = args.Token.GlyphWidth;
 				this.GlyphHeight = args.Token.GlyphHeight;
+
+				this.GenerateQrCode(Constants.UriSchemes.CreateTokenUri(this.TokenId));
 			}
 
 			AssignProperties();
@@ -902,7 +904,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				await Clipboard.SetTextAsync($"iotnf:{Parameter}");
+				await Clipboard.SetTextAsync($"nfeat:{Parameter}");
 				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
 			}
 			catch (Exception ex)

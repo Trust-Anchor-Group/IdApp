@@ -325,6 +325,11 @@
             eDaler URI Scheme (edaler)
             </summary>
         </member>
+        <member name="F:IdApp.Constants.UriSchemes.UriSchemeNeuroFeature">
+            <summary>
+            eDaler URI Scheme (edaler)
+            </summary>
+        </member>
         <member name="F:IdApp.Constants.UriSchemes.UriSchemeOnboarding">
             <summary>
             Tag ID URI Scheme (tagid)
@@ -362,6 +367,13 @@
             </summary>
             <param name="id">The Id to use when generating the Uri.</param>
             <returns>Identity URI</returns>
+        </member>
+        <member name="M:IdApp.Constants.UriSchemes.CreateTokenUri(System.String)">
+            <summary>
+            Generates a Neuro-Feature ID Uri form the specified id.
+            </summary>
+            <param name="id">The Id to use when generating the Uri.</param>
+            <returns>Neuro-Feature URI</returns>
         </member>
         <member name="M:IdApp.Constants.UriSchemes.RemoveScheme(System.String)">
             <summary>
@@ -4086,46 +4098,6 @@
             Gets or sets whether the contract has any server signatures to display.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.QrCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.QrCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.QrCode">
-            <summary>
-            Gets or sets the QR Code image.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.HasQrCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.HasQrCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.HasQrCode">
-            <summary>
-            Gets or sets whether the contract has a QR Code image for display.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.QrCodeWidthProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.QrCodeWidth"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.QrCodeWidth">
-            <summary>
-            Gets or sets the width in pixels of the generated QR code image.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.QrCodeHeightProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.QrCodeHeight"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.QrCodeHeight">
-            <summary>
-            Gets or sets the height in pixels of the generated QR code image.
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.CanDeleteContractProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.CanDeleteContract"/>
@@ -4519,36 +4491,6 @@
             Uri date of the identity
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.QrCodeProperty">
-            <summary>
-            See <see cref="F:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.QrCodeProperty"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.QrCode">
-            <summary>
-            Generated QR code image for the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.QrCodeWidthProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.QrCodeWidth"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.QrCodeWidth">
-            <summary>
-            Gets or sets the width, in pixels, of the QR Code image to generate.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.QrCodeHeightProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.QrCodeHeight"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.QrCodeHeight">
-            <summary>
-            Gets or sets the height, in pixels, of the QR Code image to generate.
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a legal identity.
@@ -4902,46 +4844,6 @@
         <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsApprovedProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsApproved"/>
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.QrCodeProperty">
-            <summary>
-            See <see cref="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.QrCodeProperty"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.QrCode">
-            <summary>
-            Generated QR code image for the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.HasQrCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.HasQrCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.HasQrCode">
-            <summary>
-            Determines whether there's a generated <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.QrCode"/> image for this identity.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.QrCodeWidthProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.QrCodeWidth"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.QrCodeWidth">
-            <summary>
-            Gets or sets the width, in pixels, of the QR Code image to generate.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.QrCodeHeightProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.QrCodeHeight"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.QrCodeHeight">
-            <summary>
-            Gets or sets the height, in pixels, of the QR Code image to generate.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsApproved">
@@ -5534,66 +5436,6 @@
             Gets or sets the current user's location.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Main.Main.MainViewModel.QrCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.QrCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Main.MainViewModel.QrCode">
-            <summary>
-            Gets or sets the current user's identity as a QR code image.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.Main.MainViewModel.HasQrCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.HasQrCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Main.MainViewModel.HasQrCode">
-            <summary>
-            Gets or sets if a <see cref="P:IdApp.Pages.Main.Main.MainViewModel.QrCode"/> exists for the current user.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.Main.MainViewModel.QrCodeWidthProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.QrCodeWidth"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Main.MainViewModel.QrCodeWidth">
-            <summary>
-            Gets or sets the width, in pixels, of the <see cref="P:IdApp.Pages.Main.Main.MainViewModel.QrCode"/> being generated.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.Main.MainViewModel.QrCodeHeightProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.QrCodeHeight"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Main.MainViewModel.QrCodeHeight">
-            <summary>
-            Gets or sets the height, in pixels, of the <see cref="P:IdApp.Pages.Main.Main.MainViewModel.QrCode"/> being generated.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.Main.MainViewModel.QrCodeBinProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.QrCodeBin"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Main.MainViewModel.QrCodeBin">
-            <summary>
-            Binary encoding of QR Code
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.Main.MainViewModel.QrCodeContentTypeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.QrCodeContentType"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Main.MainViewModel.QrCodeContentType">
-            <summary>
-            Content-Type of QR Code
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Main.Main.MainViewModel.IsOnlineProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.IsOnline"/>
@@ -5908,6 +5750,93 @@
         <member name="P:IdApp.Pages.Main.Shell.AppShellViewModel.IsOnline">
             <summary>
             Gets or sets whether the application is online, i.e. has network access.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.QrXmppViewModel">
+            <summary>
+            A view model that holds the XMPP state.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.QrXmppViewModel.#ctor">
+            <summary>
+            Creates an instance of a <see cref="T:IdApp.Pages.XmppViewModel"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.QrXmppViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.QrXmppViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.QrXmppViewModel.GenerateQrCode(System.String)">
+            <summary>
+            Generates a QR-code
+            </summary>
+            <param name="Uri">URI to encode in QR-code.</param>
+        </member>
+        <member name="M:IdApp.Pages.QrXmppViewModel.RemoveQrCode">
+            <summary>
+            Removes the QR-code
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.QrXmppViewModel.QrCodeProperty">
+            <summary>
+            See <see cref="F:IdApp.Pages.QrXmppViewModel.QrCodeProperty"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.QrCode">
+            <summary>
+            Generated QR code image for the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.QrXmppViewModel.HasQrCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.QrXmppViewModel.HasQrCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.HasQrCode">
+            <summary>
+            Determines whether there's a generated <see cref="P:IdApp.Pages.QrXmppViewModel.QrCode"/> image for this identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.QrXmppViewModel.QrCodeWidthProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.QrXmppViewModel.QrCodeWidth"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.QrCodeWidth">
+            <summary>
+            Gets or sets the width, in pixels, of the QR Code image to generate.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.QrXmppViewModel.QrCodeHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.QrXmppViewModel.QrCodeHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.QrCodeHeight">
+            <summary>
+            Gets or sets the height, in pixels, of the QR Code image to generate.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.QrXmppViewModel.QrCodeBinProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.QrXmppViewModel.QrCodeBin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.QrCodeBin">
+            <summary>
+            Binary encoding of QR Code
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.QrXmppViewModel.QrCodeContentTypeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.QrXmppViewModel.QrCodeContentType"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.QrCodeContentType">
+            <summary>
+            Content-Type of QR Code
             </summary>
         </member>
         <member name="T:IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
@@ -8262,56 +8191,6 @@
             If <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.Message"/> is preset.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.QrCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.QrCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.QrCode">
-            <summary>
-            Gets or sets the current user's identity as a QR code image.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.HasQrCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.HasQrCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.HasQrCode">
-            <summary>
-            Gets or sets if a <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.QrCode"/> exists for the current user.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.QrCodePngProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.QrCodePng"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.QrCodePng">
-            <summary>
-            Gets or sets if a <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.QrCode"/> exists for the current user.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.QrCodeWidthProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.QrCodeWidth"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.QrCodeWidth">
-            <summary>
-            Gets or sets if a <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.QrCode"/> exists for the current user.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.QrCodeHeightProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.QrCodeHeight"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.QrCodeHeight">
-            <summary>
-            Gets or sets if a <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.QrCode"/> exists for the current user.
-            </summary>
-        </member>
         <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.AcceptCommand">
             <summary>
             The command to bind to for accepting the URI
@@ -9085,56 +8964,6 @@
             If <see cref="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.Message"/> should be encrypted in payment.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCode">
-            <summary>
-            Gets or sets the current user's identity as a QR code image.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.HasQrCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.HasQrCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.HasQrCode">
-            <summary>
-            Gets or sets if a <see cref="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCode"/> exists for the current user.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCodePngProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCodePng"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCodePng">
-            <summary>
-            Gets or sets if a <see cref="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCode"/> exists for the current user.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCodeWidthProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCodeWidth"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCodeWidth">
-            <summary>
-            Gets or sets if a <see cref="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCode"/> exists for the current user.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCodeHeightProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCodeHeight"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCodeHeight">
-            <summary>
-            Gets or sets if a <see cref="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.QrCode"/> exists for the current user.
-            </summary>
-        </member>
         <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.GenerateQrCodeCommand">
             <summary>
             The command to bind to for generating a QR code
@@ -9732,7 +9561,7 @@
             Encapsulates a <see cref="T:NeuroFeatures.Token"/> object.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Pages.XmppViewModel)">
+        <member name="M:IdApp.Pages.Wallet.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences)">
             <summary>
             Encapsulates a <see cref="T:NeuroFeatures.Token"/> object.
             </summary>
@@ -16330,7 +16159,13 @@
             <summary>
             eDaler URI scanned.
             </summary>
-            <param name="uri">eDaler URI.</param>
+            <param name="Uri">eDaler URI.</param>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWalletOrchestratorService.OpenNeuroFeatureUri(System.String)">
+            <summary>
+            Neuro-Feature URI scanned.
+            </summary>
+            <param name="Uri">Neuro-Feature URI.</param>
         </member>
         <member name="P:IdApp.Services.Wallet.NeuroWallet.EDalerClient">
             <summary>
@@ -16591,7 +16426,13 @@
             <summary>
             eDaler URI scanned.
             </summary>
-            <param name="uri">eDaler URI.</param>
+            <param name="Uri">eDaler URI.</param>
+        </member>
+        <member name="M:IdApp.Services.Wallet.NeuroWalletOrchestratorService.OpenNeuroFeatureUri(System.String)">
+            <summary>
+            Neuro-Feature URI scanned.
+            </summary>
+            <param name="Uri">Neuro-Feature URI.</param>
         </member>
         <member name="T:IdApp.Services.XmlDatabaseExport">
             <summary>

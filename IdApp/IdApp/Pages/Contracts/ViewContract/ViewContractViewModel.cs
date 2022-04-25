@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -12,7 +11,6 @@ using IdApp.Pages.Contracts.ClientSignature;
 using IdApp.Pages.Contracts.ServerSignature;
 using IdApp.Pages.Contracts.ViewContract.ObjectModel;
 using IdApp.Resx;
-using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
@@ -23,7 +21,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 	/// <summary>
 	/// The view model to bind to for when displaying contracts.
 	/// </summary>
-	public class ViewContractViewModel : BaseViewModel
+	public class ViewContractViewModel : QrXmppViewModel
 	{
 		private bool isReadOnly;
 		private readonly PhotosLoader photosLoader;
@@ -381,70 +379,6 @@ namespace IdApp.Pages.Contracts.ViewContract
 		}
 
 		/// <summary>
-		/// See <see cref="QrCode"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeProperty =
-			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(ViewContractViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
-			{
-				ViewContractViewModel viewModel = (ViewContractViewModel)b;
-				viewModel.HasQrCode = !(newValue is null);
-			});
-
-		/// <summary>
-		/// Gets or sets the QR Code image.
-		/// </summary>
-		public ImageSource QrCode
-		{
-			get => (ImageSource)this.GetValue(QrCodeProperty);
-			set => this.SetValue(QrCodeProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="HasQrCode"/>
-		/// </summary>
-		public static readonly BindableProperty HasQrCodeProperty =
-			BindableProperty.Create(nameof(HasQrCode), typeof(bool), typeof(ViewContractViewModel), default(bool));
-
-		/// <summary>
-		/// Gets or sets whether the contract has a QR Code image for display.
-		/// </summary>
-		public bool HasQrCode
-		{
-			get => (bool)this.GetValue(HasQrCodeProperty);
-			set => this.SetValue(HasQrCodeProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodeWidth"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeWidthProperty =
-			BindableProperty.Create(nameof(QrCodeWidth), typeof(int), typeof(ViewContractViewModel), UiConstants.QrCode.DefaultImageWidth);
-
-		/// <summary>
-		/// Gets or sets the width in pixels of the generated QR code image.
-		/// </summary>
-		public int QrCodeWidth
-		{
-			get => (int)this.GetValue(QrCodeWidthProperty);
-			set => this.SetValue(QrCodeWidthProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodeHeight"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeHeightProperty =
-			BindableProperty.Create(nameof(QrCodeHeight), typeof(int), typeof(ViewContractViewModel), UiConstants.QrCode.DefaultImageHeight);
-
-		/// <summary>
-		/// Gets or sets the height in pixels of the generated QR code image.
-		/// </summary>
-		public int QrCodeHeight
-		{
-			get => (int)this.GetValue(QrCodeHeightProperty);
-			set => this.SetValue(QrCodeHeightProperty, value);
-		}
-
-		/// <summary>
 		/// See <see cref="CanDeleteContract"/>
 		/// </summary>
 		public static readonly BindableProperty CanDeleteContractProperty =
@@ -481,7 +415,6 @@ namespace IdApp.Pages.Contracts.ViewContract
 			this.photosLoader.CancelLoadPhotos();
 			this.Contract = null;
 			this.GeneralInformation.Clear();
-			this.QrCode = null;
 			this.Roles = null;
 			this.Parts = null;
 			this.Parameters = null;
@@ -500,6 +433,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 			this.HasServerSignatures = false;
 			this.CanDeleteContract = false;
 			this.CanObsoleteContract = false;
+
+			this.RemoveQrCode();
 		}
 
 		private async Task LoadContract()
@@ -565,9 +500,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.GeneralInformation.Add(new PartModel(AppResources.Archiving_Required, Contract.ArchiveRequired.ToString()));
 				this.GeneralInformation.Add(new PartModel(AppResources.CanActAsTemplate, Contract.CanActAsTemplate.ToYesNo()));
 
-				// QR
-				byte[] bytes = Services.UI.QR.QrCode.GeneratePng(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
-				this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes));
+				this.GenerateQrCode(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId));
 
 				// Roles
 				if (!(Contract.Roles is null))

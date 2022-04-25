@@ -9,7 +9,9 @@ using IdApp.Pages.Wallet.IssueEDaler;
 using IdApp.Pages.Wallet.MyWallet;
 using IdApp.Pages.Wallet.Payment;
 using IdApp.Pages.Wallet.PaymentAcceptance;
+using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Resx;
+using NeuroFeatures;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Wallet
@@ -28,7 +30,7 @@ namespace IdApp.Services.Wallet
 				this.XmppService.Wallet.BalanceUpdated += Wallet_BalanceUpdated;
 				this.EndLoad(true);
 			}
-			
+
 			return Task.CompletedTask;
 		}
 
@@ -84,10 +86,10 @@ namespace IdApp.Services.Wallet
 		/// <summary>
 		/// eDaler URI scanned.
 		/// </summary>
-		/// <param name="uri">eDaler URI.</param>
-		public async Task OpenEDalerUri(string uri)
+		/// <param name="Uri">eDaler URI.</param>
+		public async Task OpenEDalerUri(string Uri)
 		{
-			if (!this.XmppService.Wallet.TryParseEDalerUri(uri, out EDalerUri Parsed, out string Reason))
+			if (!this.XmppService.Wallet.TryParseEDalerUri(Uri, out EDalerUri Parsed, out string Reason))
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.InvalidEDalerUri, Reason));
 				return;
@@ -128,6 +130,30 @@ namespace IdApp.Services.Wallet
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnrecognizedEDalerURI);
 				return;
+			}
+		}
+
+		/// <summary>
+		/// Neuro-Feature URI scanned.
+		/// </summary>
+		/// <param name="Uri">Neuro-Feature URI.</param>
+		public async Task OpenNeuroFeatureUri(string Uri)
+		{
+			int i = Uri.IndexOf(':');
+			if (i < 0)
+				return;
+
+			string TokenId = Uri[(i + 1)..];
+
+			try
+			{
+				Token Token = await this.XmppService.Wallet.NeuroFeaturesClient.GetTokenAsync(TokenId);
+				await this.NavigationService.GoToAsync(nameof(TokenDetailsPage), new TokenDetailsNavigationArgs(new TokenItem(Token, this)));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex);
 			}
 		}
 

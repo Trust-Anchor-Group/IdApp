@@ -11,7 +11,6 @@ using IdApp.Pages.Contracts.MyContracts;
 using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Services.Data.Countries;
 using IdApp.Services.Xmpp;
-using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using Waher.Content;
 using Waher.Networking.XMPP;
@@ -26,7 +25,7 @@ namespace IdApp.Pages.Main.Main
 	/// The view model to bind to for the main page of the application. Holds basic user profile state
 	/// as well as connection state.
 	/// </summary>
-	public class MainViewModel : XmppViewModel
+	public class MainViewModel : QrXmppViewModel
 	{
 		private readonly PhotosLoader photosLoader;
 
@@ -93,9 +92,7 @@ namespace IdApp.Pages.Main.Main
 				else
 					this.Country = string.Empty;
 
-				this.QrCodeBin = Services.UI.QR.QrCode.GeneratePng(Constants.UriSchemes.CreateIdUri(this.TagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
-				this.QrCodeContentType = "image/png";
-				this.QrCode = ImageSource.FromStream(() => new MemoryStream(this.QrCodeBin));
+				this.GenerateQrCode(Constants.UriSchemes.CreateIdUri(this.TagProfile.LegalIdentity.Id));
 
 				Attachment firstAttachment = this.TagProfile.LegalIdentity.Attachments?.GetFirstImageAttachment();
 				if (!(firstAttachment is null))
@@ -119,9 +116,8 @@ namespace IdApp.Pages.Main.Main
 				this.FullName = string.Empty;
 				this.City = string.Empty;
 				this.Country = string.Empty;
-				this.QrCode = null;
-				this.QrCodeBin = null;
-				this.QrCodeContentType = string.Empty;
+
+				this.RemoveQrCode();
 			}
 		}
 
@@ -423,101 +419,6 @@ namespace IdApp.Pages.Main.Main
 		{
 			get => (string)this.GetValue(LocationProperty);
 			set => this.SetValue(LocationProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCode"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeProperty =
-			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
-			{
-				MainViewModel viewModel = (MainViewModel)b;
-				viewModel.HasQrCode = !(newValue is null);
-			});
-
-
-		/// <summary>
-		/// Gets or sets the current user's identity as a QR code image.
-		/// </summary>
-		public ImageSource QrCode
-		{
-			get => (ImageSource)this.GetValue(QrCodeProperty);
-			set => this.SetValue(QrCodeProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="HasQrCode"/>
-		/// </summary>
-		public static readonly BindableProperty HasQrCodeProperty =
-			BindableProperty.Create(nameof(HasQrCode), typeof(bool), typeof(MainViewModel), default(bool));
-
-		/// <summary>
-		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
-		/// </summary>
-		public bool HasQrCode
-		{
-			get => (bool)this.GetValue(HasQrCodeProperty);
-			set => this.SetValue(HasQrCodeProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodeWidth"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeWidthProperty =
-			BindableProperty.Create(nameof(QrCodeWidth), typeof(int), typeof(MainViewModel), UiConstants.QrCode.DefaultImageWidth);
-
-		/// <summary>
-		/// Gets or sets the width, in pixels, of the <see cref="QrCode"/> being generated.
-		/// </summary>
-		public int QrCodeWidth
-		{
-			get => (int)this.GetValue(QrCodeWidthProperty);
-			set => this.SetValue(QrCodeWidthProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodeHeight"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeHeightProperty =
-			BindableProperty.Create(nameof(QrCodeHeight), typeof(int), typeof(MainViewModel), UiConstants.QrCode.DefaultImageHeight);
-
-		/// <summary>
-		/// Gets or sets the height, in pixels, of the <see cref="QrCode"/> being generated.
-		/// </summary>
-		public int QrCodeHeight
-		{
-			get => (int)this.GetValue(QrCodeHeightProperty);
-			set => this.SetValue(QrCodeHeightProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodeBin"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeBinProperty =
-			BindableProperty.Create(nameof(QrCodeBin), typeof(byte[]), typeof(MainViewModel), default(byte[]));
-
-		/// <summary>
-		/// Binary encoding of QR Code
-		/// </summary>
-		public byte[] QrCodeBin
-		{
-			get { return (byte[])this.GetValue(QrCodeBinProperty); }
-			set => this.SetValue(QrCodeBinProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodeContentType"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeContentTypeProperty =
-			BindableProperty.Create(nameof(QrCodeContentType), typeof(string), typeof(MainViewModel), default(string));
-
-		/// <summary>
-		/// Content-Type of QR Code
-		/// </summary>
-		public string QrCodeContentType
-		{
-			get => (string)this.GetValue(QrCodeContentTypeProperty);
-			set => this.SetValue(QrCodeContentTypeProperty, value);
 		}
 
 		/// <summary>

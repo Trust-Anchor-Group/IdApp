@@ -78,6 +78,10 @@
                     <Label Grid.Column="1" Grid.Row="8" Text="{Binding Expires, Converter={converters:DateTimeToStringConverter}}" Style="{StaticResource ValueLabel}"/>
                 </Grid>
 
+                <Image x:Name="QrCode" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" 
+                       WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" 
+                       VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" Margin="{StaticResource DefaultTopOnlyMargin}" />
+
                 <Label Text="{x:Static resx:AppResources.Parts}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
                 <Label Text="{x:Static resx:AppResources.TokenPartsInfoText}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
 

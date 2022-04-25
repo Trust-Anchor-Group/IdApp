@@ -97,6 +97,10 @@ namespace IdApp.Services.UI.QR
                         await EDalerOrchestratorService.OpenEDalerUri(Url);
                         return true;
 
+                    case Constants.UriSchemes.UriSchemeNeuroFeature:
+                        await EDalerOrchestratorService.OpenNeuroFeatureUri(Url);
+                        return true;
+
                     case Constants.UriSchemes.UriSchemeOnboarding:
                         await UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ThisCodeCannotBeClaimedAtThisTime);
                         return false;

@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Security.Cryptography;
-using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -21,7 +20,6 @@ using IdApp.Pages.Identity.TransferIdentity;
 using IdApp.Popups.Pin.ChangePin;
 using IdApp.Services.Contracts;
 using IdApp.Services.Xmpp;
-using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
 using IdApp.Pages.Contacts.Chat;
@@ -33,7 +31,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 	/// <summary>
 	/// The view model to bind to for when displaying identities.
 	/// </summary>
-	public class ViewIdentityViewModel : XmppViewModel
+	public class ViewIdentityViewModel : QrXmppViewModel
 	{
 		private SignaturePetitionEventArgs identityToReview;
 		private readonly PhotosLoader photosLoader;
@@ -286,12 +284,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			// QR
 			if (this.LegalIdentity is null)
-				this.QrCode = null;
+				this.RemoveQrCode();
 			else
-			{
-				byte[] bytes = Services.UI.QR.QrCode.GeneratePng(Constants.UriSchemes.CreateIdUri(this.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
-				this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes));
-			}
+				this.GenerateQrCode(Constants.UriSchemes.CreateIdUri(this.LegalIdentity.Id));
 
 			if (this.IsConnected)
 				this.ReloadPhotos();
@@ -698,70 +693,6 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public static readonly BindableProperty IsApprovedProperty =
 			BindableProperty.Create(nameof(IsApproved), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
-
-		/// <summary>
-		/// See <see cref="QrCodeProperty"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeProperty =
-			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(ViewIdentityViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
-			{
-				ViewIdentityViewModel viewModel = (ViewIdentityViewModel)b;
-				viewModel.HasQrCode = !(newValue is null);
-			});
-
-		/// <summary>
-		/// Generated QR code image for the identity
-		/// </summary>
-		public ImageSource QrCode
-		{
-			get => (ImageSource)this.GetValue(QrCodeProperty);
-			set => this.SetValue(QrCodeProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="HasQrCode"/>
-		/// </summary>
-		public static readonly BindableProperty HasQrCodeProperty =
-			BindableProperty.Create(nameof(HasQrCode), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
-
-		/// <summary>
-		/// Determines whether there's a generated <see cref="QrCode"/> image for this identity.
-		/// </summary>
-		public bool HasQrCode
-		{
-			get => (bool)this.GetValue(HasQrCodeProperty);
-			set => this.SetValue(HasQrCodeProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodeWidth"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeWidthProperty =
-			BindableProperty.Create(nameof(QrCodeWidth), typeof(int), typeof(ViewIdentityViewModel), UiConstants.QrCode.DefaultImageWidth);
-
-		/// <summary>
-		/// Gets or sets the width, in pixels, of the QR Code image to generate.
-		/// </summary>
-		public int QrCodeWidth
-		{
-			get => (int)this.GetValue(QrCodeWidthProperty);
-			set => this.SetValue(QrCodeWidthProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodeHeight"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeHeightProperty =
-			BindableProperty.Create(nameof(QrCodeHeight), typeof(int), typeof(ViewIdentityViewModel), UiConstants.QrCode.DefaultImageHeight);
-
-		/// <summary>
-		/// Gets or sets the height, in pixels, of the QR Code image to generate.
-		/// </summary>
-		public int QrCodeHeight
-		{
-			get => (int)this.GetValue(QrCodeHeightProperty);
-			set => this.SetValue(QrCodeHeightProperty, value);
-		}
 
 		/// <summary>
 		/// Gets or sets whether the identity is approved or not.

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Text;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -20,7 +19,7 @@ namespace IdApp.Pages.Wallet
 	/// <summary>
 	/// The view model to bind to for when displaying the contents of an eDaler URI.
 	/// </summary>
-	public class EDalerUriViewModel : XmppViewModel
+	public class EDalerUriViewModel : QrXmppViewModel
 	{
 		private readonly IShareQrCode shareQrCode;
 		private TaskCompletionSource<string> uriToSend;
@@ -635,86 +634,6 @@ namespace IdApp.Pages.Wallet
 		}
 
 		/// <summary>
-		/// See <see cref="QrCode"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeProperty =
-			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(EDalerUriViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
-			{
-				EDalerUriViewModel viewModel = (EDalerUriViewModel)b;
-				viewModel.HasQrCode = !(newValue is null);
-			});
-
-
-		/// <summary>
-		/// Gets or sets the current user's identity as a QR code image.
-		/// </summary>
-		public ImageSource QrCode
-		{
-			get => (ImageSource)this.GetValue(QrCodeProperty);
-			set => this.SetValue(QrCodeProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="HasQrCode"/>
-		/// </summary>
-		public static readonly BindableProperty HasQrCodeProperty =
-			BindableProperty.Create(nameof(HasQrCode), typeof(bool), typeof(EDalerUriViewModel), default(bool));
-
-		/// <summary>
-		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
-		/// </summary>
-		public bool HasQrCode
-		{
-			get => (bool)this.GetValue(HasQrCodeProperty);
-			set => this.SetValue(HasQrCodeProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodePng"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodePngProperty =
-			BindableProperty.Create(nameof(QrCodePng), typeof(byte[]), typeof(EDalerUriViewModel), default(byte[]));
-
-		/// <summary>
-		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
-		/// </summary>
-		public byte[] QrCodePng
-		{
-			get { return (byte[])this.GetValue(QrCodePngProperty); }
-			set => this.SetValue(QrCodePngProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodeWidth"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeWidthProperty =
-			BindableProperty.Create(nameof(QrCodeWidth), typeof(int), typeof(EDalerUriViewModel), default(int));
-
-		/// <summary>
-		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
-		/// </summary>
-		public int QrCodeWidth
-		{
-			get => (int)this.GetValue(QrCodeWidthProperty);
-			set => this.SetValue(QrCodeWidthProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodeHeight"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeHeightProperty =
-			BindableProperty.Create(nameof(QrCodeHeight), typeof(int), typeof(EDalerUriViewModel), default(int));
-
-		/// <summary>
-		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
-		/// </summary>
-		public int QrCodeHeight
-		{
-			get => (int)this.GetValue(QrCodeHeightProperty);
-			set => this.SetValue(QrCodeHeightProperty, value);
-		}
-
-		/// <summary>
 		/// The command to bind to for accepting the URI
 		/// </summary>
 		public ICommand AcceptCommand { get; }
@@ -949,17 +868,13 @@ namespace IdApp.Pages.Wallet
 				// TODO: Validate To is a Bare JID or proper Legal Identity
 				// TODO: Offline options: Expiry days
 
-				byte[] Bin = Services.UI.QR.QrCode.GeneratePng(Uri, 300, 300);
-				this.QrCodePng = Bin;
-
 				if (this.IsBound)
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					{
-						this.QrCode = ImageSource.FromStream(() => new MemoryStream(Bin));
 						this.QrCodeWidth = 300;
 						this.QrCodeHeight = 300;
-						this.HasQrCode = true;
+						this.GenerateQrCode(Uri);
 
 						this.EvaluateCommands(this.ShareCommand);
 
@@ -989,7 +904,7 @@ namespace IdApp.Pages.Wallet
 				if (string.IsNullOrEmpty(Message))
 					Message = this.AmountAndCurrency;
 
-				shareContent.ShareImage(this.QrCodePng, string.Format(Message, this.Amount, this.Currency),
+				shareContent.ShareImage(this.QrCodeBin, string.Format(Message, this.Amount, this.Currency),
 					AppResources.Share, "RequestPayment.png");
 			}
 			catch (Exception ex)
@@ -1029,17 +944,13 @@ namespace IdApp.Pages.Wallet
 
 			try
 			{
-				byte[] Bin = Services.UI.QR.QrCode.GeneratePng(this.Uri, 300, 300);
-				this.QrCodePng = Bin;
-
 				if (this.IsBound)
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					{
-						this.QrCode = ImageSource.FromStream(() => new MemoryStream(Bin));
 						this.QrCodeWidth = 300;
 						this.QrCodeHeight = 300;
-						this.HasQrCode = true;
+						this.GenerateQrCode(this.Uri);
 
 						this.EvaluateCommands(this.ShareCommand);
 

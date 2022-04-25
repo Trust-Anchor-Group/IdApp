@@ -76,6 +76,11 @@ namespace IdApp
             public const string UriSchemeEDaler = "edaler";
 
             /// <summary>
+            /// eDaler URI Scheme (edaler)
+            /// </summary>
+            public const string UriSchemeNeuroFeature = "nfeat";
+
+            /// <summary>
             /// Tag ID URI Scheme (tagid)
             /// </summary>
             public const string UriSchemeOnboarding = "obinfo";
@@ -107,7 +112,8 @@ namespace IdApp
                     UriSchemeIotDisco or 
                     UriSchemeIotSc or 
                     UriSchemeTagSign or 
-                    UriSchemeEDaler or 
+                    UriSchemeEDaler or
+                    UriSchemeNeuroFeature or
                     UriSchemeOnboarding or 
                     UriSchemeXmpp => Url,
 
@@ -144,6 +150,16 @@ namespace IdApp
             public static string CreateIdUri(string id)
             {
                 return $"{UriSchemeIotId}:{id}";
+            }
+
+            /// <summary>
+            /// Generates a Neuro-Feature ID Uri form the specified id.
+            /// </summary>
+            /// <param name="id">The Id to use when generating the Uri.</param>
+            /// <returns>Neuro-Feature URI</returns>
+            public static string CreateTokenUri(string id)
+            {
+                return $"{UriSchemeNeuroFeature}:{id}";
             }
 
             /// <summary>

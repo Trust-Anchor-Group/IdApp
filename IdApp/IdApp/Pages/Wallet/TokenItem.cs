@@ -1,4 +1,5 @@
 ﻿using IdApp.Pages.Wallet.TokenDetails;
+using IdApp.Services;
 using NeuroFeatures;
 using NeuroFeatures.Tags;
 using System;
@@ -18,14 +19,14 @@ namespace IdApp.Pages.Wallet
 	public class TokenItem : BindableObject
 	{
 		private readonly Token token;
-		private readonly XmppViewModel model;
+		private readonly ServiceReferences model;
 
 		/// <summary>
 		/// Encapsulates a <see cref="Token"/> object.
 		/// </summary>
 		/// <param name="Token">Token</param>
 		/// <param name="Model">View model</param>
-		public TokenItem(Token Token, XmppViewModel Model)
+		public TokenItem(Token Token, ServiceReferences Model)
 		{
 			this.token = Token;
 			this.model = Model;
