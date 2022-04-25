@@ -1461,6 +1461,9 @@
   <data name="CreatorJid" xml:space="preserve">
     <value>Creator Address</value>
   </data>
+  <data name="Me" xml:space="preserve">
+    <value>(me)</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
   </data>

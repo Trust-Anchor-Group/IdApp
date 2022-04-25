@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IdApp.Resx;
+using IdApp.Services.Tag;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -215,12 +217,16 @@ namespace IdApp.Services
 		/// </summary>
 		/// <param name="RemoteId">Remote Identity</param>
 		/// <param name="Client">XMPP Client</param>
+		/// <param name="TagProfile">TAG Profile</param>
 		/// <returns>Friendly name.</returns>
-		public static async Task<string> GetFriendlyName(string RemoteId, XmppClient Client)
+		public static async Task<string> GetFriendlyName(string RemoteId, XmppClient Client, ITagProfile TagProfile)
 		{
 			int i = RemoteId.IndexOf('@');
 			if (i < 0)
 				return RemoteId;
+
+			if (RemoteId == TagProfile.LegalIdentity?.Id)
+				return AppResources.Me;
 
 			string Account = RemoteId.Substring(0, i);
 			ContactInfo Info;

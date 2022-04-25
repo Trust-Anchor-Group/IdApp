@@ -9,6 +9,7 @@ using IdApp.Pages.Contracts.NewContract.ObjectModel;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Main.Main;
 using IdApp.Resx;
+using IdApp.Services;
 using IdApp.Services.UI.QR;
 using Waher.Content;
 using Waher.Events;
@@ -155,7 +156,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				if (this.partsToAdd.Count > 0)
 				{
 					foreach (KeyValuePair<string, string> part in this.partsToAdd)
-						this.AddRole(part.Key, part.Value);
+						await this.AddRole(part.Key, part.Value);
 				}
 
 				await this.DeleteState();
@@ -246,7 +247,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				string newRole = (string)newValue;
 				if (!(viewModel.template is null) && !string.IsNullOrWhiteSpace(newRole))
 				{
-					viewModel.AddRole(newRole, viewModel.TagProfile.LegalIdentity.Id);
+					viewModel.AddRole(newRole, viewModel.TagProfile.LegalIdentity.Id).Wait();
 				}
 			});
 
@@ -437,7 +438,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 		}
 
-		private void AddRole(string role, string legalId)
+		private async Task AddRole(string role, string legalId)
 		{
 			int State = 0;
 			int i = 0;
@@ -475,7 +476,7 @@ namespace IdApp.Pages.Contracts.NewContract
 						{
 							Label = new Label
 							{
-								Text = legalId,
+								Text = await ContactInfo.GetFriendlyName(legalId, this.XmppService.Xmpp, this.TagProfile),
 								StyleId = legalId,
 								HorizontalOptions = LayoutOptions.FillAndExpand,
 								HorizontalTextAlignment = TextAlignment.Center,
@@ -929,7 +930,7 @@ namespace IdApp.Pages.Contracts.NewContract
 						if (this.TagProfile.LegalIdentity.Id == Part.LegalId)
 							this.SelectedRole = Part.Role;
 						else
-							this.AddRole(Part.Role, Part.LegalId);
+							await this.AddRole(Part.Role, Part.LegalId);
 					}
 				}
 

@@ -82,7 +82,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
                     continue;   // Self
                 }
 
-                string FriendlyName = await ContactInfo.GetFriendlyName(Part.LegalId, XmppService.Xmpp);
+                string FriendlyName = await ContactInfo.GetFriendlyName(Part.LegalId, XmppService.Xmpp, TagProfile);
 
                 if (sb is null)
                     sb = new StringBuilder(FriendlyName);

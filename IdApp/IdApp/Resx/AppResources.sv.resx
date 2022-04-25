@@ -627,6 +627,9 @@
   <data name="Manufacturer" xml:space="preserve">
     <value>Tillverkare</value>
   </data>
+  <data name="Me" xml:space="preserve">
+    <value>(jag)</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>Meddelande</value>
   </data>
