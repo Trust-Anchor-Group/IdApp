@@ -969,6 +969,20 @@
         <member name="M:IdApp.Converters.EqualsZero.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Converters.GreaterThanZero">
+            <summary>
+            Is true if a property is greater than zero.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.GreaterThanZero.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.GreaterThanZero.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.GreaterThanZero.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Converters.LogicalNot">
             <summary>
             Converts, or flips, a boolean value to it's inverse value. I.e. turns <c>true</c> to <c>false</c>, or the other way around.
@@ -8440,16 +8454,6 @@
             HasPending of eDaler to process
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsPendingVisibleProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsPendingVisible"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsPendingVisible">
-            <summary>
-            IsPendingVisible of eDaler to process
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsFrontViewShowingProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsFrontViewShowing"/>
@@ -8530,16 +8534,6 @@
             HasEvents of eDaler to process
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreEventsVisibleProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreEventsVisible"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreEventsVisible">
-            <summary>
-            AreEventsVisible of eDaler to process
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreEventsProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreEvents"/>
@@ -8560,16 +8554,6 @@
             HasTotals of eDaler to process
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTotalsVisibleProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTotalsVisible"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTotalsVisible">
-            <summary>
-            AreTotalsVisible of eDaler to process
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokensProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens"/>
@@ -8578,16 +8562,6 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens">
             <summary>
             HasTokens of eDaler to process
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTokensVisibleProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTokensVisible"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTokensVisible">
-            <summary>
-            AreTokensVisible of eDaler to process
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PaymentItems">
