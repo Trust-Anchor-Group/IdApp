@@ -763,6 +763,33 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creation Contract.
+        /// </summary>
+        internal static string CreationContract {
+            get {
+                return ResourceManager.GetString("CreationContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator.
+        /// </summary>
+        internal static string Creator {
+            get {
+                return ResourceManager.GetString("Creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator Address.
+        /// </summary>
+        internal static string CreatorJid {
+            get {
+                return ResourceManager.GetString("CreatorJid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It seems like the database hasn&apos;t been closed correctly, and may therefore be damaged. An attempt can be made to repair the database by first wiping it. How would you like to proceed?.
         /// </summary>
         internal static string DatabaseCorruptInfoText {
@@ -1078,6 +1105,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For inclusion as part in a contract..
+        /// </summary>
+        internal static string ForInclusionInContract {
+            get {
+                return ResourceManager.GetString("ForInclusionInContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         internal static string From {
@@ -1213,7 +1249,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your ID was copied to the clipboard..
+        ///   Looks up a localized string similar to A link to the ID was copied to the clipboard..
         /// </summary>
         internal static string IdCopiedSuccessfully {
             get {
@@ -1573,6 +1609,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (me).
+        /// </summary>
+        internal static string Me {
+            get {
+                return ResourceManager.GetString("Me", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message.
         /// </summary>
         internal static string Message {
@@ -1920,6 +1965,33 @@ namespace IdApp.Resx {
         internal static string Other {
             get {
                 return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Owner.
+        /// </summary>
+        internal static string Owner {
+            get {
+                return ResourceManager.GetString("Owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Owner Address.
+        /// </summary>
+        internal static string OwnerJid {
+            get {
+                return ResourceManager.GetString("OwnerJid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ownership Contract.
+        /// </summary>
+        internal static string OwnershipContract {
+            get {
+                return ResourceManager.GetString("OwnershipContract", resourceCulture);
             }
         }
         
@@ -2478,6 +2550,24 @@ namespace IdApp.Resx {
         internal static string PurposeEducationalOrExperimental {
             get {
                 return ResourceManager.GetString("PurposeEducationalOrExperimental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reviewing contract where you are part..
+        /// </summary>
+        internal static string PurposeReviewContract {
+            get {
+                return ResourceManager.GetString("PurposeReviewContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reviewing token where you are part..
+        /// </summary>
+        internal static string PurposeReviewToken {
+            get {
+                return ResourceManager.GetString("PurposeReviewToken", resourceCulture);
             }
         }
         
@@ -3409,6 +3499,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Following is a list of parties related to this token..
+        /// </summary>
+        internal static string TokenPartsInfoText {
+            get {
+                return ResourceManager.GetString("TokenPartsInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token Visibility.
         /// </summary>
         internal static string TokenVisibility {
@@ -3459,6 +3558,24 @@ namespace IdApp.Resx {
         internal static string TransferIdentityInformationText {
             get {
                 return ResourceManager.GetString("TransferIdentityInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trust Provider.
+        /// </summary>
+        internal static string TrustProvider {
+            get {
+                return ResourceManager.GetString("TrustProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trust Provider Address.
+        /// </summary>
+        internal static string TrustProviderJid {
+            get {
+                return ResourceManager.GetString("TrustProviderJid", resourceCulture);
             }
         }
         

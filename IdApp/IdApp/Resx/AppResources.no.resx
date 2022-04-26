@@ -412,7 +412,7 @@
     <value>ID</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>IDen ble kopiert til utklippstavlen.</value>
+    <value>En kobling til IDen ble kopiert til utklippstavlen.</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identitet</value>
@@ -1454,5 +1454,44 @@
   </data>
   <data name="Valuation" xml:space="preserve">
     <value>Verdivurdering</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Skaper</value>
+  </data>
+  <data name="CreatorJid" xml:space="preserve">
+    <value>Adresse til oppretter</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>(meg)</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Eier</value>
+  </data>
+  <data name="OwnerJid" xml:space="preserve">
+    <value>Eieradresse</value>
+  </data>
+  <data name="TokenPartsInfoText" xml:space="preserve">
+    <value>Nedenfor finner du en liste over parter som er relatert til dette tokenet.</value>
+  </data>
+  <data name="TrustProvider" xml:space="preserve">
+    <value>Klarer leverandør</value>
+  </data>
+  <data name="TrustProviderJid" xml:space="preserve">
+    <value>Klarer leverandøradresse</value>
+  </data>
+  <data name="CreationContract" xml:space="preserve">
+    <value>Opprette kontrakt</value>
+  </data>
+  <data name="ForInclusionInContract" xml:space="preserve">
+    <value>For inkludering som en del av en kontrakt.</value>
+  </data>
+  <data name="OwnershipContract" xml:space="preserve">
+    <value>Eierkontrakt</value>
+  </data>
+  <data name="PurposeReviewContract" xml:space="preserve">
+    <value>Se gjennom kontrakten der du er en del.</value>
+  </data>
+  <data name="PurposeReviewToken" xml:space="preserve">
+    <value>Gjennomgang av token der du er en del.</value>
   </data>
 </root>

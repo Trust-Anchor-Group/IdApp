@@ -412,7 +412,7 @@
     <value>ID</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Sua id foi copiada para a prancheta.</value>
+    <value>Um link para a ID foi copiado para a prancheta.</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identidade</value>
@@ -1454,5 +1454,44 @@
   </data>
   <data name="Valuation" xml:space="preserve">
     <value>Avaliação</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Criador</value>
+  </data>
+  <data name="CreatorJid" xml:space="preserve">
+    <value>Endereço do criador</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>(eu)</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Proprietário</value>
+  </data>
+  <data name="OwnerJid" xml:space="preserve">
+    <value>Endereço do proprietário</value>
+  </data>
+  <data name="TokenPartsInfoText" xml:space="preserve">
+    <value>A seguir está uma lista de partes relacionadas a este token.</value>
+  </data>
+  <data name="TrustProvider" xml:space="preserve">
+    <value>Provedor de Confiança</value>
+  </data>
+  <data name="TrustProviderJid" xml:space="preserve">
+    <value>Endereço do provedor de confiança</value>
+  </data>
+  <data name="CreationContract" xml:space="preserve">
+    <value>Contrato de Criação</value>
+  </data>
+  <data name="ForInclusionInContract" xml:space="preserve">
+    <value>Para inclusão como parte de um contrato.</value>
+  </data>
+  <data name="OwnershipContract" xml:space="preserve">
+    <value>Contrato de Propriedade</value>
+  </data>
+  <data name="PurposeReviewContract" xml:space="preserve">
+    <value>Revendo contrato onde você faz parte.</value>
+  </data>
+  <data name="PurposeReviewToken" xml:space="preserve">
+    <value>Revisando o token onde você faz parte.</value>
   </data>
 </root>

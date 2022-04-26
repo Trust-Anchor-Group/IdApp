@@ -125,7 +125,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				{
 					if (!FriendlyNames.TryGetValue(Payment.To, out FriendlyName))
 					{
-						FriendlyName = await ContactInfo.GetFriendlyName(Payment.To, this.XmppService.Xmpp);
+						FriendlyName = await ContactInfo.GetFriendlyName(Payment.To, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
 						FriendlyNames[Payment.To] = FriendlyName;
 					}
 
@@ -139,7 +139,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				{
 					if (!FriendlyNames.TryGetValue(Event.Remote, out FriendlyName))
 					{
-						FriendlyName = await ContactInfo.GetFriendlyName(Event.Remote, this.XmppService.Xmpp);
+						FriendlyName = await ContactInfo.GetFriendlyName(Event.Remote, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
 						FriendlyNames[Event.Remote] = FriendlyName;
 					}
 

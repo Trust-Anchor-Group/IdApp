@@ -412,7 +412,7 @@
     <value>ID</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Your ID was copied to the clipboard.</value>
+    <value>A link to the ID was copied to the clipboard.</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identity</value>
@@ -1454,5 +1454,44 @@
   </data>
   <data name="Valuation" xml:space="preserve">
     <value>Valuation</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Creator</value>
+  </data>
+  <data name="CreatorJid" xml:space="preserve">
+    <value>Creator Address</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>(me)</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="OwnerJid" xml:space="preserve">
+    <value>Owner Address</value>
+  </data>
+  <data name="TokenPartsInfoText" xml:space="preserve">
+    <value>Following is a list of parties related to this token.</value>
+  </data>
+  <data name="TrustProvider" xml:space="preserve">
+    <value>Trust Provider</value>
+  </data>
+  <data name="TrustProviderJid" xml:space="preserve">
+    <value>Trust Provider Address</value>
+  </data>
+  <data name="CreationContract" xml:space="preserve">
+    <value>Creation Contract</value>
+  </data>
+  <data name="ForInclusionInContract" xml:space="preserve">
+    <value>For inclusion as part in a contract.</value>
+  </data>
+  <data name="OwnershipContract" xml:space="preserve">
+    <value>Ownership Contract</value>
+  </data>
+  <data name="PurposeReviewContract" xml:space="preserve">
+    <value>Reviewing contract where you are part.</value>
+  </data>
+  <data name="PurposeReviewToken" xml:space="preserve">
+    <value>Reviewing token where you are part.</value>
   </data>
 </root>

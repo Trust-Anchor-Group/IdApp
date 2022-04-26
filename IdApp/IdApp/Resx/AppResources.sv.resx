@@ -351,6 +351,15 @@
   <data name="CreateNew" xml:space="preserve">
     <value>Skapa nytt</value>
   </data>
+  <data name="CreationContract" xml:space="preserve">
+    <value>Skapelsekontrakt</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Skapare</value>
+  </data>
+  <data name="CreatorJid" xml:space="preserve">
+    <value>Skaparens adress</value>
+  </data>
   <data name="DatabaseCorruptInfoText" xml:space="preserve">
     <value>Applikationen ser ut att inte ha stängts korrekt. Databasen kan därför vara skadad. Ett försök att reparera den genom att nollställa den kan göras. Hur vill du fortsätta?</value>
   </data>
@@ -456,6 +465,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>
   </data>
+  <data name="ForInclusionInContract" xml:space="preserve">
+    <value>För inkludering som part i ett kontrakt.</value>
+  </data>
   <data name="From" xml:space="preserve">
     <value>Från</value>
   </data>
@@ -502,7 +514,7 @@
     <value>ID</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Ditt ID kopierades till klippboken.</value>
+    <value>En länk till IDt kopierades till klippboken.</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identitet</value>
@@ -621,6 +633,9 @@
   <data name="Manufacturer" xml:space="preserve">
     <value>Tillverkare</value>
   </data>
+  <data name="Me" xml:space="preserve">
+    <value>(jag)</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>Meddelande</value>
   </data>
@@ -737,6 +752,15 @@
   </data>
   <data name="Other" xml:space="preserve">
     <value>Annat</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Ägare</value>
+  </data>
+  <data name="OwnerJid" xml:space="preserve">
+    <value>Ägarens adress</value>
+  </data>
+  <data name="OwnershipContract" xml:space="preserve">
+    <value>Ägarskapskontrakt</value>
   </data>
   <data name="Parameters" xml:space="preserve">
     <value>Parametrar</value>
@@ -923,6 +947,12 @@
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
     <value>Utbildning eller experimentell användning.</value>
+  </data>
+  <data name="PurposeReviewContract" xml:space="preserve">
+    <value>För granskning av ett kontrakt där du är part.</value>
+  </data>
+  <data name="PurposeReviewToken" xml:space="preserve">
+    <value>För granskning av en token där du är part.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
     <value>Detta val tillåter dig att använda Tag ID för utbildnings eller experimentella syften. När man använder detta val medförs inga kostnader. Kontot kan tas bort när det inte längre används. Det finns heller ingen garanti att den utvalda tjänsteleverantören kommer att fortsätta driften under en längre tid.</value>
@@ -1239,6 +1269,9 @@
   <data name="TokenIdMethod" xml:space="preserve">
     <value>Metod för Token-ID</value>
   </data>
+  <data name="TokenPartsInfoText" xml:space="preserve">
+    <value>Här följer en lista över parter relaterade till denna token.</value>
+  </data>
   <data name="TokenVisibility" xml:space="preserve">
     <value>Tokens synlighet</value>
   </data>
@@ -1256,6 +1289,12 @@
   </data>
   <data name="TransferIdentityInformationText" xml:space="preserve">
     <value>Skanna inbjudningskoden i form av QR-koden nedan, från en enhet som håller på att initieras, för att överföra den digitala identiteten från denna enhet till den andra enheten. När koden har skannats och identiteten överförts, kommer den att tas bort från denna enhet.</value>
+  </data>
+  <data name="TrustProvider" xml:space="preserve">
+    <value>Förtroendegivare</value>
+  </data>
+  <data name="TrustProviderJid" xml:space="preserve">
+    <value>Förtroendegivarens adress</value>
   </data>
   <data name="UnableToAccessInvitation" xml:space="preserve">
     <value>Kunde inte komma åt information om inbjudan.</value>

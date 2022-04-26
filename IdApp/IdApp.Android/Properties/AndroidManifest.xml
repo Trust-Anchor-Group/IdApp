@@ -30,6 +30,7 @@
 				<data android:scheme="iotsc" />
 				<data android:scheme="tagsign" />
 				<data android:scheme="edaler" />
+				<data android:scheme="nfeat" />
 				<data android:scheme="obinfo" />
 				<data android:scheme="xmpp" />
 			</intent-filter>

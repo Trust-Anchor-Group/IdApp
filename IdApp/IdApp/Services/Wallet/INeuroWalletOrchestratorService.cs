@@ -17,7 +17,13 @@ namespace IdApp.Services.Wallet
         /// <summary>
         /// eDaler URI scanned.
         /// </summary>
-        /// <param name="uri">eDaler URI.</param>
-        Task OpenEDalerUri(string uri);
+        /// <param name="Uri">eDaler URI.</param>
+        Task OpenEDalerUri(string Uri);
+
+        /// <summary>
+        /// Neuro-Feature URI scanned.
+        /// </summary>
+        /// <param name="Uri">Neuro-Feature URI.</param>
+        Task OpenNeuroFeatureUri(string Uri);
     }
 }

@@ -1,12 +1,17 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using IdApp.Pages.Contacts.Chat;
+using IdApp.Resx;
+using IdApp.Services;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using NeuroFeatures.Tags;
 using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Security;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.TokenDetails
@@ -14,7 +19,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 	/// <summary>
 	/// The view model to bind to for when displaying the contents of a token.
 	/// </summary>
-	public class TokenDetailsViewModel : XmppViewModel
+	public class TokenDetailsViewModel : QrXmppViewModel
 	{
 		/// <summary>
 		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
@@ -22,6 +27,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		public TokenDetailsViewModel()
 			: base()
 		{
+			this.CopyTokenIdCommand = new Command(async P => await this.CopyTokenId(P));
+			this.ViewIdCommand = new Command(async P => await this.ViewId(P));
+			this.ViewContractCommand = new Command(async P => await this.ViewContract(P));
+			this.OpenChatCommand = new Command(async P => await this.OpenChat(P));
 		}
 
 		/// <inheritdoc/>
@@ -49,17 +58,23 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.Ordinal = args.Token.Ordinal;
 				this.Value = args.Token.Value;
 				this.Witness = args.Token.Witness;
-				this.CertifierJids = args.Token.CertifierJids;
+				this.WitnessFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Witness, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
 				this.Certifier = args.Token.Certifier;
+				this.CertifierFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Certifier, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
+				this.CertifierJids = args.Token.CertifierJids;
 				this.TokenIdMethod = args.Token.TokenIdMethod;
 				this.TokenId = args.Token.TokenId;
 				this.Visibility = args.Token.Visibility;
 				this.Creator = args.Token.Creator;
+				this.CreatorFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Creator, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
 				this.CreatorJid = args.Token.CreatorJid;
 				this.Owner = args.Token.Owner;
+				this.OwnerFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Owner, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
+				this.OwnerJid = args.Token.OwnerJid;
 				this.BatchSize = args.Token.BatchSize;
 				this.TrustProvider = args.Token.TrustProvider;
-				this.OwnerJid = args.Token.OwnerJid;
+				this.TrustProviderFriendlyName = await ContactInfo.GetFriendlyName(args.Token.TrustProvider, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
+				this.TrustProviderJid = args.Token.TrustProviderJid;
 				this.Currency = args.Token.Currency;
 				this.Reference = args.Token.Reference;
 				this.Definition = args.Token.Definition;
@@ -67,13 +82,16 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.CreationContract = args.Token.CreationContract;
 				this.OwnershipContract = args.Token.OwnershipContract;
 				this.Valuator = args.Token.Valuator;
+				this.ValuatorFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Valuator, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
 				this.Assessor = args.Token.Assessor;
-				this.TrustProviderJid = args.Token.TrustProviderJid;
+				this.AssessorFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Assessor, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
 				this.Tags = args.Token.Tags;
 				this.GlyphImage = args.Token.GlyphImage;
 				this.HasGlyphImage = args.Token.HasGlyphImage;
 				this.GlyphWidth = args.Token.GlyphWidth;
 				this.GlyphHeight = args.Token.GlyphHeight;
+
+				this.GenerateQrCode(Constants.UriSchemes.CreateTokenUri(this.TokenId));
 			}
 
 			AssignProperties();
@@ -385,18 +403,18 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		}
 
 		/// <summary>
-		/// See <see cref="CertifierJids"/>
+		/// See <see cref="WitnessFriendlyName"/>
 		/// </summary>
-		public static readonly BindableProperty CertifierJidsProperty =
-			BindableProperty.Create(nameof(CertifierJids), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
+		public static readonly BindableProperty WitnessFriendlyNameProperty =
+			BindableProperty.Create(nameof(WitnessFriendlyName), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
 
 		/// <summary>
-		/// JIDs of certifiers
+		/// WitnessFriendlyNamees
 		/// </summary>
-		public string[] CertifierJids
+		public string[] WitnessFriendlyName
 		{
-			get => (string[])this.GetValue(CertifierJidsProperty);
-			set => this.SetValue(CertifierJidsProperty, value);
+			get => (string[])this.GetValue(WitnessFriendlyNameProperty);
+			set => this.SetValue(WitnessFriendlyNameProperty, value);
 		}
 
 		/// <summary>
@@ -412,6 +430,36 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			get => (string[])this.GetValue(CertifierProperty);
 			set => this.SetValue(CertifierProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="CertifierFriendlyName"/>
+		/// </summary>
+		public static readonly BindableProperty CertifierFriendlyNameProperty =
+			BindableProperty.Create(nameof(CertifierFriendlyName), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
+
+		/// <summary>
+		/// CertifierFriendlyNames
+		/// </summary>
+		public string[] CertifierFriendlyName
+		{
+			get => (string[])this.GetValue(CertifierFriendlyNameProperty);
+			set => this.SetValue(CertifierFriendlyNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="CertifierJids"/>
+		/// </summary>
+		public static readonly BindableProperty CertifierJidsProperty =
+			BindableProperty.Create(nameof(CertifierJids), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
+
+		/// <summary>
+		/// JIDs of certifiers
+		/// </summary>
+		public string[] CertifierJids
+		{
+			get => (string[])this.GetValue(CertifierJidsProperty);
+			set => this.SetValue(CertifierJidsProperty, value);
 		}
 
 		/// <summary>
@@ -475,6 +523,21 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		}
 
 		/// <summary>
+		/// See <see cref="CreatorFriendlyName"/>
+		/// </summary>
+		public static readonly BindableProperty CreatorFriendlyNameProperty =
+			BindableProperty.Create(nameof(CreatorFriendlyName), typeof(string), typeof(TokenDetailsViewModel), default(string));
+
+		/// <summary>
+		/// CreatorFriendlyName of token
+		/// </summary>
+		public string CreatorFriendlyName
+		{
+			get => (string)this.GetValue(CreatorFriendlyNameProperty);
+			set => this.SetValue(CreatorFriendlyNameProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="CreatorJid"/>
 		/// </summary>
 		public static readonly BindableProperty CreatorJidProperty =
@@ -502,6 +565,36 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			get => (string)this.GetValue(OwnerProperty);
 			set => this.SetValue(OwnerProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OwnerFriendlyName"/>
+		/// </summary>
+		public static readonly BindableProperty OwnerFriendlyNameProperty =
+			BindableProperty.Create(nameof(OwnerFriendlyName), typeof(string), typeof(TokenDetailsViewModel), default(string));
+
+		/// <summary>
+		/// Current owner
+		/// </summary>
+		public string OwnerFriendlyName
+		{
+			get => (string)this.GetValue(OwnerFriendlyNameProperty);
+			set => this.SetValue(OwnerFriendlyNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OwnerJid"/>
+		/// </summary>
+		public static readonly BindableProperty OwnerJidProperty =
+			BindableProperty.Create(nameof(OwnerJid), typeof(string), typeof(TokenDetailsViewModel), default(string));
+
+		/// <summary>
+		/// JID of owner
+		/// </summary>
+		public string OwnerJid
+		{
+			get => (string)this.GetValue(OwnerJidProperty);
+			set => this.SetValue(OwnerJidProperty, value);
 		}
 
 		/// <summary>
@@ -535,18 +628,33 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		}
 
 		/// <summary>
-		/// See <see cref="OwnerJid"/>
+		/// See <see cref="TrustProviderFriendlyName"/>
 		/// </summary>
-		public static readonly BindableProperty OwnerJidProperty =
-			BindableProperty.Create(nameof(OwnerJid), typeof(string), typeof(TokenDetailsViewModel), default(string));
+		public static readonly BindableProperty TrustProviderFriendlyNameProperty =
+			BindableProperty.Create(nameof(TrustProviderFriendlyName), typeof(string), typeof(TokenDetailsViewModel), default(string));
 
 		/// <summary>
-		/// JID of owner
+		/// Trust Provider asserting the validity of the token
 		/// </summary>
-		public string OwnerJid
+		public string TrustProviderFriendlyName
 		{
-			get => (string)this.GetValue(OwnerJidProperty);
-			set => this.SetValue(OwnerJidProperty, value);
+			get => (string)this.GetValue(TrustProviderFriendlyNameProperty);
+			set => this.SetValue(TrustProviderFriendlyNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="TrustProviderJid"/>
+		/// </summary>
+		public static readonly BindableProperty TrustProviderJidProperty =
+			BindableProperty.Create(nameof(TrustProviderJid), typeof(string), typeof(TokenDetailsViewModel), default(string));
+
+		/// <summary>
+		/// JID of <see cref="TrustProvider"/>
+		/// </summary>
+		public string TrustProviderJid
+		{
+			get => (string)this.GetValue(TrustProviderJidProperty);
+			set => this.SetValue(TrustProviderJidProperty, value);
 		}
 
 		/// <summary>
@@ -655,6 +763,21 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		}
 
 		/// <summary>
+		/// See <see cref="ValuatorFriendlyName"/>
+		/// </summary>
+		public static readonly BindableProperty ValuatorFriendlyNameProperty =
+			BindableProperty.Create(nameof(ValuatorFriendlyName), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
+
+		/// <summary>
+		/// ValuatorFriendlyNames
+		/// </summary>
+		public string[] ValuatorFriendlyName
+		{
+			get => (string[])this.GetValue(ValuatorFriendlyNameProperty);
+			set => this.SetValue(ValuatorFriendlyNameProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="Assessor"/>
 		/// </summary>
 		public static readonly BindableProperty AssessorProperty =
@@ -670,18 +793,18 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		}
 
 		/// <summary>
-		/// See <see cref="TrustProviderJid"/>
+		/// See <see cref="AssessorFriendlyName"/>
 		/// </summary>
-		public static readonly BindableProperty TrustProviderJidProperty =
-			BindableProperty.Create(nameof(TrustProviderJid), typeof(string), typeof(TokenDetailsViewModel), default(string));
+		public static readonly BindableProperty AssessorFriendlyNameProperty =
+			BindableProperty.Create(nameof(AssessorFriendlyName), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
 
 		/// <summary>
-		/// JID of <see cref="TrustProvider"/>
+		/// AssessorFriendlyNames
 		/// </summary>
-		public string TrustProviderJid
+		public string[] AssessorFriendlyName
 		{
-			get => (string)this.GetValue(TrustProviderJidProperty);
-			set => this.SetValue(TrustProviderJidProperty, value);
+			get => (string[])this.GetValue(AssessorFriendlyNameProperty);
+			set => this.SetValue(AssessorFriendlyNameProperty, value);
 		}
 
 		/// <summary>
@@ -757,6 +880,108 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			get => (int)this.GetValue(GlyphHeightProperty);
 			set => this.SetValue(GlyphHeightProperty, value);
+		}
+
+		#endregion
+
+		#region Commands
+
+		/// <summary>
+		/// Command to copy a Token ID to the clipboard.
+		/// </summary>
+		public ICommand CopyTokenIdCommand { get; }
+
+		/// <summary>
+		/// Command to view a Legal ID.
+		/// </summary>
+		public ICommand ViewIdCommand { get; }
+
+		/// <summary>
+		/// Command to view a smart contract.
+		/// </summary>
+		public ICommand ViewContractCommand { get; }
+
+		/// <summary>
+		/// Command to open a chat page.
+		/// </summary>
+		public ICommand OpenChatCommand { get; }
+
+		private async Task CopyTokenId(object Parameter)
+		{
+			try
+			{
+				await Clipboard.SetTextAsync($"nfeat:{Parameter}");
+				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task ViewId(object Parameter)
+		{
+			try
+			{
+				await this.ContractOrchestratorService.OpenLegalIdentity(Parameter.ToString(), AppResources.PurposeReviewToken);
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task ViewContract(object Parameter)
+		{
+			try
+			{
+				await this.ContractOrchestratorService.OpenContract(Parameter.ToString(), AppResources.PurposeReviewToken);
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task OpenChat(object Parameter)
+		{
+			string BareJid;
+			string LegalId;
+			string FriendlyName;
+
+			switch (Parameter.ToString())
+			{
+				case "Owner":
+					BareJid = this.OwnerJid;
+					LegalId = this.Owner;
+					FriendlyName = this.OwnerFriendlyName;
+					break;
+
+				case "Creator":
+					BareJid = this.CreatorJid;
+					LegalId = this.Creator;
+					FriendlyName = this.CreatorFriendlyName;
+					break;
+
+				case "TrustProvider":
+					BareJid = this.TrustProviderJid;
+					LegalId = this.TrustProvider;
+					FriendlyName = this.TrustProviderFriendlyName;
+					break;
+
+				default:
+					return;
+			}
+
+			try
+			{
+				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName));
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
 		}
 
 		#endregion

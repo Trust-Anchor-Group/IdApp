@@ -697,7 +697,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			if (Contract.Visibility >= ContractVisibility.Public)
 			{
-				string FriendlyName = await ContractModel.GetName(Contract, this.TagProfile, this.XmppService);
+				string FriendlyName = await ContractModel.GetName(Contract, this.TagProfile, this.XmppService, this.SmartContracts);
 				await this.ExecuteSendMessage(string.Empty, "![" + MarkdownDocument.Encode(FriendlyName) + "](" + Contract.ContractIdUriString + ")");
 			}
 			else

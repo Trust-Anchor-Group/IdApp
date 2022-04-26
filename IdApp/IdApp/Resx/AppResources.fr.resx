@@ -412,7 +412,7 @@
     <value>ID</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Votre pièce d’identité a été copiée dans le presse-papiers.</value>
+    <value>Un lien vers l’ID a été copié dans le Presse-papiers.</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identité</value>
@@ -1454,5 +1454,44 @@
   </data>
   <data name="Valuation" xml:space="preserve">
     <value>Évaluation</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Créateur</value>
+  </data>
+  <data name="CreatorJid" xml:space="preserve">
+    <value>Adresse du créateur</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>(moi)</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Propriétaire</value>
+  </data>
+  <data name="OwnerJid" xml:space="preserve">
+    <value>Adresse du propriétaire</value>
+  </data>
+  <data name="TokenPartsInfoText" xml:space="preserve">
+    <value>Voici une liste des parties liées à ce jeton.</value>
+  </data>
+  <data name="TrustProvider" xml:space="preserve">
+    <value>Fournisseur de confiance</value>
+  </data>
+  <data name="TrustProviderJid" xml:space="preserve">
+    <value>Adresse du fournisseur de confiance</value>
+  </data>
+  <data name="CreationContract" xml:space="preserve">
+    <value>Contrat de création</value>
+  </data>
+  <data name="ForInclusionInContract" xml:space="preserve">
+    <value>Pour l’inclusion dans le cadre d’un contrat.</value>
+  </data>
+  <data name="OwnershipContract" xml:space="preserve">
+    <value>Contrat de propriété</value>
+  </data>
+  <data name="PurposeReviewContract" xml:space="preserve">
+    <value>Examiner le contrat dont vous faites partie.</value>
+  </data>
+  <data name="PurposeReviewToken" xml:space="preserve">
+    <value>Examen du jeton où vous faites partie.</value>
   </data>
 </root>

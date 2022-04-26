@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.DeviceSpecific;
@@ -14,7 +13,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 	/// <summary>
 	/// The view model to bind to for requesting a payment.
 	/// </summary>
-	public class RequestPaymentViewModel : XmppViewModel
+	public class RequestPaymentViewModel : QrXmppViewModel
 	{
 		private readonly RequestPaymentPage page;
 
@@ -293,86 +292,6 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		}
 
 		/// <summary>
-		/// See <see cref="QrCode"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeProperty =
-			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(RequestPaymentViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
-			{
-				RequestPaymentViewModel viewModel = (RequestPaymentViewModel)b;
-				viewModel.HasQrCode = !(newValue is null);
-			});
-
-
-		/// <summary>
-		/// Gets or sets the current user's identity as a QR code image.
-		/// </summary>
-		public ImageSource QrCode
-		{
-			get => (ImageSource)this.GetValue(QrCodeProperty);
-			set => this.SetValue(QrCodeProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="HasQrCode"/>
-		/// </summary>
-		public static readonly BindableProperty HasQrCodeProperty =
-			BindableProperty.Create(nameof(HasQrCode), typeof(bool), typeof(RequestPaymentViewModel), default(bool));
-
-		/// <summary>
-		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
-		/// </summary>
-		public bool HasQrCode
-		{
-			get => (bool)this.GetValue(HasQrCodeProperty);
-			set => this.SetValue(HasQrCodeProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodePng"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodePngProperty =
-			BindableProperty.Create(nameof(QrCodePng), typeof(byte[]), typeof(RequestPaymentViewModel), default(byte[]));
-
-		/// <summary>
-		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
-		/// </summary>
-		public byte[] QrCodePng
-		{
-			get { return (byte[])this.GetValue(QrCodePngProperty); }
-			set => this.SetValue(QrCodePngProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodeWidth"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeWidthProperty =
-			BindableProperty.Create(nameof(QrCodeWidth), typeof(int), typeof(RequestPaymentViewModel), default(int));
-
-		/// <summary>
-		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
-		/// </summary>
-		public int QrCodeWidth
-		{
-			get => (int)this.GetValue(QrCodeWidthProperty);
-			set => this.SetValue(QrCodeWidthProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="QrCodeHeight"/>
-		/// </summary>
-		public static readonly BindableProperty QrCodeHeightProperty =
-			BindableProperty.Create(nameof(QrCodeHeight), typeof(int), typeof(RequestPaymentViewModel), default(int));
-
-		/// <summary>
-		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
-		/// </summary>
-		public int QrCodeHeight
-		{
-			get => (int)this.GetValue(QrCodeHeightProperty);
-			set => this.SetValue(QrCodeHeightProperty, value);
-		}
-
-		/// <summary>
 		/// The command to bind to for generating a QR code
 		/// </summary>
 		public ICommand GenerateQrCodeCommand { get; }
@@ -399,17 +318,13 @@ namespace IdApp.Pages.Wallet.RequestPayment
 					this.Currency, this.Message);
 			}
 
-			byte[] Bin = Services.UI.QR.QrCode.GeneratePng(Uri, 300, 300);
-			this.QrCodePng = Bin;
-
 			if (this.IsBound)
 			{
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					this.QrCode = ImageSource.FromStream(() => new MemoryStream(Bin));
 					this.QrCodeWidth = 300;
 					this.QrCodeHeight = 300;
-					this.HasQrCode = true;
+					this.GenerateQrCode(Uri);
 
 					this.EvaluateCommands(this.ShareCommand);
 
@@ -433,7 +348,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 				if (string.IsNullOrEmpty(Message))
 					Message = AppResources.RequestPaymentMessage;
 
-				shareContent.ShareImage(this.QrCodePng, string.Format(Message, this.Amount, this.Currency), 
+				shareContent.ShareImage(this.QrCodeBin, string.Format(Message, this.Amount, this.Currency), 
 					AppResources.Share, "RequestPayment.png");
 			}
 			catch (Exception ex)

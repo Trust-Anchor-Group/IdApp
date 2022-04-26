@@ -1,4 +1,7 @@
-﻿using System;
+﻿using IdApp.Resx;
+using IdApp.Services.Contracts;
+using IdApp.Services.Tag;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -215,17 +218,24 @@ namespace IdApp.Services
 		/// </summary>
 		/// <param name="RemoteId">Remote Identity</param>
 		/// <param name="Client">XMPP Client</param>
+		/// <param name="TagProfile">TAG Profile</param>
+		/// <param name="SmartContracts">Smart Contracts interface.</param>
 		/// <returns>Friendly name.</returns>
-		public static async Task<string> GetFriendlyName(string RemoteId, XmppClient Client)
+		public static async Task<string> GetFriendlyName(CaseInsensitiveString RemoteId, XmppClient Client, ITagProfile TagProfile,
+			ISmartContracts SmartContracts)
 		{
 			int i = RemoteId.IndexOf('@');
 			if (i < 0)
 				return RemoteId;
 
+			if (RemoteId == TagProfile.LegalIdentity?.Id)
+				return AppResources.Me;
+
 			string Account = RemoteId.Substring(0, i);
 			ContactInfo Info;
+			bool AccountIsGuid;
 
-			if (Guid.TryParse(Account, out Guid _))
+			if (AccountIsGuid = Guid.TryParse(Account, out Guid _))
 			{
 				Info = await FindByLegalId(RemoteId);
 				if (!string.IsNullOrEmpty(Info?.FriendlyName))
@@ -256,7 +266,65 @@ namespace IdApp.Services
 			if (!(Item is null))
 				return Item.NameOrBareJid;
 
+			lock (identityCache)
+			{
+				if (identityCache.TryGetValue(RemoteId, out LegalIdentity Id))
+				{
+					if (!(Id is null))
+						return GetFriendlyName(Id);
+					else
+						AccountIsGuid = false;
+				}
+			}
+
+			if (AccountIsGuid)
+			{
+				try
+				{
+					LegalIdentity Id = await SmartContracts.ContractsClient.GetLegalIdentityAsync(RemoteId);    // Go directly to client, to avoid to replicate database search for stored identity.
+
+					lock (identityCache)
+					{
+						identityCache[RemoteId] = Id;
+					}
+
+					if (!(Id is null))
+						return GetFriendlyName(Id);
+				}
+				catch (Exception)
+				{
+					lock (identityCache)
+					{
+						identityCache[RemoteId] = null;
+					}
+				}
+			}
+
 			return RemoteId;
+		}
+
+		private static readonly Dictionary<CaseInsensitiveString, LegalIdentity> identityCache = new();
+
+		/// <summary>
+		/// Gets the friendly name of a remote identity (Legal ID or Bare JID).
+		/// </summary>
+		/// <param name="RemoteId">Remote Identity</param>
+		/// <param name="Client">XMPP Client</param>
+		/// <param name="TagProfile">TAG Profile</param>
+		/// <param name="SmartContracts">Smart Contracts interface.</param>
+		/// <returns>Friendly name.</returns>
+		public static async Task<string[]> GetFriendlyName(string[] RemoteId, XmppClient Client, ITagProfile TagProfile, ISmartContracts SmartContracts)
+		{
+			if (RemoteId is null)
+				return null;
+
+			int i, c = RemoteId.Length;
+			string[] Result = new string[c];
+
+			for (i = 0; i < c; i++)
+				Result[i] = await GetFriendlyName(RemoteId[i], Client, TagProfile, SmartContracts);
+
+			return Result;
 		}
 
 		/// <summary>

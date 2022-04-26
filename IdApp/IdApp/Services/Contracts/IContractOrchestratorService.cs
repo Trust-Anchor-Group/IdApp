@@ -1,4 +1,5 @@
 ﻿using IdApp.Services.Tag;
+using NeuroFeatures;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
