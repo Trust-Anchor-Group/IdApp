@@ -270,26 +270,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		public bool HasPending
 		{
 			get => (bool)this.GetValue(HasPendingProperty);
-			set
-			{
-				this.SetValue(HasPendingProperty, value);
-				this.CalcViewDependencies();
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="IsPendingVisible"/>
-		/// </summary>
-		public static readonly BindableProperty IsPendingVisibleProperty =
-			BindableProperty.Create(nameof(IsPendingVisible), typeof(bool), typeof(MyWalletViewModel), default(bool));
-
-		/// <summary>
-		/// IsPendingVisible of eDaler to process
-		/// </summary>
-		public bool IsPendingVisible
-		{
-			get => (bool)this.GetValue(IsPendingVisibleProperty);
-			set => this.SetValue(IsPendingVisibleProperty, value);
+			set => this.SetValue(HasPendingProperty, value);
 		}
 
 		/// <summary>
@@ -304,19 +285,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		public bool IsFrontViewShowing
 		{
 			get => (bool)this.GetValue(IsFrontViewShowingProperty);
-			set
-			{
-				this.SetValue(IsFrontViewShowingProperty, value);
-				this.CalcViewDependencies();
-			}
-		}
-
-		private void CalcViewDependencies()
-		{
-			this.IsPendingVisible = this.HasPending && this.IsFrontViewShowing;
-			this.AreEventsVisible = this.HasEvents && this.IsFrontViewShowing;
-			this.AreTotalsVisible = this.HasTotals && !this.IsFrontViewShowing;
-			this.AreTokensVisible = this.HasTokens && !this.IsFrontViewShowing;
+			set => this.SetValue(IsFrontViewShowingProperty, value);
 		}
 
 		/// <summary>
@@ -421,26 +390,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		public bool HasEvents
 		{
 			get => (bool)this.GetValue(HasEventsProperty);
-			set
-			{
-				this.SetValue(HasEventsProperty, value);
-				this.CalcViewDependencies();
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="AreEventsVisible"/>
-		/// </summary>
-		public static readonly BindableProperty AreEventsVisibleProperty =
-			BindableProperty.Create(nameof(AreEventsVisible), typeof(bool), typeof(MyWalletViewModel), default(bool));
-
-		/// <summary>
-		/// AreEventsVisible of eDaler to process
-		/// </summary>
-		public bool AreEventsVisible
-		{
-			get => (bool)this.GetValue(AreEventsVisibleProperty);
-			set => this.SetValue(AreEventsVisibleProperty, value);
+			set => this.SetValue(HasEventsProperty, value);
 		}
 
 		/// <summary>
@@ -470,26 +420,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		public bool HasTotals
 		{
 			get => (bool)this.GetValue(HasTotalsProperty);
-			set
-			{
-				this.SetValue(HasTotalsProperty, value);
-				this.CalcViewDependencies();
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="AreTotalsVisible"/>
-		/// </summary>
-		public static readonly BindableProperty AreTotalsVisibleProperty =
-			BindableProperty.Create(nameof(AreTotalsVisible), typeof(bool), typeof(MyWalletViewModel), default(bool));
-
-		/// <summary>
-		/// AreTotalsVisible of eDaler to process
-		/// </summary>
-		public bool AreTotalsVisible
-		{
-			get => (bool)this.GetValue(AreTotalsVisibleProperty);
-			set => this.SetValue(AreTotalsVisibleProperty, value);
+			set => this.SetValue(HasTotalsProperty, value);
 		}
 
 		/// <summary>
@@ -504,26 +435,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		public bool HasTokens
 		{
 			get => (bool)this.GetValue(HasTokensProperty);
-			set
-			{
-				this.SetValue(HasTokensProperty, value);
-				this.CalcViewDependencies();
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="AreTokensVisible"/>
-		/// </summary>
-		public static readonly BindableProperty AreTokensVisibleProperty =
-			BindableProperty.Create(nameof(AreTokensVisible), typeof(bool), typeof(MyWalletViewModel), default(bool));
-
-		/// <summary>
-		/// AreTokensVisible of eDaler to process
-		/// </summary>
-		public bool AreTokensVisible
-		{
-			get => (bool)this.GetValue(AreTokensVisibleProperty);
-			set => this.SetValue(AreTokensVisibleProperty, value);
+			set => this.SetValue(HasTokensProperty, value);
 		}
 
 		/// <summary>
