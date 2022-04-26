@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
@@ -95,7 +95,8 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <Label Grid.Row="2" HorizontalOptions="Start" TextColor="{StaticResource PendingColor}">
+                        <Label Grid.Row="2" HorizontalOptions="Start" TextColor="{StaticResource PendingColor}"
+                               IsVisible="{Binding Path=PendingAmount, Converter={converters:GreaterThanZero}}" >
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="(-"/>
@@ -109,7 +110,7 @@
                     </Grid>
                 </Frame>
 
-                <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}">
+                <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}" >
                     <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single"
                                                    ItemSizingStrategy="MeasureAllItems"
                                                    BackgroundColor="{StaticResource PageBackgroundColor}"
@@ -143,7 +144,7 @@
                         <Label Grid.Row="0" Text="{Binding Path=Timestamp, Converter={converters:DateTimeToStringConverter}}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}"/>
 
                         <loading:LoadingCollectionView Grid.Row="1" VerticalOptions="StartAndExpand"
-                                                       SelectionMode="None" InputTransparent="True"
+                                                       SelectionMode="None"
                                                        ItemSizingStrategy="MeasureFirstItem"
                                                        ItemsSource="{Binding Path=Totals}" >
                             <CollectionView.ItemsLayout>
