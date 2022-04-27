@@ -547,6 +547,71 @@
             Keyboard disappears event
             </summary>
         </member>
+        <member name="T:IdApp.Controls.Extended.ExtendedDatePicker">
+            <summary>
+             Extended DatePicker for nullable values with text placeholder
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.Extended.ExtendedDatePicker.FontProperty">
+            <summary>
+            The font property
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.Extended.ExtendedDatePicker.NullableDateProperty">
+            <summary>
+            The NullableDate property
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.Extended.ExtendedDatePicker.XAlignProperty">
+            <summary>
+            The XAlign property
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.Extended.ExtendedDatePicker.HasBorderProperty">
+            <summary>
+            The HasBorder property
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.Extended.ExtendedDatePicker.PlaceholderProperty">
+            <summary>
+            The Placeholder property
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.Extended.ExtendedDatePicker.PlaceholderTextColorProperty">
+            <summary>
+            The PlaceholderTextColor property
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.Extended.ExtendedDatePicker.Font">
+            <summary>
+            Gets or sets the Font
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.Extended.ExtendedDatePicker.NullableDate">
+            <summary>
+            Get or sets the NullableDate
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.Extended.ExtendedDatePicker.XAlign">
+            <summary>
+            Gets or sets the X alignment of the text
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.Extended.ExtendedDatePicker.HasBorder">
+            <summary>
+            Gets or sets if the border should be shown or not
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.Extended.ExtendedDatePicker.Placeholder">
+            <summary>
+            Get or sets the PlaceHolder
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.Extended.ExtendedDatePicker.PlaceholderTextColor">
+            <summary>
+            Sets color for placeholder text
+            </summary>
+        </member>
         <member name="T:IdApp.Controls.FlipView.FlipView">
             <summary>
             The FlipView is a user control that holds two child controls: a <see cref="P:IdApp.Controls.FlipView.FlipView.FrontView"/> and a <see cref="P:IdApp.Controls.FlipView.FlipView.BackView"/>.
