@@ -897,7 +897,27 @@ namespace IdApp.Pages.Contracts.NewContract
 					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, CheckBox);
 				}
 				else if (Parameter is CalcParameter)
+				{
 					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, null);
+				}
+				else if (Parameter is DateParameter DP)
+				{
+					Populate(parametersLayout, await Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
+
+					Entry Entry = new()
+					{
+						StyleId = Parameter.Name,
+						Text = Parameter.ObjectValue?.ToString(),
+						Placeholder = Parameter.Guide,
+						HorizontalOptions = LayoutOptions.FillAndExpand,
+					};
+
+					parametersLayout.Children.Add(Entry);
+
+					Entry.TextChanged += Parameter_TextChanged;
+
+					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, Entry);
+				}
 				else
 				{
 					Populate(parametersLayout, await Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
