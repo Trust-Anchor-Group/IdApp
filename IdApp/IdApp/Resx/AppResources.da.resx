@@ -1494,4 +1494,19 @@
   <data name="PurposeReviewToken" xml:space="preserve">
     <value>Gennemgang af token, hvor du er en del.</value>
   </data>
+  <data name="Assessor" xml:space="preserve">
+    <value>Vurderingsmand</value>
+  </data>
+  <data name="Certifier" xml:space="preserve">
+    <value>Certificeringsorgan</value>
+  </data>
+  <data name="CertifierJid" xml:space="preserve">
+    <value>Certifikator adresse</value>
+  </data>
+  <data name="Valuator" xml:space="preserve">
+    <value>Valuator</value>
+  </data>
+  <data name="Witness" xml:space="preserve">
+    <value>Vidne</value>
+  </data>
 </root>

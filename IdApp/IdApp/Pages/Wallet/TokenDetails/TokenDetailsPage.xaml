@@ -161,13 +161,75 @@
                         </Label.GestureRecognizers>
                     </Label>
                 </Grid>
+
+                <ListView ItemsSource="{Binding Certifiers}" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto">
+                                <Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.Certifier}" Style="{StaticResource KeyLabel}"/>
+                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding OwnerFriendlyName}" Style="{StaticResource ClickableValueLabel}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ViewIdCommand}" CommandParameter="{Binding FriendlyName}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <Label Grid.Column="0" Grid.Row="1" Text="{x:Static resx:AppResources.CertifierJid}" Style="{StaticResource KeyLabel}"/>
+                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding OwnerJid}" Style="{StaticResource ClickableValueLabel}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OpenChatCommand}" CommandParameter="Jid" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <ListView ItemsSource="{Binding Valuators}" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="auto">
+                                <Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.Valuator}" Style="{StaticResource KeyLabel}"/>
+                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding OwnerFriendlyName}" Style="{StaticResource ClickableValueLabel}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ViewIdCommand}" CommandParameter="{Binding FriendlyName}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <ListView ItemsSource="{Binding Assessors}" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="auto">
+                                <Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.Assessor}" Style="{StaticResource KeyLabel}"/>
+                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding OwnerFriendlyName}" Style="{StaticResource ClickableValueLabel}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ViewIdCommand}" CommandParameter="{Binding FriendlyName}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <ListView ItemsSource="{Binding Witnesses}" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="auto">
+                                <Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.Witness}" Style="{StaticResource KeyLabel}"/>
+                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding OwnerFriendlyName}" Style="{StaticResource ClickableValueLabel}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ViewIdCommand}" CommandParameter="{Binding FriendlyName}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
                 <!--
-                
-				this.Witness = args.Token.Witness;
-				this.Certifier = args.Token.Certifier;
-				this.CertifierJids = args.Token.CertifierJids;
-				this.Valuator = args.Token.Valuator;
-				this.Assessor = args.Token.Assessor;
                     
 				this.Signature = args.Token.Signature;
 				this.SignatureTimestamp = args.Token.SignatureTimestamp;

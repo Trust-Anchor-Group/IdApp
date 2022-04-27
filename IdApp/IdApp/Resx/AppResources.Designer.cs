@@ -340,6 +340,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assessor.
+        /// </summary>
+        internal static string Assessor {
+            get {
+                return ResourceManager.GetString("Assessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Balance:.
         /// </summary>
         internal static string Balance {
@@ -390,6 +399,24 @@ namespace IdApp.Resx {
         internal static string CantConnectTo {
             get {
                 return ResourceManager.GetString("CantConnectTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Certifier.
+        /// </summary>
+        internal static string Certifier {
+            get {
+                return ResourceManager.GetString("Certifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Certifier Address.
+        /// </summary>
+        internal static string CertifierJid {
+            get {
+                return ResourceManager.GetString("CertifierJid", resourceCulture);
             }
         }
         
@@ -3787,6 +3814,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valuator.
+        /// </summary>
+        internal static string Valuator {
+            get {
+                return ResourceManager.GetString("Valuator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verification Code.
         /// </summary>
         internal static string VerificationCode {
@@ -3891,6 +3927,15 @@ namespace IdApp.Resx {
         internal static string WelcomeToTagSubheading {
             get {
                 return ResourceManager.GetString("WelcomeToTagSubheading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Witness.
+        /// </summary>
+        internal static string Witness {
+            get {
+                return ResourceManager.GetString("Witness", resourceCulture);
             }
         }
         

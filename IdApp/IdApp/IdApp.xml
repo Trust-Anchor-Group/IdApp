@@ -9029,6 +9029,34 @@
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
         </member>
+        <member name="T:IdApp.Pages.Wallet.TokenDetails.PartItem">
+            <summary>
+            Represents a part related to a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.PartItem.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Represents a part related to a token.
+            </summary>
+            <param name="LegalId">Legal ID</param>
+            <param name="Jid">JID of part.</param>
+            <param name="FriendlyName">Friendly Name</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.PartItem.LegalId">
+            <summary>
+            Legal ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.PartItem.Jid">
+            <summary>
+            JID of part
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.PartItem.FriendlyName">
+            <summary>
+            Friendly Name
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs">
             <summary>
             Holds navigation parameters specific to eDaler URIs.
@@ -9079,6 +9107,31 @@
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Certifiers">
+            <summary>
+            Certifiers
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Valuators">
+            <summary>
+            Valuators
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Assessors">
+            <summary>
+            Assessors
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Witnesses">
+            <summary>
+            Witnesses
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Tags">
+            <summary>
+            Witnesses
+            </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CreatedProperty">
             <summary>
@@ -9248,56 +9301,6 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Value">
             <summary>
             (Last) Value of token
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.WitnessProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Witness"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Witness">
-            <summary>
-            Witnesses
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.WitnessFriendlyNameProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.WitnessFriendlyName"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.WitnessFriendlyName">
-            <summary>
-            WitnessFriendlyNamees
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Certifier"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Certifier">
-            <summary>
-            Certifiers
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierFriendlyNameProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierFriendlyName"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierFriendlyName">
-            <summary>
-            CertifierFriendlyNames
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierJidsProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierJids"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CertifierJids">
-            <summary>
-            JIDs of certifiers
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenIdMethodProperty">
@@ -9488,56 +9491,6 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OwnershipContract">
             <summary>
             Contract used to define the current ownership
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ValuatorProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Valuator"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Valuator">
-            <summary>
-            Valuators
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ValuatorFriendlyNameProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ValuatorFriendlyName"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ValuatorFriendlyName">
-            <summary>
-            ValuatorFriendlyNames
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.AssessorProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Assessor"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Assessor">
-            <summary>
-            Assessors
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.AssessorFriendlyNameProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.AssessorFriendlyName"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.AssessorFriendlyName">
-            <summary>
-            AssessorFriendlyNames
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TagsProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Tags"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Tags">
-            <summary>
-            Any custom Token Tags provided during creation of the token.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphImageProperty">
@@ -10432,6 +10385,11 @@
               Looks up a localized string similar to Are you sure you want to transfer your legal identity from the application to another? The identity will be removed from this device once completed. Also make sure no-one else can see your screen during the process..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Assessor">
+            <summary>
+              Looks up a localized string similar to Assessor.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Balance">
             <summary>
               Looks up a localized string similar to Balance:.
@@ -10460,6 +10418,16 @@
         <member name="P:IdApp.Resx.AppResources.CantConnectTo">
             <summary>
               Looks up a localized string similar to Can&apos;t connect to {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Certifier">
+            <summary>
+              Looks up a localized string similar to Certifier.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.CertifierJid">
+            <summary>
+              Looks up a localized string similar to Certifier Address.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Change">
@@ -12347,6 +12315,11 @@
               Looks up a localized string similar to Valuation.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Valuator">
+            <summary>
+              Looks up a localized string similar to Valuator.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.VerificationCode">
             <summary>
               Looks up a localized string similar to Verification Code.
@@ -12405,6 +12378,11 @@
         <member name="P:IdApp.Resx.AppResources.WelcomeToTagSubheading">
             <summary>
               Looks up a localized string similar to Before connecting to the TAG ID network, we need to select a service provider for you. To do this, we need to know the purpose for using the app. Select the most appropriate option below..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Witness">
+            <summary>
+              Looks up a localized string similar to Witness.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.XmppState_Authenticating">

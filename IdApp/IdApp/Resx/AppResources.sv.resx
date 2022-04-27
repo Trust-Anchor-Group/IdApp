@@ -210,6 +210,9 @@
   <data name="AreYouSureYouWantToTransferYourLegalIdentity" xml:space="preserve">
     <value>Är du säker på att du vill överföra din juridiska identitet from applikationen till en annan? Identiteten kommer att tas bort från denna enhet när processen är klar. Se också till att ingen annan kan se din skärm under processen.</value>
   </data>
+  <data name="Assessor" xml:space="preserve">
+    <value>Rådgivare</value>
+  </data>
   <data name="Balance" xml:space="preserve">
     <value>Balans:</value>
   </data>
@@ -227,6 +230,12 @@
   </data>
   <data name="CantConnectTo" xml:space="preserve">
     <value>Kan inte ansluta till {0}</value>
+  </data>
+  <data name="Certifier" xml:space="preserve">
+    <value>Certifierare</value>
+  </data>
+  <data name="CertifierJid" xml:space="preserve">
+    <value>Certifierarens adress</value>
   </data>
   <data name="Change" xml:space="preserve">
     <value>Förändring:</value>
@@ -1362,6 +1371,9 @@
   <data name="Valuation" xml:space="preserve">
     <value>Värdering</value>
   </data>
+  <data name="Valuator" xml:space="preserve">
+    <value>Värderingsperson</value>
+  </data>
   <data name="VerificationCode" xml:space="preserve">
     <value>Verifieringskod</value>
   </data>
@@ -1397,6 +1409,9 @@
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
     <value>Innan du kan ansluta till nätverket för TAG ID, behöver vi välja en tjänsteleverantör åt dig. För att kunna göra detta behöver vi veta för vilket ändamål du använder appen. Välj det mest lämpliga alternativet nedan.</value>
+  </data>
+  <data name="Witness" xml:space="preserve">
+    <value>Vittne</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
     <value>Autentiserar nätverksidentitet</value>

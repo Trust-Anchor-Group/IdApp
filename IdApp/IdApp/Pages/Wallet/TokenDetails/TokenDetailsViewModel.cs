@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -27,6 +28,12 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		public TokenDetailsViewModel()
 			: base()
 		{
+			this.Certifiers = new();
+			this.Valuators = new();
+			this.Assessors = new();
+			this.Witnesses = new();
+			this.Tags = new();
+
 			this.CopyTokenIdCommand = new Command(async P => await this.CopyTokenId(P));
 			this.ViewIdCommand = new Command(async P => await this.ViewId(P));
 			this.ViewContractCommand = new Command(async P => await this.ViewContract(P));
@@ -57,11 +64,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.GlyphContentType = args.Token.GlyphContentType;
 				this.Ordinal = args.Token.Ordinal;
 				this.Value = args.Token.Value;
-				this.Witness = args.Token.Witness;
-				this.WitnessFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Witness, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
-				this.Certifier = args.Token.Certifier;
-				this.CertifierFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Certifier, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
-				this.CertifierJids = args.Token.CertifierJids;
 				this.TokenIdMethod = args.Token.TokenIdMethod;
 				this.TokenId = args.Token.TokenId;
 				this.Visibility = args.Token.Visibility;
@@ -81,17 +83,25 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.DefinitionNamespace = args.Token.DefinitionNamespace;
 				this.CreationContract = args.Token.CreationContract;
 				this.OwnershipContract = args.Token.OwnershipContract;
-				this.Valuator = args.Token.Valuator;
-				this.ValuatorFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Valuator, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
-				this.Assessor = args.Token.Assessor;
-				this.AssessorFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Assessor, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
-				this.Tags = args.Token.Tags;
 				this.GlyphImage = args.Token.GlyphImage;
 				this.HasGlyphImage = args.Token.HasGlyphImage;
 				this.GlyphWidth = args.Token.GlyphWidth;
 				this.GlyphHeight = args.Token.GlyphHeight;
 
 				this.GenerateQrCode(Constants.UriSchemes.CreateTokenUri(this.TokenId));
+
+				await this.Populate(args.Token.Witness, null, this.Witnesses);
+				await this.Populate(args.Token.Certifier, args.Token.CertifierJids, this.Certifiers);
+				await this.Populate(args.Token.Valuator, null, this.Valuators);
+				await this.Populate(args.Token.Assessor, null, this.Assessors);
+
+				this.Tags.Clear();
+
+				if (!(args.Token.Tags is null))
+				{
+					foreach (TokenTag Tag in args.Token.Tags)
+						this.Tags.Add(Tag);
+				}
 			}
 
 			AssignProperties();
@@ -130,7 +140,50 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
 		}
 
+		private async Task Populate(string[] LegalIds, string[] Jids, ObservableCollection<PartItem> Parts)
+		{
+			int i, c = LegalIds.Length;
+			int d = Jids?.Length ?? 0;
+			string FriendlyName;
+			string Jid;
+
+			Parts.Clear();
+
+			for (i = 0; i < c; i++)
+			{
+				FriendlyName = await ContactInfo.GetFriendlyName(LegalIds[i], this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
+				Jid = i < d ? Jids[i] : string.Empty;
+
+				Parts.Add(new PartItem(LegalIds[i], Jid, FriendlyName));
+			}
+		}
+
 		#region Properties
+
+		/// <summary>
+		/// Certifiers
+		/// </summary>
+		public ObservableCollection<PartItem> Certifiers { get; }
+
+		/// <summary>
+		/// Valuators
+		/// </summary>
+		public ObservableCollection<PartItem> Valuators { get; }
+
+		/// <summary>
+		/// Assessors
+		/// </summary>
+		public ObservableCollection<PartItem> Assessors { get; }
+
+		/// <summary>
+		/// Witnesses
+		/// </summary>
+		public ObservableCollection<PartItem> Witnesses { get; }
+
+		/// <summary>
+		/// Witnesses
+		/// </summary>
+		public ObservableCollection<TokenTag> Tags { get; }
 
 		/// <summary>
 		/// See <see cref="Created"/>
@@ -385,81 +438,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			get => (decimal)this.GetValue(ValueProperty);
 			set => this.SetValue(ValueProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="Witness"/>
-		/// </summary>
-		public static readonly BindableProperty WitnessProperty =
-			BindableProperty.Create(nameof(Witness), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
-
-		/// <summary>
-		/// Witnesses
-		/// </summary>
-		public string[] Witness
-		{
-			get => (string[])this.GetValue(WitnessProperty);
-			set => this.SetValue(WitnessProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="WitnessFriendlyName"/>
-		/// </summary>
-		public static readonly BindableProperty WitnessFriendlyNameProperty =
-			BindableProperty.Create(nameof(WitnessFriendlyName), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
-
-		/// <summary>
-		/// WitnessFriendlyNamees
-		/// </summary>
-		public string[] WitnessFriendlyName
-		{
-			get => (string[])this.GetValue(WitnessFriendlyNameProperty);
-			set => this.SetValue(WitnessFriendlyNameProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="Certifier"/>
-		/// </summary>
-		public static readonly BindableProperty CertifierProperty =
-			BindableProperty.Create(nameof(Certifier), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
-
-		/// <summary>
-		/// Certifiers
-		/// </summary>
-		public string[] Certifier
-		{
-			get => (string[])this.GetValue(CertifierProperty);
-			set => this.SetValue(CertifierProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="CertifierFriendlyName"/>
-		/// </summary>
-		public static readonly BindableProperty CertifierFriendlyNameProperty =
-			BindableProperty.Create(nameof(CertifierFriendlyName), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
-
-		/// <summary>
-		/// CertifierFriendlyNames
-		/// </summary>
-		public string[] CertifierFriendlyName
-		{
-			get => (string[])this.GetValue(CertifierFriendlyNameProperty);
-			set => this.SetValue(CertifierFriendlyNameProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="CertifierJids"/>
-		/// </summary>
-		public static readonly BindableProperty CertifierJidsProperty =
-			BindableProperty.Create(nameof(CertifierJids), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
-
-		/// <summary>
-		/// JIDs of certifiers
-		/// </summary>
-		public string[] CertifierJids
-		{
-			get => (string[])this.GetValue(CertifierJidsProperty);
-			set => this.SetValue(CertifierJidsProperty, value);
 		}
 
 		/// <summary>
@@ -745,81 +723,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			get => (string)this.GetValue(OwnershipContractProperty);
 			set => this.SetValue(OwnershipContractProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="Valuator"/>
-		/// </summary>
-		public static readonly BindableProperty ValuatorProperty =
-			BindableProperty.Create(nameof(Valuator), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
-
-		/// <summary>
-		/// Valuators
-		/// </summary>
-		public string[] Valuator
-		{
-			get => (string[])this.GetValue(ValuatorProperty);
-			set => this.SetValue(ValuatorProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="ValuatorFriendlyName"/>
-		/// </summary>
-		public static readonly BindableProperty ValuatorFriendlyNameProperty =
-			BindableProperty.Create(nameof(ValuatorFriendlyName), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
-
-		/// <summary>
-		/// ValuatorFriendlyNames
-		/// </summary>
-		public string[] ValuatorFriendlyName
-		{
-			get => (string[])this.GetValue(ValuatorFriendlyNameProperty);
-			set => this.SetValue(ValuatorFriendlyNameProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="Assessor"/>
-		/// </summary>
-		public static readonly BindableProperty AssessorProperty =
-			BindableProperty.Create(nameof(Assessor), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
-
-		/// <summary>
-		/// Assessors
-		/// </summary>
-		public string[] Assessor
-		{
-			get => (string[])this.GetValue(AssessorProperty);
-			set => this.SetValue(AssessorProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="AssessorFriendlyName"/>
-		/// </summary>
-		public static readonly BindableProperty AssessorFriendlyNameProperty =
-			BindableProperty.Create(nameof(AssessorFriendlyName), typeof(string[]), typeof(TokenDetailsViewModel), default(string[]));
-
-		/// <summary>
-		/// AssessorFriendlyNames
-		/// </summary>
-		public string[] AssessorFriendlyName
-		{
-			get => (string[])this.GetValue(AssessorFriendlyNameProperty);
-			set => this.SetValue(AssessorFriendlyNameProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="Tags"/>
-		/// </summary>
-		public static readonly BindableProperty TagsProperty =
-			BindableProperty.Create(nameof(Tags), typeof(TokenTag[]), typeof(TokenDetailsViewModel), default(TokenTag[]));
-
-		/// <summary>
-		/// Any custom Token Tags provided during creation of the token.
-		/// </summary>
-		public TokenTag[] Tags
-		{
-			get => (TokenTag[])this.GetValue(TagsProperty);
-			set => this.SetValue(TagsProperty, value);
 		}
 
 		/// <summary>
