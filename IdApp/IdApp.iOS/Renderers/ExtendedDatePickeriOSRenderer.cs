@@ -20,7 +20,7 @@ namespace IdApp.iOS.Renderers
         {
             base.OnElementChanged(e);
 
-            var view = Element as ExtendedDatePicker;
+            ExtendedDatePicker view = Element as ExtendedDatePicker;
 
             if (view != null)
             {
@@ -38,7 +38,7 @@ namespace IdApp.iOS.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
 
-            var view = (ExtendedDatePicker)Element;
+            ExtendedDatePicker view = (ExtendedDatePicker)Element;
 
             if (e.PropertyName == ExtendedDatePicker.FontProperty.PropertyName)
                 SetFont(view);
@@ -113,7 +113,7 @@ namespace IdApp.iOS.Renderers
         {
             if (Element.HeightRequest >= 0) return;
 
-            var height = Math.Max(Bounds.Height,
+            double height = Math.Max(Bounds.Height,
                 new UITextField { Font = Control.Font }.IntrinsicContentSize.Height) * 2;
 
             Control.Frame = new CGRect(0.0f, 0.0f, (nfloat)Element.Width, (nfloat)height);
@@ -129,9 +129,9 @@ namespace IdApp.iOS.Renderers
         {
             if (!string.IsNullOrEmpty(view.Placeholder))
             {
-                var backgroundUIColor = view.BackgroundColor.ToUIColor();
-                var foregroundUIColor = view.PlaceholderTextColor.ToUIColor();
-                var targetFont = Control.Font;
+                UIColor backgroundUIColor = view.BackgroundColor.ToUIColor();
+                UIColor foregroundUIColor = view.PlaceholderTextColor.ToUIColor();
+                UIFont targetFont = Control.Font;
                 Control.AttributedPlaceholder = new NSAttributedString(view.Placeholder, targetFont, foregroundUIColor, backgroundUIColor);
             }
         }

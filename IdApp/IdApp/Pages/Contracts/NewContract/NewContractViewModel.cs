@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Controls.Extended;
 using IdApp.Extensions;
 using IdApp.Pages.Contracts.NewContract.ObjectModel;
 using IdApp.Pages.Contracts.ViewContract;
@@ -538,6 +539,36 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 		}
 
+		private async void Parameter_DateChanged(object sender, NullableDateChangedEventArgs e)
+		{
+			try
+			{
+				if (sender is not ExtendedDatePicker Picker || !this.parametersByName.TryGetValue(Picker.StyleId, out ParameterInfo ParameterInfo))
+					return;
+
+				if (ParameterInfo.Parameter is DateParameter DP)
+				{
+					if (e.NewDate is not null)
+					{
+						DP.Value = e.NewDate;
+						Picker.BackgroundColor = Color.Default;
+					}
+					else
+					{
+						Picker.BackgroundColor = Color.Salmon;
+						return;
+					}
+				}
+
+				await this.ValidateParameters();
+				await PopulateHumanReadableText();
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
+		}
+
 		private async void Parameter_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			try
@@ -565,19 +596,6 @@ namespace IdApp.Pages.Contracts.NewContract
 					if (bool.TryParse(e.NewTextValue, out bool b))
 					{
 						BP.Value = b;
-						Entry.BackgroundColor = Color.Default;
-					}
-					else
-					{
-						Entry.BackgroundColor = Color.Salmon;
-						return;
-					}
-				}
-				else if (ParameterInfo.Parameter is DateParameter DP)
-				{
-					if (DateTime.TryParse(e.NewTextValue, out DateTime TP) && TP.TimeOfDay == TimeSpan.Zero)
-					{
-						DP.Value = TP;
 						Entry.BackgroundColor = Color.Default;
 					}
 					else
@@ -904,19 +922,19 @@ namespace IdApp.Pages.Contracts.NewContract
 				{
 					Populate(parametersLayout, await Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
 
-					Entry Entry = new()
+					ExtendedDatePicker Picker = new()
 					{
 						StyleId = Parameter.Name,
-						Text = Parameter.ObjectValue?.ToString(),
+						NullableDate = Parameter.ObjectValue as DateTime?,
 						Placeholder = Parameter.Guide,
 						HorizontalOptions = LayoutOptions.FillAndExpand,
 					};
 
-					parametersLayout.Children.Add(Entry);
+					parametersLayout.Children.Add(Picker);
 
-					Entry.TextChanged += Parameter_TextChanged;
+					Picker.NullableDateSelected += Parameter_DateChanged;
 
-					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, Entry);
+					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, Picker);
 				}
 				else
 				{

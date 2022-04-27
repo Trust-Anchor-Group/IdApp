@@ -18,7 +18,8 @@ namespace IdApp.Controls.Extended
         /// The NullableDate property
         /// </summary>
         public static readonly BindableProperty NullableDateProperty =
-            BindableProperty.Create("NullableDate", typeof(DateTime?), typeof(ExtendedDatePicker), null, BindingMode.TwoWay);
+            BindableProperty.Create("NullableDate", typeof(DateTime?), typeof(ExtendedDatePicker), null, BindingMode.TwoWay,
+            propertyChanged: DatePropertyChanged);
 
         /// <summary>
         /// The XAlign property
@@ -108,13 +109,25 @@ namespace IdApp.Controls.Extended
             set { SetValue(PlaceholderTextColorProperty, value); }
         }
 
-        private bool IsDefaultDateSet = false;
-
-        protected override void OnBindingContextChanged()
+        public ExtendedDatePicker() : base()
         {
-            base.OnBindingContextChanged();
-            UpdateDate();
+            SetDefaultDate();
         }
+
+        public event EventHandler<NullableDateChangedEventArgs> NullableDateSelected;
+
+        static void DatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            ExtendedDatePicker Picker = (ExtendedDatePicker)bindable;
+            EventHandler<NullableDateChangedEventArgs> selected = Picker.NullableDateSelected;
+
+            if (selected != null)
+            {
+                selected(Picker, new NullableDateChangedEventArgs((DateTime?)oldValue, (DateTime?)newValue));
+            }
+        }
+
+        private bool IsDefaultDateSet = false;
 
         protected override void OnPropertyChanged(string propertyName = null)
         {
@@ -132,7 +145,7 @@ namespace IdApp.Controls.Extended
 
             if (propertyName == DateProperty.PropertyName && !IsDefaultDateSet)
             {
-                NullableDate = Date;
+                NullableDate = Date;                
             }
 
             if (propertyName == NullableDateProperty.PropertyName)
@@ -153,9 +166,15 @@ namespace IdApp.Controls.Extended
             else
             {
                 IsDefaultDateSet = true;
-                Date = DateTime.Now;
+                SetDefaultDate();
                 IsDefaultDateSet = false;
             }
+        }
+
+        private void SetDefaultDate()
+        {
+            DateTime now = DateTime.Now;
+            Date = new DateTime(now.Year, now.Month, now.Day);
         }
     }
 }

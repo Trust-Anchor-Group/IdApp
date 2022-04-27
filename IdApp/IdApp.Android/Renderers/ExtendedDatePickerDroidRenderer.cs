@@ -21,7 +21,7 @@ namespace IdApp.Android.Renderers
         {
             base.OnElementChanged(e);
 
-            var view = Element as ExtendedDatePicker;
+            ExtendedDatePicker view = Element as ExtendedDatePicker;
 
             if (view != null)
             {
@@ -38,7 +38,7 @@ namespace IdApp.Android.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
 
-            var view = (ExtendedDatePicker)Element;
+            ExtendedDatePicker view = (ExtendedDatePicker)Element;
 
             if (e.PropertyName == ExtendedDatePicker.FontProperty.PropertyName)
                 SetFont(view);
