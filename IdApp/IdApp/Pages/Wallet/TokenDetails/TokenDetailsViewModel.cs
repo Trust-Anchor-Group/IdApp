@@ -22,12 +22,17 @@ namespace IdApp.Pages.Wallet.TokenDetails
 	/// </summary>
 	public class TokenDetailsViewModel : QrXmppViewModel
 	{
+		private readonly TokenDetailsPage page;
+
 		/// <summary>
 		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
 		/// </summary>
-		public TokenDetailsViewModel()
+		/// <param name="Page">Page hosting details.</param>
+		public TokenDetailsViewModel(TokenDetailsPage Page)
 			: base()
 		{
+			this.page = Page;
+
 			this.Certifiers = new();
 			this.Valuators = new();
 			this.Assessors = new();
@@ -90,10 +95,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 				this.GenerateQrCode(Constants.UriSchemes.CreateTokenUri(this.TokenId));
 
-				await this.Populate(args.Token.Witness, null, this.Witnesses);
-				await this.Populate(args.Token.Certifier, args.Token.CertifierJids, this.Certifiers);
-				await this.Populate(args.Token.Valuator, null, this.Valuators);
-				await this.Populate(args.Token.Assessor, null, this.Assessors);
+				await this.Populate(AppResources.Witness, string.Empty, args.Token.Witness, null, this.Witnesses);
+				await this.Populate(AppResources.Certifier, AppResources.CertifierJid, args.Token.Certifier, args.Token.CertifierJids, this.Certifiers);
+				await this.Populate(AppResources.Valuator, string.Empty, args.Token.Valuator, null, this.Valuators);
+				await this.Populate(AppResources.Assessor, string.Empty, args.Token.Assessor, null, this.Assessors);
 
 				this.Tags.Clear();
 
@@ -140,7 +145,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
 		}
 
-		private async Task Populate(string[] LegalIds, string[] Jids, ObservableCollection<PartItem> Parts)
+		private async Task Populate(string LegalIdLabel, string JidLabel, string[] LegalIds, string[] Jids, ObservableCollection<PartItem> Parts)
 		{
 			int i, c = LegalIds.Length;
 			int d = Jids?.Length ?? 0;
@@ -155,6 +160,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				Jid = i < d ? Jids[i] : string.Empty;
 
 				Parts.Add(new PartItem(LegalIds[i], Jid, FriendlyName));
+
+				this.page.AddLegalId(this, LegalIdLabel, FriendlyName, LegalIds[i]);    // TODO: Replace with grouped collection, when this works in Xamarin.
+
+				if (!string.IsNullOrEmpty(Jid))
+					this.page.AddJid(this, JidLabel, Jid, LegalIds[i], FriendlyName);	// TODO: Replace with grouped collection, when this works in Xamarin.
 			}
 		}
 
@@ -849,11 +859,12 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 		private async Task OpenChat(object Parameter)
 		{
+			string s = Parameter.ToString();
 			string BareJid;
 			string LegalId;
 			string FriendlyName;
 
-			switch (Parameter.ToString())
+			switch (s)
 			{
 				case "Owner":
 					BareJid = this.OwnerJid;
@@ -874,7 +885,14 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					break;
 
 				default:
-					return;
+					string[] Parts = s.Split(" | ");
+					if (Parts.Length != 3)
+						return;
+
+					BareJid = Parts[0];
+					LegalId = Parts[1];
+					FriendlyName = Parts[2];
+					break;
 			}
 
 			try

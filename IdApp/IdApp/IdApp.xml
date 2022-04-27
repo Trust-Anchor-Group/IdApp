@@ -9089,15 +9089,39 @@
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
         </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage.AddLegalId(IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel,System.String,System.String,System.String)">
+            <summary>
+            Adds a Legal ID record in the parts section.
+            
+            (Grouped collections do not work. Need to do this manually. TODO: MVVC when this is possible.)
+            </summary>
+            <param name="Model">View model</param>
+            <param name="Label">Label</param>
+            <param name="FriendlyName">Friendly name</param>
+            <param name="LegalId">Legal ID</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage.AddJid(IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel,System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds a JID record in the parts section.
+            
+            (Grouped collections do not work. Need to do this manually. TODO: MVVC when this is possible.)
+            </summary>
+            <param name="Model">View model</param>
+            <param name="Label">Label</param>
+            <param name="Jid">XMPP Network address (JID)</param>
+            <param name="LegalId">Legal ID</param>
+            <param name="FriendlyName">Friendly name</param>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel">
             <summary>
             The view model to bind to for when displaying the contents of a token.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.#ctor">
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.#ctor(IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriViewModel"/> class.
             </summary>
+            <param name="Page">Page hosting details.</param>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DoBind">
             <inheritdoc/>
