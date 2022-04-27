@@ -108,6 +108,8 @@ namespace IdApp.Controls.Extended
             set { SetValue(PlaceholderTextColorProperty, value); }
         }
 
+        private bool IsDefaultDateSet = false;
+
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
@@ -118,25 +120,17 @@ namespace IdApp.Controls.Extended
         {
             base.OnPropertyChanged(propertyName);
 
-            //Device.OnPlatform(() =>
-            //{
             if (propertyName == IsFocusedProperty.PropertyName)
             {
-                if (IsFocused)
-                {
-                    if (!NullableDate.HasValue)
-                    {
-                        Date = (DateTime)DateProperty.DefaultValue;
-                    }
-                }
-                else
+                // we don't know if the date picker was closed by the Ok or Cancel button,
+                // so we presuppose it was an Ok.
+                if (!IsFocused)
                 {
                     OnPropertyChanged(DateProperty.PropertyName);
                 }
             }
-            //});
 
-            if (propertyName == DateProperty.PropertyName)
+            if (propertyName == DateProperty.PropertyName && !IsDefaultDateSet)
             {
                 NullableDate = Date;
             }
@@ -158,7 +152,9 @@ namespace IdApp.Controls.Extended
             }
             else
             {
-                Date = (DateTime)DateProperty.DefaultValue;
+                IsDefaultDateSet = true;
+                Date = DateTime.Now;
+                IsDefaultDateSet = false;
             }
         }
     }

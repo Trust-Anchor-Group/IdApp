@@ -103,7 +103,7 @@ namespace IdApp.iOS.Renderers
         private void SetNullableText(ExtendedDatePicker view)
         {
             if (view.NullableDate == null)
-                Control.Text = string.Empty;
+                Control.Text = view.Placeholder;
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace IdApp.iOS.Renderers
             if (!string.IsNullOrEmpty(view.Placeholder))
             {
                 var backgroundUIColor = view.BackgroundColor.ToUIColor();
-                var foregroundUIColor = backgroundUIColor;
+                var foregroundUIColor = view.PlaceholderTextColor.ToUIColor();
                 var targetFont = Control.Font;
                 Control.AttributedPlaceholder = new NSAttributedString(view.Placeholder, targetFont, foregroundUIColor, backgroundUIColor);
             }
