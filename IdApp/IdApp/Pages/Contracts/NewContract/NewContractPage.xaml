@@ -15,6 +15,8 @@
                 </Style>
             </StackLayout.Resources>
 
+            <ContentView Content="{Binding Path=HumanReadableText}" Margin="{StaticResource DefaultBottomOnlyMargin}" />
+
             <Label Text="{x:Static resx:AppResources.Visibility}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
             <Picker Title="{x:Static resx:AppResources.SelectWhoShouldHaveAccessToThisContract}" 
                     ItemsSource="{Binding Path=ContractVisibilityItems}" 
@@ -28,7 +30,6 @@
 
             <ContentView Content="{Binding Path=Roles}" />
             <ContentView Content="{Binding Path=Parameters}" />
-            <ContentView Content="{Binding Path=HumanReadableText}" />
 
             <Button Text="{x:Static resx:AppResources.Propose}" Command="{Binding Path=ProposeCommand}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
         </StackLayout>

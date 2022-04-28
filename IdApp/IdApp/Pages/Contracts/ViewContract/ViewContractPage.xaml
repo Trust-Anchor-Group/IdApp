@@ -18,6 +18,9 @@
                 <Label Text="{x:Static resx:AppResources.Proposal}" Style="{StaticResource Heading}" 
                        Margin="{StaticResource DefaultTopOnlyMargin}" IsVisible="{Binding Path=IsProposal}" />
                 <Label Text="{Binding Path=Proposal}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=IsProposal}" />
+                <!-- HUMAN READABLE TEXT -->
+                <Label Text="{x:Static resx:AppResources.HumanReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasHumanReadableText}" Margin="{StaticResource DefaultBottomOnlyMargin}" VerticalOptions="StartAndExpand" />
+                <ContentView Content="{Binding Path=HumanReadableText}" VerticalOptions="StartAndExpand"/>
                 <!-- GENERAL -->
                 <Label Text="{x:Static resx:AppResources.GeneralInformation}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" />
                 <Label Text="{x:Static resx:AppResources.GeneralInformationInfoText}" Style="{StaticResource InfoText}" />
@@ -67,9 +70,6 @@
                 <Label Text="{x:Static resx:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParameters}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="StartAndExpand" />
                 <Label Text="{x:Static resx:AppResources.ParametersInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasParameters}" VerticalOptions="StartAndExpand" />
                 <ContentView Content="{Binding Path=Parameters}" VerticalOptions="StartAndExpand"/>
-                <!-- HUMAN READABLE TEXT -->
-                <Label Text="{x:Static resx:AppResources.HumanReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasHumanReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="StartAndExpand" />
-                <ContentView Content="{Binding Path=HumanReadableText}" VerticalOptions="StartAndExpand"/>
                 <!-- MACHINE READABLE TEXT -->
                 <Label Text="{x:Static resx:AppResources.MachineReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasMachineReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="StartAndExpand" />
                 <Label Text="{x:Static resx:AppResources.MachineReadableInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasMachineReadableText}" VerticalOptions="StartAndExpand" />
