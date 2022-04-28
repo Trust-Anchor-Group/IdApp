@@ -1530,4 +1530,13 @@
   <data name="Witness" xml:space="preserve">
     <value>Witness</value>
   </data>
+  <data name="DefinitionNamespace" xml:space="preserve">
+    <value>Definition namespace</value>
+  </data>
+  <data name="DefinitionSchemaDigest" xml:space="preserve">
+    <value>Definition schema digest</value>
+  </data>
+  <data name="MachineReadableInfoTextToken" xml:space="preserve">
+    <value>An overview of the machine-readable data embedded in the token is shown below.</value>
+  </data>
 </root>

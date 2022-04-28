@@ -1530,4 +1530,13 @@
   <data name="Witness" xml:space="preserve">
     <value>Svedok</value>
   </data>
+  <data name="DefinitionNamespace" xml:space="preserve">
+    <value>Prostor za ime definicije</value>
+  </data>
+  <data name="DefinitionSchemaDigest" xml:space="preserve">
+    <value>Varenje šeme definicije</value>
+  </data>
+  <data name="MachineReadableInfoTextToken" xml:space="preserve">
+    <value>Pregled podataka čitljivih na računaru ugrađenih u simbol prikazan je ispod.</value>
+  </data>
 </root>

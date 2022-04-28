@@ -1530,4 +1530,13 @@
   <data name="Witness" xml:space="preserve">
     <value>Todistaja</value>
   </data>
+  <data name="DefinitionNamespace" xml:space="preserve">
+    <value>Määrityksen nimitila</value>
+  </data>
+  <data name="DefinitionSchemaDigest" xml:space="preserve">
+    <value>Määritä rakenteen koontiversio</value>
+  </data>
+  <data name="MachineReadableInfoTextToken" xml:space="preserve">
+    <value>Alla on yleiskatsaus tunnukseen upotettavista koneellisesti luettavista tiedoista.</value>
+  </data>
 </root>

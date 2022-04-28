@@ -1530,4 +1530,13 @@
   <data name="Witness" xml:space="preserve">
     <value>Témoin</value>
   </data>
+  <data name="DefinitionNamespace" xml:space="preserve">
+    <value>Espace de noms de définition</value>
+  </data>
+  <data name="DefinitionSchemaDigest" xml:space="preserve">
+    <value>Résumé du schéma de définition</value>
+  </data>
+  <data name="MachineReadableInfoTextToken" xml:space="preserve">
+    <value>Vous trouverez ci-dessous une vue d’ensemble des données lisibles par machine incorporées dans le jeton.</value>
+  </data>
 </root>

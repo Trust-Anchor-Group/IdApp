@@ -1530,4 +1530,13 @@
   <data name="Witness" xml:space="preserve">
     <value>Vidne</value>
   </data>
+  <data name="DefinitionNamespace" xml:space="preserve">
+    <value>Definition navneområde</value>
+  </data>
+  <data name="DefinitionSchemaDigest" xml:space="preserve">
+    <value>Definition skema digest</value>
+  </data>
+  <data name="MachineReadableInfoTextToken" xml:space="preserve">
+    <value>En oversigt over de maskinlæsbare data, der er integreret i tokenet, er vist nedenfor.</value>
+  </data>
 </root>

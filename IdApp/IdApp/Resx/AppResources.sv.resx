@@ -390,6 +390,12 @@
   <data name="DefinePin" xml:space="preserve">
     <value>Ange PIN</value>
   </data>
+  <data name="DefinitionNamespace" xml:space="preserve">
+    <value>Definitionens namnrymd</value>
+  </data>
+  <data name="DefinitionSchemaDigest" xml:space="preserve">
+    <value>Definitionens hash-nyckel</value>
+  </data>
   <data name="DeleteContract" xml:space="preserve">
     <value>Ta bort kontrakt</value>
   </data>
@@ -631,7 +637,10 @@
     <value>Longitud</value>
   </data>
   <data name="MachineReadableInfoText" xml:space="preserve">
-    <value>En översikt över den maskinläsbara informationen visas nedan.</value>
+    <value>En översikt över den maskinläsbara informationen i kontraktet visas nedan.</value>
+  </data>
+  <data name="MachineReadableInfoTextToken" xml:space="preserve">
+    <value>En översikt över den maskinläsbara informationen i denna token visas nedan.</value>
   </data>
   <data name="MachineReadableText" xml:space="preserve">
     <value>Maskinläsbar information</value>

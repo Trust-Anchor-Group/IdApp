@@ -944,6 +944,20 @@
             The NoBounceScrollView disables the bounce effect for the scroll view on iOS
             </summary>
         </member>
+        <member name="T:IdApp.Converters.BinaryToBase64Converter">
+            <summary>
+            Converts binary data to base64-encoded strings.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.BinaryToBase64Converter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BinaryToBase64Converter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BinaryToBase64Converter.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Converters.BooleanToBoldFontConverter">
             <summary>
             Converts a boolean value to a bold font (if true), or regular font (if false).
@@ -9605,9 +9619,9 @@
             Gets or sets the value representing the height of the glyph.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CopyTokenIdCommand">
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CopyToClipboardCommand">
             <summary>
-            Command to copy a Token ID to the clipboard.
+            Command to copy a value to the clipboard.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ViewIdCommand">
@@ -10762,6 +10776,16 @@
               Looks up a localized string similar to Define PIN.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.DefinitionNamespace">
+            <summary>
+              Looks up a localized string similar to Definition namespace.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.DefinitionSchemaDigest">
+            <summary>
+              Looks up a localized string similar to Definition schema digest.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.DeleteContract">
             <summary>
               Looks up a localized string similar to Delete contract.
@@ -11165,6 +11189,11 @@
         <member name="P:IdApp.Resx.AppResources.MachineReadableInfoText">
             <summary>
               Looks up a localized string similar to An overview of the machine-readable data embedded in the contract is shown below..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.MachineReadableInfoTextToken">
+            <summary>
+              Looks up a localized string similar to An overview of the machine-readable data embedded in the token is shown below..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.MachineReadableText">

@@ -880,6 +880,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Definition namespace.
+        /// </summary>
+        internal static string DefinitionNamespace {
+            get {
+                return ResourceManager.GetString("DefinitionNamespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Definition schema digest.
+        /// </summary>
+        internal static string DefinitionSchemaDigest {
+            get {
+                return ResourceManager.GetString("DefinitionSchemaDigest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete contract.
         /// </summary>
         internal static string DeleteContract {
@@ -1605,6 +1623,15 @@ namespace IdApp.Resx {
         internal static string MachineReadableInfoText {
             get {
                 return ResourceManager.GetString("MachineReadableInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An overview of the machine-readable data embedded in the token is shown below..
+        /// </summary>
+        internal static string MachineReadableInfoTextToken {
+            get {
+                return ResourceManager.GetString("MachineReadableInfoTextToken", resourceCulture);
             }
         }
         

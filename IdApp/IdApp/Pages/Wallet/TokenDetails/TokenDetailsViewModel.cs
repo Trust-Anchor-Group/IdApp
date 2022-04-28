@@ -39,7 +39,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.Witnesses = new();
 			this.Tags = new();
 
-			this.CopyTokenIdCommand = new Command(async P => await this.CopyTokenId(P));
+			this.CopyToClipboardCommand = new Command(async P => await this.CopyToClipboard(P));
 			this.ViewIdCommand = new Command(async P => await this.ViewId(P));
 			this.ViewContractCommand = new Command(async P => await this.ViewContract(P));
 			this.OpenChatCommand = new Command(async P => await this.OpenChat(P));
@@ -817,9 +817,9 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		#region Commands
 
 		/// <summary>
-		/// Command to copy a Token ID to the clipboard.
+		/// Command to copy a value to the clipboard.
 		/// </summary>
-		public ICommand CopyTokenIdCommand { get; }
+		public ICommand CopyToClipboardCommand { get; }
 
 		/// <summary>
 		/// Command to view a Legal ID.
@@ -841,12 +841,23 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		/// </summary>
 		public ICommand OpenLinkCommand { get; }
 
-		private async Task CopyTokenId(object Parameter)
+		private async Task CopyToClipboard(object Parameter)
 		{
 			try
 			{
-				await Clipboard.SetTextAsync($"nfeat:{Parameter}");
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
+				string s = Parameter?.ToString() ?? string.Empty;
+				int i = s.IndexOf('@');
+
+				if (i > 0 && Guid.TryParse(s.Substring(0, i), out _))
+				{
+					await Clipboard.SetTextAsync($"nfeat:{s}");
+					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
+				}
+				else
+				{
+					await Clipboard.SetTextAsync(s);
+					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+				}
 			}
 			catch (Exception ex)
 			{
