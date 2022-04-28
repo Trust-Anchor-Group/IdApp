@@ -1539,4 +1539,7 @@
   <data name="MachineReadableInfoTextToken" xml:space="preserve">
     <value>Alla on yleiskatsaus tunnukseen upotettavista koneellisesti luettavista tiedoista.</value>
   </data>
+  <data name="ShowDetails" xml:space="preserve">
+    <value>Näytä tiedot</value>
+  </data>
 </root>

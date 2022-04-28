@@ -3211,6 +3211,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Details.
+        /// </summary>
+        internal static string ShowDetails {
+            get {
+                return ResourceManager.GetString("ShowDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign after.
         /// </summary>
         internal static string SignAfter {

@@ -4024,6 +4024,11 @@
             The command to bind to when deleting a contract.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.ShowDetailsCommand">
+            <summary>
+            Command to show machine-readable details of contract.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.RoleProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.Role"/>
@@ -9644,6 +9649,11 @@
             Command to open a link.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShowDetailsCommand">
+            <summary>
+            Command to show machine-readable details of token.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenItem">
             <summary>
             Encapsulates a <see cref="T:NeuroFeatures.Token"/> object.
@@ -12069,6 +12079,11 @@
         <member name="P:IdApp.Resx.AppResources.ShowCode">
             <summary>
               Looks up a localized string similar to Show Code.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ShowDetails">
+            <summary>
+              Looks up a localized string similar to Show Details.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SignAfter">

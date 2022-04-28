@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Pages.Contacts.Chat;
@@ -11,6 +12,7 @@ using NeuroFeatures;
 using NeuroFeatures.Tags;
 using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Security;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -44,6 +46,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.ViewContractCommand = new Command(async P => await this.ViewContract(P));
 			this.OpenChatCommand = new Command(async P => await this.OpenChat(P));
 			this.OpenLinkCommand = new Command(async P => await this.OpenLink(P));
+			this.ShowDetailsCommand = new Command(async _ => await this.ShowDetails());
 		}
 
 		/// <inheritdoc/>
@@ -841,6 +844,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		/// </summary>
 		public ICommand OpenLinkCommand { get; }
 
+		/// <summary>
+		/// Command to show machine-readable details of token.
+		/// </summary>
+		public ICommand ShowDetailsCommand { get; }
+
 		private async Task CopyToClipboard(object Parameter)
 		{
 			try
@@ -941,6 +949,27 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		private Task OpenLink(object Parameter)
 		{
 			return App.OpenUrl(Parameter.ToString());
+		}
+
+		private async Task ShowDetails()
+		{
+			try
+			{
+				byte[] Bin = Encoding.UTF8.GetBytes(this.Definition);
+				HttpFileUploadEventArgs e = await this.XmppService.FileUploadClient.RequestUploadSlotAsync(this.TokenId + ".xml", "text/xml; charset=utf-8", Bin.Length);
+
+				if (e.Ok)
+				{
+					await e.PUT(Bin, "text/xml", (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
+					await App.OpenUrl(e.GetUrl);
+				}
+				else
+					await this.UiSerializer.DisplayAlert(e.StanzaError ?? new Exception(e.ErrorText));
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
 		}
 
 		#endregion

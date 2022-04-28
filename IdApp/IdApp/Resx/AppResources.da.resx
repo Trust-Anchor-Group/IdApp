@@ -1539,4 +1539,7 @@
   <data name="MachineReadableInfoTextToken" xml:space="preserve">
     <value>En oversigt over de maskinlæsbare data, der er integreret i tokenet, er vist nedenfor.</value>
   </data>
+  <data name="ShowDetails" xml:space="preserve">
+    <value>Vis detaljer</value>
+  </data>
 </root>

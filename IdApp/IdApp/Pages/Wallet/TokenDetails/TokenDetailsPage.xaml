@@ -193,7 +193,7 @@
                 <Label Text="{x:Static resx:AppResources.MachineReadableText}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
                 <Label Text="{x:Static resx:AppResources.MachineReadableInfoTextToken}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
 
-                <Grid>
+                <Grid Margin="{StaticResource DefaultBottomOnlyMargin}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -234,12 +234,12 @@
                     <Label Grid.Column="1" Grid.Row="4" Text="{Binding DefinitionSchemaHashFunction}" Style="{StaticResource ValueLabel}"/>
                 </Grid>
 
+                <Button Text="{x:Static resx:AppResources.ShowDetails}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=ShowDetailsCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+
                 <!--
-				this.Definition = args.Token.Definition;
-                
+                send token button
                 share token button
-                share qr code button
-                view definition button
                 -->
             </StackLayout>
         </ScrollView>

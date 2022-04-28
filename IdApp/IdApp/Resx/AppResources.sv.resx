@@ -1164,6 +1164,9 @@
   <data name="ShowCode" xml:space="preserve">
     <value>Visa kod</value>
   </data>
+  <data name="ShowDetails" xml:space="preserve">
+    <value>Visa detaljer</value>
+  </data>
   <data name="SignAfter" xml:space="preserve">
     <value>Signera efter</value>
   </data>

@@ -1539,4 +1539,7 @@
   <data name="MachineReadableInfoTextToken" xml:space="preserve">
     <value>Vous trouverez ci-dessous une vue d’ensemble des données lisibles par machine incorporées dans le jeton.</value>
   </data>
+  <data name="ShowDetails" xml:space="preserve">
+    <value>Afficher les détails</value>
+  </data>
 </root>

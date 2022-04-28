@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Extensions;
@@ -13,6 +14,7 @@ using IdApp.Pages.Contracts.ViewContract.ObjectModel;
 using IdApp.Resx;
 using IdApp.Services.UI.Photos;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.HttpFileUpload;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -36,6 +38,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 			this.ObsoleteContractCommand = new Command(async _ => await ObsoleteContract());
 			this.DeleteContractCommand = new Command(async _ => await DeleteContract());
+			this.ShowDetailsCommand = new Command(async _ => await this.ShowDetails());
+
 			this.GeneralInformation = new ObservableCollection<PartModel>();
 		}
 
@@ -92,6 +96,11 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// The command to bind to when deleting a contract.
 		/// </summary>
 		public ICommand DeleteContractCommand { get; }
+
+		/// <summary>
+		/// Command to show machine-readable details of contract.
+		/// </summary>
+		public ICommand ShowDetailsCommand { get; }
 
 		/// <summary>
 		/// See <see cref="Role"/>
@@ -824,5 +833,27 @@ namespace IdApp.Pages.Contracts.ViewContract
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
+
+		private async Task ShowDetails()
+		{
+			try
+			{
+				byte[] Bin = Encoding.UTF8.GetBytes(this.Contract.ForMachines.OuterXml);
+				HttpFileUploadEventArgs e = await this.XmppService.FileUploadClient.RequestUploadSlotAsync(this.Contract.ContractId + ".xml", "text/xml; charset=utf-8", Bin.Length);
+
+				if (e.Ok)
+				{
+					await e.PUT(Bin, "text/xml", (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
+					await App.OpenUrl(e.GetUrl);
+				}
+				else
+					await this.UiSerializer.DisplayAlert(e.StanzaError ?? new Exception(e.ErrorText));
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
 	}
 }

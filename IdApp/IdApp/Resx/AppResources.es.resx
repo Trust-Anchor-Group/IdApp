@@ -1539,4 +1539,7 @@
   <data name="MachineReadableInfoTextToken" xml:space="preserve">
     <value>A continuación se muestra una descripción general de los datos legibles por máquina incrustados en el token.</value>
   </data>
+  <data name="ShowDetails" xml:space="preserve">
+    <value>Mostrar detalles</value>
+  </data>
 </root>
