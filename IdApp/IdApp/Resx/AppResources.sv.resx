@@ -234,6 +234,9 @@
   <data name="Certifier" xml:space="preserve">
     <value>Certifierare</value>
   </data>
+  <data name="CertifierCanDestroy" xml:space="preserve">
+    <value>Certifierare kan förstöra token</value>
+  </data>
   <data name="CertifierJid" xml:space="preserve">
     <value>Certifierarens adress</value>
   </data>
@@ -365,6 +368,9 @@
   </data>
   <data name="Creator" xml:space="preserve">
     <value>Skapare</value>
+  </data>
+  <data name="CreatorCanDestroy" xml:space="preserve">
+    <value>Skaparen kan förstöra token</value>
   </data>
   <data name="CreatorJid" xml:space="preserve">
     <value>Skaparens adress</value>
@@ -765,6 +771,12 @@
   <data name="Owner" xml:space="preserve">
     <value>Ägare</value>
   </data>
+  <data name="OwnerCanDestroyBatch" xml:space="preserve">
+    <value>Ägaren kan förstöra token-hopen</value>
+  </data>
+  <data name="OwnerCanDestroyIndividual" xml:space="preserve">
+    <value>Ägaren kan förstöra individuell token</value>
+  </data>
   <data name="OwnerJid" xml:space="preserve">
     <value>Ägarens adress</value>
   </data>
@@ -932,6 +944,9 @@
   </data>
   <data name="PresenceUnsubscriptionRequestSent" xml:space="preserve">
     <value>En förfrågan att ta bort närvaruprenumerationen har skickats.</value>
+  </data>
+  <data name="Privileges" xml:space="preserve">
+    <value>Privilegier</value>
   </data>
   <data name="ProductInformation" xml:space="preserve">
     <value>Produktinformation</value>
@@ -1280,6 +1295,9 @@
   </data>
   <data name="TokenPartsInfoText" xml:space="preserve">
     <value>Här följer en lista över parter relaterade till denna token.</value>
+  </data>
+  <data name="TokenPrivilegesInfoText" xml:space="preserve">
+    <value>Här nedan följer privilegier ingraverade i detta token.</value>
   </data>
   <data name="TokenVisibility" xml:space="preserve">
     <value>Tokens synlighet</value>

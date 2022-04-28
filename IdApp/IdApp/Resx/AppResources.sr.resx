@@ -1500,8 +1500,26 @@
   <data name="Certifier" xml:space="preserve">
     <value>Certifikator</value>
   </data>
+  <data name="CertifierCanDestroy" xml:space="preserve">
+    <value>Sertifikat može da uništi simbol</value>
+  </data>
   <data name="CertifierJid" xml:space="preserve">
     <value>Adresa potvrde</value>
+  </data>
+  <data name="CreatorCanDestroy" xml:space="preserve">
+    <value>Tvorac može da uništi simbol</value>
+  </data>
+  <data name="OwnerCanDestroyBatch" xml:space="preserve">
+    <value>Vlasnik može da uništi grupu tokena</value>
+  </data>
+  <data name="OwnerCanDestroyIndividual" xml:space="preserve">
+    <value>Vlasnik može da uništi pojedinačni simbol</value>
+  </data>
+  <data name="Privileges" xml:space="preserve">
+    <value>Privilegije</value>
+  </data>
+  <data name="TokenPrivilegesInfoText" xml:space="preserve">
+    <value>Slede privilegije ugravirane u simbol.</value>
   </data>
   <data name="Valuator" xml:space="preserve">
     <value>Valuator</value>

@@ -412,6 +412,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Certifier can destroy token.
+        /// </summary>
+        internal static string CertifierCanDestroy {
+            get {
+                return ResourceManager.GetString("CertifierCanDestroy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Certifier Address.
         /// </summary>
         internal static string CertifierJid {
@@ -804,6 +813,15 @@ namespace IdApp.Resx {
         internal static string Creator {
             get {
                 return ResourceManager.GetString("Creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator can destroy token.
+        /// </summary>
+        internal static string CreatorCanDestroy {
+            get {
+                return ResourceManager.GetString("CreatorCanDestroy", resourceCulture);
             }
         }
         
@@ -2005,6 +2023,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Owner can destroy token batch.
+        /// </summary>
+        internal static string OwnerCanDestroyBatch {
+            get {
+                return ResourceManager.GetString("OwnerCanDestroyBatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Owner can destroy individual token.
+        /// </summary>
+        internal static string OwnerCanDestroyIndividual {
+            get {
+                return ResourceManager.GetString("OwnerCanDestroyIndividual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Owner Address.
         /// </summary>
         internal static string OwnerJid {
@@ -2505,6 +2541,15 @@ namespace IdApp.Resx {
         internal static string PresenceUnsubscriptionRequestSent {
             get {
                 return ResourceManager.GetString("PresenceUnsubscriptionRequestSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privileges.
+        /// </summary>
+        internal static string Privileges {
+            get {
+                return ResourceManager.GetString("Privileges", resourceCulture);
             }
         }
         
@@ -3531,6 +3576,15 @@ namespace IdApp.Resx {
         internal static string TokenPartsInfoText {
             get {
                 return ResourceManager.GetString("TokenPartsInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Following are privileges engraved into the token..
+        /// </summary>
+        internal static string TokenPrivilegesInfoText {
+            get {
+                return ResourceManager.GetString("TokenPrivilegesInfoText", resourceCulture);
             }
         }
         

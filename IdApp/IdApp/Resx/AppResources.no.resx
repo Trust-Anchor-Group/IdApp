@@ -1500,8 +1500,26 @@
   <data name="Certifier" xml:space="preserve">
     <value>Sertifikator</value>
   </data>
+  <data name="CertifierCanDestroy" xml:space="preserve">
+    <value>Sertifikat kan ødelegge token</value>
+  </data>
   <data name="CertifierJid" xml:space="preserve">
     <value>Sertifikatadresse</value>
+  </data>
+  <data name="CreatorCanDestroy" xml:space="preserve">
+    <value>Oppretter kan ødelegge token</value>
+  </data>
+  <data name="OwnerCanDestroyBatch" xml:space="preserve">
+    <value>Eier kan ødelegge tokenbunke</value>
+  </data>
+  <data name="OwnerCanDestroyIndividual" xml:space="preserve">
+    <value>Eier kan ødelegge individuelle token</value>
+  </data>
+  <data name="Privileges" xml:space="preserve">
+    <value>Rettigheter</value>
+  </data>
+  <data name="TokenPrivilegesInfoText" xml:space="preserve">
+    <value>Følgende er rettigheter som er gravert inn i tokenet.</value>
   </data>
   <data name="Valuator" xml:space="preserve">
     <value>Valuator</value>

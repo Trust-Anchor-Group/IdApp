@@ -162,18 +162,43 @@
                     </Label>
                 </Grid>
 
+                <Label Text="{x:Static resx:AppResources.Privileges}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+                <Label Text="{x:Static resx:AppResources.TokenPrivilegesInfoText}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.CreatorCanDestroy}" Style="{StaticResource KeyLabel}"/>
+                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding CreatorCanDestroy, Converter={converters:BooleanToYesNoConverter}}" Style="{StaticResource ValueLabel}" HorizontalOptions="Center"/>
+
+                    <Label Grid.Column="0" Grid.Row="1" Text="{x:Static resx:AppResources.OwnerCanDestroyBatch}" Style="{StaticResource KeyLabel}"/>
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding OwnerCanDestroyBatch, Converter={converters:BooleanToYesNoConverter}}" Style="{StaticResource ValueLabel}" HorizontalOptions="Center"/>
+
+                    <Label Grid.Column="0" Grid.Row="2" Text="{x:Static resx:AppResources.OwnerCanDestroyIndividual}" Style="{StaticResource KeyLabel}"/>
+                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding OwnerCanDestroyIndividual, Converter={converters:BooleanToYesNoConverter}}" Style="{StaticResource ValueLabel}" HorizontalOptions="Center"/>
+
+                    <Label Grid.Column="0" Grid.Row="3" Text="{x:Static resx:AppResources.CertifierCanDestroy}" Style="{StaticResource KeyLabel}"/>
+                    <Label Grid.Column="1" Grid.Row="3" Text="{Binding CertifierCanDestroy, Converter={converters:BooleanToYesNoConverter}}" Style="{StaticResource ValueLabel}" HorizontalOptions="Center"/>
+                </Grid>
+
                 <!--
-                    
+                
 				this.Signature = args.Token.Signature;
 				this.SignatureTimestamp = args.Token.SignatureTimestamp;
                     
 				this.DefinitionSchemaDigest = args.Token.DefinitionSchemaDigest;
 				this.DefinitionSchemaHashFunction = args.Token.DefinitionSchemaHashFunction;
-				this.CreatorCanDestroy = args.Token.CreatorCanDestroy;
-				this.OwnerCanDestroyBatch = args.Token.OwnerCanDestroyBatch;
-				this.OwnerCanDestroyIndividual = args.Token.OwnerCanDestroyIndividual;
-				this.CertifierCanDestroy = args.Token.CertifierCanDestroy;
-				this.Reference = args.Token.Reference;
+
+                this.Reference = args.Token.Reference;
 				this.Definition = args.Token.Definition;
 				this.DefinitionNamespace = args.Token.DefinitionNamespace;
 				this.Tags = args.Token.Tags;

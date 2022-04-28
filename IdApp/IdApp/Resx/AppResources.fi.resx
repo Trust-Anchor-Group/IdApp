@@ -1500,8 +1500,26 @@
   <data name="Certifier" xml:space="preserve">
     <value>Sertifioija</value>
   </data>
+  <data name="CertifierCanDestroy" xml:space="preserve">
+    <value>Sertifioija voi tuhota tunnuksen</value>
+  </data>
   <data name="CertifierJid" xml:space="preserve">
     <value>Sertifioijan osoite</value>
+  </data>
+  <data name="CreatorCanDestroy" xml:space="preserve">
+    <value>Luoja voi tuhota tunnuksen</value>
+  </data>
+  <data name="OwnerCanDestroyBatch" xml:space="preserve">
+    <value>Omistaja voi tuhota tunnuserän</value>
+  </data>
+  <data name="OwnerCanDestroyIndividual" xml:space="preserve">
+    <value>Omistaja voi tuhota yksittäisen tunnuksen</value>
+  </data>
+  <data name="Privileges" xml:space="preserve">
+    <value>Oikeudet</value>
+  </data>
+  <data name="TokenPrivilegesInfoText" xml:space="preserve">
+    <value>Seuraavassa on tunnukseen kaiverretut oikeudet.</value>
   </data>
   <data name="Valuator" xml:space="preserve">
     <value>Valuttaja</value>

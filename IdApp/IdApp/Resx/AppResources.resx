@@ -1500,8 +1500,26 @@
   <data name="Certifier" xml:space="preserve">
     <value>Certifier</value>
   </data>
+  <data name="CertifierCanDestroy" xml:space="preserve">
+    <value>Certifier can destroy token</value>
+  </data>
   <data name="CertifierJid" xml:space="preserve">
     <value>Certifier Address</value>
+  </data>
+  <data name="CreatorCanDestroy" xml:space="preserve">
+    <value>Creator can destroy token</value>
+  </data>
+  <data name="OwnerCanDestroyBatch" xml:space="preserve">
+    <value>Owner can destroy token batch</value>
+  </data>
+  <data name="OwnerCanDestroyIndividual" xml:space="preserve">
+    <value>Owner can destroy individual token</value>
+  </data>
+  <data name="Privileges" xml:space="preserve">
+    <value>Privileges</value>
+  </data>
+  <data name="TokenPrivilegesInfoText" xml:space="preserve">
+    <value>Following are privileges engraved into the token.</value>
   </data>
   <data name="Valuator" xml:space="preserve">
     <value>Valuator</value>

@@ -963,6 +963,20 @@
         <member name="M:IdApp.Converters.BooleanToBoldFontConverter.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Converters.BooleanToCharConverter">
+            <summary>
+            Converts a boolean value to a unicode character.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToCharConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToCharConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToCharConverter.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Converters.BooleanToColorConverter">
             <summary>
             Converts a boolean value to a color ("AlertColor"), or <see cref="P:Xamarin.Forms.Color.Default"/> (if false).
@@ -989,6 +1003,20 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Converters.BooleanToTextTypeConverter.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Converters.BooleanToYesNoConverter">
+            <summary>
+            Converts a boolean value to either Yes or No
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToYesNoConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToYesNoConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToYesNoConverter.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Converters.DateTimeToStringConverter">
@@ -10449,6 +10477,11 @@
               Looks up a localized string similar to Certifier.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.CertifierCanDestroy">
+            <summary>
+              Looks up a localized string similar to Certifier can destroy token.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.CertifierJid">
             <summary>
               Looks up a localized string similar to Certifier Address.
@@ -10667,6 +10700,11 @@
         <member name="P:IdApp.Resx.AppResources.Creator">
             <summary>
               Looks up a localized string similar to Creator.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.CreatorCanDestroy">
+            <summary>
+              Looks up a localized string similar to Creator can destroy token.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.CreatorJid">
@@ -11334,6 +11372,16 @@
               Looks up a localized string similar to Owner.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.OwnerCanDestroyBatch">
+            <summary>
+              Looks up a localized string similar to Owner can destroy token batch.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OwnerCanDestroyIndividual">
+            <summary>
+              Looks up a localized string similar to Owner can destroy individual token.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.OwnerJid">
             <summary>
               Looks up a localized string similar to Owner Address.
@@ -11612,6 +11660,11 @@
         <member name="P:IdApp.Resx.AppResources.PresenceUnsubscriptionRequestSent">
             <summary>
               Looks up a localized string similar to A request to unsibscribe from presence notification has been sent..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Privileges">
+            <summary>
+              Looks up a localized string similar to Privileges.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ProductInformation">
@@ -12182,6 +12235,11 @@
         <member name="P:IdApp.Resx.AppResources.TokenPartsInfoText">
             <summary>
               Looks up a localized string similar to Following is a list of parties related to this token..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TokenPrivilegesInfoText">
+            <summary>
+              Looks up a localized string similar to Following are privileges engraved into the token..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.TokenVisibility">

@@ -1500,8 +1500,26 @@
   <data name="Certifier" xml:space="preserve">
     <value>Certificateur</value>
   </data>
+  <data name="CertifierCanDestroy" xml:space="preserve">
+    <value>Le certificateur peut détruire le jeton</value>
+  </data>
   <data name="CertifierJid" xml:space="preserve">
     <value>Adresse du certificateur</value>
+  </data>
+  <data name="CreatorCanDestroy" xml:space="preserve">
+    <value>Le créateur peut détruire le jeton</value>
+  </data>
+  <data name="OwnerCanDestroyBatch" xml:space="preserve">
+    <value>Le propriétaire peut détruire le lot de jetons</value>
+  </data>
+  <data name="OwnerCanDestroyIndividual" xml:space="preserve">
+    <value>Le propriétaire peut détruire un jeton individuel</value>
+  </data>
+  <data name="Privileges" xml:space="preserve">
+    <value>Privilèges</value>
+  </data>
+  <data name="TokenPrivilegesInfoText" xml:space="preserve">
+    <value>Voici les privilèges gravés dans le jeton.</value>
   </data>
   <data name="Valuator" xml:space="preserve">
     <value>Évaluateur</value>

@@ -1500,8 +1500,26 @@
   <data name="Certifier" xml:space="preserve">
     <value>Bestätiger</value>
   </data>
+  <data name="CertifierCanDestroy" xml:space="preserve">
+    <value>Zertifizierer kann Token zerstören</value>
+  </data>
   <data name="CertifierJid" xml:space="preserve">
     <value>Adresse des Zertifizierers</value>
+  </data>
+  <data name="CreatorCanDestroy" xml:space="preserve">
+    <value>Ersteller kann Token zerstören</value>
+  </data>
+  <data name="OwnerCanDestroyBatch" xml:space="preserve">
+    <value>Besitzer kann Token-Batch zerstören</value>
+  </data>
+  <data name="OwnerCanDestroyIndividual" xml:space="preserve">
+    <value>Besitzer kann einzelne Token zerstören</value>
+  </data>
+  <data name="Privileges" xml:space="preserve">
+    <value>Privilegien</value>
+  </data>
+  <data name="TokenPrivilegesInfoText" xml:space="preserve">
+    <value>Im Folgenden sind die in das Token eingravierten Berechtigungen aufgeführt.</value>
   </data>
   <data name="Valuator" xml:space="preserve">
     <value>Gutachter</value>
