@@ -32,7 +32,12 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <summary>
 		/// eDaler URI Scheme (edaler)
 		/// </summary>
-		EDaler
+		EDaler,
+
+		/// <summary>
+		/// Neuro-Feature URI Scheme (nfeat)
+		/// </summary>
+		NeuroFeature
 	}
 
 	/// <summary>

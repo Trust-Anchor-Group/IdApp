@@ -20,6 +20,7 @@ namespace IdApp.Pages.Wallet
 	{
 		private readonly Token token;
 		private readonly ServiceReferences model;
+		private readonly TaskCompletionSource<TokenItem> selected;
 
 		/// <summary>
 		/// Encapsulates a <see cref="Token"/> object.
@@ -27,9 +28,21 @@ namespace IdApp.Pages.Wallet
 		/// <param name="Token">Token</param>
 		/// <param name="Model">View model</param>
 		public TokenItem(Token Token, ServiceReferences Model)
+			: this(Token, Model, null)
+		{
+		}
+
+		/// <summary>
+		/// Encapsulates a <see cref="Token"/> object.
+		/// </summary>
+		/// <param name="Token">Token</param>
+		/// <param name="Model">View model</param>
+		/// <param name="Selected">Asynchronous task completion source, waiting for the user to select a token.</param>
+		public TokenItem(Token Token, ServiceReferences Model, TaskCompletionSource<TokenItem> Selected)
 		{
 			this.token = Token;
 			this.model = Model;
+			this.selected = Selected;
 
 			if (!(this.Glyph is null) && this.GlyphContentType.StartsWith("image/"))
 			{
@@ -57,6 +70,11 @@ namespace IdApp.Pages.Wallet
 
 			this.ClickedCommand = new Command(async _ => await this.TokenClicked());
 		}
+
+		/// <summary>
+		/// Token object.
+		/// </summary>
+		public Token Token => this.token;
 
 		/// <summary>
 		/// When token was created.
@@ -325,7 +343,10 @@ namespace IdApp.Pages.Wallet
 
 		private async Task TokenClicked()
 		{
-			await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage), new TokenDetailsNavigationArgs(this));
+			if (this.selected is null)
+				await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage), new TokenDetailsNavigationArgs(this));
+			else
+				this.selected.TrySetResult(this);
 		}
 	}
 }

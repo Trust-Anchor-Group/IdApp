@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <PackageReference Include="EDaler" Version="2.1.0" />
-    <PackageReference Include="NeuroFeatures" Version="1.1.3" />
+    <PackageReference Include="NeuroFeatures" Version="1.1.4" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />
     <PackageReference Include="Waher.Content" Version="2.3.1" />
@@ -67,7 +67,7 @@
     <PackageReference Include="Waher.Runtime.Temporary" Version="1.0.0" />
     <PackageReference Include="Waher.Runtime.Text" Version="1.0.1" />
     <PackageReference Include="Waher.Runtime.Timing" Version="1.0.4" />
-    <PackageReference Include="Waher.Script" Version="2.4.0" />
+    <PackageReference Include="Waher.Script" Version="2.4.1" />
     <PackageReference Include="Waher.Security" Version="1.0.8" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
@@ -159,6 +159,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Pages\Wallet\MyTokens\MyTokensPage.xaml.cs">
+      <DependentUpon>MyTokensPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\Wallet\TokenDetails\TokenDetailsPage.xaml.cs">
       <DependentUpon>TokenDetailsPage.xaml</DependentUpon>
     </Compile>

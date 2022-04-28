@@ -1799,6 +1799,11 @@
             Command to embed a payment
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.EmbedToken">
+            <summary>
+            Command to embed a token reference
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.EmbedThing">
             <summary>
             Command to embed a reference to a thing
@@ -1861,6 +1866,11 @@
         <member name="F:IdApp.Pages.Contacts.Chat.UriScheme.EDaler">
             <summary>
             eDaler URI Scheme (edaler)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.UriScheme.NeuroFeature">
+            <summary>
+            Neuro-Feature URI Scheme (nfeat)
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.IChatView">
@@ -2002,6 +2012,69 @@
             <param name="Language">Code language</param>
             <returns>Grade of support.</returns>
         </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock">
+            <summary>
+            Handles embedded tokens.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.#ctor">
+            <summary>
+            Handles embedded tokens.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.HandlesHTML">
+            <summary>
+            If generation of HTML is supported
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.HandlesPlainText">
+            <summary>
+            If generation of plain text is supported.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.HandlesXAML">
+            <summary>
+            If generation of XAML is supported.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.Document">
+            <summary>
+            Markdown document.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.GenerateHTML(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates HTML (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.GeneratePlainText(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates Plain Text (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates WPF XAML (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates Xamarin XAML
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.Register(Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Registers the Markdown document in which the construct resides.
+            </summary>
+            <param name="Document">Markdown document</param>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.Supports(System.String)">
+            <summary>
+            How much the module supports code of a given language (i.e. type of content)
+            </summary>
+            <param name="Language">Code language</param>
+            <returns>Grade of support.</returns>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme">
             <summary>
             Implements the edaler URI Scheme
@@ -2100,6 +2173,31 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme">
+            <summary>
+            Implements the nfeat URI Scheme
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme.#ctor">
+            <summary>
+            Implements the nfeat URI Scheme
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme.Supports(Waher.Content.Markdown.Model.MultimediaItem)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme.EmbedInlineLink(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme">
@@ -8481,6 +8579,90 @@
         <member name="M:IdApp.Pages.Wallet.ItemTypeTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Pages.Wallet.MyTokens.MyTokensNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to the eDaler wallet.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MyTokens.MyTokensNavigationArgs"/> class.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensNavigationArgs.Selected">
+            <summary>
+            Task completion source, waiting for a response from the user.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensNavigationArgs.WaitForTokenSelection">
+            <summary>
+            Waits for the token to be selected; null is returned if the user goes back.
+            </summary>
+            <returns>Selected token, or null if user cancels, by going back.</returns>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MyTokens.MyTokensPage">
+            <summary>
+            A page that allows the user to view its tokens.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MyTokens.MyTokensPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel">
+            <summary>
+            The view model to bind to for when displaying my tokens.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasTokensProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasTokens"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasTokens">
+            <summary>
+            HasTokens of eDaler to process
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.Tokens">
+            <summary>
+            Holds a list of tokens
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.BackCommand">
+            <summary>
+            The command to bind to for returning to previous view.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.LoadMoreTokensCommand">
+            <summary>
+            Command executed when more tokens need to be loaded.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.WaitForTokenSelection">
+            <summary>
+            Waits for the token to be selected; null is returned if the user goes back.
+            </summary>
+            <returns>Selected token, or null if user cancels, by going back.</returns>
+        </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.MyWalletPage">
             <summary>
             A page that allows the user to view the contents of its wallet, pending payments and recent account events.
@@ -9656,15 +9838,28 @@
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenItem">
             <summary>
-            Encapsulates a <see cref="T:NeuroFeatures.Token"/> object.
+            Encapsulates a <see cref="P:IdApp.Pages.Wallet.TokenItem.Token"/> object.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences)">
             <summary>
-            Encapsulates a <see cref="T:NeuroFeatures.Token"/> object.
+            Encapsulates a <see cref="P:IdApp.Pages.Wallet.TokenItem.Token"/> object.
             </summary>
             <param name="Token">Token</param>
             <param name="Model">View model</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences,System.Threading.Tasks.TaskCompletionSource{IdApp.Pages.Wallet.TokenItem})">
+            <summary>
+            Encapsulates a <see cref="P:IdApp.Pages.Wallet.TokenItem.Token"/> object.
+            </summary>
+            <param name="Token">Token</param>
+            <param name="Model">View model</param>
+            <param name="Selected">Asynchronous task completion source, waiting for the user to select a token.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Token">
+            <summary>
+            Token object.
+            </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.TokenItem.Created">
             <summary>
@@ -11131,6 +11326,11 @@
               Looks up a localized string similar to Invalid IoT Discovery Code.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.InvalidNeuroFeatureToken">
+            <summary>
+              Looks up a localized string similar to Invalid Neuro-Feature token..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.InvalidUsernameOrPassword">
             <summary>
               Looks up a localized string similar to Invalid username or password.
@@ -11289,6 +11489,11 @@
         <member name="P:IdApp.Resx.AppResources.MyIdentity">
             <summary>
               Looks up a localized string similar to My Identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.MyTokens">
+            <summary>
+              Looks up a localized string similar to My Tokens.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Name">
@@ -13915,6 +14120,11 @@
         <member name="P:IdApp.Services.Messages.ChatMessage.IotScUriClicked">
             <summary>
             Command executed when a multi-media-link with the iotsc URI scheme is clicked.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.NeuroFeatureUriClicked">
+            <summary>
+            Command executed when a multi-media-link with the nfeat URI scheme is clicked.
             </summary>
         </member>
         <member name="P:IdApp.Services.Messages.ChatMessage.IotDiscoUriClicked">

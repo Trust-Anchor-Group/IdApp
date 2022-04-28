@@ -34,6 +34,7 @@ using IdApp.Services.Tag;
 using IdApp.Services.UI.QR;
 using IdApp.Resx;
 using IdApp.Converters;
+using IdApp.Pages.Wallet.MyTokens;
 
 namespace IdApp.Pages.Contacts.Chat
 {
@@ -62,6 +63,7 @@ namespace IdApp.Pages.Contacts.Chat
 			this.EmbedId = new Command(async _ => await this.ExecuteEmbedId(), _ => this.CanExecuteEmbedId());
 			this.EmbedContract = new Command(async _ => await this.ExecuteEmbedContract(), _ => this.CanExecuteEmbedContract());
 			this.EmbedMoney = new Command(async _ => await this.ExecuteEmbedMoney(), _ => this.CanExecuteEmbedMoney());
+			this.EmbedToken = new Command(async _ => await this.ExecuteEmbedToken(), _ => this.CanExecuteEmbedToken());
 			this.EmbedThing = new Command(async _ => await this.ExecuteEmbedThing(), _ => this.CanExecuteEmbedThing());
 
 			this.MessageSelected = new Command(async Parameter => await this.ExecuteMessageSelected(Parameter));
@@ -123,7 +125,7 @@ namespace IdApp.Pages.Contacts.Chat
 		private void EvaluateAllCommands()
 		{
 			this.EvaluateCommands(this.SendCommand, this.CancelCommand, this.LoadMoreMessages, this.TakePhoto, this.EmbedFile,
-				this.EmbedId, this.EmbedContract, this.EmbedMoney, this.EmbedThing);
+				this.EmbedId, this.EmbedContract, this.EmbedMoney, this.EmbedToken, this.EmbedThing);
 		}
 
 		/// <inheritdoc/>
@@ -764,7 +766,6 @@ namespace IdApp.Pages.Contacts.Chat
 			await this.waitUntilBound.Task;     // Wait until view is bound again.
 
 			sb.Clear();
-
 			sb.Append(MoneyToString.ToString(Parsed.Amount));
 
 			if (Parsed.AmountExtra.HasValue)
@@ -778,6 +779,39 @@ namespace IdApp.Pages.Contacts.Chat
 			sb.Append(Parsed.Currency);
 
 			await this.ExecuteSendMessage(string.Empty, "![" + sb.ToString() + "](" + Uri + ")");
+		}
+
+		/// <summary>
+		/// Command to embed a token reference
+		/// </summary>
+		public ICommand EmbedToken { get; }
+
+		private bool CanExecuteEmbedToken()
+		{
+			return this.IsConnected && !this.IsWriting;
+		}
+
+		private async Task ExecuteEmbedToken()
+		{
+			MyTokensNavigationArgs Args = new();
+			await this.NavigationService.GoToAsync(nameof(MyTokensPage), Args);
+
+			TokenItem Selected = await Args.WaitForTokenSelection();
+			if (Selected is null)
+				return;
+
+			StringBuilder Markdown = new();
+
+			Markdown.AppendLine("```nfeat");
+
+			Selected.Token.Serialize(Markdown);
+
+			Markdown.AppendLine();
+			Markdown.AppendLine("```");
+
+			await this.ExecuteSendMessage(string.Empty, Markdown.ToString());
+			return;
+
 		}
 
 		/// <summary>

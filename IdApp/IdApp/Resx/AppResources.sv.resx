@@ -597,6 +597,9 @@
   <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
     <value>Ogiltig kod för IoT-sökning</value>
   </data>
+  <data name="InvalidNeuroFeatureToken" xml:space="preserve">
+    <value>Ogiltig Neuro-Feature-token.</value>
+  </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ogiltigt användarnamn eller lösenord</value>
   </data>
@@ -692,6 +695,9 @@
   </data>
   <data name="MyIdentity" xml:space="preserve">
     <value>Min identitet</value>
+  </data>
+  <data name="MyTokens" xml:space="preserve">
+    <value>Mina tokens</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Namn</value>

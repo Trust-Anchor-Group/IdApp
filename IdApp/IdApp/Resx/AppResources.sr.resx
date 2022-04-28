@@ -1536,8 +1536,14 @@
   <data name="DefinitionSchemaDigest" xml:space="preserve">
     <value>Varenje šeme definicije</value>
   </data>
+  <data name="InvalidNeuroFeatureToken" xml:space="preserve">
+    <value>Nevažeći oznaka neuro-funkcije.</value>
+  </data>
   <data name="MachineReadableInfoTextToken" xml:space="preserve">
     <value>Pregled podataka čitljivih na računaru ugrađenih u simbol prikazan je ispod.</value>
+  </data>
+  <data name="MyTokens" xml:space="preserve">
+    <value>Moji tokeni</value>
   </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Prikaži detalje</value>

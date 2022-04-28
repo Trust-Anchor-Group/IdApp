@@ -1536,8 +1536,14 @@
   <data name="DefinitionSchemaDigest" xml:space="preserve">
     <value>Sammendrag av definisjonsskjema</value>
   </data>
+  <data name="InvalidNeuroFeatureToken" xml:space="preserve">
+    <value>Ugyldig token for nevrofunksjon.</value>
+  </data>
   <data name="MachineReadableInfoTextToken" xml:space="preserve">
     <value>Nedenfor vises en oversikt over maskinlesbare data som er innebygd i tokenet.</value>
+  </data>
+  <data name="MyTokens" xml:space="preserve">
+    <value>Mine polletter</value>
   </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Vis detaljer</value>

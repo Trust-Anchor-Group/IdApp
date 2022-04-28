@@ -1536,8 +1536,14 @@
   <data name="DefinitionSchemaDigest" xml:space="preserve">
     <value>Zusammenfassung des Definitionsschemas</value>
   </data>
+  <data name="InvalidNeuroFeatureToken" xml:space="preserve">
+    <value>Ungültiges Neuro-Feature-Token.</value>
+  </data>
   <data name="MachineReadableInfoTextToken" xml:space="preserve">
     <value>Eine Übersicht über die im Token eingebetteten maschinenlesbaren Daten finden Sie unten.</value>
+  </data>
+  <data name="MyTokens" xml:space="preserve">
+    <value>Meine Token</value>
   </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Details anzeigen</value>

@@ -1501,6 +1501,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Neuro-Feature token..
+        /// </summary>
+        internal static string InvalidNeuroFeatureToken {
+            get {
+                return ResourceManager.GetString("InvalidNeuroFeatureToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid username or password.
         /// </summary>
         internal static string InvalidUsernameOrPassword {
@@ -1785,6 +1794,15 @@ namespace IdApp.Resx {
         internal static string MyIdentity {
             get {
                 return ResourceManager.GetString("MyIdentity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Tokens.
+        /// </summary>
+        internal static string MyTokens {
+            get {
+                return ResourceManager.GetString("MyTokens", resourceCulture);
             }
         }
         

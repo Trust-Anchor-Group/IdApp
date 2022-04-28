@@ -1536,8 +1536,14 @@
   <data name="DefinitionSchemaDigest" xml:space="preserve">
     <value>Määritä rakenteen koontiversio</value>
   </data>
+  <data name="InvalidNeuroFeatureToken" xml:space="preserve">
+    <value>Virheellinen neuro-ominaisuustunnus.</value>
+  </data>
   <data name="MachineReadableInfoTextToken" xml:space="preserve">
     <value>Alla on yleiskatsaus tunnukseen upotettavista koneellisesti luettavista tiedoista.</value>
+  </data>
+  <data name="MyTokens" xml:space="preserve">
+    <value>Omat tunnukset</value>
   </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Näytä tiedot</value>

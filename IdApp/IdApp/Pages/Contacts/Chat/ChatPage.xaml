@@ -91,6 +91,10 @@
                         FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Medium"
                         CornerRadius="8" WidthRequest="40" HeightRequest="40" Command="{Binding EmbedMoney}" 
                         HorizontalOptions="End" VerticalOptions="Center"/>
+                    <Button Text="{x:Static resx:FontAwesome.StarOfLife}" IsVisible="{Binding Path=IsWriting, Converter={converters:LogicalNot}}"
+                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Medium"
+                        CornerRadius="8" WidthRequest="40" HeightRequest="40" Command="{Binding EmbedToken}" 
+                        HorizontalOptions="End" VerticalOptions="Center"/>
                     <Button Text="{x:Static resx:FontAwesome.Things}" IsVisible="{Binding Path=IsWriting, Converter={converters:LogicalNot}}"
                         FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Medium"
                         CornerRadius="8" WidthRequest="40" HeightRequest="40" Command="{Binding EmbedThing}" 
