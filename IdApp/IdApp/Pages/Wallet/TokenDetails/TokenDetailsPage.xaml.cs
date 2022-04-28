@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Wallet.TokenDetails
@@ -139,5 +140,49 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			Tap.Command = Model.OpenLinkCommand;
 			Tap.CommandParameter = LinkUri;
 		}
+
+		/// <summary>
+		/// Adds a tag name/value pair.
+		/// 
+		/// (Grouped collections do not work. Need to do this manually. TODO: MVVC when this is possible.)
+		/// </summary>
+		/// <param name="Model">View model</param>
+		/// <param name="Label">Label</param>
+		/// <param name="Value">Value</param>
+		internal void AddTag(TokenDetailsViewModel Model, string Label, string Value)
+		{
+			int Row = this.GeneralInfoGrid.RowDefinitions.Count;
+			Label Lbl;
+
+			this.GeneralInfoGrid.RowDefinitions.Add(new RowDefinition()
+			{
+				Height = GridLength.Auto
+			});
+
+			this.GeneralInfoGrid.Children.Add(new Label()
+			{
+				Text = Label,
+				Style = (Style)App.Current.Resources["KeyLabel"]
+			}, 0, Row);
+
+			this.GeneralInfoGrid.Children.Add(Lbl = new Label()
+			{
+				Text = Value,
+				Style = (Style)App.Current.Resources["ValueLabel"]
+			}, 1, Row);
+
+			if (Uri.TryCreate(Value, UriKind.Absolute, out Uri RefUri) &&
+				RefUri.Scheme.ToLower() is string s &&
+				(s == "http" || s == "https"))
+			{
+				Lbl.Style = (Style)App.Current.Resources["ClickableValueLabel"];
+
+				TapGestureRecognizer Tap = new();
+				Lbl.GestureRecognizers.Add(Tap);
+				Tap.Command = Model.OpenLinkCommand;
+				Tap.CommandParameter = Value;
+			}
+		}
+
 	}
 }

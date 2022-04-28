@@ -191,7 +191,6 @@
                 </Grid>
 
                 <!--
-                
 				this.Signature = args.Token.Signature;
 				this.SignatureTimestamp = args.Token.SignatureTimestamp;
                     
@@ -199,8 +198,6 @@
 				this.DefinitionNamespace = args.Token.DefinitionNamespace;
 				this.DefinitionSchemaDigest = args.Token.DefinitionSchemaDigest;
 				this.DefinitionSchemaHashFunction = args.Token.DefinitionSchemaHashFunction;
-
-				this.Tags = args.Token.Tags;
                 -->
             </StackLayout>
         </ScrollView>

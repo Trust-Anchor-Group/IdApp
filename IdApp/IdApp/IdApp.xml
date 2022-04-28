@@ -9150,6 +9150,16 @@
             <param name="Label">Label</param>
             <param name="LinkUri">Link URI</param>
         </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage.AddTag(IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel,System.String,System.String)">
+            <summary>
+            Adds a tag name/value pair.
+            
+            (Grouped collections do not work. Need to do this manually. TODO: MVVC when this is possible.)
+            </summary>
+            <param name="Model">View model</param>
+            <param name="Label">Label</param>
+            <param name="Value">Value</param>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel">
             <summary>
             The view model to bind to for when displaying the contents of a token.

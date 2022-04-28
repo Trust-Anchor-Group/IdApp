@@ -104,6 +104,12 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					}
 				}
 
+				if (!(args.Token.Tags is null))
+				{
+					foreach (TokenTag Tag in args.Token.Tags)
+						this.page.AddLink(this, Tag.Name, Tag.Value?.ToString() ?? string.Empty);   // TODO: Replace with grouped collection, when this works in Xamarin.
+				}
+
 				this.GenerateQrCode(Constants.UriSchemes.CreateTokenUri(this.TokenId));
 
 				await this.Populate(AppResources.Witness, string.Empty, args.Token.Witness, null, this.Witnesses);
@@ -175,7 +181,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.page.AddLegalId(this, LegalIdLabel, FriendlyName, LegalIds[i]);    // TODO: Replace with grouped collection, when this works in Xamarin.
 
 				if (!string.IsNullOrEmpty(Jid))
-					this.page.AddJid(this, JidLabel, Jid, LegalIds[i], FriendlyName);	// TODO: Replace with grouped collection, when this works in Xamarin.
+					this.page.AddJid(this, JidLabel, Jid, LegalIds[i], FriendlyName);   // TODO: Replace with grouped collection, when this works in Xamarin.
 			}
 		}
 
