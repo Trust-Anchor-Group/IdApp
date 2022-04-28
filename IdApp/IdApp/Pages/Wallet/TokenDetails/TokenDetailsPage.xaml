@@ -13,7 +13,7 @@
             <StackLayout Margin="{StaticResource DefaultMargin}">
                 <Label Text="{x:Static resx:AppResources.TokenDetails}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
                 <Label Text="{x:Static resx:AppResources.TokenDetailsDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
-                <Grid>
+                <Grid x:Name="GeneralInfoGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -200,7 +200,6 @@
 				this.DefinitionSchemaDigest = args.Token.DefinitionSchemaDigest;
 				this.DefinitionSchemaHashFunction = args.Token.DefinitionSchemaHashFunction;
 
-                this.Reference = args.Token.Reference;
 				this.Tags = args.Token.Tags;
                 -->
             </StackLayout>

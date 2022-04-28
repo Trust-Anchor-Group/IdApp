@@ -1008,6 +1008,9 @@
   <data name="ReceiveEDaler" xml:space="preserve">
     <value>Ta emot eDaler</value>
   </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Referens</value>
+  </data>
   <data name="Region" xml:space="preserve">
     <value>Region eller stat</value>
   </data>

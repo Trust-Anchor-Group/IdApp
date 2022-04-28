@@ -1518,6 +1518,9 @@
   <data name="Privileges" xml:space="preserve">
     <value>Privilèges</value>
   </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Référence</value>
+  </data>
   <data name="TokenPrivilegesInfoText" xml:space="preserve">
     <value>Voici les privilèges gravés dans le jeton.</value>
   </data>

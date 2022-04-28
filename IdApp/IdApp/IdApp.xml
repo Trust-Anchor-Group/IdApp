@@ -9140,6 +9140,16 @@
             <param name="LegalId">Legal ID</param>
             <param name="FriendlyName">Friendly name</param>
         </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage.AddLink(IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel,System.String,System.String)">
+            <summary>
+            Adds a clickable link record in the parts section.
+            
+            (Grouped collections do not work. Need to do this manually. TODO: MVVC when this is possible.)
+            </summary>
+            <param name="Model">View model</param>
+            <param name="Label">Label</param>
+            <param name="LinkUri">Link URI</param>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel">
             <summary>
             The view model to bind to for when displaying the contents of a token.
@@ -9603,6 +9613,11 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OpenChatCommand">
             <summary>
             Command to open a chat page.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OpenLinkCommand">
+            <summary>
+            Command to open a link.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenItem">
@@ -11765,6 +11780,11 @@
         <member name="P:IdApp.Resx.AppResources.ReceiveEDaler">
             <summary>
               Looks up a localized string similar to Receive eDaler.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Reference">
+            <summary>
+              Looks up a localized string similar to Reference.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Region">

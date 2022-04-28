@@ -43,6 +43,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.ViewIdCommand = new Command(async P => await this.ViewId(P));
 			this.ViewContractCommand = new Command(async P => await this.ViewContract(P));
 			this.OpenChatCommand = new Command(async P => await this.OpenChat(P));
+			this.OpenLinkCommand = new Command(async P => await this.OpenLink(P));
 		}
 
 		/// <inheritdoc/>
@@ -92,6 +93,16 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.HasGlyphImage = args.Token.HasGlyphImage;
 				this.GlyphWidth = args.Token.GlyphWidth;
 				this.GlyphHeight = args.Token.GlyphHeight;
+
+				if (!string.IsNullOrEmpty(args.Token.Reference))
+				{
+					if (Uri.TryCreate(args.Token.Reference, UriKind.Absolute, out Uri RefUri) &&
+						RefUri.Scheme.ToLower() is string s &&
+						(s == "http" || s == "https"))
+					{
+						this.page.AddLink(this, AppResources.Reference, s);   // TODO: Replace with grouped collection, when this works in Xamarin.
+					}
+				}
 
 				this.GenerateQrCode(Constants.UriSchemes.CreateTokenUri(this.TokenId));
 
@@ -819,6 +830,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		/// </summary>
 		public ICommand OpenChatCommand { get; }
 
+		/// <summary>
+		/// Command to open a link.
+		/// </summary>
+		public ICommand OpenLinkCommand { get; }
+
 		private async Task CopyTokenId(object Parameter)
 		{
 			try
@@ -903,6 +919,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		private Task OpenLink(object Parameter)
+		{
+			return App.OpenUrl(Parameter.ToString());
 		}
 
 		#endregion

@@ -1518,6 +1518,9 @@
   <data name="Privileges" xml:space="preserve">
     <value>Rettigheter</value>
   </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Referanse</value>
+  </data>
   <data name="TokenPrivilegesInfoText" xml:space="preserve">
     <value>Følgende er rettigheter som er gravert inn i tokenet.</value>
   </data>

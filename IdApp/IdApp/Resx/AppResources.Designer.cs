@@ -2734,6 +2734,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reference.
+        /// </summary>
+        internal static string Reference {
+            get {
+                return ResourceManager.GetString("Reference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Region or State.
         /// </summary>
         internal static string Region {

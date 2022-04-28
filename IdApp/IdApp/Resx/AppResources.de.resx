@@ -1518,6 +1518,9 @@
   <data name="Privileges" xml:space="preserve">
     <value>Privilegien</value>
   </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Referenz</value>
+  </data>
   <data name="TokenPrivilegesInfoText" xml:space="preserve">
     <value>Im Folgenden sind die in das Token eingravierten Berechtigungen aufgeführt.</value>
   </data>

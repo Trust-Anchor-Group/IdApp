@@ -1518,6 +1518,9 @@
   <data name="Privileges" xml:space="preserve">
     <value>Privilegije</value>
   </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Referenca</value>
+  </data>
   <data name="TokenPrivilegesInfoText" xml:space="preserve">
     <value>Slede privilegije ugravirane u simbol.</value>
   </data>

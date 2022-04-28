@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Wallet.TokenDetails
@@ -103,6 +102,42 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			Lbl.GestureRecognizers.Add(Tap);
 			Tap.Command = Model.OpenChatCommand;
 			Tap.CommandParameter = Jid + " | " + LegalId + " | " + FriendlyName;
+		}
+
+		/// <summary>
+		/// Adds a clickable link record in the parts section.
+		/// 
+		/// (Grouped collections do not work. Need to do this manually. TODO: MVVC when this is possible.)
+		/// </summary>
+		/// <param name="Model">View model</param>
+		/// <param name="Label">Label</param>
+		/// <param name="LinkUri">Link URI</param>
+		internal void AddLink(TokenDetailsViewModel Model, string Label, string LinkUri)
+		{
+			int Row = this.GeneralInfoGrid.RowDefinitions.Count;
+			Label Lbl;
+
+			this.GeneralInfoGrid.RowDefinitions.Add(new RowDefinition()
+			{
+				Height = GridLength.Auto
+			});
+
+			this.GeneralInfoGrid.Children.Add(new Label()
+			{
+				Text = Label,
+				Style = (Style)App.Current.Resources["KeyLabel"]
+			}, 0, Row);
+
+			this.GeneralInfoGrid.Children.Add(Lbl = new Label()
+			{
+				Text = LinkUri,
+				Style = (Style)App.Current.Resources["ClickableValueLabel"]
+			}, 1, Row);
+
+			TapGestureRecognizer Tap = new();
+			Lbl.GestureRecognizers.Add(Tap);
+			Tap.Command = Model.OpenLinkCommand;
+			Tap.CommandParameter = LinkUri;
 		}
 	}
 }

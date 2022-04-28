@@ -1518,6 +1518,9 @@
   <data name="Privileges" xml:space="preserve">
     <value>Oikeudet</value>
   </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Viittaus</value>
+  </data>
   <data name="TokenPrivilegesInfoText" xml:space="preserve">
     <value>Seuraavassa on tunnukseen kaiverretut oikeudet.</value>
   </data>
