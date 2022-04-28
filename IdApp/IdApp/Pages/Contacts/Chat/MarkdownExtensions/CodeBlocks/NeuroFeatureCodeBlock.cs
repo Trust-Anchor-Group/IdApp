@@ -1,6 +1,4 @@
-﻿using IdApp.Pages.Contracts.MyContracts.ObjectModel;
-using IdApp.Resx;
-using IdApp.Services.UI.Photos;
+﻿using IdApp.Resx;
 using NeuroFeatures;
 using System;
 using System.Text;
@@ -8,7 +6,6 @@ using System.Threading.Tasks;
 using System.Xml;
 using Waher.Content.Markdown;
 using Waher.Content.Markdown.Model;
-using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
@@ -149,7 +146,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// <returns>Grade of support.</returns>
 		public Grade Supports(string Language)
 		{
-			return string.Compare(Language, Constants.UriSchemes.UriSchemeIotSc, true) == 0 ? Grade.Excellent : Grade.NotAtAll;
+			return string.Compare(Language, Constants.UriSchemes.UriSchemeNeuroFeature, true) == 0 ? Grade.Excellent : Grade.NotAtAll;
 		}
 	}
 }

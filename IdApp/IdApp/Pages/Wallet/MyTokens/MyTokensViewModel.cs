@@ -114,15 +114,6 @@ namespace IdApp.Pages.Wallet.MyTokens
 			await this.NavigationService.GoBackAsync();
 		}
 
-		/// <summary>
-		/// Waits for the token to be selected; null is returned if the user goes back.
-		/// </summary>
-		/// <returns>Selected token, or null if user cancels, by going back.</returns>
-		public Task<TokenItem> WaitForTokenSelection()
-		{
-			return this.selected?.Task ?? Task.FromResult<TokenItem>(null);
-		}
-
 		private Task LoadMoreTokens()
 		{
 			return Task.CompletedTask;  // TODO

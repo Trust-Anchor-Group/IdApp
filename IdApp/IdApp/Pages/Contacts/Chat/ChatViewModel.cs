@@ -800,6 +800,8 @@ namespace IdApp.Pages.Contacts.Chat
 			if (Selected is null)
 				return;
 
+			await this.NavigationService.GoBackAsync();
+			
 			StringBuilder Markdown = new();
 
 			Markdown.AppendLine("```nfeat");

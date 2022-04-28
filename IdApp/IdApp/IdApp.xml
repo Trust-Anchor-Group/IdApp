@@ -8657,12 +8657,6 @@
             Command executed when more tokens need to be loaded.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.WaitForTokenSelection">
-            <summary>
-            Waits for the token to be selected; null is returned if the user goes back.
-            </summary>
-            <returns>Selected token, or null if user cancels, by going back.</returns>
-        </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.MyWalletPage">
             <summary>
             A page that allows the user to view the contents of its wallet, pending payments and recent account events.
