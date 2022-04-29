@@ -243,10 +243,13 @@
                 <Button Text="{x:Static resx:AppResources.Share}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                         Command="{Binding Path=ShareCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
 
-                <!--
-                Make offer to sell
-                Make offer to buy
-                -->
+                <Button Text="{x:Static resx:AppResources.OfferToSell}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=OfferToSellCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"
+                        IsVisible="{Binding IsMyToken}"/>
+
+                <Button Text="{x:Static resx:AppResources.OfferToBuy}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=OfferToBuyCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"
+                        IsVisible="{Binding IsMyToken, Converter={converters:LogicalNot}}"/>
             </StackLayout>
         </ScrollView>
     </Grid>

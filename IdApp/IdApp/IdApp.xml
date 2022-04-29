@@ -584,7 +584,12 @@
         </member>
         <member name="F:IdApp.Constants.ContractTemplates.CreateDemoTokenTemplate">
             <summary>
-            Contract for creating a demo token
+            Contract template for creating a demo token
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.ContractTemplates.TransferTokenTemplate">
+            <summary>
+            Contract template for transferring a token from a seller to a buyer
             </summary>
         </member>
         <member name="T:IdApp.Controls.Extended.ExtendedDatePicker">
@@ -1437,6 +1442,24 @@
             </summary>
             <param name="str">The string to convert.</param>
             <returns>A valid file name, or <c>null</c>.</returns>
+        </member>
+        <member name="M:IdApp.Extensions.StringExtensions.Before(System.String,System.String)">
+            <summary>
+            Returns the part of the string that appears before <paramref name="Delimiter"/>. If <paramref name="Delimiter"/>
+            does not occur, the entire string is returned.
+            </summary>
+            <param name="s">String</param>
+            <param name="Delimiter">Delimiter</param>
+            <returns>Part of string before <paramref name="Delimiter"/>.</returns>
+        </member>
+        <member name="M:IdApp.Extensions.StringExtensions.After(System.String,System.String)">
+            <summary>
+            Returns the part of the string that appears before <paramref name="Delimiter"/>. If <paramref name="Delimiter"/>
+            does not occur, the entire string is returned.
+            </summary>
+            <param name="s">String</param>
+            <param name="Delimiter">Delimiter</param>
+            <returns>Part of string before <paramref name="Delimiter"/>.</returns>
         </member>
         <member name="T:IdApp.Extensions.TaskExtensions">
             <summary>
@@ -9905,6 +9928,16 @@
             Gets or sets the value representing the height of the glyph.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.IsMyTokenProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.IsMyToken"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.IsMyToken">
+            <summary>
+            If the token belongs to the user.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CopyToClipboardCommand">
             <summary>
             Command to copy a value to the clipboard.
@@ -9943,6 +9976,16 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShareCommand">
             <summary>
             Command to share token with other applications
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OfferToSellCommand">
+            <summary>
+            Command to offer the token for sale.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OfferToBuyCommand">
+            <summary>
+            Command to offer to buy the token.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenItem">
@@ -11683,6 +11726,16 @@
         <member name="P:IdApp.Resx.AppResources.ObsoleteContract">
             <summary>
               Looks up a localized string similar to Obsolete contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OfferToBuy">
+            <summary>
+              Looks up a localized string similar to Offer To Buy.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OfferToSell">
+            <summary>
+              Looks up a localized string similar to Offer To Sell.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Offline">

@@ -1545,6 +1545,12 @@
   <data name="MyTokens" xml:space="preserve">
     <value>Mine poletter</value>
   </data>
+  <data name="OfferToBuy" xml:space="preserve">
+    <value>Tilbyd at købe</value>
+  </data>
+  <data name="OfferToSell" xml:space="preserve">
+    <value>Tilbyd at sælge</value>
+  </data>
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Åbn meddelelseslink</value>
   </data>

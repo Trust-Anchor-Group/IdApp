@@ -747,6 +747,12 @@
   <data name="ObsoleteContract" xml:space="preserve">
     <value>Ogiltigförklara kontrakt</value>
   </data>
+  <data name="OfferToBuy" xml:space="preserve">
+    <value>Erbjud att köpa</value>
+  </data>
+  <data name="OfferToSell" xml:space="preserve">
+    <value>Erbjud att sälja</value>
+  </data>
   <data name="Offline" xml:space="preserve">
     <value>Ej ansluten</value>
   </data>

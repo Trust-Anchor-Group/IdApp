@@ -21,17 +21,8 @@ namespace IdApp.Extensions
 
 			foreach (string Option in Languages)
 			{
-				i = Option.IndexOf('-');
-				if (i < 0)
-				{
-					if (string.Compare(Option, Language, true) == 0)
-						return Option;
-				}
-				else
-				{
-					if (string.Compare(Option.Substring(0, i), Language, true) == 0)
-						return Option;
-				}
+				if (string.Compare(Option.Before("-"), Language, true) == 0)
+					return Option;
 			}
 
 			return Contract.DefaultLanguage;

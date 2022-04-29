@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml;
 using IdApp.DeviceSpecific;
+using IdApp.Extensions;
 using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Pages.Contracts.NewContract;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
@@ -52,6 +56,8 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.ShowDetailsCommand = new Command(async _ => await this.ShowDetails());
 			this.SendToContactCommand = new Command(async _ => await this.SendToContact());
 			this.ShareCommand = new Command(async _ => await this.Share());
+			this.OfferToSellCommand = new Command(async _ => await this.OfferToSell());
+			this.OfferToBuyCommand = new Command(async _ => await this.OfferToBuy());
 		}
 
 		/// <inheritdoc/>
@@ -102,6 +108,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.GlyphWidth = args.Token.GlyphWidth;
 				this.GlyphHeight = args.Token.GlyphHeight;
 				this.TokenXml = args.Token.Token.ToXml();
+				this.IsMyToken = string.Compare(this.OwnerJid, this.XmppService.BareJid, true) == 0;
 
 				if (!string.IsNullOrEmpty(args.Token.Reference))
 				{
@@ -836,6 +843,21 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			set => this.SetValue(GlyphHeightProperty, value);
 		}
 
+		/// <summary>
+		/// See <see cref="IsMyToken"/>
+		/// </summary>
+		public static readonly BindableProperty IsMyTokenProperty =
+			BindableProperty.Create(nameof(IsMyToken), typeof(bool), typeof(TokenDetailsViewModel), default(bool));
+
+		/// <summary>
+		/// If the token belongs to the user.
+		/// </summary>
+		public bool IsMyToken
+		{
+			get => (bool)this.GetValue(IsMyTokenProperty);
+			set => this.SetValue(IsMyTokenProperty, value);
+		}
+
 		#endregion
 
 		#region Commands
@@ -879,6 +901,16 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		/// Command to share token with other applications
 		/// </summary>
 		public ICommand ShareCommand { get; }
+
+		/// <summary>
+		/// Command to offer the token for sale.
+		/// </summary>
+		public ICommand OfferToSellCommand { get; }
+
+		/// <summary>
+		/// Command to offer to buy the token.
+		/// </summary>
+		public ICommand OfferToBuyCommand { get; }
 
 		private async Task CopyToClipboard(object Parameter)
 		{
@@ -1044,6 +1076,166 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task OfferToSell()
+		{
+			try
+			{
+				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
+				Template.Visibility = ContractVisibility.Public;
+
+				if (Template.ForMachinesLocalName == "Transfer" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
+				{
+					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
+					XmlDocument Doc = new();
+					Doc.LoadXml(Template.ForMachines.OuterXml);
+
+					XmlNamespaceManager NamespaceManager = new(Doc.NameTable);
+					NamespaceManager.AddNamespace("nft", NeuroFeaturesClient.NamespaceNeuroFeatures);
+
+					string SellerRole = Doc.SelectSingleNode("/nft:Transfer/nft:Seller/nft:RoleReference/@role", NamespaceManager)?.Value;
+					string TrustProviderRole = Doc.SelectSingleNode("/nft:Transfer/nft:TrustProvider/nft:RoleReference/@role", NamespaceManager)?.Value;
+					string TokenIdParameter = Doc.SelectSingleNode("/nft:Transfer/nft:TokenID/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
+					string CurrencyParameter = Doc.SelectSingleNode("/nft:Transfer/nft:Currency/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
+					string CommissionParameter = Doc.SelectSingleNode("/nft:Transfer/nft:CommissionPercent/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
+					string OwnershipContractParameter = Doc.SelectSingleNode("/nft:Transfer/nft:OwnershipContract/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
+
+					if (Template.Parts is null)
+					{
+						List<Part> Parts = new();
+
+						if (!string.IsNullOrEmpty(SellerRole))
+						{
+							Parts.Add(new Part()
+							{
+								LegalId = this.TagProfile.LegalIdentity.Id,
+								Role = SellerRole
+							});
+						}
+
+						if (!string.IsNullOrEmpty(TrustProviderRole))
+						{
+							Parts.Add(new Part()
+							{
+								LegalId = e.TrustProviderId,
+								Role = TrustProviderRole
+							});
+						}
+
+						Template.Parts = Parts.ToArray();
+						Template.PartsMode = ContractParts.ExplicitlyDefined;
+					}
+					else
+					{
+						foreach (Part Part in Template.Parts)
+						{
+							if (Part.Role == SellerRole)
+								Part.LegalId = this.TagProfile.LegalIdentity.Id;
+							else if (Part.Role == TrustProviderRole)
+								Part.LegalId = e.TrustProviderId;
+						}
+					}
+
+					if (!string.IsNullOrEmpty(TokenIdParameter))
+						Template[TokenIdParameter] = this.TokenId.Before("@");
+
+					if (!string.IsNullOrEmpty(CurrencyParameter))
+						Template[CurrencyParameter] = e.Currency;
+
+					if (!string.IsNullOrEmpty(CommissionParameter))
+						Template[CommissionParameter] = e.Commission;
+
+					if (!string.IsNullOrEmpty(OwnershipContractParameter))
+						Template[OwnershipContractParameter] = this.OwnershipContract;
+				}
+
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(Template, true));
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task OfferToBuy()
+		{
+			try
+			{
+				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
+				Template.Visibility = ContractVisibility.Public;
+
+				if (Template.ForMachinesLocalName == "Transfer" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
+				{
+					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
+					XmlDocument Doc = new();
+					Doc.LoadXml(Template.ForMachines.OuterXml);
+
+					XmlNamespaceManager NamespaceManager = new(Doc.NameTable);
+					NamespaceManager.AddNamespace("nft", NeuroFeaturesClient.NamespaceNeuroFeatures);
+
+					string BuyerRole = Doc.SelectSingleNode("/nft:Transfer/nft:Buyer/nft:RoleReference/@role", NamespaceManager)?.Value;
+					string TrustProviderRole = Doc.SelectSingleNode("/nft:Transfer/nft:TrustProvider/nft:RoleReference/@role", NamespaceManager)?.Value;
+					string TokenIdParameter = Doc.SelectSingleNode("/nft:Transfer/nft:TokenID/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
+					string CurrencyParameter = Doc.SelectSingleNode("/nft:Transfer/nft:Currency/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
+					string CommissionParameter = Doc.SelectSingleNode("/nft:Transfer/nft:CommissionPercent/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
+					string OwnershipContractParameter = Doc.SelectSingleNode("/nft:Transfer/nft:OwnershipContract/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
+
+					if (Template.Parts is null)
+					{
+						List<Part> Parts = new();
+
+						if (!string.IsNullOrEmpty(BuyerRole))
+						{
+							Parts.Add(new Part()
+							{
+								LegalId = this.TagProfile.LegalIdentity.Id,
+								Role = BuyerRole
+							});
+						}
+
+						if (!string.IsNullOrEmpty(TrustProviderRole))
+						{
+							Parts.Add(new Part()
+							{
+								LegalId = e.TrustProviderId,
+								Role = TrustProviderRole
+							});
+						}
+
+						Template.Parts = Parts.ToArray();
+						Template.PartsMode = ContractParts.ExplicitlyDefined;
+					}
+					else
+					{
+						foreach (Part Part in Template.Parts)
+						{
+							if (Part.Role == BuyerRole)
+								Part.LegalId = this.TagProfile.LegalIdentity.Id;
+							else if (Part.Role == TrustProviderRole)
+								Part.LegalId = e.TrustProviderId;
+						}
+					}
+
+					if (!string.IsNullOrEmpty(TokenIdParameter))
+						Template[TokenIdParameter] = this.TokenId;
+
+					if (!string.IsNullOrEmpty(CurrencyParameter))
+						Template[CurrencyParameter] = e.Currency;
+
+					if (!string.IsNullOrEmpty(CommissionParameter))
+						Template[CommissionParameter] = e.Commission;
+
+					if (!string.IsNullOrEmpty(OwnershipContractParameter))
+						Template[OwnershipContractParameter] = this.OwnershipContract;
+				}
+
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(Template, true));
+			}
+			catch (Exception ex)
+			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}

@@ -1951,6 +1951,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Offer To Buy.
+        /// </summary>
+        internal static string OfferToBuy {
+            get {
+                return ResourceManager.GetString("OfferToBuy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offer To Sell.
+        /// </summary>
+        internal static string OfferToSell {
+            get {
+                return ResourceManager.GetString("OfferToSell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offline.
         /// </summary>
         internal static string Offline {

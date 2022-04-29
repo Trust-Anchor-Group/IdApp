@@ -1545,6 +1545,12 @@
   <data name="MyTokens" xml:space="preserve">
     <value>Moji tokeni</value>
   </data>
+  <data name="OfferToBuy" xml:space="preserve">
+    <value>Ponuda za kupovinu</value>
+  </data>
+  <data name="OfferToSell" xml:space="preserve">
+    <value>Ponuda za prodaju</value>
+  </data>
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Otvori vezu poruke</value>
   </data>
