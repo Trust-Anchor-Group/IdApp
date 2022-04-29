@@ -185,7 +185,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			try
 			{
 				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
-				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.Sizes.AccountEventBatchSize);
+				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency,
 					PendingPayments, Events, More, this.XmppService.Wallet.LastEvent));
@@ -563,9 +563,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 					int c = this.PaymentItems.Count;
 
 					if (c == 0 || this.PaymentItems[c - 1] is not AccountEventItem LastEvent)
-						(Events, More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.Sizes.AccountEventBatchSize);
+						(Events, More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
 					else
-						(Events, More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.Sizes.AccountEventBatchSize, LastEvent.Timestamp);
+						(Events, More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize, LastEvent.Timestamp);
 
 					this.HasMoreEvents = More;
 
@@ -639,7 +639,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				try
 				{
-					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.Sizes.TokenBatchSize);
+					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.BatchSizes.TokenBatchSize);
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
@@ -653,7 +653,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 									this.Tokens.Add(new TokenItem(Token, this));
 
 								this.HasTokens = true;
-								this.HasMoreTokens = e.Tokens.Length == Constants.Sizes.TokenBatchSize;
+								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
 							}
 							else
 								this.HasTokens = false;
@@ -680,7 +680,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				// TODO: Let user choose from a list of token templates.
 
-				Contract Template = await this.XmppService.Contracts.GetContract("29ddb488-0078-df7a-7c14-d84cc772a148@legal.lab.tagroot.io");  // Creation of demo contract
+				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.CreateDemoTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
 
 				if (Template.ForMachinesLocalName == "Create" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
@@ -757,7 +757,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 				try
 				{
-					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(this.Tokens.Count, Constants.Sizes.TokenBatchSize);
+					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(this.Tokens.Count, Constants.BatchSizes.TokenBatchSize);
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
@@ -768,7 +768,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 								foreach (Token Token in e.Tokens)
 									this.Tokens.Add(new TokenItem(Token, this));
 
-								this.HasMoreTokens = e.Tokens.Length == Constants.Sizes.TokenBatchSize;
+								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
 							}
 						}
 					});

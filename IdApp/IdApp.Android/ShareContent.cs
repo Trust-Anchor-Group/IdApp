@@ -29,7 +29,7 @@ namespace IdApp.Android
 
             Intent Intent = new(Intent.ActionSend);
             Intent.PutExtra(Intent.ExtraText, Message);
-            Intent.SetType("image/png");
+            Intent.SetType(Constants.MimeTypes.Png);
 
             Intent.AddFlags(ActivityFlags.GrantReadUriPermission);
             Intent.AddFlags(ActivityFlags.GrantWriteUriPermission);

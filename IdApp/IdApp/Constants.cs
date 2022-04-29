@@ -183,9 +183,14 @@ namespace IdApp
         public static class MimeTypes
         {
             /// <summary>
-            /// The Jpeg mime type.
+            /// The JPEG MIME type.
             /// </summary>
             public const string Jpeg = "image/jpeg";
+
+            /// <summary>
+            /// The PNG MIME type.
+            /// </summary>
+            public const string Png = "image/png";
         }
 
         /// <summary>
@@ -351,7 +356,7 @@ namespace IdApp
         /// <summary>
         /// Size constants.
         /// </summary>
-        public static class Sizes
+        public static class BatchSizes
 		{
             /// <summary>
             /// Number of messages to load in a single batch.
@@ -373,5 +378,17 @@ namespace IdApp
             /// </summary>
             public const int DeviceBatchSize = 100;
 		}
+
+        /// <summary>
+        /// Contract templates
+        /// </summary>
+        public static class ContractTemplates
+        {
+            /// <summary>
+            /// Contract for creating a demo token
+            /// </summary>
+            public const string CreateDemoTokenTemplate = "29ddb488-0078-df7a-7c14-d84cc772a148@legal.lab.tagroot.io";
+        }
+
     }
 }

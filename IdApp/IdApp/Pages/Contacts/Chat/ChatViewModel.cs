@@ -90,7 +90,7 @@ namespace IdApp.Pages.Contacts.Chat
 				this.FriendlyName = string.Empty;
 			}
 
-			IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, Constants.Sizes.MessageBatchSize, new FilterFieldEqualTo("RemoteBareJid", this.BareJid), "-Created");
+			IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, Constants.BatchSizes.MessageBatchSize, new FilterFieldEqualTo("RemoteBareJid", this.BareJid), "-Created");
 
 			this.Messages.Clear();
 
@@ -101,7 +101,7 @@ namespace IdApp.Pages.Contacts.Chat
 				this.Messages.Add(EmptyMessage);
 			}
 
-			int c = Constants.Sizes.MessageBatchSize;
+			int c = Constants.BatchSizes.MessageBatchSize;
 			foreach (ChatMessage Message in Messages)
 			{
 				await Message.GenerateXaml(this);
@@ -472,13 +472,13 @@ namespace IdApp.Pages.Contacts.Chat
 				this.ExistsMoreMessages = false;
 
 				ChatMessage Last = this.Messages[^1];
-				IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, Constants.Sizes.MessageBatchSize, new FilterAnd(
+				IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, Constants.BatchSizes.MessageBatchSize, new FilterAnd(
 					new FilterFieldEqualTo("RemoteBareJid", this.BareJid),
 					new FilterFieldLesserThan("Created", Last.Created)), "-Created");
 
 				if (this.Messages.Count > 0)
 				{
-					int c = Constants.Sizes.MessageBatchSize;
+					int c = Constants.BatchSizes.MessageBatchSize;
 					foreach (ChatMessage Message in Messages)
 					{
 						await Message.GenerateXaml(this);

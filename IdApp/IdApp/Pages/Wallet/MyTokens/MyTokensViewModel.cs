@@ -37,7 +37,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 
 			try
 			{
-				TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.Sizes.TokenBatchSize);
+				TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.BatchSizes.TokenBatchSize);
 
 				this.UiSerializer.BeginInvokeOnMainThread(() =>
 				{
@@ -51,7 +51,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 								this.Tokens.Add(new TokenItem(Token, this, this.selected));
 
 							this.HasTokens = true;
-							this.HasMoreTokens = e.Tokens.Length == Constants.Sizes.TokenBatchSize;
+							this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
 						}
 						else
 							this.HasTokens = false;
@@ -138,7 +138,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 
 				try
 				{
-					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(this.Tokens.Count, Constants.Sizes.TokenBatchSize);
+					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(this.Tokens.Count, Constants.BatchSizes.TokenBatchSize);
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
@@ -149,7 +149,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 								foreach (Token Token in e.Tokens)
 									this.Tokens.Add(new TokenItem(Token, this));
 
-								this.HasMoreTokens = e.Tokens.Length == Constants.Sizes.TokenBatchSize;
+								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
 							}
 						}
 					});

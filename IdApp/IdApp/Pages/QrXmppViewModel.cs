@@ -39,7 +39,7 @@ namespace IdApp.Pages
 			byte[] Bin = Services.UI.QR.QrCode.GeneratePng(Uri, this.QrCodeWidth, this.QrCodeHeight);
 			this.QrCode = ImageSource.FromStream(() => new MemoryStream(Bin));
 			this.QrCodeBin = Bin;
-			this.QrCodeContentType = "image/png";
+			this.QrCodeContentType = Constants.MimeTypes.Png;
 			this.HasQrCode = true;
 		}
 
