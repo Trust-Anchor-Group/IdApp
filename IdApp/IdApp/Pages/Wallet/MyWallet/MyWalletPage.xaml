@@ -111,10 +111,10 @@
                 </Frame>
 
                 <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}" >
-                    <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single"
+                    <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single" 
                                                    ItemSizingStrategy="MeasureAllItems"
                                                    BackgroundColor="{StaticResource PageBackgroundColor}"
-                                                   ItemsSource="{Binding Path=PaymentItems}"
+                                                   RemainingItemsThreshold="1" ItemsSource="{Binding Path=PaymentItems}"
                                                    ItemTemplate="{StaticResource ItemStyleSelector}" 
                                                    LoadMoreCommand="{Binding LoadMoreAccountEventsCommand}">
                         <CollectionView.ItemsLayout>
@@ -144,10 +144,10 @@
                         <Image x:Name="ImgBack" Grid.RowSpan="2" Source="{Binding Path=EDalerBackGlyph}" Opacity="0.5"/>
                         <Label Grid.Row="0" Text="{Binding Path=Timestamp, Converter={converters:DateTimeToStringConverter}}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}"/>
 
-                        <loading:LoadingCollectionView Grid.Row="1" VerticalOptions="StartAndExpand"
-                                                       SelectionMode="None"
+                        <CollectionView Grid.Row="1" VerticalOptions="StartAndExpand"
+                                                       RemainingItemsThreshold="1" SelectionMode="None"
                                                        ItemSizingStrategy="MeasureFirstItem"
-                                                       ItemsSource="{Binding Path=Totals}" >
+                                                       ItemsSource="{Binding Path=Totals}">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
                             </CollectionView.ItemsLayout>
@@ -168,15 +168,15 @@
                                     </Grid>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
-                        </loading:LoadingCollectionView>
+                        </CollectionView>
                     </Grid>
                 </Frame>
 
                 <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}" >
                     <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single"
-                                                   ItemSizingStrategy="MeasureFirstItem"
+                                                   RemainingItemsThreshold="1" ItemSizingStrategy="MeasureFirstItem"
                                                    BackgroundColor="{StaticResource PageBackgroundColor}"
-                                                   ItemsSource="{Binding Path=Tokens}" >
+                                                   ItemsSource="{Binding Path=Tokens}" LoadMoreCommand="{Binding LoadMoreTokensCommand}">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
                         </CollectionView.ItemsLayout>

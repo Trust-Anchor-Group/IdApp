@@ -118,12 +118,12 @@ namespace IdApp.Pages.Main.ScanQrCode
 			CameraResolution Result = null;
 			double AspectTolerance = 0.1;
 
-			var DisplayOrientationHeight = this.Scanner.Width;
-			var DisplayOrientationWidth = this.Scanner.Height;
+			double DisplayOrientationHeight = this.Scanner.Width;
+			double DisplayOrientationWidth = this.Scanner.Height;
 
-			var TargetRatio = DisplayOrientationHeight / DisplayOrientationWidth;
-			var TargetHeight = DisplayOrientationHeight;
-			var MinDiff = double.MaxValue;
+			double TargetRatio = DisplayOrientationHeight / DisplayOrientationWidth;
+			double TargetHeight = DisplayOrientationHeight;
+			double MinDiff = double.MaxValue;
 
 			foreach (CameraResolution Resolution in AvailableResolutions)
 			{

@@ -4,7 +4,7 @@ using System.IO;
 using UIKit;
 using Xamarin.Forms;
 
-[assembly: Xamarin.Forms.Dependency(typeof(IdApp.iOS.ShareContent))]
+[assembly: Dependency(typeof(IdApp.iOS.ShareContent))]
 namespace IdApp.iOS
 {
     public class ShareContent : IShareContent
@@ -22,8 +22,8 @@ namespace IdApp.iOS
             NSObject ImageObject = NSObject.FromObject(Image);
             NSObject MessageObject = NSObject.FromObject(Message);
             NSObject[] Items = new NSObject[] { MessageObject, ImageObject };
-            var activityController = new UIActivityViewController(Items, null);
-            var topController = UIApplication.SharedApplication.KeyWindow.RootViewController;
+            UIActivityViewController activityController = new(Items, null);
+            UIViewController? topController = UIApplication.SharedApplication.KeyWindow.RootViewController;
 
             while (!(topController.PresentedViewController is null))
                 topController = topController.PresentedViewController;

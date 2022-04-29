@@ -33,7 +33,7 @@ namespace IdApp.Popups.Photos.Image
             if (attachments is null || attachments.Length <= 0)
                 return;
 
-            var imageAttachments = attachments.GetImageAttachments().ToArray();
+            Attachment[] imageAttachments = attachments.GetImageAttachments().ToArray();
             if (imageAttachments.Length <= 0)
                 return;
 

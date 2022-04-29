@@ -329,7 +329,19 @@ namespace IdApp.Pages.Contacts.Chat
 			await this.ExecuteCancelMessage();
 		}
 
-		private async Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput)
+		private Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput)
+		{
+			return ExecuteSendMessage(ReplaceObjectId, MarkdownInput, this.BareJid, this);
+		}
+
+		/// <summary>
+		/// Sends a Markdown-formatted chat message
+		/// </summary>
+		/// <param name="ReplaceObjectId">ID of message being updated, or the empty string.</param>
+		/// <param name="MarkdownInput">Markdown input.</param>
+		/// <param name="BareJid">Bare JID of recipient.</param>
+		/// <param name="ServiceReferences">Service references.</param>
+		public static async Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput, string BareJid, ServiceReferences ServiceReferences)
 		{
 			try
 			{
@@ -352,7 +364,7 @@ namespace IdApp.Pages.Contacts.Chat
 				ChatMessage Message = new()
 				{
 					Created = DateTime.UtcNow,
-					RemoteBareJid = this.BareJid,
+					RemoteBareJid = BareJid,
 					RemoteObjectId = string.Empty,
 					MessageType = Services.Messages.MessageType.Sent,
 					Html = HtmlDocument.GetBody(await Doc.GenerateHTML()),
@@ -383,7 +395,9 @@ namespace IdApp.Pages.Contacts.Chat
 				if (string.IsNullOrEmpty(ReplaceObjectId))
 				{
 					await Database.Insert(Message);
-					await this.MessageAdded(Message);
+
+					if (ServiceReferences is ChatViewModel ChatViewModel)
+						await ChatViewModel.MessageAdded(Message);
 				}
 				else
 				{
@@ -394,7 +408,8 @@ namespace IdApp.Pages.Contacts.Chat
 						ReplaceObjectId = null;
 						await Database.Insert(Message);
 
-						await this.MessageAdded(Message);
+						if (ServiceReferences is ChatViewModel ChatViewModel)
+							await ChatViewModel.MessageAdded(Message);
 					}
 					else
 					{
@@ -407,17 +422,18 @@ namespace IdApp.Pages.Contacts.Chat
 
 						Message = Old;
 
-						await this.MessageUpdated(Message);
+						if (ServiceReferences is ChatViewModel ChatViewModel)
+							await ChatViewModel.MessageUpdated(Message);
 					}
 				}
 
-				this.XmppService.Xmpp.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId,
-					this.BareJid, Xml.ToString(), Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty, null, null);
+				ServiceReferences.XmppService.Xmpp.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId,
+					BareJid, Xml.ToString(), Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty, null, null);
 				// TODO: End-to-End encryption
 			}
 			catch (Exception ex)
 			{
-				await this.UiSerializer.DisplayAlert(ex);
+				await ServiceReferences.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -451,33 +467,33 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteLoadMoreMessages()
 		{
-			this.ExistsMoreMessages = false;
-
-			ChatMessage Last = this.Messages[^1];
-			IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, Constants.Sizes.MessageBatchSize, new FilterAnd(
-				new FilterFieldEqualTo("RemoteBareJid", this.BareJid),
-				new FilterFieldLesserThan("Created", Last.Created)), "-Created");
-
-			var NewMessages = new ObservableCollection<ChatMessage>(this.Messages);
-
-			// An empty transparent bubble, used to fix an issue on iOS
-			if (this.Messages.Count == 0)
+			try
 			{
-				ChatMessage EmptyMessage = new();
-				await EmptyMessage.GenerateXaml(this);
-				NewMessages.Add(EmptyMessage);
-			}
+				this.ExistsMoreMessages = false;
 
-			int c = Constants.Sizes.MessageBatchSize;
-			foreach (ChatMessage Message in Messages)
+				ChatMessage Last = this.Messages[^1];
+				IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, Constants.Sizes.MessageBatchSize, new FilterAnd(
+					new FilterFieldEqualTo("RemoteBareJid", this.BareJid),
+					new FilterFieldLesserThan("Created", Last.Created)), "-Created");
+
+				if (this.Messages.Count > 0)
+				{
+					int c = Constants.Sizes.MessageBatchSize;
+					foreach (ChatMessage Message in Messages)
+					{
+						await Message.GenerateXaml(this);
+						this.Messages.Add(Message);
+						c--;
+					}
+
+					this.ExistsMoreMessages = c <= 0;
+				}
+			}
+			catch (Exception ex)
 			{
-				await Message.GenerateXaml(this);
-				NewMessages.Add(Message);
-				c--;
+				this.LogService.LogException(ex);
+				this.ExistsMoreMessages = false;
 			}
-
-			this.Messages = NewMessages;
-			this.ExistsMoreMessages = c <= 0;
 		}
 
 		/// <summary>

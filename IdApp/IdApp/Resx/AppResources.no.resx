@@ -1545,6 +1545,15 @@
   <data name="MyTokens" xml:space="preserve">
     <value>Mine polletter</value>
   </data>
+  <data name="OpenMessageLink" xml:space="preserve">
+    <value>Åpne meldingskobling</value>
+  </data>
+  <data name="SendInformationTo" xml:space="preserve">
+    <value>Sende informasjon til?</value>
+  </data>
+  <data name="SendToContact" xml:space="preserve">
+    <value>Send til kontakt</value>
+  </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Vis detaljer</value>
   </data>

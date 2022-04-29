@@ -1633,6 +1633,12 @@
             Holds navigation parameters specific to views displaying a list of contacts.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(IdApp.Services.ContactInfo)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            </summary>
+            <param name="Contact">Contact information.</param>
+        </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(System.String,System.String,System.String)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
@@ -1788,6 +1794,15 @@
             <summary>
             The command to bind to for sending user input
             </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ExecuteSendMessage(System.String,System.String,System.String,IdApp.Services.ServiceReferences)">
+            <summary>
+            Sends a Markdown-formatted chat message
+            </summary>
+            <param name="ReplaceObjectId">ID of message being updated, or the empty string.</param>
+            <param name="MarkdownInput">Markdown input.</param>
+            <param name="BareJid">Bare JID of recipient.</param>
+            <param name="ServiceReferences">Service references.</param>
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.CancelCommand">
             <summary>
@@ -7904,6 +7919,21 @@
             If a message is defined
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.MessageIsUriProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.MessageIsUri"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.MessageIsUri">
+            <summary>
+            If a message is defined
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.OpenMessageLinkCommand">
+            <summary>
+            Command executed when user wants to open link in message.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.EDalerBalanceNavigationArgs">
             <summary>
             Holds navigation parameters specific to an eDaler balance event.
@@ -8667,6 +8697,16 @@
             HasTokens of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasMoreTokensProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasMoreTokens"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasMoreTokens">
+            <summary>
+            HasMoreTokens of eDaler to process
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.Tokens">
             <summary>
             Holds a list of tokens
@@ -8875,6 +8915,16 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens">
             <summary>
             HasTokens of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokensProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokens"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokens">
+            <summary>
+            HasMoreTokens of eDaler to process
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PaymentItems">
@@ -9620,6 +9670,16 @@
             Token ID
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenXmlProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenXml"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenXml">
+            <summary>
+            Token ID
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.VisibilityProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Visibility"/>
@@ -9858,6 +9918,11 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShowDetailsCommand">
             <summary>
             Command to show machine-readable details of token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.SendToContactCommand">
+            <summary>
+            Command to send token to contact
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenItem">
@@ -11620,6 +11685,11 @@
               Looks up a localized string similar to Open.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.OpenMessageLink">
+            <summary>
+              Looks up a localized string similar to Open Message Link.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.OperatorDoesNotSupportLegalIdentitiesAndSmartContracts">
             <summary>
               Looks up a localized string similar to Operator does not support legal identities and smart contracts.
@@ -12260,6 +12330,11 @@
               Looks up a localized string similar to Send Code.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.SendInformationTo">
+            <summary>
+              Looks up a localized string similar to Send Information To?.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.SendPayment">
             <summary>
               Looks up a localized string similar to Send Payment.
@@ -12268,6 +12343,11 @@
         <member name="P:IdApp.Resx.AppResources.SendPaymentTo">
             <summary>
               Looks up a localized string similar to Send Payment.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SendToContact">
+            <summary>
+              Looks up a localized string similar to Send to Contact.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SerialNumber">

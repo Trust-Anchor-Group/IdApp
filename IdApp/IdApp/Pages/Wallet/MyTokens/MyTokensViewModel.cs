@@ -51,6 +51,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 								this.Tokens.Add(new TokenItem(Token, this, this.selected));
 
 							this.HasTokens = true;
+							this.HasMoreTokens = e.Tokens.Length == Constants.Sizes.TokenBatchSize;
 						}
 						else
 							this.HasTokens = false;
@@ -92,6 +93,21 @@ namespace IdApp.Pages.Wallet.MyTokens
 		}
 
 		/// <summary>
+		/// See <see cref="HasMoreTokens"/>
+		/// </summary>
+		public static readonly BindableProperty HasMoreTokensProperty =
+			BindableProperty.Create(nameof(HasMoreTokens), typeof(bool), typeof(MyTokensViewModel), default(bool));
+
+		/// <summary>
+		/// HasMoreTokens of eDaler to process
+		/// </summary>
+		public bool HasMoreTokens
+		{
+			get => (bool)this.GetValue(HasMoreTokensProperty);
+			set => this.SetValue(HasMoreTokensProperty, value);
+		}
+
+		/// <summary>
 		/// Holds a list of tokens
 		/// </summary>
 		public ObservableCollection<TokenItem> Tokens { get; }
@@ -114,9 +130,35 @@ namespace IdApp.Pages.Wallet.MyTokens
 			await this.NavigationService.GoBackAsync();
 		}
 
-		private Task LoadMoreTokens()
+		private async Task LoadMoreTokens()
 		{
-			return Task.CompletedTask;  // TODO
+			if (this.HasMoreTokens)
+			{
+				this.HasMoreTokens = false; // So multiple requests are not made while scrolling.
+
+				try
+				{
+					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(this.Tokens.Count, Constants.Sizes.TokenBatchSize);
+
+					this.UiSerializer.BeginInvokeOnMainThread(() =>
+					{
+						if (e.Ok)
+						{
+							if (!(e.Tokens is null))
+							{
+								foreach (Token Token in e.Tokens)
+									this.Tokens.Add(new TokenItem(Token, this));
+
+								this.HasMoreTokens = e.Tokens.Length == Constants.Sizes.TokenBatchSize;
+							}
+						}
+					});
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
 		}
 
 	}

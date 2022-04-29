@@ -223,10 +223,8 @@ namespace IdApp.Pages.Contacts
 											new ViewIdentityNavigationArgs(Contact.LegalIdentity, null));
 									}
 									else if (!string.IsNullOrEmpty(Contact.BareJid))
-									{
-										await viewModel.NavigationService.GoToAsync(nameof(ChatPage),
-											new ChatNavigationArgs(Contact.LegalId, Contact.BareJid, Contact.FriendlyName));
-									}
+										await viewModel.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact));
+									
 									break;
 
 								case SelectContactAction.Select:

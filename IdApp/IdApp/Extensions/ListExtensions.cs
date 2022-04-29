@@ -20,8 +20,8 @@ namespace IdApp.Extensions
             if (list.Count != other.Count)
                 return false;
 
-            var firstNotSecond = list.Except(other).ToList();
-            var secondNotFirst = other.Except(list).ToList();
+            List<T> firstNotSecond = list.Except(other).ToList();
+            List<T> secondNotFirst = other.Except(list).ToList();
             return !firstNotSecond.Any() && !secondNotFirst.Any();
         }
     }

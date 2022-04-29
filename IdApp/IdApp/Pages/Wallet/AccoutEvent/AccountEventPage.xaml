@@ -23,6 +23,7 @@
                 <Entry Text="{Binding Path=BalanceAndCurrency}" IsReadOnly="True"/>
                 <Label Text="{x:Static resx:AppResources.Message}" IsVisible="{Binding Path=HasMessage}"/>
                 <Entry Text="{Binding Path=Message}" IsReadOnly="True" IsVisible="{Binding Path=HasMessage}"/>
+                <Button Text="{Static resx:AppResources.OpenMessageLink}" Command="{Binding OpenMessageLinkCommand}" IsVisible="{Binding MessageIsUri}"/>
                 <Label Text="{x:Static resx:AppResources.TransactionId}"/>
                 <Entry Text="{Binding Path=Id}" IsReadOnly="True"/>
             </StackLayout>
