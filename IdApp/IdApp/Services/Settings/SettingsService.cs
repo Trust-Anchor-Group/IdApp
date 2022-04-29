@@ -145,7 +145,7 @@ namespace IdApp.Services.Settings
 				keyPrefix = FormatKey(keyPrefix);
 				Dictionary<string, object> existingStates = (await RuntimeSettings.GetWhereKeyLikeAsync(keyPrefix, WildCard));
 
-				foreach (Dictionary<string, object> state in existingStates)
+				foreach (KeyValuePair<string, object> state in existingStates)
 				{
 					if (state.Value is T typedValue)
 						matches.Add((state.Key, typedValue));
