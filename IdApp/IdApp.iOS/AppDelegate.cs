@@ -115,8 +115,9 @@ namespace IdApp.iOS
             Messaging.SharedInstance.Delegate = this;
 
             UNAuthorizationOptions authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
-            UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) => {
-                var q = granted;
+            UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) => 
+            {
+                bool q = granted;
             });
 
             UIApplication.SharedApplication.RegisterForRemoteNotifications();

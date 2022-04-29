@@ -19,7 +19,7 @@ namespace UpdateVersionInfo
 
         private OptionSet Initialize()
         {
-            var options = new OptionSet {
+            OptionSet options = new OptionSet {
                 {
                     "?", "Shows help/usage information.", h => ShowHelp = true
                 },

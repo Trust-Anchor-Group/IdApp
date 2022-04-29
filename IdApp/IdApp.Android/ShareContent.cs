@@ -35,8 +35,8 @@ namespace IdApp.Android
             Intent.AddFlags(ActivityFlags.GrantWriteUriPermission);
             Intent.PutExtra(Intent.ExtraStream, FileProvider.GetUriForFile(Application.Context, "com.tag.IdApp.fileprovider", fileDir));
 
-            var myIntent = Intent.CreateChooser(Intent, Title);
-            myIntent.AddFlags(ActivityFlags.NewTask);
+            Intent? myIntent = Intent.CreateChooser(Intent, Title);
+            myIntent?.AddFlags(ActivityFlags.NewTask);
 
             Application.Context.StartActivity(myIntent);
         }

@@ -362,7 +362,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 			if (string.IsNullOrEmpty(PhoneNr))
 				return false;
 
-			var phoneNumber = TrimPhoneNumber(PhoneNr);
+			string phoneNumber = TrimPhoneNumber(PhoneNr);
 			return internationalPhoneNr.IsMatch(phoneNumber);
 		}
 
