@@ -759,6 +759,9 @@
   <data name="Open" xml:space="preserve">
     <value>Öppna</value>
   </data>
+  <data name="OpenMessageLink" xml:space="preserve">
+    <value>Öppna meddelandelänken</value>
+  </data>
   <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
     <value>Operatören stödjer inte juridiska identiteter och smarta kontrakt</value>
   </data>

@@ -1545,6 +1545,9 @@
   <data name="MyTokens" xml:space="preserve">
     <value>Moji tokeni</value>
   </data>
+  <data name="OpenMessageLink" xml:space="preserve">
+    <value>Otvori vezu poruke</value>
+  </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Prikaži detalje</value>
   </data>

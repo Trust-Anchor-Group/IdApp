@@ -7904,6 +7904,21 @@
             If a message is defined
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.MessageIsUriProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.MessageIsUri"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.MessageIsUri">
+            <summary>
+            If a message is defined
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.OpenMessageLinkCommand">
+            <summary>
+            Command executed when user wants to open link in message.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.EDalerBalanceNavigationArgs">
             <summary>
             Holds navigation parameters specific to an eDaler balance event.
@@ -11638,6 +11653,11 @@
         <member name="P:IdApp.Resx.AppResources.Open">
             <summary>
               Looks up a localized string similar to Open.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OpenMessageLink">
+            <summary>
+              Looks up a localized string similar to Open Message Link.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.OperatorDoesNotSupportLegalIdentitiesAndSmartContracts">

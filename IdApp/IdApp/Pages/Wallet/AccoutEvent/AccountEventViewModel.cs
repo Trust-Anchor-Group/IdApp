@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using IdApp.Converters;
 using IdApp.Services.Xmpp;
 using Xamarin.Forms;
@@ -18,6 +19,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		public AccountEventViewModel()
 			: base()
 		{
+			this.OpenMessageLinkCommand = new Command(async (P) => await this.ExecuteOpenMessageLink(), _ => this.CanExecuteOpenMessageLink());
 		}
 
 		/// <inheritdoc/>
@@ -36,6 +38,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 				this.Balance = args.Event.Balance;
 				this.Message = args.Event.Message;
 				this.HasMessage = args.Event.HasMessage;
+				this.MessageIsUri = this.HasMessage && Uri.TryCreate(this.Message, UriKind.Absolute, out _);
 				this.Id = args.Event.TransactionId.ToString();
 				this.Currency = args.Event.Currency;
 
@@ -65,6 +68,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 
 		private void EvaluateAllCommands()
 		{
+			this.EvaluateCommands(this.OpenMessageLinkCommand);
 		}
 
 		/// <inheritdoc/>
@@ -309,7 +313,42 @@ namespace IdApp.Pages.Wallet.AccountEvent
 			set => this.SetValue(HasMessageProperty, value);
 		}
 
+		/// <summary>
+		/// See <see cref="MessageIsUri"/>
+		/// </summary>
+		public static readonly BindableProperty MessageIsUriProperty =
+			BindableProperty.Create(nameof(MessageIsUri), typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If a message is defined
+		/// </summary>
+		public bool MessageIsUri
+		{
+			get => (bool)this.GetValue(MessageIsUriProperty);
+			set => this.SetValue(MessageIsUriProperty, value);
+		}
+
 		#endregion
+
+		#region Commands
+
+		/// <summary>
+		/// Command executed when user wants to open link in message.
+		/// </summary>
+		public ICommand OpenMessageLinkCommand { get; }
+
+		private Task ExecuteOpenMessageLink()
+		{
+			return App.OpenUrl(this.Message);
+		}
+
+		private bool CanExecuteOpenMessageLink()
+		{
+			return this.MessageIsUri;
+		}
+
+		#endregion
+
 
 	}
 }

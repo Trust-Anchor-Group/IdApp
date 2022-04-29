@@ -1987,6 +1987,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Message Link.
+        /// </summary>
+        internal static string OpenMessageLink {
+            get {
+                return ResourceManager.GetString("OpenMessageLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Operator does not support legal identities and smart contracts.
         /// </summary>
         internal static string OperatorDoesNotSupportLegalIdentitiesAndSmartContracts {

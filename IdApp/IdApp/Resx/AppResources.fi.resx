@@ -1545,6 +1545,9 @@
   <data name="MyTokens" xml:space="preserve">
     <value>Omat tunnukset</value>
   </data>
+  <data name="OpenMessageLink" xml:space="preserve">
+    <value>Avaa viestilinkki</value>
+  </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Näytä tiedot</value>
   </data>
