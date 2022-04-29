@@ -451,33 +451,33 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteLoadMoreMessages()
 		{
-			this.ExistsMoreMessages = false;
-
-			ChatMessage Last = this.Messages[^1];
-			IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, Constants.Sizes.MessageBatchSize, new FilterAnd(
-				new FilterFieldEqualTo("RemoteBareJid", this.BareJid),
-				new FilterFieldLesserThan("Created", Last.Created)), "-Created");
-
-			var NewMessages = new ObservableCollection<ChatMessage>(this.Messages);
-
-			// An empty transparent bubble, used to fix an issue on iOS
-			if (this.Messages.Count == 0)
+			try
 			{
-				ChatMessage EmptyMessage = new();
-				await EmptyMessage.GenerateXaml(this);
-				NewMessages.Add(EmptyMessage);
-			}
+				this.ExistsMoreMessages = false;
 
-			int c = Constants.Sizes.MessageBatchSize;
-			foreach (ChatMessage Message in Messages)
+				ChatMessage Last = this.Messages[^1];
+				IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, Constants.Sizes.MessageBatchSize, new FilterAnd(
+					new FilterFieldEqualTo("RemoteBareJid", this.BareJid),
+					new FilterFieldLesserThan("Created", Last.Created)), "-Created");
+
+				if (this.Messages.Count > 0)
+				{
+					int c = Constants.Sizes.MessageBatchSize;
+					foreach (ChatMessage Message in Messages)
+					{
+						await Message.GenerateXaml(this);
+						this.Messages.Add(Message);
+						c--;
+					}
+
+					this.ExistsMoreMessages = c <= 0;
+				}
+			}
+			catch (Exception ex)
 			{
-				await Message.GenerateXaml(this);
-				NewMessages.Add(Message);
-				c--;
+				this.LogService.LogException(ex);
+				this.ExistsMoreMessages = false;
 			}
-
-			this.Messages = NewMessages;
-			this.ExistsMoreMessages = c <= 0;
 		}
 
 		/// <summary>
