@@ -22,7 +22,7 @@ namespace IdApp.iOS
             NSObject ImageObject = NSObject.FromObject(Image);
             NSObject MessageObject = NSObject.FromObject(Message);
             NSObject[] Items = new NSObject[] { MessageObject, ImageObject };
-            UIActivityViewController activityController = new UIActivityViewController(Items, null);
+            UIActivityViewController activityController = new(Items, null);
             UIViewController? topController = UIApplication.SharedApplication.KeyWindow.RootViewController;
 
             while (!(topController.PresentedViewController is null))
