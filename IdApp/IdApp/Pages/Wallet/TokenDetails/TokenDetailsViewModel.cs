@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.DeviceSpecific;
 using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contacts.MyContacts;
@@ -50,6 +51,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.OpenLinkCommand = new Command(async P => await this.OpenLink(P));
 			this.ShowDetailsCommand = new Command(async _ => await this.ShowDetails());
 			this.SendToContactCommand = new Command(async _ => await this.SendToContact());
+			this.ShareCommand = new Command(async _ => await this.Share());
 		}
 
 		/// <inheritdoc/>
@@ -873,6 +875,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		/// </summary>
 		public ICommand SendToContactCommand { get; }
 
+		/// <summary>
+		/// Command to share token with other applications
+		/// </summary>
+		public ICommand ShareCommand { get; }
+
 		private async Task CopyToClipboard(object Parameter)
 		{
 			try
@@ -1020,6 +1027,25 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			ChatNavigationArgs Args2 = new(Contact);
 			await this.NavigationService.GoToAsync(nameof(ChatPage), Args2);
+		}
+
+		private async Task Share()
+		{
+			try
+			{
+				if (this.QrCodeBin is null)
+					return;
+
+				IShareContent shareContent = DependencyService.Get<IShareContent>();
+				string FileName = "Token.QR." + InternetContent.GetFileExtension(this.QrCodeContentType);
+
+				shareContent.ShareImage(this.QrCodeBin, this.FriendlyName, AppResources.Share, FileName);
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
 		}
 
 		#endregion

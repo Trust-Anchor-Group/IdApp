@@ -9925,6 +9925,11 @@
             Command to send token to contact
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShareCommand">
+            <summary>
+            Command to share token with other applications
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenItem">
             <summary>
             Encapsulates a <see cref="P:IdApp.Pages.Wallet.TokenItem.Token"/> object.

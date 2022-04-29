@@ -240,8 +240,10 @@
                 <Button Text="{x:Static resx:AppResources.SendToContact}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                         Command="{Binding Path=SendToContactCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
 
+                <Button Text="{x:Static resx:AppResources.Share}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=ShareCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+
                 <!--
-                share token button
                 Make offer to sell
                 Make offer to buy
                 -->
