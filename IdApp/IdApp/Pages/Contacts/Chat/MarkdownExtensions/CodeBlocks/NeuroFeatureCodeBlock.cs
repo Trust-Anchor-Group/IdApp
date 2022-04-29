@@ -121,7 +121,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			Output.WriteStartElement("TapGestureRecognizer");
 			Output.WriteAttributeString("Command", "{Binding Path=NeuroFeatureUriClicked}");
-			Output.WriteAttributeString("CommandParameter", "nfeat:" + Token.TokenId);
+			Output.WriteAttributeString("CommandParameter", Constants.UriSchemes.UriSchemeNeuroFeature + ":" + Token.ToXml());
 			Output.WriteEndElement();
 
 			Output.WriteEndElement();

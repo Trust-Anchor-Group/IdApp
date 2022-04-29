@@ -858,7 +858,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 				if (i > 0 && Guid.TryParse(s.Substring(0, i), out _))
 				{
-					await Clipboard.SetTextAsync($"nfeat:{s}");
+					await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeNeuroFeature + ":" + s);
 					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
 				}
 				else

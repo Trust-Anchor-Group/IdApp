@@ -144,9 +144,12 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			Output.WriteStartElement("StackLayout.GestureRecognizers");
 
+			StringBuilder Xml = new();
+			Contract.Serialize(Xml, true, true, true, true, true, true, true);
+
 			Output.WriteStartElement("TapGestureRecognizer");
 			Output.WriteAttributeString("Command", "{Binding Path=IotScUriClicked}");
-			Output.WriteAttributeString("CommandParameter", Contract.ContractIdUriString);
+			Output.WriteAttributeString("CommandParameter", Constants.UriSchemes.UriSchemeIotSc + ":" + Xml.ToString());
 			Output.WriteEndElement();
 
 			Output.WriteEndElement();

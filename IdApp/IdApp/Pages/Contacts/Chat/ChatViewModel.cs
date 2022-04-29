@@ -35,6 +35,11 @@ using IdApp.Services.UI.QR;
 using IdApp.Resx;
 using IdApp.Converters;
 using IdApp.Pages.Wallet.MyTokens;
+using System.Xml;
+using IdApp.Pages.Identity.ViewIdentity;
+using IdApp.Pages.Contracts.ViewContract;
+using NeuroFeatures;
+using IdApp.Pages.Wallet.TokenDetails;
 
 namespace IdApp.Pages.Contacts.Chat
 {
@@ -650,7 +655,8 @@ namespace IdApp.Pages.Contacts.Chat
 			{
 				StringBuilder Markdown = new();
 
-				Markdown.AppendLine("```iotid");
+				Markdown.Append("```");
+				Markdown.AppendLine(Constants.UriSchemes.UriSchemeIotId);
 
 				Contact.LegalIdentity.Serialize(Markdown, true, true, true, true, true, true, true);
 
@@ -697,24 +703,17 @@ namespace IdApp.Pages.Contacts.Chat
 
 			await this.waitUntilBound.Task;     // Wait until view is bound again.
 
-			if (Contract.Visibility >= ContractVisibility.Public)
-			{
-				string FriendlyName = await ContractModel.GetName(Contract, this.TagProfile, this.XmppService, this.SmartContracts);
-				await this.ExecuteSendMessage(string.Empty, "![" + MarkdownDocument.Encode(FriendlyName) + "](" + Contract.ContractIdUriString + ")");
-			}
-			else
-			{
-				StringBuilder Markdown = new();
+			StringBuilder Markdown = new();
 
-				Markdown.AppendLine("```iotsc");
+			Markdown.Append("```");
+			Markdown.AppendLine(Constants.UriSchemes.UriSchemeIotSc);
 
-				Contract.Serialize(Markdown, true, true, true, true, true, true, true);
+			Contract.Serialize(Markdown, true, true, true, true, true, true, true);
 
-				Markdown.AppendLine();
-				Markdown.AppendLine("```");
+			Markdown.AppendLine();
+			Markdown.AppendLine("```");
 
-				await this.ExecuteSendMessage(string.Empty, Markdown.ToString());
-			}
+			await this.ExecuteSendMessage(string.Empty, Markdown.ToString());
 		}
 
 		/// <summary>
@@ -801,7 +800,7 @@ namespace IdApp.Pages.Contacts.Chat
 				return;
 
 			await this.NavigationService.GoBackAsync();
-			
+
 			StringBuilder Markdown = new();
 
 			Markdown.AppendLine("```nfeat");
@@ -918,12 +917,55 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <param name="Message">Message containing the URI.</param>
 		/// <param name="Uri">URI</param>
 		/// <param name="Scheme">URI Scheme</param>
-		public Task ExecuteUriClicked(ChatMessage Message, string Uri, UriScheme Scheme)
+		public async Task ExecuteUriClicked(ChatMessage Message, string Uri, UriScheme Scheme)
 		{
-			if (Scheme == UriScheme.Xmpp)
-				return ProcessXmppUri(Uri, this.XmppService, this.TagProfile);
-			else
-				return QrCode.OpenUrl(Uri);
+			try
+			{
+				if (Scheme == UriScheme.Xmpp)
+					await ProcessXmppUri(Uri, this.XmppService, this.TagProfile);
+				else
+				{
+					int i = Uri.IndexOf(':');
+					if (i < 0)
+						return;
+
+					string s = Uri[(i + 1)..].Trim();
+					if (s.StartsWith("<") && s.EndsWith(">"))  // XML
+					{
+						XmlDocument Doc = new();
+						Doc.LoadXml(s);
+
+						switch (Scheme)
+						{
+							case UriScheme.IotId:
+								LegalIdentity Id = LegalIdentity.Parse(Doc.DocumentElement);
+								await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(Id, null));
+								break;
+
+							case UriScheme.IotSc:
+								ParsedContract ParsedContract = await Contract.Parse(Doc.DocumentElement);
+								await this.NavigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(ParsedContract.Contract, false));
+								break;
+
+							case UriScheme.NeuroFeature:
+								if (!Token.TryParse(Doc.DocumentElement, out Token ParsedToken))
+									throw new Exception(AppResources.InvalidNeuroFeatureToken);
+
+								await this.NavigationService.GoToAsync(nameof(TokenDetailsPage), new TokenDetailsNavigationArgs(new TokenItem(ParsedToken, this)));
+								break;
+
+							default:
+								return;
+						}
+					}
+					else
+						await QrCode.OpenUrl(Uri);
+				}
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
 		}
 
 		/// <summary>

@@ -299,7 +299,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				await Clipboard.SetTextAsync($"iotid:{LegalId}");
+				await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeIotId + ":" + LegalId);
 				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
 			}
 			catch (Exception ex)
