@@ -79,9 +79,5 @@
 	<array>
 		<string>fetch</string>
 	</array>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	</array>
 </dict>
 </plist>
