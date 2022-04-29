@@ -66,7 +66,7 @@ namespace IdApp.Services.Provisioning
 		/// <returns>Complete list of my devices.</returns>
 		public async Task<SearchResultThing[]> GetAllMyDevices()
 		{
-			(SearchResultThing[] Things, bool More) = await this.GetMyDevices(0, 100);
+			(SearchResultThing[] Things, bool More) = await this.GetMyDevices(0, Constants.Sizes.DeviceBatchSize);
 			if (!More)
 				return Things;
 
@@ -77,7 +77,7 @@ namespace IdApp.Services.Provisioning
 
 			while (More)
 			{
-				(Things, More) = await this.GetMyDevices(Offset, 100);
+				(Things, More) = await this.GetMyDevices(Offset, Constants.Sizes.DeviceBatchSize);
 				Result.AddRange(Things);
 				Offset += Things.Length;
 			}

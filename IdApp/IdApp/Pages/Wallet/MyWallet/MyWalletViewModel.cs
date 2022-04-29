@@ -39,6 +39,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.RequestPaymentCommand = new Command(async _ => await RequestPayment(), _ => this.IsConnected);
 			this.MakePaymentCommand = new Command(async _ => await MakePayment(), _ => this.IsConnected);
 			this.ShowPaymentItemCommand = new Command(async Item => await ShowPaymentItem(Item));
+			this.LoadMoreAccountEventsCommand = new Command(async _ => await LoadMoreAccountEvents());
 			this.FlipCommand = new Command(async _ => await FlipWallet());
 			this.CreateTokenCommand = new Command(async _ => await CreateToken());
 			this.LoadMoreTokensCommand = new Command(async _ => await LoadMoreTokens());
@@ -190,7 +191,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			try
 			{
 				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
-				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(20);
+				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.Sizes.AccountEventBatchSize);
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency,
 					PendingPayments, Events, More, this.XmppService.Wallet.LastEvent));
@@ -480,6 +481,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 		public ICommand ShowPaymentItemCommand { get; }
 
 		/// <summary>
+		/// Command executed when more account events need to be displayed.
+		/// </summary>
+		public ICommand LoadMoreAccountEventsCommand { get; }
+
+		/// <summary>
 		/// The command to bind to for flipping the wallet.
 		/// </summary>
 		public ICommand FlipCommand { get; }
@@ -535,6 +541,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 			}
 		}
 
+		private Task LoadMoreAccountEvents()
+		{
+			return Task.CompletedTask;	// TODO
+		}
+
 		private Task FlipWallet()
 		{
 			this.page.WalletFlipView_Tapped(this, EventArgs.Empty);
@@ -582,7 +593,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				try
 				{
-					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, 20);
+					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.Sizes.TokenBatchSize);
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{

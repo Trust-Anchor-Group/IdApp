@@ -233,7 +233,7 @@ namespace IdApp.Services.ThingRegistries
 		/// <returns>Complete list of devices in registry matching the search operators.</returns>
 		public async Task<SearchResultThing[]> SearchAll(string RegistryJid, params SearchOperator[] Operators)
 		{
-			(SearchResultThing[] Things, bool More) = await this.Search(0, 100, RegistryJid, Operators);
+			(SearchResultThing[] Things, bool More) = await this.Search(0, Constants.Sizes.DeviceBatchSize, RegistryJid, Operators);
 			if (!More)
 				return Things;
 
@@ -244,7 +244,7 @@ namespace IdApp.Services.ThingRegistries
 
 			while (More)
 			{
-				(Things, More) = await this.Search(Offset, 100, RegistryJid, Operators);
+				(Things, More) = await this.Search(Offset, Constants.Sizes.DeviceBatchSize, RegistryJid, Operators);
 				Result.AddRange(Things);
 				Offset += Things.Length;
 			}

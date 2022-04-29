@@ -37,7 +37,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 
 			try
 			{
-				TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, 20);
+				TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.Sizes.TokenBatchSize);
 
 				this.UiSerializer.BeginInvokeOnMainThread(() =>
 				{

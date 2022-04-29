@@ -547,6 +547,31 @@
             Keyboard disappears event
             </summary>
         </member>
+        <member name="T:IdApp.Constants.Sizes">
+            <summary>
+            Size constants.
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Sizes.MessageBatchSize">
+            <summary>
+            Number of messages to load in a single batch.
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Sizes.TokenBatchSize">
+            <summary>
+            Number of tokens to load in a single batch.
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Sizes.AccountEventBatchSize">
+            <summary>
+            Number of account events to load in a single batch.
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Sizes.DeviceBatchSize">
+            <summary>
+            Number of devices to load in a single batch.
+            </summary>
+        </member>
         <member name="T:IdApp.Controls.Extended.ExtendedDatePicker">
             <summary>
              Extended DatePicker for nullable values with text placeholder
@@ -8890,6 +8915,11 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.ShowPaymentItemCommand">
             <summary>
             The command to bind to for displaying information about a pending payment or an account event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LoadMoreAccountEventsCommand">
+            <summary>
+            Command executed when more account events need to be displayed.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.FlipCommand">

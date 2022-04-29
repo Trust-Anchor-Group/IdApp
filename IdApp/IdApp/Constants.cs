@@ -347,5 +347,31 @@ namespace IdApp
             /// </summary>
             public const string KeyboardDisappears = "KeyboardDisappears";
         }
+
+        /// <summary>
+        /// Size constants.
+        /// </summary>
+        public static class Sizes
+		{
+            /// <summary>
+            /// Number of messages to load in a single batch.
+            /// </summary>
+            public const int MessageBatchSize = 30;
+
+            /// <summary>
+            /// Number of tokens to load in a single batch.
+            /// </summary>
+            public const int TokenBatchSize = 2;
+
+            /// <summary>
+            /// Number of account events to load in a single batch.
+            /// </summary>
+            public const int AccountEventBatchSize = 5;
+
+            /// <summary>
+            /// Number of devices to load in a single batch.
+            /// </summary>
+            public const int DeviceBatchSize = 100;
+		}
     }
 }

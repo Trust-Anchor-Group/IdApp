@@ -115,7 +115,8 @@
                                                    ItemSizingStrategy="MeasureAllItems"
                                                    BackgroundColor="{StaticResource PageBackgroundColor}"
                                                    ItemsSource="{Binding Path=PaymentItems}"
-                                                   ItemTemplate="{StaticResource ItemStyleSelector}" >
+                                                   ItemTemplate="{StaticResource ItemStyleSelector}" 
+                                                   LoadMoreCommand="{Binding LoadMoreAccountEventsCommand}">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
                         </CollectionView.ItemsLayout>
