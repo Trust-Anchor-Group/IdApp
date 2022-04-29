@@ -139,7 +139,7 @@ namespace IdApp
             /// <returns>Smart Contract URI</returns>
             public static string CreateSmartContractUri(string id)
             {
-                return $"{UriSchemeIotSc}:{id}";
+                return UriSchemeIotSc + ":" + id;
             }
 
             /// <summary>
@@ -149,7 +149,7 @@ namespace IdApp
             /// <returns>Identity URI</returns>
             public static string CreateIdUri(string id)
             {
-                return $"{UriSchemeIotId}:{id}";
+                return UriSchemeIotId + ":" + id;
             }
 
             /// <summary>
@@ -159,7 +159,7 @@ namespace IdApp
             /// <returns>Neuro-Feature URI</returns>
             public static string CreateTokenUri(string id)
             {
-                return $"{UriSchemeNeuroFeature}:{id}";
+                return UriSchemeNeuroFeature + ":" + id;
             }
 
             /// <summary>

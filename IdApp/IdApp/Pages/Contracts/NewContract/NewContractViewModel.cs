@@ -26,7 +26,7 @@ namespace IdApp.Pages.Contracts.NewContract
 	/// </summary>
 	public class NewContractViewModel : BaseViewModel
 	{
-		private static readonly string PartSettingsPrefix = $"{typeof(NewContractViewModel)}.Part_";
+		private static readonly string PartSettingsPrefix = typeof(NewContractViewModel).FullName + ".Part_";
 
 		private readonly Dictionary<string, ParameterInfo> parametersByName = new();
 		private Contract template;
@@ -115,7 +115,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			{
 				foreach (KeyValuePair<string, string> part in this.partsToAdd)
 				{
-					string settingsKey = $"{PartSettingsPrefix}{part.Key}";
+					string settingsKey = PartSettingsPrefix + part.Key;
 					await this.SettingsService.SaveState(settingsKey, part.Value);
 				}
 			}
@@ -526,13 +526,14 @@ namespace IdApp.Pages.Contracts.NewContract
 			{
 				this.saveStateWhileScanning = true;
 				this.stateTemplateWhileScanning = this.template;
+
 				await QrCode.ScanQrCode(this.NavigationService, AppResources.Add, async code =>
 				{
 					string id = Constants.UriSchemes.RemoveScheme(code);
 					if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
 					{
 						this.partsToAdd[button.StyleId] = id;
-						string settingsKey = $"{PartSettingsPrefix}{button.StyleId}";
+						string settingsKey = PartSettingsPrefix + button.StyleId;
 						await this.SettingsService.SaveState(settingsKey, id);
 					}
 				});
@@ -820,7 +821,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				{
 					await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ViewContract.ViewContractPage), new ViewContractNavigationArgs(Created, false)
 					{
-						ReturnRoute = $"///{nameof(MainPage)}"
+						ReturnRoute = "///" + nameof(MainPage)
 					});
 				}
 			}

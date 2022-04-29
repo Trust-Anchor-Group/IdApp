@@ -80,9 +80,9 @@ namespace IdApp.Pages.Main.Loading
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					if (this.TagProfile.IsComplete())
-						await this.NavigationService.GoToAsync($"///{nameof(Main.MainPage)}");
+						await this.NavigationService.GoToAsync("///" + nameof(Main.MainPage));
 					else
-						await this.NavigationService.GoToAsync($"/{nameof(Registration.Registration.RegistrationPage)}");
+						await this.NavigationService.GoToAsync("/" + nameof(Registration.Registration.RegistrationPage));
 				});
 			}
 		}

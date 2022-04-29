@@ -829,7 +829,7 @@ namespace IdApp.Services.Xmpp
 			}
 			catch (Exception ex)
 			{
-				this.LogService.LogException(ex, new KeyValuePair<string, string>(nameof(ConnectOperation), $"{operation}"));
+				this.LogService.LogException(ex, new KeyValuePair<string, string>(nameof(ConnectOperation), operation.ToString()));
 				succeeded = false;
 				errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
 			}
@@ -1021,7 +1021,7 @@ namespace IdApp.Services.Xmpp
 					xml = xml.Replace(historyHtml, "");
 				}
 
-				xml = $"<SnifferOutput>{xml}</SnifferOutput>";
+				xml = "<SnifferOutput>" + xml + "</SnifferOutput>";
 
 				//adding coloring to debug lines
 				html = cssColoring + FixTags(xml);
@@ -1072,7 +1072,7 @@ namespace IdApp.Services.Xmpp
 			INavigationService NavigationService = App.Instantiate<INavigationService>();
 
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
-				await NavigationService.GoToAsync($"/{nameof(Pages.Registration.Registration.RegistrationPage)}"));
+				await NavigationService.GoToAsync("/" + nameof(Pages.Registration.Registration.RegistrationPage)));
 		}
 
 		/// <summary>

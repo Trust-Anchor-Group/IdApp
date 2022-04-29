@@ -121,32 +121,32 @@ namespace IdApp.Services.Network
 			catch (AggregateException ae)
 			{
 				thrownException = ae;
-				
+
 				if (ae.InnerException is TimeoutException te)
 				{
 					this.LogService.LogException(te, GetParameter(memberName));
-				
+
 					if (displayAlert)
 						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestTimedOut, memberName));
 				}
 				else if (ae.InnerException is TaskCanceledException tce)
 				{
 					this.LogService.LogException(tce, GetParameter(memberName));
-				
+
 					if (displayAlert)
 						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestWasCancelled, memberName));
 				}
 				else if (!(ae.InnerException is null))
 				{
 					this.LogService.LogException(ae.InnerException, GetParameter(memberName));
-				
+
 					if (displayAlert)
 						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(ae.InnerException.Message, memberName));
 				}
 				else
 				{
 					this.LogService.LogException(ae, GetParameter(memberName));
-			
+
 					if (displayAlert)
 						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(ae.Message, memberName));
 				}
@@ -155,7 +155,7 @@ namespace IdApp.Services.Network
 			{
 				thrownException = te;
 				this.LogService.LogException(te, GetParameter(memberName));
-			
+
 				if (displayAlert)
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestTimedOut, memberName));
 			}
@@ -163,7 +163,7 @@ namespace IdApp.Services.Network
 			{
 				thrownException = tce;
 				this.LogService.LogException(tce, GetParameter(memberName));
-			
+
 				if (displayAlert)
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestWasCancelled, memberName));
 			}
@@ -177,7 +177,7 @@ namespace IdApp.Services.Network
 					message = xe.Stanza.InnerText;
 				else
 					message = e.Message;
-				
+
 				this.LogService.LogException(e, GetParameter(memberName));
 
 				if (displayAlert)
@@ -195,7 +195,7 @@ namespace IdApp.Services.Network
 		{
 #if DEBUG
 			if (!string.IsNullOrWhiteSpace(memberName))
-				return $"{message}{Environment.NewLine}Caller: {memberName}";
+				return message + Environment.NewLine + "Caller: " + memberName;
 #endif
 			return message;
 		}

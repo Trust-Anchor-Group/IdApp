@@ -10,12 +10,12 @@ using Waher.Script;
 
 namespace IdApp.Services.Data.PersonalNumbers
 {
-    /// <summary>
-    /// Personal Number Schemes available in different countries.
-    /// </summary>
-    public static class PersonalNumberSchemes
-    {
-        private static readonly Dictionary<string, LinkedList<PersonalNumberScheme>> schemesByCode = new();
+	/// <summary>
+	/// Personal Number Schemes available in different countries.
+	/// </summary>
+	public static class PersonalNumberSchemes
+	{
+		private static readonly Dictionary<string, LinkedList<PersonalNumberScheme>> schemesByCode = new();
 
 		private static void LazyLoad()
 		{
@@ -24,14 +24,14 @@ namespace IdApp.Services.Data.PersonalNumbers
 				XmlDocument doc = new();
 
 				using (MemoryStream ms = new(Resources.LoadResource(
-					$"{typeof(PersonalNumberSchemes).Namespace}.{typeof(PersonalNumberSchemes).Name}.xml")))
+					typeof(PersonalNumberSchemes).Namespace + "." + typeof(PersonalNumberSchemes).Name + ".xml")))
 				{
 					doc.Load(ms);
 				}
 
-                XmlNodeList childNodes = doc.DocumentElement?.ChildNodes;
-                if (childNodes is null)
-                    return;
+				XmlNodeList childNodes = doc.DocumentElement?.ChildNodes;
+				if (childNodes is null)
+					return;
 
 				foreach (XmlNode n in childNodes)
 				{
@@ -100,7 +100,7 @@ namespace IdApp.Services.Data.PersonalNumbers
 		/// <returns>Validation information about the number.</returns>
 		public static async Task<NumberInformation> Validate(string CountryCode, string PersonalNumber)
 		{
-            LazyLoad();
+			LazyLoad();
 
 			if (schemesByCode.TryGetValue(CountryCode, out LinkedList<PersonalNumberScheme> Schemes))
 			{
@@ -138,18 +138,18 @@ namespace IdApp.Services.Data.PersonalNumbers
 		/// <param name="countryCode">ISO 3166-1 Country Codes.</param>
 		/// <returns>A string that can be displayed to a user, informing the user about the approximate format expected.</returns>
 		public static string DisplayStringForCountry(string countryCode)
-        {
-            LazyLoad();
+		{
+			LazyLoad();
 
-            if (!string.IsNullOrWhiteSpace(countryCode))
-            {
-                if (schemesByCode.TryGetValue(countryCode, out LinkedList<PersonalNumberScheme> schemes))
-                {
-                    return schemes.First?.Value?.DisplayString;
-                }
-            }
+			if (!string.IsNullOrWhiteSpace(countryCode))
+			{
+				if (schemesByCode.TryGetValue(countryCode, out LinkedList<PersonalNumberScheme> schemes))
+				{
+					return schemes.First?.Value?.DisplayString;
+				}
+			}
 
-            return null;
-        }
-    }
+			return null;
+		}
+	}
 }
