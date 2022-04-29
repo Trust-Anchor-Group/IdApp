@@ -562,7 +562,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 					bool More;
 					int c = this.PaymentItems.Count;
 
-					if (c == 0 || !(this.PaymentItems[c - 1] is AccountEventItem LastEvent))
+					if (c == 0 || this.PaymentItems[c - 1] is not AccountEventItem LastEvent)
 						(Events, More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.Sizes.AccountEventBatchSize);
 					else
 						(Events, More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.Sizes.AccountEventBatchSize, LastEvent.Timestamp);
