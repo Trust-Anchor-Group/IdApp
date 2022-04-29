@@ -282,6 +282,7 @@ namespace IdApp.Services.Xmpp
 				isCreatingClient = false;
 			}
 		}
+
 		private void DestroyXmppClient()
 		{
 			this.reconnectTimer?.Dispose();
