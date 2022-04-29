@@ -8667,6 +8667,16 @@
             HasTokens of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasMoreTokensProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasMoreTokens"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasMoreTokens">
+            <summary>
+            HasMoreTokens of eDaler to process
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.Tokens">
             <summary>
             Holds a list of tokens
@@ -8875,6 +8885,16 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens">
             <summary>
             HasTokens of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokensProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokens"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokens">
+            <summary>
+            HasMoreTokens of eDaler to process
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PaymentItems">

@@ -361,12 +361,12 @@ namespace IdApp
             /// <summary>
             /// Number of tokens to load in a single batch.
             /// </summary>
-            public const int TokenBatchSize = 2;
+            public const int TokenBatchSize = 10;
 
             /// <summary>
             /// Number of account events to load in a single batch.
             /// </summary>
-            public const int AccountEventBatchSize = 5;
+            public const int AccountEventBatchSize = 10;
 
             /// <summary>
             /// Number of devices to load in a single batch.
