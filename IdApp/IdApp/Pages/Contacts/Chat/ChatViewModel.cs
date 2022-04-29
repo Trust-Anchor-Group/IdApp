@@ -329,7 +329,19 @@ namespace IdApp.Pages.Contacts.Chat
 			await this.ExecuteCancelMessage();
 		}
 
-		private async Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput)
+		private Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput)
+		{
+			return ExecuteSendMessage(ReplaceObjectId, MarkdownInput, this.BareJid, this);
+		}
+
+		/// <summary>
+		/// Sends a Markdown-formatted chat message
+		/// </summary>
+		/// <param name="ReplaceObjectId">ID of message being updated, or the empty string.</param>
+		/// <param name="MarkdownInput">Markdown input.</param>
+		/// <param name="BareJid">Bare JID of recipient.</param>
+		/// <param name="ServiceReferences">Service references.</param>
+		public static async Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput, string BareJid, ServiceReferences ServiceReferences)
 		{
 			try
 			{
@@ -352,7 +364,7 @@ namespace IdApp.Pages.Contacts.Chat
 				ChatMessage Message = new()
 				{
 					Created = DateTime.UtcNow,
-					RemoteBareJid = this.BareJid,
+					RemoteBareJid = BareJid,
 					RemoteObjectId = string.Empty,
 					MessageType = Services.Messages.MessageType.Sent,
 					Html = HtmlDocument.GetBody(await Doc.GenerateHTML()),
@@ -383,7 +395,9 @@ namespace IdApp.Pages.Contacts.Chat
 				if (string.IsNullOrEmpty(ReplaceObjectId))
 				{
 					await Database.Insert(Message);
-					await this.MessageAdded(Message);
+
+					if (ServiceReferences is ChatViewModel ChatViewModel)
+						await ChatViewModel.MessageAdded(Message);
 				}
 				else
 				{
@@ -394,7 +408,8 @@ namespace IdApp.Pages.Contacts.Chat
 						ReplaceObjectId = null;
 						await Database.Insert(Message);
 
-						await this.MessageAdded(Message);
+						if (ServiceReferences is ChatViewModel ChatViewModel)
+							await ChatViewModel.MessageAdded(Message);
 					}
 					else
 					{
@@ -407,17 +422,18 @@ namespace IdApp.Pages.Contacts.Chat
 
 						Message = Old;
 
-						await this.MessageUpdated(Message);
+						if (ServiceReferences is ChatViewModel ChatViewModel)
+							await ChatViewModel.MessageUpdated(Message);
 					}
 				}
 
-				this.XmppService.Xmpp.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId,
-					this.BareJid, Xml.ToString(), Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty, null, null);
+				ServiceReferences.XmppService.Xmpp.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId,
+					BareJid, Xml.ToString(), Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty, null, null);
 				// TODO: End-to-End encryption
 			}
 			catch (Exception ex)
 			{
-				await this.UiSerializer.DisplayAlert(ex);
+				await ServiceReferences.UiSerializer.DisplayAlert(ex);
 			}
 		}
 

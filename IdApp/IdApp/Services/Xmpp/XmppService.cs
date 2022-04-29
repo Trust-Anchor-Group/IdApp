@@ -1431,7 +1431,7 @@ namespace IdApp.Services.Xmpp
 				string BareJid = ContactInfo?.BareJid ?? e.FromBareJID;
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
-					await NavigationService.GoToAsync<ChatNavigationArgs>(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName)));
+					await NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName)));
 			}
 		}
 

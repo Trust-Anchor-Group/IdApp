@@ -237,9 +237,13 @@
                 <Button Text="{x:Static resx:AppResources.ShowDetails}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                         Command="{Binding Path=ShowDetailsCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
 
+                <Button Text="{x:Static resx:AppResources.SendToContact}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=SendToContactCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+
                 <!--
-                send token button
                 share token button
+                Make offer to sell
+                Make offer to buy
                 -->
             </StackLayout>
         </ScrollView>

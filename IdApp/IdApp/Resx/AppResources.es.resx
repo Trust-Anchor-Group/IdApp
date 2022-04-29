@@ -1548,6 +1548,12 @@
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Abrir enlace de mensaje</value>
   </data>
+  <data name="SendInformationTo" xml:space="preserve">
+    <value>Enviar información a?</value>
+  </data>
+  <data name="SendToContact" xml:space="preserve">
+    <value>Enviar a Contacto</value>
+  </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Mostrar detalles</value>
   </data>

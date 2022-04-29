@@ -1143,11 +1143,17 @@
   <data name="Send" xml:space="preserve">
     <value>Skicka</value>
   </data>
+  <data name="SendInformationTo" xml:space="preserve">
+    <value>Skicka informationen till?</value>
+  </data>
   <data name="SendPayment" xml:space="preserve">
     <value>Skicka betalning</value>
   </data>
   <data name="SendPaymentTo" xml:space="preserve">
     <value>Skicka betalning</value>
+  </data>
+  <data name="SendToContact" xml:space="preserve">
+    <value>Skicka till kontakt</value>
   </data>
   <data name="SerialNumber" xml:space="preserve">
     <value>Serienummer</value>

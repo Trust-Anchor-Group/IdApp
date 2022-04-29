@@ -1548,6 +1548,12 @@
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Otvori vezu poruke</value>
   </data>
+  <data name="SendInformationTo" xml:space="preserve">
+    <value>Želite li da pošaljete informacije?</value>
+  </data>
+  <data name="SendToContact" xml:space="preserve">
+    <value>Pošalji kontaktu</value>
+  </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Prikaži detalje</value>
   </data>

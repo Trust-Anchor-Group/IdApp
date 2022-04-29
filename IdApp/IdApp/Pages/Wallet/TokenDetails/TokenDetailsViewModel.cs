@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.Chat;
+using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
@@ -47,6 +49,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.OpenChatCommand = new Command(async P => await this.OpenChat(P));
 			this.OpenLinkCommand = new Command(async P => await this.OpenLink(P));
 			this.ShowDetailsCommand = new Command(async _ => await this.ShowDetails());
+			this.SendToContactCommand = new Command(async _ => await this.SendToContact());
 		}
 
 		/// <inheritdoc/>
@@ -96,6 +99,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.HasGlyphImage = args.Token.HasGlyphImage;
 				this.GlyphWidth = args.Token.GlyphWidth;
 				this.GlyphHeight = args.Token.GlyphHeight;
+				this.TokenXml = args.Token.Token.ToXml();
 
 				if (!string.IsNullOrEmpty(args.Token.Reference))
 				{
@@ -501,6 +505,21 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		}
 
 		/// <summary>
+		/// See <see cref="TokenXml"/>
+		/// </summary>
+		public static readonly BindableProperty TokenXmlProperty =
+			BindableProperty.Create(nameof(TokenXml), typeof(string), typeof(TokenDetailsViewModel), default(string));
+
+		/// <summary>
+		/// Token ID
+		/// </summary>
+		public string TokenXml
+		{
+			get => (string)this.GetValue(TokenXmlProperty);
+			set => this.SetValue(TokenXmlProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="Visibility"/>
 		/// </summary>
 		public static readonly BindableProperty VisibilityProperty =
@@ -849,6 +868,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		/// </summary>
 		public ICommand ShowDetailsCommand { get; }
 
+		/// <summary>
+		/// Command to send token to contact
+		/// </summary>
+		public ICommand SendToContactCommand { get; }
+
 		private async Task CopyToClipboard(object Parameter)
 		{
 			try
@@ -970,6 +994,32 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		private async Task SendToContact()
+		{
+			TaskCompletionSource<ContactInfo> Selected = new();
+			ContactListNavigationArgs Args = new(AppResources.SendInformationTo, Selected);
+
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
+
+			ContactInfo Contact = await Args.Selection.Task;
+			if (Contact is null)
+				return;
+
+			StringBuilder Markdown = new();
+
+			Markdown.Append("```");
+			Markdown.AppendLine(Constants.UriSchemes.UriSchemeNeuroFeature);
+			Markdown.AppendLine(this.TokenXml);
+			Markdown.AppendLine("```");
+
+			await ChatViewModel.ExecuteSendMessage(string.Empty, Markdown.ToString(), Contact.BareJid, this);
+
+			await Task.Delay(100);	// Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
+
+			ChatNavigationArgs Args2 = new(Contact);
+			await this.NavigationService.GoToAsync(nameof(ChatPage), Args2);
 		}
 
 		#endregion
