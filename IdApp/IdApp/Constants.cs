@@ -387,7 +387,7 @@ namespace IdApp
             /// <summary>
             /// Contract template for creating a demo token
             /// </summary>
-            public const string CreateDemoTokenTemplate = "29ddb488-0078-df7a-7c14-d84cc772a148@legal.lab.tagroot.io";
+            public const string CreateDemoTokenTemplate = "2a004b5a-b8ba-ef00-a41b-b6f388d0ec26@legal.lab.tagroot.io";
 
             /// <summary>
             /// Contract template for transferring a token from a seller to a buyer
