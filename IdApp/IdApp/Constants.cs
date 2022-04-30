@@ -392,7 +392,7 @@ namespace IdApp
             /// <summary>
             /// Contract template for transferring a token from a seller to a buyer
             /// </summary>
-            public const string TransferTokenTemplate = "29ff13b4-4d98-0849-8c09-6e175ffbef1e@legal.lab.tagroot.io";
+            public const string TransferTokenTemplate = "29ff399b-4d98-0a26-8c09-6e175ffbb118@legal.lab.tagroot.io";
         }
 
     }
