@@ -684,6 +684,8 @@ namespace IdApp.Pages.Contracts.NewContract
 			Variables Variables = new();
 			bool Ok = true;
 
+			Variables["Duration"] = this.template.Duration;
+
 			foreach (ParameterInfo P in this.parametersByName.Values)
 				P.Parameter.Populate(Variables);
 
