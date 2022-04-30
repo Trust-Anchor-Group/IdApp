@@ -1530,6 +1530,9 @@
   <data name="Witness" xml:space="preserve">
     <value>Todistaja</value>
   </data>
+  <data name="AddContactToContract" xml:space="preserve">
+    <value>Lisää yhteyshenkilö sopimukseen</value>
+  </data>
   <data name="DefinitionNamespace" xml:space="preserve">
     <value>Määrityksen nimitila</value>
   </data>
@@ -1553,6 +1556,9 @@
   </data>
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Avaa viestilinkki</value>
+  </data>
+  <data name="SelectedContactCannotBeAdded" xml:space="preserve">
+    <value>Valittua yhteyshenkilöä ei voi lisätä. Sillä ei ole rekisteröityä oikeudellista tunnusta.</value>
   </data>
   <data name="SendInformationTo" xml:space="preserve">
     <value>Lähetetäänkö tiedot vastaanottajalle?</value>

@@ -1530,6 +1530,9 @@
   <data name="Witness" xml:space="preserve">
     <value>Témoin</value>
   </data>
+  <data name="AddContactToContract" xml:space="preserve">
+    <value>Ajouter un contact au contrat</value>
+  </data>
   <data name="DefinitionNamespace" xml:space="preserve">
     <value>Espace de noms de définition</value>
   </data>
@@ -1553,6 +1556,9 @@
   </data>
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Ouvrir le lien de message</value>
+  </data>
+  <data name="SelectedContactCannotBeAdded" xml:space="preserve">
+    <value>Le contact sélectionné ne peut pas être ajouté. Il n’a pas d’identifiant légal enregistré.</value>
   </data>
   <data name="SendInformationTo" xml:space="preserve">
     <value>Envoyer des informations à?</value>

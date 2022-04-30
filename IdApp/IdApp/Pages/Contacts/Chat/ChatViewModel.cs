@@ -657,7 +657,10 @@ namespace IdApp.Pages.Contacts.Chat
 			TaskCompletionSource<ContactInfo> SelectedContact = new();
 
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectedContact));
+				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectedContact)
+				{
+					CanScanQrCode = true
+				});
 
 			ContactInfo Contact = await SelectedContact.Task;
 			if (Contact is null)

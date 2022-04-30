@@ -1530,6 +1530,9 @@
   <data name="Witness" xml:space="preserve">
     <value>Zeuge</value>
   </data>
+  <data name="AddContactToContract" xml:space="preserve">
+    <value>Kontakt zum Vertrag hinzufügen</value>
+  </data>
   <data name="DefinitionNamespace" xml:space="preserve">
     <value>Definitionsnamespace</value>
   </data>
@@ -1553,6 +1556,9 @@
   </data>
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Nachrichtenlink öffnen</value>
+  </data>
+  <data name="SelectedContactCannotBeAdded" xml:space="preserve">
+    <value>Der ausgewählte Kontakt kann nicht hinzugefügt werden. Es hat keine legale ID registriert.</value>
   </data>
   <data name="SendInformationTo" xml:space="preserve">
     <value>Informationen senden an?</value>

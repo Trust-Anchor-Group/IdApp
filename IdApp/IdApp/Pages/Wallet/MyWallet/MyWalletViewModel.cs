@@ -529,7 +529,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 		private async Task MakePayment()
 		{
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectContactAction.MakePayment));
+				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectContactAction.MakePayment)
+				{
+					CanScanQrCode = true
+				});
 		}
 
 		private async Task ShowPaymentItem(object Item)

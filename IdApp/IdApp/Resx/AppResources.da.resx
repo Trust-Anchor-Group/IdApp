@@ -1530,6 +1530,9 @@
   <data name="Witness" xml:space="preserve">
     <value>Vidne</value>
   </data>
+  <data name="AddContactToContract" xml:space="preserve">
+    <value>Føj kontakt til kontrakt</value>
+  </data>
   <data name="DefinitionNamespace" xml:space="preserve">
     <value>Definition navneområde</value>
   </data>
@@ -1553,6 +1556,9 @@
   </data>
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Åbn meddelelseslink</value>
+  </data>
+  <data name="SelectedContactCannotBeAdded" xml:space="preserve">
+    <value>Den valgte kontakt kan ikke tilføjes. Det har ikke et juridisk id registreret.</value>
   </data>
   <data name="SendInformationTo" xml:space="preserve">
     <value>Send oplysninger til?</value>

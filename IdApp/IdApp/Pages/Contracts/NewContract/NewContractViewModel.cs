@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Controls.Extended;
 using IdApp.Extensions;
+using IdApp.Pages.Contacts;
+using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.NewContract.ObjectModel;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Main.Main;
 using IdApp.Resx;
 using IdApp.Services;
-using IdApp.Services.UI.QR;
 using Waher.Content;
 using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
@@ -522,21 +523,39 @@ namespace IdApp.Pages.Contracts.NewContract
 
 		private async void AddPartButton_Clicked(object sender, EventArgs e)
 		{
-			if (sender is Button button)
+			try
 			{
-				this.saveStateWhileScanning = true;
-				this.stateTemplateWhileScanning = this.template;
-
-				await QrCode.ScanQrCode(this.NavigationService, AppResources.Add, async code =>
+				if (sender is Button button)
 				{
-					string id = Constants.UriSchemes.RemoveScheme(code);
-					if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
+					this.saveStateWhileScanning = true;
+					this.stateTemplateWhileScanning = this.template;
+
+					TaskCompletionSource<ContactInfo> Selected = new();
+					ContactListNavigationArgs Args = new(AppResources.AddContactToContract, Selected)
 					{
-						this.partsToAdd[button.StyleId] = id;
+						CanScanQrCode = true
+					};
+
+					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
+
+					ContactInfo Contact = await Selected.Task;
+					if (Contact is null)
+						return;
+
+					if (string.IsNullOrEmpty(Contact.LegalId))
+						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.SelectedContactCannotBeAdded);
+					else
+					{
+						this.partsToAdd[button.StyleId] = Contact.LegalId;
 						string settingsKey = PartSettingsPrefix + button.StyleId;
-						await this.SettingsService.SaveState(settingsKey, id);
+						await this.SettingsService.SaveState(settingsKey, Contact.LegalId);
 					}
-				});
+				}
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 

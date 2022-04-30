@@ -1530,6 +1530,9 @@
   <data name="Witness" xml:space="preserve">
     <value>Testemunha</value>
   </data>
+  <data name="AddContactToContract" xml:space="preserve">
+    <value>Adicionar contato ao contrato</value>
+  </data>
   <data name="DefinitionNamespace" xml:space="preserve">
     <value>Espaço de nome de definição</value>
   </data>
@@ -1553,6 +1556,9 @@
   </data>
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Link de mensagem aberto</value>
+  </data>
+  <data name="SelectedContactCannotBeAdded" xml:space="preserve">
+    <value>O contato selecionado não pode ser adicionado. Não tem uma carteira de polícia registrada.</value>
   </data>
   <data name="SendInformationTo" xml:space="preserve">
     <value>Enviar informações para?</value>

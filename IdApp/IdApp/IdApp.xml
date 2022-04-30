@@ -2357,6 +2357,11 @@
             Selection source, if selecting identity.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.CanScanQrCode">
+            <summary>
+            If the user should be able to scane QR Codes.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contacts.ContactListViewModel">
             <summary>
             The view model to bind to when displaying the list of contacts.
@@ -2393,6 +2398,16 @@
             The description to present to the user.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contacts.ContactListViewModel.CanScanQrCodeProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.CanScanQrCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.CanScanQrCode">
+            <summary>
+            The description to present to the user.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contacts.ContactListViewModel.ActionProperty">
             <summary>
             <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.Action"/>
@@ -2416,6 +2431,11 @@
         <member name="P:IdApp.Pages.Contacts.ContactListViewModel.SelectedContact">
             <summary>
             The currently selected contact, if any.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.ScanQrCodeCommand">
+            <summary>
+            Command executed when the user wants to scan a contact from a QR Code.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contacts.MyContacts.MyContactsPage">
@@ -10728,6 +10748,11 @@
               Looks up a localized string similar to Add Contact.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.AddContactToContract">
+            <summary>
+              Looks up a localized string similar to Add Contact to Contract.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.AddPart">
             <summary>
               Looks up a localized string similar to Add part.
@@ -12366,6 +12391,11 @@
         <member name="P:IdApp.Resx.AppResources.SelectContactToPay">
             <summary>
               Looks up a localized string similar to Below are all contacts in your contact book. Select the contact to whom you want to make the payment..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SelectedContactCannotBeAdded">
+            <summary>
+              Looks up a localized string similar to The selected contact cannot be added. It does not have a Legal ID registered..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SelectingAPhotoIsNotSupported">

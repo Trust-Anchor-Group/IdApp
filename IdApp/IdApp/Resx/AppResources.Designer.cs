@@ -151,6 +151,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Contact to Contract.
+        /// </summary>
+        internal static string AddContactToContract {
+            get {
+                return ResourceManager.GetString("AddContactToContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add part.
         /// </summary>
         internal static string AddPart {
@@ -3099,6 +3108,15 @@ namespace IdApp.Resx {
         internal static string SelectContactToPay {
             get {
                 return ResourceManager.GetString("SelectContactToPay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected contact cannot be added. It does not have a Legal ID registered..
+        /// </summary>
+        internal static string SelectedContactCannotBeAdded {
+            get {
+                return ResourceManager.GetString("SelectedContactCannotBeAdded", resourceCulture);
             }
         }
         

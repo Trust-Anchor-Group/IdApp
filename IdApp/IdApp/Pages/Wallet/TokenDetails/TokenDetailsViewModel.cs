@@ -1038,7 +1038,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		private async Task SendToContact()
 		{
 			TaskCompletionSource<ContactInfo> Selected = new();
-			ContactListNavigationArgs Args = new(AppResources.SendInformationTo, Selected);
+			ContactListNavigationArgs Args = new(AppResources.SendInformationTo, Selected)
+			{
+				CanScanQrCode = true
+			};
 
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
 

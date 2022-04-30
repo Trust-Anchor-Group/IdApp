@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using EDaler;
 using EDaler.Uris;
 using IdApp.Pages.Contacts.Chat;
@@ -10,6 +11,7 @@ using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.Payment;
 using IdApp.Resx;
 using IdApp.Services;
+using IdApp.Services.UI.QR;
 using Waher.Networking.XMPP;
 using Waher.Persistence;
 using Xamarin.Forms;
@@ -28,6 +30,8 @@ namespace IdApp.Pages.Contacts
 		/// </summary>
 		protected internal ContactListViewModel()
 		{
+			this.ScanQrCodeCommand = new Command(async _ => await this.ScanQrCode());
+
 			this.Contacts = new ObservableCollection<ContactInfo>();
 
 			this.Description = AppResources.ContactsDescription;
@@ -45,6 +49,7 @@ namespace IdApp.Pages.Contacts
 				this.Description = args.Description;
 				this.Action = args.Action;
 				this.selection = args.Selection;
+				this.CanScanQrCode = args.CanScanQrCode;
 			}
 
 			SortedDictionary<string, ContactInfo> Sorted = new();
@@ -151,6 +156,21 @@ namespace IdApp.Pages.Contacts
 		}
 
 		/// <summary>
+		/// <see cref="CanScanQrCode"/>
+		/// </summary>
+		public static readonly BindableProperty CanScanQrCodeProperty =
+			BindableProperty.Create(nameof(CanScanQrCode), typeof(bool), typeof(ContactListViewModel), default(bool));
+
+		/// <summary>
+		/// The description to present to the user.
+		/// </summary>
+		public bool CanScanQrCode
+		{
+			get => (bool)this.GetValue(CanScanQrCodeProperty);
+			set => this.SetValue(CanScanQrCodeProperty, value);
+		}
+
+		/// <summary>
 		/// <see cref="Action"/>
 		/// </summary>
 		public static readonly BindableProperty ActionProperty =
@@ -178,63 +198,68 @@ namespace IdApp.Pages.Contacts
 				propertyChanged: (b, oldValue, newValue) =>
 				{
 					if (b is ContactListViewModel viewModel && newValue is ContactInfo Contact)
-					{
-						viewModel.UiSerializer.BeginInvokeOnMainThread(async () =>
-						{
-							switch (viewModel.Action)
-							{
-								case SelectContactAction.MakePayment:
-									StringBuilder sb = new();
-
-									sb.Append("edaler:");
-
-									if (!string.IsNullOrEmpty(Contact.LegalId))
-									{
-										sb.Append("ti=");
-										sb.Append(Contact.LegalId);
-									}
-									else if (!string.IsNullOrEmpty(Contact.BareJid))
-									{
-										sb.Append("t=");
-										sb.Append(Contact.BareJid);
-									}
-									else
-										break;
-
-									Balance Balance = await viewModel.XmppService.Wallet.GetBalanceAsync();
-
-									sb.Append(";cu=");
-									sb.Append(Balance.Currency);
-
-									if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
-										break;
-
-									await viewModel.NavigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed)
-									{
-										ReturnRoute = "../.."
-									});
-									break;
-
-								case SelectContactAction.ViewIdentity:
-								default:
-									if (!(Contact.LegalIdentity is null))
-									{
-										await viewModel.NavigationService.GoToAsync(nameof(ViewIdentityPage),
-											new ViewIdentityNavigationArgs(Contact.LegalIdentity, null));
-									}
-									else if (!string.IsNullOrEmpty(Contact.BareJid))
-										await viewModel.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact));
-									
-									break;
-
-								case SelectContactAction.Select:
-									viewModel.selection?.TrySetResult(Contact);
-									await viewModel.NavigationService.GoBackAsync();
-									break;
-							}
-						});
-					}
+						viewModel.OnSelected(Contact);
 				});
+
+		private void OnSelected(ContactInfo Contact)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				switch (this.Action)
+				{
+					case SelectContactAction.MakePayment:
+						StringBuilder sb = new();
+
+						sb.Append("edaler:");
+
+						if (!string.IsNullOrEmpty(Contact.LegalId))
+						{
+							sb.Append("ti=");
+							sb.Append(Contact.LegalId);
+						}
+						else if (!string.IsNullOrEmpty(Contact.BareJid))
+						{
+							sb.Append("t=");
+							sb.Append(Contact.BareJid);
+						}
+						else
+							break;
+
+						Balance Balance = await this.XmppService.Wallet.GetBalanceAsync();
+
+						sb.Append(";cu=");
+						sb.Append(Balance.Currency);
+
+						if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
+							break;
+
+						await this.NavigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed)
+						{
+							ReturnRoute = "../.."
+						});
+						break;
+
+					case SelectContactAction.ViewIdentity:
+					default:
+						if (!(Contact.LegalIdentity is null))
+						{
+							await this.NavigationService.GoToAsync(nameof(ViewIdentityPage),
+								new ViewIdentityNavigationArgs(Contact.LegalIdentity, null));
+						}
+						else if (!string.IsNullOrEmpty(Contact.LegalId))
+							await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId, AppResources.ScannedQrCode);
+						else if (!string.IsNullOrEmpty(Contact.BareJid))
+							await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact));
+
+						break;
+
+					case SelectContactAction.Select:
+						this.selection?.TrySetResult(Contact);
+						await this.NavigationService.GoBackAsync();
+						break;
+				}
+			});
+		}
 
 		/// <summary>
 		/// The currently selected contact, if any.
@@ -245,5 +270,20 @@ namespace IdApp.Pages.Contacts
 			set => this.SetValue(SelectedContactProperty, value);
 		}
 
+		/// <summary>
+		/// Command executed when the user wants to scan a contact from a QR Code.
+		/// </summary>
+		public ICommand ScanQrCodeCommand { get; }
+
+		private async Task ScanQrCode()
+		{
+			await QrCode.ScanQrCode(this.NavigationService, AppResources.ScanQRCode, async code =>
+			{
+				if (Constants.UriSchemes.StartsWithIdScheme(code))
+					this.OnSelected(new ContactInfo() { LegalId = Constants.UriSchemes.RemoveScheme(code) });
+				else
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
+			});
+		}
 	}
 }

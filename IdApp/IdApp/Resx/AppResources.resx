@@ -1530,6 +1530,9 @@
   <data name="Witness" xml:space="preserve">
     <value>Witness</value>
   </data>
+  <data name="AddContactToContract" xml:space="preserve">
+    <value>Add Contact to Contract</value>
+  </data>
   <data name="DefinitionNamespace" xml:space="preserve">
     <value>Definition namespace</value>
   </data>
@@ -1553,6 +1556,9 @@
   </data>
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Open Message Link</value>
+  </data>
+  <data name="SelectedContactCannotBeAdded" xml:space="preserve">
+    <value>The selected contact cannot be added. It does not have a Legal ID registered.</value>
   </data>
   <data name="SendInformationTo" xml:space="preserve">
     <value>Send Information To?</value>

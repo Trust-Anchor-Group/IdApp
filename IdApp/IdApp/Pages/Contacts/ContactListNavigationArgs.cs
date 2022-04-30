@@ -70,5 +70,10 @@ namespace IdApp.Pages.Contacts
         /// Selection source, if selecting identity.
         /// </summary>
         public TaskCompletionSource<ContactInfo> Selection => this.selection;
+
+        /// <summary>
+        /// If the user should be able to scane QR Codes.
+        /// </summary>
+        public bool CanScanQrCode { get; set; }
     }
 }

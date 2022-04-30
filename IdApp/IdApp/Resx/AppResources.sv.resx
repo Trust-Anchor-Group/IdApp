@@ -147,6 +147,9 @@
   <data name="AddContact" xml:space="preserve">
     <value>Lägg till kontakt</value>
   </data>
+  <data name="AddContactToContract" xml:space="preserve">
+    <value>Lägg till kontakt till kontraktet</value>
+  </data>
   <data name="AddPart" xml:space="preserve">
     <value>Lägg till del</value>
   </data>
@@ -1130,6 +1133,9 @@
   </data>
   <data name="SelectContactToPay" xml:space="preserve">
     <value>Nedan är alla kontakter i din kontaktbok. Välj kontakten du vill göra betalningen till.</value>
+  </data>
+  <data name="SelectedContactCannotBeAdded" xml:space="preserve">
+    <value>Den valda kontakten kan inte läggas till. Den har inte ett juridiskt ID registrerat.</value>
   </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
     <value>Att välja en bild stöds inte på den här enheten</value>
