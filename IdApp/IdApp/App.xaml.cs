@@ -75,7 +75,7 @@ namespace IdApp
 		private ServiceReferences services;
 		private Profiler startupProfiler;
 		private readonly Task<bool> initCompleted;
-		private SemaphoreSlim startupWorker = new SemaphoreSlim(1, 1);
+		private readonly SemaphoreSlim startupWorker = new(1, 1);
 		private CancellationTokenSource startupCancellation = new();
 
 		///<inheritdoc/>
