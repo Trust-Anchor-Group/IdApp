@@ -13287,7 +13287,7 @@
             Creates a new instance of the <see cref="T:IdApp.Services.AttachmentCache.AttachmentCacheService"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Services.AttachmentCache.AttachmentCacheService.Load(System.Boolean)">
+        <member name="M:IdApp.Services.AttachmentCache.AttachmentCacheService.Load(System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.AttachmentCache.AttachmentCacheService.TryGet(System.String)">
@@ -14139,11 +14139,12 @@
             A service that can be loaded and unloaded at will. Typically during startup and shutdown of an application.
             </summary>
         </member>
-        <member name="M:IdApp.Services.ILoadableService.Load(System.Boolean)">
+        <member name="M:IdApp.Services.ILoadableService.Load(System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Loads the specified service.
             </summary>
             <param name="isResuming">Set to <c>true</c> to indicate the app is resuming as opposed to starting cold.</param>
+            <param name="cancellationToken">Will stop the service load if the token is set.</param>
         </member>
         <member name="M:IdApp.Services.ILoadableService.Unload">
             <summary>
@@ -14158,47 +14159,37 @@
         <member name="T:IdApp.Services.LoadableService">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.Services.LoadableService.IsUnloading">
-            <summary>
-            Gets whether the service is unloading or not.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.LoadableService.IsLoading">
-            <summary>
-            Gets whether the service is loading or not.
-            </summary>
-        </member>
         <member name="P:IdApp.Services.LoadableService.IsLoaded">
             <summary>
             Gets whether the service is loaded.
             </summary>
         </member>
-        <member name="M:IdApp.Services.LoadableService.BeginLoad">
+        <member name="M:IdApp.Services.LoadableService.BeginLoad(System.Threading.CancellationToken)">
             <summary>
-            Sets the <see cref="P:IdApp.Services.LoadableService.IsLoading"/> flag if the service isn't already loading.
+            Sets the <see cref="!:IsLoading"/> flag if the service isn't already loading.
             </summary>
             <returns><c>true</c> if the service will load, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:IdApp.Services.LoadableService.EndLoad(System.Boolean)">
             <summary>
-            Sets the <see cref="P:IdApp.Services.LoadableService.IsLoading"/> and <see cref="P:IdApp.Services.LoadableService.IsLoaded"/> flags and fires an event
+            Sets the <see cref="!:IsLoading"/> and <see cref="P:IdApp.Services.LoadableService.IsLoaded"/> flags and fires an event
             representing the current load state of the service.
             </summary>
             <param name="isLoaded">The current loaded state to set.</param>
         </member>
         <member name="M:IdApp.Services.LoadableService.BeginUnload">
             <summary>
-            Sets the <see cref="P:IdApp.Services.LoadableService.IsLoading"/> flag if the service isn't already unloading.
+            Sets the <see cref="!:IsLoading"/> flag if the service isn't already unloading.
             </summary>
             <returns><c>true</c> if the service will unload, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:IdApp.Services.LoadableService.EndUnload">
             <summary>
-            Sets the <see cref="P:IdApp.Services.LoadableService.IsLoading"/> and <see cref="P:IdApp.Services.LoadableService.IsLoaded"/> flags and fires an event
+            Sets the <see cref="!:IsLoading"/> and <see cref="P:IdApp.Services.LoadableService.IsLoaded"/> flags and fires an event
             representing the current load state of the service.
             </summary>
         </member>
-        <member name="M:IdApp.Services.LoadableService.Load(System.Boolean)">
+        <member name="M:IdApp.Services.LoadableService.Load(System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.LoadableService.Unload">
@@ -14430,7 +14421,7 @@
             The route to use when going back, if any.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Navigation.NavigationService.Load(System.Boolean)">
+        <member name="M:IdApp.Services.Navigation.NavigationService.Load(System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Navigation.NavigationService.Unload">
@@ -14486,7 +14477,7 @@
             <param name="memberName">(Optional) a method name to use.</param>
             <returns>If request was successful, and if so, the return value.</returns>
         </member>
-        <member name="M:IdApp.Services.Network.NetworkService.Load(System.Boolean)">
+        <member name="M:IdApp.Services.Network.NetworkService.Load(System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Network.NetworkService.Unload">
@@ -15086,11 +15077,12 @@
             Wraps the <see cref="T:Waher.Persistence.Database"/> for easy access to persistent encrypted storage. Use this for any sensitive data.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Storage.IStorageService.Init(Waher.Runtime.Profiling.ProfilerThread)">
+        <member name="M:IdApp.Services.Storage.IStorageService.Init(Waher.Runtime.Profiling.ProfilerThread,System.Nullable{System.Threading.CancellationToken})">
             <summary>
             Initializes the persistent storage on a background task. This call is asynchronous.
             </summary>
             <param name="Thread"></param>
+            <param name="cancellationToken">Will stop the service load if the token is set.</param>
         </member>
         <member name="M:IdApp.Services.Storage.IStorageService.WaitInitDone">
             <summary>
@@ -15138,7 +15130,7 @@
             Creates a new instance of the <see cref="T:IdApp.Services.Storage.StorageService"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Storage.StorageService.Init(Waher.Runtime.Profiling.ProfilerThread)">
+        <member name="M:IdApp.Services.Storage.StorageService.Init(Waher.Runtime.Profiling.ProfilerThread,System.Nullable{System.Threading.CancellationToken})">
             <inheritdoc />
         </member>
         <member name="M:IdApp.Services.Storage.StorageService.WaitInitDone">
