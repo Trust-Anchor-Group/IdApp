@@ -1,6 +1,7 @@
 ﻿using IdApp.Resx;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Waher.Events;
 using Waher.Runtime.Inventory;
@@ -22,9 +23,9 @@ namespace IdApp.Services.Navigation
         }
 
         ///<inheritdoc/>
-        public override Task Load(bool isResuming)
+        public override Task Load(bool isResuming, CancellationToken cancellationToken)
         {
-            if (this.BeginLoad())
+            if (this.BeginLoad(cancellationToken))
             {
                 try
                 {

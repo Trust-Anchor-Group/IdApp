@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using EDaler;
 using EDaler.Uris;
@@ -23,9 +24,9 @@ namespace IdApp.Services.Wallet
 		{
 		}
 
-		public override Task Load(bool isResuming)
+		public override Task Load(bool isResuming, CancellationToken cancellationToken)
 		{
-			if (this.BeginLoad())
+			if (this.BeginLoad(cancellationToken))
 			{
 				this.XmppService.Wallet.BalanceUpdated += Wallet_BalanceUpdated;
 				this.EndLoad(true);

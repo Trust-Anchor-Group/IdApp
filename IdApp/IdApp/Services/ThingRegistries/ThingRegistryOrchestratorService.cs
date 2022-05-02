@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Pages.Things.ViewThing;
@@ -16,9 +17,9 @@ namespace IdApp.Services.ThingRegistries
 		{
 		}
 
-		public override Task Load(bool isResuming)
+		public override Task Load(bool isResuming, CancellationToken cancellationToken)
 		{
-			if (this.BeginLoad())
+			if (this.BeginLoad(cancellationToken))
 				this.EndLoad(true);
 
 			return Task.CompletedTask;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
+using System.Threading;
 using System.Threading.Tasks;
 using IdApp.Exceptions;
 using IdApp.Extensions;
@@ -28,9 +29,9 @@ namespace IdApp.Services.Network
 		}
 
 		///<inheritdoc/>
-		public override Task Load(bool isResuming)
+		public override Task Load(bool isResuming, CancellationToken cancellationToken)
 		{
-			if (this.BeginLoad())
+			if (this.BeginLoad(cancellationToken))
 			{
 				if (DeviceInfo.Platform != DevicePlatform.Unknown && !DesignMode.IsDesignModeEnabled) // Need to check this, as Xamarin.Essentials doesn't work in unit tests. It has no effect when running on a real phone.
 					Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;

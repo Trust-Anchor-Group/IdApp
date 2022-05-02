@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
@@ -22,9 +23,9 @@ namespace IdApp.Services.AttachmentCache
 		}
 
 		///<inheritdoc/>
-		public override async Task Load(bool isResuming)
+		public override async Task Load(bool isResuming, CancellationToken cancellationToken)
 		{
-			if (this.BeginLoad())
+			if (this.BeginLoad(cancellationToken))
 			{
 				try
 				{

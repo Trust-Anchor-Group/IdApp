@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CoreGraphics;
 using Firebase.CloudMessaging;
 using Foundation;
@@ -183,6 +184,51 @@ namespace IdApp.iOS
             UNUserNotificationCenter UNCenter = UNUserNotificationCenter.Current;
             UNCenter.RemoveAllDeliveredNotifications();
             UNCenter.RemoveAllPendingNotificationRequests();
+        }
+
+
+        public override void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            try
+            {
+                completionHandler(UIBackgroundFetchResult.NewData);
+            }
+            catch (Exception)
+            {
+                completionHandler(UIBackgroundFetchResult.NoData);
+            }
+        }
+
+        public async Task StartLongRunningBackgroundTask()
+        {
+            var _backgroundTaskID = UIApplication.SharedApplication.BeginBackgroundTask(() => {
+                /*
+                // this is called if task times out
+                if (_backgroundTaskID != 0)
+                {
+                    UIApplication.SharedApplication.EndBackgroundTask(_backgroundTaskID);
+                    _backgroundTaskID = 0;
+                }
+                */
+            });
+
+            try
+            {
+                /*
+                var restService = FreshTinyIoCContainer.Current.Resolve<IRestClientService>();
+                var result = await restService.GetDummyResult();
+
+                var messagingService = FreshTinyIoCContainer.Current.Resolve<IMessagingService>();
+                messagingService.Publish(new GotDataMessage { DataString = $"{result.foo} at {DateTime.Now:G}" });
+                */
+            }
+
+            catch (Exception ex)
+            {
+                //Debug.WriteLine(ex.Message);
+            }
+
+            UIApplication.SharedApplication.EndBackgroundTask(_backgroundTaskID);
         }
     }
 }

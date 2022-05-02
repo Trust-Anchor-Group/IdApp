@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Waher.Events;
 using Waher.Persistence;
@@ -34,7 +35,7 @@ namespace IdApp.Services.Storage
 		#region LifeCycle management
 
 		/// <inheritdoc />
-		public async Task Init(ProfilerThread Thread)
+		public async Task Init(ProfilerThread Thread, CancellationToken? cancellationToken)
 		{
 			lock (this.tasksWaiting)
 			{

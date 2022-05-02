@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Waher.Persistence;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
@@ -18,7 +19,8 @@ namespace IdApp.Services.Storage
         /// Initializes the persistent storage on a background task. This call is asynchronous.
         /// </summary>
         /// <param name="Thread"></param>
-        Task Init(ProfilerThread Thread);
+        /// <param name="cancellationToken">Will stop the service load if the token is set.</param>
+        Task Init(ProfilerThread Thread, CancellationToken? cancellationToken);
 
         /// <summary>
         /// Waits for initialization of the storage service to be completed.

@@ -75,6 +75,8 @@ namespace IdApp
 		private ServiceReferences services;
 		private Profiler startupProfiler;
 		private readonly Task<bool> initCompleted;
+		private SemaphoreSlim startupWorker = new SemaphoreSlim(1, 1);
+		private CancellationTokenSource startupCancellation;
 
 		///<inheritdoc/>
 		public App()
@@ -120,42 +122,43 @@ namespace IdApp
 		{
 			try
 			{
+				InitInstances(Thread);
+
+				// Get the db started right away to save startup time.
+
+				Thread?.NewState("DB");
+				ProfilerThread SubThread = Thread?.CreateSubThread("Database", ProfilerThreadType.Sequential);
+
+				this.startupWorker.Wait();
+
 				try
 				{
-					InitInstances(Thread);
-
-					// Get the db started right away to save startup time.
-
-					Thread?.NewState("DB");
-					await this.services.StorageService.Init(Thread?.CreateSubThread("Database", ProfilerThreadType.Sequential));
+					await this.services.StorageService.Init(SubThread, null);
 
 					Thread?.NewState("Config");
 					await this.CreateOrRestoreConfiguration();
-
 					configLoaded.TrySetResult(true);
-
-					await this.PerformStartup(false, Thread);
 				}
-				catch (Exception ex)
+				finally
 				{
-					servicesSetup.TrySetResult(false);
-					configLoaded.TrySetResult(false);
-					this.HandleStartupException(ex);
-					return;
+					this.startupWorker.Release();
 				}
+
+				await this.PerformStartup(false, Thread);
+
+				Result.TrySetResult(true);
 			}
 			catch (Exception ex)
 			{
 				ex = Waher.Events.Log.UnnestException(ex);
 				Thread?.Exception(ex);
 				this.HandleStartupException(ex);
+
+				servicesSetup.TrySetResult(false);
 				Result.TrySetResult(false);
 			}
-			finally
-			{
-				Thread?.Stop();
-				Result.TrySetResult(true);
-			}
+
+			Thread?.Stop();
 		}
 
 		private void InitInstances(ProfilerThread Thread)
@@ -271,6 +274,9 @@ namespace IdApp
 		///<inheritdoc/>
 		protected override void OnStart()
 		{
+			instance = this;
+			this.startupCancellation = new CancellationTokenSource();
+
 			if (!this.initCompleted.Wait(60000))
 				throw new Exception("Initialization did not complete in time.");
 
@@ -280,14 +286,21 @@ namespace IdApp
 		///<inheritdoc/>
 		protected override async void OnResume()
 		{
+			instance = this;
+			this.startupCancellation = new CancellationTokenSource();
+
 			await this.PerformStartup(true, null);
 		}
 
 		private async Task PerformStartup(bool isResuming, ProfilerThread Thread)
 		{
+			this.startupWorker.Wait();
+
 			try
 			{
-				instance = this;
+				// cancel the startup if the application is closed
+				CancellationToken Token = this.startupCancellation.Token;
+				Token.ThrowIfCancellationRequested();
 
 				Thread?.NewState("Report");
 				await this.SendErrorReportFromPreviousRun();
@@ -295,35 +308,37 @@ namespace IdApp
 				Thread?.NewState("Startup");
 				this.services.UiSerializer.IsRunningInTheBackground = false;
 
+				Token.ThrowIfCancellationRequested();
+
 				// Start the db.
 				// This is for soft restarts.
 				// If this is a cold start, this call is made already in the App ctor, and this is then a no-op.
 
 				Thread?.NewState("DB");
-				await this.services.StorageService.Init(Thread);
-
-				Thread?.NewState("Network");
-				await this.services.NetworkService.Load(isResuming);
+				await this.services.StorageService.Init(Thread, Token);
 
 				if (!isResuming)
 					await WaitForConfigLoaded();
 
+				Thread?.NewState("Network");
+				await this.services.NetworkService.Load(isResuming, Token);
+
 				Thread?.NewState("XMPP");
-				await this.services.XmppService.Load(isResuming);
+				await this.services.XmppService.Load(isResuming, Token);
 
 				Thread?.NewState("Timer");
 				TimeSpan initialAutoSaveDelay = Constants.Intervals.AutoSave.Multiply(4);
 				this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, initialAutoSaveDelay, Constants.Intervals.AutoSave);
 
 				Thread?.NewState("Navigation");
-				await this.services.NavigationService.Load(isResuming);
+				await this.services.NavigationService.Load(isResuming, Token);
 
 				Thread?.NewState("Cache");
-				await this.services.AttachmentCacheService.Load(isResuming);
+				await this.services.AttachmentCacheService.Load(isResuming, Token);
 
 				Thread?.NewState("Orchestrators");
-				await this.services.ContractOrchestratorService.Load(isResuming);
-				await this.services.ThingRegistryOrchestratorService.Load(isResuming);
+				await this.services.ContractOrchestratorService.Load(isResuming, Token);
+				await this.services.ThingRegistryOrchestratorService.Load(isResuming, Token);
 			}
 			catch (Exception ex)
 			{
@@ -331,8 +346,11 @@ namespace IdApp
 				Thread?.Exception(ex);
 				this.DisplayBootstrapErrorPage(ex.Message, ex.StackTrace);
 			}
-
-			Thread?.Stop();
+			finally
+			{
+				Thread?.Stop();
+				this.startupWorker.Release();
+			}
 		}
 
 		///<inheritdoc/>
@@ -349,7 +367,7 @@ namespace IdApp
 
 		internal static async Task Stop()
 		{
-			if (!(instance is null))
+			if (instance is not null)
 			{
 				await instance.Shutdown(false);
 				instance = null;
@@ -364,44 +382,56 @@ namespace IdApp
 
 		private async Task Shutdown(bool inPanic)
 		{
-			StopAutoSaveTimer();
+			// if the PerformStartup is not finished, cancel it first
+			this.startupCancellation.Cancel();
+			this.startupWorker.Wait();
 
-			if (!(this.services?.UiSerializer is null))
-				this.services.UiSerializer.IsRunningInTheBackground = !inPanic;
-
-			if (inPanic)
+			try
 			{
-				if (!(this.services?.XmppService is null))
-					await this.services.XmppService.UnloadFast();
+				StopAutoSaveTimer();
+
+				if (!(this.services?.UiSerializer is null))
+					this.services.UiSerializer.IsRunningInTheBackground = !inPanic;
+
+				if (inPanic)
+				{
+					if (!(this.services?.XmppService is null))
+						await this.services.XmppService.UnloadFast();
+				}
+				else
+				{
+					if (!(this.services?.NavigationService is null))
+						await this.services.NavigationService.Unload();
+
+					if (!(this.services.ContractOrchestratorService is null))
+						await this.services.ContractOrchestratorService.Unload();
+
+					if (!(this.services.ThingRegistryOrchestratorService is null))
+						await this.services.ThingRegistryOrchestratorService.Unload();
+
+					if (!(this.services?.XmppService is null))
+						await this.services.XmppService.Unload();
+
+					if (!(this.services?.NetworkService is null))
+						await this.services.NetworkService.Unload();
+
+					if (!(this.services.AttachmentCacheService is null))
+						await this.services.AttachmentCacheService.Unload();
+				}
+
+				foreach (IEventSink Sink in Waher.Events.Log.Sinks)
+					Waher.Events.Log.Unregister(Sink);
+
+				if (!(this.services?.StorageService is null))
+					await this.services.StorageService.Shutdown();
+
+				// Causes list of singleton instances to be cleared.
+				Waher.Events.Log.Terminate();
 			}
-			else
+			finally
 			{
-				if (!(this.services?.NavigationService is null))
-					await this.services.NavigationService.Unload();
-
-				if (!(this.services.ContractOrchestratorService is null))
-					await this.services.ContractOrchestratorService.Unload();
-
-				if (!(this.services.ThingRegistryOrchestratorService is null))
-					await this.services.ThingRegistryOrchestratorService.Unload();
-
-				if (!(this.services?.XmppService is null))
-					await this.services.XmppService.Unload();
-
-				if (!(this.services?.NetworkService is null))
-					await this.services.NetworkService.Unload();
-
-				if (!(this.services.AttachmentCacheService is null))
-					await this.services.AttachmentCacheService.Unload();
+				this.startupWorker.Release();
 			}
-
-			foreach (IEventSink Sink in Waher.Events.Log.Sinks)
-				Waher.Events.Log.Unregister(Sink);
-
-			if (!(this.services?.StorageService is null))
-				await this.services.StorageService.Shutdown();
-
-			Waher.Events.Log.Terminate();   // Causes list of singleton instances to be cleared.
 		}
 
 		#endregion

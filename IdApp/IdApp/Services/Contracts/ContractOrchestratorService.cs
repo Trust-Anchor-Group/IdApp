@@ -17,6 +17,7 @@ using Waher.Networking.XMPP.StanzaErrors;
 using Waher.Runtime.Inventory;
 using IdApp.Services.Xmpp;
 using IdApp.Resx;
+using System.Threading;
 
 namespace IdApp.Services.Contracts
 {
@@ -27,9 +28,9 @@ namespace IdApp.Services.Contracts
 		{
 		}
 
-		public override Task Load(bool isResuming)
+		public override Task Load(bool isResuming, CancellationToken cancellationToken)
 		{
-			if (this.BeginLoad())
+			if (this.BeginLoad(cancellationToken))
 			{
 				this.XmppService.ConnectionStateChanged += Contracts_ConnectionStateChanged;
 				this.XmppService.Contracts.PetitionForPeerReviewIdReceived += Contracts_PetitionForPeerReviewIdReceived;

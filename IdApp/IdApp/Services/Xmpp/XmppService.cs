@@ -538,16 +538,16 @@ namespace IdApp.Services.Xmpp
 				return false;
 
 			int i = await this.xmppClient.WaitStateAsync((int)Timeout.TotalMilliseconds, XmppState.Connected);
-			return i >= 0;
+			return i >= 0;	
 		}
 
-		public override async Task Load(bool isResuming)
+		public override async Task Load(bool isResuming, CancellationToken cancellationToken)
 		{
 			ProfilerThread Thread = this.startupProfiler?.CreateThread("XMPP", ProfilerThreadType.Sequential);
 			Thread?.Start();
 			try
 			{
-				if (this.BeginLoad())
+				if (this.BeginLoad(cancellationToken))
 				{
 					Thread?.NewState("Load");
 					try

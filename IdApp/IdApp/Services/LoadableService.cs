@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IdApp.Services
@@ -6,15 +7,7 @@ namespace IdApp.Services
 	/// <inheritdoc/>
 	public class LoadableService : ServiceReferences, ILoadableService
 	{
-		/// <summary>
-		/// Gets whether the service is unloading or not.
-		/// </summary>
-		public bool IsUnloading { get; protected set; }
-
-		/// <summary>
-		/// Gets whether the service is loading or not.
-		/// </summary>
-		public bool IsLoading { get; protected set; }
+		private SemaphoreSlim worker = new SemaphoreSlim(1, 1);
 
 		/// <summary>
 		/// Gets whether the service is loaded.
@@ -25,15 +18,19 @@ namespace IdApp.Services
 		/// Sets the <see cref="IsLoading"/> flag if the service isn't already loading.
 		/// </summary>
 		/// <returns><c>true</c> if the service will load, <c>false</c> otherwise.</returns>
-		protected bool BeginLoad()
+		protected bool BeginLoad(CancellationToken cancellationToken)
 		{
-			if (!this.IsLoaded && !this.IsLoading)
+			this.worker.Wait();
+
+			if (this.IsLoaded)
 			{
-				IsLoading = true;
-				return true;
+				this.worker.Release();
+				return false;
 			}
 
-			return false;
+			cancellationToken.ThrowIfCancellationRequested();
+
+			return true;
 		}
 
 		/// <summary>
@@ -43,8 +40,9 @@ namespace IdApp.Services
 		/// <param name="isLoaded">The current loaded state to set.</param>
 		protected void EndLoad(bool isLoaded)
 		{
-			IsLoading = false;
 			IsLoaded = isLoaded;
+			this.worker.Release();
+
 			OnLoaded(new LoadedEventArgs(IsLoaded));
 		}
 
@@ -54,13 +52,15 @@ namespace IdApp.Services
 		/// <returns><c>true</c> if the service will unload, <c>false</c> otherwise.</returns>
 		protected bool BeginUnload()
 		{
-			if (this.IsLoaded && !this.IsUnloading)
+			this.worker.Wait();
+
+			if (!this.IsLoaded)
 			{
-				IsUnloading = true;
-				return true;
+				this.worker.Release();
+				return false;
 			}
 
-			return false;
+			return true;
 		}
 
 		/// <summary>
@@ -69,13 +69,14 @@ namespace IdApp.Services
 		/// </summary>
 		protected void EndUnload()
 		{
-			IsUnloading = false;
 			IsLoaded = false;
+			this.worker.Release();
+
 			OnLoaded(new LoadedEventArgs(IsLoaded));
 		}
 
 		/// <inheritdoc/>
-		public virtual Task Load(bool isResuming)
+		public virtual Task Load(bool isResuming, CancellationToken cancellationToken)
 		{
 			return Task.CompletedTask;
 		}
