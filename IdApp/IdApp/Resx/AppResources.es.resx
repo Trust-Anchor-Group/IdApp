@@ -1530,6 +1530,9 @@
   <data name="Witness" xml:space="preserve">
     <value>Testigo</value>
   </data>
+  <data name="AddContactToContract" xml:space="preserve">
+    <value>Agregar contacto al contrato</value>
+  </data>
   <data name="DefinitionNamespace" xml:space="preserve">
     <value>Espacio de nombres de definición</value>
   </data>
@@ -1544,6 +1547,24 @@
   </data>
   <data name="MyTokens" xml:space="preserve">
     <value>Mis tokens</value>
+  </data>
+  <data name="OfferToBuy" xml:space="preserve">
+    <value>Oferta de compra</value>
+  </data>
+  <data name="OfferToSell" xml:space="preserve">
+    <value>Oferta para vender</value>
+  </data>
+  <data name="OpenMessageLink" xml:space="preserve">
+    <value>Abrir enlace de mensaje</value>
+  </data>
+  <data name="SelectedContactCannotBeAdded" xml:space="preserve">
+    <value>No se puede agregar el contacto seleccionado. No tiene una identificación legal registrada.</value>
+  </data>
+  <data name="SendInformationTo" xml:space="preserve">
+    <value>Enviar información a?</value>
+  </data>
+  <data name="SendToContact" xml:space="preserve">
+    <value>Enviar a Contacto</value>
   </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Mostrar detalles</value>

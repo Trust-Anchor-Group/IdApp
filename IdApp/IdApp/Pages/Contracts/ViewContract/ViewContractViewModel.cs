@@ -678,10 +678,10 @@ namespace IdApp.Pages.Contracts.ViewContract
 			{
 				if (max == 1)
 					return string.Empty;
-				return $" ({max})";
+				return " (" + max.ToString() + ")";
 			}
 
-			return $" ({min} - {max})";
+			return " (" + min.ToString() + " - " + max.ToString() + ")";
 		}
 
 		private static void AddKeyValueLabelPair(StackLayout container, string key, string value)
@@ -765,7 +765,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 						string legalId = signature.LegalId;
 						LegalIdentity identity = await this.XmppService.Contracts.GetLegalIdentity(legalId);
 
-						await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ClientSignature.ClientSignaturePage), 
+						await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ClientSignature.ClientSignaturePage),
 							new ClientSignatureNavigationArgs(signature, identity));
 					}
 				}

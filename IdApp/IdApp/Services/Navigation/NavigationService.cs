@@ -9,170 +9,170 @@ using Xamarin.Forms;
 
 namespace IdApp.Services.Navigation
 {
-    [Singleton]
-    internal sealed class NavigationService : LoadableService, INavigationService
-    {
-        private const string DefaultGoBackRoute = "..";
-        private NavigationArgs currentNavigationArgs;
-        private readonly Dictionary<string, NavigationArgs> navigationArgsMap;
-        bool isManuallyNavigatingBack = false;
+	[Singleton]
+	internal sealed class NavigationService : LoadableService, INavigationService
+	{
+		private const string DefaultGoBackRoute = "..";
+		private NavigationArgs currentNavigationArgs;
+		private readonly Dictionary<string, NavigationArgs> navigationArgsMap;
+		bool isManuallyNavigatingBack = false;
 
-        public NavigationService()
-        {
-            this.navigationArgsMap = new Dictionary<string, NavigationArgs>();
-        }
+		public NavigationService()
+		{
+			this.navigationArgsMap = new Dictionary<string, NavigationArgs>();
+		}
 
-        ///<inheritdoc/>
-        public override Task Load(bool isResuming, CancellationToken cancellationToken)
-        {
-            if (this.BeginLoad(cancellationToken))
-            {
-                try
-                {
-                    Shell.Current.Navigating += Shell_Navigating;
+		///<inheritdoc/>
+		public override Task Load(bool isResuming, CancellationToken cancellationToken)
+		{
+			if (this.BeginLoad(cancellationToken))
+			{
+				try
+				{
+					Shell.Current.Navigating += Shell_Navigating;
 
-                    this.EndLoad(true);
-                }
-                catch (Exception e)
-                {
-                    this.LogService.LogException(e);
-                    this.EndLoad(false);
-                }
-            }
+					this.EndLoad(true);
+				}
+				catch (Exception e)
+				{
+					this.LogService.LogException(e);
+					this.EndLoad(false);
+				}
+			}
 
-            return Task.CompletedTask;
-        }
+			return Task.CompletedTask;
+		}
 
-        ///<inheritdoc/>
-        public override Task Unload()
-        {
-            if (this.BeginUnload())
-            {
-                try
-                {
-                    Shell.Current.Navigating -= Shell_Navigating;
-                }
-                catch (Exception e)
-                {
-                    this.LogService.LogException(e);
-                }
+		///<inheritdoc/>
+		public override Task Unload()
+		{
+			if (this.BeginUnload())
+			{
+				try
+				{
+					Shell.Current.Navigating -= Shell_Navigating;
+				}
+				catch (Exception e)
+				{
+					this.LogService.LogException(e);
+				}
 
-                this.EndUnload();
-            }
-        
-            return Task.CompletedTask;
-        }
+				this.EndUnload();
+			}
+
+			return Task.CompletedTask;
+		}
 
 
-        private async void Shell_Navigating(object sender, ShellNavigatingEventArgs e)
-        {
-            string customGoBackRoute = (!(this.currentNavigationArgs is null) && 
-                !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ? 
-                this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
+		private async void Shell_Navigating(object sender, ShellNavigatingEventArgs e)
+		{
+			string customGoBackRoute = (!(this.currentNavigationArgs is null) &&
+				!string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ?
+				this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
 
-            string path = e.Target.Location.ToString();
-            if (path == DefaultGoBackRoute && // user wants to go back
-                customGoBackRoute != DefaultGoBackRoute && // we have a custom back route to use instead of the default one
-                e.CanCancel && // Can we cancel navigation?
-                !this.isManuallyNavigatingBack) // Avoid recursion
-            {
-                this.isManuallyNavigatingBack = true;
-                e.Cancel();
-                await this.GoBackAsync();
-                this.isManuallyNavigatingBack = false;
-            }
-        }
+			string path = e.Target.Location.ToString();
+			if (path == DefaultGoBackRoute && // user wants to go back
+				customGoBackRoute != DefaultGoBackRoute && // we have a custom back route to use instead of the default one
+				e.CanCancel && // Can we cancel navigation?
+				!this.isManuallyNavigatingBack) // Avoid recursion
+			{
+				this.isManuallyNavigatingBack = true;
+				e.Cancel();
+				await this.GoBackAsync();
+				this.isManuallyNavigatingBack = false;
+			}
+		}
 
-        private bool TryGetPageName(string route, out string pageName)
-        {
-            pageName = null;
-            if (!string.IsNullOrWhiteSpace(route))
-            {
-                pageName = route.TrimStart('.', '/');
-                return !string.IsNullOrWhiteSpace(pageName);
-            }
+		private bool TryGetPageName(string route, out string pageName)
+		{
+			pageName = null;
+			if (!string.IsNullOrWhiteSpace(route))
+			{
+				pageName = route.TrimStart('.', '/');
+				return !string.IsNullOrWhiteSpace(pageName);
+			}
 
-            return false;
-        }
+			return false;
+		}
 
-        internal void PushArgs<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
-        {
-            this.currentNavigationArgs = args;
+		internal void PushArgs<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
+		{
+			this.currentNavigationArgs = args;
 
-            if (this.TryGetPageName(route, out string pageName))
-            {
-                if (!(args is null))
-                    this.navigationArgsMap[pageName] = args;
-                else
-                    this.navigationArgsMap.Remove(pageName);
-            }
-        }
+			if (this.TryGetPageName(route, out string pageName))
+			{
+				if (!(args is null))
+					this.navigationArgsMap[pageName] = args;
+				else
+					this.navigationArgsMap.Remove(pageName);
+			}
+		}
 
-        public bool TryPopArgs<TArgs>(out TArgs args) where TArgs : NavigationArgs
-        {
-            string route = Shell.Current.CurrentPage?.GetType().Name;
-            return this.TryPopArgs(route, out args);
-        }
+		public bool TryPopArgs<TArgs>(out TArgs args) where TArgs : NavigationArgs
+		{
+			string route = Shell.Current.CurrentPage?.GetType().Name;
+			return this.TryPopArgs(route, out args);
+		}
 
-        internal bool TryPopArgs<TArgs>(string route, out TArgs args) where TArgs : NavigationArgs
-        {
-            args = default;
-            if (this.TryGetPageName(route, out string pageName) && 
-                this.navigationArgsMap.TryGetValue(pageName, out NavigationArgs navArgs) &&
-                !(navArgs is null))
-            {
-                args = navArgs as TArgs;
-            }
+		internal bool TryPopArgs<TArgs>(string route, out TArgs args) where TArgs : NavigationArgs
+		{
+			args = default;
+			if (this.TryGetPageName(route, out string pageName) &&
+				this.navigationArgsMap.TryGetValue(pageName, out NavigationArgs navArgs) &&
+				!(navArgs is null))
+			{
+				args = navArgs as TArgs;
+			}
 
-            return !(args is null);
-        }
+			return !(args is null);
+		}
 
-        public Task GoBackAsync()
-        {
-            return this.GoBackAsync(true);
-        }
+		public Task GoBackAsync()
+		{
+			return this.GoBackAsync(true);
+		}
 
-        public async Task GoBackAsync(bool Animate)
-        {
-            try
-            {
-                string route = (!(this.currentNavigationArgs is null) && 
-                    !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ?
-                    this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
+		public async Task GoBackAsync(bool Animate)
+		{
+			try
+			{
+				string route = (!(this.currentNavigationArgs is null) &&
+					!string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ?
+					this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
 
-                await Shell.Current.GoToAsync(route, Animate);
-            }
-            catch (Exception e)
-            {
-                this.LogService.LogException(e);
-                await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToClosePage);
-            }
-        }
+				await Shell.Current.GoToAsync(route, Animate);
+			}
+			catch (Exception e)
+			{
+				this.LogService.LogException(e);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToClosePage);
+			}
+		}
 
-        public Task GoToAsync(string route)
-        {
-            return GoToAsync(route, (NavigationArgs)null);
-        }
+		public Task GoToAsync(string route)
+		{
+			return GoToAsync(route, (NavigationArgs)null);
+		}
 
-        public async Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
-        {
-            this.PushArgs(route, args);
-            try
-            {
-                await Shell.Current.GoToAsync(route, true);
-            }
-            catch (Exception e)
-            {
-                e = Log.UnnestException(e);
-                this.LogService.LogException(e);
-                string extraInfo = $"{Environment.NewLine}{e.Message}";
-                await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route, extraInfo));
-            }
-        }
+		public async Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
+		{
+			this.PushArgs(route, args);
+			try
+			{
+				await Shell.Current.GoToAsync(route, true);
+			}
+			catch (Exception e)
+			{
+				e = Log.UnnestException(e);
+				this.LogService.LogException(e);
+				string extraInfo = Environment.NewLine + e.Message;
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route, extraInfo));
+			}
+		}
 
-        /// <summary>
-        /// Current page
-        /// </summary>
-        public Page CurrentPage => Shell.Current.CurrentPage;
-    }
+		/// <summary>
+		/// Current page
+		/// </summary>
+		public Page CurrentPage => Shell.Current.CurrentPage;
+	}
 }

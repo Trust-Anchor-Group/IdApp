@@ -139,7 +139,7 @@ namespace IdApp
             /// <returns>Smart Contract URI</returns>
             public static string CreateSmartContractUri(string id)
             {
-                return $"{UriSchemeIotSc}:{id}";
+                return UriSchemeIotSc + ":" + id;
             }
 
             /// <summary>
@@ -149,7 +149,7 @@ namespace IdApp
             /// <returns>Identity URI</returns>
             public static string CreateIdUri(string id)
             {
-                return $"{UriSchemeIotId}:{id}";
+                return UriSchemeIotId + ":" + id;
             }
 
             /// <summary>
@@ -159,7 +159,7 @@ namespace IdApp
             /// <returns>Neuro-Feature URI</returns>
             public static string CreateTokenUri(string id)
             {
-                return $"{UriSchemeNeuroFeature}:{id}";
+                return UriSchemeNeuroFeature + ":" + id;
             }
 
             /// <summary>
@@ -183,9 +183,14 @@ namespace IdApp
         public static class MimeTypes
         {
             /// <summary>
-            /// The Jpeg mime type.
+            /// The JPEG MIME type.
             /// </summary>
             public const string Jpeg = "image/jpeg";
+
+            /// <summary>
+            /// The PNG MIME type.
+            /// </summary>
+            public const string Png = "image/png";
         }
 
         /// <summary>
@@ -351,7 +356,7 @@ namespace IdApp
         /// <summary>
         /// Size constants.
         /// </summary>
-        public static class Sizes
+        public static class BatchSizes
 		{
             /// <summary>
             /// Number of messages to load in a single batch.
@@ -361,17 +366,34 @@ namespace IdApp
             /// <summary>
             /// Number of tokens to load in a single batch.
             /// </summary>
-            public const int TokenBatchSize = 2;
+            public const int TokenBatchSize = 10;
 
             /// <summary>
             /// Number of account events to load in a single batch.
             /// </summary>
-            public const int AccountEventBatchSize = 5;
+            public const int AccountEventBatchSize = 10;
 
             /// <summary>
             /// Number of devices to load in a single batch.
             /// </summary>
             public const int DeviceBatchSize = 100;
 		}
+
+        /// <summary>
+        /// Contract templates
+        /// </summary>
+        public static class ContractTemplates
+        {
+            /// <summary>
+            /// Contract template for creating a demo token
+            /// </summary>
+            public const string CreateDemoTokenTemplate = "2a004b5a-b8ba-ef00-a41b-b6f388d0ec26@legal.lab.tagroot.io";
+
+            /// <summary>
+            /// Contract template for transferring a token from a seller to a buyer
+            /// </summary>
+            public const string TransferTokenTemplate = "29ff399b-4d98-0a26-8c09-6e175ffbb118@legal.lab.tagroot.io";
+        }
+
     }
 }

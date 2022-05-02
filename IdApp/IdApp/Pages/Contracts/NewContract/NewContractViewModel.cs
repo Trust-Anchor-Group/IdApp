@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Controls.Extended;
 using IdApp.Extensions;
+using IdApp.Pages.Contacts;
+using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.NewContract.ObjectModel;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Main.Main;
 using IdApp.Resx;
 using IdApp.Services;
-using IdApp.Services.UI.QR;
 using Waher.Content;
 using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
@@ -26,7 +27,7 @@ namespace IdApp.Pages.Contracts.NewContract
 	/// </summary>
 	public class NewContractViewModel : BaseViewModel
 	{
-		private static readonly string PartSettingsPrefix = $"{typeof(NewContractViewModel)}.Part_";
+		private static readonly string PartSettingsPrefix = typeof(NewContractViewModel).FullName + ".Part_";
 
 		private readonly Dictionary<string, ParameterInfo> parametersByName = new();
 		private Contract template;
@@ -115,7 +116,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			{
 				foreach (KeyValuePair<string, string> part in this.partsToAdd)
 				{
-					string settingsKey = $"{PartSettingsPrefix}{part.Key}";
+					string settingsKey = PartSettingsPrefix + part.Key;
 					await this.SettingsService.SaveState(settingsKey, part.Value);
 				}
 			}
@@ -522,20 +523,39 @@ namespace IdApp.Pages.Contracts.NewContract
 
 		private async void AddPartButton_Clicked(object sender, EventArgs e)
 		{
-			if (sender is Button button)
+			try
 			{
-				this.saveStateWhileScanning = true;
-				this.stateTemplateWhileScanning = this.template;
-				await QrCode.ScanQrCode(this.NavigationService, AppResources.Add, async code =>
+				if (sender is Button button)
 				{
-					string id = Constants.UriSchemes.RemoveScheme(code);
-					if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
+					this.saveStateWhileScanning = true;
+					this.stateTemplateWhileScanning = this.template;
+
+					TaskCompletionSource<ContactInfo> Selected = new();
+					ContactListNavigationArgs Args = new(AppResources.AddContactToContract, Selected)
 					{
-						this.partsToAdd[button.StyleId] = id;
-						string settingsKey = $"{PartSettingsPrefix}{button.StyleId}";
-						await this.SettingsService.SaveState(settingsKey, id);
+						CanScanQrCode = true
+					};
+
+					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
+
+					ContactInfo Contact = await Selected.Task;
+					if (Contact is null)
+						return;
+
+					if (string.IsNullOrEmpty(Contact.LegalId))
+						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.SelectedContactCannotBeAdded);
+					else
+					{
+						this.partsToAdd[button.StyleId] = Contact.LegalId;
+						string settingsKey = PartSettingsPrefix + button.StyleId;
+						await this.SettingsService.SaveState(settingsKey, Contact.LegalId);
 					}
-				});
+				}
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -663,6 +683,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			Variables Variables = new();
 			bool Ok = true;
+
+			Variables["Duration"] = this.template.Duration;
 
 			foreach (ParameterInfo P in this.parametersByName.Values)
 				P.Parameter.Populate(Variables);
@@ -820,7 +842,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				{
 					await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ViewContract.ViewContractPage), new ViewContractNavigationArgs(Created, false)
 					{
-						ReturnRoute = $"///{nameof(MainPage)}"
+						ReturnRoute = "///" + nameof(MainPage)
 					});
 				}
 			}

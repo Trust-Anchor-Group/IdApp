@@ -60,7 +60,7 @@ namespace IdApp.Services.Contracts
 				this.XmppService.Contracts.PetitionedIdentityResponseReceived -= Contracts_PetitionedIdentityResponseReceived;
 				this.XmppService.Contracts.PetitionedPeerReviewIdResponseReceived -= Contracts_PetitionedPeerReviewResponseReceived;
 				this.XmppService.Contracts.ContractProposalReceived -= Contracts_ContractProposalReceived;
-				
+
 				this.EndUnload();
 			}
 
@@ -100,7 +100,7 @@ namespace IdApp.Services.Contracts
 
 			if (identity is null)
 			{
-				this.LogService.LogWarning($"{GetType().Name}.{nameof(Contracts_PetitionForIdentityReceived)}() - identity is missing or cannot be retrieved, ignore.");
+				this.LogService.LogWarning(GetType().Name + "." + nameof(Contracts_PetitionForIdentityReceived) + "() - identity is missing or cannot be retrieved, ignore.");
 				return;
 			}
 
@@ -130,7 +130,7 @@ namespace IdApp.Services.Contracts
 			else
 			{
 				(bool succeeded, LegalIdentity li) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.SignatoryIdentityId));
-			
+
 				if (succeeded && !(li is null))
 					identity = li;
 				else
@@ -139,7 +139,7 @@ namespace IdApp.Services.Contracts
 
 			if (identity is null)
 			{
-				this.LogService.LogWarning($"{GetType().Name}.{nameof(Contracts_PetitionForSignatureReceived)}() - identity is missing or cannot be retrieved, ignore.");
+				this.LogService.LogWarning(GetType().Name + "." + nameof(Contracts_PetitionForSignatureReceived) + "() - identity is missing or cannot be retrieved, ignore.");
 				return;
 			}
 
@@ -182,7 +182,7 @@ namespace IdApp.Services.Contracts
 			{
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					await this.NavigationService.GoToAsync(nameof(PetitionContractPage), 
+					await this.NavigationService.GoToAsync(nameof(PetitionContractPage),
 						new PetitionContractNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
 				});
 			}
@@ -231,7 +231,7 @@ namespace IdApp.Services.Contracts
 						else
 						{
 							(bool succeeded, LegalIdentity legalIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.AddPeerReviewIdAttachment(this.TagProfile.LegalIdentity, e.RequestedIdentity, e.Signature));
-			
+
 							if (succeeded)
 							{
 								await this.UiSerializer.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
@@ -275,16 +275,16 @@ namespace IdApp.Services.Contracts
 
 			(succeeded, contract) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetContract(e.ContractId));
 			if (!succeeded || contract is null)
-				return;		// Contract not available.
+				return;     // Contract not available.
 
 			if (contract.State != ContractState.Approved && contract.State != ContractState.BeingSigned)
-				return;		// Not in a state to be signed.
+				return;     // Not in a state to be signed.
 
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				if (this.TagProfile.IsCompleteOrWaitingForValidation())
 				{
-					await this.NavigationService.GoToAsync(nameof(ViewContractPage), 
+					await this.NavigationService.GoToAsync(nameof(ViewContractPage),
 						new ViewContractNavigationArgs(contract, false, e.Role, e.MessageText));
 				}
 			});
@@ -306,13 +306,13 @@ namespace IdApp.Services.Contracts
 		}
 
 		protected async Task DownloadLegalIdentity(string legalId)
-        {
-            bool isConnected = 
+		{
+			bool isConnected =
 				!(this.XmppService is null) &&
-                await this.XmppService.WaitForConnectedState(Constants.Timeouts.XmppConnect) && 
+				await this.XmppService.WaitForConnectedState(Constants.Timeouts.XmppConnect) &&
 				this.XmppService.IsOnline;
 
-            if (!isConnected)
+			if (!isConnected)
 				return;
 
 			(bool succeeded, LegalIdentity identity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(legalId), displayAlert: false);

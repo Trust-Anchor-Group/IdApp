@@ -19,7 +19,8 @@ namespace UpdateVersionInfo
 
         private OptionSet Initialize()
         {
-            var options = new OptionSet {
+            OptionSet options = new()
+            {
                 {
                     "?", "Shows help/usage information.", h => ShowHelp = true
                 },
@@ -47,6 +48,7 @@ namespace UpdateVersionInfo
                     "t|touchPlist=", "The path to an iOS plist file to update with version information.", p => TouchPListPath = p
                 }
             };
+
             return options;
         }
 

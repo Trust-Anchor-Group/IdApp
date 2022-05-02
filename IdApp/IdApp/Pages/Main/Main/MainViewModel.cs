@@ -51,7 +51,7 @@ namespace IdApp.Pages.Main.Main
 		protected override async Task DoBind()
 		{
 			await base.DoBind();
-			
+
 			this.AssignProperties();
 			this.SetConnectionStateAndText(this.XmppService.State);
 			this.XmppService.ConnectionStateChanged += Contracts_ConnectionStateChanged;
@@ -64,7 +64,7 @@ namespace IdApp.Pages.Main.Main
 			this.photosLoader.CancelLoadPhotos();
 			this.XmppService.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
-		
+
 			return base.DoUnbind();
 		}
 
@@ -76,7 +76,7 @@ namespace IdApp.Pages.Main.Main
 				string lastNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.LastName];
 
 				if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastNames))
-					this.FullName = $"{firstName} {lastNames}";
+					this.FullName = firstName + " " + lastNames;
 				else if (!string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastNames))
 					this.FullName = firstName;
 				else if (string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastNames))
@@ -505,7 +505,7 @@ namespace IdApp.Pages.Main.Main
 
 		private async Task ViewMyContacts()
 		{
-			await this.NavigationService.GoToAsync(nameof(MyContactsPage), 
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
 				new ContactListNavigationArgs(AppResources.ContactsDescription, SelectContactAction.ViewIdentity));
 		}
 
@@ -532,17 +532,11 @@ namespace IdApp.Pages.Main.Main
 		private void SetLocation()
 		{
 			if (!string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
-			{
-				Location = $"{City}, {Country}";
-			}
-			if (!string.IsNullOrWhiteSpace(City) && string.IsNullOrWhiteSpace(Country))
-			{
+				Location = City + ", " + Country;
+			else if (!string.IsNullOrWhiteSpace(City) && string.IsNullOrWhiteSpace(Country))
 				Location = City;
-			}
-			if (string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
-			{
+			else if (string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
 				Location = Country;
-			}
 		}
 
 		/// <inheritdoc />
@@ -590,7 +584,7 @@ namespace IdApp.Pages.Main.Main
 				if (!string.IsNullOrWhiteSpace(latestError) && !string.IsNullOrWhiteSpace(latestConnectionError))
 				{
 					if (latestConnectionError != latestError)
-						this.ConnectionErrorsText = $"{latestConnectionError}{Environment.NewLine}{latestError}";
+						this.ConnectionErrorsText = latestConnectionError + Environment.NewLine + latestError;
 					else
 						this.ConnectionErrorsText = latestConnectionError;
 				}
@@ -600,9 +594,9 @@ namespace IdApp.Pages.Main.Main
 					this.ConnectionErrorsText = latestError;
 				else
 					this.ConnectionErrorsText = string.Empty;
-				
+
 				this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
-				this.EvaluateCommands(this.ViewMyIdentityCommand, this.ViewMyContactsCommand, this.ViewMyThingsCommand, 
+				this.EvaluateCommands(this.ViewMyIdentityCommand, this.ViewMyContactsCommand, this.ViewMyThingsCommand,
 					this.ScanQrCodeCommand, this.ViewSignedContractsCommand, this.ViewWalletCommand);
 			}
 			catch (Exception ex)
@@ -650,9 +644,9 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		internal async Task CheckOtpTimestamp()
-        {
+		{
 			if (this.TagProfile.TestOtpTimestamp is not null)
-            {
+			{
 				TimeSpan timeSpan = DateTime.Now - this.TagProfile.TestOtpTimestamp.Value;
 
 				if (timeSpan.TotalDays >= 7)

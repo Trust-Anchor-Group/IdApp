@@ -282,6 +282,7 @@ namespace IdApp.Services.Xmpp
 				isCreatingClient = false;
 			}
 		}
+
 		private void DestroyXmppClient()
 		{
 			this.reconnectTimer?.Dispose();
@@ -828,7 +829,7 @@ namespace IdApp.Services.Xmpp
 			}
 			catch (Exception ex)
 			{
-				this.LogService.LogException(ex, new KeyValuePair<string, string>(nameof(ConnectOperation), $"{operation}"));
+				this.LogService.LogException(ex, new KeyValuePair<string, string>(nameof(ConnectOperation), operation.ToString()));
 				succeeded = false;
 				errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
 			}
@@ -1020,7 +1021,7 @@ namespace IdApp.Services.Xmpp
 					xml = xml.Replace(historyHtml, "");
 				}
 
-				xml = $"<SnifferOutput>{xml}</SnifferOutput>";
+				xml = "<SnifferOutput>" + xml + "</SnifferOutput>";
 
 				//adding coloring to debug lines
 				html = cssColoring + FixTags(xml);
@@ -1071,7 +1072,7 @@ namespace IdApp.Services.Xmpp
 			INavigationService NavigationService = App.Instantiate<INavigationService>();
 
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
-				await NavigationService.GoToAsync($"/{nameof(Pages.Registration.Registration.RegistrationPage)}"));
+				await NavigationService.GoToAsync("/" + nameof(Pages.Registration.Registration.RegistrationPage)));
 		}
 
 		/// <summary>
@@ -1430,7 +1431,7 @@ namespace IdApp.Services.Xmpp
 				string BareJid = ContactInfo?.BareJid ?? e.FromBareJID;
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
-					await NavigationService.GoToAsync<ChatNavigationArgs>(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName)));
+					await NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName)));
 			}
 		}
 

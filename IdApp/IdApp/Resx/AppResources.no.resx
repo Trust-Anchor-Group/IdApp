@@ -1530,6 +1530,9 @@
   <data name="Witness" xml:space="preserve">
     <value>Vitne</value>
   </data>
+  <data name="AddContactToContract" xml:space="preserve">
+    <value>Legg til kontakt i kontrakt</value>
+  </data>
   <data name="DefinitionNamespace" xml:space="preserve">
     <value>Definisjonsnavneområde</value>
   </data>
@@ -1544,6 +1547,24 @@
   </data>
   <data name="MyTokens" xml:space="preserve">
     <value>Mine polletter</value>
+  </data>
+  <data name="OfferToBuy" xml:space="preserve">
+    <value>Tilbud om å kjøpe</value>
+  </data>
+  <data name="OfferToSell" xml:space="preserve">
+    <value>Tilbud om å selge</value>
+  </data>
+  <data name="OpenMessageLink" xml:space="preserve">
+    <value>Åpne meldingskobling</value>
+  </data>
+  <data name="SelectedContactCannotBeAdded" xml:space="preserve">
+    <value>Den valgte kontakten kan ikke legges til. Det er ikke registrert en juridisk ID.</value>
+  </data>
+  <data name="SendInformationTo" xml:space="preserve">
+    <value>Sende informasjon til?</value>
+  </data>
+  <data name="SendToContact" xml:space="preserve">
+    <value>Send til kontakt</value>
   </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Vis detaljer</value>

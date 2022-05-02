@@ -199,7 +199,7 @@ namespace IdApp.Services.Contracts
 
 			LegalIdentity identity = await this.ContractsClient.ApplyAsync(model.ToProperties(this.XmppService));
 
-			foreach (var a in attachments)
+			foreach (LegalIdentityAttachment a in attachments)
 			{
 				HttpFileUploadEventArgs e2 = await this.FileUploadClient.RequestUploadSlotAsync(Path.GetFileName(a.Filename), a.ContentType, a.ContentLength);
 				if (!e2.Ok)

@@ -199,7 +199,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			{
 				this.LogService.LogException(ex);
 				string userMessage = string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain);
-				string message = $"{userMessage}{Environment.NewLine}({ex.Message})";
+				string message = userMessage + Environment.NewLine + ex.Message;
 				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, message, AppResources.Ok);
 			}
 
@@ -414,7 +414,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 		}
 
-		private async Task<bool> ConnectToAccount(string AccountName, string Password, string PasswordMethod, string LegalIdentityJid, 
+		private async Task<bool> ConnectToAccount(string AccountName, string Password, string PasswordMethod, string LegalIdentityJid,
 			XmlElement LegalIdDefinition, string Pin)
 		{
 			try

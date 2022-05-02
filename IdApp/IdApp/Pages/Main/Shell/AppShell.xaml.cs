@@ -115,7 +115,7 @@ namespace IdApp.Pages.Main.Shell
 			Routing.RegisterRoute(nameof(Things.ViewClaimThing.ViewClaimThingPage), typeof(Things.ViewClaimThing.ViewClaimThingPage));
 			Routing.RegisterRoute(nameof(Things.MyThings.MyThingsPage), typeof(Things.MyThings.MyThingsPage));
 			Routing.RegisterRoute(nameof(Things.ViewThing.ViewThingPage), typeof(Things.ViewThing.ViewThingPage));
-			
+
 			// Wallet
 			Routing.RegisterRoute(nameof(Wallet.IssueEDaler.IssueEDalerPage), typeof(Wallet.IssueEDaler.IssueEDalerPage));
 			Routing.RegisterRoute(nameof(Wallet.EDalerReceived.EDalerReceivedPage), typeof(Wallet.EDalerReceived.EDalerReceivedPage));
@@ -134,12 +134,12 @@ namespace IdApp.Pages.Main.Shell
 		{
 			// Due to a bug in Xamarin.Forms the Flyout won't hide when you click on a MenuItem (as opposed to a FlyoutItem).
 			// Therefore we have to close it manually here.
-			
+
 			Current.FlyoutIsPresented = false;
 
 			// Due to a bug in Xamarin Shell the menu items can still be clicked on, even though we bind the "IsEnabled" property.
 			// So we do a manual check here.
-			
+
 			if (this.GetViewModel<AppShellViewModel>().IsConnected)
 				await this.NavigationService?.GoToAsync(route);
 		}
@@ -149,12 +149,12 @@ namespace IdApp.Pages.Main.Shell
 		{
 			// Due to a bug in Xamarin.Forms the Flyout won't hide when you click on a MenuItem (as opposed to a FlyoutItem).
 			// Therefore we have to close it manually here.
-			
+
 			Current.FlyoutIsPresented = false;
 
 			// Due to a bug in Xamarin Shell the menu items can still be clicked on, even though we bind the "IsEnabled" property.
 			// So we do a manual check here.
-		
+
 			if (this.GetViewModel<AppShellViewModel>().IsConnected)
 				await this.NavigationService.GoToAsync<TArgs>(route, e);
 		}
@@ -166,7 +166,7 @@ namespace IdApp.Pages.Main.Shell
 
 		internal async void ScanQrCodeMenuItem_Clicked(object sender, EventArgs e)
 		{
-            await QrCode.ScanQrCodeAndHandleResult();
+			await QrCode.ScanQrCodeAndHandleResult();
 		}
 
 		private async void MyContractsMenuItem_Clicked(object sender, EventArgs e)
@@ -201,13 +201,13 @@ namespace IdApp.Pages.Main.Shell
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				StringBuilder sb = new();
-				
-				sb.AppendLine($"Name: {AppInfo.Name}");
-				sb.AppendLine($"Version: {AppInfo.VersionString}.{AppInfo.BuildString}");
-				sb.AppendLine($"Runtime: {GetType().Assembly.ImageRuntimeVersion}");
-				sb.AppendLine($"Manufacturer: {DeviceInfo.Manufacturer}");
-				sb.AppendLine($"Phone: {DeviceInfo.Model}");
-				sb.AppendLine($"Platform: {DeviceInfo.Platform} {DeviceInfo.VersionString}");
+
+				sb.AppendLine("Name: " + AppInfo.Name);
+				sb.AppendLine("Version: " + AppInfo.VersionString + "." + AppInfo.BuildString);
+				sb.AppendLine("Runtime: " + GetType().Assembly.ImageRuntimeVersion);
+				sb.AppendLine("Manufacturer: " + DeviceInfo.Manufacturer);
+				sb.AppendLine("Phone: " + DeviceInfo.Model);
+				sb.AppendLine("Platform: " + DeviceInfo.Platform + " " + DeviceInfo.VersionString);
 
 				await this.UiSerializer.DisplayAlert(AppResources.About, sb.ToString());
 			});
@@ -215,7 +215,7 @@ namespace IdApp.Pages.Main.Shell
 
 		internal async void ContactsMenuItem_Clicked(object sender, EventArgs e)
 		{
-			await this.GoToPage(nameof(Contacts.MyContacts.MyContactsPage), 
+			await this.GoToPage(nameof(Contacts.MyContacts.MyContactsPage),
 				new Contacts.ContactListNavigationArgs(AppResources.ContactsDescription, Contacts.SelectContactAction.ViewIdentity));
 		}
 

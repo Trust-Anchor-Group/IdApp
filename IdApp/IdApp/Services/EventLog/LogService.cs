@@ -89,7 +89,7 @@ namespace IdApp.Services.EventLog
 			else
 				contents = string.Empty;
 
-			File.WriteAllText(fileName, $"{title}{Environment.NewLine}{stackTrace}{Environment.NewLine}{contents}");
+			File.WriteAllText(fileName, title + Environment.NewLine + stackTrace + Environment.NewLine + contents);
 		}
 
 		public string LoadExceptionDump()

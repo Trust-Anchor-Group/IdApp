@@ -715,7 +715,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 					if (ImageData is not null)
 					{
 						FallbackOriginal = false;
-						await AddPhoto(ImageData.ToArray(), "image/jpeg", 0, saveLocalCopy, true);
+						await AddPhoto(ImageData.ToArray(), Constants.MimeTypes.Jpeg, 0, saveLocalCopy, true);
 					}
 				}
 

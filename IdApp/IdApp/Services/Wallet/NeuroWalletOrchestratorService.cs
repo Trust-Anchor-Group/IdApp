@@ -72,7 +72,7 @@ namespace IdApp.Services.Wallet
 			{
 				Balance Balance = await this.XmppService.Wallet.GetBalanceAsync();
 				(decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
-				(AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.Sizes.AccountEventBatchSize);
+				(AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
 
 				WalletNavigationArgs e = new(Balance, PendingAmount, PendingCurrency, PendingPayments, Events, More);
 

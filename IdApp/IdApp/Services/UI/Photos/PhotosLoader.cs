@@ -261,7 +261,7 @@ namespace IdApp.Services.UI.Photos
 			{
 				if (Attachment.ContentType.StartsWith("image/"))
 				{
-					if (Attachment.ContentType == "image/png")
+					if (Attachment.ContentType == Constants.MimeTypes.Png)
 					{
 						Photo = Attachment;
 						break;

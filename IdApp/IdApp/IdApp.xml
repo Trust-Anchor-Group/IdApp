@@ -389,7 +389,12 @@
         </member>
         <member name="F:IdApp.Constants.MimeTypes.Jpeg">
             <summary>
-            The Jpeg mime type.
+            The JPEG MIME type.
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.MimeTypes.Png">
+            <summary>
+            The PNG MIME type.
             </summary>
         </member>
         <member name="T:IdApp.Constants.Domains">
@@ -547,29 +552,44 @@
             Keyboard disappears event
             </summary>
         </member>
-        <member name="T:IdApp.Constants.Sizes">
+        <member name="T:IdApp.Constants.BatchSizes">
             <summary>
             Size constants.
             </summary>
         </member>
-        <member name="F:IdApp.Constants.Sizes.MessageBatchSize">
+        <member name="F:IdApp.Constants.BatchSizes.MessageBatchSize">
             <summary>
             Number of messages to load in a single batch.
             </summary>
         </member>
-        <member name="F:IdApp.Constants.Sizes.TokenBatchSize">
+        <member name="F:IdApp.Constants.BatchSizes.TokenBatchSize">
             <summary>
             Number of tokens to load in a single batch.
             </summary>
         </member>
-        <member name="F:IdApp.Constants.Sizes.AccountEventBatchSize">
+        <member name="F:IdApp.Constants.BatchSizes.AccountEventBatchSize">
             <summary>
             Number of account events to load in a single batch.
             </summary>
         </member>
-        <member name="F:IdApp.Constants.Sizes.DeviceBatchSize">
+        <member name="F:IdApp.Constants.BatchSizes.DeviceBatchSize">
             <summary>
             Number of devices to load in a single batch.
+            </summary>
+        </member>
+        <member name="T:IdApp.Constants.ContractTemplates">
+            <summary>
+            Contract templates
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.ContractTemplates.CreateDemoTokenTemplate">
+            <summary>
+            Contract template for creating a demo token
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.ContractTemplates.TransferTokenTemplate">
+            <summary>
+            Contract template for transferring a token from a seller to a buyer
             </summary>
         </member>
         <member name="T:IdApp.Controls.Extended.ExtendedDatePicker">
@@ -1423,6 +1443,24 @@
             <param name="str">The string to convert.</param>
             <returns>A valid file name, or <c>null</c>.</returns>
         </member>
+        <member name="M:IdApp.Extensions.StringExtensions.Before(System.String,System.String)">
+            <summary>
+            Returns the part of the string that appears before <paramref name="Delimiter"/>. If <paramref name="Delimiter"/>
+            does not occur, the entire string is returned.
+            </summary>
+            <param name="s">String</param>
+            <param name="Delimiter">Delimiter</param>
+            <returns>Part of string before <paramref name="Delimiter"/>.</returns>
+        </member>
+        <member name="M:IdApp.Extensions.StringExtensions.After(System.String,System.String)">
+            <summary>
+            Returns the part of the string that appears before <paramref name="Delimiter"/>. If <paramref name="Delimiter"/>
+            does not occur, the entire string is returned.
+            </summary>
+            <param name="s">String</param>
+            <param name="Delimiter">Delimiter</param>
+            <returns>Part of string before <paramref name="Delimiter"/>.</returns>
+        </member>
         <member name="T:IdApp.Extensions.TaskExtensions">
             <summary>
             An extensions class for the <see cref="T:System.Threading.Tasks.Task"/> class.
@@ -1633,6 +1671,12 @@
             Holds navigation parameters specific to views displaying a list of contacts.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(IdApp.Services.ContactInfo)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            </summary>
+            <param name="Contact">Contact information.</param>
+        </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(System.String,System.String,System.String)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
@@ -1788,6 +1832,15 @@
             <summary>
             The command to bind to for sending user input
             </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ExecuteSendMessage(System.String,System.String,System.String,IdApp.Services.ServiceReferences)">
+            <summary>
+            Sends a Markdown-formatted chat message
+            </summary>
+            <param name="ReplaceObjectId">ID of message being updated, or the empty string.</param>
+            <param name="MarkdownInput">Markdown input.</param>
+            <param name="BareJid">Bare JID of recipient.</param>
+            <param name="ServiceReferences">Service references.</param>
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.CancelCommand">
             <summary>
@@ -2304,6 +2357,11 @@
             Selection source, if selecting identity.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.CanScanQrCode">
+            <summary>
+            If the user should be able to scane QR Codes.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contacts.ContactListViewModel">
             <summary>
             The view model to bind to when displaying the list of contacts.
@@ -2340,6 +2398,16 @@
             The description to present to the user.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contacts.ContactListViewModel.CanScanQrCodeProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.CanScanQrCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.CanScanQrCode">
+            <summary>
+            The description to present to the user.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contacts.ContactListViewModel.ActionProperty">
             <summary>
             <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.Action"/>
@@ -2363,6 +2431,11 @@
         <member name="P:IdApp.Pages.Contacts.ContactListViewModel.SelectedContact">
             <summary>
             The currently selected contact, if any.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.ScanQrCodeCommand">
+            <summary>
+            Command executed when the user wants to scan a contact from a QR Code.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contacts.MyContacts.MyContactsPage">
@@ -7904,6 +7977,21 @@
             If a message is defined
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.MessageIsUriProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.MessageIsUri"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.MessageIsUri">
+            <summary>
+            If a message is defined
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.OpenMessageLinkCommand">
+            <summary>
+            Command executed when user wants to open link in message.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.EDalerBalanceNavigationArgs">
             <summary>
             Holds navigation parameters specific to an eDaler balance event.
@@ -8667,6 +8755,16 @@
             HasTokens of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasMoreTokensProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasMoreTokens"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasMoreTokens">
+            <summary>
+            HasMoreTokens of eDaler to process
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.Tokens">
             <summary>
             Holds a list of tokens
@@ -8875,6 +8973,16 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens">
             <summary>
             HasTokens of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokensProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokens"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokens">
+            <summary>
+            HasMoreTokens of eDaler to process
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PaymentItems">
@@ -9620,6 +9728,16 @@
             Token ID
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenXmlProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenXml"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenXml">
+            <summary>
+            Token ID
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.VisibilityProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Visibility"/>
@@ -9830,6 +9948,16 @@
             Gets or sets the value representing the height of the glyph.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.IsMyTokenProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.IsMyToken"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.IsMyToken">
+            <summary>
+            If the token belongs to the user.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CopyToClipboardCommand">
             <summary>
             Command to copy a value to the clipboard.
@@ -9858,6 +9986,26 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShowDetailsCommand">
             <summary>
             Command to show machine-readable details of token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.SendToContactCommand">
+            <summary>
+            Command to send token to contact
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShareCommand">
+            <summary>
+            Command to share token with other applications
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OfferToSellCommand">
+            <summary>
+            Command to offer the token for sale.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OfferToBuyCommand">
+            <summary>
+            Command to offer to buy the token.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenItem">
@@ -10598,6 +10746,11 @@
         <member name="P:IdApp.Resx.AppResources.AddContact">
             <summary>
               Looks up a localized string similar to Add Contact.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.AddContactToContract">
+            <summary>
+              Looks up a localized string similar to Add Contact to Contract.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.AddPart">
@@ -11600,6 +11753,16 @@
               Looks up a localized string similar to Obsolete contract.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.OfferToBuy">
+            <summary>
+              Looks up a localized string similar to Offer To Buy.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OfferToSell">
+            <summary>
+              Looks up a localized string similar to Offer To Sell.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Offline">
             <summary>
               Looks up a localized string similar to Offline.
@@ -11618,6 +11781,11 @@
         <member name="P:IdApp.Resx.AppResources.Open">
             <summary>
               Looks up a localized string similar to Open.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OpenMessageLink">
+            <summary>
+              Looks up a localized string similar to Open Message Link.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.OperatorDoesNotSupportLegalIdentitiesAndSmartContracts">
@@ -12225,6 +12393,11 @@
               Looks up a localized string similar to Below are all contacts in your contact book. Select the contact to whom you want to make the payment..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.SelectedContactCannotBeAdded">
+            <summary>
+              Looks up a localized string similar to The selected contact cannot be added. It does not have a Legal ID registered..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.SelectingAPhotoIsNotSupported">
             <summary>
               Looks up a localized string similar to Selecting a photo is not supported on this device.
@@ -12260,6 +12433,11 @@
               Looks up a localized string similar to Send Code.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.SendInformationTo">
+            <summary>
+              Looks up a localized string similar to Send Information To?.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.SendPayment">
             <summary>
               Looks up a localized string similar to Send Payment.
@@ -12268,6 +12446,11 @@
         <member name="P:IdApp.Resx.AppResources.SendPaymentTo">
             <summary>
               Looks up a localized string similar to Send Payment.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SendToContact">
+            <summary>
+              Looks up a localized string similar to Send to Contact.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SerialNumber">

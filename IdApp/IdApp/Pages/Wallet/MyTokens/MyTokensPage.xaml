@@ -14,10 +14,9 @@
                        Title="{x:Static resx:AppResources.MyTokens}">
 
     <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}" >
-        <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single"
-                                                   ItemSizingStrategy="MeasureFirstItem"
-                                                   BackgroundColor="{StaticResource PageBackgroundColor}"
-                                                   ItemsSource="{Binding Path=Tokens}" >
+        <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single" RemainingItemsThreshold="1"
+                                       ItemSizingStrategy="MeasureFirstItem" BackgroundColor="{StaticResource PageBackgroundColor}"
+                                       ItemsSource="{Binding Path=Tokens}" LoadMoreCommand="{Binding LoadMoreTokensCommand}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
             </CollectionView.ItemsLayout>

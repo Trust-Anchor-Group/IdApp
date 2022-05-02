@@ -156,22 +156,16 @@ namespace IdApp.Pages.Wallet.MyWallet
 			List<IItemGroup> RemoveItems = OldCollection.Where(oel => NewCollection.All(nel => nel.UniqueName != oel.UniqueName)).ToList();
 
 			foreach (IItemGroup Item in RemoveItems)
-			{
 				OldCollection.Remove(Item);
-			}
 
 			for (int i = 0; i < NewCollection.Count; i++)
 			{
 				IItemGroup Item = NewCollection[i];
 
 				if (i >= this.PaymentItems.Count)
-				{
 					this.PaymentItems.Add(Item);
-				}
 				else if (this.PaymentItems[i].UniqueName != Item.UniqueName)
-				{
 					this.PaymentItems.Insert(i, Item);
-				}
 			}
 		}
 
@@ -191,7 +185,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			try
 			{
 				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
-				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.Sizes.AccountEventBatchSize);
+				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency,
 					PendingPayments, Events, More, this.XmppService.Wallet.LastEvent));
@@ -440,6 +434,21 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
+		/// See <see cref="HasMoreTokens"/>
+		/// </summary>
+		public static readonly BindableProperty HasMoreTokensProperty =
+			BindableProperty.Create(nameof(HasMoreTokens), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// HasMoreTokens of eDaler to process
+		/// </summary>
+		public bool HasMoreTokens
+		{
+			get => (bool)this.GetValue(HasMoreTokensProperty);
+			set => this.SetValue(HasMoreTokensProperty, value);
+		}
+
+		/// <summary>
 		/// Holds a list of pending payments and account events
 		/// </summary>
 		//public ObservableCollection<IItemGroupCollection> PaymentItems { get; }
@@ -520,7 +529,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 		private async Task MakePayment()
 		{
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectContactAction.MakePayment));
+				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectContactAction.MakePayment)
+				{
+					CanScanQrCode = true
+				});
 		}
 
 		private async Task ShowPaymentItem(object Item)
@@ -541,9 +553,46 @@ namespace IdApp.Pages.Wallet.MyWallet
 			}
 		}
 
-		private Task LoadMoreAccountEvents()
+		private async Task LoadMoreAccountEvents()
 		{
-			return Task.CompletedTask;	// TODO
+			if (this.HasMoreEvents)
+			{
+				this.HasMoreEvents = false;	// So multiple requests are not made while scrolling.
+
+				try
+				{
+					EDaler.AccountEvent[] Events;
+					bool More;
+					int c = this.PaymentItems.Count;
+
+					if (c == 0 || this.PaymentItems[c - 1] is not AccountEventItem LastEvent)
+						(Events, More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
+					else
+						(Events, More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize, LastEvent.Timestamp);
+
+					this.HasMoreEvents = More;
+
+					if (Events is not null)
+					{
+						Dictionary<string, string> FriendlyNames = new();
+
+						foreach (EDaler.AccountEvent Event in Events)
+						{
+							if (!FriendlyNames.TryGetValue(Event.Remote, out string FriendlyName))
+							{
+								FriendlyName = await ContactInfo.GetFriendlyName(Event.Remote, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
+								FriendlyNames[Event.Remote] = FriendlyName;
+							}
+
+							this.PaymentItems.Add(new AccountEventItem(Event, this, FriendlyName));
+						}
+					}
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
 		}
 
 		private Task FlipWallet()
@@ -593,7 +642,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				try
 				{
-					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.Sizes.TokenBatchSize);
+					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.BatchSizes.TokenBatchSize);
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
@@ -607,6 +656,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 									this.Tokens.Add(new TokenItem(Token, this));
 
 								this.HasTokens = true;
+								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
 							}
 							else
 								this.HasTokens = false;
@@ -633,7 +683,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				// TODO: Let user choose from a list of token templates.
 
-				Contract Template = await this.XmppService.Contracts.GetContract("29ddb488-0078-df7a-7c14-d84cc772a148@legal.lab.tagroot.io");  // Creation of demo contract
+				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.CreateDemoTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
 
 				if (Template.ForMachinesLocalName == "Create" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
@@ -702,9 +752,35 @@ namespace IdApp.Pages.Wallet.MyWallet
 			}
 		}
 
-		private Task LoadMoreTokens()
+		private async Task LoadMoreTokens()
 		{
-			return Task.CompletedTask;  // TODO
+			if (this.HasMoreTokens)
+			{
+				this.HasMoreTokens = false; // So multiple requests are not made while scrolling.
+
+				try
+				{
+					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(this.Tokens.Count, Constants.BatchSizes.TokenBatchSize);
+
+					this.UiSerializer.BeginInvokeOnMainThread(() =>
+					{
+						if (e.Ok)
+						{
+							if (!(e.Tokens is null))
+							{
+								foreach (Token Token in e.Tokens)
+									this.Tokens.Add(new TokenItem(Token, this));
+
+								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
+							}
+						}
+					});
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
 		}
 
 		private Task Wallet_TokenRemoved(object Sender, TokenEventArgs e)
