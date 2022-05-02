@@ -3,7 +3,7 @@
 namespace IdApp.Pages.Wallet.TokenDetails
 {
     /// <summary>
-    /// Holds navigation parameters specific to eDaler URIs.
+    /// Holds navigation parameters specific to a token.
     /// </summary>
     public class TokenDetailsNavigationArgs : NavigationArgs
     {
@@ -17,7 +17,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
         }
         
         /// <summary>
-        /// Account event
+        /// Token
         /// </summary>
         public TokenItem Token { get; }
     }

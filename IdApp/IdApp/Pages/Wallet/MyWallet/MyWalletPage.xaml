@@ -145,9 +145,9 @@
                         <Label Grid.Row="0" Text="{Binding Path=Timestamp, Converter={converters:DateTimeToStringConverter}}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}"/>
 
                         <CollectionView Grid.Row="1" VerticalOptions="StartAndExpand"
-                                                       RemainingItemsThreshold="1" SelectionMode="None"
-                                                       ItemSizingStrategy="MeasureFirstItem"
-                                                       ItemsSource="{Binding Path=Totals}">
+                                        RemainingItemsThreshold="1" SelectionMode="None"
+                                        ItemSizingStrategy="MeasureFirstItem"
+                                        ItemsSource="{Binding Path=Totals}">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
                             </CollectionView.ItemsLayout>

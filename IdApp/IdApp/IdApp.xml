@@ -9420,7 +9420,7 @@
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs">
             <summary>
-            Holds navigation parameters specific to eDaler URIs.
+            Holds navigation parameters specific to a token.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs.#ctor(IdApp.Pages.Wallet.TokenItem)">
@@ -9431,7 +9431,7 @@
         </member>
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs.Token">
             <summary>
-            Account event
+            Token
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage">
@@ -9500,7 +9500,7 @@
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.#ctor(IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriViewModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel"/> class.
             </summary>
             <param name="Page">Page hosting details.</param>
         </member>
@@ -10006,6 +10006,376 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OfferToBuyCommand">
             <summary>
             Command to offer to buy the token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ViewNotesCommand">
+            <summary>
+            Command to view notes related to token.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.EventType">
+            <summary>
+            Types of events
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenEvents.EventType.Created">
+            <summary>
+            Creation of token
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenEvents.EventType.Destroyed">
+            <summary>
+            Destruction of token
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenEvents.EventType.Transferred">
+            <summary>
+            Token transferred to new owner
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenEvents.EventType.NoteText">
+            <summary>
+            Text note made by owner at the time.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenEvents.EventType.NoteXml">
+            <summary>
+            XML note made by owner at the time.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.EventItem">
+            <summary>
+            Represents a token event.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.EventItem.#ctor(NeuroFeatures.Events.TokenEvent)">
+            <summary>
+            Represents a token event.
+            </summary>
+            <param name="Event">Token event</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.TokenId">
+            <summary>
+            Token ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.Personal">
+            <summary>
+            Personal
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.Expires">
+            <summary>
+            When event expires
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.ArchiveRequired">
+            <summary>
+            Required Archiving time (after event expires)
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.ArchiveOptional">
+            <summary>
+            Optional Archiving time (after required archiving time elapses).
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.Type">
+            <summary>
+            Type of event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.ViewIdCommand">
+            <summary>
+            Command executed when the user wants to view an ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.ViewContractCommand">
+            <summary>
+            Command executed when the user wants to view a smart contract
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.EventItem.Create(NeuroFeatures.Events.TokenEvent)">
+            <summary>
+            Creates an Event Item view model for a token event.
+            </summary>
+            <param name="Event">Token event.</param>
+            <returns>View model of token event.</returns>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.EventItem.ViewId(System.String)">
+            <summary>
+            Shows a Legal Identity to the suer.
+            </summary>
+            <param name="IdentityId">Identity ID</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.EventItem.ViewContract(System.String)">
+            <summary>
+            Shows a Smart Contract to the user.
+            </summary>
+            <param name="ContractId">Contract ID</param>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.CreatedItem">
+            <summary>
+            Represents a token creation event.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.CreatedItem.#ctor(NeuroFeatures.Events.Created)">
+            <summary>
+            Represents a token creation event.
+            </summary>
+            <param name="Event">Token event</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.CreatedItem.Type">
+            <summary>
+            Type of event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.CreatedItem.Creator">
+            <summary>
+            Creator
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.DestroyedItem">
+            <summary>
+            Represents a token creation event.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.DestroyedItem.#ctor(NeuroFeatures.Events.Destroyed)">
+            <summary>
+            Represents a token creation event.
+            </summary>
+            <param name="Event">Token event</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.DestroyedItem.Type">
+            <summary>
+            Type of event.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.NoteItem">
+            <summary>
+            Represents a token note.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.NoteItem.#ctor(NeuroFeatures.Events.TokenNoteEvent)">
+            <summary>
+            Represents a token note.
+            </summary>
+            <param name="Event">Token event</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.NoteItem.Note">
+            <summary>
+            Note
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.NoteTextItem">
+            <summary>
+            Represents a token creation event.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.NoteTextItem.#ctor(NeuroFeatures.Events.NoteText)">
+            <summary>
+            Represents a token creation event.
+            </summary>
+            <param name="Event">Token event</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.NoteTextItem.Type">
+            <summary>
+            Type of event.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.NoteXmlItem">
+            <summary>
+            Represents a token creation event.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.NoteXmlItem.#ctor(NeuroFeatures.Events.NoteXml)">
+            <summary>
+            Represents a token creation event.
+            </summary>
+            <param name="Event">Token event</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.NoteXmlItem.Type">
+            <summary>
+            Type of event.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.OwnershipEventItem">
+            <summary>
+            Represents a token ownership event.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.OwnershipEventItem.#ctor(NeuroFeatures.Events.TokenOwnershipEvent)">
+            <summary>
+            Represents a token ownership event.
+            </summary>
+            <param name="Event">Token event</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.OwnershipEventItem.Owner">
+            <summary>
+            Owner
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.OwnershipEventItem.OwnershipContract">
+            <summary>
+            Ownership contract
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.TransferredItem">
+            <summary>
+            Represents a token creation event.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.TransferredItem.#ctor(NeuroFeatures.Events.Transferred)">
+            <summary>
+            Represents a token creation event.
+            </summary>
+            <param name="Event">Token event</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.TransferredItem.Type">
+            <summary>
+            Type of event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.TransferredItem.Seller">
+            <summary>
+            Seller
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.ValueEventItem">
+            <summary>
+            Represents a token value event.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.ValueEventItem.#ctor(NeuroFeatures.Events.TokenValueEvent)">
+            <summary>
+            Represents a token value event.
+            </summary>
+            <param name="Event">Token event</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.ValueEventItem.Currency">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.ValueEventItem.Value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.EventTypeTemplateSelector">
+            <summary>
+            Data Template Selector, based on Event Type.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventTypeTemplateSelector.CreatedTemplate">
+            <summary>
+            Template to use for creation events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventTypeTemplateSelector.DestroyedTemplate">
+            <summary>
+            Template to use for destruction events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventTypeTemplateSelector.TransferredTemplate">
+            <summary>
+            Template to use for transfer events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventTypeTemplateSelector.NoteTextTemplate">
+            <summary>
+            Template to use for text note events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventTypeTemplateSelector.NoteXmlTemplate">
+            <summary>
+            Template to use for XML note events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventTypeTemplateSelector.DefaultTemplate">
+            <summary>
+            Template to use for other items.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.EventTypeTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsNavigationArgs">
+            <summary>
+            Holds navigation parameters containing the events of a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsNavigationArgs.#ctor(System.String,NeuroFeatures.Events.TokenEvent[])">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsNavigationArgs"/> class.
+            </summary>
+            <param name="TokenId">Token ID</param>
+            <param name="Events">Token events</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.TokenEventsNavigationArgs.TokenId">
+            <summary>
+            Token ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.TokenEventsNavigationArgs.Events">
+            <summary>
+            Token events
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsPage">
+            <summary>
+            A page that allows the user to view information about a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel">
+            <summary>
+            The view model to bind to for when displaying the contents of a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.Events">
+            <summary>
+            Events
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.TokenIdProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.TokenId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.TokenId">
+            <summary>
+            Token ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.AddNoteCommand">
+            <summary>
+            Command to copy a value to the clipboard.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenItem">
@@ -12708,6 +13078,16 @@
               Looks up a localized string similar to Following are details encoded into the token. Click on any links for more information..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.TokenEvents">
+            <summary>
+              Looks up a localized string similar to Token Events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TokenEventsDescription">
+            <summary>
+              Looks up a localized string similar to Following are public events recorded for the token. Your private events are also included..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.TokenId">
             <summary>
               Looks up a localized string similar to Token ID.
@@ -12843,6 +13223,11 @@
               Looks up a localized string similar to Unrecognized eDaler URI..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.UnrecognizedEventType">
+            <summary>
+              Looks up a localized string similar to Unrecognized event type:.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.UnsubscribeFrom">
             <summary>
               Looks up a localized string similar to Unsubscribe from.
@@ -12888,6 +13273,11 @@
               Looks up a localized string similar to Valuator.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Value">
+            <summary>
+              Looks up a localized string similar to Value.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.VerificationCode">
             <summary>
               Looks up a localized string similar to Verification Code.
@@ -12911,6 +13301,11 @@
         <member name="P:IdApp.Resx.AppResources.ViewIdentityInformationText">
             <summary>
               Looks up a localized string similar to Following is personal information registered with the legal identity. Signatures and payments are signed using this information..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ViewNotes">
+            <summary>
+              Looks up a localized string similar to View Notes.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Visibility">

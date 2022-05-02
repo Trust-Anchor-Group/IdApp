@@ -1329,6 +1329,12 @@
   <data name="TokenDetailsDescription" xml:space="preserve">
     <value>Här nedan följer detaljer som kodats in i detta token. Clicka på länkar för att få mer information.</value>
   </data>
+  <data name="TokenEvents" xml:space="preserve">
+    <value>Tokenhändelser</value>
+  </data>
+  <data name="TokenEventsDescription" xml:space="preserve">
+    <value>Nedan följer publika händelser som spelats in för detta token. Dina privata händelser är också inkluderade.</value>
+  </data>
   <data name="TokenId" xml:space="preserve">
     <value>Token-ID</value>
   </data>
@@ -1404,6 +1410,9 @@
   <data name="UnrecognizedEDalerURI" xml:space="preserve">
     <value>Okänd eDaler-URI.</value>
   </data>
+  <data name="UnrecognizedEventType" xml:space="preserve">
+    <value>Okänd händelsetyp:</value>
+  </data>
   <data name="UnsubscribeFrom" xml:space="preserve">
     <value>Avprenumerera från</value>
   </data>
@@ -1434,6 +1443,9 @@
   <data name="Valuator" xml:space="preserve">
     <value>Värderingsperson</value>
   </data>
+  <data name="Value" xml:space="preserve">
+    <value>Värde</value>
+  </data>
   <data name="VerificationCode" xml:space="preserve">
     <value>Verifieringskod</value>
   </data>
@@ -1448,6 +1460,9 @@
   </data>
   <data name="ViewIdentityInformationText" xml:space="preserve">
     <value>Nedan följer information registrerad till en juridisk identitet. Signaturer och betalningar signeras med den här informationen.</value>
+  </data>
+  <data name="ViewNotes" xml:space="preserve">
+    <value>Visa anteckningar</value>
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Synlighet</value>

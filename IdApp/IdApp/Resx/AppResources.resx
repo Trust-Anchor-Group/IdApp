@@ -1569,4 +1569,19 @@
   <data name="ShowDetails" xml:space="preserve">
     <value>Show Details</value>
   </data>
+  <data name="ViewNotes" xml:space="preserve">
+    <value>View Notes</value>
+  </data>
+  <data name="TokenEvents" xml:space="preserve">
+    <value>Token Events</value>
+  </data>
+  <data name="TokenEventsDescription" xml:space="preserve">
+    <value>Following are public events recorded for the token. Your private events are also included.</value>
+  </data>
+  <data name="UnrecognizedEventType" xml:space="preserve">
+    <value>Unrecognized event type:</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
 </root>

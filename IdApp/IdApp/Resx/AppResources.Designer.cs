@@ -3679,6 +3679,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Token Events.
+        /// </summary>
+        internal static string TokenEvents {
+            get {
+                return ResourceManager.GetString("TokenEvents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Following are public events recorded for the token. Your private events are also included..
+        /// </summary>
+        internal static string TokenEventsDescription {
+            get {
+                return ResourceManager.GetString("TokenEventsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token ID.
         /// </summary>
         internal static string TokenId {
@@ -3922,6 +3940,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unrecognized event type:.
+        /// </summary>
+        internal static string UnrecognizedEventType {
+            get {
+                return ResourceManager.GetString("UnrecognizedEventType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unsubscribe from.
         /// </summary>
         internal static string UnsubscribeFrom {
@@ -4003,6 +4030,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        internal static string Value {
+            get {
+                return ResourceManager.GetString("Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verification Code.
         /// </summary>
         internal static string VerificationCode {
@@ -4044,6 +4080,15 @@ namespace IdApp.Resx {
         internal static string ViewIdentityInformationText {
             get {
                 return ResourceManager.GetString("ViewIdentityInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Notes.
+        /// </summary>
+        internal static string ViewNotes {
+            get {
+                return ResourceManager.GetString("ViewNotes", resourceCulture);
             }
         }
         

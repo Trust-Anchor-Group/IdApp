@@ -12,10 +12,12 @@ using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.NewContract;
+using IdApp.Pages.Wallet.TokenEvents;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
+using NeuroFeatures.Events;
 using NeuroFeatures.Tags;
 using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
@@ -34,7 +36,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		private readonly TokenDetailsPage page;
 
 		/// <summary>
-		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
+		/// Creates an instance of the <see cref="TokenDetailsViewModel"/> class.
 		/// </summary>
 		/// <param name="Page">Page hosting details.</param>
 		public TokenDetailsViewModel(TokenDetailsPage Page)
@@ -58,6 +60,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.ShareCommand = new Command(async _ => await this.Share());
 			this.OfferToSellCommand = new Command(async _ => await this.OfferToSell());
 			this.OfferToBuyCommand = new Command(async _ => await this.OfferToBuy());
+			this.ViewNotesCommand = new Command(async _ => await this.ViewNotes());
 		}
 
 		/// <inheritdoc/>
@@ -912,6 +915,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		/// </summary>
 		public ICommand OfferToBuyCommand { get; }
 
+		/// <summary>
+		/// Command to view notes related to token.
+		/// </summary>
+		public ICommand ViewNotesCommand { get; }
+
 		private async Task CopyToClipboard(object Parameter)
 		{
 			try
@@ -1236,6 +1244,20 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				}
 
 				await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(Template, true));
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task ViewNotes()
+		{
+			try
+			{
+				TokenEvent[] Events = await this.XmppService.Wallet.NeuroFeaturesClient.GetEventsAsync(this.TokenId);
+
+				await this.NavigationService.GoToAsync(nameof(TokenEventsPage), new TokenEventsNavigationArgs(this.TokenId, Events));
 			}
 			catch (Exception ex)
 			{
