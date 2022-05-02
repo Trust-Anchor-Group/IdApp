@@ -1,5 +1,4 @@
-﻿using System;
-using Waher.Networking.XMPP.Contracts;
+﻿using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Extensions
 {
@@ -17,7 +16,6 @@ namespace IdApp.Extensions
 		{
 			string[] Languages = Contract.GetLanguages();
 			string Language = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-			int i;
 
 			foreach (string Option in Languages)
 			{
