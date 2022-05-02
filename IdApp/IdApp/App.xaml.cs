@@ -76,7 +76,7 @@ namespace IdApp
 		private Profiler startupProfiler;
 		private readonly Task<bool> initCompleted;
 		private readonly SemaphoreSlim startupWorker = new(1, 1);
-		private CancellationTokenSource startupCancellation = new();
+		private CancellationTokenSource startupCancellation;
 
 		///<inheritdoc/>
 		public App()
@@ -88,6 +88,9 @@ namespace IdApp
 			AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+
+			instance = this;
+			this.startupCancellation = new CancellationTokenSource();
 
 			this.initCompleted = this.Init();
 
@@ -274,11 +277,6 @@ namespace IdApp
 		///<inheritdoc/>
 		protected override void OnStart()
 		{
-			instance = this;
-
-			if (this.startupCancellation is null)
-				this.startupCancellation = new CancellationTokenSource();
-
 			if (!this.initCompleted.Wait(60000))
 				throw new Exception("Initialization did not complete in time.");
 
@@ -289,9 +287,7 @@ namespace IdApp
 		protected override async void OnResume()
 		{
 			instance = this;
-
-			if (this.startupCancellation is null)
-				this.startupCancellation = new CancellationTokenSource();
+			this.startupCancellation = new CancellationTokenSource();
 
 			await this.PerformStartup(true, null);
 		}
@@ -435,7 +431,6 @@ namespace IdApp
 			finally
 			{
 				this.startupWorker.Release();
-				this.startupCancellation = null;
 			}
 		}
 
