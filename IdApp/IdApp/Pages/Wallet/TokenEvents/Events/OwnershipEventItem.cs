@@ -1,4 +1,6 @@
-﻿using NeuroFeatures.Events;
+﻿using IdApp.Services;
+using NeuroFeatures.Events;
+using System.Threading.Tasks;
 
 namespace IdApp.Pages.Wallet.TokenEvents.Events
 {
@@ -8,6 +10,7 @@ namespace IdApp.Pages.Wallet.TokenEvents.Events
 	public abstract class OwnershipEventItem : ValueEventItem
 	{
 		private readonly TokenOwnershipEvent @event;
+		private string ownerFriendlyName;
 
 		/// <summary>
 		/// Represents a token ownership event.
@@ -28,5 +31,22 @@ namespace IdApp.Pages.Wallet.TokenEvents.Events
 		/// Ownership contract
 		/// </summary>
 		public string OwnershipContract => this.@event.OwnershipContract;
+
+		/// <summary>
+		/// Owner (Friendly Name)
+		/// </summary>
+		public string OwnerFriendlyName => this.ownerFriendlyName;
+
+		/// <summary>
+		/// Binds properties
+		/// </summary>
+		/// <param name="Ref">Service references.</param>
+		public override async Task DoBind(ServiceReferences Ref)
+		{
+			await base.DoBind(Ref);
+
+			this.ownerFriendlyName = await ContactInfo.GetFriendlyName(this.Owner, Ref);
+		}
+
 	}
 }

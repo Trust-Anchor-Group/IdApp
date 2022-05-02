@@ -1569,4 +1569,43 @@
   <data name="ShowDetails" xml:space="preserve">
     <value>Vis detaljer</value>
   </data>
+  <data name="ViewEvents" xml:space="preserve">
+    <value>Se begivenheder</value>
+  </data>
+  <data name="TokenEvents" xml:space="preserve">
+    <value>Token-begivenheder</value>
+  </data>
+  <data name="TokenEventsDescription" xml:space="preserve">
+    <value>Følgende er offentlige begivenheder, der er registreret for tokenet. Dine private arrangementer er også inkluderet.</value>
+  </data>
+  <data name="UnrecognizedEventType" xml:space="preserve">
+    <value>Ukendt hændelsestype:</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Værdi</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Tilføj bemærkning</value>
+  </data>
+  <data name="Destroyed" xml:space="preserve">
+    <value>Ødelagt</value>
+  </data>
+  <data name="NoteCopiedToClipboard" xml:space="preserve">
+    <value>Bemærk kopieret til udklipsholderen.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Sælger</value>
+  </data>
+  <data name="TextNote" xml:space="preserve">
+    <value>Tekst Bemærk</value>
+  </data>
+  <data name="Transferred" xml:space="preserve">
+    <value>Overført</value>
+  </data>
+  <data name="ViewXmlInBrowser" xml:space="preserve">
+    <value>Klik her for at se XML-noten i en browser.</value>
+  </data>
+  <data name="XmlNote" xml:space="preserve">
+    <value>XML-bemærkning</value>
+  </data>
 </root>

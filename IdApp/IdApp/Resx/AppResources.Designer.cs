@@ -160,6 +160,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Note.
+        /// </summary>
+        internal static string AddNote {
+            get {
+                return ResourceManager.GetString("AddNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add part.
         /// </summary>
         internal static string AddPart {
@@ -912,6 +921,15 @@ namespace IdApp.Resx {
         internal static string DeleteContract {
             get {
                 return ResourceManager.GetString("DeleteContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destroyed.
+        /// </summary>
+        internal static string Destroyed {
+            get {
+                return ResourceManager.GetString("Destroyed", resourceCulture);
             }
         }
         
@@ -1938,6 +1956,15 @@ namespace IdApp.Resx {
         internal static string NotConnectedToTheOperator {
             get {
                 return ResourceManager.GetString("NotConnectedToTheOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note copied to clipboard..
+        /// </summary>
+        internal static string NoteCopiedToClipboard {
+            get {
+                return ResourceManager.GetString("NoteCopiedToClipboard", resourceCulture);
             }
         }
         
@@ -3166,6 +3193,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Seller.
+        /// </summary>
+        internal static string Seller {
+            get {
+                return ResourceManager.GetString("Seller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send.
         /// </summary>
         internal static string Send {
@@ -3526,6 +3562,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Text Note.
+        /// </summary>
+        internal static string TextNote {
+            get {
+                return ResourceManager.GetString("TextNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The contract requires at least {0} part(s) of role {1}. Add more parts to the contract and try again..
         /// </summary>
         internal static string TheContractRequiresAtLeast_AddMoreParts {
@@ -3783,6 +3828,15 @@ namespace IdApp.Resx {
         internal static string TransferIdentityInformationText {
             get {
                 return ResourceManager.GetString("TransferIdentityInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferred.
+        /// </summary>
+        internal static string Transferred {
+            get {
+                return ResourceManager.GetString("Transferred", resourceCulture);
             }
         }
         
@@ -4075,6 +4129,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View Events.
+        /// </summary>
+        internal static string ViewEvents {
+            get {
+                return ResourceManager.GetString("ViewEvents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Following is personal information registered with the legal identity. Signatures and payments are signed using this information..
         /// </summary>
         internal static string ViewIdentityInformationText {
@@ -4084,11 +4147,11 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View Notes.
+        ///   Looks up a localized string similar to Click here to view the XML note in a browser..
         /// </summary>
-        internal static string ViewNotes {
+        internal static string ViewXmlInBrowser {
             get {
-                return ResourceManager.GetString("ViewNotes", resourceCulture);
+                return ResourceManager.GetString("ViewXmlInBrowser", resourceCulture);
             }
         }
         
@@ -4161,6 +4224,15 @@ namespace IdApp.Resx {
         internal static string Witness {
             get {
                 return ResourceManager.GetString("Witness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XML Note.
+        /// </summary>
+        internal static string XmlNote {
+            get {
+                return ResourceManager.GetString("XmlNote", resourceCulture);
             }
         }
         

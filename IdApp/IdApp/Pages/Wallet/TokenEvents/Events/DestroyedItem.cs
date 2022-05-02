@@ -7,8 +7,6 @@ namespace IdApp.Pages.Wallet.TokenEvents.Events
 	/// </summary>
 	public class DestroyedItem : OwnershipEventItem
 	{
-		private readonly Destroyed @event;
-
 		/// <summary>
 		/// Represents a token creation event.
 		/// </summary>
@@ -16,7 +14,6 @@ namespace IdApp.Pages.Wallet.TokenEvents.Events
 		public DestroyedItem(Destroyed Event)
 			: base(Event)
 		{
-			this.@event = Event;
 		}
 
 		/// <summary>

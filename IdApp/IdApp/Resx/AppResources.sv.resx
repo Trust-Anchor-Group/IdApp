@@ -150,6 +150,9 @@
   <data name="AddContactToContract" xml:space="preserve">
     <value>Lägg till kontakt till kontraktet</value>
   </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Lägg till anteckning</value>
+  </data>
   <data name="AddPart" xml:space="preserve">
     <value>Lägg till del</value>
   </data>
@@ -401,6 +404,9 @@
   </data>
   <data name="DeleteContract" xml:space="preserve">
     <value>Ta bort kontrakt</value>
+  </data>
+  <data name="Destroyed" xml:space="preserve">
+    <value>Förstörd</value>
   </data>
   <data name="Devices" xml:space="preserve">
     <value>Enheter</value>
@@ -743,6 +749,9 @@
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
     <value>Inte ansluten till operatören</value>
+  </data>
+  <data name="NoteCopiedToClipboard" xml:space="preserve">
+    <value>Anteckningen kopierad till klippboken.</value>
   </data>
   <data name="NoThingsFound" xml:space="preserve">
     <value>Inga saker hittades.</value>
@@ -1152,6 +1161,9 @@
   <data name="SelectYourRoleInThisContract" xml:space="preserve">
     <value>Välj din roll för kontraktet.</value>
   </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Säljare</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Skicka</value>
   </data>
@@ -1278,6 +1290,9 @@
   <data name="TestOtpUsed" xml:space="preserve">
     <value>En tillfällig OTP-kod har använts. Applikationen kommer att sluta att fungera om en vecka. Du måste återinstallera applikationen för att kunna använda den igen.</value>
   </data>
+  <data name="TextNote" xml:space="preserve">
+    <value>Textanteckning</value>
+  </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
     <value>Kontraktet kräver åtminstone {0} delar för rollen {1}. Lägg till delar till kontraktet och försök igen.</value>
   </data>
@@ -1364,6 +1379,9 @@
   </data>
   <data name="TransferIdentityInformationText" xml:space="preserve">
     <value>Skanna inbjudningskoden i form av QR-koden nedan, från en enhet som håller på att initieras, för att överföra den digitala identiteten från denna enhet till den andra enheten. När koden har skannats och identiteten överförts, kommer den att tas bort från denna enhet.</value>
+  </data>
+  <data name="Transferred" xml:space="preserve">
+    <value>Överförd</value>
   </data>
   <data name="TrustProvider" xml:space="preserve">
     <value>Förtroendegivare</value>
@@ -1458,11 +1476,14 @@
   <data name="ViewContract" xml:space="preserve">
     <value>Visa kontrakt</value>
   </data>
+  <data name="ViewEvents" xml:space="preserve">
+    <value>Visa händelser</value>
+  </data>
   <data name="ViewIdentityInformationText" xml:space="preserve">
     <value>Nedan följer information registrerad till en juridisk identitet. Signaturer och betalningar signeras med den här informationen.</value>
   </data>
-  <data name="ViewNotes" xml:space="preserve">
-    <value>Visa anteckningar</value>
+  <data name="ViewXmlInBrowser" xml:space="preserve">
+    <value>Klicka här för att visa XML-anteckningen i en browser.</value>
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Synlighet</value>
@@ -1487,6 +1508,9 @@
   </data>
   <data name="Witness" xml:space="preserve">
     <value>Vittne</value>
+  </data>
+  <data name="XmlNote" xml:space="preserve">
+    <value>XML-anteckning</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
     <value>Autentiserar nätverksidentitet</value>

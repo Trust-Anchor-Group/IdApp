@@ -251,8 +251,8 @@
                         Command="{Binding Path=OfferToBuyCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"
                         IsVisible="{Binding IsMyToken, Converter={converters:LogicalNot}}"/>
 
-                <Button Text="{x:Static resx:AppResources.ViewNotes}" Margin="{StaticResource DefaultBottomOnlyMargin}"
-                        Command="{Binding Path=ViewNotesCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
+                <Button Text="{x:Static resx:AppResources.ViewEvents}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=ViewEventsCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
             </StackLayout>
         </ScrollView>
     </Grid>

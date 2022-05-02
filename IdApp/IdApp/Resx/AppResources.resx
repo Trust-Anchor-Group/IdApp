@@ -1569,8 +1569,8 @@
   <data name="ShowDetails" xml:space="preserve">
     <value>Show Details</value>
   </data>
-  <data name="ViewNotes" xml:space="preserve">
-    <value>View Notes</value>
+  <data name="ViewEvents" xml:space="preserve">
+    <value>View Events</value>
   </data>
   <data name="TokenEvents" xml:space="preserve">
     <value>Token Events</value>
@@ -1583,5 +1583,29 @@
   </data>
   <data name="Value" xml:space="preserve">
     <value>Value</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Add Note</value>
+  </data>
+  <data name="Destroyed" xml:space="preserve">
+    <value>Destroyed</value>
+  </data>
+  <data name="NoteCopiedToClipboard" xml:space="preserve">
+    <value>Note copied to clipboard.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Seller</value>
+  </data>
+  <data name="TextNote" xml:space="preserve">
+    <value>Text Note</value>
+  </data>
+  <data name="Transferred" xml:space="preserve">
+    <value>Transferred</value>
+  </data>
+  <data name="ViewXmlInBrowser" xml:space="preserve">
+    <value>Click here to view the XML note in a browser.</value>
+  </data>
+  <data name="XmlNote" xml:space="preserve">
+    <value>XML Note</value>
   </data>
 </root>

@@ -217,6 +217,17 @@ namespace IdApp.Services
 		/// Gets the friendly name of a remote identity (Legal ID or Bare JID).
 		/// </summary>
 		/// <param name="RemoteId">Remote Identity</param>
+		/// <param name="Ref">Service references</param>
+		/// <returns>Friendly name.</returns>
+		public static Task<string> GetFriendlyName(CaseInsensitiveString RemoteId, ServiceReferences Ref)
+		{
+			return GetFriendlyName(RemoteId, Ref.XmppService.Xmpp, Ref.TagProfile, Ref.SmartContracts);
+		}
+
+		/// <summary>
+		/// Gets the friendly name of a remote identity (Legal ID or Bare JID).
+		/// </summary>
+		/// <param name="RemoteId">Remote Identity</param>
 		/// <param name="Client">XMPP Client</param>
 		/// <param name="TagProfile">TAG Profile</param>
 		/// <param name="SmartContracts">Smart Contracts interface.</param>
@@ -309,11 +320,9 @@ namespace IdApp.Services
 		/// Gets the friendly name of a remote identity (Legal ID or Bare JID).
 		/// </summary>
 		/// <param name="RemoteId">Remote Identity</param>
-		/// <param name="Client">XMPP Client</param>
-		/// <param name="TagProfile">TAG Profile</param>
-		/// <param name="SmartContracts">Smart Contracts interface.</param>
+		/// <param name="Ref">Service references</param>
 		/// <returns>Friendly name.</returns>
-		public static async Task<string[]> GetFriendlyName(string[] RemoteId, XmppClient Client, ITagProfile TagProfile, ISmartContracts SmartContracts)
+		public static async Task<string[]> GetFriendlyName(string[] RemoteId, ServiceReferences Ref)
 		{
 			if (RemoteId is null)
 				return null;
@@ -322,7 +331,7 @@ namespace IdApp.Services
 			string[] Result = new string[c];
 
 			for (i = 0; i < c; i++)
-				Result[i] = await GetFriendlyName(RemoteId[i], Client, TagProfile, SmartContracts);
+				Result[i] = await GetFriendlyName(RemoteId[i], Ref);
 
 			return Result;
 		}

@@ -60,7 +60,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.ShareCommand = new Command(async _ => await this.Share());
 			this.OfferToSellCommand = new Command(async _ => await this.OfferToSell());
 			this.OfferToBuyCommand = new Command(async _ => await this.OfferToBuy());
-			this.ViewNotesCommand = new Command(async _ => await this.ViewNotes());
+			this.ViewEventsCommand = new Command(async _ => await this.ViewEvents());
 		}
 
 		/// <inheritdoc/>
@@ -91,14 +91,14 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.TokenId = args.Token.TokenId;
 				this.Visibility = args.Token.Visibility;
 				this.Creator = args.Token.Creator;
-				this.CreatorFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Creator, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
+				this.CreatorFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Creator, this);
 				this.CreatorJid = args.Token.CreatorJid;
 				this.Owner = args.Token.Owner;
-				this.OwnerFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Owner, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
+				this.OwnerFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Owner, this);
 				this.OwnerJid = args.Token.OwnerJid;
 				this.BatchSize = args.Token.BatchSize;
 				this.TrustProvider = args.Token.TrustProvider;
-				this.TrustProviderFriendlyName = await ContactInfo.GetFriendlyName(args.Token.TrustProvider, this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
+				this.TrustProviderFriendlyName = await ContactInfo.GetFriendlyName(args.Token.TrustProvider, this);
 				this.TrustProviderJid = args.Token.TrustProviderJid;
 				this.Currency = args.Token.Currency;
 				this.Reference = args.Token.Reference;
@@ -192,7 +192,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			for (i = 0; i < c; i++)
 			{
-				FriendlyName = await ContactInfo.GetFriendlyName(LegalIds[i], this.XmppService.Xmpp, this.TagProfile, this.SmartContracts);
+				FriendlyName = await ContactInfo.GetFriendlyName(LegalIds[i], this);
 				Jid = i < d ? Jids[i] : string.Empty;
 
 				Parts.Add(new PartItem(LegalIds[i], Jid, FriendlyName));
@@ -916,9 +916,9 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		public ICommand OfferToBuyCommand { get; }
 
 		/// <summary>
-		/// Command to view notes related to token.
+		/// Command to view events related to token.
 		/// </summary>
-		public ICommand ViewNotesCommand { get; }
+		public ICommand ViewEventsCommand { get; }
 
 		private async Task CopyToClipboard(object Parameter)
 		{
@@ -1251,7 +1251,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			}
 		}
 
-		private async Task ViewNotes()
+		private async Task ViewEvents()
 		{
 			try
 			{

@@ -1569,4 +1569,43 @@
   <data name="ShowDetails" xml:space="preserve">
     <value>Vis detaljer</value>
   </data>
+  <data name="ViewEvents" xml:space="preserve">
+    <value>Vis hendelser</value>
+  </data>
+  <data name="TokenEvents" xml:space="preserve">
+    <value>Token-hendelser</value>
+  </data>
+  <data name="TokenEventsDescription" xml:space="preserve">
+    <value>Nedenfor finner du offentlige hendelser som er registrert for tokenet. Dine private arrangementer er også inkludert.</value>
+  </data>
+  <data name="UnrecognizedEventType" xml:space="preserve">
+    <value>Ukjent hendelsestype:</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Verdi</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Legg til notat</value>
+  </data>
+  <data name="Destroyed" xml:space="preserve">
+    <value>Ødelagt</value>
+  </data>
+  <data name="NoteCopiedToClipboard" xml:space="preserve">
+    <value>Notat kopiert til utklippstavlen.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Selger</value>
+  </data>
+  <data name="TextNote" xml:space="preserve">
+    <value>Tekstnotat</value>
+  </data>
+  <data name="Transferred" xml:space="preserve">
+    <value>Overført</value>
+  </data>
+  <data name="ViewXmlInBrowser" xml:space="preserve">
+    <value>Klikk her for å vise XML-notatet i en leser.</value>
+  </data>
+  <data name="XmlNote" xml:space="preserve">
+    <value>XML-notat</value>
+  </data>
 </root>

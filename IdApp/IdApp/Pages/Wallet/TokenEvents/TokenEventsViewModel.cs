@@ -32,8 +32,14 @@ namespace IdApp.Pages.Wallet.TokenEvents
 			{
 				this.TokenId = args.TokenId;
 
+				this.Events.Clear();
+
 				foreach (TokenEvent Event in args.Events)
-					this.Events.Add(EventItem.Create(Event));
+				{
+					EventItem Item = EventItem.Create(Event);
+					await Item.DoBind(this);
+					this.Events.Add(Item);
+				}
 			}
 
 			AssignProperties();
@@ -43,6 +49,8 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
+			this.Events.Clear();
+
 			await base.DoUnbind();
 		}
 

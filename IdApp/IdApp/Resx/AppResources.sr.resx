@@ -1569,4 +1569,43 @@
   <data name="ShowDetails" xml:space="preserve">
     <value>Prikaži detalje</value>
   </data>
+  <data name="ViewEvents" xml:space="preserve">
+    <value>Prikaži događaje</value>
+  </data>
+  <data name="TokenEvents" xml:space="preserve">
+    <value>Token događaji</value>
+  </data>
+  <data name="TokenEventsDescription" xml:space="preserve">
+    <value>Slede javni događaji zabeleženi za simbol. Vaši privatni događaji su takođe uključeni.</value>
+  </data>
+  <data name="UnrecognizedEventType" xml:space="preserve">
+    <value>Neprepoznatljiv tip događaja:</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Vrednost</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Dodaj notu</value>
+  </data>
+  <data name="Destroyed" xml:space="preserve">
+    <value>Uniљtio</value>
+  </data>
+  <data name="NoteCopiedToClipboard" xml:space="preserve">
+    <value>Napomena kopirana u ostavu.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Prodavac</value>
+  </data>
+  <data name="TextNote" xml:space="preserve">
+    <value>Tekstualna napomena</value>
+  </data>
+  <data name="Transferred" xml:space="preserve">
+    <value>Prebacio</value>
+  </data>
+  <data name="ViewXmlInBrowser" xml:space="preserve">
+    <value>Kliknite ovde da biste prikazali XML notu u pregledaču.</value>
+  </data>
+  <data name="XmlNote" xml:space="preserve">
+    <value>XML napomena</value>
+  </data>
 </root>

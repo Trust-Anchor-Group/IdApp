@@ -1,10 +1,14 @@
 ﻿using IdApp.Pages.Wallet.TokenEvents.Events;
 using IdApp.Resx;
+using IdApp.Services;
 using NeuroFeatures.Events;
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Content;
+using Waher.Networking.XMPP.HttpFileUpload;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.TokenEvents
@@ -46,6 +50,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 	public abstract class EventItem
 	{
 		private readonly TokenEvent @event;
+		private ServiceReferences @ref;
 
 		/// <summary>
 		/// Represents a token event.
@@ -57,6 +62,8 @@ namespace IdApp.Pages.Wallet.TokenEvents
 
 			this.ViewIdCommand = new Command(async P => await this.ViewId((string)P));
 			this.ViewContractCommand = new Command(async P => await this.ViewContract((string)P));
+			this.CopyToClipboardCommand = new Command(async P => await this.CopyToClipboard((string)P));
+			this.ViewXmlInBrowserCommand = new Command(async P => await this.ViewXmlInBrowser((string)P));
 		}
 
 		/// <summary>
@@ -105,6 +112,16 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		public ICommand ViewContractCommand { get; }
 
 		/// <summary>
+		/// Command executed when the user wants to copy a text note to the clipboard
+		/// </summary>
+		public ICommand CopyToClipboardCommand { get; }
+
+		/// <summary>
+		/// Command executed when the user wants to view an XML note in the browser
+		/// </summary>
+		public ICommand ViewXmlInBrowserCommand { get; }
+
+		/// <summary>
 		/// Creates an Event Item view model for a token event.
 		/// </summary>
 		/// <param name="Event">Token event.</param>
@@ -137,21 +154,66 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		}
 
 		/// <summary>
+		/// Binds properties
+		/// </summary>
+		/// <param name="Ref">Service references.</param>
+		public virtual Task DoBind(ServiceReferences Ref)
+		{
+			this.@ref = Ref;
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
 		/// Shows a Legal Identity to the suer.
 		/// </summary>
 		/// <param name="IdentityId">Identity ID</param>
-		public async Task ViewId(string IdentityId)
+		public Task ViewId(string IdentityId)
 		{
-			// TODO
+			return this.@ref.ContractOrchestratorService.OpenLegalIdentity(IdentityId, AppResources.PurposeReviewToken);
 		}
 
 		/// <summary>
 		/// Shows a Smart Contract to the user.
 		/// </summary>
 		/// <param name="ContractId">Contract ID</param>
-		public async Task ViewContract(string ContractId)
+		public Task ViewContract(string ContractId)
 		{
-			// TODO
+			return this.@ref.ContractOrchestratorService.OpenContract(ContractId, AppResources.PurposeReviewToken);
+		}
+
+		/// <summary>
+		/// Copies text to the clipboard.
+		/// </summary>
+		/// <param name="Text">Text to copy.</param>
+		public async Task CopyToClipboard(string Text)
+		{
+			await Clipboard.SetTextAsync(Text);
+			await this.@ref.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.NoteCopiedToClipboard);
+		}
+
+		/// <summary>
+		/// Displays XML in a browser.
+		/// </summary>
+		/// <param name="Xml">XML to display.</param>
+		public async Task ViewXmlInBrowser(string Xml)
+		{
+			try
+			{
+				byte[] Bin = Encoding.UTF8.GetBytes(Xml);
+				HttpFileUploadEventArgs e = await this.@ref.XmppService.FileUploadClient.RequestUploadSlotAsync("Note.xml", "text/xml; charset=utf-8", Bin.Length);
+
+				if (e.Ok)
+				{
+					await e.PUT(Bin, "text/xml", (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
+					await App.OpenUrl(e.GetUrl);
+				}
+				else
+					await this.@ref.UiSerializer.DisplayAlert(e.StanzaError ?? new Exception(e.ErrorText));
+			}
+			catch (Exception ex)
+			{
+				await this.@ref.UiSerializer.DisplayAlert(ex);
+			}
 		}
 
 	}

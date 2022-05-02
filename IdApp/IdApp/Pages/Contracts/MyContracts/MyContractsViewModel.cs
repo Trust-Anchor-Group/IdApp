@@ -265,7 +265,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 					this.contractsMap[Ref.ContractId] = contract;
 
-					ContractModel Item = await ContractModel.Create(Ref.ContractId, Ref.Timestamp, contract, this.TagProfile, this.XmppService, this.SmartContracts);
+					ContractModel Item = await ContractModel.Create(Ref.ContractId, Ref.Timestamp, contract, this);
 					string Category = Item.Category;
 
 					if (!ContractsByCategory.TryGetValue(Category, out List<ContractModel> Contracts2))

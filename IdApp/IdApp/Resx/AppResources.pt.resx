@@ -1569,4 +1569,43 @@
   <data name="ShowDetails" xml:space="preserve">
     <value>Detalhes do show</value>
   </data>
+  <data name="ViewEvents" xml:space="preserve">
+    <value>Ver eventos</value>
+  </data>
+  <data name="TokenEvents" xml:space="preserve">
+    <value>Eventos de Token</value>
+  </data>
+  <data name="TokenEventsDescription" xml:space="preserve">
+    <value>A seguir estão eventos públicos registrados para o token. Seus eventos privados também estão incluídos.</value>
+  </data>
+  <data name="UnrecognizedEventType" xml:space="preserve">
+    <value>Tipo de evento não reconhecido:</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Adicionar nota</value>
+  </data>
+  <data name="Destroyed" xml:space="preserve">
+    <value>Destruído</value>
+  </data>
+  <data name="NoteCopiedToClipboard" xml:space="preserve">
+    <value>Nota copiada para área de transferência.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Vendedor</value>
+  </data>
+  <data name="TextNote" xml:space="preserve">
+    <value>Nota de texto</value>
+  </data>
+  <data name="Transferred" xml:space="preserve">
+    <value>Transferido</value>
+  </data>
+  <data name="ViewXmlInBrowser" xml:space="preserve">
+    <value>Clique aqui para ver a nota XML em um navegador.</value>
+  </data>
+  <data name="XmlNote" xml:space="preserve">
+    <value>Nota XML</value>
+  </data>
 </root>

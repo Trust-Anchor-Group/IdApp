@@ -42,14 +42,11 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
         /// <param name="ContractId">The contract id.</param>
         /// <param name="Timestamp">The timestamp to show with the contract reference.</param>
         /// <param name="Contract">Contract</param>
-        /// <param name="TagProfile">TAG profile</param>
-        /// <param name="XmppService">XMPP service.</param>
-        /// <param name="SmartContracts">Smart Contracts interface.</param>
-        public static async Task<ContractModel> Create(string ContractId, DateTime Timestamp, Contract Contract, ITagProfile TagProfile,
-            IXmppService XmppService, ISmartContracts SmartContracts)
+        /// <param name="Ref">Service References</param>
+        public static async Task<ContractModel> Create(string ContractId, DateTime Timestamp, Contract Contract, ServiceReferences Ref)
         {
             string Category = await GetCategory(Contract) ?? Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
-            string Name = await GetName(Contract, TagProfile, XmppService, SmartContracts) ?? Contract.ContractId;
+            string Name = await GetName(Contract, Ref) ?? Contract.ContractId;
 
             return new ContractModel(ContractId, Timestamp, Contract, Category, Name);
         }
@@ -58,12 +55,9 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
         /// Gets a displayable name for a contract.
         /// </summary>
         /// <param name="Contract">Contract</param>
-        /// <param name="TagProfile">TAG Profile</param>
-        /// <param name="XmppService">XMPP Service</param>
-        /// <param name="SmartContracts">Smart Contracts interface.</param>
+        /// <param name="Ref">Service References</param>
         /// <returns>Displayable Name</returns>
-        public static async Task<string> GetName(Contract Contract, ITagProfile TagProfile, IXmppService XmppService, 
-            ISmartContracts SmartContracts)
+        public static async Task<string> GetName(Contract Contract, ServiceReferences Ref)
 		{
             if (Contract.Parts is null)
                 return null;
@@ -79,14 +73,14 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
 
             foreach (Part Part in Contract.Parts)
 			{
-                if (Part.LegalId == TagProfile.LegalJid ||
+                if (Part.LegalId == Ref.TagProfile.LegalJid ||
                     (Signatures.TryGetValue(Part.LegalId, out Waher.Networking.XMPP.Contracts.ClientSignature PartSignature) &&
-                    string.Compare(PartSignature.BareJid, XmppService.BareJid, true) == 0))
+                    string.Compare(PartSignature.BareJid, Ref.XmppService.BareJid, true) == 0))
                 {
                     continue;   // Self
                 }
 
-                string FriendlyName = await ContactInfo.GetFriendlyName(Part.LegalId, XmppService.Xmpp, TagProfile, SmartContracts);
+                string FriendlyName = await ContactInfo.GetFriendlyName(Part.LegalId, Ref);
 
                 if (sb is null)
                     sb = new StringBuilder(FriendlyName);

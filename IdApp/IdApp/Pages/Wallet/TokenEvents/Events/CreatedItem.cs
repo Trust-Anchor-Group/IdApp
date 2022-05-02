@@ -1,4 +1,6 @@
-﻿using NeuroFeatures.Events;
+﻿using IdApp.Services;
+using NeuroFeatures.Events;
+using System.Threading.Tasks;
 
 namespace IdApp.Pages.Wallet.TokenEvents.Events
 {
@@ -8,6 +10,7 @@ namespace IdApp.Pages.Wallet.TokenEvents.Events
 	public class CreatedItem : OwnershipEventItem
 	{
 		private readonly Created @event;
+		private string creatorFriendlyName;
 
 		/// <summary>
 		/// Represents a token creation event.
@@ -28,5 +31,21 @@ namespace IdApp.Pages.Wallet.TokenEvents.Events
 		/// Creator
 		/// </summary>
 		public string Creator => this.@event.Creator;
+
+		/// <summary>
+		/// Creator (Friendly Name)
+		/// </summary>
+		public string CreatorFriendlyName => this.creatorFriendlyName;
+
+		/// <summary>
+		/// Binds properties
+		/// </summary>
+		/// <param name="Ref">Service references.</param>
+		public override async Task DoBind(ServiceReferences Ref)
+		{
+			await base.DoBind(Ref);
+
+			this.creatorFriendlyName = await ContactInfo.GetFriendlyName(this.Creator, Ref);
+		}
 	}
 }

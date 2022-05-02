@@ -3011,25 +3011,21 @@
             The data model for a contract.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.Tag.ITagProfile,IdApp.Services.Xmpp.IXmppService,IdApp.Services.Contracts.ISmartContracts)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel"/> class.
             </summary>
             <param name="ContractId">The contract id.</param>
             <param name="Timestamp">The timestamp to show with the contract reference.</param>
             <param name="Contract">Contract</param>
-            <param name="TagProfile">TAG profile</param>
-            <param name="XmppService">XMPP service.</param>
-            <param name="SmartContracts">Smart Contracts interface.</param>
+            <param name="Ref">Service References</param>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.Tag.ITagProfile,IdApp.Services.Xmpp.IXmppService,IdApp.Services.Contracts.ISmartContracts)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
             <summary>
             Gets a displayable name for a contract.
             </summary>
             <param name="Contract">Contract</param>
-            <param name="TagProfile">TAG Profile</param>
-            <param name="XmppService">XMPP Service</param>
-            <param name="SmartContracts">Smart Contracts interface.</param>
+            <param name="Ref">Service References</param>
             <returns>Displayable Name</returns>
         </member>
         <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetCategory(Waher.Networking.XMPP.Contracts.Contract)">
@@ -10008,9 +10004,9 @@
             Command to offer to buy the token.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ViewNotesCommand">
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ViewEventsCommand">
             <summary>
-            Command to view notes related to token.
+            Command to view events related to token.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.EventType">
@@ -10099,12 +10095,28 @@
             Command executed when the user wants to view a smart contract
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.CopyToClipboardCommand">
+            <summary>
+            Command executed when the user wants to copy a text note to the clipboard
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.ViewXmlInBrowserCommand">
+            <summary>
+            Command executed when the user wants to view an XML note in the browser
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Wallet.TokenEvents.EventItem.Create(NeuroFeatures.Events.TokenEvent)">
             <summary>
             Creates an Event Item view model for a token event.
             </summary>
             <param name="Event">Token event.</param>
             <returns>View model of token event.</returns>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.EventItem.DoBind(IdApp.Services.ServiceReferences)">
+            <summary>
+            Binds properties
+            </summary>
+            <param name="Ref">Service references.</param>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenEvents.EventItem.ViewId(System.String)">
             <summary>
@@ -10117,6 +10129,18 @@
             Shows a Smart Contract to the user.
             </summary>
             <param name="ContractId">Contract ID</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.EventItem.CopyToClipboard(System.String)">
+            <summary>
+            Copies text to the clipboard.
+            </summary>
+            <param name="Text">Text to copy.</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.EventItem.ViewXmlInBrowser(System.String)">
+            <summary>
+            Displays XML in a browser.
+            </summary>
+            <param name="Xml">XML to display.</param>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.CreatedItem">
             <summary>
@@ -10138,6 +10162,17 @@
             <summary>
             Creator
             </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.CreatedItem.CreatorFriendlyName">
+            <summary>
+            Creator (Friendly Name)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.CreatedItem.DoBind(IdApp.Services.ServiceReferences)">
+            <summary>
+            Binds properties
+            </summary>
+            <param name="Ref">Service references.</param>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.DestroyedItem">
             <summary>
@@ -10224,6 +10259,17 @@
             Ownership contract
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.OwnershipEventItem.OwnerFriendlyName">
+            <summary>
+            Owner (Friendly Name)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.OwnershipEventItem.DoBind(IdApp.Services.ServiceReferences)">
+            <summary>
+            Binds properties
+            </summary>
+            <param name="Ref">Service references.</param>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.TransferredItem">
             <summary>
             Represents a token creation event.
@@ -10244,6 +10290,17 @@
             <summary>
             Seller
             </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.TransferredItem.SellerFriendlyName">
+            <summary>
+            Seller (Friendly Name)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.TransferredItem.DoBind(IdApp.Services.ServiceReferences)">
+            <summary>
+            Binds properties
+            </summary>
+            <param name="Ref">Service references.</param>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.ValueEventItem">
             <summary>
@@ -11123,6 +11180,11 @@
               Looks up a localized string similar to Add Contact to Contract.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.AddNote">
+            <summary>
+              Looks up a localized string similar to Add Note.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.AddPart">
             <summary>
               Looks up a localized string similar to Add part.
@@ -11541,6 +11603,11 @@
         <member name="P:IdApp.Resx.AppResources.DeleteContract">
             <summary>
               Looks up a localized string similar to Delete contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Destroyed">
+            <summary>
+              Looks up a localized string similar to Destroyed.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Devices">
@@ -12111,6 +12178,11 @@
         <member name="P:IdApp.Resx.AppResources.NotConnectedToTheOperator">
             <summary>
               Looks up a localized string similar to Not connected to the operator.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.NoteCopiedToClipboard">
+            <summary>
+              Looks up a localized string similar to Note copied to clipboard..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.NoThingsFound">
@@ -12793,6 +12865,11 @@
               Looks up a localized string similar to Select your role in this contract..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Seller">
+            <summary>
+              Looks up a localized string similar to Seller.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Send">
             <summary>
               Looks up a localized string similar to Send.
@@ -12993,6 +13070,11 @@
               Looks up a localized string similar to A temporary OTP code has been used. The application will stop working in about a week. You&apos;ll have to reinstall the application to use it again..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.TextNote">
+            <summary>
+              Looks up a localized string similar to Text Note.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.TheContractRequiresAtLeast_AddMoreParts">
             <summary>
               Looks up a localized string similar to The contract requires at least {0} part(s) of role {1}. Add more parts to the contract and try again..
@@ -13136,6 +13218,11 @@
         <member name="P:IdApp.Resx.AppResources.TransferIdentityInformationText">
             <summary>
               Looks up a localized string similar to Scan the QR invitation code below from a device that is being initialized, to transfer the Digital Identity on this device to the second device. Once the code is scanned and the identity transferred, it will be removed from this device..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Transferred">
+            <summary>
+              Looks up a localized string similar to Transferred.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.TrustProvider">
@@ -13298,14 +13385,19 @@
               Looks up a localized string similar to View Contract.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ViewEvents">
+            <summary>
+              Looks up a localized string similar to View Events.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ViewIdentityInformationText">
             <summary>
               Looks up a localized string similar to Following is personal information registered with the legal identity. Signatures and payments are signed using this information..
             </summary>
         </member>
-        <member name="P:IdApp.Resx.AppResources.ViewNotes">
+        <member name="P:IdApp.Resx.AppResources.ViewXmlInBrowser">
             <summary>
-              Looks up a localized string similar to View Notes.
+              Looks up a localized string similar to Click here to view the XML note in a browser..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Visibility">
@@ -13346,6 +13438,11 @@
         <member name="P:IdApp.Resx.AppResources.Witness">
             <summary>
               Looks up a localized string similar to Witness.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.XmlNote">
+            <summary>
+              Looks up a localized string similar to XML Note.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.XmppState_Authenticating">
@@ -13893,6 +13990,14 @@
             <param name="LegalId">Legal ID</param>
             <returns>Contact information, if found.</returns>
         </member>
+        <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(Waher.Persistence.CaseInsensitiveString,IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets the friendly name of a remote identity (Legal ID or Bare JID).
+            </summary>
+            <param name="RemoteId">Remote Identity</param>
+            <param name="Ref">Service references</param>
+            <returns>Friendly name.</returns>
+        </member>
         <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(Waher.Persistence.CaseInsensitiveString,Waher.Networking.XMPP.XmppClient,IdApp.Services.Tag.ITagProfile,IdApp.Services.Contracts.ISmartContracts)">
             <summary>
             Gets the friendly name of a remote identity (Legal ID or Bare JID).
@@ -13903,14 +14008,12 @@
             <param name="SmartContracts">Smart Contracts interface.</param>
             <returns>Friendly name.</returns>
         </member>
-        <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(System.String[],Waher.Networking.XMPP.XmppClient,IdApp.Services.Tag.ITagProfile,IdApp.Services.Contracts.ISmartContracts)">
+        <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(System.String[],IdApp.Services.ServiceReferences)">
             <summary>
             Gets the friendly name of a remote identity (Legal ID or Bare JID).
             </summary>
             <param name="RemoteId">Remote Identity</param>
-            <param name="Client">XMPP Client</param>
-            <param name="TagProfile">TAG Profile</param>
-            <param name="SmartContracts">Smart Contracts interface.</param>
+            <param name="Ref">Service references</param>
             <returns>Friendly name.</returns>
         </member>
         <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(System.Collections.Generic.IEnumerable{Waher.Networking.XMPP.Contracts.Property})">

@@ -1,4 +1,6 @@
-﻿using NeuroFeatures.Events;
+﻿using IdApp.Services;
+using NeuroFeatures.Events;
+using System.Threading.Tasks;
 
 namespace IdApp.Pages.Wallet.TokenEvents.Events
 {
@@ -8,6 +10,7 @@ namespace IdApp.Pages.Wallet.TokenEvents.Events
 	public class TransferredItem : OwnershipEventItem
 	{
 		private readonly Transferred @event;
+		private string sellerFriendlyName;
 
 		/// <summary>
 		/// Represents a token creation event.
@@ -28,5 +31,21 @@ namespace IdApp.Pages.Wallet.TokenEvents.Events
 		/// Seller
 		/// </summary>
 		public string Seller => this.@event.Seller;
+
+		/// <summary>
+		/// Seller (Friendly Name)
+		/// </summary>
+		public string SellerFriendlyName => this.sellerFriendlyName;
+
+		/// <summary>
+		/// Binds properties
+		/// </summary>
+		/// <param name="Ref">Service references.</param>
+		public override async Task DoBind(ServiceReferences Ref)
+		{
+			await base.DoBind(Ref);
+
+			this.sellerFriendlyName = await ContactInfo.GetFriendlyName(this.Seller, Ref);
+		}
 	}
 }
