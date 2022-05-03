@@ -108,7 +108,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 				{
 					await this.XmppService.Wallet.AddTextNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
 
-					NoteTextItem NewEvent = new NoteTextItem(new NoteText()
+					NoteTextItem NewEvent = new(new NoteText()
 					{
 						Note = AddTextNotePage.TextNote,
 						Personal = AddTextNotePage.Personal,

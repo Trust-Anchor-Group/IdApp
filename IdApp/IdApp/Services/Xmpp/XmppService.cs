@@ -620,7 +620,11 @@ namespace IdApp.Services.Xmpp
 					{
 						try
 						{
-							await this.xmppClient.SetPresenceAsync(Availability.Offline);
+							await Task.WhenAny(new Task[]
+							{
+								this.xmppClient.SetPresenceAsync(Availability.Offline),
+								Task.Delay(1000)	// Wait at most 1000 ms.
+							});
 						}
 						catch (Exception)
 						{
