@@ -201,17 +201,12 @@
                                          NoteXmlTemplate="{StaticResource NoteXml}"
                                          DefaultTemplate="{StaticResource OtherEvents}"/>
     </views:ContentBasePage.Resources>
-    <Grid>
-        <ScrollView x:Name="ScrollView">
-            <StackLayout Margin="{StaticResource DefaultMargin}">
-                <Label Text="{x:Static resx:AppResources.TokenEvents}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
-                <Label Text="{x:Static resx:AppResources.TokenEventsDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
-                <ListView HasUnevenRows="True" SeparatorVisibility="None" VerticalOptions="StartAndExpand"
-                          ItemsSource="{Binding Path=Events}"
-                          ItemTemplate="{StaticResource EventStyleSelector}"/>
-                <Button Text="{x:Static resx:AppResources.AddNote}" Margin="{StaticResource DefaultBottomOnlyMargin}"
-                        Command="{Binding Path=AddNoteCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-            </StackLayout>
-        </ScrollView>
+    <Grid ColumnDefinitions="*" RowDefinitions="auto,auto,*,auto" Margin="{StaticResource DefaultMargin}">
+        <Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.TokenEvents}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+        <Label Grid.Column="0" Grid.Row="1" Text="{x:Static resx:AppResources.TokenEventsDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
+        <ListView Grid.Column="0" Grid.Row="2" HasUnevenRows="True" SeparatorVisibility="None" VerticalOptions="StartAndExpand"
+                    ItemsSource="{Binding Path=Events}" ItemTemplate="{StaticResource EventStyleSelector}"/>
+        <Button Grid.Column="0" Grid.Row="3" Text="{x:Static resx:AppResources.AddNote}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                Command="{Binding Path=AddNoteCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
     </Grid>
 </views:ContentBasePage>
