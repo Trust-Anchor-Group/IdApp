@@ -54,7 +54,8 @@ namespace IdApp.Services.UI.Photos
 		/// <param name="attachments">The attachments whose files to download.</param>
 		/// <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
 		/// <param name="whenDoneAction">A callback that is called when the photo load operation is done.</param>
-		public Task LoadPhotos(Attachment[] attachments, SignWith signWith, Action whenDoneAction = null)
+		/// <returns>Returns the first photo, if available, null if no photos available.</returns>
+		public Task<Photo> LoadPhotos(Attachment[] attachments, SignWith signWith, Action whenDoneAction = null)
 		{
 			return LoadPhotos(attachments, signWith, DateTime.UtcNow, whenDoneAction);
 		}
@@ -97,12 +98,12 @@ namespace IdApp.Services.UI.Photos
 			return (null, string.Empty, 0);
 		}
 
-		private async Task LoadPhotos(Attachment[] attachments, SignWith signWith, DateTime now, Action whenDoneAction)
+		private async Task<Photo> LoadPhotos(Attachment[] attachments, SignWith signWith, DateTime now, Action whenDoneAction)
 		{
 			if (attachments is null || attachments.Length <= 0)
 			{
 				whenDoneAction?.Invoke();
-				return;
+				return null;
 			}
 
 			List<Attachment> attachmentsList = attachments.GetImageAttachments().ToList();
@@ -111,18 +112,28 @@ namespace IdApp.Services.UI.Photos
 			if (this.attachmentIds.HasSameContentAs(newAttachmentIds))
 			{
 				whenDoneAction?.Invoke();
-				return;
+
+				foreach (Photo Photo in this.photos)
+					return Photo;
+
+				return null;
 			}
 
 			this.attachmentIds.Clear();
 			this.attachmentIds.AddRange(newAttachmentIds);
+
+			Photo First = null;
 
 			foreach (Attachment attachment in attachmentsList)
 			{
 				if (this.loadPhotosTimestamp > now)
 				{
 					whenDoneAction?.Invoke();
-					return;
+
+					foreach (Photo Photo in this.photos)
+						return Photo;
+
+					return null;
 				}
 
 				try
@@ -132,6 +143,8 @@ namespace IdApp.Services.UI.Photos
 						continue;
 
 					Photo Photo = new(Bin, Rotation);
+					if (First is null)
+						First = Photo;
 
 					if (!(Bin is null))
 						this.UiSerializer.BeginInvokeOnMainThread(() => photos.Add(Photo));
@@ -143,6 +156,8 @@ namespace IdApp.Services.UI.Photos
 			}
 
 			whenDoneAction?.Invoke();
+
+			return First;
 		}
 
 		private async Task<(byte[], string, int)> GetPhoto(Attachment attachment, SignWith signWith, DateTime now)

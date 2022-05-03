@@ -4766,6 +4766,26 @@
             Gets or sets whether the identity is in the contact list or not.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoSourceProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoSource"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoSource">
+            <summary>
+            Gets or sets whether the <see cref="!:"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoRotationProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoRotation"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoRotation">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Country"/> property is for review.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Identity.TransferIdentity.TransferIdentityNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying an identity transfer code.
@@ -5515,6 +5535,26 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewCountry">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Country"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstPhotoSourceProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstPhotoSource"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstPhotoSource">
+            <summary>
+            Gets or sets whether the <see cref="!:"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstPhotoRotationProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstPhotoRotation"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstPhotoRotation">
             <summary>
             Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Country"/> property is for review.
             </summary>
@@ -16777,6 +16817,7 @@
             <param name="attachments">The attachments whose files to download.</param>
             <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
             <param name="whenDoneAction">A callback that is called when the photo load operation is done.</param>
+            <returns>Returns the first photo, if available, null if no photos available.</returns>
         </member>
         <member name="M:IdApp.Services.UI.Photos.PhotosLoader.CancelLoadPhotos">
             <summary>

@@ -75,10 +75,29 @@ namespace IdApp.Pages.Identity.PetitionIdentity
 
             this.AssignProperties();
             this.EvaluateAllCommands();
-           
-            if (!(this.RequestorIdentity?.Attachments is null))
+            
+            this.ReloadPhotos();
+        }
+
+        private async void ReloadPhotos()
+        {
+            try
             {
-                _ = this.photosLoader.LoadPhotos(this.RequestorIdentity.Attachments, SignWith.LatestApprovedId);
+                this.photosLoader.CancelLoadPhotos();
+
+                Attachment[] Attachments = this.RequestorIdentity?.Attachments;
+
+                if (Attachments is not null)
+                {
+                    Photo First = await this.photosLoader.LoadPhotos(Attachments, SignWith.LatestApprovedId);
+
+                    this.FirstPhotoSource = First?.Source;
+                    this.FirstPhotoRotation = First?.Rotation ?? 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.LogService.LogException(ex);
             }
         }
 
@@ -481,6 +500,36 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         {
             get => (bool)this.GetValue(ThirdPartyInContactsProperty);
             set => this.SetValue(ThirdPartyInContactsProperty, value);
+        }
+
+        /// <summary>
+        /// See <see cref="FirstPhotoSource"/>
+        /// </summary>
+        public static readonly BindableProperty FirstPhotoSourceProperty =
+            BindableProperty.Create(nameof(FirstPhotoSource), typeof(ImageSource), typeof(PetitionIdentityViewModel), default(ImageSource));
+
+        /// <summary>
+        /// Gets or sets whether the <see cref=""/> property is for review.
+        /// </summary>
+        public ImageSource FirstPhotoSource
+        {
+            get => (ImageSource)this.GetValue(FirstPhotoSourceProperty);
+            set => this.SetValue(FirstPhotoSourceProperty, value);
+        }
+
+        /// <summary>
+        /// See <see cref="FirstPhotoRotation"/>
+        /// </summary>
+        public static readonly BindableProperty FirstPhotoRotationProperty =
+            BindableProperty.Create(nameof(FirstPhotoRotation), typeof(int), typeof(PetitionIdentityViewModel), default(int));
+
+        /// <summary>
+        /// Gets or sets whether the <see cref="Country"/> property is for review.
+        /// </summary>
+        public int FirstPhotoRotation
+        {
+            get => (int)this.GetValue(FirstPhotoRotationProperty);
+            set => this.SetValue(FirstPhotoRotationProperty, value);
         }
 
         #endregion
