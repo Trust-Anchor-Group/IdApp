@@ -87,7 +87,7 @@ namespace IdApp.Pages
                     }
                     catch (Exception e)
                     {
-                        e = Waher.Events.Log.UnnestException(e);
+                        e = Log.UnnestException(e);
                         this.ViewModel.LogService.LogException(e);
                         string msg = string.Format(AppResources.FailedToBindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName);
                         await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
@@ -101,7 +101,7 @@ namespace IdApp.Pages
                 }
                 catch (Exception e)
                 {
-                    e = Waher.Events.Log.UnnestException(e);
+                    e = Log.UnnestException(e);
                     this.ViewModel.LogService.LogException(e);
                     string msg = string.Format(AppResources.FailedToRestoreViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName);
                     await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
@@ -139,7 +139,7 @@ namespace IdApp.Pages
                     }
                     catch (Exception e)
                     {
-                        e = Waher.Events.Log.UnnestException(e);
+                        e = Log.UnnestException(e);
                         this.ViewModel.LogService.LogException(e);
                         string msg = string.Format(AppResources.FailedToSaveViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName);
                         await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
@@ -152,7 +152,7 @@ namespace IdApp.Pages
                 }
                 catch (Exception e)
                 {
-                    e = Waher.Events.Log.UnnestException(e);
+                    e = Log.UnnestException(e);
                     this.ViewModel.LogService.LogException(e);
                     string msg = string.Format(AppResources.FailedToUnbindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName);
                     await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
