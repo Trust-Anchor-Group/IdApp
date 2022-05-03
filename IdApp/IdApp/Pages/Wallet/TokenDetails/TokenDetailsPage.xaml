@@ -226,7 +226,7 @@
                     <Label Grid.Column="0" Grid.Row="3" Text="{x:Static resx:AppResources.DefinitionSchemaDigest}" Style="{StaticResource KeyLabel}"/>
                     <Label Grid.Column="1" Grid.Row="3" Text="{Binding DefinitionSchemaDigest, Converter={converters:BinaryToBase64Converter}}" Style="{StaticResource ClickableValueLabel}">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding DefinitionSchemaDigest, Converter={converters:BinaryToBase64Converter}}" />
+                            <TapGestureRecognizer Command="{Binding OpenLinkCommand}" CommandParameter="{Binding DefinitionSchemaUrl}" />
                         </Label.GestureRecognizers>
                     </Label>
 

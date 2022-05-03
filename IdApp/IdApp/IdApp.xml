@@ -9509,6 +9509,16 @@
         <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaUrlProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaUrl"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaUrl">
+            <summary>
+            Token ID
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Certifiers">
             <summary>
             Certifiers

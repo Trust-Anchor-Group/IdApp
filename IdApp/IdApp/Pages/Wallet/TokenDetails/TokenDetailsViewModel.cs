@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Input;
 using System.Xml;
 using IdApp.DeviceSpecific;
@@ -143,6 +144,20 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					foreach (TokenTag Tag in args.Token.Tags)
 						this.Tags.Add(Tag);
 				}
+
+				StringBuilder sb = new();
+				string Domain = this.TokenId.After("@");
+				Domain = Domain.After("."); // Remove last sub-domain, corresponding to the component hosting the token.
+
+				sb.Append("https://");
+				sb.Append(Domain);
+				sb.Append("/ValidationSchema.md?NS=");
+				sb.Append(HttpUtility.UrlEncode(this.DefinitionNamespace));
+				sb.Append("&H=");
+				sb.Append(HttpUtility.UrlEncode(Convert.ToBase64String(this.DefinitionSchemaDigest)));
+				sb.Append("&Download=1");
+
+				this.DefinitionSchemaUrl = sb.ToString();	// TODO: The above assume contract hosted by the TAG Neuron. URL should be retrieved using API, or be standardized.
 			}
 
 			AssignProperties();
@@ -202,6 +217,21 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				if (!string.IsNullOrEmpty(Jid))
 					this.page.AddJid(this, JidLabel, Jid, LegalIds[i], FriendlyName);   // TODO: Replace with grouped collection, when this works in Xamarin.
 			}
+		}
+
+		/// <summary>
+		/// See <see cref="DefinitionSchemaUrl"/>
+		/// </summary>
+		public static readonly BindableProperty DefinitionSchemaUrlProperty =
+			BindableProperty.Create(nameof(DefinitionSchemaUrl), typeof(string), typeof(TokenDetailsViewModel), default(string));
+
+		/// <summary>
+		/// Token ID
+		/// </summary>
+		public string DefinitionSchemaUrl
+		{
+			get => (string)this.GetValue(DefinitionSchemaUrlProperty);
+			set => this.SetValue(DefinitionSchemaUrlProperty, value);
 		}
 
 		#region Properties
