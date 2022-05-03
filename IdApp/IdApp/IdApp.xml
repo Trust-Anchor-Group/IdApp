@@ -10905,6 +10905,34 @@
             Task waiting for result. null means dialog was closed without providing a PIN.
             </summary>
         </member>
+        <member name="T:IdApp.Popups.Tokens.AddTextNote.AddTextNotePage">
+            <summary>
+            Prompts the user for text to add as a note for a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Tokens.AddTextNote.AddTextNotePage.#ctor">
+            <summary>
+            Prompts the user for text to add as a note for a token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Tokens.AddTextNote.AddTextNotePage.TextNote">
+            <summary>
+            Text Note
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Tokens.AddTextNote.AddTextNotePage.Personal">
+            <summary>
+            If note is personal or not.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Tokens.AddTextNote.AddTextNotePage.OnBackgroundClicked">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Popups.Tokens.AddTextNote.AddTextNotePage.Result">
+            <summary>
+            Task waiting for result.
+            </summary>
+        </member>
         <member name="T:IdApp.Popups.Xmpp.RemoveSubscription.RemoveSubscriptionPopupPage">
             <summary>
             Asks the user if it wants to remove an existing presence subscription request as well.
@@ -12183,6 +12211,16 @@
         <member name="P:IdApp.Resx.AppResources.NoteCopiedToClipboard">
             <summary>
               Looks up a localized string similar to Note copied to clipboard..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.NoteIsPersonal">
+            <summary>
+              Looks up a localized string similar to Note is personal.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.NoteToAdd">
+            <summary>
+              Looks up a localized string similar to Note to add:.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.NoThingsFound">

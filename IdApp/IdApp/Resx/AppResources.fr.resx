@@ -1593,6 +1593,12 @@
   <data name="NoteCopiedToClipboard" xml:space="preserve">
     <value>Note copiée dans le Presse-papiers.</value>
   </data>
+  <data name="NoteIsPersonal" xml:space="preserve">
+    <value>La note est personnelle</value>
+  </data>
+  <data name="NoteToAdd" xml:space="preserve">
+    <value>Note à ajouter :</value>
+  </data>
   <data name="Seller" xml:space="preserve">
     <value>Vendeur</value>
   </data>

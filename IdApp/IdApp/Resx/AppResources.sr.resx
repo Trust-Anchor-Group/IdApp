@@ -1593,6 +1593,12 @@
   <data name="NoteCopiedToClipboard" xml:space="preserve">
     <value>Napomena kopirana u ostavu.</value>
   </data>
+  <data name="NoteIsPersonal" xml:space="preserve">
+    <value>Napomena je lična</value>
+  </data>
+  <data name="NoteToAdd" xml:space="preserve">
+    <value>Napomena za dodavanje:</value>
+  </data>
   <data name="Seller" xml:space="preserve">
     <value>Prodavac</value>
   </data>

@@ -753,6 +753,12 @@
   <data name="NoteCopiedToClipboard" xml:space="preserve">
     <value>Anteckningen kopierad till klippboken.</value>
   </data>
+  <data name="NoteIsPersonal" xml:space="preserve">
+    <value>Anteckningen är personlig</value>
+  </data>
+  <data name="NoteToAdd" xml:space="preserve">
+    <value>Anteckning att lägga till:</value>
+  </data>
   <data name="NoThingsFound" xml:space="preserve">
     <value>Inga saker hittades.</value>
   </data>

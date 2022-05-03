@@ -1,8 +1,10 @@
-﻿using System;
+﻿using IdApp.Pages.Wallet.TokenEvents.Events;
+using IdApp.Popups.Tokens.AddTextNote;
+using NeuroFeatures.Events;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using NeuroFeatures.Events;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.TokenEvents
@@ -97,7 +99,27 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		{
 			try
 			{
-				// TODO
+				AddTextNotePage AddTextNotePage = new();
+
+				await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(AddTextNotePage);
+				bool? Result = await AddTextNotePage.Result;
+
+				if (Result.HasValue && Result.Value)
+				{
+					await this.XmppService.Wallet.AddTextNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
+
+					NoteTextItem NewEvent = new NoteTextItem(new NoteText()
+					{
+						Note = AddTextNotePage.TextNote,
+						Personal = AddTextNotePage.Personal,
+						TokenId = this.TokenId,
+						Timestamp = DateTime.Now
+					});
+
+					await NewEvent.DoBind(this);
+					
+					this.Events.Insert(0, NewEvent);
+				}
 			}
 			catch (Exception ex)
 			{

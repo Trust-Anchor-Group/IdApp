@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                 xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+                 xmlns:model="clr-namespace:IdApp.Popups.Tokens.AddTextNote;assembly=IdApp"
+                 x:Class="IdApp.Popups.Tokens.AddTextNote.AddTextNotePage"
+                 x:DataType="model:AddTextNotePage">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+        <Frame Margin="15" BackgroundColor="White" HorizontalOptions="FillAndExpand">
+            <StackLayout Padding="10,5" Spacing="3" HorizontalOptions="FillAndExpand">
+                <Label Text="{x:Static resx:AppResources.TextNote}" HorizontalOptions="FillAndExpand"/>
+                <Editor Text="{Binding TextNote}" HorizontalOptions="StartAndExpand" AutoSize="TextChanges" Keyboard="Text"/>
+                <StackLayout Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding Personal}" VerticalOptions="Center"/>
+                    <Label Text="{x:Static resx:AppResources.NoteIsPersonal}" VerticalOptions="Center"/>
+                </StackLayout>
+                <Button Margin="10,5" Clicked="OnAdd" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Add}">
+                    <Button.HeightRequest>
+                        <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
+                    </Button.HeightRequest>
+                </Button>
+                <Button Margin="10,5" Clicked="OnCancel" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Cancel}">
+                    <Button.HeightRequest>
+                        <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
+                    </Button.HeightRequest>
+                </Button>
+            </StackLayout>
+        </Frame>
+        <Grid HorizontalOptions="End" VerticalOptions="Start">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCloseButtonTapped" />
+            </Grid.GestureRecognizers>
+            <Ellipse StrokeThickness="2" WidthRequest="32" HeightRequest="32" HorizontalOptions="Center" VerticalOptions="Center">
+                <Ellipse.Fill>
+                    <SolidColorBrush Color="{StaticResource PageBackgroundColor}"/>
+                </Ellipse.Fill>
+                <Ellipse.Stroke>
+                    <SolidColorBrush Color="{StaticResource HeadingBackground}"/>
+                </Ellipse.Stroke>
+            </Ellipse>
+            <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static resx:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Grid>
+    </AbsoluteLayout>
+</pages:PopupPage>

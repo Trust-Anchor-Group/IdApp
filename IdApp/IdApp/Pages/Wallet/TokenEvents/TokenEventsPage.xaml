@@ -12,7 +12,7 @@
     <views:ContentBasePage.Resources>
         <DataTemplate x:Key="CreatedEvent" x:DataType="events:CreatedItem">
             <ViewCell>
-                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto,auto,auto">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto,auto,auto" Margin="{StaticResource DefaultBottomOnlyMargin}">
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource TableHeader}">
                         <Label.FormattedText>
                             <FormattedString>
@@ -59,7 +59,7 @@
         </DataTemplate>
         <DataTemplate x:Key="DestroyedEvent" x:DataType="events:DestroyedItem">
             <ViewCell>
-                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto,auto">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto,auto" Margin="{StaticResource DefaultBottomOnlyMargin}">
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource TableHeader}">
                         <Label.FormattedText>
                             <FormattedString>
@@ -99,7 +99,7 @@
         </DataTemplate>
         <DataTemplate x:Key="TransferredEvent" x:DataType="events:TransferredItem">
             <ViewCell>
-                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto,auto,auto">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto,auto,auto" Margin="{StaticResource DefaultBottomOnlyMargin}">
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource TableHeader}">
                         <Label.FormattedText>
                             <FormattedString>
@@ -146,7 +146,7 @@
         </DataTemplate>
         <DataTemplate x:Key="NoteText" x:DataType="events:NoteTextItem">
             <ViewCell>
-                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto" Margin="{StaticResource DefaultBottomOnlyMargin}">
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource TableHeader}">
                         <Label.FormattedText>
                             <FormattedString>
@@ -167,7 +167,7 @@
         </DataTemplate>
         <DataTemplate x:Key="NoteXml" x:DataType="events:NoteXmlItem">
             <ViewCell>
-                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto" Margin="{StaticResource DefaultBottomOnlyMargin}">
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource TableHeader}">
                         <Label.FormattedText>
                             <FormattedString>
@@ -187,7 +187,7 @@
         </DataTemplate>
         <DataTemplate x:Key="OtherEvents" x:DataType="model:EventItem">
             <ViewCell>
-                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto" Margin="{StaticResource DefaultBottomOnlyMargin}">
                     <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Timestamp, Converter={converters:DateTimeToStringConverter}}" Style="{StaticResource TableHeader}"/>
                     <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{x:Static resx:AppResources.UnrecognizedEventType}" Style="{StaticResource ValueLabel}"/>
                 </Grid>

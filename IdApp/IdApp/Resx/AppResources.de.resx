@@ -1593,6 +1593,12 @@
   <data name="NoteCopiedToClipboard" xml:space="preserve">
     <value>Notiz in die Zwischenablage kopiert.</value>
   </data>
+  <data name="NoteIsPersonal" xml:space="preserve">
+    <value>Notiz ist persönlich</value>
+  </data>
+  <data name="NoteToAdd" xml:space="preserve">
+    <value>Hinzuzufügender Hinweis:</value>
+  </data>
   <data name="Seller" xml:space="preserve">
     <value>Verkäufer</value>
   </data>

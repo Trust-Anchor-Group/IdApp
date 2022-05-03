@@ -1969,6 +1969,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note is personal.
+        /// </summary>
+        internal static string NoteIsPersonal {
+            get {
+                return ResourceManager.GetString("NoteIsPersonal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note to add:.
+        /// </summary>
+        internal static string NoteToAdd {
+            get {
+                return ResourceManager.GetString("NoteToAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Things Found..
         /// </summary>
         internal static string NoThingsFound {

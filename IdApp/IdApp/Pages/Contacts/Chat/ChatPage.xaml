@@ -60,14 +60,7 @@
                                  ItemSelectedCommand="{Binding Path=MessageSelected}"/>
 
         <Frame BorderColor="Black" CornerRadius="5" Padding="5">
-            <Grid x:Name="ControlGrid">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+            <Grid x:Name="ControlGrid" RowDefinitions="auto" ColumnDefinitions="*,auto">
                 <Editor x:Name="EditorControl" Grid.Column="0" Grid.Row="0" Text="{Binding MarkdownInput}" HorizontalOptions="StartAndExpand" 
                         AutoSize="TextChanges" Keyboard="Chat"/>
                 <StackLayout Grid.Column="1" Grid.Row="0" Orientation="Horizontal">

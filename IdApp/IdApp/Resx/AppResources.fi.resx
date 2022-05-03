@@ -1593,6 +1593,12 @@
   <data name="NoteCopiedToClipboard" xml:space="preserve">
     <value>Huomautus kopioitu leikepöydälle.</value>
   </data>
+  <data name="NoteIsPersonal" xml:space="preserve">
+    <value>Huomautus on henkilökohtainen</value>
+  </data>
+  <data name="NoteToAdd" xml:space="preserve">
+    <value>Huomautus lisättäväksi:</value>
+  </data>
   <data name="Seller" xml:space="preserve">
     <value>Myyjä</value>
   </data>

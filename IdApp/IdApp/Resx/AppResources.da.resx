@@ -1593,6 +1593,12 @@
   <data name="NoteCopiedToClipboard" xml:space="preserve">
     <value>Bemærk kopieret til udklipsholderen.</value>
   </data>
+  <data name="NoteIsPersonal" xml:space="preserve">
+    <value>Bemærk er personlig</value>
+  </data>
+  <data name="NoteToAdd" xml:space="preserve">
+    <value>Bemærk at tilføje:</value>
+  </data>
   <data name="Seller" xml:space="preserve">
     <value>Sælger</value>
   </data>
