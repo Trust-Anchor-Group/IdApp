@@ -5,6 +5,7 @@
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:image="clr-namespace:IdApp.Popups.Photos.Image;assembly=IdApp"
                        xmlns:photos="clr-namespace:IdApp.Services.UI.Photos;assembly=IdApp"
+                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Identity.PetitionIdentity;assembly=IdApp"
                        x:DataType="model:PetitionIdentityViewModel"
                        x:Class="IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityPage"
@@ -20,6 +21,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -123,6 +125,13 @@
                     <Button Grid.Row="21" Grid.Column="0" Grid.ColumnSpan="2" x:Name="DeclineButton" Text="{x:Static resx:AppResources.Decline}" Command="{Binding Path=DeclineCommand}"/>
                     <!-- -->
                     <Button Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="2" x:Name="IgnoreButton" Text="{x:Static resx:AppResources.Ignore}" Command="{Binding Path=IgnoreCommand}"/>
+
+                    <Button Grid.Row="23" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Static resx:AppResources.AddContact}" 
+                            Command="{Binding Path=AddContactCommand}" IsVisible="{Binding Path=ThirdPartyInContacts, Converter={converters:LogicalNot}}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                    <Button Grid.Row="23" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Static resx:AppResources.RemoveContact}" 
+                            Command="{Binding Path=RemoveContactCommand}" IsVisible="{Binding Path=ThirdPartyInContacts}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
                 </Grid>
             </StackLayout>
         </ScrollView>

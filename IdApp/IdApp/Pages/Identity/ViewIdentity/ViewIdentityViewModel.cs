@@ -87,13 +87,14 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 
 				if (!(Info is null) &&
-					Info.LegalId != this.LegalId &&
+					(Info.LegalIdentity is null ||
+					(Info.LegalId != this.LegalId &&
 					Info.LegalIdentity.Created < this.LegalIdentity.Created &&
-					this.LegalIdentity.State == IdentityState.Approved)
+					this.LegalIdentity.State == IdentityState.Approved)))
 				{
 					Info.LegalId = this.LegalId;
 					Info.LegalIdentity = this.LegalIdentity;
-					Info.FriendlyName = this.GetFriendlyName();
+					Info.FriendlyName = ContactInfo.GetFriendlyName(this.LegalIdentity);
 
 					await Database.Update(Info);
 					await Database.Provider.Flush();
@@ -770,7 +771,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			BindableProperty.Create(nameof(ThirdPartyInContacts), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
-		/// Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="IsForReview"/>.
+		/// Gets or sets whether the identity is in the contact.
 		/// </summary>
 		public bool ThirdPartyInContacts
 		{
@@ -785,7 +786,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			BindableProperty.Create(nameof(ThirdPartyNotInContacts), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
-		/// Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="IsForReview"/>.
+		/// Gets or sets whether the identity is not in the contact list.
 		/// </summary>
 		public bool ThirdPartyNotInContacts
 		{
@@ -1340,35 +1341,11 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			}
 		}
 
-		private string GetFriendlyName()
-		{
-			StringBuilder Name = new();
-			string s;
-
-			Name.Append(this.FirstName);
-
-			s = this.MiddleNames;
-			if (!string.IsNullOrEmpty(s))
-			{
-				Name.Append(' ');
-				Name.Append(s);
-			}
-
-			s = this.LastNames;
-			if (!string.IsNullOrEmpty(s))
-			{
-				Name.Append(' ');
-				Name.Append(s);
-			}
-
-			return Name.ToString();
-		}
-
 		private async Task AddContact()
 		{
 			try
 			{
-				string FriendlyName = this.GetFriendlyName();
+				string FriendlyName = ContactInfo.GetFriendlyName(this.LegalIdentity);
 
 				RosterItem Item = this.XmppService.Xmpp[this.BareJid];
 				if (Item is null)
@@ -1620,7 +1597,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(this.LegalId, this.BareJid, this.GetFriendlyName()));
+				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(this.LegalId, this.BareJid,
+					ContactInfo.GetFriendlyName(this.LegalIdentity)));
 			}
 			catch (Exception ex)
 			{

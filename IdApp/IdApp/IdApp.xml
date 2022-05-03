@@ -4526,6 +4526,16 @@
             The command to bind to for ignoring the petition
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.AddContactCommand">
+            <summary>
+            The command for adding the identity to the list of contacts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.RemoveContactCommand">
+            <summary>
+            The command for removing the identity from the list of contacts.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Photos">
             <summary>
             The list of photos related to the identity being petitioned.
@@ -4744,6 +4754,16 @@
         <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Purpose">
             <summary>
             What's the purpose of the petition?
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.ThirdPartyInContactsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.ThirdPartyInContacts"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.ThirdPartyInContacts">
+            <summary>
+            Gets or sets whether the identity is in the contact list or not.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Identity.TransferIdentity.TransferIdentityNavigationArgs">
@@ -5216,7 +5236,7 @@
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ThirdPartyInContacts">
             <summary>
-            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReview"/>.
+            Gets or sets whether the identity is in the contact.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ThirdPartyNotInContactsProperty">
@@ -5226,7 +5246,7 @@
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ThirdPartyNotInContacts">
             <summary>
-            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReview"/>.
+            Gets or sets whether the identity is not in the contact list.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsPersonalProperty">

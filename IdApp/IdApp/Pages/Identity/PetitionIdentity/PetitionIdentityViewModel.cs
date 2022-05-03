@@ -3,9 +3,13 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Extensions;
+using IdApp.Resx;
+using IdApp.Services;
 using IdApp.Services.Data.Countries;
 using IdApp.Services.UI.Photos;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Persistence;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Identity.PetitionIdentity
@@ -29,7 +33,9 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             this.AcceptCommand = new Command(async _ => await Accept());
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
-            
+            this.AddContactCommand = new Command(async _ => await this.AddContact(), _ => !this.ThirdPartyInContacts);
+            this.RemoveContactCommand = new Command(async _ => await this.RemoveContact(), _ => this.ThirdPartyInContacts);
+
             this.Photos = new ObservableCollection<Photo>();
             this.photosLoader = new PhotosLoader(this.Photos);
         }
@@ -46,9 +52,29 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 this.requestedIdentityId = args.RequestedIdentityId;
                 this.petitionId = args.PetitionId;
                 this.purpose = args.Purpose;
+
+                string BareJid = XmppClient.GetBareJID(this.requestorFullJid);
+
+                ContactInfo Info = await ContactInfo.FindByBareJid(BareJid);
+
+                if (!(Info is null) &&
+                    Info.LegalId != this.requestedIdentityId &&
+                    Info.LegalIdentity.Created < this.RequestorIdentity.Created &&
+                    this.RequestorIdentity.State == IdentityState.Approved)
+                {
+                    Info.LegalId = this.LegalId;
+                    Info.LegalIdentity = this.RequestorIdentity;
+                    Info.FriendlyName = ContactInfo.GetFriendlyName(this.RequestorIdentity);
+
+                    await Database.Update(Info);
+                    await Database.Provider.Flush();
+                }
+
+                this.ThirdPartyInContacts = !(Info is null);
             }
 
             this.AssignProperties();
+            this.EvaluateAllCommands();
            
             if (!(this.RequestorIdentity?.Attachments is null))
             {
@@ -61,6 +87,11 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         {
             this.photosLoader.CancelLoadPhotos();
             await base.DoUnbind();
+        }
+
+        private void EvaluateAllCommands()
+        {
+            this.EvaluateCommands(this.AddContactCommand, this.RemoveContactCommand);
         }
 
         /// <summary>
@@ -77,6 +108,16 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// The command to bind to for ignoring the petition
         /// </summary>
         public ICommand IgnoreCommand { get; }
+
+        /// <summary>
+        /// The command for adding the identity to the list of contacts.
+        /// </summary>
+        public ICommand AddContactCommand { get; }
+
+        /// <summary>
+        /// The command for removing the identity from the list of contacts.
+        /// </summary>
+        public ICommand RemoveContactCommand { get; }
 
         /// <summary>
         /// The list of photos related to the identity being petitioned.
@@ -427,6 +468,21 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             set => this.SetValue(PurposeProperty, value);
         }
 
+        /// <summary>
+        /// See <see cref="ThirdPartyInContacts"/>
+        /// </summary>
+        public static readonly BindableProperty ThirdPartyInContactsProperty =
+            BindableProperty.Create(nameof(ThirdPartyInContacts), typeof(bool), typeof(PetitionIdentityViewModel), default(bool));
+
+        /// <summary>
+		/// Gets or sets whether the identity is in the contact list or not.
+        /// </summary>
+        public bool ThirdPartyInContacts
+        {
+            get => (bool)this.GetValue(ThirdPartyInContactsProperty);
+            set => this.SetValue(ThirdPartyInContactsProperty, value);
+        }
+
         #endregion
 
         private void AssignProperties()
@@ -479,5 +535,84 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             }
             this.Purpose = this.purpose;
         }
+
+        private async Task AddContact()
+        {
+            try
+            {
+                string FriendlyName = ContactInfo.GetFriendlyName(this.RequestorIdentity);
+                string BareJid = XmppClient.GetBareJID(this.requestorFullJid);
+
+                RosterItem Item = this.XmppService.Xmpp[BareJid];
+                if (Item is null)
+                    this.XmppService.Xmpp.AddRosterItem(new RosterItem(BareJid, FriendlyName));
+
+                ContactInfo Info = await ContactInfo.FindByBareJid(BareJid);
+                if (Info is null)
+                {
+                    Info = new ContactInfo()
+                    {
+                        BareJid = BareJid,
+                        LegalId = this.requestedIdentityId,
+                        LegalIdentity = this.RequestorIdentity,
+                        FriendlyName = FriendlyName,
+                        IsThing = false
+                    };
+
+                    await Database.Insert(Info);
+                }
+                else
+                {
+                    Info.LegalId = this.requestedIdentityId;
+                    Info.LegalIdentity = this.RequestorIdentity;
+                    Info.FriendlyName = FriendlyName;
+
+                    await Database.Update(Info);
+                }
+
+                await this.AttachmentCacheService.MakePermanent(this.LegalId);
+                await Database.Provider.Flush();
+
+                this.ThirdPartyInContacts = true;
+
+                this.EvaluateAllCommands();
+            }
+            catch (Exception ex)
+            {
+                await this.UiSerializer.DisplayAlert(ex);
+            }
+        }
+
+        private async Task RemoveContact()
+        {
+            try
+            {
+                if (!await this.UiSerializer.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRemoveContact, AppResources.Yes, AppResources.Cancel))
+                    return;
+
+                string BareJid = XmppClient.GetBareJID(this.requestorFullJid);
+
+                ContactInfo Info = await ContactInfo.FindByBareJid(BareJid);
+                if (!(Info is null))
+                {
+                    await Database.Delete(Info);
+                    await this.AttachmentCacheService.MakeTemporary(Info.LegalId);
+                    await Database.Provider.Flush();
+                }
+
+                RosterItem Item = this.XmppService.Xmpp[BareJid];
+                if (!(Item is null))
+                    this.XmppService.Xmpp.RemoveRosterItem(BareJid);
+
+                this.ThirdPartyInContacts = false;
+
+                this.EvaluateAllCommands();
+            }
+            catch (Exception ex)
+            {
+                await this.UiSerializer.DisplayAlert(ex);
+            }
+        }
+
     }
 }
