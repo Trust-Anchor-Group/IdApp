@@ -452,23 +452,30 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 							foreach (LegalIdentity Identity in Identities)
 							{
-								if ((string.IsNullOrEmpty(LegalIdentityJid) || string.Compare(LegalIdentityJid, Identity.Id, true) == 0) &&
-									Identity.HasClientSignature &&
-									Identity.HasClientPublicKey &&
-									Identity.From <= now &&
-									Identity.To >= now &&
-									(Identity.State == IdentityState.Approved || Identity.State == IdentityState.Created) &&
-									Identity.ValidateClientSignature() &&
-									await ContractsClient.HasPrivateKey(Identity))
+								try
 								{
-									if (Identity.State == IdentityState.Approved)
+									if ((string.IsNullOrEmpty(LegalIdentityJid) || string.Compare(LegalIdentityJid, Identity.Id, true) == 0) &&
+										Identity.HasClientSignature &&
+										Identity.HasClientPublicKey &&
+										Identity.From <= now &&
+										Identity.To >= now &&
+										(Identity.State == IdentityState.Approved || Identity.State == IdentityState.Created) &&
+										Identity.ValidateClientSignature() &&
+										await ContractsClient.HasPrivateKey(Identity))
 									{
-										approvedIdentity = Identity;
-										break;
-									}
+										if (Identity.State == IdentityState.Approved)
+										{
+											approvedIdentity = Identity;
+											break;
+										}
 
-									if (createdIdentity is null)
-										createdIdentity = Identity;
+										if (createdIdentity is null)
+											createdIdentity = Identity;
+									}
+								}
+								catch (Exception)
+								{
+									// Keys might not be available. Ignore at this point. Keys will be generated later.
 								}
 							}
 
