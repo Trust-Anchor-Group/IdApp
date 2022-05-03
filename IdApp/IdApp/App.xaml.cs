@@ -132,7 +132,7 @@ namespace IdApp
 				Thread?.NewState("DB");
 				ProfilerThread SubThread = Thread?.CreateSubThread("Database", ProfilerThreadType.Sequential);
 
-				this.startupWorker.Wait();
+				await this.startupWorker.WaitAsync();
 
 				try
 				{
@@ -294,7 +294,7 @@ namespace IdApp
 
 		private async Task PerformStartup(bool isResuming, ProfilerThread Thread)
 		{
-			this.startupWorker.Wait();
+			await this.startupWorker.WaitAsync();
 
 			try
 			{
@@ -384,7 +384,7 @@ namespace IdApp
 		{
 			// if the PerformStartup is not finished, cancel it first
 			this.startupCancellation.Cancel();
-			this.startupWorker.Wait();
+			await this.startupWorker.WaitAsync();
 
 			try
 			{

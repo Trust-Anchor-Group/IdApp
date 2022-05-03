@@ -7,7 +7,7 @@ namespace IdApp.Services
 	/// <inheritdoc/>
 	public class LoadableService : ServiceReferences, ILoadableService
 	{
-		private SemaphoreSlim worker = new SemaphoreSlim(1, 1);
+		//private SemaphoreSlim worker = new SemaphoreSlim(1, 1);
 
 		/// <summary>
 		/// Gets whether the service is loaded.
@@ -20,11 +20,11 @@ namespace IdApp.Services
 		/// <returns><c>true</c> if the service will load, <c>false</c> otherwise.</returns>
 		protected bool BeginLoad(CancellationToken cancellationToken)
 		{
-			this.worker.Wait();
+			//this.worker.Wait();
 
 			if (this.IsLoaded)
 			{
-				this.worker.Release();
+				//this.worker.Release();
 				return false;
 			}
 
@@ -41,7 +41,7 @@ namespace IdApp.Services
 		protected void EndLoad(bool isLoaded)
 		{
 			IsLoaded = isLoaded;
-			this.worker.Release();
+			//this.worker.Release();
 
 			OnLoaded(new LoadedEventArgs(IsLoaded));
 		}
@@ -52,11 +52,11 @@ namespace IdApp.Services
 		/// <returns><c>true</c> if the service will unload, <c>false</c> otherwise.</returns>
 		protected bool BeginUnload()
 		{
-			this.worker.Wait();
+			//this.worker.Wait();
 
 			if (!this.IsLoaded)
 			{
-				this.worker.Release();
+				//this.worker.Release();
 				return false;
 			}
 
@@ -70,7 +70,7 @@ namespace IdApp.Services
 		protected void EndUnload()
 		{
 			IsLoaded = false;
-			this.worker.Release();
+			//this.worker.Release();
 
 			OnLoaded(new LoadedEventArgs(IsLoaded));
 		}
