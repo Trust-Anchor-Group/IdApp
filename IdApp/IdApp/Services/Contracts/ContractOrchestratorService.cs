@@ -336,18 +336,29 @@ namespace IdApp.Services.Contracts
 					}
 					else if (identity.State == IdentityState.Approved && !await this.XmppService.Contracts.HasPrivateKey(identity.Id))
 					{
-						userMessage = AppResources.YourLegalIdentityHasInvalidOrMissingKeys;
-						try
-						{
-							identity = await this.XmppService.Contracts.ObsoleteLegalIdentity(identity.Id);
-						}
-						catch (Exception ex)
-						{
-							this.LogService.LogException(ex);
-						}
+						bool Response = await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.UnableToGetAccessToYourPrivateKeys,
+							AppResources.Accept, AppResources.Cancel);
 
-						this.TagProfile.RevokeLegalIdentity(identity);
-						gotoRegistrationPage = true;
+						if (Response)
+						{
+							userMessage = AppResources.YourLegalIdentityHasInvalidOrMissingKeys;
+							try
+							{
+								identity = await this.XmppService.Contracts.ObsoleteLegalIdentity(identity.Id);
+							}
+							catch (Exception ex)
+							{
+								this.LogService.LogException(ex);
+							}
+
+							this.TagProfile.RevokeLegalIdentity(identity);
+							gotoRegistrationPage = true;
+						}
+						else
+						{
+							await App.Stop();
+							return;
+						}
 					}
 					else
 					{

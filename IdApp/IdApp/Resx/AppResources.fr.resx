@@ -1614,4 +1614,7 @@
   <data name="XmlNote" xml:space="preserve">
     <value>Remarque XML</value>
   </data>
+  <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
+    <value>L’application n’a pas pu accéder aux clés privées de l’identité. Cela signifie généralement que l’identité a été modifiée en dehors de la portée de l’application. Pour continuer, l’application doit présenter une nouvelle demande d’identité. Appuyez sur le bouton Accepter pour présenter une nouvelle demande. Vous pouvez également annuler cette opération. Dans ce cas, l’identité est conservée, mais l’application est fermée. Si le problème est temporaire, vous pouvez redémarrer l’application ultérieurement et vérifier à nouveau.</value>
+  </data>
 </root>

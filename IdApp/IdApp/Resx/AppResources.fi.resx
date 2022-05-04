@@ -1614,4 +1614,7 @@
   <data name="XmlNote" xml:space="preserve">
     <value>XML-huomautus</value>
   </data>
+  <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
+    <value>Sovellus ei voinut käyttää henkilöllisyyden yksityisiä avaimia. Tämä tarkoittaa yleensä sitä, että käyttäjätietoja on muutettu sovelluksen soveltamisalan ulkopuolella. Jotta sovellus voi jatkaa, sen on haettava uutta identiteettiä uudelleen. Ota uudelleen käyttöön painamalla Hyväksy-painiketta. Voit myös peruuttaa tämän toiminnon. Tällöin henkilöllisyys säilytetään, mutta sovellus on suljettu. Jos ongelma on tilapäinen, voit käynnistää sovelluksen uudelleen myöhemmin ja tarkistaa uudelleen.</value>
+  </data>
 </root>

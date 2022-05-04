@@ -1614,4 +1614,7 @@
   <data name="XmlNote" xml:space="preserve">
     <value>XML-notat</value>
   </data>
+  <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
+    <value>Programmet kan ikke få tilgang til de private nøklene for identiteten. Dette betyr vanligvis at identiteten er endret utenfor appens omfang. For å fortsette må appen søke på nytt om en ny identitet. Trykk godta-knappen for å bruke på nytt. Du kan også avbryte denne operasjonen. I så fall beholdes identiteten, men appen lukkes. Hvis problemet er et midlertidig problem, kan du starte appen på nytt senere og sjekke på nytt.</value>
+  </data>
 </root>

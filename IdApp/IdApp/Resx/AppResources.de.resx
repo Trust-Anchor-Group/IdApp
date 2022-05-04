@@ -1614,4 +1614,7 @@
   <data name="XmlNote" xml:space="preserve">
     <value>XML-Hinweis</value>
   </data>
+  <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
+    <value>Die Anwendung konnte nicht auf die privaten Schlüssel der Identität zugreifen. Dies bedeutet in der Regel, dass die Identität außerhalb des Anwendungsbereichs geändert wurde. Um fortzufahren, muss die App erneut eine neue Identität beantragen. Klicken Sie auf die Schaltfläche Akzeptieren, um die Anwendung erneut zu übernehmen. Sie können diesen Vorgang auch abbrechen. In diesem Fall wird die Identität beibehalten, aber die App wird geschlossen. Wenn es sich bei dem Problem um ein vorübergehendes Problem handelt, können Sie die App später neu starten und erneut überprüfen.</value>
+  </data>
 </root>

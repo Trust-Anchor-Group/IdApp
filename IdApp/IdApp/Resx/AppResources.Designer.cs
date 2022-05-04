@@ -3949,6 +3949,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The application was unable to get access to the private keys of the identity. This typically means the identity has been changed outside of the scope of the app. To continue, the app needs to reapply for a new identity. Press the Accept button to reapply. You can also cancel this operation. In that case, the identity is kept, but the app is closed. If the problem is a temporary problem, you can restart the app later and check again..
+        /// </summary>
+        internal static string UnableToGetAccessToYourPrivateKeys {
+            get {
+                return ResourceManager.GetString("UnableToGetAccessToYourPrivateKeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to get list of my devices..
         /// </summary>
         internal static string UnableToGetListOfMyDevices {

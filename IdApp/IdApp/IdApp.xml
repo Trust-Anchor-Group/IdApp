@@ -4773,7 +4773,7 @@
         </member>
         <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoSource">
             <summary>
-            Gets or sets whether the <see cref="!:"/> property is for review.
+            Image source of the first photo in the identity of the requestor.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoRotationProperty">
@@ -4783,7 +4783,7 @@
         </member>
         <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoRotation">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Country"/> property is for review.
+            Rotation of the first photo in the identity of the requestor.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Identity.TransferIdentity.TransferIdentityNavigationArgs">
@@ -5546,7 +5546,7 @@
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstPhotoSource">
             <summary>
-            Gets or sets whether the <see cref="!:"/> property is for review.
+            Image source of the first photo in the identity.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstPhotoRotationProperty">
@@ -5556,7 +5556,7 @@
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstPhotoRotation">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Country"/> property is for review.
+            Rotation of the first photo in the identity.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Loading.LoadingPage">
@@ -13381,6 +13381,11 @@
         <member name="P:IdApp.Resx.AppResources.UnableToExtractMachineReadableString">
             <summary>
               Looks up a localized string similar to Unable to extract machine-readable text from image..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.UnableToGetAccessToYourPrivateKeys">
+            <summary>
+              Looks up a localized string similar to The application was unable to get access to the private keys of the identity. This typically means the identity has been changed outside of the scope of the app. To continue, the app needs to reapply for a new identity. Press the Accept button to reapply. You can also cancel this operation. In that case, the identity is kept, but the app is closed. If the problem is a temporary problem, you can restart the app later and check again..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.UnableToGetListOfMyDevices">

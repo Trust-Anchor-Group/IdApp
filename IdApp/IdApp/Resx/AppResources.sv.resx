@@ -1413,6 +1413,9 @@
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Kunde inte extrahera den maskinläsbara texten från bilden.</value>
   </data>
+  <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
+    <value>Applikationen kunde inte komma åt de privata nycklarna för identiteten. Detta betyder vanligtvis att identiteten har ändrats utanför appen. För att fortsätta, måste appen ansöka om en ny identitet. Tryck på Acceptera-knappen för att göra en ny ansökan. Du kan också avbryta denna operation. I det fallet, kommer identiteten att behållas, men appen stängs. Om problemet är ett tillfälligt problem, kan du starta om appen senare, och försöka igen.</value>
+  </data>
   <data name="UnableToGetListOfMyDevices" xml:space="preserve">
     <value>Kunde inte hämta listan över mina enheter.</value>
   </data>

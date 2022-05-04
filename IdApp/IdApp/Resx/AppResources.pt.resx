@@ -1614,4 +1614,7 @@
   <data name="XmlNote" xml:space="preserve">
     <value>Nota XML</value>
   </data>
+  <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
+    <value>O aplicativo não teve acesso às chaves privadas da identidade. Isso normalmente significa que a identidade foi alterada fora do escopo do aplicativo. Para continuar, o aplicativo precisa se recandidatar para uma nova identidade. Pressione o botão Aceitar para reaplicar. Você também pode cancelar esta operação. Nesse caso, a identidade é mantida, mas o aplicativo está fechado. Se o problema for um problema temporário, você pode reiniciar o aplicativo mais tarde e verificar novamente.</value>
+  </data>
 </root>

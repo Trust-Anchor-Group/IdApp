@@ -1614,4 +1614,7 @@
   <data name="XmlNote" xml:space="preserve">
     <value>XML Note</value>
   </data>
+  <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
+    <value>The application was unable to get access to the private keys of the identity. This typically means the identity has been changed outside of the scope of the app. To continue, the app needs to reapply for a new identity. Press the Accept button to reapply. You can also cancel this operation. In that case, the identity is kept, but the app is closed. If the problem is a temporary problem, you can restart the app later and check again.</value>
+  </data>
 </root>
