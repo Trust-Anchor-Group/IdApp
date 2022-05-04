@@ -509,7 +509,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             BindableProperty.Create(nameof(FirstPhotoSource), typeof(ImageSource), typeof(PetitionIdentityViewModel), default(ImageSource));
 
         /// <summary>
-        /// Gets or sets whether the <see cref=""/> property is for review.
+        /// Image source of the first photo in the identity of the requestor.
         /// </summary>
         public ImageSource FirstPhotoSource
         {
@@ -524,7 +524,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             BindableProperty.Create(nameof(FirstPhotoRotation), typeof(int), typeof(PetitionIdentityViewModel), default(int));
 
         /// <summary>
-        /// Gets or sets whether the <see cref="Country"/> property is for review.
+        /// Rotation of the first photo in the identity of the requestor.
         /// </summary>
         public int FirstPhotoRotation
         {
