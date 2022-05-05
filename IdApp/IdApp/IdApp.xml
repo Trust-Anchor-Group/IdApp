@@ -14775,28 +14775,38 @@
             Gets whether the service is loaded.
             </summary>
         </member>
+        <member name="P:IdApp.Services.LoadableService.IsLoading">
+            <summary>
+            Gets whether the service is being loaded.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.LoadableService.IsUnloading">
+            <summary>
+            Gets whether the service is being unloaded.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.LoadableService.BeginLoad(System.Threading.CancellationToken)">
             <summary>
-            Sets the <see cref="!:IsLoading"/> flag if the service isn't already loading.
+            Sets the <see cref="P:IdApp.Services.LoadableService.IsLoading"/> flag if the service isn't already loading.
             </summary>
             <returns><c>true</c> if the service will load, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:IdApp.Services.LoadableService.EndLoad(System.Boolean)">
             <summary>
-            Sets the <see cref="!:IsLoading"/> and <see cref="P:IdApp.Services.LoadableService.IsLoaded"/> flags and fires an event
+            Sets the <see cref="P:IdApp.Services.LoadableService.IsLoading"/> and <see cref="P:IdApp.Services.LoadableService.IsLoaded"/> flags and fires an event
             representing the current load state of the service.
             </summary>
             <param name="isLoaded">The current loaded state to set.</param>
         </member>
         <member name="M:IdApp.Services.LoadableService.BeginUnload">
             <summary>
-            Sets the <see cref="!:IsLoading"/> flag if the service isn't already unloading.
+            Sets the <see cref="P:IdApp.Services.LoadableService.IsLoading"/> flag if the service isn't already unloading.
             </summary>
             <returns><c>true</c> if the service will unload, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:IdApp.Services.LoadableService.EndUnload">
             <summary>
-            Sets the <see cref="!:IsLoading"/> and <see cref="P:IdApp.Services.LoadableService.IsLoaded"/> flags and fires an event
+            Sets the <see cref="P:IdApp.Services.LoadableService.IsLoading"/> and <see cref="P:IdApp.Services.LoadableService.IsLoaded"/> flags and fires an event
             representing the current load state of the service.
             </summary>
         </member>

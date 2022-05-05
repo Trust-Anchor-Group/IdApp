@@ -15,6 +15,16 @@ namespace IdApp.Services
 		public bool IsLoaded { get; protected set; }
 
 		/// <summary>
+		/// Gets whether the service is being loaded.
+		/// </summary>
+		public bool IsLoading { get; protected set; }
+
+		/// <summary>
+		/// Gets whether the service is being unloaded.
+		/// </summary>
+		public bool IsUnloading { get; protected set; }
+
+		/// <summary>
 		/// Sets the <see cref="IsLoading"/> flag if the service isn't already loading.
 		/// </summary>
 		/// <returns><c>true</c> if the service will load, <c>false</c> otherwise.</returns>
@@ -28,6 +38,8 @@ namespace IdApp.Services
 				return false;
 			}
 
+			this.IsLoading = true;
+
 			cancellationToken.ThrowIfCancellationRequested();
 
 			return true;
@@ -40,7 +52,9 @@ namespace IdApp.Services
 		/// <param name="isLoaded">The current loaded state to set.</param>
 		protected void EndLoad(bool isLoaded)
 		{
-			IsLoaded = isLoaded;
+			this.IsLoaded = isLoaded;
+			this.IsLoading = false;
+
 			//this.worker.Release();
 
 			OnLoaded(new LoadedEventArgs(IsLoaded));
@@ -60,6 +74,8 @@ namespace IdApp.Services
 				return false;
 			}
 
+			this.IsUnloading = true;
+
 			return true;
 		}
 
@@ -69,7 +85,9 @@ namespace IdApp.Services
 		/// </summary>
 		protected void EndUnload()
 		{
-			IsLoaded = false;
+			this.IsLoaded = false;
+			this.IsUnloading = false;
+
 			//this.worker.Release();
 
 			OnLoaded(new LoadedEventArgs(IsLoaded));

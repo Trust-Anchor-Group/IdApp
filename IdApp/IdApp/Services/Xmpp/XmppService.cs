@@ -500,7 +500,7 @@ namespace IdApp.Services.Xmpp
 
 				case XmppState.Offline:
 				case XmppState.Error:
-					if (this.xmppConnected)
+					if (this.xmppConnected && !this.IsUnloading)
 					{
 						this.xmppConnected = false;
 						this.xmppClient?.Reconnect();
@@ -616,19 +616,27 @@ namespace IdApp.Services.Xmpp
 				{
 					this.TagProfile.StepChanged -= TagProfile_StepChanged;
 
-					if (!(this.xmppClient is null) && !fast)
+					this.reconnectTimer?.Dispose();
+					this.reconnectTimer = null;
+
+					if (!(this.xmppClient is null))
 					{
-						try
+						this.xmppClient.CheckConnection = false;
+
+						if (!fast)
 						{
-							await Task.WhenAny(new Task[]
+							try
 							{
-								this.xmppClient.SetPresenceAsync(Availability.Offline),
-								Task.Delay(1000)	// Wait at most 1000 ms.
-							});
-						}
-						catch (Exception)
-						{
-							// Ignore
+								await Task.WhenAny(new Task[]
+								{
+									this.xmppClient.SetPresenceAsync(Availability.Offline),
+									Task.Delay(1000)    // Wait at most 1000 ms.
+								});
+							}
+							catch (Exception)
+							{
+								// Ignore
+							}
 						}
 					}
 
