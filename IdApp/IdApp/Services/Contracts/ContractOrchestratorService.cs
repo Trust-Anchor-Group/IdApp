@@ -20,6 +20,7 @@ using IdApp.Resx;
 using System.Threading;
 using Waher.Persistence;
 using System.Xml;
+using System.IO;
 
 namespace IdApp.Services.Contracts
 {
@@ -339,38 +340,25 @@ namespace IdApp.Services.Contracts
 					}
 					else if (identity.State == IdentityState.Approved && !await this.XmppService.Contracts.HasPrivateKey(identity.Id))
 					{
-						StringBuilder sb = new StringBuilder();
-						using XmlWriter w = XmlWriter.Create(sb);
+						bool Response = await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.UnableToGetAccessToYourPrivateKeys,
+							AppResources.Continue, AppResources.Repair);
 
-						await Database.Repair(w, string.Empty, this.StorageService.DataFolder, true);   // Double check, to be sure
-
-						if (!await this.XmppService.Contracts.HasPrivateKey(identity.Id))
-						{
-							bool Response = await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.UnableToGetAccessToYourPrivateKeys,
-								AppResources.Accept, AppResources.Cancel);
-
-							if (Response)
-							{
-								try
-								{
-									identity = await this.XmppService.Contracts.ObsoleteLegalIdentity(identity.Id);
-								}
-								catch (Exception ex)
-								{
-									this.LogService.LogException(ex);
-								}
-
-								this.TagProfile.RevokeLegalIdentity(identity);
-								gotoRegistrationPage = true;
-							}
-							else
-							{
-								await App.Stop();
-								return;
-							}
-						}
-						else
+						if (Response)
 							this.TagProfile.SetLegalIdentity(identity);
+						else
+						{
+							try
+							{
+								File.WriteAllText(Path.Combine(this.StorageService.DataFolder, "Start.txt"), DateTime.Now.AddHours(1).Ticks.ToString());
+							}
+							catch (Exception ex)
+							{
+								this.LogService.LogException(ex);
+							}
+
+							await App.Stop();
+							return;
+						}
 					}
 					else
 						this.TagProfile.SetLegalIdentity(identity);

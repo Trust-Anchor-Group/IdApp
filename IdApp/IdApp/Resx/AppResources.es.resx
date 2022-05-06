@@ -1615,6 +1615,9 @@
     <value>Nota XML</value>
   </data>
   <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
-    <value>La aplicación no pudo obtener acceso a las claves privadas de la identidad. Esto normalmente significa que la identidad se ha cambiado fuera del ámbito de la aplicación. Para continuar, la aplicación debe volver a solicitar una nueva identidad. Pulse el botón Aceptar para volver a aplicar. También puede cancelar esta operación. En ese caso, se mantiene la identidad, pero la aplicación se cierra. Si el problema es un problema temporal, puede reiniciar la aplicación más tarde y volver a comprobarlo.</value>
+    <value>La aplicación no pudo obtener acceso a las claves privadas de la identidad. Esto normalmente significa que la identidad se ha cambiado fuera del ámbito de la aplicación. También puede ser el resultado de una corrupción de datos. Puedes probar una de dos cosas. Pulse el botón Continuar, para continuar, sin las teclas privadas. Obtienes acceso a la aplicación, pero no puedes firmar nada. A continuación, puede optar por volver a solicitar una nueva identidad desde el menú principal, con nuevas claves privadas. También puede intentar reparar la base de datos, presionando el botón Reparar. En este último caso, la aplicación se cierra y la próxima vez que se abre, primero se intenta un procedimiento de reparación.</value>
+  </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Reparar</value>
   </data>
 </root>

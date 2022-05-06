@@ -1615,6 +1615,9 @@
     <value>XML napomena</value>
   </data>
   <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
-    <value>Aplikacija nije mogla da dobije pristup privatnim ključevima identiteta. To obično znači da je identitet promenjen izvan opsega aplikacije. Da biste nastavili, aplikacija mora ponovo da se primenite za novi identitet. Pritisnite dugme Prihvati da biste ponovo primeniti. Takođe možete da otkažete ovu operaciju. U tom slučaju, identitet se čuva, ali je aplikacija zatvorena. Ako je problem privremeni problem, kasnije možete ponovo pokrenuti aplikaciju i proveriti ponovo.</value>
+    <value>Aplikacija nije mogla da dobije pristup privatnim ključevima identiteta. To obično znači da je identitet promenjen izvan opsega aplikacije. To takođe može biti rezultat oštećenja podataka. Možeš da probaš jednu od dve stvari. Pritisnite dugme Nastavi, da biste nastavili bez privatnih tastera. Dobijate pristup aplikaciji, ali ne možete ništa da potpišete. Zatim možete odabrati da ponovo primenite novi identitet iz glavnog menija, sa novim privatnim ključevima. Bazu podataka možete da pokušate i tako što ćete pritisnuti dugme "Popravi". U ovom drugom slučaju, aplikacija je zatvorena, a sledeći put kada se aplikacija otvori, prvo se pokuša procedura popravke.</value>
+  </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Popravi</value>
   </data>
 </root>

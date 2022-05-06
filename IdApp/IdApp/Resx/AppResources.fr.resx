@@ -1615,6 +1615,9 @@
     <value>Remarque XML</value>
   </data>
   <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
-    <value>L’application n’a pas pu accéder aux clés privées de l’identité. Cela signifie généralement que l’identité a été modifiée en dehors de la portée de l’application. Pour continuer, l’application doit présenter une nouvelle demande d’identité. Appuyez sur le bouton Accepter pour présenter une nouvelle demande. Vous pouvez également annuler cette opération. Dans ce cas, l’identité est conservée, mais l’application est fermée. Si le problème est temporaire, vous pouvez redémarrer l’application ultérieurement et vérifier à nouveau.</value>
+    <value>L’application n’a pas pu accéder aux clés privées de l’identité. Cela signifie généralement que l’identité a été modifiée en dehors de la portée de l’application. Cela peut également être le résultat d’une corruption des données. Vous pouvez essayer l’une des deux choses suivantes. Appuyez sur le bouton Continuer, pour continuer, sans les touches privées. Vous avez accès à l’application, mais vous ne pouvez rien signer. Vous pouvez ensuite choisir de demander à nouveau une nouvelle identité dans le menu principal, avec de nouvelles clés privées. Vous pouvez également essayer de réparer la base de données en appuyant sur le bouton Réparer. Dans ce dernier cas, l’application est fermée et la prochaine fois que l’application est ouverte, une procédure de réparation est d’abord tentée.</value>
+  </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Réparer</value>
   </data>
 </root>

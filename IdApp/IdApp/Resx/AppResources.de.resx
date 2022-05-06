@@ -1615,6 +1615,9 @@
     <value>XML-Hinweis</value>
   </data>
   <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
-    <value>Die Anwendung konnte nicht auf die privaten Schlüssel der Identität zugreifen. Dies bedeutet in der Regel, dass die Identität außerhalb des Anwendungsbereichs geändert wurde. Um fortzufahren, muss die App erneut eine neue Identität beantragen. Klicken Sie auf die Schaltfläche Akzeptieren, um die Anwendung erneut zu übernehmen. Sie können diesen Vorgang auch abbrechen. In diesem Fall wird die Identität beibehalten, aber die App wird geschlossen. Wenn es sich bei dem Problem um ein vorübergehendes Problem handelt, können Sie die App später neu starten und erneut überprüfen.</value>
+    <value>Die Anwendung konnte nicht auf die privaten Schlüssel der Identität zugreifen. Dies bedeutet in der Regel, dass die Identität außerhalb des Anwendungsbereichs geändert wurde. Es kann auch das Ergebnis einer Beschädigung von Daten sein. Sie können eines von zwei Dingen ausprobieren. Drücken Sie die Weiter-Taste, um fortzufahren, ohne die privaten Tasten. Sie erhalten Zugriff auf die App, können aber nichts unterschreiben. Sie können dann im Hauptmenü erneut eine neue Identität mit neuen privaten Schlüsseln beantragen. Sie können auch versuchen, die Datenbank zu reparieren, indem Sie auf die Schaltfläche Reparieren klicken. Im letzteren Fall wird die App geschlossen, und beim nächsten Öffnen der App wird zuerst ein Reparaturvorgang versucht.</value>
+  </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Reparieren</value>
   </data>
 </root>

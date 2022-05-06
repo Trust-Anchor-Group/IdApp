@@ -1083,6 +1083,9 @@
   <data name="RemoveSubscription2" xml:space="preserve">
     <value>Vill du ta tillbaka detta godkännande också?</value>
   </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Reparera</value>
+  </data>
   <data name="RepairAndContinue" xml:space="preserve">
     <value>Reparera och fortsätt</value>
   </data>
@@ -1414,7 +1417,7 @@
     <value>Kunde inte extrahera den maskinläsbara texten från bilden.</value>
   </data>
   <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
-    <value>Applikationen kunde inte komma åt de privata nycklarna för identiteten. Detta betyder vanligtvis att identiteten har ändrats utanför appen. För att fortsätta, måste appen ansöka om en ny identitet. Tryck på Acceptera-knappen för att göra en ny ansökan. Du kan också avbryta denna operation. I det fallet, kommer identiteten att behållas, men appen stängs. Om problemet är ett tillfälligt problem, kan du starta om appen senare, och försöka igen.</value>
+    <value>Applikationen kunde inte komma åt de privata nycklarna till identiteten. Detta händer vanligtvis om identiteten har ändrats utaför applikationen. Det kan också vara ett resultat av korruption av datat. Du kan försöka en av två saker. Tryck på Fortsätt-knappen för att fortsätta utan de privata nycklarna. Du kommer åt appen, men kan inte signera något. Du kan sedan välja att ansöka om en ny identitet från huvudmenyn, med nya privata nycklar. Du kan också försöka att reparera databasen, genom att trycka på Reparera-knappen. I det senare fallet, kommer applikationen att stängas, och nästa gång den öppnas kommer en reparation-procedur att startas.</value>
   </data>
   <data name="UnableToGetListOfMyDevices" xml:space="preserve">
     <value>Kunde inte hämta listan över mina enheter.</value>

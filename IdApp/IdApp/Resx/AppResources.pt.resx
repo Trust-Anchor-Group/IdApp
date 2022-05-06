@@ -1615,6 +1615,9 @@
     <value>Nota XML</value>
   </data>
   <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
-    <value>O aplicativo não teve acesso às chaves privadas da identidade. Isso normalmente significa que a identidade foi alterada fora do escopo do aplicativo. Para continuar, o aplicativo precisa se recandidatar para uma nova identidade. Pressione o botão Aceitar para reaplicar. Você também pode cancelar esta operação. Nesse caso, a identidade é mantida, mas o aplicativo está fechado. Se o problema for um problema temporário, você pode reiniciar o aplicativo mais tarde e verificar novamente.</value>
+    <value>O aplicativo não teve acesso às chaves privadas da identidade. Isso normalmente significa que a identidade foi alterada fora do escopo do aplicativo. Também pode ser resultado de uma corrupção de dados. Você pode tentar uma de duas coisas. Pressione o botão Continuar, para continuar, sem as chaves privadas. Você tem acesso ao aplicativo, mas não pode assinar nada. Em seguida, você pode optar por reaplicar para uma nova identidade no menu principal, com novas chaves privadas. Você também pode tentar reparar o banco de dados, pressionando o botão Reparar. Neste último caso, o aplicativo é fechado, e na próxima vez que o aplicativo é aberto, um procedimento de reparo é tentado pela primeira vez.</value>
+  </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Reparar</value>
   </data>
 </root>

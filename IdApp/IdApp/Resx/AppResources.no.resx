@@ -1615,6 +1615,9 @@
     <value>XML-notat</value>
   </data>
   <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
-    <value>Programmet kan ikke få tilgang til de private nøklene for identiteten. Dette betyr vanligvis at identiteten er endret utenfor appens omfang. For å fortsette må appen søke på nytt om en ny identitet. Trykk godta-knappen for å bruke på nytt. Du kan også avbryte denne operasjonen. I så fall beholdes identiteten, men appen lukkes. Hvis problemet er et midlertidig problem, kan du starte appen på nytt senere og sjekke på nytt.</value>
+    <value>Programmet kan ikke få tilgang til de private nøklene for identiteten. Dette betyr vanligvis at identiteten er endret utenfor appens omfang. Det kan også være et resultat av en korrupsjon av data. Du kan prøve en av to ting. Trykk på Fortsett-knappen for å fortsette uten de private tastene. Du får tilgang til appen, men kan ikke signere noe. Du kan deretter velge å søke på nytt for en ny identitet fra hovedmenyen, med nye private nøkler. Du kan også prøve å reparere databasen ved å trykke reparer-knappen. I sistnevnte tilfelle lukkes appen, og neste gang appen åpnes, forsøkes det først en reparasjonsprosedyre.</value>
+  </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Reparasjon</value>
   </data>
 </root>

@@ -1615,6 +1615,9 @@
     <value>XML-bemærkning</value>
   </data>
   <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
-    <value>Applikationen kunne ikke få adgang til de private nøgler til identiteten. Det betyder typisk, at identiteten er blevet ændret uden for appens anvendelsesområde. For at fortsætte skal appen ansøge om en ny identitet igen. Tryk på knappen Accepter for at ansøge igen. Du kan også annullere denne handling. I så fald bevares identiteten, men appen lukkes. Hvis problemet er et midlertidigt problem, kan du genstarte appen senere og tjekke igen.</value>
+    <value>Applikationen kunne ikke få adgang til de private nøgler til identiteten. Det betyder typisk, at identiteten er blevet ændret uden for appens anvendelsesområde. Det kan også være et resultat af en korruption af data. Du kan prøve en af to ting. Tryk på knappen Fortsæt for at fortsætte uden de private taster. Du får adgang til appen, men kan ikke underskrive noget. Du kan derefter vælge at ansøge om en ny identitet igen fra hovedmenuen med nye private nøgler. Du kan også prøve at reparere databasen ved at trykke på knappen Reparer. I sidstnævnte tilfælde lukkes appen, og næste gang appen åbnes, forsøges der først en reparationsprocedure.</value>
+  </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Reparere</value>
   </data>
 </root>
