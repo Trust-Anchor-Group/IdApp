@@ -3446,6 +3446,11 @@
             The contract to display.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.RequestorIdentity">
+            <summary>
+            Requestor Identity object
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.CreatedProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.Created"/>
@@ -3654,6 +3659,26 @@
         <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.Purpose">
             <summary>
             What's the purpose of the petition?
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.FirstPhotoSourceProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.FirstPhotoSource"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.FirstPhotoSource">
+            <summary>
+            Image source of the first photo in the identity of the requestor.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.FirstPhotoRotationProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.FirstPhotoRotation"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.FirstPhotoRotation">
+            <summary>
+            Rotation of the first photo in the identity of the requestor.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureNavigationArgs">

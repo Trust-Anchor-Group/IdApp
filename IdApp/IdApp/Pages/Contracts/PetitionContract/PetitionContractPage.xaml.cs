@@ -43,7 +43,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
 
         private void Image_Tapped(object sender, EventArgs e)
         {
-            Attachment[] attachments = this.GetViewModel<PetitionContractViewModel>().RequestedContract?.Attachments;
+            Attachment[] attachments = this.GetViewModel<PetitionContractViewModel>().RequestorIdentity?.Attachments;
             this.PhotoViewer.ShowPhotos(attachments);
         }
     }
