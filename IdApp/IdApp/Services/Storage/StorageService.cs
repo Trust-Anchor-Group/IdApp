@@ -32,6 +32,11 @@ namespace IdApp.Services.Storage
 			this.dataFolder = Path.Combine(appDataFolder, "Data");
 		}
 
+		/// <summary>
+		/// Folder for database.
+		/// </summary>
+		public string DataFolder => this.dataFolder;
+
 		#region LifeCycle management
 
 		/// <inheritdoc />

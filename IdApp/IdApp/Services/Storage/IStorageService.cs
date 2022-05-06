@@ -13,6 +13,11 @@ namespace IdApp.Services.Storage
     [DefaultImplementation(typeof(StorageService))]
     public interface IStorageService
     {
+        /// <summary>
+        /// Folder for database.
+        /// </summary>
+        string DataFolder { get; }
+
         #region LifeCycle management
 
         /// <summary>

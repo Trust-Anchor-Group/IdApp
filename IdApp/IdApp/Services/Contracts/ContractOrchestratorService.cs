@@ -18,6 +18,8 @@ using Waher.Runtime.Inventory;
 using IdApp.Services.Xmpp;
 using IdApp.Resx;
 using System.Threading;
+using Waher.Persistence;
+using System.Xml;
 
 namespace IdApp.Services.Contracts
 {
@@ -337,35 +339,41 @@ namespace IdApp.Services.Contracts
 					}
 					else if (identity.State == IdentityState.Approved && !await this.XmppService.Contracts.HasPrivateKey(identity.Id))
 					{
-						bool Response = await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.UnableToGetAccessToYourPrivateKeys,
-							AppResources.Accept, AppResources.Cancel);
+						StringBuilder sb = new StringBuilder();
+						using XmlWriter w = XmlWriter.Create(sb);
 
-						if (Response)
+						await Database.Repair(w, string.Empty, this.StorageService.DataFolder, true);   // Double check, to be sure
+
+						if (!await this.XmppService.Contracts.HasPrivateKey(identity.Id))
 						{
-							try
-							{
-								identity = await this.XmppService.Contracts.ObsoleteLegalIdentity(identity.Id);
-							}
-							catch (Exception ex)
-							{
-								this.LogService.LogException(ex);
-							}
+							bool Response = await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.UnableToGetAccessToYourPrivateKeys,
+								AppResources.Accept, AppResources.Cancel);
 
-							this.TagProfile.RevokeLegalIdentity(identity);
-							gotoRegistrationPage = true;
+							if (Response)
+							{
+								try
+								{
+									identity = await this.XmppService.Contracts.ObsoleteLegalIdentity(identity.Id);
+								}
+								catch (Exception ex)
+								{
+									this.LogService.LogException(ex);
+								}
+
+								this.TagProfile.RevokeLegalIdentity(identity);
+								gotoRegistrationPage = true;
+							}
+							else
+							{
+								await App.Stop();
+								return;
+							}
 						}
 						else
-						{
-							await App.EvaluateDatabaseDiff("ChangesSinceLast.xml", false, true);	// TODO: To be removed when issue with lost keys has been solved
-							await App.Stop();
-							return;
-						}
+							this.TagProfile.SetLegalIdentity(identity);
 					}
 					else
-					{
-						await App.EvaluateDatabaseDiff("ChangesSinceLast.xml", false, false);   // TODO: To be removed when issue with lost keys has been solved
 						this.TagProfile.SetLegalIdentity(identity);
-					}
 
 					if (gotoRegistrationPage)
 					{

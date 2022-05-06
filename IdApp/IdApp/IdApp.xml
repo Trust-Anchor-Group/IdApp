@@ -15698,6 +15698,11 @@
             Wraps the <see cref="T:Waher.Persistence.Database"/> for easy access to persistent encrypted storage. Use this for any sensitive data.
             </summary>
         </member>
+        <member name="P:IdApp.Services.Storage.IStorageService.DataFolder">
+            <summary>
+            Folder for database.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Storage.IStorageService.Init(Waher.Runtime.Profiling.ProfilerThread,System.Nullable{System.Threading.CancellationToken})">
             <summary>
             Initializes the persistent storage on a background task. This call is asynchronous.
@@ -15749,6 +15754,11 @@
         <member name="M:IdApp.Services.Storage.StorageService.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Services.Storage.StorageService"/> class.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Storage.StorageService.DataFolder">
+            <summary>
+            Folder for database.
             </summary>
         </member>
         <member name="M:IdApp.Services.Storage.StorageService.Init(Waher.Runtime.Profiling.ProfilerThread,System.Nullable{System.Threading.CancellationToken})">
