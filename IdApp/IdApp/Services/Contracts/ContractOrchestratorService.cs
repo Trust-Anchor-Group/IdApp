@@ -322,6 +322,7 @@ namespace IdApp.Services.Contracts
 				{
 					string userMessage = null;
 					bool gotoRegistrationPage = false;
+
 					if (identity.State == IdentityState.Compromised)
 					{
 						userMessage = AppResources.YourLegalIdentityHasBeenCompromised;
@@ -341,7 +342,6 @@ namespace IdApp.Services.Contracts
 
 						if (Response)
 						{
-							userMessage = AppResources.YourLegalIdentityHasInvalidOrMissingKeys;
 							try
 							{
 								identity = await this.XmppService.Contracts.ObsoleteLegalIdentity(identity.Id);
@@ -356,12 +356,14 @@ namespace IdApp.Services.Contracts
 						}
 						else
 						{
+							await App.EvaluateDatabaseDiff("ChangesSinceLast.xml", false, true);	// TODO: To be removed when issue with lost keys has been solved
 							await App.Stop();
 							return;
 						}
 					}
 					else
 					{
+						await App.EvaluateDatabaseDiff("ChangesSinceLast.xml", false, false);   // TODO: To be removed when issue with lost keys has been solved
 						this.TagProfile.SetLegalIdentity(identity);
 					}
 
