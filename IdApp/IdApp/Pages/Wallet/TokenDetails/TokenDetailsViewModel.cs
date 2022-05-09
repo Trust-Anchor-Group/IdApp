@@ -1128,11 +1128,15 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
 
+				NewContractNavigationArgs NewContractArgs = new(Template, true);
+
 				if (Template.ForMachinesLocalName == "Transfer" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
 					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
 					XmlDocument Doc = new();
 					Doc.LoadXml(Template.ForMachines.OuterXml);
+
+					NewContractArgs.SuppressProposal(e.TrustProviderId);
 
 					XmlNamespaceManager NamespaceManager = new(Doc.NameTable);
 					NamespaceManager.AddNamespace("nft", NeuroFeaturesClient.NamespaceNeuroFeatures);
@@ -1181,7 +1185,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					}
 
 					if (!string.IsNullOrEmpty(TokenIdParameter))
-						Template[TokenIdParameter] = this.TokenId.Before("@");
+						Template[TokenIdParameter] = this.TokenId.Before("@");	// TODO: Include domain, for federation
 
 					if (!string.IsNullOrEmpty(CurrencyParameter))
 						Template[CurrencyParameter] = e.Currency;
@@ -1193,7 +1197,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 						Template[OwnershipContractParameter] = this.OwnershipContract;
 				}
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(Template, true));
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs);
 			}
 			catch (Exception ex)
 			{
@@ -1208,16 +1212,21 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
 
+				NewContractNavigationArgs NewContractArgs = new(Template, true);
+
 				if (Template.ForMachinesLocalName == "Transfer" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
 					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
 					XmlDocument Doc = new();
 					Doc.LoadXml(Template.ForMachines.OuterXml);
 
+					NewContractArgs.SuppressProposal(e.TrustProviderId);
+
 					XmlNamespaceManager NamespaceManager = new(Doc.NameTable);
 					NamespaceManager.AddNamespace("nft", NeuroFeaturesClient.NamespaceNeuroFeatures);
 
 					string BuyerRole = Doc.SelectSingleNode("/nft:Transfer/nft:Buyer/nft:RoleReference/@role", NamespaceManager)?.Value;
+					string SellerRole = Doc.SelectSingleNode("/nft:Transfer/nft:Seller/nft:RoleReference/@role", NamespaceManager)?.Value;
 					string TrustProviderRole = Doc.SelectSingleNode("/nft:Transfer/nft:TrustProvider/nft:RoleReference/@role", NamespaceManager)?.Value;
 					string TokenIdParameter = Doc.SelectSingleNode("/nft:Transfer/nft:TokenID/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
 					string CurrencyParameter = Doc.SelectSingleNode("/nft:Transfer/nft:Currency/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
@@ -1234,6 +1243,15 @@ namespace IdApp.Pages.Wallet.TokenDetails
 							{
 								LegalId = this.TagProfile.LegalIdentity.Id,
 								Role = BuyerRole
+							});
+						}
+
+						if (!string.IsNullOrEmpty(SellerRole))
+						{
+							Parts.Add(new Part()
+							{
+								LegalId = this.Owner,
+								Role = SellerRole
 							});
 						}
 
@@ -1255,13 +1273,15 @@ namespace IdApp.Pages.Wallet.TokenDetails
 						{
 							if (Part.Role == BuyerRole)
 								Part.LegalId = this.TagProfile.LegalIdentity.Id;
+							else if (Part.Role == SellerRole)
+								Part.LegalId = this.Owner;
 							else if (Part.Role == TrustProviderRole)
 								Part.LegalId = e.TrustProviderId;
 						}
 					}
 
 					if (!string.IsNullOrEmpty(TokenIdParameter))
-						Template[TokenIdParameter] = this.TokenId;
+						Template[TokenIdParameter] = this.TokenId.Before("@");  // TODO: Include domain, for federation;
 
 					if (!string.IsNullOrEmpty(CurrencyParameter))
 						Template[CurrencyParameter] = e.Currency;
@@ -1273,7 +1293,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 						Template[OwnershipContractParameter] = this.OwnershipContract;
 				}
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(Template, true));
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs);
 			}
 			catch (Exception ex)
 			{

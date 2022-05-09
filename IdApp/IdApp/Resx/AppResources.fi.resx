@@ -1620,4 +1620,7 @@
   <data name="Repair" xml:space="preserve">
     <value>Korjaus</value>
   </data>
+  <data name="EnterProposal" xml:space="preserve">
+    <value>Kirjoita {0} ehdotukseen sisällytettävä teksti tai jätä tyhjäksi, jos ehdotusta ei lähetetä.</value>
+  </data>
 </root>

@@ -1069,6 +1069,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the text to include in the proposal to {0}, or leave blank if a proposal should not be sent..
+        /// </summary>
+        internal static string EnterProposal {
+            get {
+                return ResourceManager.GetString("EnterProposal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred.
         /// </summary>
         internal static string ErrorTitle {

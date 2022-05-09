@@ -3123,6 +3123,17 @@
             If visibility should be set by default.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.SuppressedProposalLegalIds">
+            <summary>
+            Any legal IDs to whom proposals should not be sent. May be null if no proposals should be suppressed.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.SuppressProposal(Waher.Persistence.CaseInsensitiveString)">
+            <summary>
+            Suppresses a proposal for a given Legal ID.
+            </summary>
+            <param name="LegalId">Legal ID to whom a proposal should not be sent.</param>
+        </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.NewContractPage">
             <summary>
             A page that allows the user to create a new contract.
@@ -11809,6 +11820,11 @@
         <member name="P:IdApp.Resx.AppResources.EnterPin">
             <summary>
               Looks up a localized string similar to Enter PIN.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.EnterProposal">
+            <summary>
+              Looks up a localized string similar to Enter the text to include in the proposal to {0}, or leave blank if a proposal should not be sent..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ErrorTitle">

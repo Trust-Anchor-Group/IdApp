@@ -453,6 +453,9 @@
   <data name="EnterPin" xml:space="preserve">
     <value>Ange PIN</value>
   </data>
+  <data name="EnterProposal" xml:space="preserve">
+    <value>Skriv in texten som ska inkluderas i förslaget till {0}, eller lämna tom om inget förslag ska skickas.</value>
+  </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>

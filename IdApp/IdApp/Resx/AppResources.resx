@@ -1620,4 +1620,7 @@
   <data name="Repair" xml:space="preserve">
     <value>Repair</value>
   </data>
+  <data name="EnterProposal" xml:space="preserve">
+    <value>Enter the text to include in the proposal to {0}, or leave blank if a proposal should not be sent.</value>
+  </data>
 </root>

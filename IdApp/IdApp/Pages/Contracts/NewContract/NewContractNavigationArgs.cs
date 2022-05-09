@@ -1,5 +1,7 @@
 ﻿using IdApp.Services.Navigation;
+using System.Collections.Generic;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Persistence;
 
 namespace IdApp.Pages.Contracts.NewContract
 {
@@ -8,6 +10,8 @@ namespace IdApp.Pages.Contracts.NewContract
 	/// </summary>
 	public class NewContractNavigationArgs : NavigationArgs
 	{
+		private List<CaseInsensitiveString> suppressProposals = null;
+
 		/// <summary>
 		/// Creates an instance of the <see cref="NewContractNavigationArgs"/> class.
 		/// </summary>
@@ -37,5 +41,25 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// If visibility should be set by default.
 		/// </summary>
 		public bool SetVisibility { get; }
+
+		/// <summary>
+		/// Any legal IDs to whom proposals should not be sent. May be null if no proposals should be suppressed.
+		/// </summary>
+		public CaseInsensitiveString[] SuppressedProposalLegalIds
+		{
+			get => this.suppressProposals?.ToArray();
+		}
+
+		/// <summary>
+		/// Suppresses a proposal for a given Legal ID.
+		/// </summary>
+		/// <param name="LegalId">Legal ID to whom a proposal should not be sent.</param>
+		public void SuppressProposal(CaseInsensitiveString LegalId)
+		{
+			if (this.suppressProposals is null)
+				this.suppressProposals = new List<CaseInsensitiveString>();
+
+			this.suppressProposals.Add(LegalId);
+		}
 	}
 }

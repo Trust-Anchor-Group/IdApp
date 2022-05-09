@@ -1620,4 +1620,7 @@
   <data name="Repair" xml:space="preserve">
     <value>Popravi</value>
   </data>
+  <data name="EnterProposal" xml:space="preserve">
+    <value>Unesite tekst koji treba uključiti u predlog da {0} ili ostavite prazan ako predlog ne bi trebalo da bude poslat.</value>
+  </data>
 </root>

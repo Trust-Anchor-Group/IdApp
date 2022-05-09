@@ -16,6 +16,7 @@ using IdApp.Services;
 using Waher.Content;
 using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Persistence;
 using Waher.Script;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -30,6 +31,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		private static readonly string PartSettingsPrefix = typeof(NewContractViewModel).FullName + ".Part_";
 
 		private readonly Dictionary<string, ParameterInfo> parametersByName = new();
+		private CaseInsensitiveString[] suppressedProposalIds;
 		private Contract template;
 		private string templateId;
 		private bool saveStateWhileScanning;
@@ -58,6 +60,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			if (this.NavigationService.TryPopArgs(out NewContractNavigationArgs args))
 			{
 				this.template = args.Template;
+				this.suppressedProposalIds = args.SuppressedProposalLegalIds;
 
 				if (args.SetVisibility)
 					Visibility = args.Template.Visibility;
@@ -94,6 +97,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
 				await this.SettingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
 			}
+
 			await base.DoUnbind();
 		}
 
@@ -830,6 +834,26 @@ namespace IdApp.Pages.Contracts.NewContract
 					null, null, false);
 
 				Created = await this.XmppService.Contracts.SignContract(Created, this.SelectedRole, false);
+
+				if (!(Created.Parts is null))
+				{
+					foreach (Part Part in Created.Parts)
+					{
+						if (this.suppressedProposalIds is not null && Array.IndexOf<CaseInsensitiveString>(this.suppressedProposalIds, Part.LegalId) >= 0)
+							continue;
+
+						ContactInfo Info = await ContactInfo.FindByLegalId(Part.LegalId);
+						if (Info is null || string.IsNullOrEmpty(Info.BareJid))
+							continue;
+
+						string Proposal = await this.UiSerializer.DisplayPrompt(AppResources.Proposal,
+							string.Format(AppResources.EnterProposal, Info.FriendlyName), 
+							AppResources.Send, AppResources.Cancel);
+
+						if (!string.IsNullOrEmpty(Proposal))
+							this.XmppService.Contracts.ContractsClient.SendContractProposal(Created.ContractId, Part.Role, Info.BareJid, Proposal);
+					}
+				}
 			}
 			catch (Exception ex)
 			{
@@ -840,7 +864,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			{
 				if (!(Created is null))
 				{
-					await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ViewContract.ViewContractPage), new ViewContractNavigationArgs(Created, false)
+					await this.NavigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(Created, false)
 					{
 						ReturnRoute = "///" + nameof(MainPage)
 					});
