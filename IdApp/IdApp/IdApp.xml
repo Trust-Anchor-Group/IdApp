@@ -8823,6 +8823,9 @@
         <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.DoBind">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>

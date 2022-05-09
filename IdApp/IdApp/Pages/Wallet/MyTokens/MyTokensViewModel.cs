@@ -59,11 +59,57 @@ namespace IdApp.Pages.Wallet.MyTokens
 					else
 						this.HasTokens = false;
 				});
+
+				this.XmppService.Wallet.TokenAdded += Wallet_TokenAdded;
+				this.XmppService.Wallet.TokenRemoved += Wallet_TokenRemoved;
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
 			}
+		}
+
+		/// <inheritdoc/>
+		protected override Task DoUnbind()
+		{
+			this.XmppService.Wallet.TokenAdded -= Wallet_TokenAdded;
+			this.XmppService.Wallet.TokenRemoved -= Wallet_TokenRemoved;
+
+			return base.DoUnbind();
+		}
+
+		private Task Wallet_TokenAdded(object Sender, TokenEventArgs e)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				if (this.Tokens.Count == 0)
+					this.Tokens.Add(new TokenItem(e.Token, this, this.selected));
+				else
+					this.Tokens.Insert(0, new TokenItem(e.Token, this, this.selected));
+			});
+
+			return Task.CompletedTask;
+		}
+
+		private Task Wallet_TokenRemoved(object Sender, TokenEventArgs e)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				int i, c = this.Tokens.Count;
+
+				for (i = 0; i < c; i++)
+				{
+					TokenItem Item = this.Tokens[i];
+
+					if (Item.TokenId == e.Token.TokenId)
+					{
+						this.Tokens.RemoveAt(i);
+						break;
+					}
+				}
+			});
+
+			return Task.CompletedTask;
 		}
 
 		/// <inheritdoc/>

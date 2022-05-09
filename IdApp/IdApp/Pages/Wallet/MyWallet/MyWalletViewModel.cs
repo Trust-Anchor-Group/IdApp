@@ -783,14 +783,38 @@ namespace IdApp.Pages.Wallet.MyWallet
 			}
 		}
 
-		private Task Wallet_TokenRemoved(object Sender, TokenEventArgs e)
-		{
-			return Task.CompletedTask;  // TODO
-		}
-
 		private Task Wallet_TokenAdded(object Sender, TokenEventArgs e)
 		{
-			return Task.CompletedTask;  // TODO
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				if (this.Tokens.Count == 0)
+					this.Tokens.Add(new TokenItem(e.Token, this));
+				else
+					this.Tokens.Insert(0, new TokenItem(e.Token, this));
+			});
+
+			return Task.CompletedTask;
+		}
+
+		private Task Wallet_TokenRemoved(object Sender, TokenEventArgs e)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				int i, c = this.Tokens.Count;
+
+				for (i = 0; i < c; i++)
+				{
+					TokenItem Item = this.Tokens[i];
+
+					if (Item.TokenId == e.Token.TokenId)
+					{
+						this.Tokens.RemoveAt(i);
+						break;
+					}
+				}
+			});
+
+			return Task.CompletedTask;
 		}
 
 	}
