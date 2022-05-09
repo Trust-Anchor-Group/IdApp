@@ -280,7 +280,12 @@ namespace IdApp.Pages.Contacts
 			await QrCode.ScanQrCode(this.NavigationService, AppResources.ScanQRCode, async code =>
 			{
 				if (Constants.UriSchemes.StartsWithIdScheme(code))
-					this.OnSelected(new ContactInfo() { LegalId = Constants.UriSchemes.RemoveScheme(code) });
+				{
+					this.OnSelected(new ContactInfo()
+					{
+						LegalId = Constants.UriSchemes.RemoveScheme(code)
+					});
+				}
 				else
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
 			});
