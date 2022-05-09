@@ -58,9 +58,11 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 ContactInfo Info = await ContactInfo.FindByBareJid(BareJid);
 
                 if (!(Info is null) &&
-                    Info.LegalId != this.requestedIdentityId &&
+                    (Info.LegalIdentity is null || (
+                    Info.LegalId != this.RequestorIdentity.Id &&
+                    Info.LegalIdentity is not null &&
                     Info.LegalIdentity.Created < this.RequestorIdentity.Created &&
-                    this.RequestorIdentity.State == IdentityState.Approved)
+                    this.RequestorIdentity.State == IdentityState.Approved)))
                 {
                     Info.LegalId = this.LegalId;
                     Info.LegalIdentity = this.RequestorIdentity;
@@ -602,7 +604,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                     Info = new ContactInfo()
                     {
                         BareJid = BareJid,
-                        LegalId = this.requestedIdentityId,
+                        LegalId = this.RequestorIdentity.Id,
                         LegalIdentity = this.RequestorIdentity,
                         FriendlyName = FriendlyName,
                         IsThing = false
