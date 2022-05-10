@@ -1185,7 +1185,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					}
 
 					if (!string.IsNullOrEmpty(TokenIdParameter))
-						Template[TokenIdParameter] = this.TokenId.Before("@");	// TODO: Include domain, for federation
+						Template[TokenIdParameter] = this.TokenId;
 
 					if (!string.IsNullOrEmpty(CurrencyParameter))
 						Template[CurrencyParameter] = e.Currency;
@@ -1281,7 +1281,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					}
 
 					if (!string.IsNullOrEmpty(TokenIdParameter))
-						Template[TokenIdParameter] = this.TokenId.Before("@");  // TODO: Include domain, for federation;
+						Template[TokenIdParameter] = this.TokenId;
 
 					if (!string.IsNullOrEmpty(CurrencyParameter))
 						Template[CurrencyParameter] = e.Currency;
