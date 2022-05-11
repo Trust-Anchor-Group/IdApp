@@ -66,20 +66,18 @@ namespace IdApp.Services.Navigation
 
 		private async void Shell_Navigating(object sender, ShellNavigatingEventArgs e)
 		{
-			string customGoBackRoute = (!(this.currentNavigationArgs is null) &&
-				!string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ?
-				this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
-
-			string path = e.Target.Location.ToString();
-			if (path == DefaultGoBackRoute && // user wants to go back
-				customGoBackRoute != DefaultGoBackRoute && // we have a custom back route to use instead of the default one
-				e.CanCancel && // Can we cancel navigation?
-				!this.isManuallyNavigatingBack) // Avoid recursion
+			if ((e.Source == ShellNavigationSource.Pop) &&
+				(this.currentNavigationArgs is not null) &&
+				(!string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute) ||
+				this.currentNavigationArgs.ReturnCount > 1))
 			{
-				this.isManuallyNavigatingBack = true;
-				e.Cancel();
-				await this.GoBackAsync();
-				this.isManuallyNavigatingBack = false;
+				if (e.CanCancel && !this.isManuallyNavigatingBack)
+				{
+					this.isManuallyNavigatingBack = true;
+					e.Cancel();
+					await this.GoBackAsync();
+					this.isManuallyNavigatingBack = false;
+				}
 			}
 		}
 
@@ -114,6 +112,18 @@ namespace IdApp.Services.Navigation
 			return this.TryPopArgs(route, out args);
 		}
 
+		public TArgs GetPopArgs<TArgs>() where TArgs : NavigationArgs
+		{
+			string route = Shell.Current.CurrentPage?.GetType().Name;
+
+			if (TryPopArgs<TArgs>(route, out TArgs args))
+			{
+				return args;
+			}
+
+			return null;
+		}
+
 		internal bool TryPopArgs<TArgs>(string route, out TArgs args) where TArgs : NavigationArgs
 		{
 			args = default;
@@ -136,11 +146,29 @@ namespace IdApp.Services.Navigation
 		{
 			try
 			{
-				string route = (!(this.currentNavigationArgs is null) &&
-					!string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ?
-					this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
+				string ReturnRoute = DefaultGoBackRoute;
+				int ReturnCount = 0;
 
-				await Shell.Current.GoToAsync(route, Animate);
+				if (this.currentNavigationArgs is not null)
+				{
+					ReturnCount = this.currentNavigationArgs.ReturnCount;
+
+					if ((ReturnCount == 0) &&
+						!string.IsNullOrEmpty(this.currentNavigationArgs.ReturnRoute))
+					{
+						ReturnRoute = this.currentNavigationArgs.ReturnRoute;
+					}
+				}
+
+				if (ReturnCount > 1)
+				{
+					for (int i = 1; i < ReturnCount; i++)
+					{
+						ReturnRoute += "/" + DefaultGoBackRoute;
+					}
+				}
+
+				await Shell.Current.GoToAsync(ReturnRoute, Animate);
 			}
 			catch (Exception e)
 			{
@@ -151,12 +179,31 @@ namespace IdApp.Services.Navigation
 
 		public Task GoToAsync(string route)
 		{
-			return GoToAsync(route, (NavigationArgs)null);
+			return GoToAsync(route, (NavigationArgs)null, (NavigationArgs)null);
 		}
 
-		public async Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
+		public Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs, new()
 		{
+			return GoToAsync(route, args, (NavigationArgs)null);
+		}
+
+		public async Task GoToAsync<TArgs>(string route, TArgs args, NavigationArgs navigationArgs) where TArgs : NavigationArgs, new()
+		{
+			if (navigationArgs is not null)
+			{
+				if (args is null)
+				{
+					args = new TArgs();
+				}
+
+				if (navigationArgs.ReturnCount > 0)
+				{
+					args.ReturnCount = navigationArgs.ReturnCount + 1;
+				}
+			}
+
 			this.PushArgs(route, args);
+
 			try
 			{
 				await Shell.Current.GoToAsync(route, true);

@@ -53,6 +53,11 @@ namespace IdApp.Pages.Contracts.MyContracts
         /// <summary>
         /// Creates an instance of the <see cref="MyContractsNavigationArgs"/> class.
         /// </summary>
+        public MyContractsNavigationArgs() { }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="MyContractsNavigationArgs"/> class.
+        /// </summary>
         /// <param name="Mode">What list of contracts to display.</param>
         public MyContractsNavigationArgs(ContractsListMode Mode)
         {

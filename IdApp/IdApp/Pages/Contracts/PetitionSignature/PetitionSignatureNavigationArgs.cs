@@ -11,6 +11,11 @@ namespace IdApp.Pages.Contracts.PetitionSignature
 		/// <summary>
 		/// Creates an instance of the <see cref="PetitionSignatureNavigationArgs"/> class.
 		/// </summary>
+		public PetitionSignatureNavigationArgs() { }
+
+		/// <summary>
+		/// Creates an instance of the <see cref="PetitionSignatureNavigationArgs"/> class.
+		/// </summary>
 		/// <param name="requestorIdentity">The identity of the requestor.</param>
 		/// <param name="requestorFullJid">The full Jid of the requestor.</param>
 		/// <param name="signatoryIdentityId">Legal ID requested to sign <see cref="ContentToSign"/>.</param>

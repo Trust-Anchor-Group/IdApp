@@ -11,6 +11,11 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// <summary>
         /// Creates an instance of the <see cref="PetitionIdentityNavigationArgs"/> class.
         /// </summary>
+        public PetitionIdentityNavigationArgs() { }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="PetitionIdentityNavigationArgs"/> class.
+        /// </summary>
         /// <param name="requestorIdentity">The identity of the requestor.</param>
         /// <param name="requestorFullJid">The full Jid of the requestor.</param>
         /// <param name="requestedIdentityId">The requested identity id.</param>

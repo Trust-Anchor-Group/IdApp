@@ -10,6 +10,11 @@ namespace IdApp.Pages.Identity.TransferIdentity
         /// <summary>
         /// Creates a new instance of the <see cref="TransferIdentityNavigationArgs"/> class.
         /// </summary>
+        public TransferIdentityNavigationArgs() { }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="TransferIdentityNavigationArgs"/> class.
+        /// </summary>
         /// <param name="Uri">Transfer URI</param>
         public TransferIdentityNavigationArgs(string Uri)
         {

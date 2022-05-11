@@ -10,6 +10,11 @@ namespace IdApp.Pages.Wallet.AccountEvent
         /// <summary>
         /// Creates a new instance of the <see cref="AccountEventNavigationArgs"/> class.
         /// </summary>
+        public AccountEventNavigationArgs() { }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AccountEventNavigationArgs"/> class.
+        /// </summary>
         /// <param name="Event">Information about an account event.</param>
         public AccountEventNavigationArgs(AccountEventItem Event)
         {

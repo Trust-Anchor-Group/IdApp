@@ -11,6 +11,11 @@ namespace IdApp.Pages.Things.ViewThing
         /// <summary>
         /// Creates a new instance of the <see cref="ViewThingNavigationArgs"/> class.
         /// </summary>
+        public ViewThingNavigationArgs() { }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ViewThingNavigationArgs"/> class.
+        /// </summary>
         /// <param name="Thing">Thing information.</param>
         public ViewThingNavigationArgs(ContactInfo Thing)
         {

@@ -10,6 +10,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
         /// <summary>
         /// Creates a new instance of the <see cref="TokenDetailsNavigationArgs"/> class.
         /// </summary>
+        public TokenDetailsNavigationArgs() { }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="TokenDetailsNavigationArgs"/> class.
+        /// </summary>
         /// <param name="Token">Information about a token.</param>
         public TokenDetailsNavigationArgs(TokenItem Token)
         {

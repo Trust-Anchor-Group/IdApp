@@ -15,6 +15,11 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <summary>
 		/// Creates an instance of the <see cref="ContactListNavigationArgs"/> class.
 		/// </summary>
+		public ChatNavigationArgs() { }
+
+		/// <summary>
+		/// Creates an instance of the <see cref="ContactListNavigationArgs"/> class.
+		/// </summary>
 		/// <param name="Contact">Contact information.</param>
 		public ChatNavigationArgs(ContactInfo Contact)
 			: this(Contact.LegalId, Contact.BareJid, Contact.FriendlyName)

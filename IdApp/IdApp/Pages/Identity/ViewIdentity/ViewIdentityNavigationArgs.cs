@@ -11,6 +11,11 @@ namespace IdApp.Pages.Identity.ViewIdentity
         /// <summary>
         /// Creates a new instance of the <see cref="ViewIdentityNavigationArgs"/> class.
         /// </summary>
+        public ViewIdentityNavigationArgs() { }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ViewIdentityNavigationArgs"/> class.
+        /// </summary>
         /// <param name="identity">The identity.</param>
         /// <param name="identityToReview">An identity to review, or <c>null</c>.</param>
         public ViewIdentityNavigationArgs(LegalIdentity identity, SignaturePetitionEventArgs identityToReview)

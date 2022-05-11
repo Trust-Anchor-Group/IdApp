@@ -14,6 +14,11 @@ namespace IdApp.Pages.Things.MyThings
         /// <summary>
         /// Creates a new instance of the <see cref="MyThingsNavigationArgs"/> class.
         /// </summary>
+        public MyThingsNavigationArgs() { }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="MyThingsNavigationArgs"/> class.
+        /// </summary>
         /// <param name="ThingToShare">Task completion source where the selected thing is placed.</param>
         public MyThingsNavigationArgs(TaskCompletionSource<ContactInfo> ThingToShare)
         {

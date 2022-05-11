@@ -15,6 +15,11 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// <summary>
 		/// Creates an instance of the <see cref="NewContractNavigationArgs"/> class.
 		/// </summary>
+		public NewContractNavigationArgs() { }
+
+		/// <summary>
+		/// Creates an instance of the <see cref="NewContractNavigationArgs"/> class.
+		/// </summary>
 		/// <param name="Template">The contract to use as template.</param>
 		public NewContractNavigationArgs(Contract Template)
 			: this(Template, false)

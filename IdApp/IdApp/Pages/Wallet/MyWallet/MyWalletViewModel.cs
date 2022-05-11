@@ -744,7 +744,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 						Template[CommissionParameter] = e.Commission;
 				}
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(Template, true));
+				await this.NavigationService.GoToAsync(nameof(NewContractPage),
+					new NewContractNavigationArgs(Template, true)
+					{
+						ReturnCount = 1
+					});
 			}
 			catch (Exception ex)
 			{

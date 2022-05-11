@@ -11,6 +11,11 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// <summary>
         /// Creates an instance of the <see cref="PetitionContractNavigationArgs"/> class.
         /// </summary>
+        public PetitionContractNavigationArgs() { }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="PetitionContractNavigationArgs"/> class.
+        /// </summary>
         /// <param name="requestorIdentity">The identity of the requestor</param>
         /// <param name="requestorFullJid">The identity of the requestor</param>
         /// <param name="requestedContract">The identity of the requestor</param>

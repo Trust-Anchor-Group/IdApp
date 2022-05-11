@@ -11,6 +11,11 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// <summary>
 		/// Creates an instance of the <see cref="ViewContractNavigationArgs"/> class.
 		/// </summary>
+		public ViewContractNavigationArgs() { }
+
+		/// <summary>
+		/// Creates an instance of the <see cref="ViewContractNavigationArgs"/> class.
+		/// </summary>
 		/// <param name="contract">The contract to display.</param>
 		/// <param name="isReadOnly"><c>true</c> if the contract is readonly, <c>false</c> otherwise.</param>
 		public ViewContractNavigationArgs(Contract contract, bool isReadOnly)

@@ -12,6 +12,11 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// <summary>
         /// Creates an instance of the <see cref="ScanQrCodeNavigationArgs"/> class.
         /// </summary>
+        public ScanQrCodeNavigationArgs() { }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="ScanQrCodeNavigationArgs"/> class.
+        /// </summary>
         /// <param name="commandName">The command name (localized) to display.</param>
         public ScanQrCodeNavigationArgs(string commandName)
         {

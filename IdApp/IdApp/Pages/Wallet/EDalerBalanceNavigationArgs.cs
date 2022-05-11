@@ -11,6 +11,11 @@ namespace IdApp.Pages.Wallet
         /// <summary>
         /// Creates a new instance of the <see cref="EDalerBalanceNavigationArgs"/> class.
         /// </summary>
+        public EDalerBalanceNavigationArgs() { }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="EDalerBalanceNavigationArgs"/> class.
+        /// </summary>
         /// <param name="Balance">Balance information.</param>
         public EDalerBalanceNavigationArgs(Balance Balance)
         {

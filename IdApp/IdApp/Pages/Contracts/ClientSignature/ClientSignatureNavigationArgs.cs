@@ -11,6 +11,11 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// <summary>
         /// Creates a new instance of the <see cref="ClientSignatureNavigationArgs"/> class.
         /// </summary>
+        public ClientSignatureNavigationArgs() { }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ClientSignatureNavigationArgs"/> class.
+        /// </summary>
         /// <param name="signature">The signature to display.</param>
         /// <param name="identity">The legal identity to display.</param>
         public ClientSignatureNavigationArgs(Waher.Networking.XMPP.Contracts.ClientSignature signature, LegalIdentity identity)

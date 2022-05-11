@@ -11,6 +11,11 @@ namespace IdApp.Pages.Contracts.ServerSignature
         /// <summary>
         /// Creates a new instance of the <see cref="ServerSignatureNavigationArgs"/> class.
         /// </summary>
+        public ServerSignatureNavigationArgs() { }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ServerSignatureNavigationArgs"/> class.
+        /// </summary>
         /// <param name="contract">The contract to display.</param>
         public ServerSignatureNavigationArgs(Contract contract)
         {

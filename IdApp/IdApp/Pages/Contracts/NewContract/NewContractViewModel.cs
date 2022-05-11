@@ -11,6 +11,7 @@ using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.NewContract.ObjectModel;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Main.Main;
+using IdApp.Pages.Wallet.AccountEvent;
 using IdApp.Resx;
 using IdApp.Services;
 using Waher.Content;
@@ -862,12 +863,11 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 			finally
 			{
-				if (!(Created is null))
+				if (Created is not null)
 				{
-					await this.NavigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(Created, false)
-					{
-						ReturnRoute = "///" + nameof(MainPage)
-					});
+					await this.NavigationService.GoToAsync(nameof(ViewContractPage),
+						new ViewContractNavigationArgs(Created, false) { ReturnRoute = "///" + nameof(MainPage) },
+						this.NavigationService.GetPopArgs<NewContractNavigationArgs>());
 				}
 			}
 		}
