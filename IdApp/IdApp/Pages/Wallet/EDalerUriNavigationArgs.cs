@@ -12,6 +12,11 @@ namespace IdApp.Pages.Wallet
 		/// <summary>
 		/// Creates a new instance of the <see cref="EDalerUriNavigationArgs"/> class.
 		/// </summary>
+		public EDalerUriNavigationArgs() { }
+
+		/// <summary>
+		/// Creates a new instance of the <see cref="EDalerUriNavigationArgs"/> class.
+		/// </summary>
 		/// <param name="Uri">Parsed edaler URI.</param>
 		public EDalerUriNavigationArgs(EDalerUri Uri)
 			: this(Uri, string.Empty)

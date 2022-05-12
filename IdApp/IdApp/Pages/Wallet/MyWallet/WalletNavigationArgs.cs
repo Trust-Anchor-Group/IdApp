@@ -18,6 +18,11 @@ namespace IdApp.Pages.Wallet.MyWallet
         /// <summary>
         /// Creates a new instance of the <see cref="WalletNavigationArgs"/> class.
         /// </summary>
+        public WalletNavigationArgs() { }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="WalletNavigationArgs"/> class.
+        /// </summary>
         /// <param name="Balance">Balance information.</param>
         /// <param name="PendingAmount">Total amount of pending payments.</param>
         /// <param name="PendingCurrency">Currency of pending payments.</param>

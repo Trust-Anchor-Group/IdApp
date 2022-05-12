@@ -146,7 +146,7 @@ namespace IdApp.Pages.Main.Shell
 		}
 
 		private async Task GoToPage<TArgs>(string route, TArgs e)
-			where TArgs : NavigationArgs
+			where TArgs : NavigationArgs, new()
 		{
 			// Due to a bug in Xamarin.Forms the Flyout won't hide when you click on a MenuItem (as opposed to a FlyoutItem).
 			// Therefore we have to close it manually here.

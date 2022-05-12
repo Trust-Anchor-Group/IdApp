@@ -11,6 +11,11 @@ namespace IdApp.Pages.Wallet.TokenEvents
         /// <summary>
         /// Creates a new instance of the <see cref="TokenEventsNavigationArgs"/> class.
         /// </summary>
+        public TokenEventsNavigationArgs() { }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="TokenEventsNavigationArgs"/> class.
+        /// </summary>
         /// <param name="TokenId">Token ID</param>
         /// <param name="Events">Token events</param>
         public TokenEventsNavigationArgs(string TokenId, TokenEvent[] Events)

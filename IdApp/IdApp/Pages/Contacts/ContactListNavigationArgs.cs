@@ -37,6 +37,11 @@ namespace IdApp.Pages.Contacts
         /// <summary>
         /// Creates an instance of the <see cref="ContactListNavigationArgs"/> class.
         /// </summary>
+        public ContactListNavigationArgs() { }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="ContactListNavigationArgs"/> class.
+        /// </summary>
         /// <param name="Description">Description presented to user.</param>
         /// <param name="Action">Action to take when a contact has been selected.</param>
         public ContactListNavigationArgs(string Description, SelectContactAction Action)

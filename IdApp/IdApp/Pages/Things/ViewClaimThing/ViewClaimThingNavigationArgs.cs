@@ -10,6 +10,11 @@ namespace IdApp.Pages.Things.ViewClaimThing
         /// <summary>
         /// Creates a new instance of the <see cref="ViewClaimThingNavigationArgs"/> class.
         /// </summary>
+        public ViewClaimThingNavigationArgs() { }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ViewClaimThingNavigationArgs"/> class.
+        /// </summary>
         /// <param name="Uri">iotdisco URI contining the claim parameters.</param>
         public ViewClaimThingNavigationArgs(string Uri)
         {

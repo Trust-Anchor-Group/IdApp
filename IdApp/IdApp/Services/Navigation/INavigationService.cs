@@ -23,7 +23,15 @@ namespace IdApp.Services.Navigation
         /// </summary>
         /// <param name="route">The route whose matching page to navigate to.</param>
         /// <param name="args">The specific args to pass to the page.</param>
-        Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs;
+        Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs, new();
+
+        /// <summary>
+        /// Navigates the AppShell to the specified route, with page arguments to match.
+        /// </summary>
+        /// <param name="route">The route whose matching page to navigate to.</param>
+        /// <param name="args">The specific args to pass to the page.</param>
+        /// <param name="navigationArgs">Apply current navigation args to the next page args.</param>
+        Task GoToAsync<TArgs>(string route, TArgs args, NavigationArgs navigationArgs) where TArgs : NavigationArgs, new();
 
         /// <summary>
         /// Returns to the previous page/route.
@@ -42,6 +50,11 @@ namespace IdApp.Services.Navigation
         /// <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="NavigationArgs"/>.</typeparam>
         /// <param name="args">The actual args.</param>
         bool TryPopArgs<TArgs>(out TArgs args) where TArgs : NavigationArgs;
+
+        /// <summary>
+        /// Returns the pages arguments from the (one-level) deep navigation stack.
+        /// </summary>
+        TArgs GetPopArgs<TArgs>() where TArgs : NavigationArgs;
 
         /// <summary>
         /// Current page
