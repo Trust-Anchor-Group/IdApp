@@ -9000,14 +9000,14 @@
             When code was created.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEventProperty">
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEDalerEventProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEvent"/>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEDalerEvent"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEvent">
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEDalerEvent">
             <summary>
-            When code was created.
+            When last eDaler event was received.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerFrontGlyphProperty">
@@ -17310,9 +17310,9 @@
             Last reported balance
             </summary>
         </member>
-        <member name="P:IdApp.Services.Wallet.INeuroWallet.LastEvent">
+        <member name="P:IdApp.Services.Wallet.INeuroWallet.LastEDalerEvent">
             <summary>
-            Timepoint of last event.
+            Timepoint of last eDaler event.
             </summary>
         </member>
         <member name="P:IdApp.Services.Wallet.INeuroWallet.NeuroFeaturesClient">
@@ -17460,7 +17460,7 @@
             Last reported balance
             </summary>
         </member>
-        <member name="P:IdApp.Services.Wallet.NeuroWallet.LastEvent">
+        <member name="P:IdApp.Services.Wallet.NeuroWallet.LastEDalerEvent">
             <summary>
             Timepoint of last event.
             </summary>

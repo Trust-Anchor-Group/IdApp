@@ -68,13 +68,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 			if (this.Balance is null && this.NavigationService.TryPopArgs(out WalletNavigationArgs args))
 			{
 				await AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events,
-					args.More, this.XmppService.Wallet.LastEvent);
+					args.More, this.XmppService.Wallet.LastEDalerEvent);
 			}
 			else if ((!(this.Balance is null) && !(this.XmppService.Wallet.LastBalance is null) &&
 				(this.Balance.Amount != this.XmppService.Wallet.LastBalance.Amount ||
 				this.Balance.Currency != this.XmppService.Wallet.LastBalance.Currency ||
 				this.Balance.Timestamp != this.XmppService.Wallet.LastBalance.Timestamp)) ||
-				this.LastEvent != this.XmppService.Wallet.LastEvent)
+				this.LastEDalerEvent != this.XmppService.Wallet.LastEDalerEvent)
 			{
 				await this.ReloadEDalerWallet(this.XmppService.Wallet.LastBalance ?? Balance ?? this.Balance);
 			}
@@ -107,7 +107,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				this.Timestamp = Balance.Timestamp;
 			}
 
-			this.LastEvent = LastEvent;
+			this.LastEDalerEvent = LastEvent;
 
 			this.PendingAmount = PendingAmount;
 			this.PendingCurrency = PendingCurrency;
@@ -188,7 +188,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency,
-					PendingPayments, Events, More, this.XmppService.Wallet.LastEvent));
+					PendingPayments, Events, More, this.XmppService.Wallet.LastEDalerEvent));
 			}
 			catch (Exception ex)
 			{
@@ -329,18 +329,18 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
-		/// See <see cref="LastEvent"/>
+		/// See <see cref="LastEDalerEvent"/>
 		/// </summary>
-		public static readonly BindableProperty LastEventProperty =
-			BindableProperty.Create(nameof(LastEvent), typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
+		public static readonly BindableProperty LastEDalerEventProperty =
+			BindableProperty.Create(nameof(LastEDalerEvent), typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
 
 		/// <summary>
-		/// When code was created.
+		/// When last eDaler event was received.
 		/// </summary>
-		public DateTime LastEvent
+		public DateTime LastEDalerEvent
 		{
-			get => (DateTime)this.GetValue(LastEventProperty);
-			set => this.SetValue(LastEventProperty, value);
+			get => (DateTime)this.GetValue(LastEDalerEventProperty);
+			set => this.SetValue(LastEDalerEventProperty, value);
 		}
 
 		/// <summary>

@@ -150,9 +150,9 @@ namespace IdApp.Services.Wallet
 		Balance LastBalance { get; }
 
 		/// <summary>
-		/// Timepoint of last event.
+		/// Timepoint of last eDaler event.
 		/// </summary>
-		DateTime LastEvent { get; }
+		DateTime LastEDalerEvent { get; }
 
 		#endregion
 

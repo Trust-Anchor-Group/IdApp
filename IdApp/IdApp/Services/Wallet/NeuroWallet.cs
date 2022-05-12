@@ -18,7 +18,7 @@ namespace IdApp.Services.Wallet
 		private EDalerClient eDalerClient;
 		private NeuroFeaturesClient neuroFeaturesClient;
 		private Balance lastBalance = null;
-		private DateTime lastEvent = DateTime.MinValue;
+		private DateTime lastEDalerEvent = DateTime.MinValue;
 
 		internal NeuroWallet()
 			: base()
@@ -53,7 +53,7 @@ namespace IdApp.Services.Wallet
 		private async Task EDalerClient_BalanceUpdated(object Sender, BalanceEventArgs e)
 		{
 			this.lastBalance = e.Balance;
-			this.lastEvent = DateTime.Now;
+			this.lastEDalerEvent = DateTime.Now;
 
 			BalanceEventHandler h = this.BalanceUpdated;
 			if (!(h is null))
@@ -82,7 +82,7 @@ namespace IdApp.Services.Wallet
 		/// <summary>
 		/// Timepoint of last event.
 		/// </summary>
-		public DateTime LastEvent => this.lastEvent;
+		public DateTime LastEDalerEvent => this.lastEDalerEvent;
 
 		/// <summary>
 		/// Tries to parse an eDaler URI.
@@ -177,7 +177,7 @@ namespace IdApp.Services.Wallet
 		/// <returns>Signed payment URI.</returns>
 		public Task<string> CreateFullPaymentUri(string ToBareJid, decimal Amount, decimal? AmountExtra, string Currency, int ValidNrDays)
 		{
-			this.lastEvent = DateTime.Now;
+			this.lastEDalerEvent = DateTime.Now;
 			return this.EDalerClient.CreateFullPaymentUri(ToBareJid, Amount, AmountExtra, Currency, ValidNrDays);
 		}
 
@@ -193,7 +193,7 @@ namespace IdApp.Services.Wallet
 		/// <returns>Signed payment URI.</returns>
 		public Task<string> CreateFullPaymentUri(string ToBareJid, decimal Amount, decimal? AmountExtra, string Currency, int ValidNrDays, string Message)
 		{
-			this.lastEvent = DateTime.Now;
+			this.lastEDalerEvent = DateTime.Now;
 			return this.EDalerClient.CreateFullPaymentUri(ToBareJid, Amount, AmountExtra, Currency, ValidNrDays, Message);
 		}
 
@@ -208,7 +208,7 @@ namespace IdApp.Services.Wallet
 		/// <returns>Signed payment URI.</returns>
 		public Task<string> CreateFullPaymentUri(LegalIdentity To, decimal Amount, decimal? AmountExtra, string Currency, int ValidNrDays)
 		{
-			this.lastEvent = DateTime.Now;
+			this.lastEDalerEvent = DateTime.Now;
 			return this.EDalerClient.CreateFullPaymentUri(To, Amount, AmountExtra, Currency, ValidNrDays);
 		}
 
@@ -224,7 +224,7 @@ namespace IdApp.Services.Wallet
 		/// <returns>Signed payment URI.</returns>
 		public Task<string> CreateFullPaymentUri(LegalIdentity To, decimal Amount, decimal? AmountExtra, string Currency, int ValidNrDays, string PrivateMessage)
 		{
-			this.lastEvent = DateTime.Now;
+			this.lastEDalerEvent = DateTime.Now;
 			return this.EDalerClient.CreateFullPaymentUri(To, Amount, AmountExtra, Currency, ValidNrDays, PrivateMessage);
 		}
 
