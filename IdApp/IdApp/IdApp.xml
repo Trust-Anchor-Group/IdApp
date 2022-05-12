@@ -1671,6 +1671,11 @@
             Holds navigation parameters specific to views displaying a list of contacts.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(IdApp.Services.ContactInfo)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
@@ -2328,6 +2333,11 @@
             Holds navigation parameters specific to views displaying a list of contacts.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Contacts.ContactListNavigationArgs.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Contacts.ContactListNavigationArgs.#ctor(System.String,IdApp.Pages.Contacts.SelectContactAction)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
@@ -2521,6 +2531,11 @@
         <member name="T:IdApp.Pages.Contracts.ClientSignature.ClientSignatureNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a client signature.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.ClientSignature.ClientSignatureNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.ClientSignature.ClientSignatureNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contracts.ClientSignature.ClientSignatureNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.ClientSignature,Waher.Networking.XMPP.Contracts.LegalIdentity)">
@@ -2859,6 +2874,11 @@
             Holds navigation parameters specific to views displaying a list of contacts.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsNavigationArgs.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsNavigationArgs"/> class.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsNavigationArgs.#ctor(IdApp.Pages.Contracts.MyContracts.ContractsListMode)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsNavigationArgs"/> class.
@@ -3098,6 +3118,11 @@
         <member name="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a new contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
@@ -3360,6 +3385,11 @@
         <member name="T:IdApp.Pages.Contracts.PetitionContract.PetitionContractNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a contract petition request.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractNavigationArgs.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.PetitionContract.PetitionContractNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,Waher.Networking.XMPP.Contracts.Contract,System.String,System.String)">
@@ -3697,6 +3727,11 @@
             Holds navigation parameters specific to views displaying a petition of a signature.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureNavigationArgs.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureNavigationArgs"/> class.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String,System.Byte[],System.String,System.String)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureNavigationArgs"/> class.
@@ -4013,6 +4048,11 @@
             Holds navigation parameters specific to views displaying a server signature.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Contracts.ServerSignature.ServerSignatureNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.ServerSignature.ServerSignatureNavigationArgs"/> class.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Contracts.ServerSignature.ServerSignatureNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.ServerSignature.ServerSignatureNavigationArgs"/> class.
@@ -4169,6 +4209,11 @@
         <member name="T:IdApp.Pages.Contracts.ViewContract.ViewContractNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractNavigationArgs.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ViewContract.ViewContractNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean)">
@@ -4475,6 +4520,11 @@
         <member name="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a petition of a legal identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String,System.String,System.String)">
@@ -4827,6 +4877,11 @@
             Holds navigation parameters specific to views displaying an identity transfer code.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Identity.TransferIdentity.TransferIdentityNavigationArgs"/> class.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityNavigationArgs.#ctor(System.String)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Identity.TransferIdentity.TransferIdentityNavigationArgs"/> class.
@@ -4888,6 +4943,11 @@
         <member name="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a legal identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,Waher.Networking.XMPP.Contracts.SignaturePetitionEventArgs)">
@@ -5925,6 +5985,11 @@
         <member name="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs">
             <summary>
             Holds navigation parameters specific to views scanning a QR code.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs.#ctor(System.String)">
@@ -7565,6 +7630,11 @@
             Holds navigation parameters specific to viewing things.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Things.MyThings.MyThingsNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Things.MyThings.MyThingsNavigationArgs"/> class.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsNavigationArgs.#ctor(System.Threading.Tasks.TaskCompletionSource{IdApp.Services.ContactInfo})">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Things.MyThings.MyThingsNavigationArgs"/> class.
@@ -7579,6 +7649,11 @@
         <member name="T:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingNavigationArgs">
             <summary>
             Holds navigation parameters specific to claiming things.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingNavigationArgs.#ctor(System.String)">
@@ -7770,6 +7845,11 @@
             Holds navigation parameters specific to viewing things.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs"/> class.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs.#ctor(IdApp.Services.ContactInfo)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs"/> class.
@@ -7871,6 +7951,11 @@
         <member name="T:IdApp.Pages.Wallet.AccountEvent.AccountEventNavigationArgs">
             <summary>
             Holds navigation parameters specific to eDaler URIs.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.AccountEvent.AccountEventNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventNavigationArgs.#ctor(IdApp.Pages.Wallet.AccountEventItem)">
@@ -8089,6 +8174,11 @@
             Holds navigation parameters specific to an eDaler balance event.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Wallet.EDalerBalanceNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.EDalerBalanceNavigationArgs"/> class.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Wallet.EDalerBalanceNavigationArgs.#ctor(EDaler.Balance)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.EDalerBalanceNavigationArgs"/> class.
@@ -8273,6 +8363,11 @@
         <member name="T:IdApp.Pages.Wallet.EDalerUriNavigationArgs">
             <summary>
             Holds navigation parameters specific to eDaler URIs.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.EDalerUriNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.EDalerUriNavigationArgs.#ctor(EDaler.Uris.EDalerUri)">
@@ -9080,6 +9175,16 @@
             HasMoreTokens of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastTokenEventProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastTokenEvent"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastTokenEvent">
+            <summary>
+            When last eDaler event was received.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PaymentItems">
             <summary>
             Holds a list of pending payments and account events
@@ -9148,6 +9253,11 @@
         <member name="T:IdApp.Pages.Wallet.MyWallet.WalletNavigationArgs">
             <summary>
             Holds navigation parameters specific to the eDaler wallet.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyWallet.WalletNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MyWallet.WalletNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.MyWallet.WalletNavigationArgs.#ctor(EDaler.Balance,System.Decimal,System.String,EDaler.PendingPayment[],EDaler.AccountEvent[],System.Boolean)">
@@ -9516,6 +9626,11 @@
         <member name="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs">
             <summary>
             Holds navigation parameters specific to a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs.#ctor(IdApp.Pages.Wallet.TokenItem)">
@@ -10473,6 +10588,11 @@
         <member name="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsNavigationArgs">
             <summary>
             Holds navigation parameters containing the events of a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsNavigationArgs.#ctor(System.String,NeuroFeatures.Events.TokenEvent[])">
@@ -15058,6 +15178,14 @@
             <param name="route">The route whose matching page to navigate to.</param>
             <param name="args">The specific args to pass to the page.</param>
         </member>
+        <member name="M:IdApp.Services.Navigation.INavigationService.GoToAsync``1(System.String,``0,IdApp.Services.Navigation.NavigationArgs)">
+            <summary>
+            Navigates the AppShell to the specified route, with page arguments to match.
+            </summary>
+            <param name="route">The route whose matching page to navigate to.</param>
+            <param name="args">The specific args to pass to the page.</param>
+            <param name="navigationArgs">Apply current navigation args to the next page args.</param>
+        </member>
         <member name="M:IdApp.Services.Navigation.INavigationService.GoBackAsync">
             <summary>
             Returns to the previous page/route.
@@ -15076,6 +15204,11 @@
             <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="T:IdApp.Services.Navigation.NavigationArgs"/>.</typeparam>
             <param name="args">The actual args.</param>
         </member>
+        <member name="M:IdApp.Services.Navigation.INavigationService.GetPopArgs``1">
+            <summary>
+            Returns the pages arguments from the (one-level) deep navigation stack.
+            </summary>
+        </member>
         <member name="P:IdApp.Services.Navigation.INavigationService.CurrentPage">
             <summary>
             Current page
@@ -15086,9 +15219,20 @@
             An abstract base class holding page specific navigation parameters.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Navigation.NavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Services.Navigation.NavigationArgs"/> class.
+            </summary>
+        </member>
         <member name="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute">
             <summary>
             The route to use when going back, if any.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Navigation.NavigationArgs.ReturnCount">
+            <summary>
+            The number of times to pop when going back, if any.
+            If this parrameter exist, it supercedes the <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute"/>
             </summary>
         </member>
         <member name="M:IdApp.Services.Navigation.NavigationService.Load(System.Boolean,System.Threading.CancellationToken)">
@@ -17330,6 +17474,11 @@
             Event raised when a token has been added to the wallet.
             </summary>
         </member>
+        <member name="P:IdApp.Services.Wallet.INeuroWallet.LastTokenEvent">
+            <summary>
+            Timepoint of last Neuro-Feature token event.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Wallet.INeuroWallet.GetTokens">
             <summary>
             Gets available tokens
@@ -17590,6 +17739,11 @@
         <member name="P:IdApp.Services.Wallet.NeuroWallet.NeuroFeaturesClient">
             <summary>
             Reference to the Neuro-Features client implementing the Neuro-Features XMPP extension
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Wallet.NeuroWallet.LastTokenEvent">
+            <summary>
+            Timepoint of last event.
             </summary>
         </member>
         <member name="E:IdApp.Services.Wallet.NeuroWallet.TokenRemoved">

@@ -79,6 +79,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 				await this.ReloadEDalerWallet(this.XmppService.Wallet.LastBalance ?? Balance ?? this.Balance);
 			}
 
+			if (this.HasTokens && this.LastTokenEvent != this.XmppService.Wallet.LastTokenEvent)
+				await this.LoadTokens(true);
+
 			EvaluateAllCommands();
 
 			this.XmppService.Wallet.BalanceUpdated += Wallet_BalanceUpdated;
@@ -449,6 +452,21 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
+		/// See <see cref="LastTokenEvent"/>
+		/// </summary>
+		public static readonly BindableProperty LastTokenEventProperty =
+			BindableProperty.Create(nameof(LastTokenEvent), typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
+
+		/// <summary>
+		/// When last eDaler event was received.
+		/// </summary>
+		public DateTime LastTokenEvent
+		{
+			get => (DateTime)this.GetValue(LastTokenEventProperty);
+			set => this.SetValue(LastTokenEventProperty, value);
+		}
+
+		/// <summary>
 		/// Holds a list of pending payments and account events
 		/// </summary>
 		//public ObservableCollection<IItemGroupCollection> PaymentItems { get; }
@@ -606,7 +624,21 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public async void BindTokens()
 		{
-			if (!this.HasTotals)
+			try
+			{
+				await this.LoadTokens(false);
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+		}
+
+		private async Task LoadTokens(bool Reload)
+		{ 
+			this.LastTokenEvent = this.XmppService.Wallet.LastTokenEvent;
+
+			if (!this.HasTotals || Reload)
 			{
 				try
 				{
@@ -620,6 +652,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 							if (!(e.Totals is null))
 							{
+								this.Totals.Clear();
+
 								foreach (TokenTotal Total in e.Totals)
 									this.Totals.Add(new TokenTotalItem(Total));
 
@@ -638,7 +672,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				}
 			}
 
-			if (!this.HasTokens)
+			if (!this.HasTokens || Reload)
 			{
 				try
 				{
@@ -652,6 +686,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 							if (!(e.Tokens is null))
 							{
+								this.Tokens.Clear();
+
 								foreach (Token Token in e.Tokens)
 									this.Tokens.Add(new TokenItem(Token, this));
 

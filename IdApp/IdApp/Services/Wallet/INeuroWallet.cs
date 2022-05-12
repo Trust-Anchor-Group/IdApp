@@ -174,6 +174,11 @@ namespace IdApp.Services.Wallet
 		event TokenEventHandler TokenAdded;
 
 		/// <summary>
+		/// Timepoint of last Neuro-Feature token event.
+		/// </summary>
+		DateTime LastTokenEvent { get; }
+
+		/// <summary>
 		/// Gets available tokens
 		/// </summary>
 		/// <returns>Response with tokens.</returns>

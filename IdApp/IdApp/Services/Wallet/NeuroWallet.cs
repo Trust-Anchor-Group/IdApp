@@ -19,6 +19,7 @@ namespace IdApp.Services.Wallet
 		private NeuroFeaturesClient neuroFeaturesClient;
 		private Balance lastBalance = null;
 		private DateTime lastEDalerEvent = DateTime.MinValue;
+		private DateTime lastTokenEvent = DateTime.MinValue;
 
 		internal NeuroWallet()
 			: base()
@@ -288,8 +289,15 @@ namespace IdApp.Services.Wallet
 			}
 		}
 
+		/// <summary>
+		/// Timepoint of last event.
+		/// </summary>
+		public DateTime LastTokenEvent => this.lastTokenEvent;
+
 		private async Task NeuroFeaturesClient_TokenRemoved(object Sender, TokenEventArgs e)
 		{
+			this.lastTokenEvent = DateTime.Now;
+
 			TokenEventHandler h = this.TokenRemoved;
 			if (!(h is null))
 			{
@@ -311,6 +319,8 @@ namespace IdApp.Services.Wallet
 
 		private async Task NeuroFeaturesClient_TokenAdded(object Sender, TokenEventArgs e)
 		{
+			this.lastTokenEvent = DateTime.Now;
+
 			TokenEventHandler h = this.TokenAdded;
 			if (!(h is null))
 			{
@@ -427,6 +437,8 @@ namespace IdApp.Services.Wallet
 		/// Note: Personal notes are deleted when ownership of token is transferred.</param>
 		public Task AddTextNote(string TokenId, string TextNote, bool Personal)
 		{
+			this.lastTokenEvent = DateTime.Now;
+
 			return this.NeuroFeaturesClient.AddTextNoteAsync(TokenId, TextNote, Personal);
 		}
 
@@ -450,6 +462,8 @@ namespace IdApp.Services.Wallet
 		/// Note: Personal notes are deleted when ownership of token is transferred.</param>
 		public Task AddXmlNote(string TokenId, string XmlNote, bool Personal)
 		{
+			this.lastTokenEvent = DateTime.Now;
+
 			return this.NeuroFeaturesClient.AddXmlNoteAsync(TokenId, XmlNote, Personal);
 		}
 
