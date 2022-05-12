@@ -11,7 +11,6 @@ using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.NewContract.ObjectModel;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Main.Main;
-using IdApp.Pages.Wallet.AccountEvent;
 using IdApp.Resx;
 using IdApp.Services;
 using Waher.Content;
