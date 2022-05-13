@@ -121,10 +121,7 @@ namespace IdApp.Controls.Extended
             ExtendedDatePicker Picker = (ExtendedDatePicker)bindable;
             EventHandler<NullableDateChangedEventArgs> selected = Picker.NullableDateSelected;
 
-            if (selected != null)
-            {
-                selected(Picker, new NullableDateChangedEventArgs((DateTime?)oldValue, (DateTime?)newValue));
-            }
+            selected?.Invoke(Picker, new NullableDateChangedEventArgs((DateTime?)oldValue, (DateTime?)newValue));
         }
 
         private bool IsDefaultDateSet = false;
