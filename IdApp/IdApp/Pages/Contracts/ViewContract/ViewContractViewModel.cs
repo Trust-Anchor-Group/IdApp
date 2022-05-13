@@ -70,7 +70,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			if (!(this.Contract is null))
 			{
 				DateTime TP = this.XmppService.Contracts.GetTimeOfLastContraceEvent(this.Contract.ContractId);
-				if (DateTime.Now.Subtract(TP).TotalSeconds >= 10)
+				if (DateTime.Now.Subtract(TP).TotalSeconds < 5)
 					this.Contract = await this.XmppService.Contracts.GetContract(this.Contract.ContractId);
 
 				await LoadContract();
@@ -88,7 +88,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 		private async Task ContractsClient_ContractUpdated(object Sender, ContractReferenceEventArgs e)
 		{
-			if (e.ContractId == this.Contract.ContractId && DateTime.Now.Subtract(this.skipContractEvent).TotalSeconds >= 10)
+			if (e.ContractId == this.Contract.ContractId && DateTime.Now.Subtract(this.skipContractEvent).TotalSeconds > 5)
 			{
 				Contract Contract = await this.XmppService.Contracts.GetContract(e.ContractId);
 				await this.ContractUpdated(Contract);
