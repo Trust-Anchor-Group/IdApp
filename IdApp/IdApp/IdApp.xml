@@ -14386,21 +14386,21 @@
             <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
             <returns>Legal Identities</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetLegalIdentity(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetLegalIdentity(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Gets a specific legal identity.
             </summary>
             <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
             <returns>Legal identity object</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.IsContact(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.IsContact(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Checks if a legal identity is in the contacts list.
             </summary>
             <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
             <returns>If the legal identity is in the contacts list.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.HasPrivateKey(System.String,Waher.Networking.XMPP.XmppClient)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.HasPrivateKey(Waher.Persistence.CaseInsensitiveString,Waher.Networking.XMPP.XmppClient)">
             <summary>
             Checks if the client has access to the private keys of the specified legal identity.
             </summary>
@@ -14408,21 +14408,21 @@
             <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
             <returns>If private keys are available.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.ObsoleteLegalIdentity(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.ObsoleteLegalIdentity(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Marks the legal identity as obsolete.
             </summary>
             <param name="legalIdentityId">The id to mark as obsolete.</param>
             <returns>Legal Identity</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.CompromiseLegalIdentity(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.CompromiseLegalIdentity(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Marks the legal identity as compromised.
             </summary>
             <param name="legalIdentityId">The legal id to mark as compromised.</param>
             <returns>Legal Identity</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.PetitionIdentity(System.String,System.String,System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.PetitionIdentity(Waher.Persistence.CaseInsensitiveString,System.String,System.String)">
             <summary>
             Petitions a legal identity.
             </summary>
@@ -14430,7 +14430,7 @@
             <param name="petitionId">The petition id.</param>
             <param name="purpose">The purpose of the petitioning.</param>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.SendPetitionIdentityResponse(System.String,System.String,System.String,System.Boolean)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.SendPetitionIdentityResponse(Waher.Persistence.CaseInsensitiveString,System.String,System.String,System.Boolean)">
             <summary>
             Sends a response to a petitioning identity request.
             </summary>
@@ -14454,7 +14454,7 @@
             An event that fires when a petitioned identity response is received.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetContract(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetContract(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Gets the contract with the specified id.
             </summary>
@@ -14488,14 +14488,14 @@
             <param name="transferable">Whether the contract is transferable or not.</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.ObsoleteContract(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.ObsoleteContract(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Obsoletes a contract.
             </summary>
             <param name="contractId">The id of the contract to obsolete.</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.CreateContract(System.String,Waher.Networking.XMPP.Contracts.Part[],Waher.Networking.XMPP.Contracts.Parameter[],Waher.Networking.XMPP.Contracts.ContractVisibility,Waher.Networking.XMPP.Contracts.ContractParts,Waher.Content.Duration,Waher.Content.Duration,Waher.Content.Duration,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Boolean)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.CreateContract(Waher.Persistence.CaseInsensitiveString,Waher.Networking.XMPP.Contracts.Part[],Waher.Networking.XMPP.Contracts.Parameter[],Waher.Networking.XMPP.Contracts.ContractVisibility,Waher.Networking.XMPP.Contracts.ContractParts,Waher.Content.Duration,Waher.Content.Duration,Waher.Content.Duration,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Boolean)">
             <summary>
             Creates a new contract.
             </summary>
@@ -14512,14 +14512,14 @@
             <param name="canActAsTemplate">Can this contract act as a template itself?</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.DeleteContract(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.DeleteContract(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Deletes a contract.
             </summary>
             <param name="contractId">The id of the contract to delete.</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.PetitionContract(System.String,System.String,System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.PetitionContract(Waher.Persistence.CaseInsensitiveString,System.String,System.String)">
             <summary>
             Petitions a contract with the specified id and purpose.
             </summary>
@@ -14527,7 +14527,7 @@
             <param name="petitionId">The petition id.</param>
             <param name="purpose">The purpose.</param>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.SendPetitionContractResponse(System.String,System.String,System.String,System.Boolean)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.SendPetitionContractResponse(Waher.Persistence.CaseInsensitiveString,System.String,System.String,System.Boolean)">
             <summary>
             Sends a response to a petitioning contract request.
             </summary>
@@ -14546,6 +14546,13 @@
             An event that fires when a petitioned contract response is received.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetTimeOfLastContraceEvent(Waher.Persistence.CaseInsensitiveString)">
+            <summary>
+            Gets the timestamp of the last event received for a given contract ID.
+            </summary>
+            <param name="ContractId">Contract ID</param>
+            <returns>Timestamp</returns>
+        </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.GetAttachment(System.String,Waher.Networking.XMPP.Contracts.SignWith,System.TimeSpan)">
             <summary>
             Gets an attachment for a contract.
@@ -14555,7 +14562,7 @@
             <param name="signWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
             <returns>Content-Type, and attachment file.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.PetitionPeerReviewId(System.String,Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.PetitionPeerReviewId(Waher.Persistence.CaseInsensitiveString,Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String)">
             <summary>
             Sends a petition to a third-party to review a legal identity.
             </summary>
@@ -14607,7 +14614,7 @@
             null = Client key algorithm is unknown, and veracity of signature could not be established.
             </returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.SendPetitionSignatureResponse(System.String,System.Byte[],System.Byte[],System.String,System.String,System.Boolean)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.SendPetitionSignatureResponse(Waher.Persistence.CaseInsensitiveString,System.Byte[],System.Byte[],System.String,System.String,System.Boolean)">
             <summary>
             Sends a response to a petitioning signature request.
             </summary>
@@ -14689,7 +14696,7 @@
             </summary>
             <returns>Id's of contract templates, together with the last time they were used.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.SmartContracts.HasPrivateKey(System.String,Waher.Networking.XMPP.XmppClient)">
+        <member name="M:IdApp.Services.Contracts.SmartContracts.HasPrivateKey(Waher.Persistence.CaseInsensitiveString,Waher.Networking.XMPP.XmppClient)">
             <summary>
             Checks if the client has access to the private keys of the specified legal identity.
             </summary>
@@ -14697,14 +14704,14 @@
             <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
             <returns>If private keys are available.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.SmartContracts.GetLegalIdentity(System.String)">
+        <member name="M:IdApp.Services.Contracts.SmartContracts.GetLegalIdentity(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Gets a specific legal identity.
             </summary>
             <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
             <returns>Legal identity object</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.SmartContracts.IsContact(System.String)">
+        <member name="M:IdApp.Services.Contracts.SmartContracts.IsContact(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Checks if a legal identity is in the contacts list.
             </summary>

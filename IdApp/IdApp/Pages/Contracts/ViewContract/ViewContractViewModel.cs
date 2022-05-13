@@ -27,6 +27,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 	{
 		private bool isReadOnly;
 		private readonly PhotosLoader photosLoader;
+		private DateTime skipContractEvent = DateTime.MinValue;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ViewContractViewModel"/> class.
@@ -64,15 +65,34 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.IsProposal = false;
 			}
 
+			this.XmppService.Contracts.ContractsClient.ContractUpdated += ContractsClient_ContractUpdated;
+
 			if (!(this.Contract is null))
+			{
+				DateTime TP = this.XmppService.Contracts.GetTimeOfLastContraceEvent(this.Contract.ContractId);
+				if (DateTime.Now.Subtract(TP).TotalSeconds >= 10)
+					this.Contract = await this.XmppService.Contracts.GetContract(this.Contract.ContractId);
+
 				await LoadContract();
+			}
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
+			this.XmppService.Contracts.ContractsClient.ContractUpdated -= ContractsClient_ContractUpdated;
+
 			this.ClearContract();
 			await base.DoUnbind();
+		}
+
+		private async Task ContractsClient_ContractUpdated(object Sender, ContractReferenceEventArgs e)
+		{
+			if (e.ContractId == this.Contract.ContractId && DateTime.Now.Subtract(this.skipContractEvent).TotalSeconds >= 10)
+			{
+				Contract Contract = await this.XmppService.Contracts.GetContract(e.ContractId);
+				await this.ContractUpdated(Contract);
+			}
 		}
 
 		private async Task ContractUpdated(Contract Contract)
@@ -725,10 +745,12 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 				if (sender is Button button && !string.IsNullOrEmpty(button.StyleId))
 				{
-					Contract contract = await this.XmppService.Contracts.SignContract(this.Contract, button.StyleId, false);
-					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
+					this.skipContractEvent = DateTime.Now;
 
+					Contract contract = await this.XmppService.Contracts.SignContract(this.Contract, button.StyleId, false);
 					await this.ContractUpdated(contract);
+
+					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
 				}
 			}
 			catch (Exception ex)
@@ -801,11 +823,12 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (!await App.VerifyPin())
 					return;
 
+				this.skipContractEvent = DateTime.Now;
+
 				Contract obsoletedContract = await this.XmppService.Contracts.ObsoleteContract(this.Contract.ContractId);
+				await this.ContractUpdated(obsoletedContract);
 
 				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
-
-				await this.ContractUpdated(obsoletedContract);
 			}
 			catch (Exception ex)
 			{
@@ -821,11 +844,12 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (!await App.VerifyPin())
 					return;
 
+				this.skipContractEvent = DateTime.Now;
+
 				Contract deletedContract = await this.XmppService.Contracts.DeleteContract(this.Contract.ContractId);
+				await this.ContractUpdated(deletedContract);
 
 				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
-
-				await this.ContractUpdated(deletedContract);
 			}
 			catch (Exception ex)
 			{

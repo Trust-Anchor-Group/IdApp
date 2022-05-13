@@ -7,6 +7,7 @@ using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Resx;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Persistence;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Contracts.MyContracts
@@ -217,14 +218,14 @@ namespace IdApp.Pages.Contracts.MyContracts
 						break;
 
 					case ContractsListMode.ContractTemplates:
-						KeyValuePair<DateTime, string>[] Templates;
+						KeyValuePair<DateTime, CaseInsensitiveString>[] Templates;
 						(Succeeded, Templates) = await this.NetworkService.TryRequest(this.XmppService.Contracts.GetContractTemplateIds);
 
 						int i = 0;
 						int c = Templates.Length;
 						ContractReferences = new ContractReference[c];
 
-						foreach (KeyValuePair<DateTime, string> P in Templates)
+						foreach (KeyValuePair<DateTime, CaseInsensitiveString> P in Templates)
 							ContractReferences[i++] = new ContractReference(P.Key, P.Value);
 
 						break;

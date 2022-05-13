@@ -342,7 +342,7 @@ namespace IdApp.Services.Xmpp
 			return this.xmppClient is null ||
 				this.xmppClient.State == XmppState.Offline ||
 				this.xmppClient.State == XmppState.Error ||
-				(this.xmppClient.State != XmppState.Connected && (DateTime.Now - this.xmppLastStateChange).TotalSeconds > 10);
+				(this.xmppClient.State != XmppState.Connected && (DateTime.Now - this.xmppLastStateChange).TotalSeconds >= 10);
 		}
 
 		private bool XmppParametersCurrent()
