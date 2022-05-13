@@ -376,6 +376,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Balance updated..
+        /// </summary>
+        internal static string BalanceUpdated {
+            get {
+                return ResourceManager.GetString("BalanceUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Block.
         /// </summary>
         internal static string Block {
@@ -646,6 +655,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A contract has been created..
+        /// </summary>
+        internal static string ContractCreated {
+            get {
+                return ResourceManager.GetString("ContractCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A contract has been deleted..
+        /// </summary>
+        internal static string ContractDeleted {
+            get {
+                return ResourceManager.GetString("ContractDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contract has been deleted..
         /// </summary>
         internal static string ContractHasBeenDeleted {
@@ -673,6 +700,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A contract has been proposed..
+        /// </summary>
+        internal static string ContractProposed {
+            get {
+                return ResourceManager.GetString("ContractProposed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select contract role first, and then try again..
         /// </summary>
         internal static string ContractRoleMustBeSelected {
@@ -687,6 +723,15 @@ namespace IdApp.Resx {
         internal static string Contracts {
             get {
                 return ResourceManager.GetString("Contracts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A contract has been signed..
+        /// </summary>
+        internal static string ContractSigned {
+            get {
+                return ResourceManager.GetString("ContractSigned", resourceCulture);
             }
         }
         
@@ -714,6 +759,15 @@ namespace IdApp.Resx {
         internal static string ContractTemplatesInfoText {
             get {
                 return ResourceManager.GetString("ContractTemplatesInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A contract has been updated..
+        /// </summary>
+        internal static string ContractUpdated {
+            get {
+                return ResourceManager.GetString("ContractUpdated", resourceCulture);
             }
         }
         
@@ -1425,6 +1479,15 @@ namespace IdApp.Resx {
         internal static string IdentityState_Rejected {
             get {
                 return ResourceManager.GetString("IdentityState_Rejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The digital identity has been updated..
+        /// </summary>
+        internal static string IdentityUpdated {
+            get {
+                return ResourceManager.GetString("IdentityUpdated", resourceCulture);
             }
         }
         
@@ -2442,6 +2505,15 @@ namespace IdApp.Resx {
         internal static string PetitionContractInformationText {
             get {
                 return ResourceManager.GetString("PetitionContractInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Petition from:.
+        /// </summary>
+        internal static string PetitionFrom {
+            get {
+                return ResourceManager.GetString("PetitionFrom", resourceCulture);
             }
         }
         
@@ -3742,6 +3814,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A token has been added to your wallet..
+        /// </summary>
+        internal static string TokenAdded {
+            get {
+                return ResourceManager.GetString("TokenAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token Details.
         /// </summary>
         internal static string TokenDetails {
@@ -3810,6 +3891,15 @@ namespace IdApp.Resx {
         internal static string TokenPrivilegesInfoText {
             get {
                 return ResourceManager.GetString("TokenPrivilegesInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A token has been removed from your wallet..
+        /// </summary>
+        internal static string TokenRemoved {
+            get {
+                return ResourceManager.GetString("TokenRemoved", resourceCulture);
             }
         }
         

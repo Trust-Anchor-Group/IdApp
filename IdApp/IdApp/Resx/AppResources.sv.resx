@@ -222,6 +222,9 @@
   <data name="Balance" xml:space="preserve">
     <value>Balans:</value>
   </data>
+  <data name="BalanceUpdated" xml:space="preserve">
+    <value>Saldot uppdaterat.</value>
+  </data>
   <data name="Block" xml:space="preserve">
     <value>Blockera</value>
   </data>
@@ -312,6 +315,12 @@
   <data name="ContinueAnyway" xml:space="preserve">
     <value>Fortsätt ändå</value>
   </data>
+  <data name="ContractCreated" xml:space="preserve">
+    <value>Ett kontrakt har skapats.</value>
+  </data>
+  <data name="ContractDeleted" xml:space="preserve">
+    <value>Ett kontrakt har raderats.</value>
+  </data>
   <data name="ContractHasBeenDeleted" xml:space="preserve">
     <value>Kontraktet har tagits bort.</value>
   </data>
@@ -321,11 +330,17 @@
   <data name="ContractId" xml:space="preserve">
     <value>KontraktId</value>
   </data>
+  <data name="ContractProposed" xml:space="preserve">
+    <value>Ett förslag på kontrakt har mottagits.</value>
+  </data>
   <data name="ContractRoleMustBeSelected" xml:space="preserve">
     <value>Välj kontrakt-roll först och försök igen.</value>
   </data>
   <data name="Contracts" xml:space="preserve">
     <value>Kontrakt</value>
+  </data>
+  <data name="ContractSigned" xml:space="preserve">
+    <value>Ett kontrakt har skrivits under.</value>
   </data>
   <data name="ContractSuccessfullySigned" xml:space="preserve">
     <value>Kontraktet signerades.</value>
@@ -335,6 +350,9 @@
   </data>
   <data name="ContractTemplatesInfoText" xml:space="preserve">
     <value>Nedan visas en lista över kontraktmallar du har använt. Klicka på en kontraktsmall för att skapa ett nytt kontrakt baserat på den mallen.</value>
+  </data>
+  <data name="ContractUpdated" xml:space="preserve">
+    <value>Ett kontrakt har uppdaterats.</value>
   </data>
   <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
     <value>Välj kontrakt-synlighet först och försök igen.</value>
@@ -572,6 +590,9 @@
   </data>
   <data name="IdentityState_Rejected" xml:space="preserve">
     <value>Avvisad</value>
+  </data>
+  <data name="IdentityUpdated" xml:space="preserve">
+    <value>Den digitala identiteten har uppdaterats.</value>
   </data>
   <data name="Ignore" xml:space="preserve">
     <value>Ignorera</value>
@@ -911,6 +932,9 @@
   </data>
   <data name="PetitionContractInformationText" xml:space="preserve">
     <value>En ansökan för personlig data tillhörande ett av dina kontrakt har mottagits. Vänligen granska informationen edan och välj hur du vill svara.</value>
+  </data>
+  <data name="PetitionFrom" xml:space="preserve">
+    <value>Förfrågan från:</value>
   </data>
   <data name="PetitionIdentity" xml:space="preserve">
     <value>Åtkomst till identitet</value>
@@ -1350,6 +1374,9 @@
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
     <value>Du kan välja att skapa ett konto hos denna leverantör. Skriv in namnet på kontot du skulle vilja använda, och tryck på Skapa Nytt-knappen. Du kan också välja att skanna en inbjudan eller överföringskod, för att använda ett konto som har förberetts åt dig, hos en annan tjänsteleverantör. Klicka på knappen för att skanna inbjudan, för att scanna en inbjudnings- eller överföringskod.</value>
   </data>
+  <data name="TokenAdded" xml:space="preserve">
+    <value>En token har lagts till din plånbok.</value>
+  </data>
   <data name="TokenDetails" xml:space="preserve">
     <value>Tokendetaljer</value>
   </data>
@@ -1373,6 +1400,9 @@
   </data>
   <data name="TokenPrivilegesInfoText" xml:space="preserve">
     <value>Här nedan följer privilegier ingraverade i detta token.</value>
+  </data>
+  <data name="TokenRemoved" xml:space="preserve">
+    <value>En token har tagits bort från din plånbok.</value>
   </data>
   <data name="TokenVisibility" xml:space="preserve">
     <value>Tokens synlighet</value>

@@ -1623,4 +1623,34 @@
   <data name="EnterProposal" xml:space="preserve">
     <value>Unesite tekst koji treba uključiti u predlog da {0} ili ostavite prazan ako predlog ne bi trebalo da bude poslat.</value>
   </data>
+  <data name="BalanceUpdated" xml:space="preserve">
+    <value>Saldo je ažuriran.</value>
+  </data>
+  <data name="ContractCreated" xml:space="preserve">
+    <value>Ugovor je kreiran.</value>
+  </data>
+  <data name="ContractDeleted" xml:space="preserve">
+    <value>Ugovor je izbrisan.</value>
+  </data>
+  <data name="ContractProposed" xml:space="preserve">
+    <value>Predložen je ugovor.</value>
+  </data>
+  <data name="ContractSigned" xml:space="preserve">
+    <value>Potpisan je ugovor.</value>
+  </data>
+  <data name="ContractUpdated" xml:space="preserve">
+    <value>Ugovor je ažuriran.</value>
+  </data>
+  <data name="IdentityUpdated" xml:space="preserve">
+    <value>Digitalni identitet je ažuriran.</value>
+  </data>
+  <data name="PetitionFrom" xml:space="preserve">
+    <value>Peticija od:</value>
+  </data>
+  <data name="TokenAdded" xml:space="preserve">
+    <value>Simbol je dodat u vaš novčanik.</value>
+  </data>
+  <data name="TokenRemoved" xml:space="preserve">
+    <value>Simbol je uklonjen iz vašeg novčanika.</value>
+  </data>
 </root>

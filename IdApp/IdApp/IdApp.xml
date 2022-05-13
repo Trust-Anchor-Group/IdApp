@@ -11557,6 +11557,11 @@
               Looks up a localized string similar to Balance:.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.BalanceUpdated">
+            <summary>
+              Looks up a localized string similar to Balance updated..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Block">
             <summary>
               Looks up a localized string similar to Block.
@@ -11707,6 +11712,16 @@
               Looks up a localized string similar to Continue anyway.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ContractCreated">
+            <summary>
+              Looks up a localized string similar to A contract has been created..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ContractDeleted">
+            <summary>
+              Looks up a localized string similar to A contract has been deleted..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ContractHasBeenDeleted">
             <summary>
               Looks up a localized string similar to Contract has been deleted..
@@ -11722,6 +11737,11 @@
               Looks up a localized string similar to Contract ID.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ContractProposed">
+            <summary>
+              Looks up a localized string similar to A contract has been proposed..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ContractRoleMustBeSelected">
             <summary>
               Looks up a localized string similar to Select contract role first, and then try again..
@@ -11730,6 +11750,11 @@
         <member name="P:IdApp.Resx.AppResources.Contracts">
             <summary>
               Looks up a localized string similar to Contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ContractSigned">
+            <summary>
+              Looks up a localized string similar to A contract has been signed..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ContractSuccessfullySigned">
@@ -11745,6 +11770,11 @@
         <member name="P:IdApp.Resx.AppResources.ContractTemplatesInfoText">
             <summary>
               Looks up a localized string similar to Below is a list of contract templates that you have used. Click on a template to create a new contract based on that template..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ContractUpdated">
+            <summary>
+              Looks up a localized string similar to A contract has been updated..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ContractVisibility_CreatorAndParts">
@@ -12140,6 +12170,11 @@
         <member name="P:IdApp.Resx.AppResources.IdentityState_Rejected">
             <summary>
               Looks up a localized string similar to Rejected.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.IdentityUpdated">
+            <summary>
+              Looks up a localized string similar to The digital identity has been updated..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Ignore">
@@ -12705,6 +12740,11 @@
         <member name="P:IdApp.Resx.AppResources.PetitionContractInformationText">
             <summary>
               Looks up a localized string similar to A petition for the personal data in one of your contracts has been received. Review the information below and choose how you wish to respond..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PetitionFrom">
+            <summary>
+              Looks up a localized string similar to Petition from:.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PetitionIdentity">
@@ -13427,6 +13467,11 @@
               Looks up a localized string similar to You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Scan Invitation button to scan an invitation code..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.TokenAdded">
+            <summary>
+              Looks up a localized string similar to A token has been added to your wallet..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.TokenDetails">
             <summary>
               Looks up a localized string similar to Token Details.
@@ -13465,6 +13510,11 @@
         <member name="P:IdApp.Resx.AppResources.TokenPrivilegesInfoText">
             <summary>
               Looks up a localized string similar to Following are privileges engraved into the token..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TokenRemoved">
+            <summary>
+              Looks up a localized string similar to A token has been removed from your wallet..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.TokenVisibility">
