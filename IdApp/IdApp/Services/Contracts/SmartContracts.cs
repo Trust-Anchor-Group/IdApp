@@ -9,6 +9,7 @@ using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Waher.Persistence;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Temporary;
 
@@ -17,6 +18,7 @@ namespace IdApp.Services.Contracts
 	[Singleton]
 	internal sealed class SmartContracts : ServiceReferences, ISmartContracts
 	{
+		private readonly Dictionary<CaseInsensitiveString, DateTime> lastContractEvent = new();
 		private ContractsClient contractsClient;
 		private HttpFileUploadClient fileUploadClient;
 
@@ -45,6 +47,7 @@ namespace IdApp.Services.Contracts
 						this.contractsClient.PetitionForPeerReviewIDReceived -= ContractsClient_PetitionForPeerReviewIdReceived;
 						this.contractsClient.PetitionedPeerReviewIDResponseReceived -= ContractsClient_PetitionedPeerReviewIdResponseReceived;
 						this.contractsClient.ContractProposalReceived -= ContractsClient_ContractProposalReceived;
+						this.contractsClient.ContractUpdated -= ContractsClient_ContractUpdated;
 					}
 
 					this.contractsClient = (this.XmppService as XmppService)?.ContractsClient;
@@ -61,6 +64,7 @@ namespace IdApp.Services.Contracts
 					this.contractsClient.PetitionForPeerReviewIDReceived += ContractsClient_PetitionForPeerReviewIdReceived;
 					this.contractsClient.PetitionedPeerReviewIDResponseReceived += ContractsClient_PetitionedPeerReviewIdResponseReceived;
 					this.contractsClient.ContractProposalReceived += ContractsClient_ContractProposalReceived;
+					this.contractsClient.ContractUpdated += ContractsClient_ContractUpdated;
 				}
 
 				return this.contractsClient;
@@ -85,12 +89,12 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		public Task PetitionContract(string contractId, string petitionId, string purpose)
+		public Task PetitionContract(CaseInsensitiveString contractId, string petitionId, string purpose)
 		{
 			return this.ContractsClient.PetitionContractAsync(contractId, petitionId, purpose);
 		}
 
-		public Task<Contract> GetContract(string contractId)
+		public Task<Contract> GetContract(CaseInsensitiveString contractId)
 		{
 			return this.ContractsClient.GetContractAsync(contractId);
 		}
@@ -106,7 +110,7 @@ namespace IdApp.Services.Contracts
 		}
 
 		public Task<Contract> CreateContract(
-			string templateId,
+			CaseInsensitiveString templateId,
 			Part[] parts,
 			Parameter[] parameters,
 			ContractVisibility visibility,
@@ -121,7 +125,7 @@ namespace IdApp.Services.Contracts
 			return this.ContractsClient.CreateContractAsync(templateId, parts, parameters, visibility, partsMode, duration, archiveRequired, archiveOptional, signAfter, signBefore, canActAsTemplate);
 		}
 
-		public Task<Contract> DeleteContract(string contractId)
+		public Task<Contract> DeleteContract(CaseInsensitiveString contractId)
 		{
 			return this.ContractsClient.DeleteContractAsync(contractId);
 		}
@@ -171,14 +175,14 @@ namespace IdApp.Services.Contracts
 		/// Gets the id's of contract templates used.
 		/// </summary>
 		/// <returns>Id's of contract templates, together with the last time they were used.</returns>
-		public async Task<KeyValuePair<DateTime, string>[]> GetContractTemplateIds()
+		public async Task<KeyValuePair<DateTime, CaseInsensitiveString>[]> GetContractTemplateIds()
 		{
-			List<KeyValuePair<DateTime, string>> Result = new();
+			List<KeyValuePair<DateTime, CaseInsensitiveString>> Result = new();
 			string Prefix = Constants.KeyPrefixes.ContractTemplatePrefix;
 			int PrefixLen = Prefix.Length;
 
 			foreach ((string Key, DateTime LastUsed) in await this.SettingsService.RestoreStateWhereKeyStartsWith<DateTime>(Prefix))
-				Result.Add(new KeyValuePair<DateTime, string>(LastUsed, Key[PrefixLen..]));
+				Result.Add(new KeyValuePair<DateTime, CaseInsensitiveString>(LastUsed, Key[PrefixLen..]));
 
 			return Result.ToArray();
 		}
@@ -188,7 +192,7 @@ namespace IdApp.Services.Contracts
 			return this.ContractsClient.SignContractAsync(contract, role, transferable);
 		}
 
-		public Task<Contract> ObsoleteContract(string contractId)
+		public Task<Contract> ObsoleteContract(CaseInsensitiveString contractId)
 		{
 			return this.ContractsClient.ObsoleteContractAsync(contractId);
 		}
@@ -221,7 +225,7 @@ namespace IdApp.Services.Contracts
 		/// <param name="legalIdentityId">The id of the legal identity.</param>
 		/// <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
 		/// <returns>If private keys are available.</returns>
-		public async Task<bool> HasPrivateKey(string legalIdentityId, XmppClient client = null)
+		public async Task<bool> HasPrivateKey(CaseInsensitiveString legalIdentityId, XmppClient client = null)
 		{
 			if (client is null)
 				return await this.ContractsClient.HasPrivateKey(legalIdentityId);
@@ -241,7 +245,7 @@ namespace IdApp.Services.Contracts
 		/// </summary>
 		/// <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
 		/// <returns>Legal identity object</returns>
-		public async Task<LegalIdentity> GetLegalIdentity(string legalIdentityId)
+		public async Task<LegalIdentity> GetLegalIdentity(CaseInsensitiveString legalIdentityId)
 		{
 			ContactInfo Info = await ContactInfo.FindByLegalId(legalIdentityId);
 			if (!(Info is null) && !(Info.LegalIdentity is null))
@@ -255,29 +259,29 @@ namespace IdApp.Services.Contracts
 		/// </summary>
 		/// <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
 		/// <returns>If the legal identity is in the contacts list.</returns>
-		public async Task<bool> IsContact(string legalIdentityId)
+		public async Task<bool> IsContact(CaseInsensitiveString legalIdentityId)
 		{
 			ContactInfo Info = await ContactInfo.FindByLegalId(legalIdentityId);
 			return (!(Info is null) && !(Info.LegalIdentity is null));
 		}
 
 
-		public Task PetitionIdentity(string legalId, string petitionId, string purpose)
+		public Task PetitionIdentity(CaseInsensitiveString legalId, string petitionId, string purpose)
 		{
 			return this.ContractsClient.PetitionIdentityAsync(legalId, petitionId, purpose);
 		}
 
-		public Task SendPetitionIdentityResponse(string legalId, string petitionId, string requestorFullJid, bool response)
+		public Task SendPetitionIdentityResponse(CaseInsensitiveString legalId, string petitionId, string requestorFullJid, bool response)
 		{
 			return this.ContractsClient.PetitionIdentityResponseAsync(legalId, petitionId, requestorFullJid, response);
 		}
 
-		public Task SendPetitionContractResponse(string contractId, string petitionId, string requestorFullJid, bool response)
+		public Task SendPetitionContractResponse(CaseInsensitiveString contractId, string petitionId, string requestorFullJid, bool response)
 		{
 			return this.ContractsClient.PetitionContractResponseAsync(contractId, petitionId, requestorFullJid, response);
 		}
 
-		public Task SendPetitionSignatureResponse(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response)
+		public Task SendPetitionSignatureResponse(CaseInsensitiveString legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response)
 		{
 			return this.ContractsClient.PetitionSignatureResponseAsync(legalId, content, signature, petitionId, requestorFullJid, response);
 		}
@@ -287,7 +291,7 @@ namespace IdApp.Services.Contracts
 			return this.ContractsClient.AddPeerReviewIDAttachment(identity, reviewerLegalIdentity, peerSignature);
 		}
 
-		public Task PetitionPeerReviewId(string legalId, LegalIdentity identity, string petitionId, string purpose)
+		public Task PetitionPeerReviewId(CaseInsensitiveString legalId, LegalIdentity identity, string petitionId, string purpose)
 		{
 			return this.ContractsClient.PetitionPeerReviewIDAsync(legalId, identity, petitionId, purpose);
 		}
@@ -313,12 +317,12 @@ namespace IdApp.Services.Contracts
 			return this.ContractsClient.ValidateSignature(legalIdentity, data, signature);
 		}
 
-		public Task<LegalIdentity> ObsoleteLegalIdentity(string legalIdentityId)
+		public Task<LegalIdentity> ObsoleteLegalIdentity(CaseInsensitiveString legalIdentityId)
 		{
 			return this.ContractsClient.ObsoleteLegalIdentityAsync(legalIdentityId);
 		}
 
-		public Task<LegalIdentity> CompromiseLegalIdentity(string legalIdentityId)
+		public Task<LegalIdentity> CompromiseLegalIdentity(CaseInsensitiveString legalIdentityId)
 		{
 			return this.ContractsClient.CompromisedLegalIdentityAsync(legalIdentityId);
 		}
@@ -553,5 +557,27 @@ namespace IdApp.Services.Contracts
 				}
 			}
 		}
+
+		private Task ContractsClient_ContractUpdated(object Sender, ContractReferenceEventArgs e)
+		{
+			lock (this.lastContractEvent)
+			{
+				this.lastContractEvent[e.ContractId] = DateTime.Now;
+			}
+
+			return Task.CompletedTask;
+		}
+
+		public DateTime GetTimeOfLastContraceEvent(CaseInsensitiveString ContractId)
+		{
+			lock (this.lastContractEvent)
+			{
+				if (this.lastContractEvent.TryGetValue(ContractId, out DateTime TP))
+					return TP;
+				else
+					return DateTime.MinValue;
+			}
+		}
+
 	}
 }

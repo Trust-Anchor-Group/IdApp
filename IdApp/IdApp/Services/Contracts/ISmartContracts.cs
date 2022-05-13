@@ -6,6 +6,7 @@ using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Waher.Persistence;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Temporary;
 
@@ -58,14 +59,14 @@ namespace IdApp.Services.Contracts
         /// </summary>
         /// <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
         /// <returns>Legal identity object</returns>
-        Task<LegalIdentity> GetLegalIdentity(string legalIdentityId);
+        Task<LegalIdentity> GetLegalIdentity(CaseInsensitiveString legalIdentityId);
 
         /// <summary>
         /// Checks if a legal identity is in the contacts list.
         /// </summary>
         /// <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
         /// <returns>If the legal identity is in the contacts list.</returns>
-        Task<bool> IsContact(string legalIdentityId);
+        Task<bool> IsContact(CaseInsensitiveString legalIdentityId);
 
         /// <summary>
         /// Checks if the client has access to the private keys of the specified legal identity.
@@ -73,21 +74,21 @@ namespace IdApp.Services.Contracts
         /// <param name="legalIdentityId">The id of the legal identity.</param>
         /// <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
         /// <returns>If private keys are available.</returns>
-        Task<bool> HasPrivateKey(string legalIdentityId, XmppClient client = null);
+        Task<bool> HasPrivateKey(CaseInsensitiveString legalIdentityId, XmppClient client = null);
 
         /// <summary>
         /// Marks the legal identity as obsolete.
         /// </summary>
         /// <param name="legalIdentityId">The id to mark as obsolete.</param>
         /// <returns>Legal Identity</returns>
-        Task<LegalIdentity> ObsoleteLegalIdentity(string legalIdentityId);
+        Task<LegalIdentity> ObsoleteLegalIdentity(CaseInsensitiveString legalIdentityId);
 
         /// <summary>
         /// Marks the legal identity as compromised.
         /// </summary>
         /// <param name="legalIdentityId">The legal id to mark as compromised.</param>
         /// <returns>Legal Identity</returns>
-        Task<LegalIdentity> CompromiseLegalIdentity(string legalIdentityId);
+        Task<LegalIdentity> CompromiseLegalIdentity(CaseInsensitiveString legalIdentityId);
 
         /// <summary>
         /// Petitions a legal identity.
@@ -95,7 +96,7 @@ namespace IdApp.Services.Contracts
         /// <param name="legalId">The id of the legal identity.</param>
         /// <param name="petitionId">The petition id.</param>
         /// <param name="purpose">The purpose of the petitioning.</param>
-        Task PetitionIdentity(string legalId, string petitionId, string purpose);
+        Task PetitionIdentity(CaseInsensitiveString legalId, string petitionId, string purpose);
 
         /// <summary>
         /// Sends a response to a petitioning identity request.
@@ -104,7 +105,7 @@ namespace IdApp.Services.Contracts
         /// <param name="petitionId">The petition id.</param>
         /// <param name="requestorFullJid">The full Jid of the requestor.</param>
         /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
-        Task SendPetitionIdentityResponse(string legalId, string petitionId, string requestorFullJid, bool response);
+        Task SendPetitionIdentityResponse(CaseInsensitiveString legalId, string petitionId, string requestorFullJid, bool response);
 
         /// <summary>
         /// An event that fires when a legal identity changes.
@@ -130,7 +131,7 @@ namespace IdApp.Services.Contracts
         /// </summary>
         /// <param name="contractId">The contract id.</param>
         /// <returns>Smart Contract</returns>
-        Task<Contract> GetContract(string contractId);
+        Task<Contract> GetContract(CaseInsensitiveString contractId);
         
         /// <summary>
         /// Gets created contracts.
@@ -148,7 +149,7 @@ namespace IdApp.Services.Contracts
         /// Gets the id's of contract templates used.
         /// </summary>
         /// <returns>Id's of contract templates.</returns>
-        Task<KeyValuePair<DateTime, string>[]> GetContractTemplateIds();
+        Task<KeyValuePair<DateTime, CaseInsensitiveString>[]> GetContractTemplateIds();
 
         /// <summary>
         /// Signs a given contract.
@@ -164,7 +165,7 @@ namespace IdApp.Services.Contracts
         /// </summary>
         /// <param name="contractId">The id of the contract to obsolete.</param>
         /// <returns>Smart Contract</returns>
-        Task<Contract> ObsoleteContract(string contractId);
+        Task<Contract> ObsoleteContract(CaseInsensitiveString contractId);
 
         /// <summary>
         /// Creates a new contract.
@@ -182,7 +183,7 @@ namespace IdApp.Services.Contracts
         /// <param name="canActAsTemplate">Can this contract act as a template itself?</param>
         /// <returns>Smart Contract</returns>
         Task<Contract> CreateContract(
-            string templateId,
+            CaseInsensitiveString templateId,
             Part[] parts,
             Parameter[] parameters,
             ContractVisibility visibility,
@@ -199,7 +200,7 @@ namespace IdApp.Services.Contracts
         /// </summary>
         /// <param name="contractId">The id of the contract to delete.</param>
         /// <returns>Smart Contract</returns>
-        Task<Contract> DeleteContract(string contractId);
+        Task<Contract> DeleteContract(CaseInsensitiveString contractId);
 
         /// <summary>
         /// Petitions a contract with the specified id and purpose.
@@ -207,7 +208,7 @@ namespace IdApp.Services.Contracts
         /// <param name="contractId">The contract id.</param>
         /// <param name="petitionId">The petition id.</param>
         /// <param name="purpose">The purpose.</param>
-        Task PetitionContract(string contractId, string petitionId, string purpose);
+        Task PetitionContract(CaseInsensitiveString contractId, string petitionId, string purpose);
 
         /// <summary>
         /// Sends a response to a petitioning contract request.
@@ -216,7 +217,7 @@ namespace IdApp.Services.Contracts
         /// <param name="petitionId">The petition id.</param>
         /// <param name="requestorFullJid">The full Jid of the requestor.</param>
         /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
-        Task SendPetitionContractResponse(string contractId, string petitionId, string requestorFullJid, bool response);
+        Task SendPetitionContractResponse(CaseInsensitiveString contractId, string petitionId, string requestorFullJid, bool response);
 
         /// <summary>
         /// An event that fires when a petition for a contract is received.
@@ -227,6 +228,13 @@ namespace IdApp.Services.Contracts
         /// An event that fires when a petitioned contract response is received.
         /// </summary>
         event EventHandler<ContractPetitionResponseEventArgs> PetitionedContractResponseReceived;
+
+        /// <summary>
+        /// Gets the timestamp of the last event received for a given contract ID.
+        /// </summary>
+        /// <param name="ContractId">Contract ID</param>
+        /// <returns>Timestamp</returns>
+        DateTime GetTimeOfLastContraceEvent(CaseInsensitiveString ContractId);
 
         #endregion
 
@@ -252,7 +260,7 @@ namespace IdApp.Services.Contracts
         /// <param name="identity">The legal id to peer review.</param>
         /// <param name="petitionId">The petition id.</param>
         /// <param name="purpose">The purpose.</param>
-        Task PetitionPeerReviewId(string legalId, LegalIdentity identity, string petitionId, string purpose);
+        Task PetitionPeerReviewId(CaseInsensitiveString legalId, LegalIdentity identity, string petitionId, string purpose);
 
         /// <summary>
         /// Adds an attachment for the peer review.
@@ -311,7 +319,7 @@ namespace IdApp.Services.Contracts
         /// to identify the petition request.</param>
         /// <param name="requestorFullJid">Full JID of requestor.</param>
         /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
-        Task SendPetitionSignatureResponse(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response);
+        Task SendPetitionSignatureResponse(CaseInsensitiveString legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response);
 
         /// <summary>
         /// An event that fires when a petition for a signature is received.
