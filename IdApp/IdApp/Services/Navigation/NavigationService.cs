@@ -69,7 +69,7 @@ namespace IdApp.Services.Navigation
 			if ((e.Source == ShellNavigationSource.Pop) &&
 				(this.currentNavigationArgs is not null) &&
 				(!string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute) ||
-				this.currentNavigationArgs.ReturnCount > 1))
+				this.currentNavigationArgs.ReturnCounter > 1))
 			{
 				if (e.CanCancel && !this.isManuallyNavigatingBack)
 				{
@@ -147,22 +147,22 @@ namespace IdApp.Services.Navigation
 			try
 			{
 				string ReturnRoute = DefaultGoBackRoute;
-				int ReturnCount = 0;
+				int ReturnCounter = 0;
 
 				if (this.currentNavigationArgs is not null)
 				{
-					ReturnCount = this.currentNavigationArgs.ReturnCount;
+					ReturnCounter = this.currentNavigationArgs.ReturnCounter;
 
-					if ((ReturnCount == 0) &&
+					if ((ReturnCounter == 0) &&
 						!string.IsNullOrEmpty(this.currentNavigationArgs.ReturnRoute))
 					{
 						ReturnRoute = this.currentNavigationArgs.ReturnRoute;
 					}
 				}
 
-				if (ReturnCount > 1)
+				if (ReturnCounter > 1)
 				{
-					for (int i = 1; i < ReturnCount; i++)
+					for (int i = 1; i < ReturnCounter; i++)
 					{
 						ReturnRoute += "/" + DefaultGoBackRoute;
 					}
@@ -184,21 +184,22 @@ namespace IdApp.Services.Navigation
 
 		public Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs, new()
 		{
-			return GoToAsync(route, args, (NavigationArgs)null);
+			NavigationArgs navigationArgs = this.GetPopArgs<NavigationArgs>();
+			return GoToAsync(route, args, navigationArgs);
 		}
 
-		public async Task GoToAsync<TArgs>(string route, TArgs args, NavigationArgs navigationArgs) where TArgs : NavigationArgs, new()
+		internal async Task GoToAsync<TArgs>(string route, TArgs args, NavigationArgs navigationArgs) where TArgs : NavigationArgs, new()
 		{
-			if (navigationArgs is not null)
+			if ((navigationArgs is not null) && (navigationArgs.ReturnCounter > 0))
 			{
 				if (args is null)
 				{
 					args = new TArgs();
 				}
 
-				if (navigationArgs.ReturnCount > 0)
+				if (navigationArgs.ReturnCounter > 0)
 				{
-					args.ReturnCount = navigationArgs.ReturnCount + 1;
+					args.ReturnCounter = navigationArgs.ReturnCounter + 1;
 				}
 			}
 

@@ -26,14 +26,6 @@ namespace IdApp.Services.Navigation
         Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs, new();
 
         /// <summary>
-        /// Navigates the AppShell to the specified route, with page arguments to match.
-        /// </summary>
-        /// <param name="route">The route whose matching page to navigate to.</param>
-        /// <param name="args">The specific args to pass to the page.</param>
-        /// <param name="navigationArgs">Apply current navigation args to the next page args.</param>
-        Task GoToAsync<TArgs>(string route, TArgs args, NavigationArgs navigationArgs) where TArgs : NavigationArgs, new();
-
-        /// <summary>
         /// Returns to the previous page/route.
         /// </summary>
         Task GoBackAsync();

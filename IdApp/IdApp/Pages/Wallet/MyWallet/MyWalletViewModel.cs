@@ -783,7 +783,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				await this.NavigationService.GoToAsync(nameof(NewContractPage),
 					new NewContractNavigationArgs(Template, true)
 					{
-						ReturnCount = 1
+						ReturnCounter = 1
 					});
 			}
 			catch (Exception ex)

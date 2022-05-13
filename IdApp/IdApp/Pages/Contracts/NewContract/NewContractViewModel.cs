@@ -865,8 +865,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				if (Created is not null)
 				{
 					await this.NavigationService.GoToAsync(nameof(ViewContractPage),
-						new ViewContractNavigationArgs(Created, false) { ReturnRoute = "///" + nameof(MainPage) },
-						this.NavigationService.GetPopArgs<NewContractNavigationArgs>());
+						new ViewContractNavigationArgs(Created, false) { ReturnRoute = "///" + nameof(MainPage) });
 				}
 			}
 		}
