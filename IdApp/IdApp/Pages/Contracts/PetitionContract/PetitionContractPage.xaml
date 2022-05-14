@@ -6,6 +6,7 @@
                        xmlns:photos="clr-namespace:IdApp.Services.UI.Photos;assembly=IdApp"
                        xmlns:image="clr-namespace:IdApp.Popups.Photos.Image;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Contracts.PetitionContract;assembly=IdApp"
+                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:PetitionContractViewModel"
                        x:Class="IdApp.Pages.Contracts.PetitionContract.PetitionContractPage"
                        Title="{x:Static resx:AppResources.PetitionContract}">
@@ -62,7 +63,8 @@
                     <Label Grid.Row="4" Grid.Column="1" Text="{Binding Path=Updated}" Style="{StaticResource ValueLabel}"/>
                     <!-- -->
                     <Label Grid.Row="5" Grid.Column="0" Text="{x:Static resx:AppResources.State}" Style="{StaticResource KeyLabel}"/>
-                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding Path=State}" Style="{StaticResource ValueLabel}"/>
+                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding Path=State}" Style="{StaticResource ValueLabel}" 
+                           BackgroundColor="{Binding Path=State, Converter={converters:IdentityStateToColor}}"/>
                     <!-- -->
                     <Label Grid.Row="6" Grid.Column="0" Text="{x:Static resx:AppResources.FirstName}" Style="{StaticResource KeyLabel}"/>
                     <Label Grid.Row="6" Grid.Column="1" Text="{Binding Path=FirstName}" Style="{StaticResource ValueLabel}"/>

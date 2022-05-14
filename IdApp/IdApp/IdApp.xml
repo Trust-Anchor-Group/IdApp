@@ -1156,6 +1156,27 @@
         <member name="M:IdApp.Converters.GreaterThanZero.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Converters.IdentityStateToColor">
+            <summary>
+            Converts an identity state to a color.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.IdentityStateToColor.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.IdentityStateToColor.ToColor(Waher.Networking.XMPP.Contracts.IdentityState)">
+            <summary>
+            Converts a contract state to a representative color.
+            </summary>
+            <param name="State">Contract State</param>
+            <returns>Color</returns>
+        </member>
+        <member name="M:IdApp.Converters.IdentityStateToColor.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.IdentityStateToColor.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Converters.LogicalNot">
             <summary>
             Converts, or flips, a boolean value to it's inverse value. I.e. turns <c>true</c> to <c>false</c>, or the other way around.
