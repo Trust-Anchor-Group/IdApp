@@ -1078,6 +1078,27 @@
         <member name="M:IdApp.Converters.BooleanToYesNoConverter.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Converters.ContractStateToColor">
+            <summary>
+            Converts a contract state to a color.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.ContractStateToColor.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.ContractStateToColor.ToColor(Waher.Networking.XMPP.Contracts.ContractState)">
+            <summary>
+            Converts a contract state to a representative color.
+            </summary>
+            <param name="State">Contract State</param>
+            <returns>Color</returns>
+        </member>
+        <member name="M:IdApp.Converters.ContractStateToColor.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.ContractStateToColor.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Converters.DateTimeToStringConverter">
             <summary>
             Converts a <see cref="T:System.DateTime"/> value to a <see cref="T:System.String"/> value. If the value is
@@ -4136,9 +4157,18 @@
             <param name="value">The contract part value.</param>
             <param name="legalId">A legal id (optional).</param>
         </member>
+        <member name="M:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.#ctor(System.String,System.String,Xamarin.Forms.Color,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel"/> class.
+            </summary>
+            <param name="key">A unique contract part key.</param>
+            <param name="value">The contract part value.</param>
+            <param name="BgColor">Background color.</param>
+            <param name="legalId">A legal id (optional).</param>
+        </member>
         <member name="F:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.KeyProperty">
             <summary>
-            
+            Defines bindable property <see cref="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.Key"/>.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.Key">
@@ -4148,17 +4178,17 @@
         </member>
         <member name="F:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.ValueProperty">
             <summary>
-            The contract part value.
+            Defines bindable property <see cref="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.Value"/>.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.Value">
             <summary>
-            
+            The contract part value.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.LegalIdProperty">
             <summary>
-            
+            Defines bindable property <see cref="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.LegalId"/>.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.LegalId">
@@ -4168,10 +4198,20 @@
         </member>
         <member name="F:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.CanSignProperty">
             <summary>
-            
+            Defines bindable property <see cref="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.CanSign"/>.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.CanSign">
+            <summary>
+            Gets or sets whether the contract part can sign a contract.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.BgColorProperty">
+            <summary>
+            Defines bindable property <see cref="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.BgColor"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.BgColor">
             <summary>
             Gets or sets whether the contract part can sign a contract.
             </summary>

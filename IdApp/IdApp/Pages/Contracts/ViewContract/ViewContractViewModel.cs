@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Converters;
 using IdApp.Extensions;
 using IdApp.Pages.Contracts.ClientSignature;
 using IdApp.Pages.Contracts.ServerSignature;
@@ -535,7 +536,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (Contract.Updated > DateTime.MinValue)
 					this.GeneralInformation.Add(new PartModel(AppResources.Updated, Contract.Updated.ToString(CultureInfo.CurrentUICulture)));
 
-				this.GeneralInformation.Add(new PartModel(AppResources.State, Contract.State.ToString()));
+				this.GeneralInformation.Add(new PartModel(AppResources.State, Contract.State.ToString(), ContractStateToColor.ToColor(Contract.State)));
 				this.GeneralInformation.Add(new PartModel(AppResources.Visibility, Contract.Visibility.ToString()));
 				this.GeneralInformation.Add(new PartModel(AppResources.Duration, Contract.Duration.ToString()));
 				this.GeneralInformation.Add(new PartModel(AppResources.From, Contract.From.ToString(CultureInfo.CurrentUICulture)));

@@ -29,7 +29,8 @@
                         <DataTemplate x:DataType="objectmodel:PartModel">
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding Path=Key}" Style="{StaticResource KeyLabel}"/>
-                                <Label LineBreakMode="NoWrap" Text="{Binding Path=Value}" Style="{StaticResource ValueLabel}"/>
+                                <Label LineBreakMode="NoWrap" Text="{Binding Path=Value}" Style="{StaticResource ValueLabel}"
+                                       BackgroundColor="{Binding BgColor}"/>
                             </StackLayout>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
