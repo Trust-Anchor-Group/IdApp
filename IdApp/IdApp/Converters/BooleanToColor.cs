@@ -8,7 +8,7 @@ namespace IdApp.Converters
     /// <summary>
     /// Converts a boolean value to a color ("AlertColor"), or <see cref="Color.Default"/> (if false).
     /// </summary>
-    public class BooleanToColorConverter : IValueConverter, IMarkupExtension
+    public class BooleanToColor : IValueConverter, IMarkupExtension
     {
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

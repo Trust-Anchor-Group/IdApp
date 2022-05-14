@@ -989,93 +989,93 @@
             The NoBounceScrollView disables the bounce effect for the scroll view on iOS
             </summary>
         </member>
-        <member name="T:IdApp.Converters.BinaryToBase64Converter">
+        <member name="T:IdApp.Converters.BinaryToBase64">
             <summary>
             Converts binary data to base64-encoded strings.
             </summary>
         </member>
-        <member name="M:IdApp.Converters.BinaryToBase64Converter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BinaryToBase64.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BinaryToBase64Converter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BinaryToBase64.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BinaryToBase64Converter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.BinaryToBase64.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.BooleanToBoldFontConverter">
+        <member name="T:IdApp.Converters.BooleanToBoldFont">
             <summary>
             Converts a boolean value to a bold font (if true), or regular font (if false).
             </summary>
         </member>
-        <member name="P:IdApp.Converters.BooleanToBoldFontConverter.Invert">
+        <member name="P:IdApp.Converters.BooleanToBoldFont.Invert">
             <summary>
             Set to true if the conversion should be inverted or not.
             </summary>
         </member>
-        <member name="M:IdApp.Converters.BooleanToBoldFontConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToBoldFont.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToBoldFontConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToBoldFont.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToBoldFontConverter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.BooleanToBoldFont.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.BooleanToCharConverter">
+        <member name="T:IdApp.Converters.BooleanToChar">
             <summary>
             Converts a boolean value to a unicode character.
             </summary>
         </member>
-        <member name="M:IdApp.Converters.BooleanToCharConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToChar.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToCharConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToChar.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToCharConverter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.BooleanToChar.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.BooleanToColorConverter">
+        <member name="T:IdApp.Converters.BooleanToColor">
             <summary>
             Converts a boolean value to a color ("AlertColor"), or <see cref="P:Xamarin.Forms.Color.Default"/> (if false).
             </summary>
         </member>
-        <member name="M:IdApp.Converters.BooleanToColorConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToColor.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToColorConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToColor.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToColorConverter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.BooleanToColor.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.BooleanToTextTypeConverter">
+        <member name="T:IdApp.Converters.BooleanToTextType">
             <summary>
             Converts a boolean value to a <see cref="T:Xamarin.Forms.TextType"/> value, which is <c>Html</c> if <c>true</c>, or <c>Text</c> if <c>false</c>.
             </summary>
         </member>
-        <member name="M:IdApp.Converters.BooleanToTextTypeConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToTextType.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToTextTypeConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToTextType.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToTextTypeConverter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.BooleanToTextType.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.BooleanToYesNoConverter">
+        <member name="T:IdApp.Converters.BooleanToYesNo">
             <summary>
             Converts a boolean value to either Yes or No
             </summary>
         </member>
-        <member name="M:IdApp.Converters.BooleanToYesNoConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToYesNo.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToYesNoConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToYesNo.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToYesNoConverter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.BooleanToYesNo.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Converters.ContractStateToColor">
@@ -1099,19 +1099,19 @@
         <member name="M:IdApp.Converters.ContractStateToColor.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.DateTimeToStringConverter">
+        <member name="T:IdApp.Converters.DateTimeToString">
             <summary>
             Converts a <see cref="T:System.DateTime"/> value to a <see cref="T:System.String"/> value. If the value is
             <see cref="F:System.DateTime.MinValue"/> or <see cref="F:System.DateTime.MaxValue"/>, the empty string is returned.
             </summary>
         </member>
-        <member name="M:IdApp.Converters.DateTimeToStringConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.DateTimeToString.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.DateTimeToStringConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.DateTimeToString.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.DateTimeToStringConverter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.DateTimeToString.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Converters.EqualsOne">
