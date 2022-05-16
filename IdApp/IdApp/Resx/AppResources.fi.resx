@@ -1623,4 +1623,34 @@
   <data name="EnterProposal" xml:space="preserve">
     <value>Kirjoita {0} ehdotukseen sisällytettävä teksti tai jätä tyhjäksi, jos ehdotusta ei lähetetä.</value>
   </data>
+  <data name="BalanceUpdated" xml:space="preserve">
+    <value>Saldo päivitetty.</value>
+  </data>
+  <data name="ContractCreated" xml:space="preserve">
+    <value>Palvelusopimus on luotu.</value>
+  </data>
+  <data name="ContractDeleted" xml:space="preserve">
+    <value>Palvelusopimus on poistettu.</value>
+  </data>
+  <data name="ContractProposed" xml:space="preserve">
+    <value>Sopimusta on ehdotettu.</value>
+  </data>
+  <data name="ContractSigned" xml:space="preserve">
+    <value>Sopimus on allekirjoitettu.</value>
+  </data>
+  <data name="ContractUpdated" xml:space="preserve">
+    <value>Palvelusopimus on päivitetty.</value>
+  </data>
+  <data name="IdentityUpdated" xml:space="preserve">
+    <value>Digitaalinen identiteetti on päivitetty.</value>
+  </data>
+  <data name="PetitionFrom" xml:space="preserve">
+    <value>Vetoomus:</value>
+  </data>
+  <data name="TokenAdded" xml:space="preserve">
+    <value>Lompakkoosi on lisätty tunnus.</value>
+  </data>
+  <data name="TokenRemoved" xml:space="preserve">
+    <value>Rahake on poistettu lompakostasi.</value>
+  </data>
 </root>

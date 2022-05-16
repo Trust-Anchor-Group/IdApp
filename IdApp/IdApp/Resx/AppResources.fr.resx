@@ -1623,4 +1623,34 @@
   <data name="EnterProposal" xml:space="preserve">
     <value>Entrez le texte à inclure dans la proposition pour {0}, ou laissez vide si une proposition ne doit pas être envoyée.</value>
   </data>
+  <data name="BalanceUpdated" xml:space="preserve">
+    <value>Solde mis à jour.</value>
+  </data>
+  <data name="ContractCreated" xml:space="preserve">
+    <value>Un contrat a été créé.</value>
+  </data>
+  <data name="ContractDeleted" xml:space="preserve">
+    <value>Un contrat a été supprimé.</value>
+  </data>
+  <data name="ContractProposed" xml:space="preserve">
+    <value>Un contrat a été proposé.</value>
+  </data>
+  <data name="ContractSigned" xml:space="preserve">
+    <value>Un contrat a été signé.</value>
+  </data>
+  <data name="ContractUpdated" xml:space="preserve">
+    <value>Un contrat a été mis à jour.</value>
+  </data>
+  <data name="IdentityUpdated" xml:space="preserve">
+    <value>L’identité numérique a été mise à jour.</value>
+  </data>
+  <data name="PetitionFrom" xml:space="preserve">
+    <value>Pétition de :</value>
+  </data>
+  <data name="TokenAdded" xml:space="preserve">
+    <value>Un jeton a été ajouté à votre portefeuille.</value>
+  </data>
+  <data name="TokenRemoved" xml:space="preserve">
+    <value>Un jeton a été retiré de votre portefeuille.</value>
+  </data>
 </root>

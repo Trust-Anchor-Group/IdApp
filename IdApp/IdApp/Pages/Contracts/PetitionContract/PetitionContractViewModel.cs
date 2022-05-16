@@ -176,14 +176,14 @@ namespace IdApp.Pages.Contracts.PetitionContract
 		/// See <see cref="State"/>
 		/// </summary>
 		public static readonly BindableProperty StateProperty =
-			BindableProperty.Create(nameof(State), typeof(string), typeof(PetitionContractViewModel), default(string));
+			BindableProperty.Create(nameof(State), typeof(IdentityState), typeof(PetitionContractViewModel), default(IdentityState));
 
 		/// <summary>
 		/// Current state of the contract
 		/// </summary>
-		public string State
+		public IdentityState State
 		{
-			get => (string)this.GetValue(StateProperty);
+			get => (IdentityState)this.GetValue(StateProperty);
 			set => this.SetValue(StateProperty, value);
 		}
 
@@ -481,7 +481,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
 				this.Created = this.RequestorIdentity.Created;
 				this.Updated = this.RequestorIdentity.Updated.GetDateOrNullIfMinValue();
 				this.LegalId = this.RequestorIdentity.Id;
-				this.State = this.RequestorIdentity.State.ToString();
+				this.State = this.RequestorIdentity.State;
 				this.From = this.RequestorIdentity.From.GetDateOrNullIfMinValue();
 				this.To = this.RequestorIdentity.To.GetDateOrNullIfMinValue();
 				this.FirstName = this.RequestorIdentity[Constants.XmppProperties.FirstName];
@@ -504,7 +504,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
 				this.Created = DateTime.MinValue;
 				this.Updated = DateTime.MinValue;
 				this.LegalId = Constants.NotAvailableValue;
-				this.State = Constants.NotAvailableValue;
+				this.State = IdentityState.Compromised;
 				this.From = null;
 				this.To = null;
 				this.FirstName = Constants.NotAvailableValue;

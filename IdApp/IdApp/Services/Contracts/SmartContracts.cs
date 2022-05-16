@@ -47,7 +47,8 @@ namespace IdApp.Services.Contracts
 						this.contractsClient.PetitionForPeerReviewIDReceived -= ContractsClient_PetitionForPeerReviewIdReceived;
 						this.contractsClient.PetitionedPeerReviewIDResponseReceived -= ContractsClient_PetitionedPeerReviewIdResponseReceived;
 						this.contractsClient.ContractProposalReceived -= ContractsClient_ContractProposalReceived;
-						this.contractsClient.ContractUpdated -= ContractsClient_ContractUpdated;
+						this.contractsClient.ContractUpdated -= ContractsClient_ContractUpdatedOrSigned;
+						this.contractsClient.ContractSigned -= ContractsClient_ContractUpdatedOrSigned;
 					}
 
 					this.contractsClient = (this.XmppService as XmppService)?.ContractsClient;
@@ -64,7 +65,8 @@ namespace IdApp.Services.Contracts
 					this.contractsClient.PetitionForPeerReviewIDReceived += ContractsClient_PetitionForPeerReviewIdReceived;
 					this.contractsClient.PetitionedPeerReviewIDResponseReceived += ContractsClient_PetitionedPeerReviewIdResponseReceived;
 					this.contractsClient.ContractProposalReceived += ContractsClient_ContractProposalReceived;
-					this.contractsClient.ContractUpdated += ContractsClient_ContractUpdated;
+					this.contractsClient.ContractUpdated += ContractsClient_ContractUpdatedOrSigned;
+					this.contractsClient.ContractSigned += ContractsClient_ContractUpdatedOrSigned;
 				}
 
 				return this.contractsClient;
@@ -558,7 +560,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private Task ContractsClient_ContractUpdated(object Sender, ContractReferenceEventArgs e)
+		private Task ContractsClient_ContractUpdatedOrSigned(object Sender, ContractReferenceEventArgs e)
 		{
 			lock (this.lastContractEvent)
 			{

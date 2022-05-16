@@ -9,7 +9,7 @@ namespace IdApp.Converters
     /// Converts a <see cref="DateTime"/> value to a <see cref="String"/> value. If the value is
     /// <see cref="DateTime.MinValue"/> or <see cref="DateTime.MaxValue"/>, the empty string is returned.
     /// </summary>
-    public class DateTimeToStringConverter : IValueConverter, IMarkupExtension
+    public class DateTimeToString : IValueConverter, IMarkupExtension
     {
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

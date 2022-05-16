@@ -8,7 +8,7 @@ namespace IdApp.Converters
     /// <summary>
     /// Converts a boolean value to a bold font (if true), or regular font (if false).
     /// </summary>
-    public class BooleanToBoldFontConverter : IValueConverter, IMarkupExtension
+    public class BooleanToBoldFont : IValueConverter, IMarkupExtension
     {
         /// <summary>
         /// Set to true if the conversion should be inverted or not.

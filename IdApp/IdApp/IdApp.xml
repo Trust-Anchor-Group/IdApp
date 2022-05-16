@@ -989,108 +989,129 @@
             The NoBounceScrollView disables the bounce effect for the scroll view on iOS
             </summary>
         </member>
-        <member name="T:IdApp.Converters.BinaryToBase64Converter">
+        <member name="T:IdApp.Converters.BinaryToBase64">
             <summary>
             Converts binary data to base64-encoded strings.
             </summary>
         </member>
-        <member name="M:IdApp.Converters.BinaryToBase64Converter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BinaryToBase64.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BinaryToBase64Converter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BinaryToBase64.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BinaryToBase64Converter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.BinaryToBase64.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.BooleanToBoldFontConverter">
+        <member name="T:IdApp.Converters.BooleanToBoldFont">
             <summary>
             Converts a boolean value to a bold font (if true), or regular font (if false).
             </summary>
         </member>
-        <member name="P:IdApp.Converters.BooleanToBoldFontConverter.Invert">
+        <member name="P:IdApp.Converters.BooleanToBoldFont.Invert">
             <summary>
             Set to true if the conversion should be inverted or not.
             </summary>
         </member>
-        <member name="M:IdApp.Converters.BooleanToBoldFontConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToBoldFont.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToBoldFontConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToBoldFont.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToBoldFontConverter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.BooleanToBoldFont.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.BooleanToCharConverter">
+        <member name="T:IdApp.Converters.BooleanToChar">
             <summary>
             Converts a boolean value to a unicode character.
             </summary>
         </member>
-        <member name="M:IdApp.Converters.BooleanToCharConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToChar.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToCharConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToChar.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToCharConverter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.BooleanToChar.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.BooleanToColorConverter">
+        <member name="T:IdApp.Converters.BooleanToColor">
             <summary>
             Converts a boolean value to a color ("AlertColor"), or <see cref="P:Xamarin.Forms.Color.Default"/> (if false).
             </summary>
         </member>
-        <member name="M:IdApp.Converters.BooleanToColorConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToColor.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToColorConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToColor.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToColorConverter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.BooleanToColor.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.BooleanToTextTypeConverter">
+        <member name="T:IdApp.Converters.BooleanToTextType">
             <summary>
             Converts a boolean value to a <see cref="T:Xamarin.Forms.TextType"/> value, which is <c>Html</c> if <c>true</c>, or <c>Text</c> if <c>false</c>.
             </summary>
         </member>
-        <member name="M:IdApp.Converters.BooleanToTextTypeConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToTextType.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToTextTypeConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToTextType.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToTextTypeConverter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.BooleanToTextType.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.BooleanToYesNoConverter">
+        <member name="T:IdApp.Converters.BooleanToYesNo">
             <summary>
             Converts a boolean value to either Yes or No
             </summary>
         </member>
-        <member name="M:IdApp.Converters.BooleanToYesNoConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToYesNo.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToYesNoConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.BooleanToYesNo.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.BooleanToYesNoConverter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.BooleanToYesNo.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.DateTimeToStringConverter">
+        <member name="T:IdApp.Converters.ContractStateToColor">
+            <summary>
+            Converts a contract state to a color.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.ContractStateToColor.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.ContractStateToColor.ToColor(Waher.Networking.XMPP.Contracts.ContractState)">
+            <summary>
+            Converts a contract state to a representative color.
+            </summary>
+            <param name="State">Contract State</param>
+            <returns>Color</returns>
+        </member>
+        <member name="M:IdApp.Converters.ContractStateToColor.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.ContractStateToColor.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Converters.DateTimeToString">
             <summary>
             Converts a <see cref="T:System.DateTime"/> value to a <see cref="T:System.String"/> value. If the value is
             <see cref="F:System.DateTime.MinValue"/> or <see cref="F:System.DateTime.MaxValue"/>, the empty string is returned.
             </summary>
         </member>
-        <member name="M:IdApp.Converters.DateTimeToStringConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.DateTimeToString.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.DateTimeToStringConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:IdApp.Converters.DateTimeToString.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Converters.DateTimeToStringConverter.ProvideValue(System.IServiceProvider)">
+        <member name="M:IdApp.Converters.DateTimeToString.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Converters.EqualsOne">
@@ -1133,6 +1154,27 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Converters.GreaterThanZero.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Converters.IdentityStateToColor">
+            <summary>
+            Converts an identity state to a color.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.IdentityStateToColor.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.IdentityStateToColor.ToColor(Waher.Networking.XMPP.Contracts.IdentityState)">
+            <summary>
+            Converts a contract state to a representative color.
+            </summary>
+            <param name="State">Contract State</param>
+            <returns>Color</returns>
+        </member>
+        <member name="M:IdApp.Converters.IdentityStateToColor.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.IdentityStateToColor.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Converters.LogicalNot">
@@ -4136,9 +4178,18 @@
             <param name="value">The contract part value.</param>
             <param name="legalId">A legal id (optional).</param>
         </member>
+        <member name="M:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.#ctor(System.String,System.String,Xamarin.Forms.Color,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel"/> class.
+            </summary>
+            <param name="key">A unique contract part key.</param>
+            <param name="value">The contract part value.</param>
+            <param name="BgColor">Background color.</param>
+            <param name="legalId">A legal id (optional).</param>
+        </member>
         <member name="F:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.KeyProperty">
             <summary>
-            
+            Defines bindable property <see cref="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.Key"/>.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.Key">
@@ -4148,17 +4199,17 @@
         </member>
         <member name="F:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.ValueProperty">
             <summary>
-            The contract part value.
+            Defines bindable property <see cref="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.Value"/>.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.Value">
             <summary>
-            
+            The contract part value.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.LegalIdProperty">
             <summary>
-            
+            Defines bindable property <see cref="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.LegalId"/>.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.LegalId">
@@ -4168,10 +4219,20 @@
         </member>
         <member name="F:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.CanSignProperty">
             <summary>
-            
+            Defines bindable property <see cref="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.CanSign"/>.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.CanSign">
+            <summary>
+            Gets or sets whether the contract part can sign a contract.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.BgColorProperty">
+            <summary>
+            Defines bindable property <see cref="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.BgColor"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel.BgColor">
             <summary>
             Gets or sets whether the contract part can sign a contract.
             </summary>
@@ -11557,6 +11618,11 @@
               Looks up a localized string similar to Balance:.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.BalanceUpdated">
+            <summary>
+              Looks up a localized string similar to Balance updated..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Block">
             <summary>
               Looks up a localized string similar to Block.
@@ -11707,6 +11773,16 @@
               Looks up a localized string similar to Continue anyway.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ContractCreated">
+            <summary>
+              Looks up a localized string similar to A contract has been created..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ContractDeleted">
+            <summary>
+              Looks up a localized string similar to A contract has been deleted..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ContractHasBeenDeleted">
             <summary>
               Looks up a localized string similar to Contract has been deleted..
@@ -11722,6 +11798,11 @@
               Looks up a localized string similar to Contract ID.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ContractProposed">
+            <summary>
+              Looks up a localized string similar to A contract has been proposed..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ContractRoleMustBeSelected">
             <summary>
               Looks up a localized string similar to Select contract role first, and then try again..
@@ -11730,6 +11811,11 @@
         <member name="P:IdApp.Resx.AppResources.Contracts">
             <summary>
               Looks up a localized string similar to Contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ContractSigned">
+            <summary>
+              Looks up a localized string similar to A contract has been signed..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ContractSuccessfullySigned">
@@ -11745,6 +11831,11 @@
         <member name="P:IdApp.Resx.AppResources.ContractTemplatesInfoText">
             <summary>
               Looks up a localized string similar to Below is a list of contract templates that you have used. Click on a template to create a new contract based on that template..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ContractUpdated">
+            <summary>
+              Looks up a localized string similar to A contract has been updated..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ContractVisibility_CreatorAndParts">
@@ -12140,6 +12231,11 @@
         <member name="P:IdApp.Resx.AppResources.IdentityState_Rejected">
             <summary>
               Looks up a localized string similar to Rejected.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.IdentityUpdated">
+            <summary>
+              Looks up a localized string similar to The digital identity has been updated..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Ignore">
@@ -12705,6 +12801,11 @@
         <member name="P:IdApp.Resx.AppResources.PetitionContractInformationText">
             <summary>
               Looks up a localized string similar to A petition for the personal data in one of your contracts has been received. Review the information below and choose how you wish to respond..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PetitionFrom">
+            <summary>
+              Looks up a localized string similar to Petition from:.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PetitionIdentity">
@@ -13427,6 +13528,11 @@
               Looks up a localized string similar to You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Scan Invitation button to scan an invitation code..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.TokenAdded">
+            <summary>
+              Looks up a localized string similar to A token has been added to your wallet..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.TokenDetails">
             <summary>
               Looks up a localized string similar to Token Details.
@@ -13465,6 +13571,11 @@
         <member name="P:IdApp.Resx.AppResources.TokenPrivilegesInfoText">
             <summary>
               Looks up a localized string similar to Following are privileges engraved into the token..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TokenRemoved">
+            <summary>
+              Looks up a localized string similar to A token has been removed from your wallet..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.TokenVisibility">

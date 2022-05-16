@@ -58,7 +58,8 @@
                     <Label Grid.Row="1" Grid.Column="2" Text="{Binding Path=Updated}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <Label Grid.Row="2" Grid.Column="1" Text="{x:Static resx:AppResources.State}" Style="{StaticResource KeyLabel}" />
-                    <Label Grid.Row="2" Grid.Column="2" Text="{Binding Path=State}" Style="{StaticResource ValueLabel}"/>
+                    <Label Grid.Row="2" Grid.Column="2" Text="{Binding Path=State}" Style="{StaticResource ValueLabel}"
+                           BackgroundColor="{Binding Path=State, Converter={converters:IdentityStateToColor}}"/>
                     <!-- - -->
                     <CheckBox Grid.Row="3" Grid.Column="0" IsVisible="{Binding Path=IsForReviewFirstName}" IsChecked="{Binding Path=FirstNameIsChecked, Mode=TwoWay}"/>
                     <Label Grid.Row="3" Grid.Column="1" Text="{x:Static resx:AppResources.FirstName}" Style="{StaticResource KeyLabel}" />

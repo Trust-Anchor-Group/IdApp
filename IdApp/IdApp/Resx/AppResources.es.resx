@@ -1623,4 +1623,34 @@
   <data name="EnterProposal" xml:space="preserve">
     <value>Introduzca el texto que desea incluir en la propuesta para {0}, o deje en blanco si no se debe enviar una propuesta.</value>
   </data>
+  <data name="BalanceUpdated" xml:space="preserve">
+    <value>Saldo actualizado.</value>
+  </data>
+  <data name="ContractCreated" xml:space="preserve">
+    <value>Se ha creado un contrato.</value>
+  </data>
+  <data name="ContractDeleted" xml:space="preserve">
+    <value>Se ha eliminado un contrato.</value>
+  </data>
+  <data name="ContractProposed" xml:space="preserve">
+    <value>Se ha propuesto un contrato.</value>
+  </data>
+  <data name="ContractSigned" xml:space="preserve">
+    <value>Se ha firmado un contrato.</value>
+  </data>
+  <data name="ContractUpdated" xml:space="preserve">
+    <value>Se ha actualizado un contrato.</value>
+  </data>
+  <data name="IdentityUpdated" xml:space="preserve">
+    <value>La identidad digital ha sido actualizada.</value>
+  </data>
+  <data name="PetitionFrom" xml:space="preserve">
+    <value>Petición de:</value>
+  </data>
+  <data name="TokenAdded" xml:space="preserve">
+    <value>Se ha agregado un token a su billetera.</value>
+  </data>
+  <data name="TokenRemoved" xml:space="preserve">
+    <value>Se ha eliminado un token de su billetera.</value>
+  </data>
 </root>

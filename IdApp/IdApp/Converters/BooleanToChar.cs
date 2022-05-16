@@ -2,25 +2,24 @@
 using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using TextType = Xamarin.Forms.TextType;
 
 namespace IdApp.Converters
 {
     /// <summary>
-    /// Converts a boolean value to a <see cref="TextType"/> value, which is <c>Html</c> if <c>true</c>, or <c>Text</c> if <c>false</c>.
+    /// Converts a boolean value to a unicode character.
     /// </summary>
-    public class BooleanToTextTypeConverter : IValueConverter, IMarkupExtension
+    public class BooleanToChar : IValueConverter, IMarkupExtension
     {
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? TextType.Html : TextType.Text;
+            return (bool)value ? "🗹" : "☐";
         }
 
         /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (TextType)value == TextType.Html;
+            return (string)value == "🗹";
         }
 
         /// <inheritdoc/>

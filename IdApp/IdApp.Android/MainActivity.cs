@@ -61,19 +61,36 @@ namespace IdApp.Android
 					{
 						Description = "Channel for incoming Instant Message notifications"
 					};
-					NotificationChannel ReviewChannel = new("Requests", "Review and Signature Requests", NotificationImportance.High)
+
+					NotificationChannel PetitionsChannel = new("Petitions", "Petitions sent by other users", NotificationImportance.High)
 					{
-						Description = "Channel for incoming Contract or Identity Review Requests, or Signature Requests"
+						Description = "Channel for incoming Contract or Identity Peititions, such as Review or Signature Requests"
 					};
-					NotificationChannel SignatureChannel = new("Events", "Events", NotificationImportance.Default)
+
+					NotificationChannel IdentitiesChannel = new("Identities", "Identity events", NotificationImportance.High)
 					{
-						Description = "Channel for events relating to Legal Identities, Smart Contracts, Payments or tokens"
+						Description = "Channel for events relating to the digital identity"
 					};
-					
+
+					NotificationChannel ContractsChannel = new("Contracts", "Contract events", NotificationImportance.High)
+					{
+						Description = "Channel for events relating to smart contracts"
+					};
+
+					NotificationChannel EDalerChannel = new("eDaler", "eDaler events", NotificationImportance.High)
+					{
+						Description = "Channel for events relating to the eDaler wallet balance"
+					};
+
+					NotificationChannel TokensChannel = new("Tokens", "Token events", NotificationImportance.High)
+					{
+						Description = "Channel for events relating to Neuro-Feature tokens"
+					};
+
 					NotificationManager NotificationManager = (NotificationManager)GetSystemService(NotificationService);
 					NotificationManager.CreateNotificationChannels(new List<NotificationChannel>()
 					{
-						MessagesChannel, ReviewChannel, SignatureChannel
+						MessagesChannel, PetitionsChannel, IdentitiesChannel, ContractsChannel, EDalerChannel, TokensChannel
 					});
 				}
 			}

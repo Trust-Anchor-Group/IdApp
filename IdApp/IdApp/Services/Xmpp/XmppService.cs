@@ -171,6 +171,7 @@ namespace IdApp.Services.Xmpp
 					this.xmppClient.OnConnectionError += XmppClient_ConnectionError;
 					this.xmppClient.OnError += XmppClient_Error;
 					this.xmppClient.OnChatMessage += XmppClient_OnChatMessage;
+					this.xmppClient.OnNormalMessage += XmppClient_OnNormalMessage;
 					this.xmppClient.OnPresenceSubscribe += XmppClient_OnPresenceSubscribe;
 					this.xmppClient.OnPresenceUnsubscribed += XmppClient_OnPresenceUnsubscribed;
 
@@ -281,6 +282,14 @@ namespace IdApp.Services.Xmpp
 			{
 				isCreatingClient = false;
 			}
+		}
+
+		private Task XmppClient_OnNormalMessage(object Sender, MessageEventArgs e)
+		{
+			this.LogService.LogWarning("Unhandled message received.", e.To, e.From,
+				new KeyValuePair<string, object>("Stanza", e.Message.OuterXml));
+
+			return Task.CompletedTask;
 		}
 
 		private void DestroyXmppClient()

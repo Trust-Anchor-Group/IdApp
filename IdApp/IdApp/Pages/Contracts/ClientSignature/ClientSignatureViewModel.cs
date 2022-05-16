@@ -90,14 +90,14 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="State"/>
         /// </summary>
         public static readonly BindableProperty StateProperty =
-            BindableProperty.Create(nameof(State), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(State), typeof(IdentityState), typeof(PetitionIdentityViewModel), default(IdentityState));
 
         /// <summary>
         /// The current state of the signature
         /// </summary>
-        public string State
+        public IdentityState State
         {
-            get => (string)this.GetValue(StateProperty);
+            get => (IdentityState)this.GetValue(StateProperty);
             set => this.SetValue(StateProperty, value);
         }
 
@@ -425,7 +425,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
                 this.Created = identity.Created;
                 this.Updated = identity.Updated.GetDateOrNullIfMinValue();
                 this.LegalId = identity.Id;
-                this.State = identity.State.ToString();
+                this.State = identity.State;
                 this.From = identity.From.GetDateOrNullIfMinValue();
                 this.To = identity.To.GetDateOrNullIfMinValue();
                 this.FirstName = identity[Constants.XmppProperties.FirstName];
@@ -449,7 +449,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
                 this.Created = DateTime.MinValue;
                 this.Updated = DateTime.MinValue;
                 this.LegalId = Constants.NotAvailableValue;
-                this.State = Constants.NotAvailableValue;
+                this.State = IdentityState.Compromised;
                 this.From = null;
                 this.To = null;
                 this.FirstName = Constants.NotAvailableValue;

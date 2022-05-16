@@ -8,7 +8,7 @@ namespace IdApp.Converters
     /// <summary>
     /// Converts binary data to base64-encoded strings.
     /// </summary>
-    public class BinaryToBase64Converter : IValueConverter, IMarkupExtension
+    public class BinaryToBase64 : IValueConverter, IMarkupExtension
     {
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

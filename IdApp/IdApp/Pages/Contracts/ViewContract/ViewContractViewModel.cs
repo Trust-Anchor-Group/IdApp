@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Converters;
 using IdApp.Extensions;
 using IdApp.Pages.Contracts.ClientSignature;
 using IdApp.Pages.Contracts.ServerSignature;
@@ -65,33 +66,48 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.IsProposal = false;
 			}
 
-			this.XmppService.Contracts.ContractsClient.ContractUpdated += ContractsClient_ContractUpdated;
+			this.XmppService.Contracts.ContractsClient.ContractUpdated += ContractsClient_ContractUpdatedOrSigned;
+			this.XmppService.Contracts.ContractsClient.ContractSigned += ContractsClient_ContractUpdatedOrSigned;
 
 			if (!(this.Contract is null))
 			{
 				DateTime TP = this.XmppService.Contracts.GetTimeOfLastContraceEvent(this.Contract.ContractId);
-				if (DateTime.Now.Subtract(TP).TotalSeconds >= 10)
+				if (DateTime.Now.Subtract(TP).TotalSeconds < 5)
 					this.Contract = await this.XmppService.Contracts.GetContract(this.Contract.ContractId);
 
-				await LoadContract();
+				await DisplayContract();
 			}
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.XmppService.Contracts.ContractsClient.ContractUpdated -= ContractsClient_ContractUpdated;
+			this.XmppService.Contracts.ContractsClient.ContractUpdated -= ContractsClient_ContractUpdatedOrSigned;
+			this.XmppService.Contracts.ContractsClient.ContractSigned -= ContractsClient_ContractUpdatedOrSigned;
 
 			this.ClearContract();
 			await base.DoUnbind();
 		}
 
-		private async Task ContractsClient_ContractUpdated(object Sender, ContractReferenceEventArgs e)
+		private Task ContractsClient_ContractUpdatedOrSigned(object Sender, ContractReferenceEventArgs e)
 		{
-			if (e.ContractId == this.Contract.ContractId && DateTime.Now.Subtract(this.skipContractEvent).TotalSeconds >= 10)
+			if (e.ContractId == this.Contract.ContractId && DateTime.Now.Subtract(this.skipContractEvent).TotalSeconds > 5)
+				this.ReloadContract(e.ContractId);
+
+			return Task.CompletedTask;
+		}
+
+		private async void ReloadContract(string ContractId)
+		{
+			try
 			{
-				Contract Contract = await this.XmppService.Contracts.GetContract(e.ContractId);
-				await this.ContractUpdated(Contract);
+				Contract Contract = await this.XmppService.Contracts.GetContract(ContractId);
+				
+				this.UiSerializer.BeginInvokeOnMainThread(async () => await this.ContractUpdated(Contract));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
 			}
 		}
 
@@ -102,7 +118,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			this.Contract = Contract;
 
 			if (!(this.Contract is null))
-				await LoadContract();
+				await DisplayContract();
 		}
 
 		#region Properties
@@ -466,7 +482,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			this.RemoveQrCode();
 		}
 
-		private async Task LoadContract()
+		private async Task DisplayContract()
 		{
 			try
 			{
@@ -520,7 +536,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (Contract.Updated > DateTime.MinValue)
 					this.GeneralInformation.Add(new PartModel(AppResources.Updated, Contract.Updated.ToString(CultureInfo.CurrentUICulture)));
 
-				this.GeneralInformation.Add(new PartModel(AppResources.State, Contract.State.ToString()));
+				this.GeneralInformation.Add(new PartModel(AppResources.State, Contract.State.ToString(), ContractStateToColor.ToColor(Contract.State)));
 				this.GeneralInformation.Add(new PartModel(AppResources.Visibility, Contract.Visibility.ToString()));
 				this.GeneralInformation.Add(new PartModel(AppResources.Duration, Contract.Duration.ToString()));
 				this.GeneralInformation.Add(new PartModel(AppResources.From, Contract.From.ToString(CultureInfo.CurrentUICulture)));
@@ -675,7 +691,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				{
 					_ = this.photosLoader.LoadPhotos(this.Contract.Attachments, SignWith.LatestApprovedId, () =>
 						{
-							this.UiSerializer.BeginInvokeOnMainThread(() => HasPhotos = this.Photos.Count > 0);
+							this.UiSerializer.BeginInvokeOnMainThread(() => this.HasPhotos = this.Photos.Count > 0);
 						});
 				}
 				else
