@@ -109,11 +109,17 @@ namespace IdApp.Controls.Extended
             set { SetValue(PlaceholderTextColorProperty, value); }
         }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="ExtendedDatePicker"/> class.
+        /// </summary>
         public ExtendedDatePicker() : base()
         {
             SetDefaultDate();
         }
 
+        /// <summary>
+        /// Event sent when the date is changed.
+        /// </summary>
         public event EventHandler<NullableDateChangedEventArgs> NullableDateSelected;
 
         static void DatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -126,6 +132,7 @@ namespace IdApp.Controls.Extended
 
         private bool IsDefaultDateSet = false;
 
+        /// <inheritdoc/>
         protected override void OnPropertyChanged(string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);

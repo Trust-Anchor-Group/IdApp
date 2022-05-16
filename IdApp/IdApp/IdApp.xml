@@ -657,6 +657,41 @@
             Sets color for placeholder text
             </summary>
         </member>
+        <member name="M:IdApp.Controls.Extended.ExtendedDatePicker.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Controls.Extended.ExtendedDatePicker"/> class.
+            </summary>
+        </member>
+        <member name="E:IdApp.Controls.Extended.ExtendedDatePicker.NullableDateSelected">
+            <summary>
+            Event sent when the date is changed.
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.Extended.ExtendedDatePicker.OnPropertyChanged(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Controls.Extended.NullableDateChangedEventArgs">
+            <summary>
+            An ExtendedDatePicker event args .
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.Extended.NullableDateChangedEventArgs.#ctor(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Controls.Extended.NullableDateChangedEventArgs"/> class.
+            </summary>
+            <param name="oldDate">The previous date</param>
+            <param name="newDate">The selected date</param>
+        </member>
+        <member name="P:IdApp.Controls.Extended.NullableDateChangedEventArgs.NewDate">
+            <summary>
+            The previous date
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.Extended.NullableDateChangedEventArgs.OldDate">
+            <summary>
+            The selected date
+            </summary>
+        </member>
         <member name="T:IdApp.Controls.FlipView.FlipView">
             <summary>
             The FlipView is a user control that holds two child controls: a <see cref="P:IdApp.Controls.FlipView.FlipView.FrontView"/> and a <see cref="P:IdApp.Controls.FlipView.FlipView.BackView"/>.
@@ -15326,7 +15361,7 @@
         </member>
         <member name="T:IdApp.Services.Navigation.NavigationArgs">
             <summary>
-            An abstract base class holding page specific navigation parameters.
+            An base class holding page specific navigation parameters.
             </summary>
         </member>
         <member name="M:IdApp.Services.Navigation.NavigationArgs.#ctor">
@@ -15342,7 +15377,7 @@
         <member name="P:IdApp.Services.Navigation.NavigationArgs.ReturnCounter">
             <summary>
             Set it to 1 to start a counter of the number of times to pop when going back.
-            It will be incremented on every push using the <see cref="!:GoToAsync"/> method.
+            It will be incremented on every push using the <see cref="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String)"/> method.
             If this parrameter exist, it supercedes the <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute"/>
             </summary>
         </member>

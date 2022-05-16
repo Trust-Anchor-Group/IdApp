@@ -1,7 +1,7 @@
 ﻿namespace IdApp.Services.Navigation
 {
     /// <summary>
-    /// An abstract base class holding page specific navigation parameters.
+    /// An base class holding page specific navigation parameters.
     /// </summary>
     public class NavigationArgs
     {
@@ -17,7 +17,7 @@
 
         /// <summary>
         /// Set it to 1 to start a counter of the number of times to pop when going back.
-        /// It will be incremented on every push using the <see cref="GoToAsync"/> method.
+        /// It will be incremented on every push using the <see cref="INavigationService.GoToAsync"/> method.
         /// If this parrameter exist, it supercedes the <see cref="ReturnRoute"/>
         /// </summary>
         public int ReturnCounter { get; set; }
