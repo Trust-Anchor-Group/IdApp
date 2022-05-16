@@ -15296,14 +15296,6 @@
             <param name="route">The route whose matching page to navigate to.</param>
             <param name="args">The specific args to pass to the page.</param>
         </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.GoToAsync``1(System.String,``0,IdApp.Services.Navigation.NavigationArgs)">
-            <summary>
-            Navigates the AppShell to the specified route, with page arguments to match.
-            </summary>
-            <param name="route">The route whose matching page to navigate to.</param>
-            <param name="args">The specific args to pass to the page.</param>
-            <param name="navigationArgs">Apply current navigation args to the next page args.</param>
-        </member>
         <member name="M:IdApp.Services.Navigation.INavigationService.GoBackAsync">
             <summary>
             Returns to the previous page/route.
@@ -15347,9 +15339,10 @@
             The route to use when going back, if any.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Navigation.NavigationArgs.ReturnCount">
+        <member name="P:IdApp.Services.Navigation.NavigationArgs.ReturnCounter">
             <summary>
-            The number of times to pop when going back, if any.
+            Set it to 1 to start a counter of the number of times to pop when going back.
+            It will be incremented on every push using the <see cref="!:GoToAsync"/> method.
             If this parrameter exist, it supercedes the <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute"/>
             </summary>
         </member>
