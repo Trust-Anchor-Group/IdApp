@@ -288,7 +288,7 @@ namespace IdApp.Services.Contracts
 				if (this.TagProfile.IsCompleteOrWaitingForValidation())
 				{
 					await this.NavigationService.GoToAsync(nameof(ViewContractPage),
-						new ViewContractNavigationArgs(contract, false, e.Role, e.MessageText));
+						new ViewContractNavigationArgs(contract, false, e.Role, e.MessageText) { ReturnCounter = 1 });
 				}
 			});
 		}

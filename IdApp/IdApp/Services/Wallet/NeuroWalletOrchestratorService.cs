@@ -149,7 +149,8 @@ namespace IdApp.Services.Wallet
 			try
 			{
 				Token Token = await this.XmppService.Wallet.NeuroFeaturesClient.GetTokenAsync(TokenId);
-				await this.NavigationService.GoToAsync(nameof(TokenDetailsPage), new TokenDetailsNavigationArgs(new TokenItem(Token, this)));
+				await this.NavigationService.GoToAsync(nameof(TokenDetailsPage),
+					new TokenDetailsNavigationArgs(new TokenItem(Token, this)) { ReturnCounter = 1 });
 			}
 			catch (Exception ex)
 			{

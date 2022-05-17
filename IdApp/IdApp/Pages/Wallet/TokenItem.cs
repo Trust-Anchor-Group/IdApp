@@ -344,7 +344,8 @@ namespace IdApp.Pages.Wallet
 		private async Task TokenClicked()
 		{
 			if (this.selected is null)
-				await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage), new TokenDetailsNavigationArgs(this));
+				await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage),
+					new TokenDetailsNavigationArgs(this) { ReturnCounter = 1 });
 			else
 				this.selected.TrySetResult(this);
 		}

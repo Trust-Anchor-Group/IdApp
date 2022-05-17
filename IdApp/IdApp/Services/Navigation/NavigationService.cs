@@ -185,6 +185,13 @@ namespace IdApp.Services.Navigation
 		public Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs, new()
 		{
 			NavigationArgs navigationArgs = this.GetPopArgs<NavigationArgs>();
+
+			if ((args is not null) && args.CancelReturnCounter)
+            {
+				// ignore the previous args if the return counter was canceled
+				navigationArgs = null;
+            }
+
 			return GoToAsync(route, args, navigationArgs);
 		}
 
@@ -197,10 +204,7 @@ namespace IdApp.Services.Navigation
 					args = new TArgs();
 				}
 
-				if (navigationArgs.ReturnCounter > 0)
-				{
-					args.ReturnCounter = navigationArgs.ReturnCounter + 1;
-				}
+				args.ReturnCounter = navigationArgs.ReturnCounter + 1;
 			}
 
 			this.PushArgs(route, args);

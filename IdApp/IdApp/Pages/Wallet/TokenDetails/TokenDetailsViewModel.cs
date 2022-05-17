@@ -1078,7 +1078,8 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			TaskCompletionSource<ContactInfo> Selected = new();
 			ContactListNavigationArgs Args = new(AppResources.SendInformationTo, Selected)
 			{
-				CanScanQrCode = true
+				CanScanQrCode = true,
+				CancelReturnCounter = true
 			};
 
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
@@ -1307,7 +1308,8 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			{
 				TokenEvent[] Events = await this.XmppService.Wallet.NeuroFeaturesClient.GetEventsAsync(this.TokenId);
 
-				await this.NavigationService.GoToAsync(nameof(TokenEventsPage), new TokenEventsNavigationArgs(this.TokenId, Events));
+				await this.NavigationService.GoToAsync(nameof(TokenEventsPage),
+					new TokenEventsNavigationArgs(this.TokenId, Events) { CancelReturnCounter = true });
 			}
 			catch (Exception ex)
 			{

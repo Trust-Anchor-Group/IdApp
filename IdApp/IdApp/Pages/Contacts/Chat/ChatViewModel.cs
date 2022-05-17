@@ -968,7 +968,8 @@ namespace IdApp.Pages.Contacts.Chat
 								if (!Token.TryParse(Doc.DocumentElement, out Token ParsedToken))
 									throw new Exception(AppResources.InvalidNeuroFeatureToken);
 
-								await this.NavigationService.GoToAsync(nameof(TokenDetailsPage), new TokenDetailsNavigationArgs(new TokenItem(ParsedToken, this)));
+								await this.NavigationService.GoToAsync(nameof(TokenDetailsPage),
+									new TokenDetailsNavigationArgs(new TokenItem(ParsedToken, this)) { ReturnCounter = 1 });
 								break;
 
 							default:

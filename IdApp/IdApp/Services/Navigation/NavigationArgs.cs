@@ -21,5 +21,11 @@
         /// If this parrameter exist, it supercedes the <see cref="ReturnRoute"/>
         /// </summary>
         public int ReturnCounter { get; set; }
+
+        /// <summary>
+        /// Set it to true to start a new <see cref="ReturnCounter"/> session.
+        /// If the ReturnCounter is zero, it will stop the further counting.
+        /// </summary>
+        public bool CancelReturnCounter { get; set; }
     }
 }

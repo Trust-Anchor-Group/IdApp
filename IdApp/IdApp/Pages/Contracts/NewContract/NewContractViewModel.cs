@@ -537,7 +537,8 @@ namespace IdApp.Pages.Contracts.NewContract
 					TaskCompletionSource<ContactInfo> Selected = new();
 					ContactListNavigationArgs Args = new(AppResources.AddContactToContract, Selected)
 					{
-						CanScanQrCode = true
+						CanScanQrCode = true,
+						CancelReturnCounter = true
 					};
 
 					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
