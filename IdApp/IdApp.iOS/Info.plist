@@ -32,15 +32,16 @@
 	<string>TAG ID needs to be able to add photos to your galleries, if you want to save photos you take for later use.</string>
 	<key>CFBundleLocalizations</key>
 	<array>
-		<string>pt</string>
+		<string>en</string>
+		<string>sv</string>
 		<string>es</string>
 		<string>fr</string>
 		<string>de</string>
-		<string>sv</string>
 		<string>da</string>
 		<string>no</string>
 		<string>fi</string>
 		<string>sr</string>
+		<string>pt</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
