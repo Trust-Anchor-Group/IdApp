@@ -41,7 +41,7 @@
     <AndroidSigningKeyAlias>TagDemo Cert</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>Password</AndroidSigningKeyPass>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidSupportedAbis>armeabi-v7a;x86;x86_64;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
