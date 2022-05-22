@@ -15381,6 +15381,12 @@
             If this parrameter exist, it supercedes the <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute"/>
             </summary>
         </member>
+        <member name="P:IdApp.Services.Navigation.NavigationArgs.CancelReturnCounter">
+            <summary>
+            Set it to true to start a new <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnCounter"/> session.
+            If the ReturnCounter is zero, it will stop the further counting.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Navigation.NavigationService.Load(System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>

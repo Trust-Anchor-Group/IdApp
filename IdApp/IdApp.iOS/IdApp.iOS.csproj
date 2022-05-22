@@ -254,4 +254,7 @@
     <BundleResource Include="Resources\sr.lproj\InfoPlist.strings" />
     <BundleResource Include="Resources\sv.lproj\InfoPlist.strings" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\NotificationChatIcon.png" />
+  </ItemGroup>
 </Project>
