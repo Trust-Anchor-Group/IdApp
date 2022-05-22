@@ -146,12 +146,18 @@ namespace IdApp.Services.Push
 						Content.Append("FromJid:=GetAttribute(Stanza,'from');");
 						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
 						Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
-						Content.Append("{'title':'");
+						Content.Append("{'mytitle':'");
 						Content.Append(JSON.Encode(AppResources.MessageFrom));
 						Content.Append(" ' + FriendlyName,");
-						Content.Append("'body':InnerText(GetElement(Stanza,'body')),");
+						Content.Append("'mybody':InnerText(GetElement(Stanza,'body')),");
 						Content.Append("'fromJid':FromJid,");
-						Content.Append("'rosterName':FriendlyName}");
+						Content.Append("'thread-id':FromJid,");
+						Content.Append("'rosterName':FriendlyName,");
+						Content.Append("'mutable_content':true,");
+						Content.Append("'content_available':true}");
+						//Content.Append("'click_action':'Messages'}");
+
+//						Content.Append("'apns':{'fcm_options': { 'image':'FlipIcon_DarkMode'}},");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Chat, string.Empty, string.Empty, "Messages",
 							"Stanza", string.Empty, Content.ToString());
@@ -172,7 +178,9 @@ namespace IdApp.Services.Push
 						Content.Append(" ' + FriendlyName,");
 						Content.Append("'body':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
-						Content.Append("'rosterName':FriendlyName}");
+						Content.Append("'rosterName':FriendlyName,");
+						Content.Append("'mutable-content' : '1',");
+						Content.Append("'click_action': 'Petitions'}");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionIdentityMsg", 
 							ContractsClient.NamespaceLegalIdentities, "Petitions", "Stanza", string.Empty, Content.ToString());
@@ -189,7 +197,9 @@ namespace IdApp.Services.Push
 						Content.Append(" ' + FriendlyName,");
 						Content.Append("'body':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
-						Content.Append("'rosterName':FriendlyName}");
+						Content.Append("'rosterName':FriendlyName,");
+						Content.Append("'mutable-content' : '1',");
+						Content.Append("'click_action': 'Petitions'}");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionContractMsg",
 							ContractsClient.NamespaceSmartContracts, "Petitions", "Stanza", string.Empty, Content.ToString());
@@ -206,7 +216,9 @@ namespace IdApp.Services.Push
 						Content.Append(" ' + FriendlyName,");
 						Content.Append("'body':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
-						Content.Append("'rosterName':FriendlyName}");
+						Content.Append("'rosterName':FriendlyName,");
+						Content.Append("'mutable-content' : '1',");
+						Content.Append("'click_action': 'Petitions'}");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionSignatureMsg",
 							ContractsClient.NamespaceLegalIdentities, "Petitions", "Stanza", string.Empty, Content.ToString());
@@ -222,7 +234,9 @@ namespace IdApp.Services.Push
 						Content.Append("{'title':'");
 						Content.Append(JSON.Encode(AppResources.IdentityUpdated));
 						Content.Append("',");
-						Content.Append("'legalId':GetAttribute(E,'id')}");
+						Content.Append("'legalId':GetAttribute(E,'id'),");
+						Content.Append("'mutable-content' : '1',");
+						Content.Append("'click_action': 'Identities'}");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "identity",
 							ContractsClient.NamespaceLegalIdentities, "Identities", "Stanza", string.Empty, Content.ToString());
@@ -238,7 +252,9 @@ namespace IdApp.Services.Push
 						Content.Append("{'title':'");
 						Content.Append(JSON.Encode(AppResources.ContractCreated));
 						Content.Append("',");
-						Content.Append("'contractId':GetAttribute(E,'contractId')}");
+						Content.Append("'contractId':GetAttribute(E,'contractId'),");
+						Content.Append("'mutable-content' : '1',");
+						Content.Append("'click_action': 'Contracts'}");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractCreated",
 							ContractsClient.NamespaceSmartContracts, "Contracts", "Stanza", string.Empty, Content.ToString());
@@ -251,7 +267,9 @@ namespace IdApp.Services.Push
 						Content.Append(JSON.Encode(AppResources.ContractSigned));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
-						Content.Append("'legalId':GetAttribute(E,'legalId')}");
+						Content.Append("'legalId':GetAttribute(E,'legalId'),");
+						Content.Append("'mutable-content' : '1',");
+						Content.Append("'click_action': 'Contracts'}");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractSigned",
 							ContractsClient.NamespaceSmartContracts, "Contracts", "Stanza", string.Empty, Content.ToString());
@@ -263,7 +281,9 @@ namespace IdApp.Services.Push
 						Content.Append("{'title':'");
 						Content.Append(JSON.Encode(AppResources.ContractUpdated));
 						Content.Append("',");
-						Content.Append("'contractId':GetAttribute(E,'contractId')}");
+						Content.Append("'contractId':GetAttribute(E,'contractId'),");
+						Content.Append("'mutable-content' : '1',");
+						Content.Append("'click_action': 'Contracts'}");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractUpdated",
 							ContractsClient.NamespaceSmartContracts, "Contracts", "Stanza", string.Empty, Content.ToString());
@@ -275,7 +295,9 @@ namespace IdApp.Services.Push
 						Content.Append("{'title':'");
 						Content.Append(JSON.Encode(AppResources.ContractDeleted));
 						Content.Append("',");
-						Content.Append("'contractId':GetAttribute(E,'contractId')}");
+						Content.Append("'contractId':GetAttribute(E,'contractId'),");
+						Content.Append("'mutable-content' : '1',");
+						Content.Append("'click_action': 'Contracts'}");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractDeleted",
 							ContractsClient.NamespaceSmartContracts, "Contracts", "Stanza", string.Empty, Content.ToString());
@@ -289,7 +311,9 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'contractId':Num(GetAttribute(E,'contractId')),");
 						Content.Append("'role':Num(GetAttribute(E,'role')),");
-						Content.Append("'body':GetAttribute(E,'message')}");
+						Content.Append("'body':GetAttribute(E,'message'),");
+						Content.Append("'mutable-content' : '1',");
+						Content.Append("'click_action': 'Contracts'}");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractProposal",
 							ContractsClient.NamespaceSmartContracts, "Contracts", "Stanza", string.Empty, Content.ToString());
@@ -307,7 +331,9 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'amount':Num(GetAttribute(E,'amount')),");
 						Content.Append("'currency':GetAttribute(E,'currency'),");
-						Content.Append("'timestamp':DateTime(GetAttribute(E,'timestamp'))}");
+						Content.Append("'timestamp':DateTime(GetAttribute(E,'timestamp')),");
+						Content.Append("'mutable-content' : '1',");
+						Content.Append("'click_action': 'eDaler'}");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "balance",
 							EDalerClient.NamespaceEDaler, "eDaler", "Stanza", string.Empty, Content.ToString());
@@ -326,7 +352,9 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'value':Num(GetAttribute(E,'value')),");
 						Content.Append("'currency':GetAttribute(E2,'currency'),");
-						Content.Append("'body':DateTime(GetAttribute(E,'friendlyName'))}");
+						Content.Append("'body':DateTime(GetAttribute(E,'friendlyName')),");
+						Content.Append("'mutable-content' : '1',");
+						Content.Append("'click_action': 'Tokens'}");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "tokenAdded",
 							NeuroFeaturesClient.NamespaceNeuroFeatures, "Tokens", "Stanza", string.Empty, Content.ToString());
@@ -341,7 +369,9 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'value':Num(GetAttribute(E,'value')),");
 						Content.Append("'currency':GetAttribute(E2,'currency'),");
-						Content.Append("'body':DateTime(GetAttribute(E,'friendlyName'))}");
+						Content.Append("'body':DateTime(GetAttribute(E,'friendlyName')),");
+						Content.Append("'mutable-content' : '1',");
+						Content.Append("'click_action': 'Tokens'}");
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "tokenRemoved",
 							NeuroFeaturesClient.NamespaceNeuroFeatures, "Tokens", "Stanza", string.Empty, Content.ToString());
