@@ -20,8 +20,7 @@ namespace IdApp.iOS
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate,
-        IUNUserNotificationCenterDelegate, IMessagingDelegate
+    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate, IMessagingDelegate
     {
         NSObject OnKeyboardShowObserver;
         NSObject OnKeyboardHideObserver;
@@ -111,7 +110,7 @@ namespace IdApp.iOS
             RemoveAllNotifications();
 
             // For display notification sent via APNS
-            UNUserNotificationCenter.Current.Delegate = this;
+            UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
             // For data message sent via FCM
             Messaging.SharedInstance.Delegate = this;
 
@@ -124,31 +123,53 @@ namespace IdApp.iOS
             UIApplication.SharedApplication.RegisterForRemoteNotifications();
         }
 
-        /*
         [Export("application:didReceiveRemoteNotification:fetchCompletionHandler:")]
-        public void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, System.Action<UIBackgroundFetchResult> completionHandler)
+        public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
         {
-            completionHandler(UIBackgroundFetchResult.NewData);
-        }
-        */
+            System.Console.WriteLine(userInfo.ToString());
+            string Title = userInfo.ObjectForKey(new NSString("mytitle")).ToString();
+            string Body = userInfo.ObjectForKey(new NSString("mybody")).ToString();
+            string MessageId = userInfo.ObjectForKey(new NSString("gcm.message_id")).ToString();
 
-        [Export("userNotificationCenter:willPresentNotification:withCompletionHandler:")]
-        public void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
-        {
-            ProcessNotification(notification);
+            /*
+            string path = NSBundle.MainBundle.BundlePath;
+            var files = System.IO.Directory.GetFiles(path);
 
-            completionHandler(UNNotificationPresentationOptions.Badge | UNNotificationPresentationOptions.Alert | UNNotificationPresentationOptions.Sound);
-        }
-
-        [Export("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:")]
-        public void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, System.Action completionHandler)
-        {
-            if (response.IsDefaultAction)
+            foreach (string file in files)
             {
-                ProcessNotification(response.Notification);
+                System.Console.WriteLine(file);
             }
+            */
 
-            completionHandler();
+            //            UIImage image = UIImage.FromBundle("FlipIcon_DarkMode");
+            //            NSData imageData = image.AsPNG();
+
+            // Create attachment
+
+            UNNotificationAttachmentOptions options = new();
+            NSUrl url = NSBundle.MainBundle.GetUrlForResource("AppIcons60x60@3x", "png");
+            NSError err;
+            UNNotificationAttachment attachment = UNNotificationAttachment.FromIdentifier("image"+MessageId, url, options, out err);
+
+
+            //            UNNotificationAttachmentOptions options = new();
+            //            NSUrl url = NSBundle.MainBundle.GetUrlForResource("FlipIcon_DarkMode", "png");
+
+            //            NSError err;
+            //            UNNotificationAttachment attachment = UNNotificationAttachment.FromIdentifier("image", url, options, out err);
+
+            // Create request
+            UNMutableNotificationContent content = new()
+            {
+                Title = Title,
+                Body = Body,
+                Attachments = new UNNotificationAttachment[] { attachment }
+            };
+
+            UNNotificationRequest request = UNNotificationRequest.FromIdentifier(MessageId, content, null);
+            UNUserNotificationCenter.Current.AddNotificationRequest(request, null);
+
+            completionHandler(UIBackgroundFetchResult.NewData);
         }
 
         [Export("messaging:didReceiveRegistrationToken:")]
@@ -170,16 +191,6 @@ namespace IdApp.iOS
             }
         }
 
-        private void ProcessNotification(UNNotification notification)
-        {
-            /*
-            string title = notification.Request.Content.Title;
-            string message = notification.Request.Content.Body;
-
-            DependencyService.Get<INotificationManager>().ReceiveNotification(title, message);
-            */
-        }
-
         private void RemoveAllNotifications()
         {
             UNUserNotificationCenter UNCenter = UNUserNotificationCenter.Current;
@@ -187,7 +198,7 @@ namespace IdApp.iOS
             UNCenter.RemoveAllPendingNotificationRequests();
         }
 
-
+        /*
         public override void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
         {
             try
@@ -199,7 +210,7 @@ namespace IdApp.iOS
                 completionHandler(UIBackgroundFetchResult.NoData);
             }
         }
-
+        */
         /*
         public async Task StartLongRunningBackgroundTask()
         {
@@ -228,5 +239,38 @@ namespace IdApp.iOS
             UIApplication.SharedApplication.EndBackgroundTask(_backgroundTaskID);
         }
         */
+    }
+
+    public class UserNotificationCenterDelegate : UNUserNotificationCenterDelegate
+    {
+        public UserNotificationCenterDelegate()
+        {
+        }
+
+        [Export("userNotificationCenter:willPresentNotification:withCompletionHandler:")]
+        public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
+        {
+            ProcessNotification(notification);
+
+            UNNotificationPresentationOptions options = UNNotificationPresentationOptions.None;
+            completionHandler(options);
+        }
+
+        [Export("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:")]
+        public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+        {
+            ProcessNotification(response.Notification);
+        }
+
+        private void ProcessNotification(UNNotification notification)
+        {
+            Console.WriteLine(notification.Request.Content.ToString());
+            /*
+            string title = notification.Request.Content.Title;
+            string message = notification.Request.Content.Body;
+
+            DependencyService.Get<INotificationManager>().ReceiveNotification(title, message);
+            */
+        }
     }
 }
