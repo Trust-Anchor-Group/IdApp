@@ -256,5 +256,10 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\NotificationChatIcon.png" />
+    <BundleResource Include="Resources\NotificationContractIcon.png" />
+    <BundleResource Include="Resources\NotificationEDalerIcon.png" />
+    <BundleResource Include="Resources\NotificationIdentitieIcon.png" />
+    <BundleResource Include="Resources\NotificationPetitionIcon.png" />
+    <BundleResource Include="Resources\NotificationTokenIcon.png" />
   </ItemGroup>
 </Project>
