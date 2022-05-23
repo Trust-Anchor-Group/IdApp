@@ -126,37 +126,45 @@ namespace IdApp.iOS
         [Export("application:didReceiveRemoteNotification:fetchCompletionHandler:")]
         public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
         {
-            System.Console.WriteLine(userInfo.ToString());
-            string Title = userInfo.ObjectForKey(new NSString("mytitle")).ToString();
-            string Body = userInfo.ObjectForKey(new NSString("mybody")).ToString();
             string MessageId = userInfo.ObjectForKey(new NSString("gcm.message_id")).ToString();
-
-            /*
-            string path = NSBundle.MainBundle.BundlePath;
-            var files = System.IO.Directory.GetFiles(path);
-
-            foreach (string file in files)
-            {
-                System.Console.WriteLine(file);
-            }
-            */
-
-            //            UIImage image = UIImage.FromBundle("FlipIcon_DarkMode");
-            //            NSData imageData = image.AsPNG();
+            string Title = userInfo.ObjectForKey(new NSString("myTitle")).ToString();
+            string Body = userInfo.ObjectForKey(new NSString("myBody")).ToString();
+            string IconType = userInfo.ObjectForKey(new NSString("iconType")).ToString();
+            NSUrl AttachmentUrl = null;
 
             // Create attachment
+            switch (IconType)
+            {
+                case "Petitions":
+                    AttachmentUrl = NSBundle.MainBundle.GetUrlForResource("NotificationPetitionIcon", "png");
+                    break;
 
-            UNNotificationAttachmentOptions options = new();
-            NSUrl url = NSBundle.MainBundle.GetUrlForResource("AppIcons60x60@3x", "png");
+                case "Identities":
+                    AttachmentUrl = NSBundle.MainBundle.GetUrlForResource("NotificationIdentitieIcon", "png");
+                    break;
+
+                case "Contracts":
+                    AttachmentUrl = NSBundle.MainBundle.GetUrlForResource("NotificationContractIcon", "png");
+                    break;
+
+                case "eDaler":
+                    AttachmentUrl = NSBundle.MainBundle.GetUrlForResource("NotificationEDalerIcon", "png");
+                    break;
+
+                case "Tokens":
+                    AttachmentUrl = NSBundle.MainBundle.GetUrlForResource("NotificationTokenIcon", "png");
+                    break;
+            }
+
+            if (AttachmentUrl is null)
+            {
+                // "Messages" default
+                AttachmentUrl = NSBundle.MainBundle.GetUrlForResource("NotificationChatIcon", "png");
+            }
+
             NSError err;
-            UNNotificationAttachment attachment = UNNotificationAttachment.FromIdentifier("image"+MessageId, url, options, out err);
-
-
-            //            UNNotificationAttachmentOptions options = new();
-            //            NSUrl url = NSBundle.MainBundle.GetUrlForResource("FlipIcon_DarkMode", "png");
-
-            //            NSError err;
-            //            UNNotificationAttachment attachment = UNNotificationAttachment.FromIdentifier("image", url, options, out err);
+            UNNotificationAttachmentOptions options = new();
+            UNNotificationAttachment attachment = UNNotificationAttachment.FromIdentifier("image" + MessageId, AttachmentUrl, options, out err);
 
             // Create request
             UNMutableNotificationContent content = new()
