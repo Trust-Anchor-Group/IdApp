@@ -26,9 +26,9 @@ namespace IdApp.Android.Push
 		public override void OnMessageReceived(RemoteMessage Message)
 		{
 			RemoteMessage.Notification Notification = Message.GetNotification();
-			string Body = Notification.Body;
-			string Title = Notification.Title;
-			string ChannelId = Notification.ChannelId;
+			string Body = Message.Data["myBody"];
+			string Title = Message.Data["myTitle"];
+			string ChannelId = Message.Data["iconType"];
 
 			switch (ChannelId)
 			{
@@ -55,6 +55,7 @@ namespace IdApp.Android.Push
 				case "Tokens":
 
 				default:
+					/*
 					Log.Debug("Push Notification Message received on unrecognized channel.", Notification.ChannelId,
 						new KeyValuePair<string, object>("Body", Notification.Body),
 						new KeyValuePair<string, object>("Icon", Notification.Icon),
@@ -62,6 +63,7 @@ namespace IdApp.Android.Push
 						new KeyValuePair<string, object>("Link", Notification.Link.ToString()),
 						new KeyValuePair<string, object>("Sound", Notification.Sound),
 						new KeyValuePair<string, object>("Title", Notification.Title));
+					*/
 					break;
 			}
 		}
