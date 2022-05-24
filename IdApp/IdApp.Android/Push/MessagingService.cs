@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Gms.Extensions;
+using Android.Graphics;
 using Firebase.Messaging;
 using IdApp.DeviceSpecific;
 using IdApp.Services.Push;
@@ -53,6 +54,8 @@ namespace IdApp.Android.Push
 					break;
 
 				case "Tokens":
+					ShowTokenNotification(Title, Body, ChannelId, Message.Data);
+					break;
 
 				default:
 					/*
@@ -77,9 +80,11 @@ namespace IdApp.Android.Push
 				Intent.PutExtra(Key, Data[Key]);
 
 			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
+			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationChatIcon);
 
 			Notification.Builder notificationBuilder = new Notification.Builder(this, ChannelId)
-				.SetSmallIcon(Resource.Drawable.notification_action_background)
+				.SetSmallIcon(Resource.Drawable.NotificationSmallIcon)
+				.SetLargeIcon(LargeImage)
 				.SetContentTitle(Title)
 				.SetContentText(MessageBody)
 				.SetAutoCancel(true)
@@ -115,9 +120,11 @@ namespace IdApp.Android.Push
 				Intent.PutExtra(Key, Data[Key]);
 
 			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
+			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationPetitionIcon);
 
 			Notification.Builder notificationBuilder = new Notification.Builder(this, ChannelId)
-				.SetSmallIcon(Resource.Drawable.notification_action_background)
+				.SetSmallIcon(Resource.Drawable.NotificationSmallIcon)
+				.SetLargeIcon(LargeImage)
 				.SetContentTitle(Title)
 				.SetContentText((string.IsNullOrEmpty(RosterName) ? FromJid : RosterName) + ": " + MessageBody)
 				.SetAutoCancel(true)
@@ -159,9 +166,11 @@ namespace IdApp.Android.Push
 			}
 
 			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
+			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationIdentitieIcon);
 
 			Notification.Builder notificationBuilder = new Notification.Builder(this, ChannelId)
-				.SetSmallIcon(Resource.Drawable.notification_action_background)
+				.SetSmallIcon(Resource.Drawable.NotificationSmallIcon)
+				.SetLargeIcon(LargeImage)
 				.SetContentTitle(Title)
 				.SetContentText(Content.ToString())
 				.SetAutoCancel(true)
@@ -227,9 +236,11 @@ namespace IdApp.Android.Push
 			}
 
 			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
+			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationContractIcon);
 
 			Notification.Builder notificationBuilder = new Notification.Builder(this, ChannelId)
-				.SetSmallIcon(Resource.Drawable.notification_action_background)
+				.SetSmallIcon(Resource.Drawable.NotificationSmallIcon)
+				.SetLargeIcon(LargeImage)
 				.SetContentTitle(Title)
 				.SetContentText(Content.ToString())
 				.SetAutoCancel(true)
@@ -293,9 +304,11 @@ namespace IdApp.Android.Push
 			}
 
 			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
+			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationEDalerIcon);
 
 			Notification.Builder notificationBuilder = new Notification.Builder(this, ChannelId)
-				.SetSmallIcon(Resource.Drawable.notification_action_background)
+				.SetSmallIcon(Resource.Drawable.NotificationSmallIcon)
+				.SetLargeIcon(LargeImage)
 				.SetContentTitle(Title)
 				.SetContentText(Content.ToString())
 				.SetAutoCancel(true)
@@ -347,9 +360,11 @@ namespace IdApp.Android.Push
 			}
 
 			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
+			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationTokenIcon);
 
 			Notification.Builder notificationBuilder = new Notification.Builder(this, ChannelId)
-				.SetSmallIcon(Resource.Drawable.notification_action_background)
+				.SetSmallIcon(Resource.Drawable.NotificationSmallIcon)
+				.SetLargeIcon(LargeImage)
 				.SetContentTitle(Title)
 				.SetContentText(Content.ToString())
 				.SetAutoCancel(true)

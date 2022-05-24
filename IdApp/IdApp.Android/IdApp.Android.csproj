@@ -161,9 +161,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\tag_bg2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\IdApp.Cv\IdApp.Cv.csproj">
       <Project>{609ac463-43f4-4caf-a778-9e48a46ec7f1}</Project>
       <Name>IdApp.Cv</Name>
@@ -184,10 +181,16 @@
     <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\tag_bg.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\city.jpg" />
+    <AndroidResource Include="Resources\drawable\tag_bg.jpg" />
+    <AndroidResource Include="Resources\drawable\tag_bg2.jpg" />
+    <AndroidResource Include="Resources\drawable\NotificationSmallIcon.png" />
+    <AndroidResource Include="Resources\drawable\NotificationChatIcon.png" />
+    <AndroidResource Include="Resources\drawable\NotificationContractIcon.png" />
+    <AndroidResource Include="Resources\drawable\NotificationEDalerIcon.png" />
+    <AndroidResource Include="Resources\drawable\NotificationIdentitieIcon.png" />
+    <AndroidResource Include="Resources\drawable\NotificationPetitionIcon.png" />
+    <AndroidResource Include="Resources\drawable\NotificationTokenIcon.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
