@@ -387,7 +387,7 @@ namespace IdApp.Services.Push
 		/// <summary>
 		/// Increment this configuration number by one, each time token configuration changes.
 		/// </summary>
-		private const int currentTokenConfiguration = 7;
+		private const int currentTokenConfiguration = 8;
 
 	}
 }
