@@ -152,11 +152,14 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':InnerText(GetElement(Stanza,'body')),");
 						Content.Append("'fromJid':FromJid,");
 						Content.Append("'rosterName':FriendlyName,");
-						Content.Append("'iconType':'Messages',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.Messages);
+						Content.Append("',");
+						Content.Append("'':'Messages',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Chat, string.Empty, string.Empty, "Messages",
-							"Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Chat, string.Empty, string.Empty,
+							Constants.PushChannels.Messages, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
 
@@ -175,11 +178,13 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
 						Content.Append("'rosterName':FriendlyName,");
-						Content.Append("'iconType':'Petitions',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.Petitions);
+						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionIdentityMsg", 
-							ContractsClient.NamespaceLegalIdentities, "Petitions", "Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionIdentityMsg", ContractsClient.NamespaceLegalIdentities,
+							Constants.PushChannels.Petitions, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Petition requests when offline.
 
@@ -194,11 +199,13 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
 						Content.Append("'rosterName':FriendlyName,");
-						Content.Append("'iconType':'Petitions',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.Petitions);
+						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionContractMsg",
-							ContractsClient.NamespaceSmartContracts, "Petitions", "Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionContractMsg", ContractsClient.NamespaceSmartContracts,
+							Constants.PushChannels.Petitions, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Signature Petition requests when offline.
 
@@ -213,11 +220,13 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
 						Content.Append("'rosterName':FriendlyName,");
-						Content.Append("'iconType':'Petitions',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.Petitions);
+						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionSignatureMsg",
-							ContractsClient.NamespaceLegalIdentities, "Petitions", "Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionSignatureMsg", ContractsClient.NamespaceLegalIdentities,
+							Constants.PushChannels.Petitions, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
 
@@ -231,11 +240,13 @@ namespace IdApp.Services.Push
 						Content.Append(JSON.Encode(AppResources.IdentityUpdated));
 						Content.Append("',");
 						Content.Append("'legalId':GetAttribute(E,'id'),");
-						Content.Append("'iconType':'Identities',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.Identities);
+						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "identity",
-							ContractsClient.NamespaceLegalIdentities, "Identities", "Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "identity", ContractsClient.NamespaceLegalIdentities,
+							Constants.PushChannels.Identities, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
 
@@ -249,11 +260,13 @@ namespace IdApp.Services.Push
 						Content.Append(JSON.Encode(AppResources.ContractCreated));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
-						Content.Append("'iconType':'Contracts',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.Contracts);
+						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractCreated",
-							ContractsClient.NamespaceSmartContracts, "Contracts", "Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractCreated", ContractsClient.NamespaceSmartContracts,
+							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Signature events when offline.
 
@@ -264,11 +277,13 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
 						Content.Append("'legalId':GetAttribute(E,'legalId'),");
-						Content.Append("'iconType':'Contracts',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.Contracts);
+						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractSigned",
-							ContractsClient.NamespaceSmartContracts, "Contracts", "Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractSigned", ContractsClient.NamespaceSmartContracts,
+							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Update events when offline.
 
@@ -278,11 +293,13 @@ namespace IdApp.Services.Push
 						Content.Append(JSON.Encode(AppResources.ContractUpdated));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
-						Content.Append("'iconType':'Contracts',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.Contracts);
+						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractUpdated",
-							ContractsClient.NamespaceSmartContracts, "Contracts", "Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractUpdated", ContractsClient.NamespaceSmartContracts,
+							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Deletion events when offline.
 
@@ -292,11 +309,13 @@ namespace IdApp.Services.Push
 						Content.Append(JSON.Encode(AppResources.ContractDeleted));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
-						Content.Append("'iconType':'Contracts',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.Contracts);
+						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractDeleted",
-							ContractsClient.NamespaceSmartContracts, "Contracts", "Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractDeleted", ContractsClient.NamespaceSmartContracts,
+							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Proposal events when offline.
 
@@ -308,11 +327,13 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':GetAttribute(E,'message'),");
 						Content.Append("'contractId':Num(GetAttribute(E,'contractId')),");
 						Content.Append("'role':Num(GetAttribute(E,'role')),");
-						Content.Append("'iconType':'Contracts',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.Contracts);
+						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractProposal",
-							ContractsClient.NamespaceSmartContracts, "Contracts", "Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractProposal", ContractsClient.NamespaceSmartContracts,
+							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
 
@@ -328,11 +349,13 @@ namespace IdApp.Services.Push
 						Content.Append("'amount':Num(GetAttribute(E,'amount')),");
 						Content.Append("'currency':GetAttribute(E,'currency'),");
 						Content.Append("'timestamp':DateTime(GetAttribute(E,'timestamp')),");
-						Content.Append("'iconType':'eDaler',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.EDaler);
+						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "balance",
-							EDalerClient.NamespaceEDaler, "eDaler", "Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "balance", EDalerClient.NamespaceEDaler,
+							Constants.PushChannels.EDaler, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
 
@@ -349,11 +372,13 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':DateTime(GetAttribute(E,'friendlyName')),");
 						Content.Append("'value':Num(GetAttribute(E,'value')),");
 						Content.Append("'currency':GetAttribute(E2,'currency'),");
-						Content.Append("'iconType':'Tokens',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.Tokens);
+						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "tokenAdded",
-							NeuroFeaturesClient.NamespaceNeuroFeatures, "Tokens", "Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "tokenAdded", NeuroFeaturesClient.NamespaceNeuroFeatures,
+							Constants.PushChannels.Tokens, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for token removals when offline.
 
@@ -366,11 +391,13 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':DateTime(GetAttribute(E,'friendlyName')),");
 						Content.Append("'value':Num(GetAttribute(E,'value')),");
 						Content.Append("'currency':GetAttribute(E2,'currency'),");
-						Content.Append("'iconType':'Tokens',");
+						Content.Append("'iconType':'");
+						Content.Append(Constants.PushChannels.Tokens);
+						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "tokenRemoved",
-							NeuroFeaturesClient.NamespaceNeuroFeatures, "Tokens", "Stanza", string.Empty, Content.ToString());
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "tokenRemoved", NeuroFeaturesClient.NamespaceNeuroFeatures,
+							Constants.PushChannels.Tokens, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
 

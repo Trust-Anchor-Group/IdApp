@@ -26,52 +26,42 @@ namespace IdApp.Android.Push
 	{
 		public override void OnMessageReceived(RemoteMessage Message)
 		{
-			RemoteMessage.Notification Notification = Message.GetNotification();
 			string Body = Message.Data["myBody"];
 			string Title = Message.Data["myTitle"];
 			string ChannelId = Message.Data["iconType"];
 
 			switch (ChannelId)
 			{
-				case "Messages":
-					ShowMessageNotification(Title, Body, ChannelId, Message.Data);
+				case Constants.PushChannels.Messages:
+					ShowMessageNotification(Title, Body, Message.Data);
 					break;
 
-				case "Petitions":
-					ShowPetitionNotification(Title, Body, ChannelId, Message.Data);
+				case Constants.PushChannels.Petitions:
+					ShowPetitionNotification(Title, Body, Message.Data);
 					break;
 
-				case "Identities":
-					ShowIdentitiesNotification(Title, Body, ChannelId, Message.Data);
+				case Constants.PushChannels.Identities:
+					ShowIdentitiesNotification(Title, Body, Message.Data);
 					break;
 
-				case "Contracts":
-					ShowContractsNotification(Title, Body, ChannelId, Message.Data);
+				case Constants.PushChannels.Contracts:
+					ShowContractsNotification(Title, Body, Message.Data);
 					break;
 
-				case "eDaler":
-					ShowEDalerNotification(Title, Body, ChannelId, Message.Data);
+				case Constants.PushChannels.EDaler:
+					ShowEDalerNotification(Title, Body, Message.Data);
 					break;
 
-				case "Tokens":
-					ShowTokenNotification(Title, Body, ChannelId, Message.Data);
+				case Constants.PushChannels.Tokens:
+					ShowTokenNotification(Title, Body, Message.Data);
 					break;
 
 				default:
-					/*
-					Log.Debug("Push Notification Message received on unrecognized channel.", Notification.ChannelId,
-						new KeyValuePair<string, object>("Body", Notification.Body),
-						new KeyValuePair<string, object>("Icon", Notification.Icon),
-						new KeyValuePair<string, object>("ImageUrl", Notification.ImageUrl.ToString()),
-						new KeyValuePair<string, object>("Link", Notification.Link.ToString()),
-						new KeyValuePair<string, object>("Sound", Notification.Sound),
-						new KeyValuePair<string, object>("Title", Notification.Title));
-					*/
 					break;
 			}
-		}
+}
 
-		public void ShowMessageNotification(string Title, string MessageBody, string ChannelId, IDictionary<string, string> Data)
+		public void ShowMessageNotification(string Title, string MessageBody, IDictionary<string, string> Data)
 		{
 			Intent Intent = new(this, typeof(MainActivity));
 			Intent.AddFlags(ActivityFlags.ClearTop);
@@ -82,7 +72,7 @@ namespace IdApp.Android.Push
 			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
 			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationChatIcon);
 
-			Notification.Builder notificationBuilder = new Notification.Builder(this, ChannelId)
+			Notification.Builder notificationBuilder = new Notification.Builder(this, Constants.PushChannels.Messages)
 				.SetSmallIcon(Resource.Drawable.NotificationSmallIcon)
 				.SetLargeIcon(LargeImage)
 				.SetContentTitle(Title)
@@ -94,7 +84,7 @@ namespace IdApp.Android.Push
 			NotificationManager.Notify(100, notificationBuilder.Build());
 		}
 
-		public void ShowPetitionNotification(string Title, string MessageBody, string ChannelId, IDictionary<string, string> Data)
+		public void ShowPetitionNotification(string Title, string MessageBody, IDictionary<string, string> Data)
 		{
 			string FromJid = string.Empty;
 			string RosterName = string.Empty;
@@ -122,7 +112,7 @@ namespace IdApp.Android.Push
 			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
 			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationPetitionIcon);
 
-			Notification.Builder notificationBuilder = new Notification.Builder(this, ChannelId)
+			Notification.Builder notificationBuilder = new Notification.Builder(this, Constants.PushChannels.Petitions)
 				.SetSmallIcon(Resource.Drawable.NotificationSmallIcon)
 				.SetLargeIcon(LargeImage)
 				.SetContentTitle(Title)
@@ -134,7 +124,7 @@ namespace IdApp.Android.Push
 			NotificationManager.Notify(100, notificationBuilder.Build());
 		}
 
-		public void ShowIdentitiesNotification(string Title, string MessageBody, string ChannelId, IDictionary<string, string> Data)
+		public void ShowIdentitiesNotification(string Title, string MessageBody, IDictionary<string, string> Data)
 		{
 			string LegalId = string.Empty;
 
@@ -168,7 +158,7 @@ namespace IdApp.Android.Push
 			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
 			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationIdentitieIcon);
 
-			Notification.Builder notificationBuilder = new Notification.Builder(this, ChannelId)
+			Notification.Builder notificationBuilder = new Notification.Builder(this, Constants.PushChannels.Identities)
 				.SetSmallIcon(Resource.Drawable.NotificationSmallIcon)
 				.SetLargeIcon(LargeImage)
 				.SetContentTitle(Title)
@@ -180,7 +170,7 @@ namespace IdApp.Android.Push
 			NotificationManager.Notify(100, notificationBuilder.Build());
 		}
 
-		public void ShowContractsNotification(string Title, string MessageBody, string ChannelId, IDictionary<string, string> Data)
+		public void ShowContractsNotification(string Title, string MessageBody, IDictionary<string, string> Data)
 		{
 			string LegalId = string.Empty;
 			string ContractId = string.Empty;
@@ -238,7 +228,7 @@ namespace IdApp.Android.Push
 			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
 			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationContractIcon);
 
-			Notification.Builder notificationBuilder = new Notification.Builder(this, ChannelId)
+			Notification.Builder notificationBuilder = new Notification.Builder(this, Constants.PushChannels.Contracts)
 				.SetSmallIcon(Resource.Drawable.NotificationSmallIcon)
 				.SetLargeIcon(LargeImage)
 				.SetContentTitle(Title)
@@ -250,7 +240,7 @@ namespace IdApp.Android.Push
 			NotificationManager.Notify(100, notificationBuilder.Build());
 		}
 
-		public void ShowEDalerNotification(string Title, string MessageBody, string ChannelId, IDictionary<string, string> Data)
+		public void ShowEDalerNotification(string Title, string MessageBody, IDictionary<string, string> Data)
 		{
 			string Amount = string.Empty;
 			string Currency = string.Empty;
@@ -306,7 +296,7 @@ namespace IdApp.Android.Push
 			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
 			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationEDalerIcon);
 
-			Notification.Builder notificationBuilder = new Notification.Builder(this, ChannelId)
+			Notification.Builder notificationBuilder = new Notification.Builder(this, Constants.PushChannels.EDaler)
 				.SetSmallIcon(Resource.Drawable.NotificationSmallIcon)
 				.SetLargeIcon(LargeImage)
 				.SetContentTitle(Title)
@@ -318,7 +308,7 @@ namespace IdApp.Android.Push
 			NotificationManager.Notify(100, notificationBuilder.Build());
 		}
 
-		public void ShowTokenNotification(string Title, string MessageBody, string ChannelId, IDictionary<string, string> Data)
+		public void ShowTokenNotification(string Title, string MessageBody, IDictionary<string, string> Data)
 		{
 			string Value = string.Empty;
 			string Currency = string.Empty;
@@ -362,7 +352,7 @@ namespace IdApp.Android.Push
 			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
 			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationTokenIcon);
 
-			Notification.Builder notificationBuilder = new Notification.Builder(this, ChannelId)
+			Notification.Builder notificationBuilder = new Notification.Builder(this, Constants.PushChannels.Tokens)
 				.SetSmallIcon(Resource.Drawable.NotificationSmallIcon)
 				.SetLargeIcon(LargeImage)
 				.SetContentTitle(Title)

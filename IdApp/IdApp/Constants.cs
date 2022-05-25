@@ -108,13 +108,13 @@ namespace IdApp
 
 				return Url switch
 				{
-					UriSchemeIotId or 
-                    UriSchemeIotDisco or 
-                    UriSchemeIotSc or 
-                    UriSchemeTagSign or 
+					UriSchemeIotId or
+                    UriSchemeIotDisco or
+                    UriSchemeIotSc or
+                    UriSchemeTagSign or
                     UriSchemeEDaler or
                     UriSchemeNeuroFeature or
-                    UriSchemeOnboarding or 
+                    UriSchemeOnboarding or
                     UriSchemeXmpp => Url,
 
 					_ => null,
@@ -395,5 +395,40 @@ namespace IdApp
             public const string TransferTokenTemplate = "2a0c6dad-6520-dd43-e40e-7b4737289811@legal.lab.tagroot.io";
         }
 
-    }
+		/// <summary>
+		/// Push chennels
+		/// </summary>
+		public static class PushChannels
+		{
+			/// <summary>
+			/// Messages channel
+			/// </summary>
+			public const string Messages = "Messages";
+
+			/// <summary>
+			/// Petitions channel
+			/// </summary>
+			public const string Petitions = "Petitions";
+
+			/// <summary>
+			/// Identities channel
+			/// </summary>
+			public const string Identities = "Identities";
+
+			/// <summary>
+			/// Contracts channel
+			/// </summary>
+			public const string Contracts = "Contracts";
+
+			/// <summary>
+			/// eDaler channel
+			/// </summary>
+			public const string EDaler = "eDaler";
+
+			/// <summary>
+			/// Tokens channel
+			/// </summary>
+			public const string Tokens = "Tokens";
+		}
+	}
 }

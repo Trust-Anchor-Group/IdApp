@@ -592,6 +592,41 @@
             Contract template for transferring a token from a seller to a buyer
             </summary>
         </member>
+        <member name="T:IdApp.Constants.PushChannels">
+            <summary>
+            Push chennels
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.PushChannels.Messages">
+            <summary>
+            Messages channel
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.PushChannels.Petitions">
+            <summary>
+            Petitions channel
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.PushChannels.Identities">
+            <summary>
+            Identities channel
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.PushChannels.Contracts">
+            <summary>
+            Contracts channel
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.PushChannels.EDaler">
+            <summary>
+            eDaler channel
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.PushChannels.Tokens">
+            <summary>
+            Tokens channel
+            </summary>
+        </member>
         <member name="T:IdApp.Controls.Extended.ExtendedDatePicker">
             <summary>
              Extended DatePicker for nullable values with text placeholder
