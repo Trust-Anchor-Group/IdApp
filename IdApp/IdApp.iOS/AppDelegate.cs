@@ -128,41 +128,41 @@ namespace IdApp.iOS
 		public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
 		{
 			string MessageId = userInfo.ObjectForKey(new NSString("gcm.message_id")).ToString();
-			string ChannelId = userInfo.ObjectForKey(new NSString("iconType")).ToString();
-			string Title = userInfo.ObjectForKey(new NSString("myTitle")).ToString();
-			string Body = string.Empty;
+			string ChannelId = userInfo.ObjectForKey(new NSString("channelId"))?.ToString() ?? string.Empty;
+			string Title = userInfo.ObjectForKey(new NSString("myTitle"))?.ToString() ?? string.Empty;
+			string Body = userInfo.ObjectForKey(new NSString("myBody"))?.ToString() ?? string.Empty;
 			string AttachmentIcon = null;
 
 			switch (ChannelId)
 			{
 				case Constants.PushChannels.Messages:
 					AttachmentIcon = "NotificationChatIcon";
-					Body = GetChatNotificationBody(userInfo);
+					Body = GetChatNotificationBody(Body, userInfo);
 					break;
 
 				case Constants.PushChannels.Petitions:
 					AttachmentIcon = "NotificationPetitionIcon";
-					Body = GetPetitionNotificationBody(userInfo);
+					Body = GetPetitionNotificationBody(Body, userInfo);
 					break;
 
 				case Constants.PushChannels.Identities:
 					AttachmentIcon = "NotificationIdentitieIcon";
-					Body = GetIdentitieNotificationBody(userInfo);
+					Body = GetIdentitieNotificationBody(Body, userInfo);
 					break;
 
 				case Constants.PushChannels.Contracts:
 					AttachmentIcon = "NotificationContractIcon";
-					Body = GetContractNotificationBody(userInfo);
+					Body = GetContractNotificationBody(Body, userInfo);
 					break;
 
 				case Constants.PushChannels.EDaler:
 					AttachmentIcon = "NotificationEDalerIcon";
-					Body = GetEDalerNotificationBody(userInfo);
+					Body = GetEDalerNotificationBody(Body, userInfo);
 					break;
 
 				case Constants.PushChannels.Tokens:
 					AttachmentIcon = "NotificationTokenIcon";
-					Body = GetTokenNotificationBody(userInfo);
+					Body = GetTokenNotificationBody(Body, userInfo);
 					break;
 
 				default:
@@ -199,103 +199,102 @@ namespace IdApp.iOS
 			completionHandler(UIBackgroundFetchResult.NewData);
 		}
 
-		private string GetChatNotificationBody(NSDictionary userInfo)
+		private string GetChatNotificationBody(string messageBody, NSDictionary userInfo)
 		{
-			string Body = userInfo.ObjectForKey(new NSString("myBody")).ToString();
+			string isObject = userInfo.ObjectForKey(new NSString("isObject"))?.ToString() ?? string.Empty;
 
-			return Body;
+			if (!string.IsNullOrEmpty(isObject) && bool.Parse(isObject))
+			{
+				messageBody = "[Sent you an object]";
+			}
+
+			return messageBody;
 		}
 
-		private string GetPetitionNotificationBody(NSDictionary userInfo)
+		private string GetPetitionNotificationBody(string messageBody, NSDictionary userInfo)
 		{
-			string Body = userInfo.ObjectForKey(new NSString("myBody")).ToString();
-			string FromJid = userInfo.ObjectForKey(new NSString("fromJid")).ToString();
-			string RosterName = userInfo.ObjectForKey(new NSString("rosterName")).ToString();
+			string FromJid = userInfo.ObjectForKey(new NSString("fromJid"))?.ToString() ?? string.Empty;
+			string RosterName = userInfo.ObjectForKey(new NSString("rosterName"))?.ToString() ?? string.Empty;
 
-			Body = (string.IsNullOrEmpty(RosterName) ? FromJid : RosterName) + ": " + Body;
-			return Body;
+			return (string.IsNullOrEmpty(RosterName) ? FromJid : RosterName) + ": " + messageBody;
 		}
 
-		private string GetIdentitieNotificationBody(NSDictionary userInfo)
+		private string GetIdentitieNotificationBody(string messageBody, NSDictionary userInfo)
 		{
-			string Body = userInfo.ObjectForKey(new NSString("myBody")).ToString();
-			string LegalId = userInfo.ObjectForKey(new NSString("legalId")).ToString();
+			string LegalId = userInfo.ObjectForKey(new NSString("legalId"))?.ToString() ?? string.Empty;
 
 			if (!string.IsNullOrEmpty(LegalId))
 			{
-				Body = "\n(" + LegalId + ")";
+				messageBody += "\n(" + LegalId + ")";
 			}
 
-			return Body;
+			return messageBody;
 		}
 
-		private string GetContractNotificationBody(NSDictionary userInfo)
+		private string GetContractNotificationBody(string messageBody, NSDictionary userInfo)
 		{
-			string Body = userInfo.ObjectForKey(new NSString("myBody")).ToString();
-			string LegalId = userInfo.ObjectForKey(new NSString("legalId")).ToString();
-			string ContractId = userInfo.ObjectForKey(new NSString("contractId")).ToString();
-			string Role = userInfo.ObjectForKey(new NSString("role")).ToString();
+			string LegalId = userInfo.ObjectForKey(new NSString("legalId"))?.ToString() ?? string.Empty;
+			string ContractId = userInfo.ObjectForKey(new NSString("contractId"))?.ToString() ?? string.Empty;
+			string Role = userInfo.ObjectForKey(new NSString("role"))?.ToString() ?? string.Empty;
 
 			if (!string.IsNullOrEmpty(Role))
 			{
-				Body += "\n" + Role;
+				messageBody += "\n" + Role;
 			}
 
 			if (!string.IsNullOrEmpty(ContractId))
 			{
-				Body += "\n(" + ContractId + ")";
+				messageBody += "\n(" + ContractId + ")";
 			}
 
 			if (!string.IsNullOrEmpty(LegalId))
 			{
-				Body += "\n(" + LegalId + ")";
+				messageBody += "\n(" + LegalId + ")";
 			}
 
-			return Body;
+			return messageBody;
 		}
 
-		private string GetEDalerNotificationBody(NSDictionary userInfo)
+		private string GetEDalerNotificationBody(string messageBody, NSDictionary userInfo)
 		{
-			string Body = userInfo.ObjectForKey(new NSString("myBody")).ToString();
-			string Amount = userInfo.ObjectForKey(new NSString("amount")).ToString();
-			string Currency = userInfo.ObjectForKey(new NSString("currency")).ToString();
-			string Timestamp = userInfo.ObjectForKey(new NSString("timestamp")).ToString();
+			string Amount = userInfo.ObjectForKey(new NSString("amount"))?.ToString() ?? string.Empty;
+			string Currency = userInfo.ObjectForKey(new NSString("currency"))?.ToString() ?? string.Empty;
+			string Timestamp = userInfo.ObjectForKey(new NSString("timestamp"))?.ToString() ?? string.Empty;
 
 			if (!string.IsNullOrEmpty(Amount))
 			{
-				Body += "\n" + Amount;
+				messageBody += "\n" + Amount;
 
 				if (!string.IsNullOrEmpty(Currency))
 				{
-					Body += " " + Currency;
+					messageBody += " " + Currency;
 				}
 
 				if (!string.IsNullOrEmpty(Timestamp))
 				{
-					Body += " (" + Timestamp + ")";
+					messageBody += " (" + Timestamp + ")";
 				}
 			}
 
-			return Body;
+			return messageBody;
 		}
 
-		private string GetTokenNotificationBody(NSDictionary userInfo)
+		private string GetTokenNotificationBody(string messageBody, NSDictionary userInfo)
 		{
-			string Body = userInfo.ObjectForKey(new NSString("myBody")).ToString();
-			string Value = userInfo.ObjectForKey(new NSString("value")).ToString();
-			string Currency = userInfo.ObjectForKey(new NSString("currency")).ToString();
+			string Value = userInfo.ObjectForKey(new NSString("value"))?.ToString() ?? string.Empty;
+			string Currency = userInfo.ObjectForKey(new NSString("currency"))?.ToString() ?? string.Empty;
 
 			if (!string.IsNullOrEmpty(Value))
 			{
-				Body += "\n" + Value;
+				messageBody += "\n" + Value;
 
 				if (!string.IsNullOrEmpty(Currency))
 				{
-					Body += " " + Currency;
+					messageBody += " " + Currency;
 				}
 			}
 
-			return Body;
+			return messageBody;
 		}
 
 		[Export("messaging:didReceiveRegistrationToken:")]

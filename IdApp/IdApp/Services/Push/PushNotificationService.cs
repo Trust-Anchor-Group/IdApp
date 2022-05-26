@@ -146,18 +146,23 @@ namespace IdApp.Services.Push
 						Content.Append("FromJid:=GetAttribute(Stanza,'from');");
 						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
 						Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
+						Content.Append("Content:=GetElement(Stanza,'content');");
 						Content.Append("{'myTitle':'");
 						Content.Append(JSON.Encode(AppResources.MessageFrom));
 						Content.Append(" ' + FriendlyName,");
 						Content.Append("'myBody':InnerText(GetElement(Stanza,'body')),");
 						Content.Append("'fromJid':FromJid,");
 						Content.Append("'rosterName':FriendlyName,");
-						Content.Append("'iconType':'");
+						Content.Append("'isObject':false,");
+						//Content.Append("'isObject':exists(Content) and !empty(Markdown:= InnerText(Content)),");
+						//		and ((Markdown.StartsWith(\"```\") and Markdown.EndsWith(\"```\")) or Markdown.StartsWith(\"![\"))
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Messages);
 						Content.Append("',");
-						Content.Append("'':'Messages',");
 						Content.Append("'content_available':true}");
 
+
+						var q = Content.ToString();
 						await PushNotificationClient.AddRuleAsync(MessageType.Chat, string.Empty, string.Empty,
 							Constants.PushChannels.Messages, "Stanza", string.Empty, Content.ToString());
 
@@ -178,7 +183,7 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
 						Content.Append("'rosterName':FriendlyName,");
-						Content.Append("'iconType':'");
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Petitions);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
@@ -199,7 +204,7 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
 						Content.Append("'rosterName':FriendlyName,");
-						Content.Append("'iconType':'");
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Petitions);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
@@ -220,7 +225,7 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
 						Content.Append("'rosterName':FriendlyName,");
-						Content.Append("'iconType':'");
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Petitions);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
@@ -240,7 +245,7 @@ namespace IdApp.Services.Push
 						Content.Append(JSON.Encode(AppResources.IdentityUpdated));
 						Content.Append("',");
 						Content.Append("'legalId':GetAttribute(E,'id'),");
-						Content.Append("'iconType':'");
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Identities);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
@@ -260,7 +265,7 @@ namespace IdApp.Services.Push
 						Content.Append(JSON.Encode(AppResources.ContractCreated));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
-						Content.Append("'iconType':'");
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Contracts);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
@@ -277,7 +282,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
 						Content.Append("'legalId':GetAttribute(E,'legalId'),");
-						Content.Append("'iconType':'");
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Contracts);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
@@ -293,7 +298,7 @@ namespace IdApp.Services.Push
 						Content.Append(JSON.Encode(AppResources.ContractUpdated));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
-						Content.Append("'iconType':'");
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Contracts);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
@@ -309,7 +314,7 @@ namespace IdApp.Services.Push
 						Content.Append(JSON.Encode(AppResources.ContractDeleted));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
-						Content.Append("'iconType':'");
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Contracts);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
@@ -327,7 +332,7 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':GetAttribute(E,'message'),");
 						Content.Append("'contractId':Num(GetAttribute(E,'contractId')),");
 						Content.Append("'role':Num(GetAttribute(E,'role')),");
-						Content.Append("'iconType':'");
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Contracts);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
@@ -349,7 +354,7 @@ namespace IdApp.Services.Push
 						Content.Append("'amount':Num(GetAttribute(E,'amount')),");
 						Content.Append("'currency':GetAttribute(E,'currency'),");
 						Content.Append("'timestamp':DateTime(GetAttribute(E,'timestamp')),");
-						Content.Append("'iconType':'");
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.EDaler);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
@@ -372,7 +377,7 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':DateTime(GetAttribute(E,'friendlyName')),");
 						Content.Append("'value':Num(GetAttribute(E,'value')),");
 						Content.Append("'currency':GetAttribute(E2,'currency'),");
-						Content.Append("'iconType':'");
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Tokens);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
@@ -391,7 +396,7 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':DateTime(GetAttribute(E,'friendlyName')),");
 						Content.Append("'value':Num(GetAttribute(E,'value')),");
 						Content.Append("'currency':GetAttribute(E2,'currency'),");
-						Content.Append("'iconType':'");
+						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Tokens);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
@@ -414,7 +419,7 @@ namespace IdApp.Services.Push
 		/// <summary>
 		/// Increment this configuration number by one, each time token configuration changes.
 		/// </summary>
-		private const int currentTokenConfiguration = 8;
+		private const int currentTokenConfiguration = 10;
 
 	}
 }

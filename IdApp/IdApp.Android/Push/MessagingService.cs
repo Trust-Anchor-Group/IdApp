@@ -28,7 +28,7 @@ namespace IdApp.Android.Push
 		{
 			string Body = Message.Data["myBody"];
 			string Title = Message.Data["myTitle"];
-			string ChannelId = Message.Data["iconType"];
+			string ChannelId = Message.Data["channelId"];
 
 			switch (ChannelId)
 			{
@@ -86,7 +86,7 @@ namespace IdApp.Android.Push
 
 		public void ShowPetitionNotification(string Title, string MessageBody, IDictionary<string, string> Data)
 		{
-			string FromJid = string.Empty;
+			string FromJid =  string.Empty;
 			string RosterName = string.Empty;
 
 			foreach (KeyValuePair<string, string> P in Data)
