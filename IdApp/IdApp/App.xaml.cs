@@ -71,6 +71,7 @@ namespace IdApp
 		private static readonly TaskCompletionSource<bool> defaultInstantiatedSource = new();
 		private static bool defaultInstantiated = false;
 		private static App instance;
+		private static DateTime savedStartTime;
 		private Timer autoSaveTimer;
 		private ServiceReferences services;
 		private Profiler startupProfiler;
@@ -109,6 +110,8 @@ namespace IdApp
 			}
 
 			this.startupProfiler?.MainThread?.Idle();
+
+			savedStartTime = DateTime.MinValue;
 		}
 
 		private Task<bool> Init()
@@ -761,6 +764,7 @@ namespace IdApp
 		/// </summary>
 		/// <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
 		public static async Task<string> InputPin()
+
 		{
 			ITagProfile Profile = App.Instantiate<ITagProfile>();
 			if (!Profile.UsePin)
@@ -796,7 +800,29 @@ namespace IdApp
 		/// <returns>If the user has provided the correct PIN</returns>
 		public static async Task<bool> VerifyPin()
 		{
-			return (!(await InputPin() is null));
+			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
+			if (NeedToVerifyPin)
+			{
+				return (!(await InputPin() is null));
+			}
+
+			return true;
+		}
+
+		public static void SetStartInactivityTime()
+		{
+			savedStartTime = DateTime.Now;
+		}
+
+		public static void ClearStartInactivityTime()
+		{
+			savedStartTime = DateTime.MaxValue;
+		}
+
+		private static bool IsInactivitySafeIntervalPassed()
+		{
+			return DateTime.Now.Subtract(savedStartTime).TotalMinutes
+				> Constants.Inactivity.PossibleInactivityInMinutes;
 		}
 
 	}

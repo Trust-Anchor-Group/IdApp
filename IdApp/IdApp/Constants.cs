@@ -430,5 +430,21 @@ namespace IdApp
 			/// </summary>
 			public const string Tokens = "Tokens";
 		}
-	}
+
+        /// <summary>
+        /// Contract templates
+        /// </summary>
+        public static class Inactivity
+        {
+            /// <summary>
+            /// Key for inativity time
+            /// </summary>
+            public const string StartTime = "InactivityStartTime";
+
+            /// <summary>
+            /// Possible time of inactivity
+            /// </summary>
+            public const int PossibleInactivityInMinutes = 5;
+        }
+    }
 }
