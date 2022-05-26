@@ -153,9 +153,8 @@ namespace IdApp.Services.Push
 						Content.Append("'myBody':InnerText(GetElement(Stanza,'body')),");
 						Content.Append("'fromJid':FromJid,");
 						Content.Append("'rosterName':FriendlyName,");
-						Content.Append("'isObject':false,");
-						//Content.Append("'isObject':exists(Content) and !empty(Markdown:= InnerText(Content)),");
-						//		and ((Markdown.StartsWith(\"```\") and Markdown.EndsWith(\"```\")) or Markdown.StartsWith(\"![\"))
+						//Content.Append("'isObject':false,");
+						Content.Append("'isObject':exists(Content) and !empty(Markdown:= InnerText(Content)) and (Left(Markdown,2)='![' or (Left(Markdown,3)='```' and Right(Markdown,3)='```')),");
 						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Messages);
 						Content.Append("',");

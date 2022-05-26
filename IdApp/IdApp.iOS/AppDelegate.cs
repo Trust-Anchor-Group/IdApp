@@ -201,9 +201,9 @@ namespace IdApp.iOS
 
 		private string GetChatNotificationBody(string messageBody, NSDictionary userInfo)
 		{
-			string isObject = userInfo.ObjectForKey(new NSString("isObject"))?.ToString() ?? string.Empty;
+			string IsObject = userInfo.ObjectForKey(new NSString("isObject"))?.ToString() ?? string.Empty;
 
-			if (!string.IsNullOrEmpty(isObject) && bool.Parse(isObject))
+			if (!string.IsNullOrEmpty(IsObject) && bool.Parse(IsObject))
 			{
 				messageBody = "[Sent you an object]";
 			}

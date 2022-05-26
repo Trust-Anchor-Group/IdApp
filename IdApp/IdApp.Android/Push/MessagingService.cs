@@ -63,6 +63,23 @@ namespace IdApp.Android.Push
 
 		public void ShowMessageNotification(string Title, string MessageBody, IDictionary<string, string> Data)
 		{
+			string IsObject = string.Empty;
+
+			foreach (KeyValuePair<string, string> P in Data)
+			{
+				switch (P.Key)
+				{
+					case "isObject":
+						IsObject = P.Value;
+						break;
+				}
+			}
+
+			if (!string.IsNullOrEmpty(IsObject) && bool.Parse(IsObject))
+			{
+				Title = "[Sent you an object]";
+			}
+
 			Intent Intent = new(this, typeof(MainActivity));
 			Intent.AddFlags(ActivityFlags.ClearTop);
 
