@@ -50,6 +50,12 @@
             </summary>
             <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
         </member>
+        <member name="M:IdApp.App.InputPin(IdApp.Services.Tag.ITagProfile)">
+            <summary>
+            Asks the user to input its PIN. PIN is verified before being returned.
+            </summary>
+            <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
+        </member>
         <member name="M:IdApp.App.VerifyPin">
             <summary>
             Asks the user to verify with its PIN.
@@ -625,6 +631,21 @@
         <member name="F:IdApp.Constants.PushChannels.Tokens">
             <summary>
             Tokens channel
+            </summary>
+        </member>
+        <member name="T:IdApp.Constants.Inactivity">
+            <summary>
+            Contract templates
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Inactivity.StartTime">
+            <summary>
+            Key for inativity time
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Inactivity.PossibleInactivityInMinutes">
+            <summary>
+            Possible time of inactivity
             </summary>
         </member>
         <member name="T:IdApp.Controls.Extended.ExtendedDatePicker">

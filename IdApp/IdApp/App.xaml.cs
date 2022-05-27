@@ -1,4 +1,28 @@
-﻿using System;
+﻿using EDaler;
+using IdApp.DeviceSpecific;
+using IdApp.Extensions;
+using IdApp.Pages;
+using IdApp.Pages.Main.Shell;
+using IdApp.Popups.Pin.PinPopup;
+using IdApp.Resx;
+using IdApp.Services;
+using IdApp.Services.AttachmentCache;
+using IdApp.Services.Contracts;
+using IdApp.Services.Crypto;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Nfc;
+using IdApp.Services.Settings;
+using IdApp.Services.Storage;
+using IdApp.Services.Tag;
+using IdApp.Services.ThingRegistries;
+using IdApp.Services.UI;
+using IdApp.Services.UI.QR;
+using IdApp.Services.Wallet;
+using IdApp.Services.Xmpp;
+using NeuroFeatures;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -8,32 +32,10 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using EDaler;
-using IdApp.DeviceSpecific;
-using IdApp.Extensions;
-using IdApp.Pages;
-using IdApp.Pages.Main.Shell;
-using IdApp.Popups.Pin.PinPopup;
-using IdApp.Services;
-using IdApp.Services.AttachmentCache;
-using IdApp.Services.Contracts;
-using IdApp.Services.ThingRegistries;
-using IdApp.Services.Wallet;
-using IdApp.Services.UI.QR;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
-using IdApp.Services.EventLog;
-using IdApp.Services.Crypto;
-using IdApp.Services.Network;
-using IdApp.Services.Storage;
-using IdApp.Services.Settings;
-using IdApp.Services.Navigation;
-using IdApp.Services.Xmpp;
-using IdApp.Services.Nfc;
 using Waher.Content;
 using Waher.Content.Images;
-using Waher.Content.Xml;
 using Waher.Content.Markdown;
+using Waher.Content.Xml;
 using Waher.Events;
 using Waher.Networking.DNS;
 using Waher.Networking.XMPP;
@@ -43,6 +45,7 @@ using Waher.Networking.XMPP.Control;
 using Waher.Networking.XMPP.P2P;
 using Waher.Networking.XMPP.P2P.E2E;
 using Waher.Networking.XMPP.Provisioning;
+using Waher.Networking.XMPP.Push;
 using Waher.Networking.XMPP.Sensor;
 using Waher.Persistence;
 using Waher.Persistence.Files;
@@ -55,9 +58,6 @@ using Waher.Script;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using IdApp.Resx;
-using NeuroFeatures;
-using Waher.Networking.XMPP.Push;
 
 
 namespace IdApp
@@ -88,16 +88,16 @@ namespace IdApp
 			this.startupProfiler?.Start();
 			this.startupProfiler?.NewState("Init");
 
-			AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
-			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+			AppDomain.CurrentDomain.FirstChanceException += this.CurrentDomain_FirstChanceException;
+			AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
+			TaskScheduler.UnobservedTaskException += this.TaskScheduler_UnobservedTaskException;
 
 			instance = this;
 			this.startupCancellation = new CancellationTokenSource();
 
 			this.initCompleted = this.Init();
 
-			InitializeComponent();
+			this.InitializeComponent();
 
 			// Start page
 			try
@@ -131,7 +131,7 @@ namespace IdApp
 		{
 			try
 			{
-				InitInstances(Thread);
+				this.InitInstances(Thread);
 
 				// Get the db started right away to save startup time.
 
@@ -220,7 +220,7 @@ namespace IdApp
 			Types.InstantiateDefault<IStorageService>(false);
 			Types.InstantiateDefault<ISettingsService>(false);
 			Types.InstantiateDefault<INavigationService>(false);
-			Types.InstantiateDefault<IXmppService>(false, appAssembly, startupProfiler);
+			Types.InstantiateDefault<IXmppService>(false, appAssembly, this.startupProfiler);
 			Types.InstantiateDefault<IAttachmentCacheService>(false);
 			Types.InstantiateDefault<IContractOrchestratorService>(false);
 			Types.InstantiateDefault<IThingRegistryOrchestratorService>(false);
@@ -250,7 +250,7 @@ namespace IdApp
 			ex = Waher.Events.Log.UnnestException(ex);
 			this.startupProfiler?.Exception(ex);
 			this.services?.LogService?.SaveExceptionDump("StartPage", ex.ToString());
-			DisplayBootstrapErrorPage(ex.Message, ex.StackTrace);
+			this.DisplayBootstrapErrorPage(ex.Message, ex.StackTrace);
 			return;
 		}
 
@@ -298,7 +298,7 @@ namespace IdApp
 			await this.PerformStartup(true, null);
 
 			if (!await App.VerifyPin())
-				Quit();
+				this.Quit();
 		}
 
 
@@ -338,7 +338,7 @@ namespace IdApp
 
 				Thread?.NewState("Timer");
 				TimeSpan initialAutoSaveDelay = Constants.Intervals.AutoSave.Multiply(4);
-				this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, initialAutoSaveDelay, Constants.Intervals.AutoSave);
+				this.autoSaveTimer = new Timer(async _ => await this.AutoSave(), null, initialAutoSaveDelay, Constants.Intervals.AutoSave);
 
 				Thread?.NewState("Navigation");
 				await this.services.NavigationService.Load(isResuming, Token);
@@ -369,12 +369,12 @@ namespace IdApp
 			// Done manually here, as the Disappearing event won't trigger when exiting the app,
 			// and we want to make sure state is persisted and teardown is done correctly to avoid memory leaks.
 
-			if (MainPage?.BindingContext is BaseViewModel vm)
+			if (this.MainPage?.BindingContext is BaseViewModel vm)
 				await vm.Shutdown();
 
 			await this.Shutdown(false);
 
-			SetStartInactivityTime();
+			this.SetStartInactivityTime();
 		}
 
 		internal static async Task Stop()
@@ -386,7 +386,7 @@ namespace IdApp
 			}
 
 			ICloseApplication closeApp = DependencyService.Get<ICloseApplication>();
-			if (!(closeApp is null))
+			if (closeApp is not null)
 				await closeApp.Close();
 			else
 				Environment.Exit(0);
@@ -400,41 +400,41 @@ namespace IdApp
 
 			try
 			{
-				StopAutoSaveTimer();
+				this.StopAutoSaveTimer();
 
-				if (!(this.services?.UiSerializer is null))
+				if (this.services?.UiSerializer is not null)
 					this.services.UiSerializer.IsRunningInTheBackground = !inPanic;
 
 				if (inPanic)
 				{
-					if (!(this.services?.XmppService is null))
+					if (this.services?.XmppService is not null)
 						await this.services.XmppService.UnloadFast();
 				}
 				else
 				{
-					if (!(this.services?.NavigationService is null))
+					if (this.services?.NavigationService is not null)
 						await this.services.NavigationService.Unload();
 
-					if (!(this.services.ContractOrchestratorService is null))
+					if (this.services.ContractOrchestratorService is not null)
 						await this.services.ContractOrchestratorService.Unload();
 
-					if (!(this.services.ThingRegistryOrchestratorService is null))
+					if (this.services.ThingRegistryOrchestratorService is not null)
 						await this.services.ThingRegistryOrchestratorService.Unload();
 
-					if (!(this.services?.XmppService is null))
+					if (this.services?.XmppService is not null)
 						await this.services.XmppService.Unload();
 
-					if (!(this.services?.NetworkService is null))
+					if (this.services?.NetworkService is not null)
 						await this.services.NetworkService.Unload();
 
-					if (!(this.services.AttachmentCacheService is null))
+					if (this.services.AttachmentCacheService is not null)
 						await this.services.AttachmentCacheService.Unload();
 				}
 
 				foreach (IEventSink Sink in Waher.Events.Log.Sinks)
 					Waher.Events.Log.Unregister(Sink);
 
-				if (!(this.services?.StorageService is null))
+				if (this.services?.StorageService is not null)
 					await this.services.StorageService.Shutdown();
 
 				// Causes list of singleton instances to be cleared.
@@ -450,7 +450,7 @@ namespace IdApp
 
 		private void StopAutoSaveTimer()
 		{
-			if (!(this.autoSaveTimer is null))
+			if (this.autoSaveTimer is not null)
 			{
 				this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
 				this.autoSaveTimer.Dispose();
@@ -526,21 +526,21 @@ namespace IdApp
 
 			ex = Waher.Events.Log.UnnestException(ex);
 
-			await Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false);
+			await this.Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false);
 		}
 
 		private async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
-			await Handle_UnhandledException(e.ExceptionObject as Exception, nameof(CurrentDomain_UnhandledException), true);
+			await this.Handle_UnhandledException(e.ExceptionObject as Exception, nameof(CurrentDomain_UnhandledException), true);
 		}
 
 		private async Task Handle_UnhandledException(Exception ex, string title, bool shutdown)
 		{
-			if (!(ex is null))
+			if (ex is not null)
+			{
 				this.services?.LogService?.SaveExceptionDump(title, ex.ToString());
-
-			if (!(ex is null))
 				this.services?.LogService?.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), title));
+			}
 
 			if (shutdown)
 				await this.Shutdown(false);
@@ -548,10 +548,10 @@ namespace IdApp
 #if DEBUG
 			if (!shutdown)
 			{
-				if (Device.IsInvokeRequired && !(MainPage is null))
-					Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok));
-				else if (!(MainPage is null))
-					await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok);
+				if (Device.IsInvokeRequired && (this.MainPage is not null))
+					Device.BeginInvokeOnMainThread(async () => await this.MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok));
+				else if (this.MainPage is not null)
+					await this.MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok);
 			}
 #endif
 		}
@@ -563,7 +563,7 @@ namespace IdApp
 
 		private void DisplayBootstrapErrorPage(string title, string stackTrace)
 		{
-			Dispatcher.BeginInvokeOnMainThread(() =>
+			this.Dispatcher.BeginInvokeOnMainThread(() =>
 			{
 				this.services?.LogService?.SaveExceptionDump(title, stackTrace);
 
@@ -602,7 +602,7 @@ namespace IdApp
 
 		private async Task SendErrorReportFromPreviousRun()
 		{
-			if (!(this.services?.LogService is null))
+			if (this.services?.LogService is not null)
 			{
 				string stackTrace = this.services.LogService.LoadExceptionDump();
 				if (!string.IsNullOrWhiteSpace(stackTrace))
@@ -640,9 +640,9 @@ namespace IdApp
 
 		private void StartupCompleted(string ProfileFileName, bool SendProfilingAsAlert)
 		{
-			AppDomain.CurrentDomain.FirstChanceException -= CurrentDomain_FirstChanceException;
+			AppDomain.CurrentDomain.FirstChanceException -= this.CurrentDomain_FirstChanceException;
 
-			if (!(this.startupProfiler is null))
+			if (this.startupProfiler is not null)
 			{
 				this.startupProfiler.Stop();
 
@@ -808,7 +808,7 @@ namespace IdApp
 					firstCheckPinPassed = true;
 					return Pin;
 				}
-					
+
 
 				if (Ui is null)
 					Ui = App.Instantiate<IUiSerializer>();
@@ -832,7 +832,7 @@ namespace IdApp
 			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
 
 			if (!firstCheckPinPassed || NeedToVerifyPin)
-				return (!(await InputPin(Profile) is null));
+				return await InputPin(Profile) is not null;
 
 			return true;
 		}
@@ -852,6 +852,5 @@ namespace IdApp
 			return DateTime.Now.Subtract(savedStartTime).TotalMinutes
 				> Constants.Inactivity.PossibleInactivityInMinutes;
 		}
-
 	}
 }

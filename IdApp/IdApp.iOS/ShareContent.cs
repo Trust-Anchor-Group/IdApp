@@ -23,9 +23,9 @@ namespace IdApp.iOS
             NSObject MessageObject = NSObject.FromObject(Message);
             NSObject[] Items = new NSObject[] { MessageObject, ImageObject };
             UIActivityViewController activityController = new(Items, null);
-            UIViewController? topController = UIApplication.SharedApplication.KeyWindow.RootViewController;
+            UIViewController topController = UIApplication.SharedApplication.KeyWindow.RootViewController;
 
-            while (!(topController.PresentedViewController is null))
+            while (topController.PresentedViewController is not null)
                 topController = topController.PresentedViewController;
 
             topController.PresentViewController(activityController, true, () => { });

@@ -106,7 +106,7 @@ namespace IdApp.Services.Xmpp
 
 		private async Task CreateXmppClient(bool CanCreateKeys, ProfilerThread Thread)
 		{
-			if (isCreatingClient)
+			if (this.isCreatingClient)
 				return;
 
 			this.xmppThread = this.startupProfiler?.CreateThread("XMPP", ProfilerThreadType.StateMachine);
@@ -115,11 +115,11 @@ namespace IdApp.Services.Xmpp
 
 			try
 			{
-				isCreatingClient = true;
+				this.isCreatingClient = true;
 
 				if (!this.XmppParametersCurrent() || this.XmppStale())
 				{
-					if (!(this.xmppClient is null))
+					if (this.xmppClient is not null)
 					{
 						Thread?.NewState("Destroy");
 						this.DestroyXmppClient();
@@ -143,20 +143,20 @@ namespace IdApp.Services.Xmpp
 					else
 					{
 						Thread?.NewState("DNS");
-						(HostName, PortNumber, IsIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(domainName);
+						(HostName, PortNumber, IsIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(this.domainName);
 
-						if (HostName == domainName && PortNumber == XmppCredentials.DefaultPort)
-							this.TagProfile.SetDomain(domainName, true, this.TagProfile.ApiKey, this.TagProfile.ApiSecret);
+						if (HostName == this.domainName && PortNumber == XmppCredentials.DefaultPort)
+							this.TagProfile.SetDomain(this.domainName, true, this.TagProfile.ApiKey, this.TagProfile.ApiSecret);
 					}
 
 					this.xmppLastStateChange = DateTime.Now;
 					this.xmppConnected = false;
 
 					Thread?.NewState("Client");
-					if (string.IsNullOrEmpty(passwordHashMethod))
-						this.xmppClient = new XmppClient(HostName, PortNumber, accountName, passwordHash, Constants.LanguageCodes.Default, appAssembly, this.sniffer);
+					if (string.IsNullOrEmpty(this.passwordHashMethod))
+						this.xmppClient = new XmppClient(HostName, PortNumber, this.accountName, this.passwordHash, Constants.LanguageCodes.Default, this.appAssembly, this.sniffer);
 					else
-						this.xmppClient = new XmppClient(HostName, PortNumber, accountName, passwordHash, passwordHashMethod, Constants.LanguageCodes.Default, appAssembly, this.sniffer);
+						this.xmppClient = new XmppClient(HostName, PortNumber, this.accountName, this.passwordHash, this.passwordHashMethod, Constants.LanguageCodes.Default, this.appAssembly, this.sniffer);
 
 					this.xmppClient.TrustServer = !IsIpAddress;
 					this.xmppClient.AllowCramMD5 = false;
@@ -167,13 +167,13 @@ namespace IdApp.Services.Xmpp
 					this.xmppClient.AllowScramSHA256 = true;
 
 					this.xmppClient.RequestRosterOnStartup = true;
-					this.xmppClient.OnStateChanged += XmppClient_StateChanged;
-					this.xmppClient.OnConnectionError += XmppClient_ConnectionError;
-					this.xmppClient.OnError += XmppClient_Error;
-					this.xmppClient.OnChatMessage += XmppClient_OnChatMessage;
-					this.xmppClient.OnNormalMessage += XmppClient_OnNormalMessage;
-					this.xmppClient.OnPresenceSubscribe += XmppClient_OnPresenceSubscribe;
-					this.xmppClient.OnPresenceUnsubscribed += XmppClient_OnPresenceUnsubscribed;
+					this.xmppClient.OnStateChanged += this.XmppClient_StateChanged;
+					this.xmppClient.OnConnectionError += this.XmppClient_ConnectionError;
+					this.xmppClient.OnError += this.XmppClient_Error;
+					this.xmppClient.OnChatMessage += this.XmppClient_OnChatMessage;
+					this.xmppClient.OnNormalMessage += this.XmppClient_OnNormalMessage;
+					this.xmppClient.OnPresenceSubscribe += this.XmppClient_OnPresenceSubscribe;
+					this.xmppClient.OnPresenceUnsubscribed += this.XmppClient_OnPresenceUnsubscribed;
 
 					this.xmppClient.RegisterMessageHandler("Delivered", ContractsClient.NamespaceOnboarding, this.TransferIdDelivered, true);
 
@@ -261,7 +261,7 @@ namespace IdApp.Services.Xmpp
 
 					Thread?.NewState("Connect");
 					this.IsLoggedOut = false;
-					this.xmppClient.Connect(IsIpAddress ? string.Empty : domainName);
+					this.xmppClient.Connect(IsIpAddress ? string.Empty : this.domainName);
 					this.RecreateReconnectTimer();
 
 					// Await connected state during registration or user initiated log in, but not otherwise.
@@ -280,7 +280,7 @@ namespace IdApp.Services.Xmpp
 			}
 			finally
 			{
-				isCreatingClient = false;
+				this.isCreatingClient = false;
 			}
 		}
 
@@ -299,7 +299,7 @@ namespace IdApp.Services.Xmpp
 
 			this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
 
-			if (!(this.xmppEventSink is null))
+			if (this.xmppEventSink is not null)
 			{
 				this.LogService.RemoveListener(this.xmppEventSink);
 				this.xmppEventSink.Dispose();
@@ -406,7 +406,7 @@ namespace IdApp.Services.Xmpp
 		private void RecreateReconnectTimer()
 		{
 			this.reconnectTimer?.Dispose();
-			this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
+			this.reconnectTimer = new Timer(this.ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
 		}
 
 		#endregion
@@ -416,7 +416,7 @@ namespace IdApp.Services.Xmpp
 			if (!this.IsLoaded)
 				return;
 
-			if (ShouldCreateClient())
+			if (this.ShouldCreateClient())
 				await this.CreateXmppClient(this.TagProfile.Step <= RegistrationStep.RegisterIdentity, null);
 			else if (this.TagProfile.Step <= RegistrationStep.Account)
 				this.DestroyXmppClient();
@@ -548,7 +548,7 @@ namespace IdApp.Services.Xmpp
 				return false;
 
 			int i = await this.xmppClient.WaitStateAsync((int)Timeout.TotalMilliseconds, XmppState.Connected);
-			return i >= 0;	
+			return i >= 0;
 		}
 
 		public override async Task Load(bool isResuming, CancellationToken cancellationToken)
@@ -562,9 +562,9 @@ namespace IdApp.Services.Xmpp
 					Thread?.NewState("Load");
 					try
 					{
-						this.TagProfile.StepChanged += TagProfile_StepChanged;
+						this.TagProfile.StepChanged += this.TagProfile_StepChanged;
 
-						if (ShouldCreateClient())
+						if (this.ShouldCreateClient())
 						{
 							Thread?.NewState("XMPP");
 
@@ -580,7 +580,7 @@ namespace IdApp.Services.Xmpp
 							}
 						}
 
-						if (!(this.xmppClient is null) &&
+						if ((this.xmppClient is not null) &&
 							this.xmppClient.State == XmppState.Connected &&
 							this.TagProfile.IsCompleteOrWaitingForValidation())
 						{
@@ -609,12 +609,12 @@ namespace IdApp.Services.Xmpp
 
 		public override Task Unload()
 		{
-			return Unload(false);
+			return this.Unload(false);
 		}
 
 		public Task UnloadFast()
 		{
-			return Unload(true);
+			return this.Unload(true);
 		}
 
 		private async Task Unload(bool fast)
@@ -623,12 +623,12 @@ namespace IdApp.Services.Xmpp
 			{
 				try
 				{
-					this.TagProfile.StepChanged -= TagProfile_StepChanged;
+					this.TagProfile.StepChanged -= this.TagProfile_StepChanged;
 
 					this.reconnectTimer?.Dispose();
 					this.reconnectTimer = null;
 
-					if (!(this.xmppClient is null))
+					if (this.xmppClient is not null)
 					{
 						this.xmppClient.CheckConnection = false;
 
@@ -679,9 +679,9 @@ namespace IdApp.Services.Xmpp
 		#region State
 
 		public bool IsLoggedOut { get; private set; }
-		public bool IsOnline => !(this.xmppClient is null) && this.xmppClient.State == XmppState.Connected;
+		public bool IsOnline => (this.xmppClient is not null) && this.xmppClient.State == XmppState.Connected;
 		public XmppState State => this.xmppClient?.State ?? XmppState.Offline;
-		public string BareJid => xmppClient?.BareJID ?? string.Empty;
+		public string BareJid => this.xmppClient?.BareJID ?? string.Empty;
 
 		public string LatestError { get; private set; }
 		public string LatestConnectionError { get; private set; }
@@ -717,7 +717,7 @@ namespace IdApp.Services.Xmpp
 		public Task<(bool succeeded, string errorMessage)> TryConnect(string domain, bool isIpAddress, string hostName, int portNumber,
 			string languageCode, Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc)
 		{
-			return TryConnectInner(domain, isIpAddress, hostName, portNumber, string.Empty, string.Empty, string.Empty, languageCode,
+			return this.TryConnectInner(domain, isIpAddress, hostName, portNumber, string.Empty, string.Empty, string.Empty, languageCode,
 				string.Empty, string.Empty, applicationAssembly, connectedFunc, ConnectOperation.Connect);
 		}
 
@@ -725,7 +725,7 @@ namespace IdApp.Services.Xmpp
 			int portNumber, string userName, string password, string languageCode, string ApiKey, string ApiSecret,
 			Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc)
 		{
-			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, string.Empty, languageCode,
+			return this.TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, string.Empty, languageCode,
 				ApiKey, ApiSecret, applicationAssembly, connectedFunc, ConnectOperation.ConnectAndCreateAccount);
 		}
 
@@ -733,7 +733,7 @@ namespace IdApp.Services.Xmpp
 			int portNumber, string userName, string password, string passwordMethod, string languageCode, Assembly applicationAssembly,
 			Func<XmppClient, Task> connectedFunc)
 		{
-			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, passwordMethod, languageCode,
+			return this.TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, passwordMethod, languageCode,
 				string.Empty, string.Empty, applicationAssembly, connectedFunc, ConnectOperation.ConnectToAccount);
 		}
 
@@ -806,9 +806,9 @@ namespace IdApp.Services.Xmpp
 			try
 			{
 				if (string.IsNullOrEmpty(passwordMethod))
-					client = new XmppClient(hostName, portNumber, userName, password, languageCode, applicationAssembly, sniffer);
+					client = new XmppClient(hostName, portNumber, userName, password, languageCode, applicationAssembly, this.sniffer);
 				else
-					client = new XmppClient(hostName, portNumber, userName, password, passwordMethod, languageCode, applicationAssembly, sniffer);
+					client = new XmppClient(hostName, portNumber, userName, password, passwordMethod, languageCode, applicationAssembly, this.sniffer);
 
 				if (operation == ConnectOperation.ConnectAndCreateAccount)
 				{
@@ -842,7 +842,7 @@ namespace IdApp.Services.Xmpp
 					succeeded = await connected.Task;
 				}
 
-				if (succeeded && !(connectedFunc is null))
+				if (succeeded && (connectedFunc is not null))
 					await connectedFunc(client);
 
 				client.OnStateChanged -= OnStateChanged;
@@ -880,9 +880,9 @@ namespace IdApp.Services.Xmpp
 						errorMessage = string.Format(AppResources.OperatorDoesNotSupportRegisteringNewAccounts, domain);
 				}
 				else if (operation == ConnectOperation.ConnectAndCreateAccount)
-					errorMessage = string.Format(AppResources.AccountNameAlreadyTaken, accountName);
+					errorMessage = string.Format(AppResources.AccountNameAlreadyTaken, this.accountName);
 				else if (operation == ConnectOperation.ConnectToAccount)
-					errorMessage = string.Format(AppResources.InvalidUsernameOrPassword, accountName);
+					errorMessage = string.Format(AppResources.InvalidUsernameOrPassword, this.accountName);
 				else
 					errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
 			}
@@ -892,7 +892,7 @@ namespace IdApp.Services.Xmpp
 
 		public async Task<bool> DiscoverServices(XmppClient Client = null)
 		{
-			Client ??= xmppClient;
+			Client ??= this.xmppClient;
 			if (Client is null)
 				return false;
 
@@ -1009,18 +1009,18 @@ namespace IdApp.Services.Xmpp
 
 		public void ClearHtmlContent()
 		{
-			historyHtml = sentHtml;
-			historyTextData = sentTextData;
+			this.historyHtml = this.sentHtml;
+			this.historyTextData = this.sentTextData;
 		}
 
 		public async Task<string> CommsDumpAsText(string state)
 		{
 			string response;
 
-			if (historyTextData is null || state != "History")
-				response = await sniffer.SnifferToText();
+			if (this.historyTextData is null || state != "History")
+				response = await this.sniffer.SnifferToText();
 			else
-				response = (await sniffer.SnifferToText()).Replace(historyTextData, "");
+				response = (await this.sniffer.SnifferToText()).Replace(this.historyTextData, "");
 
 			return response;
 		}
@@ -1032,20 +1032,20 @@ namespace IdApp.Services.Xmpp
 
 			try
 			{
-				string xml = await sniffer.SnifferToXml();
+				string xml = await this.sniffer.SnifferToXml();
 
-				sentHtml = xml;
-				sentTextData = await sniffer.SnifferToText();
+				this.sentHtml = xml;
+				this.sentTextData = await this.sniffer.SnifferToText();
 
-				if (!(historyHtml is null) && !history)
+				if ((this.historyHtml is not null) && !history)
 				{
-					xml = xml.Replace(historyHtml, "");
+					xml = xml.Replace(this.historyHtml, "");
 				}
 
 				xml = "<SnifferOutput>" + xml + "</SnifferOutput>";
 
 				//adding coloring to debug lines
-				html = cssColoring + FixTags(xml);
+				html = this.cssColoring + FixTags(xml);
 			}
 			catch (Exception e)
 			{
@@ -1126,7 +1126,7 @@ namespace IdApp.Services.Xmpp
 				if (N is XmlElement E && E.LocalName == "identity" && E.NamespaceURI == ContractsClient.NamespaceLegalIdentities)
 				{
 					RemoteIdentity = LegalIdentity.Parse(E);
-					if (!(RemoteIdentity is null))
+					if (RemoteIdentity is not null)
 					{
 						FriendlyName = ContactInfo.GetFriendlyName(RemoteIdentity);
 
@@ -1149,16 +1149,16 @@ namespace IdApp.Services.Xmpp
 			}
 
 			ContactInfo Info = await ContactInfo.FindByBareJid(e.FromBareJID);
-			if (!(Info is null) && Info.AllowSubscriptionFrom.HasValue)
+			if ((Info is not null) && Info.AllowSubscriptionFrom.HasValue)
 			{
 				if (Info.AllowSubscriptionFrom.Value)
 					e.Accept();
 				else
 					e.Decline();
 
-				if (Info.FriendlyName != FriendlyName || (!(RemoteIdentity is null) && Info.LegalId != RemoteIdentity.Id))
+				if (Info.FriendlyName != FriendlyName || ((RemoteIdentity is not null) && Info.LegalId != RemoteIdentity.Id))
 				{
-					if (!(RemoteIdentity is null))
+					if (RemoteIdentity is not null)
 					{
 						Info.LegalId = RemoteIdentity.Id;
 						Info.LegalIdentity = RemoteIdentity;
@@ -1171,7 +1171,7 @@ namespace IdApp.Services.Xmpp
 				return;
 			}
 
-			if (!(RemoteIdentity is null) && !(RemoteIdentity.Attachments is null))
+			if ((RemoteIdentity is not null) && (RemoteIdentity.Attachments is not null))
 				(PhotoUrl, PhotoWidth, PhotoHeight) = await PhotosLoader.LoadPhotoAsTemporaryFile(RemoteIdentity.Attachments, 300, 300);
 
 			SubscriptionRequestPopupPage SubscriptionRequestPage = new(e.FromBareJID, FriendlyName, PhotoUrl, PhotoWidth, PhotoHeight);
@@ -1289,7 +1289,7 @@ namespace IdApp.Services.Xmpp
 		private async Task XmppClient_OnPresenceUnsubscribed(object Sender, PresenceEventArgs e)
 		{
 			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(e.FromBareJID);
-			if (!(ContactInfo is null) && ContactInfo.AllowSubscriptionFrom.HasValue && ContactInfo.AllowSubscriptionFrom.Value)
+			if ((ContactInfo is not null) && ContactInfo.AllowSubscriptionFrom.HasValue && ContactInfo.AllowSubscriptionFrom.Value)
 			{
 				ContactInfo.AllowSubscriptionFrom = null;
 				await Database.Update(ContactInfo);
@@ -1355,7 +1355,7 @@ namespace IdApp.Services.Xmpp
 
 									i = Html.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
 									if (i >= 0)
-										Html = Html.Substring(0, i).TrimEnd();
+										Html = Html[..i].TrimEnd();
 								}
 
 								Message.Html = Html;
