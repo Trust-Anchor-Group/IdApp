@@ -59,7 +59,7 @@ dotnet_naming_symbols.kinds_should_be_pascal_case.applicable_accessibilities = *
 dotnet_naming_symbols.kinds_should_be_pascal_case.required_modifiers =
 
 dotnet_naming_symbols.kinds_should_be_camel_case.applicable_kinds = field
-dotnet_naming_symbols.kinds_should_be_camel_case.applicable_accessibilities = private, protected
+dotnet_naming_symbols.kinds_should_be_camel_case.applicable_accessibilities = private, protected, protected_internal, private_protected
 dotnet_naming_symbols.kinds_should_be_camel_case.required_modifiers =
 
 dotnet_naming_symbols.kinds_could_be_camel_case.applicable_kinds = parameter, local
