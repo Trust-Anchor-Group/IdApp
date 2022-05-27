@@ -86,7 +86,7 @@ namespace IdApp.Services.Push
 				DateTime Now = DateTime.Now;
 				PushNotificationClient PushNotificationClient = (this.XmppService as XmppService)?.PushNotificationClient;
 
-				if (this.XmppService.IsOnline && !(PushNotificationClient is null) && Now.Subtract(this.lastTokenCheck).TotalHours >= 1)
+				if (this.XmppService.IsOnline && (PushNotificationClient is not null) && Now.Subtract(this.lastTokenCheck).TotalHours >= 1)
 				{
 					this.lastTokenCheck = Now;
 
