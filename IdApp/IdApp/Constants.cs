@@ -104,7 +104,7 @@ namespace IdApp
                 if (i < 0)
                     return null;
 
-                Url = Url.Substring(0, i).ToLowerInvariant();
+                Url = Url[..i].ToLowerInvariant();
 
 				return Url switch
 				{
