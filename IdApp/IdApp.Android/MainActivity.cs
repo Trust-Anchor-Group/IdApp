@@ -131,7 +131,7 @@ namespace IdApp.Android
 			base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 		}
 
-		protected override async void OnResume()
+		protected override void OnResume()
 		{
 			base.OnResume();
 
@@ -149,15 +149,6 @@ namespace IdApp.Android
 			}
 
 			RemoveAllNotifications();
-
-			if (!await App.VerifyPin())
-				Finish();
-		}
-
-		protected override void OnStop()
-		{
-			base.OnStop();
-			App.SetStartInactivityTime();
 		}
 
 		protected override async void OnNewIntent(Intent intent)
