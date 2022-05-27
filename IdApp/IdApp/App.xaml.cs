@@ -59,6 +59,7 @@ using IdApp.Resx;
 using NeuroFeatures;
 using Waher.Networking.XMPP.Push;
 
+
 namespace IdApp
 {
 	/// <summary>
@@ -72,6 +73,7 @@ namespace IdApp
 		private static bool defaultInstantiated = false;
 		private static App instance;
 		private static DateTime savedStartTime;
+		private static bool firstCheckPinPassed;
 		private Timer autoSaveTimer;
 		private ServiceReferences services;
 		private Profiler startupProfiler;
@@ -112,6 +114,7 @@ namespace IdApp
 			this.startupProfiler?.MainThread?.Idle();
 
 			savedStartTime = DateTime.MinValue;
+			firstCheckPinPassed = false;
 		}
 
 		private Task<bool> Init()
@@ -293,7 +296,11 @@ namespace IdApp
 			this.startupCancellation = new CancellationTokenSource();
 
 			await this.PerformStartup(true, null);
+
+			if (!await App.VerifyPin())
+				Quit();
 		}
+
 
 		private async Task PerformStartup(bool isResuming, ProfilerThread Thread)
 		{
@@ -366,6 +373,8 @@ namespace IdApp
 				await vm.Shutdown();
 
 			await this.Shutdown(false);
+
+			SetStartInactivityTime();
 		}
 
 		internal static async Task Stop()
@@ -770,6 +779,18 @@ namespace IdApp
 			if (!Profile.UsePin)
 				return string.Empty;
 
+			return await InputPin(Profile);
+		}
+
+		/// <summary>
+		/// Asks the user to input its PIN. PIN is verified before being returned.
+		/// </summary>
+		/// <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
+		private static async Task<string> InputPin(ITagProfile Profile)
+		{
+			if (!Profile.UsePin)
+				return string.Empty;
+
 			IUiSerializer Ui = null;
 
 			while (true)
@@ -783,7 +804,11 @@ namespace IdApp
 					return null;
 
 				if (Profile.ComputePinHash(Pin) == Profile.PinHash)
+				{
+					firstCheckPinPassed = true;
 					return Pin;
+				}
+					
 
 				if (Ui is null)
 					Ui = App.Instantiate<IUiSerializer>();
@@ -800,26 +825,29 @@ namespace IdApp
 		/// <returns>If the user has provided the correct PIN</returns>
 		public static async Task<bool> VerifyPin()
 		{
+			ITagProfile Profile = App.Instantiate<ITagProfile>();
+			if (!Profile.UsePin)
+				return true;
+
 			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
-			if (NeedToVerifyPin)
-			{
-				return (!(await InputPin() is null));
-			}
+
+			if (!firstCheckPinPassed || NeedToVerifyPin)
+				return (!(await InputPin(Profile) is null));
 
 			return true;
 		}
 
-		public static void SetStartInactivityTime()
+		private void SetStartInactivityTime()
 		{
 			savedStartTime = DateTime.Now;
 		}
 
-		public static void ClearStartInactivityTime()
+		public void ClearStartInactivityTime()
 		{
 			savedStartTime = DateTime.MaxValue;
 		}
 
-		private static bool IsInactivitySafeIntervalPassed()
+		public static bool IsInactivitySafeIntervalPassed()
 		{
 			return DateTime.Now.Subtract(savedStartTime).TotalMinutes
 				> Constants.Inactivity.PossibleInactivityInMinutes;
