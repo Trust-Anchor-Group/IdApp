@@ -29,7 +29,7 @@ namespace IdApp.Services.Navigation
 			{
 				try
 				{
-					Shell.Current.Navigating += Shell_Navigating;
+					Shell.Current.Navigating += this.Shell_Navigating;
 
 					this.EndLoad(true);
 				}
@@ -50,7 +50,7 @@ namespace IdApp.Services.Navigation
 			{
 				try
 				{
-					Shell.Current.Navigating -= Shell_Navigating;
+					Shell.Current.Navigating -= this.Shell_Navigating;
 				}
 				catch (Exception e)
 				{
@@ -99,7 +99,7 @@ namespace IdApp.Services.Navigation
 
 			if (this.TryGetPageName(route, out string pageName))
 			{
-				if (!(args is null))
+				if (args is not null)
 					this.navigationArgsMap[pageName] = args;
 				else
 					this.navigationArgsMap.Remove(pageName);
@@ -116,7 +116,7 @@ namespace IdApp.Services.Navigation
 		{
 			string route = Shell.Current.CurrentPage?.GetType().Name;
 
-			if (TryPopArgs<TArgs>(route, out TArgs args))
+			if (this.TryPopArgs<TArgs>(route, out TArgs args))
 			{
 				return args;
 			}
@@ -129,12 +129,12 @@ namespace IdApp.Services.Navigation
 			args = default;
 			if (this.TryGetPageName(route, out string pageName) &&
 				this.navigationArgsMap.TryGetValue(pageName, out NavigationArgs navArgs) &&
-				!(navArgs is null))
+				(navArgs is not null))
 			{
 				args = navArgs as TArgs;
 			}
 
-			return !(args is null);
+			return args is not null;
 		}
 
 		public Task GoBackAsync()
@@ -142,7 +142,7 @@ namespace IdApp.Services.Navigation
 			return this.GoBackAsync(true);
 		}
 
-		public async Task GoBackAsync(bool Animate)
+		public Task GoBackAsync(bool Animate)
 		{
 			try
 			{
@@ -168,18 +168,18 @@ namespace IdApp.Services.Navigation
 					}
 				}
 
-				await Shell.Current.GoToAsync(ReturnRoute, Animate);
+				return Shell.Current.GoToAsync(ReturnRoute, Animate);
 			}
 			catch (Exception e)
 			{
 				this.LogService.LogException(e);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToClosePage);
+				return this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToClosePage);
 			}
 		}
 
 		public Task GoToAsync(string route)
 		{
-			return GoToAsync(route, (NavigationArgs)null, (NavigationArgs)null);
+			return this.GoToAsync(route, (NavigationArgs)null, (NavigationArgs)null);
 		}
 
 		public Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs, new()
@@ -187,15 +187,15 @@ namespace IdApp.Services.Navigation
 			NavigationArgs navigationArgs = this.GetPopArgs<NavigationArgs>();
 
 			if ((args is not null) && args.CancelReturnCounter)
-            {
+			{
 				// ignore the previous args if the return counter was canceled
 				navigationArgs = null;
-            }
+			}
 
-			return GoToAsync(route, args, navigationArgs);
+			return this.GoToAsync(route, args, navigationArgs);
 		}
 
-		internal async Task GoToAsync<TArgs>(string route, TArgs args, NavigationArgs navigationArgs) where TArgs : NavigationArgs, new()
+		internal Task GoToAsync<TArgs>(string route, TArgs args, NavigationArgs navigationArgs) where TArgs : NavigationArgs, new()
 		{
 			if ((navigationArgs is not null) && (navigationArgs.ReturnCounter > 0))
 			{
@@ -211,14 +211,14 @@ namespace IdApp.Services.Navigation
 
 			try
 			{
-				await Shell.Current.GoToAsync(route, true);
+				return Shell.Current.GoToAsync(route, true);
 			}
 			catch (Exception e)
 			{
 				e = Log.UnnestException(e);
 				this.LogService.LogException(e);
 				string extraInfo = Environment.NewLine + e.Message;
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route, extraInfo));
+				return this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route, extraInfo));
 			}
 		}
 
