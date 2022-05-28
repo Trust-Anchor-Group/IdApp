@@ -22,7 +22,7 @@ namespace IdApp.Services.Push
 		/// <param name="Source">Source of notification</param>
 		/// <param name="Token">Token</param>
 		/// <param name="ClientType">Client Type</param>
-		public TokenEventArgs(Waher.Networking.XMPP.Push.PushMessagingService Source, string Token, ClientType ClientType)
+		public TokenEventArgs(PushMessagingService Source, string Token, ClientType ClientType)
 			: base()
 		{
 			this.Source = Source;
@@ -33,7 +33,7 @@ namespace IdApp.Services.Push
 		/// <summary>
 		/// Source of notification
 		/// </summary>
-		public Waher.Networking.XMPP.Push.PushMessagingService Source { get; }
+		public PushMessagingService Source { get; }
 
 		/// <summary>
 		/// Token

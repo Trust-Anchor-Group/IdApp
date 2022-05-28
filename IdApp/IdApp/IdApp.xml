@@ -15698,16 +15698,6 @@
             </summary>
             <returns>Complete list of my devices.</returns>
         </member>
-        <member name="T:IdApp.Services.Push.PushMessagingService">
-            <summary>
-            Push messaging service used.
-            </summary>
-        </member>
-        <member name="F:IdApp.Services.Push.PushMessagingService.Firebase">
-            <summary>
-            firebase.google.com
-            </summary>
-        </member>
         <member name="T:IdApp.Services.Push.IPushNotificationService">
             <summary>
             Interface for push notification services.

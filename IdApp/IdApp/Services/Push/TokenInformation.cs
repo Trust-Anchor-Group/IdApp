@@ -15,7 +15,7 @@ namespace IdApp.Services.Push
 		/// <summary>
 		/// Service issuing the token
 		/// </summary>
-		public Waher.Networking.XMPP.Push.PushMessagingService Service { get; set; }
+		public PushMessagingService Service { get; set; }
 
 		/// <summary>
 		/// Type of client
