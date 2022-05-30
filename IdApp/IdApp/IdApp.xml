@@ -282,12 +282,12 @@
         </member>
         <member name="F:IdApp.Constants.Authentication.MaxPinIdenticalSymbols">
             <summary>
-            Maximum number of identical symbols in a PIN code.
+            Maximum number of identical symbols in a PIN.
             </summary>
         </member>
         <member name="F:IdApp.Constants.Authentication.MaxPinSequencedSymbols">
             <summary>
-            Maximum number of sequenced symbols in a PIN code.
+            Maximum number of sequenced symbols in a PIN.
             </summary>
         </member>
         <member name="T:IdApp.Constants.LanguageCodes">

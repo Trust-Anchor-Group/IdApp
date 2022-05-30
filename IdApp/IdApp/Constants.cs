@@ -28,12 +28,12 @@ namespace IdApp
 			public const int MinPinSymbolsFromDifferentClasses = 2;
 
 			/// <summary>
-			/// Maximum number of identical symbols in a PIN code.
+			/// Maximum number of identical symbols in a PIN.
 			/// </summary>
 			public const int MaxPinIdenticalSymbols = 2;
 
 			/// <summary>
-			/// Maximum number of sequenced symbols in a PIN code.
+			/// Maximum number of sequenced symbols in a PIN.
 			/// </summary>
 			public const int MaxPinSequencedSymbols = 2;
 		}
