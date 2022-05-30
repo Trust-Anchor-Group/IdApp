@@ -1,23 +1,23 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using IdApp.DeviceSpecific;
+﻿using IdApp.DeviceSpecific;
 using IdApp.Extensions;
 using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts;
 using IdApp.Pages.Identity.ViewIdentity;
+using IdApp.Resx;
 using IdApp.Services.Data.Countries;
-using IdApp.Services.Xmpp;
 using IdApp.Services.UI.Photos;
+using IdApp.Services.Xmpp;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Resx;
 
 namespace IdApp.Pages.Main.Main
 {
@@ -37,14 +37,14 @@ namespace IdApp.Pages.Main.Main
 		{
 			this.photosLoader = new PhotosLoader();
 
-			this.ViewMyIdentityCommand = new Command(async () => await ViewMyIdentity(), () => this.IsConnected);
-			this.ViewMyContactsCommand = new Command(async () => await ViewMyContacts(), () => this.IsConnected);
-			this.ViewMyThingsCommand = new Command(async () => await ViewMyThings(), () => this.IsConnected);
-			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
-			this.ViewSignedContractsCommand = new Command(async () => await ViewSignedContracts(), () => this.IsConnected);
-			this.ViewWalletCommand = new Command(async () => await ViewWallet(), () => this.IsConnected);
-			this.SharePhotoCommand = new Command(async () => await SharePhoto());
-			this.ShareQRCommand = new Command(async () => await ShareQR());
+			this.ViewMyIdentityCommand = new Command(async () => await this.ViewMyIdentity(), () => this.IsConnected);
+			this.ViewMyContactsCommand = new Command(async () => await this.ViewMyContacts(), () => this.IsConnected);
+			this.ViewMyThingsCommand = new Command(async () => await this.ViewMyThings(), () => this.IsConnected);
+			this.ScanQrCodeCommand = new Command(async () => await this.ScanQrCode());
+			this.ViewSignedContractsCommand = new Command(async () => await this.ViewSignedContracts(), () => this.IsConnected);
+			this.ViewWalletCommand = new Command(async () => await this.ViewWallet(), () => this.IsConnected);
+			this.SharePhotoCommand = new Command(async () => await this.SharePhoto());
+			this.ShareQRCommand = new Command(async () => await this.ShareQR());
 		}
 
 		/// <inheritdoc />
@@ -54,54 +54,54 @@ namespace IdApp.Pages.Main.Main
 
 			this.AssignProperties();
 			this.SetConnectionStateAndText(this.XmppService.State);
-			this.XmppService.ConnectionStateChanged += Contracts_ConnectionStateChanged;
-			this.NetworkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
+			this.XmppService.ConnectionStateChanged += this.Contracts_ConnectionStateChanged;
+			this.NetworkService.ConnectivityChanged += this.NetworkService_ConnectivityChanged;
 		}
 
 		/// <inheritdoc />
 		protected override Task DoUnbind()
 		{
 			this.photosLoader.CancelLoadPhotos();
-			this.XmppService.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
-			this.NetworkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
+			this.XmppService.ConnectionStateChanged -= this.Contracts_ConnectionStateChanged;
+			this.NetworkService.ConnectivityChanged -= this.NetworkService_ConnectivityChanged;
 
 			return base.DoUnbind();
 		}
 
 		private void AssignProperties()
 		{
-			if (!(this.TagProfile?.LegalIdentity is null))
+			if (this.TagProfile?.LegalIdentity is not null)
 			{
-				string firstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
-				string lastNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.LastName];
+				string FirstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
+				string LastNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.LastName];
 
-				if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastNames))
-					this.FullName = firstName + " " + lastNames;
-				else if (!string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastNames))
-					this.FullName = firstName;
-				else if (string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastNames))
-					this.FullName = lastNames;
+				if (!string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastNames))
+					this.FullName = FirstName + " " + LastNames;
+				else if (!string.IsNullOrWhiteSpace(FirstName) && string.IsNullOrWhiteSpace(LastNames))
+					this.FullName = FirstName;
+				else if (string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastNames))
+					this.FullName = LastNames;
 				else
 					this.FullName = string.Empty;
 
 				this.City = this.TagProfile.LegalIdentity[Constants.XmppProperties.City];
-				string countryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.Country];
+				string CountryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.Country];
 
-				if (ISO_3166_1.TryGetCountry(countryCode, out string country))
-					this.Country = country;
+				if (ISO_3166_1.TryGetCountry(CountryCode, out string Country))
+					this.Country = Country;
 				else
 					this.Country = string.Empty;
 
 				this.GenerateQrCode(Constants.UriSchemes.CreateIdUri(this.TagProfile.LegalIdentity.Id));
 
-				Attachment firstAttachment = this.TagProfile.LegalIdentity.Attachments?.GetFirstImageAttachment();
-				if (!(firstAttachment is null))
+				Attachment FirstAttachment = this.TagProfile.LegalIdentity.Attachments?.GetFirstImageAttachment();
+				if (FirstAttachment is not null)
 				{
 					_ = Task.Run(async () =>
 					{
 						try
 						{
-							await this.LoadProfilePhoto(firstAttachment);
+							await this.LoadProfilePhoto(FirstAttachment);
 						}
 						catch (Exception ex)
 						{
@@ -121,20 +121,20 @@ namespace IdApp.Pages.Main.Main
 			}
 		}
 
-		private async Task LoadProfilePhoto(Attachment firstAttachment)
+		private async Task LoadProfilePhoto(Attachment FirstAttachment)
 		{
 			try
 			{
-				bool connected = await this.XmppService.WaitForConnectedState(Constants.Timeouts.XmppConnect);
-				if (!connected)
+				bool Connected = await this.XmppService.WaitForConnectedState(Constants.Timeouts.XmppConnect);
+				if (!Connected)
 					return;
 
-				(byte[] Bin, string ContentType, int Rotation) = await this.photosLoader.LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys);
+				(byte[] Bin, string ContentType, int Rotation) = await this.photosLoader.LoadOnePhoto(FirstAttachment, SignWith.LatestApprovedIdOrCurrentKeys);
 
 				this.ImageBin = Bin;
 				this.ImageContentType = ContentType;
 
-				if (!(Bin is null))
+				if (Bin is not null)
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
@@ -296,7 +296,7 @@ namespace IdApp.Pages.Main.Main
 			BindableProperty.Create(nameof(Image), typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
 			{
 				MainViewModel viewModel = (MainViewModel)b;
-				viewModel.HasPhoto = !(newValue is null);
+				viewModel.HasPhoto = (newValue is not null);
 			});
 
 		/// <summary>
@@ -534,12 +534,12 @@ namespace IdApp.Pages.Main.Main
 
 		private void SetLocation()
 		{
-			if (!string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
-				Location = City + ", " + Country;
-			else if (!string.IsNullOrWhiteSpace(City) && string.IsNullOrWhiteSpace(Country))
-				Location = City;
-			else if (string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
-				Location = Country;
+			if (!string.IsNullOrWhiteSpace(this.City) && !string.IsNullOrWhiteSpace(this.Country))
+				this.Location = this.City + ", " + this.Country;
+			else if (!string.IsNullOrWhiteSpace(this.City) && string.IsNullOrWhiteSpace(this.Country))
+				this.Location = this.City;
+			else if (string.IsNullOrWhiteSpace(this.City) && !string.IsNullOrWhiteSpace(this.Country))
+				this.Location = this.Country;
 		}
 
 		/// <inheritdoc />
@@ -561,7 +561,7 @@ namespace IdApp.Pages.Main.Main
 
 		private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(() => SetConnectionStateAndText(this.XmppService.State));
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(this.XmppService.State));
 		}
 
 		/// <inheritdoc/>
@@ -581,20 +581,20 @@ namespace IdApp.Pages.Main.Main
 				this.StateSummaryText = (this.TagProfile?.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
 
 				// Any connection errors or general errors that should be displayed?
-				string latestError = this.XmppService?.LatestError ?? string.Empty;
-				string latestConnectionError = this.XmppService?.LatestConnectionError ?? string.Empty;
+				string LatestError = this.XmppService?.LatestError ?? string.Empty;
+				string LatestConnectionError = this.XmppService?.LatestConnectionError ?? string.Empty;
 
-				if (!string.IsNullOrWhiteSpace(latestError) && !string.IsNullOrWhiteSpace(latestConnectionError))
+				if (!string.IsNullOrWhiteSpace(LatestError) && !string.IsNullOrWhiteSpace(LatestConnectionError))
 				{
-					if (latestConnectionError != latestError)
-						this.ConnectionErrorsText = latestConnectionError + Environment.NewLine + latestError;
+					if (LatestConnectionError != LatestError)
+						this.ConnectionErrorsText = LatestConnectionError + Environment.NewLine + LatestError;
 					else
-						this.ConnectionErrorsText = latestConnectionError;
+						this.ConnectionErrorsText = LatestConnectionError;
 				}
-				else if (!string.IsNullOrWhiteSpace(latestConnectionError) && string.IsNullOrWhiteSpace(latestError))
-					this.ConnectionErrorsText = latestConnectionError;
-				else if (string.IsNullOrWhiteSpace(latestConnectionError) && !string.IsNullOrWhiteSpace(latestError))
-					this.ConnectionErrorsText = latestError;
+				else if (!string.IsNullOrWhiteSpace(LatestConnectionError) && string.IsNullOrWhiteSpace(LatestError))
+					this.ConnectionErrorsText = LatestConnectionError;
+				else if (string.IsNullOrWhiteSpace(LatestConnectionError) && !string.IsNullOrWhiteSpace(LatestError))
+					this.ConnectionErrorsText = LatestError;
 				else
 					this.ConnectionErrorsText = string.Empty;
 
@@ -615,10 +615,10 @@ namespace IdApp.Pages.Main.Main
 				if (this.ImageBin is null)
 					return;
 
-				IShareContent shareContent = DependencyService.Get<IShareContent>();
+				IShareContent ShareContent = DependencyService.Get<IShareContent>();
 				string FileName = "Photo." + InternetContent.GetFileExtension(this.ImageContentType);
 
-				shareContent.ShareImage(this.ImageBin, this.FullName, AppResources.Share, FileName);
+				ShareContent.ShareImage(this.ImageBin, this.FullName, AppResources.Share, FileName);
 			}
 			catch (Exception ex)
 			{
@@ -634,10 +634,10 @@ namespace IdApp.Pages.Main.Main
 				if (this.QrCodeBin is null)
 					return;
 
-				IShareContent shareContent = DependencyService.Get<IShareContent>();
+				IShareContent ShareContent = DependencyService.Get<IShareContent>();
 				string FileName = "QR." + InternetContent.GetFileExtension(this.QrCodeContentType);
 
-				shareContent.ShareImage(this.QrCodeBin, this.FullName, AppResources.Share, FileName);
+				ShareContent.ShareImage(this.QrCodeBin, this.FullName, AppResources.Share, FileName);
 			}
 			catch (Exception ex)
 			{
@@ -650,16 +650,16 @@ namespace IdApp.Pages.Main.Main
 		{
 			if (this.TagProfile.TestOtpTimestamp is not null)
 			{
-				TimeSpan timeSpan = DateTime.Now - this.TagProfile.TestOtpTimestamp.Value;
+				TimeSpan TimeSpan = DateTime.Now - this.TagProfile.TestOtpTimestamp.Value;
 
-				if (timeSpan.TotalDays >= 7)
+				if (TimeSpan.TotalDays >= 7)
 				{
 					try
 					{
-						(bool succeeded, LegalIdentity revokedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.ObsoleteLegalIdentity(this.TagProfile.LegalIdentity.Id));
-						if (succeeded)
+						(bool Succeeded, LegalIdentity RevokedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.ObsoleteLegalIdentity(this.TagProfile.LegalIdentity.Id));
+						if (Succeeded)
 						{
-							this.TagProfile.RevokeLegalIdentity(revokedIdentity);
+							this.TagProfile.RevokeLegalIdentity(RevokedIdentity);
 						}
 					}
 					catch (Exception ex)
