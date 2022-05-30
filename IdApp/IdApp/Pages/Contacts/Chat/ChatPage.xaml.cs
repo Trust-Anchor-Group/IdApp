@@ -12,10 +12,21 @@ namespace IdApp.Pages.Contacts.Chat
 	/// A page that displays a list of the current user's contacts.
 	/// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
+	[QueryProperty(nameof(UniqueId), nameof(UniqueId))]
 	public partial class ChatPage
 	{
 		private readonly INavigationService navigationService;
 
+		/// <summary>
+		/// Views unique ID
+		/// </summary>
+		public string UniqueId
+		{
+			set
+			{
+				(this.ViewModel as ChatViewModel).UniqueId = value;
+			}
+		}
 		/// <summary>
 		/// Creates a new instance of the <see cref="ChatPage"/> class.
 		/// </summary>
@@ -23,8 +34,8 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			this.navigationService = App.Instantiate<INavigationService>();
 			this.ViewModel = new ChatViewModel();
-			
-			InitializeComponent();
+
+			this.InitializeComponent();
 		}
 
 		/// <summary>
@@ -44,22 +55,22 @@ namespace IdApp.Pages.Contacts.Chat
 
 			MessagingCenter.Subscribe<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears, (sender, eargs) =>
 			{
-				if (ContainerView.TranslationY == 0)
+				if (this.ContainerView.TranslationY == 0)
 				{
 					double Bottom = 0;
 					if (Device.RuntimePlatform == Device.iOS)
 					{
-						Thickness SafeInsets = On<iOS>().SafeAreaInsets();
+						Thickness SafeInsets = this.On<iOS>().SafeAreaInsets();
 						Bottom = SafeInsets.Bottom;
 					}
 
-					ContainerView.TranslationY -= eargs.KeyboardSize - Bottom;
+					this.ContainerView.TranslationY -= eargs.KeyboardSize - Bottom;
 				}
 			});
 
 			MessagingCenter.Subscribe<object>(this, Constants.MessagingCenter.KeyboardDisappears, (sender) =>
 			{
-				ContainerView.TranslationY = 0;
+				this.ContainerView.TranslationY = 0;
 			});
 
 			this.ContainerView.ResolveLayoutChanges();  // Strange Xamarin issue: https://github.com/xamarin/Xamarin.Forms/issues/15066

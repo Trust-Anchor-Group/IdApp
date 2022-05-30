@@ -15,23 +15,23 @@ namespace IdApp.Pages
     /// <remarks>It also handles safe area insets for iOS applications, specifically on iPhones with the 'rabbit ear' displays.</remarks>
     public class ContentBasePage : ContentPage
     {
-        private const string DefaultMargin = "DefaultMargin";
-        private const string SafeAreaInsets = "SafeAreaInsets";
-        private const string SafeAreaInsetsDefaultMargin = "SafeAreaInsetsDefaultMargin";
+        private const string defaultMargin = "DefaultMargin";
+        private const string safeAreaInsets = "SafeAreaInsets";
+        private const string safeAreaInsetsDefaultMargin = "SafeAreaInsetsDefaultMargin";
 
         /// <summary>
         /// Creates an instance of the <see cref="ContentBasePage"/> class.
         /// </summary>
         protected internal ContentBasePage()
         {
-            PropertyChanged += OnPropertyChanged;
+            PropertyChanged += this.OnPropertyChanged;
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == SafeAreaInsets)
             {
-                Thickness safeAreaInsets = On<global::Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
+                Thickness safeAreaInsets = this.On<global::Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
                 global::Xamarin.Forms.Application.Current.Resources[SafeAreaInsets] = safeAreaInsets;
                 Thickness defaultMargin = (Thickness)global::Xamarin.Forms.Application.Current.Resources[DefaultMargin];
                 Thickness safeAreaInsetsDefaultMargin = new(defaultMargin.Left + safeAreaInsets.Left, defaultMargin.Top + safeAreaInsets.Top, defaultMargin.Right + safeAreaInsets.Right, defaultMargin.Bottom + safeAreaInsets.Bottom);
@@ -44,8 +44,8 @@ namespace IdApp.Pages
         /// </summary>
         protected BaseViewModel ViewModel
         {
-            get => BindingContext as BaseViewModel;
-            set => BindingContext = value;
+            get => this.BindingContext as BaseViewModel;
+            set => this.BindingContext = value;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace IdApp.Pages
         /// <returns>View model</returns>
         protected T GetViewModel<T>() where T : BaseViewModel
         {
-            return (T)ViewModel;
+            return (T)this.ViewModel;
         }
 
         /// <inheritdoc />
@@ -77,19 +77,19 @@ namespace IdApp.Pages
         /// </summary>
         protected virtual async Task OnAppearingAsync()
         {
-            if (!(ViewModel is null))
+            if (this.ViewModel is not null)
             {
-                if (!ViewModel.IsBound)
+                if (!this.ViewModel.IsBound)
                 {
                     try
                     {
-                        await ViewModel.Bind();
+                        await this.ViewModel.Bind();
                     }
                     catch (Exception e)
                     {
                         e = Log.UnnestException(e);
                         this.ViewModel.LogService.LogException(e);
-                        string msg = string.Format(AppResources.FailedToBindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName);
+                        string msg = string.Format(AppResources.FailedToBindViewModelForPage, this.ViewModel.GetType().FullName, this.GetType().FullName);
                         await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                     }
                 }
@@ -97,13 +97,13 @@ namespace IdApp.Pages
                 try
                 {
                     if (await this.ViewModel.SettingsService.WaitInitDone())
-                        await ViewModel.RestoreState();
+                        await this.ViewModel.RestoreState();
                 }
                 catch (Exception e)
                 {
                     e = Log.UnnestException(e);
                     this.ViewModel.LogService.LogException(e);
-                    string msg = string.Format(AppResources.FailedToRestoreViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName);
+                    string msg = string.Format(AppResources.FailedToRestoreViewModelStateForPage, this.ViewModel.GetType().FullName, this.GetType().FullName);
                     await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                 }
             }
@@ -128,33 +128,33 @@ namespace IdApp.Pages
         /// </summary>
         protected virtual async Task OnDisappearingAsync()
         {
-            if (!(ViewModel is null))
+            if (this.ViewModel is not null)
             {
-                if (ViewModel.IsBound)
+                if (this.ViewModel.IsBound)
                 {
                     try
                     {
                         if (await this.ViewModel.SettingsService.WaitInitDone())
-                            await ViewModel.SaveState();
+                            await this.ViewModel.SaveState();
                     }
                     catch (Exception e)
                     {
                         e = Log.UnnestException(e);
                         this.ViewModel.LogService.LogException(e);
-                        string msg = string.Format(AppResources.FailedToSaveViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName);
+                        string msg = string.Format(AppResources.FailedToSaveViewModelStateForPage, this.ViewModel.GetType().FullName, this.GetType().FullName);
                         await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                     }
                 }
 
                 try
                 {
-                    await ViewModel.Unbind();
+                    await this.ViewModel.Unbind();
                 }
                 catch (Exception e)
                 {
                     e = Log.UnnestException(e);
                     this.ViewModel.LogService.LogException(e);
-                    string msg = string.Format(AppResources.FailedToUnbindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName);
+                    string msg = string.Format(AppResources.FailedToUnbindViewModelForPage, this.ViewModel.GetType().FullName, this.GetType().FullName);
                     await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                 }
             }

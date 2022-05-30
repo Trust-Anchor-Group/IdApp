@@ -820,9 +820,9 @@
             </summary>
         </member>
         <member name="F:IdApp.Controls.LoadingCollectionView.LoadingCollectionView.LoadMoreCommandProperty">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:IdApp.Controls.LoadingCollectionView.LoadingCollectionView.LoadMoreCommand">
             <summary>
@@ -830,9 +830,9 @@
             </summary>
         </member>
         <member name="F:IdApp.Controls.LoadingCollectionView.LoadingCollectionView.ItemSelectedCommandProperty">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:IdApp.Controls.LoadingCollectionView.LoadingCollectionView.ItemSelectedCommand">
             <summary>
@@ -1822,6 +1822,11 @@
             A page that displays a list of the current user's contacts.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatPage.UniqueId">
+            <summary>
+            Views unique ID
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatPage.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatPage"/> class.
@@ -1848,6 +1853,7 @@
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatViewModel"/> class.
             </summary>
+            <param name="UniqueId">Views unique ID</param>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.DoBind">
             <inheritdoc/>
@@ -1857,6 +1863,16 @@
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.UniqueIdProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.UniqueId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.UniqueId">
+            <summary>
+            Set the views unique ID
+            </summary>
         </member>
         <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.BareJidProperty">
             <summary>
@@ -15377,17 +15393,19 @@
             </summary>
             <param name="Animate">If animation should be used.</param>
         </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.TryPopArgs``1(``0@)">
+        <member name="M:IdApp.Services.Navigation.INavigationService.TryPopArgs``1(``0@,System.String)">
             <summary>
             Tries to pop/read page arguments from the (one-level) deep navigation stack.
             </summary>
             <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="T:IdApp.Services.Navigation.NavigationArgs"/>.</typeparam>
             <param name="args">The actual args.</param>
+            <param name="UniqueId">Views unique ID.</param>
         </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.GetPopArgs``1">
+        <member name="M:IdApp.Services.Navigation.INavigationService.GetPopArgs``1(System.String)">
             <summary>
             Returns the pages arguments from the (one-level) deep navigation stack.
             </summary>
+            <param name="UniqueId">Views unique ID.</param>
         </member>
         <member name="P:IdApp.Services.Navigation.INavigationService.CurrentPage">
             <summary>
@@ -15420,6 +15438,11 @@
             <summary>
             Set it to true to start a new <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnCounter"/> session.
             If the ReturnCounter is zero, it will stop the further counting.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Navigation.NavigationArgs.UniqueId">
+            <summary>
+            An untique view identificator used to search the args of similar view types.
             </summary>
         </member>
         <member name="M:IdApp.Services.Navigation.NavigationService.Load(System.Boolean,System.Threading.CancellationToken)">

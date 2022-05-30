@@ -18,7 +18,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			this.ViewModel = new MyWalletViewModel(this);
 
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		/// <summary>

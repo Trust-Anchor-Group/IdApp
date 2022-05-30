@@ -11,7 +11,7 @@ namespace IdApp.Controls.LoadingCollectionView
     public class LoadingCollectionView : NoBounceCollectionView
 	{
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static readonly BindableProperty LoadMoreCommandProperty =
             BindableProperty.Create(nameof(LoadMoreCommand), typeof(ICommand), typeof(LoadingCollectionView), default(ICommand));
@@ -26,7 +26,7 @@ namespace IdApp.Controls.LoadingCollectionView
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static readonly BindableProperty ItemSelectedCommandProperty =
             BindableProperty.Create(nameof(ItemSelectedCommand), typeof(ICommand), typeof(LoadingCollectionView), default(ICommand));
@@ -45,8 +45,8 @@ namespace IdApp.Controls.LoadingCollectionView
         /// </summary>
         public LoadingCollectionView()
         {
-            this.RemainingItemsThresholdReached += LoadingCollectionView_ThresholdReached;
-			this.SelectionChanged += LoadingCollectionView_SelectionChanged;
+            this.RemainingItemsThresholdReached += this.LoadingCollectionView_ThresholdReached;
+			this.SelectionChanged += this.LoadingCollectionView_SelectionChanged;
         }
 
 		private void LoadingCollectionView_ThresholdReached(object sender, EventArgs e)

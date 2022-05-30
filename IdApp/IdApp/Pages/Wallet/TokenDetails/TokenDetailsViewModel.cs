@@ -124,7 +124,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					}
 				}
 
-				if (!(args.Token.Tags is null))
+				if (args.Token.Tags is not null)
 				{
 					foreach (TokenTag Tag in args.Token.Tags)
 						this.page.AddLink(this, Tag.Name, Tag.Value?.ToString() ?? string.Empty);   // TODO: Replace with grouped collection, when this works in Xamarin.
@@ -139,7 +139,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 				this.Tags.Clear();
 
-				if (!(args.Token.Tags is null))
+				if (args.Token.Tags is not null)
 				{
 					foreach (TokenTag Tag in args.Token.Tags)
 						this.Tags.Add(Tag);
@@ -160,16 +160,16 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.DefinitionSchemaUrl = sb.ToString();	// TODO: The above assume contract hosted by the TAG Neuron. URL should be retrieved using API, or be standardized.
 			}
 
-			AssignProperties();
-			EvaluateAllCommands();
+			this.AssignProperties();
+			this.EvaluateAllCommands();
 
-			this.TagProfile.Changed += TagProfile_Changed;
+			this.TagProfile.Changed += this.TagProfile_Changed;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.TagProfile.Changed -= TagProfile_Changed;
+			this.TagProfile.Changed -= this.TagProfile_Changed;
 			await base.DoUnbind();
 		}
 
@@ -193,7 +193,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
+			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
 
 		private async Task Populate(string LegalIdLabel, string JidLabel, string[] LegalIds, string[] Jids, ObservableCollection<PartItem> Parts)
@@ -957,7 +957,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				string s = Parameter?.ToString() ?? string.Empty;
 				int i = s.IndexOf('@');
 
-				if (i > 0 && Guid.TryParse(s.Substring(0, i), out _))
+				if (i > 0 && Guid.TryParse(s[..i], out _))
 				{
 					await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeNeuroFeature + ":" + s);
 					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
@@ -1039,7 +1039,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			try
 			{
-				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName));
+				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName) { UniqueId = BareJid });
 			}
 			catch (Exception ex)
 			{
@@ -1099,8 +1099,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			await Task.Delay(100);	// Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
 
-			ChatNavigationArgs Args2 = new(Contact);
-			await this.NavigationService.GoToAsync(nameof(ChatPage), Args2);
+			await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
 		}
 
 		private async Task Share()
