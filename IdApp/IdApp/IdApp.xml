@@ -16633,6 +16633,75 @@
             Clears the entire profile.
             </summary>
         </member>
+        <member name="T:IdApp.Services.Tag.PinStrength">
+            <summary>
+            Represents the result of validating PIN strength.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.Strong">
+            <summary>
+            A PIN is strong enough.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.NotEnoughDigitsLettersSigns">
+            <summary>
+            A PIN is <c>null</c> or contains not enough symbols from all character classes (digits, letters or signs).
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.NotEnoughLettersOrSigns">
+            <summary>
+            A PIN contains enough digits but not enough letters or signs.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.NotEnoughLettersOrDigits">
+            <summary>
+            A PIN contains enough signs but not enough letters or digits.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.NotEnoughDigitsOrSigns">
+            <summary>
+            A PIN contains enough letters but not enough digits or signs.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.TooShort">
+            <summary>
+            A PIN is too short.
+            <para>
+            <see cref="F:IdApp.Services.Tag.PinStrength.TooShort"/> corresponds to a PIN which has enough digits, letters or signs to satisfy the variety rule
+            but is still too short to be acceptable.
+            </para>
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.TooManyIdenticalSymbols">
+            <summary>
+            A PIN contains too many identical symbols.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.TooManySequencedSymbols">
+            <summary>
+            A PIN contains too many sequenced symbols.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.ContainsPersonalNumber">
+            <summary>
+            A PIN contains the legal identity personal number.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.ContainsPhoneNumber">
+            <summary>
+            A PIN contains the legal identity phone number.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.ContainsName">
+            <summary>
+            A PIN contains a word from of the legal identity name.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.ContainsAddress">
+            <summary>
+            A PIN contains a word from the legal identity address.
+            </summary>
+        </member>
         <member name="T:IdApp.Services.Tag.RegistrationStep">
             <summary>
             The different steps of a TAG Profile registration journey.
