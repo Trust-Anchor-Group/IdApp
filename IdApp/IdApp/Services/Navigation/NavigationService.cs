@@ -94,7 +94,7 @@ namespace IdApp.Services.Navigation
 			return false;
 		}
 
-		internal void PushArgs<TArgs>(string Route, TArgs args) where TArgs : NavigationArgs
+		private void PushArgs<TArgs>(string Route, TArgs args) where TArgs : NavigationArgs
 		{
 			this.currentNavigationArgs = args;
 

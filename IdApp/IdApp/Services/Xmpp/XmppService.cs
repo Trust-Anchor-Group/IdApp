@@ -1437,14 +1437,17 @@ namespace IdApp.Services.Xmpp
 
 			INavigationService NavigationService = App.Instantiate<INavigationService>();
 
-			if (NavigationService.CurrentPage is ChatPage ChatPage &&
-				ChatPage.BindingContext is ChatViewModel ChatViewModel &&
-				ChatViewModel.BareJid == e.FromBareJID)
+			if (NavigationService.TryPopArgs(out ChatNavigationArgs args, e.FromBareJID))
 			{
-				if (string.IsNullOrEmpty(ReplaceObjectId))
-					await ChatViewModel.MessageAdded(Message);
-				else
-					await ChatViewModel.MessageUpdated(Message);
+				if (NavigationService.CurrentPage is ChatPage ChatPage &&
+					ChatPage.BindingContext is ChatViewModel ChatViewModel &&
+					ChatViewModel.BareJid == e.FromBareJID)
+				{
+					if (string.IsNullOrEmpty(ReplaceObjectId))
+						await ChatViewModel.MessageAdded(Message);
+					else
+						await ChatViewModel.MessageUpdated(Message);
+				}
 			}
 			else
 			{
