@@ -281,12 +281,15 @@ namespace IdApp
 		#region Startup/Shutdown
 
 		///<inheritdoc/>
-		protected override void OnStart()
+		protected override async void OnStart()
 		{
 			if (!this.initCompleted.Wait(240000))
 				throw new Exception("Initialization did not complete in time.");
 
 			this.StartupCompleted("StartupProfile.uml", false);
+
+			if (!await App.VerifyPin())
+				this.Quit();
 		}
 
 		///<inheritdoc/>
