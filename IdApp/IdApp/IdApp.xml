@@ -16648,6 +16648,13 @@
             Clears the entire profile.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Tag.ITagProfile.ValidatePinStrength(System.String)">
+            <summary>
+            Validates if the <paramref name="Pin"/> is strong enough.
+            </summary>
+            <param name="Pin">PIN to validate.</param>
+            <returns>A <see cref="T:IdApp.Services.Tag.PinStrength"/> value indicating if the <paramref name="Pin"/> is strong enough.</returns>
+        </member>
         <member name="T:IdApp.Services.Tag.PinStrength">
             <summary>
             Represents the result of validating PIN strength.
@@ -16975,6 +16982,9 @@
             <summary>
             Clears the entire profile.
             </summary>
+        </member>
+        <member name="M:IdApp.Services.Tag.TagProfile.ValidatePinStrength(System.String)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService">
             <summary>
