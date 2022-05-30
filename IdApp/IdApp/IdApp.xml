@@ -1853,7 +1853,6 @@
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatViewModel"/> class.
             </summary>
-            <param name="UniqueId">Views unique ID</param>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.DoBind">
             <inheritdoc/>

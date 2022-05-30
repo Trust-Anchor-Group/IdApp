@@ -29,13 +29,14 @@ namespace IdApp.Pages
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == SafeAreaInsets)
+            if (e.PropertyName == safeAreaInsets)
             {
-                Thickness safeAreaInsets = this.On<global::Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
-                global::Xamarin.Forms.Application.Current.Resources[SafeAreaInsets] = safeAreaInsets;
-                Thickness defaultMargin = (Thickness)global::Xamarin.Forms.Application.Current.Resources[DefaultMargin];
-                Thickness safeAreaInsetsDefaultMargin = new(defaultMargin.Left + safeAreaInsets.Left, defaultMargin.Top + safeAreaInsets.Top, defaultMargin.Right + safeAreaInsets.Right, defaultMargin.Bottom + safeAreaInsets.Bottom);
-                global::Xamarin.Forms.Application.Current.Resources[SafeAreaInsetsDefaultMargin] = safeAreaInsetsDefaultMargin;
+                Thickness SafeAreaInsets = this.On<global::Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
+                global::Xamarin.Forms.Application.Current.Resources[safeAreaInsets] = safeAreaInsets;
+                Thickness DefaultMargin = (Thickness)global::Xamarin.Forms.Application.Current.Resources[defaultMargin];
+                Thickness SafeAreaInsetsDefaultMargin = new(DefaultMargin.Left + SafeAreaInsets.Left, DefaultMargin.Top + SafeAreaInsets.Top,
+					DefaultMargin.Right + SafeAreaInsets.Right, DefaultMargin.Bottom + SafeAreaInsets.Bottom);
+                global::Xamarin.Forms.Application.Current.Resources[safeAreaInsetsDefaultMargin] = SafeAreaInsetsDefaultMargin;
             }
         }
 
