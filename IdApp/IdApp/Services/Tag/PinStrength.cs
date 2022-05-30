@@ -1,7 +1,7 @@
 ﻿namespace IdApp.Services.Tag
 {
 	/// <summary>
-	/// Represents the result of validating PIN strength.
+	/// Represents a result of validating PIN strength.
 	/// </summary>
 	public enum PinStrength
 	{
@@ -60,7 +60,7 @@
 		ContainsPhoneNumber,
 
 		/// <summary>
-		/// A PIN contains a word from of the legal identity name.
+		/// A PIN contains a word from the legal identity name.
 		/// </summary>
 		ContainsName,
 

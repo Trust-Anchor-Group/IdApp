@@ -16657,7 +16657,7 @@
         </member>
         <member name="T:IdApp.Services.Tag.PinStrength">
             <summary>
-            Represents the result of validating PIN strength.
+            Represents a result of validating PIN strength.
             </summary>
         </member>
         <member name="F:IdApp.Services.Tag.PinStrength.Strong">
@@ -16716,7 +16716,7 @@
         </member>
         <member name="F:IdApp.Services.Tag.PinStrength.ContainsName">
             <summary>
-            A PIN contains a word from of the legal identity name.
+            A PIN contains a word from the legal identity name.
             </summary>
         </member>
         <member name="F:IdApp.Services.Tag.PinStrength.ContainsAddress">
