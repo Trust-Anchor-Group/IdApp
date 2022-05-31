@@ -1,16 +1,33 @@
-﻿using System;
+﻿using EDaler;
+using EDaler.Uris;
+using IdApp.Converters;
+using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Pages.Contracts.MyContracts;
+using IdApp.Pages.Contracts.ViewContract;
+using IdApp.Pages.Identity.ViewIdentity;
+using IdApp.Pages.Things.MyThings;
+using IdApp.Pages.Wallet;
+using IdApp.Pages.Wallet.MyTokens;
+using IdApp.Pages.Wallet.SendPayment;
+using IdApp.Pages.Wallet.TokenDetails;
+using IdApp.Popups.Xmpp.SubscribeTo;
+using IdApp.Resx;
+using IdApp.Services;
+using IdApp.Services.Messages;
+using IdApp.Services.Tag;
+using IdApp.Services.UI.QR;
+using IdApp.Services.Xmpp;
+using NeuroFeatures;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-using Plugin.Media.Abstractions;
-using Plugin.Media;
-using EDaler;
-using EDaler.Uris;
+using System.Xml;
 using Waher.Content;
 using Waher.Content.Html;
 using Waher.Content.Markdown;
@@ -20,26 +37,8 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
-using IdApp.Pages.Contacts.MyContacts;
-using IdApp.Pages.Contracts.MyContracts;
-using IdApp.Pages.Contracts.MyContracts.ObjectModel;
-using IdApp.Pages.Things.MyThings;
-using IdApp.Pages.Wallet;
-using IdApp.Pages.Wallet.SendPayment;
-using IdApp.Popups.Xmpp.SubscribeTo;
-using IdApp.Services;
-using IdApp.Services.Xmpp;
-using IdApp.Services.Messages;
-using IdApp.Services.Tag;
-using IdApp.Services.UI.QR;
-using IdApp.Resx;
-using IdApp.Converters;
-using IdApp.Pages.Wallet.MyTokens;
-using System.Xml;
-using IdApp.Pages.Identity.ViewIdentity;
-using IdApp.Pages.Contracts.ViewContract;
-using NeuroFeatures;
-using IdApp.Pages.Wallet.TokenDetails;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace IdApp.Pages.Contacts.Chat
 {
@@ -56,8 +55,6 @@ namespace IdApp.Pages.Contacts.Chat
 		protected internal ChatViewModel()
 			: base()
 		{
-			this.Messages = new ObservableCollection<ChatMessage>();
-
 			this.SendCommand = new Command(async _ => await this.ExecuteSendMessage(), _ => this.CanExecuteSendMessage());
 			this.CancelCommand = new Command(async _ => await this.ExecuteCancelMessage(), _ => this.CanExecuteCancelMessage());
 			this.LoadMoreMessages = new Command(async _ => await this.ExecuteLoadMoreMessages(), _ => this.CanExecuteLoadMoreMessages());
@@ -77,7 +74,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			await base.DoBind();
 
-			if (this.NavigationService.TryPopArgs(out ChatNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out ChatNavigationArgs args, this.UniqueId))
 			{
 				this.LegalId = args.LegalId;
 				this.BareJid = args.BareJid;
@@ -136,6 +133,21 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			base.XmppService_ConnectionStateChanged(sender, e);
 			this.UiSerializer.BeginInvokeOnMainThread(() => this.EvaluateAllCommands());
+		}
+
+		/// <summary>
+		/// <see cref="UniqueId"/>
+		/// </summary>
+		public static readonly BindableProperty UniqueIdProperty =
+			BindableProperty.Create(nameof(UniqueId), typeof(string), typeof(ChatViewModel), default(string));
+
+		/// <summary>
+		/// Set the views unique ID
+		/// </summary>
+		public string UniqueId
+		{
+			get => (string)this.GetValue(UniqueIdProperty);
+			set => this.SetValue(UniqueIdProperty, value);
 		}
 
 		/// <summary>
@@ -260,7 +272,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <summary>
 		/// Holds the list of chat messages to display.
 		/// </summary>
-		public ObservableCollection<ChatMessage> Messages { get; set; }
+		public ObservableCollection<ChatMessage> Messages { get; } = new ObservableCollection<ChatMessage>();
 
 		/// <summary>
 		/// External message has been received
@@ -532,7 +544,7 @@ namespace IdApp.Pages.Contacts.Chat
 					return;
 				}
 
-				if (!(capturedPhoto is null))
+				if (capturedPhoto is not null)
 				{
 					try
 					{
@@ -560,7 +572,7 @@ namespace IdApp.Pages.Contacts.Chat
 					return;
 				}
 
-				if (!(capturedPhoto is null))
+				if (capturedPhoto is not null)
 				{
 					try
 					{
@@ -638,7 +650,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			FileResult pickedPhoto = await MediaPicker.PickPhotoAsync();
 
-			if (!(pickedPhoto is null))
+			if (pickedPhoto is not null)
 				await this.EmbedPhoto(pickedPhoto.FullPath, false);
 		}
 
@@ -668,7 +680,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			await this.waitUntilBound.Task;     // Wait until view is bound again.
 
-			if (!(Contact.LegalIdentity is null))
+			if (Contact.LegalIdentity is not null)
 			{
 				StringBuilder Markdown = new();
 
@@ -1018,7 +1030,7 @@ namespace IdApp.Pages.Contacts.Chat
 			else
 			{
 				Command = Jid[(i + 1)..].TrimStart();
-				Jid = Jid.Substring(0, i).TrimEnd();
+				Jid = Jid[..i].TrimEnd();
 			}
 
 			Jid = System.Web.HttpUtility.UrlDecode(Jid);

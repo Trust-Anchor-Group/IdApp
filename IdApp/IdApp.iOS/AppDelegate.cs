@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CoreGraphics;
+﻿using CoreGraphics;
 using Firebase.CloudMessaging;
 using Foundation;
 using IdApp.Helpers;
 using IdApp.Services.Ocr;
 using IdApp.Services.Push;
+using System;
 using Tesseract.iOS;
 using UIKit;
 using UserNotifications;
@@ -23,8 +21,8 @@ namespace IdApp.iOS
 	[Register("AppDelegate")]
 	public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate, IMessagingDelegate
 	{
-		NSObject OnKeyboardShowObserver;
-		NSObject OnKeyboardHideObserver;
+		private NSObject onKeyboardShowObserver;
+		private NSObject onKeyboardHideObserver;
 
 		//
 		// This method is invoked when the application has loaded and is ready to run. In this
@@ -33,44 +31,44 @@ namespace IdApp.iOS
 		//
 		// You have 17 seconds to return from this method, or iOS will terminate your application.
 		//
-		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+		public override bool FinishedLaunching(UIApplication Application, NSDictionary Options)
 		{
 			Firebase.Core.App.Configure();
 			Rg.Plugins.Popup.Popup.Init();
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+			Xamarin.Forms.Forms.Init();
 
-			global::Xamarin.Forms.Forms.Init();
-			LoadApplication(new App());
+			this.LoadApplication(new App());
 
 			IOcrService OcrService = Types.InstantiateDefault<IOcrService>(false);
 			OcrService.RegisterApi(new TesseractApi());
 
-			RegisterKeyBoardObserver();
-			RegisterRemoteNotifications();
+			this.RegisterKeyBoardObserver();
+			this.RegisterRemoteNotifications();
 
-			return base.FinishedLaunching(app, options);
+			return base.FinishedLaunching(Application, Options);
 		}
 
 		public override void WillTerminate(UIApplication application)
 		{
-			if (OnKeyboardShowObserver == null)
+			if (this.onKeyboardShowObserver == null)
 			{
-				OnKeyboardShowObserver.Dispose();
-				OnKeyboardShowObserver = null;
+				this.onKeyboardShowObserver.Dispose();
+				this.onKeyboardShowObserver = null;
 			}
 
-			if (OnKeyboardHideObserver == null)
+			if (this.onKeyboardHideObserver == null)
 			{
-				OnKeyboardHideObserver.Dispose();
-				OnKeyboardHideObserver = null;
+				this.onKeyboardHideObserver.Dispose();
+				this.onKeyboardHideObserver = null;
 			}
 		}
 
-		public override void WillEnterForeground(UIApplication uiApplication)
+		public override void WillEnterForeground(UIApplication Application)
 		{
-			base.WillEnterForeground(uiApplication);
+			base.WillEnterForeground(Application);
 
-			RemoveAllNotifications();
+			this.RemoveAllNotifications();
 		}
 
 		/// <summary>
@@ -80,26 +78,28 @@ namespace IdApp.iOS
 		/// <param name="url">URL</param>
 		/// <param name="options">Options</param>
 		/// <returns>If URL is handled.</returns>
-		public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+		public override bool OpenUrl(UIApplication Application, NSUrl Url, NSDictionary Options)
 		{
-			return App.OpenUrl(url.AbsoluteString).Result;
+			return App.OpenUrl(Url.AbsoluteString).Result;
 		}
 
 		private void RegisterKeyBoardObserver()
 		{
-			if (OnKeyboardShowObserver == null)
+			if (this.onKeyboardShowObserver == null)
 			{
-				OnKeyboardShowObserver = UIKeyboard.Notifications.ObserveWillShow((object sender, UIKeyboardEventArgs args) =>
+				this.onKeyboardShowObserver = UIKeyboard.Notifications.ObserveWillShow((object sender, UIKeyboardEventArgs args) =>
 				{
-					NSValue result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
-					CGSize keyboardSize = result.RectangleFValue.Size;
-					MessagingCenter.Send<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears, new KeyboardAppearEventArgs { KeyboardSize = (float)keyboardSize.Height });
+					NSValue Result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
+					CGSize keyboardSize = Result.RectangleFValue.Size;
+
+					MessagingCenter.Send<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears,
+						new KeyboardAppearEventArgs { KeyboardSize = (float)keyboardSize.Height });
 				});
 			}
 
-			if (OnKeyboardHideObserver == null)
+			if (this.onKeyboardHideObserver == null)
 			{
-				OnKeyboardHideObserver = UIKeyboard.Notifications.ObserveWillHide((object sender, UIKeyboardEventArgs args) =>
+				this.onKeyboardHideObserver = UIKeyboard.Notifications.ObserveWillHide((object sender, UIKeyboardEventArgs args) =>
 				{
 					MessagingCenter.Send<object>(this, Constants.MessagingCenter.KeyboardDisappears);
 				});
@@ -108,61 +108,60 @@ namespace IdApp.iOS
 
 		private void RegisterRemoteNotifications()
 		{
-			RemoveAllNotifications();
+			this.RemoveAllNotifications();
 
 			// For display notification sent via APNS
 			UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
 			// For data message sent via FCM
 			Messaging.SharedInstance.Delegate = this;
 
-			UNAuthorizationOptions authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
-			UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
+			UNAuthorizationOptions AuthOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
+			UNUserNotificationCenter.Current.RequestAuthorization(AuthOptions, (granted, error) =>
 			{
-				bool q = granted;
 			});
 
 			UIApplication.SharedApplication.RegisterForRemoteNotifications();
 		}
 
 		[Export("application:didReceiveRemoteNotification:fetchCompletionHandler:")]
-		public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
+		public override void DidReceiveRemoteNotification(UIApplication Application, NSDictionary UserInfo, Action<UIBackgroundFetchResult> CompletionHandler)
 		{
-			string MessageId = userInfo.ObjectForKey(new NSString("gcm.message_id")).ToString();
-			string ChannelId = userInfo.ObjectForKey(new NSString("channelId"))?.ToString() ?? string.Empty;
-			string Title = userInfo.ObjectForKey(new NSString("myTitle"))?.ToString() ?? string.Empty;
-			string Body = userInfo.ObjectForKey(new NSString("myBody"))?.ToString() ?? string.Empty;
+			string MessageId = UserInfo.ObjectForKey(new NSString("gcm.message_id")).ToString();
+			string ChannelId = UserInfo.ObjectForKey(new NSString("channelId"))?.ToString() ?? string.Empty;
+			string Title = UserInfo.ObjectForKey(new NSString("myTitle"))?.ToString() ?? string.Empty;
+			string Body = UserInfo.ObjectForKey(new NSString("myBody"))?.ToString() ?? string.Empty;
 			string AttachmentIcon = null;
 
 			switch (ChannelId)
 			{
 				case Constants.PushChannels.Messages:
 					AttachmentIcon = "NotificationChatIcon";
-					Body = GetChatNotificationBody(Body, userInfo);
+					Body = this.GetChatNotificationBody(Body, UserInfo);
 					break;
 
 				case Constants.PushChannels.Petitions:
 					AttachmentIcon = "NotificationPetitionIcon";
-					Body = GetPetitionNotificationBody(Body, userInfo);
+					Body = this.GetPetitionNotificationBody(Body, UserInfo);
 					break;
 
 				case Constants.PushChannels.Identities:
 					AttachmentIcon = "NotificationIdentitieIcon";
-					Body = GetIdentitieNotificationBody(Body, userInfo);
+					Body = this.GetIdentitieNotificationBody(Body, UserInfo);
 					break;
 
 				case Constants.PushChannels.Contracts:
 					AttachmentIcon = "NotificationContractIcon";
-					Body = GetContractNotificationBody(Body, userInfo);
+					Body = this.GetContractNotificationBody(Body, UserInfo);
 					break;
 
 				case Constants.PushChannels.EDaler:
 					AttachmentIcon = "NotificationEDalerIcon";
-					Body = GetEDalerNotificationBody(Body, userInfo);
+					Body = this.GetEDalerNotificationBody(Body, UserInfo);
 					break;
 
 				case Constants.PushChannels.Tokens:
 					AttachmentIcon = "NotificationTokenIcon";
-					Body = GetTokenNotificationBody(Body, userInfo);
+					Body = this.GetTokenNotificationBody(Body, UserInfo);
 					break;
 
 				default:
@@ -170,7 +169,7 @@ namespace IdApp.iOS
 			}
 
 			// Create request
-			UNMutableNotificationContent content = new()
+			UNMutableNotificationContent Content = new()
 			{
 				Title = Title,
 				Body = Body,
@@ -178,135 +177,137 @@ namespace IdApp.iOS
 
 			if (AttachmentIcon is not null)
 			{
-				NSError err;
-				UNNotificationAttachmentOptions options = new();
+				UNNotificationAttachmentOptions Options = new();
 				NSUrl AttachmentUrl = NSBundle.MainBundle.GetUrlForResource(AttachmentIcon, "png");
 
 				if (AttachmentUrl is not null)
 				{
-					UNNotificationAttachment attachment = UNNotificationAttachment.FromIdentifier("image" + MessageId, AttachmentUrl, options, out err);
+					UNNotificationAttachment Attachment = UNNotificationAttachment.FromIdentifier("image" + MessageId, AttachmentUrl, Options, out _);
 
-					if (attachment is not null)
+					if (Attachment is not null)
 					{
-						content.Attachments = new UNNotificationAttachment[] { attachment };
+						Content.Attachments = new UNNotificationAttachment[] { Attachment };
 					}
 				}
 			}
 
-			UNNotificationRequest request = UNNotificationRequest.FromIdentifier(MessageId, content, null);
-			UNUserNotificationCenter.Current.AddNotificationRequest(request, null);
+			UNNotificationRequest Request = UNNotificationRequest.FromIdentifier(MessageId, Content, null);
+			UNUserNotificationCenter.Current.AddNotificationRequest(Request, null);
 
-			completionHandler(UIBackgroundFetchResult.NewData);
+			CompletionHandler(UIBackgroundFetchResult.NewData);
 		}
 
-		private string GetChatNotificationBody(string messageBody, NSDictionary userInfo)
+		private string GetChatNotificationBody(string MessageBody, NSDictionary UserInfo)
 		{
-			string IsObject = userInfo.ObjectForKey(new NSString("isObject"))?.ToString() ?? string.Empty;
+			string IsObject = UserInfo.ObjectForKey(new NSString("isObject"))?.ToString() ?? string.Empty;
 
 			if (!string.IsNullOrEmpty(IsObject) && bool.Parse(IsObject))
 			{
-				messageBody = "[Sent you an object]";
+				MessageBody = "[Sent you an object]";
 			}
 
-			return messageBody;
+			return MessageBody;
 		}
 
-		private string GetPetitionNotificationBody(string messageBody, NSDictionary userInfo)
+		private string GetPetitionNotificationBody(string MessageBody, NSDictionary UserInfo)
 		{
-			string FromJid = userInfo.ObjectForKey(new NSString("fromJid"))?.ToString() ?? string.Empty;
-			string RosterName = userInfo.ObjectForKey(new NSString("rosterName"))?.ToString() ?? string.Empty;
+			string FromJid = UserInfo.ObjectForKey(new NSString("fromJid"))?.ToString() ?? string.Empty;
+			string RosterName = UserInfo.ObjectForKey(new NSString("rosterName"))?.ToString() ?? string.Empty;
 
-			return (string.IsNullOrEmpty(RosterName) ? FromJid : RosterName) + ": " + messageBody;
+			MessageBody = (string.IsNullOrEmpty(RosterName) ? FromJid : RosterName) + ": " + MessageBody;
+
+			return MessageBody;
 		}
 
-		private string GetIdentitieNotificationBody(string messageBody, NSDictionary userInfo)
+		private string GetIdentitieNotificationBody(string MessageBody, NSDictionary UserInfo)
 		{
-			string LegalId = userInfo.ObjectForKey(new NSString("legalId"))?.ToString() ?? string.Empty;
+			string LegalId = UserInfo.ObjectForKey(new NSString("legalId"))?.ToString() ?? string.Empty;
 
 			if (!string.IsNullOrEmpty(LegalId))
 			{
-				messageBody += "\n(" + LegalId + ")";
+				MessageBody += "\n(" + LegalId + ")";
 			}
 
-			return messageBody;
+			return MessageBody;
 		}
 
-		private string GetContractNotificationBody(string messageBody, NSDictionary userInfo)
+		private string GetContractNotificationBody(string MessageBody, NSDictionary UserInfo)
 		{
-			string LegalId = userInfo.ObjectForKey(new NSString("legalId"))?.ToString() ?? string.Empty;
-			string ContractId = userInfo.ObjectForKey(new NSString("contractId"))?.ToString() ?? string.Empty;
-			string Role = userInfo.ObjectForKey(new NSString("role"))?.ToString() ?? string.Empty;
+			string LegalId = UserInfo.ObjectForKey(new NSString("legalId"))?.ToString() ?? string.Empty;
+			string ContractId = UserInfo.ObjectForKey(new NSString("contractId"))?.ToString() ?? string.Empty;
+			string Role = UserInfo.ObjectForKey(new NSString("role"))?.ToString() ?? string.Empty;
 
 			if (!string.IsNullOrEmpty(Role))
 			{
-				messageBody += "\n" + Role;
+				MessageBody += "\n" + Role;
 			}
 
 			if (!string.IsNullOrEmpty(ContractId))
 			{
-				messageBody += "\n(" + ContractId + ")";
+				MessageBody += "\n(" + ContractId + ")";
 			}
 
 			if (!string.IsNullOrEmpty(LegalId))
 			{
-				messageBody += "\n(" + LegalId + ")";
+				MessageBody += "\n(" + LegalId + ")";
 			}
 
-			return messageBody;
+			return MessageBody;
 		}
 
-		private string GetEDalerNotificationBody(string messageBody, NSDictionary userInfo)
+		private string GetEDalerNotificationBody(string MessageBody, NSDictionary UserInfo)
 		{
-			string Amount = userInfo.ObjectForKey(new NSString("amount"))?.ToString() ?? string.Empty;
-			string Currency = userInfo.ObjectForKey(new NSString("currency"))?.ToString() ?? string.Empty;
-			string Timestamp = userInfo.ObjectForKey(new NSString("timestamp"))?.ToString() ?? string.Empty;
+			string Amount = UserInfo.ObjectForKey(new NSString("amount"))?.ToString() ?? string.Empty;
+			string Currency = UserInfo.ObjectForKey(new NSString("currency"))?.ToString() ?? string.Empty;
+			string Timestamp = UserInfo.ObjectForKey(new NSString("timestamp"))?.ToString() ?? string.Empty;
 
 			if (!string.IsNullOrEmpty(Amount))
 			{
-				messageBody += "\n" + Amount;
+				MessageBody += "\n" + Amount;
 
 				if (!string.IsNullOrEmpty(Currency))
 				{
-					messageBody += " " + Currency;
+					MessageBody += " " + Currency;
 				}
 
 				if (!string.IsNullOrEmpty(Timestamp))
 				{
-					messageBody += " (" + Timestamp + ")";
+					MessageBody += " (" + Timestamp + ")";
 				}
 			}
 
-			return messageBody;
+			return MessageBody;
 		}
 
-		private string GetTokenNotificationBody(string messageBody, NSDictionary userInfo)
+		private string GetTokenNotificationBody(string MessageBody, NSDictionary UserInfo)
 		{
-			string Value = userInfo.ObjectForKey(new NSString("value"))?.ToString() ?? string.Empty;
-			string Currency = userInfo.ObjectForKey(new NSString("currency"))?.ToString() ?? string.Empty;
+			string Value = UserInfo.ObjectForKey(new NSString("value"))?.ToString() ?? string.Empty;
+			string Currency = UserInfo.ObjectForKey(new NSString("currency"))?.ToString() ?? string.Empty;
 
 			if (!string.IsNullOrEmpty(Value))
 			{
-				messageBody += "\n" + Value;
+				MessageBody += "\n" + Value;
 
 				if (!string.IsNullOrEmpty(Currency))
 				{
-					messageBody += " " + Currency;
+					MessageBody += " " + Currency;
 				}
 			}
 
-			return messageBody;
+			return MessageBody;
 		}
 
 		[Export("messaging:didReceiveRegistrationToken:")]
-        public void DidReceiveRegistrationToken(Messaging messaging, string fcmToken)
+        public void DidReceiveRegistrationToken(Messaging _, string FcmToken)
         {
             try
             {
                 IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
+
                 PushService?.NewToken(new TokenInformation()
                 {
-                    Service = Waher.Networking.XMPP.Push.PushMessagingService.Firebase,
-                    Token = fcmToken,
+                    Service = PushMessagingService.Firebase,
+                    Token = FcmToken,
                     ClientType = ClientType.iOS
                 });
             }
@@ -372,30 +373,32 @@ namespace IdApp.iOS
         {
         }
 
+		/*
         [Export("userNotificationCenter:willPresentNotification:withCompletionHandler:")]
-        public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
+        public override void WillPresentNotification(UNUserNotificationCenter Center, UNNotification Notification, Action<UNNotificationPresentationOptions> CompletionHandler)
         {
-            ProcessNotification(notification);
+            this.ProcessNotification(Notification);
 
             UNNotificationPresentationOptions options = UNNotificationPresentationOptions.None;
-            completionHandler(options);
+            CompletionHandler(options);
         }
 
         [Export("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:")]
-        public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+        public override void DidReceiveNotificationResponse(UNUserNotificationCenter Center, UNNotificationResponse Response, Action CompletionHandler)
         {
-            ProcessNotification(response.Notification);
-        }
+			this.ProcessNotification(Response.Notification);
 
-        private void ProcessNotification(UNNotification notification)
+			CompletionHandler();
+		}
+
+        private void ProcessNotification(UNNotification Notification)
         {
-            Console.WriteLine(notification.Request.Content.ToString());
-            /*
-            string title = notification.Request.Content.Title;
-            string message = notification.Request.Content.Body;
+            //Console.WriteLine(Notification.Request.Content.ToString());
 
-            DependencyService.Get<INotificationManager>().ReceiveNotification(title, message);
-            */
+            //string Title = Notification.Request.Content.Title;
+            //string Message = Notification.Request.Content.Body;
+            //DependencyService.Get<INotificationManager>().ReceiveNotification(Title, Message);
         }
-    }
+		*/
+	}
 }

@@ -21,7 +21,22 @@ namespace IdApp
             /// Minimum length for PIN Code
             /// </summary>
             public const int MinPinLength = 8;
-        }
+
+			/// <summary>
+			/// Minimum number of symbols from at least two character classes (digits, letters, other) in a PIN.
+			/// </summary>
+			public const int MinPinSymbolsFromDifferentClasses = 2;
+
+			/// <summary>
+			/// Maximum number of identical symbols in a PIN.
+			/// </summary>
+			public const int MaxPinIdenticalSymbols = 2;
+
+			/// <summary>
+			/// Maximum number of sequenced symbols in a PIN.
+			/// </summary>
+			public const int MaxPinSequencedSymbols = 2;
+		}
 
         /// <summary>
         /// Language Codes

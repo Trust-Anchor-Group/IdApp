@@ -24,7 +24,7 @@ namespace IdApp.Services.Push
 	[Singleton]
 	public class PushNotificationService : LoadableService, IPushNotificationService
 	{
-		private readonly Dictionary<Waher.Networking.XMPP.Push.PushMessagingService, string> tokens = new();
+		private readonly Dictionary<PushMessagingService, string> tokens = new();
 		private DateTime lastTokenCheck = DateTime.MinValue;
 
 		/// <summary>
@@ -68,7 +68,7 @@ namespace IdApp.Services.Push
 		/// <param name="Source">Source of token</param>
 		/// <param name="Token">Token, if found.</param>
 		/// <returns>If a token was found for the corresponding source.</returns>
-		public bool TryGetToken(Waher.Networking.XMPP.Push.PushMessagingService Source, out string Token)
+		public bool TryGetToken(PushMessagingService Source, out string Token)
 		{
 			lock (this.tokens)
 			{
@@ -97,7 +97,7 @@ namespace IdApp.Services.Push
 					if (TP != LastTP || DateTime.UtcNow.Subtract(LastTP).TotalDays >= 7)    // Firebase recommends updating token, while app still works, but not more often than once a week, unless it changes.
 					{
 						string Token = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
-						Waher.Networking.XMPP.Push.PushMessagingService Service;
+						PushMessagingService Service;
 						ClientType ClientType;
 
 						if (string.IsNullOrEmpty(Token))
@@ -121,7 +121,7 @@ namespace IdApp.Services.Push
 						}
 						else
 						{
-							Service = (Waher.Networking.XMPP.Push.PushMessagingService)await RuntimeSettings.GetAsync("PUSH.SERVICE", Waher.Networking.XMPP.Push.PushMessagingService.Firebase);
+							Service = (PushMessagingService)await RuntimeSettings.GetAsync("PUSH.SERVICE", PushMessagingService.Firebase);
 							ClientType = (ClientType)await RuntimeSettings.GetAsync("PUSH.CLIENT", ClientType.Other);
 						}
 
@@ -160,8 +160,6 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-
-						var q = Content.ToString();
 						await PushNotificationClient.AddRuleAsync(MessageType.Chat, string.Empty, string.Empty,
 							Constants.PushChannels.Messages, "Stanza", string.Empty, Content.ToString());
 

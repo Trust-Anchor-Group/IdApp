@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using IdApp.Extensions;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
@@ -670,7 +673,7 @@ namespace IdApp.Services.Tag
 			this.ApiKey = Key;
 			this.ApiSecret = Secret;
 
-			if (!string.IsNullOrWhiteSpace(Domain) && Step == RegistrationStep.ValidatePhoneNr)
+			if (!string.IsNullOrWhiteSpace(this.Domain) && this.Step == RegistrationStep.ValidatePhoneNr)
 				this.IncrementConfigurationStep();
 		}
 
@@ -690,7 +693,7 @@ namespace IdApp.Services.Tag
 			this.ApiKey = string.Empty;
 			this.ApiSecret = string.Empty;
 
-			if (!string.IsNullOrWhiteSpace(this.Account) && Step == RegistrationStep.Account)
+			if (!string.IsNullOrWhiteSpace(this.Account) && this.Step == RegistrationStep.Account)
 				this.IncrementConfigurationStep();
 		}
 
@@ -704,7 +707,7 @@ namespace IdApp.Services.Tag
 			this.ApiKey = string.Empty;
 			this.ApiSecret = string.Empty;
 
-			if (!string.IsNullOrWhiteSpace(this.Account) && Step == RegistrationStep.Account && !(this.LegalIdentity is null))
+			if (!string.IsNullOrWhiteSpace(this.Account) && this.Step == RegistrationStep.Account && !(this.LegalIdentity is null))
 			{
 				switch (this.LegalIdentity.State)
 				{
@@ -793,7 +796,7 @@ namespace IdApp.Services.Tag
 			this.UsePin = ShouldUsePin;
 
 			if (this.step == RegistrationStep.Pin)
-				IncrementConfigurationStep();
+				this.IncrementConfigurationStep();
 		}
 
 		/// <inheritdoc/>
@@ -803,7 +806,7 @@ namespace IdApp.Services.Tag
 			this.UsePin = false;
 
 			if (this.Step == RegistrationStep.Pin)
-				DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
+				this.DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
 		}
 
 		/// <inheritdoc/>
@@ -933,5 +936,152 @@ namespace IdApp.Services.Tag
 			this.IsDirty = true;
 		}
 
+		/// <inheritdoc/>
+		public PinStrength ValidatePinStrength(string Pin)
+		{
+			if (Pin == null)
+			{
+				return PinStrength.NotEnoughDigitsLettersSigns;
+			}
+
+			Pin = Pin.Normalize();
+
+			int DigitsCount = 0;
+			int LettersCount = 0;
+			int SignsCount = 0;
+
+			Dictionary<int, int> DistinctSymbolsCount = new();
+
+			int[] SlidingWindow = new int[Constants.Authentication.MaxPinSequencedSymbols + 1];
+			SlidingWindow.Initialize();
+
+			for (int i = 0; i < Pin.Length;)
+			{
+				if (char.IsDigit(Pin, i))
+				{
+					DigitsCount++;
+				}
+				else if (char.IsLetter(Pin, i))
+				{
+					LettersCount++;
+				}
+				else
+				{
+					SignsCount++;
+				}
+
+				int Symbol = char.ConvertToUtf32(Pin, i);
+
+				if (DistinctSymbolsCount.TryGetValue(Symbol, out int SymbolCount))
+				{
+					DistinctSymbolsCount[Symbol] = ++SymbolCount;
+					if (SymbolCount > Constants.Authentication.MaxPinIdenticalSymbols)
+					{
+						return PinStrength.TooManyIdenticalSymbols;
+					}
+				}
+				else
+				{
+					DistinctSymbolsCount.Add(Symbol, 1);
+				}
+
+				for (int j = 0; j < SlidingWindow.Length - 1; j++)
+					SlidingWindow[j] = SlidingWindow[j + 1];
+				SlidingWindow[^1] = Symbol;
+
+				int[] SlidingWindowDifferences = new int[SlidingWindow.Length - 1];
+				for (int j = 0; j < SlidingWindow.Length - 1; j++)
+				{
+					SlidingWindowDifferences[j] = SlidingWindow[j + 1] - SlidingWindow[j];
+				}
+
+				if (SlidingWindowDifferences.All(difference => difference == 1))
+				{
+					return PinStrength.TooManySequencedSymbols;
+				}
+
+				if (char.IsSurrogate(Pin, i))
+				{
+					i += 2;
+				}
+				else
+				{
+					i += 1;
+				}
+			}
+
+			if (this.LegalIdentity is LegalIdentity LegalIdentity)
+			{
+				const StringComparison Comparison = StringComparison.CurrentCultureIgnoreCase;
+
+				if (LegalIdentity[Constants.XmppProperties.PersonalNumber] is string PersonalNumber && PersonalNumber != "" && Pin.Contains(PersonalNumber, Comparison))
+				{
+					return PinStrength.ContainsPersonalNumber;
+				}
+
+				if (LegalIdentity[Constants.XmppProperties.Phone] is string Phone && Phone != "" && Pin.Contains(Phone, Comparison))
+				{
+					return PinStrength.ContainsPhoneNumber;
+				}
+
+				IEnumerable<string> NameWords = new string[]
+				{
+					Constants.XmppProperties.FirstName,
+					Constants.XmppProperties.MiddleName,
+					Constants.XmppProperties.LastName,
+				}
+				.SelectMany(PropertyKey => LegalIdentity[PropertyKey] is string PropertyValue ? Regex.Split(PropertyValue, @"\p{Zs}+") : Enumerable.Empty<string>())
+				.Where(Word => Word != "");
+
+				if (NameWords.Any(NameWord => Pin.Contains(NameWord, Comparison)))
+				{
+					return PinStrength.ContainsName;
+				}
+
+				IEnumerable<string> AddressWords = new string[]
+				{
+					Constants.XmppProperties.Address,
+					Constants.XmppProperties.Address2,
+				}
+				.SelectMany(PropertyKey => LegalIdentity[PropertyKey] is string PropertyValue ? Regex.Split(PropertyValue, @"\p{Zs}+") : Enumerable.Empty<string>())
+				.Where(Word => Word != "");
+
+				if (AddressWords.Any(AddressWord => Pin.Contains(AddressWord, Comparison)))
+				{
+					return PinStrength.ContainsAddress;
+				}
+			}
+
+			const int MinDigitsCount = Constants.Authentication.MinPinSymbolsFromDifferentClasses;
+			const int MinLettersCount = Constants.Authentication.MinPinSymbolsFromDifferentClasses;
+			const int MinSignsCount = Constants.Authentication.MinPinSymbolsFromDifferentClasses;
+
+			if (DigitsCount < MinDigitsCount && LettersCount < MinLettersCount && SignsCount < MinSignsCount)
+			{
+				return PinStrength.NotEnoughDigitsLettersSigns;
+			}
+
+			if (DigitsCount >= MinDigitsCount && LettersCount < MinLettersCount && SignsCount < MinSignsCount)
+			{
+				return PinStrength.NotEnoughLettersOrSigns;
+			}
+
+			if (DigitsCount < MinDigitsCount && LettersCount >= MinLettersCount && SignsCount < MinSignsCount)
+			{
+				return PinStrength.NotEnoughDigitsOrSigns;
+			}
+
+			if (DigitsCount < MinDigitsCount && LettersCount < MinLettersCount && SignsCount >= MinSignsCount)
+			{
+				return PinStrength.NotEnoughLettersOrDigits;
+			}
+
+			if (DigitsCount + LettersCount + SignsCount < Constants.Authentication.MinPinLength)
+			{
+				return PinStrength.TooShort;
+			}
+
+			return PinStrength.Strong;
+		}
 	}
 }

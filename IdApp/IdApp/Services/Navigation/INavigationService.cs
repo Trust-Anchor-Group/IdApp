@@ -36,17 +36,19 @@ namespace IdApp.Services.Navigation
         /// <param name="Animate">If animation should be used.</param>
         Task GoBackAsync(bool Animate);
 
-        /// <summary>
-        /// Tries to pop/read page arguments from the (one-level) deep navigation stack.
-        /// </summary>
-        /// <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="NavigationArgs"/>.</typeparam>
-        /// <param name="args">The actual args.</param>
-        bool TryPopArgs<TArgs>(out TArgs args) where TArgs : NavigationArgs;
+		/// <summary>
+		/// Tries to pop/read page arguments from the (one-level) deep navigation stack.
+		/// </summary>
+		/// <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="NavigationArgs"/>.</typeparam>
+		/// <param name="args">The actual args.</param>
+		/// <param name="UniqueId">Views unique ID.</param>
+		bool TryPopArgs<TArgs>(out TArgs args, string UniqueId = null) where TArgs : NavigationArgs;
 
-        /// <summary>
-        /// Returns the pages arguments from the (one-level) deep navigation stack.
-        /// </summary>
-        TArgs GetPopArgs<TArgs>() where TArgs : NavigationArgs;
+		/// <summary>
+		/// Returns the pages arguments from the (one-level) deep navigation stack.
+		/// </summary>
+		/// <param name="UniqueId">Views unique ID.</param>
+		TArgs GetPopArgs<TArgs>(string UniqueId = null) where TArgs : NavigationArgs;
 
         /// <summary>
         /// Current page

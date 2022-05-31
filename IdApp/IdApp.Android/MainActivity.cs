@@ -5,10 +5,7 @@ using Android.Gms.Common;
 using Android.Nfc;
 using Android.OS;
 using Android.Runtime;
-using Android.Util;
 using Android.Views;
-using Firebase.Iid;
-using Firebase.Messaging;
 using IdApp.Android.Nfc;
 using IdApp.Nfc;
 using IdApp.Services.Nfc;
@@ -16,7 +13,6 @@ using IdApp.Services.Ocr;
 using System;
 using System.Collections.Generic;
 using Tesseract.Droid;
-using Waher.Events;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Android
@@ -27,17 +23,17 @@ namespace IdApp.Android
 	{
 		private static NfcAdapter nfcAdapter = null;
 
-		protected override void OnCreate(Bundle savedInstanceState)
+		protected override void OnCreate(Bundle SavedInstanceState)
 		{
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
 
-			base.OnCreate(savedInstanceState);
+			base.OnCreate(SavedInstanceState);
 
-			this.Init(savedInstanceState);
+			this.Init(SavedInstanceState);
 		}
 
-		private void Init(Bundle savedInstanceState)
+		private void Init(Bundle SavedInstanceState)
 		{
 			this.Window.SetFlags(
 				WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure,
@@ -45,12 +41,12 @@ namespace IdApp.Android
 
 			nfcAdapter = NfcAdapter.GetDefaultAdapter(this);
 
-			Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+			Xamarin.Essentials.Platform.Init(this, SavedInstanceState);
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 			Rg.Plugins.Popup.Popup.Init(this);
 
 			IOcrService OcrService = Types.InstantiateDefault<IOcrService>(false);
-			OcrService.RegisterApi(new TesseractApi(Application, AssetsDeployment.OncePerVersion));
+			OcrService.RegisterApi(new TesseractApi(this.Application, AssetsDeployment.OncePerVersion));
 
 			int Result = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
 			if (Result == ConnectionResult.Success)
@@ -87,7 +83,7 @@ namespace IdApp.Android
 						Description = "Channel for events relating to Neuro-Feature tokens"
 					};
 
-					NotificationManager NotificationManager = (NotificationManager)GetSystemService(NotificationService);
+					NotificationManager NotificationManager = (NotificationManager)this.GetSystemService(NotificationService);
 					NotificationManager.CreateNotificationChannels(new List<NotificationChannel>()
 					{
 						MessagesChannel, PetitionsChannel, IdentitiesChannel, ContractsChannel, EDalerChannel, TokensChannel
@@ -104,19 +100,19 @@ namespace IdApp.Android
 				Waher.Events.Log.Error(Msg);
 			}
 
-			global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-			LoadApplication(new App());
+			global::Xamarin.Forms.Forms.Init(this, SavedInstanceState);
+			this.LoadApplication(new App());
 		}
 
-		public override async void OnCreate(Bundle savedInstanceState, PersistableBundle persistentState)
+		public override async void OnCreate(Bundle SavedInstanceState, PersistableBundle PersistentState)
 		{
 			try
 			{
-				base.OnCreate(savedInstanceState, persistentState);
+				base.OnCreate(SavedInstanceState, PersistentState);
 
-				this.Init(savedInstanceState);
+				this.Init(SavedInstanceState);
 
-				string Url = Intent?.Data?.EncodedAuthority;
+				string Url = this.Intent?.Data?.EncodedAuthority;
 				await App.OpenUrl(Url);
 			}
 			catch (Exception ex)
@@ -125,17 +121,17 @@ namespace IdApp.Android
 			}
 		}
 
-		public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+		public override void OnRequestPermissionsResult(int RequestCode, string[] Permissions, [GeneratedEnum] Permission[] GrantResults)
 		{
-			Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-			base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+			Xamarin.Essentials.Platform.OnRequestPermissionsResult(RequestCode, Permissions, GrantResults);
+			base.OnRequestPermissionsResult(RequestCode, Permissions, GrantResults);
 		}
 
 		protected override void OnResume()
 		{
 			base.OnResume();
 
-			if (!(nfcAdapter is null))
+			if (nfcAdapter is not null)
 			{
 				IntentFilter TagDetected = new(NfcAdapter.ActionTagDiscovered);
 				IntentFilter NDefDetected = new(NfcAdapter.ActionNdefDiscovered);
@@ -148,20 +144,21 @@ namespace IdApp.Android
 				nfcAdapter.EnableForegroundDispatch(this, PendingIntent, Filters, null);
 			}
 
-			RemoveAllNotifications();
+			this.RemoveAllNotifications();
 		}
 
-		protected override async void OnNewIntent(Intent intent)
+		protected override async void OnNewIntent(Intent Intent)
 		{
 			try
 			{
-				switch (intent.Action)
+				switch (Intent.Action)
 				{
 					case NfcAdapter.ActionTagDiscovered:
 					case NfcAdapter.ActionNdefDiscovered:
 					case NfcAdapter.ActionTechDiscovered:
-						Tag Tag = intent.GetParcelableExtra(NfcAdapter.ExtraTag) as Tag;
-						if (!(Tag is null))
+						Tag Tag = Intent.GetParcelableExtra(NfcAdapter.ExtraTag) as Tag;
+
+						if (Tag is not null)
 						{
 							byte[] ID = Tag.GetId();
 							string[] TechList = Tag.GetTechList();

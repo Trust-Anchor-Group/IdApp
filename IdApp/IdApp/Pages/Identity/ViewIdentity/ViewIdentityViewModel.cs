@@ -45,12 +45,12 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.Photos = new ObservableCollection<Photo>();
 			this.photosLoader = new PhotosLoader(this.Photos);
 
-			this.ApproveCommand = new Command(async _ => await Approve(), _ => this.IsConnected);
-			this.RejectCommand = new Command(async _ => await Reject(), _ => this.IsConnected);
-			this.RevokeCommand = new Command(async _ => await Revoke(), _ => this.IsConnected);
-			this.TransferCommand = new Command(async _ => await Transfer(), _ => this.IsConnected);
-			this.CompromiseCommand = new Command(async _ => await Compromise(), _ => this.IsConnected);
-			this.ChangePinCommand = new Command(async _ => await ChangePin(), _ => this.IsConnected);
+			this.ApproveCommand = new Command(async _ => await this.Approve(), _ => this.IsConnected);
+			this.RejectCommand = new Command(async _ => await this.Reject(), _ => this.IsConnected);
+			this.RevokeCommand = new Command(async _ => await this.Revoke(), _ => this.IsConnected);
+			this.TransferCommand = new Command(async _ => await this.Transfer(), _ => this.IsConnected);
+			this.CompromiseCommand = new Command(async _ => await this.Compromise(), _ => this.IsConnected);
+			this.ChangePinCommand = new Command(async _ => await this.ChangePin(), _ => this.IsConnected);
 			this.CopyCommand = new Command(_ => this.CopyIdToClipboard());
 			this.AddContactCommand = new Command(async _ => await this.AddContact(), _ => this.ThirdPartyNotInContacts);
 			this.RemoveContactCommand = new Command(async _ => await this.RemoveContact(), _ => this.ThirdPartyInContacts);
@@ -80,13 +80,13 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			else
 				this.IsPersonal = false;
 
-			AssignProperties();
+			this.AssignProperties();
 
 			if (this.ThirdParty)
 			{
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 
-				if (!(Info is null) &&
+				if ((Info is not null) &&
 					(Info.LegalIdentity is null ||
 					(Info.LegalId != this.LegalId &&
 					Info.LegalIdentity.Created < this.LegalIdentity.Created &&
@@ -109,13 +109,13 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.ThirdPartyInContacts = false;
 			}
 
-			EvaluateAllCommands();
+			this.EvaluateAllCommands();
 
-			this.TagProfile.Changed += TagProfile_Changed;
-			this.XmppService.Contracts.LegalIdentityChanged += SmartContracts_LegalIdentityChanged;
-			this.XmppService.Xmpp.OnRosterItemAdded += CheckRosterItem;
-			this.XmppService.Xmpp.OnRosterItemRemoved += CheckRosterItem;
-			this.XmppService.Xmpp.OnRosterItemUpdated += CheckRosterItem;
+			this.TagProfile.Changed += this.TagProfile_Changed;
+			this.XmppService.Contracts.LegalIdentityChanged += this.SmartContracts_LegalIdentityChanged;
+			this.XmppService.Xmpp.OnRosterItemAdded += this.CheckRosterItem;
+			this.XmppService.Xmpp.OnRosterItemRemoved += this.CheckRosterItem;
+			this.XmppService.Xmpp.OnRosterItemUpdated += this.CheckRosterItem;
 		}
 
 		/// <inheritdoc/>
@@ -123,11 +123,11 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			this.photosLoader.CancelLoadPhotos();
 
-			this.TagProfile.Changed -= TagProfile_Changed;
-			this.XmppService.Contracts.LegalIdentityChanged -= SmartContracts_LegalIdentityChanged;
-			this.XmppService.Xmpp.OnRosterItemAdded -= CheckRosterItem;
-			this.XmppService.Xmpp.OnRosterItemRemoved -= CheckRosterItem;
-			this.XmppService.Xmpp.OnRosterItemUpdated -= CheckRosterItem;
+			this.TagProfile.Changed -= this.TagProfile_Changed;
+			this.XmppService.Contracts.LegalIdentityChanged -= this.SmartContracts_LegalIdentityChanged;
+			this.XmppService.Xmpp.OnRosterItemAdded -= this.CheckRosterItem;
+			this.XmppService.Xmpp.OnRosterItemRemoved -= this.CheckRosterItem;
+			this.XmppService.Xmpp.OnRosterItemUpdated -= this.CheckRosterItem;
 
 			this.LegalIdentity = null;
 
@@ -214,14 +214,14 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.Updated = this.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
 			this.LegalId = this.LegalIdentity?.Id;
 
-			if (!(this.identityToReview?.RequestorIdentity is null))
+			if (this.identityToReview?.RequestorIdentity is not null)
 				this.BareJid = this.identityToReview.RequestorIdentity.GetJid(Constants.NotAvailableValue);
-			else if (!(this.LegalIdentity is null))
+			else if (this.LegalIdentity is not null)
 				this.BareJid = this.LegalIdentity.GetJid(Constants.NotAvailableValue);
 			else
 				this.BareJid = Constants.NotAvailableValue;
 
-			if (!(this.LegalIdentity?.ClientPubKey is null))
+			if (this.LegalIdentity?.ClientPubKey is not null)
 				this.PublicKey = Convert.ToBase64String(this.LegalIdentity.ClientPubKey);
 			else
 				this.PublicKey = string.Empty;
@@ -230,7 +230,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.From = this.LegalIdentity?.From.GetDateOrNullIfMinValue();
 			this.To = this.LegalIdentity?.To.GetDateOrNullIfMinValue();
 
-			if (!(this.LegalIdentity is null))
+			if (this.LegalIdentity is not null)
 			{
 				this.FirstName = this.LegalIdentity[Constants.XmppProperties.FirstName];
 				this.MiddleNames = this.LegalIdentity[Constants.XmppProperties.MiddleName];
@@ -265,9 +265,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.IsApproved = this.LegalIdentity?.State == IdentityState.Approved;
 			this.IsCreated = this.LegalIdentity?.State == IdentityState.Created;
 
-			this.IsForReview = !(this.identityToReview is null);
-			this.IsNotForReview = !IsForReview;
-			this.ThirdParty = !(this.LegalIdentity is null) && !this.IsPersonal;
+			this.IsForReview = this.identityToReview is not null;
+			this.IsNotForReview = !this.IsForReview;
+			this.ThirdParty = (this.LegalIdentity is not null) && !this.IsPersonal;
 
 			this.UpdateSubscriptionStatus();
 
@@ -300,7 +300,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeIotId + ":" + LegalId);
+				await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeIotId + ":" + this.LegalId);
 				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
 			}
 			catch (Exception ex)
@@ -340,7 +340,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 				Attachment[] Attachments;
 
-				if (!(this.identityToReview?.RequestorIdentity?.Attachments is null))
+				if (this.identityToReview?.RequestorIdentity?.Attachments is not null)
 					Attachments = this.identityToReview.RequestorIdentity.Attachments;
 				else
 					Attachments = this.LegalIdentity?.Attachments;
@@ -361,7 +361,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
+			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
 
 		private void SmartContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
@@ -371,7 +371,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (this.LegalIdentity?.Id == e.Identity.Id)
 				{
 					this.LegalIdentity = e.Identity;
-					AssignProperties();
+					this.AssignProperties();
 				}
 			});
 		}
@@ -1435,7 +1435,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					return;
 
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
-				if (!(Info is null))
+				if (Info is not null)
 				{
 					await Database.Delete(Info);
 					await this.AttachmentCacheService.MakeTemporary(Info.LegalId);
@@ -1443,7 +1443,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				}
 
 				RosterItem Item = this.XmppService.Xmpp[this.BareJid];
-				if (!(Item is null))
+				if (Item is not null)
 					this.XmppService.Xmpp.RemoveRosterItem(this.BareJid);
 
 				this.ThirdPartyInContacts = false;
@@ -1637,7 +1637,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			try
 			{
 				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(this.LegalId, this.BareJid,
-					ContactInfo.GetFriendlyName(this.LegalIdentity)));
+					ContactInfo.GetFriendlyName(this.LegalIdentity)) { UniqueId = this.BareJid });
 			}
 			catch (Exception ex)
 			{
@@ -1691,7 +1691,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 						this.XmppService.Xmpp.RequestRevokePresenceSubscription(this.BareJid);
 
 						ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
-						if (!(Info is null) && Info.AllowSubscriptionFrom.HasValue && Info.AllowSubscriptionFrom.Value)
+						if ((Info is not null) && Info.AllowSubscriptionFrom.HasValue && Info.AllowSubscriptionFrom.Value)
 						{
 							Info.AllowSubscriptionFrom = null;
 							await Database.Update(Info);
@@ -1719,7 +1719,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			RosterItem Item = this.XmppService.Xmpp[this.BareJid];
 
-			this.Subscribed = this.ThirdParty && !(Item is null) && (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.To);
+			this.Subscribed = this.ThirdParty && (Item is not null) && (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.To);
 			this.NotSubscribed = this.ThirdParty && (Item is null || (Item.State != SubscriptionState.Both && Item.State != SubscriptionState.To));
 
 			this.EvaluateAllCommands();

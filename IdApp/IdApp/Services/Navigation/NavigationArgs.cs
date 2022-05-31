@@ -27,5 +27,10 @@
         /// If the ReturnCounter is zero, it will stop the further counting.
         /// </summary>
         public bool CancelReturnCounter { get; set; }
-    }
+
+		/// <summary>
+		/// An untique view identificator used to search the args of similar view types.
+		/// </summary>
+		public string UniqueId { get; set; }
+	}
 }

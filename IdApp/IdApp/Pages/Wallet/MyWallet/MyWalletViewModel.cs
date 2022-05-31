@@ -34,15 +34,15 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			this.page = Page;
 
-			this.BackCommand = new Command(async _ => await GoBack());
-			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
-			this.RequestPaymentCommand = new Command(async _ => await RequestPayment(), _ => this.IsConnected);
-			this.MakePaymentCommand = new Command(async _ => await MakePayment(), _ => this.IsConnected);
-			this.ShowPaymentItemCommand = new Command(async Item => await ShowPaymentItem(Item));
-			this.LoadMoreAccountEventsCommand = new Command(async _ => await LoadMoreAccountEvents());
-			this.FlipCommand = new Command(async _ => await FlipWallet());
-			this.CreateTokenCommand = new Command(async _ => await CreateToken());
-			this.LoadMoreTokensCommand = new Command(async _ => await LoadMoreTokens());
+			this.BackCommand = new Command(async _ => await this.GoBack());
+			this.ScanQrCodeCommand = new Command(async () => await this.ScanQrCode());
+			this.RequestPaymentCommand = new Command(async _ => await this.RequestPayment(), _ => this.IsConnected);
+			this.MakePaymentCommand = new Command(async _ => await this.MakePayment(), _ => this.IsConnected);
+			this.ShowPaymentItemCommand = new Command(async Item => await this.ShowPaymentItem(Item));
+			this.LoadMoreAccountEventsCommand = new Command(async _ => await this.LoadMoreAccountEvents());
+			this.FlipCommand = new Command(async _ => await this.FlipWallet());
+			this.CreateTokenCommand = new Command(async _ => await this.CreateToken());
+			this.LoadMoreTokensCommand = new Command(async _ => await this.LoadMoreTokens());
 
 			this.PaymentItems = new ObservableCollection<IItemGroup>();
 			/* The grouped collection is bugged on Android
@@ -67,34 +67,34 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 			if (this.Balance is null && this.NavigationService.TryPopArgs(out WalletNavigationArgs args))
 			{
-				await AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events,
-					args.More, this.XmppService.Wallet.LastEDalerEvent);
+				await this.AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency,
+					args.PendingPayments, args.Events, args.More, this.XmppService.Wallet.LastEDalerEvent);
 			}
-			else if ((!(this.Balance is null) && !(this.XmppService.Wallet.LastBalance is null) &&
+			else if (((this.Balance is not null) && (this.XmppService.Wallet.LastBalance is not null) &&
 				(this.Balance.Amount != this.XmppService.Wallet.LastBalance.Amount ||
 				this.Balance.Currency != this.XmppService.Wallet.LastBalance.Currency ||
 				this.Balance.Timestamp != this.XmppService.Wallet.LastBalance.Timestamp)) ||
 				this.LastEDalerEvent != this.XmppService.Wallet.LastEDalerEvent)
 			{
-				await this.ReloadEDalerWallet(this.XmppService.Wallet.LastBalance ?? Balance ?? this.Balance);
+				await this.ReloadEDalerWallet(this.XmppService.Wallet.LastBalance ?? this.Balance ?? this.Balance);
 			}
 
 			if (this.HasTokens && this.LastTokenEvent != this.XmppService.Wallet.LastTokenEvent)
 				await this.LoadTokens(true);
 
-			EvaluateAllCommands();
+			this.EvaluateAllCommands();
 
-			this.XmppService.Wallet.BalanceUpdated += Wallet_BalanceUpdated;
-			this.XmppService.Wallet.TokenAdded += Wallet_TokenAdded;
-			this.XmppService.Wallet.TokenRemoved += Wallet_TokenRemoved;
+			this.XmppService.Wallet.BalanceUpdated += this.Wallet_BalanceUpdated;
+			this.XmppService.Wallet.TokenAdded += this.Wallet_TokenAdded;
+			this.XmppService.Wallet.TokenRemoved += this.Wallet_TokenRemoved;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.XmppService.Wallet.BalanceUpdated -= Wallet_BalanceUpdated;
-			this.XmppService.Wallet.TokenAdded -= Wallet_TokenAdded;
-			this.XmppService.Wallet.TokenRemoved -= Wallet_TokenRemoved;
+			this.XmppService.Wallet.BalanceUpdated -= this.Wallet_BalanceUpdated;
+			this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;
+			this.XmppService.Wallet.TokenRemoved -= this.Wallet_TokenRemoved;
 
 			await base.DoUnbind();
 		}
@@ -102,7 +102,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		private async Task AssignProperties(Balance Balance, decimal PendingAmount, string PendingCurrency,
 			EDaler.PendingPayment[] PendingPayments, EDaler.AccountEvent[] Events, bool More, DateTime LastEvent)
 		{
-			if (!(Balance is null))
+			if (Balance is not null)
 			{
 				this.Balance = Balance;
 				this.Amount = Balance.Amount;
@@ -190,7 +190,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
 				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
 
-				this.UiSerializer.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency,
+				this.UiSerializer.BeginInvokeOnMainThread(async () => await this.AssignProperties(Balance, PendingAmount, PendingCurrency,
 					PendingPayments, Events, More, this.XmppService.Wallet.LastEDalerEvent));
 			}
 			catch (Exception ex)
@@ -635,7 +635,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		private async Task LoadTokens(bool Reload)
-		{ 
+		{
 			this.LastTokenEvent = this.XmppService.Wallet.LastTokenEvent;
 
 			if (!this.HasTotals || Reload)
@@ -650,7 +650,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 						{
 							this.Totals.Clear();
 
-							if (!(e.Totals is null))
+							if (e.Totals is not null)
 							{
 								this.Totals.Clear();
 
@@ -684,7 +684,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 						{
 							this.Tokens.Clear();
 
-							if (!(e.Tokens is null))
+							if (e.Tokens is not null)
 							{
 								this.Tokens.Clear();
 
@@ -806,7 +806,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 					{
 						if (e.Ok)
 						{
-							if (!(e.Tokens is null))
+							if (e.Tokens is not null)
 							{
 								foreach (Token Token in e.Tokens)
 									this.Tokens.Add(new TokenItem(Token, this));

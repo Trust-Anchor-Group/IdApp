@@ -33,27 +33,27 @@ namespace IdApp.Android.Push
 			switch (ChannelId)
 			{
 				case Constants.PushChannels.Messages:
-					ShowMessageNotification(Title, Body, Message.Data);
+					this.ShowMessageNotification(Title, Body, Message.Data);
 					break;
 
 				case Constants.PushChannels.Petitions:
-					ShowPetitionNotification(Title, Body, Message.Data);
+					this.ShowPetitionNotification(Title, Body, Message.Data);
 					break;
 
 				case Constants.PushChannels.Identities:
-					ShowIdentitiesNotification(Title, Body, Message.Data);
+					this.ShowIdentitiesNotification(Title, Body, Message.Data);
 					break;
 
 				case Constants.PushChannels.Contracts:
-					ShowContractsNotification(Title, Body, Message.Data);
+					this.ShowContractsNotification(Title, Body, Message.Data);
 					break;
 
 				case Constants.PushChannels.EDaler:
-					ShowEDalerNotification(Title, Body, Message.Data);
+					this.ShowEDalerNotification(Title, Body, Message.Data);
 					break;
 
 				case Constants.PushChannels.Tokens:
-					ShowTokenNotification(Title, Body, Message.Data);
+					this.ShowTokenNotification(Title, Body, Message.Data);
 					break;
 
 				default:
@@ -388,7 +388,7 @@ namespace IdApp.Android.Push
 				IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
 				PushService?.NewToken(new TokenInformation()
 				{
-					Service = Waher.Networking.XMPP.Push.PushMessagingService.Firebase,
+					Service = PushMessagingService.Firebase,
 					Token = p0,
 					ClientType = ClientType.Android
 				});
@@ -411,7 +411,7 @@ namespace IdApp.Android.Push
 			{
 				Token = Token.ToString(),
 				ClientType = ClientType.Android,
-				Service = Waher.Networking.XMPP.Push.PushMessagingService.Firebase
+				Service = PushMessagingService.Firebase
 			};
 		}
 
