@@ -1444,9 +1444,9 @@ namespace IdApp.Services.Xmpp
 					ChatViewModel.BareJid == e.FromBareJID)
 				{
 					if (string.IsNullOrEmpty(ReplaceObjectId))
-						ChatViewModel.MessageAdded(Message);
+						await ChatViewModel.MessageAddedAsync(Message);
 					else
-						ChatViewModel.MessageUpdated(Message);
+						await ChatViewModel.MessageUpdatedAsync(Message);
 				}
 			}
 			else
@@ -1456,6 +1456,8 @@ namespace IdApp.Services.Xmpp
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					await NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName) { UniqueId = BareJid }));
+
+				Thread.Sleep(100);
 			}
 		}
 
