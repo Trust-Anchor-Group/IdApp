@@ -1444,9 +1444,9 @@ namespace IdApp.Services.Xmpp
 					ChatViewModel.BareJid == e.FromBareJID)
 				{
 					if (string.IsNullOrEmpty(ReplaceObjectId))
-						await ChatViewModel.MessageAdded(Message);
+						ChatViewModel.MessageAdded(Message);
 					else
-						await ChatViewModel.MessageUpdated(Message);
+						ChatViewModel.MessageUpdated(Message);
 				}
 			}
 			else

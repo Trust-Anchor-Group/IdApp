@@ -35,11 +35,11 @@ namespace IdApp.Pages.Wallet
         /// <summary>
         /// Encapsulates a grouped item collection.
         /// </summary>
-        /// <param name="name">Group's unique name.</param>
+        /// <param name="Name">Group's unique name.</param>
         /// <param name="Items">Group's item collection.</param>
-        public ItemGroupCollection(string name, ObservableCollection<T> Items) : base(Items)
+        public ItemGroupCollection(string Name, ObservableCollection<T> Items) : base(Items)
         {
-            UniqueName = name;
+            this.UniqueName = Name;
         }
     }
 }

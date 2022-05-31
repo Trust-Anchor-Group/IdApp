@@ -1,4 +1,5 @@
 ﻿using IdApp.Pages.Contacts.Chat;
+using IdApp.Pages.Wallet;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -39,7 +40,7 @@ namespace IdApp.Services.Messages
 	[TypeName(TypeNameSerialization.None)]
 	[Index("RemoteBareJid", "Created")]
 	[Index("RemoteBareJid", "RemoteObjectId")]
-	public class ChatMessage
+	public class ChatMessage : IItemGroup
 	{
 		private string objectId = null;
 		private CaseInsensitiveString remoteBareJid = null;
@@ -70,6 +71,9 @@ namespace IdApp.Services.Messages
 			this.EDalerUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.EDaler));
 			this.HyperlinkClicked = new Command(async Parameter => await this.ExecuteHyperlinkClicked(Parameter));
 		}
+
+		/// <inheritdoc/>
+		public string UniqueName => this.ObjectId;
 
 		/// <summary>
 		/// Object ID

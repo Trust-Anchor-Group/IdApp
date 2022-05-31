@@ -165,10 +165,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				IItemGroup Item = NewCollection[i];
 
-				if (i >= this.PaymentItems.Count)
-					this.PaymentItems.Add(Item);
-				else if (this.PaymentItems[i].UniqueName != Item.UniqueName)
-					this.PaymentItems.Insert(i, Item);
+				if (i >= OldCollection.Count)
+					OldCollection.Add(Item);
+				else if (OldCollection[i].UniqueName != Item.UniqueName)
+					OldCollection.Insert(i, Item);
 			}
 		}
 
