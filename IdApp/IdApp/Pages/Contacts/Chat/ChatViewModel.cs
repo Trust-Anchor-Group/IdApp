@@ -272,7 +272,7 @@ namespace IdApp.Pages.Contacts.Chat
 				return;
 			}
 
-			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
 				try
 				{
@@ -512,7 +512,7 @@ namespace IdApp.Pages.Contacts.Chat
 						Message = Old;
 
 						if (ServiceReferences is ChatViewModel ChatViewModel)
-							ChatViewModel.MessageUpdatedAsync(Message);
+							await ChatViewModel.MessageUpdatedAsync(Message);
 					}
 				}
 
