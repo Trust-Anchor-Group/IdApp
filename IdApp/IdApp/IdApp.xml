@@ -1983,13 +1983,13 @@
             Holds the list of chat messages to display.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageAdded(IdApp.Services.Messages.ChatMessage)">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageAddedAsync(IdApp.Services.Messages.ChatMessage)">
             <summary>
             External message has been received
             </summary>
             <param name="Message">Message</param>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageUpdated(IdApp.Services.Messages.ChatMessage)">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageUpdatedAsync(IdApp.Services.Messages.ChatMessage)">
             <summary>
             External message has been updated
             </summary>
