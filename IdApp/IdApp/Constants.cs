@@ -445,5 +445,21 @@ namespace IdApp
 			/// </summary>
 			public const string Tokens = "Tokens";
 		}
+
+		/// <summary>
+		/// Names of Effects.
+		/// </summary>
+		public static class Effects
+		{
+			/// <summary>
+			/// ResolutionGroupName used for resolving Effects.
+			/// </summary>
+			public const string ResolutionGroupName = "com.tag.IdApp";
+
+			/// <summary>
+			/// PasswordMaskTogglerEffect.
+			/// </summary>
+			public const string PasswordMaskTogglerEffect = "PasswordMaskTogglerEffect";
+		}
 	}
 }

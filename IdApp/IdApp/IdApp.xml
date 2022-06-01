@@ -642,6 +642,21 @@
             Tokens channel
             </summary>
         </member>
+        <member name="T:IdApp.Constants.Effects">
+            <summary>
+            Names of Effects.
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Effects.ResolutionGroupName">
+            <summary>
+            ResolutionGroupName used for resolving Effects.
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Effects.PasswordMaskTogglerEffect">
+            <summary>
+            PasswordMaskTogglerEffect.
+            </summary>
+        </member>
         <member name="T:IdApp.Controls.Extended.ExtendedDatePicker">
             <summary>
              Extended DatePicker for nullable values with text placeholder
