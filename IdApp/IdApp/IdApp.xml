@@ -1089,6 +1089,26 @@
             The NoBounceScrollView disables the bounce effect for the scroll view on iOS
             </summary>
         </member>
+        <member name="T:IdApp.Controls.TemplatedSwitch.TemplatedSwitch">
+            <summary>
+            TemplatedSwitch represents a generalization of <see cref="T:Xamarin.Forms.Switch"/> whose appearance is defined by a <see cref="T:Xamarin.Forms.ControlTemplate"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.TemplatedSwitch.TemplatedSwitch.IsToggledProperty">
+            <summary>
+            <see cref="T:Xamarin.Forms.BindableProperty"/> implementation of <see cref="P:IdApp.Controls.TemplatedSwitch.TemplatedSwitch.IsToggled"/> property.
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.TemplatedSwitch.TemplatedSwitch.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:IdApp.Controls.TemplatedSwitch.TemplatedSwitch"/> class.
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.TemplatedSwitch.TemplatedSwitch.IsToggled">
+            <summary>
+            Gets or sets the value indicating if the current <see cref="T:IdApp.Controls.TemplatedSwitch.TemplatedSwitch"/> is toggled.
+            </summary>
+        </member>
         <member name="T:IdApp.Converters.BinaryToBase64">
             <summary>
             Converts binary data to base64-encoded strings.
@@ -1999,13 +2019,13 @@
             Holds the list of chat messages to display.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageAdded(IdApp.Services.Messages.ChatMessage)">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageAddedAsync(IdApp.Services.Messages.ChatMessage)">
             <summary>
             External message has been received
             </summary>
             <param name="Message">Message</param>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageUpdated(IdApp.Services.Messages.ChatMessage)">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageUpdatedAsync(IdApp.Services.Messages.ChatMessage)">
             <summary>
             External message has been updated
             </summary>
@@ -14298,6 +14318,16 @@
         <member name="F:IdApp.Resx.FontAwesome.StarOfLife">
             <summary>
             star-of-life
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.FontAwesome.Eye">
+            <summary>
+            eye
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.FontAwesome.EyeSlash">
+            <summary>
+            eye-slash
             </summary>
         </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">
