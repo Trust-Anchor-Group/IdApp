@@ -38,7 +38,7 @@
                 Text="{Binding Path=PinStrength, Converter={converters:PinStrengthToErrorMessage}}"
                 IsVisible="False"
                 TextColor="{StaticResource AlertColor}"
-                Margin="{StaticResource DefaultBottomOnlyMargin}" >
+                Margin="{StaticResource DefaultBottomOnlyMargin}">
 				<Label.Triggers>
 					<MultiTrigger TargetType="Label">
 						<MultiTrigger.Conditions>
@@ -69,12 +69,12 @@
                     HorizontalOptions="End"
                     VerticalOptions="Center" />
 			</Grid>
-
 			<Label
                 Text="{x:Static resx:AppResources.PinsDoNotMatch}"
                 IsVisible="{Binding Path=PinsDoNotMatch}"
                 TextColor="{StaticResource AlertColor}"
                 Margin="{StaticResource DefaultBottomOnlyMargin}" />
+			
 			<Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
 
 			<Button x:Name="OkButton" Text="{x:Static resx:AppResources.Ok}" Command="{Binding Path=ContinueCommand}" Margin="{StaticResource DefaultTopOnlyMargin}" />
