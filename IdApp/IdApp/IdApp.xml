@@ -1675,6 +1675,27 @@
             Keyboard height
             </summary>
         </member>
+        <member name="T:IdApp.Helpers.PasswordMask">
+            <summary>
+            PasswordMask is a class which defines <c>IsEnabled</c> attached <see cref="T:Xamarin.Forms.BindableProperty"/> used to store the state
+            of <see cref="T:Xamarin.Forms.Entry"/> password masking.
+            </summary>
+        </member>
+        <member name="F:IdApp.Helpers.PasswordMask.IsEnabledProperty">
+            <summary>
+            Implements the attached property that indicates if the <see cref="T:Xamarin.Forms.Entry"/> password must be masked.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.PasswordMask.GetIsEnabled(Xamarin.Forms.BindableObject)">
+            <summary>
+            Gets the value indicating if the password associated with <paramref name="bindable"/> must be masked.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.PasswordMask.SetIsEnabled(Xamarin.Forms.BindableObject,System.Boolean)">
+            <summary>
+            Sets the value indicating if the password associated with <paramref name="bindable"/> must be masked.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.BaseViewModel">
             <summary>
             A base class for all view models, inheriting from the <see cref="T:Xamarin.Forms.BindableObject"/>.
