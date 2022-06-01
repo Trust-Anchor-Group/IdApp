@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Android.Text;
 using Android.Widget;
 using IdApp.Helpers;
@@ -46,7 +47,7 @@ namespace IdApp.Android.Effects
 					EditText.InputType = InputTypes.ClassText | InputTypes.TextVariationVisiblePassword;
 				}
 
-				EditText.SetSelection(SelectionStart, SelectionEnd);
+				EditText.SetSelection(Math.Min(SelectionStart, SelectionEnd), Math.Max(SelectionStart, SelectionEnd));
 
 				// Setting input type to any password variation (masked or not) will reset the font typeface to the Android default value,
 				// which differs from what was set by Xamarin renderer. The font size changes below will trigger the EditText renderer and
