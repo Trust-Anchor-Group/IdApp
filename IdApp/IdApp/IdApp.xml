@@ -1074,6 +1074,26 @@
             The NoBounceScrollView disables the bounce effect for the scroll view on iOS
             </summary>
         </member>
+        <member name="T:IdApp.Controls.TemplatedSwitch.TemplatedSwitch">
+            <summary>
+            TemplatedSwitch represents a generalization of <see cref="T:Xamarin.Forms.Switch"/> whose appearance is defined by a <see cref="T:Xamarin.Forms.ControlTemplate"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.TemplatedSwitch.TemplatedSwitch.IsToggledProperty">
+            <summary>
+            <see cref="T:Xamarin.Forms.BindableProperty"/> implementation of <see cref="P:IdApp.Controls.TemplatedSwitch.TemplatedSwitch.IsToggled"/> property.
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.TemplatedSwitch.TemplatedSwitch.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:IdApp.Controls.TemplatedSwitch.TemplatedSwitch"/> class.
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.TemplatedSwitch.TemplatedSwitch.IsToggled">
+            <summary>
+            Gets or sets the value indicating if the current <see cref="T:IdApp.Controls.TemplatedSwitch.TemplatedSwitch"/> is toggled.
+            </summary>
+        </member>
         <member name="T:IdApp.Converters.BinaryToBase64">
             <summary>
             Converts binary data to base64-encoded strings.
