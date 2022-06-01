@@ -14284,6 +14284,16 @@
             star-of-life
             </summary>
         </member>
+        <member name="F:IdApp.Resx.FontAwesome.Eye">
+            <summary>
+            eye
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.FontAwesome.EyeSlash">
+            <summary>
+            eye-slash
+            </summary>
+        </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">
             <inheritdoc cref="T:IdApp.Services.AttachmentCache.IAttachmentCacheService"/>
         </member>
