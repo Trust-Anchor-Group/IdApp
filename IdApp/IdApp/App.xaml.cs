@@ -59,7 +59,6 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
-
 namespace IdApp
 {
 	/// <summary>
@@ -289,7 +288,7 @@ namespace IdApp
 			this.StartupCompleted("StartupProfile.uml", false);
 
 			if (!await App.VerifyPin())
-				this.Quit();
+				await App.Stop();
 		}
 
 		///<inheritdoc/>
@@ -301,7 +300,7 @@ namespace IdApp
 			await this.PerformStartup(true, null);
 
 			if (!await App.VerifyPin())
-				this.Quit();
+				await App.Stop();
 		}
 
 
@@ -782,7 +781,12 @@ namespace IdApp
 			if (!Profile.UsePin)
 				return string.Empty;
 
-			return await InputPin(Profile);
+			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
+
+			if (!firstCheckPinPassed || NeedToVerifyPin)
+				return await InputPin(Profile);
+			else
+				return Profile.Pin;
 		}
 
 		/// <summary>
