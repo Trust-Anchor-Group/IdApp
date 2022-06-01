@@ -7,7 +7,7 @@ using Xamarin.Forms.Platform.iOS;
 [assembly: ExportEffect(typeof(IdApp.iOS.Effects.PasswordMaskTogglerEffect), IdApp.Constants.Effects.PasswordMaskTogglerEffect)]
 namespace IdApp.iOS.Effects
 {
-	internal class PasswordMaskTogglerEffect : PlatformEffect
+	public class PasswordMaskTogglerEffect : PlatformEffect
 	{
 		private UITextField TextField => this.Control as UITextField;
 
