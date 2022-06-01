@@ -1358,6 +1358,31 @@
         <member name="M:IdApp.Converters.MoneyToString.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Converters.PinStrengthToErrorMessage">
+            <summary>
+            PinStrengthToErrorMessage is an <see cref="T:Xamarin.Forms.IValueConverter"/> which converts <see cref="T:IdApp.Services.Tag.PinStrength"/> to an error message to display.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.PinStrengthToErrorMessage.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Returns a localized error message for a given <see cref="T:IdApp.Services.Tag.PinStrength"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.PinStrengthToErrorMessage.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Always throws a <see cref="T:System.NotImplementedException"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.PinStrengthToErrorMessage.ProvideValue(System.IServiceProvider)">
+            <summary>
+            Returns an instance of <see cref="T:IdApp.Converters.PinStrengthToErrorMessage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.PinStrengthToErrorMessage.Xamarin#Forms#Xaml#IMarkupExtension#ProvideValue(System.IServiceProvider)">
+            <summary>
+            Returns an instance of <see cref="T:IdApp.Converters.PinStrengthToErrorMessage"/> class.
+            </summary>
+        </member>
         <member name="T:IdApp.DeviceSpecific.ICloseApplication">
             <summary>
             Dependency interface for device-specific closing of application.
