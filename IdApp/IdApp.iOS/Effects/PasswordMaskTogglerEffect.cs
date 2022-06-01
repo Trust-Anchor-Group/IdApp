@@ -57,7 +57,7 @@ namespace IdApp.iOS.Effects
 			{
 				string OriginalText = TextField.Text;
 
-				// Disrupt the UITextField so that the password is cleared now but future edits do not clear the password.
+				// Disrupt the UITextField so that the password is cleared now but future edits will not clear it.
 				TextField.DeleteBackward();
 
 				// Restore the original value, having been cleared by the previous disruption.
