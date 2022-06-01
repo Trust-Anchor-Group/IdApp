@@ -6715,34 +6715,24 @@
             The retyped pin to use for validation against <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/>.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinsDoNotMatchProperty">
+        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringPinStartedProperty">
             <summary>
-            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinsDoNotMatch"/>
+            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringPinStarted"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringPinStarted">
+            <summary>
+            Gets or sets a value indicating if the user has started entering PIN.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinStrength">
+            <summary>
+            Gets the value indicating how strong the <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> is.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinsDoNotMatch">
             <summary>
-            Gets or sets whether the entered Pin differ betweeen <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> and <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.RetypedPin"/>.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinIsTooShortProperty">
-            <summary>
-            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinIsTooShort"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinIsTooShort">
-            <summary>
-            Gets or sets whether the entered PIN is too short.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinIsTooShortMessageProperty">
-            <summary>
-            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinIsTooShortMessage"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinIsTooShortMessage">
-            <summary>
-            The localized message to display if and when the PIN code is too short.
+            Gets a value indicating whether the entered PIN differs between <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> and <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.RetypedPin"/>.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.UsePinProperty">
@@ -6774,6 +6764,9 @@
             <summary>
             The user friendly connection state text to display to the user.
             </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.OnPropertyChanged(System.String)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel">
             <summary>
