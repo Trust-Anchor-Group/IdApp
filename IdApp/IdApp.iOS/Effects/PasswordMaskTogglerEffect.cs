@@ -4,9 +4,7 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ResolutionGroupName(IdApp.Constants.Effects.ResolutionGroupName)]
 [assembly: ExportEffect(typeof(IdApp.iOS.Effects.PasswordMaskTogglerEffect), IdApp.Constants.Effects.PasswordMaskTogglerEffect)]
-
 namespace IdApp.iOS.Effects
 {
 	internal class PasswordMaskTogglerEffect : PlatformEffect
