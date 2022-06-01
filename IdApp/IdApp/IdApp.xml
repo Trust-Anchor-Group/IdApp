@@ -1248,6 +1248,32 @@
         <member name="M:IdApp.Converters.EqualsOne.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Converters.EqualsParameter">
+            <summary>
+            EqualParameter is an <see cref="T:Xamarin.Forms.IValueConverter"/> which converts a given value to a boolean indicating if the value
+            is equal to the provided <see cref="P:Xamarin.Forms.Binding.ConverterParameter"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.EqualsParameter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Returns <c>true</c> if <paramref name="value"/> equals to <paramref name="parameter"/> and <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.EqualsParameter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Always throws a <see cref="T:System.NotImplementedException"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.EqualsParameter.ProvideValue(System.IServiceProvider)">
+            <summary>
+            Returns an instance of <see cref="T:IdApp.Converters.EqualsParameter"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.EqualsParameter.Xamarin#Forms#Xaml#IMarkupExtension#ProvideValue(System.IServiceProvider)">
+            <summary>
+            Returns an instance of <see cref="T:IdApp.Converters.EqualsParameter"/> class.
+            </summary>
+        </member>
         <member name="T:IdApp.Converters.EqualsZero">
             <summary>
             Is true if an integer property is equal to zero.
