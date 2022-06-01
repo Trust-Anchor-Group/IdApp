@@ -6,7 +6,7 @@ using Xamarin.Forms.Xaml;
 namespace IdApp.Converters
 {
 	/// <summary>
-	/// EqualParameter is an <see cref="IValueConverter"/> which converts a given value to a boolean indicating if the value
+	/// EqualsParameter is an <see cref="IValueConverter"/> which converts a given value to a boolean indicating if the value
 	/// is equal to the provided <see cref="Binding.ConverterParameter"/>.
 	/// </summary>
 	public class EqualsParameter : IValueConverter, IMarkupExtension<EqualsParameter>
