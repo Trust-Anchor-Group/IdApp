@@ -5,9 +5,7 @@ using IdApp.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ResolutionGroupName(IdApp.Constants.Effects.ResolutionGroupName)]
 [assembly: ExportEffect(typeof(IdApp.Android.Effects.PasswordMaskTogglerEffect), IdApp.Constants.Effects.PasswordMaskTogglerEffect)]
-
 namespace IdApp.Android.Effects
 {
 	public class PasswordMaskTogglerEffect : PlatformEffect
