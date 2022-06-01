@@ -11,13 +11,26 @@ namespace IdApp.iOS.Effects
 {
 	internal class PasswordMaskTogglerEffect : PlatformEffect
 	{
+		private UITextField TextField => this.Control as UITextField;
+
+		private Entry Entry => this.Element as Entry;
+
 		protected override void OnAttached()
 		{
+			if (this.TextField != null)
+			{
+				this.TextField.EditingDidBegin += this.OnEditingBegin;
+			}
+
 			this.UpdateSecureTextEntry();
 		}
 
 		protected override void OnDetached()
 		{
+			if (this.TextField != null)
+			{
+				this.TextField.EditingDidBegin -= this.OnEditingBegin;
+			}
 		}
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
@@ -32,41 +45,38 @@ namespace IdApp.iOS.Effects
 
 		private void UpdateSecureTextEntry()
 		{
-			if (this.Element is Entry Entry && Entry.IsPassword && this.Control is UITextField TextField)
+			if (this.Entry != null && this.Entry.IsPassword && this.TextField != null)
 			{
-				bool IsPasswordMasked = PasswordMask.GetIsEnabled(Entry);
+				bool IsPasswordMasked = PasswordMask.GetIsEnabled(this.Entry);
 				if (IsPasswordMasked)
 				{
-					TextField.SecureTextEntry = true;
-					TextField.EditingDidBegin += this.OnEditingBegin;
+					this.TextField.SecureTextEntry = true;
 				}
 				else
 				{
-					TextField.SecureTextEntry = false;
-					TextField.AutocorrectionType = UITextAutocorrectionType.No;
-					TextField.AutocapitalizationType = UITextAutocapitalizationType.None;
+					this.TextField.SecureTextEntry = false;
+					this.TextField.AutocorrectionType = UITextAutocorrectionType.No;
+					this.TextField.AutocapitalizationType = UITextAutocapitalizationType.None;
 				}
 			}
 		}
 
 		private void OnEditingBegin(object sender, System.EventArgs e)
 		{
-			UITextField TextField = (UITextField)this.Control;
-			TextField.EditingDidBegin -= this.OnEditingBegin;
-			if (!string.IsNullOrEmpty(TextField.Text))
+			if (this.TextField.SecureTextEntry && !string.IsNullOrEmpty(this.TextField.Text) && this.Entry != null)
 			{
-				string OriginalText = TextField.Text;
+				string OriginalText = this.TextField.Text;
 
 				// Disrupt the UITextField so that the password is cleared now but future edits will not clear it.
-				TextField.DeleteBackward();
+				this.TextField.DeleteBackward();
 
 				// Restore the original value, having been cleared by the previous disruption.
-				TextField.Text = OriginalText;
+				this.TextField.Text = OriginalText;
 
 				// Just setting UITextField.Text property does not raise EditingChanged event, which the renderer monitors.
 				// Calling UITextField.InsertText(string) does raise the event but leads to an ugly effect of the last character
 				// being shown for a moment.
-				((IElementController)this.Element).SetValueFromRenderer(Entry.TextProperty, OriginalText);
+				((IElementController)this.Entry).SetValueFromRenderer(Entry.TextProperty, OriginalText);
 			}
 		}
 	}
