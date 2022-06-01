@@ -13050,6 +13050,26 @@
               Looks up a localized string similar to PIN has been successfully changed..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.PinContainsAddress">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain any word from the identity address lines..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinContainsName">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain any word from the identity names..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinContainsPersonalNumber">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain the identity personal number..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinContainsPhoneNumber">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain the identity phone number..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.PinIsInvalid">
             <summary>
               Looks up a localized string similar to PIN is invalid.
@@ -13072,7 +13092,37 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.PinTooShort">
             <summary>
-              Looks up a localized string similar to PIN number too short. At least {0} numbers (or characters) are required..
+              Looks up a localized string similar to PIN length must be at least {0} characters..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinWithNotEnoughDigitsLettersSigns">
+            <summary>
+              Looks up a localized string similar to At least {0} letters, digits or symbols must be used..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinWithNotEnoughDigitsOrSigns">
+            <summary>
+              Looks up a localized string similar to You must also use at least {0} digits or symbols..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinWithNotEnoughLettersOrDigits">
+            <summary>
+              Looks up a localized string similar to You must also use at least {0} letters or digits..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinWithNotEnoughLettersOrSigns">
+            <summary>
+              Looks up a localized string similar to You must also use at least {0} letters or symbols..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinWithTooManyIdenticalSymbols">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain more than {0} identical symbols..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinWithTooManySequencedSymbols">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain more than {0} sequenced symbols, e.g. &quot;12&quot; or &quot;ab&quot;..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PleaseReviewAndCheckAllCheckboxes">

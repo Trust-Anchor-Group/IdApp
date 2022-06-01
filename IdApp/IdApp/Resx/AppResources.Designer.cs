@@ -2626,6 +2626,42 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A PIN must not contain any word from the identity address lines..
+        /// </summary>
+        internal static string PinContainsAddress {
+            get {
+                return ResourceManager.GetString("PinContainsAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A PIN must not contain any word from the identity names..
+        /// </summary>
+        internal static string PinContainsName {
+            get {
+                return ResourceManager.GetString("PinContainsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A PIN must not contain the identity personal number..
+        /// </summary>
+        internal static string PinContainsPersonalNumber {
+            get {
+                return ResourceManager.GetString("PinContainsPersonalNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A PIN must not contain the identity phone number..
+        /// </summary>
+        internal static string PinContainsPhoneNumber {
+            get {
+                return ResourceManager.GetString("PinContainsPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PIN is invalid.
         /// </summary>
         internal static string PinIsInvalid {
@@ -2662,11 +2698,65 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PIN number too short. At least {0} numbers (or characters) are required..
+        ///   Looks up a localized string similar to PIN length must be at least {0} characters..
         /// </summary>
         internal static string PinTooShort {
             get {
                 return ResourceManager.GetString("PinTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At least {0} letters, digits or symbols must be used..
+        /// </summary>
+        internal static string PinWithNotEnoughDigitsLettersSigns {
+            get {
+                return ResourceManager.GetString("PinWithNotEnoughDigitsLettersSigns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must also use at least {0} digits or symbols..
+        /// </summary>
+        internal static string PinWithNotEnoughDigitsOrSigns {
+            get {
+                return ResourceManager.GetString("PinWithNotEnoughDigitsOrSigns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must also use at least {0} letters or digits..
+        /// </summary>
+        internal static string PinWithNotEnoughLettersOrDigits {
+            get {
+                return ResourceManager.GetString("PinWithNotEnoughLettersOrDigits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must also use at least {0} letters or symbols..
+        /// </summary>
+        internal static string PinWithNotEnoughLettersOrSigns {
+            get {
+                return ResourceManager.GetString("PinWithNotEnoughLettersOrSigns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A PIN must not contain more than {0} identical symbols..
+        /// </summary>
+        internal static string PinWithTooManyIdenticalSymbols {
+            get {
+                return ResourceManager.GetString("PinWithTooManyIdenticalSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A PIN must not contain more than {0} sequenced symbols, e.g. &quot;12&quot; or &quot;ab&quot;..
+        /// </summary>
+        internal static string PinWithTooManySequencedSymbols {
+            get {
+                return ResourceManager.GetString("PinWithTooManySequencedSymbols", resourceCulture);
             }
         }
         
