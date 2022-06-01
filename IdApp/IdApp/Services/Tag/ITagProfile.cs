@@ -369,5 +369,12 @@ namespace IdApp.Services.Tag
 		/// Clears the entire profile.
 		/// </summary>
 		void ClearAll();
+
+		/// <summary>
+		/// Validates if the <paramref name="Pin"/> is strong enough.
+		/// </summary>
+		/// <param name="Pin">PIN to validate.</param>
+		/// <returns>A <see cref="PinStrength"/> value indicating if the <paramref name="Pin"/> is strong enough.</returns>
+		PinStrength ValidatePinStrength(string Pin);
 	}
 }

@@ -12,10 +12,10 @@ namespace IdApp.Services.Navigation
 	[Singleton]
 	internal sealed class NavigationService : LoadableService, INavigationService
 	{
-		private const string DefaultGoBackRoute = "..";
-		private NavigationArgs currentNavigationArgs;
+		private const string defaultGoBackRoute = "..";
 		private readonly Dictionary<string, NavigationArgs> navigationArgsMap;
-		bool isManuallyNavigatingBack = false;
+		private NavigationArgs currentNavigationArgs;
+		private bool isManuallyNavigatingBack = false;
 
 		public NavigationService()
 		{
@@ -81,42 +81,51 @@ namespace IdApp.Services.Navigation
 			}
 		}
 
-		private bool TryGetPageName(string route, out string pageName)
+		private bool TryGetPageName(string Route, out string PageName)
 		{
-			pageName = null;
-			if (!string.IsNullOrWhiteSpace(route))
+			PageName = null;
+
+			if (!string.IsNullOrWhiteSpace(Route))
 			{
-				pageName = route.TrimStart('.', '/');
-				return !string.IsNullOrWhiteSpace(pageName);
+				PageName = Route.TrimStart('.', '/');
+				return !string.IsNullOrWhiteSpace(PageName);
 			}
 
 			return false;
 		}
 
-		internal void PushArgs<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
+		private void PushArgs<TArgs>(string Route, TArgs args) where TArgs : NavigationArgs
 		{
 			this.currentNavigationArgs = args;
 
-			if (this.TryGetPageName(route, out string pageName))
+			if (this.TryGetPageName(Route, out string PageName))
 			{
 				if (args is not null)
-					this.navigationArgsMap[pageName] = args;
+				{
+					if (!string.IsNullOrEmpty(args.UniqueId))
+					{
+						PageName += args.UniqueId;
+					}
+
+					this.navigationArgsMap[PageName] = args;
+				}
 				else
-					this.navigationArgsMap.Remove(pageName);
+					this.navigationArgsMap.Remove(PageName);
 			}
 		}
 
-		public bool TryPopArgs<TArgs>(out TArgs args) where TArgs : NavigationArgs
+		public bool TryPopArgs<TArgs>(out TArgs args, string UniqueId = null) where TArgs : NavigationArgs
 		{
-			string route = Shell.Current.CurrentPage?.GetType().Name;
-			return this.TryPopArgs(route, out args);
+			string PageName = Shell.Current.CurrentPage?.GetType().Name;
+
+			return this.TryPopArgs(PageName, out args, UniqueId);
 		}
 
-		public TArgs GetPopArgs<TArgs>() where TArgs : NavigationArgs
+		public TArgs GetPopArgs<TArgs>(string UniqueId = null) where TArgs : NavigationArgs
 		{
-			string route = Shell.Current.CurrentPage?.GetType().Name;
+			string PageName = Shell.Current.CurrentPage?.GetType().Name;
 
-			if (this.TryPopArgs<TArgs>(route, out TArgs args))
+			if (this.TryPopArgs<TArgs>(PageName, out TArgs args, UniqueId))
 			{
 				return args;
 			}
@@ -124,10 +133,16 @@ namespace IdApp.Services.Navigation
 			return null;
 		}
 
-		internal bool TryPopArgs<TArgs>(string route, out TArgs args) where TArgs : NavigationArgs
+		private bool TryPopArgs<TArgs>(string PageName, out TArgs args, string UniqueId = null) where TArgs : NavigationArgs
 		{
 			args = default;
-			if (this.TryGetPageName(route, out string pageName) &&
+
+			if (!string.IsNullOrEmpty(UniqueId))
+			{
+				PageName += UniqueId;
+			}
+
+			if (this.TryGetPageName(PageName, out string pageName) &&
 				this.navigationArgsMap.TryGetValue(pageName, out NavigationArgs navArgs) &&
 				(navArgs is not null))
 			{
@@ -146,7 +161,7 @@ namespace IdApp.Services.Navigation
 		{
 			try
 			{
-				string ReturnRoute = DefaultGoBackRoute;
+				string ReturnRoute = defaultGoBackRoute;
 				int ReturnCounter = 0;
 
 				if (this.currentNavigationArgs is not null)
@@ -164,7 +179,7 @@ namespace IdApp.Services.Navigation
 				{
 					for (int i = 1; i < ReturnCounter; i++)
 					{
-						ReturnRoute += "/" + DefaultGoBackRoute;
+						ReturnRoute += "/" + defaultGoBackRoute;
 					}
 				}
 
@@ -177,48 +192,53 @@ namespace IdApp.Services.Navigation
 			}
 		}
 
-		public Task GoToAsync(string route)
+		public Task GoToAsync(string Route)
 		{
-			return this.GoToAsync(route, (NavigationArgs)null, (NavigationArgs)null);
+			return this.GoToAsync(Route, (NavigationArgs)null, (NavigationArgs)null);
 		}
 
-		public Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs, new()
+		public Task GoToAsync<TArgs>(string Route, TArgs args) where TArgs : NavigationArgs, new()
 		{
-			NavigationArgs navigationArgs = this.GetPopArgs<NavigationArgs>();
+			NavigationArgs NavigationArgs = this.GetPopArgs<NavigationArgs>();
 
 			if ((args is not null) && args.CancelReturnCounter)
 			{
 				// ignore the previous args if the return counter was canceled
-				navigationArgs = null;
+				NavigationArgs = null;
 			}
 
-			return this.GoToAsync(route, args, navigationArgs);
+			return this.GoToAsync(Route, args, NavigationArgs);
 		}
 
-		internal Task GoToAsync<TArgs>(string route, TArgs args, NavigationArgs navigationArgs) where TArgs : NavigationArgs, new()
+		private Task GoToAsync<TArgs>(string Route, TArgs args, NavigationArgs NavigationArgs) where TArgs : NavigationArgs, new()
 		{
-			if ((navigationArgs is not null) && (navigationArgs.ReturnCounter > 0))
+			if ((NavigationArgs is not null) && (NavigationArgs.ReturnCounter > 0))
 			{
 				if (args is null)
 				{
 					args = new TArgs();
 				}
 
-				args.ReturnCounter = navigationArgs.ReturnCounter + 1;
+				args.ReturnCounter = NavigationArgs.ReturnCounter + 1;
 			}
 
-			this.PushArgs(route, args);
+			this.PushArgs(Route, args);
 
 			try
 			{
-				return Shell.Current.GoToAsync(route, true);
+				if ((args is not null) && !string.IsNullOrEmpty(args.UniqueId))
+				{
+					Route += "?UniqueId=" + args.UniqueId;
+				}
+
+				return Shell.Current.GoToAsync(Route, true);
 			}
 			catch (Exception e)
 			{
 				e = Log.UnnestException(e);
 				this.LogService.LogException(e);
-				string extraInfo = Environment.NewLine + e.Message;
-				return this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route, extraInfo));
+				string ExtraInfo = Environment.NewLine + e.Message;
+				return this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, Route, ExtraInfo));
 			}
 		}
 

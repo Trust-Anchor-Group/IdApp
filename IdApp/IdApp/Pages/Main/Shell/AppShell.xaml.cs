@@ -28,9 +28,9 @@ namespace IdApp.Pages.Main.Shell
 		public AppShell()
 		{
 			this.ViewModel = new AppShellViewModel();
-			InitializeComponent();
+			this.InitializeComponent();
 			SetTabBarIsVisible(this, false);
-			RegisterRoutes();
+			this.RegisterRoutes();
 		}
 
 		/// <summary>
@@ -162,6 +162,9 @@ namespace IdApp.Pages.Main.Shell
 
 		private async void ViewIdentityMenuItem_Clicked(object sender, EventArgs e)
 		{
+			string Pin = await App.InputPin();
+			if (Pin is null)
+				return;
 			await this.GoToPage(nameof(Identity.ViewIdentity.ViewIdentityPage));
 		}
 
@@ -205,7 +208,7 @@ namespace IdApp.Pages.Main.Shell
 
 				sb.AppendLine("Name: " + AppInfo.Name);
 				sb.AppendLine("Version: " + AppInfo.VersionString + "." + AppInfo.BuildString);
-				sb.AppendLine("Runtime: " + GetType().Assembly.ImageRuntimeVersion);
+				sb.AppendLine("Runtime: " + this.GetType().Assembly.ImageRuntimeVersion);
 				sb.AppendLine("Manufacturer: " + DeviceInfo.Manufacturer);
 				sb.AppendLine("Phone: " + DeviceInfo.Model);
 				sb.AppendLine("Platform: " + DeviceInfo.Platform + " " + DeviceInfo.VersionString);

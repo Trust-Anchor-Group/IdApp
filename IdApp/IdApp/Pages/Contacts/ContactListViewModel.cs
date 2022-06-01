@@ -241,7 +241,7 @@ namespace IdApp.Pages.Contacts
 
 					case SelectContactAction.ViewIdentity:
 					default:
-						if (!(Contact.LegalIdentity is null))
+						if (Contact.LegalIdentity is not null)
 						{
 							await this.NavigationService.GoToAsync(nameof(ViewIdentityPage),
 								new ViewIdentityNavigationArgs(Contact.LegalIdentity, null));
@@ -249,7 +249,7 @@ namespace IdApp.Pages.Contacts
 						else if (!string.IsNullOrEmpty(Contact.LegalId))
 							await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId, AppResources.ScannedQrCode);
 						else if (!string.IsNullOrEmpty(Contact.BareJid))
-							await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact));
+							await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
 
 						break;
 
