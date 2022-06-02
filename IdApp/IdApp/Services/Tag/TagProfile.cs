@@ -77,7 +77,6 @@ namespace IdApp.Services.Tag
 		private string eDalerJid;
 		private string neuroFeaturesJid;
 		private string pinHash;
-		private string pin;
 		private long? httpFileUploadMaxSize;
 		private bool? supportsPushNotification;
 		private bool usePin;
@@ -140,7 +139,6 @@ namespace IdApp.Services.Tag
 				NeuroFeaturesJid = this.NeuroFeaturesJid,
 				SupportsPushNotification = this.SupportsPushNotification,
 				PinHash = this.PinHash,
-
 				UsePin = this.UsePin,
 				IsTest = this.IsTest,
 				TestOtpTimestamp = this.TestOtpTimestamp,
@@ -505,12 +503,7 @@ namespace IdApp.Services.Tag
 		/// <inheritdoc/>
 		public string Pin
 		{
-			get => this.pin;
-			set
-			{
-				this.pin = value;
-				this.PinHash = this.ComputePinHash(value);
-			}
+			set => this.PinHash = this.ComputePinHash(value);
 		}
 
 		/// <inheritdoc/>

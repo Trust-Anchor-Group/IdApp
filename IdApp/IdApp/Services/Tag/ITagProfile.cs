@@ -133,7 +133,7 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// The user's PIN value.
 		/// </summary>
-		string Pin { set; get; }
+		string Pin { set; }
 
 		/// <summary>
 		/// A hashed version of the user's <see cref="Pin"/>.
