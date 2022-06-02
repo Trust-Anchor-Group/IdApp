@@ -1250,7 +1250,7 @@
         </member>
         <member name="T:IdApp.Converters.EqualsParameter">
             <summary>
-            EqualParameter is an <see cref="T:Xamarin.Forms.IValueConverter"/> which converts a given value to a boolean indicating if the value
+            EqualsParameter is an <see cref="T:Xamarin.Forms.IValueConverter"/> which converts a given value to a boolean indicating if the value
             is equal to the provided <see cref="P:Xamarin.Forms.Binding.ConverterParameter"/>.
             </summary>
         </member>
