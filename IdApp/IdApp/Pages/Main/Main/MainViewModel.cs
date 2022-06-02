@@ -500,8 +500,7 @@ namespace IdApp.Pages.Main.Main
 
 		private async Task ViewMyIdentity()
 		{
-			string Pin = await App.InputPin();
-			if (Pin is null)
+			if (!await App.VerifyPin())
 				return;
 			await this.NavigationService.GoToAsync(nameof(ViewIdentityPage));
 		}
