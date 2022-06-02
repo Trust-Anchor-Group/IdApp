@@ -50,11 +50,33 @@
             </summary>
             <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
         </member>
+        <member name="M:IdApp.App.InputPin(IdApp.Services.Tag.ITagProfile)">
+            <summary>
+            Asks the user to input its PIN. PIN is verified before being returned.
+            </summary>
+            <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
+        </member>
         <member name="M:IdApp.App.VerifyPin">
             <summary>
             Asks the user to verify with its PIN.
             </summary>
             <returns>If the user has provided the correct PIN</returns>
+        </member>
+        <member name="M:IdApp.App.SetStartInactivityTime">
+            <summary>
+            Set start time of inactivity
+            </summary>
+        </member>
+        <member name="M:IdApp.App.ClearStartInactivityTime">
+            <summary>
+            Clears the conditions of checking inactivity
+            </summary>
+        </member>
+        <member name="M:IdApp.App.IsInactivitySafeIntervalPassed">
+            <summary>
+            Performs a check whether 5 minutes of inactivity interval has been passed
+            </summary>
+            <returns>True if 5 minutes has been passed and False if has not been passed</returns>
         </member>
         <member name="T:IdApp.Behaviors.ReRenderOnClickedBehavior">
             <summary>
@@ -655,6 +677,21 @@
         <member name="F:IdApp.Constants.Effects.PasswordMaskTogglerEffect">
             <summary>
             PasswordMaskTogglerEffect.
+            </summary>
+        </member>
+        <member name="T:IdApp.Constants.Inactivity">
+            <summary>
+            Contract templates
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Inactivity.StartTime">
+            <summary>
+            Key for inativity time
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Inactivity.PossibleInactivityInMinutes">
+            <summary>
+            Possible time of inactivity
             </summary>
         </member>
         <member name="T:IdApp.Controls.Extended.ExtendedDatePicker">

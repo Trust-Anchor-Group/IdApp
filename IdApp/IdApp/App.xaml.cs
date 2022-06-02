@@ -71,6 +71,8 @@ namespace IdApp
 		private static readonly TaskCompletionSource<bool> defaultInstantiatedSource = new();
 		private static bool defaultInstantiated = false;
 		private static App instance;
+		private static DateTime savedStartTime = DateTime.MinValue;
+		private static bool firstCheckPinPassed = false;
 		private Timer autoSaveTimer;
 		private ServiceReferences services;
 		private Profiler startupProfiler;
@@ -275,12 +277,15 @@ namespace IdApp
 		#region Startup/Shutdown
 
 		///<inheritdoc/>
-		protected override void OnStart()
+		protected override async void OnStart()
 		{
 			if (!this.initCompleted.Wait(60000))
 				throw new Exception("Initialization did not complete in time.");
 
 			this.StartupCompleted("StartupProfile.uml", false);
+
+			if (!await App.VerifyPin())
+				await App.Stop();
 		}
 
 		///<inheritdoc/>
@@ -290,7 +295,11 @@ namespace IdApp
 			this.startupCancellation = new CancellationTokenSource();
 
 			await this.PerformStartup(true, null);
+
+			if (!await App.VerifyPin())
+				await App.Stop();
 		}
+
 
 		private async Task PerformStartup(bool isResuming, ProfilerThread Thread)
 		{
@@ -363,6 +372,8 @@ namespace IdApp
 				await vm.Shutdown();
 
 			await this.Shutdown(false);
+
+			this.SetStartInactivityTime();
 		}
 
 		internal static async Task Stop()
@@ -761,8 +772,21 @@ namespace IdApp
 		/// </summary>
 		/// <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
 		public static async Task<string> InputPin()
+
 		{
 			ITagProfile Profile = App.Instantiate<ITagProfile>();
+			if (!Profile.UsePin)
+				return string.Empty;
+
+			return await InputPin(Profile);
+		}
+
+		/// <summary>
+		/// Asks the user to input its PIN. PIN is verified before being returned.
+		/// </summary>
+		/// <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
+		private static async Task<string> InputPin(ITagProfile Profile)
+		{
 			if (!Profile.UsePin)
 				return string.Empty;
 
@@ -779,7 +803,11 @@ namespace IdApp
 					return null;
 
 				if (Profile.ComputePinHash(Pin) == Profile.PinHash)
+				{
+					ClearStartInactivityTime();
 					return Pin;
+				}
+
 
 				if (Ui is null)
 					Ui = App.Instantiate<IUiSerializer>();
@@ -796,8 +824,43 @@ namespace IdApp
 		/// <returns>If the user has provided the correct PIN</returns>
 		public static async Task<bool> VerifyPin()
 		{
-			return await InputPin() is not null;
+			ITagProfile Profile = App.Instantiate<ITagProfile>();
+			if (!Profile.UsePin)
+				return true;
+
+			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
+
+			if (!firstCheckPinPassed || NeedToVerifyPin)
+				return await InputPin(Profile) is not null;
+
+			return true;
 		}
 
+		/// <summary>
+		/// Set start time of inactivity
+		/// </summary>
+		private void SetStartInactivityTime()
+		{
+			savedStartTime = DateTime.Now;
+		}
+
+		/// <summary>
+		/// Clears the conditions of checking inactivity
+		/// </summary>
+		private static void ClearStartInactivityTime()
+		{
+			firstCheckPinPassed = true;
+			savedStartTime = DateTime.MaxValue;
+		}
+
+		/// <summary>
+		/// Performs a check whether 5 minutes of inactivity interval has been passed
+		/// </summary>
+		/// <returns>True if 5 minutes has been passed and False if has not been passed</returns>
+		private static bool IsInactivitySafeIntervalPassed()
+		{
+			return DateTime.Now.Subtract(savedStartTime).TotalMinutes
+				> Constants.Inactivity.PossibleInactivityInMinutes;
+		}
 	}
 }
