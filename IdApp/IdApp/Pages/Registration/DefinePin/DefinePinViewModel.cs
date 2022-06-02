@@ -129,7 +129,7 @@ namespace IdApp.Pages.Registration.DefinePin
 		public PinStrength PinStrength => this.TagProfile.ValidatePinStrength(this.Pin);
 
 		/// <summary>
-		/// Gets a value indicating whether the entered <see cref="Pin"/> is the same as the entered <see cref="RetypedPin"/>.
+		/// Gets the value indicating whether the entered <see cref="Pin"/> is the same as the entered <see cref="RetypedPin"/>.
 		/// </summary>
 		public bool PinsMatch => string.IsNullOrEmpty(this.Pin) ? string.IsNullOrEmpty(this.RetypedPin) : this.Pin.Equals(this.RetypedPin, StringComparison.Ordinal);
 

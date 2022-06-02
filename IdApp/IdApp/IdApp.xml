@@ -6742,7 +6742,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinsMatch">
             <summary>
-            Gets a value indicating whether the entered <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> is the same as the entered <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.RetypedPin"/>.
+            Gets the value indicating whether the entered <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> is the same as the entered <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.RetypedPin"/>.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.UsePinProperty">
