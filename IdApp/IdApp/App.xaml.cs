@@ -71,8 +71,8 @@ namespace IdApp
 		private static readonly TaskCompletionSource<bool> defaultInstantiatedSource = new();
 		private static bool defaultInstantiated = false;
 		private static App instance;
-		private static DateTime savedStartTime;
-		private static bool firstCheckPinPassed;
+		private static DateTime savedStartTime = DateTime.MinValue;
+		private static bool firstCheckPinPassed = false;
 		private Timer autoSaveTimer;
 		private ServiceReferences services;
 		private Profiler startupProfiler;
@@ -111,9 +111,6 @@ namespace IdApp
 			}
 
 			this.startupProfiler?.MainThread?.Idle();
-
-			savedStartTime = DateTime.MinValue;
-			firstCheckPinPassed = false;
 		}
 
 		private Task<bool> Init()
@@ -840,18 +837,16 @@ namespace IdApp
 		}
 
 		/// <summary>
-		/// Asks the user to verify with its PIN.
+		/// Set start time of inactivity
 		/// </summary>
-		/// <returns>If the user has provided the correct PIN</returns>
 		private void SetStartInactivityTime()
 		{
 			savedStartTime = DateTime.Now;
 		}
 
 		/// <summary>
-		/// Asks the user to verify with its PIN.
+		/// Clears the conditions of checking inactivity 
 		/// </summary>
-		/// <returns>If the user has provided the correct PIN</returns>
 		private static void ClearStartInactivityTime()
 		{
 			firstCheckPinPassed = true;
@@ -859,9 +854,9 @@ namespace IdApp
 		}
 
 		/// <summary>
-		/// Asks the user to verify with its PIN.
+		/// Performs a check whether 5 minutes of inactivity interval has been passed
 		/// </summary>
-		/// <returns>If the user has provided the correct PIN</returns>
+		/// <returns>True if 5 minutes has been passed and False if has not been passed</returns>
 		private static bool IsInactivitySafeIntervalPassed()
 		{
 			return DateTime.Now.Subtract(savedStartTime).TotalMinutes
