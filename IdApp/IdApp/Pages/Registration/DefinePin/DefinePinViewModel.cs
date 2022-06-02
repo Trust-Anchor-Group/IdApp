@@ -131,7 +131,7 @@ namespace IdApp.Pages.Registration.DefinePin
 		/// <summary>
 		/// Gets a value indicating whether the entered <see cref="Pin"/> is the same as the entered <see cref="RetypedPin"/>.
 		/// </summary>
-		public bool PinsMatch => this.Pin?.Equals(this.RetypedPin, StringComparison.Ordinal) ?? this.RetypedPin == null;
+		public bool PinsMatch => string.IsNullOrEmpty(this.Pin) ? string.IsNullOrEmpty(this.RetypedPin) : this.Pin.Equals(this.RetypedPin, StringComparison.Ordinal);
 
 		/// <summary>
 		/// The <see cref="UsePin"/>
