@@ -46,7 +46,10 @@ namespace IdApp.Pages.Registration.DefinePin
 		public override void ClearStepState()
 		{
 			this.Pin = string.Empty;
+			this.EnteringPinStarted = false;
+
 			this.RetypedPin = string.Empty;
+			this.EnteringRetypedPinStarted = false;
 		}
 
 		#region Properties
