@@ -160,5 +160,15 @@
         /// star-of-life
         /// </summary>
         public const string StarOfLife = "\uf621";
-    }
+
+		/// <summary>
+		/// eye
+		/// </summary>
+		public const string Eye = "\uf06e";
+
+		/// <summary>
+		/// eye-slash
+		/// </summary>
+		public const string EyeSlash = "\uf070";
+	}
 }

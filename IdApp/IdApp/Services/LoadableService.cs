@@ -57,7 +57,7 @@ namespace IdApp.Services
 
 			//this.worker.Release();
 
-			OnLoaded(new LoadedEventArgs(IsLoaded));
+			this.OnLoaded(new LoadedEventArgs(this.IsLoaded));
 		}
 
 		/// <summary>
@@ -90,7 +90,7 @@ namespace IdApp.Services
 
 			//this.worker.Release();
 
-			OnLoaded(new LoadedEventArgs(IsLoaded));
+			this.OnLoaded(new LoadedEventArgs(this.IsLoaded));
 		}
 
 		/// <inheritdoc/>
@@ -113,7 +113,7 @@ namespace IdApp.Services
 			add
 			{
 				PrivLoaded += value;
-				value(this, new LoadedEventArgs(IsLoaded));
+				value(this, new LoadedEventArgs(this.IsLoaded));
 			}
 			remove
 			{

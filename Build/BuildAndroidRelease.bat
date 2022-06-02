@@ -10,7 +10,8 @@ set keystore=%1
 set keystorepassword=%2
 
 REM Path to MsBuild
-set msbuild="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\msbuild.exe"
+REM set msbuild="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\msbuild.exe"
+set msbuild="C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\msbuild.exe"
 REM Path to ZipAlign
 set zipalign="C:\Program Files (x86)\Android\android-sdk\build-tools\30.0.3\zipalign.exe"
 REM Path to JarSigner

@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+			 xmlns:templatedSwitch="clr-namespace:IdApp.Controls.TemplatedSwitch;assembly=IdApp"
              x:Class="IdApp.App">
     <Application.Resources>
         <OnPlatform x:TypeArguments="x:String" 
@@ -151,6 +153,23 @@
                 </OnPlatform>
             </Setter>
             <Setter Property="TextColor" Value="Black" />
-        </Style>
-    </Application.Resources>
+		</Style>
+		<Style TargetType="templatedSwitch:TemplatedSwitch" x:Key="PasswordToggler">
+			<Setter Property="ControlTemplate">
+				<ControlTemplate>
+					<Label FontFamily="{StaticResource FontAwesomeSolid}">
+						<Label.Triggers>
+							<DataTrigger TargetType="Label" Binding="{TemplateBinding IsToggled}" Value="True">
+								<Setter Property="Text" Value="{Static resx:FontAwesome.EyeSlash}" />
+							</DataTrigger>
+							<DataTrigger TargetType="Label" Binding="{TemplateBinding IsToggled}" Value="False">
+								<Setter Property="Text" Value="{Static resx:FontAwesome.Eye}" />
+							</DataTrigger>
+						</Label.Triggers>
+					</Label>
+				</ControlTemplate>
+			</Setter>
+			<Setter Property="IsToggled" Value="True" />
+		</Style>
+	</Application.Resources>
 </Application>
