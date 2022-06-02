@@ -781,12 +781,7 @@ namespace IdApp
 			if (!Profile.UsePin)
 				return string.Empty;
 
-			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
-
-			if (!firstCheckPinPassed || NeedToVerifyPin)
-				return await InputPin(Profile);
-			else
-				return Profile.Pin;
+			return await InputPin(Profile);
 		}
 
 		/// <summary>
@@ -812,7 +807,7 @@ namespace IdApp
 
 				if (Profile.ComputePinHash(Pin) == Profile.PinHash)
 				{
-					firstCheckPinPassed = true;
+					ClearStartInactivityTime();
 					return Pin;
 				}
 
@@ -838,23 +833,36 @@ namespace IdApp
 
 			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
 
-			if (!firstCheckPinPassed || NeedToVerifyPin)
+			if (!firstCheckPinPassed || NeedToVerifyPin) 
 				return await InputPin(Profile) is not null;
 
 			return true;
 		}
 
+		/// <summary>
+		/// Asks the user to verify with its PIN.
+		/// </summary>
+		/// <returns>If the user has provided the correct PIN</returns>
 		private void SetStartInactivityTime()
 		{
 			savedStartTime = DateTime.Now;
 		}
 
-		public void ClearStartInactivityTime()
+		/// <summary>
+		/// Asks the user to verify with its PIN.
+		/// </summary>
+		/// <returns>If the user has provided the correct PIN</returns>
+		private static void ClearStartInactivityTime()
 		{
+			firstCheckPinPassed = true;
 			savedStartTime = DateTime.MaxValue;
 		}
 
-		public static bool IsInactivitySafeIntervalPassed()
+		/// <summary>
+		/// Asks the user to verify with its PIN.
+		/// </summary>
+		/// <returns>If the user has provided the correct PIN</returns>
+		private static bool IsInactivitySafeIntervalPassed()
 		{
 			return DateTime.Now.Subtract(savedStartTime).TotalMinutes
 				> Constants.Inactivity.PossibleInactivityInMinutes;
