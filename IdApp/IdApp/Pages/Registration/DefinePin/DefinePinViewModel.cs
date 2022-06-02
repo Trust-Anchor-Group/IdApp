@@ -106,14 +106,29 @@ namespace IdApp.Pages.Registration.DefinePin
 		}
 
 		/// <summary>
+		/// The <see cref="EnteringRetypedPinStarted"/>
+		/// </summary>
+		public static readonly BindableProperty EnteringRetypedPinStartedProperty =
+			BindableProperty.Create(nameof(EnteringRetypedPinStarted), typeof(bool), typeof(DefinePinViewModel), false);
+
+		/// <summary>
+		/// Gets or sets a value indicating if the user has started entering PIN.
+		/// </summary>
+		public bool EnteringRetypedPinStarted
+		{
+			get => (bool)this.GetValue(EnteringRetypedPinStartedProperty);
+			set => this.SetValue(EnteringRetypedPinStartedProperty, value);
+		}
+
+		/// <summary>
 		/// Gets the value indicating how strong the <see cref="Pin"/> is.
 		/// </summary>
 		public PinStrength PinStrength => this.TagProfile.ValidatePinStrength(this.Pin);
 
 		/// <summary>
-		/// Gets a value indicating whether the entered PIN differs between <see cref="Pin"/> and <see cref="RetypedPin"/>.
+		/// Gets a value indicating whether the entered <see cref="Pin"/> is the same as the entered <see cref="RetypedPin"/>.
 		/// </summary>
-		public bool PinsDoNotMatch => !string.IsNullOrWhiteSpace(this.Pin) && !string.IsNullOrWhiteSpace(this.RetypedPin) && (this.Pin != this.RetypedPin);
+		public bool PinsMatch => this.Pin?.Equals(this.RetypedPin, StringComparison.Ordinal) ?? this.RetypedPin == null;
 
 		/// <summary>
 		/// The <see cref="UsePin"/>
@@ -173,9 +188,14 @@ namespace IdApp.Pages.Registration.DefinePin
 				this.OnPropertyChanged(nameof(this.PinStrength));
 			}
 
+			if (propertyName == nameof(this.RetypedPin))
+			{
+				this.EnteringRetypedPinStarted = true;
+			}
+
 			if (propertyName == nameof(this.Pin) || propertyName == nameof(this.RetypedPin))
 			{
-				this.OnPropertyChanged(nameof(this.PinsDoNotMatch));
+				this.OnPropertyChanged(nameof(this.PinsMatch));
 				this.ContinueCommand.ChangeCanExecute();
 			}
 		}
@@ -249,7 +269,7 @@ namespace IdApp.Pages.Registration.DefinePin
 
 		private bool CanContinue()
 		{
-			return this.PinStrength == PinStrength.Strong && !this.PinsDoNotMatch && this.XmppService.IsOnline;
+			return this.PinStrength == PinStrength.Strong && this.PinsMatch && this.XmppService.IsOnline;
 		}
 	}
 }

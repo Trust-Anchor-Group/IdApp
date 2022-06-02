@@ -71,9 +71,19 @@
 			</Grid>
 			<Label
                 Text="{x:Static resx:AppResources.PinsDoNotMatch}"
-                IsVisible="{Binding Path=PinsDoNotMatch}"
+                IsVisible="False"
                 TextColor="{StaticResource AlertColor}"
-                Margin="{StaticResource DefaultBottomOnlyMargin}" />
+                Margin="{StaticResource DefaultBottomOnlyMargin}">
+				<Label.Triggers>
+					<MultiTrigger TargetType="Label">
+						<MultiTrigger.Conditions>
+							<BindingCondition Binding="{Binding PinsMatch}" Value="False" />
+							<BindingCondition Binding="{Binding EnteringRetypedPinStarted}" Value="True" />
+						</MultiTrigger.Conditions>
+						<Setter Property="IsVisible" Value="True" />
+					</MultiTrigger>
+				</Label.Triggers>
+			</Label>
 			
 			<Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
 

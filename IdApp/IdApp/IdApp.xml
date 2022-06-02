@@ -6725,14 +6725,24 @@
             Gets or sets a value indicating if the user has started entering PIN.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringRetypedPinStartedProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringRetypedPinStarted"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringRetypedPinStarted">
+            <summary>
+            Gets or sets a value indicating if the user has started entering PIN.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinStrength">
             <summary>
             Gets the value indicating how strong the <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> is.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinsDoNotMatch">
+        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinsMatch">
             <summary>
-            Gets a value indicating whether the entered PIN differs between <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> and <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.RetypedPin"/>.
+            Gets a value indicating whether the entered <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> is the same as the entered <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.RetypedPin"/>.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.UsePinProperty">
