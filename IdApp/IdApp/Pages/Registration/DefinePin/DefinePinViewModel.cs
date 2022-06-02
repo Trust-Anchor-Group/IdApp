@@ -115,7 +115,7 @@ namespace IdApp.Pages.Registration.DefinePin
 			BindableProperty.Create(nameof(EnteringRetypedPinStarted), typeof(bool), typeof(DefinePinViewModel), false);
 
 		/// <summary>
-		/// Gets or sets a value indicating if the user has started entering PIN.
+		/// Gets or sets a value indicating if the user has started entering retyped PIN.
 		/// </summary>
 		public bool EnteringRetypedPinStarted
 		{

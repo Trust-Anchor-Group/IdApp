@@ -6732,7 +6732,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringRetypedPinStarted">
             <summary>
-            Gets or sets a value indicating if the user has started entering PIN.
+            Gets or sets a value indicating if the user has started entering retyped PIN.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinStrength">
