@@ -1256,7 +1256,7 @@
         </member>
         <member name="M:IdApp.Converters.EqualsParameter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <summary>
-            Returns <c>true</c> if <paramref name="value"/> equals to <paramref name="parameter"/> and <c>false</c> otherwise.
+            Returns <c>true</c> if <paramref name="Value"/> equals to <paramref name="Parameter"/> and <c>false</c> otherwise.
             </summary>
         </member>
         <member name="M:IdApp.Converters.EqualsParameter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
