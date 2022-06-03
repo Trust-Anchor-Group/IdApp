@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using IdApp.Resx;
 using IdApp.Services.Tag;
@@ -22,12 +23,36 @@ namespace IdApp.Popups.Pin.ChangePin
         /// </summary>
         public ChangePinPopupPage()
         {
-            InitializeComponent();
             this.tagProfile = App.Instantiate<ITagProfile>();
             this.uiSerializer = App.Instantiate<IUiSerializer>();
-        }
 
-        /// <inheritdoc/>
+			ChangePinPopupViewModel ViewModel = new(App.Instantiate<ITagProfile>());
+			ViewModel.PropertyChanged += this.OnViewModelPropertyChanged;
+			this.BindingContext = ViewModel;
+
+			this.InitializeComponent();
+		}
+
+		private async void OnViewModelPropertyChanged(object Sender, PropertyChangedEventArgs EventArgs)
+		{
+			ChangePinPopupViewModel ViewModel = Sender as ChangePinPopupViewModel;
+
+			if (EventArgs.PropertyName == nameof(ViewModel.PopupOpened) && !ViewModel.PopupOpened)
+			{
+				ViewModel.PropertyChanged -= this.OnViewModelPropertyChanged;
+				await PopupNavigation.Instance.PopAsync();
+				this.result.TrySetResult((ViewModel.OldPin, ViewModel.NewPin));
+			}
+
+			if (EventArgs.PropertyName == nameof(ViewModel.IncorrectPinAlertShown) && ViewModel.IncorrectPinAlertShown)
+			{
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid, AppResources.Ok);
+				ViewModel.OldPin = string.Empty;
+				ViewModel.OldPinFocused = true;
+			}
+		}
+
+		/// <inheritdoc/>
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();
