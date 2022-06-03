@@ -7,7 +7,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace IdApp.Popups.Pin.ChangePin
 {
-	internal class ChangePinPopupViewModel : ObservableObject
+	public class ChangePinPopupViewModel : ObservableObject
 	{
 		private readonly ITagProfile tagProfile;
 

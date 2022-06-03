@@ -4,8 +4,10 @@
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
                  xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+				 xmlns:local="clr-namespace:IdApp.Popups.Pin.ChangePin;assembly=IdApp"
+				 x:DataType="local:ChangePinPopupViewModel"
                  x:Class="IdApp.Popups.Pin.ChangePin.ChangePinPopupPage">
-    <pages:PopupPage.Animation>
+	<pages:PopupPage.Animation>
         <animations:ScaleAnimation 
             PositionIn="Center"
             PositionOut="Center"
@@ -17,26 +19,63 @@
             EasingOut="SinIn"
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
+	
     <ScrollView HorizontalOptions="Center" VerticalOptions="Center">
         <AbsoluteLayout>
-            <Frame Margin="15" BackgroundColor="White" HorizontalOptions="Center">
-                <StackLayout Padding="10,5" IsClippedToBounds="True" Spacing="3">
-                    <Entry x:Name="OldPin" HorizontalOptions="Center" IsPassword="True"
-                        Placeholder="{x:Static resx:AppResources.EnterPin}" Completed="OldPinDone" />
-                    <Entry x:Name="NewPin" HorizontalOptions="Center" IsPassword="True"
-                        Placeholder="{x:Static resx:AppResources.EnterNewPin}" Completed="NewPinDone" />
-                    <Entry x:Name="NewPin2" HorizontalOptions="Center" IsPassword="True"
-                        Placeholder="{x:Static resx:AppResources.RepeatNewPin}" Completed="OnChange" />
-                    <Button Margin="10,5" Clicked="OnChange" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.ChangePin}">
+			
+            <Frame
+				x:Name="MainFrame"
+				Margin="15"
+				BackgroundColor="White"
+				HorizontalOptions="Center">
+				<StackLayout
+					Padding="10,5"
+					IsClippedToBounds="True"
+					Spacing="3">
+					
+					<StackLayout.Resources>
+						<ResourceDictionary>
+							<Style TargetType="Entry">
+								<!-- VerticalOptions="Center" is required so that the size of the eye does not affect the size of the Entry. -->
+								<Setter Property="VerticalOptions" Value="Center" />
+								<Setter Property="IsPassword" Value="True" />
+							</Style>
+							<Style TargetType="templatedSwitch:TemplatedSwitch" BasedOn="{StaticResource PasswordToggler}">
+								<Setter Property="HorizontalOptions" Value="End" />
+								<Setter Property="VerticalOptions" Value="Center" />
+								<!-- Padding increases the area which responds to taps without increasing the eye visual size. -->
+								<Setter Property="Padding" Value="16,12,8,12" />
+							</Style>
+						</ResourceDictionary>
+					</StackLayout.Resources>
+
+					<Entry
+						x:Name="OldPinEntry"
+						Placeholder="{x:Static resx:AppResources.EnterPin}" />
+					
+                    <Entry
+						x:Name="NewPinEntry"
+						Placeholder="{x:Static resx:AppResources.EnterNewPin}" />
+					
+                    <Entry
+						x:Name="RetypedPinEntry"
+						Placeholder="{x:Static resx:AppResources.RepeatNewPin}" />
+					
+                    <Button
+						Margin="10,5"
+						HorizontalOptions="Fill"
+						Text="{x:Static resx:AppResources.ChangePin}">
                         <Button.HeightRequest>
                             <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
                         </Button.HeightRequest>
                     </Button>
+					
                 </StackLayout>
             </Frame>
+			
             <Grid HorizontalOptions="End" VerticalOptions="Start">
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnCloseButtonTapped" />
+                    <TapGestureRecognizer />
                 </Grid.GestureRecognizers>
                 <Ellipse StrokeThickness="2" WidthRequest="32" HeightRequest="32" HorizontalOptions="Center" VerticalOptions="Center">
                     <Ellipse.Fill>
@@ -46,7 +85,14 @@
                         <SolidColorBrush Color="{StaticResource HeadingBackground}"/>
                     </Ellipse.Stroke>
                 </Ellipse>
-                <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static resx:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label
+					FontFamily="{StaticResource FontAwesomeSolid}"
+					Text="{x:Static resx:FontAwesome.Times}"
+					FontSize="Large"
+					Margin="1,1,0,0"
+					TextColor="{StaticResource HeadingBackground}"
+					HorizontalOptions="Center"
+					VerticalOptions="Center"/>
             </Grid>
         </AbsoluteLayout>
     </ScrollView>
