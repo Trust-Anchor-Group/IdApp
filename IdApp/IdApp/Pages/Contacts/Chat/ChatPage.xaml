@@ -13,26 +13,35 @@
 					   Title="{Binding Path=FriendlyName}">
 	<views:ContentBasePage.Resources>
 		<DataTemplate x:Key="EmptyMessage" x:DataType="messages:ChatMessage">
-			<ContentView Content="{Binding Path=ParsedXaml}"
-                            HorizontalOptions="Start" HeightRequest="1"/>
+			<ContentView Content="{Binding Path=ParsedXaml}" HeightRequest="1"/>
 		</DataTemplate>
 		<DataTemplate x:Key="SentMessage" x:DataType="messages:ChatMessage">
-			<Frame HorizontalOptions="StartAndExpand" Rotation="180" BackgroundColor="LightYellow"
-                    Padding="5" CornerRadius="5" Margin="2" BorderColor="Yellow">
-				<ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="Start"/>
-			</Frame>
+			<Grid ColumnDefinitions="auto,*" ColumnSpacing="0">
+				<Frame Grid.Column="0" Rotation="180" BackgroundColor="LightYellow"
+					   Padding="5" CornerRadius="5" BorderColor="Yellow" HasShadow="False">
+					<ContentView Content="{Binding Path=ParsedXaml}" />
+				</Frame>
+				<Grid Grid.Column="1" BackgroundColor="Transparent"/>
+			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="ReceivedMessage" x:DataType="messages:ChatMessage">
-			<Frame HorizontalOptions="EndAndExpand" Rotation="180" BackgroundColor="LightBlue"
-                    Padding="5" CornerRadius="5" Margin="2" BorderColor="SkyBlue">
-				<ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="End"/>
-			</Frame>
+			<Grid ColumnDefinitions="*,auto" ColumnSpacing="0">
+				<Grid Grid.Column="0" BackgroundColor="Transparent"/>
+				<Frame Grid.Column="1" Rotation="180" BackgroundColor="LightBlue"
+					   Padding="5" CornerRadius="5" BorderColor="SkyBlue" HasShadow="False">
+					<ContentView Content="{Binding Path=ParsedXaml}" />
+				</Frame>
+			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="OtherItems" x:DataType="messages:ChatMessage">
-			<Frame HorizontalOptions="CenterAndExpand" Rotation="180" BackgroundColor="LightSalmon"
-                    Padding="5" CornerRadius="5" Margin="2" BorderColor="Salmon">
-				<ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="Center"/>
-			</Frame>
+			<Grid ColumnDefinitions="*,auto,*" ColumnSpacing="0">
+				<Grid Grid.Column="0" BackgroundColor="Transparent"/>
+				<Frame Grid.Column="1" Rotation="180" BackgroundColor="LightSalmon"
+					   Padding="5" CornerRadius="5" BorderColor="Salmon" HasShadow="False">
+					<ContentView Content="{Binding Path=ParsedXaml}" />
+				</Frame>
+				<Grid Grid.Column="2" BackgroundColor="Transparent"/>
+			</Grid>
 		</DataTemplate>
 		<messages:MessageTypeTemplateSelector x:Key="MessageStyleSelector"
                                               EmptyTemplate="{StaticResource EmptyMessage}"
