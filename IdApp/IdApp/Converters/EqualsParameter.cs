@@ -12,17 +12,17 @@ namespace IdApp.Converters
 	public class EqualsParameter : IValueConverter, IMarkupExtension<EqualsParameter>
 	{
 		/// <summary>
-		/// Returns <c>true</c> if <paramref name="value"/> equals to <paramref name="parameter"/> and <c>false</c> otherwise.
+		/// Returns <c>true</c> if <paramref name="Value"/> equals to <paramref name="Parameter"/> and <c>false</c> otherwise.
 		/// </summary>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object Convert(object Value, Type TargetType, object Parameter, CultureInfo Culture)
 		{
-			return value == null ? parameter == null : value.Equals(parameter);
+			return Value == null ? Parameter == null : Value.Equals(Parameter);
 		}
 
 		/// <summary>
 		/// Always throws a <see cref="NotImplementedException"/>.
 		/// </summary>
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		public object ConvertBack(object Value, Type TargetType, object Parameter, CultureInfo Culture)
 		{
 			throw new NotImplementedException();
 		}
@@ -30,7 +30,7 @@ namespace IdApp.Converters
 		/// <summary>
 		/// Returns an instance of <see cref="EqualsParameter"/> class.
 		/// </summary>
-		public EqualsParameter ProvideValue(IServiceProvider serviceProvider)
+		public EqualsParameter ProvideValue(IServiceProvider ServiceProvider)
 		{
 			return this;
 		}
@@ -38,9 +38,9 @@ namespace IdApp.Converters
 		/// <summary>
 		/// Returns an instance of <see cref="EqualsParameter"/> class.
 		/// </summary>
-		object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
+		object IMarkupExtension.ProvideValue(IServiceProvider ServiceProvider)
 		{
-			return this.ProvideValue(serviceProvider);
+			return this.ProvideValue(ServiceProvider);
 		}
 	}
 }
