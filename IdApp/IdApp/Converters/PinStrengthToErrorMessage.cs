@@ -15,9 +15,9 @@ namespace IdApp.Converters
 		/// <summary>
 		/// Returns a localized error message for a given <see cref="PinStrength"/>.
 		/// </summary>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object Convert(object Value, Type TargetType, object Parameter, CultureInfo Culture)
 		{
-			if (value is PinStrength PinStrength)
+			if (Value is PinStrength PinStrength)
 			{
 				return PinStrength switch
 				{
@@ -41,13 +41,13 @@ namespace IdApp.Converters
 				};
 			}
 
-			throw new ArgumentException($"{nameof(Services.Tag.PinStrength)} expected but received {value?.GetType().Name ?? "null"}.");
+			throw new ArgumentException($"{nameof(Services.Tag.PinStrength)} expected but received {Value?.GetType().Name ?? "null"}.");
 		}
 
 		/// <summary>
 		/// Always throws a <see cref="NotImplementedException"/>.
 		/// </summary>
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		public object ConvertBack(object Value, Type TargetType, object Parameter, CultureInfo Culture)
 		{
 			throw new NotImplementedException();
 		}
@@ -55,7 +55,7 @@ namespace IdApp.Converters
 		/// <summary>
 		/// Returns an instance of <see cref="PinStrengthToErrorMessage"/> class.
 		/// </summary>
-		public PinStrengthToErrorMessage ProvideValue(IServiceProvider serviceProvider)
+		public PinStrengthToErrorMessage ProvideValue(IServiceProvider ServiceProvider)
 		{
 			return this;
 		}
@@ -63,9 +63,9 @@ namespace IdApp.Converters
 		/// <summary>
 		/// Returns an instance of <see cref="PinStrengthToErrorMessage"/> class.
 		/// </summary>
-		object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
+		object IMarkupExtension.ProvideValue(IServiceProvider ServiceProvider)
 		{
-			return this.ProvideValue(serviceProvider);
+			return this.ProvideValue(ServiceProvider);
 		}
 	}
 }
