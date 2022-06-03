@@ -181,47 +181,47 @@ namespace IdApp.Pages.Registration.DefinePin
 		#endregion
 
 		/// <inheritdoc/>
-		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected override void OnPropertyChanged([CallerMemberName] string PropertyName = null)
 		{
-			base.OnPropertyChanged(propertyName);
+			base.OnPropertyChanged(PropertyName);
 
-			if (propertyName == nameof(this.Pin))
+			if (PropertyName == nameof(this.Pin))
 			{
 				this.EnteringPinStarted = true;
 				this.OnPropertyChanged(nameof(this.PinStrength));
 			}
 
-			if (propertyName == nameof(this.RetypedPin))
+			if (PropertyName == nameof(this.RetypedPin))
 			{
 				this.EnteringRetypedPinStarted = true;
 			}
 
-			if (propertyName == nameof(this.Pin) || propertyName == nameof(this.RetypedPin))
+			if (PropertyName == nameof(this.Pin) || PropertyName == nameof(this.RetypedPin))
 			{
 				this.OnPropertyChanged(nameof(this.PinsMatch));
 				this.ContinueCommand.ChangeCanExecute();
 			}
 		}
 
-		private void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		private void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs Args)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.AssignProperties(e.State);
+				this.AssignProperties(Args.State);
 			});
 		}
 
-		private void AssignProperties(XmppState state)
+		private void AssignProperties(XmppState State)
 		{
-			this.SetConnectionStateAndText(state);
+			this.SetConnectionStateAndText(State);
 			this.ContinueCommand.ChangeCanExecute();
 			this.SkipCommand.ChangeCanExecute();
 		}
 
-		private void SetConnectionStateAndText(XmppState state)
+		private void SetConnectionStateAndText(XmppState State)
 		{
-			this.IsConnected = state == XmppState.Connected;
-			this.ConnectionStateText = state.ToDisplayText();
+			this.IsConnected = State == XmppState.Connected;
+			this.ConnectionStateText = State.ToDisplayText();
 		}
 
 		private void Skip()
@@ -240,14 +240,14 @@ namespace IdApp.Pages.Registration.DefinePin
 		{
 			this.UsePin = true;
 
-			string pinToCheck = this.Pin ?? string.Empty;
+			string PinToCheck = this.Pin ?? string.Empty;
 
-			if (pinToCheck.Length < Constants.Authentication.MinPinLength)
+			if (PinToCheck.Length < Constants.Authentication.MinPinLength)
 			{
 				this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength));
 				return;
 			}
-			if (pinToCheck.Trim() != pinToCheck)
+			if (PinToCheck.Trim() != PinToCheck)
 			{
 				this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace);
 				return;
