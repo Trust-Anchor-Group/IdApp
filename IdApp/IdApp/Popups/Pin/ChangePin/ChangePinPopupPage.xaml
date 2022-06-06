@@ -105,11 +105,8 @@
 							x:Name="RetypedPinEntry"
 							Placeholder="{x:Static resx:AppResources.RepeatNewPin}"
 							helpers:PasswordMask.IsEnabled="{Binding Path=IsToggled, Source={Reference RetypedPinEntryPasswordToggler}}"
-							Text="{Binding RetypedNewPin}">
-							<Entry.Behaviors>
-								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="ChangePinButton" />
-							</Entry.Behaviors>
-						</Entry>
+							Text="{Binding RetypedNewPin}"
+							ReturnCommand="{Binding TryChangePinCommand}"/>
 						<templatedSwitch:TemplatedSwitch x:Name="RetypedPinEntryPasswordToggler" />
 					</Grid>
 					<Label
