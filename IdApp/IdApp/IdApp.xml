@@ -1285,6 +1285,32 @@
         <member name="M:IdApp.Converters.EqualsOne.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Converters.EqualsParameter">
+            <summary>
+            EqualsParameter is an <see cref="T:Xamarin.Forms.IValueConverter"/> which converts a given value to a boolean indicating if the value
+            is equal to the provided <see cref="P:Xamarin.Forms.Binding.ConverterParameter"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.EqualsParameter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Returns <c>true</c> if <paramref name="Value"/> equals to <paramref name="Parameter"/> and <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.EqualsParameter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Always throws a <see cref="T:System.NotImplementedException"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.EqualsParameter.ProvideValue(System.IServiceProvider)">
+            <summary>
+            Returns an instance of <see cref="T:IdApp.Converters.EqualsParameter"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.EqualsParameter.Xamarin#Forms#Xaml#IMarkupExtension#ProvideValue(System.IServiceProvider)">
+            <summary>
+            Returns an instance of <see cref="T:IdApp.Converters.EqualsParameter"/> class.
+            </summary>
+        </member>
         <member name="T:IdApp.Converters.EqualsZero">
             <summary>
             Is true if an integer property is equal to zero.
@@ -1368,6 +1394,31 @@
         </member>
         <member name="M:IdApp.Converters.MoneyToString.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Converters.PinStrengthToErrorMessage">
+            <summary>
+            PinStrengthToErrorMessage is an <see cref="T:Xamarin.Forms.IValueConverter"/> which converts <see cref="T:IdApp.Services.Tag.PinStrength"/> to an error message to display.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.PinStrengthToErrorMessage.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Returns a localized error message for a given <see cref="T:IdApp.Services.Tag.PinStrength"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.PinStrengthToErrorMessage.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Always throws a <see cref="T:System.NotImplementedException"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.PinStrengthToErrorMessage.ProvideValue(System.IServiceProvider)">
+            <summary>
+            Returns an instance of <see cref="T:IdApp.Converters.PinStrengthToErrorMessage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.PinStrengthToErrorMessage.Xamarin#Forms#Xaml#IMarkupExtension#ProvideValue(System.IServiceProvider)">
+            <summary>
+            Returns an instance of <see cref="T:IdApp.Converters.PinStrengthToErrorMessage"/> class.
+            </summary>
         </member>
         <member name="T:IdApp.DeviceSpecific.ICloseApplication">
             <summary>
@@ -6701,34 +6752,34 @@
             The retyped pin to use for validation against <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/>.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinsDoNotMatchProperty">
+        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringPinStartedProperty">
             <summary>
-            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinsDoNotMatch"/>
+            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringPinStarted"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinsDoNotMatch">
+        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringPinStarted">
             <summary>
-            Gets or sets whether the entered Pin differ betweeen <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> and <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.RetypedPin"/>.
+            Gets or sets a value indicating if the user has started entering PIN.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinIsTooShortProperty">
+        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringRetypedPinStartedProperty">
             <summary>
-            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinIsTooShort"/>
+            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringRetypedPinStarted"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinIsTooShort">
+        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.EnteringRetypedPinStarted">
             <summary>
-            Gets or sets whether the entered PIN is too short.
+            Gets or sets a value indicating if the user has started entering retyped PIN.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinIsTooShortMessageProperty">
+        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinStrength">
             <summary>
-            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinIsTooShortMessage"/>
+            Gets the value indicating how strong the <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> is.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinIsTooShortMessage">
+        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.PinsMatch">
             <summary>
-            The localized message to display if and when the PIN code is too short.
+            Gets the value indicating whether the entered <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> is the same as the entered <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.RetypedPin"/>.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.UsePinProperty">
@@ -6760,6 +6811,9 @@
             <summary>
             The user friendly connection state text to display to the user.
             </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.OnPropertyChanged(System.String)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel">
             <summary>
@@ -13061,6 +13115,26 @@
               Looks up a localized string similar to PIN has been successfully changed..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.PinContainsAddress">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain any word from the identity address lines..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinContainsName">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain any word from the identity names..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinContainsPersonalNumber">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain the identity personal number..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinContainsPhoneNumber">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain the identity phone number..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.PinIsInvalid">
             <summary>
               Looks up a localized string similar to PIN is invalid.
@@ -13083,7 +13157,37 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.PinTooShort">
             <summary>
-              Looks up a localized string similar to PIN number too short. At least {0} numbers (or characters) are required..
+              Looks up a localized string similar to PIN length must be at least {0} characters..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinWithNotEnoughDigitsLettersSigns">
+            <summary>
+              Looks up a localized string similar to At least {0} letters, digits or symbols must be used..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinWithNotEnoughDigitsOrSigns">
+            <summary>
+              Looks up a localized string similar to You must also use at least {0} digits or symbols..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinWithNotEnoughLettersOrDigits">
+            <summary>
+              Looks up a localized string similar to You must also use at least {0} letters or digits..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinWithNotEnoughLettersOrSigns">
+            <summary>
+              Looks up a localized string similar to You must also use at least {0} letters or symbols..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinWithTooManyIdenticalSymbols">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain more than {0} identical symbols..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinWithTooManySequencedSymbols">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain more than {0} sequenced symbols, e.g. &quot;12&quot; or &quot;ab&quot;..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PleaseReviewAndCheckAllCheckboxes">

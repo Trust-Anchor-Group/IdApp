@@ -739,7 +739,7 @@
     <value>PINs do not match</value>
   </data>
   <data name="PinTooShort" xml:space="preserve">
-    <value>PIN number too short. At least {0} numbers (or characters) are required.</value>
+    <value>PIN length must be at least {0} characters.</value>
   </data>
   <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
     <value>Please review all information above, and check the corresponding check boxes if the information is correct. This must be done before you can approve the information.</value>
@@ -1652,5 +1652,35 @@
   </data>
   <data name="TokenRemoved" xml:space="preserve">
     <value>A token has been removed from your wallet.</value>
+  </data>
+  <data name="PinContainsAddress" xml:space="preserve">
+    <value>A PIN must not contain any word from the identity address lines.</value>
+  </data>
+  <data name="PinContainsName" xml:space="preserve">
+    <value>A PIN must not contain any word from the identity names.</value>
+  </data>
+  <data name="PinContainsPersonalNumber" xml:space="preserve">
+    <value>A PIN must not contain the identity personal number.</value>
+  </data>
+  <data name="PinContainsPhoneNumber" xml:space="preserve">
+    <value>A PIN must not contain the identity phone number.</value>
+  </data>
+  <data name="PinWithNotEnoughDigitsLettersSigns" xml:space="preserve">
+    <value>At least {0} letters, digits or symbols must be used.</value>
+  </data>
+  <data name="PinWithTooManyIdenticalSymbols" xml:space="preserve">
+    <value>A PIN must not contain more than {0} identical symbols.</value>
+  </data>
+  <data name="PinWithTooManySequencedSymbols" xml:space="preserve">
+    <value>A PIN must not contain more than {0} sequenced symbols, e.g. "12" or "ab".</value>
+  </data>
+  <data name="PinWithNotEnoughDigitsOrSigns" xml:space="preserve">
+    <value>You must also use at least {0} digits or symbols.</value>
+  </data>
+  <data name="PinWithNotEnoughLettersOrDigits" xml:space="preserve">
+    <value>You must also use at least {0} letters or digits.</value>
+  </data>
+  <data name="PinWithNotEnoughLettersOrSigns" xml:space="preserve">
+    <value>You must also use at least {0} letters or symbols.</value>
   </data>
 </root>
