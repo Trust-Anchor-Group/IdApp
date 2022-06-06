@@ -7,7 +7,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace IdApp.Popups.Pin.ChangePin
 {
-	public class ChangePinPopupViewModel : ObservableObject
+	internal class ChangePinPopupViewModel : ObservableObject
 	{
 		private readonly ITagProfile tagProfile;
 
@@ -95,19 +95,34 @@ namespace IdApp.Popups.Pin.ChangePin
 
 			if (PropertyName == nameof(this.NewPin))
 			{
-				this.EnteringNewPinStarted = true;
+				// This somewhat complicated condition ensures that switching from null to an empty string does not count as EnteringNewPinStarted.
+				if (!this.EnteringNewPinStarted && !string.IsNullOrEmpty(this.NewPin))
+				{
+					this.EnteringNewPinStarted = true;
+				}
+
 				this.OnPropertyChanged(nameof(this.NewPinStrength));
 			}
 
 			if (PropertyName == nameof(this.RetypedNewPin))
 			{
-				this.EnteringRetypedNewPinStarted = true;
+				// This somewhat complicated condition ensures that switching from null to an empty string does not count as EnteringRetypedNewPinStarted.
+				if (!this.EnteringRetypedNewPinStarted && !string.IsNullOrEmpty(this.RetypedNewPin))
+				{
+					this.EnteringRetypedNewPinStarted = true;
+				}
 			}
 
 			if (PropertyName == nameof(this.NewPin) || PropertyName == nameof(this.RetypedNewPin))
 			{
 				this.OnPropertyChanged(nameof(this.NewPinMatchesRetypedNewPin));
 				this.TryChangePinCommand.ChangeCanExecute();
+			}
+
+			if (PropertyName == nameof(this.IncorrectPinAlertShown) && !this.IncorrectPinAlertShown)
+			{
+				this.OldPin = string.Empty;
+				this.OldPinFocused = true;
 			}
 		}
 
@@ -126,7 +141,13 @@ namespace IdApp.Popups.Pin.ChangePin
 		private void Close()
 		{
 			this.OldPin = null;
+
+			this.EnteringNewPinStarted = false;
 			this.NewPin = null;
+
+			this.EnteringRetypedNewPinStarted = false;
+			this.RetypedNewPin = null;
+
 			this.PopupOpened = false;
 		}
 	}

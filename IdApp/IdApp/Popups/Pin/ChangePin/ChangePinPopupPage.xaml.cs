@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using IdApp.Resx;
@@ -10,9 +9,9 @@ using Xamarin.Essentials;
 
 namespace IdApp.Popups.Pin.ChangePin
 {
-    /// <summary>
-    /// Prompts the user for its PIN
-    /// </summary>
+	/// <summary>
+	/// Prompts the user for its PIN
+	/// </summary>
     public partial class ChangePinPopupPage : PopupPage
     {
         private readonly TaskCompletionSource<(string, string)> result = new();
@@ -42,10 +41,17 @@ namespace IdApp.Popups.Pin.ChangePin
 		/// </summary>
 		public Task<(string, string)> Result => this.result.Task;
 
-        /// <inheritdoc/>
-        protected override bool OnBackgroundClicked()
+		/// <inheritdoc/>
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+			this.OldPinEntry.Focus();
+		}
+
+		/// <inheritdoc/>
+		protected override bool OnBackgroundClicked()
         {
-			this.ViewModel.PopupOpened = false;
+			this.ViewModel.CloseCommand.Execute(null);
             return false;
 		}
 
@@ -64,8 +70,6 @@ namespace IdApp.Popups.Pin.ChangePin
 			{
 				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid, AppResources.Ok);
 				this.ViewModel.IncorrectPinAlertShown = false;
-				this.ViewModel.OldPin = string.Empty;
-				this.ViewModel.OldPinFocused = true;
 			}
 		}
 

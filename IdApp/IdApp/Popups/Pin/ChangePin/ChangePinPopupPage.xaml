@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-                 xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+				 xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
+				 xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+				 xmlns:helpers="clr-namespace:IdApp.Helpers;assembly=IdApp"
 				 xmlns:local="clr-namespace:IdApp.Popups.Pin.ChangePin;assembly=IdApp"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+				 xmlns:tag="clr-namespace:IdApp.Services.Tag;assembly=IdApp"
+				 xmlns:templatedSwitch="clr-namespace:IdApp.Controls.TemplatedSwitch;assembly=IdApp"
 				 x:DataType="local:ChangePinPopupViewModel"
                  x:Class="IdApp.Popups.Pin.ChangePin.ChangePinPopupPage">
 	<pages:PopupPage.Animation>
@@ -32,7 +37,7 @@
 					Padding="10,5"
 					IsClippedToBounds="True"
 					Spacing="3">
-					
+
 					<StackLayout.Resources>
 						<ResourceDictionary>
 							<Style TargetType="Entry">
@@ -46,25 +51,87 @@
 								<!-- Padding increases the area which responds to taps without increasing the eye visual size. -->
 								<Setter Property="Padding" Value="16,12,8,12" />
 							</Style>
+							<Style TargetType="Label" x:Key="ErrorMessage">
+								<Setter Property="TextColor" Value="{StaticResource AlertColor}" />
+								<Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}" />
+								<Setter Property="IsVisible" Value="False" />
+							</Style>
 						</ResourceDictionary>
 					</StackLayout.Resources>
 
-					<Entry
-						x:Name="OldPinEntry"
-						Placeholder="{x:Static resx:AppResources.EnterPin}" />
-					
-                    <Entry
-						x:Name="NewPinEntry"
-						Placeholder="{x:Static resx:AppResources.EnterNewPin}" />
-					
-                    <Entry
-						x:Name="RetypedPinEntry"
-						Placeholder="{x:Static resx:AppResources.RepeatNewPin}" />
+					<Grid>
+						<Entry
+							x:Name="OldPinEntry"
+							Placeholder="{x:Static resx:AppResources.EnterPin}"
+							behaviors:SettableIsFocusedBehavior.IsFocused="{Binding OldPinFocused}"
+							helpers:PasswordMask.IsEnabled="{Binding Path=IsToggled, Source={Reference OldPinEntryPasswordToggler}}"
+							Text="{Binding OldPin}">
+							<Entry.Behaviors>
+								<behaviors:SettableIsFocusedBehavior />
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="NewPinEntry" />
+							</Entry.Behaviors>
+						</Entry>
+						<templatedSwitch:TemplatedSwitch x:Name="OldPinEntryPasswordToggler" />
+					</Grid>
+
+					<Grid>
+						<Entry
+							x:Name="NewPinEntry"
+							Placeholder="{x:Static resx:AppResources.EnterNewPin}"
+							helpers:PasswordMask.IsEnabled="{Binding Path=IsToggled, Source={Reference NewPinEntryPasswordToggler}}"
+							Text="{Binding NewPin}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="RetypedPinEntry" />
+							</Entry.Behaviors>
+						</Entry>
+						<templatedSwitch:TemplatedSwitch x:Name="NewPinEntryPasswordToggler" />
+					</Grid>
+					<Label
+						Text="{Binding NewPinStrength, Converter={converters:PinStrengthToErrorMessage}}"
+						Style="{StaticResource ErrorMessage}">
+						<Label.Triggers>
+							<MultiTrigger TargetType="Label">
+								<MultiTrigger.Conditions>
+									<BindingCondition Binding="{Binding NewPinStrength, Converter={converters:EqualsParameter}, ConverterParameter={Static tag:PinStrength.Strong}}" Value="False" />
+									<BindingCondition Binding="{Binding EnteringNewPinStarted}" Value="True" />
+								</MultiTrigger.Conditions>
+								<Setter Property="IsVisible" Value="True" />
+							</MultiTrigger>
+						</Label.Triggers>
+					</Label>
+
+					<Grid>
+						<Entry
+							x:Name="RetypedPinEntry"
+							Placeholder="{x:Static resx:AppResources.RepeatNewPin}"
+							helpers:PasswordMask.IsEnabled="{Binding Path=IsToggled, Source={Reference RetypedPinEntryPasswordToggler}}"
+							Text="{Binding RetypedNewPin}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="ChangePinButton" />
+							</Entry.Behaviors>
+						</Entry>
+						<templatedSwitch:TemplatedSwitch x:Name="RetypedPinEntryPasswordToggler" />
+					</Grid>
+					<Label
+						Text="{Static resx:AppResources.PinsDoNotMatch}"
+						Style="{StaticResource ErrorMessage}">
+						<Label.Triggers>
+							<MultiTrigger TargetType="Label">
+								<MultiTrigger.Conditions>
+									<BindingCondition Binding="{Binding NewPinMatchesRetypedNewPin}" Value="False" />
+									<BindingCondition Binding="{Binding EnteringRetypedNewPinStarted}" Value="True" />
+								</MultiTrigger.Conditions>
+								<Setter Property="IsVisible" Value="True" />
+							</MultiTrigger>
+						</Label.Triggers>
+					</Label>
 					
                     <Button
+						x:Name="ChangePinButton"
 						Margin="10,5"
 						HorizontalOptions="Fill"
-						Text="{x:Static resx:AppResources.ChangePin}">
+						Text="{x:Static resx:AppResources.ChangePin}"
+						Command="{Binding TryChangePinCommand}">
                         <Button.HeightRequest>
                             <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
                         </Button.HeightRequest>
@@ -75,7 +142,7 @@
 			
             <Grid HorizontalOptions="End" VerticalOptions="Start">
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer />
+                    <TapGestureRecognizer Command="{Binding CloseCommand}" />
                 </Grid.GestureRecognizers>
                 <Ellipse StrokeThickness="2" WidthRequest="32" HeightRequest="32" HorizontalOptions="Center" VerticalOptions="Center">
                     <Ellipse.Fill>
@@ -94,6 +161,7 @@
 					HorizontalOptions="Center"
 					VerticalOptions="Center"/>
             </Grid>
+			
         </AbsoluteLayout>
     </ScrollView>
 </pages:PopupPage>

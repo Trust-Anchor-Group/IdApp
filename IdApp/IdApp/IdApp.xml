@@ -11411,6 +11411,9 @@
             Task waiting for result. (null, null) means dialog was closed without providing a PIN.
             </summary>
         </member>
+        <member name="M:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage.OnAppearing">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage.OnBackgroundClicked">
             <inheritdoc/>
         </member>
