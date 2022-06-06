@@ -55,6 +55,7 @@ namespace IdApp.iOS.Effects
 					this.TextField.SecureTextEntry = false;
 					this.TextField.AutocorrectionType = UITextAutocorrectionType.No;
 					this.TextField.AutocapitalizationType = UITextAutocapitalizationType.None;
+					this.TextField.SpellCheckingType = UITextSpellCheckingType.No;
 				}
 			}
 		}
