@@ -24,18 +24,18 @@ namespace IdApp.Behaviors
 		/// <summary>
 		/// Gets the value indicating if the element is focused.
 		/// </summary>
-		public static bool GetIsFocused(BindableObject bindable)
+		public static bool GetIsFocused(BindableObject Bindable)
 		{
-			return (bool)bindable.GetValue(IsFocusedProperty);
+			return (bool)Bindable.GetValue(IsFocusedProperty);
 		}
 
 		/// <summary>
-		/// Tries to set focus on the element if <paramref name="value"/> is <c>true</c> or clears focus if <paramref name="value"/>
+		/// Tries to set focus on the element if <paramref name="Value"/> is <c>true</c> or clears focus if <paramref name="Value"/>
 		/// is <c>false</c>. Setting focus might fail, in which case <see cref="IsFocusedProperty"/> will be reset to <c> false</c>.
 		/// </summary>
-		public static void SetIsFocused(BindableObject bindable, bool value)
+		public static void SetIsFocused(BindableObject Bindable, bool Value)
 		{
-			bindable.SetValue(IsFocusedProperty, value);
+			Bindable.SetValue(IsFocusedProperty, Value);
 		}
 
 		private static void OnSettableIsFocusedChanged(BindableObject Bindable, bool IsFocused)
@@ -72,14 +72,14 @@ namespace IdApp.Behaviors
 			base.OnDetachingFrom(VisualElement);
 		}
 
-		private void OnElementFocused(object Sender, FocusEventArgs Args)
+		private void OnElementFocused(object Sender, FocusEventArgs EventArgs)
 		{
-			((BindableObject)Sender).SetValue(IsFocusedProperty, Args.IsFocused);
+			SetIsFocused((BindableObject)Sender, EventArgs.IsFocused);
 		}
 
-		private void OnElementUnfocused(object Sender, FocusEventArgs Args)
+		private void OnElementUnfocused(object Sender, FocusEventArgs EventArgs)
 		{
-			((BindableObject)Sender).SetValue(IsFocusedProperty, Args.IsFocused);
+			SetIsFocused((BindableObject)Sender, EventArgs.IsFocused);
 		}
 	}
 }
