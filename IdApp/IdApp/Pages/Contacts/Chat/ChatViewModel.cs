@@ -58,6 +58,7 @@ namespace IdApp.Pages.Contacts.Chat
 		protected internal ChatViewModel()
 			: base()
 		{
+			this.ExpandButtons = new Command(_ => this.IsButtonExpanded = !this.IsButtonExpanded);
 			this.SendCommand = new Command(async _ => await this.ExecuteSendMessage(), _ => this.CanExecuteSendMessage());
 			this.CancelCommand = new Command(async _ => await this.ExecuteCancelMessage(), _ => this.CanExecuteCancelMessage());
 			this.LoadMoreMessages = new Command(async _ => await this.ExecuteLoadMessagesAsync(), _ => this.CanExecuteLoadMoreMessages());
@@ -248,7 +249,11 @@ namespace IdApp.Pages.Contacts.Chat
 		public bool IsWriting
 		{
 			get => (bool)this.GetValue(IsWritingProperty);
-			set => this.SetValue(IsWritingProperty, value);
+			set
+			{
+				this.IsButtonExpanded = false;
+				this.SetValue(IsWritingProperty, value);
+			}
 		}
 
 		/// <summary>
@@ -401,6 +406,26 @@ namespace IdApp.Pages.Contacts.Chat
 					this.Messages.Insert(i, Item);
 			}
 		}
+
+		/// <summary>
+		/// <see cref="IsButtonExpanded"/>
+		/// </summary>
+		public static readonly BindableProperty IsButtonExpandedProperty =
+			BindableProperty.Create(nameof(IsButtonExpanded), typeof(bool), typeof(ChatViewModel), default(bool));
+
+		/// <summary>
+		/// If the user is writing markdown.
+		/// </summary>
+		public bool IsButtonExpanded
+		{
+			get => (bool)this.GetValue(IsButtonExpandedProperty);
+			set => this.SetValue(IsButtonExpandedProperty, value);
+		}
+
+		/// <summary>
+		/// Command to expand the buttons
+		/// </summary>
+		public ICommand ExpandButtons { get; }
 
 		/// <summary>
 		/// The command to bind to for sending user input
@@ -954,8 +979,8 @@ namespace IdApp.Pages.Contacts.Chat
 				switch (Message.MessageType)
 				{
 					case Services.Messages.MessageType.Sent:
-						this.MarkdownInput = Message.Markdown;
 						this.MessageId = Message.ObjectId;
+						this.MarkdownInput = Message.Markdown;
 						break;
 
 					case Services.Messages.MessageType.Received:
@@ -975,8 +1000,8 @@ namespace IdApp.Pages.Contacts.Chat
 
 						Quote.AppendLine();
 
-						this.MarkdownInput = Quote.ToString();
 						this.MessageId = string.Empty;
+						this.MarkdownInput = Quote.ToString();
 						break;
 				}
 			}

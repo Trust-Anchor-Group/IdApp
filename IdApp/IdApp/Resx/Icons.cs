@@ -25,42 +25,42 @@
         /// The camer icon
         /// </summary>
         public const string Camera = "\uf030";
-        
+
         /// <summary>
         /// The user icon
         /// </summary>
         public const string User = "\uf007";
-        
+
         /// <summary>
         /// The home (house) icon
         /// </summary>
         public const string Home = "\uf015";
-        
+
         /// <summary>
         /// The Scan QR icon
         /// </summary>
         public const string ScanQr = "\uf029";
-        
+
         /// <summary>
         /// The contract icon
         /// </summary>
         public const string Contract = "\uf56c";
-        
+
         /// <summary>
         /// The signed contract icon
         /// </summary>
         public const string SignedContract = "\uf573";
-        
+
         /// <summary>
         /// The new contract icon
         /// </summary>
         public const string NewContract = "\uf15b";
-        
+
         /// <summary>
         /// The times ('x') icon
         /// </summary>
         public const string Times = "\uf00d";
-        
+
         /// <summary>
         /// The inspect icon
         /// </summary>
@@ -75,12 +75,12 @@
         /// The exit icon
         /// </summary>
         public const string Exit = "\uf2f5";
-        
+
         /// <summary>
         /// The question mark in a circle icon
         /// </summary>
         public const string QuestionCircle = "\uf059";
-        
+
         /// <summary>
         /// The wallet icon
         /// </summary>
@@ -170,5 +170,11 @@
 		/// eye-slash
 		/// </summary>
 		public const string EyeSlash = "\uf070";
+
+		/// <summary>
+		/// ellipsis-h
+		/// </summary>
+		public const string EllipsisH = "\uf141";
+
 	}
 }

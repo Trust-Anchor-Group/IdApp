@@ -2119,6 +2119,21 @@
             </summary>
             <param name="Message">Message</param>
         </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.IsButtonExpandedProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.IsButtonExpanded"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.IsButtonExpanded">
+            <summary>
+            If the user is writing markdown.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.ExpandButtons">
+            <summary>
+            Command to expand the buttons
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.SendCommand">
             <summary>
             The command to bind to for sending user input
@@ -14469,6 +14484,11 @@
         <member name="F:IdApp.Resx.FontAwesome.EyeSlash">
             <summary>
             eye-slash
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.FontAwesome.EllipsisH">
+            <summary>
+            ellipsis-h
             </summary>
         </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">
