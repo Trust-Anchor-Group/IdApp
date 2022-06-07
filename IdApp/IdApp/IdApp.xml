@@ -225,7 +225,7 @@
         </member>
         <member name="M:IdApp.Behaviors.SettableIsFocusedBehavior.SetIsFocused(Xamarin.Forms.BindableObject,System.Boolean)">
             <summary>
-            Tries to set focus on the element if <paramref name="value"/> is <c>true</c> or clears focus if <paramref name="value"/>
+            Tries to set focus on the element if <paramref name="Value"/> is <c>true</c> or clears focus if <paramref name="Value"/>
             is <c>false</c>. Setting focus might fail, in which case <see cref="F:IdApp.Behaviors.SettableIsFocusedBehavior.IsFocusedProperty"/> will be reset to <c> false</c>.
             </summary>
         </member>
