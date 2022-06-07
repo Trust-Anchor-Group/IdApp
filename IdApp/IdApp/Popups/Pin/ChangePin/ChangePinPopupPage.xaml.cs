@@ -10,15 +10,15 @@ using Xamarin.Essentials;
 namespace IdApp.Popups.Pin.ChangePin
 {
 	/// <summary>
-	/// Prompts the user for its PIN
+	/// ChangePinPopupPage defines a popup which prompts the user for their PIN.
 	/// </summary>
-    public partial class ChangePinPopupPage : PopupPage
+	public partial class ChangePinPopupPage : PopupPage
     {
         private readonly TaskCompletionSource<(string, string)> result = new();
         private readonly IUiSerializer uiSerializer;
 
         /// <summary>
-        /// Prompts the user for its PIN
+        /// Initializes a new instance of the <see cref="ChangePinPopupPage"/> class.
         /// </summary>
         public ChangePinPopupPage()
 		{
@@ -37,7 +37,7 @@ namespace IdApp.Popups.Pin.ChangePin
 		private ChangePinPopupViewModel ViewModel => this.BindingContext as ChangePinPopupViewModel;
 
 		/// <summary>
-		/// Task waiting for result. (null, null) means dialog was closed without providing a PIN.
+		/// A <see cref="Task"/> waiting for the result. <c>(null, null)</c> means the dialog was closed without providing a PIN.
 		/// </summary>
 		public Task<(string, string)> Result => this.result.Task;
 
@@ -73,7 +73,7 @@ namespace IdApp.Popups.Pin.ChangePin
 			}
 		}
 
-		private void OnMainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+		private void OnMainDisplayInfoChanged(object Sender, DisplayInfoChangedEventArgs EventArgs)
 		{
 			this.UpdateMainFrameWidth();
 		}
