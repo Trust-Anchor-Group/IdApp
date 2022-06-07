@@ -140,6 +140,10 @@ namespace IdApp.Popups.Pin.ChangePin
 
 		private void Close()
 		{
+			// We need to set OldPin and NewPin to null to indicate that the popup has been dismissed by the user. However, if we do not
+			// reset EnteringNewPinStarted and EnteringRetypedNewPinStarted as well, error messages might appear or change, which leads
+			// to a visual distortion. Resetting everything leads to a nice visual "reset and close" effect.
+
 			this.OldPin = null;
 
 			this.EnteringNewPinStarted = false;
