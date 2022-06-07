@@ -11398,17 +11398,17 @@
         </member>
         <member name="T:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage">
             <summary>
-            Prompts the user for its PIN
+            ChangePinPopupPage defines a popup which prompts the user for their PIN.
             </summary>
         </member>
         <member name="M:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage.#ctor">
             <summary>
-            Prompts the user for its PIN
+            Initializes a new instance of the <see cref="T:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage"/> class.
             </summary>
         </member>
         <member name="P:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage.Result">
             <summary>
-            Task waiting for result. (null, null) means dialog was closed without providing a PIN.
+            A <see cref="T:System.Threading.Tasks.Task"/> waiting for the result. <c>(null, null)</c> means the dialog was closed without providing a PIN.
             </summary>
         </member>
         <member name="M:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage.OnAppearing">
