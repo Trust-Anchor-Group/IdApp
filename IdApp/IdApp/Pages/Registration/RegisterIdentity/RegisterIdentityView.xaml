@@ -45,10 +45,14 @@
                             <Button x:Name="PickPhotoButton"
                                 Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeRegular}"
                                 Text="{x:Static resx:FontAwesome.Images}" Command="{Binding Path=PickPhotoCommand}" />
-                            <Button x:Name="EPassportButton" 
-                                    Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeSolid}"
-                                    Text="{x:Static resx:FontAwesome.Passport}" Command="{Binding Path=EPassportCommand}"
-                                    IsVisible="{Binding Path=IsTest}" />
+							
+							<!-- A simple TapGestureRecognizer attached to an Image / Frame / Path will not support disabling the control
+							     visually when ICommand.CanExecute returns false, like Button does, so we use a true Button overlayed
+							     with an input transparent e-passport icon instead. -->
+							<Grid IsVisible="{Binding Path=IsTest}">
+								<Button Style="{StaticResource IconButton}" Command="{Binding Path=EPassportCommand}" />
+								<Path Style="{StaticResource EPassportIcon}" InputTransparent="True" />
+							</Grid>
                         </StackLayout>
                     </Grid>
                 </Frame>
