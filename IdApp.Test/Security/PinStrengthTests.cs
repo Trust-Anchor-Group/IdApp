@@ -370,6 +370,17 @@ namespace IdApp.Test.Security
 			return DragThrough(AmbientStrings, DraggedStrings);
 		}
 
+		[DataTestMethod]
+		[DataRow("12ab34cd")]
+		[DataRow("12<>34cd")]
+		[DataRow("12ab34<>")]
+		[DataRow("12<>34;'")]
+		public void PinStrong(string Pin)
+		{
+			PinStrength PinStrength = this.tagProfile.ValidatePinStrength(Pin);
+			Assert.AreEqual(PinStrength.Strong, PinStrength);
+		}
+
 		private static IEnumerable<object[]> DragThrough(IEnumerable<string> AmbientStrings, IEnumerable<string> DraggedStrings)
 		{
 			return from AmbientString in AmbientStrings
