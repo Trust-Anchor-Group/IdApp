@@ -7,14 +7,14 @@ namespace IdApp.Pages.Registration.RegisterIdentity
     /// A view to display the 'register identity' during the registration process.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RegisterIdentityView
-    {
+    public partial class RegisterIdentityView : ContentBaseView
+	{
         /// <summary>
         /// Creates a new instance of the <see cref="RegisterIdentityView"/> class.
         /// </summary>
         public RegisterIdentityView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
 		private void RegionEntry_Focused(object sender, FocusEventArgs e)
