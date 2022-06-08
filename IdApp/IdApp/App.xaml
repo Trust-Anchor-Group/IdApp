@@ -72,6 +72,15 @@
             <Setter Property="HorizontalOptions" Value="FillAndExpand" />
             <Setter Property="VerticalOptions" Value="Start" />
         </Style>
+		<Style TargetType="Path" x:Key="EPassportIcon">
+			<Setter Property="HeightRequest" Value="24" />
+			<Setter Property="WidthRequest" Value="24" />
+			<!-- 8*2 + 24 = 40 -->
+			<Setter Property="Margin" Value="8" />
+			<Setter Property="Data" Value="M-111.5625 24.75V136.125H23.539306A82.5 82.5 0 0 1 105 66 82.5 82.5 0 0 1 186.5 136.125H321.5625V24.75ZM105 90.75A57.75 57.75 0 0 0 47.25 148.5 57.75 57.75 0 0 0 105 206.25 57.75 57.75 0 0 0 162.75 148.5 57.75 57.75 0 0 0 105 90.75Zm-216.5625 70.125V272.25h433.125V160.875H186.46068A82.5 82.5 0 0 1 105 231 82.5 82.5 0 0 1 23.5 160.875Z" />
+			<Setter Property="Fill" Value="White" />
+			<Setter Property="Aspect" Value="Uniform" />
+		</Style>
         <Style x:Key="Heading" TargetType="Label"
                ApplyToDerivedTypes="True"
                CanCascade="True">
