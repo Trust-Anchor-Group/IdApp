@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using IdApp.Services;
 using IdApp.Services.Tag;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -166,47 +167,67 @@ namespace IdApp.Test.Security
 		}
 
 		[DataTestMethod]
-		[DataRow("xxx")]
-		[DataRow("1xxx")]
-		[DataRow("xxx1")]
-		[DataRow("10xxx")]
-		[DataRow("1xxx0")]
-		[DataRow("xxx10")]
-		[DataRow("10axxx")]
-		[DataRow("10xxxa")]
-		[DataRow("1xxx0a")]
-		[DataRow("xxx10a")]
-		[DataRow("10abxxx")]
-		[DataRow("10axxxb")]
-		[DataRow("10xxxab")]
-		[DataRow("1xxx0ab")]
-		[DataRow("xxx10ab")]
+		[DynamicData(nameof(GetTestDataForPinWithTooManyIdenticalSymbols), DynamicDataSourceType.Method)]
 		public void PinWithTooManyIdenticalSymbols(string Pin)
 		{
 			PinStrength PinStrength = this.tagProfile.ValidatePinStrength(Pin);
 			Assert.AreEqual(PinStrength.TooManyIdenticalSymbols, PinStrength);
 		}
 
+		public static IEnumerable<object[]> GetTestDataForPinWithTooManyIdenticalSymbols()
+		{
+			string[] AmbientStrings = new string[]
+			{
+				"",
+				"1",
+				"12",
+				"12a",
+				"12ab",
+				"12ab3",
+				"12ab34",
+				"12ab34c",
+				"12ab34cd"
+			};
+
+			string[] DraggedStrings = new string[]
+			{
+				"xxx",
+				"999"
+			};
+
+			return DragThrough(AmbientStrings, DraggedStrings);
+		}
+
 		[DataTestMethod]
-		[DataRow("xyz")]
-		[DataRow("1" + "xyz")]
-		[DataRow("xyz" + "1")]
-		[DataRow("10" + "xyz")]
-		[DataRow("1"+ "xyz" + "0")]
-		[DataRow("xyz" + "10")]
-		[DataRow("10a" + "xyz")]
-		[DataRow("10" + "xyz" + "a")]
-		[DataRow("1" + "xyz" + "0a")]
-		[DataRow("xyz" + "10a")]
-		[DataRow("10ab" + "xyz")]
-		[DataRow("10a" + "xyz" + "b")]
-		[DataRow("10" + "xyz" + "ab")]
-		[DataRow("1" + "xyz" + "0ab")]
-		[DataRow("xyz" + "10ab")]
+		[DynamicData(nameof(GetTestDataForPinWithTooManySequencedSymbols), DynamicDataSourceType.Method)]
 		public void PinWithTooManySequencedSymbols(string Pin)
 		{
 			PinStrength PinStrength = this.tagProfile.ValidatePinStrength(Pin);
 			Assert.AreEqual(PinStrength.TooManySequencedSymbols, PinStrength);
+		}
+
+		public static IEnumerable<object[]> GetTestDataForPinWithTooManySequencedSymbols()
+		{
+			string[] AmbientStrings = new string[]
+			{
+				"",
+				"1",
+				"12",
+				"12a",
+				"12ab",
+				"12ab3",
+				"12ab34",
+				"12ab34c",
+				"12ab34cd"
+			};
+
+			string[] DraggedStrings = new string[]
+			{
+				"xyz",
+				"789"
+			};
+
+			return DragThrough(AmbientStrings, DraggedStrings);
 		}
 
 		[DataTestMethod]
@@ -230,7 +251,7 @@ namespace IdApp.Test.Security
 
 		public static IEnumerable<object[]> GetTestDataForPinContainsAddress()
 		{
-			string[] TargetStrings = new string[]
+			string[] AmbientStrings = new string[]
 			{
 				"",
 				"1",
@@ -243,14 +264,119 @@ namespace IdApp.Test.Security
 				"12ab34cd"
 			};
 
-			foreach (string TargetString in TargetStrings)
+			string[] DraggedStrings = new string[]
 			{
-				for (int i = 0; i <= TargetString.Length; i++)
-				{
-					yield return new object[] { TargetString.Substring(0, i) + addressPart1 + TargetString.Substring(i) };
-					yield return new object[] { TargetString.Substring(0, i) + addressPart2 + TargetString.Substring(i) };
-				}
-			}
+				addressPart1,
+				addressPart2,
+			};
+
+			return DragThrough(AmbientStrings, DraggedStrings);
+		}
+
+		[DataTestMethod]
+		[DynamicData(nameof(GetTestDataForPinContainsName), DynamicDataSourceType.Method)]
+		public void PinContainsName(string Pin)
+		{
+			PinStrength PinStrength = this.tagProfile.ValidatePinStrength(Pin);
+			Assert.AreEqual(PinStrength.ContainsName, PinStrength);
+		}
+
+		public static IEnumerable<object[]> GetTestDataForPinContainsName()
+		{
+			string[] AmbientStrings = new string[]
+			{
+				"",
+				"1",
+				"12",
+				"12a",
+				"12ab",
+				"12ab3",
+				"12ab34",
+				"12ab34c",
+				"12ab34cd"
+			};
+
+			string[] DraggedStrings = new string[]
+			{
+				middleName1,
+				middleName2,
+				middleName3,
+				firstName,
+				lastName,
+			};
+
+			return DragThrough(AmbientStrings, DraggedStrings);
+		}
+
+		[DataTestMethod]
+		[DynamicData(nameof(GetTestDataForPinContainsPersonalNumber), DynamicDataSourceType.Method)]
+		public void PinContainsPersonalNumber(string Pin)
+		{
+			PinStrength PinStrength = this.tagProfile.ValidatePinStrength(Pin);
+			Assert.AreEqual(PinStrength.ContainsPersonalNumber, PinStrength);
+		}
+
+		public static IEnumerable<object[]> GetTestDataForPinContainsPersonalNumber()
+		{
+			string[] AmbientStrings = new string[]
+			{
+				"",
+				"1",
+				"12",
+				"12a",
+				"12ab",
+				"12ab3",
+				"12ab34",
+				"12ab34c",
+				"12ab34cd"
+			};
+
+			string[] DraggedStrings = new string[]
+			{
+				pnr,
+			};
+
+			return DragThrough(AmbientStrings, DraggedStrings);
+		}
+
+		[DataTestMethod]
+		[DynamicData(nameof(GetTestDataForPinContainsPhoneNumber), DynamicDataSourceType.Method)]
+		public void PinContainsPhoneNumber(string Pin)
+		{
+			PinStrength PinStrength = this.tagProfile.ValidatePinStrength(Pin);
+			Assert.AreEqual(PinStrength.ContainsPhoneNumber, PinStrength);
+		}
+
+		public static IEnumerable<object[]> GetTestDataForPinContainsPhoneNumber()
+		{
+			string[] AmbientStrings = new string[]
+			{
+				"",
+				"1",
+				"12",
+				"12a",
+				"12ab",
+				"12ab3",
+				"12ab34",
+				"12ab34c",
+				"12ab34cd"
+			};
+
+			string[] DraggedStrings = new string[]
+			{
+				phoneNumber,
+			};
+
+			return DragThrough(AmbientStrings, DraggedStrings);
+		}
+
+		private static IEnumerable<object[]> DragThrough(IEnumerable<string> AmbientStrings, IEnumerable<string> DraggedStrings)
+		{
+			return from AmbientString in AmbientStrings
+				   from DraggedString in DraggedStrings
+				   from s in Enumerable.Range(0, AmbientString.Length + 1)
+				             .Select(i => AmbientString[..i] + DraggedString + AmbientString[i..])
+				   select new object[] { s };
 		}
 	}
 }
