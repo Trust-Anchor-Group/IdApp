@@ -65,7 +65,7 @@ namespace IdApp.Test.Security
 		}
 
 		[TestMethod("A null or empty PIN")]
-		public void PinIsNullOrEmptry_PinWithNotEnoughDigitsLettersSigns()
+		public void PinIsNullOrEmpty_PinWithNotEnoughDigitsLettersSigns()
 		{
 			PinStrength NullPinStrength = this.tagProfile.ValidatePinStrength(null);
 			PinStrength EmptyPinStrength = this.tagProfile.ValidatePinStrength(string.Empty);
