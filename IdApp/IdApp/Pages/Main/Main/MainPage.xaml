@@ -5,8 +5,8 @@
                        xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:mainTabBar="clr-namespace:IdApp.Controls.MainTabBar;assembly=IdApp"
-                       xmlns:model="clr-namespace:IdApp.Pages.Main.Main;assembly=IdApp" 
-                       xmlns:content="clr-namespace:IdApp.Pages;assembly=IdApp" 
+                       xmlns:model="clr-namespace:IdApp.Pages.Main.Main;assembly=IdApp"
+                       xmlns:content="clr-namespace:IdApp.Pages;assembly=IdApp"
                        x:DataType="model:MainViewModel"
                        x:Class="IdApp.Pages.Main.Main.MainPage"
                        Title="{x:Static resx:AppResources.MainPageTitle}"
@@ -18,12 +18,12 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <mainTabBar:MainTabBarView x:Name="MainTabBar"
-                                       Grid.Row="1" 
-                                       LeftButton1Text="{x:Static resx:FontAwesome.Contacts}" 
-                                       LeftButton2Text="{x:Static resx:FontAwesome.Things}" 
-                                       CenterButtonText="{x:Static resx:FontAwesome.ScanQr}" 
+                                       Grid.Row="1"
+                                       LeftButton1Text="{x:Static resx:FontAwesome.Contacts}"
+                                       LeftButton2Text="{x:Static resx:FontAwesome.Things}"
+                                       CenterButtonText="{x:Static resx:FontAwesome.ScanQr}"
                                        RightButton1Text="{x:Static resx:FontAwesome.Paragraph}"
-                                       RightButton2Text="{x:Static resx:FontAwesome.Wallet}" 
+                                       RightButton2Text="{x:Static resx:FontAwesome.Wallet}"
                                        LeftButton1Command="{Binding Path=ViewMyContactsCommand}"
                                        LeftButton2Command="{Binding Path=ViewMyThingsCommand}"
                                        CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
@@ -49,11 +49,11 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Ellipse Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" WidthRequest="36" HeightRequest="36" 
+                        <Ellipse Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" WidthRequest="36" HeightRequest="36"
                                     Fill="{Binding Path=ConnectionStateColor}"
                                     HorizontalOptions="Start" VerticalOptions="Center"/>
                         <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="6,0,0,0"
-                                HorizontalOptions="Start" VerticalOptions="Center" FontSize="18" 
+                                HorizontalOptions="Start" VerticalOptions="Center" FontSize="18"
                                 TextColor="{StaticResource ForegroundColor}"
                                 Text="{x:Static resx:FontAwesome.Network}"
                                 FontFamily="{StaticResource FontAwesomeSolid}"/>
@@ -66,7 +66,7 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=ConnectionErrorsText}" FontAttributes="Italic" 
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=ConnectionErrorsText}" FontAttributes="Italic"
                                 HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" IsVisible="{Binding Path=HasConnectionErrors}" />
                     </Grid>
                     <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="Start" Margin="{StaticResource DefaultBottomOnlyMargin}" />
@@ -79,7 +79,7 @@
                         <TapGestureRecognizer Tapped="IdCard_Tapped" />
                     </flipView:FlipView.GestureRecognizers>
                     <flipView:FlipView.FrontView>
-                        <Frame Margin="2" Padding="2" BackgroundColor="{StaticResource HeadingBackground}" 
+                        <Frame Margin="2" Padding="2" BackgroundColor="{StaticResource HeadingBackground}"
                                CornerRadius="6" IsClippedToBounds="True" HasShadow="True">
                             <Grid RowDefinitions="auto,*,auto" ColumnDefinitions="*">
                                 <Image Grid.Row="0" WidthRequest="20" HeightRequest="20"
@@ -88,7 +88,7 @@
                                         <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.ScanQr}" Color="{StaticResource HeadingForeground}"/>
                                     </Image.Source>
                                 </Image>
-                                <Image Grid.Row="0" WidthRequest="20" HeightRequest="20" 
+                                <Image Grid.Row="0" WidthRequest="20" HeightRequest="20"
                                        VerticalOptions="Start" HorizontalOptions="Start" Margin="12,12,12,4">
                                     <Image.Source>
                                         <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Share}" Color="{StaticResource HeadingForeground}"/>
@@ -101,24 +101,24 @@
                                        HorizontalOptions="FillAndExpand"
                                        VerticalOptions="FillAndExpand" Margin="12,0,12,0"
                                        Aspect="AspectFit"
-                                       Source="{Binding Path=Image}" 
-                                       IsVisible="{Binding Path=HasPhoto}" 
+                                       Source="{Binding Path=Image}"
+                                       IsVisible="{Binding Path=HasPhoto}"
                                        Rotation="{Binding Path=ImageRotation}"/>
                                 <Label Grid.Row="1"
                                        HorizontalOptions="CenterAndExpand"
-                                       VerticalOptions="CenterAndExpand" FontSize="42" 
+                                       VerticalOptions="CenterAndExpand" FontSize="42"
                                        TextColor="{StaticResource HeadingForeground}"
                                        Text="{x:Static resx:FontAwesome.User}"
                                        FontFamily="{StaticResource FontAwesomeSolid}"
                                        IsVisible="{Binding Path=HasPhoto, Converter={converters:LogicalNot}}"/>
                                 <Label Grid.Row="2" Text="{Binding Path=FullName}"
-                                       TextColor="{StaticResource HeadingForeground}" Margin="0,4,0,4" 
+                                       TextColor="{StaticResource HeadingForeground}" Margin="0,4,0,4"
                                        HorizontalOptions="Center" FontSize="Medium"/>
                             </Grid>
                         </Frame>
                     </flipView:FlipView.FrontView>
                     <flipView:FlipView.BackView>
-                        <Frame BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="2" 
+                        <Frame BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="2"
                                CornerRadius="6" IsClippedToBounds="True" HasShadow="True">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -128,17 +128,17 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Row="0" 
+                                <Label Grid.Row="0"
                                        Text="{x:Static resx:AppResources.Qrcode}" TextColor="{StaticResource HeadingBackground}"
-                                       HorizontalOptions="Center" VerticalOptions="Center" 
+                                       HorizontalOptions="Center" VerticalOptions="Center"
                                        FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                                <Image Grid.Row="0" WidthRequest="20" HeightRequest="20" 
+                                <Image Grid.Row="0" WidthRequest="20" HeightRequest="20"
                                        VerticalOptions="Start" HorizontalOptions="End" Margin="{StaticResource DefaultMargin}">
                                     <Image.Source>
                                         <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.User}" Color="{StaticResource HeadingBackground}"/>
                                     </Image.Source>
                                 </Image>
-                                <Image Grid.Row="0" WidthRequest="20" HeightRequest="20" 
+                                <Image Grid.Row="0" WidthRequest="20" HeightRequest="20"
                                        VerticalOptions="Start" HorizontalOptions="Start" Margin="{StaticResource DefaultMargin}">
                                     <Image.Source>
                                         <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Share}" Color="{StaticResource HeadingBackground}"/>
@@ -147,10 +147,10 @@
                                         <TapGestureRecognizer Tapped="ShareQR_Tapped"/>
                                     </Image.GestureRecognizers>
                                 </Image>
-                                <Image x:Name="QrCode" Grid.Row="1" 
-                                       BackgroundColor="{StaticResource HeadingForeground}" 
-                                       Source="{Binding Path=QrCode}" 
-                                       IsVisible="{Binding Path=HasQrCode}" 
+                                <Image x:Name="QrCode" Grid.Row="1"
+                                       BackgroundColor="{StaticResource HeadingForeground}"
+                                       Source="{Binding Path=QrCode}"
+                                       IsVisible="{Binding Path=HasQrCode}"
                                        Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="20" />
                             </Grid>
                         </Frame>

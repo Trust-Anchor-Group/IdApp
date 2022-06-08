@@ -414,7 +414,7 @@ namespace IdApp.Pages.Contacts.Chat
 			BindableProperty.Create(nameof(IsButtonExpanded), typeof(bool), typeof(ChatViewModel), default(bool));
 
 		/// <summary>
-		/// If the user is writing markdown.
+		/// If the button is expanded
 		/// </summary>
 		public bool IsButtonExpanded
 		{

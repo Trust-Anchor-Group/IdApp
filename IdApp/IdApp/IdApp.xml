@@ -794,6 +794,47 @@
             The selected date
             </summary>
         </member>
+        <member name="T:IdApp.Controls.FadeView.FadeView">
+            <summary>
+            The FadeView is a user control that holds two child controls: a <see cref="P:IdApp.Controls.FadeView.FadeView.FrontView"/> and a <see cref="P:IdApp.Controls.FadeView.FadeView.BackView"/>.
+            It can perform a fade animation from one view to another. In order to fade the view, simply set the <see cref="P:IdApp.Controls.FadeView.FadeView.IsFrontView"/> property.
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.FadeView.FadeView.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Controls.FadeView.FadeView"/> control.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.FadeView.FadeView.IsFrontViewProperty">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:IdApp.Controls.FadeView.FadeView.IsFrontView">
+            <summary>
+            Set to true is the front vew must be shown.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.FadeView.FadeView.FrontViewProperty">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:IdApp.Controls.FadeView.FadeView.FrontView">
+            <summary>
+            The view displayed on the 'front' side of this user control.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.FadeView.FadeView.BackViewProperty">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:IdApp.Controls.FadeView.FadeView.BackView">
+            <summary>
+            The view displayed on the 'back' side of this user control.
+            </summary>
+        </member>
         <member name="T:IdApp.Controls.FlipView.FlipView">
             <summary>
             The FlipView is a user control that holds two child controls: a <see cref="P:IdApp.Controls.FlipView.FlipView.FrontView"/> and a <see cref="P:IdApp.Controls.FlipView.FlipView.BackView"/>.
@@ -806,9 +847,9 @@
             </summary>
         </member>
         <member name="F:IdApp.Controls.FlipView.FlipView.FrontViewProperty">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:IdApp.Controls.FlipView.FlipView.FrontView">
             <summary>
@@ -866,9 +907,9 @@
             </summary>
         </member>
         <member name="F:IdApp.Controls.FlipView.FlipView.BackViewProperty">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:IdApp.Controls.FlipView.FlipView.BackView">
             <summary>
@@ -2126,7 +2167,7 @@
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.IsButtonExpanded">
             <summary>
-            If the user is writing markdown.
+            If the button is expanded
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.ExpandButtons">

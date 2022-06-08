@@ -8,6 +8,7 @@
 					   xmlns:messages="clr-namespace:IdApp.Services.Messages;assembly=IdApp"
 					   xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
                        xmlns:loading="clr-namespace:IdApp.Controls.LoadingCollectionView;assembly=IdApp"
+                       xmlns:fadeview="clr-namespace:IdApp.Controls.FadeView;assembly=IdApp"
 					   xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
 					   x:DataType="model:ChatViewModel"
 					   x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
@@ -89,64 +90,67 @@
 			</Grid>
 		</Grid>
 
-		<Grid HorizontalOptions="End" VerticalOptions="End" Margin="0,0,0,5" >
-			<xct:Expander Direction="Up" BackgroundColor="Transparent"
+		<Grid HorizontalOptions="End" VerticalOptions="End" Margin="0,0,0,5">
+			<fadeview:FadeView IsFrontView="{Binding Path=IsWriting, Converter={converters:LogicalNot}}">
+				<fadeview:FadeView.FrontView>
+					<xct:Expander Direction="Up" BackgroundColor="Transparent"
 						  AnimationLength="300" AnimationEasing="CubicInOut"
-						  IsExpanded="{Binding IsButtonExpanded}"
-						  IsVisible="{Binding Path=IsWriting, Converter={converters:LogicalNot}}">
-				<xct:Expander.Header>
-					<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
+						  IsExpanded="{Binding IsButtonExpanded}">
+						<xct:Expander.Header>
+							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
 							Text="{x:Static resx:FontAwesome.EllipsisH}" TextColor="White"
 							FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
 							Command="{Binding ExpandButtons}" />
-				</xct:Expander.Header>
-				<StackLayout Orientation="Vertical" Spacing="5" Margin="0,0,0,5">
-					<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
+						</xct:Expander.Header>
+						<StackLayout Orientation="Vertical" Spacing="5" Margin="0,0,0,5">
+							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
 						Text="{x:Static resx:FontAwesome.Camera}" TextColor="White"
 						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
 						Command="{Binding TakePhoto}"/>
 
-					<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
+							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
 						Text="{x:Static resx:FontAwesome.PaperClip}" TextColor="White"
 						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
 						Command="{Binding EmbedFile}"/>
 
-					<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
+							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
 						Text="{x:Static resx:FontAwesome.User}" TextColor="White"
 						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
 						Command="{Binding EmbedId}"/>
 
-					<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
+							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
 						Text="{x:Static resx:FontAwesome.Paragraph}" TextColor="White"
 						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
 						Command="{Binding EmbedContract}"/>
 
-					<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
+							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
 						Text="{x:Static resx:FontAwesome.MoneyBill}" TextColor="White"
 						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
 						Command="{Binding EmbedMoney}"/>
 
-					<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
+							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
 						Text="{x:Static resx:FontAwesome.StarOfLife}" TextColor="White"
 						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
 						Command="{Binding EmbedToken}"/>
 
-					<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
+							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
 						Text="{x:Static resx:FontAwesome.Things}" TextColor="White"
 						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
 						Command="{Binding EmbedThing}"/>
-				</StackLayout>
-			</xct:Expander>
-
-			<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
+						</StackLayout>
+					</xct:Expander>
+				</fadeview:FadeView.FrontView>
+				<fadeview:FadeView.BackView>
+					<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
 						Text="{x:Static resx:FontAwesome.PaperPlane}" TextColor="White"
 						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
-						IsVisible="{Binding Path=IsWriting}"
 						Command="{Binding SendCommand}">
-				<Button.Behaviors>
-					<behaviors:UnfocusOnClickedBehavior UnfocusControl="EditorControl"/>
-				</Button.Behaviors>
-			</Button>
+						<Button.Behaviors>
+							<behaviors:UnfocusOnClickedBehavior UnfocusControl="EditorControl"/>
+						</Button.Behaviors>
+					</Button>
+				</fadeview:FadeView.BackView>
+			</fadeview:FadeView>
 		</Grid>
 	</Grid>
 </views:ContentBasePage>
