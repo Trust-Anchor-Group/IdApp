@@ -1086,6 +1086,9 @@
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
     <value>You can protect your wallet and sensitive information by adding an additional PIN number or password.</value>
   </data>
+    <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
+    <value>You can protect your wallet and sensitive information by changing an additional PIN number or password.</value>
+  </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>You have now been signed out. To sign in again, use the menu in the top left corner.</value>
   </data>

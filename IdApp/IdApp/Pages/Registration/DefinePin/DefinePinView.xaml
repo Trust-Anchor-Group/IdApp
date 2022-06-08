@@ -29,7 +29,7 @@
 				</ResourceDictionary>
 			</StackLayout.Resources>
 
-			<Label Text="{x:Static resx:AppResources.YouCanProtectYourWalletPinInfo}" HorizontalOptions="Center" VerticalOptions="Start" Margin="{StaticResource DefaultBottomOnlyMargin}" />
+			<Label Text="{Binding Path=YouCanProtectYourWalletPinInfo}" HorizontalOptions="Center" VerticalOptions="Start" Margin="{StaticResource DefaultBottomOnlyMargin}" />
 
 			<Label Text="{x:Static resx:AppResources.PinOrPassword}"/>
 			<Grid>
