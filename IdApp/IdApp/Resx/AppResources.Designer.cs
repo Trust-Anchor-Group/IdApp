@@ -4615,6 +4615,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can protect your wallet and sensitive information by changing an additional PIN number or password..
+        /// </summary>
+        internal static string YouCanProtectYourWalletPinInfoChange {
+            get {
+                return ResourceManager.GetString("YouCanProtectYourWalletPinInfoChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You have now been signed out. To sign in again, use the menu in the top left corner..
         /// </summary>
         internal static string YouHaveNowBeenSignedOut {

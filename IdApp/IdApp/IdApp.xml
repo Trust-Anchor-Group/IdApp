@@ -6901,6 +6901,16 @@
             The user friendly connection state text to display to the user.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.YouCanProtectYourWalletPinInfoProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.YouCanProtectYourWalletPinInfo"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.YouCanProtectYourWalletPinInfo">
+            <summary>
+            Enter PIN text to display to the user.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.OnPropertyChanged(System.String)">
             <inheritdoc/>
         </member>
@@ -14307,6 +14317,11 @@
         <member name="P:IdApp.Resx.AppResources.YouCanProtectYourWalletPinInfo">
             <summary>
               Looks up a localized string similar to You can protect your wallet and sensitive information by adding an additional PIN number or password..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.YouCanProtectYourWalletPinInfoChange">
+            <summary>
+              Looks up a localized string similar to You can protect your wallet and sensitive information by changing an additional PIN number or password..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.YouHaveNowBeenSignedOut">
