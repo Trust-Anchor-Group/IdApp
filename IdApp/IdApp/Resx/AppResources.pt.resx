@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -739,7 +739,7 @@
     <value>PiNs não correspondem</value>
   </data>
   <data name="PinTooShort" xml:space="preserve">
-    <value>Número PIN muito curto. Pelo menos {0} números (ou caracteres) são necessários.</value>
+    <value>O comprimento PIN deve ser pelo menos {0} caracteres.</value>
   </data>
   <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
     <value>Revise todas as informações acima e verifique as caixas de seleção correspondentes se as informações estão corretas. Isso deve ser feito antes que você possa aprovar a informação.</value>
@@ -1085,6 +1085,9 @@
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
     <value>Você pode proteger sua carteira e informações confidenciais adicionando um número ou senha pin adicional.</value>
+  </data>
+  <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
+    <value>Você pode proteger sua carteira e informações confidenciais alterando um número ou senha pin adicional.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Você foi agora assinado fora. Para fazer login novamente, use o menu no canto superior esquerdo.</value>
@@ -1652,5 +1655,35 @@
   </data>
   <data name="TokenRemoved" xml:space="preserve">
     <value>Um token foi removido de sua carteira.</value>
+  </data>
+  <data name="PinContainsAddress" xml:space="preserve">
+    <value>Um PIN não deve conter nenhuma palavra das linhas de endereço de identidade.</value>
+  </data>
+  <data name="PinContainsName" xml:space="preserve">
+    <value>Um PIN não deve conter nenhuma palavra dos nomes de identidade.</value>
+  </data>
+  <data name="PinContainsPersonalNumber" xml:space="preserve">
+    <value>Um PIN não deve conter o número pessoal da identidade.</value>
+  </data>
+  <data name="PinContainsPhoneNumber" xml:space="preserve">
+    <value>Um PIN não deve conter o número de telefone de identidade.</value>
+  </data>
+  <data name="PinWithNotEnoughDigitsLettersSigns" xml:space="preserve">
+    <value>Pelo menos {0} letras, dígitos ou símbolos devem ser usados.</value>
+  </data>
+  <data name="PinWithTooManyIdenticalSymbols" xml:space="preserve">
+    <value>Um PIN não deve conter mais de {0} símbolos idênticos.</value>
+  </data>
+  <data name="PinWithTooManySequencedSymbols" xml:space="preserve">
+    <value>Um PIN não deve conter mais de {0} símbolos sequenciados, por exemplo, "12" ou "ab".</value>
+  </data>
+  <data name="PinWithNotEnoughDigitsOrSigns" xml:space="preserve">
+    <value>Você também deve usar pelo menos {0} dígitos ou símbolos.</value>
+  </data>
+  <data name="PinWithNotEnoughLettersOrDigits" xml:space="preserve">
+    <value>Você também deve usar pelo menos {0} letras ou dígitos.</value>
+  </data>
+  <data name="PinWithNotEnoughLettersOrSigns" xml:space="preserve">
+    <value>Você também deve usar pelo menos {0} letras ou símbolos.</value>
   </data>
 </root>
