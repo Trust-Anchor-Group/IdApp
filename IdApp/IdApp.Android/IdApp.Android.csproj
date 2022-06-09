@@ -132,6 +132,8 @@
     <Compile Include="Nfc\Records\MimeTypeRecord.cs" />
     <Compile Include="Nfc\Records\UriRecord.cs" />
     <Compile Include="Push\MessagingService.cs" />
+    <Compile Include="Renderers\CustomEditorRenderer.cs" />
+    <Compile Include="Renderers\CustomEntryRenderer.cs" />
     <Compile Include="ShareContent.cs" />
     <Compile Include="DeviceInformation.cs" />
     <Compile Include="MainActivity.cs" />
