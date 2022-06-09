@@ -178,6 +178,21 @@ namespace IdApp.Pages.Registration.DefinePin
 			set => this.SetValue(ConnectionStateTextProperty, value);
 		}
 
+		/// <summary>
+		/// The <see cref="YouCanProtectYourWalletPinInfo"/>
+		/// </summary>
+		public static readonly BindableProperty YouCanProtectYourWalletPinInfoProperty =
+			BindableProperty.Create(nameof(YouCanProtectYourWalletPinInfo), typeof(string), typeof(DefinePinViewModel), default(string));
+
+		/// <summary>
+		/// Enter PIN text to display to the user.
+		/// </summary>
+		public string YouCanProtectYourWalletPinInfo
+		{
+			get => (string)this.GetValue(YouCanProtectYourWalletPinInfoProperty);
+			set => this.SetValue(YouCanProtectYourWalletPinInfoProperty, value);
+		}
+
 		#endregion
 
 		/// <inheritdoc/>
@@ -222,6 +237,9 @@ namespace IdApp.Pages.Registration.DefinePin
 		{
 			this.IsConnected = State == XmppState.Connected;
 			this.ConnectionStateText = State.ToDisplayText();
+			this.YouCanProtectYourWalletPinInfo =
+				(this.TagProfile.UsePin && !string.IsNullOrEmpty(this.TagProfile.PinHash))
+				? AppResources.YouCanProtectYourWalletPinInfoChange : AppResources.YouCanProtectYourWalletPinInfo;
 		}
 
 		private void Skip()
