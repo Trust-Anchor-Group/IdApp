@@ -224,6 +224,39 @@
             </summary>
             <param name="Element">Element to focus on.</param>
         </member>
+        <member name="T:IdApp.Behaviors.SettableIsFocusedBehavior">
+            <summary>
+            SettableIsFocusedBehavior synchronizes the value of <see cref="F:IdApp.Behaviors.SettableIsFocusedBehavior.IsFocusedProperty"/> with the value of <see cref="F:Xamarin.Forms.VisualElement.IsFocusedProperty"/>
+            in both directions.
+            <para>
+            Unlike <see cref="F:Xamarin.Forms.VisualElement.IsFocusedProperty"/>, which is read-only, <see cref="F:IdApp.Behaviors.SettableIsFocusedBehavior.IsFocusedProperty"/> is writable
+            and supports <see cref="F:Xamarin.Forms.BindingMode.TwoWay"/> data binding, which allows setting focus from a view model using properties
+            and avoiding using callbacks from a view model.
+            </para>
+            </summary>
+        </member>
+        <member name="F:IdApp.Behaviors.SettableIsFocusedBehavior.IsFocusedProperty">
+            <summary>
+            Implements the attached bindable property which allows both reading and setting the focus state of a <see cref="T:Xamarin.Forms.VisualElement"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.SettableIsFocusedBehavior.GetIsFocused(Xamarin.Forms.BindableObject)">
+            <summary>
+            Gets the value indicating if the element is focused.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.SettableIsFocusedBehavior.SetIsFocused(Xamarin.Forms.BindableObject,System.Boolean)">
+            <summary>
+            Tries to set focus on the element if <paramref name="Value"/> is <c>true</c> or clears focus if <paramref name="Value"/>
+            is <c>false</c>. Setting focus might fail, in which case <see cref="F:IdApp.Behaviors.SettableIsFocusedBehavior.IsFocusedProperty"/> will be reset to <c> false</c>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.SettableIsFocusedBehavior.OnAttachedTo(Xamarin.Forms.VisualElement)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.SettableIsFocusedBehavior.OnDetachingFrom(Xamarin.Forms.VisualElement)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Behaviors.TextChangedBehavior">
             <summary>
             A behavior for being able to bind an <see cref="T:Xamarin.Forms.Entry"/>'s TextChanged event to an <see cref="T:System.Windows.Input.ICommand"/>.
@@ -11458,12 +11491,17 @@
         </member>
         <member name="T:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage">
             <summary>
-            Prompts the user for its PIN
+            ChangePinPopupPage defines a popup which prompts the user for their PIN.
             </summary>
         </member>
         <member name="M:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage.#ctor">
             <summary>
-            Prompts the user for its PIN
+            Initializes a new instance of the <see cref="T:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage"/> class.
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage.Result">
+            <summary>
+            A <see cref="T:System.Threading.Tasks.Task"/> waiting for the result. <c>(null, null)</c> means the dialog was closed without providing a PIN.
             </summary>
         </member>
         <member name="M:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage.OnAppearing">
@@ -11471,11 +11509,6 @@
         </member>
         <member name="M:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage.OnBackgroundClicked">
             <inheritdoc/>
-        </member>
-        <member name="P:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage.Result">
-            <summary>
-            Task waiting for result. (null, null) means dialog was closed without providing a PIN.
-            </summary>
         </member>
         <member name="T:IdApp.Popups.Pin.PinPopup.PinPopupPage">
             <summary>
