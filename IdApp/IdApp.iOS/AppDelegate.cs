@@ -33,6 +33,8 @@ namespace IdApp.iOS
 		//
 		public override bool FinishedLaunching(UIApplication Application, NSDictionary Options)
 		{
+			UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
+
 			Firebase.Core.App.Configure();
 			Rg.Plugins.Popup.Popup.Init();
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
