@@ -14,108 +14,87 @@ namespace IdApp.Android.Renderers
     /// </summary>
     public class ExtendedDatePickerDroidRenderer : DatePickerRenderer
     {
-        public ExtendedDatePickerDroidRenderer(Context context)
-            : base(context) { }
+        public ExtendedDatePickerDroidRenderer(Context Context)
+            : base(Context) { }
 
         protected override void OnElementChanged(ElementChangedEventArgs<DatePicker> e)
         {
             base.OnElementChanged(e);
 
-            ExtendedDatePicker view = Element as ExtendedDatePicker;
+			if (this.Element is ExtendedDatePicker DatePicker)
+			{
+				this.SetFont(DatePicker);
+				this.SetTextAlignment(DatePicker);
+				// SetBorder(view);
+				this.SetNullableText(DatePicker);
+				this.SetPlaceholder(DatePicker);
+				this.SetPlaceholderTextColor(DatePicker);
+			}
+		}
 
-            if (view != null)
-            {
-                SetFont(view);
-                SetTextAlignment(view);
-                // SetBorder(view);
-                SetNullableText(view);
-                SetPlaceholder(view);
-                SetPlaceholderTextColor(view);
-            }
+        protected override void OnElementPropertyChanged(object Sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(Sender, e);
+
+			if (this.Element is ExtendedDatePicker DatePicker)
+			{
+				if (e.PropertyName == ExtendedDatePicker.FontProperty.PropertyName)
+					this.SetFont(DatePicker);
+				else if (e.PropertyName == ExtendedDatePicker.XAlignProperty.PropertyName)
+					this.SetTextAlignment(DatePicker);
+				// else if (e.PropertyName == ExtendedDatePicker.HasBorderProperty.PropertyName)
+				//  SetBorder(view);
+				else if (e.PropertyName == ExtendedDatePicker.NullableDateProperty.PropertyName)
+					this.SetNullableText(DatePicker);
+				else if (e.PropertyName == ExtendedDatePicker.PlaceholderProperty.PropertyName)
+					this.SetPlaceholder(DatePicker);
+				else if (e.PropertyName == ExtendedDatePicker.PlaceholderTextColorProperty.PropertyName)
+					this.SetPlaceholderTextColor(DatePicker);
+			}
+
         }
 
-        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void SetTextAlignment(ExtendedDatePicker DatePicker)
         {
-            base.OnElementPropertyChanged(sender, e);
-
-            ExtendedDatePicker view = (ExtendedDatePicker)Element;
-
-            if (e.PropertyName == ExtendedDatePicker.FontProperty.PropertyName)
-                SetFont(view);
-            else if (e.PropertyName == ExtendedDatePicker.XAlignProperty.PropertyName)
-                SetTextAlignment(view);
-            // else if (e.PropertyName == ExtendedDatePicker.HasBorderProperty.PropertyName)
-            //  SetBorder(view);
-            else if (e.PropertyName == ExtendedDatePicker.NullableDateProperty.PropertyName)
-                SetNullableText(view);
-            else if (e.PropertyName == ExtendedDatePicker.PlaceholderProperty.PropertyName)
-                SetPlaceholder(view);
-            else if (e.PropertyName == ExtendedDatePicker.PlaceholderTextColorProperty.PropertyName)
-                SetPlaceholderTextColor(view);
-
-        }
-
-        /// <summary>
-        /// Sets the text alignment.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        private void SetTextAlignment(ExtendedDatePicker view)
-        {
-            switch (view.XAlign)
+            switch (DatePicker.XAlign)
             {
                 case Xamarin.Forms.TextAlignment.Center:
-                    Control.Gravity = GravityFlags.CenterHorizontal;
+                    this.Control.Gravity = GravityFlags.CenterHorizontal;
                     break;
                 case Xamarin.Forms.TextAlignment.End:
-                    Control.Gravity = GravityFlags.End;
+					this.Control.Gravity = GravityFlags.End;
                     break;
                 case Xamarin.Forms.TextAlignment.Start:
-                    Control.Gravity = GravityFlags.Start;
+					this.Control.Gravity = GravityFlags.Start;
                     break;
             }
         }
 
-        /// <summary>
-        /// Sets the font.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        private void SetFont(ExtendedDatePicker view)
+		private void SetFont(ExtendedDatePicker DatePicker)
         {
-            if (view.Font != Font.Default)
+            if (DatePicker.Font != Font.Default)
             {
-                Control.TextSize = view.Font.ToScaledPixel();
-                Control.Typeface = view.Font.ToTypeface();
+				this.Control.TextSize = DatePicker.Font.ToScaledPixel();
+				this.Control.Typeface = DatePicker.Font.ToTypeface();
             }
         }
 
-        /// <summary>
-        /// Set text based on nullable value
-        /// </summary>
-        /// <param name="view"></param>
-        private void SetNullableText(ExtendedDatePicker view)
+		private void SetNullableText(ExtendedDatePicker DatePicker)
         {
-            if (view.NullableDate == null)
-                Control.Text = string.Empty;
+            if (DatePicker.NullableDate == null)
+                this.Control.Text = string.Empty;
         }
 
-        /// <summary>
-        /// Set the placeholder
-        /// </summary>
-        /// <param name="view"></param>
-        private void SetPlaceholder(ExtendedDatePicker view)
+		private void SetPlaceholder(ExtendedDatePicker DatePicker)
         {
-            Control.Hint = view.Placeholder;
+            this.Control.Hint = DatePicker.Placeholder;
         }
 
-        /// <summary>
-        /// Sets the color of the placeholder text.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        private void SetPlaceholderTextColor(ExtendedDatePicker view)
+		private void SetPlaceholderTextColor(ExtendedDatePicker DatePicker)
         {
-            if (view.PlaceholderTextColor != Color.Default)
+            if (DatePicker.PlaceholderTextColor != Color.Default)
             {
-                Control.SetHintTextColor(view.PlaceholderTextColor.ToAndroid());
+                this.Control.SetHintTextColor(DatePicker.PlaceholderTextColor.ToAndroid());
             }
         }
     }

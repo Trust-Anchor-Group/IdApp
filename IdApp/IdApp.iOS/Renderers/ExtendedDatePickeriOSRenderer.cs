@@ -20,119 +20,92 @@ namespace IdApp.iOS.Renderers
         {
             base.OnElementChanged(e);
 
-            ExtendedDatePicker view = Element as ExtendedDatePicker;
+			if (this.Element is ExtendedDatePicker DatePicker)
+			{
+				this.SetFont(DatePicker);
+				this.SetTextAlignment(DatePicker);
+				this.SetBorder(DatePicker);
+				this.SetNullableText(DatePicker);
+				this.SetPlaceholderTextColor(DatePicker);
 
-            if (view != null)
-            {
-                SetFont(view);
-                SetTextAlignment(view);
-                SetBorder(view);
-                SetNullableText(view);
-                SetPlaceholderTextColor(view);
+				this.ResizeHeight();
+			}
+		}
 
-                ResizeHeight();
-            }
+        protected override void OnElementPropertyChanged(object Sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(Sender, e);
+
+			if (this.Element is ExtendedDatePicker DatePicker)
+			{
+				if (e.PropertyName == ExtendedDatePicker.FontProperty.PropertyName)
+					this.SetFont(DatePicker);
+				else if (e.PropertyName == ExtendedDatePicker.XAlignProperty.PropertyName)
+					this.SetTextAlignment(DatePicker);
+				else if (e.PropertyName == ExtendedDatePicker.HasBorderProperty.PropertyName)
+					this.SetBorder(DatePicker);
+				else if (e.PropertyName == ExtendedDatePicker.NullableDateProperty.PropertyName)
+					this.SetNullableText(DatePicker);
+				else if (e.PropertyName == ExtendedDatePicker.PlaceholderTextColorProperty.PropertyName)
+					this.SetPlaceholderTextColor(DatePicker);
+
+				this.ResizeHeight();
+			}
         }
 
-        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void SetTextAlignment(ExtendedDatePicker DatePicker)
         {
-            base.OnElementPropertyChanged(sender, e);
-
-            ExtendedDatePicker view = (ExtendedDatePicker)Element;
-
-            if (e.PropertyName == ExtendedDatePicker.FontProperty.PropertyName)
-                SetFont(view);
-            else if (e.PropertyName == ExtendedDatePicker.XAlignProperty.PropertyName)
-                SetTextAlignment(view);
-            else if (e.PropertyName == ExtendedDatePicker.HasBorderProperty.PropertyName)
-                SetBorder(view);
-            else if (e.PropertyName == ExtendedDatePicker.NullableDateProperty.PropertyName)
-                SetNullableText(view);
-            else if (e.PropertyName == ExtendedDatePicker.PlaceholderTextColorProperty.PropertyName)
-                SetPlaceholderTextColor(view);
-
-            ResizeHeight();
-        }
-
-        /// <summary>
-        /// Sets the text alignment.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        private void SetTextAlignment(ExtendedDatePicker view)
-        {
-            switch (view.XAlign)
+            switch (DatePicker.XAlign)
             {
                 case TextAlignment.Center:
-                    Control.TextAlignment = UITextAlignment.Center;
+					this.Control.TextAlignment = UITextAlignment.Center;
                     break;
                 case TextAlignment.End:
-                    Control.TextAlignment = UITextAlignment.Right;
+					this.Control.TextAlignment = UITextAlignment.Right;
                     break;
                 case TextAlignment.Start:
-                    Control.TextAlignment = UITextAlignment.Left;
+					this.Control.TextAlignment = UITextAlignment.Left;
                     break;
             }
         }
 
-        /// <summary>
-        /// Sets the font.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        private void SetFont(ExtendedDatePicker view)
+        private void SetFont(ExtendedDatePicker DatePicker)
         {
-            UIFont uiFont;
-            if (view.Font != Font.Default && (uiFont = view.Font.ToUIFont()) != null)
-                Control.Font = uiFont;
-            else if (view.Font == Font.Default)
-                Control.Font = UIFont.SystemFontOfSize(17f);
+            UIFont UiFont;
+            if (DatePicker.Font != Font.Default && (UiFont = DatePicker.Font.ToUIFont()) != null)
+                this.Control.Font = UiFont;
+            else if (DatePicker.Font == Font.Default)
+                this.Control.Font = UIFont.SystemFontOfSize(17f);
         }
 
-        /// <summary>
-        /// Sets the border.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        private void SetBorder(ExtendedDatePicker view)
+        private void SetBorder(ExtendedDatePicker DatePicker)
         {
-            Control.BorderStyle = view.HasBorder ? UITextBorderStyle.RoundedRect : UITextBorderStyle.None;
+            this.Control.BorderStyle = DatePicker.HasBorder ? UITextBorderStyle.RoundedRect : UITextBorderStyle.None;
         }
 
-        /// <summary>
-        /// Set text based on nullable value
-        /// </summary>
-        /// <param name="view"></param>
-        private void SetNullableText(ExtendedDatePicker view)
+        private void SetNullableText(ExtendedDatePicker DatePicker)
         {
-            if (view.NullableDate == null)
-                Control.Text = view.Placeholder;
+            if (DatePicker.NullableDate == null)
+                this.Control.Text = DatePicker.Placeholder;
         }
 
-        /// <summary>
-        /// Resizes the height.
-        /// </summary>
         private void ResizeHeight()
         {
-            if (Element.HeightRequest >= 0) return;
+            if (this.Element.HeightRequest >= 0) return;
 
-            double height = Math.Max(Bounds.Height,
-                new UITextField { Font = Control.Font }.IntrinsicContentSize.Height) * 2;
+            double Height = Math.Max(this.Bounds.Height,
+                new UITextField { Font = this.Control.Font }.IntrinsicContentSize.Height) * 2;
 
-            Control.Frame = new CGRect(0.0f, 0.0f, (nfloat)Element.Width, (nfloat)height);
-
-            Element.HeightRequest = height;
+			this.Control.Frame = new CGRect(0.0f, 0.0f, (nfloat)this.Element.Width, (nfloat)Height);
+			this.Element.HeightRequest = Height;
         }
 
-        /// <summary>
-        /// Sets the color of the placeholder text.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        private void SetPlaceholderTextColor(ExtendedDatePicker view)
+        private void SetPlaceholderTextColor(ExtendedDatePicker DatePicker)
         {
-            if (!string.IsNullOrEmpty(view.Placeholder))
+            if (!string.IsNullOrEmpty(DatePicker.Placeholder))
             {
-                UIColor backgroundUIColor = view.BackgroundColor.ToUIColor();
-                UIColor foregroundUIColor = view.PlaceholderTextColor.ToUIColor();
-                UIFont targetFont = Control.Font;
-                Control.AttributedPlaceholder = new NSAttributedString(view.Placeholder, targetFont, foregroundUIColor, backgroundUIColor);
+				this.Control.AttributedPlaceholder = new NSAttributedString(DatePicker.Placeholder, this.Control.Font,
+					DatePicker.PlaceholderTextColor.ToUIColor(), DatePicker.BackgroundColor.ToUIColor());
             }
         }
     }

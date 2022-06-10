@@ -1,5 +1,6 @@
 using IdApp.Controls.NoBounceView;
 using IdApp.iOS.Renderers;
+using System.ComponentModel;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -13,14 +14,14 @@ namespace IdApp.iOS.Renderers
         protected override void OnElementChanged(ElementChangedEventArgs<GroupableItemsView> e)
         {
             base.OnElementChanged(e);
-            UpdateScrollView();
+			this.UpdateScrollView();
         }
- 
+
         private void UpdateScrollView()
         {
-            if (Controller is not null)
+            if (this.Controller is not null)
             {
-                UICollectionView CollectionView = Controller.CollectionView;
+                UICollectionView CollectionView = this.Controller.CollectionView;
 
                 if (CollectionView is not null)
                 {
