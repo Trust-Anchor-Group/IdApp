@@ -195,6 +195,11 @@ namespace IdApp.Pages.Contacts.Chat
 				this.SetValue(MarkdownInputProperty, value);
 				this.IsWriting = !string.IsNullOrEmpty(value);
 				this.EvaluateAllCommands();
+
+				if (!string.IsNullOrEmpty(value))
+				{
+					MessagingCenter.Send<object>(this, Constants.MessagingCenter.ChatEditorFocus);
+				}
 			}
 		}
 

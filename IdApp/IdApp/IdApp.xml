@@ -612,6 +612,16 @@
             MessagingCenter events
             </summary>
         </member>
+        <member name="F:IdApp.Constants.MessagingCenter.ChatEditorFocus">
+            <summary>
+            Request to focus the chat editor control
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.MessagingCenter.ChatEditorUnfocus">
+            <summary>
+            Request to unfocus the chat editor control
+            </summary>
+        </member>
         <member name="F:IdApp.Constants.MessagingCenter.KeyboardAppears">
             <summary>
             Keyboard appears event

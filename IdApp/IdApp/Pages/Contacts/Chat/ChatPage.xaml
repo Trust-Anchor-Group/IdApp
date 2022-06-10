@@ -74,7 +74,8 @@
 
 					<Grid ColumnDefinitions="*,auto" ColumnSpacing="0">
 						<Editor x:Name="EditorControl" HorizontalOptions="FillAndExpand" MinimumHeightRequest="40"
-								Text="{Binding MarkdownInput}" Keyboard="Chat" AutoSize="TextChanges" />
+								Text="{Binding MarkdownInput}" Keyboard="Chat" AutoSize="TextChanges"
+								Unfocused="OnEditorControlUnfocused"/>
 
 						<Button Grid.Column="1" HorizontalOptions="End" VerticalOptions="End"
 								CornerRadius="8" WidthRequest="40" HeightRequest="40" Margin="5,0,0,0"
