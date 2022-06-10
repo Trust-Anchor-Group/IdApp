@@ -1,7 +1,6 @@
-﻿using System.ComponentModel;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
-using Application = Xamarin.Forms.Application;
 
 namespace IdApp.Pages
 {
@@ -11,31 +10,12 @@ namespace IdApp.Pages
     /// </summary>
     public abstract class ShellBasePage : Shell
     {
-        private const string DefaultMargin = "DefaultMargin";
-        private const string SafeAreaInsets = "SafeAreaInsets";
-        private const string SafeAreaInsetsDefaultMargin = "SafeAreaInsetsDefaultMargin";
-
         /// <summary>
         /// Creates an instance of the <see cref="ShellBasePage"/> class.
         /// </summary>
         public ShellBasePage()
         {
-            PropertyChanged += OnPropertyChanged;
-        }
-
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == SafeAreaInsets)
-            {
-                Thickness safeAreaInsets = On<global::Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
-                if (Application.Current.Resources.ContainsKey(SafeAreaInsets))
-                {
-                    Application.Current.Resources[SafeAreaInsets] = safeAreaInsets;
-                    Thickness defaultMargin = (Thickness)Application.Current.Resources[DefaultMargin];
-                    Thickness safeAreaInsetsDefaultMargin = new(defaultMargin.Left + safeAreaInsets.Left, defaultMargin.Top + safeAreaInsets.Top, defaultMargin.Right + safeAreaInsets.Right, defaultMargin.Bottom + safeAreaInsets.Bottom);
-                    Application.Current.Resources[SafeAreaInsetsDefaultMargin] = safeAreaInsetsDefaultMargin;
-                }
-            }
+			this.On<iOS>().SetUseSafeArea(true);
         }
 
         /// <summary>
@@ -43,8 +23,8 @@ namespace IdApp.Pages
         /// </summary>
         protected BaseViewModel ViewModel
         {
-            get => BindingContext as BaseViewModel;
-            set => BindingContext = value;
+            get => this.BindingContext as BaseViewModel;
+            set => this.BindingContext = value;
         }
 
         /// <summary>
@@ -54,7 +34,7 @@ namespace IdApp.Pages
         /// <returns>View model</returns>
         protected T GetViewModel<T>() where T : BaseViewModel
         {
-            return (T)ViewModel;
+            return (T)this.ViewModel;
         }
 
         /// Due to a bug in Xamarin Forms (https://github.com/xamarin/xamarin.forms/issues/6486)
@@ -64,26 +44,26 @@ namespace IdApp.Pages
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            if (!(ViewModel is null))
+            if (!(this.ViewModel is null))
             {
-                if (!ViewModel.IsBound)
+                if (!this.ViewModel.IsBound)
                 {
-                    await ViewModel.Bind();
+                    await this.ViewModel.Bind();
                 }
-                await ViewModel.RestoreState();
+                await this.ViewModel.RestoreState();
             }
         }
 
         /// <inheritdoc/>
         protected override async void OnDisappearing()
         {
-            if (!(ViewModel is null))
+            if (!(this.ViewModel is null))
             {
-                if (ViewModel.IsBound)
+                if (this.ViewModel.IsBound)
                 {
-                    await ViewModel.SaveState();
+                    await this.ViewModel.SaveState();
                 }
-                await ViewModel.Unbind();
+                await this.ViewModel.Unbind();
             }
             base.OnDisappearing();
         }

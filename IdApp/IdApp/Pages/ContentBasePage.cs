@@ -1,10 +1,10 @@
-﻿using IdApp.Resx;
-using System;
-using System.ComponentModel;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Waher.Events;
-using System.Threading.Tasks;
+using IdApp.Resx;
 
 namespace IdApp.Pages
 {
@@ -15,29 +15,12 @@ namespace IdApp.Pages
     /// <remarks>It also handles safe area insets for iOS applications, specifically on iPhones with the 'rabbit ear' displays.</remarks>
     public class ContentBasePage : ContentPage
     {
-        private const string defaultMargin = "DefaultMargin";
-        private const string safeAreaInsets = "SafeAreaInsets";
-        private const string safeAreaInsetsDefaultMargin = "SafeAreaInsetsDefaultMargin";
-
         /// <summary>
         /// Creates an instance of the <see cref="ContentBasePage"/> class.
         /// </summary>
         protected internal ContentBasePage()
         {
-            PropertyChanged += this.OnPropertyChanged;
-        }
-
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == safeAreaInsets)
-            {
-                Thickness SafeAreaInsets = this.On<global::Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
-                global::Xamarin.Forms.Application.Current.Resources[safeAreaInsets] = safeAreaInsets;
-                Thickness DefaultMargin = (Thickness)global::Xamarin.Forms.Application.Current.Resources[defaultMargin];
-                Thickness SafeAreaInsetsDefaultMargin = new(DefaultMargin.Left + SafeAreaInsets.Left, DefaultMargin.Top + SafeAreaInsets.Top,
-					DefaultMargin.Right + SafeAreaInsets.Right, DefaultMargin.Bottom + SafeAreaInsets.Bottom);
-                global::Xamarin.Forms.Application.Current.Resources[safeAreaInsetsDefaultMargin] = SafeAreaInsetsDefaultMargin;
-            }
+			this.On<iOS>().SetUseSafeArea(true);
         }
 
         /// <summary>
