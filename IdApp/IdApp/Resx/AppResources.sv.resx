@@ -972,6 +972,18 @@
   <data name="PinChanged" xml:space="preserve">
     <value>PIN har framgångsrikt ändrats.</value>
   </data>
+  <data name="PinContainsAddress" xml:space="preserve">
+    <value>En PIN får inte innehålla ord från identitetens adressrader.</value>
+  </data>
+  <data name="PinContainsName" xml:space="preserve">
+    <value>En PIN får inte innehålla ord från identitetens namn.</value>
+  </data>
+  <data name="PinContainsPersonalNumber" xml:space="preserve">
+    <value>En PIN får inte innehålla identitetens personnummer.</value>
+  </data>
+  <data name="PinContainsPhoneNumber" xml:space="preserve">
+    <value>En PIN får inte innehålla identitetens telefonnummer.</value>
+  </data>
   <data name="PinIsInvalid" xml:space="preserve">
     <value>PIN-koden är ogiltig</value>
   </data>
@@ -985,7 +997,25 @@
     <value>PIN matchar inte</value>
   </data>
   <data name="PinTooShort" xml:space="preserve">
-    <value>Angiven PIN är för kort. Åtminstone {0} siffor (eller tecken) krävs.</value>
+    <value>PIN måste bestå av åtminstone {0} tecken.</value>
+  </data>
+  <data name="PinWithNotEnoughDigitsLettersSigns" xml:space="preserve">
+    <value>Åtminstone {0} bokstäver, siffror eller symboler måste användas.</value>
+  </data>
+  <data name="PinWithNotEnoughDigitsOrSigns" xml:space="preserve">
+    <value>Du måste också använda åtminstone {0} siffror eller symboler.</value>
+  </data>
+  <data name="PinWithNotEnoughLettersOrDigits" xml:space="preserve">
+    <value>Du måste också använda åtminstone {0} bokstäver eller siffror.</value>
+  </data>
+  <data name="PinWithNotEnoughLettersOrSigns" xml:space="preserve">
+    <value>Du måste också använda åtminstone {0} bokstäver eller symboler.</value>
+  </data>
+  <data name="PinWithTooManyIdenticalSymbols" xml:space="preserve">
+    <value>En PIN får inte innehålla fler än {0} identiska symboler.</value>
+  </data>
+  <data name="PinWithTooManySequencedSymbols" xml:space="preserve">
+    <value>En PIN får inte innehålla fler än {0} följder av symbols, ex. "12" eller "ab".</value>
   </data>
   <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
     <value>Vänligen granska alla information ovan och bocka för de tillhörande checkboxarna om informationen stämmer. Detta måste göras innan informationen kan godkännas.</value>
@@ -1607,6 +1637,9 @@
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
     <value>Du kan skydda din plånbok och känslig information genom att lägga till en PIN-kod eller ett lösenord.</value>
+  </data>
+  <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
+    <value>Du kan skydda din pånbok och känsliga information genom att ändra ditt PIN-nummer eller lösenord.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Du är nu utloggad. För att logga in igen, använd menyn i hörnet uppe till vänster.</value>
