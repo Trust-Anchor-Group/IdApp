@@ -36,6 +36,7 @@ namespace IdApp.iOS
 			Firebase.Core.App.Configure();
 			Rg.Plugins.Popup.Popup.Init();
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+			Helpers.Svg.SvgImage.Init();
 			Xamarin.Forms.Forms.Init();
 
 			this.LoadApplication(new App());

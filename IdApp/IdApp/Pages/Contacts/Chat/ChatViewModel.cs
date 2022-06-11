@@ -264,7 +264,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <summary>
 		/// Holds the list of chat messages to display.
 		/// </summary>
-		public ObservableRangeCollection<ChatMessage> Messages { get; } = new ();
+		public ObservableRangeCollection<ChatMessage> Messages { get; } = new();
 
 		/// <summary>
 		/// External message has been received
