@@ -14759,7 +14759,12 @@
         </member>
         <member name="F:IdApp.Resx.Svgs.Camera">
             <summary>
-            The ca,era icon
+            The camera icon
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Svgs.Trash">
+            <summary>
+            The trash icon
             </summary>
         </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">

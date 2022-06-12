@@ -33,11 +33,21 @@
                             </Grid>
                         </Frame>
 
-                        <Button x:Name="RemovePhotoButton" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center"
+						<ImageButton x:Name="RemovePhotoButton" Grid.Column="1" HorizontalOptions="Center"
+									 Style="{StaticResource SvgIconButton}"
+									 Command="{Binding Path=RemovePhotoCommand}"
+									 IsVisible="{Binding Path=HasPhoto}">
+							<ImageButton.Source>
+								<svg:SvgImageSource Source="{x:Static resx:Svgs.Trash}" Color="White" />
+							</ImageButton.Source>
+						</ImageButton>
+
+						<!--
+						<Button x:Name="RemovePhotoButton" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center"
                                 Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeRegular}"
                                 Text="{x:Static resx:FontAwesome.TrashAlt}" Command="{Binding Path=RemovePhotoCommand}"
                                 IsVisible="{Binding Path=HasPhoto}" />
-
+						-->
 						<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"
                                      Spacing="4" Grid.Column="1" Grid.Row="1">
 							<ImageButton x:Name="AddPhotoButton"

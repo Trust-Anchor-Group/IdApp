@@ -24,6 +24,7 @@
     <None Remove="Resx\Svgs\camera.svg" />
     <None Remove="Resx\Svgs\images.svg" />
     <None Remove="Resx\Svgs\passport.svg" />
+    <None Remove="Resx\Svgs\trash.svg" />
     <None Remove="Services\Data\PersonalNumbers\PersonalNumberSchemes.xml" />
     <None Remove="Helpers\" />
     <None Remove="Controls\Extended\" />
@@ -33,6 +34,7 @@
     <EmbeddedResource Include="Resx\Svgs\camera.svg" />
     <EmbeddedResource Include="Resx\Svgs\images.svg" />
     <EmbeddedResource Include="Resx\Svgs\passport.svg" />
+    <EmbeddedResource Include="Resx\Svgs\trash.svg" />
     <EmbeddedResource Include="Services\Data\PersonalNumbers\PersonalNumberSchemes.xml" />
   </ItemGroup>
 
