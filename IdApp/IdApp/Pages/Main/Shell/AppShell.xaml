@@ -6,7 +6,8 @@
                         xmlns:main="clr-namespace:IdApp.Pages.Main.Main;assembly=IdApp"
                         xmlns:sdkViews="clr-namespace:IdApp.Pages;assembly=IdApp"
                         Title="TestIosAppDeploy"
-                        x:Class="IdApp.Pages.Main.Shell.AppShell">
+                        x:Class="IdApp.Pages.Main.Shell.AppShell"
+						FlyoutBackgroundColor="{StaticResource HeadingBackground}">
 
     <Shell.Resources>
         <ResourceDictionary>

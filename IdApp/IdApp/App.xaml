@@ -29,8 +29,6 @@
         <Color x:Key="PageBackgroundColor">White</Color>
         <Color x:Key="ForegroundColor">Black</Color>
         <Color x:Key="PendingColor">Salmon</Color>
-        <Thickness x:Key="SafeAreaInsets"/>
-        <Thickness x:Key="SafeAreaInsetsDefaultMargin">12</Thickness>
         <Thickness x:Key="LargeMargin">24</Thickness>
         <Thickness x:Key="DefaultMargin">12</Thickness>
         <Thickness x:Key="DefaultLeftOnlyMargin">12,0,0,0</Thickness>

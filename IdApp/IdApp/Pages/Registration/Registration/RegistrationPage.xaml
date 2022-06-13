@@ -7,89 +7,90 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Registration.Registration;assembly=IdApp"
                        x:DataType="model:RegistrationViewModel"
                        x:Class="IdApp.Pages.Registration.Registration.RegistrationPage"
-                       Shell.FlyoutBehavior="Disabled" 
+					   BackgroundColor="{StaticResource HeadingBackground}"					   
+                       Shell.FlyoutBehavior="Disabled"
                        Shell.NavBarIsVisible="False">
-    <ContentPage.Content>
-        <Grid BackgroundColor="{StaticResource HeadingBackground}" VerticalOptions="FillAndExpand">
-            <StackLayout Orientation="Vertical" Margin="{DynamicResource SafeAreaInsets}" BackgroundColor="{StaticResource PageBackgroundColor}">
-                <StackLayout.Resources>
-                    <ResourceDictionary>
-                        <DataTemplate x:Key="ValidatePhoneNrTemplate">
-                            <ValidatePhoneNrView xmlns="clr-namespace:IdApp.Pages.Registration.ValidatePhoneNr;assembly=IdApp"/>
-                        </DataTemplate>
-                        <DataTemplate x:Key="ChooseAccountTemplate">
-                            <ChooseAccountView xmlns="clr-namespace:IdApp.Pages.Registration.ChooseAccount;assembly=IdApp"/>
-                        </DataTemplate>
-                        <DataTemplate x:Key="RegisterIdentityTemplate">
-                            <RegisterIdentityView xmlns="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"/>
-                        </DataTemplate>
-                        <DataTemplate x:Key="ValidateIdentityTemplate">
-                            <ValidateIdentityView xmlns="clr-namespace:IdApp.Pages.Registration.ValidateIdentity;assembly=IdApp"/>
-                        </DataTemplate>
-                        <DataTemplate x:Key="DefinePinTemplate">
-                            <DefinePinView xmlns="clr-namespace:IdApp.Pages.Registration.DefinePin;assembly=IdApp"/>
-                        </DataTemplate>
-                        <registration:RegistrationStepDataTemplateSelector x:Key="StepTemplateSelector"
-                                                                           DefinePin="{StaticResource DefinePinTemplate}"
-                                                                           ValidateIdentity="{StaticResource ValidateIdentityTemplate}"
-                                                                           RegisterIdentity="{StaticResource RegisterIdentityTemplate}"
-                                                                           ChooseAccount="{StaticResource ChooseAccountTemplate}"
-                                                                           ValidatePhoneNr="{StaticResource ValidatePhoneNrTemplate}"/>
-                    </ResourceDictionary>
-                </StackLayout.Resources>
-                <StackLayout Orientation="Vertical">
-                    <!-- HEADING -->
-                    <Grid BackgroundColor="{StaticResource HeadingBackground}" Padding="{StaticResource DefaultMargin}" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="36"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label
-                        Grid.Column="0"
-                        FontSize="24" 
-                        TextColor="{StaticResource HeadingForeground}"
-                        Text="{x:Static resx:FontAwesome.ArrowACircleLeft}" 
-                        FontFamily="{StaticResource FontAwesomeSolid}"
-                        VerticalOptions="Center"
-                        Margin="0,-12,0,-6"
-                        IsVisible="{Binding Path=CanGoBack}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Path=GoToPrevCommand}"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <Label Grid.Column="1"
-                        Text="{Binding Path=CurrentStepTitle}" 
-                        HorizontalOptions="StartAndExpand" 
-                        VerticalOptions="CenterAndExpand"
-                        FontSize="24" 
-                        Margin="0,-8,0,0"
-                        TextColor="{StaticResource HeadingForeground}" />
-                    </Grid>
-                </StackLayout>
-                <!-- CONTENT -->
-                <CarouselView x:Name="CarouselView"
-                          IsSwipeEnabled="False"
-                          HorizontalOptions="FillAndExpand"
-                          VerticalOptions="FillAndExpand"
-                          Margin="0,-6,0,-6"
-                          Position="{Binding Path=CurrentStep, Mode=TwoWay}"
-                          ItemsSource="{Binding Path=RegistrationSteps}"
-                          ItemTemplate="{StaticResource StepTemplateSelector}"
-                          IndicatorView="IndicatorView"/>
-                <!-- WIZARD INDICATOR -->
-                <IndicatorView x:Name="IndicatorView"
-                           HorizontalOptions="Fill"
-                           IndicatorColor="{StaticResource HeadingForeground}"
-                           Padding="0,12,0,0"
-                           BackgroundColor="{StaticResource HeadingBackground}"
-                           SelectedIndicatorColor="{StaticResource AccentColor}">
-                    <IndicatorView.Margin>
-                        <OnPlatform x:TypeArguments="Thickness">
-                            <On Platform="iOS" Value="0,-1,0,0"/>
-                        </OnPlatform>
-                    </IndicatorView.Margin>
-                </IndicatorView>
-            </StackLayout>
-        </Grid>
-    </ContentPage.Content>
+	<StackLayout BackgroundColor="{StaticResource PageBackgroundColor}">
+		<StackLayout.Resources>
+			<ResourceDictionary>
+				<DataTemplate x:Key="ValidatePhoneNrTemplate">
+					<ValidatePhoneNrView xmlns="clr-namespace:IdApp.Pages.Registration.ValidatePhoneNr;assembly=IdApp"/>
+				</DataTemplate>
+				<DataTemplate x:Key="ChooseAccountTemplate">
+					<ChooseAccountView xmlns="clr-namespace:IdApp.Pages.Registration.ChooseAccount;assembly=IdApp"/>
+				</DataTemplate>
+				<DataTemplate x:Key="RegisterIdentityTemplate">
+					<RegisterIdentityView xmlns="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"/>
+				</DataTemplate>
+				<DataTemplate x:Key="ValidateIdentityTemplate">
+					<ValidateIdentityView xmlns="clr-namespace:IdApp.Pages.Registration.ValidateIdentity;assembly=IdApp"/>
+				</DataTemplate>
+				<DataTemplate x:Key="DefinePinTemplate">
+					<DefinePinView xmlns="clr-namespace:IdApp.Pages.Registration.DefinePin;assembly=IdApp"/>
+				</DataTemplate>
+				<registration:RegistrationStepDataTemplateSelector
+					x:Key="StepTemplateSelector"
+                    DefinePin="{StaticResource DefinePinTemplate}"
+                    ValidateIdentity="{StaticResource ValidateIdentityTemplate}"
+                    RegisterIdentity="{StaticResource RegisterIdentityTemplate}"
+                    ChooseAccount="{StaticResource ChooseAccountTemplate}"
+                    ValidatePhoneNr="{StaticResource ValidatePhoneNrTemplate}"/>
+			</ResourceDictionary>
+		</StackLayout.Resources>
+		<StackLayout Orientation="Vertical">
+			<!-- HEADING -->
+			<Grid BackgroundColor="{StaticResource HeadingBackground}" Padding="{StaticResource DefaultMargin}" >
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="36"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label
+                    Grid.Column="0"
+                    FontSize="24" 
+                    TextColor="{StaticResource HeadingForeground}"
+                    Text="{x:Static resx:FontAwesome.ArrowACircleLeft}" 
+                    FontFamily="{StaticResource FontAwesomeSolid}"
+                    VerticalOptions="Center"
+                    Margin="0,-12,0,-6"
+                    IsVisible="{Binding Path=CanGoBack}">
+					<Label.GestureRecognizers>
+						<TapGestureRecognizer Command="{Binding Path=GoToPrevCommand}"/>
+					</Label.GestureRecognizers>
+				</Label>
+				<Label
+					Grid.Column="1"
+                    Text="{Binding Path=CurrentStepTitle}" 
+                    HorizontalOptions="StartAndExpand" 
+                    VerticalOptions="CenterAndExpand"
+                    FontSize="24" 
+                    Margin="0,-8,0,0"
+                    TextColor="{StaticResource HeadingForeground}" />
+			</Grid>
+		</StackLayout>
+		<!-- CONTENT -->
+		<CarouselView
+			x:Name="CarouselView"
+            IsSwipeEnabled="False"
+			HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            Margin="0,-6,0,-6"
+            Position="{Binding Path=CurrentStep, Mode=TwoWay}"
+            ItemsSource="{Binding Path=RegistrationSteps}"
+            ItemTemplate="{StaticResource StepTemplateSelector}"
+            IndicatorView="IndicatorView"/>
+		<!-- WIZARD INDICATOR -->
+		<IndicatorView
+			x:Name="IndicatorView"
+            HorizontalOptions="Fill"
+            IndicatorColor="{StaticResource HeadingForeground}"
+            Padding="0,12,0,0"
+			BackgroundColor="{StaticResource HeadingBackground}"
+            SelectedIndicatorColor="{StaticResource AccentColor}">
+			<IndicatorView.Margin>
+				<OnPlatform x:TypeArguments="Thickness">
+					<On Platform="iOS" Value="0,-1,0,0"/>
+				</OnPlatform>
+			</IndicatorView.Margin>
+		</IndicatorView>
+	</StackLayout>
 </views:ContentBasePage>
