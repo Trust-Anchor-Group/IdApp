@@ -357,10 +357,20 @@ namespace IdApp
         /// </summary>
         public static class MessagingCenter
         {
-            /// <summary>
-            /// Keyboard appears event
-            /// </summary>
-            public const string KeyboardAppears = "KeyboardAppears";
+			/// <summary>
+			/// Request to focus the chat editor control
+			/// </summary>
+			public const string ChatEditorFocus = "ChatEditorFocus";
+
+			/// <summary>
+			/// Request to unfocus the chat editor control
+			/// </summary>
+			public const string ChatEditorUnfocus = "ChatEditorUnfocus";
+
+			/// <summary>
+			/// Keyboard appears event
+			/// </summary>
+			public const string KeyboardAppears = "KeyboardAppears";
 
             /// <summary>
             /// Keyboard disappears event

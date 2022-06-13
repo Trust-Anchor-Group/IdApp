@@ -21,12 +21,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resx\Svgs\camera.svg" />
+    <None Remove="Resx\Svgs\images.svg" />
+    <None Remove="Resx\Svgs\passport.svg" />
+    <None Remove="Resx\Svgs\trash.svg" />
     <None Remove="Services\Data\PersonalNumbers\PersonalNumberSchemes.xml" />
     <None Remove="Helpers\" />
     <None Remove="Controls\Extended\" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resx\Svgs\camera.svg" />
+    <EmbeddedResource Include="Resx\Svgs\images.svg" />
+    <EmbeddedResource Include="Resx\Svgs\passport.svg" />
+    <EmbeddedResource Include="Resx\Svgs\trash.svg" />
     <EmbeddedResource Include="Services\Data\PersonalNumbers\PersonalNumberSchemes.xml" />
   </ItemGroup>
 
@@ -35,6 +43,7 @@
     <PackageReference Include="NeuroFeatures" Version="1.1.4" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />
+    <PackageReference Include="Svg.Skia" Version="0.5.10" />
     <PackageReference Include="Waher.Content" Version="2.3.2" />
     <PackageReference Include="Waher.Content.Emoji" Version="2.0.0" />
     <PackageReference Include="Waher.Content.Images" Version="2.1.0" />
@@ -245,7 +254,6 @@
 
   <ItemGroup>
     <Folder Include="Popups\Pin\PinPopup\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Controls\Extended\" />
   </ItemGroup>
 

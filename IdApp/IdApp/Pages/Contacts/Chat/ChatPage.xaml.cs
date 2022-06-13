@@ -73,6 +73,14 @@ namespace IdApp.Pages.Contacts.Chat
 				this.ContainerView.TranslationY = 0;
 			});
 
+			MessagingCenter.Subscribe<object>(this, Constants.MessagingCenter.ChatEditorFocus, (sender) =>
+			{
+				if (!this.EditorControl.IsFocused)
+				{
+					this.EditorControl.Focus();
+				}
+			});
+
 			this.ContainerView.ResolveLayoutChanges();  // Strange Xamarin issue: https://github.com/xamarin/Xamarin.Forms/issues/15066
 		}
 
@@ -81,8 +89,14 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			MessagingCenter.Unsubscribe<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears);
 			MessagingCenter.Unsubscribe<object>(this, Constants.MessagingCenter.KeyboardDisappears);
+			MessagingCenter.Unsubscribe<object>(this, Constants.MessagingCenter.ChatEditorFocus);
 
 			await base.OnDisappearingAsync();
+		}
+
+		private void OnEditorControlUnfocused(object sender, FocusEventArgs e)
+		{
+			this.CollectionView.SelectedItem = null;
 		}
 	}
 }

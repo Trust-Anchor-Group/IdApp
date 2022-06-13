@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms" 
+<views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
                        xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"
-                       x:DataType="model:RegisterIdentityViewModel"
+					   xmlns:svg="clr-namespace:IdApp.Helpers.Svg"
+					   x:DataType="model:RegisterIdentityViewModel"
                        x:Class="IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityView">
     <ContentView.Content>
         <ScrollView x:Name="RegistrationLayout" Orientation="Vertical" Margin="{StaticResource DefaultTopOnlyMargin}">
@@ -32,23 +33,60 @@
                             </Grid>
                         </Frame>
 
-                        <Button x:Name="RemovePhotoButton" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center"
+						<ImageButton x:Name="RemovePhotoButton" Grid.Column="1" HorizontalOptions="Center"
+									 Style="{StaticResource SvgIconButton}"
+									 Command="{Binding Path=RemovePhotoCommand}"
+									 IsVisible="{Binding Path=HasPhoto}">
+							<ImageButton.Source>
+								<svg:SvgImageSource Source="{x:Static resx:Svgs.Trash}" Color="White" />
+							</ImageButton.Source>
+						</ImageButton>
+
+						<!--
+						<Button x:Name="RemovePhotoButton" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center"
                                 Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeRegular}"
                                 Text="{x:Static resx:FontAwesome.TrashAlt}" Command="{Binding Path=RemovePhotoCommand}"
                                 IsVisible="{Binding Path=HasPhoto}" />
-
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"
+						-->
+						<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"
                                      Spacing="4" Grid.Column="1" Grid.Row="1">
-                            <Button x:Name="AddPhotoButton"
+							<ImageButton x:Name="AddPhotoButton"
+										 Style="{StaticResource SvgIconButton}"
+										 Command="{Binding Path=TakePhotoCommand}">
+								<ImageButton.Source>
+									<svg:SvgImageSource Source="{x:Static resx:Svgs.Camera}" Color="White" />
+								</ImageButton.Source>
+							</ImageButton>
+
+							<ImageButton x:Name="PickPhotoButton"
+										 Style="{StaticResource SvgIconButton}"
+										 Command="{Binding Path=PickPhotoCommand}">
+								<ImageButton.Source>
+									<svg:SvgImageSource Source="{x:Static resx:Svgs.Images}" Color="White" />
+								</ImageButton.Source>
+							</ImageButton>
+
+							<ImageButton x:Name="EPassportButton"
+										 Style="{StaticResource SvgIconButton}"
+										 Command="{Binding Path=EPassportCommand}"
+										 IsVisible="{Binding Path=IsTest}">
+								<ImageButton.Source>
+									<svg:SvgImageSource Source="{x:Static resx:Svgs.Passport}" Color="White" />
+								</ImageButton.Source>
+							</ImageButton>
+
+							<!--
+							<Button x:Name="AddPhotoButton"
                                 Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeSolid}"
                                 Text="{x:Static resx:FontAwesome.Camera}" Command="{Binding Path=TakePhotoCommand}" />
-                            <Button x:Name="PickPhotoButton"
+							<Button x:Name="PickPhotoButton"
                                 Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeRegular}"
                                 Text="{x:Static resx:FontAwesome.Images}" Command="{Binding Path=PickPhotoCommand}" />
-                            <Button x:Name="EPassportButton" 
+							<Button x:Name="EPassportButton"
                                     Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeSolid}"
                                     Text="{x:Static resx:FontAwesome.Passport}" Command="{Binding Path=EPassportCommand}"
                                     IsVisible="{Binding Path=IsTest}" />
+							-->
                         </StackLayout>
                     </Grid>
                 </Frame>
@@ -164,7 +202,7 @@
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="RegionEntry" HorizontalOptions="FillAndExpand"
                                IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Done"
-                               Placeholder="{x:Static resx:AppResources.Region}" Text="{Binding Path=Region}" 
+                               Placeholder="{x:Static resx:AppResources.Region}" Text="{Binding Path=Region}"
                                IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" Focused="RegionEntry_Focused">
                             <Entry.Behaviors>
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegisterButton" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>

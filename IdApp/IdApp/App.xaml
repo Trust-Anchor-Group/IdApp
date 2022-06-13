@@ -5,18 +5,18 @@
 			 xmlns:templatedSwitch="clr-namespace:IdApp.Controls.TemplatedSwitch;assembly=IdApp"
              x:Class="IdApp.App">
     <Application.Resources>
-        <OnPlatform x:TypeArguments="x:String" 
+        <OnPlatform x:TypeArguments="x:String"
                     x:Key="FontAwesomeRegular">
-            <On Platform="Android" 
+            <On Platform="Android"
                 Value="FontAwesome5Free-Regular-400.otf#Regular" />
-            <On Platform="iOS" 
+            <On Platform="iOS"
                 Value="FontAwesome5Free-Regular" />
         </OnPlatform>
-        <OnPlatform x:TypeArguments="x:String" 
+        <OnPlatform x:TypeArguments="x:String"
                     x:Key="FontAwesomeSolid">
-            <On Platform="Android" 
+            <On Platform="Android"
                 Value="FontAwesome5Free-Solid-900.otf#Regular" />
-            <On Platform="iOS" 
+            <On Platform="iOS"
                 Value="FontAwesome5Free-Solid" />
         </OnPlatform>
         <Color x:Key="HeadingForeground">White</Color>
@@ -70,7 +70,20 @@
             <Setter Property="HorizontalOptions" Value="FillAndExpand" />
             <Setter Property="VerticalOptions" Value="Start" />
         </Style>
-        <Style x:Key="Heading" TargetType="Label"
+		<Style TargetType="ImageButton"
+			   x:Key="SvgIconButton"
+               ApplyToDerivedTypes="True"
+			   CanCascade="True">
+			<Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
+			<Setter Property="CornerRadius" Value="4" />
+			<Setter Property="HeightRequest" Value="40" />
+			<Setter Property="WidthRequest" Value="40" />
+			<Setter Property="Padding" Value="10" />
+			<Setter Property="HorizontalOptions" Value="FillAndExpand" />
+			<Setter Property="VerticalOptions" Value="Start" />
+		</Style>
+
+		<Style x:Key="Heading" TargetType="Label"
                ApplyToDerivedTypes="True"
                CanCascade="True">
             <Setter Property="FontSize" Value="Large" />

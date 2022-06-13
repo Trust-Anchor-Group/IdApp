@@ -195,6 +195,11 @@ namespace IdApp.Pages.Contacts.Chat
 				this.SetValue(MarkdownInputProperty, value);
 				this.IsWriting = !string.IsNullOrEmpty(value);
 				this.EvaluateAllCommands();
+
+				if (!string.IsNullOrEmpty(value))
+				{
+					MessagingCenter.Send<object>(this, Constants.MessagingCenter.ChatEditorFocus);
+				}
 			}
 		}
 
@@ -259,7 +264,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <summary>
 		/// Holds the list of chat messages to display.
 		/// </summary>
-		public ObservableRangeCollection<ChatMessage> Messages { get; } = new ();
+		public ObservableRangeCollection<ChatMessage> Messages { get; } = new();
 
 		/// <summary>
 		/// External message has been received

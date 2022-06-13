@@ -54,8 +54,9 @@
 
 	<Grid x:Name="ContainerView" Margin="{StaticResource DefaultMargin}">
 		<Grid RowDefinitions="*,auto">
-			<loading:LoadingCollectionView VerticalOptions="StartAndExpand" ItemSizingStrategy="MeasureAllItems"
-										   SelectionMode="Single" Rotation="180" RemainingItemsThreshold="1"
+			<loading:LoadingCollectionView x:Name="CollectionView" SelectionMode="Single" Rotation="180"
+										   VerticalOptions="StartAndExpand" ItemSizingStrategy="MeasureAllItems"
+										   ItemsUpdatingScrollMode="KeepScrollOffset" RemainingItemsThreshold="1"
 										   ItemsSource="{Binding Path=Messages}"
 										   ItemTemplate="{StaticResource MessageStyleSelector}"
 										   ItemSelectedCommand="{Binding Path=MessageSelected}"
@@ -73,7 +74,8 @@
 
 					<Grid ColumnDefinitions="*,auto" ColumnSpacing="0">
 						<Editor x:Name="EditorControl" HorizontalOptions="FillAndExpand" MinimumHeightRequest="40"
-								Text="{Binding MarkdownInput}" Keyboard="Chat" AutoSize="TextChanges" />
+								Text="{Binding MarkdownInput}" Keyboard="Chat" AutoSize="TextChanges"
+								Unfocused="OnEditorControlUnfocused"/>
 
 						<Button Grid.Column="1" HorizontalOptions="End" VerticalOptions="End"
 								CornerRadius="8" WidthRequest="40" HeightRequest="40" Margin="5,0,0,0"
