@@ -374,7 +374,6 @@ namespace IdApp.Test.Security
 			return DragThrough(AmbientStrings, DraggedStrings);
 		}
 
-
 		[DataTestMethod]
 		[DynamicData(nameof(GetTestDataForOneTwoAddressCharactersAllowed), DynamicDataSourceType.Method)]
 		public void OneTwoAddressCharactersAllowed(string Pin)
