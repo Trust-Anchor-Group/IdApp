@@ -22,4 +22,5 @@ namespace IdApp.iOS.Renderers
 				this.Control.LeftViewMode = UITextFieldViewMode.Always;
 			}
 		}
+	}
 }
