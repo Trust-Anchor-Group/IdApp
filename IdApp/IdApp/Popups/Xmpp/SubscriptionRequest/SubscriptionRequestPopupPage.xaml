@@ -17,7 +17,7 @@
             EasingOut="SinIn"
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
-    <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+    <Grid HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
         <Frame Margin="15" BackgroundColor="White">
             <ScrollView Orientation="Vertical">
                 <StackLayout Padding="10,5" Spacing="3">
@@ -52,12 +52,6 @@
                             <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
                         </Button.HeightRequest>
                     </Button>
-                    <StackLayout Margin="10,10">
-                        <StackLayout.HeightRequest>
-                            <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
-                            <!-- If not added, last button is not shown... -->
-                        </StackLayout.HeightRequest>
-                    </StackLayout>
                 </StackLayout>
             </ScrollView>
         </Frame>
@@ -75,5 +69,5 @@
             </Ellipse>
             <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static resx:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
         </Grid>
-    </AbsoluteLayout>
+    </Grid>
 </pages:PopupPage>
