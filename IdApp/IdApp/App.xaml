@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:helpers="clr-namespace:IdApp.Helpers"
 			 xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
 			 xmlns:templatedSwitch="clr-namespace:IdApp.Controls.TemplatedSwitch;assembly=IdApp"
              x:Class="IdApp.App">
@@ -150,12 +149,13 @@
             <Setter Property="BackgroundColor">
                 <OnPlatform x:TypeArguments="Color">
                     <On Platform="iOS">LightGray</On>
-                    <On Platform="Android">Transparent</On>
+					<!-- BackgroundColor is mapped to the border color for Entry on Android. -->
+                    <On Platform="Android">Black</On>
                 </OnPlatform>
             </Setter>
-			<Setter Property="helpers:EntryProperties.BorderColor" Value="Black" />
 			<Setter Property="TextColor" Value="Black" />
-        </Style>
+			<Setter Property="Margin" Value="{OnPlatform Android='4'}" />
+		</Style>
         <Style TargetType="Picker"
                ApplyToDerivedTypes="True"
                CanCascade="True">

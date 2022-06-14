@@ -5,7 +5,6 @@ using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Graphics.Drawables.Shapes;
 using IdApp.Android.Renderers;
-using IdApp.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using AndroidColor = Android.Graphics.Color;
@@ -24,26 +23,35 @@ namespace IdApp.Android.Renderers
 		{
 			base.OnElementChanged(e);
 
+			float CornerRadius = this.Context.ToPixels(cornerRadiusInDip);
+
 			if (this.Control is not null)
 			{
-				float CornerRadius = this.Context.ToPixels(cornerRadiusInDip);
-				ShapeDrawable Background = new(new RoundRectShape(Enumerable.Repeat(CornerRadius, 8).ToArray(), null, null));
+				this.Control.Background = null;
+				this.Control.SetBackgroundColor(AndroidColor.Transparent);
 
-				Background.Paint.SetStyle(Paint.Style.Stroke);
-				Background.Paint.StrokeWidth = this.Context.ToPixels(borderWidthInDip);
-				Background.Paint.Color = this.Element is Entry Entry ? EntryProperties.GetBorderColor(Entry).ToAndroid() : AndroidColor.Transparent;
-
-				this.Control.Background = Background;
+				// We should set padding on the Control, not on the ViewGroup. Otherwise, the ViewGroup's padding will clip the Control's content.
+				this.Control.SetPadding((int)CornerRadius, (int)CornerRadius, (int)CornerRadius, (int)CornerRadius);
 			}
+
+			// However, we should set the background itself on the ViewGroup, not on the Control, because the VisualElement.Background property,
+			// which we are going to override, is rendered by the ViewGroup, not by the Control.
+			ShapeDrawable Background = new(new RoundRectShape(Enumerable.Repeat(CornerRadius, 8).ToArray(), null, null));
+
+			Background.Paint.SetStyle(Paint.Style.Stroke);
+			Background.Paint.StrokeWidth = this.Context.ToPixels(borderWidthInDip);
+			Background.Paint.Color = this.Element?.BackgroundColor.ToAndroid() ?? AndroidColor.Transparent;
+
+			this.Background = Background;
 		}
 
 		protected override void OnElementPropertyChanged(object Sender, PropertyChangedEventArgs EventArgs)
 		{
 			base.OnElementPropertyChanged(Sender, EventArgs);
 
-			if (EventArgs.PropertyName == EntryProperties.BorderColorProperty.PropertyName && this.Control?.Background is ShapeDrawable ShapeDrawable)
+			if (EventArgs.PropertyName == VisualElement.BackgroundColorProperty.PropertyName && this.Background is ShapeDrawable ShapeDrawable)
 			{
-				ShapeDrawable.Paint.Color = EntryProperties.GetBorderColor(this.Element).ToAndroid();
+				ShapeDrawable.Paint.Color = this.Element.BackgroundColor.ToAndroid();
 			}
 		}
 	}
