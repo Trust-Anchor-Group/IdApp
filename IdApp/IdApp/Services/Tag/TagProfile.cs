@@ -1031,7 +1031,7 @@ namespace IdApp.Services.Tag
 					Constants.XmppProperties.LastName,
 				}
 				.SelectMany(PropertyKey => LegalIdentity[PropertyKey] is string PropertyValue ? Regex.Split(PropertyValue, @"\p{Zs}+") : Enumerable.Empty<string>())
-				.Where(Word => Word != "");
+				.Where(Word => Word?.GetUnicodeLength() > 2);
 
 				if (NameWords.Any(NameWord => Pin.Contains(NameWord, Comparison)))
 				{
@@ -1044,7 +1044,7 @@ namespace IdApp.Services.Tag
 					Constants.XmppProperties.Address2,
 				}
 				.SelectMany(PropertyKey => LegalIdentity[PropertyKey] is string PropertyValue ? Regex.Split(PropertyValue, @"\p{Zs}+") : Enumerable.Empty<string>())
-				.Where(Word => Word != "");
+				.Where(Word => Word?.GetUnicodeLength() > 2);
 
 				if (AddressWords.Any(AddressWord => Pin.Contains(AddressWord, Comparison)))
 				{

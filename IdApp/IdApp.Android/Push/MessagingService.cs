@@ -381,17 +381,17 @@ namespace IdApp.Android.Push
 			NotificationManager.Notify(100, notificationBuilder.Build());
 		}
 
-		public override void OnNewToken(string p0)
+		public override async void OnNewToken(string p0)
 		{
 			try
 			{
 				IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
-				PushService?.NewToken(new TokenInformation()
+				await (PushService?.NewToken(new TokenInformation()
 				{
 					Service = PushMessagingService.Firebase,
 					Token = p0,
 					ClientType = ClientType.Android
-				});
+				}) ?? Task.CompletedTask);
 			}
 			catch (Exception ex)
 			{

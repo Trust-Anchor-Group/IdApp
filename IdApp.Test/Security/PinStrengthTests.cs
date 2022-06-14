@@ -15,10 +15,14 @@ namespace IdApp.Test.Security
 		private const string phoneNumber = "vbnm";
 		private const string addressPart1 = "uiop";
 		private const string addressPart2 = "lkjh";
+		private const string addressPart3 = "6";
+		private const string addressPart4 = "78";
 		private const string firstName = "Erwin";
 		private const string middleName1 = "Rudolf";
 		private const string middleName2 = "Josef";
 		private const string middleName3 = "Alexander";
+		private const string middleName4 = "Z";
+		private const string middleName5 = "Jr";
 		private const string lastName = "Schrödinger";
 
 		private ITagProfile tagProfile;
@@ -43,10 +47,10 @@ namespace IdApp.Test.Security
 				Properties = new Property[]
 				{
 					new Property("FIRST", firstName),
-					new Property("MIDDLE", middleName1 + " "+ middleName2 + " " + middleName3),
+					new Property("MIDDLE", middleName1 + " "+ middleName2 + " " + middleName3 + " " + middleName4 + " " + middleName5),
 					new Property("LAST", lastName),
 					new Property("PNR", pnr),
-					new Property("ADDR", addressPart1 + " " + addressPart2),
+					new Property("ADDR", addressPart1 + " " + addressPart2 + " " + addressPart3 + " " + addressPart4),
 					new Property("ZIP", "220000"),
 					new Property("CITY", "Minsk"),
 					new Property("COUNTRY", "BY"),
@@ -365,6 +369,56 @@ namespace IdApp.Test.Security
 			string[] DraggedStrings = new string[]
 			{
 				phoneNumber,
+			};
+
+			return DragThrough(AmbientStrings, DraggedStrings);
+		}
+
+		[DataTestMethod]
+		[DynamicData(nameof(GetTestDataForOneTwoAddressCharactersAllowed), DynamicDataSourceType.Method)]
+		public void OneTwoAddressCharactersAllowed(string Pin)
+		{
+			PinStrength PinStrength = this.tagProfile.ValidatePinStrength(Pin);
+			Assert.AreEqual(PinStrength.Strong, PinStrength);
+		}
+
+		public static IEnumerable<object[]> GetTestDataForOneTwoAddressCharactersAllowed()
+		{
+			string[] AmbientStrings = new string[]
+			{
+				"12ab34cd"
+			};
+
+			string[] DraggedStrings = new string[]
+			{
+				addressPart3,
+				addressPart4,
+			};
+
+			return DragThrough(AmbientStrings, DraggedStrings);
+		}
+
+		[DataTestMethod]
+		[DynamicData(nameof(GetTestDataForOneTwoNameCharactersAllowed), DynamicDataSourceType.Method)]
+		public void OneTwoNameCharactersAllowed(string Pin)
+		{
+			PinStrength PinStrength = this.tagProfile.ValidatePinStrength(Pin);
+			Assert.AreEqual(PinStrength.Strong, PinStrength);
+		}
+
+		public static IEnumerable<object[]> GetTestDataForOneTwoNameCharactersAllowed()
+		{
+			string[] AmbientStrings = new string[]
+			{
+				"12ab34cd"
+			};
+
+			string[] DraggedStrings = new string[]
+			{
+				middleName4,
+				middleName5,
+				middleName4.ToLowerInvariant(),
+				middleName5.ToLowerInvariant(),
 			};
 
 			return DragThrough(AmbientStrings, DraggedStrings);

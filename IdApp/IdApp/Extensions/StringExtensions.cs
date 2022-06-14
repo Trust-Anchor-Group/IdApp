@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -73,6 +74,33 @@ namespace IdApp.Extensions
 				return s;
 			else
 				return s[(i + 1)..];
+		}
+
+		/// <summary>
+		/// Returns the number of Unicode symbols, which may be represented by one or two chars, in a string.
+		/// </summary>
+		public static int GetUnicodeLength(this string Str)
+		{
+			if (Str == null)
+			{
+				throw new ArgumentNullException(nameof(Str));
+			}
+
+			Str = Str.Normalize();
+
+			int UnicodeCount = 0;
+			for (int i = 0; i < Str.Length; i++)
+			{
+				UnicodeCount++;
+
+				// Jump over the second surrogate char.
+				if (char.IsSurrogate(Str, i))
+				{
+					i++;
+				}
+			}
+
+			return UnicodeCount;
 		}
 	}
 }
