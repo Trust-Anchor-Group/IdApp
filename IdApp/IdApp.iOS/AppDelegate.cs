@@ -5,6 +5,7 @@ using IdApp.Helpers;
 using IdApp.Services.Ocr;
 using IdApp.Services.Push;
 using System;
+using System.Threading.Tasks;
 using Tesseract.iOS;
 using UIKit;
 using UserNotifications;
@@ -307,12 +308,12 @@ namespace IdApp.iOS
             {
                 IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
 
-                await PushService?.NewToken(new TokenInformation()
+                await (PushService?.NewToken(new TokenInformation()
                 {
                     Service = PushMessagingService.Firebase,
                     Token = FcmToken,
                     ClientType = ClientType.iOS
-                });
+                }) ?? Task.CompletedTask);
             }
             catch (Exception ex)
             {

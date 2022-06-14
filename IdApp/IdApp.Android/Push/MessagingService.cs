@@ -386,12 +386,12 @@ namespace IdApp.Android.Push
 			try
 			{
 				IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
-				await PushService?.NewToken(new TokenInformation()
+				await (PushService?.NewToken(new TokenInformation()
 				{
 					Service = PushMessagingService.Firebase,
 					Token = p0,
 					ClientType = ClientType.Android
-				});
+				}) ?? Task.CompletedTask);
 			}
 			catch (Exception ex)
 			{
