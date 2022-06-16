@@ -55,6 +55,9 @@ using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
 using Waher.Runtime.Text;
+using Waher.Security;
+using Waher.Security.LoginMonitor;
+
 using Waher.Script;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -74,6 +77,7 @@ namespace IdApp
 		private static App instance;
 		private static DateTime savedStartTime = DateTime.MinValue;
 		private static bool firstCheckPinPassed = false;
+		private static LoginAuditor loginAuditor;
 		private Timer autoSaveTimer;
 		private ServiceReferences services;
 		private Profiler startupProfiler;
@@ -114,6 +118,12 @@ namespace IdApp
 			}
 
 			this.startupProfiler?.MainThread?.Idle();
+
+			LoginInterval[] LoginIntervals = new[] {new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(1)),
+			new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(7))}; 
+			loginAuditor = new LoginAuditor(Constants.Pin.LogAuditorObjectID, LoginIntervals);
+
+
 		}
 
 		private Task<bool> Init()
@@ -794,9 +804,26 @@ namespace IdApp
 				return string.Empty;
 
 			IUiSerializer Ui = null;
+			long pinAttemptCounter = await GetCurrentPinCounter();
+
+			DateTime? dateTimeForLogin = await loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
+							Constants.Pin.Protocol);
+
+			if (Ui is null)
+				Ui = App.Instantiate<IUiSerializer>();
 
 			while (true)
 			{
+				dateTimeForLogin = await loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
+							Constants.Pin.Protocol);
+				await Ui.DisplayAlert(AppResources.ErrorTitle, dateTimeForLogin == null ? AppResources.PinIsInvalid : dateTimeForLogin.ToString());
+
+				if (dateTimeForLogin == DateTime.MaxValue)
+				{
+					await Ui.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalidAplicationBlocked);
+					return null;
+				}
+				//await Ui.DisplayAlert(AppResources.ErrorTitle, dateTimeForLogin == null ? AppResources.PinIsInvalid : dateTimeForLogin.ToString());
 				PinPopupPage Page = new();
 
 				await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
@@ -808,12 +835,24 @@ namespace IdApp
 				if (Profile.ComputePinHash(Pin) == Profile.PinHash)
 				{
 					ClearStartInactivityTime();
+					SetPinWasBannedForOneDay(false);
 					return Pin;
+				} else
+				{
+					await loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
+							Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
+					if (pinAttemptCounter == Constants.Pin.MaxPinAttempts)
+					{
+						SetPinWasBannedForOneDay(true);
+
+					} else
+					{
+						pinAttemptCounter++;
+						SetCurrentPinCounter(pinAttemptCounter);
+					}
+					
 				}
 
-
-				if (Ui is null)
-					Ui = App.Instantiate<IUiSerializer>();
 
 				await Ui.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 
@@ -827,6 +866,7 @@ namespace IdApp
 		/// <returns>If the user has provided the correct PIN</returns>
 		public static async Task<bool> VerifyPin()
 		{
+
 			ITagProfile Profile = App.Instantiate<ITagProfile>();
 			if (!Profile.UsePin)
 				return true;
@@ -863,7 +903,40 @@ namespace IdApp
 		private static bool IsInactivitySafeIntervalPassed()
 		{
 			return DateTime.Now.Subtract(savedStartTime).TotalMinutes
-				> Constants.Inactivity.PossibleInactivityInMinutes;
+				> Constants.Pin.PossibleInactivityInMinutes;
 		}
+
+		/// <summary>
+		/// Saves the value for PinWasBannedForOneDay
+		/// </summary>
+		private static void SetPinWasBannedForOneDay(bool wasBannedForOneDay)
+		{
+			instance.services.SettingsService.SaveState(Constants.Pin.WasBannedForOneDay, wasBannedForOneDay);
+		}
+
+		/// <summary>
+		/// obtains the value for PinWasBannedForOneDay
+		/// </summary>
+		private static async Task<bool> GetPinWasBannedForOneDay()
+		{
+			return await instance.services.SettingsService.RestoreBoolState(Constants.Pin.WasBannedForOneDay); ;
+		}
+
+		/// <summary>
+		/// obtains the value for CurrentPinCounter
+		/// </summary>
+		private static async Task<long> GetCurrentPinCounter()
+		{
+			return await instance.services.SettingsService.RestoreLongState(Constants.Pin.CurrentPinAttemptCounter); ;
+		}
+
+		/// <summary>
+		/// Saves that the value for CurrentPinCounter
+		/// </summary>
+		private static void SetCurrentPinCounter(long currentPinAttemptCounter)
+		{
+			instance.services.SettingsService.SaveState(Constants.Pin.CurrentPinAttemptCounter, currentPinAttemptCounter);
+		}
+
 	}
 }
