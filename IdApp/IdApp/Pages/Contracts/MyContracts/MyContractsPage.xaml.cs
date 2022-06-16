@@ -25,7 +25,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 			this.Title = ViewModel.Title;
 			this.ViewModel = ViewModel;
 
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		/// <summary>
@@ -41,7 +41,12 @@ namespace IdApp.Pages.Contracts.MyContracts
 		private void ToggleCategoryClicked(object Sender, EventArgs e)
 		{
 			if (e is TappedEventArgs e2 && e2.Parameter is ContractCategoryModel Category)
-				Category.Expanded = !Category.Expanded;
+			{
+				this.GetViewModel<MyContractsViewModel>().UiSerializer.BeginInvokeOnMainThread(() =>
+				{
+					Category.Expanded = !Category.Expanded;
+				});
+			}
 		}
 	}
 }

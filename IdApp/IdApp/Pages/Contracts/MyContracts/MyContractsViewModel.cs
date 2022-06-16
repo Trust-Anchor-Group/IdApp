@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using IdApp.Pages.Contracts.MyContracts.ObjectModel;
 using IdApp.Pages.Contracts.NewContract;
@@ -8,6 +7,7 @@ using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Resx;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Contracts.MyContracts
@@ -17,10 +17,8 @@ namespace IdApp.Pages.Contracts.MyContracts
 	/// </summary>
 	public class MyContractsViewModel : BaseViewModel
 	{
-		internal readonly Dictionary<string, Contract> contractsMap;
-
-		internal ContractsListMode contractsListMode;
-		private DateTime loadContractsTimestamp;
+		private readonly Dictionary<string, Contract> contractsMap = new();
+		private ContractsListMode contractsListMode;
 		private TaskCompletionSource<Contract> selection;
 
 		/// <summary>
@@ -28,19 +26,17 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// </summary>
 		protected internal MyContractsViewModel()
 		{
-			this.contractsMap = new Dictionary<string, Contract>();
-			this.Categories = new ObservableCollection<ContractCategoryModel>();
 			this.IsBusy = true;
 			this.Action = SelectContractAction.ViewContract;
-			this.selection = null;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoBind()
 		{
+			await base.DoBind();
+
 			this.IsBusy = true;
 			this.ShowContractsMissing = false;
-			this.loadContractsTimestamp = DateTime.UtcNow;
 
 			if (this.NavigationService.TryPopArgs(out MyContractsNavigationArgs args))
 			{
@@ -67,9 +63,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 				}
 			}
 
-			await base.DoBind();
-
-			this.UiSerializer.BeginInvokeOnMainThread(async () => await LoadContracts(this.loadContractsTimestamp));
+			await this.LoadContracts();
 		}
 
 		/// <inheritdoc/>
@@ -78,8 +72,6 @@ namespace IdApp.Pages.Contracts.MyContracts
 			if (this.Action != SelectContractAction.Select)
 			{
 				this.ShowContractsMissing = false;
-				this.loadContractsTimestamp = DateTime.UtcNow;
-				this.Categories.Clear();
 				this.contractsMap.Clear();
 			}
 
@@ -151,7 +143,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// <summary>
 		/// Holds the list of contracts to display, ordered by category.
 		/// </summary>
-		public ObservableCollection<ContractCategoryModel> Categories { get; }
+		public ObservableRangeCollection<ContractCategoryModel> Categories { get; } = new();
 
 		/// <summary>
 		/// See <see cref="SelectedContract"/>
@@ -197,7 +189,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 			set => this.SetValue(SelectedContractProperty, value);
 		}
 
-		private async Task LoadContracts(DateTime now)
+		private async Task LoadContracts()
 		{
 			try
 			{
@@ -237,9 +229,6 @@ namespace IdApp.Pages.Contracts.MyContracts
 				if (!Succeeded)
 					return;
 
-				if (this.loadContractsTimestamp > now)
-					return;
-
 				if (ContractReferences.Length <= 0)
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
@@ -261,9 +250,6 @@ namespace IdApp.Pages.Contracts.MyContracts
 						continue;   // Contract not available for some reason. Ignore, and display the rest.
 					}
 
-					if (this.loadContractsTimestamp > now)
-						return;
-
 					this.contractsMap[Ref.ContractId] = contract;
 
 					ContractModel Item = await ContractModel.Create(Ref.ContractId, Ref.Timestamp, contract, this);
@@ -278,16 +264,18 @@ namespace IdApp.Pages.Contracts.MyContracts
 					Contracts2.Add(Item);
 				}
 
-				List<ContractCategoryModel> Categories = new();
+				List<ContractCategoryModel> NewCategories = new();
 
 				foreach (KeyValuePair<string, List<ContractModel>> P in ContractsByCategory)
 				{
 					P.Value.Sort(new DateTimeDesc());
-					Categories.Add(new ContractCategoryModel(P.Key, P.Value.ToArray()));
+					NewCategories.Add(new ContractCategoryModel(P.Key, P.Value.ToArray()));
 				}
 
-				foreach (ContractCategoryModel Model in Categories)
-					this.Categories.Add(Model);
+				this.UiSerializer.BeginInvokeOnMainThread(() =>
+				{
+					this.Categories.AddRange(NewCategories);
+				});
 			}
 			finally
 			{
