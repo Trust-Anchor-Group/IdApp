@@ -47,6 +47,7 @@ using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
+using Xamarin.Forms;
 
 namespace IdApp.Services.Xmpp
 {
@@ -1439,8 +1440,8 @@ namespace IdApp.Services.Xmpp
 
 			if (NavigationService.TryPopArgs(out ChatNavigationArgs args, e.FromBareJID))
 			{
-				if (NavigationService.CurrentPage is ChatPage ChatPage &&
-					ChatPage.BindingContext is ChatViewModel ChatViewModel &&
+				if ((NavigationService.CurrentPage is ChatPage || NavigationService.CurrentPage is ChatPageIos) &&
+					NavigationService.CurrentPage.BindingContext is ChatViewModel ChatViewModel &&
 					ChatViewModel.BareJid == e.FromBareJID)
 				{
 					if (string.IsNullOrEmpty(ReplaceObjectId))
@@ -1455,7 +1456,7 @@ namespace IdApp.Services.Xmpp
 				string BareJid = ContactInfo?.BareJid ?? e.FromBareJID;
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
-					await NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName) { UniqueId = BareJid }));
+					await NavigationService.GoToAsync(Device.RuntimePlatform == Device.iOS ? nameof(ChatPageIos) : nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName) { UniqueId = BareJid }));
 
 				Thread.Sleep(100);
 			}
