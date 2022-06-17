@@ -3541,7 +3541,7 @@
             The data model for a contract category containing a set of contracts of the same category.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.#ctor(System.String,IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel[])">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.#ctor(System.String,System.Collections.Generic.ICollection{IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel})">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel"/> class.
             </summary>
@@ -3549,6 +3549,11 @@
             <param name="Contracts">Contracts in category.</param>
         </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.Category">
+            <summary>
+            Displayable category for the contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.Contracts">
             <summary>
             Displayable category for the contracts.
             </summary>
