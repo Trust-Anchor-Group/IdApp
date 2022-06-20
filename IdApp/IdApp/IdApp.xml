@@ -1862,6 +1862,26 @@
             <param name="State">The state to convert.</param>
             <returns>String representation</returns>
         </member>
+        <member name="T:IdApp.Helpers.EntryProperties">
+            <summary>
+            EntryProperties is a class which defines attached bindable properties used by our custom renderers for <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Helpers.EntryProperties.BorderColorProperty">
+            <summary>
+            Implements the attached property that defines the color of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.GetBorderColor(Xamarin.Forms.BindableObject)">
+            <summary>
+            Gets the color of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.SetBorderColor(Xamarin.Forms.BindableObject,Xamarin.Forms.Color)">
+            <summary>
+            Sets the color of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
         <member name="T:IdApp.Helpers.KeyboardAppearEventArgs">
             <summary>
             MessagingCenter event args
