@@ -35,15 +35,15 @@ namespace IdApp.Services.Contracts
 		{
 			if (this.BeginLoad(cancellationToken))
 			{
-				this.XmppService.ConnectionStateChanged += Contracts_ConnectionStateChanged;
-				this.XmppService.Contracts.PetitionForPeerReviewIdReceived += Contracts_PetitionForPeerReviewIdReceived;
-				this.XmppService.Contracts.PetitionForIdentityReceived += Contracts_PetitionForIdentityReceived;
-				this.XmppService.Contracts.PetitionForSignatureReceived += Contracts_PetitionForSignatureReceived;
-				this.XmppService.Contracts.PetitionedContractResponseReceived += Contracts_PetitionedSmartContractResponseReceived;
-				this.XmppService.Contracts.PetitionForContractReceived += Contracts_PetitionForSmartContractReceived;
-				this.XmppService.Contracts.PetitionedIdentityResponseReceived += Contracts_PetitionedIdentityResponseReceived;
-				this.XmppService.Contracts.PetitionedPeerReviewIdResponseReceived += Contracts_PetitionedPeerReviewResponseReceived;
-				this.XmppService.Contracts.ContractProposalReceived += Contracts_ContractProposalReceived;
+				this.XmppService.ConnectionStateChanged += this.Contracts_ConnectionStateChanged;
+				this.XmppService.Contracts.PetitionForPeerReviewIdReceived += this.Contracts_PetitionForPeerReviewIdReceived;
+				this.XmppService.Contracts.PetitionForIdentityReceived += this.Contracts_PetitionForIdentityReceived;
+				this.XmppService.Contracts.PetitionForSignatureReceived += this.Contracts_PetitionForSignatureReceived;
+				this.XmppService.Contracts.PetitionedContractResponseReceived += this.Contracts_PetitionedSmartContractResponseReceived;
+				this.XmppService.Contracts.PetitionForContractReceived += this.Contracts_PetitionForSmartContractReceived;
+				this.XmppService.Contracts.PetitionedIdentityResponseReceived += this.Contracts_PetitionedIdentityResponseReceived;
+				this.XmppService.Contracts.PetitionedPeerReviewIdResponseReceived += this.Contracts_PetitionedPeerReviewResponseReceived;
+				this.XmppService.Contracts.ContractProposalReceived += this.Contracts_ContractProposalReceived;
 
 				this.EndLoad(true);
 			}
@@ -54,15 +54,15 @@ namespace IdApp.Services.Contracts
 		{
 			if (this.BeginUnload())
 			{
-				this.XmppService.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
-				this.XmppService.Contracts.PetitionForPeerReviewIdReceived -= Contracts_PetitionForPeerReviewIdReceived;
-				this.XmppService.Contracts.PetitionForIdentityReceived -= Contracts_PetitionForIdentityReceived;
-				this.XmppService.Contracts.PetitionForSignatureReceived -= Contracts_PetitionForSignatureReceived;
-				this.XmppService.Contracts.PetitionedContractResponseReceived -= Contracts_PetitionedSmartContractResponseReceived;
-				this.XmppService.Contracts.PetitionForContractReceived -= Contracts_PetitionForSmartContractReceived;
-				this.XmppService.Contracts.PetitionedIdentityResponseReceived -= Contracts_PetitionedIdentityResponseReceived;
-				this.XmppService.Contracts.PetitionedPeerReviewIdResponseReceived -= Contracts_PetitionedPeerReviewResponseReceived;
-				this.XmppService.Contracts.ContractProposalReceived -= Contracts_ContractProposalReceived;
+				this.XmppService.ConnectionStateChanged -= this.Contracts_ConnectionStateChanged;
+				this.XmppService.Contracts.PetitionForPeerReviewIdReceived -= this.Contracts_PetitionForPeerReviewIdReceived;
+				this.XmppService.Contracts.PetitionForIdentityReceived -= this.Contracts_PetitionForIdentityReceived;
+				this.XmppService.Contracts.PetitionForSignatureReceived -= this.Contracts_PetitionForSignatureReceived;
+				this.XmppService.Contracts.PetitionedContractResponseReceived -= this.Contracts_PetitionedSmartContractResponseReceived;
+				this.XmppService.Contracts.PetitionForContractReceived -= this.Contracts_PetitionForSmartContractReceived;
+				this.XmppService.Contracts.PetitionedIdentityResponseReceived -= this.Contracts_PetitionedIdentityResponseReceived;
+				this.XmppService.Contracts.PetitionedPeerReviewIdResponseReceived -= this.Contracts_PetitionedPeerReviewResponseReceived;
+				this.XmppService.Contracts.ContractProposalReceived -= this.Contracts_ContractProposalReceived;
 
 				this.EndUnload();
 			}
@@ -103,7 +103,7 @@ namespace IdApp.Services.Contracts
 
 			if (identity is null)
 			{
-				this.LogService.LogWarning(GetType().Name + "." + nameof(Contracts_PetitionForIdentityReceived) + "() - identity is missing or cannot be retrieved, ignore.");
+				this.LogService.LogWarning(this.GetType().Name + "." + nameof(Contracts_PetitionForIdentityReceived) + "() - identity is missing or cannot be retrieved, ignore.");
 				return;
 			}
 
@@ -142,7 +142,7 @@ namespace IdApp.Services.Contracts
 
 			if (identity is null)
 			{
-				this.LogService.LogWarning(GetType().Name + "." + nameof(Contracts_PetitionForSignatureReceived) + "() - identity is missing or cannot be retrieved, ignore.");
+				this.LogService.LogWarning(this.GetType().Name + "." + nameof(Contracts_PetitionForSignatureReceived) + "() - identity is missing or cannot be retrieved, ignore.");
 				return;
 			}
 
@@ -261,7 +261,7 @@ namespace IdApp.Services.Contracts
 					{
 						string id = this.TagProfile.LegalIdentity.Id;
 						await Task.Delay(Constants.Timeouts.XmppInit);
-						DownloadLegalIdentityInternal(id);
+						this.DownloadLegalIdentityInternal(id);
 					}
 				}
 			}
@@ -300,7 +300,7 @@ namespace IdApp.Services.Contracts
 			// Run asynchronously so we're not blocking startup UI.
 			try
 			{
-				await DownloadLegalIdentity(legalId);
+				await this.DownloadLegalIdentity(legalId);
 			}
 			catch (Exception ex)
 			{
