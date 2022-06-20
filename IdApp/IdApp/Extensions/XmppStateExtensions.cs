@@ -33,15 +33,15 @@ namespace IdApp.Extensions
 				XmppState.Binding or 
                 XmppState.FetchingRoster or 
                 XmppState.RequestingSession or 
-                XmppState.SettingPresence => Blend(Color.Yellow, ConnectedColor, 0.5),
+                XmppState.SettingPresence => Blend(Color.Yellow, connectedColor, 0.5),
 
-				XmppState.Connected => ConnectedColor,
+				XmppState.Connected => connectedColor,
 
 				_ => Color.Gray,
 			};
 		}
 
-        private static readonly Color ConnectedColor = Color.FromRgb(146, 208, 80);
+        private static readonly Color connectedColor = Color.FromRgb(146, 208, 80);
 
         /// <summary>
         /// Blends two colors.
