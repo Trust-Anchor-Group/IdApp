@@ -430,7 +430,11 @@ namespace IdApp.Services.Xmpp
 
 		private Task XmppClient_ConnectionError(object sender, Exception e)
 		{
-			this.LatestConnectionError = e.Message;
+			if (e is ObjectDisposedException)
+				this.LatestConnectionError = AppResources.UnableToConnect;
+			else
+				this.LatestConnectionError = e.Message;
+
 			return Task.CompletedTask;
 		}
 
@@ -754,7 +758,11 @@ namespace IdApp.Services.Xmpp
 
 			Task OnConnectionError(object _, Exception e)
 			{
-				connectionError = e.Message;
+				if (e is ObjectDisposedException)
+					connectionError = AppResources.UnableToConnect;
+				else
+					connectionError = e.Message;
+
 				connected.TrySetResult(false);
 				return Task.CompletedTask;
 			}

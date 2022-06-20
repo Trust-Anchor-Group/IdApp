@@ -14241,6 +14241,11 @@
               Looks up a localized string similar to Unable to claim thing.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.UnableToConnect">
+            <summary>
+              Looks up a localized string similar to Unable to connect..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.UnableToConnectTo">
             <summary>
               Looks up a localized string similar to Unable to connect to {0}.
