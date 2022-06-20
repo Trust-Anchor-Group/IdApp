@@ -28,7 +28,7 @@ namespace IdApp.Pages.Contracts.NewContract
 	/// </summary>
 	public class NewContractViewModel : BaseViewModel
 	{
-		private static readonly string PartSettingsPrefix = typeof(NewContractViewModel).FullName + ".Part_";
+		private static readonly string partSettingsPrefix = typeof(NewContractViewModel).FullName + ".Part_";
 
 		private readonly Dictionary<string, ParameterInfo> parametersByName = new();
 		private CaseInsensitiveString[] suppressedProposalIds;
@@ -93,9 +93,9 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			if (!this.saveStateWhileScanning)
 			{
-				await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
-				await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
-				await this.SettingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
+				await this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedContractVisibilityItem)));
+				await this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedRole)));
+				await this.SettingsService.RemoveStateWhereKeyStartsWith(partSettingsPrefix);
 			}
 
 			await base.DoUnbind();
@@ -107,25 +107,25 @@ namespace IdApp.Pages.Contracts.NewContract
 			await base.DoSaveState();
 
 			if (!(this.SelectedContractVisibilityItem is null))
-				await this.SettingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), this.SelectedContractVisibilityItem.Visibility);
+				await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.SelectedContractVisibilityItem)), this.SelectedContractVisibilityItem.Visibility);
 			else
-				await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
+				await this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedContractVisibilityItem)));
 
-			if (!(SelectedRole is null))
-				await this.SettingsService.SaveState(GetSettingsKey(nameof(SelectedRole)), this.SelectedRole);
+			if (!(this.SelectedRole is null))
+				await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.SelectedRole)), this.SelectedRole);
 			else
-				await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
+				await this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedRole)));
 
 			if (this.partsToAdd.Count > 0)
 			{
 				foreach (KeyValuePair<string, string> part in this.partsToAdd)
 				{
-					string settingsKey = PartSettingsPrefix + part.Key;
+					string settingsKey = partSettingsPrefix + part.Key;
 					await this.SettingsService.SaveState(settingsKey, part.Value);
 				}
 			}
 			else
-				await this.SettingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
+				await this.SettingsService.RemoveStateWhereKeyStartsWith(partSettingsPrefix);
 
 			this.partsToAdd.Clear();
 		}
@@ -135,26 +135,26 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			if (this.saveStateWhileScanning)
 			{
-				Enum e = await this.SettingsService.RestoreEnumState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
+				Enum e = await this.SettingsService.RestoreEnumState(this.GetSettingsKey(nameof(this.SelectedContractVisibilityItem)));
 				if (!(e is null))
 				{
 					ContractVisibility cv = (ContractVisibility)e;
 					this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == cv);
 				}
 
-				string selectedRole = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(SelectedRole)));
+				string selectedRole = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.SelectedRole)));
 				string matchingRole = this.AvailableRoles.FirstOrDefault(x => x.Equals(selectedRole));
 
 				if (!string.IsNullOrWhiteSpace(matchingRole))
 					this.SelectedRole = matchingRole;
 
-				List<(string key, string value)> settings = (await this.SettingsService.RestoreStateWhereKeyStartsWith<string>(PartSettingsPrefix)).ToList();
+				List<(string key, string value)> settings = (await this.SettingsService.RestoreStateWhereKeyStartsWith<string>(partSettingsPrefix)).ToList();
 				if (settings.Count > 0)
 				{
 					this.partsToAdd.Clear();
 					foreach ((string key, string value) in settings)
 					{
-						string part = key[PartSettingsPrefix.Length..];
+						string part = key[partSettingsPrefix.Length..];
 						this.partsToAdd[part] = value;
 					}
 				}
@@ -174,9 +174,9 @@ namespace IdApp.Pages.Contracts.NewContract
 
 		private async Task DeleteState()
 		{
-			await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
-			await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
-			await this.SettingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
+			await this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedContractVisibilityItem)));
+			await this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedRole)));
+			await this.SettingsService.RemoveStateWhereKeyStartsWith(partSettingsPrefix);
 		}
 
 		#region Properties
@@ -552,7 +552,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					else
 					{
 						this.partsToAdd[button.StyleId] = Contact.LegalId;
-						string settingsKey = PartSettingsPrefix + button.StyleId;
+						string settingsKey = partSettingsPrefix + button.StyleId;
 						await this.SettingsService.SaveState(settingsKey, Contact.LegalId);
 					}
 				}
@@ -586,7 +586,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				}
 
 				await this.ValidateParameters();
-				await PopulateHumanReadableText();
+				await this.PopulateHumanReadableText();
 			}
 			catch (Exception ex)
 			{
@@ -657,7 +657,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				}
 
 				await this.ValidateParameters();
-				await PopulateHumanReadableText();
+				await this.PopulateHumanReadableText();
 			}
 			catch (Exception ex)
 			{
@@ -676,7 +676,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					BP.Value = e.Value;
 
 				await this.ValidateParameters();
-				await PopulateHumanReadableText();
+				await this.PopulateHumanReadableText();
 			}
 			catch (Exception ex)
 			{
@@ -916,7 +916,7 @@ namespace IdApp.Pages.Contracts.NewContract
 						StyleId = Role.Name,
 						Margin = (Thickness)Application.Current.Resources["DefaultBottomOnlyMargin"]
 					};
-					button.Clicked += AddPartButton_Clicked;
+					button.Clicked += this.AddPartButton_Clicked;
 
 					rolesLayout.Children.Add(button);
 				}
@@ -924,7 +924,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.Roles = rolesLayout;
 
 			StackLayout parametersLayout = new();
-			if (template.Parameters.Length > 0)
+			if (this.template.Parameters.Length > 0)
 			{
 				parametersLayout.Children.Add(new Label
 				{
@@ -955,7 +955,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					Populate(Layout, await Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
 					parametersLayout.Children.Add(Layout);
 
-					CheckBox.CheckedChanged += Parameter_CheckedChanged;
+					CheckBox.CheckedChanged += this.Parameter_CheckedChanged;
 
 					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, CheckBox);
 				}
@@ -977,7 +977,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					parametersLayout.Children.Add(Picker);
 
-					Picker.NullableDateSelected += Parameter_DateChanged;
+					Picker.NullableDateSelected += this.Parameter_DateChanged;
 
 					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, Picker);
 				}
@@ -995,7 +995,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					parametersLayout.Children.Add(Entry);
 
-					Entry.TextChanged += Parameter_TextChanged;
+					Entry.TextChanged += this.Parameter_TextChanged;
 
 					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, Entry);
 				}
