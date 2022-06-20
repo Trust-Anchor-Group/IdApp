@@ -489,9 +489,14 @@ namespace IdApp
 			public const int MaxPinAttempts = 3;
 
             /// <summary>
-            /// Key for ban
+			/// First Block in days after 3 attempts 
+			/// </summary>
+			public const int FirstBlockInDays = 1;
+
+            /// <summary>
+            /// Second Block in days after 3 attempts 
             /// </summary>
-            public const string WasBannedForOneDay = "WasBannedForOneDay";
+            public const int SecondBlockInDays = 7;
 
             /// <summary>
             /// Key for pin attempt counter
