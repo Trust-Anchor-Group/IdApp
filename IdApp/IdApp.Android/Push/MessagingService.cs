@@ -16,7 +16,7 @@ using Waher.Runtime.Inventory;
 [assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.Push.MessagingService))]
 namespace IdApp.Android.Push
 {
-	[Service]
+	[Service(Exported=false)]
 	[IntentFilter(new[]
 	{
 		"com.google.firebase.MESSAGING_EVENT",
