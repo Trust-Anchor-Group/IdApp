@@ -45,6 +45,7 @@ namespace IdApp.Android
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 			Rg.Plugins.Popup.Popup.Init(this);
 			Helpers.Svg.SvgImage.Init(this);
+			FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
 
 			IOcrService OcrService = Types.InstantiateDefault<IOcrService>(false);
 			OcrService.RegisterApi(new TesseractApi(this.Application, AssetsDeployment.OncePerVersion));
