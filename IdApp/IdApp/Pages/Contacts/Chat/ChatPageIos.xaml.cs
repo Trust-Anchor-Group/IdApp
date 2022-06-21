@@ -102,14 +102,33 @@ namespace IdApp.Pages.Contacts.Chat
 			this.CollectionView.SelectedItem = null;
 		}
 
-		private async void ViewCell_Appearing(object sender, EventArgs e)
+		private void ViewCell_Appearing(object Sender, EventArgs EventArgs)
 		{
-			ViewCell ViewCell = (ViewCell)sender;
-			if (ViewCell.BindingContext != null && this.CollectionView.ItemsSource != null
-				&& this.CollectionView.ItemsSource.Cast<object>().FirstOrDefault() == ViewCell.BindingContext)
+			ViewCell ViewCell = (ViewCell)Sender;
+			ViewCell.Appearing -= this.ViewCell_Appearing;
+
+			Image Image = ViewCell.View.Descendants().OfType<Image>().FirstOrDefault();
+			if (Image != null)
 			{
-				if (ViewCell.View?.Height <= 16)
+				ImageSizeChangedHandler SizeChangedHandler = new(new WeakReference<ViewCell>(ViewCell));
+				Image.SizeChanged += SizeChangedHandler.HandleSizeChanged;
+			}
+		}
+
+		private class ImageSizeChangedHandler
+		{
+			private readonly WeakReference<ViewCell> weakViewCell;
+
+			public ImageSizeChangedHandler(WeakReference<ViewCell> weakViewCell)
+			{
+				this.weakViewCell = weakViewCell;
+			}
+
+			public void HandleSizeChanged(object Sender, EventArgs EventArgs)
+			{
+				if (this.weakViewCell.TryGetTarget(out ViewCell ViewCell))
 				{
+					ViewCell.ForceUpdateSize();
 				}
 			}
 		}
