@@ -24,27 +24,46 @@ namespace IdApp.Android.Renderers
 		{
 			base.OnElementChanged(e);
 
+			float CornerRadius = this.Context.ToPixels(cornerRadiusInDip);
+
 			if (this.Control is not null)
 			{
-				float CornerRadius = this.Context.ToPixels(cornerRadiusInDip);
-				ShapeDrawable Background = new(new RoundRectShape(Enumerable.Repeat(CornerRadius, 8).ToArray(), null, null));
+				this.Control.Background = null;
+				this.Control.SetBackgroundColor(AndroidColor.Transparent);
 
-				Background.Paint.SetStyle(Paint.Style.Stroke);
-				Background.Paint.StrokeWidth = this.Context.ToPixels(borderWidthInDip);
-				Background.Paint.Color = this.Element is Entry Entry ? EntryProperties.GetBorderColor(Entry).ToAndroid() : AndroidColor.Transparent;
-
-				this.Control.Background = Background;
+				// We should set padding on the Control, not on the ViewGroup. Otherwise, the ViewGroup's padding will clip the Control's content.
+				this.Control.SetPadding((int)CornerRadius, (int)CornerRadius, (int)CornerRadius, (int)CornerRadius);
 			}
+
+			this.OverrideBackground();
 		}
 
 		protected override void OnElementPropertyChanged(object Sender, PropertyChangedEventArgs EventArgs)
 		{
 			base.OnElementPropertyChanged(Sender, EventArgs);
 
-			if (EventArgs.PropertyName == EntryProperties.BorderColorProperty.PropertyName && this.Control?.Background is ShapeDrawable ShapeDrawable)
+			if (EventArgs.PropertyName == EntryProperties.BorderColorProperty.PropertyName || EventArgs.PropertyName == VisualElement.BackgroundColorProperty.PropertyName)
 			{
-				ShapeDrawable.Paint.Color = EntryProperties.GetBorderColor(this.Element).ToAndroid();
+				this.OverrideBackground();
 			}
+		}
+
+		private void OverrideBackground()
+		{
+			RoundRectShape Shape = new(Enumerable.Repeat(this.Context.ToPixels(cornerRadiusInDip), 8).ToArray(), null, null);
+
+			ShapeDrawable Border = new(Shape);
+			Border.Paint.SetStyle(Paint.Style.Stroke);
+			Border.Paint.StrokeWidth = this.Context.ToPixels(borderWidthInDip);
+			Border.Paint.Color = this.Element != null ? EntryProperties.GetBorderColor(this.Element).ToAndroid() : AndroidColor.Transparent;
+
+			ShapeDrawable Fill = new(Shape);
+			Fill.Paint.SetStyle(Paint.Style.Fill);
+			Fill.Paint.Color = this.Element != null ? this.Element.BackgroundColor.ToAndroid() : AndroidColor.Transparent;
+
+			LayerDrawable Background = new(new Drawable[] { Fill, Border });
+
+			this.Background = Background;
 		}
 	}
 }

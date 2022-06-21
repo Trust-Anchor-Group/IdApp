@@ -1862,6 +1862,26 @@
             <param name="State">The state to convert.</param>
             <returns>String representation</returns>
         </member>
+        <member name="T:IdApp.Helpers.EntryProperties">
+            <summary>
+            EntryProperties is a class which defines attached bindable properties used by our custom renderers for <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Helpers.EntryProperties.BorderColorProperty">
+            <summary>
+            Implements the attached property that defines the color of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.GetBorderColor(Xamarin.Forms.BindableObject)">
+            <summary>
+            Gets the color of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.SetBorderColor(Xamarin.Forms.BindableObject,Xamarin.Forms.Color)">
+            <summary>
+            Sets the color of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
         <member name="T:IdApp.Helpers.KeyboardAppearEventArgs">
             <summary>
             MessagingCenter event args
@@ -3568,7 +3588,7 @@
             The data model for a contract category containing a set of contracts of the same category.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.#ctor(System.String,IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel[])">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.#ctor(System.String,System.Collections.Generic.ICollection{IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel})">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel"/> class.
             </summary>
@@ -3576,6 +3596,11 @@
             <param name="Contracts">Contracts in category.</param>
         </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.Category">
+            <summary>
+            Displayable category for the contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.Contracts">
             <summary>
             Displayable category for the contracts.
             </summary>
@@ -14241,6 +14266,11 @@
         <member name="P:IdApp.Resx.AppResources.UnableToClaimThing">
             <summary>
               Looks up a localized string similar to Unable to claim thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.UnableToConnect">
+            <summary>
+              Looks up a localized string similar to Unable to connect..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.UnableToConnectTo">
