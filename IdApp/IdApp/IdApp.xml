@@ -3692,18 +3692,26 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
+            </summary>
+            <param name="ParameterValues">Parameter values to set in new contract.</param>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
             <param name="Template">The contract to use as template.</param>
+            <param name="ParameterValues">Parameter values to set in new contract.</param>
         </member>
-        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean)">
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
             <param name="Template">The contract to use as template.</param>
             <param name="SetVisibility">If visibility should be set by default.</param>
+            <param name="ParameterValues">Parameter values to set in new contract.</param>
         </member>
         <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.Template">
             <summary>
@@ -3713,6 +3721,11 @@
         <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.SetVisibility">
             <summary>
             If visibility should be set by default.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.ParameterValues">
+            <summary>
+            Parameter values to set in new contract.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.SuppressedProposalLegalIds">
@@ -15087,12 +15100,13 @@
             <param name="legalId">The id of the legal identity to show.</param>
             <param name="purpose">The purpose to state if the identity can't be downloaded and needs to be petitioned instead.</param>
         </member>
-        <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.OpenContract(System.String,System.String)">
+        <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.OpenContract(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
             Downloads the specified <see cref="T:Waher.Networking.XMPP.Contracts.Contract"/> and opens the corresponding page in the app to show it.
             </summary>
             <param name="contractId">The id of the contract to show.</param>
             <param name="purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
+            <param name="ParameterValues">Parameter values to set in new contract.</param>
         </member>
         <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.TagSignature(System.String)">
             <summary>

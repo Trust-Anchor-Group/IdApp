@@ -157,7 +157,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				sb.Append(HttpUtility.UrlEncode(Convert.ToBase64String(this.DefinitionSchemaDigest)));
 				sb.Append("&Download=1");
 
-				this.DefinitionSchemaUrl = sb.ToString();	// TODO: The above assume contract hosted by the TAG Neuron. URL should be retrieved using API, or be standardized.
+				this.DefinitionSchemaUrl = sb.ToString();   // TODO: The above assume contract hosted by the TAG Neuron. URL should be retrieved using API, or be standardized.
 			}
 
 			this.AssignProperties();
@@ -991,7 +991,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				await this.ContractOrchestratorService.OpenContract(Parameter.ToString(), AppResources.PurposeReviewToken);
+				await this.ContractOrchestratorService.OpenContract(Parameter.ToString(), AppResources.PurposeReviewToken, null);
 			}
 			catch (Exception ex)
 			{
@@ -1097,7 +1097,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			await ChatViewModel.ExecuteSendMessage(string.Empty, Markdown.ToString(), Contact.BareJid, this);
 
-			await Task.Delay(100);	// Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
+			await Task.Delay(100);  // Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
 
 			await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
 		}
@@ -1125,10 +1125,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
+				Dictionary<string, object> Parameters = new();
+				string TrustProviderId = null;
 				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
-
-				NewContractNavigationArgs NewContractArgs = new(Template, true);
 
 				if (Template.ForMachinesLocalName == "Transfer" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
@@ -1136,7 +1136,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					XmlDocument Doc = new();
 					Doc.LoadXml(Template.ForMachines.OuterXml);
 
-					NewContractArgs.SuppressProposal(e.TrustProviderId);
+					TrustProviderId = e.TrustProviderId;
 
 					XmlNamespaceManager NamespaceManager = new(Doc.NameTable);
 					NamespaceManager.AddNamespace("nft", NeuroFeaturesClient.NamespaceNeuroFeatures);
@@ -1185,17 +1185,22 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					}
 
 					if (!string.IsNullOrEmpty(TokenIdParameter))
-						Template[TokenIdParameter] = this.TokenId;
+						Parameters[TokenIdParameter] = this.TokenId;
 
 					if (!string.IsNullOrEmpty(CurrencyParameter))
-						Template[CurrencyParameter] = e.Currency;
+						Parameters[CurrencyParameter] = e.Currency;
 
 					if (!string.IsNullOrEmpty(CommissionParameter))
-						Template[CommissionParameter] = e.Commission;
+						Parameters[CommissionParameter] = e.Commission;
 
 					if (!string.IsNullOrEmpty(OwnershipContractParameter))
-						Template[OwnershipContractParameter] = this.OwnershipContract;
+						Parameters[OwnershipContractParameter] = this.OwnershipContract;
 				}
+
+				NewContractNavigationArgs NewContractArgs = new(Template, true, Parameters);
+
+				if (!string.IsNullOrEmpty(TrustProviderId))
+					NewContractArgs.SuppressProposal(TrustProviderId);
 
 				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs);
 			}
@@ -1209,10 +1214,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
+				Dictionary<string, object> Parameters = new();
+				string TrustProviderId = null;
 				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
-
-				NewContractNavigationArgs NewContractArgs = new(Template, true);
 
 				if (Template.ForMachinesLocalName == "Transfer" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
@@ -1220,7 +1225,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					XmlDocument Doc = new();
 					Doc.LoadXml(Template.ForMachines.OuterXml);
 
-					NewContractArgs.SuppressProposal(e.TrustProviderId);
+					TrustProviderId = e.TrustProviderId;
 
 					XmlNamespaceManager NamespaceManager = new(Doc.NameTable);
 					NamespaceManager.AddNamespace("nft", NeuroFeaturesClient.NamespaceNeuroFeatures);
@@ -1281,17 +1286,22 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					}
 
 					if (!string.IsNullOrEmpty(TokenIdParameter))
-						Template[TokenIdParameter] = this.TokenId;
+						Parameters[TokenIdParameter] = this.TokenId;
 
 					if (!string.IsNullOrEmpty(CurrencyParameter))
-						Template[CurrencyParameter] = e.Currency;
+						Parameters[CurrencyParameter] = e.Currency;
 
 					if (!string.IsNullOrEmpty(CommissionParameter))
-						Template[CommissionParameter] = e.Commission;
+						Parameters[CommissionParameter] = e.Commission;
 
 					if (!string.IsNullOrEmpty(OwnershipContractParameter))
-						Template[OwnershipContractParameter] = this.OwnershipContract;
+						Parameters[OwnershipContractParameter] = this.OwnershipContract;
 				}
+
+				NewContractNavigationArgs NewContractArgs = new(Template, true, Parameters);
+
+				if (!string.IsNullOrEmpty(TrustProviderId))
+					NewContractArgs.SuppressProposal(TrustProviderId);
 
 				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs);
 			}

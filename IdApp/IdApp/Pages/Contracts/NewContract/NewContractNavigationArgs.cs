@@ -15,14 +15,27 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// <summary>
 		/// Creates an instance of the <see cref="NewContractNavigationArgs"/> class.
 		/// </summary>
-		public NewContractNavigationArgs() { }
+		public NewContractNavigationArgs()
+			: this(null, false, null)
+		{
+		}
+
+		/// <summary>
+		/// Creates an instance of the <see cref="NewContractNavigationArgs"/> class.
+		/// </summary>
+		/// <param name="ParameterValues">Parameter values to set in new contract.</param>
+		public NewContractNavigationArgs(Dictionary<string, object> ParameterValues)
+			: this(null, false, ParameterValues)
+		{
+		}
 
 		/// <summary>
 		/// Creates an instance of the <see cref="NewContractNavigationArgs"/> class.
 		/// </summary>
 		/// <param name="Template">The contract to use as template.</param>
-		public NewContractNavigationArgs(Contract Template)
-			: this(Template, false)
+		/// <param name="ParameterValues">Parameter values to set in new contract.</param>
+		public NewContractNavigationArgs(Contract Template, Dictionary<string, object> ParameterValues)
+			: this(Template, false, ParameterValues)
 		{
 		}
 
@@ -31,10 +44,12 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		/// <param name="Template">The contract to use as template.</param>
 		/// <param name="SetVisibility">If visibility should be set by default.</param>
-		public NewContractNavigationArgs(Contract Template, bool SetVisibility)
+		/// <param name="ParameterValues">Parameter values to set in new contract.</param>
+		public NewContractNavigationArgs(Contract Template, bool SetVisibility, Dictionary<string, object> ParameterValues)
 		{
 			this.Template = Template;
 			this.SetVisibility = SetVisibility;
+			this.ParameterValues = ParameterValues;
 		}
 
 		/// <summary>
@@ -46,6 +61,11 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// If visibility should be set by default.
 		/// </summary>
 		public bool SetVisibility { get; }
+
+		/// <summary>
+		/// Parameter values to set in new contract.
+		/// </summary>
+		public Dictionary<string, object> ParameterValues { get; }
 
 		/// <summary>
 		/// Any legal IDs to whom proposals should not be sent. May be null if no proposals should be suppressed.

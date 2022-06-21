@@ -14,6 +14,7 @@ using IdApp.Pages.Main.Main;
 using IdApp.Resx;
 using IdApp.Services;
 using Waher.Content;
+using Waher.Content.Xml;
 using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
@@ -31,6 +32,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		private static readonly string partSettingsPrefix = typeof(NewContractViewModel).FullName + ".Part_";
 
 		private readonly Dictionary<string, ParameterInfo> parametersByName = new();
+		private Dictionary<string, object> presetParameterValues = new();
 		private CaseInsensitiveString[] suppressedProposalIds;
 		private Contract template;
 		private string templateId;
@@ -62,6 +64,9 @@ namespace IdApp.Pages.Contracts.NewContract
 				this.template = args.Template;
 				this.suppressedProposalIds = args.SuppressedProposalLegalIds;
 
+				if (!(args.ParameterValues is null))
+					this.presetParameterValues = args.ParameterValues;
+
 				if (args.SetVisibility)
 					Visibility = args.Template.Visibility;
 
@@ -72,6 +77,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				this.template = this.stateTemplateWhileScanning;
 				this.stateTemplateWhileScanning = null;
 			}
+
 
 			this.templateId = this.template?.ContractId ?? string.Empty;
 			this.IsTemplate = this.template?.CanActAsTemplate ?? false;
@@ -848,7 +854,7 @@ namespace IdApp.Pages.Contracts.NewContract
 							continue;
 
 						string Proposal = await this.UiSerializer.DisplayPrompt(AppResources.Proposal,
-							string.Format(AppResources.EnterProposal, Info.FriendlyName), 
+							string.Format(AppResources.EnterProposal, Info.FriendlyName),
 							AppResources.Send, AppResources.Cancel);
 
 						if (!string.IsNullOrEmpty(Proposal))
@@ -958,10 +964,19 @@ namespace IdApp.Pages.Contracts.NewContract
 					CheckBox.CheckedChanged += this.Parameter_CheckedChanged;
 
 					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, CheckBox);
+
+					if (this.presetParameterValues.TryGetValue(Parameter.Name, out object PresetValue))
+					{
+						this.presetParameterValues.Remove(Parameter.Name);
+
+						if (PresetValue is bool b || CommonTypes.TryParse(PresetValue?.ToString() ?? string.Empty, out b))
+							CheckBox.IsChecked = b;
+					}
 				}
 				else if (Parameter is CalcParameter)
 				{
 					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, null);
+					this.presetParameterValues.Remove(Parameter.Name);
 				}
 				else if (Parameter is DateParameter DP)
 				{
@@ -980,6 +995,14 @@ namespace IdApp.Pages.Contracts.NewContract
 					Picker.NullableDateSelected += this.Parameter_DateChanged;
 
 					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, Picker);
+
+					if (this.presetParameterValues.TryGetValue(Parameter.Name, out object PresetValue))
+					{
+						this.presetParameterValues.Remove(Parameter.Name);
+
+						if (PresetValue is DateTime TP || XML.TryParse(PresetValue?.ToString() ?? string.Empty, out TP))
+							Picker.Date = TP;
+					}
 				}
 				else
 				{
@@ -998,6 +1021,12 @@ namespace IdApp.Pages.Contracts.NewContract
 					Entry.TextChanged += this.Parameter_TextChanged;
 
 					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, Entry);
+
+					if (this.presetParameterValues.TryGetValue(Parameter.Name, out object PresetValue))
+					{
+						this.presetParameterValues.Remove(Parameter.Name);
+						Entry.Text = PresetValue.ToString();
+					}
 				}
 			}
 

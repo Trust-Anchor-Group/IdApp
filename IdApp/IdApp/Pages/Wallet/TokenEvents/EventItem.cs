@@ -178,7 +178,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		/// <param name="ContractId">Contract ID</param>
 		public Task ViewContract(string ContractId)
 		{
-			return this.@ref.ContractOrchestratorService.OpenContract(ContractId, AppResources.PurposeReviewToken);
+			return this.@ref.ContractOrchestratorService.OpenContract(ContractId, AppResources.PurposeReviewToken, null);
 		}
 
 		/// <summary>

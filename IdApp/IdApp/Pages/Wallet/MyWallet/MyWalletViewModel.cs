@@ -719,6 +719,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				// TODO: Let user choose from a list of token templates.
 
+				Dictionary<string, object> Parameters = new();
 				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.CreateDemoTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
 
@@ -774,14 +775,14 @@ namespace IdApp.Pages.Wallet.MyWallet
 					}
 
 					if (!string.IsNullOrEmpty(CurrencyParameter))
-						Template[CurrencyParameter] = e.Currency;
+						Parameters[CurrencyParameter] = e.Currency;
 
 					if (!string.IsNullOrEmpty(CommissionParameter))
-						Template[CommissionParameter] = e.Commission;
+						Parameters[CommissionParameter] = e.Commission;
 				}
 
 				await this.NavigationService.GoToAsync(nameof(NewContractPage),
-					new NewContractNavigationArgs(Template, true)
+					new NewContractNavigationArgs(Template, true, Parameters)
 					{
 						ReturnCounter = 1
 					});
