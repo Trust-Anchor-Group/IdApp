@@ -14,6 +14,9 @@ using Waher.Content.QR;
 using Waher.Content.QR.Encoding;
 using Xamarin.Essentials;
 using IdApp.Resx;
+using System.Collections.Generic;
+using System.Web;
+using System.Collections.Specialized;
 
 namespace IdApp.Services.UI.QR
 {
@@ -70,8 +73,22 @@ namespace IdApp.Services.UI.QR
 						return true;
 
 					case Constants.UriSchemes.UriSchemeIotSc:
+						Dictionary<string, object> Parameters = new();
+
 						string contractId = Constants.UriSchemes.RemoveScheme(Url);
-						await ContractOrchestratorService.OpenContract(contractId, AppResources.ScannedQrCode);
+						int i = contractId.IndexOf('?');
+
+						if (i > 0)
+						{
+							NameValueCollection QueryParameters = HttpUtility.ParseQueryString(contractId[i..]);
+
+							foreach (string Key in QueryParameters.AllKeys)
+								Parameters[Key] = QueryParameters[Key];
+
+							contractId = contractId.Substring(0, i);
+						}
+
+						await ContractOrchestratorService.OpenContract(contractId, AppResources.ScannedQrCode, Parameters);
 						return true;
 
 					case Constants.UriSchemes.UriSchemeIotDisco:

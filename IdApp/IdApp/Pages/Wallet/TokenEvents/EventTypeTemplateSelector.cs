@@ -33,6 +33,16 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		public DataTemplate NoteXmlTemplate { get; set; }
 
 		/// <summary>
+		/// Template to use for external text note events.
+		/// </summary>
+		public DataTemplate ExternalNoteTextTemplate { get; set; }
+
+		/// <summary>
+		/// Template to use for external XML note events.
+		/// </summary>
+		public DataTemplate ExternalNoteXmlTemplate { get; set; }
+
+		/// <summary>
 		/// Template to use for other items.
 		/// </summary>
 		public DataTemplate DefaultTemplate { get; set; }
@@ -49,6 +59,8 @@ namespace IdApp.Pages.Wallet.TokenEvents
 					EventType.Transferred => this.TransferredTemplate,
 					EventType.NoteText => this.NoteTextTemplate,
 					EventType.NoteXml => this.NoteXmlTemplate,
+					EventType.ExternalNoteText => this.ExternalNoteTextTemplate,
+					EventType.ExternalNoteXml => this.ExternalNoteXmlTemplate,
 					_ => this.DefaultTemplate,
 				};
 			}

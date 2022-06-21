@@ -163,7 +163,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 								if (viewModel.contractsListMode == ContractsListMode.ContractTemplates)
 								{
 									viewModel.UiSerializer.BeginInvokeOnMainThread(async () => await viewModel.NavigationService.GoToAsync(
-										nameof(NewContractPage), new NewContractNavigationArgs(Contract)));
+										nameof(NewContractPage), new NewContractNavigationArgs(Contract, null)));
 								}
 								else
 								{

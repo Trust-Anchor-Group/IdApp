@@ -3692,18 +3692,26 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
+            </summary>
+            <param name="ParameterValues">Parameter values to set in new contract.</param>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
             <param name="Template">The contract to use as template.</param>
+            <param name="ParameterValues">Parameter values to set in new contract.</param>
         </member>
-        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean)">
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
             <param name="Template">The contract to use as template.</param>
             <param name="SetVisibility">If visibility should be set by default.</param>
+            <param name="ParameterValues">Parameter values to set in new contract.</param>
         </member>
         <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.Template">
             <summary>
@@ -3713,6 +3721,11 @@
         <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.SetVisibility">
             <summary>
             If visibility should be set by default.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.ParameterValues">
+            <summary>
+            Parameter values to set in new contract.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.SuppressedProposalLegalIds">
@@ -10862,6 +10875,16 @@
             XML note made by owner at the time.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.TokenEvents.EventType.ExternalNoteText">
+            <summary>
+            Text note made by an external source at the time.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenEvents.EventType.ExternalNoteXml">
+            <summary>
+            XML note made by an external source at the time.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.EventItem">
             <summary>
             Represents a token event.
@@ -10999,16 +11022,64 @@
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.DestroyedItem">
             <summary>
-            Represents a token creation event.
+            Represents a token destruction event.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.DestroyedItem.#ctor(NeuroFeatures.Events.Destroyed)">
             <summary>
-            Represents a token creation event.
+            Represents a token destruction event.
             </summary>
             <param name="Event">Token event</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.DestroyedItem.Type">
+            <summary>
+            Type of event.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.ExternalNoteItem">
+            <summary>
+            Represents a token note from an external source.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.ExternalNoteItem.#ctor(NeuroFeatures.Events.TokenExternalNoteEvent)">
+            <summary>
+            Represents a token note from an external source.
+            </summary>
+            <param name="Event">Token event</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.ExternalNoteItem.Source">
+            <summary>
+            Source of note.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.ExternalNoteTextItem">
+            <summary>
+            Represents a text note on a token from an external source.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.ExternalNoteTextItem.#ctor(NeuroFeatures.Events.ExternalNoteText)">
+            <summary>
+            Represents a text note on a token from an external source.
+            </summary>
+            <param name="Event">Token event</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.ExternalNoteTextItem.Type">
+            <summary>
+            Type of event.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.ExternalNoteXmlItem">
+            <summary>
+            Represents an XML note on a token from an external source.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.ExternalNoteXmlItem.#ctor(NeuroFeatures.Events.ExternalNoteXml)">
+            <summary>
+            Represents an XML note on a token from an external source.
+            </summary>
+            <param name="Event">Token event</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.Events.ExternalNoteXmlItem.Type">
             <summary>
             Type of event.
             </summary>
@@ -11031,12 +11102,12 @@
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.NoteTextItem">
             <summary>
-            Represents a token creation event.
+            Represents a text note on a token.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.NoteTextItem.#ctor(NeuroFeatures.Events.NoteText)">
             <summary>
-            Represents a token creation event.
+            Represents a text note on a token.
             </summary>
             <param name="Event">Token event</param>
         </member>
@@ -11047,12 +11118,12 @@
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.NoteXmlItem">
             <summary>
-            Represents a token creation event.
+            Represents an XML note on a token.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.NoteXmlItem.#ctor(NeuroFeatures.Events.NoteXml)">
             <summary>
-            Represents a token creation event.
+            Represents an XML note on a token.
             </summary>
             <param name="Event">Token event</param>
         </member>
@@ -11095,12 +11166,12 @@
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.TransferredItem">
             <summary>
-            Represents a token creation event.
+            Represents a token transfer event.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.TransferredItem.#ctor(NeuroFeatures.Events.Transferred)">
             <summary>
-            Represents a token creation event.
+            Represents a token transfer event.
             </summary>
             <param name="Event">Token event</param>
         </member>
@@ -11174,6 +11245,16 @@
         <member name="P:IdApp.Pages.Wallet.TokenEvents.EventTypeTemplateSelector.NoteXmlTemplate">
             <summary>
             Template to use for XML note events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventTypeTemplateSelector.ExternalNoteTextTemplate">
+            <summary>
+            Template to use for external text note events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventTypeTemplateSelector.ExternalNoteXmlTemplate">
+            <summary>
+            Template to use for external XML note events.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.TokenEvents.EventTypeTemplateSelector.DefaultTemplate">
@@ -14241,6 +14322,11 @@
               Looks up a localized string similar to Unable to claim thing.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.UnableToConnect">
+            <summary>
+              Looks up a localized string similar to Unable to connect..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.UnableToConnectTo">
             <summary>
               Looks up a localized string similar to Unable to connect to {0}.
@@ -15082,12 +15168,13 @@
             <param name="legalId">The id of the legal identity to show.</param>
             <param name="purpose">The purpose to state if the identity can't be downloaded and needs to be petitioned instead.</param>
         </member>
-        <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.OpenContract(System.String,System.String)">
+        <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.OpenContract(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
             Downloads the specified <see cref="T:Waher.Networking.XMPP.Contracts.Contract"/> and opens the corresponding page in the app to show it.
             </summary>
             <param name="contractId">The id of the contract to show.</param>
             <param name="purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
+            <param name="ParameterValues">Parameter values to set in new contract.</param>
         </member>
         <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.TagSignature(System.String)">
             <summary>

@@ -21,6 +21,7 @@ using System.Threading;
 using Waher.Persistence;
 using System.Xml;
 using System.IO;
+using System.Collections.Generic;
 
 namespace IdApp.Services.Contracts
 {
@@ -415,7 +416,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		public async Task OpenContract(string contractId, string purpose)
+		public async Task OpenContract(string contractId, string purpose, Dictionary<string, object> ParameterValues)
 		{
 			try
 			{
@@ -426,13 +427,10 @@ namespace IdApp.Services.Contracts
 					if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
 					{
 						await this.SettingsService.SaveState(Constants.KeyPrefixes.ContractTemplatePrefix + contract.ContractId, DateTime.Now);
-						await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(contract));
+						await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(contract, ParameterValues));
 					}
 					else
-					{
-						await this.NavigationService.GoToAsync(nameof(ViewContractPage),
-							  new ViewContractNavigationArgs(contract, false));
-					}
+						await this.NavigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false));
 				});
 			}
 			catch (ForbiddenException)

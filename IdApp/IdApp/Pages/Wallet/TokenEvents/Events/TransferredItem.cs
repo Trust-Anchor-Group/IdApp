@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace IdApp.Pages.Wallet.TokenEvents.Events
 {
 	/// <summary>
-	/// Represents a token creation event.
+	/// Represents a token transfer event.
 	/// </summary>
 	public class TransferredItem : OwnershipEventItem
 	{
@@ -13,7 +13,7 @@ namespace IdApp.Pages.Wallet.TokenEvents.Events
 		private string sellerFriendlyName;
 
 		/// <summary>
-		/// Represents a token creation event.
+		/// Represents a token transfer event.
 		/// </summary>
 		/// <param name="Event">Token event</param>
 		public TransferredItem(Transferred Event)
