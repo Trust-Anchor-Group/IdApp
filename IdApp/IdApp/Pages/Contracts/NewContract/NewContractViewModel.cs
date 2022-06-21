@@ -1046,8 +1046,33 @@ namespace IdApp.Pages.Contracts.NewContract
 					}
 				}
 
+				if (this.presetParameterValues.TryGetValue("Visibility", out object Obj) &&
+					(Obj is ContractVisibility Visibility2 || Enum.TryParse(Obj?.ToString() ?? string.Empty, out Visibility2)))
+				{
+					Visibility = Visibility2;
+					this.presetParameterValues.Remove("Visibility");
+				}
+
 				if (Visibility.HasValue)
 					this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == Visibility.Value);
+
+				if (this.HasRoles)
+				{
+					foreach (string Role in this.AvailableRoles)
+					{
+						if (this.presetParameterValues.TryGetValue(Role, out Obj) && Obj is string LegalId)
+						{
+							int i = LegalId.IndexOf('@');
+							if (i < 0 || !Guid.TryParse(LegalId.Substring(0, i), out _))
+								continue;
+
+							await this.AddRole(Role, LegalId);
+						}
+					}
+				}
+
+				if (this.presetParameterValues.TryGetValue("Role", out Obj) && Obj is string SelectedRole)
+					this.SelectedRole = SelectedRole;
 			}
 
 			await this.ValidateParameters();
