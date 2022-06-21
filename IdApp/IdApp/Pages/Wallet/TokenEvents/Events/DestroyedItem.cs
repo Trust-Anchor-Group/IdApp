@@ -3,12 +3,12 @@
 namespace IdApp.Pages.Wallet.TokenEvents.Events
 {
 	/// <summary>
-	/// Represents a token creation event.
+	/// Represents a token destruction event.
 	/// </summary>
 	public class DestroyedItem : OwnershipEventItem
 	{
 		/// <summary>
-		/// Represents a token creation event.
+		/// Represents a token destruction event.
 		/// </summary>
 		/// <param name="Event">Token event</param>
 		public DestroyedItem(Destroyed Event)

@@ -41,7 +41,17 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		/// <summary>
 		/// XML note made by owner at the time.
 		/// </summary>
-		NoteXml
+		NoteXml,
+
+		/// <summary>
+		/// Text note made by an external source at the time.
+		/// </summary>
+		ExternalNoteText,
+
+		/// <summary>
+		/// XML note made by an external source at the time.
+		/// </summary>
+		ExternalNoteXml
 	}
 
 	/// <summary>
@@ -136,6 +146,10 @@ namespace IdApp.Pages.Wallet.TokenEvents
 				return new NoteTextItem(NoteText);
 			else if (Event is NoteXml NoteXml)
 				return new NoteXmlItem(NoteXml);
+			else if (Event is ExternalNoteText ExternalNoteText)
+				return new ExternalNoteTextItem(ExternalNoteText);
+			else if (Event is ExternalNoteXml ExternalNoteXml)
+				return new ExternalNoteXmlItem(ExternalNoteXml);
 			else if (Event is Transferred Transferred)
 				return new TransferredItem(Transferred);
 			else
