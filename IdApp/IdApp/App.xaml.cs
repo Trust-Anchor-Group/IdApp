@@ -806,11 +806,8 @@ namespace IdApp
 				return string.Empty;
 
 			IUiSerializer Ui = null;
-			SetCurrentPinCounter(0);
 
-			long pinAttemptCounter = await GetCurrentPinCounter();
-
-			await loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
+			long PinAttemptCounter = await GetCurrentPinCounter();
 			
 
 			if (Ui is null)
@@ -818,22 +815,22 @@ namespace IdApp
 
 			while (true)
 			{
-				DateTime? dateTimeForLogin = await loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
+				DateTime? DateTimeForLogin = await loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
 							Constants.Pin.Protocol);
 
-				if (dateTimeForLogin != null)
+				if (DateTimeForLogin != null)
 				{
-					string messageAlert;
+					string MessageAlert;
 
-					if (dateTimeForLogin == DateTime.MaxValue)
+					if (DateTimeForLogin == DateTime.MaxValue)
 					{
-						messageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
+						MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
 					} else
 					{
-						messageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, dateTimeForLogin);
+						MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateTimeForLogin);
 					}
 
-					await Ui.DisplayAlert(AppResources.ErrorTitle, messageAlert);
+					await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
 					return null;
 				}
 
@@ -856,13 +853,13 @@ namespace IdApp
 					await loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
 							Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
 
-					pinAttemptCounter++;
-					SetCurrentPinCounter(pinAttemptCounter);
+					PinAttemptCounter++;
+					SetCurrentPinCounter(PinAttemptCounter);
 				}
 
-				long remainingAttempts = Constants.Pin.MaxPinAttempts - pinAttemptCounter;
+				long RemainingAttempts = Constants.Pin.MaxPinAttempts - PinAttemptCounter;
 
-				await Ui.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinIsInvalid, remainingAttempts));
+				await Ui.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinIsInvalid, RemainingAttempts));
 			}
 		}
 
@@ -923,9 +920,9 @@ namespace IdApp
 		/// <summary>
 		/// Saves that the value for CurrentPinCounter
 		/// </summary>
-		private static void SetCurrentPinCounter(long currentPinAttemptCounter)
+		private static void SetCurrentPinCounter(long CurrentPinAttemptCounter)
 		{
-			instance.services.SettingsService.SaveState(Constants.Pin.CurrentPinAttemptCounter, currentPinAttemptCounter);
+			instance.services.SettingsService.SaveState(Constants.Pin.CurrentPinAttemptCounter, CurrentPinAttemptCounter);
 		}
 
 	}
