@@ -20,7 +20,7 @@
 			</ViewCell>
 		</DataTemplate>
 		<DataTemplate x:Key="SentMessage" x:DataType="messages:ChatMessage">
-			<ViewCell>
+			<ViewCell Appearing="ViewCell_Appearing">
 				<Grid ColumnDefinitions="auto,*" ColumnSpacing="0">
 					<Frame Grid.Column="0" Rotation="180" BackgroundColor="LightYellow"
 					   Padding="5" CornerRadius="5" BorderColor="Yellow" HasShadow="False" Margin="0,5,0,0">
