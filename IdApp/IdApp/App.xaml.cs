@@ -808,7 +808,6 @@ namespace IdApp
 			IUiSerializer Ui = null;
 
 			long PinAttemptCounter = await GetCurrentPinCounter();
-			
 
 			if (Ui is null)
 				Ui = App.Instantiate<IUiSerializer>();
