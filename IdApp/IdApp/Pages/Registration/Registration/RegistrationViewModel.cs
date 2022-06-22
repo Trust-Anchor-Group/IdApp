@@ -21,9 +21,9 @@ namespace IdApp.Pages.Registration.Registration
 		/// </summary>
 		protected internal RegistrationViewModel()
 		{
-			GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.ValidatePhoneNr);
+			this.GoToPrevCommand = new Command(this.GoToPrev, () => (RegistrationStep)this.CurrentStep > RegistrationStep.ValidatePhoneNr);
 
-			RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
+			this.RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
 			{
 				this.AddChildViewModel(new ValidatePhoneNr.ValidatePhoneNrViewModel()),
 				this.AddChildViewModel(new ChooseAccount.ChooseAccountViewModel()),
@@ -32,22 +32,22 @@ namespace IdApp.Pages.Registration.Registration
 				this.AddChildViewModel(new DefinePin.DefinePinViewModel())
 			};
 
-			SyncTagProfileStep();
-			UpdateStepTitle();
+			this.SyncTagProfileStep();
+			this.UpdateStepTitle();
 		}
 
 		/// <inheritdoc />
 		protected override async Task DoBind()
 		{
 			await base.DoBind();
-			RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
-			SyncTagProfileStep();
+			this.RegistrationSteps.ForEach(x => x.StepCompleted += this.RegistrationStep_Completed);
+			this.SyncTagProfileStep();
 		}
 
 		/// <inheritdoc />
 		protected override Task DoUnbind()
 		{
-			RegistrationSteps.ForEach(x => x.StepCompleted -= RegistrationStep_Completed);
+			this.RegistrationSteps.ForEach(x => x.StepCompleted -= this.RegistrationStep_Completed);
 			return base.DoUnbind();
 		}
 
@@ -151,25 +151,26 @@ namespace IdApp.Pages.Registration.Registration
 		/// <param name="e">The default event args.</param>
 		protected internal void RegistrationStep_Completed(object sender, EventArgs e)
 		{
-			RegistrationStep step = ((RegistrationStepViewModel)sender).Step;
-			switch (step)
+			RegistrationStep Step = ((RegistrationStepViewModel)sender).Step;
+
+			switch (Step)
 			{
 				case RegistrationStep.Account:
 					// User connected to an existing account (as opposed to creating a new one). Copy values from the legal identity.
-					if (!(this.TagProfile.LegalIdentity is null))
+					if (this.TagProfile.LegalIdentity is not null)
 					{
 						RegisterIdentity.RegisterIdentityViewModel vm = (RegisterIdentity.RegisterIdentityViewModel)this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
 						vm.PopulateFromTagProfile();
 					}
-					SyncTagProfileStep();
+					this.SyncTagProfileStep();
 					break;
 
 				case RegistrationStep.RegisterIdentity:
-					SyncTagProfileStep();
+					this.SyncTagProfileStep();
 					break;
 
 				case RegistrationStep.ValidateIdentity:
-					SyncTagProfileStep();
+					this.SyncTagProfileStep();
 					break;
 
 				case RegistrationStep.Pin:
@@ -177,36 +178,36 @@ namespace IdApp.Pages.Registration.Registration
 					break;
 
 				default: // RegistrationStep.Operator
-					SyncTagProfileStep();
+					this.SyncTagProfileStep();
 					break;
 			}
 		}
 
 		private void GoToPrev()
 		{
-			RegistrationStep currStep = (RegistrationStep)CurrentStep;
+			RegistrationStep CurrentStep = (RegistrationStep)this.CurrentStep;
 
-			switch (currStep)
+			switch (CurrentStep)
 			{
 				case RegistrationStep.Account:
-					this.RegistrationSteps[CurrentStep].ClearStepState();
+					this.RegistrationSteps[this.CurrentStep].ClearStepState();
 					this.TagProfile.ClearAccount();
 					break;
 
 				case RegistrationStep.RegisterIdentity:
-					this.RegistrationSteps[CurrentStep].ClearStepState();
+					this.RegistrationSteps[this.CurrentStep].ClearStepState();
 					this.TagProfile.ClearLegalIdentity();
 					break;
 
 				case RegistrationStep.ValidateIdentity:
 					RegisterIdentity.RegisterIdentityViewModel vm = (RegisterIdentity.RegisterIdentityViewModel)this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
 					vm.PopulateFromTagProfile();
-					this.RegistrationSteps[CurrentStep].ClearStepState();
+					this.RegistrationSteps[this.CurrentStep].ClearStepState();
 					this.TagProfile.ClearIsValidated();
 					break;
 
 				case RegistrationStep.Pin:
-					this.RegistrationSteps[CurrentStep].ClearStepState();
+					this.RegistrationSteps[this.CurrentStep].ClearStepState();
 					this.TagProfile.ClearPin();
 					break;
 
@@ -215,7 +216,7 @@ namespace IdApp.Pages.Registration.Registration
 					break;
 			}
 
-			SyncTagProfileStep();
+			this.SyncTagProfileStep();
 		}
 
 		private void SyncTagProfileStep()

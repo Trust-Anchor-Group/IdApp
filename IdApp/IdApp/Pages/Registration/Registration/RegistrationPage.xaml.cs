@@ -11,7 +11,7 @@ namespace IdApp.Pages.Registration.Registration
     /// A page for guiding the user through the registration process for setting up a digital identity.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RegistrationPage: ContentBasePage
+    public partial class RegistrationPage : ContentBasePage
 	{
         private readonly IUiSerializer uiSerializer;
 
@@ -49,19 +49,15 @@ namespace IdApp.Pages.Registration.Registration
             this.uiSerializer.BeginInvokeOnMainThread(() =>
             {
                 RegistrationViewModel vm = this.GetViewModel<RegistrationViewModel>();
-                int step = vm.CurrentStep;
-                if (step < (int)RegistrationStep.Complete)
-                {
-                    int otherStep;
+                int Step = vm.CurrentStep;
 
-                    if (step > 0)
-                        otherStep = step - 1;
-                    else
-                        otherStep = step + 1;
+                if (Step < (int)RegistrationStep.Complete)
+                {
+                    int OtherStep = Step + ((Step > 0) ? -1 : 1);
 
                     vm.MuteStepSync();
-                    this.CarouselView.ScrollTo(otherStep, position: ScrollToPosition.Center, animate: false);
-                    this.CarouselView.ScrollTo(step, position: ScrollToPosition.Center, animate: false);
+                    this.CarouselView.ScrollTo(OtherStep, position: ScrollToPosition.Center, animate: false);
+                    this.CarouselView.ScrollTo(Step, position: ScrollToPosition.Center, animate: false);
                     this.uiSerializer.BeginInvokeOnMainThread(() => vm.UnMuteStepSync());
                 }
             });
@@ -74,11 +70,13 @@ namespace IdApp.Pages.Registration.Registration
         protected override bool OnBackButtonPressed()
         {
             RegistrationViewModel viewModel = this.GetViewModel<RegistrationViewModel>();
+
             if (viewModel.CanGoBack)
             {
                 viewModel.GoToPrevCommand.Execute(null);
                 return true;
             }
+
             return base.OnBackButtonPressed();
         }
     }
