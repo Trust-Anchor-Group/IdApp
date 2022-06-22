@@ -847,7 +847,8 @@ namespace IdApp
 					SetCurrentPinCounter(0);
 					await instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
 					return Pin;
-				} else
+				}
+				else
 				{
 					await instance.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
 							Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
@@ -923,6 +924,5 @@ namespace IdApp
 		{
 			await instance.services.SettingsService.SaveState(Constants.Pin.CurrentPinAttemptCounter, CurrentPinAttemptCounter);
 		}
-
 	}
 }
