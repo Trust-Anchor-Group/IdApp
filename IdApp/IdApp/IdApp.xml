@@ -2264,6 +2264,33 @@
         <member name="M:IdApp.Pages.Contacts.Chat.ChatPage.OnDisappearingAsync">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.ChatPageIos">
+            <summary>
+            A page that displays a list of the current user's contacts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatPageIos.UniqueId">
+            <summary>
+            Views unique ID
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatPageIos.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatPageIos"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatPageIos.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatPageIos.OnAppearingAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatPageIos.OnDisappearingAsync">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.ChatViewModel">
             <summary>
             The view model to bind to when displaying the list of contacts.
