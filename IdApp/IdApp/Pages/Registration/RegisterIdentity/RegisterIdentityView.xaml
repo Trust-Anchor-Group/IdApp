@@ -93,7 +93,6 @@
                 <!-- END HEADER -->
 
                 <StackLayout Orientation="Vertical">
-                    <Label Text="{x:Static resx:AppResources.Country}" />
                     <StackLayout Orientation="Horizontal">
                         <Picker x:Name="CountryPicker" HorizontalOptions="FillAndExpand" Title="{x:Static resx:AppResources.Country}"
                                 ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry}"

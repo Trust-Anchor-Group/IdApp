@@ -19,7 +19,7 @@ namespace IdApp.Resx {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppResources {
@@ -2662,11 +2662,38 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PIN is invalid.
+        ///   Looks up a localized string similar to PIN is invalid. You have {0} remaining attempts..
         /// </summary>
         internal static string PinIsInvalid {
             get {
                 return ResourceManager.GetString("PinIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIN attempts entering is exceded. Your application has been blocked till {0}..
+        /// </summary>
+        internal static string PinIsInvalidAplicationBlocked {
+            get {
+                return ResourceManager.GetString("PinIsInvalidAplicationBlocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIN attempts entering is exceded. Your application has been blocked forever.
+        /// </summary>
+        internal static string PinIsInvalidAplicationBlockedForever {
+            get {
+                return ResourceManager.GetString("PinIsInvalidAplicationBlockedForever", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIN attempts entering is exceded. Your application has been blocked for one week.
+        /// </summary>
+        internal static string PinIsInvalidAplicationBlockedForOneWeek {
+            get {
+                return ResourceManager.GetString("PinIsInvalidAplicationBlockedForOneWeek", resourceCulture);
             }
         }
         

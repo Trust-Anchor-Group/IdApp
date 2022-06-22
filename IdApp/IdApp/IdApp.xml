@@ -78,6 +78,16 @@
             </summary>
             <returns>True if 5 minutes has been passed and False if has not been passed</returns>
         </member>
+        <member name="M:IdApp.App.GetCurrentPinCounter">
+            <summary>
+            Obtains the value for CurrentPinCounter
+            </summary>
+        </member>
+        <member name="M:IdApp.App.SetCurrentPinCounter(System.Int64)">
+            <summary>
+            Saves that the value for CurrentPinCounter
+            </summary>
+        </member>
         <member name="T:IdApp.Behaviors.ReRenderOnClickedBehavior">
             <summary>
             Used for Re-rendering a layout, when a button has been clicked.
@@ -722,19 +732,54 @@
             PasswordMaskTogglerEffect.
             </summary>
         </member>
-        <member name="T:IdApp.Constants.Inactivity">
+        <member name="T:IdApp.Constants.Pin">
             <summary>
-            Contract templates
+            Constants for PIN
             </summary>
         </member>
-        <member name="F:IdApp.Constants.Inactivity.StartTime">
-            <summary>
-            Key for inativity time
-            </summary>
-        </member>
-        <member name="F:IdApp.Constants.Inactivity.PossibleInactivityInMinutes">
+        <member name="F:IdApp.Constants.Pin.PossibleInactivityInMinutes">
             <summary>
             Possible time of inactivity
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Pin.MaxPinAttempts">
+            <summary>
+            Maximum pin enetring attempts
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Pin.FirstBlockInDays">
+            <summary>
+            First Block in days after 3 attempts 
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Pin.SecondBlockInDays">
+            <summary>
+            Second Block in days after 3 attempts 
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Pin.CurrentPinAttemptCounter">
+            <summary>
+            Key for pin attempt counter
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Pin.LogAuditorObjectID">
+            <summary>
+            Log Object ID
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Pin.RemoteEndpoint">
+            <summary>
+            Endpoint for LogAuditor
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Pin.Protocol">
+            <summary>
+            Protocol for LogAuditor
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Pin.Reason">
+            <summary>
+            Reason for LogAuditor
             </summary>
         </member>
         <member name="T:IdApp.Controls.Extended.ExtendedDatePicker">
@@ -13536,7 +13581,22 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.PinIsInvalid">
             <summary>
-              Looks up a localized string similar to PIN is invalid.
+              Looks up a localized string similar to PIN is invalid. You have {0} remaining attempts..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinIsInvalidAplicationBlocked">
+            <summary>
+              Looks up a localized string similar to PIN attempts entering is exceded. Your application has been blocked till {0}..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinIsInvalidAplicationBlockedForever">
+            <summary>
+              Looks up a localized string similar to PIN attempts entering is exceded. Your application has been blocked forever.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinIsInvalidAplicationBlockedForOneWeek">
+            <summary>
+              Looks up a localized string similar to PIN attempts entering is exceded. Your application has been blocked for one week.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PinMustNotIncludeWhitespace">

@@ -77,7 +77,7 @@ namespace IdApp
 		private static App instance;
 		private static DateTime savedStartTime = DateTime.MinValue;
 		private static bool firstCheckPinPassed = false;
-		private static LoginAuditor loginAuditor;
+		private readonly LoginAuditor loginAuditor;
 		private Timer autoSaveTimer;
 		private ServiceReferences services;
 		private Profiler startupProfiler;
@@ -99,8 +99,13 @@ namespace IdApp
 			TaskScheduler.UnobservedTaskException += this.TaskScheduler_UnobservedTaskException;
 
 			instance = this;
-			this.startupCancellation = new CancellationTokenSource();
 
+			LoginInterval[] LoginIntervals = new[] {
+				new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.FirstBlockInDays)),
+				new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.SecondBlockInDays))};
+
+			this.loginAuditor = new LoginAuditor(Constants.Pin.LogAuditorObjectID, LoginIntervals);
+			this.startupCancellation = new CancellationTokenSource();
 			this.initCompleted = this.Init();
 
 			this.InitializeComponent();
@@ -118,14 +123,6 @@ namespace IdApp
 			}
 
 			this.startupProfiler?.MainThread?.Idle();
-
-			LoginInterval[] LoginIntervals = new[] {
-				new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.FirstBlockInDays)),
-				new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.SecondBlockInDays))};
-
-			loginAuditor = new LoginAuditor(Constants.Pin.LogAuditorObjectID, LoginIntervals);
-
-
 		}
 
 		private Task<bool> Init()
