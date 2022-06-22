@@ -147,14 +147,9 @@
         <Style TargetType="Entry"
                ApplyToDerivedTypes="True"
                CanCascade="True">
-            <Setter Property="BackgroundColor">
-                <OnPlatform x:TypeArguments="Color">
-                    <On Platform="iOS">LightGray</On>
-                    <On Platform="Android">Transparent</On>
-                </OnPlatform>
-            </Setter>
+			<Setter Property="BackgroundColor" Value="Transparent" />
 			<Setter Property="TextColor" Value="Black" />
-			<Setter Property="helpers:EntryProperties.BorderColor" Value="Black" />
+			<Setter Property="helpers:EntryProperties.BorderColor" Value="Gray" />
 			<Setter Property="Margin" Value="{OnPlatform Android='4'}" />
 		</Style>
         <Style TargetType="Picker"
