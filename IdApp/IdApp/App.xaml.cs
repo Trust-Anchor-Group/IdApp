@@ -909,19 +909,19 @@ namespace IdApp
 		}
 
 		/// <summary>
-		/// obtains the value for CurrentPinCounter
+		/// Obtains the value for CurrentPinCounter
 		/// </summary>
 		private static async Task<long> GetCurrentPinCounter()
 		{
-			return await instance.services.SettingsService.RestoreLongState(Constants.Pin.CurrentPinAttemptCounter); ;
+			return await instance.services.SettingsService.RestoreLongState(Constants.Pin.CurrentPinAttemptCounter);
 		}
 
 		/// <summary>
 		/// Saves that the value for CurrentPinCounter
 		/// </summary>
-		private static void SetCurrentPinCounter(long CurrentPinAttemptCounter)
+		private static async void SetCurrentPinCounter(long CurrentPinAttemptCounter)
 		{
-			instance.services.SettingsService.SaveState(Constants.Pin.CurrentPinAttemptCounter, CurrentPinAttemptCounter);
+			await instance.services.SettingsService.SaveState(Constants.Pin.CurrentPinAttemptCounter, CurrentPinAttemptCounter);
 		}
 
 	}
