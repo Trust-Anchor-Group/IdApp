@@ -727,7 +727,16 @@
     <value>Pick photo</value>
   </data>
   <data name="PinIsInvalid" xml:space="preserve">
-    <value>PIN is invalid</value>
+    <value>PIN is invalid. You have {0} remaining attempts.</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlockedForever" xml:space="preserve">
+    <value>PIN attempts entering is exceded. Your application has been blocked forever</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
+    <value>PIN attempts entering is exceded. Your application has been blocked till {0}.</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
+    <value>PIN attempts entering is exceded. Your application has been blocked for one week</value>
   </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
     <value>PIN number must not include leading or trailing whitespace.</value>

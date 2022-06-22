@@ -473,19 +473,55 @@ namespace IdApp
 		}
 
 		/// <summary>
-		/// Contract templates
+		/// Constants for PIN
 		/// </summary>
-		public static class Inactivity
+		public static class Pin
 		{
-			/// <summary>
-			/// Key for inativity time
-			/// </summary>
-			public const string StartTime = "InactivityStartTime";
 
 			/// <summary>
 			/// Possible time of inactivity
 			/// </summary>
 			public const int PossibleInactivityInMinutes = 5;
-		}
+
+            /// <summary>
+			/// Maximum pin enetring attempts
+			/// </summary>
+			public const int MaxPinAttempts = 3;
+
+            /// <summary>
+			/// First Block in days after 3 attempts 
+			/// </summary>
+			public const int FirstBlockInDays = 1;
+
+            /// <summary>
+            /// Second Block in days after 3 attempts 
+            /// </summary>
+            public const int SecondBlockInDays = 7;
+
+            /// <summary>
+            /// Key for pin attempt counter
+            /// </summary>
+            public const string CurrentPinAttemptCounter = "CurrentPinAttemptCounter";
+
+            /// <summary>
+            /// Log Object ID
+            /// </summary>
+            public const string LogAuditorObjectID = "LogAuditorObjectID";
+
+            /// <summary>
+            /// Endpoint for LogAuditor
+            /// </summary>
+            public const string RemoteEndpoint = "local";
+
+            /// <summary>
+            /// Protocol for LogAuditor
+            /// </summary>
+            public const string Protocol = "local";
+
+            /// <summary>
+            /// Reason for LogAuditor
+            /// </summary>
+            public const string Reason = "pinEnteringFailure";
+        }
 	}
 }

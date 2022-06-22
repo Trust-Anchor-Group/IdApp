@@ -55,6 +55,9 @@ using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
 using Waher.Runtime.Text;
+using Waher.Security;
+using Waher.Security.LoginMonitor;
+
 using Waher.Script;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -74,6 +77,7 @@ namespace IdApp
 		private static App instance;
 		private static DateTime savedStartTime = DateTime.MinValue;
 		private static bool firstCheckPinPassed = false;
+		private static LoginAuditor loginAuditor;
 		private Timer autoSaveTimer;
 		private ServiceReferences services;
 		private Profiler startupProfiler;
@@ -114,6 +118,14 @@ namespace IdApp
 			}
 
 			this.startupProfiler?.MainThread?.Idle();
+
+			LoginInterval[] LoginIntervals = new[] {
+				new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.FirstBlockInDays)),
+				new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.SecondBlockInDays))};
+
+			loginAuditor = new LoginAuditor(Constants.Pin.LogAuditorObjectID, LoginIntervals);
+
+
 		}
 
 		private Task<bool> Init()
@@ -795,8 +807,32 @@ namespace IdApp
 
 			IUiSerializer Ui = null;
 
+			long PinAttemptCounter = await GetCurrentPinCounter();
+
+			if (Ui is null)
+				Ui = App.Instantiate<IUiSerializer>();
+
 			while (true)
 			{
+				DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
+							Constants.Pin.Protocol);
+
+				if (DateTimeForLogin != null)
+				{
+					string MessageAlert;
+
+					if (DateTimeForLogin == DateTime.MaxValue)
+					{
+						MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
+					} else
+					{
+						MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateTimeForLogin);
+					}
+
+					await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
+					return null;
+				}
+
 				PinPopupPage Page = new();
 
 				await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
@@ -808,16 +844,22 @@ namespace IdApp
 				if (Profile.ComputePinHash(Pin) == Profile.PinHash)
 				{
 					ClearStartInactivityTime();
+					SetCurrentPinCounter(0);
+					await instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
 					return Pin;
 				}
+				else
+				{
+					await instance.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
+							Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
 
+					PinAttemptCounter++;
+					SetCurrentPinCounter(PinAttemptCounter);
+				}
 
-				if (Ui is null)
-					Ui = App.Instantiate<IUiSerializer>();
+				long RemainingAttempts = Constants.Pin.MaxPinAttempts - PinAttemptCounter;
 
-				await Ui.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
-
-				// TODO: Limit number of attempts.
+				await Ui.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinIsInvalid, RemainingAttempts));
 			}
 		}
 
@@ -827,6 +869,7 @@ namespace IdApp
 		/// <returns>If the user has provided the correct PIN</returns>
 		public static async Task<bool> VerifyPin()
 		{
+
 			ITagProfile Profile = App.Instantiate<ITagProfile>();
 			if (!Profile.UsePin)
 				return true;
@@ -863,7 +906,23 @@ namespace IdApp
 		private static bool IsInactivitySafeIntervalPassed()
 		{
 			return DateTime.Now.Subtract(savedStartTime).TotalMinutes
-				> Constants.Inactivity.PossibleInactivityInMinutes;
+				> Constants.Pin.PossibleInactivityInMinutes;
+		}
+
+		/// <summary>
+		/// Obtains the value for CurrentPinCounter
+		/// </summary>
+		private static async Task<long> GetCurrentPinCounter()
+		{
+			return await instance.services.SettingsService.RestoreLongState(Constants.Pin.CurrentPinAttemptCounter);
+		}
+
+		/// <summary>
+		/// Saves that the value for CurrentPinCounter
+		/// </summary>
+		private static async void SetCurrentPinCounter(long CurrentPinAttemptCounter)
+		{
+			await instance.services.SettingsService.SaveState(Constants.Pin.CurrentPinAttemptCounter, CurrentPinAttemptCounter);
 		}
 	}
 }
