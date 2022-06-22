@@ -24,7 +24,7 @@ namespace IdApp.Helpers.Svg
 		{
 			float ScreenScale = SvgImageSource.ScreenScale;
 
-			SKSvg Svg = new();
+			using SKSvg Svg = new();
 			Svg.Load(Stream);
 
 			SKSize SvgSize = Svg.Picture.CullRect.Size;

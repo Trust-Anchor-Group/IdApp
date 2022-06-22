@@ -11,8 +11,8 @@ namespace IdApp.Pages.Registration.Registration
     /// A page for guiding the user through the registration process for setting up a digital identity.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RegistrationPage
-    {
+    public partial class RegistrationPage: ContentBasePage
+	{
         private readonly IUiSerializer uiSerializer;
 
         /// <summary>
@@ -22,8 +22,8 @@ namespace IdApp.Pages.Registration.Registration
         {
             NavigationPage.SetHasNavigationBar(this, false);
             this.uiSerializer = App.Instantiate<IUiSerializer>();
-            ViewModel = new RegistrationViewModel();
-            InitializeComponent();
+            this.ViewModel = new RegistrationViewModel();
+			this.InitializeComponent();
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace IdApp.Pages.Registration.Registration
             if (Device.RuntimePlatform == Device.Android)
             {
                 await Task.Delay(TimeSpan.FromMilliseconds(100));
-                UpdateUiStep();
+				this.UpdateUiStep();
             }
         }
 
@@ -48,12 +48,12 @@ namespace IdApp.Pages.Registration.Registration
         {
             this.uiSerializer.BeginInvokeOnMainThread(() =>
             {
-                RegistrationViewModel vm = GetViewModel<RegistrationViewModel>();
+                RegistrationViewModel vm = this.GetViewModel<RegistrationViewModel>();
                 int step = vm.CurrentStep;
                 if (step < (int)RegistrationStep.Complete)
                 {
                     int otherStep;
-                    
+
                     if (step > 0)
                         otherStep = step - 1;
                     else
@@ -73,7 +73,7 @@ namespace IdApp.Pages.Registration.Registration
         /// <returns>Whether or not the back navigation was handled</returns>
         protected override bool OnBackButtonPressed()
         {
-            RegistrationViewModel viewModel = GetViewModel<RegistrationViewModel>();
+            RegistrationViewModel viewModel = this.GetViewModel<RegistrationViewModel>();
             if (viewModel.CanGoBack)
             {
                 viewModel.GoToPrevCommand.Execute(null);

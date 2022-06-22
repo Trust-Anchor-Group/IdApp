@@ -43,7 +43,7 @@
     <PackageReference Include="NeuroFeatures" Version="1.1.5" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.0" />
-    <PackageReference Include="Svg.Skia" Version="0.5.14" />
+    <PackageReference Include="Svg.Skia" Version="0.5.10" />
     <PackageReference Include="Waher.Content" Version="2.3.3" />
     <PackageReference Include="Waher.Content.Emoji" Version="2.0.0" />
     <PackageReference Include="Waher.Content.Images" Version="2.1.1" />
