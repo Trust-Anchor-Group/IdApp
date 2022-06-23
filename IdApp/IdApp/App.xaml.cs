@@ -811,7 +811,7 @@ namespace IdApp
 
 			while (true)
 			{
-				DateTime? DateTimeForLogin = await App.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
+				DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
 							Constants.Pin.Protocol);
 
 				if (DateTimeForLogin != null)
@@ -842,12 +842,12 @@ namespace IdApp
 				{
 					ClearStartInactivityTime();
 					SetCurrentPinCounter(0);
-					await App.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
+					await instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
 					return Pin;
 				}
 				else
 				{
-					await App.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
+					await instance.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
 							Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
 
 					PinAttemptCounter++;
