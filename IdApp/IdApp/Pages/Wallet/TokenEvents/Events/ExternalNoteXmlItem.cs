@@ -19,6 +19,6 @@ namespace IdApp.Pages.Wallet.TokenEvents.Events
 		/// <summary>
 		/// Type of event.
 		/// </summary>
-		public override EventType Type => EventType.NoteXml;
+		public override EventType Type => EventType.ExternalNoteXml;
 	}
 }

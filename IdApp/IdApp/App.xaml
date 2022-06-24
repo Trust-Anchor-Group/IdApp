@@ -118,7 +118,14 @@
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
             <Setter Property="TextColor" Value="Blue"/>
         </Style>
-        <Style TargetType="Label" x:Key="TableHeader">
+		<Style TargetType="Span" x:Key="ClickableValueSpan">
+			<Setter Property="FontAttributes" Value="Bold"/>
+			<Setter Property="TextColor" Value="Blue"/>
+		</Style>
+		<Style TargetType="Span" x:Key="ValueSpan">
+			<Setter Property="FontAttributes" Value="Bold"/>
+		</Style>
+		<Style TargetType="Label" x:Key="TableHeader">
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="TextColor" Value="Black"/>
             <Setter Property="LineBreakMode" Value="WordWrap"/>
