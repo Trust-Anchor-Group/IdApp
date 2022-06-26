@@ -42,6 +42,12 @@ namespace IdApp.iOS
 			Helpers.Svg.SvgImage.Init();
 			FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 			Xamarin.Forms.Forms.Init();
+			FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageSourceHandler();
+
+			FFImageLoading.Config.Configuration Configuration = FFImageLoading.Config.Configuration.Default;
+			Configuration.DiskCacheDuration = TimeSpan.FromDays(1);
+			FFImageLoading.ImageService.Instance.Initialize(Configuration);
+			FFImageLoading.ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Disk);
 
 			this.LoadApplication(new App());
 

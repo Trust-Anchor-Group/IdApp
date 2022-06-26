@@ -103,6 +103,13 @@ namespace IdApp.Android
 			}
 
 			global::Xamarin.Forms.Forms.Init(this, SavedInstanceState);
+			FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageViewHandler();
+
+			FFImageLoading.Config.Configuration Configuration = FFImageLoading.Config.Configuration.Default;
+			Configuration.DiskCacheDuration = TimeSpan.FromDays(1);
+			FFImageLoading.ImageService.Instance.Initialize(Configuration);
+			FFImageLoading.ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Disk);
+
 			this.LoadApplication(new App());
 		}
 
