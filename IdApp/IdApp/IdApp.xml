@@ -11013,6 +11013,11 @@
             Command executed when the user wants to view a smart contract
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.ViewSourceCommand">
+            <summary>
+            Command executed when the user wants to view the source of an external note
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.TokenEvents.EventItem.CopyToClipboardCommand">
             <summary>
             Command executed when the user wants to copy a text note to the clipboard
@@ -11059,6 +11064,12 @@
             Displays XML in a browser.
             </summary>
             <param name="Xml">XML to display.</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.EventItem.ViewSource(System.String)">
+            <summary>
+            Displays the source of an external note.
+            </summary>
+            <param name="Source">Source of external note.</param>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.Events.CreatedItem">
             <summary>

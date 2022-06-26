@@ -6,6 +6,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.TokenEvents;assembly=IdApp"
                        xmlns:events="clr-namespace:IdApp.Pages.Wallet.TokenEvents.Events;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+					   xmlns:system="clr-namespace:System;assembly=netstandard"
                        x:DataType="model:TokenEventsViewModel"
                        x:Class="IdApp.Pages.Wallet.TokenEvents.TokenEventsPage"
                        Title="{x:Static resx:AppResources.TokenEvents}">
@@ -194,9 +195,16 @@
 								<Span Text="{Binding Timestamp, Converter={converters:DateTimeToString}}"/>
 								<Span Text=", "/>
 								<Span Text="{x:Static resx:AppResources.TextNote}"/>
-								<Span Text=" (" FontSize="Small" TextColor="{x:StaticResource AccentColor}"/>
-								<Span Text="{Binding Source}" FontSize="Small" TextColor="{x:StaticResource AccentColor}"/>
-								<Span Text=")" FontSize="Small" TextColor="{x:StaticResource AccentColor}"/>
+								<Span Text="{x:Static system:Environment.NewLine}"/>
+								<Span Text="(" Style="{StaticResource ValueSpan}"/>
+								<Span Text="{x:Static resx:AppResources.From}" Style="{StaticResource ValueSpan}"/>
+								<Span Text=" " Style="{StaticResource ValueSpan}"/>
+								<Span Text="{Binding Source}" Style="{StaticResource ClickableValueSpan}">
+									<Span.GestureRecognizers>
+										<TapGestureRecognizer Command="{Binding ViewSourceCommand}" CommandParameter="{Binding Source}" />
+									</Span.GestureRecognizers>
+								</Span>
+								<Span Text=")" Style="{StaticResource ValueSpan}"/>
 							</FormattedString>
 						</Label.FormattedText>
 					</Label>
@@ -218,9 +226,16 @@
 								<Span Text="{Binding Timestamp, Converter={converters:DateTimeToString}}"/>
 								<Span Text=", "/>
 								<Span Text="{x:Static resx:AppResources.XmlNote}"/>
-								<Span Text=" (" FontSize="Small" TextColor="{x:StaticResource AccentColor}"/>
-								<Span Text="{Binding Source}" FontSize="Small" TextColor="{x:StaticResource AccentColor}"/>
-								<Span Text=")" FontSize="Small" TextColor="{x:StaticResource AccentColor}"/>
+								<Span Text="{x:Static system:Environment.NewLine}"/>
+								<Span Text="(" Style="{StaticResource ValueSpan}"/>
+								<Span Text="{x:Static resx:AppResources.From}" Style="{StaticResource ValueSpan}"/>
+								<Span Text=" " Style="{StaticResource ValueSpan}"/>
+								<Span Text="{Binding Source}" Style="{StaticResource ClickableValueSpan}">
+									<Span.GestureRecognizers>
+										<TapGestureRecognizer Command="{Binding ViewSourceCommand}" CommandParameter="{Binding Source}" />
+									</Span.GestureRecognizers>
+								</Span>
+								<Span Text=")" Style="{StaticResource ValueSpan}"/>
 							</FormattedString>
 						</Label.FormattedText>
 					</Label>

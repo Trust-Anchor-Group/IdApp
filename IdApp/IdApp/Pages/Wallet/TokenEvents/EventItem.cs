@@ -72,6 +72,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 
 			this.ViewIdCommand = new Command(async P => await this.ViewId((string)P));
 			this.ViewContractCommand = new Command(async P => await this.ViewContract((string)P));
+			this.ViewSourceCommand = new Command(async P => await this.ViewSource((string)P));
 			this.CopyToClipboardCommand = new Command(async P => await this.CopyToClipboard((string)P));
 			this.ViewXmlInBrowserCommand = new Command(async P => await this.ViewXmlInBrowser((string)P));
 		}
@@ -120,6 +121,11 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		/// Command executed when the user wants to view a smart contract
 		/// </summary>
 		public ICommand ViewContractCommand { get; }
+
+		/// <summary>
+		/// Command executed when the user wants to view the source of an external note
+		/// </summary>
+		public ICommand ViewSourceCommand { get; }
 
 		/// <summary>
 		/// Command executed when the user wants to copy a text note to the clipboard
@@ -223,6 +229,25 @@ namespace IdApp.Pages.Wallet.TokenEvents
 				}
 				else
 					await this.@ref.UiSerializer.DisplayAlert(e.StanzaError ?? new Exception(e.ErrorText));
+			}
+			catch (Exception ex)
+			{
+				await this.@ref.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		/// <summary>
+		/// Displays the source of an external note.
+		/// </summary>
+		/// <param name="Source">Source of external note.</param>
+		public async Task ViewSource(string Source)
+		{
+			try
+			{
+				if (Source.IndexOf("://") < 0)
+					Source = "https://" + Source;
+
+				await App.OpenUrl(Source);
 			}
 			catch (Exception ex)
 			{
