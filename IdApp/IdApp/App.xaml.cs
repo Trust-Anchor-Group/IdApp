@@ -76,7 +76,7 @@ namespace IdApp
 		private static bool defaultInstantiated = false;
 		private static App instance;
 		private static DateTime savedStartTime = DateTime.MinValue;
-		private static bool firstCheckPinPassed = false;
+		private static bool displayedPinPopup = false;
 		private readonly LoginAuditor loginAuditor;
 		private Timer autoSaveTimer;
 		private ServiceReferences services;
@@ -833,7 +833,12 @@ namespace IdApp
 				PinPopupPage Page = new();
 
 				await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
+
+				displayedPinPopup = true;
+
 				string Pin = await Page.Result;
+
+				displayedPinPopup = false;
 
 				if (Pin is null)
 					return null;
@@ -873,7 +878,7 @@ namespace IdApp
 
 			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
 
-			if (!firstCheckPinPassed || NeedToVerifyPin)
+			if (!displayedPinPopup && NeedToVerifyPin)
 				return await InputPin(Profile) is not null;
 
 			return true;
@@ -892,7 +897,6 @@ namespace IdApp
 		/// </summary>
 		private static void ClearStartInactivityTime()
 		{
-			firstCheckPinPassed = true;
 			savedStartTime = DateTime.MaxValue;
 		}
 

@@ -45,6 +45,12 @@ namespace IdApp.Popups.Pin.PinPopup
             return false;
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            Close();
+            return false;
+        }
+
         private async void Close()
         {
             await PopupNavigation.Instance.PopAsync();
