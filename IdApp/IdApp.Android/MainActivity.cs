@@ -103,12 +103,16 @@ namespace IdApp.Android
 			}
 
 			global::Xamarin.Forms.Forms.Init(this, SavedInstanceState);
+
+			// This must be called after Xamarin.Forms.Forms.Init.
 			FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageViewHandler();
 
 			FFImageLoading.Config.Configuration Configuration = FFImageLoading.Config.Configuration.Default;
 			Configuration.DiskCacheDuration = TimeSpan.FromDays(1);
 			FFImageLoading.ImageService.Instance.Initialize(Configuration);
-			FFImageLoading.ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Disk);
+
+			// Uncomment this to debug loading images from neuron (ensures that they are not loaded from cache).
+			// FFImageLoading.ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Disk);
 
 			this.LoadApplication(new App());
 		}

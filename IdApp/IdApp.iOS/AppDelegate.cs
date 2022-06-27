@@ -42,12 +42,16 @@ namespace IdApp.iOS
 			Helpers.Svg.SvgImage.Init();
 			FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 			Xamarin.Forms.Forms.Init();
+
+			// This must be called after Xamarin.Forms.Forms.Init.
 			FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageSourceHandler();
 
 			FFImageLoading.Config.Configuration Configuration = FFImageLoading.Config.Configuration.Default;
 			Configuration.DiskCacheDuration = TimeSpan.FromDays(1);
 			FFImageLoading.ImageService.Instance.Initialize(Configuration);
-			FFImageLoading.ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Disk);
+
+			// Uncomment this to debug loading images from neuron (ensures that they are not loaded from cache).
+			// FFImageLoading.ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Disk);
 
 			this.LoadApplication(new App());
 
