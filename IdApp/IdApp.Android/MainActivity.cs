@@ -142,7 +142,7 @@ namespace IdApp.Android
 
 				Intent Intent = new Intent(this, this.GetType()).AddFlags(ActivityFlags.SingleTop);
 
-				PendingIntent PendingIntent = PendingIntent.GetActivity(this, 0, Intent, 0);
+				PendingIntent PendingIntent = PendingIntent.GetActivity(this, 0, Intent, PendingIntentFlags.Immutable | PendingIntentFlags.UpdateCurrent);
 				nfcAdapter.EnableForegroundDispatch(this, PendingIntent, Filters, null);
 			}
 
