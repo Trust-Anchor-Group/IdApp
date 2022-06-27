@@ -12,6 +12,8 @@ namespace IdApp
         /// </summary>
         public const string NotAvailableValue = "-";
 
+		public const int MaxRenderedImageDimension = 800;
+
         /// <summary>
         /// Authentication constants
         /// </summary>
