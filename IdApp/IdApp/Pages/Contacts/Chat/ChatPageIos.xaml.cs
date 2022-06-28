@@ -119,9 +119,9 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			private readonly WeakReference<ViewCell> weakViewCell;
 
-			public ImageSizeChangedHandler(WeakReference<ViewCell> weakViewCell)
+			public ImageSizeChangedHandler(WeakReference<ViewCell> WeakViewCell)
 			{
-				this.weakViewCell = weakViewCell;
+				this.weakViewCell = WeakViewCell;
 			}
 
 			public void HandleSizeChanged(object Sender, EventArgs EventArgs)
