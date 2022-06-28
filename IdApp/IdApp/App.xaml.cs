@@ -76,7 +76,7 @@ namespace IdApp
 		private static bool defaultInstantiated = false;
 		private static App instance;
 		private static DateTime savedStartTime = DateTime.MinValue;
-		private static bool firstCheckPinPassed = false;
+		private static bool displayedPinPopup = false;
 		private readonly LoginAuditor loginAuditor;
 		private Timer autoSaveTimer;
 		private ServiceReferences services;
@@ -804,7 +804,7 @@ namespace IdApp
 
 			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
 
-			if (!firstCheckPinPassed || NeedToVerifyPin)
+			if (!displayedPinPopup && NeedToVerifyPin)
 				return await InputPin(Profile) is not null;
 
 			return true;
@@ -812,64 +812,74 @@ namespace IdApp
 
 		private static async Task<string> InputPin(ITagProfile Profile)
 		{
-			if (!Profile.UsePin)
-				return string.Empty;
+			displayedPinPopup = true;
 
-			IUiSerializer Ui = null;
-
-			long PinAttemptCounter = await GetCurrentPinCounter();
-
-			if (Ui is null)
-				Ui = App.Instantiate<IUiSerializer>();
-
-			while (true)
+			try
 			{
-				DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
-							Constants.Pin.Protocol);
+				if (!Profile.UsePin)
+					return string.Empty;
 
-				if (DateTimeForLogin != null)
+				IUiSerializer Ui = null;
+
+				long PinAttemptCounter = await GetCurrentPinCounter();
+
+				if (Ui is null)
+					Ui = App.Instantiate<IUiSerializer>();
+
+				while (true)
 				{
-					string MessageAlert;
+					DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
+								Constants.Pin.Protocol);
 
-					if (DateTimeForLogin == DateTime.MaxValue)
+					if (DateTimeForLogin != null)
 					{
-						MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
-					} else
-					{
-						MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateTimeForLogin);
+						string MessageAlert;
+
+						if (DateTimeForLogin == DateTime.MaxValue)
+						{
+							MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
+						} else
+						{
+							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateTimeForLogin);
+						}
+
+						await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
+						return null;
 					}
 
-					await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
-					return null;
+					PinPopupPage Page = new();
+
+					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
+
+					string Pin = await Page.Result;
+
+					if (Pin is null)
+						return null;
+
+					if (Profile.ComputePinHash(Pin) == Profile.PinHash)
+					{
+						ClearStartInactivityTime();
+						SetCurrentPinCounter(0);
+						await instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
+						return Pin;
+					}
+					else
+					{
+						await instance.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
+								Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
+
+						PinAttemptCounter++;
+						SetCurrentPinCounter(PinAttemptCounter);
+					}
+
+					long RemainingAttempts = Constants.Pin.MaxPinAttempts - PinAttemptCounter;
+
+					await Ui.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinIsInvalid, RemainingAttempts));
 				}
-
-				PinPopupPage Page = new();
-
-				await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
-				string Pin = await Page.Result;
-
-				if (Pin is null)
-					return null;
-
-				if (Profile.ComputePinHash(Pin) == Profile.PinHash)
-				{
-					ClearStartInactivityTime();
-					SetCurrentPinCounter(0);
-					await instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
-					return Pin;
-				}
-				else
-				{
-					await instance.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
-							Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
-
-					PinAttemptCounter++;
-					SetCurrentPinCounter(PinAttemptCounter);
-				}
-
-				long RemainingAttempts = Constants.Pin.MaxPinAttempts - PinAttemptCounter;
-
-				await Ui.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinIsInvalid, RemainingAttempts));
+			}
+			finally
+			{
+				displayedPinPopup = false;
 			}
 		}
 
@@ -886,7 +896,6 @@ namespace IdApp
 		/// </summary>
 		private static void ClearStartInactivityTime()
 		{
-			firstCheckPinPassed = true;
 			savedStartTime = DateTime.MaxValue;
 		}
 
