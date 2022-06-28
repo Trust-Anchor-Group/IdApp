@@ -26,40 +26,47 @@ namespace IdApp.Android.Push
 	{
 		public override void OnMessageReceived(RemoteMessage Message)
 		{
-			string Body = Message.Data["myBody"];
-			string Title = Message.Data["myTitle"];
-			string ChannelId = Message.Data["channelId"];
-
-			switch (ChannelId)
+			try
 			{
-				case Constants.PushChannels.Messages:
-					this.ShowMessageNotification(Title, Body, Message.Data);
-					break;
+				string Body = Message.Data["myBody"];
+				string Title = Message.Data["myTitle"];
+				string ChannelId = Message.Data["channelId"];
 
-				case Constants.PushChannels.Petitions:
-					this.ShowPetitionNotification(Title, Body, Message.Data);
-					break;
+				switch (ChannelId)
+				{
+					case Constants.PushChannels.Messages:
+						this.ShowMessageNotification(Title, Body, Message.Data);
+						break;
 
-				case Constants.PushChannels.Identities:
-					this.ShowIdentitiesNotification(Title, Body, Message.Data);
-					break;
+					case Constants.PushChannels.Petitions:
+						this.ShowPetitionNotification(Title, Body, Message.Data);
+						break;
 
-				case Constants.PushChannels.Contracts:
-					this.ShowContractsNotification(Title, Body, Message.Data);
-					break;
+					case Constants.PushChannels.Identities:
+						this.ShowIdentitiesNotification(Title, Body, Message.Data);
+						break;
 
-				case Constants.PushChannels.EDaler:
-					this.ShowEDalerNotification(Title, Body, Message.Data);
-					break;
+					case Constants.PushChannels.Contracts:
+						this.ShowContractsNotification(Title, Body, Message.Data);
+						break;
 
-				case Constants.PushChannels.Tokens:
-					this.ShowTokenNotification(Title, Body, Message.Data);
-					break;
+					case Constants.PushChannels.EDaler:
+						this.ShowEDalerNotification(Title, Body, Message.Data);
+						break;
 
-				default:
-					break;
+					case Constants.PushChannels.Tokens:
+						this.ShowTokenNotification(Title, Body, Message.Data);
+						break;
+
+					default:
+						break;
+				}
 			}
-}
+			catch (Exception Exc)
+			{
+				Log.Critical(Exc);
+			}
+		}
 
 		public void ShowMessageNotification(string Title, string MessageBody, IDictionary<string, string> Data)
 		{
