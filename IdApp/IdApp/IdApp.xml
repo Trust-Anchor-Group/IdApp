@@ -11941,6 +11941,11 @@
             Prompts the user for its PIN
             </summary>
         </member>
+        <member name="P:IdApp.Popups.Pin.PinPopup.PinPopupPage.Result">
+            <summary>
+            Task waiting for result. null means dialog was closed without providing a PIN.
+            </summary>
+        </member>
         <member name="M:IdApp.Popups.Pin.PinPopup.PinPopupPage.#ctor">
             <summary>
             Prompts the user for its PIN
@@ -11952,10 +11957,8 @@
         <member name="M:IdApp.Popups.Pin.PinPopup.PinPopupPage.OnBackgroundClicked">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.Popups.Pin.PinPopup.PinPopupPage.Result">
-            <summary>
-            Task waiting for result. null means dialog was closed without providing a PIN.
-            </summary>
+        <member name="M:IdApp.Popups.Pin.PinPopup.PinPopupPage.OnBackButtonPressed">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Popups.Tokens.AddTextNote.AddTextNotePage">
             <summary>
