@@ -8,6 +8,7 @@ using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.EDalerReceived;
 using IdApp.Pages.Wallet.IssueEDaler;
 using IdApp.Pages.Wallet.MyWallet;
+using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Pages.Wallet.Payment;
 using IdApp.Pages.Wallet.PaymentAcceptance;
 using IdApp.Pages.Wallet.TokenDetails;

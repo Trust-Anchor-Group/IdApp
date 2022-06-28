@@ -1,11 +1,12 @@
-﻿using IdApp.Services.Navigation;
+﻿using IdApp.Pages.Wallet.MyWallet.ObjectModels;
+using IdApp.Services.Navigation;
 
 namespace IdApp.Pages.Wallet.AccountEvent
 {
-    /// <summary>
-    /// Holds navigation parameters specific to eDaler URIs.
-    /// </summary>
-    public class AccountEventNavigationArgs : NavigationArgs
+	/// <summary>
+	/// Holds navigation parameters specific to eDaler URIs.
+	/// </summary>
+	public class AccountEventNavigationArgs : NavigationArgs
     {
         /// <summary>
         /// Creates a new instance of the <see cref="AccountEventNavigationArgs"/> class.
@@ -20,7 +21,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
         {
             this.Event = Event;
         }
-        
+
         /// <summary>
         /// Account event
         /// </summary>

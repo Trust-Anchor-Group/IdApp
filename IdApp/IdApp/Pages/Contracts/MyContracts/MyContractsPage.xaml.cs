@@ -1,6 +1,6 @@
-﻿using System;
-using IdApp.Pages.Contracts.MyContracts.ObjectModel;
+﻿using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Services.Navigation;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,7 +21,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		{
 			this.navigationService = App.Instantiate<INavigationService>();
 
-			MyContractsViewModel ViewModel = new MyContractsViewModel();
+			MyContractsViewModel ViewModel = new();
 			this.Title = ViewModel.Title;
 			this.ViewModel = ViewModel;
 
@@ -38,15 +38,23 @@ namespace IdApp.Pages.Contracts.MyContracts
 			return true;
 		}
 
-		private void ToggleCategoryClicked(object Sender, EventArgs e)
+		private void ContractsSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (e is TappedEventArgs e2 && e2.Parameter is ContractCategoryModel Category)
+			object SelectedItem = this.Contracts.SelectedItem;
+			MyContractsViewModel ViewModel = this.GetViewModel<MyContractsViewModel>();
+
+
+			if (SelectedItem is HeaderModel Category)
 			{
-				this.GetViewModel<MyContractsViewModel>().UiSerializer.BeginInvokeOnMainThread(() =>
-				{
-					Category.Expanded = !Category.Expanded;
-				});
+				Category.Expanded = !Category.Expanded;
+				ViewModel.AddOrRemoveContracts(Category, Category.Expanded);
 			}
+			else if (SelectedItem is ContractModel Contract)
+			{
+				ViewModel.ContractSelected(Contract.ContractId);
+			}
+
+			this.Contracts.SelectedItem = null;
 		}
 	}
 }

@@ -1,5 +1,5 @@
-﻿using IdApp.Pages.Contacts.Chat;
-using IdApp.Pages.Wallet;
+﻿using IdApp.Pages;
+using IdApp.Pages.Contacts.Chat;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;

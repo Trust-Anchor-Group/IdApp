@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using Xamarin.Forms;

@@ -5,22 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using IdApp.Extensions;
 using IdApp.Services;
-using IdApp.Services.Xmpp;
-using IdApp.Services.Tag;
 using Waher.Content.Markdown;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Contracts.HumanReadable;
 using Waher.Networking.XMPP.Contracts.HumanReadable.BlockElements;
 using Waher.Networking.XMPP.Contracts.HumanReadable.InlineElements;
-using IdApp.Services.Contracts;
 
-namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
+namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 {
     /// <summary>
     /// The data model for a contract.
     /// </summary>
-    public class ContractModel
-    {
+    public class ContractModel : IItemGroup
+	{
         private readonly string contractId;
         private readonly string timestamp;
         private readonly string category;
@@ -65,7 +62,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
             Dictionary<string, Waher.Networking.XMPP.Contracts.ClientSignature> Signatures = new();
             StringBuilder sb = null;
 
-            if (!(Contract.ClientSignatures is null))
+            if (Contract.ClientSignatures is not null)
             {
                 foreach (Waher.Networking.XMPP.Contracts.ClientSignature Signature in Contract.ClientSignatures)
                     Signatures[Signature.LegalId] = Signature;
@@ -133,10 +130,13 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
         /// </summary>
         public string ContractId => this.contractId;
 
-        /// <summary>
-        /// The created timestamp of the contract.
-        /// </summary>
-        public string Timestamp => this.timestamp;
+		/// <inheritdoc/>
+		public string UniqueName => this.ContractId;
+
+		/// <summary>
+		/// The created timestamp of the contract.
+		/// </summary>
+		public string Timestamp => this.timestamp;
 
         /// <summary>
         /// A reference to the contract.
@@ -152,5 +152,5 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
         /// Displayable category for the contract.
         /// </summary>
         public string Category => this.category;
-    }
+	}
 }

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using IdApp.Pages.Contracts.MyContracts.ObjectModel;
+﻿using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Resx;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -143,50 +143,64 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// <summary>
 		/// Holds the list of contracts to display, ordered by category.
 		/// </summary>
-		public ObservableRangeCollection<ContractCategoryModel> Categories { get; } = new();
+		public ObservableRangeCollection<IItemGroup> Categories { get; } = new();
 
 		/// <summary>
-		/// See <see cref="SelectedContract"/>
+		/// Add or remove the contracts from the collection
 		/// </summary>
-		public static readonly BindableProperty SelectedContractProperty =
-			BindableProperty.Create(nameof(SelectedContract), typeof(ContractModel), typeof(MyContractsViewModel), default(ContractModel),
-				propertyChanged: async (b, oldValue, newValue) =>
-				{
-					MyContractsViewModel viewModel = (MyContractsViewModel)b;
-					ContractModel model = (ContractModel)newValue;
-
-					if (!(model is null) && viewModel.contractsMap.TryGetValue(model.ContractId, out Contract Contract))
-					{
-						switch (viewModel.Action)
-						{
-							case SelectContractAction.ViewContract:
-								if (viewModel.contractsListMode == ContractsListMode.ContractTemplates)
-								{
-									viewModel.UiSerializer.BeginInvokeOnMainThread(async () => await viewModel.NavigationService.GoToAsync(
-										nameof(NewContractPage), new NewContractNavigationArgs(Contract, null)));
-								}
-								else
-								{
-									viewModel.UiSerializer.BeginInvokeOnMainThread(async () => await viewModel.NavigationService.GoToAsync(
-										nameof(ViewContractPage), new ViewContractNavigationArgs(Contract, false)));
-								}
-								break;
-
-							case SelectContractAction.Select:
-								viewModel.selection?.TrySetResult(Contract);
-								await viewModel.NavigationService.GoBackAsync();
-								break;
-						}
-					}
-				});
-
-		/// <summary>
-		/// The currently selected contract, if any.
-		/// </summary>
-		public ContractModel SelectedContract
+		public void AddOrRemoveContracts(HeaderModel Category, bool Expanded)
 		{
-			get => (ContractModel)this.GetValue(SelectedContractProperty);
-			set => this.SetValue(SelectedContractProperty, value);
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				if (Expanded)
+				{
+					int Index = this.Categories.IndexOf(Category);
+
+					foreach (ContractModel Contract in Category.Contracts)
+					{
+						this.Categories.Insert(++Index, Contract);
+					}
+				}
+				else
+				{
+					foreach (ContractModel Contract in Category.Contracts)
+					{
+						this.Categories.Remove(Contract);
+					}
+				}
+			});
+		}
+		/// <summary>
+		/// Add or remove the contracts from the collection
+		/// </summary>
+		public void ContractSelected(string ContractId)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				if (this.contractsMap.TryGetValue(ContractId, out Contract Contract))
+				{
+					switch (this.Action)
+					{
+						case SelectContractAction.ViewContract:
+							if (this.contractsListMode == ContractsListMode.ContractTemplates)
+							{
+								await this.NavigationService.GoToAsync(
+									nameof(NewContractPage), new NewContractNavigationArgs(Contract, null));
+							}
+							else
+							{
+								await this.NavigationService.GoToAsync(
+									nameof(ViewContractPage), new ViewContractNavigationArgs(Contract, false));
+							}
+							break;
+
+						case SelectContractAction.Select:
+							this.selection?.TrySetResult(Contract);
+							await this.NavigationService.GoBackAsync();
+							break;
+					}
+				}
+			});
 		}
 
 		private async Task LoadContracts()
@@ -264,16 +278,17 @@ namespace IdApp.Pages.Contracts.MyContracts
 					Contracts2.Add(Item);
 				}
 
-				List<ContractCategoryModel> NewCategories = new();
+				List<HeaderModel> NewCategories = new();
 
 				foreach (KeyValuePair<string, List<ContractModel>> P in ContractsByCategory)
 				{
 					P.Value.Sort(new DateTimeDesc());
-					NewCategories.Add(new ContractCategoryModel(P.Key, P.Value.ToArray()));
+					NewCategories.Add(new HeaderModel(P.Key, P.Value.ToArray()));
 				}
 
 				this.UiSerializer.BeginInvokeOnMainThread(() =>
 				{
+					this.Categories.Clear();
 					this.Categories.AddRange(NewCategories);
 				});
 			}

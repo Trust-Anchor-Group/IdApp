@@ -3468,6 +3468,29 @@
             The signature in plain text.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector">
+            <summary>
+            Data Template Selector, based on Item Type.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector.HeaderTemplate">
+            <summary>
+            Template to use for contract header
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector.ContractTemplate">
+            <summary>
+            Template to use for contracts
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector.DefaultTemplate">
+            <summary>
+            Template to use for other items.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ContractsListMode">
             <summary>
             What list of contracts to display
@@ -3618,68 +3641,68 @@
             Holds the list of contracts to display, ordered by category.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.SelectedContractProperty">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.AddOrRemoveContracts(IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel,System.Boolean)">
             <summary>
-            See <see cref="P:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.SelectedContract"/>
+            Add or remove the contracts from the collection
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.SelectedContract">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.ContractSelected(System.String)">
             <summary>
-            The currently selected contract, if any.
+            Add or remove the contracts from the collection
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel">
+        <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractCategoryModel">
             <summary>
             The data model for a contract category containing a set of contracts of the same category.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.#ctor(System.String,System.Collections.Generic.ICollection{IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel})">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractCategoryModel.#ctor(System.String,System.Collections.Generic.ICollection{IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel})">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractCategoryModel"/> class.
             </summary>
             <param name="Category">Contract category</param>
             <param name="Contracts">Contracts in category.</param>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.Category">
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractCategoryModel.Category">
             <summary>
             Displayable category for the contracts.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.Contracts">
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractCategoryModel.Contracts">
             <summary>
             Displayable category for the contracts.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.NrContracts">
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractCategoryModel.NrContracts">
             <summary>
             Number of contracts in category.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.Expanded">
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractCategoryModel.Expanded">
             <summary>
             If the group is expanded or not.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractCategoryModel.Symbol">
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractCategoryModel.Symbol">
             <summary>
             Symbol used for the category.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel">
+        <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel">
             <summary>
             The data model for a contract.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel"/> class.
             </summary>
             <param name="ContractId">The contract id.</param>
             <param name="Timestamp">The timestamp to show with the contract reference.</param>
             <param name="Contract">Contract</param>
             <param name="Ref">Service References</param>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
             <summary>
             Gets a displayable name for a contract.
             </summary>
@@ -3687,72 +3710,115 @@
             <param name="Ref">Service References</param>
             <returns>Displayable Name</returns>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetCategory(Waher.Networking.XMPP.Contracts.Contract)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.GetCategory(Waher.Networking.XMPP.Contracts.Contract)">
             <summary>
             Gets the category of a contract
             </summary>
             <param name="Contract">Contract</param>
             <returns>Contract Category</returns>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.ContractId">
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.ContractId">
             <summary>
             The contract id.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.Timestamp">
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.UniqueName">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Timestamp">
             <summary>
             The created timestamp of the contract.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.Contract">
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Contract">
             <summary>
             A reference to the contract.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.Name">
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Name">
             <summary>
             Displayable name for the contract.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.Category">
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Category">
             <summary>
             Displayable category for the contract.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference">
+        <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractReference">
             <summary>
             Contract reference.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference.#ctor(System.DateTime,System.String)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractReference.#ctor(System.DateTime,System.String)">
             <summary>
             Contract reference.
             </summary>
             <param name="Timestamp">Timestamp</param>
             <param name="ContractId">Contract ID</param>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractReference.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
             <summary>
             Contract reference.
             </summary>
             <param name="Contract">Contract</param>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference.ContractId">
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractReference.ContractId">
             <summary>
             Contract ID
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference.Timestamp">
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractReference.Timestamp">
             <summary>
             Timestamp
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference.GetContract(IdApp.Services.Contracts.ISmartContracts)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractReference.GetContract(IdApp.Services.Contracts.ISmartContracts)">
             <summary>
             Gets the contract
             </summary>
             <param name="Contracts">Contracts.</param>
             <returns>Contract reference.</returns>
+        </member>
+        <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel">
+            <summary>
+            The data model for a contract category header containing a collection of contracts of the same category.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.#ctor(System.String,System.Collections.Generic.ICollection{IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel})">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel"/> class.
+            </summary>
+            <param name="Category">Contract category</param>
+            <param name="Contracts">Contracts in category.</param>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.Category">
+            <summary>
+            Displayable category name for the contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.UniqueName">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.Contracts">
+            <summary>
+            The category's contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.NrContracts">
+            <summary>
+            Number of contracts in category.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.Expanded">
+            <summary>
+            If the group is expanded or not.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.Symbol">
+            <summary>
+            Symbol used for the category.
+            </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs">
             <summary>
@@ -6326,6 +6392,41 @@
             Rotation of the first photo in the identity.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.IItemGroup">
+            <summary>
+            Grouped item interface.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.IItemGroup.UniqueName">
+            <summary>
+            Unique name used to compare items.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.IItemGroupCollection">
+            <summary>
+            Grouped item collection interface.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.IItemGroupCollection.UniqueName">
+            <summary>
+            Unique name used to compare items.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.ItemGroupCollection`1">
+            <summary>
+            Encapsulates a grouped item collection.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ItemGroupCollection`1.UniqueName">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.ItemGroupCollection`1.#ctor(System.String,System.Collections.ObjectModel.ObservableCollection{`0})">
+            <summary>
+            Encapsulates a grouped item collection.
+            </summary>
+            <param name="Name">Group's unique name.</param>
+            <param name="Items">Group's item collection.</param>
+        </member>
         <member name="T:IdApp.Pages.Main.Loading.LoadingPage">
             <summary>
             A page to use when the application is loading, or initializing.
@@ -8561,77 +8662,6 @@
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
         </member>
-        <member name="T:IdApp.Pages.Wallet.AccountEventItem">
-            <summary>
-            Encapsulates a <see cref="N:IdApp.Pages.Wallet.AccountEvent"/> object.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.AccountEventItem.#ctor(EDaler.AccountEvent,IdApp.Pages.Wallet.MyWallet.MyWalletViewModel,System.String)">
-            <summary>
-            Encapsulates a <see cref="N:IdApp.Pages.Wallet.AccountEvent"/> object.
-            </summary>
-            <param name="AccountEvent">Account event.</param>
-            <param name="ViewModel">Current view model</param>
-            <param name="FriendlyName">Friendly name of remote entity.</param>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.AccountEventItem.Balance">
-            <summary>
-            Balance after event.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.AccountEventItem.Change">
-            <summary>
-            Balance change
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.AccountEventItem.Timestamp">
-            <summary>
-            Timestamp of event
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.AccountEventItem.TransactionId">
-            <summary>
-            Transaction ID corresponding to event.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.AccountEventItem.UniqueName">
-            <inheritdoc/>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.AccountEventItem.Remote">
-            <summary>
-            Remote endpoint in transaction.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.AccountEventItem.FriendlyName">
-            <summary>
-            Friendly name of remote entity.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.AccountEventItem.Message">
-            <summary>
-            Any message associated with event.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.AccountEventItem.HasMessage">
-            <summary>
-            If the event has a message.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.AccountEventItem.Currency">
-            <summary>
-            Currency used for event.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.AccountEventItem.TextColor">
-            <summary>
-            Color to use when displaying change.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.AccountEventItem.TimestampStr">
-            <summary>
-            String representation of timestamp
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Wallet.AccountEvent.AccountEventNavigationArgs">
             <summary>
             Holds navigation parameters specific to eDaler URIs.
@@ -8642,7 +8672,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.AccountEvent.AccountEventNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventNavigationArgs.#ctor(IdApp.Pages.Wallet.AccountEventItem)">
+        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventNavigationArgs.#ctor(IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.AccountEvent.AccountEventNavigationArgs"/> class.
             </summary>
@@ -9505,41 +9535,6 @@
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
         </member>
-        <member name="T:IdApp.Pages.Wallet.IItemGroup">
-            <summary>
-            Grouped item interface.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.IItemGroup.UniqueName">
-            <summary>
-            Unique name used to compare items.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Wallet.IItemGroupCollection">
-            <summary>
-            Grouped item collection interface.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.IItemGroupCollection.UniqueName">
-            <summary>
-            Unique name used to compare items.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Wallet.ItemGroupCollection`1">
-            <summary>
-            Encapsulates a grouped item collection.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.ItemGroupCollection`1.UniqueName">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.ItemGroupCollection`1.#ctor(System.String,System.Collections.ObjectModel.ObservableCollection{`0})">
-            <summary>
-            Encapsulates a grouped item collection.
-            </summary>
-            <param name="Name">Group's unique name.</param>
-            <param name="Items">Group's item collection.</param>
-        </member>
         <member name="T:IdApp.Pages.Wallet.ItemTypeTemplateSelector">
             <summary>
             Data Template Selector, based on Item Type.
@@ -9934,6 +9929,433 @@
             Binds token information to the view.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem">
+            <summary>
+            Encapsulates a <see cref="N:IdApp.Pages.Wallet.AccountEvent"/> object.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.#ctor(EDaler.AccountEvent,IdApp.Pages.Wallet.MyWallet.MyWalletViewModel,System.String)">
+            <summary>
+            Encapsulates a <see cref="N:IdApp.Pages.Wallet.AccountEvent"/> object.
+            </summary>
+            <param name="AccountEvent">Account event.</param>
+            <param name="ViewModel">Current view model</param>
+            <param name="FriendlyName">Friendly name of remote entity.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.Balance">
+            <summary>
+            Balance after event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.Change">
+            <summary>
+            Balance change
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.Timestamp">
+            <summary>
+            Timestamp of event
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.TransactionId">
+            <summary>
+            Transaction ID corresponding to event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.UniqueName">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.Remote">
+            <summary>
+            Remote endpoint in transaction.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.FriendlyName">
+            <summary>
+            Friendly name of remote entity.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.Message">
+            <summary>
+            Any message associated with event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.HasMessage">
+            <summary>
+            If the event has a message.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.Currency">
+            <summary>
+            Currency used for event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.TextColor">
+            <summary>
+            Color to use when displaying change.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.TimestampStr">
+            <summary>
+            String representation of timestamp
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem">
+            <summary>
+            Encapsulates a <see cref="N:IdApp.Pages.Wallet.PendingPayment"/> object.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem.#ctor(EDaler.PendingPayment,System.String)">
+            <summary>
+            Encapsulates a <see cref="N:IdApp.Pages.Wallet.PendingPayment"/> object.
+            </summary>
+            <param name="PendingPayment">Pending payment.</param>
+            <param name="FriendlyName">Friendly name.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem.Id">
+            <summary>
+            Associated transaction ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem.UniqueName">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem.Expires">
+            <summary>
+            When pending payment expires
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem.ExpiresStr">
+            <summary>
+            String representation of <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem.Expires"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem.Currency">
+            <summary>
+            Currency of pending payment
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem.Amount">
+            <summary>
+            Amount pending
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem.From">
+            <summary>
+            Sender of payment
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem.To">
+            <summary>
+            Recipient of payment
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem.Uri">
+            <summary>
+            Corresponding eDaler URI.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem.FriendlyName">
+            <summary>
+            Friendly name of recipient.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem">
+            <summary>
+            Encapsulates a <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Token"/> object.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences)">
+            <summary>
+            Encapsulates a <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Token"/> object.
+            </summary>
+            <param name="Token">Token</param>
+            <param name="Model">View model</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences,System.Threading.Tasks.TaskCompletionSource{IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem})">
+            <summary>
+            Encapsulates a <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Token"/> object.
+            </summary>
+            <param name="Token">Token</param>
+            <param name="Model">View model</param>
+            <param name="Selected">Asynchronous task completion source, waiting for the user to select a token.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Token">
+            <summary>
+            Token object.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Created">
+            <summary>
+            When token was created.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Updated">
+            <summary>
+            When token was last updated.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Expires">
+            <summary>
+            When token expires.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.ArchiveRequired">
+            <summary>
+            Required archiving time after token expires.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.ArchiveOptional">
+            <summary>
+            Optional archiving time after required archiving time.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.SignatureTimestamp">
+            <summary>
+            Signature timestamp
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Signature">
+            <summary>
+            Token signature
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.DefinitionSchemaDigest">
+            <summary>
+            Digest of schema used to validate token definition XML.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.DefinitionSchemaHashFunction">
+            <summary>
+            Hash function used to compute <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.DefinitionSchemaDigest"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.CreatorCanDestroy">
+            <summary>
+            If the creator can destroy the token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.OwnerCanDestroyBatch">
+            <summary>
+            If the owner can destroy the entire batch of tokens, if owner of every token in the batch.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.OwnerCanDestroyIndividual">
+            <summary>
+            If the owner can destroy an individual token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.CertifierCanDestroy">
+            <summary>
+            If a certifier can destroy the token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.FriendlyName">
+            <summary>
+            Friendly name of token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Glyph">
+            <summary>
+            Glyph of token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphContentType">
+            <summary>
+            Content-Type of glyph
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Ordinal">
+            <summary>
+            Ordinal of token, within batch.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Value">
+            <summary>
+            (Last) Value of token
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Witness">
+            <summary>
+            Witnesses
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.CertifierJids">
+            <summary>
+            JIDs of certifiers
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Certifier">
+            <summary>
+            Certifiers
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.TokenIdMethod">
+            <summary>
+            Method of assigning the Token ID.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.TokenId">
+            <summary>
+            Token ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Visibility">
+            <summary>
+            Visibility of token
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Creator">
+            <summary>
+            Creator of token
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.CreatorJid">
+            <summary>
+            JID of <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Creator"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Owner">
+            <summary>
+            Current owner
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.BatchSize">
+            <summary>
+            Number of tokens in batch being created.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.TrustProvider">
+            <summary>
+            Trust Provider asserting the validity of the token
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.OwnerJid">
+            <summary>
+            JID of owner
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Currency">
+            <summary>
+            Currency of <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Value"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Reference">
+            <summary>
+            Any reference provided by the token creator.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Definition">
+            <summary>
+            XML Definition of token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.DefinitionNamespace">
+            <summary>
+            XML Namespace used in the <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Definition"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.CreationContract">
+            <summary>
+            Contract used to create the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.OwnershipContract">
+            <summary>
+            Contract used to define the current ownership
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Valuator">
+            <summary>
+            Valuators
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Assessor">
+            <summary>
+            Assessors
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.TrustProviderJid">
+            <summary>
+            JID of <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.TrustProvider"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Tags">
+            <summary>
+            Any custom Token Tags provided during creation of the token.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphImageProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphImage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphImage">
+            <summary>
+            Gets or sets the image representing the glyph.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.HasGlyphImageProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.HasGlyphImage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.HasGlyphImage">
+            <summary>
+            Gets or sets the value representing of a glyph is available or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphWidthProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphWidth"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphWidth">
+            <summary>
+            Gets or sets the value representing the width of the glyph.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphHeight">
+            <summary>
+            Gets or sets the value representing the height of the glyph.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.ClickedCommand">
+            <summary>
+            Command executed when the token has been clicked or tapped.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenTotalItem">
+            <summary>
+            Encapsulates a <see cref="T:NeuroFeatures.TokenTotal"/> object.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenTotalItem.#ctor(NeuroFeatures.TokenTotal)">
+            <summary>
+            Encapsulates a <see cref="T:NeuroFeatures.TokenTotal"/> object.
+            </summary>
+            <param name="Total">Token Total.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenTotalItem.Currency">
+            <summary>
+            Currency for sub-total
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenTotalItem.NrTokens">
+            <summary>
+            Number of tokens in sub-total
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenTotalItem.Total">
+            <summary>
+            Sub-total
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.WalletNavigationArgs">
             <summary>
             Holds navigation parameters specific to the eDaler wallet.
@@ -10020,66 +10442,6 @@
         <member name="M:IdApp.Pages.Wallet.Payment.PaymentPage.ShowQrCode">
             <summary>
             Scrolls to display the QR-code.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Wallet.PendingPaymentItem">
-            <summary>
-            Encapsulates a <see cref="N:IdApp.Pages.Wallet.PendingPayment"/> object.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.PendingPaymentItem.#ctor(EDaler.PendingPayment,System.String)">
-            <summary>
-            Encapsulates a <see cref="N:IdApp.Pages.Wallet.PendingPayment"/> object.
-            </summary>
-            <param name="PendingPayment">Pending payment.</param>
-            <param name="FriendlyName">Friendly name.</param>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.Id">
-            <summary>
-            Associated transaction ID
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.UniqueName">
-            <inheritdoc/>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.Expires">
-            <summary>
-            When pending payment expires
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.ExpiresStr">
-            <summary>
-            String representation of <see cref="P:IdApp.Pages.Wallet.PendingPaymentItem.Expires"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.Currency">
-            <summary>
-            Currency of pending payment
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.Amount">
-            <summary>
-            Amount pending
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.From">
-            <summary>
-            Sender of payment
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.To">
-            <summary>
-            Recipient of payment
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.Uri">
-            <summary>
-            Corresponding eDaler URI.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.PendingPaymentItem.FriendlyName">
-            <summary>
-            Friendly name of recipient.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.PendingPayment.PendingPaymentPage">
@@ -10317,7 +10679,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs.#ctor(IdApp.Pages.Wallet.TokenItem)">
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs.#ctor(IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsNavigationArgs"/> class.
             </summary>
@@ -11425,302 +11787,6 @@
         <member name="P:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.AddNoteCommand">
             <summary>
             Command to copy a value to the clipboard.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Wallet.TokenItem">
-            <summary>
-            Encapsulates a <see cref="P:IdApp.Pages.Wallet.TokenItem.Token"/> object.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences)">
-            <summary>
-            Encapsulates a <see cref="P:IdApp.Pages.Wallet.TokenItem.Token"/> object.
-            </summary>
-            <param name="Token">Token</param>
-            <param name="Model">View model</param>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences,System.Threading.Tasks.TaskCompletionSource{IdApp.Pages.Wallet.TokenItem})">
-            <summary>
-            Encapsulates a <see cref="P:IdApp.Pages.Wallet.TokenItem.Token"/> object.
-            </summary>
-            <param name="Token">Token</param>
-            <param name="Model">View model</param>
-            <param name="Selected">Asynchronous task completion source, waiting for the user to select a token.</param>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Token">
-            <summary>
-            Token object.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Created">
-            <summary>
-            When token was created.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Updated">
-            <summary>
-            When token was last updated.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Expires">
-            <summary>
-            When token expires.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.ArchiveRequired">
-            <summary>
-            Required archiving time after token expires.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.ArchiveOptional">
-            <summary>
-            Optional archiving time after required archiving time.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.SignatureTimestamp">
-            <summary>
-            Signature timestamp
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Signature">
-            <summary>
-            Token signature
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.DefinitionSchemaDigest">
-            <summary>
-            Digest of schema used to validate token definition XML.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.DefinitionSchemaHashFunction">
-            <summary>
-            Hash function used to compute <see cref="P:IdApp.Pages.Wallet.TokenItem.DefinitionSchemaDigest"/>.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.CreatorCanDestroy">
-            <summary>
-            If the creator can destroy the token.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.OwnerCanDestroyBatch">
-            <summary>
-            If the owner can destroy the entire batch of tokens, if owner of every token in the batch.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.OwnerCanDestroyIndividual">
-            <summary>
-            If the owner can destroy an individual token.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.CertifierCanDestroy">
-            <summary>
-            If a certifier can destroy the token.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.FriendlyName">
-            <summary>
-            Friendly name of token.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Glyph">
-            <summary>
-            Glyph of token.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphContentType">
-            <summary>
-            Content-Type of glyph
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Ordinal">
-            <summary>
-            Ordinal of token, within batch.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Value">
-            <summary>
-            (Last) Value of token
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Witness">
-            <summary>
-            Witnesses
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.CertifierJids">
-            <summary>
-            JIDs of certifiers
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Certifier">
-            <summary>
-            Certifiers
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.TokenIdMethod">
-            <summary>
-            Method of assigning the Token ID.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.TokenId">
-            <summary>
-            Token ID
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Visibility">
-            <summary>
-            Visibility of token
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Creator">
-            <summary>
-            Creator of token
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.CreatorJid">
-            <summary>
-            JID of <see cref="P:IdApp.Pages.Wallet.TokenItem.Creator"/>.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Owner">
-            <summary>
-            Current owner
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.BatchSize">
-            <summary>
-            Number of tokens in batch being created.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.TrustProvider">
-            <summary>
-            Trust Provider asserting the validity of the token
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.OwnerJid">
-            <summary>
-            JID of owner
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Currency">
-            <summary>
-            Currency of <see cref="P:IdApp.Pages.Wallet.TokenItem.Value"/>.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Reference">
-            <summary>
-            Any reference provided by the token creator.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Definition">
-            <summary>
-            XML Definition of token.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.DefinitionNamespace">
-            <summary>
-            XML Namespace used in the <see cref="P:IdApp.Pages.Wallet.TokenItem.Definition"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.CreationContract">
-            <summary>
-            Contract used to create the contract.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.OwnershipContract">
-            <summary>
-            Contract used to define the current ownership
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Valuator">
-            <summary>
-            Valuators
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Assessor">
-            <summary>
-            Assessors
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.TrustProviderJid">
-            <summary>
-            JID of <see cref="P:IdApp.Pages.Wallet.TokenItem.TrustProvider"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.Tags">
-            <summary>
-            Any custom Token Tags provided during creation of the token.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenItem.GlyphImageProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenItem.GlyphImage"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphImage">
-            <summary>
-            Gets or sets the image representing the glyph.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenItem.HasGlyphImageProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenItem.HasGlyphImage"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.HasGlyphImage">
-            <summary>
-            Gets or sets the value representing of a glyph is available or not.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenItem.GlyphWidthProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenItem.GlyphWidth"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphWidth">
-            <summary>
-            Gets or sets the value representing the width of the glyph.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.TokenItem.GlyphHeightProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.TokenItem.GlyphHeight"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphHeight">
-            <summary>
-            Gets or sets the value representing the height of the glyph.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.ClickedCommand">
-            <summary>
-            Command executed when the token has been clicked or tapped.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Wallet.TokenTotalItem">
-            <summary>
-            Encapsulates a <see cref="T:NeuroFeatures.TokenTotal"/> object.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.TokenTotalItem.#ctor(NeuroFeatures.TokenTotal)">
-            <summary>
-            Encapsulates a <see cref="T:NeuroFeatures.TokenTotal"/> object.
-            </summary>
-            <param name="Total">Token Total.</param>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenTotalItem.Currency">
-            <summary>
-            Currency for sub-total
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenTotalItem.NrTokens">
-            <summary>
-            Number of tokens in sub-total
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenTotalItem.Total">
-            <summary>
-            Sub-total
             </summary>
         </member>
         <member name="T:IdApp.Pages.XmppViewModel">
