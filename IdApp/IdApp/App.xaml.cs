@@ -784,7 +784,6 @@ namespace IdApp
 		/// </summary>
 		/// <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
 		public static async Task<string> InputPin()
-
 		{
 			ITagProfile Profile = App.Instantiate<ITagProfile>();
 			if (!Profile.UsePin)
@@ -794,9 +793,23 @@ namespace IdApp
 		}
 
 		/// <summary>
-		/// Asks the user to input its PIN. PIN is verified before being returned.
+		/// Asks the user to verify with its PIN.
 		/// </summary>
-		/// <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
+		/// <returns>If the user has provided the correct PIN</returns>
+		public static async Task<bool> VerifyPin()
+		{
+			ITagProfile Profile = App.Instantiate<ITagProfile>();
+			if (!Profile.UsePin)
+				return true;
+
+			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
+
+			if (!firstCheckPinPassed || NeedToVerifyPin)
+				return await InputPin(Profile) is not null;
+
+			return true;
+		}
+
 		private static async Task<string> InputPin(ITagProfile Profile)
 		{
 			if (!Profile.UsePin)
@@ -858,25 +871,6 @@ namespace IdApp
 
 				await Ui.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinIsInvalid, RemainingAttempts));
 			}
-		}
-
-		/// <summary>
-		/// Asks the user to verify with its PIN.
-		/// </summary>
-		/// <returns>If the user has provided the correct PIN</returns>
-		public static async Task<bool> VerifyPin()
-		{
-
-			ITagProfile Profile = App.Instantiate<ITagProfile>();
-			if (!Profile.UsePin)
-				return true;
-
-			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
-
-			if (!firstCheckPinPassed || NeedToVerifyPin)
-				return await InputPin(Profile) is not null;
-
-			return true;
 		}
 
 		/// <summary>
