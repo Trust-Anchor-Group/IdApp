@@ -300,6 +300,8 @@ namespace IdApp.Pages.Contacts.Chat
 						this.Messages.Add(Message);
 					else if (this.Messages[i].ObjectId != Message.ObjectId)
 						this.Messages.Insert(i, Message);
+
+					this.EnsureFirstMessageIsEmpty();
 				}
 				catch (Exception ex)
 				{
@@ -337,6 +339,8 @@ namespace IdApp.Pages.Contacts.Chat
 							this.Messages[i] = Message;
 							break;
 						}
+
+						this.EnsureFirstMessageIsEmpty();
 					}
 				}
 				catch (Exception ex)
@@ -381,6 +385,7 @@ namespace IdApp.Pages.Contacts.Chat
 				{
 					this.MergeObservableCollections(LoadMore, Messages.ToList());
 					this.ExistsMoreMessages = c <= 0;
+					this.EnsureFirstMessageIsEmpty();
 				}
 				catch (Exception ex)
 				{
@@ -409,6 +414,14 @@ namespace IdApp.Pages.Contacts.Chat
 					this.Messages.Add(Item);
 				else if (this.Messages[i].UniqueName != Item.UniqueName)
 					this.Messages.Insert(i, Item);
+			}
+		}
+
+		private void EnsureFirstMessageIsEmpty()
+		{
+			if (this.Messages.Count > 0 && this.Messages[0].MessageType != Services.Messages.MessageType.Empty)
+			{
+				this.Messages.Insert(0, new ChatMessage());
 			}
 		}
 
