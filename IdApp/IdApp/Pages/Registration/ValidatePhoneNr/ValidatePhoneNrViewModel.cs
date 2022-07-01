@@ -232,11 +232,11 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 				return;
 			}
 
-			this.SetIsBusy(SendCodeCommand);
+			this.SetIsBusy(this.SendCodeCommand);
 
 			try
 			{
-				string TrimmedNumber = TrimPhoneNumber(this.PhoneNumber);
+				string TrimmedNumber = this.TrimPhoneNumber(this.PhoneNumber);
 
 				object Result = await InternetContent.PostAsync(new Uri("https://" + Constants.Domains.IdDomain + "/ID/SendVerificationMessage.ws"),
 					new Dictionary<string, object>()
@@ -259,13 +259,13 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 			}
 			finally
 			{
-				this.BeginInvokeSetIsDone(SendCodeCommand);
+				this.BeginInvokeSetIsDone(this.SendCodeCommand);
 			}
 		}
 
 		private bool SendCodeCanExecute()
 		{
-			if (IsBusy) // is connecting
+			if (this.IsBusy) // is connecting
 				return false;
 
 			return this.IsInternationalPhoneNumberFormat(this.PhoneNumber);
@@ -279,11 +279,11 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 				return;
 			}
 
-			this.SetIsBusy(VerifyCodeCommand);
+			this.SetIsBusy(this.VerifyCodeCommand);
 
 			try
 			{
-				string TrimmedNumber = TrimPhoneNumber(this.PhoneNumber);
+				string TrimmedNumber = this.TrimPhoneNumber(this.PhoneNumber);
 				bool IsTest = this.Purpose == (int)PurposeUse.EducationalOrExperimental;
 
 				object Result = await InternetContent.PostAsync(new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
@@ -319,7 +319,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
-						this.SetIsDone(VerifyCodeCommand);
+						this.SetIsDone(this.VerifyCodeCommand);
 
 						this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 						this.OnStepCompleted(EventArgs.Empty);
@@ -340,13 +340,13 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 			}
 			finally
 			{
-				this.BeginInvokeSetIsDone(VerifyCodeCommand);
+				this.BeginInvokeSetIsDone(this.VerifyCodeCommand);
 			}
 		}
 
 		private bool VerifyCodeCanExecute()
 		{
-			if (IsBusy) // is connecting
+			if (this.IsBusy) // is connecting
 				return false;
 
 			return this.IsInternationalPhoneNumberFormat(this.PhoneNumber);
@@ -358,11 +358,11 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		}
 
 		private bool IsInternationalPhoneNumberFormat(string PhoneNr)
-		{	
+		{
 			if (string.IsNullOrEmpty(PhoneNr))
 				return false;
 
-			string phoneNumber = TrimPhoneNumber(PhoneNr);
+			string phoneNumber = this.TrimPhoneNumber(PhoneNr);
 			return internationalPhoneNr.IsMatch(phoneNumber);
 		}
 
