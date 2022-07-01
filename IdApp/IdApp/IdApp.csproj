@@ -21,6 +21,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resx\Pngs\broken_image.png" />
+    <None Remove="Resx\Pngs\image.png" />
     <None Remove="Resx\Svgs\camera.svg" />
     <None Remove="Resx\Svgs\images.svg" />
     <None Remove="Resx\Svgs\passport.svg" />
@@ -31,6 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resx\Pngs\broken_image.png" />
+    <EmbeddedResource Include="Resx\Pngs\image.png" />
     <EmbeddedResource Include="Resx\Svgs\camera.svg" />
     <EmbeddedResource Include="Resx\Svgs\images.svg" />
     <EmbeddedResource Include="Resx\Svgs\passport.svg" />
