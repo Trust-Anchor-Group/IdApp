@@ -324,6 +324,11 @@
             A generic "no value available" string.
             </summary>
         </member>
+        <member name="F:IdApp.Constants.MaxRenderedImageDimensionInPixels">
+            <summary>
+            A maximum number of pixels to render for images, downscaling them if necessary.
+            </summary>
+        </member>
         <member name="T:IdApp.Constants.Authentication">
             <summary>
             Authentication constants
@@ -2809,6 +2814,29 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent">
+            <summary>
+            A <see cref="T:Waher.Content.Markdown.Model.MultimediaContent"/> implementation which renders markdown images in Xamarin.Forms using FFImageLoading library.
+            </summary>
+            <remarks>
+            Rendering for destinations other than Xamarin.Forms is performed using the default <see cref="T:Waher.Content.Markdown.Model.Multimedia.ImageContent"/>.
+            </remarks>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent.Supports(Waher.Content.Markdown.Model.MultimediaItem)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent.EmbedInlineLink(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme">
@@ -15017,6 +15045,21 @@
         <member name="F:IdApp.Resx.FontAwesome.EllipsisH">
             <summary>
             ellipsis-h
+            </summary>
+        </member>
+        <member name="T:IdApp.Resx.Pngs">
+            <summary>
+            A list of png resources.
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Pngs.Image">
+            <summary>
+            An image icon from Google Fonts.
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Pngs.BrokenImage">
+            <summary>
+            A broken image icon from Google Fonts.
             </summary>
         </member>
         <member name="T:IdApp.Resx.Svgs">
