@@ -107,7 +107,7 @@ namespace IdApp.Pages.Contacts.Chat
 			ViewCell ViewCell = (ViewCell)Sender;
 			ViewCell.Appearing -= this.ViewCell_Appearing;
 
-			Image Image = ViewCell.View.Descendants().OfType<Image>().FirstOrDefault();
+			FFImageLoading.Forms.CachedImage Image = ViewCell.View.Descendants().OfType<FFImageLoading.Forms.CachedImage>().FirstOrDefault();
 			if (Image != null)
 			{
 				ImageSizeChangedHandler SizeChangedHandler = new(new WeakReference<ViewCell>(ViewCell));
