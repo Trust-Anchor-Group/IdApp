@@ -15,7 +15,7 @@ namespace IdApp
 		/// <summary>
 		/// A maximum number of pixels to render for images, downscaling them if necessary.
 		/// </summary>
-		public const int MaxRenderedImageDimension = 800;
+		public const int MaxRenderedImageDimensionInPixels = 800;
 
         /// <summary>
         /// Authentication constants

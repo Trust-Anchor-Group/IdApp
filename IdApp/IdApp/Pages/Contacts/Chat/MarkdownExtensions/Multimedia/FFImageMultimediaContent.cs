@@ -56,21 +56,21 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 				{
 					if (MultimediaItem.Height.HasValue)
 					{
-						if (MultimediaItem.Width >= MultimediaItem.Height && MultimediaItem.Width > Constants.MaxRenderedImageDimension)
+						if (MultimediaItem.Width >= MultimediaItem.Height && MultimediaItem.Width > Constants.MaxRenderedImageDimensionInPixels)
 						{
-							DownsampleWidth = Constants.MaxRenderedImageDimension;
+							DownsampleWidth = Constants.MaxRenderedImageDimensionInPixels;
 						}
 
-						if (MultimediaItem.Height >= MultimediaItem.Width && MultimediaItem.Height > Constants.MaxRenderedImageDimension)
+						if (MultimediaItem.Height >= MultimediaItem.Width && MultimediaItem.Height > Constants.MaxRenderedImageDimensionInPixels)
 						{
-							DownsampleHeight = Constants.MaxRenderedImageDimension;
+							DownsampleHeight = Constants.MaxRenderedImageDimensionInPixels;
 						}
 					}
 					else
 					{
-						if (MultimediaItem.Width > Constants.MaxRenderedImageDimension)
+						if (MultimediaItem.Width > Constants.MaxRenderedImageDimensionInPixels)
 						{
-							DownsampleWidth = Constants.MaxRenderedImageDimension;
+							DownsampleWidth = Constants.MaxRenderedImageDimensionInPixels;
 						}
 					}
 				}
