@@ -21,6 +21,7 @@ using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -690,7 +691,18 @@ namespace IdApp.Pages.Contacts.Chat
 					throw Slot.StanzaError ?? new Exception(Slot.ErrorText);
 
 				await Slot.PUT(Bin, ContentType, (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
-				await this.ExecuteSendMessage(string.Empty, "![" + MarkdownDocument.Encode(FileName) + "](" + Slot.GetUrl + ")");
+
+				StringBuilder MarkdownBuilder = new($"![{MarkdownDocument.Encode(FileName)}]({Slot.GetUrl}");
+
+				SKImageInfo ImageInfo = SKBitmap.DecodeBounds(Bin);
+				if (!ImageInfo.IsEmpty)
+				{
+					MarkdownBuilder.Append($" {ImageInfo.Width} {ImageInfo.Height}");
+				}
+
+				MarkdownBuilder.Append(")");
+
+				await this.ExecuteSendMessage(string.Empty, MarkdownBuilder.ToString());
 
 				// TODO: File Transfer instead of HTTP File Upload
 

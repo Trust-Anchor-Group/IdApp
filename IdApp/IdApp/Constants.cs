@@ -12,6 +12,11 @@ namespace IdApp
         /// </summary>
         public const string NotAvailableValue = "-";
 
+		/// <summary>
+		/// A maximum number of pixels to render for images, downscaling them if necessary.
+		/// </summary>
+		public const int MaxRenderedImageDimensionInPixels = 800;
+
         /// <summary>
         /// Authentication constants
         /// </summary>
