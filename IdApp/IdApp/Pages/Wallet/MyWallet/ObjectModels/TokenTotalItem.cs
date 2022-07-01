@@ -1,6 +1,6 @@
 ﻿using NeuroFeatures;
 
-namespace IdApp.Pages.Wallet
+namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 {
 	/// <summary>
 	/// Encapsulates a <see cref="TokenTotal"/> object.

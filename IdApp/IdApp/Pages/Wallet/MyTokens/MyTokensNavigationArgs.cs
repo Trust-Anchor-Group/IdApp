@@ -1,12 +1,13 @@
-﻿using IdApp.Services.Navigation;
+﻿using IdApp.Pages.Wallet.MyWallet.ObjectModels;
+using IdApp.Services.Navigation;
 using System.Threading.Tasks;
 
 namespace IdApp.Pages.Wallet.MyTokens
 {
-    /// <summary>
-    /// Holds navigation parameters specific to the eDaler wallet.
-    /// </summary>
-    public class MyTokensNavigationArgs : NavigationArgs
+	/// <summary>
+	/// Holds navigation parameters specific to the eDaler wallet.
+	/// </summary>
+	public class MyTokensNavigationArgs : NavigationArgs
     {
         private readonly TaskCompletionSource<TokenItem> selected;
 

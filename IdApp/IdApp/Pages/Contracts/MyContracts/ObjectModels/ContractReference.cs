@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
 
-namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
+namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 {
 	/// <summary>
 	/// Contract reference.

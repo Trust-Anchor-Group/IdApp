@@ -12,12 +12,17 @@ namespace IdApp.Popups.Pin.PinPopup
     {
         private readonly TaskCompletionSource<string> result = new();
 
-        /// <summary>
-        /// Prompts the user for its PIN
-        /// </summary>
-        public PinPopupPage()
+		/// <summary>
+		/// Task waiting for result. null means dialog was closed without providing a PIN.
+		/// </summary>
+		public Task<string> Result => this.result.Task;
+
+		/// <summary>
+		/// Prompts the user for its PIN
+		/// </summary>
+		public PinPopupPage()
         {
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
         /// <inheritdoc/>
@@ -35,13 +40,20 @@ namespace IdApp.Popups.Pin.PinPopup
 
         private void OnCloseButtonTapped(object sender, EventArgs e)
         {
-            Close();
+            this.Close();
         }
 
         /// <inheritdoc/>
         protected override bool OnBackgroundClicked()
         {
-            Close();
+			this.Close();
+            return false;
+        }
+
+		/// <inheritdoc/>
+		protected override bool OnBackButtonPressed()
+        {
+			this.Close();
             return false;
         }
 
@@ -50,10 +62,5 @@ namespace IdApp.Popups.Pin.PinPopup
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(null);
         }
-
-        /// <summary>
-        /// Task waiting for result. null means dialog was closed without providing a PIN.
-        /// </summary>
-        public Task<string> Result => this.result.Task;
     }
 }

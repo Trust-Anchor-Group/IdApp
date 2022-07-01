@@ -1,7 +1,7 @@
-﻿using IdApp.Pages.Wallet.MyWallet.ObjectModels;
+﻿using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using Xamarin.Forms;
 
-namespace IdApp.Pages.Wallet
+namespace IdApp.Pages.Contracts.MyContracts
 {
 	/// <summary>
 	/// Data Template Selector, based on Item Type.
@@ -9,14 +9,14 @@ namespace IdApp.Pages.Wallet
 	public class ItemTypeTemplateSelector : DataTemplateSelector
 	{
 		/// <summary>
-		/// ATemplate to use for pending payments
+		/// Template to use for contract header
 		/// </summary>
-		public DataTemplate PendingPaymentTemplate { get; set; }
+		public DataTemplate HeaderTemplate { get; set; }
 
 		/// <summary>
-		/// Template to use for account events.
+		/// Template to use for contracts
 		/// </summary>
-		public DataTemplate AccountEventTemplate { get; set; }
+		public DataTemplate ContractTemplate { get; set; }
 
 		/// <summary>
 		/// Template to use for other items.
@@ -26,13 +26,13 @@ namespace IdApp.Pages.Wallet
 		/// <inheritdoc/>
 		protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
 		{
-			if (item is PendingPaymentItem)
+			if (item is HeaderModel)
 			{
-				return this.PendingPaymentTemplate;
+				return this.HeaderTemplate;
 			}
-			else if (item is AccountEventItem)
+			else if (item is ContractModel)
 			{
-				return this.AccountEventTemplate;
+				return this.ContractTemplate;
 			}
 
 			return this.DefaultTemplate;

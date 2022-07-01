@@ -192,11 +192,13 @@ namespace IdApp.Pages.Registration.Registration
 				case RegistrationStep.Account:
 					this.RegistrationSteps[this.CurrentStep].ClearStepState();
 					this.TagProfile.ClearAccount();
+					this.TagProfile.ClearPin();
 					break;
 
 				case RegistrationStep.RegisterIdentity:
 					this.RegistrationSteps[this.CurrentStep].ClearStepState();
 					this.TagProfile.ClearLegalIdentity();
+					this.TagProfile.ClearPin();
 					break;
 
 				case RegistrationStep.ValidateIdentity:

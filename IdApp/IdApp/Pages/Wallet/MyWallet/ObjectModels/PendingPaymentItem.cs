@@ -1,7 +1,7 @@
 ﻿using IdApp.Resx;
 using System;
 
-namespace IdApp.Pages.Wallet
+namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 {
 	/// <summary>
 	/// Encapsulates a <see cref="PendingPayment"/> object.
@@ -28,7 +28,7 @@ namespace IdApp.Pages.Wallet
 		public Guid Id => this.pendingPayment.Id;
 
 		/// <inheritdoc/>
-		public string UniqueName => Id.ToString();
+		public string UniqueName => this.Id.ToString();
 
 		/// <summary>
 		/// When pending payment expires

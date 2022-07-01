@@ -5,60 +5,66 @@
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Contracts.MyContracts;assembly=IdApp"
-                       xmlns:objectmodel="clr-namespace:IdApp.Pages.Contracts.MyContracts.ObjectModel;assembly=IdApp"
+                       xmlns:objectmodel="clr-namespace:IdApp.Pages.Contracts.MyContracts.ObjectModels;assembly=IdApp"
+					   xmlns:selector="clr-namespace:IdApp.Pages.Contracts.MyContracts;assembly=IdApp"
                        x:DataType="model:MyContractsViewModel"
                        x:Class="IdApp.Pages.Contracts.MyContracts.MyContractsPage">
-    <StackLayout Margin="{StaticResource DefaultMargin}">
+	<views:ContentBasePage.Resources>
+		<DataTemplate x:Key="DefaultTemplate">
+			<Grid />
+		</DataTemplate>
+
+		<DataTemplate x:Key="HeaderModelTemplate" x:DataType="objectmodel:HeaderModel">
+			<StackLayout Orientation="Horizontal" Padding="5,5,5,5" BackgroundColor="{StaticResource HeadingBackground}">
+				<Label LineBreakMode="CharacterWrap" TextType="Text">
+					<Label.FormattedText>
+						<FormattedString>
+							<Span Text="{Binding Path=Category}" TextColor="{StaticResource HeadingForeground}"/>
+							<Span Text=" (" TextColor="{StaticResource PendingColor}"/>
+							<Span Text="{Binding Path=NrContracts}" TextColor="{StaticResource PendingColor}"/>
+							<Span Text=")" TextColor="{StaticResource PendingColor}"/>
+						</FormattedString>
+					</Label.FormattedText>
+				</Label>
+				<Label TextType="Text" Text="{Binding Path=Symbol}" FontFamily="{StaticResource FontAwesomeSolid}"
+                                FontSize="Medium" Margin="1,1,1,1" TextColor="{StaticResource HeadingForeground}"
+                                HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+			</StackLayout>
+		</DataTemplate>
+
+		<DataTemplate x:Key="ContractModelTemplate" x:DataType="objectmodel:ContractModel">
+			<StackLayout Orientation="Horizontal" Padding="5,5,5,5">
+				<Label LineBreakMode="NoWrap" MinimumWidthRequest="100"
+                                   Text="{Binding Path=Timestamp}" />
+				<Label LineBreakMode="CharacterWrap" TextType="Text"
+                                   Text="{Binding Path=Name}"
+                                   Style="{StaticResource ClickableValueLabel}"/>
+			</StackLayout>
+		</DataTemplate>
+
+		<selector:ItemTypeTemplateSelector x:Key="ItemStyleSelector"
+										   DefaultTemplate="{StaticResource DefaultTemplate}"
+										   HeaderTemplate="{StaticResource HeaderModelTemplate}"
+										   ContractTemplate="{StaticResource ContractModelTemplate}"/>
+	</views:ContentBasePage.Resources>
+
+	<StackLayout Margin="{StaticResource DefaultMargin}">
         <Label Text="{Binding Path=Title, Mode=OneTime}" Style="{StaticResource Heading}"/>
         <Label Text="{Binding Path=Description, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start"/>
         <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static resx:AppResources.NoContractsFound}" />
-        <ActivityIndicator x:Name="Loading" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" 
-                           HorizontalOptions="Center" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" 
+        <ActivityIndicator x:Name="Loading" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}"
+                           HorizontalOptions="Center" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}"
                            Color="{StaticResource AccentColor}"/>
 
         <noBounce:NoBounceCollectionView x:Name="Contracts" VerticalOptions="StartAndExpand"
                                          ItemSizingStrategy="MeasureAllItems" SelectionMode="Single"
-                                         IsGrouped="True" IsVisible="{Binding Path=IsIdle}"
+                                         IsVisible="{Binding Path=IsIdle}"
                                          ItemsSource="{Binding Path=Categories}"
-                                         SelectedItem="{Binding Path=SelectedContract, Mode=TwoWay}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="0" />
-                </CollectionView.ItemsLayout>
-
-                <CollectionView.GroupHeaderTemplate>
-                    <DataTemplate x:DataType="objectmodel:ContractCategoryModel">
-                        <StackLayout Orientation="Horizontal" Padding="5,5,5,5" BackgroundColor="{StaticResource HeadingBackground}">
-                            <Label LineBreakMode="CharacterWrap" TextType="Text">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{Binding Path=Category}" TextColor="{StaticResource HeadingForeground}"/>
-                                        <Span Text=" (" TextColor="{StaticResource PendingColor}"/>
-                                        <Span Text="{Binding Path=NrContracts}" TextColor="{StaticResource PendingColor}"/>
-                                        <Span Text=")" TextColor="{StaticResource PendingColor}"/>
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <Label TextType="Text" Text="{Binding Path=Symbol}" FontFamily="{StaticResource FontAwesomeSolid}" 
-                                    FontSize="Medium" Margin="1,1,1,1" TextColor="{StaticResource HeadingForeground}" 
-                                    HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="ToggleCategoryClicked" CommandParameter="{Binding .}"/>
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.GroupHeaderTemplate>
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="objectmodel:ContractModel">
-                        <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
-                            <Label LineBreakMode="NoWrap" MinimumWidthRequest="100"
-                                   Text="{Binding Path=Timestamp}" />
-                            <Label LineBreakMode="CharacterWrap" TextType="Text"
-                                   Text="{Binding Path=Name}"
-                                   Style="{StaticResource ClickableValueLabel}"/>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
+                                         ItemTemplate="{StaticResource ItemStyleSelector}"
+										 SelectionChanged="ContractsSelectionChanged">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" />
+            </CollectionView.ItemsLayout>
         </noBounce:NoBounceCollectionView>
     </StackLayout>
 </views:ContentBasePage>

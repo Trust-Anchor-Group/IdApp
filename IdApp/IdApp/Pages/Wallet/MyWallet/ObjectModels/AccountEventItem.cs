@@ -2,7 +2,7 @@
 using System;
 using Xamarin.Forms;
 
-namespace IdApp.Pages.Wallet
+namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 {
 	/// <summary>
 	/// Encapsulates a <see cref="AccountEvent"/> object.
@@ -47,7 +47,7 @@ namespace IdApp.Pages.Wallet
 		public Guid TransactionId => this.accountEvent.TransactionId;
 
 		/// <inheritdoc/>
-		public string UniqueName => TransactionId.ToString();
+		public string UniqueName => this.TransactionId.ToString();
 
 		/// <summary>
 		/// Remote endpoint in transaction.

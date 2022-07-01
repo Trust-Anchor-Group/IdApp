@@ -10,6 +10,7 @@ using EDaler.Uris;
 using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.NewContract;
+using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Xmpp;

@@ -11,7 +11,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Security;
 using Xamarin.Forms;
 
-namespace IdApp.Pages.Wallet
+namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 {
 	/// <summary>
 	/// Encapsulates a <see cref="Token"/> object.

@@ -6,7 +6,8 @@
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:mainTabBar="clr-namespace:IdApp.Controls.MainTabBar;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.MyWallet;assembly=IdApp"
-                       xmlns:objectmodel="clr-namespace:IdApp.Pages.Wallet;assembly=IdApp"
+                       xmlns:objectmodel="clr-namespace:IdApp.Pages.Wallet.MyWallet.ObjectModels;assembly=IdApp"
+                       xmlns:selector="clr-namespace:IdApp.Pages.Wallet;assembly=IdApp"
                        xmlns:flipView="clr-namespace:IdApp.Controls.FlipView;assembly=IdApp"
                        xmlns:loading="clr-namespace:IdApp.Controls.LoadingCollectionView;assembly=IdApp"
                        x:DataType="model:MyWalletViewModel" x:Name="ThisPage"
@@ -17,7 +18,7 @@
             <Grid />
         </DataTemplate>
 
-        <DataTemplate x:Key="PendingPaymentTemplate" x:DataType="objectmodel:PendingPaymentItem">
+		<DataTemplate x:Key="PendingPaymentTemplate" x:DataType="objectmodel:PendingPaymentItem">
             <Grid ColumnDefinitions="2*,*" RowDefinitions="auto,auto" >
                 <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
                 <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=ExpiresStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Italic"/>
@@ -37,7 +38,7 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="AccountEventTemplate" x:DataType="objectmodel:AccountEventItem">
+		<DataTemplate x:Key="AccountEventTemplate" x:DataType="objectmodel:AccountEventItem">
             <Grid ColumnDefinitions="2*,*" RowDefinitions="auto,auto,auto" >
                 <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
                 <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=TimestampStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"/>
@@ -68,13 +69,13 @@
             </Grid>
         </DataTemplate>
 
-        <objectmodel:ItemTypeTemplateSelector x:Key="ItemStyleSelector"
-                                              DefaultTemplate="{StaticResource DefaultTemplate}"
-                                              PendingPaymentTemplate="{StaticResource PendingPaymentTemplate}" 
-                                              AccountEventTemplate="{StaticResource AccountEventTemplate}"/>
+        <selector:ItemTypeTemplateSelector x:Key="ItemStyleSelector"
+										   DefaultTemplate="{StaticResource DefaultTemplate}"
+										   PendingPaymentTemplate="{StaticResource PendingPaymentTemplate}"
+										   AccountEventTemplate="{StaticResource AccountEventTemplate}"/>
     </views:ContentBasePage.Resources>
 
-    <flipView:FlipView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="WalletFlipView" 
+    <flipView:FlipView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="WalletFlipView"
                        BackViewShowing="WalletFlipView_BackViewShowing" Flipped="WalletFlipView_Flipped">
         <flipView:FlipView.GestureRecognizers>
             <TapGestureRecognizer Tapped="WalletFlipView_Tapped" />
@@ -111,11 +112,12 @@
                 </Frame>
 
                 <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}" >
-                    <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single" 
+                    <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single"
                                                    ItemSizingStrategy="MeasureAllItems"
                                                    BackgroundColor="{StaticResource PageBackgroundColor}"
-                                                   RemainingItemsThreshold="1" ItemsSource="{Binding Path=PaymentItems}"
-                                                   ItemTemplate="{StaticResource ItemStyleSelector}" 
+                                                   RemainingItemsThreshold="1"
+												   ItemsSource="{Binding Path=PaymentItems}"
+                                                   ItemTemplate="{StaticResource ItemStyleSelector}"
                                                    LoadMoreCommand="{Binding LoadMoreAccountEventsCommand}">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
@@ -123,13 +125,13 @@
                     </loading:LoadingCollectionView>
                 </StackLayout>
 
-                <mainTabBar:MainTabBarView x:Name="WalletFrontTabBar" Grid.Row="2" 
+                <mainTabBar:MainTabBarView x:Name="WalletFrontTabBar" Grid.Row="2"
                                            LeftButton1Text="{x:Static resx:FontAwesome.ArrowLeft}"
                                            LeftButton2Text="{x:Static resx:FontAwesome.Rotate}"
-                                           CenterButtonText="{x:Static resx:FontAwesome.ScanQr}" 
-                                           RightButton1Text="{x:Static resx:FontAwesome.HandHolding}" 
-                                           RightButton2Text="{x:Static resx:FontAwesome.MoneyBill}" 
-                                           LeftButton1Command="{Binding Path=BackCommand}" 
+                                           CenterButtonText="{x:Static resx:FontAwesome.ScanQr}"
+                                           RightButton1Text="{x:Static resx:FontAwesome.HandHolding}"
+                                           RightButton2Text="{x:Static resx:FontAwesome.MoneyBill}"
+                                           LeftButton1Command="{Binding Path=BackCommand}"
                                            LeftButton2Command="{Binding Path=FlipCommand}"
                                            CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
                                            RightButton1Command="{Binding Path=RequestPaymentCommand}"
@@ -183,19 +185,19 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="objectmodel:TokenItem">
                                 <Grid ColumnDefinitions="*,4*,2*,*" RowDefinitions="auto">
-                                    <Image Grid.Column="0" Grid.Row="0" 
-                                            Source="{Binding Path=GlyphImage}" IsVisible="{Binding Path=HasGlyphImage}" 
-                                            WidthRequest="{Binding Path=GlyphWidth, Mode=OneTime}" 
+                                    <Image Grid.Column="0" Grid.Row="0"
+                                            Source="{Binding Path=GlyphImage}" IsVisible="{Binding Path=HasGlyphImage}"
+                                            WidthRequest="{Binding Path=GlyphWidth, Mode=OneTime}"
                                             HeightRequest="{Binding Path=GlyphHeight, Mode=OneTime}"
                                             VerticalOptions="Center" HorizontalOptions="Center" />
-                                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding Path=FriendlyName}" 
-                                            Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" 
-                                            FontAttributes="Bold" FontSize="18" HorizontalTextAlignment="Start" 
+                                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding Path=FriendlyName}"
+                                            Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"
+                                            FontAttributes="Bold" FontSize="18" HorizontalTextAlignment="Start"
                                             VerticalOptions="Center"/>
-                                    <Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Value, Converter={converters:MoneyToString}}" 
-                                            Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontSize="18" 
+                                    <Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Value, Converter={converters:MoneyToString}}"
+                                            Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontSize="18"
                                             HorizontalTextAlignment="End" VerticalOptions="Center"/>
-                                    <Label Grid.Column="3" Grid.Row="0" Text="{Binding Path=Currency}" FontSize="18" 
+                                    <Label Grid.Column="3" Grid.Row="0" Text="{Binding Path=Currency}" FontSize="18"
                                             Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"
                                             HorizontalTextAlignment="Start" VerticalOptions="Center"/>
                                     <Grid.GestureRecognizers>
@@ -207,13 +209,13 @@
                     </loading:LoadingCollectionView>
                 </StackLayout>
 
-                <mainTabBar:MainTabBarView x:Name="WalletBackTabBar" Grid.Row="2" 
+                <mainTabBar:MainTabBarView x:Name="WalletBackTabBar" Grid.Row="2"
                                            LeftButton1Text="{x:Static resx:FontAwesome.ArrowLeft}"
                                            LeftButton2Text="{x:Static resx:FontAwesome.Rotate}"
-                                           CenterButtonText="{x:Static resx:FontAwesome.ScanQr}" 
+                                           CenterButtonText="{x:Static resx:FontAwesome.ScanQr}"
                                            RightButton1Text="{x:Static resx:FontAwesome.StarOfLife}"
-                                           LeftButton1Command="{Binding Path=BackCommand}" 
-                                           LeftButton2Command="{Binding Path=FlipCommand}" 
+                                           LeftButton1Command="{Binding Path=BackCommand}"
+                                           LeftButton2Command="{Binding Path=FlipCommand}"
                                            CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
                                            RightButton1Command="{Binding Path=CreateTokenCommand}"/>
             </Grid>

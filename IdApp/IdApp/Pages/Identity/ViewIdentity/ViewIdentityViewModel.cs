@@ -1347,7 +1347,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private async Task<bool> AreYouSure(string Message)
 		{
-			if (!await App.VerifyPin())
+			string Pin = await App.InputPin();
+
+			if (Pin is null)
 				return false;
 
 			return await this.UiSerializer.DisplayAlert(AppResources.Confirm, Message, AppResources.Yes, AppResources.No);

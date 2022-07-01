@@ -252,20 +252,20 @@ namespace IdApp.Services
 				if (!string.IsNullOrEmpty(Info?.FriendlyName))
 					return Info.FriendlyName;
 
-				if (!(Info?.LegalIdentity is null))
+				if (Info?.LegalIdentity is not null)
 					return GetFriendlyName(Info.LegalIdentity);
 			}
 
 			Info = await FindByBareJid(RemoteId);
-			if (!(Info is null))
+			if (Info is not null)
 			{
 				if (!string.IsNullOrEmpty(Info?.FriendlyName))
 					return Info.FriendlyName;
 
-				if (!(Info.LegalIdentity is null))
+				if (Info.LegalIdentity is not null)
 					return GetFriendlyName(Info.LegalIdentity);
 
-				if (!(Info.MetaData is null))
+				if (Info.MetaData is not null)
 				{
 					string s = GetFriendlyName(Info.MetaData);
 					if (!string.IsNullOrEmpty(s))
@@ -274,14 +274,14 @@ namespace IdApp.Services
 			}
 
 			RosterItem Item = Client?.GetRosterItem(RemoteId);
-			if (!(Item is null))
+			if (Item is not null)
 				return Item.NameOrBareJid;
 
 			lock (identityCache)
 			{
 				if (identityCache.TryGetValue(RemoteId, out LegalIdentity Id))
 				{
-					if (!(Id is null))
+					if (Id is not null)
 						return GetFriendlyName(Id);
 					else
 						AccountIsGuid = false;
@@ -299,7 +299,7 @@ namespace IdApp.Services
 						identityCache[RemoteId] = Id;
 					}
 
-					if (!(Id is null))
+					if (Id is not null)
 						return GetFriendlyName(Id);
 				}
 				catch (Exception)
@@ -510,7 +510,7 @@ namespace IdApp.Services
 				AppendName(ref sb, MiddleName);
 				AppendName(ref sb, LastName);
 
-				if (!(sb is null))
+				if (sb is not null)
 					return sb.ToString();
 			}
 
@@ -542,7 +542,7 @@ namespace IdApp.Services
 		{
 			get
 			{
-				if (!(this.metaData is null))
+				if (this.metaData is not null)
 				{
 					foreach (Property P in this.metaData)
 					{

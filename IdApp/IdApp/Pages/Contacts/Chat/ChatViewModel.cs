@@ -8,6 +8,7 @@ using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Pages.Things.MyThings;
 using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.MyTokens;
+using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Pages.Wallet.SendPayment;
 using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Popups.Xmpp.SubscribeTo;
