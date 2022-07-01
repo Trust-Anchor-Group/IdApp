@@ -16071,6 +16071,17 @@
             Chat Messages
             </summary>
         </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.Empty">
+            <summary>
+            A chat message which is always the latest one and is of type <see cref="F:IdApp.Services.Messages.MessageType.Empty"/>.
+            </summary>
+            
+            <remarks>
+            Because <see cref="P:IdApp.Services.Messages.ChatMessage.Empty"/> has its <see cref="P:IdApp.Services.Messages.ChatMessage.Created"/> and <see cref="P:IdApp.Services.Messages.ChatMessage.Updated"/> properties set to <see cref="F:System.DateTime.MaxValue"/>,
+            once it is inserted into chat messages collection at position 0, it will remain at this position forever and no new chat
+            messages can lift it up in the chat history.
+            </remarks>
+        </member>
         <member name="M:IdApp.Services.Messages.ChatMessage.#ctor">
             <summary>
             Chat Messages

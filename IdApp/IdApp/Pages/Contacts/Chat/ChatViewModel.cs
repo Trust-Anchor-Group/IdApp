@@ -421,7 +421,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			if (this.Messages.Count > 0 && this.Messages[0].MessageType != Services.Messages.MessageType.Empty)
 			{
-				this.Messages.Insert(0, new ChatMessage());
+				this.Messages.Insert(0, ChatMessage.Empty);
 			}
 		}
 
