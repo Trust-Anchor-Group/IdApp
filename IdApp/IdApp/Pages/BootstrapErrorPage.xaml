@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:pages="clr-namespace:IdApp.Pages"
+             x:Class="IdApp.Pages.BootstrapErrorPage"
+			 x:DataType="pages:BootstrapErrorViewModel">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<Style TargetType="StackLayout">
+				<Setter Property="BackgroundColor" Value="WhiteSmoke" />
+			</Style>
+			<Style TargetType="Label" x:Key="TitleLable">
+				<Setter Property="FontSize" Value="24" />
+			</Style>
+			<Style TargetType="Label" x:Key="StackTraceLabel">
+				<Setter Property="VerticalOptions" Value="FillAndExpand" />
+			</Style>
+			<Style TargetType="Button" x:Key="CopyToClipboardButton">
+				<Setter Property="Margin" Value="12" />
+			</Style>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+	<StackLayout>
+		<Label Style="{StaticResource TitleLable}" Text="{Binding Title}" />
+		<Label Style="{StaticResource StackTraceLabel}" Text="{Binding StackTrace}" />
+		<Button Style="{StaticResource CopyToClipboardButton}" Text="Copy to clipboard" Command="{Binding CopyToClipboardCommand}" />
+	</StackLayout>
+
+</pages:ContentBasePage>
