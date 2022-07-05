@@ -361,6 +361,10 @@ namespace IdApp
 				await this.services.ContractOrchestratorService.Load(isResuming, Token);
 				await this.services.ThingRegistryOrchestratorService.Load(isResuming, Token);
 			}
+			catch (OperationCanceledException)
+			{
+				Waher.Events.Log.Notice($"{(isResuming ? "OnResume " : "Initial app ")} startup was canceled.");
+			}
 			catch (Exception ex)
 			{
 				ex = Waher.Events.Log.UnnestException(ex);
