@@ -14,7 +14,7 @@
 				<Setter Property="Spacing" Value="0" />
 				<Setter Property="BackgroundColor" Value="{StaticResource PageBackgroundColor}" />
 			</Style>
-			<Style TargetType="Label" x:Key="TitleLable">
+			<Style TargetType="Label" x:Key="TitleLabel">
 				<Setter Property="FontSize" Value="24" />
 				<Setter Property="Margin" Value="12,0,12,8" />
 			</Style>
@@ -29,7 +29,7 @@
 
 	<StackLayout Style="{StaticResource RootStackLayout}">
 		<Label
-			Style="{StaticResource TitleLable}"
+			Style="{StaticResource TitleLabel}"
 			VerticalOptions="Start"
 			Text="{Binding Title}" />
 		
