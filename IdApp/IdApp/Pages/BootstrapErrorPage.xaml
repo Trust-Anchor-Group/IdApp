@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:pages="clr-namespace:IdApp.Pages"
-             x:Class="IdApp.Pages.BootstrapErrorPage"
-			 x:DataType="pages:BootstrapErrorViewModel">
+<pages:ContentBasePage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:pages="clr-namespace:IdApp.Pages"
+	xmlns:resx="clr-namespace:IdApp.Resx"
+	x:Class="IdApp.Pages.BootstrapErrorPage"
+	x:DataType="pages:BootstrapErrorViewModel"
+	BackgroundColor="WhiteSmoke">
 
 	<ContentPage.Resources>
 		<ResourceDictionary>
-			<Style TargetType="StackLayout">
-				<Setter Property="BackgroundColor" Value="WhiteSmoke" />
-			</Style>
 			<Style TargetType="Label" x:Key="TitleLable">
 				<Setter Property="FontSize" Value="24" />
 			</Style>
@@ -25,7 +25,7 @@
 	<StackLayout>
 		<Label Style="{StaticResource TitleLable}" Text="{Binding Title}" />
 		<Label Style="{StaticResource StackTraceLabel}" Text="{Binding StackTrace}" />
-		<Button Style="{StaticResource CopyToClipboardButton}" Text="Copy to clipboard" Command="{Binding CopyToClipboardCommand}" />
+		<Button Style="{StaticResource CopyToClipboardButton}" Text="{Static resx:AppResources.CopyToClipboard}" Command="{Binding CopyToClipboardCommand}" />
 	</StackLayout>
 
 </pages:ContentBasePage>
