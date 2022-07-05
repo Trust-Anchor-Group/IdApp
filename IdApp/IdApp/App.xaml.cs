@@ -88,25 +88,39 @@ namespace IdApp
 		///<inheritdoc/>
 		public App()
 		{
-			this.startupProfiler = new Profiler("App.ctor", ProfilerThreadType.Sequential);  // Comment out to remove startup profiling.
-			this.startupProfiler?.Start();
-			this.startupProfiler?.NewState("Init");
+			if (instance == null)
+			{
+				this.startupProfiler = new Profiler("App.ctor", ProfilerThreadType.Sequential);  // Comment out to remove startup profiling.
+				this.startupProfiler?.Start();
+				this.startupProfiler?.NewState("Init");
 
-			SvgImageSource.RegisterAssembly();
+				SvgImageSource.RegisterAssembly();
 
-			AppDomain.CurrentDomain.FirstChanceException += this.CurrentDomain_FirstChanceException;
-			AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
-			TaskScheduler.UnobservedTaskException += this.TaskScheduler_UnobservedTaskException;
+				AppDomain.CurrentDomain.FirstChanceException += this.CurrentDomain_FirstChanceException;
+				AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
+				TaskScheduler.UnobservedTaskException += this.TaskScheduler_UnobservedTaskException;
 
-			instance = this;
+				instance = this;
 
-			LoginInterval[] LoginIntervals = new[] {
+				LoginInterval[] LoginIntervals = new[] {
 				new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.FirstBlockInDays)),
 				new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.SecondBlockInDays))};
 
-			this.loginAuditor = new LoginAuditor(Constants.Pin.LogAuditorObjectID, LoginIntervals);
-			this.startupCancellation = new CancellationTokenSource();
-			this.initCompleted = this.Init();
+				this.loginAuditor = new LoginAuditor(Constants.Pin.LogAuditorObjectID, LoginIntervals);
+				this.startupCancellation = new CancellationTokenSource();
+				this.initCompleted = this.Init();
+			}
+			else
+			{
+				this.loginAuditor = instance.loginAuditor;
+				this.autoSaveTimer = instance.autoSaveTimer;
+				this.services = instance.services;
+				this.startupProfiler = instance.startupProfiler;
+				this.initCompleted = instance.initCompleted;
+				this.startupProfiler = instance.startupProfiler;
+				this.startupCancellation = instance.startupCancellation;
+				this.OnResume();
+			}
 
 			this.InitializeComponent();
 
