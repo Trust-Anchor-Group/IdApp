@@ -15,11 +15,5 @@ namespace IdApp.Pages
 		{
 			this.InitializeComponent();
 		}
-
-		/// <inheritdoc/>
-		protected override bool OnBackButtonPressed()
-		{
-			return false;
-		}
 	}
 }
