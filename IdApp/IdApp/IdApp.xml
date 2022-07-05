@@ -2242,6 +2242,19 @@
             </summary>
             <param name="commands">The commands to re-evaluate.</param>
         </member>
+        <member name="T:IdApp.Pages.BootstrapErrorPage">
+            <summary>
+            A page which is displayed when an unexpected exception is encountered during the application startup.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BootstrapErrorPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.BootstrapErrorPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BootstrapErrorPage.OnBackButtonPressed">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.ChatNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a list of contacts.
@@ -12654,6 +12667,11 @@
         <member name="P:IdApp.Resx.AppResources.ContractVisibilityMustBeSelected">
             <summary>
               Looks up a localized string similar to Select contract visibility first, and then try again..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.CopyToClipboard">
+            <summary>
+              Looks up a localized string similar to Copy to clipboard.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.CouldYouPleaseReviewMyIdentityInformation">
