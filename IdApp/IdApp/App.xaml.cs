@@ -257,7 +257,7 @@ namespace IdApp
 		{
 			ex = Waher.Events.Log.UnnestException(ex);
 			this.startupProfiler?.Exception(ex);
-			this.services?.LogService?.SaveExceptionDump(ex.Message, ex.StackTrace);
+			this.services?.LogService?.SaveExceptionDump("StartPage", ex.ToString());
 			this.DisplayBootstrapErrorPage(ex.Message, ex.StackTrace);
 			return;
 		}
