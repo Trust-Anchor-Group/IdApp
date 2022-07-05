@@ -2252,9 +2252,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.BootstrapErrorPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.BootstrapErrorPage.OnBackButtonPressed">
-            <inheritdoc/>
-        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.ChatNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a list of contacts.
