@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using Waher.Events;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
