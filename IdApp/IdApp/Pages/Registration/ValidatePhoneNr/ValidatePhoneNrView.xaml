@@ -43,9 +43,9 @@
                             </Picker.Behaviors>
                         </Picker>
                         <Label Grid.Row="3" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.PurposeWorkOrPersonalDescription}" FontSize="Body"
-                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsZero}}" />
+                           VerticalOptions="Start" TextColor="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsZero}}" />
                         <Label Grid.Row="3" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.PurposeWorkEducationalOrExperimental}" FontSize="Body"
-                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsOne}}" />
+                           VerticalOptions="Start" TextColor="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsOne}}" />
                     </Grid>
                     <Grid x:Name="PhoneNumberFrame" IsVisible="{Binding Path=PurposeSelected}" Margin="{StaticResource DefaultBottomOnlyMargin}">
                         <Grid.RowDefinitions>
@@ -53,12 +53,13 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" BackgroundColor="#f0ffffff"/>
+                        <Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" BackgroundColor="{AppThemeBinding Light={StaticResource FrameLightTheme}, Dark={StaticResource FrameDarkTheme}}"/>
                         <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagPurposeSelected}" 
-                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" FontSize="Body" />
+                           VerticalOptions="Start" TextColor="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" HorizontalOptions="Center" FontSize="Body" />
                         <Entry Grid.Row="2" x:Name="PhoneNumberEntry" Placeholder="{x:Static resx:AppResources.EnterPhoneNumber}" 
                                ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
-                               Text="{Binding Path=PhoneNumber, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}">
+                               Text="{Binding Path=PhoneNumber, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}"
+                               TextColor="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}">
                             <Entry.Behaviors>
                                 <behaviors:ScrollToCompletedBehavior ScrollTo="SendCodeButton" 
                                                                      BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
@@ -67,7 +68,8 @@
                     </Grid>
                     <Button x:Name="SendCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}" 
                             Text="{x:Static resx:AppResources.SendCode}" Command="{Binding Path=SendCodeCommand}"
-                            IsEnabled="{Binding Path=PhoneNumberValid}" IsVisible="{Binding Path=PurposeSelected}">
+                            IsEnabled="{Binding Path=PhoneNumberValid}" IsVisible="{Binding Path=PurposeSelected}"
+                            TextColor="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}">
                         <Button.Behaviors>
                             <behaviors:ScrollToClickedBehavior ScrollTo="BottomIndicator" 
                                                                BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
@@ -78,12 +80,14 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" BackgroundColor="#f0ffffff"/>
+                        <Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" BackgroundColor="{AppThemeBinding Light={StaticResource FrameLightTheme}, Dark={StaticResource FrameDarkTheme}}"/>
                         <Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagCodeSent}" FontSize="Body"
-                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
+                           VerticalOptions="Start" TextColor="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" HorizontalOptions="Center" />
                         <Entry Grid.Row="1" x:Name="VerificationCodeEntry" Placeholder="{x:Static resx:AppResources.VerificationCode}" 
                                ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
-                               Margin="{StaticResource DefaultMargin}" Text="{Binding Path=VerificationCode, Mode=TwoWay}">
+                               Margin="{StaticResource DefaultMargin}" Text="{Binding Path=VerificationCode, Mode=TwoWay}"
+                               TextColor="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}">
+
                             <Entry.Behaviors>
                                 <behaviors:ScrollToCompletedBehavior ScrollTo="VerifyCodeButton" 
                                                                      BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
@@ -92,7 +96,8 @@
                     </Grid>
                     <Button x:Name="VerifyCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}" 
                             Text="{x:Static resx:AppResources.VerifyCode}" Command="{Binding Path=VerifyCodeCommand}"
-                            IsEnabled="{Binding Path=VerificationCodeValid}" IsVisible="{Binding Path=CodeSent}">
+                            IsEnabled="{Binding Path=VerificationCodeValid}" IsVisible="{Binding Path=CodeSent}"
+                            TextColor="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}">
                         <Button.Behaviors>
                             <behaviors:ScrollToClickedBehavior ScrollTo="BottomIndicator" 
                                                                BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
