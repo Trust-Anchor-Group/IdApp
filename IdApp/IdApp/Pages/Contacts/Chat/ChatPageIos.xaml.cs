@@ -104,6 +104,9 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private void ViewCell_Appearing(object Sender, EventArgs EventArgs)
 		{
+			// This is a one-time Cell.Appearing event handler to work around an iOS issue whereby an image inside a ListView
+			// does not update its size when fully loaded.
+
 			ViewCell ViewCell = (ViewCell)Sender;
 			ViewCell.Appearing -= this.ViewCell_Appearing;
 

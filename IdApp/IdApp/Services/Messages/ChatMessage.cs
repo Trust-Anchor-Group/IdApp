@@ -42,6 +42,21 @@ namespace IdApp.Services.Messages
 	[Index("RemoteBareJid", "RemoteObjectId")]
 	public class ChatMessage : IItemGroup
 	{
+		/// <summary>
+		/// A chat message which is always the latest one and is of type <see cref="MessageType.Empty"/>.
+		/// </summary>
+		/// 
+		/// <remarks>
+		/// Because <see cref="Empty"/> has its <see cref="Created"/> and <see cref="Updated"/> properties set to <see cref="DateTime.MaxValue"/>,
+		/// once it is inserted into chat messages collection at position 0, it will remain at this position forever and no new chat
+		/// messages can lift it up in the chat history.
+		/// </remarks>
+		public static ChatMessage Empty => new()
+		{
+			Created = DateTime.MaxValue,
+			Updated = DateTime.MaxValue,
+		};
+
 		private string objectId = null;
 		private CaseInsensitiveString remoteBareJid = null;
 		private DateTime created = DateTime.MinValue;

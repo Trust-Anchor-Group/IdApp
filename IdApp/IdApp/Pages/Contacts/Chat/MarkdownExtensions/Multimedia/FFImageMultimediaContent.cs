@@ -88,6 +88,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 					Output.WriteAttributeString("DownsampleHeight", DownsampleHeight.Value.ToString());
 				}
 
+				// For some reason, specifying an SVG image source doesn't work, no idea why.
 				Output.WriteAttributeString("LoadingPlaceholder", $"resource://{Resx.Pngs.Image}");
 				Output.WriteAttributeString("ErrorPlaceholder", $"resource://{Resx.Pngs.BrokenImage}");
 
