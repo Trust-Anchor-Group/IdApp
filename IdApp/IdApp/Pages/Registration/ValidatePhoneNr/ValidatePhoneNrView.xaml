@@ -27,7 +27,8 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Frame Grid.Row="0" Grid.RowSpan="4" CornerRadius="5" BackgroundColor="#f0ffffff"/>
+                        <Frame Grid.Row="0" Grid.RowSpan="4" CornerRadius="5"
+                               BackgroundColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
                         <Label Grid.Row="0" Margin="20" Text="{x:Static resx:AppResources.WelcomeToTagHeading}" 
                            HorizontalOptions="Center" VerticalOptions="Start" Style="{StaticResource Heading}" />
                         <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagSubheading}" FontSize="Body"

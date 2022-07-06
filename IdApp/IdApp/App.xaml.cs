@@ -92,6 +92,7 @@ namespace IdApp
 			this.startupProfiler?.Start();
 			this.startupProfiler?.NewState("Init");
 
+			Application.Current.UserAppTheme = OSAppTheme.Unspecified;
 			SvgImageSource.RegisterAssembly();
 
 			AppDomain.CurrentDomain.FirstChanceException += this.CurrentDomain_FirstChanceException;

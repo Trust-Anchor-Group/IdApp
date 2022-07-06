@@ -79,7 +79,8 @@
                         <TapGestureRecognizer Tapped="IdCard_Tapped" />
                     </flipView:FlipView.GestureRecognizers>
                     <flipView:FlipView.FrontView>
-                        <Frame Margin="2" Padding="2" BackgroundColor="{StaticResource HeadingBackground}"
+                        <Frame Margin="2" Padding="2"
+                               BackgroundColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"
                                CornerRadius="6" IsClippedToBounds="True" HasShadow="True">
                             <Grid RowDefinitions="auto,*,auto" ColumnDefinitions="*">
                                 <Image Grid.Row="0" WidthRequest="20" HeightRequest="20"
@@ -118,7 +119,8 @@
                         </Frame>
                     </flipView:FlipView.FrontView>
                     <flipView:FlipView.BackView>
-                        <Frame BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="2"
+                        <Frame BorderColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"
+                               Margin="2" Padding="2"
                                CornerRadius="6" IsClippedToBounds="True" HasShadow="True">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -129,7 +131,9 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Row="0"
-                                       Text="{x:Static resx:AppResources.Qrcode}" TextColor="{StaticResource HeadingBackground}"
+                                       Text="{x:Static resx:AppResources.Qrcode}"
+                                       TextColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme},
+                                       Dark={StaticResource HeadingBackgroundDarkTheme}}"
                                        HorizontalOptions="Center" VerticalOptions="Center"
                                        FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                                 <Image Grid.Row="0" WidthRequest="20" HeightRequest="20"
