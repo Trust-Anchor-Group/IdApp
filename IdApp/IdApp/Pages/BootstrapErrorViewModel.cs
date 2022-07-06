@@ -35,7 +35,10 @@ namespace IdApp.Pages
 		{
 			try
 			{
-				await Clipboard.SetTextAsync(this.StackTrace);
+				if (!string.IsNullOrEmpty(this.StackTrace))
+				{
+					await Clipboard.SetTextAsync(this.StackTrace);
+				}
 			}
 			catch (Exception Exception)
 			{
