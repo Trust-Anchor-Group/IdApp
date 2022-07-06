@@ -85,10 +85,22 @@ namespace IdApp
 		private readonly SemaphoreSlim startupWorker = new(1, 1);
 		private CancellationTokenSource startupCancellation;
 
+		// The App class is not actually a singleton. Each time Android MainActivity is destroyed and then created again, a new instance
+		// of the App class will be created, its OnStart method will be called and its OnResume method will not be called. This happens,
+		// for example, on Android when the user presses the back button and then navigates to the app again. However, the App class
+		// doesn't seem to work properly (should it?) when this happens (some chaos happens here and there), so we pretend that
+		// there is only one instance (see the references to onStartResumesApplication).
+		private bool onStartResumesApplication = false;
+
 		///<inheritdoc/>
 		public App()
 		{
-			if (instance == null)
+			App PreviousInstance = instance;
+			this.onStartResumesApplication = PreviousInstance is not null;
+			instance = this;
+
+			// If the previous instance is null, create the app state from scratch. If not, just copy the state from the previous instance.
+			if (PreviousInstance is null)
 			{
 				this.startupProfiler = new Profiler("App.ctor", ProfilerThreadType.Sequential);  // Comment out to remove startup profiling.
 				this.startupProfiler?.Start();
@@ -100,8 +112,6 @@ namespace IdApp
 				AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
 				TaskScheduler.UnobservedTaskException += this.TaskScheduler_UnobservedTaskException;
 
-				instance = this;
-
 				LoginInterval[] LoginIntervals = new[] {
 				new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.FirstBlockInDays)),
 				new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.SecondBlockInDays))};
@@ -112,14 +122,13 @@ namespace IdApp
 			}
 			else
 			{
-				this.loginAuditor = instance.loginAuditor;
-				this.autoSaveTimer = instance.autoSaveTimer;
-				this.services = instance.services;
-				this.startupProfiler = instance.startupProfiler;
-				this.initCompleted = instance.initCompleted;
-				this.startupProfiler = instance.startupProfiler;
-				this.startupCancellation = instance.startupCancellation;
-				this.OnResume();
+				this.loginAuditor = PreviousInstance.loginAuditor;
+				this.autoSaveTimer = PreviousInstance.autoSaveTimer;
+				this.services = PreviousInstance.services;
+				this.startupProfiler = PreviousInstance.startupProfiler;
+				this.initCompleted = PreviousInstance.initCompleted;
+				this.startupWorker = PreviousInstance.startupWorker;
+				this.startupCancellation = PreviousInstance.startupCancellation;
 			}
 
 			this.InitializeComponent();
@@ -305,6 +314,13 @@ namespace IdApp
 		///<inheritdoc/>
 		protected override async void OnStart()
 		{
+			if (this.onStartResumesApplication)
+			{
+				this.onStartResumesApplication = false;
+				this.OnResume();
+				return;
+			}
+
 			if (!this.initCompleted.Wait(60000))
 				throw new Exception("Initialization did not complete in time.");
 
