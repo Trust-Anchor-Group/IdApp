@@ -49,6 +49,12 @@
         <Color x:Key="LabelTextColorLightTheme">Black</Color>
         <Color x:Key="LabelTextColorDarkTheme">White</Color>
 
+        <Color x:Key="HeadingForegroundLightTheme">White</Color>
+        <Color x:Key="HeadingForegroundDarkTheme">Black</Color>
+
+        <Color x:Key="FrameLightTheme">#f0ffffff</Color>
+        <Color x:Key="FrameDarkTheme">#f0000000</Color>
+
         <Thickness x:Key="LargeMargin">24</Thickness>
         <Thickness x:Key="DefaultMargin">12</Thickness>
         <Thickness x:Key="DefaultLeftOnlyMargin">12,0,0,0</Thickness>
