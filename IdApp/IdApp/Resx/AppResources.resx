@@ -1698,4 +1698,7 @@
   <data name="UnableToConnect" xml:space="preserve">
     <value>Unable to connect.</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
 </root>

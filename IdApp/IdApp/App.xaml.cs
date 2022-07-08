@@ -391,10 +391,15 @@ namespace IdApp
 				await this.services.ContractOrchestratorService.Load(isResuming, Token);
 				await this.services.ThingRegistryOrchestratorService.Load(isResuming, Token);
 			}
+			catch (OperationCanceledException)
+			{
+				Waher.Events.Log.Notice($"{(isResuming ? "OnResume " : "Initial app ")} startup was canceled.");
+			}
 			catch (Exception ex)
 			{
 				ex = Waher.Events.Log.UnnestException(ex);
 				Thread?.Exception(ex);
+				this.services?.LogService?.SaveExceptionDump(ex.Message, ex.StackTrace);
 				this.DisplayBootstrapErrorPage(ex.Message, ex.StackTrace);
 			}
 			finally
@@ -602,41 +607,17 @@ namespace IdApp
 			this.startupProfiler?.Exception(e.Exception);
 		}
 
-		private void DisplayBootstrapErrorPage(string title, string stackTrace)
+		private void DisplayBootstrapErrorPage(string Title, string StackTrace)
 		{
 			this.Dispatcher.BeginInvokeOnMainThread(() =>
 			{
-				this.services?.LogService?.SaveExceptionDump(title, stackTrace);
-
-				ScrollView sv = new();
-				StackLayout sl = new()
+				this.MainPage = new BootstrapErrorPage
 				{
-					Orientation = StackOrientation.Vertical,
-				};
-
-				sl.Children.Add(new Label
-				{
-					Text = title,
-					FontSize = 24,
-					HorizontalOptions = LayoutOptions.FillAndExpand,
-				});
-
-				sl.Children.Add(new Label
-				{
-					Text = stackTrace,
-					HorizontalOptions = LayoutOptions.FillAndExpand,
-					VerticalOptions = LayoutOptions.FillAndExpand
-				});
-
-				Button b = new() { Text = "Copy to clipboard", Margin = 12 };
-				b.Clicked += async (sender, args) => await Clipboard.SetTextAsync(stackTrace);
-				sl.Children.Add(b);
-
-				sv.Content = sl;
-
-				this.MainPage = new ContentPage
-				{
-					Content = sv
+					BindingContext = new BootstrapErrorViewModel
+					{
+						Title = Title,
+						StackTrace = StackTrace,
+					},
 				};
 			});
 		}

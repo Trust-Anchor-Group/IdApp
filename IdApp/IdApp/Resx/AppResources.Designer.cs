@@ -817,6 +817,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy to clipboard.
+        /// </summary>
+        internal static string CopyToClipboard {
+            get {
+                return ResourceManager.GetString("CopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could you please review my identity information?.
         /// </summary>
         internal static string CouldYouPleaseReviewMyIdentityInformation {
