@@ -542,6 +542,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 				this.photosLoader.CancelLoadPhotos();
 				if (!(this.TagProfile?.LegalIdentity?.Attachments is null))
 				{
+					// await is important, it prevents the semaphore from being released prematurely.
 					_ = await this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments, SignWith.LatestApprovedIdOrCurrentKeys);
 				}
 			}
