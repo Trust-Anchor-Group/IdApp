@@ -57,7 +57,7 @@ namespace IdApp.Services.UI.Photos
 		/// <returns>Returns the first photo, if available, null if no photos available.</returns>
 		public Task<Photo> LoadPhotos(Attachment[] attachments, SignWith signWith, Action whenDoneAction = null)
 		{
-			return LoadPhotos(attachments, signWith, DateTime.UtcNow, whenDoneAction);
+			return this.LoadPhotos(attachments, signWith, DateTime.UtcNow, whenDoneAction);
 		}
 
 		/// <summary>
@@ -88,7 +88,7 @@ namespace IdApp.Services.UI.Photos
 		{
 			try
 			{
-				return await GetPhoto(attachment, signWith, DateTime.UtcNow);
+				return await this.GetPhoto(attachment, signWith, DateTime.UtcNow);
 			}
 			catch (Exception ex)
 			{
@@ -138,7 +138,7 @@ namespace IdApp.Services.UI.Photos
 
 				try
 				{
-					(byte[] Bin, string ContentType, int Rotation) = await GetPhoto(attachment, signWith, now);
+					(byte[] Bin, string ContentType, int Rotation) = await this.GetPhoto(attachment, signWith, now);
 					if (Bin is null)
 						continue;
 
