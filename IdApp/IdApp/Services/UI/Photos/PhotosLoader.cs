@@ -147,7 +147,17 @@ namespace IdApp.Services.UI.Photos
 						First = Photo;
 
 					if (!(Bin is null))
-						this.UiSerializer.BeginInvokeOnMainThread(() => photos.Add(Photo));
+					{
+						TaskCompletionSource<bool> PhotoAddedTaskSource = new();
+
+						this.UiSerializer.BeginInvokeOnMainThread(() =>
+						{
+							this.photos.Add(Photo);
+							PhotoAddedTaskSource.SetResult(true);
+						});
+
+						await PhotoAddedTaskSource.Task;
+					}
 				}
 				catch (Exception ex)
 				{
