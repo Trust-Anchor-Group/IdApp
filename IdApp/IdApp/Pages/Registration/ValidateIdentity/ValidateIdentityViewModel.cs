@@ -14,6 +14,7 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using IdApp.Resx;
+using System.Threading;
 
 namespace IdApp.Pages.Registration.ValidateIdentity
 {
@@ -23,6 +24,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
     public class ValidateIdentityViewModel : RegistrationStepViewModel
     {
         private readonly PhotosLoader photosLoader;
+		private readonly SemaphoreSlim reloadPhotosSemaphore = new(1, 1);
 
         /// <summary>
         /// Creates a new instance of the <see cref="ValidateIdentityViewModel"/> class.
@@ -531,13 +533,22 @@ namespace IdApp.Pages.Registration.ValidateIdentity
             this.ConnectionStateText = state.ToDisplayText();
         }
 
-        private void ReloadPhotos()
+        private async void ReloadPhotos()
         {
-            this.photosLoader.CancelLoadPhotos();
-            if (!(this.TagProfile?.LegalIdentity?.Attachments is null))
-            {
-                _ = this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments, SignWith.LatestApprovedIdOrCurrentKeys);
-            }
+			await this.reloadPhotosSemaphore.WaitAsync();
+
+			try
+			{
+				this.photosLoader.CancelLoadPhotos();
+				if (!(this.TagProfile?.LegalIdentity?.Attachments is null))
+				{
+					_ = await this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments, SignWith.LatestApprovedIdOrCurrentKeys);
+				}
+			}
+			finally
+			{
+				this.reloadPhotosSemaphore.Release();
+			}
         }
 
         private void XmppContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
