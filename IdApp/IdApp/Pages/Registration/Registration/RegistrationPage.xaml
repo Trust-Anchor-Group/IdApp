@@ -10,7 +10,7 @@
 					   BackgroundColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"					   
                        Shell.FlyoutBehavior="Disabled"
                        Shell.NavBarIsVisible="False">
-	<StackLayout>
+	<StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
 		<StackLayout.Resources>
 			<ResourceDictionary>
 				<DataTemplate x:Key="ValidatePhoneNrTemplate">

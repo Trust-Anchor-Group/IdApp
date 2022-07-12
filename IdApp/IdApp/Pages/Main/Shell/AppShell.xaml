@@ -54,10 +54,6 @@
 
             </Style>
 
-             <Style TargetType="StackLayout" >
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
-             </Style>
-
              <Style TargetType="ContentPage">
                  <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
              </Style>

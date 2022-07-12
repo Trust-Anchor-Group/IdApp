@@ -20,7 +20,7 @@
             </Image>
             <noBounce:NoBounceScrollView x:Name="ScrollView" Margin="{StaticResource DefaultLeftRightMargin}">
                 <StackLayout x:Name="Frames" Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
-                    <Grid Margin="{StaticResource DefaultBottomOnlyMargin}">
+                    <Grid Margin="{StaticResource DefaultBottomOnlyMargin}" BackgroundColor="Transparent">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -46,7 +46,7 @@
                         <Label Grid.Row="3" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.PurposeWorkEducationalOrExperimental}" FontSize="Body"
                            VerticalOptions="Start" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsOne}}" />
                     </Grid>
-                    <Grid x:Name="PhoneNumberFrame" IsVisible="{Binding Path=PurposeSelected}" Margin="{StaticResource DefaultBottomOnlyMargin}">
+                    <Grid x:Name="PhoneNumberFrame" IsVisible="{Binding Path=PurposeSelected}" Margin="{StaticResource DefaultBottomOnlyMargin}" BackgroundColor="Transparent">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -72,7 +72,7 @@
                                                                BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
                         </Button.Behaviors>
                     </Button>
-                    <Grid IsVisible="{Binding Path=CodeSent}">
+                    <Grid IsVisible="{Binding Path=CodeSent}" BackgroundColor="Transparent">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
