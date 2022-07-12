@@ -47,7 +47,8 @@
 				<Label
                     Grid.Column="0"
                     FontSize="24" 
-                    Text="{x:Static resx:FontAwesome.ArrowACircleLeft}" 
+                    Text="{x:Static resx:FontAwesome.ArrowACircleLeft}"
+					TextColor="White"
                     FontFamily="{StaticResource FontAwesomeSolid}"
                     VerticalOptions="Center"
                     Margin="0,-12,0,-6"

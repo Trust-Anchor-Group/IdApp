@@ -19,14 +19,15 @@
                                Margin="{StaticResource DefaultRightOnlyMargin}"
                                Text="{x:Static resx:AppResources.PersonalLegalInfoText}" />
 
-                        <Frame BorderColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"
+                        <Frame BorderColor="{StaticResource HeadingBackground}"
                                HeightRequest="100" WidthRequest="120" Grid.Column="1" Grid.Row="0"
                                Padding="0" CornerRadius="4" IsClippedToBounds="True" HasShadow="False">
-                            <Grid>
+                            <Grid BackgroundColor="Transparent">
                                 <Image BackgroundColor="White" Aspect="AspectFill" Source="{Binding Path=Image}"
-                                       IsVisible="{Binding Path=HasPhoto}" Rotation="{Binding Path=ImageRotation}"/>
+                                       IsVisible="{Binding Path=HasPhoto}" Rotation="{Binding Path=ImageRotation}"
+                                       />
                                 <Label HorizontalOptions="Center" VerticalOptions="Center" FontSize="42"
-                                       TextColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"
+                                       TextColor="{StaticResource HeadingBackground}"
                                        Text="{x:Static resx:FontAwesome.User}"
                                        FontFamily="{StaticResource FontAwesomeSolid}"
                                        IsVisible="{Binding Path=HasPhoto, Converter={converters:LogicalNot}}"/>

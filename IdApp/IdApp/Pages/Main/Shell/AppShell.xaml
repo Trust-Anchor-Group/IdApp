@@ -40,18 +40,12 @@
             </Style>
 
              <Style TargetType="Picker" >
-                <Setter Property="TextColor" Value="{StaticResource HintColor}"/>
                 <Setter Property="TitleColor" Value="{StaticResource HintColor}"/>
-             </Style>
-
-             <Style TargetType="Button" >
-                <Setter Property="TextColor" Value="{StaticResource TextColorLightTheme}"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
              </Style>
 
             <Style TargetType="Frame" >
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
-                <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorDarkTheme}, Dark={StaticResource PageBackgroundColorLightTheme}}"/>
-
             </Style>
 
              <Style TargetType="ContentPage">
