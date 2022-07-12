@@ -11,7 +11,8 @@
                        x:Class="IdApp.Pages.Main.Main.MainPage"
                        Title="{x:Static resx:AppResources.MainPageTitle}"
                        Shell.FlyoutBehavior="Flyout">
-    <ContentPage.Content>
+    <ContentPage.Content BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />

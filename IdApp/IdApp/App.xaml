@@ -70,6 +70,7 @@
         <x:Int32 x:Key="DefaultTopMargin">12</x:Int32>
         <x:Int32 x:Key="DefaultRightMargin">12</x:Int32>
         <x:Int32 x:Key="DefaultBottomMargin">12</x:Int32>
+
         <Style TargetType="Button"
                ApplyToDerivedTypes="True"
                CanCascade="True">

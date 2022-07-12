@@ -34,6 +34,11 @@
                 <Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
             </Style>
 
+            <Style TargetType="Editor" >
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
+                <Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
+            </Style>
+
              <Style TargetType="Picker" >
                 <Setter Property="TextColor" Value="{StaticResource HintColor}"/>
                 <Setter Property="TitleColor" Value="{StaticResource HintColor}"/>
@@ -44,8 +49,27 @@
              </Style>
 
             <Style TargetType="Frame" >
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource FrameLightTheme}, Dark={StaticResource FrameDarkTheme}}"/>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+                <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorDarkTheme}, Dark={StaticResource PageBackgroundColorLightTheme}}"/>
+
+            </Style>
+
+             <Style TargetType="StackLayout" >
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
              </Style>
+
+             <Style TargetType="ContentPage">
+                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+             </Style>
+
+             <Style TargetType="Grid">
+                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+             </Style>
+
+            <Style TargetType="ContentView">
+                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+             </Style>
+
 
             <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
                 <Setter Property="VisualStateManager.VisualStateGroups">

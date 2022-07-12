@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
@@ -31,7 +31,6 @@
             <Frame
 				x:Name="MainFrame"
 				Margin="15"
-				BackgroundColor="White"
 				HorizontalOptions="Center">
 				<StackLayout
 					Padding="10,5"
@@ -44,6 +43,8 @@
 								<!-- VerticalOptions="Center" is required so that the size of the eye does not affect the size of the Entry. -->
 								<Setter Property="VerticalOptions" Value="Center" />
 								<Setter Property="IsPassword" Value="True" />
+								<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
+                                <Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
 							</Style>
 							<Style TargetType="templatedSwitch:TemplatedSwitch" BasedOn="{StaticResource PasswordToggler}">
 								<Setter Property="HorizontalOptions" Value="End" />

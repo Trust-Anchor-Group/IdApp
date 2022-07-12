@@ -12,7 +12,8 @@
 					   xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
 					   x:DataType="model:ChatViewModel"
 					   x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
-					   Title="{Binding Path=FriendlyName}">
+					   Title="{Binding Path=FriendlyName}"
+					   BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
 	<views:ContentBasePage.Resources>
 		<DataTemplate x:Key="EmptyMessage" x:DataType="messages:ChatMessage">
 			<ContentView Content="{Binding Path=ParsedXaml}" HeightRequest="1"/>
@@ -67,7 +68,7 @@
 			</loading:LoadingCollectionView>
 
 			<Grid x:Name="ControlGrid" ColumnDefinitions="*,40" Grid.Row="1" Margin="0,12,0,0">
-				<Frame BorderColor="Black" CornerRadius="5" Padding="5,5,5,5">
+				<Frame CornerRadius="5" Padding="5,5,5,5">
 					<Frame.Behaviors>
 						<behaviors:SetFocusOnTappedBehavior SetFocusTo="EditorControl" BindingContext="{Binding BindingContext, Source={x:Reference ControlGrid}}"/>
 					</Frame.Behaviors>

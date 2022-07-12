@@ -93,7 +93,6 @@ namespace IdApp
 			this.startupProfiler?.NewState("Init");
 
 			SvgImageSource.RegisterAssembly();
-			Application.Current.UserAppTheme = OSAppTheme.Unspecified;
 
 			AppDomain.CurrentDomain.FirstChanceException += this.CurrentDomain_FirstChanceException;
 			AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
@@ -110,6 +109,7 @@ namespace IdApp
 			this.initCompleted = this.Init();
 
 			this.InitializeComponent();
+			Current.UserAppTheme = OSAppTheme.Unspecified;
 
 			// Start page
 			try
