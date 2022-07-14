@@ -93,6 +93,8 @@ namespace IdApp
 		// there is only one instance (see the references to onStartResumesApplication).
 		private bool onStartResumesApplication = false;
 
+		public static new App Current => (App)Application.Current;
+
 		///<inheritdoc/>
 		public App()
 		{
