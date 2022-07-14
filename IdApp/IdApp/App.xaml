@@ -75,17 +75,14 @@
                ApplyToDerivedTypes="True"
                CanCascade="True">
             <Setter Property="FontSize" Value="Medium" />
-            <Setter Property="BackgroundColor"
-                    Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
-            <Setter Property="TextColor"
-                    Value="{AppThemeBinding Light={StaticResource TextColorLightTheme}, Dark={StaticResource TextColorDarkTheme}}"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
+            <Setter Property="TextColor" Value="White" />
             <Setter Property="CornerRadius" Value="5" />
             <Style.Triggers>
                 <Trigger TargetType="Button"
                          Property="IsEnabled"
                          Value="False">
-                    <Setter Property="BackgroundColor"
-                            Value="{AppThemeBinding Light={StaticResource HeadingBackgroundDarkTheme}, Dark={StaticResource HeadingBackgroundLightTheme}}" />
+                    <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackgroundLight}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -94,8 +91,8 @@
                ApplyToDerivedTypes="True"
                CanCascade="True">
             <Setter Property="FontSize" Value="Medium" />
-            <Setter Property="BackgroundColor"  Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
-            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColorLightTheme}, Dark={StaticResource TextColorDarkTheme}}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
+            <Setter Property="TextColor" Value="White" />
             <Setter Property="CornerRadius" Value="4" />
             <Setter Property="HeightRequest" Value="40" />
             <Setter Property="WidthRequest" Value="40" />
@@ -106,7 +103,7 @@
 			   x:Key="SvgIconButton"
                ApplyToDerivedTypes="True"
 			   CanCascade="True">
-			<Setter Property="BackgroundColor"  Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
+			<Setter Property="BackgroundColor"  Value="{StaticResource HeadingBackground}" />
 			<Setter Property="CornerRadius" Value="4" />
 			<Setter Property="HeightRequest" Value="40" />
 			<Setter Property="WidthRequest" Value="40" />
@@ -119,7 +116,7 @@
                ApplyToDerivedTypes="True"
                CanCascade="True">
             <Setter Property="FontSize" Value="Large" />
-            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
+            <Setter Property="TextColor" Value="{StaticResource LabelTextColorLightTheme}" />
             <Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}" />
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="LineBreakMode" Value="WordWrap"/>
@@ -142,7 +139,7 @@
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="LineBreakMode" Value="WordWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
-            <Setter Property="TextColor" Value="{StaticResource HintColor}"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
         </Style>
         <Style TargetType="Label" x:Key="ClickableValueLabel">
             <Setter Property="FontAttributes" Value="Bold"/>
@@ -159,7 +156,7 @@
 		</Style>
 		<Style TargetType="Label" x:Key="TableHeader">
             <Setter Property="FontAttributes" Value="Bold"/>
-            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
             <Setter Property="LineBreakMode" Value="WordWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
             <Setter Property="BackgroundColor" Value="LightGray"/>
@@ -171,17 +168,20 @@
         <Style TargetType="Label" x:Key="FormattedValueLabel">
             <Setter Property="LineBreakMode" Value="WordWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
         </Style>
         <Style TargetType="Label" x:Key="KeyLabel">
             <Setter Property="MinimumWidthRequest" Value="400"/>
             <Setter Property="LineBreakMode" Value="NoWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
         </Style>
         <Style TargetType="Label" x:Key="InfoText">
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
             <Setter Property="FontSize" Value="Medium"/>
             <Setter Property="Margin" Value="0,5,0,10"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
         </Style>
         <Style TargetType="Entry"
                ApplyToDerivedTypes="True"
