@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Contacts.Chat
@@ -96,11 +97,12 @@ namespace IdApp.Pages.Contacts.Chat
 			MessagingCenter.Unsubscribe<object>(this, Constants.MessagingCenter.KeyboardDisappears);
 			MessagingCenter.Unsubscribe<object>(this, Constants.MessagingCenter.ChatEditorFocus);
 
-			await base.OnDisappearingAsync();
 			if (Device.RuntimePlatform == Device.Android)
 			{
-				App.Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Unspecified);
+				App.Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Pan);
 			}
+			await base.OnDisappearingAsync();
+			
 		}
 
 		private void OnEditorControlUnfocused(object sender, FocusEventArgs e)
