@@ -53,6 +53,11 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			await base.OnAppearingAsync();
 
+			if (Device.RuntimePlatform == Device.Android)
+			{
+				App.Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
+			}
+
 			MessagingCenter.Subscribe<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears, (sender, eargs) =>
 			{
 				if (this.ContainerView.TranslationY == 0)
@@ -92,6 +97,10 @@ namespace IdApp.Pages.Contacts.Chat
 			MessagingCenter.Unsubscribe<object>(this, Constants.MessagingCenter.ChatEditorFocus);
 
 			await base.OnDisappearingAsync();
+			if (Device.RuntimePlatform == Device.Android)
+			{
+				App.Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Unspecified);
+			}
 		}
 
 		private void OnEditorControlUnfocused(object sender, FocusEventArgs e)
