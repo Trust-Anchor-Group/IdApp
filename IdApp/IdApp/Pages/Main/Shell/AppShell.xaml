@@ -48,22 +48,17 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <Shell.FlyoutHeader>
-        <Frame BorderColor="Black" Padding="1" CornerRadius="0">
-            <Grid HeightRequest="200">
-                <Image Aspect="AspectFill" Source="city.jpg" />
-                <Grid HorizontalOptions="End" HeightRequest="48" WidthRequest="150" VerticalOptions="Center">
-                    <BoxView BackgroundColor="{StaticResource HeadingBackgroundTranslucent}" />
-                    <Label Text="T A G" TextColor="White" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="End" VerticalTextAlignment="Center" Margin="0,0,48,0" />
-                </Grid>
-            </Grid>
-        </Frame>
-    </Shell.FlyoutHeader>
-
-    <!-- The 'loading' page, always displayed first on startup -->
-    <FlyoutItem x:Name="LoadingFlyout" FlyoutDisplayOptions="AsSingleItem" Title="{x:Static resx:AppResources.Loading}">
-        <ShellContent ContentTemplate="{DataTemplate loading:LoadingPage}"/>
-    </FlyoutItem>
+	<Shell.FlyoutHeader>
+		<Frame BorderColor="Black" Padding="1" CornerRadius="0">
+			<Grid HeightRequest="200">
+				<Image Aspect="AspectFill" Source="city.jpg" />
+				<Grid HorizontalOptions="End" HeightRequest="48" WidthRequest="150" VerticalOptions="Center">
+					<BoxView BackgroundColor="{StaticResource HeadingBackgroundTranslucent}" />
+					<Label Text="T A G" TextColor="White" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="End" VerticalTextAlignment="Center" Margin="0,0,48,0" />
+				</Grid>
+			</Grid>
+		</Frame>
+	</Shell.FlyoutHeader>
 
 	<!-- The main or root page of the app -->
     <FlyoutItem FlyoutDisplayOptions="AsSingleItem" Title="{x:Static resx:AppResources.Home}">

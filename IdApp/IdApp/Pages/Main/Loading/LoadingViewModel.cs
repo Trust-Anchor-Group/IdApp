@@ -5,6 +5,8 @@ using Waher.Networking.XMPP;
 using Xamarin.Forms;
 using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
+using IdApp.Pages.Main.Shell;
+using IdApp.Pages.Registration.Registration;
 
 namespace IdApp.Pages.Main.Loading
 {
@@ -25,15 +27,15 @@ namespace IdApp.Pages.Main.Loading
 		protected override async Task DoBind()
 		{
 			await base.DoBind();
-			IsBusy = true;
+			this.IsBusy = true;
 			this.DisplayConnectionText = this.TagProfile.Step > RegistrationStep.Account;
-			this.XmppService.Loaded += XmppService_Loaded;
+			this.XmppService.Loaded += this.XmppService_Loaded;
 		}
 
 		/// <inheritdoc />
 		protected override async Task DoUnbind()
 		{
-			this.XmppService.Loaded -= XmppService_Loaded;
+			this.XmppService.Loaded -= this.XmppService_Loaded;
 			await base.DoUnbind();
 		}
 
@@ -59,7 +61,7 @@ namespace IdApp.Pages.Main.Loading
 		/// <inheritdoc/>
 		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(() => SetConnectionStateAndText(e.State));
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
 		}
 
 		/// <inheritdoc/>
@@ -77,13 +79,8 @@ namespace IdApp.Pages.Main.Loading
 			{
 				this.IsBusy = false;
 
-				this.UiSerializer.BeginInvokeOnMainThread(async () =>
-				{
-					if (this.TagProfile.IsComplete())
-						await this.NavigationService.GoToAsync("///" + nameof(Main.MainPage));
-					else
-						await this.NavigationService.GoToAsync("/" + nameof(Registration.Registration.RegistrationPage));
-				});
+				this.UiSerializer.BeginInvokeOnMainThread(
+					() => Application.Current.MainPage = this.TagProfile.IsComplete() ? new AppShell()	: new RegistrationPage());
 			}
 		}
 	}

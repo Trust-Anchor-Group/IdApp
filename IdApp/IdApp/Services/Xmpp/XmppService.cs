@@ -48,6 +48,7 @@ using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
 using Xamarin.Forms;
+using IdApp.Pages.Registration.Registration;
 
 namespace IdApp.Services.Xmpp
 {
@@ -1101,8 +1102,7 @@ namespace IdApp.Services.Xmpp
 
 			INavigationService NavigationService = App.Instantiate<INavigationService>();
 
-			this.UiSerializer.BeginInvokeOnMainThread(async () =>
-				await NavigationService.GoToAsync("/" + nameof(Pages.Registration.Registration.RegistrationPage)));
+			this.UiSerializer.BeginInvokeOnMainThread(() => Application.Current.MainPage = new RegistrationPage());
 		}
 
 		/// <summary>

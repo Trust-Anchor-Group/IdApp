@@ -6985,9 +6985,6 @@
             Current Neuro-Wallet Orchestrator Service
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Shell.AppShell.OnNavigated(Xamarin.Forms.ShellNavigatedEventArgs)">
-            <inheritdoc/>
-        </member>
         <member name="T:IdApp.Pages.Main.Shell.AppShellViewModel">
             <summary>
             The view model to bind to for the App Shell, when using Xamarin Forms 5.0 or greater.

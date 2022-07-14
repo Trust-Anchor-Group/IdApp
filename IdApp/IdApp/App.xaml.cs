@@ -62,6 +62,7 @@ using Waher.Script;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using IdApp.Pages.Main.Loading;
 
 namespace IdApp
 {
@@ -138,7 +139,7 @@ namespace IdApp
 			{
 				this.startupProfiler?.NewState("MainPage");
 
-				this.MainPage = new AppShell();
+				this.MainPage = new LoadingPage();
 			}
 			catch (Exception ex)
 			{

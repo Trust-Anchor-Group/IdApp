@@ -73,23 +73,8 @@ namespace IdApp.Pages.Main.Shell
 		/// </summary>
 		public INeuroWalletOrchestratorService NeuroWalletOrchestratorService => App.Instantiate<INeuroWalletOrchestratorService>();
 
-		/// <inheritdoc/>
-		protected override void OnNavigated(ShellNavigatedEventArgs e)
-		{
-			base.OnNavigated(e);
-
-			// Once MainPage is shown, hide the "Loading..." Flyout, as the user shouldn't be
-			// able to navigate to that page.
-
-			if (e.Current.Location.ToString().Contains(nameof(Pages.Main.Main.MainPage)))
-				this.LoadingFlyout.IsVisible = false;
-		}
-
 		private void RegisterRoutes()
 		{
-			// Onboarding:
-			Routing.RegisterRoute(nameof(Registration.Registration.RegistrationPage), typeof(Registration.Registration.RegistrationPage));
-
 			// General:
 			Routing.RegisterRoute(nameof(ScanQrCode.ScanQrCodePage), typeof(ScanQrCode.ScanQrCodePage));
 

@@ -16,8 +16,8 @@ namespace IdApp.Pages.Main.Loading
         public LoadingPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
-            ViewModel = new LoadingViewModel();
-            InitializeComponent();
+            this.ViewModel = new LoadingViewModel();
+            this.InitializeComponent();
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Pages.Main.Shell;
 using IdApp.Services.Tag;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -174,7 +175,7 @@ namespace IdApp.Pages.Registration.Registration
 					break;
 
 				case RegistrationStep.Pin:
-					this.NavigationService.GoToAsync("///" + nameof(Main.Main.MainPage));
+					this.UiSerializer.BeginInvokeOnMainThread(() => Application.Current.MainPage = new AppShell());
 					break;
 
 				default: // RegistrationStep.Operator
@@ -224,7 +225,7 @@ namespace IdApp.Pages.Registration.Registration
 		private void SyncTagProfileStep()
 		{
 			if (this.TagProfile.Step == RegistrationStep.Complete)
-				this.NavigationService.GoToAsync("///" + nameof(Main.Main.MainPage));
+				Application.Current.MainPage = new AppShell();
 			else
 				this.CurrentStep = (int)this.TagProfile.Step;
 		}
