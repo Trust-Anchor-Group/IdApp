@@ -63,6 +63,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using IdApp.Pages.Main.Loading;
+using IdApp.Pages.Registration.Registration;
 
 namespace IdApp
 {
@@ -564,6 +565,30 @@ namespace IdApp
 			}
 
 			this.services.TagProfile.FromConfiguration(configuration);
+		}
+
+		public Task SetRegistrationPage()
+		{
+			return this.SetMainPage(new RegistrationPage());
+		}
+
+		public Task SetAppShellPage()
+		{
+			return this.SetMainPage(new AppShell());
+		}
+
+		private async Task SetMainPage(Page Page)
+		{
+			if (Device.IsInvokeRequired)
+			{
+				// await will re-throw an exception, which will make both branches symmetrical in terms of exceptions, in contrast to
+				// just returning Device.InvokeOnMainThreadAsync for this branch and a completed task for the other one.
+				await Device.InvokeOnMainThreadAsync(() => this.MainPage = Page);
+			}
+			else
+			{
+				this.MainPage = Page;
+			}
 		}
 
 		#region Error Handling
