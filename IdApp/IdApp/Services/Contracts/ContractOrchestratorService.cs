@@ -367,7 +367,7 @@ namespace IdApp.Services.Contracts
 
 					if (gotoRegistrationPage)
 					{
-						Application.Current.MainPage = new RegistrationPage();
+						await App.Current.SetRegistrationPage();
 
 						// After navigating to the registration page, show the user why this happened.
 						if (!string.IsNullOrWhiteSpace(userMessage))

@@ -1102,7 +1102,7 @@ namespace IdApp.Services.Xmpp
 
 			INavigationService NavigationService = App.Instantiate<INavigationService>();
 
-			this.UiSerializer.BeginInvokeOnMainThread(() => Application.Current.MainPage = new RegistrationPage());
+			await App.Current.SetRegistrationPage();
 		}
 
 		/// <summary>

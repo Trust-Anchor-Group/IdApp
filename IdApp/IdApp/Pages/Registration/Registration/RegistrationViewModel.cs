@@ -150,37 +150,44 @@ namespace IdApp.Pages.Registration.Registration
 		/// </summary>
 		/// <param name="sender">The event sender.</param>
 		/// <param name="e">The default event args.</param>
-		protected internal void RegistrationStep_Completed(object sender, EventArgs e)
+		protected internal async void RegistrationStep_Completed(object sender, EventArgs e)
 		{
-			RegistrationStep Step = ((RegistrationStepViewModel)sender).Step;
-
-			switch (Step)
+			try
 			{
-				case RegistrationStep.Account:
-					// User connected to an existing account (as opposed to creating a new one). Copy values from the legal identity.
-					if (this.TagProfile.LegalIdentity is not null)
-					{
-						RegisterIdentity.RegisterIdentityViewModel vm = (RegisterIdentity.RegisterIdentityViewModel)this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
-						vm.PopulateFromTagProfile();
-					}
-					this.SyncTagProfileStep();
-					break;
+				RegistrationStep Step = ((RegistrationStepViewModel)sender).Step;
 
-				case RegistrationStep.RegisterIdentity:
-					this.SyncTagProfileStep();
-					break;
+				switch (Step)
+				{
+					case RegistrationStep.Account:
+						// User connected to an existing account (as opposed to creating a new one). Copy values from the legal identity.
+						if (this.TagProfile.LegalIdentity is not null)
+						{
+							RegisterIdentity.RegisterIdentityViewModel vm = (RegisterIdentity.RegisterIdentityViewModel)this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
+							vm.PopulateFromTagProfile();
+						}
+						this.SyncTagProfileStep();
+						break;
 
-				case RegistrationStep.ValidateIdentity:
-					this.SyncTagProfileStep();
-					break;
+					case RegistrationStep.RegisterIdentity:
+						this.SyncTagProfileStep();
+						break;
 
-				case RegistrationStep.Pin:
-					this.UiSerializer.BeginInvokeOnMainThread(() => Application.Current.MainPage = new AppShell());
-					break;
+					case RegistrationStep.ValidateIdentity:
+						this.SyncTagProfileStep();
+						break;
 
-				default: // RegistrationStep.Operator
-					this.SyncTagProfileStep();
-					break;
+					case RegistrationStep.Pin:
+						await App.Current.SetAppShellPage();
+						break;
+
+					default: // RegistrationStep.Operator
+						this.SyncTagProfileStep();
+						break;
+				}
+			}
+			catch (Exception Exception)
+			{
+				this.LogService?.LogException(Exception);
 			}
 		}
 
@@ -222,10 +229,10 @@ namespace IdApp.Pages.Registration.Registration
 			this.SyncTagProfileStep();
 		}
 
-		private void SyncTagProfileStep()
+		private async Task SyncTagProfileStep()
 		{
 			if (this.TagProfile.Step == RegistrationStep.Complete)
-				Application.Current.MainPage = new AppShell();
+				await App.Current.SetAppShellPage();
 			else
 				this.CurrentStep = (int)this.TagProfile.Step;
 		}

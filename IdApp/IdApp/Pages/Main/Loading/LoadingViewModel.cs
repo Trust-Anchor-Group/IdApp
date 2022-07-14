@@ -7,6 +7,7 @@ using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
 using IdApp.Pages.Main.Shell;
 using IdApp.Pages.Registration.Registration;
+using System;
 
 namespace IdApp.Pages.Main.Loading
 {
@@ -73,14 +74,27 @@ namespace IdApp.Pages.Main.Loading
 			this.StateSummaryText = (this.TagProfile.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
 		}
 
-		private void XmppService_Loaded(object sender, LoadedEventArgs e)
+		private async void XmppService_Loaded(object sender, LoadedEventArgs e)
 		{
-			if (e.IsLoaded)
+			try
 			{
-				this.IsBusy = false;
+				if (e.IsLoaded)
+				{
+					this.IsBusy = false;
 
-				this.UiSerializer.BeginInvokeOnMainThread(
-					() => Application.Current.MainPage = this.TagProfile.IsComplete() ? new AppShell()	: new RegistrationPage());
+					if (this.TagProfile.IsComplete())
+					{
+						await App.Current.SetAppShellPage();
+					}
+					else
+					{
+						await App.Current.SetRegistrationPage();
+					}
+				}
+			}
+			catch (Exception Exception)
+			{
+				this.LogService?.LogException(Exception);
 			}
 		}
 	}

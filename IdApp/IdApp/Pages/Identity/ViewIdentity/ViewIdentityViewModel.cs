@@ -1335,7 +1335,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					this.LegalIdentity = revokedIdentity;
 					this.TagProfile.RevokeLegalIdentity(revokedIdentity);
 
-					Application.Current.MainPage = new RegistrationPage();
+					await App.Current.SetRegistrationPage();
 				}
 			}
 			catch (Exception ex)
@@ -1372,7 +1372,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					this.LegalIdentity = compromisedIdentity;
 					this.TagProfile.RevokeLegalIdentity(compromisedIdentity);
 
-					Application.Current.MainPage = new RegistrationPage();
+					await App.Current.SetRegistrationPage();
 				}
 			}
 			catch (Exception ex)
