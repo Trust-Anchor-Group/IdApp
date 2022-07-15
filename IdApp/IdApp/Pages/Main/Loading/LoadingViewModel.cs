@@ -74,7 +74,7 @@ namespace IdApp.Pages.Main.Loading
 			this.StateSummaryText = (this.TagProfile.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
 		}
 
-		private async void XmppService_Loaded(object sender, LoadedEventArgs e)
+		private void XmppService_Loaded(object sender, LoadedEventArgs e)
 		{
 			try
 			{
@@ -82,14 +82,27 @@ namespace IdApp.Pages.Main.Loading
 				{
 					this.IsBusy = false;
 
-					if (this.TagProfile.IsComplete())
+					// XmppService_Loaded method might be called from DoBind method, which in turn is called from OnAppearing method.
+					// We cannot update the main page while some OnAppearing is still running (well, we can technically but there will be chaos).
+					// Therefore, do not await this method and do not call it synchronously, even if we are already on the main thread.
+					this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					{
-						await App.Current.SetAppShellPage();
-					}
-					else
-					{
-						await App.Current.SetRegistrationPage();
-					}
+						try
+						{
+							if (this.TagProfile.IsComplete())
+							{
+								await App.Current.SetAppShellPage();
+							}
+							else
+							{
+								await App.Current.SetRegistrationPage();
+							}
+						}
+						catch (Exception Exception)
+						{
+							this.LogService?.LogException(Exception);
+						}
+					});
 				}
 			}
 			catch (Exception Exception)
