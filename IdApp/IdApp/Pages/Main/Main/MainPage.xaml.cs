@@ -1,7 +1,6 @@
 ﻿using System;
-using Xamarin.Forms.Xaml;
-using Waher.Events;
 using System.Threading.Tasks;
+using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Main.Main
 {
@@ -10,15 +9,15 @@ namespace IdApp.Pages.Main.Main
 	/// and take various actions.
 	/// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MainPage
+	public partial class MainPage : ContentBasePage
 	{
 		/// <summary>
 		/// Creates a new instance of the <see cref="MainPage"/> class.
 		/// </summary>
 		public MainPage()
 		{
-			InitializeComponent();
-			ViewModel = new MainViewModel();
+			this.InitializeComponent();
+			this.ViewModel = new MainViewModel();
 		}
 
 		/// <summary>
