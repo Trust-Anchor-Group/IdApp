@@ -85,6 +85,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.OwnerCanDestroyIndividual = args.Token.OwnerCanDestroyIndividual;
 				this.CertifierCanDestroy = args.Token.CertifierCanDestroy;
 				this.FriendlyName = args.Token.FriendlyName;
+				this.Category = args.Token.Category;
 				this.GlyphContentType = args.Token.GlyphContentType;
 				this.Ordinal = args.Token.Ordinal;
 				this.Value = args.Token.Value;
@@ -469,6 +470,21 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			get => (string)this.GetValue(FriendlyNameProperty);
 			set => this.SetValue(FriendlyNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Category"/>
+		/// </summary>
+		public static readonly BindableProperty CategoryProperty =
+			BindableProperty.Create(nameof(Category), typeof(string), typeof(TokenDetailsViewModel), default(string));
+
+		/// <summary>
+		/// Friendly name of token.
+		/// </summary>
+		public string Category
+		{
+			get => (string)this.GetValue(CategoryProperty);
+			set => this.SetValue(CategoryProperty, value);
 		}
 
 		/// <summary>

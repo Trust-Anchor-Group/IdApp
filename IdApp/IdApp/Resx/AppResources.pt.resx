@@ -727,7 +727,16 @@
     <value>Escolha foto</value>
   </data>
   <data name="PinIsInvalid" xml:space="preserve">
-    <value>PIN é inválido</value>
+    <value>PIN é inválido. Você tem {0} tentativas restantes.</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlockedForever" xml:space="preserve">
+    <value>As tentativas de digitamento do PIN são excededas. Sua aplicação foi bloqueada para sempre</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
+    <value>As tentativas de digitamento do PIN são excededas. Sua inscrição foi bloqueada até {0}.</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
+    <value>As tentativas de digitamento do PIN são excededas. Sua inscrição foi bloqueada por uma semana</value>
   </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
     <value>O número PIN não deve incluir espaço branco líder ou de arrasto.</value>
@@ -1688,5 +1697,11 @@
   </data>
   <data name="UnableToConnect" xml:space="preserve">
     <value>Incapaz de se conectar.</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Copiar para área de transferência</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categoria</value>
   </data>
 </root>

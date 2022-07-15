@@ -147,6 +147,11 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		public string FriendlyName => this.token.FriendlyName;
 
 		/// <summary>
+		/// Category of token.
+		/// </summary>
+		public string Category => this.token.Category;
+
+		/// <summary>
 		/// Glyph of token.
 		/// </summary>
 		public byte[] Glyph => this.token.Glyph;

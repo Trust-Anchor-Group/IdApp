@@ -727,7 +727,16 @@
     <value>Vælg foto</value>
   </data>
   <data name="PinIsInvalid" xml:space="preserve">
-    <value>Pinkoden er ugyldig</value>
+    <value>PIN-koden er ugyldig. Du har {0} resterende forsøg.</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlockedForever" xml:space="preserve">
+    <value>PIN-forsøg, der indtastes, overskrides. Din ansøgning er blevet blokeret for evigt</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
+    <value>PIN-forsøg, der indtastes, overskrides. Din ansøgning er blevet blokeret indtil {0}.</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
+    <value>PIN-forsøg, der indtastes, overskrides. Din ansøgning har været blokeret i en uge</value>
   </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
     <value>Pinkoden må ikke indeholde foranstillede eller efterfølgende mellemrum.</value>
@@ -1688,5 +1697,11 @@
   </data>
   <data name="UnableToConnect" xml:space="preserve">
     <value>Kan ikke oprette forbindelse.</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Kopier til udklipsholder</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
   </data>
 </root>
