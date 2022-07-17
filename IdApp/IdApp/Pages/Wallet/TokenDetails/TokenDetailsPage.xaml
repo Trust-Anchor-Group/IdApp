@@ -238,8 +238,8 @@
                     <Label Grid.Column="1" Grid.Row="4" Text="{Binding DefinitionSchemaHashFunction}" Style="{StaticResource ValueLabel}"/>
                 </Grid>
 
-                <Button Text="{x:Static resx:AppResources.ShowDetails}" Margin="{StaticResource DefaultBottomOnlyMargin}"
-                        Command="{Binding Path=ShowDetailsCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                <Button Text="{x:Static resx:AppResources.ShowM2MInfo}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=ShowM2mInfoCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
 
                 <Button Text="{x:Static resx:AppResources.SendToContact}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                         Command="{Binding Path=SendToContactCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />

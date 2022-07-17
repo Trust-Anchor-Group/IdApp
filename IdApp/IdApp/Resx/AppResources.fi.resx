@@ -1704,4 +1704,7 @@
   <data name="Category" xml:space="preserve">
     <value>Luokka</value>
   </data>
+  <data name="ShowM2MInfo" xml:space="preserve">
+    <value>Näytä M2M-tiedot</value>
+  </data>
 </root>

@@ -1287,6 +1287,9 @@
   <data name="ShowDetails" xml:space="preserve">
     <value>Visa detaljer</value>
   </data>
+  <data name="ShowM2MInfo" xml:space="preserve">
+    <value>Visa M2M-information</value>
+  </data>
   <data name="SignAfter" xml:space="preserve">
     <value>Signera efter</value>
   </data>

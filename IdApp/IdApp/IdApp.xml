@@ -11296,7 +11296,7 @@
             Command to open a link.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShowDetailsCommand">
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShowM2mInfoCommand">
             <summary>
             Command to show machine-readable details of token.
             </summary>
@@ -14214,6 +14214,11 @@
         <member name="P:IdApp.Resx.AppResources.ShowDetails">
             <summary>
               Looks up a localized string similar to Show Details.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ShowM2MInfo">
+            <summary>
+              Looks up a localized string similar to Show M2M Info.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SignAfter">

@@ -56,7 +56,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.ViewContractCommand = new Command(async P => await this.ViewContract(P));
 			this.OpenChatCommand = new Command(async P => await this.OpenChat(P));
 			this.OpenLinkCommand = new Command(async P => await this.OpenLink(P));
-			this.ShowDetailsCommand = new Command(async _ => await this.ShowDetails());
+			this.ShowM2mInfoCommand = new Command(async _ => await this.ShowM2mInfo());
 			this.SendToContactCommand = new Command(async _ => await this.SendToContact());
 			this.ShareCommand = new Command(async _ => await this.Share());
 			this.OfferToSellCommand = new Command(async _ => await this.OfferToSell());
@@ -939,7 +939,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		/// <summary>
 		/// Command to show machine-readable details of token.
 		/// </summary>
-		public ICommand ShowDetailsCommand { get; }
+		public ICommand ShowM2mInfoCommand { get; }
 
 		/// <summary>
 		/// Command to send token to contact
@@ -1068,7 +1068,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			return App.OpenUrl(Parameter.ToString());
 		}
 
-		private async Task ShowDetails()
+		private async Task ShowM2mInfo()
 		{
 			try
 			{

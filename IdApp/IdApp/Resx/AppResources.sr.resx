@@ -1704,4 +1704,7 @@
   <data name="Category" xml:space="preserve">
     <value>Kategorija</value>
   </data>
+  <data name="ShowM2MInfo" xml:space="preserve">
+    <value>Prikaži M2M informacije</value>
+  </data>
 </root>
