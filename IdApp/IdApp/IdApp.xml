@@ -10217,6 +10217,11 @@
             Friendly name of token.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Category">
+            <summary>
+            Category of token.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Glyph">
             <summary>
             Glyph of token.
@@ -11006,6 +11011,16 @@
             Friendly name of token.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CategoryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Category"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Category">
+            <summary>
+            Friendly name of token.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphContentTypeProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphContentType"/>
@@ -11311,7 +11326,7 @@
             Command to open a link.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShowDetailsCommand">
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShowM2mInfoCommand">
             <summary>
             Command to show machine-readable details of token.
             </summary>
@@ -12479,6 +12494,11 @@
         <member name="P:IdApp.Resx.AppResources.CantConnectTo">
             <summary>
               Looks up a localized string similar to Can&apos;t connect to {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Category">
+            <summary>
+              Looks up a localized string similar to Category.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Certifier">
@@ -14224,6 +14244,11 @@
         <member name="P:IdApp.Resx.AppResources.ShowDetails">
             <summary>
               Looks up a localized string similar to Show Details.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ShowM2MInfo">
+            <summary>
+              Looks up a localized string similar to Show M2M Info.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SignAfter">
