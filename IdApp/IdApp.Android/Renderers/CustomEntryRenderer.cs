@@ -15,24 +15,21 @@ namespace IdApp.Android.Renderers
 {
 	public class CustomEntryRenderer : EntryRenderer
 	{
-		private const double cornerRadiusInDip = 5;
-		private const double borderWidthInDip = 1;
-
 		public CustomEntryRenderer(Context context) : base(context) { }
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
 		{
 			base.OnElementChanged(e);
 
-			float CornerRadius = this.Context.ToPixels(cornerRadiusInDip);
-
 			if (this.Control is not null)
 			{
 				this.Control.Background = null;
 				this.Control.SetBackgroundColor(AndroidColor.Transparent);
 
-				// We should set padding on the Control, not on the ViewGroup. Otherwise, the ViewGroup's padding will clip the Control's content.
-				this.Control.SetPadding((int)CornerRadius, (int)CornerRadius, (int)CornerRadius, (int)CornerRadius);
+				// We should set padding on the Control, not on the ViewGroup.
+				// Otherwise, the ViewGroup's padding will clip the Control's content.
+				int Padding = (int)this.Context.ToPixels(5);
+				this.Control.SetPadding(Padding, Padding, Padding, Padding);
 			}
 
 			this.OverrideBackground();
@@ -50,6 +47,9 @@ namespace IdApp.Android.Renderers
 
 		private void OverrideBackground()
 		{
+			double borderWidthInDip = this.Element != null ? EntryProperties.GetBorderWidth(this.Element) : 0;
+			double cornerRadiusInDip = this.Element != null ? EntryProperties.GetCornerRadius(this.Element) : 0;
+
 			RoundRectShape Shape = new(Enumerable.Repeat(this.Context.ToPixels(cornerRadiusInDip), 8).ToArray(), null, null);
 
 			ShapeDrawable Border = new(Shape);

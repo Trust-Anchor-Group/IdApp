@@ -28,5 +28,49 @@ namespace IdApp.Helpers
 		{
 			Bindable.SetValue(BorderColorProperty, Value);
 		}
+
+		/// <summary>
+		/// Implements the attached property that defines the width of the border around an <see cref="Entry"/>.
+		/// </summary>
+		public static readonly BindableProperty BorderWidthProperty
+			= BindableProperty.CreateAttached("BorderWidth", typeof(double), typeof(EntryProperties), 1);
+
+		/// <summary>
+		/// Gets the width of the border around an <see cref="Entry"/>.
+		/// </summary>
+		public static double GetBorderWidth(BindableObject Bindable)
+		{
+			return (double)Bindable.GetValue(BorderWidthProperty);
+		}
+
+		/// <summary>
+		/// Sets the width of the border around an <see cref="Entry"/>.
+		/// </summary>
+		public static void SetBorderWidth(BindableObject Bindable, double Value)
+		{
+			Bindable.SetValue(BorderWidthProperty, Value);
+		}
+
+		/// <summary>
+		/// Implements the attached property that defines the corner radius of an <see cref="Entry"/>.
+		/// </summary>
+		public static readonly BindableProperty CornerRadiusProperty
+			= BindableProperty.CreateAttached("CornerRadius", typeof(double), typeof(EntryProperties), 5);
+
+		/// <summary>
+		/// Gets the corner radius of an <see cref="Entry"/>.
+		/// </summary>
+		public static double GetCornerRadius(BindableObject Bindable)
+		{
+			return (double)Bindable.GetValue(CornerRadiusProperty);
+		}
+
+		/// <summary>
+		/// Sets the corner radius of an <see cref="Entry"/>.
+		/// </summary>
+		public static void SetCornerRadius(BindableObject Bindable, double Value)
+		{
+			Bindable.SetValue(CornerRadiusProperty, Value);
+		}
 	}
 }
