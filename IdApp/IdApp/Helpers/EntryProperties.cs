@@ -33,7 +33,7 @@ namespace IdApp.Helpers
 		/// Implements the attached property that defines the width of the border around an <see cref="Entry"/>.
 		/// </summary>
 		public static readonly BindableProperty BorderWidthProperty
-			= BindableProperty.CreateAttached("BorderWidth", typeof(double), typeof(EntryProperties), 1);
+			= BindableProperty.CreateAttached("BorderWidth", typeof(double), typeof(EntryProperties), (double)1);
 
 		/// <summary>
 		/// Gets the width of the border around an <see cref="Entry"/>.
@@ -55,7 +55,7 @@ namespace IdApp.Helpers
 		/// Implements the attached property that defines the corner radius of an <see cref="Entry"/>.
 		/// </summary>
 		public static readonly BindableProperty CornerRadiusProperty
-			= BindableProperty.CreateAttached("CornerRadius", typeof(double), typeof(EntryProperties), 5);
+			= BindableProperty.CreateAttached("CornerRadius", typeof(double), typeof(EntryProperties), (double)5);
 
 		/// <summary>
 		/// Gets the corner radius of an <see cref="Entry"/>.
