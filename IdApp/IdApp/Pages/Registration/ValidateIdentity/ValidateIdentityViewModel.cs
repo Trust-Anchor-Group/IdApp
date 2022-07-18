@@ -564,7 +564,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
         private async Task InviteReviewer()
         {
-            string Url = await QrCode.ScanQrCode(this.NavigationService, AppResources.InvitePeerToReview);
+            string Url = await QrCode.ScanQrCode(this.NavigationService, AppResources.InvitePeerToReview, UseNavigationService: false);
 
             if (!Constants.UriSchemes.StartsWithIdScheme(Url))
             {

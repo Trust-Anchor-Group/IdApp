@@ -15,15 +15,21 @@ namespace IdApp.Pages.Main.ScanQrCode
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ScanQrCodePage
 	{
+		private readonly bool useNavigationService;
+
 		/// <summary>
 		/// Creates a new instance of the <see cref="ScanQrCodePage"/> class.
 		/// </summary>
-		public ScanQrCodePage()
+		/// <param name="NavigationArgs">
+		/// Navigation arguments, which are manually passed to the constructor when Shell navigation is not available, namely during on-boarding.
+		/// </param>
+		public ScanQrCodePage(ScanQrCodeNavigationArgs NavigationArgs)
 		{
-			this.ViewModel = new ScanQrCodeViewModel();
-			InitializeComponent();
+			this.useNavigationService = NavigationArgs == null;
+			this.ViewModel = new ScanQrCodeViewModel(NavigationArgs);
+			this.InitializeComponent();
 
-			Scanner.Options = new MobileBarcodeScanningOptions
+			this.Scanner.Options = new MobileBarcodeScanningOptions
 			{
 				PossibleFormats = new List<ZXing.BarcodeFormat> { ZXing.BarcodeFormat.QR_CODE },
 				TryHarder = true
@@ -37,9 +43,9 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
 			await base.OnAppearingAsync();
 
-			GetViewModel<ScanQrCodeViewModel>().ModeChanged += ViewModel_ModeChanged;
-			Scanner.IsScanning = true;
-			Scanner.IsAnalyzing = true;
+			this.GetViewModel<ScanQrCodeViewModel>().ModeChanged += this.ViewModel_ModeChanged;
+			this.Scanner.IsScanning = true;
+			this.Scanner.IsAnalyzing = true;
 		}
 
 		/// <summary>
@@ -47,16 +53,16 @@ namespace IdApp.Pages.Main.ScanQrCode
 		/// </summary>
 		protected override async Task OnDisappearingAsync()
 		{
-			Scanner.IsAnalyzing = false;
-			Scanner.IsScanning = false;
-			GetViewModel<ScanQrCodeViewModel>().ModeChanged -= ViewModel_ModeChanged;
+			this.Scanner.IsAnalyzing = false;
+			this.Scanner.IsScanning = false;
+			this.GetViewModel<ScanQrCodeViewModel>().ModeChanged -= this.ViewModel_ModeChanged;
 
 			await base.OnDisappearingAsync();
 		}
 
 		private void ViewModel_ModeChanged(object sender, EventArgs e)
 		{
-			if (GetViewModel<ScanQrCodeViewModel>().ScanIsManual)
+			if (this.GetViewModel<ScanQrCodeViewModel>().ScanIsManual)
 				this.LinkEntry.Focus();
 		}
 
@@ -64,17 +70,17 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
 			if (!string.IsNullOrWhiteSpace(result.Text))
 			{
-				Scanner.IsAnalyzing = false; // Stop analysis until we navigate away so we don't keep reading qr codes
+				this.Scanner.IsAnalyzing = false; // Stop analysis until we navigate away so we don't keep reading qr codes
 				string Url = result.Text?.Trim();
 
-				GetViewModel<ScanQrCodeViewModel>().Url = Url;
-				QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, Url);
+				this.GetViewModel<ScanQrCodeViewModel>().Url = Url;
+				QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, Url, this.useNavigationService);
 			}
 		}
 
 		private async void OpenButton_Click(object sender, EventArgs e)
 		{
-			string Url = GetViewModel<ScanQrCodeViewModel>().LinkText?.Trim();
+			string Url = this.GetViewModel<ScanQrCodeViewModel>().LinkText?.Trim();
 			try
 			{
 				string Scheme = Constants.UriSchemes.GetScheme(Url);
@@ -91,7 +97,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 				return;
 			}
 
-			QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, Url);
+			QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, Url, this.useNavigationService);
 		}
 
 		/// <summary>
@@ -100,7 +106,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 		/// <returns>Whether or not the back navigation was handled</returns>
 		protected override bool OnBackButtonPressed()
 		{
-			QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, string.Empty);
+			QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, string.Empty, this.useNavigationService);
 			return true;
 		}
 

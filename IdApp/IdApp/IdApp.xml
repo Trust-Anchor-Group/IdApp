@@ -6842,10 +6842,13 @@
             A page to display for scanning of a QR code, either automatically via the camera, or by entering the code manually.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.#ctor">
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.#ctor(IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"/> class.
             </summary>
+            <param name="NavigationArgs">
+            Navigation arguments, which are manually passed to the constructor when Shell navigation is not available, namely during on-boarding.
+            </param>
         </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.OnAppearingAsync">
             <summary>
@@ -6873,7 +6876,7 @@
             An event that is fired when the scanning mode changes from automatic scan to manual entry.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.#ctor">
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.#ctor(IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel"/> class.
             </summary>
@@ -18307,7 +18310,7 @@
             <param name="Url">URL to open.</param>
             <returns>If URL was handled.</returns>
         </member>
-        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCode(IdApp.Services.Navigation.INavigationService,System.String,System.Func{System.String,System.Threading.Tasks.Task})">
+        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCode(IdApp.Services.Navigation.INavigationService,System.String,System.Func{System.String,System.Threading.Tasks.Task},System.Boolean)">
             <summary>
             Navigates to the Scan QR Code Page, waits for scan to complete, and returns the result.
             This is seemingly simple, but performs several operations, namely:
@@ -18328,14 +18331,16 @@
             <param name="navigationService">The navigation service to use for page navigation.</param>
             <param name="commandName">The localized name of the command to display when scanning.</param>
             <param name="action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
+            <param name="UseNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
             <returns>Decoded string</returns>
         </member>
-        <member name="M:IdApp.Services.UI.QR.QrCode.TrySetResultAndClosePage(IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,System.String)">
+        <member name="M:IdApp.Services.UI.QR.QrCode.TrySetResultAndClosePage(IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,System.String,System.Boolean)">
             <summary>
             Tries to set the Scan QR Code result and close the scan page.
             </summary>
             <param name="navigationService">The navigation service to use for page navigation.</param>
             <param name="uiSerializer">The current UI Dispatcher to use for marshalling back to the main thread.</param>
+            <param name="UseNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.</param>
             <param name="Url">The URL to set.</param>
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.GeneratePng(System.String,System.Int32,System.Int32)">
