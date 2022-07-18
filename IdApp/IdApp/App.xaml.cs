@@ -844,17 +844,14 @@ namespace IdApp
 					DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
 								Constants.Pin.Protocol);
 
-					if (DateTimeForLogin != null)
+					if (DateTimeForLogin.HasValue)
 					{
 						string MessageAlert;
 
 						if (DateTimeForLogin == DateTime.MaxValue)
-						{
 							MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
-						} else
-						{
+						else
 							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateTimeForLogin);
-						}
 
 						await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
 						return null;

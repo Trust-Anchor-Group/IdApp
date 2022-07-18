@@ -162,9 +162,9 @@ namespace IdApp.Pages.Main.Shell
 
 		private async void ViewIdentityMenuItem_Clicked(object sender, EventArgs e)
 		{
-			string Pin = await App.InputPin();
-			if (Pin is null)
+			if (!await App.VerifyPin())
 				return;
+
 			await this.GoToPage(nameof(Identity.ViewIdentity.ViewIdentityPage));
 		}
 
