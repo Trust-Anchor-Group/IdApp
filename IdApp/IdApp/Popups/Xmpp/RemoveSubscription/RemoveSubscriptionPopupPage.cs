@@ -21,7 +21,7 @@ namespace IdApp.Popups.Xmpp.RemoveSubscription
         {
             this.bareJid = BareJid;
 
-            InitializeComponent();
+			this.InitializeComponent();
 
             this.BindingContext = this;
         }
@@ -33,13 +33,13 @@ namespace IdApp.Popups.Xmpp.RemoveSubscription
 
         private void OnCloseButtonTapped(object sender, EventArgs e)
         {
-            Close();
+			this.Close();
         }
 
         /// <inheritdoc/>
         protected override bool OnBackgroundClicked()
         {
-            Close();
+			this.Close();
             return false;
         }
 

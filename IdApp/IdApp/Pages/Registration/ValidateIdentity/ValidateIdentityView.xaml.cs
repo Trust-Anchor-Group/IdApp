@@ -14,7 +14,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// </summary>
         public ValidateIdentityView()
         {
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
 		private void Image_Tapped(object sender, System.EventArgs e)

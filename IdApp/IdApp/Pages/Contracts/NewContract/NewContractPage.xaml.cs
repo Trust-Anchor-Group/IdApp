@@ -18,7 +18,7 @@ namespace IdApp.Pages.Contracts.NewContract
         {
             this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new NewContractViewModel();
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
         ///// <inheritdoc/>

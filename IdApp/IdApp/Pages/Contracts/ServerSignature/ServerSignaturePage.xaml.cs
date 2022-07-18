@@ -13,8 +13,8 @@ namespace IdApp.Pages.Contracts.ServerSignature
         /// </summary>
 		public ServerSignaturePage()
 		{
-            ViewModel = new ServerSignatureViewModel();
-			InitializeComponent();
+			this.ViewModel = new ServerSignatureViewModel();
+			this.InitializeComponent();
 		}
 
         /// <summary>

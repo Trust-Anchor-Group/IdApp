@@ -17,7 +17,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		{
             this.ViewModel = new RequestPaymentViewModel(this);
 
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
         /// <summary>

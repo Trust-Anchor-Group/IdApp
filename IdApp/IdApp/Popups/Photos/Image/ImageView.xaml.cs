@@ -13,15 +13,15 @@ namespace IdApp.Popups.Photos.Image
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ImageView
     {
-        private const uint DurationInMs = 300;
+        private const uint durationInMs = 300;
 
         /// <summary>
         /// Creates a new instance of the <see cref="ImageView"/> class.
         /// </summary>
         public ImageView()
         {
-            InitializeComponent();
-            ViewModel = new ImageViewModel();
+			this.InitializeComponent();
+			this.ViewModel = new ImageViewModel();
         }
 
         /// <summary>
@@ -38,10 +38,10 @@ namespace IdApp.Popups.Photos.Image
                 return;
 
             this.IsVisible = true;
-            GetViewModel<ImageViewModel>().LoadPhotos(attachments);
+			this.GetViewModel<ImageViewModel>().LoadPhotos(attachments);
             Device.BeginInvokeOnMainThread(async () =>
             {
-                await this.PhotoViewer.FadeTo(1d, DurationInMs, Easing.SinIn);
+                await this.PhotoViewer.FadeTo(1d, durationInMs, Easing.SinIn);
             });
         }
 
@@ -51,13 +51,13 @@ namespace IdApp.Popups.Photos.Image
         public void HidePhotos()
         {
             this.PhotoViewer.Opacity = 0;
-            GetViewModel<ImageViewModel>().ClearPhotos();
+			this.GetViewModel<ImageViewModel>().ClearPhotos();
             this.IsVisible = false;
         }
 
         private void CloseIcon_Tapped(object sender, EventArgs e)
         {
-            HidePhotos();
+            this.HidePhotos();
         }
 
         /// <summary>

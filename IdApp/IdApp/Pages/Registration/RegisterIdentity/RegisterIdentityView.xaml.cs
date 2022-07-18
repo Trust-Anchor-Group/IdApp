@@ -14,7 +14,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
         /// </summary>
         public RegisterIdentityView()
         {
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
 		private void RegionEntry_Focused(object sender, FocusEventArgs e)
