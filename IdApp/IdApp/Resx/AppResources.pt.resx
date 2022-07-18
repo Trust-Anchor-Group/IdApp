@@ -1713,8 +1713,17 @@
   <data name="Actions" xml:space="preserve">
     <value>Ações</value>
   </data>
+  <data name="CurrentState" xml:space="preserve">
+    <value>Estado atual</value>
+  </data>
+  <data name="CurrentVariables" xml:space="preserve">
+    <value>Variáveis Atuais</value>
+  </data>
   <data name="History" xml:space="preserve">
     <value>História</value>
+  </data>
+  <data name="MachineHasEnded" xml:space="preserve">
+    <value>State-Machine acabou.</value>
   </data>
   <data name="Present" xml:space="preserve">
     <value>Presente</value>

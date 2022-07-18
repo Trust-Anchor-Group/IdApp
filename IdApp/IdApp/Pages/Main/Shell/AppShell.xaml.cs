@@ -129,6 +129,7 @@ namespace IdApp.Pages.Main.Shell
 			Routing.RegisterRoute(nameof(Wallet.TokenDetails.TokenDetailsPage), typeof(Wallet.TokenDetails.TokenDetailsPage));
 			Routing.RegisterRoute(nameof(Wallet.TokenEvents.TokenEventsPage), typeof(Wallet.TokenEvents.TokenEventsPage));
 			Routing.RegisterRoute(nameof(Wallet.MyTokens.MyTokensPage), typeof(Wallet.MyTokens.MyTokensPage));
+			Routing.RegisterRoute(nameof(Wallet.MachineVariables.MachineVariablesPage), typeof(Wallet.MachineVariables.MachineVariablesPage));
 		}
 
 		private async Task GoToPage(string route)

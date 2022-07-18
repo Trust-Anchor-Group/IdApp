@@ -408,6 +408,12 @@
   <data name="CreatorJid" xml:space="preserve">
     <value>Skaparens adress</value>
   </data>
+  <data name="CurrentState" xml:space="preserve">
+    <value>Aktuellt tillstånd</value>
+  </data>
+  <data name="CurrentVariables" xml:space="preserve">
+    <value>Aktuella variabler</value>
+  </data>
   <data name="DatabaseCorruptInfoText" xml:space="preserve">
     <value>Applikationen ser ut att inte ha stängts korrekt. Databasen kan därför vara skadad. Ett försök att reparera den genom att nollställa den kan göras. Hur vill du fortsätta?</value>
   </data>
@@ -686,6 +692,9 @@
   </data>
   <data name="Longitude" xml:space="preserve">
     <value>Longitud</value>
+  </data>
+  <data name="MachineHasEnded" xml:space="preserve">
+    <value>Tillståndsmaskinen har avslutats.</value>
   </data>
   <data name="MachineReadableInfoText" xml:space="preserve">
     <value>En översikt över den maskinläsbara informationen i kontraktet visas nedan.</value>

@@ -13,6 +13,7 @@ using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.NewContract;
+using IdApp.Pages.Wallet.MachineVariables;
 using IdApp.Pages.Wallet.TokenEvents;
 using IdApp.Resx;
 using IdApp.Services;
@@ -1462,7 +1463,13 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			try
 			{
 				CurrentStateEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GetCurrentStateAsync(this.TokenId);
-				// TODO
+				if (e.Ok)
+				{
+					await this.NavigationService.GoToAsync(nameof(MachineVariablesPage),
+						new MachineVariablesNavigationArgs(e.Running, e.Ended, e.CurrentState, e.Variables) { CancelReturnCounter = true });
+				}
+				else
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, e.ErrorText);
 			}
 			catch (Exception ex)
 			{

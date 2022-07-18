@@ -143,6 +143,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Pages\Wallet\MachineVariables\MachineVariablesPage.xaml.cs">
+      <DependentUpon>MachineVariablesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

@@ -934,6 +934,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current State.
+        /// </summary>
+        internal static string CurrentState {
+            get {
+                return ResourceManager.GetString("CurrentState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Variables.
+        /// </summary>
+        internal static string CurrentVariables {
+            get {
+                return ResourceManager.GetString("CurrentVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It seems like the database hasn&apos;t been closed correctly, and may therefore be damaged. An attempt can be made to repair the database by first wiping it. How would you like to proceed?.
         /// </summary>
         internal static string DatabaseCorruptInfoText {
@@ -1767,6 +1785,15 @@ namespace IdApp.Resx {
         internal static string Longitude {
             get {
                 return ResourceManager.GetString("Longitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State-Machine has ended..
+        /// </summary>
+        internal static string MachineHasEnded {
+            get {
+                return ResourceManager.GetString("MachineHasEnded", resourceCulture);
             }
         }
         
