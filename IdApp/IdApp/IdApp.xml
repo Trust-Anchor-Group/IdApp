@@ -9627,6 +9627,82 @@
         <member name="M:IdApp.Pages.Wallet.ItemTypeTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to a report from a state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.#ctor(System.String,System.Object)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs"/> class.
+            </summary>
+            <param name="Title">Title of report</param>
+            <param name="Report">Report content</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.Title">
+            <summary>
+            Title of report
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.Report">
+            <summary>
+            Report content
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineReport.MachineReportPage">
+            <summary>
+            A page that allows the user to view a state-machine report.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportPage.#ctor">
+            <summary>
+            A page that allows the user to view a state-machine report.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel">
+            <summary>
+            The view model to bind to for when displaying information about the current state of a state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.#ctor">
+            <summary>
+            The view model to bind to for when displaying information about the current state of a state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TitleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Title"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Title">
+            <summary>
+            Parsed report from state-machine.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.ReportProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Report"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Report">
+            <summary>
+            Parsed report from state-machine.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.MachineVariables.MachineVariablesNavigationArgs">
             <summary>
             Holds navigation parameters specific to the current state of a state-machine.
@@ -9697,7 +9773,7 @@
         </member>
         <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.Variables">
             <summary>
-            Certifiers
+            Current variables
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.RunningProperty">
@@ -9707,7 +9783,7 @@
         </member>
         <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.Running">
             <summary>
-            If the creator can destroy the token.
+            If the state-machine is running
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.EndedProperty">
@@ -9717,7 +9793,7 @@
         </member>
         <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.Ended">
             <summary>
-            If the creator can destroy the token.
+            If the state-machine has ended
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.CurrentStateProperty">
@@ -9727,7 +9803,7 @@
         </member>
         <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.CurrentState">
             <summary>
-            Friendly name of token.
+            Current state of state-machine
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.MachineVariables.VariableModel">

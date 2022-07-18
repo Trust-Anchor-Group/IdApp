@@ -13,6 +13,7 @@ using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.NewContract;
+using IdApp.Pages.Wallet.MachineReport;
 using IdApp.Pages.Wallet.MachineVariables;
 using IdApp.Pages.Wallet.TokenEvents;
 using IdApp.Resx;
@@ -1411,7 +1412,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			try
 			{
 				ReportEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GeneratePresentReportAsync(this.TokenId, ReportFormat.XamarinXaml);
-				await this.ShowReport(e);
+				await this.ShowReport(AppResources.Present, e);
 			}
 			catch (Exception ex)
 			{
@@ -1424,7 +1425,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			try
 			{
 				ReportEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GenerateHistoryReportAsync(this.TokenId, ReportFormat.XamarinXaml);
-				await this.ShowReport(e);
+				await this.ShowReport(AppResources.History, e);
 			}
 			catch (Exception ex)
 			{
@@ -1437,7 +1438,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			try
 			{
 				ReportEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GenerateStateDiagramAsync(this.TokenId, ReportFormat.XamarinXaml);
-				await this.ShowReport(e);
+				await this.ShowReport(AppResources.States, e);
 			}
 			catch (Exception ex)
 			{
@@ -1450,7 +1451,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			try
 			{
 				ReportEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GenerateProfilingReportAsync(this.TokenId, ReportFormat.XamarinXaml);
-				await this.ShowReport(e);
+				await this.ShowReport(AppResources.Profiling, e);
 			}
 			catch (Exception ex)
 			{
@@ -1477,7 +1478,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			}
 		}
 
-		private async Task ShowReport(ReportEventArgs e)
+		private async Task ShowReport(string Title, ReportEventArgs e)
 		{
 			if (!e.Ok)
 				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, e.ErrorText);
@@ -1485,10 +1486,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			{
 				string Xaml = e.ReportText;
 				object Parsed = new StackLayout().LoadFromXaml(Xaml);
-			}
 
-			//await this.NavigationService.GoToAsync(nameof(TokenEventsPage),
-			//	new TokenEventsNavigationArgs(this.TokenId, Events) { CancelReturnCounter = true });
+				await this.NavigationService.GoToAsync(nameof(MachineReportPage),
+					new MachineReportNavigationArgs(Title, Parsed) { CancelReturnCounter = true });
+			}
 		}
 
 		#endregion

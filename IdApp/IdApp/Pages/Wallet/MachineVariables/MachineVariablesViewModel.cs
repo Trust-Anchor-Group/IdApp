@@ -8,7 +8,7 @@ namespace IdApp.Pages.Wallet.MachineVariables
 	/// <summary>
 	/// The view model to bind to for when displaying information about the current state of a state-machine.
 	/// </summary>
-	public class MachineVariablesViewModel : QrXmppViewModel
+	public class MachineVariablesViewModel : BaseViewModel
 	{
 		/// <summary>
 		/// The view model to bind to for when displaying information about the current state of a state-machine.
@@ -41,7 +41,7 @@ namespace IdApp.Pages.Wallet.MachineVariables
 		#region Properties
 
 		/// <summary>
-		/// Certifiers
+		/// Current variables
 		/// </summary>
 		public ObservableCollection<VariableModel> Variables { get; }
 
@@ -52,7 +52,7 @@ namespace IdApp.Pages.Wallet.MachineVariables
 			BindableProperty.Create(nameof(Running), typeof(bool), typeof(MachineVariablesViewModel), default);
 
 		/// <summary>
-		/// If the creator can destroy the token.
+		/// If the state-machine is running
 		/// </summary>
 		public bool Running
 		{
@@ -67,7 +67,7 @@ namespace IdApp.Pages.Wallet.MachineVariables
 			BindableProperty.Create(nameof(Ended), typeof(bool), typeof(MachineVariablesViewModel), default);
 
 		/// <summary>
-		/// If the creator can destroy the token.
+		/// If the state-machine has ended
 		/// </summary>
 		public bool Ended
 		{
@@ -82,7 +82,7 @@ namespace IdApp.Pages.Wallet.MachineVariables
 			BindableProperty.Create(nameof(CurrentState), typeof(string), typeof(MachineVariablesViewModel), default);
 
 		/// <summary>
-		/// Friendly name of token.
+		/// Current state of state-machine
 		/// </summary>
 		public string CurrentState
 		{

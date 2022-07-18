@@ -6,7 +6,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.MachineVariables;assembly=IdApp"
                        x:DataType="model:MachineVariablesViewModel"
                        x:Class="IdApp.Pages.Wallet.MachineVariables.MachineVariablesPage"
-                       Title="{x:Static resx:AppResources.TokenEvents}">
+                       Title="{x:Static resx:AppResources.Variables}">
 	<ScrollView>
 		<Grid ColumnDefinitions="*" RowDefinitions="auto,auto,auto,*" Margin="{StaticResource DefaultMargin}">
 			<Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.CurrentState}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
