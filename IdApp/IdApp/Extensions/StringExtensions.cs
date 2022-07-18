@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using Waher.Content.Markdown;
+using Waher.Events;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace IdApp.Extensions
 {
@@ -10,13 +15,13 @@ namespace IdApp.Extensions
 	/// </summary>
 	public static class StringExtensions
 	{
-		private static readonly List<string> InvalidFileNameChars;
-		private static readonly List<string> InvalidPathChars;
+		private static readonly List<string> invalidFileNameChars;
+		private static readonly List<string> invalidPathChars;
 
 		static StringExtensions()
 		{
-			InvalidFileNameChars = Path.GetInvalidFileNameChars().Select(x => x.ToString()).ToList();
-			InvalidPathChars = Path.GetInvalidPathChars().Select(x => x.ToString()).ToList();
+			invalidFileNameChars = Path.GetInvalidFileNameChars().Select(x => x.ToString()).ToList();
+			invalidPathChars = Path.GetInvalidPathChars().Select(x => x.ToString()).ToList();
 		}
 
 		/// <summary>
@@ -31,12 +36,12 @@ namespace IdApp.Extensions
 
 			str = str.Trim().Replace(" ", string.Empty);
 
-			foreach (string s in InvalidFileNameChars)
+			foreach (string s in invalidFileNameChars)
 			{
 				str = str.Replace(s, string.Empty);
 			}
 
-			foreach (string s in InvalidPathChars)
+			foreach (string s in invalidPathChars)
 			{
 				str = str.Replace(s, string.Empty);
 			}
@@ -101,6 +106,54 @@ namespace IdApp.Extensions
 			}
 
 			return UnicodeCount;
+		}
+
+		/// <summary>
+		/// Converts Markdown text to Xamarin XAML
+		/// </summary>
+		/// <param name="Markdown">Markdown</param>
+		/// <returns>Xamarin XAML</returns>
+		public static async Task<object> MarkdownToXaml(this string Markdown)
+		{
+			try
+			{
+				MarkdownSettings Settings = new()
+				{
+					AllowScriptTag = false,
+					EmbedEmojis = false,    // TODO: Emojis
+					AudioAutoplay = false,
+					AudioControls = false,
+					ParseMetaData = false,
+					VideoAutoplay = false,
+					VideoControls = false
+				};
+
+				MarkdownDocument Doc = await MarkdownDocument.CreateAsync(Markdown, Settings);
+
+				string Xaml = await Doc.GenerateXamarinForms();
+				Xaml = Xaml.Replace("TextColor=\"{Binding HyperlinkColor}\"", "Style=\"{StaticResource HyperlinkColor}\"");
+
+				return new StackLayout().LoadFromXaml(Xaml);
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+
+				StackLayout Layout = new()
+				{
+					Orientation = StackOrientation.Vertical,
+				};
+
+				Layout.Children.Add(new Label()
+				{
+					Text = ex.Message,
+					FontFamily = "Courier New",
+					TextColor = Color.Red,
+					TextType = TextType.Text
+				});
+
+				return Layout;
+			}
 		}
 	}
 }

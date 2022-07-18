@@ -1705,6 +1705,9 @@
     <value>Kategorija</value>
   </data>
   <data name="ShowM2MInfo" xml:space="preserve">
-    <value>Prikaži M2M informacije</value>
+    <value>Prikaži M2M definiciju</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
   </data>
 </root>

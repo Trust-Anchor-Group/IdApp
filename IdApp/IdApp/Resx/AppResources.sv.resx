@@ -429,6 +429,9 @@
   <data name="DeleteContract" xml:space="preserve">
     <value>Ta bort kontrakt</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
   <data name="Destroyed" xml:space="preserve">
     <value>Förstörd</value>
   </data>
@@ -1288,7 +1291,7 @@
     <value>Visa detaljer</value>
   </data>
   <data name="ShowM2MInfo" xml:space="preserve">
-    <value>Visa M2M-information</value>
+    <value>Visa M2M-definition</value>
   </data>
   <data name="SignAfter" xml:space="preserve">
     <value>Signera efter</value>

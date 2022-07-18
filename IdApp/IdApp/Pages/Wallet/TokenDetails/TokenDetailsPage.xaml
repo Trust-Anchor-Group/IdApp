@@ -13,7 +13,9 @@
             <StackLayout Margin="{StaticResource DefaultMargin}">
                 <Label Text="{x:Static resx:AppResources.TokenDetails}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
                 <Label Text="{x:Static resx:AppResources.TokenDetailsDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
-                <Grid x:Name="GeneralInfoGrid">
+				<Label Text="{x:Static resx:AppResources.Description}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+				<ContentView Content="{Binding Description}" VerticalOptions="StartAndExpand" Margin="10,0,10,10"/>
+				<Grid x:Name="GeneralInfoGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -26,7 +28,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>

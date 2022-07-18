@@ -997,6 +997,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Destroyed.
         /// </summary>
         internal static string Destroyed {
@@ -3580,7 +3589,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show M2M Info.
+        ///   Looks up a localized string similar to Show M2M Definition.
         /// </summary>
         internal static string ShowM2MInfo {
             get {

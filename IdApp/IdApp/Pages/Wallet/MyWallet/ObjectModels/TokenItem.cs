@@ -1,4 +1,5 @@
-﻿using IdApp.Pages.Wallet.TokenDetails;
+﻿using IdApp.Extensions;
+using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Services;
 using NeuroFeatures;
 using NeuroFeatures.Tags;
@@ -150,6 +151,11 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// Category of token.
 		/// </summary>
 		public string Category => this.token.Category;
+
+		/// <summary>
+		/// Description engraved into the token.
+		/// </summary>
+		public string Description => this.token.Description;
 
 		/// <summary>
 		/// Glyph of token.

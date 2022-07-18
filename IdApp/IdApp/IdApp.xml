@@ -1844,6 +1844,13 @@
             Returns the number of Unicode symbols, which may be represented by one or two chars, in a string.
             </summary>
         </member>
+        <member name="M:IdApp.Extensions.StringExtensions.MarkdownToXaml(System.String)">
+            <summary>
+            Converts Markdown text to Xamarin XAML
+            </summary>
+            <param name="Markdown">Markdown</param>
+            <returns>Xamarin XAML</returns>
+        </member>
         <member name="T:IdApp.Extensions.TaskExtensions">
             <summary>
             An extensions class for the <see cref="T:System.Threading.Tasks.Task"/> class.
@@ -10192,6 +10199,11 @@
             Category of token.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Description">
+            <summary>
+            Description engraved into the token.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Glyph">
             <summary>
             Glyph of token.
@@ -10989,6 +11001,16 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Category">
             <summary>
             Friendly name of token.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DescriptionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Description"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Description">
+            <summary>
+            Description of token.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphContentTypeProperty">
@@ -12781,6 +12803,11 @@
               Looks up a localized string similar to Delete contract.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Description">
+            <summary>
+              Looks up a localized string similar to Description.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Destroyed">
             <summary>
               Looks up a localized string similar to Destroyed.
@@ -14218,7 +14245,7 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.ShowM2MInfo">
             <summary>
-              Looks up a localized string similar to Show M2M Info.
+              Looks up a localized string similar to Show M2M Definition.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SignAfter">
