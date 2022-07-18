@@ -151,24 +151,17 @@
             <Setter Property="FontSize" Value="Medium"/>
             <Setter Property="Margin" Value="0,5,0,10"/>
         </Style>
-        <Style TargetType="Entry"
-               ApplyToDerivedTypes="True"
-               CanCascade="True">
+        <Style TargetType="Entry" ApplyToDerivedTypes="True" CanCascade="True">
 			<Setter Property="BackgroundColor" Value="Transparent" />
 			<Setter Property="TextColor" Value="Black" />
 			<Setter Property="helpers:EntryProperties.BorderColor" Value="Gray" />
 			<Setter Property="Margin" Value="{OnPlatform Android='4'}" />
 		</Style>
-        <Style TargetType="Picker"
-               ApplyToDerivedTypes="True"
-               CanCascade="True">
-            <Setter Property="BackgroundColor">
-                <OnPlatform x:TypeArguments="Color">
-                    <On Platform="iOS">LightGray</On>
-                    <On Platform="Android">Transparent</On>
-                </OnPlatform>
-            </Setter>
-            <Setter Property="TextColor" Value="Black" />
+		<Style TargetType="Picker" ApplyToDerivedTypes="True" CanCascade="True">
+			<Setter Property="BackgroundColor" Value="Transparent" />
+			<Setter Property="TextColor" Value="Black" />
+			<Setter Property="helpers:EntryProperties.BorderColor" Value="Gray" />
+			<Setter Property="HeightRequest" Value="40" />
 		</Style>
 		<Style TargetType="templatedSwitch:TemplatedSwitch" x:Key="PasswordToggler">
 			<Setter Property="ControlTemplate">
