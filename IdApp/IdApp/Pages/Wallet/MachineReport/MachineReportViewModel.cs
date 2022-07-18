@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MachineReport
@@ -6,7 +8,7 @@ namespace IdApp.Pages.Wallet.MachineReport
 	/// <summary>
 	/// The view model to bind to for when displaying information about the current state of a state-machine.
 	/// </summary>
-	public class MachineReportViewModel : BaseViewModel
+	public class MachineReportViewModel : BaseViewModel, IDisposable
 	{
 		/// <summary>
 		/// The view model to bind to for when displaying information about the current state of a state-machine.
@@ -25,7 +27,16 @@ namespace IdApp.Pages.Wallet.MachineReport
 			{
 				this.Title = args.Title;
 				this.Report = args.Report;
+				this.TemporaryFiles = args.TemporaryFiles;
 			}
+		}
+
+		/// <inheritdoc/>
+		protected override Task DoUnbind()
+		{
+			this.DeleteTemporaryFiles();
+
+			return base.DoUnbind();
 		}
 
 		#region Properties
@@ -58,6 +69,46 @@ namespace IdApp.Pages.Wallet.MachineReport
 		{
 			get => this.GetValue(ReportProperty);
 			set => this.SetValue(ReportProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="TemporaryFiles"/>
+		/// </summary>
+		public static readonly BindableProperty TemporaryFilesProperty =
+			BindableProperty.Create(nameof(TemporaryFiles), typeof(string[]), typeof(MachineReportViewModel), default);
+
+		/// <summary>
+		/// Temporary Files. Will be deleted when view is closed.
+		/// </summary>
+		public string[] TemporaryFiles
+		{
+			get => (string[])this.GetValue(TemporaryFilesProperty);
+			set => this.SetValue(TemporaryFilesProperty, value);
+		}
+
+		/// <summary>
+		/// <see cref="IDisposable.Dispose"/>
+		/// </summary>
+		public void Dispose()
+		{
+			this.DeleteTemporaryFiles();
+		}
+
+		private void DeleteTemporaryFiles()
+		{
+			foreach (string FileName in this.TemporaryFiles)
+			{
+				try
+				{
+					File.Delete(FileName);
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
+
+			this.TemporaryFiles = new string[0];
 		}
 
 		#endregion

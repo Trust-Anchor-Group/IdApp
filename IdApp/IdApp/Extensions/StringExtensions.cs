@@ -155,5 +155,37 @@ namespace IdApp.Extensions
 				return Layout;
 			}
 		}
+
+		/// <summary>
+		/// Parses a string into simple XAML (for inclusion in tables, tooltips, etc.)
+		/// </summary>
+		/// <param name="Xaml">XAML</param>
+		/// <returns>Parsed XAML</returns>
+		public static object ParseXaml(this string Xaml)
+		{
+			if (string.IsNullOrEmpty(Xaml))
+				return null;
+
+			object Result = new StackLayout().LoadFromXaml(Xaml);
+
+			if (Result is StackLayout Panel && Panel.Children.Count == 1)
+			{
+				View Child = Panel.Children[0];
+				Panel.Children.RemoveAt(0);
+
+				if (Child is ContentView ContentView)
+				{
+					Child = ContentView.Content;
+					ContentView.Content = null;
+				}
+
+				Child.Margin = new Thickness(0);
+
+				return Child;
+			}
+			else
+				return Result;
+		}
+
 	}
 }

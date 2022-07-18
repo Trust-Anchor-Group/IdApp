@@ -1851,6 +1851,13 @@
             <param name="Markdown">Markdown</param>
             <returns>Xamarin XAML</returns>
         </member>
+        <member name="M:IdApp.Extensions.StringExtensions.ParseXaml(System.String)">
+            <summary>
+            Parses a string into simple XAML (for inclusion in tables, tooltips, etc.)
+            </summary>
+            <param name="Xaml">XAML</param>
+            <returns>Parsed XAML</returns>
+        </member>
         <member name="T:IdApp.Extensions.TaskExtensions">
             <summary>
             An extensions class for the <see cref="T:System.Threading.Tasks.Task"/> class.
@@ -9637,12 +9644,13 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.#ctor(System.String,System.Object)">
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.#ctor(System.String,System.Object,System.String[])">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs"/> class.
             </summary>
             <param name="Title">Title of report</param>
             <param name="Report">Report content</param>
+            <param name="TemporaryFiles">Temporary Files. Will be deleted when view is closed.</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.Title">
             <summary>
@@ -9652,6 +9660,11 @@
         <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.Report">
             <summary>
             Report content
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.TemporaryFiles">
+            <summary>
+            Temporary Files. Will be deleted when view is closed.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.MachineReport.MachineReportPage">
@@ -9683,6 +9696,9 @@
         <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.DoBind">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
         <member name="F:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TitleProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Title"/>
@@ -9701,6 +9717,21 @@
         <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Report">
             <summary>
             Parsed report from state-machine.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TemporaryFilesProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TemporaryFiles"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TemporaryFiles">
+            <summary>
+            Temporary Files. Will be deleted when view is closed.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Dispose">
+            <summary>
+            <see cref="M:System.IDisposable.Dispose"/>
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.MachineVariables.MachineVariablesNavigationArgs">
@@ -11057,12 +11088,6 @@
             <param name="Page">Page hosting details.</param>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DoBind">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DoUnbind">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaUrlProperty">

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Input;
@@ -18,17 +19,16 @@ using IdApp.Pages.Wallet.MachineVariables;
 using IdApp.Pages.Wallet.TokenEvents;
 using IdApp.Resx;
 using IdApp.Services;
-using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using NeuroFeatures.Events;
 using NeuroFeatures.Tags;
 using Waher.Content;
+using Waher.Content.Xml;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Security;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Wallet.TokenDetails
 {
@@ -170,41 +170,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 				this.DefinitionSchemaUrl = sb.ToString();   // TODO: The above assume contract hosted by the TAG Neuron. URL should be retrieved using API, or be standardized.
 			}
-
-			this.AssignProperties();
-			this.EvaluateAllCommands();
-
-			this.TagProfile.Changed += this.TagProfile_Changed;
-		}
-
-		/// <inheritdoc/>
-		protected override async Task DoUnbind()
-		{
-			this.TagProfile.Changed -= this.TagProfile_Changed;
-			await base.DoUnbind();
-		}
-
-		private void AssignProperties()
-		{
-		}
-
-		private void EvaluateAllCommands()
-		{
-		}
-
-		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
-		{
-			this.UiSerializer.BeginInvokeOnMainThread(() =>
-			{
-				this.SetConnectionStateAndText(e.State);
-				this.EvaluateAllCommands();
-			});
-		}
-
-		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
-		{
-			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
 
 		private async Task Populate(string LegalIdLabel, string JidLabel, string[] LegalIds, string[] Jids, ObservableCollection<PartItem> Parts)
@@ -1484,13 +1449,117 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, e.ErrorText);
 			else
 			{
+				List<string> TemporaryFiles = new();
+				StringBuilder sb = new();
 				string Xaml = e.ReportText;
-				object Parsed = new StackLayout().LoadFromXaml(Xaml);
+				string s;
+				int i = 0;
+				int c = Xaml.Length;
+
+				while (i < c)
+				{
+					Match M = standaloneDynamicImage.Match(Xaml, i);
+
+					if (M.Success)
+					{
+						sb.Append(Xaml.Substring(i, M.Index));
+						i = M.Index + M.Length;
+
+						// TODO: Border width
+
+						sb.Append("<Image");
+
+						string ContentType = M.Groups["ContentType"].Value;
+						string FileExtension = InternetContent.GetFileExtension(ContentType);
+						byte[] Bin = Convert.FromBase64String(M.Groups["Base64"].Value);
+
+						string FileName = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + "." + FileExtension);
+						using (FileStream TempFile = File.Create(FileName))
+						{
+							await TempFile.WriteAsync(Bin, 0, Bin.Length);
+						}
+
+						sb.Append(" Source=\"");
+						sb.Append(XML.HtmlAttributeEncode(FileName));
+						sb.Append("\"/>");
+
+						TemporaryFiles.Add(FileName);
+					}
+					else
+					{
+						M = embeddedDynamicImage.Match(Xaml, i);
+						if (M.Success)
+						{
+							sb.Append(Xaml.Substring(i, M.Index));
+							i = M.Index + M.Length;
+
+							sb.Append("<img");
+
+							s = M.Groups["Border"].Value;
+							if (!string.IsNullOrEmpty(s))
+							{
+								sb.Append(" border=\"");
+								sb.Append(s);
+								sb.Append("\"");
+							}
+
+							s = M.Groups["Width"].Value;
+							if (!string.IsNullOrEmpty(s))
+							{
+								sb.Append(" width=\"");
+								sb.Append(s);
+								sb.Append("\"");
+							}
+
+							s = M.Groups["Height"].Value;
+							if (!string.IsNullOrEmpty(s))
+							{
+								sb.Append(" height=\"");
+								sb.Append(s);
+								sb.Append("\"");
+							}
+
+							s = M.Groups["Alt"].Value;
+							if (!string.IsNullOrEmpty(s))
+							{
+								sb.Append(" alt=\"");
+								sb.Append(s);
+								sb.Append("\"");
+							}
+
+							string ContentType = M.Groups["ContentType"].Value;
+							string FileExtension = InternetContent.GetFileExtension(ContentType);
+							byte[] Bin = Convert.FromBase64String(M.Groups["Base64"].Value);
+
+							string FileName = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + "." + FileExtension);
+							using (FileStream TempFile = File.Create(FileName))
+							{
+								await TempFile.WriteAsync(Bin, 0, Bin.Length);
+							}
+
+							sb.Append(" src=\"");
+							sb.Append(XML.HtmlAttributeEncode(FileName));
+							sb.Append("\"/>");
+
+							TemporaryFiles.Add(FileName);
+						}
+						else
+						{
+							sb.Append(Xaml[i..c]);
+							i = c;
+						}
+					}
+				}
+
+				object Parsed = sb.ToString().ParseXaml();
 
 				await this.NavigationService.GoToAsync(nameof(MachineReportPage),
-					new MachineReportNavigationArgs(Title, Parsed) { CancelReturnCounter = true });
+					new MachineReportNavigationArgs(Title, Parsed, TemporaryFiles.ToArray()) { CancelReturnCounter = true });
 			}
 		}
+
+		private static readonly Regex standaloneDynamicImage = new("<Label LineBreakMode=\"WordWrap\" TextType=\"Html\"><!\\[CDATA\\[<img(\\s+((border=[\"'](?'Border'\\d+)[\"'])|(width=[\"'](?'Width'\\d+)[\"'])|(height=[\"'](?'Height'\\d+)[\"'])|(alt=[\"'](?'Alt'[^\"']*)[\"'])|(src=[\"']data:(?'ContentType'\\w+\\/\\w+);base64,(?'Base64'[A-Za-z0-9+-\\/_=]+)[\"'])))*\\s*\\/>]]><\\/Label>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
+		private static readonly Regex embeddedDynamicImage = new("<img(\\s+((border=[\"'](?'Border'\\d+)[\"'])|(width=[\"'](?'Width'\\d+)[\"'])|(height=[\"'](?'Height'\\d+)[\"'])|(alt=[\"'](?'Alt'[^\"']*)[\"'])|(src=[\"']data:(?'ContentType'\\w+\\/\\w+);base64,(?'Base64'[A-Za-z0-9+-\\/_=]+)[\"'])))*\\s*\\/>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
 
 		#endregion
 

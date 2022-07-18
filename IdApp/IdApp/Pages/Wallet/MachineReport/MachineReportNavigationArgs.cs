@@ -17,10 +17,12 @@ namespace IdApp.Pages.Wallet.MachineReport
 		/// </summary>
 		/// <param name="Title">Title of report</param>
 		/// <param name="Report">Report content</param>
-		public MachineReportNavigationArgs(string Title, object Report)
+		/// <param name="TemporaryFiles">Temporary Files. Will be deleted when view is closed.</param>
+		public MachineReportNavigationArgs(string Title, object Report, string[] TemporaryFiles)
         {
 			this.Title = Title;
 			this.Report = Report;
+			this.TemporaryFiles = TemporaryFiles;
         }
 
 		/// <summary>
@@ -32,5 +34,10 @@ namespace IdApp.Pages.Wallet.MachineReport
 		/// Report content
 		/// </summary>
 		public object Report { get; }
+
+		/// <summary>
+		/// Temporary Files. Will be deleted when view is closed.
+		/// </summary>
+		public string[] TemporaryFiles { get; }
 	}
 }
