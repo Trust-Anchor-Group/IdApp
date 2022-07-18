@@ -10,14 +10,14 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using AndroidColor = Android.Graphics.Color;
 
-[assembly: ExportRenderer(typeof(Entry), typeof(CustomEntryRenderer), new[] { typeof(VisualMarker.DefaultVisual) })]
+[assembly: ExportRenderer(typeof(Picker), typeof(CustomPickerRenderer), new[] { typeof(VisualMarker.DefaultVisual) })]
 namespace IdApp.Android.Renderers
 {
-	public class CustomEntryRenderer : EntryRenderer
+	public class CustomPickerRenderer : PickerRenderer
 	{
-		public CustomEntryRenderer(Context context) : base(context) { }
+		public CustomPickerRenderer(Context context) : base(context) { }
 
-		protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
+		protected override void OnElementChanged(ElementChangedEventArgs<Picker> e)
 		{
 			base.OnElementChanged(e);
 

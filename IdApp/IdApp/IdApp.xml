@@ -1933,6 +1933,36 @@
             Sets the color of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
             </summary>
         </member>
+        <member name="F:IdApp.Helpers.EntryProperties.BorderWidthProperty">
+            <summary>
+            Implements the attached property that defines the width of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.GetBorderWidth(Xamarin.Forms.BindableObject)">
+            <summary>
+            Gets the width of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.SetBorderWidth(Xamarin.Forms.BindableObject,System.Double)">
+            <summary>
+            Sets the width of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Helpers.EntryProperties.CornerRadiusProperty">
+            <summary>
+            Implements the attached property that defines the corner radius of an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.GetCornerRadius(Xamarin.Forms.BindableObject)">
+            <summary>
+            Gets the corner radius of an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.SetCornerRadius(Xamarin.Forms.BindableObject,System.Double)">
+            <summary>
+            Sets the corner radius of an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
         <member name="T:IdApp.Helpers.KeyboardAppearEventArgs">
             <summary>
             MessagingCenter event args
