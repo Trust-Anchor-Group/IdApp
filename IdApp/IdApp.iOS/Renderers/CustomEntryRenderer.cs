@@ -31,8 +31,8 @@ namespace IdApp.iOS.Renderers
 		{
 			if (this.Control is not null)
 			{
-				this.Control.Layer.BorderWidth = 1;
-				this.Control.Layer.CornerRadius = 5;
+				this.Control.Layer.BorderWidth = (System.nfloat)(this.Element != null ? EntryProperties.GetBorderWidth(this.Element) : 0);
+				this.Control.Layer.CornerRadius = (System.nfloat)(this.Element != null ? EntryProperties.GetCornerRadius(this.Element) : 0);
 				this.Control.BorderStyle = UITextBorderStyle.Line;
 				this.Control.Layer.BorderColor = this.Element != null ? EntryProperties.GetBorderColor(this.Element).ToCGColor() : UIColor.Clear.CGColor;
 

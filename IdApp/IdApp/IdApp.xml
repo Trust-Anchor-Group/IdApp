@@ -1926,6 +1926,36 @@
             Sets the color of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
             </summary>
         </member>
+        <member name="F:IdApp.Helpers.EntryProperties.BorderWidthProperty">
+            <summary>
+            Implements the attached property that defines the width of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.GetBorderWidth(Xamarin.Forms.BindableObject)">
+            <summary>
+            Gets the width of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.SetBorderWidth(Xamarin.Forms.BindableObject,System.Double)">
+            <summary>
+            Sets the width of the border around an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Helpers.EntryProperties.CornerRadiusProperty">
+            <summary>
+            Implements the attached property that defines the corner radius of an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.GetCornerRadius(Xamarin.Forms.BindableObject)">
+            <summary>
+            Gets the corner radius of an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.SetCornerRadius(Xamarin.Forms.BindableObject,System.Double)">
+            <summary>
+            Sets the corner radius of an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
         <member name="T:IdApp.Helpers.KeyboardAppearEventArgs">
             <summary>
             MessagingCenter event args
@@ -10184,6 +10214,11 @@
             Friendly name of token.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Category">
+            <summary>
+            Category of token.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Glyph">
             <summary>
             Glyph of token.
@@ -10973,6 +11008,16 @@
             Friendly name of token.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CategoryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Category"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Category">
+            <summary>
+            Friendly name of token.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphContentTypeProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphContentType"/>
@@ -11278,7 +11323,7 @@
             Command to open a link.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShowDetailsCommand">
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShowM2mInfoCommand">
             <summary>
             Command to show machine-readable details of token.
             </summary>
@@ -12446,6 +12491,11 @@
         <member name="P:IdApp.Resx.AppResources.CantConnectTo">
             <summary>
               Looks up a localized string similar to Can&apos;t connect to {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Category">
+            <summary>
+              Looks up a localized string similar to Category.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Certifier">
@@ -14191,6 +14241,11 @@
         <member name="P:IdApp.Resx.AppResources.ShowDetails">
             <summary>
               Looks up a localized string similar to Show Details.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ShowM2MInfo">
+            <summary>
+              Looks up a localized string similar to Show M2M Info.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SignAfter">

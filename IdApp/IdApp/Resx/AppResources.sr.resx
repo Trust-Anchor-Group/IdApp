@@ -727,7 +727,16 @@
     <value>Odaberi fotografiju</value>
   </data>
   <data name="PinIsInvalid" xml:space="preserve">
-    <value>PIN je nevažeći</value>
+    <value>PIN je nevažeći. Imate {0} pokušaja.</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlockedForever" xml:space="preserve">
+    <value>Pokušaji unošenja PIN-a su izusti. Vaša prijava je zauvek blokirana</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
+    <value>Pokušaji unošenja PIN-a su izusti. Vaša prijava je blokirana do {0}.</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
+    <value>Pokušaji unošenja PIN-a su izusti. Vaša prijava je blokirana već nedelju dana</value>
   </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
     <value>PIN broj ne sme da sadrži razmak na početku ili zao posle toga.</value>
@@ -1688,5 +1697,14 @@
   </data>
   <data name="UnableToConnect" xml:space="preserve">
     <value>Nije moguće povezati se.</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Kopiraj u ostavu</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategorija</value>
+  </data>
+  <data name="ShowM2MInfo" xml:space="preserve">
+    <value>Prikaži M2M informacije</value>
   </data>
 </root>
