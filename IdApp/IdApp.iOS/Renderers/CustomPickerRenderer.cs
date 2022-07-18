@@ -6,10 +6,10 @@ using CoreGraphics;
 using IdApp.Helpers;
 using System.ComponentModel;
 
-[assembly: ExportRenderer(typeof(Entry), typeof(CustomEntryRenderer), new[] { typeof(VisualMarker.DefaultVisual) })]
+[assembly: ExportRenderer(typeof(Picker), typeof(CustomPickerRenderer), new[] { typeof(VisualMarker.DefaultVisual) })]
 namespace IdApp.iOS.Renderers
 {
-	public class CustomEntryRenderer : EntryRenderer
+	public class CustomPickerRenderer : PickerRenderer
 	{
 		protected override void OnElementPropertyChanged(object Sender, PropertyChangedEventArgs EventArgs)
 		{
@@ -21,7 +21,7 @@ namespace IdApp.iOS.Renderers
 			}
 		}
 
-		protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
+		protected override void OnElementChanged(ElementChangedEventArgs<Picker> e)
 		{
 			base.OnElementChanged(e);
 			this.OverrideBackground();

@@ -44,14 +44,14 @@
 
   <ItemGroup>
     <PackageReference Include="EDaler" Version="2.1.0" />
-    <PackageReference Include="NeuroFeatures" Version="1.1.5" />
+    <PackageReference Include="NeuroFeatures" Version="1.1.6" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.0" />
     <PackageReference Include="Svg.Skia" Version="0.5.10" />
-    <PackageReference Include="Waher.Content" Version="2.3.3" />
+    <PackageReference Include="Waher.Content" Version="2.4.0" />
     <PackageReference Include="Waher.Content.Emoji" Version="2.0.0" />
     <PackageReference Include="Waher.Content.Images" Version="2.1.1" />
-    <PackageReference Include="Waher.Content.Markdown" Version="2.1.7" />
+    <PackageReference Include="Waher.Content.Markdown" Version="2.1.8" />
     <PackageReference Include="Waher.Content.QR" Version="2.0.0" />
     <PackageReference Include="Waher.Content.Xml" Version="2.0.3" />
     <PackageReference Include="Waher.Events.XMPP" Version="1.2.2" />
@@ -74,13 +74,13 @@
     <PackageReference Include="Waher.Persistence.FilesLW" Version="1.8.4" />
     <PackageReference Include="Waher.Runtime.Inventory" Version="1.1.0" />
     <PackageReference Include="Waher.Runtime.Language" Version="1.1.1" />
-    <PackageReference Include="Waher.Runtime.Profiling" Version="1.0.4" />
+    <PackageReference Include="Waher.Runtime.Profiling" Version="1.0.5" />
     <PackageReference Include="Waher.Runtime.Queue" Version="1.0.1" />
     <PackageReference Include="Waher.Runtime.Settings" Version="1.0.10" />
     <PackageReference Include="Waher.Runtime.Temporary" Version="1.0.0" />
     <PackageReference Include="Waher.Runtime.Text" Version="1.0.1" />
     <PackageReference Include="Waher.Runtime.Timing" Version="1.0.5" />
-    <PackageReference Include="Waher.Script" Version="2.4.3" />
+    <PackageReference Include="Waher.Script" Version="2.4.4" />
     <PackageReference Include="Waher.Security" Version="1.0.8" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.2" />
@@ -100,6 +100,9 @@
   <ItemGroup>
     <EmbeddedResource Update="App.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\BootstrapErrorPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Contacts\Chat\ChatPageIos.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

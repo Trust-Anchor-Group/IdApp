@@ -14,6 +14,7 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using IdApp.Resx;
+using System.Threading;
 
 namespace IdApp.Pages.Registration.ValidateIdentity
 {
@@ -23,15 +24,16 @@ namespace IdApp.Pages.Registration.ValidateIdentity
     public class ValidateIdentityViewModel : RegistrationStepViewModel
     {
         private readonly PhotosLoader photosLoader;
+		private readonly SemaphoreSlim reloadPhotosSemaphore = new(1, 1);
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="ValidateIdentityViewModel"/> class.
-        /// </summary>
-        public ValidateIdentityViewModel()
+		/// <summary>
+		/// Creates a new instance of the <see cref="ValidateIdentityViewModel"/> class.
+		/// </summary>
+		public ValidateIdentityViewModel()
             : base(RegistrationStep.ValidateIdentity)
         {
-            this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created && this.XmppService.IsOnline);
-            this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
+            this.InviteReviewerCommand = new Command(async _ => await this.InviteReviewer(), _ => this.State == IdentityState.Created && this.XmppService.IsOnline);
+            this.ContinueCommand = new Command(_ => this.Continue(), _ => this.IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<Photo>();
             this.photosLoader = new PhotosLoader(this.Photos);
@@ -41,20 +43,20 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         protected override async Task DoBind()
         {
             await base.DoBind();
-            AssignProperties();
+            this.AssignProperties();
 
-            this.TagProfile.Changed += TagProfile_Changed;
-            this.XmppService.ConnectionStateChanged += XmppService_ConnectionStateChanged;
-            this.XmppService.Contracts.LegalIdentityChanged += XmppContracts_LegalIdentityChanged;
+            this.TagProfile.Changed += this.TagProfile_Changed;
+            this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
+            this.XmppService.Contracts.LegalIdentityChanged += this.XmppContracts_LegalIdentityChanged;
         }
 
         /// <inheritdoc />
         protected override async Task DoUnbind()
         {
             this.photosLoader.CancelLoadPhotos();
-            this.TagProfile.Changed -= TagProfile_Changed;
-            this.XmppService.ConnectionStateChanged -= XmppService_ConnectionStateChanged;
-            this.XmppService.Contracts.LegalIdentityChanged -= XmppContracts_LegalIdentityChanged;
+            this.TagProfile.Changed -= this.TagProfile_Changed;
+            this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
+            this.XmppService.Contracts.LegalIdentityChanged -= this.XmppContracts_LegalIdentityChanged;
             await base.DoUnbind();
         }
 
@@ -444,54 +446,54 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
         private void AssignProperties()
         {
-            Created = this.TagProfile.LegalIdentity?.Created ?? DateTime.MinValue;
-            Updated = this.TagProfile.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
-            LegalId = this.TagProfile.LegalIdentity?.Id;
-            LegalIdentity = this.TagProfile.LegalIdentity;
-            AssignBareJid();
-            State = this.TagProfile.LegalIdentity?.State ?? IdentityState.Rejected;
-            From = this.TagProfile.LegalIdentity?.From.GetDateOrNullIfMinValue();
-            To = this.TagProfile.LegalIdentity?.To.GetDateOrNullIfMinValue();
+			this.Created = this.TagProfile.LegalIdentity?.Created ?? DateTime.MinValue;
+			this.Updated = this.TagProfile.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
+			this.LegalId = this.TagProfile.LegalIdentity?.Id;
+			this.LegalIdentity = this.TagProfile.LegalIdentity;
+			this.AssignBareJid();
+			this.State = this.TagProfile.LegalIdentity?.State ?? IdentityState.Rejected;
+			this.From = this.TagProfile.LegalIdentity?.From.GetDateOrNullIfMinValue();
+			this.To = this.TagProfile.LegalIdentity?.To.GetDateOrNullIfMinValue();
 
             if (!(this.TagProfile.LegalIdentity is null))
             {
-                FirstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
-                MiddleNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.MiddleName];
-                LastNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.LastName];
-                PersonalNumber = this.TagProfile.LegalIdentity[Constants.XmppProperties.PersonalNumber];
-                Address = this.TagProfile.LegalIdentity[Constants.XmppProperties.Address];
-                Address2 = this.TagProfile.LegalIdentity[Constants.XmppProperties.Address2];
-                ZipCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.ZipCode];
-                Area = this.TagProfile.LegalIdentity[Constants.XmppProperties.Area];
-                City = this.TagProfile.LegalIdentity[Constants.XmppProperties.City];
-                Region = this.TagProfile.LegalIdentity[Constants.XmppProperties.Region];
-                CountryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.Country];
-                PhoneNr = this.TagProfile.LegalIdentity[Constants.XmppProperties.Phone];
+				this.FirstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
+				this.MiddleNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.MiddleName];
+				this.LastNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.LastName];
+				this.PersonalNumber = this.TagProfile.LegalIdentity[Constants.XmppProperties.PersonalNumber];
+				this.Address = this.TagProfile.LegalIdentity[Constants.XmppProperties.Address];
+				this.Address2 = this.TagProfile.LegalIdentity[Constants.XmppProperties.Address2];
+				this.ZipCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.ZipCode];
+				this.Area = this.TagProfile.LegalIdentity[Constants.XmppProperties.Area];
+				this.City = this.TagProfile.LegalIdentity[Constants.XmppProperties.City];
+				this.Region = this.TagProfile.LegalIdentity[Constants.XmppProperties.Region];
+				this.CountryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.Country];
+				this.PhoneNr = this.TagProfile.LegalIdentity[Constants.XmppProperties.Phone];
             }
             else
             {
-                FirstName = string.Empty;
-                MiddleNames = string.Empty;
-                LastNames = string.Empty;
-                PersonalNumber = string.Empty;
-                Address = string.Empty;
-                Address2 = string.Empty;
-                ZipCode = string.Empty;
-                Area = string.Empty;
-                City = string.Empty;
-                Region = string.Empty;
-                CountryCode = string.Empty;
-                PhoneNr = string.Empty;
+				this.FirstName = string.Empty;
+				this.MiddleNames = string.Empty;
+				this.LastNames = string.Empty;
+				this.PersonalNumber = string.Empty;
+				this.Address = string.Empty;
+				this.Address2 = string.Empty;
+				this.ZipCode = string.Empty;
+				this.Area = string.Empty;
+				this.City = string.Empty;
+				this.Region = string.Empty;
+				this.CountryCode = string.Empty;
+				this.PhoneNr = string.Empty;
             }
 
-            Country = ISO_3166_1.ToName(this.CountryCode);
-            IsApproved = this.TagProfile.LegalIdentity?.State == IdentityState.Approved;
-            IsCreated = this.TagProfile.LegalIdentity?.State == IdentityState.Created;
+			this.Country = ISO_3166_1.ToName(this.CountryCode);
+			this.IsApproved = this.TagProfile.LegalIdentity?.State == IdentityState.Approved;
+			this.IsCreated = this.TagProfile.LegalIdentity?.State == IdentityState.Created;
 
-            ContinueCommand.ChangeCanExecute();
-            InviteReviewerCommand.ChangeCanExecute();
+			this.ContinueCommand.ChangeCanExecute();
+			this.InviteReviewerCommand.ChangeCanExecute();
 
-            SetConnectionStateAndText(this.XmppService.State);
+			this.SetConnectionStateAndText(this.XmppService.State);
 
             if (this.IsConnected)
                 this.ReloadPhotos();
@@ -499,15 +501,15 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
         private void AssignBareJid()
         {
-            BareJid = this.XmppService?.BareJid ?? string.Empty;
+			this.BareJid = this.XmppService?.BareJid ?? string.Empty;
         }
 
         private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(this.TagProfile.Step) || e.PropertyName == nameof(this.TagProfile.LegalIdentity))
-                this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
+                this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
             else
-                this.UiSerializer.BeginInvokeOnMainThread(AssignBareJid);
+                this.UiSerializer.BeginInvokeOnMainThread(this.AssignBareJid);
         }
 
         private void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
@@ -527,17 +529,27 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
         private void SetConnectionStateAndText(XmppState state)
         {
-            IsConnected = state == XmppState.Connected;
+			this.IsConnected = state == XmppState.Connected;
             this.ConnectionStateText = state.ToDisplayText();
         }
 
-        private void ReloadPhotos()
+        private async void ReloadPhotos()
         {
-            this.photosLoader.CancelLoadPhotos();
-            if (!(this.TagProfile?.LegalIdentity?.Attachments is null))
-            {
-                _ = this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments, SignWith.LatestApprovedIdOrCurrentKeys);
-            }
+			await this.reloadPhotosSemaphore.WaitAsync();
+
+			try
+			{
+				this.photosLoader.CancelLoadPhotos();
+				if (!(this.TagProfile?.LegalIdentity?.Attachments is null))
+				{
+					// await is important, it prevents the semaphore from being released prematurely.
+					_ = await this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments, SignWith.LatestApprovedIdOrCurrentKeys);
+				}
+			}
+			finally
+			{
+				this.reloadPhotosSemaphore.Release();
+			}
         }
 
         private void XmppContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
@@ -546,7 +558,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
             {
                 this.LegalIdentity = e.Identity;
                 this.TagProfile.SetLegalIdentity(e.Identity);
-                AssignProperties();
+				this.AssignProperties();
             });
         }
 

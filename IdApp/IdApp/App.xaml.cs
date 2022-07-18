@@ -85,28 +85,51 @@ namespace IdApp
 		private readonly SemaphoreSlim startupWorker = new(1, 1);
 		private CancellationTokenSource startupCancellation;
 
+		// The App class is not actually a singleton. Each time Android MainActivity is destroyed and then created again, a new instance
+		// of the App class will be created, its OnStart method will be called and its OnResume method will not be called. This happens,
+		// for example, on Android when the user presses the back button and then navigates to the app again. However, the App class
+		// doesn't seem to work properly (should it?) when this happens (some chaos happens here and there), so we pretend that
+		// there is only one instance (see the references to onStartResumesApplication).
+		private bool onStartResumesApplication = false;
+
 		///<inheritdoc/>
 		public App()
 		{
-			this.startupProfiler = new Profiler("App.ctor", ProfilerThreadType.Sequential);  // Comment out to remove startup profiling.
-			this.startupProfiler?.Start();
-			this.startupProfiler?.NewState("Init");
-
-			SvgImageSource.RegisterAssembly();
-
-			AppDomain.CurrentDomain.FirstChanceException += this.CurrentDomain_FirstChanceException;
-			AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
-			TaskScheduler.UnobservedTaskException += this.TaskScheduler_UnobservedTaskException;
-
+			App PreviousInstance = instance;
+			this.onStartResumesApplication = PreviousInstance is not null;
 			instance = this;
 
-			LoginInterval[] LoginIntervals = new[] {
-				new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.FirstBlockInDays)),
-				new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.SecondBlockInDays))};
+			// If the previous instance is null, create the app state from scratch. If not, just copy the state from the previous instance.
+			if (PreviousInstance is null)
+			{
+				this.startupProfiler = new Profiler("App.ctor", ProfilerThreadType.Sequential);  // Comment out to remove startup profiling.
+				this.startupProfiler?.Start();
+				this.startupProfiler?.NewState("Init");
 
-			this.loginAuditor = new LoginAuditor(Constants.Pin.LogAuditorObjectID, LoginIntervals);
-			this.startupCancellation = new CancellationTokenSource();
-			this.initCompleted = this.Init();
+				SvgImageSource.RegisterAssembly();
+
+				AppDomain.CurrentDomain.FirstChanceException += this.CurrentDomain_FirstChanceException;
+				AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
+				TaskScheduler.UnobservedTaskException += this.TaskScheduler_UnobservedTaskException;
+
+				LoginInterval[] LoginIntervals = new[] {
+					new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.FirstBlockInDays)),
+					new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.SecondBlockInDays))};
+
+				this.loginAuditor = new LoginAuditor(Constants.Pin.LogAuditorObjectID, LoginIntervals);
+				this.startupCancellation = new CancellationTokenSource();
+				this.initCompleted = this.Init();
+			}
+			else
+			{
+				this.loginAuditor = PreviousInstance.loginAuditor;
+				this.autoSaveTimer = PreviousInstance.autoSaveTimer;
+				this.services = PreviousInstance.services;
+				this.startupProfiler = PreviousInstance.startupProfiler;
+				this.initCompleted = PreviousInstance.initCompleted;
+				this.startupWorker = PreviousInstance.startupWorker;
+				this.startupCancellation = PreviousInstance.startupCancellation;
+			}
 
 			this.InitializeComponent();
 			Current.UserAppTheme = OSAppTheme.Unspecified;
@@ -292,6 +315,13 @@ namespace IdApp
 		///<inheritdoc/>
 		protected override async void OnStart()
 		{
+			if (this.onStartResumesApplication)
+			{
+				this.onStartResumesApplication = false;
+				this.OnResume();
+				return;
+			}
+
 			if (!this.initCompleted.Wait(60000))
 				throw new Exception("Initialization did not complete in time.");
 
@@ -362,10 +392,15 @@ namespace IdApp
 				await this.services.ContractOrchestratorService.Load(isResuming, Token);
 				await this.services.ThingRegistryOrchestratorService.Load(isResuming, Token);
 			}
+			catch (OperationCanceledException)
+			{
+				Waher.Events.Log.Notice($"{(isResuming ? "OnResume " : "Initial app ")} startup was canceled.");
+			}
 			catch (Exception ex)
 			{
 				ex = Waher.Events.Log.UnnestException(ex);
 				Thread?.Exception(ex);
+				this.services?.LogService?.SaveExceptionDump(ex.Message, ex.StackTrace);
 				this.DisplayBootstrapErrorPage(ex.Message, ex.StackTrace);
 			}
 			finally
@@ -573,41 +608,17 @@ namespace IdApp
 			this.startupProfiler?.Exception(e.Exception);
 		}
 
-		private void DisplayBootstrapErrorPage(string title, string stackTrace)
+		private void DisplayBootstrapErrorPage(string Title, string StackTrace)
 		{
 			this.Dispatcher.BeginInvokeOnMainThread(() =>
 			{
-				this.services?.LogService?.SaveExceptionDump(title, stackTrace);
-
-				ScrollView sv = new();
-				StackLayout sl = new()
+				this.MainPage = new BootstrapErrorPage
 				{
-					Orientation = StackOrientation.Vertical,
-				};
-
-				sl.Children.Add(new Label
-				{
-					Text = title,
-					FontSize = 24,
-					HorizontalOptions = LayoutOptions.FillAndExpand,
-				});
-
-				sl.Children.Add(new Label
-				{
-					Text = stackTrace,
-					HorizontalOptions = LayoutOptions.FillAndExpand,
-					VerticalOptions = LayoutOptions.FillAndExpand
-				});
-
-				Button b = new() { Text = "Copy to clipboard", Margin = 12 };
-				b.Clicked += async (sender, args) => await Clipboard.SetTextAsync(stackTrace);
-				sl.Children.Add(b);
-
-				sv.Content = sl;
-
-				this.MainPage = new ContentPage
-				{
-					Content = sv
+					BindingContext = new BootstrapErrorViewModel
+					{
+						Title = Title,
+						StackTrace = StackTrace,
+					},
 				};
 			});
 		}
