@@ -5878,9 +5878,9 @@
             The command for unsubscribing from the presence of a contact
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CopyIdToClipboard">
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CopyToClipboard(System.Object)">
             <summary>
-            Copies ID to clipboard
+            Copies Item to clipboard
             </summary>
         </member>
         <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
