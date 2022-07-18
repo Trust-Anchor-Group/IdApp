@@ -92,7 +92,31 @@
                        WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" 
                        VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" Margin="{StaticResource DefaultTopOnlyMargin}" />
 
-                <Label Text="{x:Static resx:AppResources.Parts}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+				<Label Text="{x:Static resx:AppResources.Reports}" Style="{StaticResource Heading}"
+					   Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"
+					   IsVisible="{Binding HasStateMachine}"/>
+
+				<Button Text="{x:Static resx:AppResources.Present}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=PresentReportCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"
+						IsVisible="{Binding HasStateMachine}"/>
+
+				<Button Text="{x:Static resx:AppResources.History}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=HistoryReportCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"
+						IsVisible="{Binding HasStateMachine}"/>
+
+				<Button Text="{x:Static resx:AppResources.Variables}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=VariablesReportCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"
+						IsVisible="{Binding HasStateMachine}"/>
+
+				<Button Text="{x:Static resx:AppResources.States}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=StatesReportCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"
+						IsVisible="{Binding HasStateMachine}"/>
+
+				<Button Text="{x:Static resx:AppResources.Profiling}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=ProfilingReportCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"
+						IsVisible="{Binding HasStateMachine}"/>
+
+				<Label Text="{x:Static resx:AppResources.Parts}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
                 <Label Text="{x:Static resx:AppResources.TokenPartsInfoText}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
 
                 <Grid x:Name="PartsGrid">
@@ -243,7 +267,9 @@
                 <Button Text="{x:Static resx:AppResources.ShowM2MInfo}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                         Command="{Binding Path=ShowM2mInfoCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
 
-                <Button Text="{x:Static resx:AppResources.SendToContact}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+				<Label Text="{x:Static resx:AppResources.Actions}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+
+				<Button Text="{x:Static resx:AppResources.SendToContact}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                         Command="{Binding Path=SendToContactCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
 
                 <Button Text="{x:Static resx:AppResources.Share}" Margin="{StaticResource DefaultBottomOnlyMargin}"

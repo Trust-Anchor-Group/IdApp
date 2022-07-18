@@ -10364,6 +10364,11 @@
             Any custom Token Tags provided during creation of the token.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.HasStateMachine">
+            <summary>
+            If the token is associated with a state-machine.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphImageProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphImage"/>
@@ -11323,6 +11328,16 @@
             If the token belongs to the user.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HasStateMachineProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HasStateMachine"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HasStateMachine">
+            <summary>
+            If the token is associated with a state-machine.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CopyToClipboardCommand">
             <summary>
             Command to copy a value to the clipboard.
@@ -11376,6 +11391,31 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ViewEventsCommand">
             <summary>
             Command to view events related to token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.PresentReportCommand">
+            <summary>
+            Command to display the present state report of a state-machine.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HistoryReportCommand">
+            <summary>
+            Command to display the historic states report of a state-machine.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.VariablesReportCommand">
+            <summary>
+            Command to display the current states of variables of a state-machine.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.StatesReportCommand">
+            <summary>
+            Command to display the state diagram of a state-machine.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ProfilingReportCommand">
+            <summary>
+            Command to display a profiling report of a state-machine.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.EventType">
@@ -12353,6 +12393,11 @@
               Looks up a localized string similar to Account name is invalid.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Actions">
+            <summary>
+              Looks up a localized string similar to Actions.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Add">
             <summary>
               Looks up a localized string similar to Add.
@@ -13051,6 +13096,11 @@
         <member name="P:IdApp.Resx.AppResources.HashFunction">
             <summary>
               Looks up a localized string similar to Hash Function.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.History">
+            <summary>
+              Looks up a localized string similar to History.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Home">
@@ -13888,6 +13938,11 @@
               Looks up a localized string similar to A request to unsibscribe from presence notification has been sent..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Present">
+            <summary>
+              Looks up a localized string similar to Present.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Privileges">
             <summary>
               Looks up a localized string similar to Privileges.
@@ -13896,6 +13951,11 @@
         <member name="P:IdApp.Resx.AppResources.ProductInformation">
             <summary>
               Looks up a localized string similar to Product Information.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Profiling">
+            <summary>
+              Looks up a localized string similar to Profiling.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Proposal">
@@ -14071,6 +14131,11 @@
         <member name="P:IdApp.Resx.AppResources.ReportAsCompromized">
             <summary>
               Looks up a localized string similar to Report as Compromised.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Reports">
+            <summary>
+              Looks up a localized string similar to Reports.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Request">
@@ -14326,6 +14391,11 @@
         <member name="P:IdApp.Resx.AppResources.State">
             <summary>
               Looks up a localized string similar to State.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.States">
+            <summary>
+              Looks up a localized string similar to States.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.StreetName">
@@ -14716,6 +14786,11 @@
         <member name="P:IdApp.Resx.AppResources.Value">
             <summary>
               Looks up a localized string similar to Value.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Variables">
+            <summary>
+              Looks up a localized string similar to Variables.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.VerificationCode">

@@ -1710,4 +1710,25 @@
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Histoire</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>Présent</value>
+  </data>
+  <data name="Profiling" xml:space="preserve">
+    <value>Profilage</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Rapports</value>
+  </data>
+  <data name="States" xml:space="preserve">
+    <value>États</value>
+  </data>
+  <data name="Variables" xml:space="preserve">
+    <value>Variables</value>
+  </data>
 </root>

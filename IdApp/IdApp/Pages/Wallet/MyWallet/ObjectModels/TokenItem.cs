@@ -288,6 +288,11 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		public TokenTag[] Tags => this.token.Tags;
 
 		/// <summary>
+		/// If the token is associated with a state-machine.
+		/// </summary>
+		public bool HasStateMachine => this.token.HasStateMachine;
+
+		/// <summary>
 		/// See <see cref="GlyphImage"/>
 		/// </summary>
 		public static readonly BindableProperty GlyphImageProperty =

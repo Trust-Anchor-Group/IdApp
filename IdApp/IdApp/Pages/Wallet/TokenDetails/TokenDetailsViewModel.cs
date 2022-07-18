@@ -26,6 +26,7 @@ using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Security;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Wallet.TokenDetails
 {
@@ -62,6 +63,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.OfferToSellCommand = new Command(async _ => await this.OfferToSell());
 			this.OfferToBuyCommand = new Command(async _ => await this.OfferToBuy());
 			this.ViewEventsCommand = new Command(async _ => await this.ViewEvents());
+			this.PresentReportCommand = new Command(async _ => await this.PresentReport());
+			this.HistoryReportCommand = new Command(async _ => await this.HistoryReport());
+			this.VariablesReportCommand = new Command(async _ => await this.VariablesReport());
+			this.StatesReportCommand = new Command(async _ => await this.StatesReport());
+			this.ProfilingReportCommand = new Command(async _ => await this.ProfilingReport());
 		}
 
 		/// <inheritdoc/>
@@ -115,6 +121,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.GlyphHeight = args.Token.GlyphHeight;
 				this.TokenXml = args.Token.Token.ToXml();
 				this.IsMyToken = string.Compare(this.OwnerJid, this.XmppService.BareJid, true) == 0;
+				this.HasStateMachine = args.Token.HasStateMachine;
 
 				if (!string.IsNullOrEmpty(args.Token.Reference))
 				{
@@ -923,6 +930,21 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			set => this.SetValue(IsMyTokenProperty, value);
 		}
 
+		/// <summary>
+		/// See <see cref="HasStateMachine"/>
+		/// </summary>
+		public static readonly BindableProperty HasStateMachineProperty =
+			BindableProperty.Create(nameof(HasStateMachine), typeof(bool), typeof(TokenDetailsViewModel), default);
+
+		/// <summary>
+		/// If the token is associated with a state-machine.
+		/// </summary>
+		public bool HasStateMachine
+		{
+			get => (bool)this.GetValue(HasStateMachineProperty);
+			set => this.SetValue(HasStateMachineProperty, value);
+		}
+
 		#endregion
 
 		#region Commands
@@ -981,6 +1003,31 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		/// Command to view events related to token.
 		/// </summary>
 		public ICommand ViewEventsCommand { get; }
+
+		/// <summary>
+		/// Command to display the present state report of a state-machine.
+		/// </summary>
+		public ICommand PresentReportCommand { get; }
+
+		/// <summary>
+		/// Command to display the historic states report of a state-machine.
+		/// </summary>
+		public ICommand HistoryReportCommand { get; }
+
+		/// <summary>
+		/// Command to display the current states of variables of a state-machine.
+		/// </summary>
+		public ICommand VariablesReportCommand { get; }
+
+		/// <summary>
+		/// Command to display the state diagram of a state-machine.
+		/// </summary>
+		public ICommand StatesReportCommand { get; }
+
+		/// <summary>
+		/// Command to display a profiling report of a state-machine.
+		/// </summary>
+		public ICommand ProfilingReportCommand { get; }
 
 		private async Task CopyToClipboard(object Parameter)
 		{
@@ -1356,6 +1403,85 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		private async Task PresentReport()
+		{
+			try
+			{
+				ReportEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GeneratePresentReportAsync(this.TokenId, ReportFormat.XamarinXaml);
+				await this.ShowReport(e);
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task HistoryReport()
+		{
+			try
+			{
+				ReportEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GenerateHistoryReportAsync(this.TokenId, ReportFormat.XamarinXaml);
+				await this.ShowReport(e);
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task StatesReport()
+		{
+			try
+			{
+				ReportEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GenerateStateDiagramAsync(this.TokenId, ReportFormat.XamarinXaml);
+				await this.ShowReport(e);
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task ProfilingReport()
+		{
+			try
+			{
+				ReportEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GenerateProfilingReportAsync(this.TokenId, ReportFormat.XamarinXaml);
+				await this.ShowReport(e);
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task VariablesReport()
+		{
+			try
+			{
+				CurrentStateEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GetCurrentStateAsync(this.TokenId);
+				// TODO
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task ShowReport(ReportEventArgs e)
+		{
+			if (!e.Ok)
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, e.ErrorText);
+			else
+			{
+				string Xaml = e.ReportText;
+				object Parsed = new StackLayout().LoadFromXaml(Xaml);
+			}
+
+			//await this.NavigationService.GoToAsync(nameof(TokenEventsPage),
+			//	new TokenEventsNavigationArgs(this.TokenId, Events) { CancelReturnCounter = true });
 		}
 
 		#endregion
