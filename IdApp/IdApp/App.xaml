@@ -32,7 +32,7 @@
         <Color x:Key="PendingColor">Salmon</Color>
 
         <Color x:Key="PageBackgroundColorLightTheme">White</Color>
-        <Color x:Key="PageBackgroundColorDarkTheme">Black</Color>
+        <Color x:Key="PageBackgroundColorDarkTheme">#121212</Color>
 
         <Color x:Key="HeadingBackgroundLightTheme">#202E40</Color>
         <Color x:Key="HeadingBackgroundDarkTheme">#536173</Color>
@@ -50,10 +50,10 @@
         <Color x:Key="LabelTextColorDarkTheme">White</Color>
 
         <Color x:Key="HeadingForegroundLightTheme">White</Color>
-        <Color x:Key="HeadingForegroundDarkTheme">Black</Color>
+        <Color x:Key="HeadingForegroundDarkTheme">#121212</Color>
 
         <Color x:Key="FrameLightTheme">#f0ffffff</Color>
-        <Color x:Key="FrameDarkTheme">#f0000000</Color>
+        <Color x:Key="FrameDarkTheme">#f0121212</Color>
 
         <Color x:Key="HintColor">#a5a5a5</Color>
 
@@ -116,7 +116,7 @@
                ApplyToDerivedTypes="True"
                CanCascade="True">
             <Setter Property="FontSize" Value="Large" />
-            <Setter Property="TextColor" Value="{StaticResource LabelTextColorLightTheme}" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
             <Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}" />
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="LineBreakMode" Value="WordWrap"/>

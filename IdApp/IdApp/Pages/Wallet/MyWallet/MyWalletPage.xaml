@@ -111,7 +111,8 @@
                     </Grid>
                 </Frame>
 
-                <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}" >
+                <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}"
+                             BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
                     <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single"
                                                    ItemSizingStrategy="MeasureAllItems"
                                                    BackgroundColor="{StaticResource PageBackgroundColor}"
