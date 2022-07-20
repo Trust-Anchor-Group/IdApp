@@ -192,12 +192,7 @@
         <Style TargetType="Picker"
                ApplyToDerivedTypes="True"
                CanCascade="True">
-            <Setter Property="BackgroundColor">
-                <OnPlatform x:TypeArguments="Color">
-                    <On Platform="iOS">LightGray</On>
-                    <On Platform="Android">Transparent</On>
-                </OnPlatform>
-            </Setter>
+            <Setter Property="BackgroundColor" Value="Gray" />
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColorLightTheme}, Dark={StaticResource TextColorDarkTheme}}" />
 			<Setter Property="helpers:EntryProperties.BorderColor" Value="Gray" />
 			<Setter Property="HeightRequest" Value="40" />
