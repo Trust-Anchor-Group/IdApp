@@ -32,7 +32,7 @@
         <Color x:Key="PendingColor">Salmon</Color>
 
         <Color x:Key="PageBackgroundColorLightTheme">White</Color>
-        <Color x:Key="PageBackgroundColorDarkTheme">#121212</Color>
+        <Color x:Key="PageBackgroundColorDarkTheme">#282830</Color>
 
         <Color x:Key="HeadingBackgroundLightTheme">#202E40</Color>
         <Color x:Key="HeadingBackgroundDarkTheme">#536173</Color>
@@ -50,10 +50,10 @@
         <Color x:Key="LabelTextColorDarkTheme">White</Color>
 
         <Color x:Key="HeadingForegroundLightTheme">White</Color>
-        <Color x:Key="HeadingForegroundDarkTheme">#121212</Color>
+        <Color x:Key="HeadingForegroundDarkTheme">#282830</Color>
 
         <Color x:Key="FrameLightTheme">#f0ffffff</Color>
-        <Color x:Key="FrameDarkTheme">#f0121212</Color>
+        <Color x:Key="FrameDarkTheme">#f0282830</Color>
 
         <Color x:Key="HintColor">#a5a5a5</Color>
 
@@ -219,5 +219,30 @@
 			</Setter>
 			<Setter Property="IsToggled" Value="True" />
 		</Style>
+
+        <Style x:Key="PopupFrame" TargetType="Frame"
+               ApplyToDerivedTypes="True">
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+        </Style>
+        <Style x:Key="PopupGrid" TargetType="Grid"
+               ApplyToDerivedTypes="True">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="VerticalOptions" Value="Start"/>
+        </Style>
+
+
+       <Style TargetType="Label" x:Key="PopupCloseButton">
+            <Setter Property="FontSize" Value="Large"/>
+            <Setter Property="Margin" Value="1,1,0,0"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Text" Value="{x:Static resx:FontAwesome.Times}"/>
+            <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
+        </Style>
 	</Application.Resources>
 </Application>

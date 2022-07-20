@@ -30,8 +30,7 @@
 			
             <Frame
 				x:Name="MainFrame"
-				Margin="15"
-				HorizontalOptions="Center">
+				Style="{StaticResource PopupFrame}">
 				<StackLayout
 					Padding="10,5"
 					IsClippedToBounds="True"
@@ -138,26 +137,20 @@
                 </StackLayout>
             </Frame>
 			
-            <Grid HorizontalOptions="End" VerticalOptions="Start">
+            <Grid Style="{StaticResource PopupGrid}">
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CloseCommand}" />
                 </Grid.GestureRecognizers>
                 <Ellipse StrokeThickness="2" WidthRequest="32" HeightRequest="32" HorizontalOptions="Center" VerticalOptions="Center">
                     <Ellipse.Fill>
-                        <SolidColorBrush Color="{StaticResource PageBackgroundColor}"/>
+                        <SolidColorBrush Color="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
                     </Ellipse.Fill>
                     <Ellipse.Stroke>
-                        <SolidColorBrush Color="{StaticResource HeadingBackground}"/>
+                        <SolidColorBrush Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
                     </Ellipse.Stroke>
                 </Ellipse>
                 <Label
-					FontFamily="{StaticResource FontAwesomeSolid}"
-					Text="{x:Static resx:FontAwesome.Times}"
-					FontSize="Large"
-					Margin="1,1,0,0"
-					TextColor="{StaticResource HeadingBackground}"
-					HorizontalOptions="Center"
-					VerticalOptions="Center"/>
+					Style="{StaticResource PopupCloseButton}"/>
             </Grid>
 			
         </AbsoluteLayout>

@@ -8,7 +8,7 @@
                        x:Class="IdApp.Pages.Contracts.NewContract.NewContractPage"
                        Title="{x:Static resx:AppResources.NewContract}">
     <ScrollView>
-        <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}"
+        <StackLayout Orientation="Vertical" Padding="{StaticResource DefaultMargin}"
                      BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
             <StackLayout.Resources>
                 <Style TargetType="Label" ApplyToDerivedTypes="True" CanCascade="True">
