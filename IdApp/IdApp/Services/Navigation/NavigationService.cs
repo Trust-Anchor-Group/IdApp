@@ -159,6 +159,10 @@ namespace IdApp.Services.Navigation
 
 		public Task GoBackAsync(bool Animate)
 		{
+#if DEBUG
+			NavigationLogger.Log("GoBackAsync.");
+#endif
+
 			try
 			{
 				string ReturnRoute = defaultGoBackRoute;
@@ -212,6 +216,10 @@ namespace IdApp.Services.Navigation
 
 		private Task GoToAsync<TArgs>(string Route, TArgs args, NavigationArgs NavigationArgs) where TArgs : NavigationArgs, new()
 		{
+#if DEBUG
+			NavigationLogger.Log("Navigating to " + (Route ?? "(null)") + " with args=" + (args?.GetType().Name ?? "(null)") + " and navigation args=" + (NavigationArgs?.GetType().Name ?? "(null)"));
+#endif
+
 			if ((NavigationArgs is not null) && (NavigationArgs.ReturnCounter > 0))
 			{
 				if (args is null)
