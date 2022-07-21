@@ -2272,6 +2272,16 @@
             </summary>
             <param name="commands">The commands to re-evaluate.</param>
         </member>
+        <member name="T:IdApp.Pages.BetweenMainPage">
+            <summary>
+            A page which is displayed when switching the application main page, while the old main page is performing cleanup asynchronously.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BetweenMainPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:IdApp.Pages.BetweenMainPage"/> class.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.BootstrapErrorPage">
             <summary>
             A page which is displayed when an unexpected exception is encountered during the application startup.
