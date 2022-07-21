@@ -949,13 +949,13 @@
     <value>ID de modelo</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
-    <value>O contrato exige pelo menos {0} parte(s) de {1} de papel. Adicione mais peças ao contrato e tente novamente.</value>
+    <value>O contrato exige pelo menos {0} parte(s) de papel {1}. Adicione mais peças ao contrato e tente novamente.</value>
   </data>
   <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
     <value>O contrato exige, no máximo, {0} parte(s) do papel {1}. Remova algumas das peças do contrato e tente novamente.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
-    <value>A senha da conexão é {0}. Isso foi copiado para a prancheta.</value>
+    <value>A senha para a conexão é {0}. Isso foi copiado para a prancheta.</value>
   </data>
   <data name="ThereIsNoNetwork" xml:space="preserve">
     <value>Não há rede</value>
@@ -1213,7 +1213,7 @@
     <value>Falha ao vincular {0} de modelo de exibição para {1} de página</value>
   </data>
   <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
-    <value>Falha ao restaurar estado para {0} de modelo de visualização para {1} de página</value>
+    <value>Falha ao restaurar estado para {0} de modelo de exibição para {1} de página</value>
   </data>
   <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
     <value>Falha ao salvar estado para {0} de modelo de exibição para {1} de página</value>

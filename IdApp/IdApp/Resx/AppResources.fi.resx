@@ -127,16 +127,16 @@
     <value>Tili</value>
   </data>
   <data name="AccountEvent" xml:space="preserve">
-    <value>Tili-tapahtuma</value>
+    <value>Tilin tapahtuma</value>
   </data>
   <data name="AccountEventDescription" xml:space="preserve">
-    <value>Alla on tietoja yhdestä tilitapahtumasta.</value>
+    <value>Alla näet tietoja yksittäisen tilin tapahtumasta.</value>
   </data>
   <data name="AccountNameAlreadyTaken" xml:space="preserve">
     <value>Tilin nimi {0} on jo otettu. Valitse toinen.</value>
   </data>
   <data name="AccountNameIsInvalid" xml:space="preserve">
-    <value>Tilin nimi ei kelpaa</value>
+    <value>Tilin nimi on virheellinen</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Lisätä</value>
@@ -160,7 +160,7 @@
     <value>Määrä:</value>
   </data>
   <data name="AmountExtra" xml:space="preserve">
-    <value>Määrä Ylimääräistä: (valinnainen, ehdotus)</value>
+    <value>Ylimääräinen summa: (valinnainen, ehdotus)</value>
   </data>
   <data name="Apartment" xml:space="preserve">
     <value>Asunto</value>
@@ -169,10 +169,10 @@
     <value>Pyytämäsi vertaisarviointi on hyväksytty.</value>
   </data>
   <data name="APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError" xml:space="preserve">
-    <value>Pyytämäsi vertaistarkistus on hylätty allekirjoitusvirheen vuoksi.</value>
+    <value>Pyytämäsi vertaisarviointi on hylätty allekirjoitusvirheen vuoksi.</value>
   </data>
   <data name="APeerYouRequestedToReviewHasRejected" xml:space="preserve">
-    <value>Vertaiskone, jota pyysit tarkistamaan hakemuksesi, on hylännyt sen.</value>
+    <value>Vertaisryhmä, jota pyysit hakemuksesi tarkistamiseksi, on hylännyt sen hyväksymisen.</value>
   </data>
   <data name="APetitionHasBeenSentToTheContract" xml:space="preserve">
     <value>Sopimuksen osiin on lähetetty vetoomus. Jos jokin osa hyväksyy vetoomuksen, sopimustiedot näkyvät näytöllä.</value>
@@ -181,7 +181,7 @@
     <value>Henkilöllisyyden omistajalle on lähetetty vetoomus. Jos omistaja hyväksyy vetoomuksen, henkilöllisyystiedot näkyvät näytöllä.</value>
   </data>
   <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
-    <value>Vertaisillesi on lähetetty vetoomus</value>
+    <value>Vetoomuksen on lähetetty vertaisellesi</value>
   </data>
   <data name="ApproveInformation" xml:space="preserve">
     <value>Hyväksy tiedot</value>
@@ -196,13 +196,13 @@
     <value>Alue</value>
   </data>
   <data name="AreYouSureYouWantToRemoveContact" xml:space="preserve">
-    <value>Haluatko varmasti poistaa tämän yhteystiedon yhteystietoluettelostasi?</value>
+    <value>Oletko varma, että haluat poistaa tämän yhteystiedon yhteystietoluettelostasi?</value>
   </data>
   <data name="AreYouSureYouWantToReportYourLegalIdentityAsCompromized" xml:space="preserve">
-    <value>Haluatko varmasti ilmoittaa henkilöllisyytesi vaarantuneena, varastettuna tai hakkeroituna?</value>
+    <value>Oletko varma, että haluat ilmoittaa laillisen henkilöllisyytesi vaarantuneeksi, varastetuksi tai hakkeroiduksi?</value>
   </data>
   <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
-    <value>Haluatko varmasti peruuttaa henkilöllisyytesi hakemuksesta?</value>
+    <value>Haluatko varmasti peruuttaa laillisen henkilöllisyytesi sovelluksesta?</value>
   </data>
   <data name="Balance" xml:space="preserve">
     <value>Vaaka:</value>
@@ -244,7 +244,7 @@
     <value>Asiakkaan allekirjoitukset</value>
   </data>
   <data name="ClientSignaturesInfoText" xml:space="preserve">
-    <value>Alla on lueteltu eri osien tekemät salausallekirjoitukset.</value>
+    <value>Eri osien tekemät salausallekirjoitukset on lueteltu alla.</value>
   </data>
   <data name="CodeNotRecognized" xml:space="preserve">
     <value>Koodia ei tunnisteta.</value>
@@ -262,19 +262,19 @@
     <value>Yhteystiedot</value>
   </data>
   <data name="ContactsDescription" xml:space="preserve">
-    <value>Alla on kaikki yhteystietosi yhteystiedot. Napsauta mitä tahansa ollaksesi vuorovaikutuksessa kyseisen yhteystiedon kanssa.</value>
+    <value>Alla on kaikki yhteystiedot yhteystietokirjassasi. Napsauta mitä tahansa ollaksesi vuorovaikutuksessa kyseisen yhteyshenkilön kanssa.</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Jatkaa</value>
   </data>
   <data name="ContractHasBeenDeleted" xml:space="preserve">
-    <value>Palvelusopimus on poistettu.</value>
+    <value>Sopimus on poistettu.</value>
   </data>
   <data name="ContractHasBeenObsoleted" xml:space="preserve">
     <value>Sopimus on vanhentunut.</value>
   </data>
   <data name="ContractId" xml:space="preserve">
-    <value>Sopimuksen tunnus</value>
+    <value>Sopimustunnus</value>
   </data>
   <data name="ContractRoleMustBeSelected" xml:space="preserve">
     <value>Valitse ensin sopimusrooli ja yritä sitten uudelleen.</value>
@@ -283,13 +283,13 @@
     <value>Sopimukset</value>
   </data>
   <data name="ContractSuccessfullySigned" xml:space="preserve">
-    <value>Sopimuksen allekirjoittaminen onnistui.</value>
+    <value>Sopimus allekirjoitettiin onnistuneesti.</value>
   </data>
   <data name="ContractTemplates" xml:space="preserve">
     <value>Sopimusmallit</value>
   </data>
   <data name="ContractTemplatesInfoText" xml:space="preserve">
-    <value>Alla on luettelo käyttämistäsi sopimusmalleista. Luo malliin perustuva uusi palvelusopimus napsauttamalla mallia.</value>
+    <value>Alla on luettelo käyttämistäsi sopimusmalleista. Napsauta mallia luodaksesi uuden sopimuksen kyseisen mallin perusteella.</value>
   </data>
   <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
     <value>Valitse ensin sopimuksen näkyvyys ja yritä sitten uudelleen.</value>
@@ -301,13 +301,13 @@
     <value>Toimialue ja osat</value>
   </data>
   <data name="ContractVisibility_Public" xml:space="preserve">
-    <value>Julkinen, ei hakukelpoinen</value>
+    <value>Julkinen, ei haettavissa</value>
   </data>
   <data name="ContractVisibility_PublicSearchable" xml:space="preserve">
     <value>Julkinen ja haettavissa</value>
   </data>
   <data name="CouldYouPleaseReviewMyIdentityInformation" xml:space="preserve">
-    <value>Voisitko tarkistaa henkilötietoni?</value>
+    <value>Voisitteko tarkistaa henkilöllisyystietoni?</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>Maa</value>
@@ -325,7 +325,7 @@
     <value>Lasku</value>
   </data>
   <data name="DefinePin" xml:space="preserve">
-    <value>PIN-koodin määrittäminen</value>
+    <value>MÄÄRITÄ PIN-koodi</value>
   </data>
   <data name="DeleteContract" xml:space="preserve">
     <value>Poista sopimus</value>
@@ -337,25 +337,25 @@
     <value>Sulattaa</value>
   </data>
   <data name="DisownThing" xml:space="preserve">
-    <value>Hylätty asia</value>
+    <value>Hylkää asia</value>
   </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} ei noudata kaikkialla läsnä olevaa salauskäytäntöä</value>
   </data>
   <data name="DomainIsNotAValidOperator" xml:space="preserve">
-    <value>{0} ei ole kelvollinen operaattori</value>
+    <value>{0} ei ole kelvollinen toimija</value>
   </data>
   <data name="DomainNameIsInvalid" xml:space="preserve">
-    <value>Toimialueen nimi ei kelpaa</value>
+    <value>Verkkotunnus on virheellinen</value>
   </data>
   <data name="Duration" xml:space="preserve">
     <value>Kesto</value>
   </data>
   <data name="EDalerNote" xml:space="preserve">
-    <value>eDaler Huomautus</value>
+    <value>eDaler-huomautus</value>
   </data>
   <data name="EDalerNoteDescription" xml:space="preserve">
-    <value>Koodi edustaa eDaler-huomautusta. Voit hyväksyä sen painamalla alla olevaa Hyväksy-painiketta. Jos sitä ei ole hyväksytty aiemmin, lompakkosi saa muistiinpanossa määritetyn eDalerin määrän.</value>
+    <value>Koodi edustaa eDaler-huomautusta. Voit hyväksyä sen painamalla alla olevaa Hyväksy-painiketta. Jos sitä ei ole aiemmin hyväksytty, lompakkosi saa muistiinpanossa määritetyn eDaler-summan.</value>
   </data>
   <data name="EncryptMessage" xml:space="preserve">
     <value>Salaa viesti</value>
@@ -364,7 +364,7 @@
     <value>Puhelinnumero</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Tapahtui virhe</value>
+    <value>On tapahtunut virhe</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Uloskäynti</value>
@@ -388,7 +388,7 @@
     <value>Yleiset</value>
   </data>
   <data name="GeneralInformation" xml:space="preserve">
-    <value>Yleistä Tietoa</value>
+    <value>Yleistä tietoa</value>
   </data>
   <data name="GeneralInformationInfoText" xml:space="preserve">
     <value>Seuraavassa on joitain yleisiä tietoja sopimuksesta.</value>
@@ -406,22 +406,22 @@
     <value>Ihmisen luettavissa oleva teksti</value>
   </data>
   <data name="IApproveOfMyPersonalInformationToBeAssociated" xml:space="preserve">
-    <value>Hyväksyn henkilötietojeni liittyvän tarkistettavaan oikeudelliseen identiteettiin avoimuuden vuoksi.</value>
+    <value>Hyväksyn, että henkilötietoni liitetään tarkistamaani oikeudelliseen henkilöllisyyteen avoimuuden vuoksi.</value>
   </data>
   <data name="ID" xml:space="preserve">
     <value>HENKILÖLLISYYSTODISTUS</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Leikepöydälle kopioitiin linkki tunnukseen.</value>
+    <value>Linkki tunnukseen kopioitiin leikepöydälle.</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identiteetti</value>
   </data>
   <data name="IdentityInformation" xml:space="preserve">
-    <value>Henkilöllisyystiedot</value>
+    <value>Tunnistetiedot</value>
   </data>
   <data name="IdentityInformationInfoText" xml:space="preserve">
-    <value>Seuraavat ovat sopimuksen allekirjoittaneelle osapuolelle rekisteröidyt henkilötiedot.</value>
+    <value>Seuraavat ovat sopimuksen allekirjoittaneen osapuolen henkilökohtaisia tietoja.</value>
   </data>
   <data name="IdentityState_Approved" xml:space="preserve">
     <value>Hyväksytty</value>
@@ -442,19 +442,19 @@
     <value>Olla välittämättä</value>
   </data>
   <data name="IHaveCarefullyReviewedAllInformationAbove" xml:space="preserve">
-    <value>Olen tarkastellut huolellisesti kaikki yllä olevat tiedot ja pidän niitä oikeana esityksenä katsauksen pyytävästä henkilöstä:</value>
+    <value>Olen tarkastellut huolellisesti kaikki yllä olevat tiedot ja todennut niiden olevan oikea esitys tarkistusta pyytävästä henkilöstä:</value>
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>Puutteellinen</value>
   </data>
   <data name="InformationAboutClaimedThingText" xml:space="preserve">
-    <value>Seuraavat tiedot ovat saatavilla asiasta, jonka koodin skannasit. Valitse, haluatko yrittää lunastaa tämän asian omaksesi ja myös, jos haluat tehdä siitä julkisesti haettavissa asiarekisterissä.</value>
+    <value>Seuraavat tiedot ovat saatavilla asiasta, jonka koodin skannasit. Valitse, haluatko yrittää väittää tätä asiaa omaksesi, ja myös, jos haluat tehdä siitä julkisesti haettavissa asiarekisterissä.</value>
   </data>
   <data name="InformationAboutThing" xml:space="preserve">
     <value>Tietoa asiasta</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Asiasta on saatavilla seuraavat tiedot. Näet myös nykyiset anturitiedot, jotka sinulla on lupa nähdä. Jos asia on toimilaite ja sinulla on oikeus hallita asiaa, näytetään myös ohjausparametrit.</value>
+    <value>Seuraavat tiedot ovat saatavilla asiasta. Voit myös nähdä nykyiset anturitiedot, jotka sinulla on oikeus nähdä. Jos asia on toimilaite ja sinulla on oikeudet hallita asiaa, myös ohjausparametrit näytetään.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Tiedot puuttuvat tai ovat virheellisiä</value>
@@ -466,13 +466,13 @@
     <value>Virheellinen eDaler URI: {0}</value>
   </data>
   <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
-    <value>Virheellinen IoT-etsintäkoodi</value>
+    <value>Virheellinen IoT-löytökoodi</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Virheellinen käyttäjänimi tai salasana</value>
   </data>
   <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Kutsu vertaiskone tarkistettavaksi</value>
+    <value>Vertaisarviointiin kutsuminen</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Avain</value>
@@ -484,7 +484,7 @@
     <value>Leveysaste</value>
   </data>
   <data name="LegalId" xml:space="preserve">
-    <value>Oikeudellinen tunnus</value>
+    <value>Virallinen tunnus</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Lastaaminen...</value>
@@ -496,16 +496,16 @@
     <value>Pituusaste</value>
   </data>
   <data name="MachineReadableInfoText" xml:space="preserve">
-    <value>Alla on yleiskatsaus sopimukseen upotettavista koneellisten tietojen tiedoista.</value>
+    <value>Alla on yleiskatsaus sopimukseen upotettavista koneellisesti luettavista tiedoista.</value>
   </data>
   <data name="MachineReadableText" xml:space="preserve">
-    <value>Koneettavia tietoja</value>
+    <value>Koneellisesti luettavat tiedot</value>
   </data>
   <data name="MainPageTitle" xml:space="preserve">
     <value>Oma digitaalinen tunnus</value>
   </data>
   <data name="MakeThingPublic" xml:space="preserve">
-    <value>Julkista asia</value>
+    <value>Tee asia julkiseksi</value>
   </data>
   <data name="Manufacturer" xml:space="preserve">
     <value>Valmistaja</value>
@@ -520,7 +520,7 @@
     <value>Mittarin numero</value>
   </data>
   <data name="MiddleNames" xml:space="preserve">
-    <value>Toinen nimi (toss)</value>
+    <value>Toinen nimi (keskimmäiset nimet)</value>
   </data>
   <data name="Mode" xml:space="preserve">
     <value>Moodi</value>
@@ -532,13 +532,13 @@
     <value>Omat sopimukset</value>
   </data>
   <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Alla on luettelo luomistasi sopimuksista. Saat lisätietoja sopimuksesta napsauttamalla sopimusta.</value>
+    <value>Alla on luettelo sopimuksista, jotka olet luonut. Napsauta sopimusta saadaksesi lisätietoja siitä.</value>
   </data>
   <data name="MyCreatedContracts" xml:space="preserve">
-    <value>Omat luodut sopimukset</value>
+    <value>Luomani sopimukset</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
-    <value>Oma identiteetti</value>
+    <value>Minun identiteettini</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nimi</value>
@@ -571,7 +571,7 @@
     <value>Notaari</value>
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
-    <value>Ei yhdistetty käyttäjään</value>
+    <value>Ei yhteyttä operaattoriin</value>
   </data>
   <data name="NoThingsFound" xml:space="preserve">
     <value>Mitään ei löytynyt.</value>
@@ -592,16 +592,16 @@
     <value>Avata</value>
   </data>
   <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
-    <value>Operaattori ei tue oikeushenkilöllisyyttä ja älykkäitä sopimuksia</value>
+    <value>Operaattori ei tue laillisia identiteettejä ja älykkäitä sopimuksia</value>
   </data>
   <data name="OperatorDoesNotSupportProvisioningAndDecisionSupportForThings" xml:space="preserve">
-    <value>Operaattori ei tue asioiden valmistelu- ja päätöksentekotukea</value>
+    <value>Operaattori ei tue asioiden valmistelua ja päätöksenteon tukea</value>
   </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
     <value>Operaattori {0} ei tue uusien tilien rekisteröintiä</value>
   </data>
   <data name="OperatorDoesNotSupportThingRegistries" xml:space="preserve">
-    <value>Operaattori ei tue asiarekisterejä</value>
+    <value>Operaattori ei tue asiarekistereitä</value>
   </data>
   <data name="OperatorDomainOther" xml:space="preserve">
     <value>&lt;Other&gt;</value>
@@ -613,22 +613,22 @@
     <value>Parametrit</value>
   </data>
   <data name="ParametersInfoText" xml:space="preserve">
-    <value>Sopimusparametrit on esitetty alla ja vastaavat arvot.</value>
+    <value>Sopimusparametrit on esitetty alla yhdessä niiden vastaavien arvojen kanssa.</value>
   </data>
   <data name="Parts" xml:space="preserve">
     <value>Paikka</value>
   </data>
   <data name="PartsInfoText" xml:space="preserve">
-    <value>Palvelusopimukselle määritetyt (odotetut) osat on lueteltu alla.</value>
+    <value>Sopimuksessa määritellyt (odotetut) osat on lueteltu alla.</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Salasana</value>
   </data>
   <data name="PasswordIsInvalid" xml:space="preserve">
-    <value>Salasana ei kelpaa</value>
+    <value>Salasana on virheellinen</value>
   </data>
   <data name="MakePayment" xml:space="preserve">
-    <value>Maksa</value>
+    <value>Suorita maksu</value>
   </data>
   <data name="Payment" xml:space="preserve">
     <value>Maksu</value>
@@ -637,16 +637,16 @@
     <value>Maksun hyväksyminen</value>
   </data>
   <data name="PaymentAcceptanceDescription" xml:space="preserve">
-    <value>Alla näet offline-maksun tiedot. Jos se on hyväksyttävää, voit hyväksyä maksun lähettämisen Neuroniin käsittelyä varten.</value>
+    <value>Alla näet offline-maksun tiedot. Jos se on hyväksyttävää, voit hyväksyä maksun lähettämisen Neuronille käsittelyä varten.</value>
   </data>
   <data name="PaymentAlreadySent" xml:space="preserve">
-    <value>Maksutoimeksianto on jo lähetetty. Voit lähettää odottavat maksut uudelleen odottavasta maksunäkymästä.</value>
+    <value>Maksuohjeet on jo lähetetty. Voit lähettää odottavat maksut uudelleen odottavasta maksunäkymästä.</value>
   </data>
   <data name="PaymentDescription" xml:space="preserve">
-    <value>Kirjoita alla oleva summa vastaanottajalle. Kun olet valmis, voit maksaa joko verkossa (jos yhteys) tai offline-tilassa napsauttamalla vastaavaa painiketta.</value>
+    <value>Syötä vastaanottajalle maksettava summa alla. Kun olet valmis, voit maksaa joko verkossa (jos se on kytketty) tai offline-tilassa napsauttamalla vastaavaa painiketta.</value>
   </data>
   <data name="PaymentSuccess" xml:space="preserve">
-    <value>Maksu suoritettiin onnistuneesti.</value>
+    <value>Maksu onnistui.</value>
   </data>
   <data name="PayOffline" xml:space="preserve">
     <value>Maksa offline-tilassa</value>
@@ -661,7 +661,7 @@
     <value>Vertaisarviointi hyväksytty</value>
   </data>
   <data name="PeerReviewRejected" xml:space="preserve">
-    <value>Vertaistarkistus hylätty</value>
+    <value>Vertaisarviointi hylätty</value>
   </data>
   <data name="PendingPayment" xml:space="preserve">
     <value>Odottaa maksua</value>
@@ -682,7 +682,7 @@
     <value>Henkilönumero ei vastaa kansallisia henkilönumeromääräyksiä</value>
   </data>
   <data name="PersonalNumberDoesNotMatchCountry_ExpectedFormat" xml:space="preserve">
-    <value>Henkilönumero ei vastaa kansallisia henkilönumeromääräyksiä. Odotettu muoto: </value>
+    <value>Henkilönumero ei vastaa kansallisia henkilönumerosääntöjä. Odotettu muoto: </value>
   </data>
   <data name="PersonalNumberPlaceholder" xml:space="preserve">
     <value>Henkilökohtainen numero ({0})</value>
@@ -691,40 +691,40 @@
     <value>Pyytää</value>
   </data>
   <data name="PetitionContract" xml:space="preserve">
-    <value>Sopimuksen käyttöoikeus</value>
+    <value>Pääsy sopimukseen</value>
   </data>
   <data name="PetitionContractInformationText" xml:space="preserve">
-    <value>Jonkin sopimuksesi henkilötietoja koskeva hakemus on vastaanotettu. Tarkista alla olevat tiedot ja valitse, miten haluat vastata.</value>
+    <value>Jonkin sopimuksesi henkilötietoja koskeva vetoomus on vastaanotettu. Tarkista alla olevat tiedot ja valitse, miten haluat vastata.</value>
   </data>
   <data name="PetitionIdentity" xml:space="preserve">
-    <value>Pääsy käyttäjätietoihin</value>
+    <value>Pääsy henkilöllisyyteen</value>
   </data>
   <data name="PetitionIdentityInformationText" xml:space="preserve">
-    <value>Henkilöllisyytesi henkilötietoja koskeva hakemus on vastaanotettu. Tarkista alla olevat tiedot ja valitse, miten haluat vastata.</value>
+    <value>Hakemus oikeushenkilön henkilöllisyytesi henkilötiedoista on vastaanotettu. Tarkista alla olevat tiedot ja valitse, miten haluat vastata.</value>
   </data>
   <data name="PetitionSent" xml:space="preserve">
     <value>Vetoomus lähetetty</value>
   </data>
   <data name="PetitionSignature" xml:space="preserve">
-    <value>Allekirjoitusta pyydetty</value>
+    <value>Allekirjoitus pyydetty</value>
   </data>
   <data name="PetitionSignatureInformationText" xml:space="preserve">
-    <value>Allekirjoituspyyntö on vastaanotettu. Tarkista alla oleva syy ja tiedot siitä, kuka lähetti pyynnön, ja valitse sitten, miten haluat vastata.</value>
+    <value>Allekirjoitustasi koskeva pyyntö on vastaanotettu. Tarkista alla oleva syy ja tiedot siitä, kuka lähetti pyynnön, ja valitse sitten, miten haluat vastata.</value>
   </data>
   <data name="PetitionToViewContractWasDenied" xml:space="preserve">
     <value>Vetoomus sopimuksen tarkastelemiseksi evättiin.</value>
   </data>
   <data name="PetitionToViewLegalIdentityWasDenied" xml:space="preserve">
-    <value>Vetoomus oikeudellisen henkilöllisyyden tarkastelemiseksi evättiin.</value>
+    <value>Vetoomus laillisen henkilöllisyyden selvittämiseksi evättiin.</value>
   </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
-    <value>Valokuva on liian suuri</value>
+    <value>Kuva on liian suuri</value>
   </data>
   <data name="Photos" xml:space="preserve">
     <value>Valokuvat</value>
   </data>
   <data name="PickPhoto" xml:space="preserve">
-    <value>Valitse valokuva</value>
+    <value>Valitse kuva</value>
   </data>
   <data name="PinIsInvalid" xml:space="preserve">
     <value>PIN-koodi on virheellinen. Sinulla on {0} jäljellä olevia yrityksiä.</value>
@@ -739,13 +739,13 @@
     <value>PIN-koodin syöttöyritykset poistetaan. Hakemuksesi on estetty viikon ajan</value>
   </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
-    <value>PIN-koodi ei saa sisältää välilyöntiä tai sen jälkeen -tilaa.</value>
+    <value>PIN-koodin numero ei saa sisältää ylä- tai perässä olevaa välilyöntiä.</value>
   </data>
   <data name="PinOrPassword" xml:space="preserve">
     <value>PIN-koodi tai salasana</value>
   </data>
   <data name="PinsDoNotMatch" xml:space="preserve">
-    <value>PIN-koodit eivät vastaa toisiaan</value>
+    <value>PIN-koodit eivät täsmää</value>
   </data>
   <data name="PinTooShort" xml:space="preserve">
     <value>PIN-koodin pituuden on oltava vähintään {0} merkkiä.</value>
@@ -778,7 +778,7 @@
     <value>Koodia ei ymmärretä</value>
   </data>
   <data name="QrEnterManually" xml:space="preserve">
-    <value>Anna manuaalisesti</value>
+    <value>Syötä manuaalisesti</value>
   </data>
   <data name="QrScanCode" xml:space="preserve">
     <value>Skannaa koodi</value>
@@ -805,31 +805,31 @@
     <value>Hylkää tiedot</value>
   </data>
   <data name="RemoteParty" xml:space="preserve">
-    <value>Etäosapuoli:</value>
+    <value>Etäjuhlat:</value>
   </data>
   <data name="RemoveContact" xml:space="preserve">
     <value>Poista yhteystieto</value>
   </data>
   <data name="ReportAsCompromized" xml:space="preserve">
-    <value>Raportti vaarantuneena</value>
+    <value>Ilmoita vaarantuneena</value>
   </data>
   <data name="Request" xml:space="preserve">
     <value>Pyytää</value>
   </data>
   <data name="RequestingEntity" xml:space="preserve">
-    <value>Pyynnön esittänyt yksikkö</value>
+    <value>Pyytävä yksikkö</value>
   </data>
   <data name="RequestPayment" xml:space="preserve">
     <value>Pyydä maksua</value>
   </data>
   <data name="RequestPaymentDescription" xml:space="preserve">
-    <value>Jos haluat pyytää maksua joltakulta, täytä alla olevan maksun tiedot ja napsauta Luo QR-koodi -painiketta. Toinen osapuoli voi käyttää luotua koodia maksun luomiseen tilillesi.</value>
+    <value>Jos haluat pyytää maksua joltakulta, täytä alla olevat maksun tiedot ja napsauta Luo QR-koodi -painiketta. Toinen osapuoli voi käyttää luotua koodia maksun luomiseen tilillesi.</value>
   </data>
   <data name="RequestPaymentMessage" xml:space="preserve">
-    <value>Pyydän {0} {1} maksamista.</value>
+    <value>{0} {1} maksun pyytäminen.</value>
   </data>
   <data name="RequestTimedOut" xml:space="preserve">
-    <value>Pyyntö aikakatkesi</value>
+    <value>Pyyntö aikakatkaistiin</value>
   </data>
   <data name="RequestWasCancelled" xml:space="preserve">
     <value>Pyyntö peruutettiin</value>
@@ -838,7 +838,7 @@
     <value>Kirjoita PIN-koodi tai salasana uudelleen</value>
   </data>
   <data name="ReviewIdentityInformationText" xml:space="preserve">
-    <value>Sinua on pyydetty tarkistamaan seuraavat henkilötiedot. Jos oikein, valitse vastaavat ruudut ja paina alareunassa olevaa Hyväksy-painiketta. Voit myös painaa Hylkää-painiketta, jos huomaat jotain virheellistä.</value>
+    <value>Sinua on pyydetty tarkistamaan seuraavat henkilökohtaiset tiedot. Jos oikein, valitse vastaavat ruudut ja paina alareunassa olevaa Hyväksy-painiketta. Voit myös painaa Hylkää-painiketta, jos löydät jotain virheellistä.</value>
   </data>
   <data name="RevokeInformation" xml:space="preserve">
     <value>Peruuttaa</value>
@@ -850,7 +850,7 @@
     <value>Roolit</value>
   </data>
   <data name="RolesInfoText" xml:space="preserve">
-    <value>Alla on palvelusopimukselle määritetyt eri roolit. Jos roolille oletetaan useampi kuin yksi osa, tämä luku näkyy roolin kuvauksessa.</value>
+    <value>Alla näet sopimukselle määritetyt eri roolit. Jos roolille oletetaan useampi kuin yksi osa, tämä luku näkyy roolin kuvauksessa.</value>
   </data>
   <data name="Room" xml:space="preserve">
     <value>Huone</value>
@@ -862,10 +862,10 @@
     <value>Skannaa QR-koodi</value>
   </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
-    <value>Tässä laitteessa ei tueta valokuvan valitsemista</value>
+    <value>Valokuvan valitsemista ei tueta tässä laitteessa</value>
   </data>
   <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
-    <value>Valitse, kenellä on tämän sopimuksen käyttöoikeus.</value>
+    <value>Valitse, kenellä pitäisi olla pääsy tähän sopimukseen.</value>
   </data>
   <data name="SelectYourRole" xml:space="preserve">
     <value>Valitse roolisi tässä sopimuksessa.</value>
@@ -889,7 +889,7 @@
     <value>Palvelimen allekirjoitukset</value>
   </data>
   <data name="ServerSignaturesInfoText" xml:space="preserve">
-    <value>Sopimuksen eheys on suojattu alla olevalla palvelimen allekirjoituksella.</value>
+    <value>Sopimuksen eheys on suojattu alla esitetyllä palvelimen allekirjoituksella.</value>
   </data>
   <data name="Share" xml:space="preserve">
     <value>Jakaa</value>
@@ -898,10 +898,10 @@
     <value>Näytä koodi</value>
   </data>
   <data name="SignAfter" xml:space="preserve">
-    <value>Allekirjoita jälkeen</value>
+    <value>Allekirjoita sen jälkeen</value>
   </data>
   <data name="SignAsRole" xml:space="preserve">
-    <value>Allekirjoita nimellä {0}</value>
+    <value>Allekirjoita {0}</value>
   </data>
   <data name="Signature" xml:space="preserve">
     <value>Allekirjoitus</value>
@@ -916,7 +916,7 @@
     <value>Allekirjoitetut sopimukset</value>
   </data>
   <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Alla on luettelo allekirjoittamistasi sopimuksista. Saat lisätietoja sopimuksesta napsauttamalla sopimusta.</value>
+    <value>Alla on luettelo allekirjoittamistasi sopimuksista. Napsauta sopimusta saadaksesi lisätietoja siitä.</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Hyppiä</value>
@@ -937,22 +937,22 @@
     <value>Menestys</value>
   </data>
   <data name="TagValueCopiedToClipboard" xml:space="preserve">
-    <value>Leikepöydälle kopioitu tunnistearvo</value>
+    <value>Leikepöydälle kopioidun tunnisteen arvo</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
-    <value>Ota kuva</value>
+    <value>Ota valokuva</value>
   </data>
   <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
-    <value>Tässä laitteessa ei tueta valokuvan ottamista</value>
+    <value>Valokuvan ottamista ei tueta tässä laitteessa</value>
   </data>
   <data name="TemplateId" xml:space="preserve">
     <value>Mallin tunnus</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
-    <value>Sopimus edellyttää vähintään {0} osaa roolista {1}. Lisää sopimukseen osia ja yritä uudelleen.</value>
+    <value>Sopimus edellyttää vähintään {0} roolia {1}. Lisää sopimukseen lisää osia ja yritä uudelleen.</value>
   </data>
   <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
-    <value>Sopimus edellyttää {1} {0} osaa roolista. Poista osa sopimuksesta ja yritä uudelleen.</value>
+    <value>Sopimus edellyttää enintään {0} osaa roolista {1}. Poista osa sopimuksista ja yritä uudelleen.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
     <value>Yhteyden salasana on {0}. Tämä on kopioitu leikepöydälle.</value>
@@ -967,13 +967,13 @@
     <value>Asia</value>
   </data>
   <data name="ThingDisowned" xml:space="preserve">
-    <value>Tämä on hylätty onnistuneesti. Sen voi nyt vaatia uusi omistaja.</value>
+    <value>Tämä on hylätty onnistuneesti. Uusi omistaja voi nyt lunastaa sen.</value>
   </data>
   <data name="Things" xml:space="preserve">
     <value>Tavarat</value>
   </data>
   <data name="ThingsDescription" xml:space="preserve">
-    <value>Alla on kaikki yhteystietosi ja yhteystietosi. Napsauta mitä tahansa ollaksesi vuorovaikutuksessa sen kanssa.</value>
+    <value>Alla on kaikki asiat ja yhteystiedot yhteystietokirjassasi. Napsauta mitä tahansa ollaksesi vuorovaikutuksessa kyseisen asian kanssa.</value>
   </data>
   <data name="Timestamp" xml:space="preserve">
     <value>Aikaleima</value>
@@ -991,13 +991,13 @@
     <value>Siirrettävä</value>
   </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
-    <value>Todentaminen {0}</value>
+    <value>Todennusta ei voi todentaa {0}</value>
   </data>
   <data name="UnableToClaimThing" xml:space="preserve">
     <value>Ei voi vaatia asiaa</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
-    <value>Yhteyden muodostaminen {0} ei onnistu</value>
+    <value>yhteyden muodostaminen {0} ei onnistu</value>
   </data>
   <data name="UnableToProcessEDalerUri" xml:space="preserve">
     <value>eDaler-koodia ei voi käsitellä.</value>
@@ -1006,22 +1006,22 @@
     <value>Tunnistamaton eDaler URI.</value>
   </data>
   <data name="UnsupportedUriScheme" xml:space="preserve">
-    <value>Teksti ei ole minkään tuetun URI-järjestelmän mukainen.</value>
+    <value>Teksti ei ole minkään tuetun URI-mallin mukainen.</value>
   </data>
   <data name="Updated" xml:space="preserve">
     <value>Päivitetty</value>
   </data>
   <data name="ValidateIdentityInfo1Text" xml:space="preserve">
-    <value>Henkilöllisyystietosi on vahvistettava, ennen kuin ne voidaan hyväksyä. Operaattorisi voi tehdä tämän manuaalisesti. Sen voivat tehdä myös vertaiset.</value>
+    <value>Henkilöllisyystietosi on vahvistettava, ennen kuin ne voidaan hyväksyä. Operaattorisi voi tehdä tämän manuaalisesti. Sen voivat tehdä myös ikäisensä.</value>
   </data>
   <data name="ValidateIdentityInfo2Text" xml:space="preserve">
-    <value>Jos haluat kutsua vertaisen tarkistamaan hakemuksesi, sinun on skannattava kutsuttavan vertaiskoneen tunnuskoodi. He voivat nähdä ja tarkistaa hakemuksesi. Kun riittävät vertaiset ovat tarkistaneet tietosi ja vahvistaneet ne oikeiksi, operaattori hyväksyy hakemuksesi automaattisesti. Tiedot siitä, kuka tarkisti henkilöllisyytesi, koodataan itse tarkistettuun henkilöllisyyteen.</value>
+    <value>Jos haluat kutsua vertaisryhmän tarkistamaan hakemuksesi, sinun on skannattava sen vertaisryhmän tunnuskoodi, jonka haluat kutsua. He voivat nähdä ja tarkistaa hakemuksesi. Kun riittävä ikätoveri on arvioinut tietosi ja vahvistanut niiden olevan oikein, operaattori hyväksyy hakemuksesi automaattisesti. Tiedot siitä, kuka on tarkistanut henkilöllisyytesi, koodataan itse tarkistettuun henkilöllisyyteen.</value>
   </data>
   <data name="ValidateIdentityInfo3Text" xml:space="preserve">
-    <value>Näet sovelluksen nykyisen tilan alla.</value>
+    <value>Näet sovelluksen nykyisen tilan alta.</value>
   </data>
   <data name="ValidatingInformation" xml:space="preserve">
-    <value>Vahvistetaan tietoja</value>
+    <value>Tietojen validointi</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Versio</value>
@@ -1030,7 +1030,7 @@
     <value>Näytä sopimus</value>
   </data>
   <data name="ViewIdentityInformationText" xml:space="preserve">
-    <value>Seuraavassa on oikeushenkilöllä rekisteröityjä henkilötietoja. Allekirjoitukset ja maksut allekirjoitetaan näiden tietojen avulla.</value>
+    <value>Seuraavassa on henkilökohtaisia tietoja, jotka on rekisteröity laillisella henkilöllisyydellä. Allekirjoitukset ja maksut allekirjoitetaan näillä tiedoilla.</value>
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Näkyvyys</value>
@@ -1042,13 +1042,13 @@
     <value>Tervetuloa TAG Digital ID -sovellukseen!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
-    <value>Ennen kuin muodostat yhteyden TAG ID -verkkoon, meidän on valittava sinulle palveluntarjoaja. Tätä varten meidän on tiedettävä sovelluksen käytön tarkoitus. Valitse sopivin vaihtoehto alla.</value>
+    <value>Ennen kuin muodostat yhteyden TAG ID -verkkoon, meidän on valittava sinulle palveluntarjoaja. Tätä varten meidän on tiedettävä sovelluksen käytön tarkoitus. Valitse sopivin vaihtoehto alta.</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
-    <value>Verkon käyttäjätietojen todentaminen</value>
+    <value>Verkkoidentiteetin todentaminen</value>
   </data>
   <data name="XmppState_Binding" xml:space="preserve">
-    <value>Sidontayhteys</value>
+    <value>Sitova yhteys</value>
   </data>
   <data name="XmppState_Connected" xml:space="preserve">
     <value>Yhdistetty</value>
@@ -1057,34 +1057,34 @@
     <value>Yhdistetty {0}</value>
   </data>
   <data name="XmppState_Connecting" xml:space="preserve">
-    <value>Muodostetaan yhteyttä</value>
+    <value>Yhteyden muodostaminen</value>
   </data>
   <data name="XmppState_Error" xml:space="preserve">
     <value>Yhteysvirhe</value>
   </data>
   <data name="XmppState_FetchingRoster" xml:space="preserve">
-    <value>Haetaan kokoonpanoa</value>
+    <value>Työvuorolistan hakeminen</value>
   </data>
   <data name="XmppState_Offline" xml:space="preserve">
     <value>Hajanainen</value>
   </data>
   <data name="XmppState_Registering" xml:space="preserve">
-    <value>Rekisteröityminen välittäjään</value>
+    <value>Rekisteröityminen välittäjälle</value>
   </data>
   <data name="XmppState_RequestingSession" xml:space="preserve">
-    <value>Pyydetään istuntoa</value>
+    <value>Istunnon pyytäminen</value>
   </data>
   <data name="XmppState_SettingPresence" xml:space="preserve">
     <value>Tavoitettavuuden asettaminen</value>
   </data>
   <data name="XmppState_StartingEncryption" xml:space="preserve">
-    <value>Salataan yhteyttä</value>
+    <value>Yhteyden salaaminen</value>
   </data>
   <data name="XmppState_StreamNegotiation" xml:space="preserve">
-    <value>Neuvotteluvirta</value>
+    <value>Neuvotteluvirrasta</value>
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
-    <value>Virta muodostettu</value>
+    <value>Virta perustettu</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Kyllä</value>
@@ -1093,22 +1093,22 @@
     <value>Eilen</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
-    <value>Voit suojata lompakkosi ja arkaluonteiset tietosi lisäämällä ylimääräisen PIN-numeron tai salasanan.</value>
+    <value>Voit suojata lompakkosi ja arkaluontoiset tietosi lisäämällä ylimääräisen PIN-koodin tai salasanan.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Voit suojata lompakkosi ja arkaluonteiset tietosi vaihtamalla ylimääräisen PIN-koodin tai salasanan.</value>
+    <value>Voit suojata lompakkosi ja arkaluontoiset tietosi vaihtamalla ylimääräisen PIN-koodin tai salasanan.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
-    <value>Sinut on nyt kirjautunut ulos. Jos haluat kirjautua uudelleen sisään, käytä vasemmassa yläkulmassa olevaa valikkoa.</value>
+    <value>Teidät on nyt allekirjoitettu ulos. Jos haluat kirjautua uudelleen sisään, käytä vasemmassa yläkulmassa olevaa valikkoa.</value>
   </data>
   <data name="YouHaveReceivedAProposal" xml:space="preserve">
-    <value>Olette saanut ehdotuksen.</value>
+    <value>Olette saaneet ehdotuksen.</value>
   </data>
   <data name="YouNeedToApproveToAssociate" xml:space="preserve">
-    <value>Sinun on hyväksyttävä, että henkilötietosi liitetään tarkistamaanne henkilöllisyyteen. Kun kolmannet osapuolet tarkastelevat henkilöllisyyden tietoja, ne voivat tutustua tarkastajien henkilöllisyyteen avoimuuden vuoksi.</value>
+    <value>Sinun on hyväksyttävä, jotta voit yhdistää henkilökohtaiset tietosi tarkistamaasi henkilöllisyyteen. Kun kolmannet osapuolet tarkistavat henkilöllisyydessä olevat tiedot, heillä on avoimuuden vuoksi pääsy arvioijien henkilöllisyyteen.</value>
   </data>
   <data name="YouNeedToCheckCarefullyReviewed" xml:space="preserve">
-    <value>Sinun on tarkistettava valintaruutu, jonka olet tarkistanut huolellisesti kaikki vastaavat tiedot yllä.</value>
+    <value>Sinun on valittava valintaruutu, jossa olet huolellisesti tarkistanut kaikki vastaavat tiedot yllä.</value>
   </data>
   <data name="YouNeedToProvideACountry" xml:space="preserve">
     <value>Sinun on valittava maa</value>
@@ -1120,34 +1120,34 @@
     <value>Sinun on annettava vähintään yksi sukunimi</value>
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
-    <value>Sinun on annettava henkilökohtainen tai henkilötunnus</value>
+    <value>Sinun on annettava henkilökohtainen tai sosiaaliturvatunnus</value>
   </data>
   <data name="YouNeedToProvideAPhoto" xml:space="preserve">
     <value>Sinun on annettava valokuva</value>
   </data>
   <data name="YourContractContainsErrors" xml:space="preserve">
-    <value>Sopimuksessasi on virheitä. Korjaa nämä virheet ja yritä uudelleen.</value>
+    <value>Sopimuksesi sisältää virheitä. Korjaa nämä virheet ja yritä uudelleen.</value>
   </data>
   <data name="YourLegalIdentity" xml:space="preserve">
-    <value>Oikeudellinen henkilöllisyytesi</value>
+    <value>Virallinen henkilöllisyytesi</value>
   </data>
   <data name="YourLegalIdentityHasBeenCompromised" xml:space="preserve">
-    <value>Henkilöllisyytesi on merkitty vaarantuneeksi. Siksi sinut on ohjattu luomaan uusi tili.</value>
+    <value>Laillinen henkilöllisyytesi on merkitty vaarantuneeksi. Siksi sinut on ohjattu uudelleen luomaan uusi tili.</value>
   </data>
   <data name="YourLegalIdentityHasBeenObsoleted" xml:space="preserve">
-    <value>Henkilöllisyytesi on merkitty vanhentuneeksi. Siksi sinut on ohjattu luomaan uusi tili.</value>
+    <value>Laillinen henkilöllisyytesi on merkitty vanhentuneeksi. Siksi sinut on ohjattu uudelleen luomaan uusi tili.</value>
   </data>
   <data name="YourLegalIdentityHasInvalidOrMissingKeys" xml:space="preserve">
-    <value>Henkilöllisyytesi allekirjoitusavaimet eivät kelpaa. Siksi sinut on ohjattu luomaan uusi tili.</value>
+    <value>Laillisen henkilöllisyytesi allekirjoitusavaimet ovat virheellisiä. Siksi sinut on ohjattu uudelleen luomaan uusi tili.</value>
   </data>
   <data name="YourRole" xml:space="preserve">
     <value>Sinun roolisi</value>
   </data>
   <data name="ZipCode" xml:space="preserve">
-    <value>Postinumero</value>
+    <value>Postinumero tai postinumero</value>
   </data>
   <data name="SelectContactToPay" xml:space="preserve">
-    <value>Alla on kaikki yhteystietosi yhteystiedot. Valitse yhteyshenkilö, jolle haluat suorittaa maksun.</value>
+    <value>Alla on kaikki yhteystiedot yhteystietokirjassasi. Valitse yhteyshenkilö, jolle haluat suorittaa maksun.</value>
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Lähetä koodi</value>
@@ -1159,79 +1159,79 @@
     <value>Vahvistuskoodi</value>
   </data>
   <data name="VerifyCode" xml:space="preserve">
-    <value>Tarkista koodi</value>
+    <value>Vahvista koodi</value>
   </data>
   <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
-    <value>Meidän on myös vahvistettava matkapuhelinnumerosi. Kirjoita matkapuhelinnumerosi alla, käyttäen kansainvälistä puhelinnumeromuotoa, ilman välilyöntejä.</value>
+    <value>Meidän on myös vahvistettava matkapuhelinnumerosi. Syötä matkapuhelinnumerosi alle käyttäen kansainvälistä puhelinnumeromuotoa ilman välilyöntejä.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Koulutuksellinen tai kokeellinen käyttö.</value>
+    <value>Opetus- tai kokeellinen käyttö.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Tämän vaihtoehdon avulla voit käyttää Tunnistetunnusta opetus-, kokeellisiin tai testitarkoituksiin. Tätä vaihtoehtoa käytettäessä ei aiheudu kustannuksia. Tili voidaan poistaa, kun sitä ei enää käytetä. Ei ole mitään takeita siitä, että valittu koulutus- tai kokeilupalvelujen tarjoaja jatkaa toimintaansa pitkään.</value>
+    <value>Tämän vaihtoehdon avulla voit käyttää Tag ID:tä opetus-, kokeilu- tai testitarkoituksiin. Tämän vaihtoehdon käytöstä ei aiheudu kustannuksia. Tili voidaan poistaa, kun sitä ei enää käytetä. Ei ole mitään takeita siitä, että valittu koulutus- tai kokeilupalvelujen tarjoaja jatkaa toimintaansa pitkiä aikoja.</value>
   </data>
   <data name="PurposeWorkOrPersonal" xml:space="preserve">
     <value>Työ tai henkilökohtainen käyttö.</value>
   </data>
   <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Tämän vaihtoehdon avulla voit käyttää tunnistetunnusta työhön tai henkilökohtaisiin tarkoituksiin. Voit käyttää sovellusta kolme kuukautta maksutta. Tämän ajanjakson jälkeen tietyistä toiminnoista voi aiheutua kustannuksia.</value>
+    <value>Tämän vaihtoehdon avulla voit käyttää Tag ID:tä työ- tai henkilökohtaisiin tarkoituksiin. Voit käyttää sovellusta kolme kuukautta ilmaiseksi. Tämän ajanjakson jälkeen tietyistä toiminnoista voi aiheutua kustannuksia.</value>
   </data>
   <data name="SelectPurpose" xml:space="preserve">
-    <value>Valitse tarkoitus</value>
+    <value>Valitse Tarkoitus</value>
   </data>
   <data name="WelcomeToTagCodeSent" xml:space="preserve">
-    <value>Koodi on lähetetty edellä mainittuun numeroon. Kun saat sen, anna alla oleva vahvistuskoodi jatkaaksesi.</value>
+    <value>Koodi on lähetetty yllä ilmoitettuun numeroon. Kun saat sen, kirjoita alla oleva vahvistuskoodi jatkaaksesi.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
-    <value>Reklamaatiokutsu</value>
+    <value>Lunasta kutsu</value>
   </data>
   <data name="Invitation" xml:space="preserve">
     <value>Kutsu</value>
   </data>
   <data name="NotAnInvitationCode" xml:space="preserve">
-    <value>Ei kutsukoodia.</value>
+    <value>Ei kutsukoodi.</value>
   </data>
   <data name="ThisCodeCannotBeClaimedAtThisTime" xml:space="preserve">
-    <value>Tämä koodi edustaa tunnistetunnuskutsua, eikä sitä voi lunastaa tällä hetkellä.</value>
+    <value>Tämä koodi edustaa Tag ID -kutsua, eikä sitä voi vaatia tällä hetkellä.</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Luo tili</value>
   </data>
   <data name="InvalidInvitationCode" xml:space="preserve">
-    <value>Kutsukoodi ei kelpaa.</value>
+    <value>Virheellinen kutsukoodi.</value>
   </data>
   <data name="ScanInvitation" xml:space="preserve">
-    <value>Skannaa kutsu</value>
+    <value>Scan-kutsu</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount1" xml:space="preserve">
     <value>Palveluntarjoajasi on valittu</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Voit luoda tilin tähän palveluun. Kirjoita luotavan tilin nimi ja paina Luo uusi -painiketta. Voit myös skannata kutsun tai siirtokoodin, käyttää tiliä, joka on jo valmisteltu sinulle, toisessa palveluntarjoajassa. Skannaa kutsukoodi napsauttamalla Skannaa kutsu -painiketta.</value>
+    <value>Voit halutessasi luoda tilin tälle palveluntarjoajalle. Kirjoita sen tilin nimi, jonka haluat luoda, ja paina Luo uusi -painiketta. Voit myös skannata kutsu- tai siirtokoodin, käyttää tiliä, joka on jo valmisteltu sinulle, toisella palveluntarjoajalla. Napsauta Skannaa kutsu -painiketta skannataksesi kutsukoodin.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
-    <value>Sivun {0} {0} sito {1}minen epäonnistui</value>
+    <value>Näkymämallien sitominen sivun {1} {0} epäonnistui</value>
   </data>
   <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
-    <value>Sivun {0} tila ei onnistunut{1}</value>
+    <value>Sivun {1} {0} näyttömallin tilan palauttaminen epäonnistui</value>
   </data>
   <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
-    <value>Sivun {0} tila ei onnistunut tallentamaan sivulle {1}</value>
+    <value>Tilan tallentaminen sivun {1} {0} näkymämallien {0} ei onnistunut</value>
   </data>
   <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
-    <value>Sivun {1} {0} ei onnistunut</value>
+    <value>Sivun {1} näkymämallin {0} poistaminen epäonnistui</value>
   </data>
   <data name="ContinueAnyway" xml:space="preserve">
-    <value>Jatka kuitenkin</value>
+    <value>Jatka joka tapauksessa</value>
   </data>
   <data name="DatabaseCorruptInfoText" xml:space="preserve">
-    <value>Näyttää siltä, että tietokantaa ei ole suljettu oikein, ja siksi se voi olla vaurioitunut. Tietokanta voidaan yrittää korjata pyyhkimällä se ensin. Miten haluaisit edetä?</value>
+    <value>Näyttää siltä, että tietokantaa ei ole suljettu oikein, ja siksi se voi vaurioitua. Tietokantaa voidaan yrittää korjata pyyhkimällä se ensin. Miten haluaisit edetä?</value>
   </data>
   <data name="DatabaseIssue" xml:space="preserve">
-    <value>Tietokannan ongelma</value>
+    <value>Tietokantaan liittyvä ongelma</value>
   </data>
   <data name="DatabaseRepairFailedInfoText" xml:space="preserve">
-    <value>Tietokannan korjaus epäonnistui. Vaihtoehdot ovat nyt lopussa, joten jatka omalla vastuullasi.</value>
+    <value>Tietokannan korjaus epäonnistui. Meillä ei ole nyt vaihtoehtoja, joten jatka omalla vastuullasi.</value>
   </data>
   <data name="EDalerServiceNotFound" xml:space="preserve">
     <value>Välittäjältä ei löytynyt eDaler-palvelua.</value>
@@ -1240,28 +1240,28 @@
     <value>Sivun sulkeminen epäonnistui</value>
   </data>
   <data name="FailedToNavigateToPage" xml:space="preserve">
-    <value>Sivun {0} {1} siirtyminen epäonnistui</value>
+    <value>Sivulle {0} {1} siirtyminen epäonnistui</value>
   </data>
   <data name="FileUploadServiceNotFound" xml:space="preserve">
     <value>Välittäjältä ei löytynyt tiedostojen latauspalvelua.</value>
   </data>
   <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
-    <value>Ei kelvollinen iotdisco-vaatimuksen URI.</value>
+    <value>Ei kelvollinen iotdisco-vaatimus URI.</value>
   </data>
   <data name="LegalServiceNotFound" xml:space="preserve">
     <value>Välittäjältä ei löytynyt oikeudellista palvelua.</value>
   </data>
   <data name="ProvisioningServiceNotFound" xml:space="preserve">
-    <value>Välittäjältä ei löydy varauspalvelua.</value>
+    <value>Välittäjältä ei löytynyt varauspalvelua.</value>
   </data>
   <data name="RepairAndContinue" xml:space="preserve">
     <value>Korjaa ja jatka</value>
   </data>
   <data name="ThingRegistryServiceNotFound" xml:space="preserve">
-    <value>Välittäjältä ei löytynyt mitään rekisteripalvelua.</value>
+    <value>Välittäjältä ei löytynyt rekisteripalvelua.</value>
   </data>
   <data name="UnableToGetListOfMyDevices" xml:space="preserve">
-    <value>Laiteluetteloa ei saada.</value>
+    <value>En voi saada luetteloa laitteistani.</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Puhelin</value>
@@ -1273,25 +1273,25 @@
     <value>Kutsu hyväksytty</value>
   </data>
   <data name="InvitedToCreateAccountOnDomain" xml:space="preserve">
-    <value>Sinut on kutsuttu luomaan tili {0}. Paina OK ja kirjoita luotavan tilin nimi.</value>
+    <value>Sinua on pyydetty luomaan tili {0}. Paina OK ja kirjoita sen tilin nimi, jonka haluat luoda.</value>
   </data>
   <data name="AreYouSureYouWantToTransferYourLegalIdentity" xml:space="preserve">
-    <value>Haluatko varmasti siirtää henkilöllisyystodistuksesi sovelluksesta toiseen? Tunnistetiedot poistetaan tästä laitteesta, kun se on valmis. Varmista myös, että kukaan muu ei näe näyttöäsi prosessin aikana.</value>
+    <value>Oletko varma, että haluat siirtää oikeushenkilön henkilöllisyytesi hakemuksesta toiseen? Tunnistetiedot poistetaan tästä laitteesta, kun se on valmis. Varmista myös, että kukaan muu ei näe näyttöäsi prosessin aikana.</value>
   </data>
   <data name="TransferId" xml:space="preserve">
-    <value>Siirron tunnus</value>
+    <value>Siirrä tunnus</value>
   </data>
   <data name="TransferIdentityInformationText" xml:space="preserve">
-    <value>Skannaa alla oleva QR-kutsukoodi alustettavasta laitteesta siirtääksesi tämän laitteen digitaalisen identiteetin toiseen laitteeseen. Kun koodi on skannattu ja henkilöllisyys siirretty, se poistetaan tästä laitteesta.</value>
+    <value>Skannaa alla oleva QR-kutsukoodi alustettavasta laitteesta siirtääksesi tämän laitteen digitaalisen identiteetin toiseen laitteeseen. Kun koodi on skannattu ja identiteetti siirretty, se poistetaan tästä laitteesta.</value>
   </data>
   <data name="ConfirmByEnteringYourPin" xml:space="preserve">
     <value>Vahvista antamalla PIN-koodisi.</value>
   </data>
   <data name="UnexpectedResponse" xml:space="preserve">
-    <value>Odottamaton vastaus saatiin.</value>
+    <value>Näyttöön tuli odottamaton vastaus.</value>
   </data>
   <data name="EnterPin" xml:space="preserve">
-    <value>Anna PIN-koodi</value>
+    <value>Syötä PIN-koodi</value>
   </data>
   <data name="ChangePin" xml:space="preserve">
     <value>Vaihda PIN-koodi</value>
@@ -1306,16 +1306,16 @@
     <value>Astua</value>
   </data>
   <data name="PinChanged" xml:space="preserve">
-    <value>PIN-koodin muuttaminen onnistui.</value>
+    <value>PIN-koodi on vaihdettu onnistuneesti.</value>
   </data>
   <data name="UnableToChangePassword" xml:space="preserve">
-    <value>Verkon salasanaa ei voi muuttaa.</value>
+    <value>Verkon salasanaa ei voi vaihtaa.</value>
   </data>
   <data name="PresenceSubscriptionReceived1" xml:space="preserve">
-    <value>Olet saanut tavoitettavuustilauksen:</value>
+    <value>Olet saanut tavoitettavuustilauksen seuraavilta tahoilta:</value>
   </data>
   <data name="PresenceSubscriptionReceived2" xml:space="preserve">
-    <value>Jos hyväksyt tämän pyynnön, he näkevät online-tavoitettavuusesi.</value>
+    <value>Jos hyväksyt tämän pyynnön, he näkevät online-läsnäolosi.</value>
   </data>
   <data name="PresenceSubscriptionReceived3" xml:space="preserve">
     <value>Jos hylkäät tämän pyynnön, heille ilmoitetaan, että et hyväksy tätä pyyntöä.</value>
@@ -1327,22 +1327,22 @@
     <value>Mitä haluat tehdä?</value>
   </data>
   <data name="PresenceSubscriptionRequest" xml:space="preserve">
-    <value>Tavoitettavuustilauksen pyyntö</value>
+    <value>Tavoitettavuustilauspyyntö</value>
   </data>
   <data name="Reject" xml:space="preserve">
     <value>Hylätä</value>
   </data>
   <data name="SubscribeToPresence1" xml:space="preserve">
-    <value>Haluatko tilata:</value>
+    <value>Haluatko tilata läsnäolon:</value>
   </data>
   <data name="SubscribeToPresence2" xml:space="preserve">
-    <value>Tilaamalla jonkun läsnäolon, ja jos hän hyväksyy, sinulle ilmoitetaan heidän online-läsnäolostaan.</value>
+    <value>Tilaamalla jonkun läsnäolon, ja jos hän hyväksyy, sinulle ilmoitetaan hänen online-läsnäolostaan.</value>
   </data>
   <data name="SubscribeToPresence3" xml:space="preserve">
     <value>Mitä haluat tehdä?</value>
   </data>
   <data name="SubscribeToPresence" xml:space="preserve">
-    <value>Tilaatko läsnäolon?</value>
+    <value>Tilaatko tavoitettavuuden?</value>
   </data>
   <data name="Chat" xml:space="preserve">
     <value>Jutella</value>
@@ -1354,10 +1354,10 @@
     <value>Lähettää</value>
   </data>
   <data name="PresenceSubscriptionRequestSent" xml:space="preserve">
-    <value>Tavoitettavuustilauksen pyyntö on lähetetty. Kun vastaanottaja hyväksyy pyynnön, yhteyshenkilön tila päivitetään.</value>
+    <value>Tavoitettavuustilauksen tilauspyyntö on lähetetty. Kun vastaanottaja hyväksyy pyynnön, yhteyshenkilön tila päivitetään.</value>
   </data>
   <data name="PresenceUnsubscriptionRequestSent" xml:space="preserve">
-    <value>Pyyntö tavoitettavuusilmoituksen peruuttamista on lähetetty.</value>
+    <value>On lähetetty pyyntö poistaa kirjaaminen läsnäoloilmoituksesta.</value>
   </data>
   <data name="SubscribeTo" xml:space="preserve">
     <value>Tilata</value>
@@ -1375,19 +1375,19 @@
     <value>Lisätoimia?</value>
   </data>
   <data name="FurtherAction1" xml:space="preserve">
-    <value>Haluatko ryhtyä lisätoimiin:</value>
+    <value>Haluatko ryhtyä lisätoimiin seuraavia toimia vastaan:</value>
   </data>
   <data name="FurtherAction2" xml:space="preserve">
-    <value>Voit estää osoitteen.</value>
+    <value>Voit halutessasi estää osoitteen.</value>
   </data>
   <data name="FurtherAction3" xml:space="preserve">
-    <value>Näin varmistat, ettet saa lähettäjältä lisää tilauspyyntöjä.</value>
+    <value>Tämä varmistaa, että et saa lähettäjältä lisää tilauspyyntöjä.</value>
   </data>
   <data name="FurtherAction4" xml:space="preserve">
-    <value>Voit myös ilmoittaa lähettäjän operaattorillesi.</value>
+    <value>Voit myös ilmoittaa lähettäjästä operaattorillesi.</value>
   </data>
   <data name="NoJustIgnore" xml:space="preserve">
-    <value>Ei, älä välitä.</value>
+    <value>Ei, jätä vain huomiotta</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>Toinen</value>
@@ -1402,34 +1402,34 @@
     <value>TypeOfReport</value>
   </data>
   <data name="TypeOfReport1" xml:space="preserve">
-    <value>Valitse arkistoitava raporttityyppi:</value>
+    <value>Valitse raporttityyppi, jota haluat arkistoida:</value>
   </data>
   <data name="RemoveSubscription" xml:space="preserve">
-    <value>Poistetaanko tilaus?</value>
+    <value>Poista tilaus?</value>
   </data>
   <data name="RemoveSubscription1" xml:space="preserve">
     <value>Sinulla on edelleen hyväksytty tilauspyyntö:</value>
   </data>
   <data name="RemoveSubscription2" xml:space="preserve">
-    <value>Haluatko peruuttaa myös tämän oikeuden?</value>
+    <value>Haluatko peruuttaa myös tämän luvan?</value>
   </data>
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>Palvelin ei näytä tukevan tiedostojen lataamista.</value>
   </data>
   <data name="TesseractNotCreated" xml:space="preserve">
-    <value>Tesseract OCR -kirjastoa ei luotu</value>
+    <value>Tesseract OCR -kirjastoa ei ole luotu</value>
   </data>
   <data name="UnabletoInitializeTesseract" xml:space="preserve">
     <value>Tesseract OCR -kirjastoa ei voi alustaa</value>
   </data>
   <data name="UnableToTesseractImage" xml:space="preserve">
-    <value>Kuvaa ei voi käsitellä Tesseract OCR -kirjastolla.</value>
+    <value>Kuvaa ei voi käsitellä Tesseract OCR Libraryn avulla.</value>
   </data>
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
-    <value>Tietokoneesta ei voi poimia koneellista tekstiä.</value>
+    <value>Koneellisesti luettavaa tekstiä ei voi poimia kuvasta.</value>
   </data>
   <data name="TestOtpUsed" xml:space="preserve">
-    <value>On käytetty väliaikaista OTP-koodia. Sovellus lakkaa toimimasta noin viikon kuluttua. Sinun on asennettava sovellus uudelleen, jotta voit käyttää sitä uudelleen.</value>
+    <value>Väliaikaista OTP-koodia on käytetty. Sovellus lakkaa toimimasta noin viikossa. Sinun on asennettava sovellus uudelleen, jotta voit käyttää sitä uudelleen.</value>
   </data>
   <data name="WarningTitle" xml:space="preserve">
     <value>Varoitus</value>
@@ -1438,7 +1438,7 @@
     <value>Chat-viesti vastaanotettu</value>
   </data>
   <data name="MessageFrom" xml:space="preserve">
-    <value>Viesti kohteesta:</value>
+    <value>Viesti:</value>
   </data>
   <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
     <value>Välittäjältä ei löytynyt Neuro-Features-palvelua.</value>
@@ -1474,7 +1474,7 @@
     <value>Luojan osoite</value>
   </data>
   <data name="Me" xml:space="preserve">
-    <value>Hei, kulta.</value>
+    <value>(minä)</value>
   </data>
   <data name="Owner" xml:space="preserve">
     <value>Omistaja</value>
@@ -1486,25 +1486,25 @@
     <value>Seuraavassa on luettelo tähän tunnukseen liittyvistä osapuolista.</value>
   </data>
   <data name="TrustProvider" xml:space="preserve">
-    <value>Luottamuksen tarjoaja</value>
+    <value>Luota palveluntarjoajaan</value>
   </data>
   <data name="TrustProviderJid" xml:space="preserve">
-    <value>Luottamuspalvelun osoite</value>
+    <value>Luottamuspalvelun tarjoajan osoite</value>
   </data>
   <data name="CreationContract" xml:space="preserve">
-    <value>Luontisopimus</value>
+    <value>Luomissopimus</value>
   </data>
   <data name="ForInclusionInContract" xml:space="preserve">
-    <value>Sisällytettäväksi osana sopimusta.</value>
+    <value>Sisällytettäväksi osaksi sopimusta.</value>
   </data>
   <data name="OwnershipContract" xml:space="preserve">
-    <value>Omistussopimus</value>
+    <value>Omistusoikeussopimus</value>
   </data>
   <data name="PurposeReviewContract" xml:space="preserve">
-    <value>Tarkistetaan sopimusta, johon kuulut.</value>
+    <value>Sopimuksen tarkistaminen, jos olet osa.</value>
   </data>
   <data name="PurposeReviewToken" xml:space="preserve">
-    <value>Tarkistetaan tunnussanomaa, johon kuulut.</value>
+    <value>Tarkista token, jossa olet osa.</value>
   </data>
   <data name="Assessor" xml:space="preserve">
     <value>Asessori</value>
@@ -1534,25 +1534,25 @@
     <value>Viittaus</value>
   </data>
   <data name="TokenPrivilegesInfoText" xml:space="preserve">
-    <value>Seuraavassa on tunnukseen kaiverretut oikeudet.</value>
+    <value>Seuraavassa on oikeudet, jotka on kaiverrettu tunnukseen.</value>
   </data>
   <data name="Valuator" xml:space="preserve">
-    <value>Valuttaja</value>
+    <value>Arvonmäärittäjä</value>
   </data>
   <data name="Witness" xml:space="preserve">
     <value>Todistaja</value>
   </data>
   <data name="AddContactToContract" xml:space="preserve">
-    <value>Lisää yhteyshenkilö sopimukseen</value>
+    <value>Lisää yhteystieto sopimukseen</value>
   </data>
   <data name="DefinitionNamespace" xml:space="preserve">
-    <value>Määrityksen nimitila</value>
+    <value>Määritelmän nimiavaruus</value>
   </data>
   <data name="DefinitionSchemaDigest" xml:space="preserve">
-    <value>Määritä rakenteen koontiversio</value>
+    <value>Määritelmäkaavion sulatus</value>
   </data>
   <data name="InvalidNeuroFeatureToken" xml:space="preserve">
-    <value>Virheellinen neuro-ominaisuustunnus.</value>
+    <value>Virheellinen Neuro-Ominaisuus-tunnus.</value>
   </data>
   <data name="MachineReadableInfoTextToken" xml:space="preserve">
     <value>Alla on yleiskatsaus tunnukseen upotettavista koneellisesti luettavista tiedoista.</value>
@@ -1561,19 +1561,19 @@
     <value>Omat tunnukset</value>
   </data>
   <data name="OfferToBuy" xml:space="preserve">
-    <value>Tarjous ostaa</value>
+    <value>Tarjoa ostaa</value>
   </data>
   <data name="OfferToSell" xml:space="preserve">
-    <value>Tarjous myydä</value>
+    <value>Tarjoudu myymään</value>
   </data>
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Avaa viestilinkki</value>
   </data>
   <data name="SelectedContactCannotBeAdded" xml:space="preserve">
-    <value>Valittua yhteyshenkilöä ei voi lisätä. Sillä ei ole rekisteröityä oikeudellista tunnusta.</value>
+    <value>Valittua yhteystietoa ei voi lisätä. Sillä ei ole rekisteröityä laillista henkilötodistusta.</value>
   </data>
   <data name="SendInformationTo" xml:space="preserve">
-    <value>Lähetetäänkö tiedot vastaanottajalle?</value>
+    <value>Lähetätkö tietoja?</value>
   </data>
   <data name="SendToContact" xml:space="preserve">
     <value>Lähetä yhteyshenkilölle</value>
@@ -1582,13 +1582,13 @@
     <value>Näytä tiedot</value>
   </data>
   <data name="ViewEvents" xml:space="preserve">
-    <value>Tapahtumien tarkasteleminen</value>
+    <value>Näytä tapahtumat</value>
   </data>
   <data name="TokenEvents" xml:space="preserve">
-    <value>Tunnuksen tapahtumat</value>
+    <value>Token-tapahtumat</value>
   </data>
   <data name="TokenEventsDescription" xml:space="preserve">
-    <value>Seuraavassa on tunnukselle tallennettuja yleisötapahtumia. Myös yksityistilaisuutesi sisältyvät hintaan.</value>
+    <value>Seuraavassa on julkisia tapahtumia, jotka on tallennettu tunnukselle. Myös yksityistilaisuutesi sisältyvät hintaan.</value>
   </data>
   <data name="UnrecognizedEventType" xml:space="preserve">
     <value>Tunnistamaton tapahtumatyyppi:</value>
@@ -1615,34 +1615,34 @@
     <value>Myyjä</value>
   </data>
   <data name="TextNote" xml:space="preserve">
-    <value>Tekstin huomautus</value>
+    <value>Tekstihuomautus</value>
   </data>
   <data name="Transferred" xml:space="preserve">
     <value>Siirtää</value>
   </data>
   <data name="ViewXmlInBrowser" xml:space="preserve">
-    <value>Napsauta tätä, jos haluat tarkastella XML-huomautusta selaimessa.</value>
+    <value>Klikkaa tästä nähdäksesi XML-huomautuksen selaimessa.</value>
   </data>
   <data name="XmlNote" xml:space="preserve">
     <value>XML-huomautus</value>
   </data>
   <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
-    <value>Sovellus ei voinut käyttää henkilöllisyyden yksityisiä avaimia. Tämä tarkoittaa yleensä sitä, että käyttäjätietoja on muutettu sovelluksen soveltamisalan ulkopuolella. Se voi myös johtua tietojen vioittumisesta. Voit kokeilla jompaakumpaa kahdesta asiasta. Jatka painamalla Jatka-painiketta jatkaaksesi ilman yksityisiä näppäimiä. Saat sovelluksen käyttöoikeuden, mutta et voi allekirjoittaa mitään. Voit sitten hakea uutta identiteettiä uudelleen päävalikosta uusilla yksityisillä avaimilla. Voit myös yrittää korjata tietokannan painamalla Korjaa-painiketta. Jälkimmäisessä tapauksessa sovellus suljetaan, ja kun sovellus seuraavan kerran avataan, yritetään ensin korjata.</value>
+    <value>Sovellus ei päässyt käsiksi identiteetin yksityisiin avaimiin. Tämä tarkoittaa yleensä sitä, että käyttäjätiedot on muutettu sovelluksen soveltamisalan ulkopuolella. Se voi johtua myös tietojen vioittumisesta. Voit kokeilla jompaakumpaa kahdesta asiasta. Jatka painamalla Jatka-painiketta ilman yksityisiä näppäimiä. Saat pääsyn sovellukseen, mutta et voi allekirjoittaa mitään. Voit sitten hakea uutta tunnistetta uudelleen päävalikosta uusilla yksityisillä näppäimillä. Voit myös yrittää korjata tietokannan painamalla Korjaa-painiketta. Jälkimmäisessä tapauksessa sovellus suljetaan, ja kun sovellus avataan seuraavan kerran, yritetään ensin korjausmenettelyä.</value>
   </data>
   <data name="Repair" xml:space="preserve">
     <value>Korjaus</value>
   </data>
   <data name="EnterProposal" xml:space="preserve">
-    <value>Kirjoita {0} ehdotukseen sisällytettävä teksti tai jätä tyhjäksi, jos ehdotusta ei lähetetä.</value>
+    <value>Kirjoita ehdotukseen sisällytettävä teksti {0} tai jätä tyhjäksi, jos ehdotusta ei lähetetä.</value>
   </data>
   <data name="BalanceUpdated" xml:space="preserve">
     <value>Saldo päivitetty.</value>
   </data>
   <data name="ContractCreated" xml:space="preserve">
-    <value>Palvelusopimus on luotu.</value>
+    <value>Sopimus on luotu.</value>
   </data>
   <data name="ContractDeleted" xml:space="preserve">
-    <value>Palvelusopimus on poistettu.</value>
+    <value>Sopimus on poistettu.</value>
   </data>
   <data name="ContractProposed" xml:space="preserve">
     <value>Sopimusta on ehdotettu.</value>
@@ -1651,7 +1651,7 @@
     <value>Sopimus on allekirjoitettu.</value>
   </data>
   <data name="ContractUpdated" xml:space="preserve">
-    <value>Palvelusopimus on päivitetty.</value>
+    <value>Sopimus on päivitetty.</value>
   </data>
   <data name="IdentityUpdated" xml:space="preserve">
     <value>Digitaalinen identiteetti on päivitetty.</value>
@@ -1663,34 +1663,34 @@
     <value>Lompakkoosi on lisätty tunnus.</value>
   </data>
   <data name="TokenRemoved" xml:space="preserve">
-    <value>Rahake on poistettu lompakostasi.</value>
+    <value>Token on poistettu lompakostasi.</value>
   </data>
   <data name="PinContainsAddress" xml:space="preserve">
     <value>PIN-koodi ei saa sisältää mitään sanaa tunnistetietojen osoiteriveiltä.</value>
   </data>
   <data name="PinContainsName" xml:space="preserve">
-    <value>PIN-koodi ei saa sisältää mitään tietoja tunnistetietojen nimistä.</value>
+    <value>PIN-koodi ei saa sisältää mitään sanaa tunnistetietojen nimistä.</value>
   </data>
   <data name="PinContainsPersonalNumber" xml:space="preserve">
-    <value>PIN-koodi ei saa sisältää henkilötunnusta.</value>
+    <value>PIN-koodi ei saa sisältää henkilötunnuksen henkilötunnusta.</value>
   </data>
   <data name="PinContainsPhoneNumber" xml:space="preserve">
-    <value>PIN-koodi ei saa sisältää henkilötunnuksen puhelinnumeroa.</value>
+    <value>PIN-koodi ei saa sisältää tunnistetietojen puhelinnumeroa.</value>
   </data>
   <data name="PinWithNotEnoughDigitsLettersSigns" xml:space="preserve">
-    <value>Vähintään {0} kirjaimia, numeroita tai symboleja on käytettävä.</value>
+    <value>On käytettävä vähintään {0} kirjaimia, numeroita tai symboleja.</value>
   </data>
   <data name="PinWithTooManyIdenticalSymbols" xml:space="preserve">
     <value>PIN-koodi saa sisältää enintään {0} identtisiä symboleja.</value>
   </data>
   <data name="PinWithTooManySequencedSymbols" xml:space="preserve">
-    <value>PIN-koodi saa sisältää enintään {0} sekvensoitua symbolia, esimerkiksi "12" tai "ab".</value>
+    <value>PIN-koodi ei saa sisältää enempää kuin {0} sekvensoituja symboleja, kuten "12" tai "ab".</value>
   </data>
   <data name="PinWithNotEnoughDigitsOrSigns" xml:space="preserve">
-    <value>Sinun on myös käytettävä vähintään {0} numeroa tai symbolia.</value>
+    <value>Sinun on myös käytettävä vähintään {0} numeroita tai symboleja.</value>
   </data>
   <data name="PinWithNotEnoughLettersOrDigits" xml:space="preserve">
-    <value>Sinun on myös käytettävä vähintään {0} kirjainta tai numeroa.</value>
+    <value>Sinun on myös käytettävä vähintään {0} kirjaimia tai numeroita.</value>
   </data>
   <data name="PinWithNotEnoughLettersOrSigns" xml:space="preserve">
     <value>Sinun on myös käytettävä vähintään {0} kirjaimia tai symboleja.</value>

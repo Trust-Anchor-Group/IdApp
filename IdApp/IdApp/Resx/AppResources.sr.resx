@@ -217,7 +217,7 @@
     <value>Otkaži</value>
   </data>
   <data name="CantConnectTo" xml:space="preserve">
-    <value>Nije u nisam mogao da se povežem {0}</value>
+    <value>Nije u nisam mogao da se povežem sa {0}</value>
   </data>
   <data name="Change" xml:space="preserve">
     <value>Promenite:</value>
@@ -1210,7 +1210,7 @@
     <value>Možete odabrati da kreirate nalog kod ovog dobavljača. Unesite ime naloga koji želite da kreirate i pritisnite dugme Kreiraj novi. Takođe možete odabrati da skenirate pozivnicu ili šifru za prenos da biste koristili nalog koji je već pripremljen za vas, kod drugog dobavljača usluga. Kliknite na dugme "Skeniraj pozivnicu" da biste skenirali kôd pozivnice.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
-    <value>Povezivanje viewmodela za {0} stranice nije uspelo {1}</value>
+    <value>Povezivanje viewmodel {0} za {1}</value>
   </data>
   <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
     <value>Vraćanje stanja u prethodno stanje za viewmodel {0} za stranicu {1}</value>
@@ -1219,7 +1219,7 @@
     <value>Čuvanje stanja za viewmodel za {0} stranice nije uspelo {1}</value>
   </data>
   <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
-    <value>Nije uspelo otpojanjanje viewmodel {0} za stranicu {1}</value>
+    <value>Nije uspelo otpojaиanje viewmodel {0} za stranicu {1}</value>
   </data>
   <data name="ContinueAnyway" xml:space="preserve">
     <value>Ipak nastavi</value>

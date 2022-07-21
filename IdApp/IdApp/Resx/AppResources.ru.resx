@@ -1,0 +1,1743 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Принимать</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Счет</value>
+  </data>
+  <data name="AccountEvent" xml:space="preserve">
+    <value>Событие учетной записи</value>
+  </data>
+  <data name="AccountEventDescription" xml:space="preserve">
+    <value>Ниже вы можете увидеть информацию о событии одной учетной записи.</value>
+  </data>
+  <data name="AccountNameAlreadyTaken" xml:space="preserve">
+    <value>Имя учетной записи {0} уже занято. Выберите другой.</value>
+  </data>
+  <data name="AccountNameIsInvalid" xml:space="preserve">
+    <value>Недопустимое имя учетной записи</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Добавлять</value>
+  </data>
+  <data name="AddContact" xml:space="preserve">
+    <value>Добавить контакт</value>
+  </data>
+  <data name="AddPart" xml:space="preserve">
+    <value>Добавить деталь</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="Address2" xml:space="preserve">
+    <value>Адрес (строка 2)</value>
+  </data>
+  <data name="Altitude" xml:space="preserve">
+    <value>Высота</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Количество:</value>
+  </data>
+  <data name="AmountExtra" xml:space="preserve">
+    <value>Дополнительная сумма: (необязательно, предложение)</value>
+  </data>
+  <data name="Apartment" xml:space="preserve">
+    <value>Квартира</value>
+  </data>
+  <data name="APeerReviewYouhaveRequestedHasBeenAccepted" xml:space="preserve">
+    <value>Запрошенная вами экспертная оценка была принята.</value>
+  </data>
+  <data name="APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError" xml:space="preserve">
+    <value>Запрошенная вами экспертная оценка была отклонена из-за ошибки подписи.</value>
+  </data>
+  <data name="APeerYouRequestedToReviewHasRejected" xml:space="preserve">
+    <value>Коллега, которого вы запросили для рассмотрения вашей заявки, отказался одобрить ее.</value>
+  </data>
+  <data name="APetitionHasBeenSentToTheContract" xml:space="preserve">
+    <value>По частям договора направлено ходатайство. Если какая-либо из частей примет петицию, информация о контракте будет отображаться на экране.</value>
+  </data>
+  <data name="APetitionHasBeenSentToTheOwner" xml:space="preserve">
+    <value>Владельцу удостоверения личности направлено ходатайство. Если владелец принимает петицию, на экране отобразится идентификационная информация.</value>
+  </data>
+  <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
+    <value>Петиция отправлена вашему коллеге</value>
+  </data>
+  <data name="ApproveInformation" xml:space="preserve">
+    <value>Утвердить информацию</value>
+  </data>
+  <data name="Archiving_Optional" xml:space="preserve">
+    <value>Архивирование (необязательно)</value>
+  </data>
+  <data name="Archiving_Required" xml:space="preserve">
+    <value>Архивирование (обязательно)</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Площадь</value>
+  </data>
+  <data name="AreYouSureYouWantToRemoveContact" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить этот контакт из списка контактов?</value>
+  </data>
+  <data name="AreYouSureYouWantToReportYourLegalIdentityAsCompromized" xml:space="preserve">
+    <value>Вы уверены, что хотите сообщить о том, что ваша юридическая личность скомпрометирована, украдена или взломана?</value>
+  </data>
+  <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
+    <value>Вы уверены, что хотите отозвать свое юридическое лицо из заявки?</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Равновесие:</value>
+  </data>
+  <data name="Building" xml:space="preserve">
+    <value>Здание</value>
+  </data>
+  <data name="CanActAsTemplate" xml:space="preserve">
+    <value>Может выступать в качестве шаблона</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="CantConnectTo" xml:space="preserve">
+    <value>Не удается подключиться к {0}</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Менять:</value>
+  </data>
+  <data name="ChooseAccount" xml:space="preserve">
+    <value>Выберите аккаунт</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="ClaimThing" xml:space="preserve">
+    <value>Претензия Вещь</value>
+  </data>
+  <data name="Class" xml:space="preserve">
+    <value>Класс</value>
+  </data>
+  <data name="ClientSignature" xml:space="preserve">
+    <value>Подпись клиента</value>
+  </data>
+  <data name="ClientSignatureInformationInfoText" xml:space="preserve">
+    <value>Ниже приведены сведения, связанные с подписью клиента.</value>
+  </data>
+  <data name="ClientSignatures" xml:space="preserve">
+    <value>Подписи клиентов</value>
+  </data>
+  <data name="ClientSignaturesInfoText" xml:space="preserve">
+    <value>Криптографические подписи, сделанные различными частями, перечислены ниже.</value>
+  </data>
+  <data name="CodeNotRecognized" xml:space="preserve">
+    <value>Код не распознается.</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Подтверждать</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Соединять</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Связь</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="ContactsDescription" xml:space="preserve">
+    <value>Ниже приведены все контакты в вашей контактной книге. Нажмите на любой, чтобы взаимодействовать с этим контактом.</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Продолжать</value>
+  </data>
+  <data name="ContractHasBeenDeleted" xml:space="preserve">
+    <value>Контракт был удален.</value>
+  </data>
+  <data name="ContractHasBeenObsoleted" xml:space="preserve">
+    <value>Контракт устарел.</value>
+  </data>
+  <data name="ContractId" xml:space="preserve">
+    <value>Идентификатор контракта</value>
+  </data>
+  <data name="ContractRoleMustBeSelected" xml:space="preserve">
+    <value>Сначала выберите роль контракта, а затем повторите попытку.</value>
+  </data>
+  <data name="Contracts" xml:space="preserve">
+    <value>Контракты</value>
+  </data>
+  <data name="ContractSuccessfullySigned" xml:space="preserve">
+    <value>Контракт успешно подписан.</value>
+  </data>
+  <data name="ContractTemplates" xml:space="preserve">
+    <value>Шаблоны контрактов</value>
+  </data>
+  <data name="ContractTemplatesInfoText" xml:space="preserve">
+    <value>Ниже приведен список шаблонов контрактов, которые вы использовали. Щелкните шаблон, чтобы создать новый контракт на основе этого шаблона.</value>
+  </data>
+  <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
+    <value>Сначала выберите видимость контракта, а затем повторите попытку.</value>
+  </data>
+  <data name="ContractVisibility_CreatorAndParts" xml:space="preserve">
+    <value>Создатель и детали</value>
+  </data>
+  <data name="ContractVisibility_DomainAndParts" xml:space="preserve">
+    <value>Домен и запчасти</value>
+  </data>
+  <data name="ContractVisibility_Public" xml:space="preserve">
+    <value>Общедоступный, не доступный для поиска</value>
+  </data>
+  <data name="ContractVisibility_PublicSearchable" xml:space="preserve">
+    <value>Общедоступный и доступный для поиска</value>
+  </data>
+  <data name="CouldYouPleaseReviewMyIdentityInformation" xml:space="preserve">
+    <value>Не могли бы вы просмотреть мою идентификационную информацию?</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Страна</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создавать</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Созданный</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Создать новый</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Отклонять</value>
+  </data>
+  <data name="DefinePin" xml:space="preserve">
+    <value>Определение ПИН-кода</value>
+  </data>
+  <data name="DeleteContract" xml:space="preserve">
+    <value>Удалить контракт</value>
+  </data>
+  <data name="Devices" xml:space="preserve">
+    <value>Приборы</value>
+  </data>
+  <data name="Digest" xml:space="preserve">
+    <value>Переваривать</value>
+  </data>
+  <data name="DisownThing" xml:space="preserve">
+    <value>Отречься от вещи</value>
+  </data>
+  <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
+    <value>{0} не следует повсеместной политике шифрования</value>
+  </data>
+  <data name="DomainIsNotAValidOperator" xml:space="preserve">
+    <value>{0} не является допустимым оператором</value>
+  </data>
+  <data name="DomainNameIsInvalid" xml:space="preserve">
+    <value>Недопустимое доменное имя</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Длительность</value>
+  </data>
+  <data name="EDalerNote" xml:space="preserve">
+    <value>Примечание eDaler</value>
+  </data>
+  <data name="EDalerNoteDescription" xml:space="preserve">
+    <value>Код представляет заметку eDaler. Вы можете принять его, нажав кнопку Принять ниже. Если он не был принят ранее, ваш кошелек получит сумму eDaler, указанную в примечании.</value>
+  </data>
+  <data name="EncryptMessage" xml:space="preserve">
+    <value>Зашифровать сообщение</value>
+  </data>
+  <data name="EnterPhoneNumber" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Произошла ошибка</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="ExpiredEDalerUri" xml:space="preserve">
+    <value>Срок действия этого кода eDaler истек.</value>
+  </data>
+  <data name="ExpiresAt" xml:space="preserve">
+    <value>(Срок действия истекает {0})</value>
+  </data>
+  <data name="FailedToLoadPhoto" xml:space="preserve">
+    <value>Не удалось загрузить фотографию</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>От</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>Общее</value>
+  </data>
+  <data name="GeneralInformation" xml:space="preserve">
+    <value>Общая информация</value>
+  </data>
+  <data name="GeneralInformationInfoText" xml:space="preserve">
+    <value>Ниже приведена некоторая общая информация о контракте.</value>
+  </data>
+  <data name="GenerateQrCode" xml:space="preserve">
+    <value>Генерация QR-кода</value>
+  </data>
+  <data name="HashFunction" xml:space="preserve">
+    <value>Хэш-функция</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Дом</value>
+  </data>
+  <data name="HumanReadableText" xml:space="preserve">
+    <value>Удобочитаемый текст</value>
+  </data>
+  <data name="IApproveOfMyPersonalInformationToBeAssociated" xml:space="preserve">
+    <value>Я одобряю, чтобы моя личная информация была связана с юридическим лицом, которое я просматриваю, в целях прозрачности.</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ИДЕНТИФИКАТОР</value>
+  </data>
+  <data name="IdCopiedSuccessfully" xml:space="preserve">
+    <value>Ссылка на идентификатор была скопирована в буфер обмена.</value>
+  </data>
+  <data name="Identity" xml:space="preserve">
+    <value>Тождество</value>
+  </data>
+  <data name="IdentityInformation" xml:space="preserve">
+    <value>Идентификационная информация</value>
+  </data>
+  <data name="IdentityInformationInfoText" xml:space="preserve">
+    <value>Ниже приведена личная информация, зарегистрированная на сторону, подписавшую договор.</value>
+  </data>
+  <data name="IdentityState_Approved" xml:space="preserve">
+    <value>Одобренный</value>
+  </data>
+  <data name="IdentityState_Compromized" xml:space="preserve">
+    <value>Компрометированный</value>
+  </data>
+  <data name="IdentityState_Created" xml:space="preserve">
+    <value>Созданный</value>
+  </data>
+  <data name="IdentityState_Obsoleted" xml:space="preserve">
+    <value>Устарело</value>
+  </data>
+  <data name="IdentityState_Rejected" xml:space="preserve">
+    <value>Отклонено</value>
+  </data>
+  <data name="Ignore" xml:space="preserve">
+    <value>Игнорировать</value>
+  </data>
+  <data name="IHaveCarefullyReviewedAllInformationAbove" xml:space="preserve">
+    <value>Я внимательно изучил всю приведенную выше информацию и нахожу ее правильным представлением лица, запрашивающего обзор:</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Неполный</value>
+  </data>
+  <data name="InformationAboutClaimedThingText" xml:space="preserve">
+    <value>Доступна следующая информация о объекте, код которого вы отсканировали. Выберите, хотите ли вы попытаться заявить об этой вещи как о своей, а также если вы хотите сделать ее общедоступной для поиска в реестре вещей.</value>
+  </data>
+  <data name="InformationAboutThing" xml:space="preserve">
+    <value>Информация о вещи</value>
+  </data>
+  <data name="InformationAboutThingText" xml:space="preserve">
+    <value>О ней доступна следующая информация. Вы также можете видеть текущие данные датчиков, которые вы авторизованы видеть. Если вещь является исполнительным механизмом, и у вас есть права управлять вещью, параметры управления также будут показаны.</value>
+  </data>
+  <data name="InformationIsMissingOrInvalid" xml:space="preserve">
+    <value>Информация отсутствует или недействительна</value>
+  </data>
+  <data name="Inspect" xml:space="preserve">
+    <value>Проверка связи</value>
+  </data>
+  <data name="InvalidEDalerUri" xml:space="preserve">
+    <value>Недопустимый URI eDaler: {0}</value>
+  </data>
+  <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
+    <value>Недопустимый код обнаружения Интернета вещей</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Неверное имя пользователя или пароль</value>
+  </data>
+  <data name="InvitePeerToReview" xml:space="preserve">
+    <value>Пригласить экспертов для рецензирования</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>Ключ</value>
+  </data>
+  <data name="LastNames" xml:space="preserve">
+    <value>Фамилия(и)</value>
+  </data>
+  <data name="Latitude" xml:space="preserve">
+    <value>Широта</value>
+  </data>
+  <data name="LegalId" xml:space="preserve">
+    <value>Юридический идентификатор</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Погрузка...</value>
+  </data>
+  <data name="LocalName" xml:space="preserve">
+    <value>Локальное имя</value>
+  </data>
+  <data name="Longitude" xml:space="preserve">
+    <value>Долгота</value>
+  </data>
+  <data name="MachineReadableInfoText" xml:space="preserve">
+    <value>Ниже приведен обзор машиночитаемых данных, встроенных в контракт.</value>
+  </data>
+  <data name="MachineReadableText" xml:space="preserve">
+    <value>Машиночитаемая информация</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>Мое цифровое удостоверение</value>
+  </data>
+  <data name="MakeThingPublic" xml:space="preserve">
+    <value>Сделать вещь общедоступной</value>
+  </data>
+  <data name="Manufacturer" xml:space="preserve">
+    <value>Изготовитель</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="MeterLocation" xml:space="preserve">
+    <value>Расположение счетчика</value>
+  </data>
+  <data name="MeterNumber" xml:space="preserve">
+    <value>Номер счетчика</value>
+  </data>
+  <data name="MiddleNames" xml:space="preserve">
+    <value>Отчество(и)</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Режим</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Модель</value>
+  </data>
+  <data name="MyContracts" xml:space="preserve">
+    <value>Мои контракты</value>
+  </data>
+  <data name="MyContractsInfoText" xml:space="preserve">
+    <value>Ниже приведен список контрактов, которые вы создали. Нажмите на контракт для получения дополнительной информации о нем.</value>
+  </data>
+  <data name="MyCreatedContracts" xml:space="preserve">
+    <value>Мои созданные контракты</value>
+  </data>
+  <data name="MyIdentity" xml:space="preserve">
+    <value>Моя личность</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Namespace" xml:space="preserve">
+    <value>Пространство имен</value>
+  </data>
+  <data name="Network" xml:space="preserve">
+    <value>Сеть</value>
+  </data>
+  <data name="NetworkSeemsToBeMissing" xml:space="preserve">
+    <value>Сеть, похоже, отсутствует. Проверьте конфигурацию и покрытие и повторите попытку.</value>
+  </data>
+  <data name="Neuron" xml:space="preserve">
+    <value>Нейрон</value>
+  </data>
+  <data name="NewContract" xml:space="preserve">
+    <value>Новый контракт</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="NoContactsFound" xml:space="preserve">
+    <value>Контакты не найдены.</value>
+  </data>
+  <data name="NoContractsFound" xml:space="preserve">
+    <value>Контракты не найдены.</value>
+  </data>
+  <data name="Notary" xml:space="preserve">
+    <value>Нотариус</value>
+  </data>
+  <data name="NotConnectedToTheOperator" xml:space="preserve">
+    <value>Не подключен к оператору</value>
+  </data>
+  <data name="NoThingsFound" xml:space="preserve">
+    <value>Ничего не найдено.</value>
+  </data>
+  <data name="ObsoleteContract" xml:space="preserve">
+    <value>Устаревший контракт</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Автономный</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>ХОРОШО</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Онлайн</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Открытый</value>
+  </data>
+  <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
+    <value>Оператор не поддерживает юридические удостоверения личности и смарт-контракты</value>
+  </data>
+  <data name="OperatorDoesNotSupportProvisioningAndDecisionSupportForThings" xml:space="preserve">
+    <value>Оператор не поддерживает инициализацию и поддержку принятия решений для вещей</value>
+  </data>
+  <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
+    <value>Оператор {0} не поддерживает регистрацию новых аккаунтов</value>
+  </data>
+  <data name="OperatorDoesNotSupportThingRegistries" xml:space="preserve">
+    <value>Оператор не поддерживает реестры вещей</value>
+  </data>
+  <data name="OperatorDomainOther" xml:space="preserve">
+    <value>&lt;Other&gt;</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
+  <data name="ParametersInfoText" xml:space="preserve">
+    <value>Параметры контракта показаны ниже вместе с соответствующими значениями.</value>
+  </data>
+  <data name="Parts" xml:space="preserve">
+    <value>Комплектующие</value>
+  </data>
+  <data name="PartsInfoText" xml:space="preserve">
+    <value>(Ожидаемые) части, определенные для контракта, перечислены ниже.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PasswordIsInvalid" xml:space="preserve">
+    <value>Недопустимый пароль</value>
+  </data>
+  <data name="MakePayment" xml:space="preserve">
+    <value>Произвести оплату</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Уплата</value>
+  </data>
+  <data name="PaymentAcceptance" xml:space="preserve">
+    <value>Прием платежей</value>
+  </data>
+  <data name="PaymentAcceptanceDescription" xml:space="preserve">
+    <value>Ниже вы можете увидеть детали оффлайн платежа. Если это приемлемо, вы можете принять решение об отправке платежа в Нейрон для обработки.</value>
+  </data>
+  <data name="PaymentAlreadySent" xml:space="preserve">
+    <value>Платежное поручение уже отправлено. Вы можете повторно отправить ожидающие платежи из представления ожидающих платежей.</value>
+  </data>
+  <data name="PaymentDescription" xml:space="preserve">
+    <value>Введите сумму для оплаты получателю ниже. После этого вы можете выбрать оплату онлайн (если подключено) или оффлайн, нажав на соответствующую кнопку.</value>
+  </data>
+  <data name="PaymentSuccess" xml:space="preserve">
+    <value>Оплата успешно реализована.</value>
+  </data>
+  <data name="PayOffline" xml:space="preserve">
+    <value>Оплата оффлайн</value>
+  </data>
+  <data name="PayOnline" xml:space="preserve">
+    <value>Оплатить онлайн</value>
+  </data>
+  <data name="PeerReview" xml:space="preserve">
+    <value>Экспертная оценка</value>
+  </data>
+  <data name="PeerReviewAccepted" xml:space="preserve">
+    <value>Экспертная оценка принята</value>
+  </data>
+  <data name="PeerReviewRejected" xml:space="preserve">
+    <value>Экспертная оценка отклонена</value>
+  </data>
+  <data name="PendingPayment" xml:space="preserve">
+    <value>Ожидание оплаты</value>
+  </data>
+  <data name="PendingPaymentDescription" xml:space="preserve">
+    <value>Ниже вы можете увидеть информацию о платеже, который был сгенерирован, но еще не полностью обработан.</value>
+  </data>
+  <data name="PersonalLegalInformation" xml:space="preserve">
+    <value>Личная/юридическая информация</value>
+  </data>
+  <data name="PersonalLegalInfoText" xml:space="preserve">
+    <value>Чтобы иметь возможность получить кошелек, выполнять транзакции и подписывать смарт-контракты, вам нужно заверенное личное или юридическое лицо, назначенное вашей учетной записи.</value>
+  </data>
+  <data name="PersonalNumber" xml:space="preserve">
+    <value>Персональный номер</value>
+  </data>
+  <data name="PersonalNumberDoesNotMatchCountry" xml:space="preserve">
+    <value>Персональный номер не соответствует национальным правилам персонального номера</value>
+  </data>
+  <data name="PersonalNumberDoesNotMatchCountry_ExpectedFormat" xml:space="preserve">
+    <value>Персональный номер не соответствует национальным правилам персонального номера. Ожидаемый формат: </value>
+  </data>
+  <data name="PersonalNumberPlaceholder" xml:space="preserve">
+    <value>Персональный номер ({0})</value>
+  </data>
+  <data name="Petition" xml:space="preserve">
+    <value>Просьба</value>
+  </data>
+  <data name="PetitionContract" xml:space="preserve">
+    <value>Доступ к контракту</value>
+  </data>
+  <data name="PetitionContractInformationText" xml:space="preserve">
+    <value>Получена петиция о предоставлении персональных данных в одном из ваших договоров. Просмотрите приведенную ниже информацию и выберите, как вы хотите ответить.</value>
+  </data>
+  <data name="PetitionIdentity" xml:space="preserve">
+    <value>Доступ к удостоверению</value>
+  </data>
+  <data name="PetitionIdentityInformationText" xml:space="preserve">
+    <value>Получено ходатайство о предоставлении персональных данных вашего юридического лица. Просмотрите приведенную ниже информацию и выберите, как вы хотите ответить.</value>
+  </data>
+  <data name="PetitionSent" xml:space="preserve">
+    <value>Петиция отправлена</value>
+  </data>
+  <data name="PetitionSignature" xml:space="preserve">
+    <value>Запрашиваемая подпись</value>
+  </data>
+  <data name="PetitionSignatureInformationText" xml:space="preserve">
+    <value>Запрос на вашу подпись получен. Просмотрите причину ниже и сведения о том, кто отправил запрос, а затем выберите, как вы хотите ответить.</value>
+  </data>
+  <data name="PetitionToViewContractWasDenied" xml:space="preserve">
+    <value>Ходатайство о просмотре контракта было отклонено.</value>
+  </data>
+  <data name="PetitionToViewLegalIdentityWasDenied" xml:space="preserve">
+    <value>Ходатайство о признании правоустанавливающим личность было отклонено.</value>
+  </data>
+  <data name="PhotoIsTooLarge" xml:space="preserve">
+    <value>Фотография слишком большая</value>
+  </data>
+  <data name="Photos" xml:space="preserve">
+    <value>Фотографии</value>
+  </data>
+  <data name="PickPhoto" xml:space="preserve">
+    <value>Выбрать фото</value>
+  </data>
+  <data name="PinIsInvalid" xml:space="preserve">
+    <value>Недопустимый PIN-код. У вас есть {0} оставшиеся попытки.</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlockedForever" xml:space="preserve">
+    <value>Попытки ввода ПИН-кода исключаются. Ваше приложение заблокировано навсегда</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
+    <value>Попытки ввода ПИН-кода исключаются. Ваша заявка заблокирована до {0}.</value>
+  </data>
+  <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
+    <value>Попытки ввода ПИН-кода исключаются. Ваша заявка заблокирована на одну неделю</value>
+  </data>
+  <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
+    <value>ПИН-код не должен содержать начальные или конечные пробелы.</value>
+  </data>
+  <data name="PinOrPassword" xml:space="preserve">
+    <value>PIN-код или пароль</value>
+  </data>
+  <data name="PinsDoNotMatch" xml:space="preserve">
+    <value>PIN-коды не совпадают</value>
+  </data>
+  <data name="PinTooShort" xml:space="preserve">
+    <value>Длина ПИН-кода должна быть не менее {0} символов.</value>
+  </data>
+  <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
+    <value>Пожалуйста, просмотрите всю приведенную выше информацию и установите соответствующие флажки, если информация верна. Это необходимо сделать, прежде чем вы сможете утвердить информацию.</value>
+  </data>
+  <data name="ProductInformation" xml:space="preserve">
+    <value>Информация о продукте</value>
+  </data>
+  <data name="Proposal" xml:space="preserve">
+    <value>Предложение</value>
+  </data>
+  <data name="Propose" xml:space="preserve">
+    <value>Предлагать</value>
+  </data>
+  <data name="Provider" xml:space="preserve">
+    <value>Поставщик</value>
+  </data>
+  <data name="PublicKey" xml:space="preserve">
+    <value>Открытый ключ</value>
+  </data>
+  <data name="Purpose" xml:space="preserve">
+    <value>Цель</value>
+  </data>
+  <data name="Qrcode" xml:space="preserve">
+    <value>QR-код</value>
+  </data>
+  <data name="QrCodeNotUnderstood" xml:space="preserve">
+    <value>Код не понятен</value>
+  </data>
+  <data name="QrEnterManually" xml:space="preserve">
+    <value>Ввод вручную</value>
+  </data>
+  <data name="QrScanCode" xml:space="preserve">
+    <value>Сканировать код</value>
+  </data>
+  <data name="QrScanOverlay" xml:space="preserve">
+    <value>Выравнивание QR-кода внутри фрейма</value>
+  </data>
+  <data name="QrScanUri" xml:space="preserve">
+    <value>УРИ:</value>
+  </data>
+  <data name="ReceiveEDaler" xml:space="preserve">
+    <value>Получить eDaler</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Регион или штат</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрировать</value>
+  </data>
+  <data name="Registry" xml:space="preserve">
+    <value>Регистратура</value>
+  </data>
+  <data name="RejectInformation" xml:space="preserve">
+    <value>Отклонить информацию</value>
+  </data>
+  <data name="RemoteParty" xml:space="preserve">
+    <value>Удаленная вечеринка:</value>
+  </data>
+  <data name="RemoveContact" xml:space="preserve">
+    <value>Удалить контакт</value>
+  </data>
+  <data name="ReportAsCompromized" xml:space="preserve">
+    <value>Пожаловаться как скомпрометированный</value>
+  </data>
+  <data name="Request" xml:space="preserve">
+    <value>Просьба</value>
+  </data>
+  <data name="RequestingEntity" xml:space="preserve">
+    <value>Запрашивающая организация</value>
+  </data>
+  <data name="RequestPayment" xml:space="preserve">
+    <value>Запросить оплату</value>
+  </data>
+  <data name="RequestPaymentDescription" xml:space="preserve">
+    <value>Чтобы запросить оплату у кого-либо, заполните данные о платеже ниже и нажмите кнопку «Сгенерировать QR-код». Сгенерированный код может быть использован другой стороной, чтобы сгенерировать платеж на ваш счет.</value>
+  </data>
+  <data name="RequestPaymentMessage" xml:space="preserve">
+    <value>Запрос на оплату {0} {1}.</value>
+  </data>
+  <data name="RequestTimedOut" xml:space="preserve">
+    <value>Истекло время ожидания запроса</value>
+  </data>
+  <data name="RequestWasCancelled" xml:space="preserve">
+    <value>Запрос отменен</value>
+  </data>
+  <data name="RetypePinOrPassword" xml:space="preserve">
+    <value>Повторно введите PIN-код или пароль</value>
+  </data>
+  <data name="ReviewIdentityInformationText" xml:space="preserve">
+    <value>Вас попросили просмотреть следующую личную информацию. Если все правильно, установите соответствующие флажки и нажмите кнопку Утвердить внизу. Вы также можете нажать кнопку Отклонить, если обнаружите что-либо неправильное.</value>
+  </data>
+  <data name="RevokeInformation" xml:space="preserve">
+    <value>Отменять</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Роль</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Роли</value>
+  </data>
+  <data name="RolesInfoText" xml:space="preserve">
+    <value>Ниже вы можете увидеть различные роли, определенные для контракта. Если для роли предполагается более одной части, это число будет показано в описании роли.</value>
+  </data>
+  <data name="Room" xml:space="preserve">
+    <value>Комната</value>
+  </data>
+  <data name="ScannedQrCode" xml:space="preserve">
+    <value>Отсканированный QR-код</value>
+  </data>
+  <data name="ScanQRCode" xml:space="preserve">
+    <value>Сканирование QR-кода</value>
+  </data>
+  <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
+    <value>Выбор фотографии не поддерживается на этом устройстве</value>
+  </data>
+  <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
+    <value>Выберите, кто должен иметь доступ к этому контракту.</value>
+  </data>
+  <data name="SelectYourRole" xml:space="preserve">
+    <value>Выберите свою роль в этом контракте.</value>
+  </data>
+  <data name="SelectYourRoleInThisContract" xml:space="preserve">
+    <value>Выберите свою роль в этом контракте.</value>
+  </data>
+  <data name="SendPaymentTo" xml:space="preserve">
+    <value>Отправить платеж</value>
+  </data>
+  <data name="SerialNumber" xml:space="preserve">
+    <value>Порядковый номер</value>
+  </data>
+  <data name="ServerSignature" xml:space="preserve">
+    <value>Подпись сервера</value>
+  </data>
+  <data name="ServerSignatureInformationInfoText" xml:space="preserve">
+    <value>Ниже приведены сведения, связанные с подписью сервера.</value>
+  </data>
+  <data name="ServerSignatures" xml:space="preserve">
+    <value>Подписи сервера</value>
+  </data>
+  <data name="ServerSignaturesInfoText" xml:space="preserve">
+    <value>Целостность контракта защищена подписью сервера, показанной ниже.</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Предоставить общий доступ</value>
+  </data>
+  <data name="ShowCode" xml:space="preserve">
+    <value>Показать код</value>
+  </data>
+  <data name="SignAfter" xml:space="preserve">
+    <value>Подписать после</value>
+  </data>
+  <data name="SignAsRole" xml:space="preserve">
+    <value>Подпись как {0}</value>
+  </data>
+  <data name="Signature" xml:space="preserve">
+    <value>Подпись</value>
+  </data>
+  <data name="SignatureInformation" xml:space="preserve">
+    <value>Информация о подписи</value>
+  </data>
+  <data name="SignBefore" xml:space="preserve">
+    <value>Подписаться до</value>
+  </data>
+  <data name="SignedContracts" xml:space="preserve">
+    <value>Подписанные контракты</value>
+  </data>
+  <data name="SignedContractsInfoText" xml:space="preserve">
+    <value>Ниже приведен список контрактов, которые вы подписали. Нажмите на контракт для получения дополнительной информации о нем.</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Скип</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Государство</value>
+  </data>
+  <data name="StreetName" xml:space="preserve">
+    <value>Название улицы</value>
+  </data>
+  <data name="StreetNumber" xml:space="preserve">
+    <value>Номер улицы</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="SuccessTitle" xml:space="preserve">
+    <value>Успех</value>
+  </data>
+  <data name="TagValueCopiedToClipboard" xml:space="preserve">
+    <value>Значение тега, скопированное в буфер обмена</value>
+  </data>
+  <data name="TakePhoto" xml:space="preserve">
+    <value>Фотосъемка</value>
+  </data>
+  <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
+    <value>Съемка фотографии не поддерживается на этом устройстве</value>
+  </data>
+  <data name="TemplateId" xml:space="preserve">
+    <value>Идентификатор шаблона</value>
+  </data>
+  <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
+    <value>Контракт требует, по крайней мере, {0} части (частей) роли {1}. Добавьте дополнительные части в контракт и повторите попытку.</value>
+  </data>
+  <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
+    <value>Контракт требует не более {0} части (частей) ролевых {1}. Удалите некоторые части из контракта и повторите попытку.</value>
+  </data>
+  <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
+    <value>Пароль для подключения — {0}. Это было скопировано в буфер обмена.</value>
+  </data>
+  <data name="ThereIsNoNetwork" xml:space="preserve">
+    <value>Нет сети</value>
+  </data>
+  <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
+    <value>Указанный код не является юридическим лицом</value>
+  </data>
+  <data name="Thing" xml:space="preserve">
+    <value>Вещь</value>
+  </data>
+  <data name="ThingDisowned" xml:space="preserve">
+    <value>От этого успешно отказались. Теперь на него может претендовать новый владелец.</value>
+  </data>
+  <data name="Things" xml:space="preserve">
+    <value>Пожитки</value>
+  </data>
+  <data name="ThingsDescription" xml:space="preserve">
+    <value>Ниже приведены все ваши вещи и вещи в вашей контактной книге. Нажмите на любой, чтобы взаимодействовать с этой вещью.</value>
+  </data>
+  <data name="Timestamp" xml:space="preserve">
+    <value>Отметка времени</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Кому</value>
+  </data>
+  <data name="TransactionAccepted" xml:space="preserve">
+    <value>Транзакция была принята и обработана.</value>
+  </data>
+  <data name="TransactionId" xml:space="preserve">
+    <value>Идентификатор транзакции:</value>
+  </data>
+  <data name="Transferable" xml:space="preserve">
+    <value>Переводный</value>
+  </data>
+  <data name="UnableToAuthenticateWith" xml:space="preserve">
+    <value>Не удается аутентифицироваться с помощью {0}</value>
+  </data>
+  <data name="UnableToClaimThing" xml:space="preserve">
+    <value>Не могу претендовать на вещь</value>
+  </data>
+  <data name="UnableToConnectTo" xml:space="preserve">
+    <value>Не удается подключиться к {0}</value>
+  </data>
+  <data name="UnableToProcessEDalerUri" xml:space="preserve">
+    <value>Не удается обработать код eDaler.</value>
+  </data>
+  <data name="UnrecognizedEDalerURI" xml:space="preserve">
+    <value>Нераспознанный URI eDaler.</value>
+  </data>
+  <data name="UnsupportedUriScheme" xml:space="preserve">
+    <value>Текст не соответствует ни одной из поддерживаемых схем URI.</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Обновлено</value>
+  </data>
+  <data name="ValidateIdentityInfo1Text" xml:space="preserve">
+    <value>Ваша идентификационная информация должна быть проверена, прежде чем она может быть одобрена. Это может быть сделано вручную вашим оператором. Это также может быть сделано сверстниками.</value>
+  </data>
+  <data name="ValidateIdentityInfo2Text" xml:space="preserve">
+    <value>Чтобы пригласить коллегу для рассмотрения вашей заявки, вам необходимо отсканировать идентификационный код эксперта, которого вы хотите пригласить. Они смогут увидеть и рассмотреть вашу заявку. Когда достаточное количество экспертов проверило вашу информацию и подтвердило ее правильность, оператор автоматически одобрит вашу заявку. Информация о том, кто проверил вашу личность, будет закодирована в самой проверенной личности.</value>
+  </data>
+  <data name="ValidateIdentityInfo3Text" xml:space="preserve">
+    <value>С текущим статусом заявки Вы можете ознакомиться ниже.</value>
+  </data>
+  <data name="ValidatingInformation" xml:space="preserve">
+    <value>Проверка информации</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="ViewContract" xml:space="preserve">
+    <value>Посмотреть контракт</value>
+  </data>
+  <data name="ViewIdentityInformationText" xml:space="preserve">
+    <value>Ниже приведена личная информация, зарегистрированная с юридическим лицом. Подписи и платежи подписываются с использованием этой информации.</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>Видимость</value>
+  </data>
+  <data name="Wallet" xml:space="preserve">
+    <value>Бумажник</value>
+  </data>
+  <data name="WelcomeToTagHeading" xml:space="preserve">
+    <value>Добро пожаловать в приложение TAG Digital ID!</value>
+  </data>
+  <data name="WelcomeToTagSubheading" xml:space="preserve">
+    <value>Перед подключением к сети TAG ID нам необходимо выбрать поставщика услуг для вас. Для этого нам нужно знать цель использования приложения. Выберите наиболее подходящий вариант ниже.</value>
+  </data>
+  <data name="XmppState_Authenticating" xml:space="preserve">
+    <value>Проверка подлинности сетевого удостоверения</value>
+  </data>
+  <data name="XmppState_Binding" xml:space="preserve">
+    <value>Связующее соединение</value>
+  </data>
+  <data name="XmppState_Connected" xml:space="preserve">
+    <value>Связанный</value>
+  </data>
+  <data name="XmppState_ConnectedTo" xml:space="preserve">
+    <value>Подключено к {0}</value>
+  </data>
+  <data name="XmppState_Connecting" xml:space="preserve">
+    <value>Установление соединения</value>
+  </data>
+  <data name="XmppState_Error" xml:space="preserve">
+    <value>Ошибка подключения</value>
+  </data>
+  <data name="XmppState_FetchingRoster" xml:space="preserve">
+    <value>Получение реестра</value>
+  </data>
+  <data name="XmppState_Offline" xml:space="preserve">
+    <value>Бессвязный</value>
+  </data>
+  <data name="XmppState_Registering" xml:space="preserve">
+    <value>Регистрация у брокера</value>
+  </data>
+  <data name="XmppState_RequestingSession" xml:space="preserve">
+    <value>Запрос сеанса</value>
+  </data>
+  <data name="XmppState_SettingPresence" xml:space="preserve">
+    <value>Настройка присутствия</value>
+  </data>
+  <data name="XmppState_StartingEncryption" xml:space="preserve">
+    <value>Шифрующее соединение</value>
+  </data>
+  <data name="XmppState_StreamNegotiation" xml:space="preserve">
+    <value>Переговорный поток</value>
+  </data>
+  <data name="XmppState_StreamOpened" xml:space="preserve">
+    <value>Поток установлен</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Вчера</value>
+  </data>
+  <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
+    <value>Вы можете защитить свой кошелек и конфиденциальную информацию, добавив дополнительный PIN-код или пароль.</value>
+  </data>
+  <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
+    <value>Вы можете защитить свой кошелек и конфиденциальную информацию, изменив дополнительный PIN-код или пароль.</value>
+  </data>
+  <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
+    <value>Теперь вы вышли из системы. Чтобы снова войти в систему, используйте меню в левом верхнем углу.</value>
+  </data>
+  <data name="YouHaveReceivedAProposal" xml:space="preserve">
+    <value>Вы получили предложение.</value>
+  </data>
+  <data name="YouNeedToApproveToAssociate" xml:space="preserve">
+    <value>Вы должны одобрить, чтобы связать вашу личную информацию с личностью, которую вы просматриваете. Когда третьи стороны просматривают информацию в удостоверении личности, они будут иметь доступ к личности рецензентов для прозрачности.</value>
+  </data>
+  <data name="YouNeedToCheckCarefullyReviewed" xml:space="preserve">
+    <value>Вам необходимо установить флажок, который вы внимательно изучили всю соответствующую информацию выше.</value>
+  </data>
+  <data name="YouNeedToProvideACountry" xml:space="preserve">
+    <value>Вам нужно выбрать страну</value>
+  </data>
+  <data name="YouNeedToProvideAFirstName" xml:space="preserve">
+    <value>Вам необходимо указать имя</value>
+  </data>
+  <data name="YouNeedToProvideALastName" xml:space="preserve">
+    <value>Вам необходимо указать хотя бы одну фамилию</value>
+  </data>
+  <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
+    <value>Вам необходимо предоставить личный номер или номер социального страхования</value>
+  </data>
+  <data name="YouNeedToProvideAPhoto" xml:space="preserve">
+    <value>Вам необходимо предоставить фотографию</value>
+  </data>
+  <data name="YourContractContainsErrors" xml:space="preserve">
+    <value>Ваш контракт содержит ошибки. Исправьте эти ошибки и повторите попытку.</value>
+  </data>
+  <data name="YourLegalIdentity" xml:space="preserve">
+    <value>Ваша юридическая личность</value>
+  </data>
+  <data name="YourLegalIdentityHasBeenCompromised" xml:space="preserve">
+    <value>Ваша личность была помечена как скомпрометированная. Поэтому вы были перенаправлены на создание новой учетной записи.</value>
+  </data>
+  <data name="YourLegalIdentityHasBeenObsoleted" xml:space="preserve">
+    <value>Ваша личность была помечена как устаревшая. Поэтому вы были перенаправлены на создание новой учетной записи.</value>
+  </data>
+  <data name="YourLegalIdentityHasInvalidOrMissingKeys" xml:space="preserve">
+    <value>Ключи подписи вашего юридического лица недействительны. Поэтому вы были перенаправлены на создание новой учетной записи.</value>
+  </data>
+  <data name="YourRole" xml:space="preserve">
+    <value>Ваша роль</value>
+  </data>
+  <data name="ZipCode" xml:space="preserve">
+    <value>Почтовый индекс</value>
+  </data>
+  <data name="SelectContactToPay" xml:space="preserve">
+    <value>Ниже приведены все контакты в вашей контактной книге. Выберите контакт, которому вы хотите произвести платеж.</value>
+  </data>
+  <data name="SendCode" xml:space="preserve">
+    <value>Отправить код</value>
+  </data>
+  <data name="UnableToVerifyCode" xml:space="preserve">
+    <value>Код был неправильным.</value>
+  </data>
+  <data name="VerificationCode" xml:space="preserve">
+    <value>Проверочный код</value>
+  </data>
+  <data name="VerifyCode" xml:space="preserve">
+    <value>Проверка кода</value>
+  </data>
+  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+    <value>Нам также необходимо подтвердить ваш номер мобильного телефона. Пожалуйста, введите свой номер мобильного телефона ниже, используя формат международного номера телефона, без пробелов.</value>
+  </data>
+  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
+    <value>Образовательное или экспериментальное использование.</value>
+  </data>
+  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
+    <value>Эта опция позволяет использовать Tag ID для образовательных, экспериментальных или тестовых целей. При использовании этой опции никаких затрат не возникает. Учетная запись может быть удалена, если она больше не используется. Нет никакой гарантии, что выбранный образовательный или экспериментальный поставщик услуг будет продолжать работу в течение длительных периодов времени.</value>
+  </data>
+  <data name="PurposeWorkOrPersonal" xml:space="preserve">
+    <value>Работа или личное использование.</value>
+  </data>
+  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
+    <value>Эта опция позволяет использовать Tag ID для работы или личных целей. Вы можете использовать приложение в течение трех месяцев бесплатно. По истечении этого периода времени некоторые операции могут повлечь за собой расходы.</value>
+  </data>
+  <data name="SelectPurpose" xml:space="preserve">
+    <value>Выберите цель</value>
+  </data>
+  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+    <value>Код был отправлен на номер, указанный выше. Когда вы получите его, пожалуйста, введите проверочный код ниже, чтобы продолжить.</value>
+  </data>
+  <data name="ClaimInvitation" xml:space="preserve">
+    <value>Приглашение на подачу заявки</value>
+  </data>
+  <data name="Invitation" xml:space="preserve">
+    <value>Приглашение</value>
+  </data>
+  <data name="NotAnInvitationCode" xml:space="preserve">
+    <value>Не является кодом приглашения.</value>
+  </data>
+  <data name="ThisCodeCannotBeClaimedAtThisTime" xml:space="preserve">
+    <value>Этот код представляет собой приглашение Tag ID и не может быть запрошен в настоящее время.</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Создать аккаунт</value>
+  </data>
+  <data name="InvalidInvitationCode" xml:space="preserve">
+    <value>Неверный код приглашения.</value>
+  </data>
+  <data name="ScanInvitation" xml:space="preserve">
+    <value>Приглашение на сканирование</value>
+  </data>
+  <data name="ToConnectToDomainYouNeedAnAccount1" xml:space="preserve">
+    <value>Ваш поставщик услуг был выбран</value>
+  </data>
+  <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
+    <value>Вы можете создать учетную запись на этом провайдере. Введите имя учетной записи, которую вы хотите создать, и нажмите кнопку Создать новую. Вы также можете отсканировать приглашение или код перевода, чтобы использовать учетную запись, которая уже была подготовлена для вас, у другого поставщика услуг. Нажмите кнопку Сканировать приглашение, чтобы отсканировать код приглашения.</value>
+  </data>
+  <data name="FailedToBindViewModelForPage" xml:space="preserve">
+    <value>Не удалось привязать {0} viewmodel для {1} страницы</value>
+  </data>
+  <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
+    <value>Не удалось восстановить состояние {0} viewmodel для {1} страницы</value>
+  </data>
+  <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
+    <value>Не удалось сохранить состояние для {0} viewmodel для {1} страницы</value>
+  </data>
+  <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
+    <value>Не удалось отменить привязку {0} модели просмотра для {1} страницы</value>
+  </data>
+  <data name="ContinueAnyway" xml:space="preserve">
+    <value>Продолжить в любом случае</value>
+  </data>
+  <data name="DatabaseCorruptInfoText" xml:space="preserve">
+    <value>Похоже, что база данных была закрыта неправильно и, следовательно, может быть повреждена. Можно попытаться восстановить базу данных, сначала удалив ее. Как бы вы хотели поступить?</value>
+  </data>
+  <data name="DatabaseIssue" xml:space="preserve">
+    <value>Проблема с базой данных</value>
+  </data>
+  <data name="DatabaseRepairFailedInfoText" xml:space="preserve">
+    <value>Не удалось восстановить базу данных. Сейчас у нас нет вариантов, поэтому продолжайте на свой страх и риск.</value>
+  </data>
+  <data name="EDalerServiceNotFound" xml:space="preserve">
+    <value>Сервис eDaler не найден на брокере.</value>
+  </data>
+  <data name="FailedToClosePage" xml:space="preserve">
+    <value>Не удалось закрыть страницу</value>
+  </data>
+  <data name="FailedToNavigateToPage" xml:space="preserve">
+    <value>Не удалось перейти на {0} {1} страницы</value>
+  </data>
+  <data name="FileUploadServiceNotFound" xml:space="preserve">
+    <value>На брокере не найдено сервиса загрузки файлов.</value>
+  </data>
+  <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
+    <value>Недопустимый URI утверждения iotdisco.</value>
+  </data>
+  <data name="LegalServiceNotFound" xml:space="preserve">
+    <value>Никаких юридических услуг на брокере не найдено.</value>
+  </data>
+  <data name="ProvisioningServiceNotFound" xml:space="preserve">
+    <value>Служба подготовки не найдена на брокере.</value>
+  </data>
+  <data name="RepairAndContinue" xml:space="preserve">
+    <value>Ремонт и продолжение</value>
+  </data>
+  <data name="ThingRegistryServiceNotFound" xml:space="preserve">
+    <value>Ничего не найдено службой реестра на брокере.</value>
+  </data>
+  <data name="UnableToGetListOfMyDevices" xml:space="preserve">
+    <value>Не удается получить список моих устройств.</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="UnableToAccessInvitation" xml:space="preserve">
+    <value>Не удается получить доступ к информации о приглашении.</value>
+  </data>
+  <data name="InvitationAccepted" xml:space="preserve">
+    <value>Приглашение принято</value>
+  </data>
+  <data name="InvitedToCreateAccountOnDomain" xml:space="preserve">
+    <value>Вам было предложено создать учетную запись на {0}. Нажмите OK и введите имя учетной записи, которую вы хотите создать.</value>
+  </data>
+  <data name="AreYouSureYouWantToTransferYourLegalIdentity" xml:space="preserve">
+    <value>Вы уверены, что хотите перенести свое юридическое лицо из приложения в другое? Удостоверение будет удалено с этого устройства после завершения. Также убедитесь, что никто другой не может видеть ваш экран во время процесса.</value>
+  </data>
+  <data name="TransferId" xml:space="preserve">
+    <value>Идентификатор перевода</value>
+  </data>
+  <data name="TransferIdentityInformationText" xml:space="preserve">
+    <value>Отсканируйте приведенный ниже код QR-приглашения с инициализируемого устройства, чтобы перенести цифровое удостоверение на этом устройстве на второе устройство. После сканирования кода и передачи удостоверения личности он будет удален с этого устройства.</value>
+  </data>
+  <data name="ConfirmByEnteringYourPin" xml:space="preserve">
+    <value>Подтвердите, введя свой PIN-код.</value>
+  </data>
+  <data name="UnexpectedResponse" xml:space="preserve">
+    <value>Был получен неожиданный ответ.</value>
+  </data>
+  <data name="EnterPin" xml:space="preserve">
+    <value>Введите PIN-код</value>
+  </data>
+  <data name="ChangePin" xml:space="preserve">
+    <value>Изменить PIN-код</value>
+  </data>
+  <data name="EnterNewPin" xml:space="preserve">
+    <value>Введите новый PIN-код</value>
+  </data>
+  <data name="RepeatNewPin" xml:space="preserve">
+    <value>Повторить новый PIN-код</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Входить</value>
+  </data>
+  <data name="PinChanged" xml:space="preserve">
+    <value>PIN-код успешно изменен.</value>
+  </data>
+  <data name="UnableToChangePassword" xml:space="preserve">
+    <value>Не удается изменить сетевой пароль.</value>
+  </data>
+  <data name="PresenceSubscriptionReceived1" xml:space="preserve">
+    <value>Вы получили подписку на сведения о присутствии от:</value>
+  </data>
+  <data name="PresenceSubscriptionReceived2" xml:space="preserve">
+    <value>Если вы примете этот запрос, они смогут увидеть ваше присутствие в Интернете.</value>
+  </data>
+  <data name="PresenceSubscriptionReceived3" xml:space="preserve">
+    <value>Если вы отклоните этот запрос, они будут уведомлены о том, что вы не согласны с этим запросом.</value>
+  </data>
+  <data name="PresenceSubscriptionReceived4" xml:space="preserve">
+    <value>Можно также проигнорировать запрос, закрыв диалоговое окно без возврата ответа.</value>
+  </data>
+  <data name="PresenceSubscriptionReceived5" xml:space="preserve">
+    <value>Что Вы хотите делать?</value>
+  </data>
+  <data name="PresenceSubscriptionRequest" xml:space="preserve">
+    <value>Запрос подписки на присутствие</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Отвергать</value>
+  </data>
+  <data name="SubscribeToPresence1" xml:space="preserve">
+    <value>Вы хотите подписаться на наличие:</value>
+  </data>
+  <data name="SubscribeToPresence2" xml:space="preserve">
+    <value>Подписавшись на присутствие кого-то, и если они согласятся, вы будете уведомлены об их присутствии в Интернете.</value>
+  </data>
+  <data name="SubscribeToPresence3" xml:space="preserve">
+    <value>Что Вы хотите делать?</value>
+  </data>
+  <data name="SubscribeToPresence" xml:space="preserve">
+    <value>Подписаться на присутствие?</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Чат</value>
+  </data>
+  <data name="SendPayment" xml:space="preserve">
+    <value>Отправить платеж</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="PresenceSubscriptionRequestSent" xml:space="preserve">
+    <value>Отправлен запрос на подписку на сведения о присутствии. Когда получатель примет запрос, статус контакта будет обновлен.</value>
+  </data>
+  <data name="PresenceUnsubscriptionRequestSent" xml:space="preserve">
+    <value>Отправлен запрос на отмену подписки на уведомление о присутствии.</value>
+  </data>
+  <data name="SubscribeTo" xml:space="preserve">
+    <value>Подписаться на</value>
+  </data>
+  <data name="UnsubscribeFrom" xml:space="preserve">
+    <value>Отписаться от</value>
+  </data>
+  <data name="Abuse" xml:space="preserve">
+    <value>Злоупотребление</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Блок</value>
+  </data>
+  <data name="FurtherAction" xml:space="preserve">
+    <value>Дальнейшие действия?</value>
+  </data>
+  <data name="FurtherAction1" xml:space="preserve">
+    <value>Вы хотите предпринять какие-либо дальнейшие действия против:</value>
+  </data>
+  <data name="FurtherAction2" xml:space="preserve">
+    <value>Вы можете заблокировать адрес.</value>
+  </data>
+  <data name="FurtherAction3" xml:space="preserve">
+    <value>Это гарантирует, что вы не получите больше запросов на подписку от отправителя.</value>
+  </data>
+  <data name="FurtherAction4" xml:space="preserve">
+    <value>Вы также можете сообщить об отправителе своему оператору.</value>
+  </data>
+  <data name="NoJustIgnore" xml:space="preserve">
+    <value>Нет, просто игнорируйте</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Другой</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Сообщать</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Спам</value>
+  </data>
+  <data name="TypeOfReport" xml:space="preserve">
+    <value>ТипОтчета</value>
+  </data>
+  <data name="TypeOfReport1" xml:space="preserve">
+    <value>Выберите тип отчета, для которого вы хотите подать:</value>
+  </data>
+  <data name="RemoveSubscription" xml:space="preserve">
+    <value>Удалить подписку?</value>
+  </data>
+  <data name="RemoveSubscription1" xml:space="preserve">
+    <value>У вас все еще есть утвержденный запрос на подписку от:</value>
+  </data>
+  <data name="RemoveSubscription2" xml:space="preserve">
+    <value>Вы также хотите отозвать это разрешение?</value>
+  </data>
+  <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
+    <value>Похоже, что сервер не поддерживает загрузку файлов.</value>
+  </data>
+  <data name="TesseractNotCreated" xml:space="preserve">
+    <value>Библиотека Tesseract OCR не создана</value>
+  </data>
+  <data name="UnabletoInitializeTesseract" xml:space="preserve">
+    <value>Не удается инициализировать библиотеку Tesseract OCR</value>
+  </data>
+  <data name="UnableToTesseractImage" xml:space="preserve">
+    <value>Не удается обработать изображение с помощью библиотеки Tesseract OCR.</value>
+  </data>
+  <data name="UnableToExtractMachineReadableString" xml:space="preserve">
+    <value>Не удается извлечь машиночитаемый текст из изображения.</value>
+  </data>
+  <data name="TestOtpUsed" xml:space="preserve">
+    <value>Был использован временный код OTP. Приложение перестанет работать примерно через неделю. Вам придется переустановить приложение, чтобы использовать его снова.</value>
+  </data>
+  <data name="WarningTitle" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="ChatMessageReceived" xml:space="preserve">
+    <value>Получено сообщение чата</value>
+  </data>
+  <data name="MessageFrom" xml:space="preserve">
+    <value>Сообщение от:</value>
+  </data>
+  <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
+    <value>На брокере не найдено сервиса Neuro-Features.</value>
+  </data>
+  <data name="Expires" xml:space="preserve">
+    <value>Истекает</value>
+  </data>
+  <data name="Ordinal" xml:space="preserve">
+    <value>Порядковый</value>
+  </data>
+  <data name="TokenDetails" xml:space="preserve">
+    <value>Сведения о токене</value>
+  </data>
+  <data name="TokenDetailsDescription" xml:space="preserve">
+    <value>Ниже приведены сведения, закодированные в токене. Нажмите на любые ссылки для получения дополнительной информации.</value>
+  </data>
+  <data name="TokenId" xml:space="preserve">
+    <value>Идентификатор токена</value>
+  </data>
+  <data name="TokenIdMethod" xml:space="preserve">
+    <value>Метод идентификатора токена</value>
+  </data>
+  <data name="TokenVisibility" xml:space="preserve">
+    <value>Видимость токена</value>
+  </data>
+  <data name="Valuation" xml:space="preserve">
+    <value>Оценка</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Создатель</value>
+  </data>
+  <data name="CreatorJid" xml:space="preserve">
+    <value>Адрес создателя</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>(я)</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Владелец</value>
+  </data>
+  <data name="OwnerJid" xml:space="preserve">
+    <value>Адрес владельца</value>
+  </data>
+  <data name="TokenPartsInfoText" xml:space="preserve">
+    <value>Ниже приведен список сторон, связанных с этим токеном.</value>
+  </data>
+  <data name="TrustProvider" xml:space="preserve">
+    <value>Поставщик доверия</value>
+  </data>
+  <data name="TrustProviderJid" xml:space="preserve">
+    <value>Адрес поставщика доверия</value>
+  </data>
+  <data name="CreationContract" xml:space="preserve">
+    <value>Контракт на создание</value>
+  </data>
+  <data name="ForInclusionInContract" xml:space="preserve">
+    <value>Для включения в состав договора.</value>
+  </data>
+  <data name="OwnershipContract" xml:space="preserve">
+    <value>Договор собственности</value>
+  </data>
+  <data name="PurposeReviewContract" xml:space="preserve">
+    <value>Просмотр договора, в котором вы участвуете.</value>
+  </data>
+  <data name="PurposeReviewToken" xml:space="preserve">
+    <value>Просмотр токена, где вы являетесь частью.</value>
+  </data>
+  <data name="Assessor" xml:space="preserve">
+    <value>Заседатель</value>
+  </data>
+  <data name="Certifier" xml:space="preserve">
+    <value>Сертифицирующий орган</value>
+  </data>
+  <data name="CertifierCanDestroy" xml:space="preserve">
+    <value>Сертифицирующий орган может уничтожить токен</value>
+  </data>
+  <data name="CertifierJid" xml:space="preserve">
+    <value>Адрес сертифицирующего органа</value>
+  </data>
+  <data name="CreatorCanDestroy" xml:space="preserve">
+    <value>Создатель может уничтожить токен</value>
+  </data>
+  <data name="OwnerCanDestroyBatch" xml:space="preserve">
+    <value>Владелец может уничтожить пакет токенов</value>
+  </data>
+  <data name="OwnerCanDestroyIndividual" xml:space="preserve">
+    <value>Владелец может уничтожить отдельный токен</value>
+  </data>
+  <data name="Privileges" xml:space="preserve">
+    <value>Привилегии</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Ссылка</value>
+  </data>
+  <data name="TokenPrivilegesInfoText" xml:space="preserve">
+    <value>Ниже приведены привилегии, выгравированные в токене.</value>
+  </data>
+  <data name="Valuator" xml:space="preserve">
+    <value>Устройство ввода чисел</value>
+  </data>
+  <data name="Witness" xml:space="preserve">
+    <value>Свидетель</value>
+  </data>
+  <data name="AddContactToContract" xml:space="preserve">
+    <value>Добавить контакт в контракт</value>
+  </data>
+  <data name="DefinitionNamespace" xml:space="preserve">
+    <value>Пространство имен определения</value>
+  </data>
+  <data name="DefinitionSchemaDigest" xml:space="preserve">
+    <value>Дайджест схемы определения</value>
+  </data>
+  <data name="InvalidNeuroFeatureToken" xml:space="preserve">
+    <value>Недопустимый токен Neuro-Feature.</value>
+  </data>
+  <data name="MachineReadableInfoTextToken" xml:space="preserve">
+    <value>Ниже приведен обзор машиночитаемых данных, встроенных в маркер.</value>
+  </data>
+  <data name="MyTokens" xml:space="preserve">
+    <value>Мои токены</value>
+  </data>
+  <data name="OfferToBuy" xml:space="preserve">
+    <value>Предложение о покупке</value>
+  </data>
+  <data name="OfferToSell" xml:space="preserve">
+    <value>Предложение о продаже</value>
+  </data>
+  <data name="OpenMessageLink" xml:space="preserve">
+    <value>Открыть ссылку на сообщение</value>
+  </data>
+  <data name="SelectedContactCannotBeAdded" xml:space="preserve">
+    <value>Выбранный контакт не может быть добавлен. У него нет зарегистрированного юридического удостоверения личности.</value>
+  </data>
+  <data name="SendInformationTo" xml:space="preserve">
+    <value>Отправить информацию?</value>
+  </data>
+  <data name="SendToContact" xml:space="preserve">
+    <value>Отправить контакту</value>
+  </data>
+  <data name="ShowDetails" xml:space="preserve">
+    <value>Показать подробности</value>
+  </data>
+  <data name="ViewEvents" xml:space="preserve">
+    <value>Просмотр событий</value>
+  </data>
+  <data name="TokenEvents" xml:space="preserve">
+    <value>События токенов</value>
+  </data>
+  <data name="TokenEventsDescription" xml:space="preserve">
+    <value>Ниже приведены публичные события, записанные для токена. Ваши частные мероприятия также включены.</value>
+  </data>
+  <data name="UnrecognizedEventType" xml:space="preserve">
+    <value>Тип нераспознанного события:</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Ценность</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Добавить примечание</value>
+  </data>
+  <data name="Destroyed" xml:space="preserve">
+    <value>Разрушенный</value>
+  </data>
+  <data name="NoteCopiedToClipboard" xml:space="preserve">
+    <value>Примечание скопировано в буфер обмена.</value>
+  </data>
+  <data name="NoteIsPersonal" xml:space="preserve">
+    <value>Примечание является личным</value>
+  </data>
+  <data name="NoteToAdd" xml:space="preserve">
+    <value>Примечание для добавления:</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Продавец</value>
+  </data>
+  <data name="TextNote" xml:space="preserve">
+    <value>Текстовое примечание</value>
+  </data>
+  <data name="Transferred" xml:space="preserve">
+    <value>Переданы</value>
+  </data>
+  <data name="ViewXmlInBrowser" xml:space="preserve">
+    <value>Щелкните здесь, чтобы просмотреть XML-заметку в браузере.</value>
+  </data>
+  <data name="XmlNote" xml:space="preserve">
+    <value>Примечание XML</value>
+  </data>
+  <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
+    <value>Приложению не удалось получить доступ к закрытым ключам удостоверения. Обычно это означает, что удостоверение было изменено за пределами приложения. Это также может быть результатом повреждения данных. Вы можете попробовать одну из двух вещей. Нажмите кнопку Продолжить, чтобы продолжить, без закрытых ключей. Вы получаете доступ к приложению, но не можете ничего подписать. Затем вы можете повторно подать заявку на новое удостоверение из главного меню с новыми закрытыми ключами. Вы также можете попробовать восстановить базу данных, нажав кнопку Восстановить. В последнем случае приложение закрывается, и при следующем открытии приложения сначала предпринимается попытка восстановления.</value>
+  </data>
+  <data name="Repair" xml:space="preserve">
+    <value>Ремонт</value>
+  </data>
+  <data name="EnterProposal" xml:space="preserve">
+    <value>Введите текст для включения в предложение о {0} или оставьте пустым, если предложение не должно быть отправлено.</value>
+  </data>
+  <data name="BalanceUpdated" xml:space="preserve">
+    <value>Баланс обновлен.</value>
+  </data>
+  <data name="ContractCreated" xml:space="preserve">
+    <value>Контракт создан.</value>
+  </data>
+  <data name="ContractDeleted" xml:space="preserve">
+    <value>Контракт был удален.</value>
+  </data>
+  <data name="ContractProposed" xml:space="preserve">
+    <value>Был предложен контракт.</value>
+  </data>
+  <data name="ContractSigned" xml:space="preserve">
+    <value>Подписан контракт.</value>
+  </data>
+  <data name="ContractUpdated" xml:space="preserve">
+    <value>Обновлен контракт.</value>
+  </data>
+  <data name="IdentityUpdated" xml:space="preserve">
+    <value>Обновлена цифровая идентификация.</value>
+  </data>
+  <data name="PetitionFrom" xml:space="preserve">
+    <value>Петиция от:</value>
+  </data>
+  <data name="TokenAdded" xml:space="preserve">
+    <value>Токен добавлен в ваш кошелек.</value>
+  </data>
+  <data name="TokenRemoved" xml:space="preserve">
+    <value>Токен был удален из вашего кошелька.</value>
+  </data>
+  <data name="PinContainsAddress" xml:space="preserve">
+    <value>ПИН-код не должен содержать слова из адресных строк удостоверения.</value>
+  </data>
+  <data name="PinContainsName" xml:space="preserve">
+    <value>ПИН-код не должен содержать слова из имен удостоверений.</value>
+  </data>
+  <data name="PinContainsPersonalNumber" xml:space="preserve">
+    <value>PIN-код не должен содержать личный номер.</value>
+  </data>
+  <data name="PinContainsPhoneNumber" xml:space="preserve">
+    <value>PIN-код не должен содержать идентификационный номер телефона.</value>
+  </data>
+  <data name="PinWithNotEnoughDigitsLettersSigns" xml:space="preserve">
+    <value>Необходимо использовать не менее {0} букв, цифр или символов.</value>
+  </data>
+  <data name="PinWithTooManyIdenticalSymbols" xml:space="preserve">
+    <value>PIN-код не должен содержать более {0} одинаковых символов.</value>
+  </data>
+  <data name="PinWithTooManySequencedSymbols" xml:space="preserve">
+    <value>PIN-код не должен содержать более {0} последовательных символов, например , "12" или "ab".</value>
+  </data>
+  <data name="PinWithNotEnoughDigitsOrSigns" xml:space="preserve">
+    <value>Вы также должны использовать не менее {0} цифр или символов.</value>
+  </data>
+  <data name="PinWithNotEnoughLettersOrDigits" xml:space="preserve">
+    <value>Вы также должны использовать не менее {0} букв или цифр.</value>
+  </data>
+  <data name="PinWithNotEnoughLettersOrSigns" xml:space="preserve">
+    <value>Вы также должны использовать по крайней мере {0} буквы или символы.</value>
+  </data>
+  <data name="UnableToConnect" xml:space="preserve">
+    <value>Не удается подключиться.</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Копировать в буфер</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="ShowM2MInfo" xml:space="preserve">
+    <value>Показать определение M2M</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Действия</value>
+  </data>
+  <data name="CurrentState" xml:space="preserve">
+    <value>Текущее состояние</value>
+  </data>
+  <data name="CurrentVariables" xml:space="preserve">
+    <value>Текущие переменные</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>История</value>
+  </data>
+  <data name="MachineHasEnded" xml:space="preserve">
+    <value>Состояние-машина закончилась.</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>Присутствующий</value>
+  </data>
+  <data name="Profiling" xml:space="preserve">
+    <value>Профилирование</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Отчеты</value>
+  </data>
+  <data name="States" xml:space="preserve">
+    <value>Государств</value>
+  </data>
+  <data name="Variables" xml:space="preserve">
+    <value>Переменные</value>
+  </data>
+</root>

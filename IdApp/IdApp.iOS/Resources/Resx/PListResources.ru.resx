@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NSCameraUsageDescription" xml:space="preserve">
-    <value>TAG ID tarvitsee pääsyn kameraan valokuvien ottamiseksi digitaalista tunnustasi varten ja kun haluat sen skannaavan QR-koodeja.</value>
+    <value>TAG ID требуется доступ к камере, чтобы делать фотографии для вашего цифрового удостоверения, и когда вы хотите, чтобы он сканировал QR-коды.</value>
   </data>
   <data name="NSPhotoLibraryAddUsageDescription" xml:space="preserve">
-    <value>TAG ID:n on pystyttävä lisäämään valokuvia gallerioihin, jos haluat tallentaa ottamiasi valokuvia myöhempää käyttöä varten.</value>
+    <value>TAG ID должен иметь возможность добавлять фотографии в свои галереи, если вы хотите сохранить фотографии, которые вы делаете, для последующего использования.</value>
   </data>
   <data name="NSPhotoLibraryUsageDescription" xml:space="preserve">
-    <value>TAG ID tarvitsee pääsyn valokuvagalleriaan, jotta voit valita profiilikuvan tunnuksellesi, saada QR-koodeja muista sovelluksista tai jakaa kuvia keskustelujen yhteyshenkilöiden kanssa.</value>
+    <value>TAG ID требуется доступ к фотогалерее, чтобы вы могли выбрать фотографию профиля для своего удостоверения личности, получить QR-коды из других приложений или поделиться изображениями с контактами в чатах.</value>
   </data>
 </root>

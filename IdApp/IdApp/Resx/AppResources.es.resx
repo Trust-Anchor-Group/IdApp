@@ -949,13 +949,13 @@
     <value>ID de plantilla</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
-    <value>El contrato requiere al menos {0} parte (s) de la función {1}. Agregue más partes al contrato e inténtelo de nuevo.</value>
+    <value>El contrato requiere al menos {0} parte (s) de la {1} de rol. Agregue más partes al contrato e inténtelo de nuevo.</value>
   </data>
   <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
     <value>El contrato requiere como máximo {0} parte (s) de la {1} de rol. Quita algunas de las partes del contrato e inténtalo de nuevo.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
-    <value>La contraseña para la conexión es {0}. Esto se ha copiado en el portapapeles.</value>
+    <value>La contraseña de la conexión es {0}. Esto se ha copiado en el portapapeles.</value>
   </data>
   <data name="ThereIsNoNetwork" xml:space="preserve">
     <value>No hay red</value>
@@ -1219,7 +1219,7 @@
     <value>Error al guardar el estado de viewmodel {0} para el {1} de página</value>
   </data>
   <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
-    <value>Error al desvincular el {0} viewmodel para el {1} de página</value>
+    <value>Error al desvincular el {0} viewmodel para la {1} de página</value>
   </data>
   <data name="ContinueAnyway" xml:space="preserve">
     <value>Continuar de todos modos</value>

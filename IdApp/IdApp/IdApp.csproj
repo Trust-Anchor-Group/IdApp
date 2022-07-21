@@ -161,9 +161,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resx\AppResources.ro.resx">
+		<SubType>Designer</SubType>
+		<Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resx\AppResources.ru.resx">
+		<SubType>Designer</SubType>
+		<Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resx\AppResources.sr.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
+		<SubType>Designer</SubType>
+		<Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resx\AppResources.fi.resx">
       <SubType>Designer</SubType>
