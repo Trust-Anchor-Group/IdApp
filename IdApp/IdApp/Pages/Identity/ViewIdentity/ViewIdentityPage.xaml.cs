@@ -18,7 +18,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
         {
             this.ViewModel = new ViewIdentityViewModel();
 
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
         /// <inheritdoc/>

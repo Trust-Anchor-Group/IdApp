@@ -17,7 +17,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			this.ViewModel = new TokenDetailsViewModel(this);
 
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		/// <summary>

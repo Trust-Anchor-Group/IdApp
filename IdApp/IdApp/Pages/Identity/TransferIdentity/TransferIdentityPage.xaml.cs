@@ -16,7 +16,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
         {
             this.ViewModel = new TransferIdentityViewModel();
 
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
         /// <summary>

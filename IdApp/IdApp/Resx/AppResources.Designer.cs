@@ -133,6 +133,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        internal static string Actions {
+            get {
+                return ResourceManager.GetString("Actions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         internal static string Add {
@@ -925,6 +934,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current State.
+        /// </summary>
+        internal static string CurrentState {
+            get {
+                return ResourceManager.GetString("CurrentState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Variables.
+        /// </summary>
+        internal static string CurrentVariables {
+            get {
+                return ResourceManager.GetString("CurrentVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It seems like the database hasn&apos;t been closed correctly, and may therefore be damaged. An attempt can be made to repair the database by first wiping it. How would you like to proceed?.
         /// </summary>
         internal static string DatabaseCorruptInfoText {
@@ -993,6 +1020,15 @@ namespace IdApp.Resx {
         internal static string DeleteContract {
             get {
                 return ResourceManager.GetString("DeleteContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         
@@ -1384,6 +1420,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to History.
+        /// </summary>
+        internal static string History {
+            get {
+                return ResourceManager.GetString("History", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         internal static string Home {
@@ -1740,6 +1785,15 @@ namespace IdApp.Resx {
         internal static string Longitude {
             get {
                 return ResourceManager.GetString("Longitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State-Machine has ended..
+        /// </summary>
+        internal static string MachineHasEnded {
+            get {
+                return ResourceManager.GetString("MachineHasEnded", resourceCulture);
             }
         }
         
@@ -2887,6 +2941,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Present.
+        /// </summary>
+        internal static string Present {
+            get {
+                return ResourceManager.GetString("Present", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Privileges.
         /// </summary>
         internal static string Privileges {
@@ -2901,6 +2964,15 @@ namespace IdApp.Resx {
         internal static string ProductInformation {
             get {
                 return ResourceManager.GetString("ProductInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profiling.
+        /// </summary>
+        internal static string Profiling {
+            get {
+                return ResourceManager.GetString("Profiling", resourceCulture);
             }
         }
         
@@ -3216,6 +3288,15 @@ namespace IdApp.Resx {
         internal static string ReportAsCompromized {
             get {
                 return ResourceManager.GetString("ReportAsCompromized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports.
+        /// </summary>
+        internal static string Reports {
+            get {
+                return ResourceManager.GetString("Reports", resourceCulture);
             }
         }
         
@@ -3580,7 +3661,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show M2M Info.
+        ///   Looks up a localized string similar to Show M2M Definition.
         /// </summary>
         internal static string ShowM2MInfo {
             get {
@@ -3675,6 +3756,15 @@ namespace IdApp.Resx {
         internal static string State {
             get {
                 return ResourceManager.GetString("State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to States.
+        /// </summary>
+        internal static string States {
+            get {
+                return ResourceManager.GetString("States", resourceCulture);
             }
         }
         
@@ -4377,6 +4467,15 @@ namespace IdApp.Resx {
         internal static string Value {
             get {
                 return ResourceManager.GetString("Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variables.
+        /// </summary>
+        internal static string Variables {
+            get {
+                return ResourceManager.GetString("Variables", resourceCulture);
             }
         }
         

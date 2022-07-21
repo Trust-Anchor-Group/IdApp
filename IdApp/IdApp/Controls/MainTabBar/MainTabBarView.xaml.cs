@@ -13,7 +13,7 @@ namespace IdApp.Controls.MainTabBar
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MainTabBarView
 	{
-		private const uint DurationInMs = 250;
+		private const uint durationInMs = 250;
 		private readonly ILogService logService;
 		private bool isShowing;
 
@@ -31,25 +31,25 @@ namespace IdApp.Controls.MainTabBar
 			this.RightButton1FontFamily = fontFamily;
 			this.RightButton2FontFamily = fontFamily;
 
-			InitializeComponent();
+			this.InitializeComponent();
 
-			LeftButton1.SetBinding(Button.CommandProperty, new Binding(nameof(LeftButton1Command), source: this));
-			LeftButton2.SetBinding(Button.CommandProperty, new Binding(nameof(LeftButton2Command), source: this));
-			CenterButton.SetBinding(Button.CommandProperty, new Binding(nameof(CenterButtonCommand), source: this));
-			RightButton1.SetBinding(Button.CommandProperty, new Binding(nameof(RightButton1Command), source: this));
-			RightButton2.SetBinding(Button.CommandProperty, new Binding(nameof(RightButton2Command), source: this));
+			this.LeftButton1.SetBinding(Button.CommandProperty, new Binding(nameof(this.LeftButton1Command), source: this));
+			this.LeftButton2.SetBinding(Button.CommandProperty, new Binding(nameof(this.LeftButton2Command), source: this));
+			this.CenterButton.SetBinding(Button.CommandProperty, new Binding(nameof(this.CenterButtonCommand), source: this));
+			this.RightButton1.SetBinding(Button.CommandProperty, new Binding(nameof(this.RightButton1Command), source: this));
+			this.RightButton2.SetBinding(Button.CommandProperty, new Binding(nameof(this.RightButton2Command), source: this));
 
-			LeftButton1.SetBinding(Button.FontFamilyProperty, new Binding(nameof(LeftButton1FontFamily), source: this));
-			LeftButton2.SetBinding(Button.FontFamilyProperty, new Binding(nameof(LeftButton2FontFamily), source: this));
-			CenterButton.SetBinding(Button.FontFamilyProperty, new Binding(nameof(CenterButtonFontFamily), source: this));
-			RightButton1.SetBinding(Button.FontFamilyProperty, new Binding(nameof(RightButton1FontFamily), source: this));
-			RightButton2.SetBinding(Button.FontFamilyProperty, new Binding(nameof(RightButton2FontFamily), source: this));
+			this.LeftButton1.SetBinding(Button.FontFamilyProperty, new Binding(nameof(this.LeftButton1FontFamily), source: this));
+			this.LeftButton2.SetBinding(Button.FontFamilyProperty, new Binding(nameof(this.LeftButton2FontFamily), source: this));
+			this.CenterButton.SetBinding(Button.FontFamilyProperty, new Binding(nameof(this.CenterButtonFontFamily), source: this));
+			this.RightButton1.SetBinding(Button.FontFamilyProperty, new Binding(nameof(this.RightButton1FontFamily), source: this));
+			this.RightButton2.SetBinding(Button.FontFamilyProperty, new Binding(nameof(this.RightButton2FontFamily), source: this));
 
-			LeftButton1.SetBinding(Button.TextProperty, new Binding(nameof(LeftButton1Text), source: this));
-			LeftButton2.SetBinding(Button.TextProperty, new Binding(nameof(LeftButton2Text), source: this));
-			CenterButton.SetBinding(Button.TextProperty, new Binding(nameof(CenterButtonText), source: this));
-			RightButton1.SetBinding(Button.TextProperty, new Binding(nameof(RightButton1Text), source: this));
-			RightButton2.SetBinding(Button.TextProperty, new Binding(nameof(RightButton2Text), source: this));
+			this.LeftButton1.SetBinding(Button.TextProperty, new Binding(nameof(this.LeftButton1Text), source: this));
+			this.LeftButton2.SetBinding(Button.TextProperty, new Binding(nameof(this.LeftButton2Text), source: this));
+			this.CenterButton.SetBinding(Button.TextProperty, new Binding(nameof(this.CenterButtonText), source: this));
+			this.RightButton1.SetBinding(Button.TextProperty, new Binding(nameof(this.RightButton1Text), source: this));
+			this.RightButton2.SetBinding(Button.TextProperty, new Binding(nameof(this.RightButton2Text), source: this));
 		}
 
 		#region Properties
@@ -291,8 +291,8 @@ namespace IdApp.Controls.MainTabBar
 				this.ToolBarContent.CancelAnimations();
 				this.CenterButton.CancelAnimations();
 				this.isShowing = true;
-				Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, 0, DurationInMs, Easing.SinIn);
-				Task translateMiddleButtonTask = this.CenterButton.TranslateTo(0, 0, DurationInMs * 2, Easing.SinIn);
+				Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, 0, durationInMs, Easing.SinIn);
+				Task translateMiddleButtonTask = this.CenterButton.TranslateTo(0, 0, durationInMs * 2, Easing.SinIn);
 				try
 				{
 					await Task.WhenAll(translateMiddleButtonTask, translateToolBarTask);
@@ -318,8 +318,8 @@ namespace IdApp.Controls.MainTabBar
 				this.isShowing = false;
 				this.CenterButton.CancelAnimations();
 				this.ToolBarContent.CancelAnimations();
-				Task translateMiddleButtonTask = this.CenterButton.TranslateTo(0, 30, DurationInMs, Easing.SinOut);
-				Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, this.MainToolBar.Height, DurationInMs, Easing.SinOut);
+				Task translateMiddleButtonTask = this.CenterButton.TranslateTo(0, 30, durationInMs, Easing.SinOut);
+				Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, this.MainToolBar.Height, durationInMs, Easing.SinOut);
 				try
 				{
 					await Task.WhenAll(translateToolBarTask, translateMiddleButtonTask);

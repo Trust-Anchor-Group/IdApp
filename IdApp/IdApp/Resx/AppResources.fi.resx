@@ -1705,6 +1705,39 @@
     <value>Luokka</value>
   </data>
   <data name="ShowM2MInfo" xml:space="preserve">
-    <value>Näytä M2M-tiedot</value>
+    <value>Näytä M2M-määritelmä</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Toimet</value>
+  </data>
+  <data name="CurrentState" xml:space="preserve">
+    <value>Nykytila</value>
+  </data>
+  <data name="CurrentVariables" xml:space="preserve">
+    <value>Nykyiset muuttujat</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historia</value>
+  </data>
+  <data name="MachineHasEnded" xml:space="preserve">
+    <value>State-Machine on päättynyt.</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>Lahja</value>
+  </data>
+  <data name="Profiling" xml:space="preserve">
+    <value>Profilointi</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Raportit</value>
+  </data>
+  <data name="States" xml:space="preserve">
+    <value>Valtioiden</value>
+  </data>
+  <data name="Variables" xml:space="preserve">
+    <value>Muuttujat</value>
   </data>
 </root>

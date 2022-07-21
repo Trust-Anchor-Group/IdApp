@@ -17,7 +17,7 @@ namespace IdApp.Pages.Wallet.Payment
 		{
             this.ViewModel = new EDalerUriViewModel(this);
 
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
         /// <summary>

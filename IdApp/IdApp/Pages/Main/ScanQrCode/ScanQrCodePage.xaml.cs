@@ -21,9 +21,9 @@ namespace IdApp.Pages.Main.ScanQrCode
 		public ScanQrCodePage()
 		{
 			this.ViewModel = new ScanQrCodeViewModel();
-			InitializeComponent();
+			this.InitializeComponent();
 
-			Scanner.Options = new MobileBarcodeScanningOptions
+			this.Scanner.Options = new MobileBarcodeScanningOptions
 			{
 				PossibleFormats = new List<ZXing.BarcodeFormat> { ZXing.BarcodeFormat.QR_CODE },
 				TryHarder = true
@@ -37,9 +37,9 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
 			await base.OnAppearingAsync();
 
-			GetViewModel<ScanQrCodeViewModel>().ModeChanged += ViewModel_ModeChanged;
-			Scanner.IsScanning = true;
-			Scanner.IsAnalyzing = true;
+			this.GetViewModel<ScanQrCodeViewModel>().ModeChanged += this.ViewModel_ModeChanged;
+			this.Scanner.IsScanning = true;
+			this.Scanner.IsAnalyzing = true;
 		}
 
 		/// <summary>
@@ -47,16 +47,16 @@ namespace IdApp.Pages.Main.ScanQrCode
 		/// </summary>
 		protected override async Task OnDisappearingAsync()
 		{
-			Scanner.IsAnalyzing = false;
-			Scanner.IsScanning = false;
-			GetViewModel<ScanQrCodeViewModel>().ModeChanged -= ViewModel_ModeChanged;
+			this.Scanner.IsAnalyzing = false;
+			this.Scanner.IsScanning = false;
+			this.GetViewModel<ScanQrCodeViewModel>().ModeChanged -= this.ViewModel_ModeChanged;
 
 			await base.OnDisappearingAsync();
 		}
 
 		private void ViewModel_ModeChanged(object sender, EventArgs e)
 		{
-			if (GetViewModel<ScanQrCodeViewModel>().ScanIsManual)
+			if (this.GetViewModel<ScanQrCodeViewModel>().ScanIsManual)
 				this.LinkEntry.Focus();
 		}
 
@@ -64,17 +64,17 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
 			if (!string.IsNullOrWhiteSpace(result.Text))
 			{
-				Scanner.IsAnalyzing = false; // Stop analysis until we navigate away so we don't keep reading qr codes
+				this.Scanner.IsAnalyzing = false; // Stop analysis until we navigate away so we don't keep reading qr codes
 				string Url = result.Text?.Trim();
 
-				GetViewModel<ScanQrCodeViewModel>().Url = Url;
+				this.GetViewModel<ScanQrCodeViewModel>().Url = Url;
 				QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, Url);
 			}
 		}
 
 		private async void OpenButton_Click(object sender, EventArgs e)
 		{
-			string Url = GetViewModel<ScanQrCodeViewModel>().LinkText?.Trim();
+			string Url = this.GetViewModel<ScanQrCodeViewModel>().LinkText?.Trim();
 			try
 			{
 				string Scheme = Constants.UriSchemes.GetScheme(Url);

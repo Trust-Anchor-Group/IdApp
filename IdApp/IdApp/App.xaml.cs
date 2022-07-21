@@ -810,9 +810,7 @@ namespace IdApp
 		/// <returns>If the user has provided the correct PIN</returns>
 		public static async Task<bool> VerifyPin()
 		{
-#if DEBUG
-			return true;
-#endif
+#if !DEBUG
 			ITagProfile Profile = App.Instantiate<ITagProfile>();
 			if (!Profile.UsePin)
 				return true;
@@ -821,6 +819,7 @@ namespace IdApp
 
 			if (!displayedPinPopup && NeedToVerifyPin)
 				return await InputPin(Profile) is not null;
+#endif
 
 			return true;
 		}
@@ -846,17 +845,14 @@ namespace IdApp
 					DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
 								Constants.Pin.Protocol);
 
-					if (DateTimeForLogin != null)
+					if (DateTimeForLogin.HasValue)
 					{
 						string MessageAlert;
 
 						if (DateTimeForLogin == DateTime.MaxValue)
-						{
 							MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
-						} else
-						{
+						else
 							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateTimeForLogin);
-						}
 
 						await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
 						return null;

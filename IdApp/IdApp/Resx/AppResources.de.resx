@@ -1705,6 +1705,39 @@
     <value>Kategorie</value>
   </data>
   <data name="ShowM2MInfo" xml:space="preserve">
-    <value>M2M-Info anzeigen</value>
+    <value>M2M-Definition anzeigen</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Aktionen</value>
+  </data>
+  <data name="CurrentState" xml:space="preserve">
+    <value>Aktueller Stand</value>
+  </data>
+  <data name="CurrentVariables" xml:space="preserve">
+    <value>Aktuelle Variablen</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Geschichte</value>
+  </data>
+  <data name="MachineHasEnded" xml:space="preserve">
+    <value>State-Machine ist zu Ende.</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>Gegenwart</value>
+  </data>
+  <data name="Profiling" xml:space="preserve">
+    <value>Profilieren</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Berichte</value>
+  </data>
+  <data name="States" xml:space="preserve">
+    <value>Staaten</value>
+  </data>
+  <data name="Variables" xml:space="preserve">
+    <value>Variablen</value>
   </data>
 </root>

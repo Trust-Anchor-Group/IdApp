@@ -51,7 +51,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.TransferCommand = new Command(async _ => await this.Transfer(), _ => this.IsConnected);
 			this.CompromiseCommand = new Command(async _ => await this.Compromise(), _ => this.IsConnected);
 			this.ChangePinCommand = new Command(async _ => await this.ChangePin(), _ => this.IsConnected);
-			this.CopyCommand = new Command(_ => this.CopyIdToClipboard());
+			this.CopyCommand = new Command(Item => this.CopyToClipboard(Item));
 			this.AddContactCommand = new Command(async _ => await this.AddContact(), _ => this.ThirdPartyNotInContacts);
 			this.RemoveContactCommand = new Command(async _ => await this.RemoveContact(), _ => this.ThirdPartyInContacts);
 			this.SendPaymentToCommand = new Command(async _ => await this.SendPaymentTo(), _ => this.ThirdParty);
@@ -294,14 +294,25 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <summary>
-		/// Copies ID to clipboard
+		/// Copies Item to clipboard
 		/// </summary>
-		private async void CopyIdToClipboard()
+		private async void CopyToClipboard(object Item)
 		{
 			try
 			{
-				await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeIotId + ":" + this.LegalId);
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
+				if (Item is string Label)
+				{
+					if (Label == this.LegalId)
+					{
+						await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeIotId + ":" + this.LegalId);
+						await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
+					}
+					else
+					{
+						await Clipboard.SetTextAsync(Label);
+						await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+					}
+				}
 			}
 			catch (Exception ex)
 			{
@@ -1347,9 +1358,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private async Task<bool> AreYouSure(string Message)
 		{
-			string Pin = await App.InputPin();
-
-			if (Pin is null)
+			if (!await App.VerifyPin())
 				return false;
 
 			return await this.UiSerializer.DisplayAlert(AppResources.Confirm, Message, AppResources.Yes, AppResources.No);

@@ -1705,6 +1705,39 @@
     <value>Kategorija</value>
   </data>
   <data name="ShowM2MInfo" xml:space="preserve">
-    <value>Prikaži M2M informacije</value>
+    <value>Prikaži M2M definiciju</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Radnje</value>
+  </data>
+  <data name="CurrentState" xml:space="preserve">
+    <value>Trenutno stanje</value>
+  </data>
+  <data name="CurrentVariables" xml:space="preserve">
+    <value>Trenutne promenljive</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Istorija</value>
+  </data>
+  <data name="MachineHasEnded" xml:space="preserve">
+    <value>Državna mašina je završena.</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>Poklon</value>
+  </data>
+  <data name="Profiling" xml:space="preserve">
+    <value>Profilisanje</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Izveštaje</value>
+  </data>
+  <data name="States" xml:space="preserve">
+    <value>Države</value>
+  </data>
+  <data name="Variables" xml:space="preserve">
+    <value>Promenljive</value>
   </data>
 </root>

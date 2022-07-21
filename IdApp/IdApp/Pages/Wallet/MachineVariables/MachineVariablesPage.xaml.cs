@@ -1,19 +1,19 @@
 ﻿using Xamarin.Forms.Xaml;
 
-namespace IdApp.Pages.Wallet.TokenEvents
+namespace IdApp.Pages.Wallet.MachineVariables
 {
 	/// <summary>
-	/// A page that allows the user to view information about a token.
+	/// A page that allows the user to view information about the current state of a state-machine.
 	/// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class TokenEventsPage
+	public partial class MachineVariablesPage
 	{
 		/// <summary>
-		/// Creates a new instance of the <see cref="TokenEventsPage"/> class.
+		/// A page that allows the user to view information about the current state of a state-machine.
 		/// </summary>
-		public TokenEventsPage()
+		public MachineVariablesPage()
 		{
-			this.ViewModel = new TokenEventsViewModel();
+			this.ViewModel = new MachineVariablesViewModel();
 
 			this.InitializeComponent();
 		}
@@ -27,6 +27,5 @@ namespace IdApp.Pages.Wallet.TokenEvents
 			this.ViewModel.NavigationService.GoBackAsync();
 			return true;
 		}
-
 	}
 }

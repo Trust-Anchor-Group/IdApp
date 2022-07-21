@@ -1,4 +1,5 @@
-﻿using IdApp.Pages;
+﻿using IdApp.Extensions;
+using IdApp.Pages;
 using IdApp.Pages.Contacts.Chat;
 using System;
 using System.Threading.Tasks;
@@ -202,49 +203,9 @@ namespace IdApp.Services.Messages
 
 			if (!string.IsNullOrEmpty(this.markdown))
 			{
-				try
-				{
-					MarkdownSettings Settings = new()
-					{
-						AllowScriptTag = false,
-						EmbedEmojis = false,    // TODO: Emojis
-						AudioAutoplay = false,
-						AudioControls = false,
-						ParseMetaData = false,
-						VideoAutoplay = false,
-						VideoControls = false
-					};
-
-					MarkdownDocument Doc = await MarkdownDocument.CreateAsync(this.markdown, Settings);
-
-					string Xaml = await Doc.GenerateXamarinForms();
-					Xaml = Xaml.Replace("TextColor=\"{Binding HyperlinkColor}\"", "Style=\"{StaticResource HyperlinkColor}\"");
-
-					this.parsedXaml = new StackLayout().LoadFromXaml(Xaml);
-
-					if (this.parsedXaml is StackLayout Layout)
-						Layout.StyleId = this.StyleId;
-				}
-				catch (Exception ex)
-				{
-					Log.Critical(ex);
-
-					StackLayout Layout = new()
-					{
-						Orientation = StackOrientation.Vertical,
-						StyleId = this.StyleId
-					};
-
-					Layout.Children.Add(new Label()
-					{
-						Text = ex.Message,
-						FontFamily = "Courier New",
-						TextColor = Color.Red,
-						TextType = TextType.Text
-					});
-
-					this.parsedXaml = Layout;
-				}
+				this.parsedXaml = await this.markdown.MarkdownToXaml();
+				if (this.parsedXaml is StackLayout Layout)
+					Layout.StyleId = this.StyleId;
 			}
 			else
 			{

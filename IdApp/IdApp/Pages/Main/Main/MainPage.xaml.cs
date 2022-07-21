@@ -17,8 +17,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public MainPage()
 		{
-			InitializeComponent();
-			ViewModel = new MainViewModel();
+			this.InitializeComponent();
+			this.ViewModel = new MainViewModel();
 		}
 
 		/// <summary>

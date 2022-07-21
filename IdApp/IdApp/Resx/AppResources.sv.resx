@@ -141,6 +141,9 @@
   <data name="AccountNameIsInvalid" xml:space="preserve">
     <value>Kontonamnet är ogiltigt</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Åtgärder</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Lägg till</value>
   </data>
@@ -405,6 +408,12 @@
   <data name="CreatorJid" xml:space="preserve">
     <value>Skaparens adress</value>
   </data>
+  <data name="CurrentState" xml:space="preserve">
+    <value>Aktuellt tillstånd</value>
+  </data>
+  <data name="CurrentVariables" xml:space="preserve">
+    <value>Aktuella variabler</value>
+  </data>
   <data name="DatabaseCorruptInfoText" xml:space="preserve">
     <value>Applikationen ser ut att inte ha stängts korrekt. Databasen kan därför vara skadad. Ett försök att reparera den genom att nollställa den kan göras. Hur vill du fortsätta?</value>
   </data>
@@ -428,6 +437,9 @@
   </data>
   <data name="DeleteContract" xml:space="preserve">
     <value>Ta bort kontrakt</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivning</value>
   </data>
   <data name="Destroyed" xml:space="preserve">
     <value>Förstörd</value>
@@ -558,6 +570,9 @@
   <data name="HashFunction" xml:space="preserve">
     <value>Hash-funktion</value>
   </data>
+  <data name="History" xml:space="preserve">
+    <value>Historia</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Hem</value>
   </data>
@@ -677,6 +692,9 @@
   </data>
   <data name="Longitude" xml:space="preserve">
     <value>Longitud</value>
+  </data>
+  <data name="MachineHasEnded" xml:space="preserve">
+    <value>Tillståndsmaskinen har avslutats.</value>
   </data>
   <data name="MachineReadableInfoText" xml:space="preserve">
     <value>En översikt över den maskinläsbara informationen i kontraktet visas nedan.</value>
@@ -1059,11 +1077,17 @@
   <data name="PresenceUnsubscriptionRequestSent" xml:space="preserve">
     <value>En förfrågan att ta bort närvaruprenumerationen har skickats.</value>
   </data>
+  <data name="Present" xml:space="preserve">
+    <value>Nu</value>
+  </data>
   <data name="Privileges" xml:space="preserve">
     <value>Privilegier</value>
   </data>
   <data name="ProductInformation" xml:space="preserve">
     <value>Produktinformation</value>
+  </data>
+  <data name="Profiling" xml:space="preserve">
+    <value>Profilering</value>
   </data>
   <data name="Proposal" xml:space="preserve">
     <value>Proposal</value>
@@ -1169,6 +1193,9 @@
   </data>
   <data name="ReportAsCompromized" xml:space="preserve">
     <value>Rapportera som komprometterad</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Rapporter</value>
   </data>
   <data name="Request" xml:space="preserve">
     <value>Begäran</value>
@@ -1288,7 +1315,7 @@
     <value>Visa detaljer</value>
   </data>
   <data name="ShowM2MInfo" xml:space="preserve">
-    <value>Visa M2M-information</value>
+    <value>Visa M2M-definition</value>
   </data>
   <data name="SignAfter" xml:space="preserve">
     <value>Signera efter</value>
@@ -1327,6 +1354,9 @@
     <value>Spam</value>
   </data>
   <data name="State" xml:space="preserve">
+    <value>Tillstånd</value>
+  </data>
+  <data name="States" xml:space="preserve">
     <value>Tillstånd</value>
   </data>
   <data name="StreetName" xml:space="preserve">
@@ -1559,6 +1589,9 @@
   </data>
   <data name="Value" xml:space="preserve">
     <value>Värde</value>
+  </data>
+  <data name="Variables" xml:space="preserve">
+    <value>Variabler</value>
   </data>
   <data name="VerificationCode" xml:space="preserve">
     <value>Verifieringskod</value>

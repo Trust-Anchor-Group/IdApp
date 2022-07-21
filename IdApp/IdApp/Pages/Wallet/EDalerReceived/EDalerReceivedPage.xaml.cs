@@ -15,7 +15,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		{
             this.ViewModel = new EDalerReceivedViewModel();
 
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
         /// <summary>

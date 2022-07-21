@@ -71,7 +71,7 @@ namespace IdApp.Popups.Xmpp.SubscriptionRequest
                 this.secondaryName = string.Empty;
 			}
 
-            InitializeComponent();
+			this.InitializeComponent();
 
             this.BindingContext = this;
         }
@@ -123,13 +123,13 @@ namespace IdApp.Popups.Xmpp.SubscriptionRequest
 
         private void OnCloseButtonTapped(object sender, EventArgs e)
         {
-            Close();
+			this.Close();
         }
 
         /// <inheritdoc/>
         protected override bool OnBackgroundClicked()
         {
-            Close();
+			this.Close();
             return false;
         }
 

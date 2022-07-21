@@ -15,7 +15,7 @@ namespace IdApp.Pages.Wallet.SendPayment
 		{
             this.ViewModel = new EDalerUriViewModel(null);
 
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
         /// <summary>

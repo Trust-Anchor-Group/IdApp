@@ -21,7 +21,7 @@ namespace IdApp.Popups.Xmpp.SubscribeTo
         {
             this.bareJid = BareJid;
 
-            InitializeComponent();
+			this.InitializeComponent();
 
             this.BindingContext = this;
         }
@@ -33,13 +33,13 @@ namespace IdApp.Popups.Xmpp.SubscribeTo
 
         private void OnCloseButtonTapped(object sender, EventArgs e)
         {
-            Close();
+			this.Close();
         }
 
         /// <inheritdoc/>
         protected override bool OnBackgroundClicked()
         {
-            Close();
+			this.Close();
             return false;
         }
 
