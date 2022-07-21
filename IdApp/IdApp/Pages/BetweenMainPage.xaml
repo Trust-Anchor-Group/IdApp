@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:ContentBasePage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+	xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+	xmlns:pages="clr-namespace:IdApp.Pages"
+	x:Class="IdApp.Pages.BetweenMainPage"
+	ios:Page.UseSafeArea="True"
+	BackgroundColor="{StaticResource HeadingBackground}">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<Style TargetType="View" Class="TopLevelContainer" ApplyToDerivedTypes="True">
+				<Setter Property="VerticalOptions" Value="Center" />
+			</Style>
+
+			<Style TargetType="View" Class="TopLevelChild" ApplyToDerivedTypes="True">
+				<Setter Property="HorizontalOptions" Value="Center" />
+			</Style>
+			
+			<Style TargetType="Label" Class="MainLabel">
+				<Setter Property="TextColor" Value="White" />
+				<Setter Property="VerticalTextAlignment" Value="Center" />
+			</Style>
+			<Style TargetType="Label" Class="MainLabelSmall">
+				<Setter Property="FontSize" Value="16" />
+			</Style>
+			<Style TargetType="Label" Class="MainLabelBig">
+				<Setter Property="FontSize" Value="24" />
+			</Style>
+			
+			<Style TargetType="ActivityIndicator" Class="Spinner">
+				<Setter Property="Color" Value="{StaticResource AccentColor}" />
+			</Style>
+			<Style TargetType="ActivityIndicator" Class="SpinnerAlwaysRunning">
+				<Setter Property="IsRunning" Value="True" />
+				<Setter Property="IsVisible" Value="True" />
+			</Style>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+	<Grid>
+		<ffimage:CachedImage Source="tag_bg.jpg" Aspect="AspectFill" />
+
+		<StackLayout class="TopLevelContainer">
+			<StackLayout class="TopLevelChild" Orientation="Horizontal">
+				<Label class="MainLabel,MainLabelSmall">NEW</Label>
+				<Label class="MainLabel,MainLabelBig">WAYS</Label>
+				<Label class="MainLabel,MainLabelSmall">OF</Label>
+				<Label class="MainLabel,MainLabelBig">WORLDMAKING</Label>
+			</StackLayout>
+
+			<ActivityIndicator class="TopLevelChild,Spinner,SpinnerAlwaysRunning" />
+		</StackLayout>
+	</Grid>
+
+</pages:ContentBasePage>
