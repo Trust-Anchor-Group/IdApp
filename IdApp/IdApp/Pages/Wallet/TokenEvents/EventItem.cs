@@ -261,8 +261,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 					{
 						ContactInfo Contact = await ContactInfo.FindByBareJid(Source);
 
-						await this.@ref.NavigationService.GoToAsync(
-							Device.RuntimePlatform == Device.iOS ? nameof(ChatPageIos) : nameof(ChatPage),
+						await this.@ref.NavigationService.GoToAsync(nameof(ChatPage),
 							new ChatNavigationArgs(Contact?.LegalId, Contact?.BareJid ?? Source, Contact?.FriendlyName ?? Source)
 							{
 								UniqueId = Contact?.BareJid ?? Source

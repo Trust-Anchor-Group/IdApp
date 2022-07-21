@@ -502,6 +502,7 @@ namespace IdApp.Pages.Main.Main
 		{
 			if (!await App.VerifyPin())
 				return;
+
 			await this.NavigationService.GoToAsync(nameof(ViewIdentityPage));
 		}
 

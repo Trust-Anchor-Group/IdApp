@@ -1647,7 +1647,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				await this.NavigationService.GoToAsync(Device.RuntimePlatform == Device.iOS ? nameof(ChatPageIos) : nameof(ChatPage), new ChatNavigationArgs(this.LegalId, this.BareJid,
+				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(this.LegalId, this.BareJid,
 					ContactInfo.GetFriendlyName(this.LegalIdentity)) { UniqueId = this.BareJid });
 			}
 			catch (Exception ex)

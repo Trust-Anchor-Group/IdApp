@@ -1085,7 +1085,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			try
 			{
-				await this.NavigationService.GoToAsync(Device.RuntimePlatform == Device.iOS ? nameof(ChatPageIos) : nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName) { UniqueId = BareJid });
+				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName) { UniqueId = BareJid });
 			}
 			catch (Exception ex)
 			{
@@ -1145,7 +1145,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			await Task.Delay(100);  // Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
 
-			await this.NavigationService.GoToAsync(Device.RuntimePlatform == Device.iOS ? nameof(ChatPageIos) : nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
+			await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
 		}
 
 		private async Task Share()

@@ -249,7 +249,7 @@ namespace IdApp.Pages.Contacts
 						else if (!string.IsNullOrEmpty(Contact.LegalId))
 							await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId, AppResources.ScannedQrCode);
 						else if (!string.IsNullOrEmpty(Contact.BareJid))
-							await this.NavigationService.GoToAsync(Device.RuntimePlatform == Device.iOS ? nameof(ChatPageIos) : nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
+							await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
 
 						break;
 
