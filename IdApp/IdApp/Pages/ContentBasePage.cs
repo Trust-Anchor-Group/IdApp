@@ -15,11 +15,19 @@ namespace IdApp.Pages
     /// <remarks>It also handles safe area insets for iOS applications, specifically on iPhones with the 'rabbit ear' displays.</remarks>
     public class ContentBasePage : ContentPage
     {
-        /// <summary>
-        /// Creates an instance of the <see cref="ContentBasePage"/> class.
-        /// </summary>
-        protected internal ContentBasePage()
+		/// <summary>
+		/// An event which is raised when <see cref="OnDisappearing"/> has actually completed (normally or because of an exception).
+		/// </summary>
+		public event EventHandler OnDisappearingCompleted;
+
+		/// <summary>
+		/// Creates an instance of the <see cref="ContentBasePage"/> class.
+		/// </summary>
+		protected internal ContentBasePage()
         {
+#if DEBUG
+			NavigationLogger.Log(this.GetType().Name + " .ctor");
+#endif
 			this.On<iOS>().SetUseSafeArea(true);
         }
 
@@ -48,8 +56,15 @@ namespace IdApp.Pages
             try
             {
                 base.OnAppearing();
-                await this.OnAppearingAsync();
-            }
+
+#if DEBUG
+				NavigationLogger.Log(this.GetType().Name + " OnAppearingAsync begins.");
+#endif
+				await this.OnAppearingAsync();
+#if DEBUG
+				NavigationLogger.Log(this.GetType().Name + " OnAppearingAsync ends.");
+#endif
+			}
             catch (Exception ex)
             {
                 Log.Critical(ex);
@@ -67,8 +82,14 @@ namespace IdApp.Pages
                 {
                     try
                     {
-                        await this.ViewModel.Bind();
-                    }
+#if DEBUG
+						NavigationLogger.Log(this.GetType().Name + " ViewModel (" + this.ViewModel.GetType().Name + ") Bind begins.");
+#endif
+						await this.ViewModel.Bind();
+#if DEBUG
+						NavigationLogger.Log(this.GetType().Name + " ViewModel (" + this.ViewModel.GetType().Name + ") Bind ends.");
+#endif
+					}
                     catch (Exception e)
                     {
                         e = Log.UnnestException(e);
@@ -98,13 +119,23 @@ namespace IdApp.Pages
         {
             try
             {
-                await this.OnDisappearingAsync();
-                base.OnDisappearing();
+#if DEBUG
+				NavigationLogger.Log(this.GetType().Name + " OnDisappearingAsync begins.");
+#endif
+				await this.OnDisappearingAsync();
+#if DEBUG
+				NavigationLogger.Log(this.GetType().Name + " OnDisappearingAsync ends.");
+#endif
+				base.OnDisappearing();
             }
             catch (Exception ex)
             {
                 Log.Critical(ex);
-            }
+			}
+			finally
+			{
+				OnDisappearingCompleted?.Invoke(this, EventArgs.Empty);
+			}
         }
 
         /// <summary>
@@ -132,8 +163,14 @@ namespace IdApp.Pages
 
                 try
                 {
-                    await this.ViewModel.Unbind();
-                }
+#if DEBUG
+					NavigationLogger.Log(this.GetType().Name + " ViewModel (" + this.ViewModel.GetType().Name + ") Unbind begins.");
+#endif
+					await this.ViewModel.Unbind();
+#if DEBUG
+					NavigationLogger.Log(this.GetType().Name + " ViewModel (" + this.ViewModel.GetType().Name + ") Unbind ends.");
+#endif
+				}
                 catch (Exception e)
                 {
                     e = Log.UnnestException(e);
@@ -160,5 +197,5 @@ namespace IdApp.Pages
                 }
             });
         }
-    }
+	}
 }
