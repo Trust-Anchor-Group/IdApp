@@ -20,7 +20,7 @@ namespace IdApp.Pages.Main.Shell
 	/// <summary>
 	/// The Xamarin Forms Shell implementation of the TAG ID App.
 	/// </summary>
-	public partial class AppShell
+	public partial class AppShell : ShellBasePage
 	{
 		/// <summary>
 		/// Create a new instance of the <see cref="AppShell"/> class.
