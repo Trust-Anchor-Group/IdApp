@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Controls.Extended;
 using IdApp.Extensions;
 using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract.ObjectModel;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Main.Main;
@@ -27,11 +29,11 @@ namespace IdApp.Pages.Contracts.NewContract
 	/// <summary>
 	/// The view model to bind to when displaying a new contract view or page.
 	/// </summary>
-	public class NewContractViewModel : BaseViewModel
+	public class NewContractViewModel : BaseViewModel, ILinkableView
 	{
 		private static readonly string partSettingsPrefix = typeof(NewContractViewModel).FullName + ".Part_";
 
-		private readonly Dictionary<string, ParameterInfo> parametersByName = new();
+		private readonly SortedDictionary<string, ParameterInfo> parametersByName = new();
 		private Dictionary<string, object> presetParameterValues = new();
 		private CaseInsensitiveString[] suppressedProposalIds;
 		private Contract template;
@@ -661,6 +663,19 @@ namespace IdApp.Pages.Contracts.NewContract
 						return;
 					}
 				}
+				else if (ParameterInfo.Parameter is DurationParameter DP)
+				{
+					if (Duration.TryParse(e.NewTextValue, out Duration D))
+					{
+						DP.Value = D;
+						Entry.BackgroundColor = Color.Default;
+					}
+					else
+					{
+						Entry.BackgroundColor = Color.Salmon;
+						return;
+					}
+				}
 
 				await this.ValidateParameters();
 				await this.PopulateHumanReadableText();
@@ -1096,5 +1111,65 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			return !(this.template is null) && this.ParametersOk;
 		}
+
+		#region ILinkableView
+
+		/// <summary>
+		/// If the current view is linkable.
+		/// </summary>
+		public bool IsLinkable => true;
+
+		/// <summary>
+		/// Link to the current view
+		/// </summary>
+		public string Link
+		{
+			get
+			{
+				StringBuilder Url = new();
+				bool First = true;
+
+				Url.Append(Constants.UriSchemes.UriSchemeIotSc);
+				Url.Append(':');
+				Url.Append(this.template.ContractId);
+
+				foreach (KeyValuePair<string, ParameterInfo> P in this.parametersByName)
+				{
+					if (First)
+					{
+						First = false;
+						Url.Append('&');
+					}
+					else
+						Url.Append('?');
+
+					Url.Append(P.Key);
+					Url.Append('=');
+
+					if (P.Value.Control is Entry Entry)
+						Url.Append(Entry.Text);
+					else if (P.Value.Control is CheckBox CheckBox)
+						Url.Append(CheckBox.IsChecked ? '1' : '0');
+					else if (P.Value.Control is ExtendedDatePicker Picker)
+					{
+						if (P.Value.Parameter is DateParameter)
+							Url.Append(XML.Encode(Picker.Date, true));
+						else
+							Url.Append(XML.Encode(Picker.Date, false));
+					}
+					else
+						P.Value.Parameter.ObjectValue?.ToString();
+				}
+
+				return Url.ToString();
+			}
+		}
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public Task<string> Title => ContractModel.GetName(this.template, this);
+
+		#endregion
 	}
 }

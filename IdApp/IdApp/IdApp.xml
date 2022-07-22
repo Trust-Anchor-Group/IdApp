@@ -4161,6 +4161,21 @@
             Gets or sets whether a user can add parts to a contract.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.IsLinkable">
+            <summary>
+            If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractVisibilityModel">
             <summary>
             The data model for contract visibility.
