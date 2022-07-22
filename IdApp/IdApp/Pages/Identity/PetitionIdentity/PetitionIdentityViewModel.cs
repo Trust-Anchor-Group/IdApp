@@ -30,9 +30,9 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         protected internal PetitionIdentityViewModel()
         {
-            this.AcceptCommand = new Command(async _ => await Accept());
-            this.DeclineCommand = new Command(async _ => await Decline());
-            this.IgnoreCommand = new Command(async _ => await Ignore());
+            this.AcceptCommand = new Command(async _ => await this.Accept());
+            this.DeclineCommand = new Command(async _ => await this.Decline());
+            this.IgnoreCommand = new Command(async _ => await this.Ignore());
             this.AddContactCommand = new Command(async _ => await this.AddContact(), _ => !this.ThirdPartyInContacts);
             this.RemoveContactCommand = new Command(async _ => await this.RemoveContact(), _ => this.ThirdPartyInContacts);
 

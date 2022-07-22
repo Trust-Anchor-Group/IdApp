@@ -17,14 +17,14 @@ namespace IdApp.Behaviors
         /// <inheritdoc/>
         protected override void OnAttachedTo(Button Button)
         {
-			Button.Clicked += Button_Clicked;
+			Button.Clicked += this.Button_Clicked;
             base.OnAttachedTo(Button);
         }
 
 		/// <inheritdoc/>
 		protected override void OnDetachingFrom(Button Button)
         {
-            Button.Clicked -= Button_Clicked;
+            Button.Clicked -= this.Button_Clicked;
             base.OnDetachingFrom(Button);
         }
 

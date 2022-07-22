@@ -52,8 +52,8 @@ namespace IdApp.Controls.Extended
         /// </summary>
         public Font Font
         {
-            get { return (Font)GetValue(FontProperty); }
-            set { SetValue(FontProperty, value); }
+            get { return (Font)this.GetValue(FontProperty); }
+            set { this.SetValue(FontProperty, value); }
         }
 
         /// <summary>
@@ -61,13 +61,13 @@ namespace IdApp.Controls.Extended
         /// </summary>
         public DateTime? NullableDate
         {
-            get { return (DateTime?)GetValue(NullableDateProperty); }
+            get { return (DateTime?)this.GetValue(NullableDateProperty); }
             set
             {
-                if (value != NullableDate)
+                if (value != this.NullableDate)
                 {
-                    SetValue(NullableDateProperty, value);
-                    UpdateDate();
+					this.SetValue(NullableDateProperty, value);
+					this.UpdateDate();
                 }
             }
         }
@@ -77,8 +77,8 @@ namespace IdApp.Controls.Extended
         /// </summary>
         public TextAlignment XAlign
         {
-            get { return (TextAlignment)GetValue(XAlignProperty); }
-            set { SetValue(XAlignProperty, value); }
+            get { return (TextAlignment)this.GetValue(XAlignProperty); }
+            set { this.SetValue(XAlignProperty, value); }
         }
 
 
@@ -87,8 +87,8 @@ namespace IdApp.Controls.Extended
         /// </summary>
         public bool HasBorder
         {
-            get { return (bool)GetValue(HasBorderProperty); }
-            set { SetValue(HasBorderProperty, value); }
+            get { return (bool)this.GetValue(HasBorderProperty); }
+            set { this.SetValue(HasBorderProperty, value); }
         }
 
         /// <summary>
@@ -96,8 +96,8 @@ namespace IdApp.Controls.Extended
         /// </summary>
         public string Placeholder
         {
-            get { return (string)GetValue(PlaceholderProperty); }
-            set { SetValue(PlaceholderProperty, value); }
+            get { return (string)this.GetValue(PlaceholderProperty); }
+            set { this.SetValue(PlaceholderProperty, value); }
         }
 
         /// <summary>
@@ -105,8 +105,8 @@ namespace IdApp.Controls.Extended
         /// </summary>
         public Color PlaceholderTextColor
         {
-            get { return (Color)GetValue(PlaceholderTextColorProperty); }
-            set { SetValue(PlaceholderTextColorProperty, value); }
+            get { return (Color)this.GetValue(PlaceholderTextColorProperty); }
+            set { this.SetValue(PlaceholderTextColorProperty, value); }
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace IdApp.Controls.Extended
         /// </summary>
         public ExtendedDatePicker() : base()
         {
-            SetDefaultDate();
+			this.SetDefaultDate();
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace IdApp.Controls.Extended
             selected?.Invoke(Picker, new NullableDateChangedEventArgs((DateTime?)oldValue, (DateTime?)newValue));
         }
 
-        private bool IsDefaultDateSet = false;
+        private bool isDefaultDateSet = false;
 
         /// <inheritdoc/>
         protected override void OnPropertyChanged(string propertyName = null)
@@ -141,44 +141,44 @@ namespace IdApp.Controls.Extended
             {
                 // we don't know if the date picker was closed by the Ok or Cancel button,
                 // so we presuppose it was an Ok.
-                if (!IsFocused)
+                if (!this.IsFocused)
                 {
-                    OnPropertyChanged(DateProperty.PropertyName);
+					this.OnPropertyChanged(DateProperty.PropertyName);
                 }
             }
 
-            if (propertyName == DateProperty.PropertyName && !IsDefaultDateSet)
+            if (propertyName == DateProperty.PropertyName && !this.isDefaultDateSet)
             {
-                NullableDate = Date;                
+				this.NullableDate = this.Date;                
             }
 
             if (propertyName == NullableDateProperty.PropertyName)
             {
-                if (NullableDate.HasValue)
+                if (this.NullableDate.HasValue)
                 {
-                    Date = NullableDate.Value;
+					this.Date = this.NullableDate.Value;
                 }
             }
         }
 
         private void UpdateDate()
         {
-            if (NullableDate.HasValue)
+            if (this.NullableDate.HasValue)
             {
-                Date = NullableDate.Value;
+				this.Date = this.NullableDate.Value;
             }
             else
             {
-                IsDefaultDateSet = true;
-                SetDefaultDate();
-                IsDefaultDateSet = false;
+				this.isDefaultDateSet = true;
+				this.SetDefaultDate();
+				this.isDefaultDateSet = false;
             }
         }
 
         private void SetDefaultDate()
         {
             DateTime now = DateTime.Now;
-            Date = new DateTime(now.Year, now.Month, now.Day);
+			this.Date = new DateTime(now.Year, now.Month, now.Day);
         }
     }
 }

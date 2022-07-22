@@ -17,14 +17,14 @@ namespace IdApp.Behaviors
         /// <inheritdoc/>
         protected override void OnAttachedTo(Entry entry)
         {
-            entry.Completed += Entry_Completed;
+            entry.Completed += this.Entry_Completed;
             base.OnAttachedTo(entry);
         }
 
         /// <inheritdoc/>
         protected override void OnDetachingFrom(Entry entry)
         {
-            entry.TextChanged -= Entry_Completed;
+            entry.TextChanged -= this.Entry_Completed;
             base.OnDetachingFrom(entry);
         }
 

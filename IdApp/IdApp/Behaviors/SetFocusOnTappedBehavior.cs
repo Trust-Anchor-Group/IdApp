@@ -19,7 +19,7 @@ namespace IdApp.Behaviors
         {
             TapGestureRecognizer Tap = new();
             View.GestureRecognizers.Add(Tap);
-            Tap.Tapped += Tap_Tapped;
+            Tap.Tapped += this.Tap_Tapped;
 
             base.OnAttachedTo(View);
         }
@@ -31,7 +31,7 @@ namespace IdApp.Behaviors
 			{
                 if (Gesture is TapGestureRecognizer Tap)
                 {
-                    Tap.Tapped -= Tap_Tapped;
+                    Tap.Tapped -= this.Tap_Tapped;
                     View.GestureRecognizers.Remove(Tap);
                     break;
                 }
@@ -42,7 +42,7 @@ namespace IdApp.Behaviors
 
         private void Tap_Tapped(object sender, EventArgs e)
         {
-            FocusOn(SetFocusTo);
+            FocusOn(this.SetFocusTo);
         }
 
         /// <summary>

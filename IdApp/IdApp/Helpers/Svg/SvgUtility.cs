@@ -32,27 +32,24 @@ namespace IdApp.Helpers.Svg
 			Tuple<float, float> Scale = CalcScale(SvgSize, Size, ScreenScale);
 			SKMatrix Matrix = SKMatrix.CreateScale(Scale.Item1, Scale.Item2);
 
-			using (SKBitmap Bitmap = new((int)(Size.Width * ScreenScale), (int)(Size.Height * ScreenScale)))
-			using (SKCanvas Canvas = new(Bitmap))
-			using (SKPaint Paint = new())
-			{
-				if (!Color.IsDefault)
-				{
-					Paint.ColorFilter = SKColorFilter.CreateBlendMode(ToSKColor(Color), SKBlendMode.SrcIn);
-				}
+			using SKBitmap Bitmap = new((int)(Size.Width * ScreenScale), (int)(Size.Height * ScreenScale));
+			using SKCanvas Canvas = new(Bitmap);
+			using SKPaint Paint = new();
 
-				Canvas.Clear(SKColors.Transparent); // very very important!
-				Canvas.DrawPicture(Svg.Picture, ref Matrix, Paint);
+			if (!Color.IsDefault)
+				Paint.ColorFilter = SKColorFilter.CreateBlendMode(ToSKColor(Color), SKBlendMode.SrcIn);
 
-				using (SKImage Image = SKImage.FromBitmap(Bitmap))
-				using (SKData Encoded = Image.Encode())
-				{
-					MemoryStream ImageStream = new();
-					Encoded.SaveTo(ImageStream);
-					ImageStream.Position = 0;
-					return Task.FromResult(ImageStream as Stream);
-				}
-			}
+			Canvas.Clear(SKColors.Transparent); // very very important!
+			Canvas.DrawPicture(Svg.Picture, ref Matrix, Paint);
+
+			using SKImage Image = SKImage.FromBitmap(Bitmap);
+			using SKData Encoded = Image.Encode();
+			using MemoryStream ImageStream = new();
+
+			Encoded.SaveTo(ImageStream);
+			ImageStream.Position = 0;
+
+			return Task.FromResult(ImageStream as Stream);
 		}
 
 		/// <summary>

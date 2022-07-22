@@ -27,23 +27,14 @@ namespace IdApp.Converters
 		/// <returns>Color</returns>
 		public static Color ToColor(ContractState State)
 		{
-			switch (State)
+			return State switch
 			{
-				case ContractState.Signed:
-					return Color.LightGreen;
-
-				case ContractState.Proposed:
-				case ContractState.Approved:
-				case ContractState.BeingSigned:
-					return Color.LightYellow;
-
-				case ContractState.Deleted:
-				case ContractState.Failed:
-				case ContractState.Obsoleted:
-				case ContractState.Rejected:
-				default:
-					return Color.LightSalmon;
-			}
+				ContractState.Signed => Color.LightGreen,
+				ContractState.Proposed or
+				ContractState.Approved or
+				ContractState.BeingSigned => Color.LightYellow,
+				_ => Color.LightSalmon,
+			};
 		}
 
 		/// <inheritdoc/>
