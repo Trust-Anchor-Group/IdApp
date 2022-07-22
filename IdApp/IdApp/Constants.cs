@@ -417,12 +417,12 @@ namespace IdApp
             /// <summary>
             /// Contract template for creating a demo token
             /// </summary>
-            public const string CreateDemoTokenTemplate = "2a6ca104-cae9-aef3-4015-a272cd79c85e@legal.lab.tagroot.io";
+            public const string CreateDemoTokenTemplate = "2a6d69dc-cae9-bb6e-4015-a272cdb645ec@legal.lab.tagroot.io";
 
             /// <summary>
             /// Contract template for transferring a token from a seller to a buyer
             /// </summary>
-            public const string TransferTokenTemplate = "2a6ca0a5-cae9-aeee-4015-a272cd1cb32f@legal.lab.tagroot.io";
+            public const string TransferTokenTemplate = "2a6d6b09-cae9-bb7e-4015-a272cd9cd5b9@legal.lab.tagroot.io";
         }
 
 		/// <summary>
