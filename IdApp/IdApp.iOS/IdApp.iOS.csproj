@@ -90,6 +90,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\CustomEditorRenderer.cs" />
     <Compile Include="Renderers\CustomEntryRenderer.cs" />
+    <Compile Include="Renderers\IdAppNavigationRenderer.cs" />
     <Compile Include="ShareContent.cs" />
     <Compile Include="..\Version\Version.cs" />
     <Compile Include="Renderers\ExtendedDatePickeriOSRenderer.cs" />
