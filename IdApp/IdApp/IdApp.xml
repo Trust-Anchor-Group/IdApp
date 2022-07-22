@@ -6889,6 +6889,14 @@
             Navigation arguments, which are manually passed to the constructor when Shell navigation is not available, namely during on-boarding.
             </param>
         </member>
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"/> class.
+            </summary>
+            <remarks>
+            A parameterless constructor is required for shell routing system (it uses <c>Activator.CreateInstance</c>).
+            </remarks>
+        </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.OnAppearingAsync">
             <summary>
             Asynchronous OnAppearing-method.
