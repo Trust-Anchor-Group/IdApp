@@ -29,6 +29,16 @@
         <member name="M:IdApp.App.OnSleep">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.App.SetRegistrationPage">
+            <summary>
+            Switches the application to the on-boarding experience.
+            </summary>
+        </member>
+        <member name="M:IdApp.App.SetAppShellPage">
+            <summary>
+            Switches the application to the main experience.
+            </summary>
+        </member>
         <member name="M:IdApp.App.EvaluateDatabaseDiff(System.String,System.Boolean,System.Boolean)">
             <summary>
             Sends the contents of the database to support.
@@ -3176,6 +3186,11 @@
             when the page is shown on screen.
             </summary>
             <remarks>It also handles safe area insets for iOS applications, specifically on iPhones with the 'rabbit ear' displays.</remarks>
+        </member>
+        <member name="E:IdApp.Pages.ContentBasePage.OnDisappearingCompleted">
+            <summary>
+            An event which is raised when <see cref="M:IdApp.Pages.ContentBasePage.OnDisappearing"/> has actually completed (normally or because of an exception).
+            </summary>
         </member>
         <member name="M:IdApp.Pages.ContentBasePage.#ctor">
             <summary>
