@@ -13,7 +13,7 @@ namespace IdApp.Pages.Registration.DefinePin
         /// </summary>
         public DefinePinView()
         {
-            InitializeComponent();
+			this.InitializeComponent();
         }
     }
 }

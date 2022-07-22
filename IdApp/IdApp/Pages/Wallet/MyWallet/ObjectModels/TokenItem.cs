@@ -1,4 +1,5 @@
-﻿using IdApp.Pages.Wallet.TokenDetails;
+﻿using IdApp.Extensions;
+using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Services;
 using NeuroFeatures;
 using NeuroFeatures.Tags;
@@ -152,6 +153,11 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		public string Category => this.token.Category;
 
 		/// <summary>
+		/// Description engraved into the token.
+		/// </summary>
+		public string Description => this.token.Description;
+
+		/// <summary>
 		/// Glyph of token.
 		/// </summary>
 		public byte[] Glyph => this.token.Glyph;
@@ -280,6 +286,11 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// Any custom Token Tags provided during creation of the token.
 		/// </summary>
 		public TokenTag[] Tags => this.token.Tags;
+
+		/// <summary>
+		/// If the token is associated with a state-machine.
+		/// </summary>
+		public bool HasStateMachine => this.token.HasStateMachine;
 
 		/// <summary>
 		/// See <see cref="GlyphImage"/>

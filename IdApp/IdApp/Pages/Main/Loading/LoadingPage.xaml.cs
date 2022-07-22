@@ -16,8 +16,8 @@ namespace IdApp.Pages.Main.Loading
         public LoadingPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
-            this.ViewModel = new LoadingViewModel();
-            this.InitializeComponent();
+			this.ViewModel = new LoadingViewModel();
+			this.InitializeComponent();
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace IdApp.Pages.Main.Loading
         protected override async Task OnAppearingAsync()
         {
             await base.OnAppearingAsync();
-            await LabelLayout.FadeTo(1.0, 2000, Easing.CubicInOut);
+            await this.LabelLayout.FadeTo(1.0, 2000, Easing.CubicInOut);
         }
     }
 }

@@ -14,8 +14,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		public AccountEventPage()
 		{
             this.ViewModel = new AccountEventViewModel();
-            
-            InitializeComponent();
+
+			this.InitializeComponent();
         }
 
         /// <summary>

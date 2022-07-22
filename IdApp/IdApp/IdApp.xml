@@ -1854,6 +1854,20 @@
             Returns the number of Unicode symbols, which may be represented by one or two chars, in a string.
             </summary>
         </member>
+        <member name="M:IdApp.Extensions.StringExtensions.MarkdownToXaml(System.String)">
+            <summary>
+            Converts Markdown text to Xamarin XAML
+            </summary>
+            <param name="Markdown">Markdown</param>
+            <returns>Xamarin XAML</returns>
+        </member>
+        <member name="M:IdApp.Extensions.StringExtensions.ParseXaml(System.String)">
+            <summary>
+            Parses a string into simple XAML (for inclusion in tables, tooltips, etc.)
+            </summary>
+            <param name="Xaml">XAML</param>
+            <returns>Parsed XAML</returns>
+        </member>
         <member name="T:IdApp.Extensions.TaskExtensions">
             <summary>
             An extensions class for the <see cref="T:System.Threading.Tasks.Task"/> class.
@@ -5896,9 +5910,9 @@
             The command for unsubscribing from the presence of a contact
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CopyIdToClipboard">
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CopyToClipboard(System.Object)">
             <summary>
-            Copies ID to clipboard
+            Copies Item to clipboard
             </summary>
         </member>
         <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
@@ -9645,6 +9659,242 @@
         <member name="M:IdApp.Pages.Wallet.ItemTypeTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to a report from a state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.#ctor(System.String,System.Object,System.String[])">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs"/> class.
+            </summary>
+            <param name="Title">Title of report</param>
+            <param name="Report">Report content</param>
+            <param name="TemporaryFiles">Temporary Files. Will be deleted when view is closed.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.Title">
+            <summary>
+            Title of report
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.Report">
+            <summary>
+            Report content
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.TemporaryFiles">
+            <summary>
+            Temporary Files. Will be deleted when view is closed.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineReport.MachineReportPage">
+            <summary>
+            A page that allows the user to view a state-machine report.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportPage.#ctor">
+            <summary>
+            A page that allows the user to view a state-machine report.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel">
+            <summary>
+            The view model to bind to for when displaying information about the current state of a state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.#ctor">
+            <summary>
+            The view model to bind to for when displaying information about the current state of a state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TitleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Title"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Title">
+            <summary>
+            Parsed report from state-machine.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.ReportProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Report"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Report">
+            <summary>
+            Parsed report from state-machine.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TemporaryFilesProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TemporaryFiles"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TemporaryFiles">
+            <summary>
+            Temporary Files. Will be deleted when view is closed.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Dispose">
+            <summary>
+            <see cref="M:System.IDisposable.Dispose"/>
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineVariables.MachineVariablesNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to the current state of a state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MachineVariables.MachineVariablesNavigationArgs"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesNavigationArgs.#ctor(System.Boolean,System.Boolean,System.String,Waher.Script.Variables)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MachineVariables.MachineVariablesNavigationArgs"/> class.
+            </summary>
+            <param name="Running">If the State-machine is running</param>
+            <param name="Ended">If the State-machine has ended</param>
+            <param name="CurrentState">The Current State of the state-machine.</param>
+            <param name="Variables">Current variables</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesNavigationArgs.Running">
+            <summary>
+            If the State-machine is running
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesNavigationArgs.Ended">
+            <summary>
+            If the State-machine has ended
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesNavigationArgs.CurrentState">
+            <summary>
+            The Current State of the state-machine.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesNavigationArgs.Variables">
+            <summary>
+            Current variables
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineVariables.MachineVariablesPage">
+            <summary>
+            A page that allows the user to view information about the current state of a state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesPage.#ctor">
+            <summary>
+            A page that allows the user to view information about the current state of a state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel">
+            <summary>
+            The view model to bind to for when displaying information about the current state of a state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.#ctor">
+            <summary>
+            The view model to bind to for when displaying information about the current state of a state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.Variables">
+            <summary>
+            Current variables
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.RunningProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.Running"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.Running">
+            <summary>
+            If the state-machine is running
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.EndedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.Ended"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.Ended">
+            <summary>
+            If the state-machine has ended
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.CurrentStateProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.CurrentState"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.CurrentState">
+            <summary>
+            Current state of state-machine
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineVariables.VariableModel">
+            <summary>
+            Represents a state-machine variable.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.VariableModel.#ctor(System.String,System.Object,System.String)">
+            <summary>
+            Represents a state-machine variable.
+            </summary>
+            <param name="Name">Name of variable</param>
+            <param name="Value">Value of variable</param>
+            <param name="AsScript">Value as script</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineVariables.VariableModel.Name">
+            <summary>
+            Name of variable
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineVariables.VariableModel.Value">
+            <summary>
+            Value of variable
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineVariables.VariableModel.AsScript">
+            <summary>
+            Value as script
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineVariables.VariableModel.CopyToClipboardCommand">
+            <summary>
+            Command to copy a value to the clipboard.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.MyTokens.MyTokensNavigationArgs">
             <summary>
             Holds navigation parameters specific to the eDaler wallet.
@@ -10247,6 +10497,11 @@
             Category of token.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Description">
+            <summary>
+            Description engraved into the token.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Glyph">
             <summary>
             Glyph of token.
@@ -10375,6 +10630,11 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Tags">
             <summary>
             Any custom Token Tags provided during creation of the token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.HasStateMachine">
+            <summary>
+            If the token is associated with a state-machine.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphImageProperty">
@@ -10855,12 +11115,6 @@
         <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DoBind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DoUnbind">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
-            <inheritdoc/>
-        </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaUrlProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaUrl"/>
@@ -11044,6 +11298,16 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Category">
             <summary>
             Friendly name of token.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DescriptionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Description"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Description">
+            <summary>
+            Description of token.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.GlyphContentTypeProperty">
@@ -11326,6 +11590,16 @@
             If the token belongs to the user.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HasStateMachineProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HasStateMachine"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HasStateMachine">
+            <summary>
+            If the token is associated with a state-machine.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.CopyToClipboardCommand">
             <summary>
             Command to copy a value to the clipboard.
@@ -11379,6 +11653,31 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ViewEventsCommand">
             <summary>
             Command to view events related to token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.PresentReportCommand">
+            <summary>
+            Command to display the present state report of a state-machine.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HistoryReportCommand">
+            <summary>
+            Command to display the historic states report of a state-machine.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.VariablesReportCommand">
+            <summary>
+            Command to display the current states of variables of a state-machine.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.StatesReportCommand">
+            <summary>
+            Command to display the state diagram of a state-machine.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ProfilingReportCommand">
+            <summary>
+            Command to display a profiling report of a state-machine.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.EventType">
@@ -12356,6 +12655,11 @@
               Looks up a localized string similar to Account name is invalid.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Actions">
+            <summary>
+              Looks up a localized string similar to Actions.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Add">
             <summary>
               Looks up a localized string similar to Add.
@@ -12796,6 +13100,16 @@
               Looks up a localized string similar to Creator Address.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.CurrentState">
+            <summary>
+              Looks up a localized string similar to Current State.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.CurrentVariables">
+            <summary>
+              Looks up a localized string similar to Current Variables.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.DatabaseCorruptInfoText">
             <summary>
               Looks up a localized string similar to It seems like the database hasn&apos;t been closed correctly, and may therefore be damaged. An attempt can be made to repair the database by first wiping it. How would you like to proceed?.
@@ -12834,6 +13148,11 @@
         <member name="P:IdApp.Resx.AppResources.DeleteContract">
             <summary>
               Looks up a localized string similar to Delete contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Description">
+            <summary>
+              Looks up a localized string similar to Description.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Destroyed">
@@ -13051,6 +13370,11 @@
               Looks up a localized string similar to Hash Function.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.History">
+            <summary>
+              Looks up a localized string similar to History.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Home">
             <summary>
               Looks up a localized string similar to Home.
@@ -13249,6 +13573,11 @@
         <member name="P:IdApp.Resx.AppResources.Longitude">
             <summary>
               Looks up a localized string similar to Longitude.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.MachineHasEnded">
+            <summary>
+              Looks up a localized string similar to State-Machine has ended..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.MachineReadableInfoText">
@@ -13886,6 +14215,11 @@
               Looks up a localized string similar to A request to unsibscribe from presence notification has been sent..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Present">
+            <summary>
+              Looks up a localized string similar to Present.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Privileges">
             <summary>
               Looks up a localized string similar to Privileges.
@@ -13894,6 +14228,11 @@
         <member name="P:IdApp.Resx.AppResources.ProductInformation">
             <summary>
               Looks up a localized string similar to Product Information.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Profiling">
+            <summary>
+              Looks up a localized string similar to Profiling.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Proposal">
@@ -14069,6 +14408,11 @@
         <member name="P:IdApp.Resx.AppResources.ReportAsCompromized">
             <summary>
               Looks up a localized string similar to Report as Compromised.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Reports">
+            <summary>
+              Looks up a localized string similar to Reports.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Request">
@@ -14273,7 +14617,7 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.ShowM2MInfo">
             <summary>
-              Looks up a localized string similar to Show M2M Info.
+              Looks up a localized string similar to Show M2M Definition.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SignAfter">
@@ -14324,6 +14668,11 @@
         <member name="P:IdApp.Resx.AppResources.State">
             <summary>
               Looks up a localized string similar to State.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.States">
+            <summary>
+              Looks up a localized string similar to States.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.StreetName">
@@ -14714,6 +15063,11 @@
         <member name="P:IdApp.Resx.AppResources.Value">
             <summary>
               Looks up a localized string similar to Value.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Variables">
+            <summary>
+              Looks up a localized string similar to Variables.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.VerificationCode">

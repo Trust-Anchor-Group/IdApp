@@ -85,7 +85,9 @@ namespace IdApp.Pages.Main.Shell
 
 			// Contacts:
 			Routing.RegisterRoute(nameof(Contacts.MyContacts.MyContactsPage), typeof(Contacts.MyContacts.MyContactsPage));
-			Routing.RegisterRoute(Device.RuntimePlatform == Device.iOS ? nameof(Contacts.Chat.ChatPageIos) : nameof(Contacts.Chat.ChatPage), Device.RuntimePlatform == Device.iOS ? typeof(Contacts.Chat.ChatPageIos) : typeof(Contacts.Chat.ChatPage));
+			Routing.RegisterRoute(nameof(Contacts.Chat.ChatPage),
+				Device.RuntimePlatform == Device.iOS ? typeof(Contacts.Chat.ChatPageIos) :
+				typeof(Contacts.Chat.ChatPage));
 
 			// Contracts:
 			Routing.RegisterRoute(nameof(Contracts.ClientSignature.ClientSignaturePage), typeof(Contracts.ClientSignature.ClientSignaturePage));
@@ -114,6 +116,8 @@ namespace IdApp.Pages.Main.Shell
 			Routing.RegisterRoute(nameof(Wallet.TokenDetails.TokenDetailsPage), typeof(Wallet.TokenDetails.TokenDetailsPage));
 			Routing.RegisterRoute(nameof(Wallet.TokenEvents.TokenEventsPage), typeof(Wallet.TokenEvents.TokenEventsPage));
 			Routing.RegisterRoute(nameof(Wallet.MyTokens.MyTokensPage), typeof(Wallet.MyTokens.MyTokensPage));
+			Routing.RegisterRoute(nameof(Wallet.MachineVariables.MachineVariablesPage), typeof(Wallet.MachineVariables.MachineVariablesPage));
+			Routing.RegisterRoute(nameof(Wallet.MachineReport.MachineReportPage), typeof(Wallet.MachineReport.MachineReportPage));
 		}
 
 		private async Task GoToPage(string route)
@@ -147,9 +151,9 @@ namespace IdApp.Pages.Main.Shell
 
 		private async void ViewIdentityMenuItem_Clicked(object sender, EventArgs e)
 		{
-			string Pin = await App.InputPin();
-			if (Pin is null)
+			if (!await App.VerifyPin())
 				return;
+
 			await this.GoToPage(nameof(Identity.ViewIdentity.ViewIdentityPage));
 		}
 

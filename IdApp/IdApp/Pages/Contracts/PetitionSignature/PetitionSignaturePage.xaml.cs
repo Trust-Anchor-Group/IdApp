@@ -21,7 +21,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         {
             this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new PetitionSignatureViewModel();
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
         /// <inheritdoc/>

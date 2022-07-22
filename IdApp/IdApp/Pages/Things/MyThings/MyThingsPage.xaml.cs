@@ -18,8 +18,8 @@ namespace IdApp.Pages.Things.MyThings
 		{
 			this.navigationService = App.Instantiate<INavigationService>();
 			this.ViewModel = new MyThingsViewModel();
-			
-			InitializeComponent();
+
+			this.InitializeComponent();
 		}
 
 		/// <summary>

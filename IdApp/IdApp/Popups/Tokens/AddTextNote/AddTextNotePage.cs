@@ -17,7 +17,7 @@ namespace IdApp.Popups.Tokens.AddTextNote
         /// </summary>
         public AddTextNotePage()
         {
-            InitializeComponent();
+			this.InitializeComponent();
 
             this.BindingContext = this;
         }
@@ -42,13 +42,13 @@ namespace IdApp.Popups.Tokens.AddTextNote
 
         private void OnCloseButtonTapped(object sender, EventArgs e)
         {
-            Close();
+			this.Close();
         }
 
         /// <inheritdoc/>
         protected override bool OnBackgroundClicked()
         {
-            Close();
+			this.Close();
             return false;
         }
 

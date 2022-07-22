@@ -1705,6 +1705,39 @@
     <value>Kategori</value>
   </data>
   <data name="ShowM2MInfo" xml:space="preserve">
-    <value>Vis M2M-informasjon</value>
+    <value>Vis M2M-definisjon</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Handlinger</value>
+  </data>
+  <data name="CurrentState" xml:space="preserve">
+    <value>Gjeldende tilstand</value>
+  </data>
+  <data name="CurrentVariables" xml:space="preserve">
+    <value>Gjeldende variabler</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historie</value>
+  </data>
+  <data name="MachineHasEnded" xml:space="preserve">
+    <value>State-Machine er avsluttet.</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>Gave</value>
+  </data>
+  <data name="Profiling" xml:space="preserve">
+    <value>Profilering</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Rapporter</value>
+  </data>
+  <data name="States" xml:space="preserve">
+    <value>Stater</value>
+  </data>
+  <data name="Variables" xml:space="preserve">
+    <value>Variabler</value>
   </data>
 </root>

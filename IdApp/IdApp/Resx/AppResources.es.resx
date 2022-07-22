@@ -949,13 +949,13 @@
     <value>ID de plantilla</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
-    <value>El contrato requiere al menos {0} parte (s) de la función {1}. Agregue más partes al contrato e inténtelo de nuevo.</value>
+    <value>El contrato requiere al menos {0} parte (s) de la {1} de rol. Agregue más partes al contrato e inténtelo de nuevo.</value>
   </data>
   <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
     <value>El contrato requiere como máximo {0} parte (s) de la {1} de rol. Quita algunas de las partes del contrato e inténtalo de nuevo.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
-    <value>La contraseña para la conexión es {0}. Esto se ha copiado en el portapapeles.</value>
+    <value>La contraseña de la conexión es {0}. Esto se ha copiado en el portapapeles.</value>
   </data>
   <data name="ThereIsNoNetwork" xml:space="preserve">
     <value>No hay red</value>
@@ -1219,7 +1219,7 @@
     <value>Error al guardar el estado de viewmodel {0} para el {1} de página</value>
   </data>
   <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
-    <value>Error al desvincular el {0} viewmodel para el {1} de página</value>
+    <value>Error al desvincular el {0} viewmodel para la {1} de página</value>
   </data>
   <data name="ContinueAnyway" xml:space="preserve">
     <value>Continuar de todos modos</value>
@@ -1705,6 +1705,39 @@
     <value>Categoría</value>
   </data>
   <data name="ShowM2MInfo" xml:space="preserve">
-    <value>Mostrar información M2M</value>
+    <value>Mostrar definición M2M</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="CurrentState" xml:space="preserve">
+    <value>Estado actual</value>
+  </data>
+  <data name="CurrentVariables" xml:space="preserve">
+    <value>Variables actuales</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historia</value>
+  </data>
+  <data name="MachineHasEnded" xml:space="preserve">
+    <value>State-Machine ha finalizado.</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>Presente</value>
+  </data>
+  <data name="Profiling" xml:space="preserve">
+    <value>Perfiles</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Informes</value>
+  </data>
+  <data name="States" xml:space="preserve">
+    <value>Estados</value>
+  </data>
+  <data name="Variables" xml:space="preserve">
+    <value>Variables</value>
   </data>
 </root>

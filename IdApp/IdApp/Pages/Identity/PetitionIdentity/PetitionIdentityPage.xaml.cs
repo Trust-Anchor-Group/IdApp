@@ -21,7 +21,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         {
             this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new PetitionIdentityViewModel();
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
         /// <inheritdoc/>

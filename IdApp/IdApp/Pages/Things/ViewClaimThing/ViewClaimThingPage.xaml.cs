@@ -14,7 +14,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		public ViewClaimThingPage()
 		{
             this.ViewModel = new ViewClaimThingViewModel();
-            InitializeComponent();
+			this.InitializeComponent();
 		}
 
         /// <summary>

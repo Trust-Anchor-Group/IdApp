@@ -29,13 +29,13 @@ namespace IdApp.Pages
             await base.DoBind();
 
             this.SetConnectionStateAndText(this.XmppService.State);
-            this.XmppService.ConnectionStateChanged += XmppService_ConnectionStateChanged;
+            this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
         }
 
         /// <inheritdoc/>
         protected override async Task DoUnbind()
         {
-            this.XmppService.ConnectionStateChanged -= XmppService_ConnectionStateChanged;
+            this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
             await base.DoUnbind();
         }
 

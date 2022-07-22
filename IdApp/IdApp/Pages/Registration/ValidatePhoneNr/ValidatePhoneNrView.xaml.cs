@@ -15,7 +15,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
         /// </summary>
         public ValidatePhoneNrView()
         {
-            InitializeComponent();
+			this.InitializeComponent();
         }
 
         /// <summary>
