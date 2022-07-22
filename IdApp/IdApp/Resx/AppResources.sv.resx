@@ -1104,6 +1104,9 @@
   <data name="PublicKey" xml:space="preserve">
     <value>Publik nyckel</value>
   </data>
+  <data name="PublishMarketplace" xml:space="preserve">
+    <value>Publicera på marknadsplatsen</value>
+  </data>
   <data name="Purpose" xml:space="preserve">
     <value>Syfte</value>
   </data>

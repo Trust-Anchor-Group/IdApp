@@ -1740,4 +1740,7 @@
   <data name="Variables" xml:space="preserve">
     <value>Переменные</value>
   </data>
+  <data name="PublishMarketplace" xml:space="preserve">
+    <value>Публикация в Marketplace</value>
+  </data>
 </root>

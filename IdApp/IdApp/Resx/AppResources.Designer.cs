@@ -3022,6 +3022,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publish on Marketplace.
+        /// </summary>
+        internal static string PublishMarketplace {
+            get {
+                return ResourceManager.GetString("PublishMarketplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Purpose.
         /// </summary>
         internal static string Purpose {

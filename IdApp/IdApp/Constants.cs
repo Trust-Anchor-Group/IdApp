@@ -423,7 +423,12 @@ namespace IdApp
             /// Contract template for transferring a token from a seller to a buyer
             /// </summary>
             public const string TransferTokenTemplate = "2a6d6b09-cae9-bb7e-4015-a272cd9cd5b9@legal.lab.tagroot.io";
-        }
+
+			/// <summary>
+			/// Contract template for consigning the token to an auctioneer with the purpose of selling it.
+			/// </summary>
+			public const string TokenConsignmentTemplate = "2a6d86d3-cae9-be05-4015-a272cd0cbbb9@legal.lab.tagroot.io";
+		}
 
 		/// <summary>
 		/// Push chennels

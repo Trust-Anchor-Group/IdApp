@@ -1740,4 +1740,7 @@
   <data name="Variables" xml:space="preserve">
     <value>Promenljive</value>
   </data>
+  <data name="PublishMarketplace" xml:space="preserve">
+    <value>Objavi na marketplace-u</value>
+  </data>
 </root>

@@ -1740,4 +1740,7 @@
   <data name="Variables" xml:space="preserve">
     <value>Variablen</value>
   </data>
+  <data name="PublishMarketplace" xml:space="preserve">
+    <value>Auf dem Marketplace veröffentlichen</value>
+  </data>
 </root>

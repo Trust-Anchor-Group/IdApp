@@ -1740,4 +1740,7 @@
   <data name="Variables" xml:space="preserve">
     <value>Muuttujat</value>
   </data>
+  <data name="PublishMarketplace" xml:space="preserve">
+    <value>Julkaiseminen Marketplacessa</value>
+  </data>
 </root>

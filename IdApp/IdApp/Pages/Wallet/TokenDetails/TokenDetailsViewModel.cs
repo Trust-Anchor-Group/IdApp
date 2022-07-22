@@ -63,6 +63,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.SendToContactCommand = new Command(async _ => await this.SendToContact());
 			this.ShareCommand = new Command(async _ => await this.Share());
 			this.OfferToSellCommand = new Command(async _ => await this.OfferToSell());
+			this.PublishMarketplaceCommand = new Command(async _ => await this.PublishMarketplace());
 			this.OfferToBuyCommand = new Command(async _ => await this.OfferToBuy());
 			this.ViewEventsCommand = new Command(async _ => await this.ViewEvents());
 			this.PresentReportCommand = new Command(async _ => await this.PresentReport());
@@ -957,6 +958,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		public ICommand ShareCommand { get; }
 
 		/// <summary>
+		/// Command to publish the token on the marketplace, for sale.
+		/// </summary>
+		public ICommand PublishMarketplaceCommand { get; }
+
+		/// <summary>
 		/// Command to offer the token for sale.
 		/// </summary>
 		public ICommand OfferToSellCommand { get; }
@@ -1163,6 +1169,47 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task PublishMarketplace()
+		{
+			try
+			{
+				CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
+				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TokenConsignmentTemplate);
+				Template.Visibility = ContractVisibility.Public;
+				NewContractNavigationArgs NewContractArgs = new(Template, true,
+					new Dictionary<string, object>()
+					{
+						{ "TokenID", this.TokenId },
+						{ "Category", this.Category },
+						{ "FriendlyName", this.FriendlyName },
+						{ "CommissionPercent", e.Commission },
+						{ "Currency", e.Currency }
+					});
+
+				Template.Parts = new Part[]
+				{
+					new Part()
+					{
+						Role = "Seller",
+						LegalId = this.TagProfile.LegalIdentity.Id
+					},
+					new Part()
+					{
+						Role = "Auctioneer",
+						LegalId = e.TrustProviderId
+					}
+				};
+
+				NewContractArgs.SuppressProposal(e.TrustProviderId);
+
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs);
+			}
+			catch (Exception ex)
+			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
