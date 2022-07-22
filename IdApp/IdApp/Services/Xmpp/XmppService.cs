@@ -1100,8 +1100,6 @@ namespace IdApp.Services.Xmpp
 			await RuntimeSettings.SetAsync("TransferId.CodesSent", string.Empty);
 			await Database.Provider.Flush();
 
-			INavigationService NavigationService = App.Instantiate<INavigationService>();
-
 			await App.Current.SetRegistrationPage();
 		}
 
