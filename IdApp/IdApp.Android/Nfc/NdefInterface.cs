@@ -51,6 +51,9 @@ namespace IdApp.Android.Nfc
 			await this.OpenIfClosed();
 
 			NdefMessage Message = this.ndef.NdefMessage;
+			if (Message is null)
+				return new INdefRecord[0];
+
 			NdefRecord[] Records = Message.GetRecords();
 			List<INdefRecord> Result = new();
 
