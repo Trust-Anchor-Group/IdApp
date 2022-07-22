@@ -7,6 +7,7 @@
 	xmlns:pages="clr-namespace:IdApp.Pages"
 	x:Class="IdApp.Pages.BetweenMainPage"
 	ios:Page.UseSafeArea="True"
+	ios:Page.ModalPresentationStyle="OverFullScreen"
 	BackgroundColor="{StaticResource HeadingBackground}">
 
 	<ContentPage.Resources>
