@@ -3859,6 +3859,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tag Engraved with link to {0}..
+        /// </summary>
+        internal static string TagEngraved {
+            get {
+                return ResourceManager.GetString("TagEngraved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to engrave tag with link to {0}..
+        /// </summary>
+        internal static string TagNotEngraved {
+            get {
+                return ResourceManager.GetString("TagNotEngraved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tag value copied to clipboard.
         /// </summary>
         internal static string TagValueCopiedToClipboard {

@@ -182,6 +182,21 @@ namespace IdApp.Pages
 		/// </summary>
 		public abstract Task<string> Title { get; }
 
+		/// <summary>
+		/// If linkable view has media associated with link.
+		/// </summary>
+		public virtual bool HasMedia => this.HasQrCode;
+
+		/// <summary>
+		/// Encoded media, if available.
+		/// </summary>
+		public virtual byte[] Media => this.QrCodeBin;
+
+		/// <summary>
+		/// Content-Type of associated media.
+		/// </summary>
+		public virtual string MediaContentType => this.QrCodeContentType;
+
 		#endregion
 
 	}

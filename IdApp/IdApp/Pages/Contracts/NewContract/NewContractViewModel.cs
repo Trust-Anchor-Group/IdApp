@@ -1170,6 +1170,21 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public Task<string> Title => ContractModel.GetName(this.template, this);
 
+		/// <summary>
+		/// If linkable view has media associated with link.
+		/// </summary>
+		public bool HasMedia => false;
+
+		/// <summary>
+		/// Encoded media, if available.
+		/// </summary>
+		public byte[] Media => null;
+
+		/// <summary>
+		/// Content-Type of associated media.
+		/// </summary>
+		public string MediaContentType => null;
+
 		#endregion
 	}
 }

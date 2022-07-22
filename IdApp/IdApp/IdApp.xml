@@ -786,6 +786,21 @@
             Reason for LogAuditor
             </summary>
         </member>
+        <member name="T:IdApp.Constants.References">
+            <summary>
+            References to external resources
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.References.AndroidApp">
+            <summary>
+            Resource where Android App can be downloaded.
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.References.IPhoneApp">
+            <summary>
+            Resource where iPhone App can be downloaded.
+            </summary>
+        </member>
         <member name="T:IdApp.Controls.Extended.ExtendedDatePicker">
             <summary>
              Extended DatePicker for nullable values with text placeholder
@@ -2628,6 +2643,21 @@
             Title of the current view
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.HasMedia">
+            <summary>
+            If linkable view has media associated with link.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.MediaContentType">
+            <summary>
+            Content-Type of associated media.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.UriScheme">
             <summary>
             URI Scheme
@@ -3579,6 +3609,21 @@
             Title of the current view
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.HasMedia">
+            <summary>
+            If linkable view has media associated with link.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.MediaContentType">
+            <summary>
+            Content-Type of associated media.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector">
             <summary>
             Data Template Selector, based on Item Type.
@@ -4174,6 +4219,21 @@
         <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.Title">
             <summary>
             Title of the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.HasMedia">
+            <summary>
+            If linkable view has media associated with link.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.MediaContentType">
+            <summary>
+            Content-Type of associated media.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractVisibilityModel">
@@ -6558,6 +6618,21 @@
             Title of the current view
             </summary>
         </member>
+        <member name="P:IdApp.Pages.ILinkableView.HasMedia">
+            <summary>
+            If linkable view has media associated with link.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ILinkableView.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ILinkableView.MediaContentType">
+            <summary>
+            Content-Type of associated media.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.IItemGroup">
             <summary>
             Grouped item interface.
@@ -6661,16 +6736,27 @@
             Asynchronous OnAppearing-method.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Main.Main.MainPage.IsFrontViewShowing">
+            <summary>
+            If the front view is showing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainPage.IsBackViewShowing">
+            <summary>
+            If the back view is showing.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Main.Main.MainViewModel">
             <summary>
             The view model to bind to for the main page of the application. Holds basic user profile state
             as well as connection state.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Main.MainViewModel.#ctor">
+        <member name="M:IdApp.Pages.Main.Main.MainViewModel.#ctor(IdApp.Pages.Main.Main.MainPage)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Main.MainViewModel"/> class.
             </summary>
+            <param name="MainPage">Main Page</param>
         </member>
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.DoBind">
             <inheritdoc />
@@ -6907,6 +6993,16 @@
         <member name="P:IdApp.Pages.Main.Main.MainViewModel.Title">
             <summary>
             Title of the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.MediaContentType">
+            <summary>
+            Content-Type of associated media.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.ScanQrCode.CodeScannedEventArgs">
@@ -7284,6 +7380,21 @@
         <member name="P:IdApp.Pages.QrXmppViewModel.Title">
             <summary>
             Title of the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.HasMedia">
+            <summary>
+            If linkable view has media associated with link.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.MediaContentType">
+            <summary>
+            Content-Type of associated media.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
@@ -14838,6 +14949,16 @@
         <member name="P:IdApp.Resx.AppResources.SuccessTitle">
             <summary>
               Looks up a localized string similar to Success.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TagEngraved">
+            <summary>
+              Looks up a localized string similar to Tag Engraved with link to {0}..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TagNotEngraved">
+            <summary>
+              Looks up a localized string similar to Unable to engrave tag with link to {0}..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.TagValueCopiedToClipboard">

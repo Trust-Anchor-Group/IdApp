@@ -1389,6 +1389,12 @@
   <data name="SuccessTitle" xml:space="preserve">
     <value>Operationen lyckades</value>
   </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Taggen graverades med en länk till {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Kund inte gravera taggen med en länk till {0}.</value>
+  </data>
   <data name="TagValueCopiedToClipboard" xml:space="preserve">
     <value>Värdet kopierades till klippboken</value>
   </data>

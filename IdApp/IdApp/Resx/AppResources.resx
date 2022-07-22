@@ -1743,4 +1743,10 @@
   <data name="PublishMarketplace" xml:space="preserve">
     <value>Publish on Marketplace</value>
   </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Tag Engraved with link to {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Unable to engrave tag with link to {0}.</value>
+  </data>
 </root>

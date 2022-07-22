@@ -21,5 +21,20 @@ namespace IdApp.Pages
 		/// Title of the current view
 		/// </summary>
 		Task<string> Title { get; }
+
+		/// <summary>
+		/// If linkable view has media associated with link.
+		/// </summary>
+		bool HasMedia { get; }
+
+		/// <summary>
+		/// Encoded media, if available.
+		/// </summary>
+		byte[] Media { get; }
+
+		/// <summary>
+		/// Content-Type of associated media.
+		/// </summary>
+		string MediaContentType { get; }
 	}
 }

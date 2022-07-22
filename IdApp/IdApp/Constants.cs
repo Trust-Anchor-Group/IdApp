@@ -533,5 +533,22 @@ namespace IdApp
             /// </summary>
             public const string Reason = "pinEnteringFailure";
         }
+
+		/// <summary>
+		/// References to external resources
+		/// </summary>
+		public static class References
+		{
+			/// <summary>
+			/// Resource where Android App can be downloaded.
+			/// </summary>
+			public const string AndroidApp = "https://play.google.com/store/apps/details?id=com.tag.IdApp";
+
+			/// <summary>
+			/// Resource where iPhone App can be downloaded.
+			/// </summary>
+			public const string IPhoneApp = "https://apps.apple.com/se/app/trust-anchor-id/id1580610247";
+		}
+
 	}
 }
