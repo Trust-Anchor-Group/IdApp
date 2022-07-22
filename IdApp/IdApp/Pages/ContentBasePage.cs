@@ -34,7 +34,7 @@ namespace IdApp.Pages
         /// <summary>
         /// Typed convenience property for accessing the <see cref="BindableObject.BindingContext"/> property as a view model.
         /// </summary>
-        protected BaseViewModel ViewModel
+        public BaseViewModel ViewModel
         {
             get => this.BindingContext as BaseViewModel;
             set => this.BindingContext = value;

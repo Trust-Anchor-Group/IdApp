@@ -567,11 +567,19 @@ namespace IdApp
 			this.services.TagProfile.FromConfiguration(configuration);
 		}
 
+		/// <summary>
+		/// Switches the application to the on-boarding experience.
+		/// </summary>
 		public Task SetRegistrationPage()
 		{
-			return this.SetMainPage(new RegistrationPage());
+			// NavigationPage is used to allow non modal navigation. Scan QR code page is pushed not modally to allow the user to dismiss it
+			// on iOS (on iOS this page doesn't have any other means of going back without actually entering valid data).
+			return this.SetMainPage(new NavigationPage(new RegistrationPage()));
 		}
 
+		/// <summary>
+		/// Switches the application to the main experience.
+		/// </summary>
 		public Task SetAppShellPage()
 		{
 			return this.SetMainPage(new AppShell());
@@ -579,16 +587,32 @@ namespace IdApp
 
 		private async Task SetMainPage(Page Page)
 		{
-			if (Device.IsInvokeRequired)
+			Page CurrentPage = this.MainPage is Shell Shell ? Shell.CurrentPage : this.MainPage;
+			if (CurrentPage is NavigationPage NavigationPage)
 			{
-				// await will re-throw an exception, which will make both branches symmetrical in terms of exceptions, in contrast to
-				// just returning Device.InvokeOnMainThreadAsync for this branch and a completed task for the other one.
-				await Device.InvokeOnMainThreadAsync(() => this.MainPage = Page);
+				CurrentPage = NavigationPage.CurrentPage;
 			}
-			else
+
+			// LoadingPage already looks like a loading page, so it would look strange to push another loading page on top of it.
+			if (CurrentPage is LoadingPage LoadingPage)
 			{
+				// When we change the main page, OnDisappearing is called but not awaited (it returns void). This leads to a race
+				// condition between asynchronous continuation of the old page's OnDisappearing and the new page's OnAppearing.
+				// Thus, it is safer to explicitly await Unbind() before actually switching the main page. We could do it for all pages,
+				// but it would look confusing because we would have to block the user from interacting with the page while unbinding.
+				await LoadingPage.ViewModel.Unbind();
+
 				this.MainPage = Page;
+				return;
 			}
+
+			TaskCompletionSource<bool> OnDisappearingCompletedTaskSource = new();
+			((ContentBasePage)CurrentPage).OnDisappearingCompleted += (_, _) => OnDisappearingCompletedTaskSource.SetResult(true);
+
+			await CurrentPage.Navigation.PushModalAsync(new BetweenMainPage(), animated: false);
+			await OnDisappearingCompletedTaskSource.Task;
+
+			this.MainPage = Page;
 		}
 
 		#region Error Handling
