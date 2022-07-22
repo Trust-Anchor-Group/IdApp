@@ -8,7 +8,7 @@ namespace IdApp.Pages.Main.Loading
     /// A page to use when the application is loading, or initializing.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoadingPage
+    public partial class LoadingPage : ContentBasePage
     {
         /// <summary>
         /// Creates a new instance of the <see cref="LoadingPage"/> class.
