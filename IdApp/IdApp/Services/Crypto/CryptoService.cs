@@ -35,7 +35,7 @@ namespace IdApp.Services.Crypto
 			string s;
 			int i;
 
-			string FileNameHash = deviceId + Path.GetRelativePath(basePath, fileName);
+			string FileNameHash = this.deviceId + Path.GetRelativePath(this.basePath, fileName);
 
 			try
 			{
@@ -63,10 +63,10 @@ namespace IdApp.Services.Crypto
 				key = new byte[32];
 				iv = new byte[16];
 
-				lock (rnd)
+				lock (this.rnd)
 				{
-					rnd.GetBytes(key);
-					rnd.GetBytes(iv);
+					this.rnd.GetBytes(key);
+					this.rnd.GetBytes(iv);
 				}
 
 				s = Hashes.BinaryToString(key) + "," + Hashes.BinaryToString(iv);
@@ -78,16 +78,16 @@ namespace IdApp.Services.Crypto
 
 		public string CreateRandomPassword()
 		{
-			return Hashes.BinaryToString(GetBytes(32));
+			return Hashes.BinaryToString(this.GetBytes(32));
 		}
 
 		private byte[] GetBytes(int nrBytes)
 		{
 			byte[] result = new byte[nrBytes];
 
-			lock (rnd)
+			lock (this.rnd)
 			{
-				rnd.GetBytes(result);
+				this.rnd.GetBytes(result);
 			}
 
 			return result;

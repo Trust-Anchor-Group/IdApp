@@ -49,16 +49,16 @@ namespace IdApp.Pages.Wallet.AccountEvent
 				this.BalanceAndCurrency = this.BalanceText + " " + this.Currency;
 			}
 
-			AssignProperties();
-			EvaluateAllCommands();
+			this.AssignProperties();
+			this.EvaluateAllCommands();
 
-			this.TagProfile.Changed += TagProfile_Changed;
+			this.TagProfile.Changed += this.TagProfile_Changed;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.TagProfile.Changed -= TagProfile_Changed;
+			this.TagProfile.Changed -= this.TagProfile_Changed;
 			await base.DoUnbind();
 		}
 
@@ -83,7 +83,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 
 		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
+			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
 
 		#region Properties

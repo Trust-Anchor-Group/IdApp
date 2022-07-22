@@ -27,8 +27,8 @@ namespace IdApp.Pages.Contracts.ServerSignature
             
             if (this.NavigationService.TryPopArgs(out ServerSignatureNavigationArgs args))
                 this.contract = args.Contract;
-            
-            AssignProperties();
+
+			this.AssignProperties();
         }
 
         #region Properties
@@ -82,11 +82,11 @@ namespace IdApp.Pages.Contracts.ServerSignature
 
         private void AssignProperties()
         {
-            if (!(contract is null))
+            if (!(this.contract is null))
             {
-                this.Provider = contract.Provider;
-                this.Timestamp = contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture);
-                this.Signature = Convert.ToBase64String(contract.ServerSignature.DigitalSignature);
+                this.Provider = this.contract.Provider;
+                this.Timestamp = this.contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture);
+                this.Signature = Convert.ToBase64String(this.contract.ServerSignature.DigitalSignature);
             }
             else
             {

@@ -30,8 +30,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		public ChooseAccountViewModel()
 			: base(RegistrationStep.Account)
 		{
-			this.CreateNewCommand = new Command(async _ => await PerformAction(this.CreateAccount, true), _ => CanCreateAccount());
-			this.ScanQrCodeCommand = new Command(async _ => await PerformAction(this.ScanQrCode, false), _ => CanScanQrCode());
+			this.CreateNewCommand = new Command(async _ => await this.PerformAction(this.CreateAccount, true), _ => this.CanCreateAccount());
+			this.ScanQrCodeCommand = new Command(async _ => await this.PerformAction(this.ScanQrCode, false), _ => this.CanScanQrCode());
 			this.Title = AppResources.ChooseAccount;
 		}
 
@@ -41,13 +41,13 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			await base.DoBind();
 
 			this.DomainName = this.TagProfile.Domain;
-			this.TagProfile.Changed += TagProfile_Changed;
+			this.TagProfile.Changed += this.TagProfile_Changed;
 		}
 
 		/// <inheritdoc />
 		protected override async Task DoUnbind()
 		{
-			this.TagProfile.Changed -= TagProfile_Changed;
+			this.TagProfile.Changed -= this.TagProfile_Changed;
 
 			await base.DoUnbind();
 		}
@@ -56,7 +56,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				DomainName = this.TagProfile.Domain;
+				this.DomainName = this.TagProfile.Domain;
 			});
 		}
 
@@ -117,7 +117,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		public override void ClearStepState()
 		{
 			this.AccountName = string.Empty;
-			this.SettingsService.RemoveState(GetSettingsKey(nameof(AccountName)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.AccountName)));
 		}
 
 		private async Task PerformAction(ConnectMethod Method, bool MakeBusy)
@@ -129,7 +129,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			}
 
 			if (MakeBusy)
-				SetIsBusy(CreateNewCommand, ScanQrCodeCommand);
+				this.SetIsBusy(this.CreateNewCommand, this.ScanQrCodeCommand);
 
 			try
 			{
@@ -138,10 +138,10 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				this.UiSerializer.BeginInvokeOnMainThread(() =>
 				{
 					if (MakeBusy)
-						SetIsDone(CreateNewCommand, ScanQrCodeCommand);
+						this.SetIsDone(this.CreateNewCommand, this.ScanQrCodeCommand);
 
 					if (succeeded)
-						OnStepCompleted(EventArgs.Empty);
+						this.OnStepCompleted(EventArgs.Empty);
 				});
 			}
 			catch (Exception ex)
@@ -152,7 +152,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			finally
 			{
 				if (MakeBusy)
-					BeginInvokeSetIsDone(CreateNewCommand, ScanQrCodeCommand);
+					this.BeginInvokeSetIsDone(this.CreateNewCommand, this.ScanQrCodeCommand);
 			}
 		}
 
@@ -253,7 +253,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				return false;
 			}
 
-			SetIsBusy(CreateNewCommand, ScanQrCodeCommand);
+			this.SetIsBusy(this.CreateNewCommand, this.ScanQrCodeCommand);
 			try
 			{
 				try
@@ -375,9 +375,9 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					{
 						this.UiSerializer.BeginInvokeOnMainThread(() =>
 						{
-							SetIsDone(CreateNewCommand, ScanQrCodeCommand);
+							this.SetIsDone(this.CreateNewCommand, this.ScanQrCodeCommand);
 
-							OnStepCompleted(EventArgs.Empty);
+							this.OnStepCompleted(EventArgs.Empty);
 						});
 					}
 				}
@@ -390,7 +390,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			}
 			finally
 			{
-				BeginInvokeSetIsDone(CreateNewCommand, ScanQrCodeCommand);
+				this.BeginInvokeSetIsDone(this.CreateNewCommand, this.ScanQrCodeCommand);
 			}
 
 			return true;
@@ -546,13 +546,13 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		protected override async Task DoSaveState()
 		{
 			await base.DoSaveState();
-			await this.SettingsService.SaveState(GetSettingsKey(nameof(AccountName)), this.AccountName);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.AccountName)), this.AccountName);
 		}
 
 		/// <inheritdoc />
 		protected override async Task DoRestoreState()
 		{
-			this.AccountName = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(AccountName)));
+			this.AccountName = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.AccountName)));
 			await base.DoRestoreState();
 		}
 	}

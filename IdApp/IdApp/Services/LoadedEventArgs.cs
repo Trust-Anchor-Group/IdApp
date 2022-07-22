@@ -13,7 +13,7 @@ namespace IdApp.Services
         /// <param name="isLoaded">The current loaded state.</param>
         public LoadedEventArgs(bool isLoaded)
         {
-            IsLoaded = isLoaded;
+			this.IsLoaded = isLoaded;
         }
 
         /// <summary>

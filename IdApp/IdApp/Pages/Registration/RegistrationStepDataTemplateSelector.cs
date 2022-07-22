@@ -45,11 +45,11 @@ namespace IdApp.Pages.Registration
 
 			return viewModel.Step switch
 			{
-				RegistrationStep.Account => ChooseAccount,
-				RegistrationStep.RegisterIdentity => RegisterIdentity,
-				RegistrationStep.ValidateIdentity => ValidateIdentity,
-				RegistrationStep.Pin => DefinePin,
-				_ => ValidatePhoneNr,
+				RegistrationStep.Account => this.ChooseAccount,
+				RegistrationStep.RegisterIdentity => this.RegisterIdentity,
+				RegistrationStep.ValidateIdentity => this.ValidateIdentity,
+				RegistrationStep.Pin => this.DefinePin,
+				_ => this.ValidatePhoneNr,
 			};
 		}
 	}

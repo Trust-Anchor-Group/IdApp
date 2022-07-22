@@ -14,7 +14,7 @@ namespace IdApp.Services.Contracts
         /// <param name="identity">The changed identity.</param>
         public LegalIdentityChangedEventArgs(LegalIdentity identity)
         {
-            Identity = identity;
+			this.Identity = identity;
         }
 
         /// <summary>

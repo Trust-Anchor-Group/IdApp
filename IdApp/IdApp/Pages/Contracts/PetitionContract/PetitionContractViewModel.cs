@@ -25,9 +25,9 @@ namespace IdApp.Pages.Contracts.PetitionContract
 		/// </summary>
 		protected internal PetitionContractViewModel()
 		{
-			this.AcceptCommand = new Command(async _ => await Accept());
-			this.DeclineCommand = new Command(async _ => await Decline());
-			this.IgnoreCommand = new Command(async _ => await Ignore());
+			this.AcceptCommand = new Command(async _ => await this.Accept());
+			this.DeclineCommand = new Command(async _ => await this.Decline());
+			this.IgnoreCommand = new Command(async _ => await this.Ignore());
 
 			this.Photos = new ObservableCollection<Photo>();
 			this.photosLoader = new PhotosLoader(this.Photos);

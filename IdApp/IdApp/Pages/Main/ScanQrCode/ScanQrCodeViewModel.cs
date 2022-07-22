@@ -21,9 +21,9 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// </summary>
         public ScanQrCodeViewModel()
         {
-            SwitchModeCommand = new Command(SwitchMode);
-            OpenCommandText = AppResources.Open;
-            SetModeText();
+			this.SwitchModeCommand = new Command(this.SwitchMode);
+			this.OpenCommandText = AppResources.Open;
+			this.SetModeText();
         }
 
         /// <inheritdoc />
@@ -31,9 +31,9 @@ namespace IdApp.Pages.Main.ScanQrCode
         {
             await base.DoBind();
             if (this.NavigationService.TryPopArgs(out ScanQrCodeNavigationArgs args) && !string.IsNullOrWhiteSpace(args.CommandName))
-                OpenCommandText = args.CommandName;
+				this.OpenCommandText = args.CommandName;
             else
-                OpenCommandText = AppResources.Open;
+				this.OpenCommandText = AppResources.Open;
         }
 
         /// <inheritdoc />
@@ -167,13 +167,13 @@ namespace IdApp.Pages.Main.ScanQrCode
 
         private void SetModeText()
         {
-            ModeText = ScanIsAutomatic ? AppResources.QrEnterManually : AppResources.QrScanCode;
+			this.ModeText = this.ScanIsAutomatic ? AppResources.QrEnterManually : AppResources.QrScanCode;
         }
 
         private void SwitchMode()
         {
-            ScanIsAutomatic = !ScanIsAutomatic;
-            OnModeChanged(EventArgs.Empty);
+			this.ScanIsAutomatic = !this.ScanIsAutomatic;
+			this.OnModeChanged(EventArgs.Empty);
         }
 
         /// <summary>

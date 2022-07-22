@@ -33,7 +33,7 @@ namespace IdApp.Pages.Contracts.NewContract.ObjectModel
         /// <returns>String representation</returns>
         public override string ToString()
         {
-            return Name;
+            return this.Name;
         }
     }
 }

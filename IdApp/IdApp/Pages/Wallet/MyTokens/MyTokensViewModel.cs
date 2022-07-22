@@ -22,8 +22,8 @@ namespace IdApp.Pages.Wallet.MyTokens
 		public MyTokensViewModel()
 			: base()
 		{
-			this.BackCommand = new Command(async _ => await GoBack());
-			this.LoadMoreTokensCommand = new Command(async _ => await LoadMoreTokens());
+			this.BackCommand = new Command(async _ => await this.GoBack());
+			this.LoadMoreTokensCommand = new Command(async _ => await this.LoadMoreTokens());
 
 			this.Tokens = new ObservableCollection<TokenItem>();
 		}
@@ -61,8 +61,8 @@ namespace IdApp.Pages.Wallet.MyTokens
 						this.HasTokens = false;
 				});
 
-				this.XmppService.Wallet.TokenAdded += Wallet_TokenAdded;
-				this.XmppService.Wallet.TokenRemoved += Wallet_TokenRemoved;
+				this.XmppService.Wallet.TokenAdded += this.Wallet_TokenAdded;
+				this.XmppService.Wallet.TokenRemoved += this.Wallet_TokenRemoved;
 			}
 			catch (Exception ex)
 			{
@@ -73,8 +73,8 @@ namespace IdApp.Pages.Wallet.MyTokens
 		/// <inheritdoc/>
 		protected override Task DoUnbind()
 		{
-			this.XmppService.Wallet.TokenAdded -= Wallet_TokenAdded;
-			this.XmppService.Wallet.TokenRemoved -= Wallet_TokenRemoved;
+			this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;
+			this.XmppService.Wallet.TokenRemoved -= this.Wallet_TokenRemoved;
 
 			return base.DoUnbind();
 		}

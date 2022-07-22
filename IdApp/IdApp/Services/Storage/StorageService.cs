@@ -60,7 +60,7 @@ namespace IdApp.Services.Storage
 
 				if (this.databaseProvider is null)
 				{
-					this.databaseProvider = await CreateDatabaseFile(Thread);
+					this.databaseProvider = await this.CreateDatabaseFile(Thread);
 
 					Thread?.NewState("CheckDB");
 					await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
@@ -70,9 +70,9 @@ namespace IdApp.Services.Storage
 
 				Thread?.NewState("Register");
 
-				if (!(databaseProvider is null))
+				if (!(this.databaseProvider is null))
 				{
-					Database.Register(databaseProvider, false);
+					Database.Register(this.databaseProvider, false);
 					this.InitDone(true);
 					Thread?.Stop();
 					return;
@@ -97,10 +97,10 @@ namespace IdApp.Services.Storage
 					try
 					{
 						Thread?.NewState("Delete");
-						Directory.Delete(dataFolder, true);
+						Directory.Delete(this.dataFolder, true);
 
 						Thread?.NewState("Recreate");
-						this.databaseProvider = await CreateDatabaseFile(Thread);
+						this.databaseProvider = await this.CreateDatabaseFile(Thread);
 
 						Thread?.NewState("Repair");
 						await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
@@ -110,7 +110,7 @@ namespace IdApp.Services.Storage
 						if (!Database.HasProvider)
 						{
 							Thread?.NewState("Register");
-							Database.Register(databaseProvider, false);
+							Database.Register(this.databaseProvider, false);
 							this.InitDone(true);
 							Thread?.Stop();
 							return;
@@ -195,7 +195,7 @@ namespace IdApp.Services.Storage
 		{
 			FilesProvider.AsyncFileIo = false;  // Asynchronous file I/O induces a long delay during startup on mobile platforms. Why??
 
-			return FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8,
+			return FilesProvider.CreateAsync(this.dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8,
 				(int)Constants.Timeouts.Database.TotalMilliseconds, this.CryptoService.GetCustomKey, Thread);
 		}
 
