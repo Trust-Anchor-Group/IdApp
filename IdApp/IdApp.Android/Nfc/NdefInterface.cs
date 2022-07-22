@@ -74,7 +74,12 @@ namespace IdApp.Android.Nfc
 						break;
 
 					case NdefRecord.TnfWellKnown:
-						Result.Add(new WellKnownTypeRecord(Record));
+						string TypeInfo = Encoding.UTF8.GetString(Record.GetTypeInfo());
+
+						if (TypeInfo == "U")
+							Result.Add(new UriRecord(Record));
+						else
+							Result.Add(new WellKnownTypeRecord(Record));
 						break;
 
 					case NdefRecord.TnfExternalType:

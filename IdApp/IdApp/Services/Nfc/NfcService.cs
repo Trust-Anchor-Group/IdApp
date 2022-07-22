@@ -116,7 +116,19 @@ namespace IdApp.Services.Nfc
 						}
 						else
 						{
-							// TODO
+							foreach (INdefRecord Record in Records)
+							{
+								if (Record is INdefUriRecord UriRecord)
+								{
+									if (!string.IsNullOrEmpty(Constants.UriSchemes.GetScheme(UriRecord.Uri)))
+									{
+										if (await App.OpenUrl(UriRecord.Uri))
+											return;
+									}
+								}
+							}
+
+							// TODO: Open NFC view
 						}
 					}
 					//else if (Interface is INfcAInterface NfcA)

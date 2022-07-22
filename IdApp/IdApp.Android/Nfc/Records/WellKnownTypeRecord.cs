@@ -17,9 +17,19 @@ namespace IdApp.Android.Nfc.Records
 		/// </summary>
 		/// <param name="Record">Android NDEF Record</param>
 		public WellKnownTypeRecord(NdefRecord Record)
+			: this(Record, Encoding.UTF8.GetString(Record.GetTypeInfo()))
+		{
+		}
+
+		/// <summary>
+		/// Well-Known Type encoded NDEF Record.
+		/// </summary>
+		/// <param name="Record">Android NDEF Record</param>
+		/// <param name="Type">Record type.</param>
+		public WellKnownTypeRecord(NdefRecord Record, string Type)
 			: base(Record)
 		{
-			this.type = Encoding.UTF8.GetString(Record.GetTypeInfo());
+			this.type = Type;
 			this.data = Record.GetPayload();
 		}
 
