@@ -1,6 +1,8 @@
 ﻿using IdApp.Nfc;
 using IdApp.Nfc.Extensions;
 using IdApp.Nfc.Records;
+using IdApp.Pages;
+using IdApp.Services.Navigation;
 using System;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -64,7 +66,26 @@ namespace IdApp.Services.Nfc
 					bool IsWritable = await Ndef.IsWritable();
 					INdefRecord[] Records = await Ndef.GetMessage();
 
-					// TODO
+					if (Records.Length == 0)
+					{
+						if (!IsWritable)
+							continue;
+
+						INavigationService Nav = App.Instantiate<INavigationService>();
+						if (Nav.CurrentPage is ContentBasePage ContentPage &&
+							ContentPage.ViewModel is ILinkableView LinkableView &&
+							LinkableView.IsLinkable)
+						{
+							string Link = LinkableView.Link;
+							string Title = await LinkableView.Title;
+
+							// TODDO
+						}
+					}
+					else
+					{
+						// TODO
+					}
 				}
 				//else if (Interface is INfcAInterface NfcA)
 				//{

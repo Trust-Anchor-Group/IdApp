@@ -2613,6 +2613,21 @@
             <param name="TagProfile">TAG Profile</param>
             <returns>If URI could be processed.</returns>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.IsLinkable">
+            <summary>
+            If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.UriScheme">
             <summary>
             URI Scheme
@@ -3547,6 +3562,21 @@
         <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.Signature">
             <summary>
             The signature in plain text.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.IsLinkable">
+            <summary>
+            If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.Title">
+            <summary>
+            Title of the current view
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector">
@@ -5335,6 +5365,16 @@
             Gets or sets whether a user can delete or obsolete a contract.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a petition of a legal identity.
@@ -5756,6 +5796,11 @@
         <member name="P:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.Uri">
             <summary>
             Uri date of the identity
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.Title">
+            <summary>
+            Title of the current view
             </summary>
         </member>
         <member name="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs">
@@ -6473,6 +6518,31 @@
             Rotation of the first photo in the identity.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.ILinkableView">
+            <summary>
+            Interfaces for linkable views.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ILinkableView.IsLinkable">
+            <summary>
+            If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ILinkableView.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ILinkableView.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.IItemGroup">
             <summary>
             Grouped item interface.
@@ -6819,6 +6889,11 @@
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Main.ScanQrCode.CodeScannedEventArgs">
             <summary>
             An event args class that holds dat about the currently scanned QR code.
@@ -7131,6 +7206,16 @@
             Determines whether there's a generated <see cref="P:IdApp.Pages.QrXmppViewModel.QrCode"/> image for this identity.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.QrXmppViewModel.QrCodeUriProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.QrXmppViewModel.QrCodeUri"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.QrCodeUri">
+            <summary>
+            Determines whether there's a generated <see cref="P:IdApp.Pages.QrXmppViewModel.QrCode"/> image for this identity.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.QrXmppViewModel.QrCodeWidthProperty">
             <summary>
             See <see cref="P:IdApp.Pages.QrXmppViewModel.QrCodeWidth"/>
@@ -7169,6 +7254,21 @@
         <member name="P:IdApp.Pages.QrXmppViewModel.QrCodeContentType">
             <summary>
             Content-Type of QR Code
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.IsLinkable">
+            <summary>
+            If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.Title">
+            <summary>
+            Title of the current view
             </summary>
         </member>
         <member name="T:IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
@@ -9590,6 +9690,11 @@
             Command to bind to for detecting when a from label has been clicked on.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.IShareQrCode">
             <summary>
             Interface for pages with a share button.
@@ -10957,6 +11062,11 @@
             The command to bind to for sharing the QR code
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.SendPayment.SendPaymentPage">
             <summary>
             A page that allows the user to realize payments.
@@ -11665,6 +11775,11 @@
             Command to display a profiling report of a state-machine.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.EventType">
             <summary>
             Types of events
@@ -12141,7 +12256,7 @@
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel">
             <summary>
-            The view model to bind to for when displaying the contents of a token.
+            The view model to bind to for when displaying the events of a token.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.#ctor">

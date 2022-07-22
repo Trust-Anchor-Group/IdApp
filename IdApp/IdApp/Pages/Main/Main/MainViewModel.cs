@@ -670,5 +670,15 @@ namespace IdApp.Pages.Main.Main
 				}
 			}
 		}
+
+		#region ILinkableView
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public override Task<string> Title => Task.FromResult<string>(this.FullName);
+
+		#endregion
+
 	}
 }

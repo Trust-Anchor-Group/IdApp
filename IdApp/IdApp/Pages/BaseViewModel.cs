@@ -37,16 +37,16 @@ namespace IdApp.Pages
 		/// </summary>
 		public async Task Bind()
 		{
-			if (!IsBound)
+			if (!this.IsBound)
 			{
 				DeviceDisplay.KeepScreenOn = true;
 
-				await DoBind();
+				await this.DoBind();
 
-				foreach (BaseViewModel childViewModel in childViewModels)
+				foreach (BaseViewModel childViewModel in this.childViewModels)
 					await childViewModel.Bind();
 
-				IsBound = true;
+				this.IsBound = true;
 			}
 		}
 
@@ -55,14 +55,14 @@ namespace IdApp.Pages
 		/// </summary>
 		public async Task Unbind()
 		{
-			if (IsBound)
+			if (this.IsBound)
 			{
-				foreach (BaseViewModel childViewModel in childViewModels)
+				foreach (BaseViewModel childViewModel in this.childViewModels)
 				{
 					await childViewModel.Unbind();
 				}
-				await DoUnbind();
-				IsBound = false;
+				await this.DoUnbind();
+				this.IsBound = false;
 			}
 		}
 
@@ -116,10 +116,10 @@ namespace IdApp.Pages
 		/// </summary>
 		public async Task RestoreState()
 		{
-			foreach (BaseViewModel childViewModel in childViewModels)
+			foreach (BaseViewModel childViewModel in this.childViewModels)
 				await childViewModel.DoRestoreState();
 
-			await DoRestoreState();
+			await this.DoRestoreState();
 		}
 
 		/// <summary>
@@ -127,10 +127,10 @@ namespace IdApp.Pages
 		/// </summary>
 		public async Task SaveState()
 		{
-			foreach (BaseViewModel childViewModel in childViewModels)
+			foreach (BaseViewModel childViewModel in this.childViewModels)
 				await childViewModel.DoSaveState();
 
-			await DoSaveState();
+			await this.DoSaveState();
 		}
 
 		/// <summary>
@@ -226,8 +226,8 @@ namespace IdApp.Pages
 		/// <param name="commands">The commands to re-evaluate.</param>
 		protected void SetIsDone(params ICommand[] commands)
 		{
-			IsBusy = false;
-			EvaluateCommands(commands);
+			this.IsBusy = false;
+			this.EvaluateCommands(commands);
 		}
 
 		/// <summary>
@@ -237,8 +237,8 @@ namespace IdApp.Pages
 		/// <param name="commands">The commands to re-evaluate.</param>
 		protected void SetIsBusy(params ICommand[] commands)
 		{
-			IsBusy = true;
-			EvaluateCommands(commands);
+			this.IsBusy = true;
+			this.EvaluateCommands(commands);
 		}
 	}
 }

@@ -1736,5 +1736,15 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.EvaluateAllCommands();
 		}
 
+		#region ILinkableView
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public override Task<string> Title => Task.FromResult<string>(ContactInfo.GetFriendlyName(this.LegalIdentity));
+
+		#endregion
+
+
 	}
 }
