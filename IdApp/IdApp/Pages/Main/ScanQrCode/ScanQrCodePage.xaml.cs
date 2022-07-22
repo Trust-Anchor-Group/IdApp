@@ -37,6 +37,16 @@ namespace IdApp.Pages.Main.ScanQrCode
 		}
 
 		/// <summary>
+		/// Creates a new instance of the <see cref="ScanQrCodePage"/> class.
+		/// </summary>
+		/// <remarks>
+		/// A parameterless constructor is required for shell routing system (it uses <c>Activator.CreateInstance</c>).
+		/// </remarks>
+		public ScanQrCodePage() : this(null)
+		{
+		}
+
+		/// <summary>
 		/// Asynchronous OnAppearing-method.
 		/// </summary>
 		protected override async Task OnAppearingAsync()
