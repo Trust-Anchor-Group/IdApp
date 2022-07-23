@@ -1743,4 +1743,13 @@
   <data name="PublishMarketplace" xml:space="preserve">
     <value>Objavi na marketplace-u</value>
   </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Oznaka ugravirana sa linkom ka {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Nije moguće ugravirati oznaku sa vezom do {0}.</value>
+  </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>PIN ne sme da sadrži e-adresu identiteta.</value>
+  </data>
 </root>

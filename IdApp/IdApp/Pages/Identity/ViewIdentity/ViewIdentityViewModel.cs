@@ -244,6 +244,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.Region = this.LegalIdentity[Constants.XmppProperties.Region];
 				this.CountryCode = this.LegalIdentity[Constants.XmppProperties.Country];
 				this.PhoneNr = this.LegalIdentity[Constants.XmppProperties.Phone];
+				this.EMail = this.LegalIdentity[Constants.XmppProperties.EMail];
 			}
 			else
 			{
@@ -259,6 +260,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.Region = string.Empty;
 				this.CountryCode = string.Empty;
 				this.PhoneNr = string.Empty;
+				this.EMail = string.Empty;
 			}
 
 			this.Country = ISO_3166_1.ToName(this.CountryCode);
@@ -707,6 +709,21 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			get => (string)this.GetValue(PhoneNrProperty);
 			set => this.SetValue(PhoneNrProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="EMail"/>
+		/// </summary>
+		public static readonly BindableProperty EMailProperty =
+			BindableProperty.Create(nameof(EMail), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// Country code of the identity
+		/// </summary>
+		public string EMail
+		{
+			get => (string)this.GetValue(EMailProperty);
+			set => this.SetValue(EMailProperty, value);
 		}
 
 		/// <summary>

@@ -42,6 +42,12 @@ namespace IdApp.Services
 		public string PhoneNumber { get; set; }
 
 		/// <summary>
+		/// Verified e-mail address
+		/// </summary>
+		[DefaultValueStringEmpty]
+		public string EMail { get; set; }
+
+		/// <summary>
 		/// If connecting to the domain can be done using default parameters (host=domain, default c2s port).
 		/// </summary>
 		[DefaultValue(false)]

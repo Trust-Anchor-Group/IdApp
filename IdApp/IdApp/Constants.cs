@@ -300,15 +300,20 @@ namespace IdApp
             public const string Jid = "JID";
 
             /// <summary>
-            /// Jabber ID
+            /// Phone number
             /// </summary>
             public const string Phone = "PHONE";
-        }
 
-        /// <summary>
-        /// Timer Intervals
-        /// </summary>
-        public static class Intervals
+			/// <summary>
+			/// e-Mail address
+			/// </summary>
+			public const string EMail = "EMAIL";
+		}
+
+		/// <summary>
+		/// Timer Intervals
+		/// </summary>
+		public static class Intervals
         {
             /// <summary>
             /// Auto Save interval

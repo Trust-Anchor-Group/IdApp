@@ -563,7 +563,12 @@
         </member>
         <member name="F:IdApp.Constants.XmppProperties.Phone">
             <summary>
-            Jabber ID
+            Phone number
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.EMail">
+            <summary>
+            e-Mail address
             </summary>
         </member>
         <member name="T:IdApp.Constants.Intervals">
@@ -3584,6 +3589,16 @@
             Gets or sets the Bare Jid of the signature.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.EMail">
+            <summary>
+            Gets or sets the Bare Jid of the signature.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.SignatureProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.Signature"/>
@@ -4586,6 +4601,16 @@
             PhoneNr of the contract
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.EMail">
+            <summary>
+            EMail of the contract
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.IsApprovedProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.IsApproved"/>
@@ -4925,6 +4950,16 @@
         <member name="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.PhoneNr">
             <summary>
             PhoneNr of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.EMail">
+            <summary>
+            EMail of the identity
             </summary>
         </member>
         <member name="F:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.IsApprovedProperty">
@@ -5755,6 +5790,16 @@
             PhoneNr of the identity
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.EMail">
+            <summary>
+            EMail of the identity
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.IsApprovedProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.IsApproved"/>
@@ -6229,6 +6274,16 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.PhoneNr">
+            <summary>
+            Country code of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.EMail">
             <summary>
             Country code of the identity
             </summary>
@@ -7661,7 +7716,12 @@
         </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.PhoneNr">
             <summary>
-            Country
+            Phone Number
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.EMail">
+            <summary>
+            EMail
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.DeviceId">
@@ -8233,6 +8293,56 @@
             If Phone number is valid or not
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMail">
+            <summary>
+            e-mail
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValid">
+            <summary>
+            If e-mail address is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailCodeSentProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailCodeSent"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailCodeSent">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCode">
+            <summary>
+            Phone number
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCodeValidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCodeValid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCodeValid">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumber"/>
@@ -8253,44 +8363,54 @@
             If Phone number is valid or not
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CodeSentProperty">
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrCodeSentProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CodeSent"/>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrCodeSent"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CodeSent">
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrCodeSent">
             <summary>
             If Phone number is valid or not
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerificationCodeProperty">
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerificationCode"/>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCode"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerificationCode">
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCode">
             <summary>
             Phone number
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerificationCodeValidProperty">
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeValidProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerificationCodeValid"/>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeValid"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerificationCodeValid">
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeValid">
             <summary>
             If Phone number is valid or not
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.SendCodeCommand">
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.SendEMailCodeCommand">
+            <summary>
+            The command to bind to for sending a code to the provided e-mail address.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyEMailCodeCommand">
+            <summary>
+            The command to bind to for sending an e-mail code verification request.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.SendPhoneNrCodeCommand">
             <summary>
             The command to bind to for sending a code to the provided phone number.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyCodeCommand">
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyPhoneNrCodeCommand">
             <summary>
-            The command to bind to for sending a code verification request.
+            The command to bind to for sending a phone message code verification request.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityView">
@@ -8535,6 +8655,16 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.PhoneNr">
+            <summary>
+            Gets or sets the user's country.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.EMailProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.EMail">
             <summary>
             Gets or sets the user's country.
             </summary>
@@ -14311,6 +14441,11 @@
               Looks up a localized string similar to A PIN must not contain any word from the identity address lines..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.PinContainsEMail">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain the identity e-mail address..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.PinContainsName">
             <summary>
               Looks up a localized string similar to A PIN must not contain any word from the identity names..
@@ -17735,6 +17870,11 @@
             Verified Phone Number
             </summary>
         </member>
+        <member name="P:IdApp.Services.TagConfiguration.EMail">
+            <summary>
+            Verified e-mail address
+            </summary>
+        </member>
         <member name="P:IdApp.Services.TagConfiguration.DefaultXmppConnectivity">
             <summary>
             If connecting to the domain can be done using default parameters (host=domain, default c2s port).
@@ -17871,6 +18011,11 @@
         <member name="P:IdApp.Services.Tag.ITagProfile.PhoneNumber">
             <summary>
             Verified phone number.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Tag.ITagProfile.EMail">
+            <summary>
+            Verified e-mail address.
             </summary>
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.DefaultXmppConnectivity">
@@ -18036,9 +18181,15 @@
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetPhone(System.String)">
             <summary>
-            Step 1 - set the domain name to connect to.
+            Step 1 - sets the phone number used for contacting the user.
             </summary>
             <param name="PhoneNumber">Verified phone number.</param>
+        </member>
+        <member name="M:IdApp.Services.Tag.ITagProfile.SetEMail(System.String)">
+            <summary>
+            Step 1 - sets the e-mail address used for contacting the user.
+            </summary>
+            <param name="EMail">Verified e-mail address.</param>
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetDomain(System.String,System.Boolean,System.String,System.String)">
             <summary>
@@ -18264,6 +18415,11 @@
             A PIN contains the legal identity phone number.
             </summary>
         </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.ContainsEMail">
+            <summary>
+            A PIN contains the legal identity e-mail.
+            </summary>
+        </member>
         <member name="F:IdApp.Services.Tag.PinStrength.ContainsName">
             <summary>
             A PIN contains a word from the legal identity name.
@@ -18378,6 +18534,9 @@
         <member name="P:IdApp.Services.Tag.TagProfile.PhoneNumber">
             <inheritdoc/>
         </member>
+        <member name="P:IdApp.Services.Tag.TagProfile.EMail">
+            <inheritdoc/>
+        </member>
         <member name="P:IdApp.Services.Tag.TagProfile.Account">
             <inheritdoc/>
         </member>
@@ -18451,6 +18610,9 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetPhone(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Tag.TagProfile.SetEMail(System.String)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetDomain(System.String,System.Boolean,System.String,System.String)">

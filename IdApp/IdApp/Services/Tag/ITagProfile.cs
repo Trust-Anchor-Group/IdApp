@@ -46,6 +46,11 @@ namespace IdApp.Services.Tag
 		string PhoneNumber { get; }
 
 		/// <summary>
+		/// Verified e-mail address.
+		/// </summary>
+		string EMail { get; }
+
+		/// <summary>
 		/// If connecting to the domain can be done using default parameters (host=domain, default c2s port).
 		/// </summary>
 		bool DefaultXmppConnectivity { get; }
@@ -207,10 +212,16 @@ namespace IdApp.Services.Tag
 		void ResetIsDirty();
 
 		/// <summary>
-		/// Step 1 - set the domain name to connect to.
+		/// Step 1 - sets the phone number used for contacting the user.
 		/// </summary>
 		/// <param name="PhoneNumber">Verified phone number.</param>
 		void SetPhone(string PhoneNumber);
+
+		/// <summary>
+		/// Step 1 - sets the e-mail address used for contacting the user.
+		/// </summary>
+		/// <param name="EMail">Verified e-mail address.</param>
+		void SetEMail(string EMail);
 
 		/// <summary>
 		/// Step 1 - set the domain name to connect to.

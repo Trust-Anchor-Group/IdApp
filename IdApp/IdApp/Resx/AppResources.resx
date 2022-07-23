@@ -1749,4 +1749,7 @@
   <data name="TagNotEngraved" xml:space="preserve">
     <value>Unable to engrave tag with link to {0}.</value>
   </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>A PIN must not contain the identity e-mail address.</value>
+  </data>
 </root>

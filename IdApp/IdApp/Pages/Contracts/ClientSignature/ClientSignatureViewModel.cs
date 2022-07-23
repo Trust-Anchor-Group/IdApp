@@ -402,10 +402,25 @@ namespace IdApp.Pages.Contracts.ClientSignature
             set => this.SetValue(PhoneNrProperty, value);
         }
 
-        /// <summary>
-        /// See <see cref="Signature"/>
-        /// </summary>
-        public static readonly BindableProperty SignatureProperty =
+		/// <summary>
+		/// See <see cref="EMail"/>
+		/// </summary>
+		public static readonly BindableProperty EMailProperty =
+			BindableProperty.Create(nameof(EMail), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// Gets or sets the Bare Jid of the signature.
+		/// </summary>
+		public string EMail
+		{
+			get => (string)this.GetValue(EMailProperty);
+			set => this.SetValue(EMailProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Signature"/>
+		/// </summary>
+		public static readonly BindableProperty SignatureProperty =
             BindableProperty.Create(nameof(Signature), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
@@ -444,8 +459,9 @@ namespace IdApp.Pages.Contracts.ClientSignature
                 this.IsApproved = this.identity.State == IdentityState.Approved;
                 this.BareJid = this.identity.GetJid(Constants.NotAvailableValue);
                 this.PhoneNr = this.identity[Constants.XmppProperties.Phone];
-            }
-            else
+                this.EMail = this.identity[Constants.XmppProperties.EMail];
+			}
+			else
             {
                 this.Created = DateTime.MinValue;
                 this.Updated = DateTime.MinValue;
@@ -468,8 +484,9 @@ namespace IdApp.Pages.Contracts.ClientSignature
                 this.IsApproved = false;
                 this.BareJid = Constants.NotAvailableValue;
                 this.PhoneNr = Constants.NotAvailableValue;
-            }
-            if (!(this.signature is null))
+                this.EMail = Constants.NotAvailableValue;
+			}
+			if (!(this.signature is null))
             {
                 this.Role = this.signature.Role;
                 this.Timestamp = this.signature.Timestamp.ToString(CultureInfo.CurrentUICulture);

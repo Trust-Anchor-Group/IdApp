@@ -2707,6 +2707,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A PIN must not contain the identity e-mail address..
+        /// </summary>
+        internal static string PinContainsEMail {
+            get {
+                return ResourceManager.GetString("PinContainsEMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A PIN must not contain any word from the identity names..
         /// </summary>
         internal static string PinContainsName {

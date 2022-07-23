@@ -1743,4 +1743,13 @@
   <data name="PublishMarketplace" xml:space="preserve">
     <value>Публикация в Marketplace</value>
   </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Тег Выгравирован со ссылкой на {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Не удалось выгравировать тег со ссылкой на {0}.</value>
+  </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>ПИН-код не должен содержать идентификационный адрес электронной почты.</value>
+  </data>
 </root>

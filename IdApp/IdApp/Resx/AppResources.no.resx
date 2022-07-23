@@ -1743,4 +1743,13 @@
   <data name="PublishMarketplace" xml:space="preserve">
     <value>Publiser på Marketplace</value>
   </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Kode gravert med kobling til {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Kan ikke gravere kode med kobling til {0}.</value>
+  </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>En PIN-kode kan ikke inneholde identitetens e-postadresse.</value>
+  </data>
 </root>

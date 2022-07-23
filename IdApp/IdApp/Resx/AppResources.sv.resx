@@ -999,6 +999,9 @@
   <data name="PinContainsAddress" xml:space="preserve">
     <value>En PIN får inte innehålla ord från identitetens adressrader.</value>
   </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>En PIN får inte innehålla identitetens epostadress.</value>
+  </data>
   <data name="PinContainsName" xml:space="preserve">
     <value>En PIN får inte innehålla ord från identitetens namn.</value>
   </data>

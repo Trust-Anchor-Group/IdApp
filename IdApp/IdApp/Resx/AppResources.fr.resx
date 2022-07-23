@@ -1743,4 +1743,13 @@
   <data name="PublishMarketplace" xml:space="preserve">
     <value>Publier sur Marketplace</value>
   </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Tag Gravé avec lien vers {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Impossible de graver l’étiquette avec un lien vers {0}.</value>
+  </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>Un code PIN ne doit pas contenir l’adresse e-mail de l’identité.</value>
+  </data>
 </root>

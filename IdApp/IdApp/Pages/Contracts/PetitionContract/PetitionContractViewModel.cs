@@ -413,6 +413,21 @@ namespace IdApp.Pages.Contracts.PetitionContract
 		}
 
 		/// <summary>
+		/// See <see cref="EMail"/>
+		/// </summary>
+		public static readonly BindableProperty EMailProperty =
+			BindableProperty.Create(nameof(EMail), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// EMail of the contract
+		/// </summary>
+		public string EMail
+		{
+			get => (string)this.GetValue(EMailProperty);
+			set => this.SetValue(EMailProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="IsApproved"/>
 		/// </summary>
 		public static readonly BindableProperty IsApprovedProperty =
@@ -497,6 +512,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
 				this.CountryCode = this.RequestorIdentity[Constants.XmppProperties.Country];
 				this.Country = ISO_3166_1.ToName(this.CountryCode);
 				this.PhoneNr = this.RequestorIdentity[Constants.XmppProperties.Phone];
+				this.EMail = this.RequestorIdentity[Constants.XmppProperties.EMail];
 				this.IsApproved = this.RequestorIdentity.State == IdentityState.Approved;
 			}
 			else
@@ -520,6 +536,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
 				this.CountryCode = Constants.NotAvailableValue;
 				this.Country = Constants.NotAvailableValue;
 				this.PhoneNr = Constants.NotAvailableValue;
+				this.EMail = Constants.NotAvailableValue;
 				this.IsApproved = false;
 			}
 			this.Purpose = this.purpose;

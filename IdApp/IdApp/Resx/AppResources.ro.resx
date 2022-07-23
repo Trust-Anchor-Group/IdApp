@@ -1743,4 +1743,13 @@
   <data name="PublishMarketplace" xml:space="preserve">
     <value>Publicarea pe Marketplace</value>
   </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Tag gravate cu link-ul de a {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Imposibil de gravat tag-ul cu link-ul la {0}.</value>
+  </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>Un cod PIN nu trebuie să conțină adresa de e-mail de identitate.</value>
+  </data>
 </root>

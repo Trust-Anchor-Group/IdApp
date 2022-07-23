@@ -1743,4 +1743,13 @@
   <data name="PublishMarketplace" xml:space="preserve">
     <value>Julkaiseminen Marketplacessa</value>
   </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Tunniste Kaiverrettu linkillä {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Tunnistetta ei voi kaivertaa linkillä {0}.</value>
+  </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>PIN-koodi ei saa sisältää tunnistetietojen sähköpostiosoitetta.</value>
+  </data>
 </root>
