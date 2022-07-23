@@ -422,13 +422,10 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 						DefaultConnectivity = false;
 					}
 
-					this.UiSerializer.BeginInvokeOnMainThread(() =>
-					{
-						this.SetIsDone(this.VerifyPhoneNrCodeCommand);
+					this.SetIsDone(this.VerifyPhoneNrCodeCommand);
 
-						this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
-						this.OnStepCompleted(EventArgs.Empty);
-					});
+					this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
+					this.OnStepCompleted(EventArgs.Empty);
 				}
 				else
 				{
@@ -564,7 +561,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		#region Syntax
 
 		private string TrimPhoneNumber(string PhoneNr)
-        {
+		{
 			return PhoneNr.Trim().Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "");
 		}
 
