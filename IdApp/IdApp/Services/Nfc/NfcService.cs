@@ -35,6 +35,9 @@ namespace IdApp.Services.Nfc
 		{
 			try
 			{
+				if (!await this.VerifyPin())
+					return;
+
 				string TagId = Hashes.BinaryToString(Tag.ID).ToUpper();
 				NfcTagReference TagReference = await NfcTagReference.FindByTagId(TagId);
 
@@ -73,8 +76,7 @@ namespace IdApp.Services.Nfc
 							if (Nav.CurrentPage is ContentBasePage ContentPage &&
 								ContentPage.ViewModel is ILinkableView LinkableView &&
 								LinkableView.IsLinkable &&
-								IsWritable &&
-								await App.VerifyPin())
+								IsWritable)
 							{
 								string Link = LinkableView.Link;
 								string Title = await LinkableView.Title;
@@ -203,5 +205,16 @@ namespace IdApp.Services.Nfc
 			}
 		}
 
+		private async Task<bool> VerifyPin()
+		{
+			TaskCompletionSource<bool> Result = new();
+
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				Result.TrySetResult(await App.VerifyPin());
+			});
+
+			return await Result.Task;
+		}
 	}
 }
