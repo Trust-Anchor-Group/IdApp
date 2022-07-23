@@ -1758,6 +1758,9 @@
   <data name="WelcomeToTagValidateEMail" xml:space="preserve">
     <value>Meidän on myös vahvistettava sähköpostiosoitteesi. Kirjoita sähköpostiosoitteesi alle ilman välilyöntejä.</value>
   </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Yhteystieto</value>
+  </data>
   <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
     <value>Koodi on lähetetty yllä ilmoitettuun sähköpostiosoitteeseen. Kun saat sen, kirjoita alla oleva vahvistuskoodi jatkaaksesi.</value>
   </data>

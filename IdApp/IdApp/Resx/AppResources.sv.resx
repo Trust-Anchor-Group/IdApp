@@ -1761,6 +1761,9 @@
   <data name="WelcomeToTagValidateEMail" xml:space="preserve">
     <value>Vi behöver också valdera din e-postadress. Var god och skriv in din e-postadress nedan, utan mellanslag.</value>
   </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Kontaktinformation</value>
+  </data>
   <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
     <value>En kod har skickats till e-postadressen angiven ovan. När du tar emot det, var god skriv ner verifieringskoden nedan for att fortsätta.</value>
   </data>

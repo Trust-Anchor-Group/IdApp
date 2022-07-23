@@ -637,6 +637,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact Information.
+        /// </summary>
+        internal static string ContactInformation {
+            get {
+                return ResourceManager.GetString("ContactInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contacts.
         /// </summary>
         internal static string Contacts {

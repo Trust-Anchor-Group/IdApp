@@ -1758,6 +1758,9 @@
   <data name="WelcomeToTagValidateEMail" xml:space="preserve">
     <value>También necesitamos validar su dirección de correo electrónico. Por favor, introduzca su dirección de correo electrónico a continuación, sin espacios.</value>
   </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Información de contacto</value>
+  </data>
   <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
     <value>Se ha enviado un código a la dirección de correo electrónico indicada anteriormente. Cuando lo reciba, ingrese el código de verificación a continuación para continuar.</value>
   </data>

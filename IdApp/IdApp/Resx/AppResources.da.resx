@@ -1758,6 +1758,9 @@
   <data name="WelcomeToTagValidateEMail" xml:space="preserve">
     <value>Vi skal også validere din e-mailadresse. Indtast venligst din e-mail-adresse nedenfor uden mellemrum.</value>
   </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Kontaktoplysninger</value>
+  </data>
   <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
     <value>Der er sendt en kode til den e-mail-adresse, der er angivet ovenfor. Når du modtager den, skal du indtaste bekræftelseskoden nedenfor for at fortsætte.</value>
   </data>

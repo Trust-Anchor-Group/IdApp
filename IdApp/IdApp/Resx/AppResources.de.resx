@@ -1758,6 +1758,9 @@
   <data name="WelcomeToTagValidateEMail" xml:space="preserve">
     <value>Wir müssen auch Ihre E-Mail-Adresse validieren. Bitte geben Sie unten Ihre E-Mail-Adresse ohne Leerzeichen ein.</value>
   </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Kontaktinformationen</value>
+  </data>
   <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
     <value>An die oben angegebene E-Mail-Adresse wurde ein Code gesendet. Wenn Sie es erhalten, geben Sie bitte den Bestätigungscode unten ein, um fortzufahren.</value>
   </data>

@@ -1758,6 +1758,9 @@
   <data name="WelcomeToTagValidateEMail" xml:space="preserve">
     <value>Takođe moramo da potvrdimo vašu e-mail adresu. Unesite dole navedenu e-mail adresu, bez razmaka.</value>
   </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Kontakt informacije</value>
+  </data>
   <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
     <value>Šifra je poslata na gore označenu e-adresu. Kada ga primite, unesite dole navedeni verifikacioni kôd da biste nastavili.</value>
   </data>
