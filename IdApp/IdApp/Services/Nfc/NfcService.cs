@@ -35,7 +35,7 @@ namespace IdApp.Services.Nfc
 		{
 			try
 			{
-				if (!await this.VerifyPin())
+				if (!await App.VerifyPin())
 					return;
 
 				string TagId = Hashes.BinaryToString(Tag.ID).ToUpper();
@@ -203,18 +203,6 @@ namespace IdApp.Services.Nfc
 			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
-		}
-
-		private async Task<bool> VerifyPin()
-		{
-			TaskCompletionSource<bool> Result = new();
-
-			this.UiSerializer.BeginInvokeOnMainThread(async () =>
-			{
-				Result.TrySetResult(await App.VerifyPin());
-			});
-
-			return await Result.Task;
 		}
 	}
 }
