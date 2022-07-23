@@ -158,7 +158,7 @@ namespace IdApp.Services
 		/// <summary>
 		/// Current step in the registration process.
 		/// </summary>
-		[DefaultValue(RegistrationStep.ValidatePhoneNr)]
+		[DefaultValue(RegistrationStep.ValidateContactInfo)]
 		public RegistrationStep Step { get; set; }
 	}
 }

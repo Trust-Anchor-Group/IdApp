@@ -13,8 +13,8 @@
 	<StackLayout BackgroundColor="{StaticResource PageBackgroundColor}">
 		<StackLayout.Resources>
 			<ResourceDictionary>
-				<DataTemplate x:Key="ValidatePhoneNrTemplate">
-					<ValidatePhoneNrView xmlns="clr-namespace:IdApp.Pages.Registration.ValidatePhoneNr;assembly=IdApp"/>
+				<DataTemplate x:Key="ValidateContactInfoTemplate">
+					<ValidateContactInfoView xmlns="clr-namespace:IdApp.Pages.Registration.ValidateContactInfo;assembly=IdApp"/>
 				</DataTemplate>
 				<DataTemplate x:Key="ChooseAccountTemplate">
 					<ChooseAccountView xmlns="clr-namespace:IdApp.Pages.Registration.ChooseAccount;assembly=IdApp"/>
@@ -34,7 +34,7 @@
                     ValidateIdentity="{StaticResource ValidateIdentityTemplate}"
                     RegisterIdentity="{StaticResource RegisterIdentityTemplate}"
                     ChooseAccount="{StaticResource ChooseAccountTemplate}"
-                    ValidatePhoneNr="{StaticResource ValidatePhoneNrTemplate}"/>
+                    ValidateContactInfo="{StaticResource ValidateContactInfoTemplate}"/>
 			</ResourceDictionary>
 		</StackLayout.Resources>
 		<StackLayout Orientation="Vertical">

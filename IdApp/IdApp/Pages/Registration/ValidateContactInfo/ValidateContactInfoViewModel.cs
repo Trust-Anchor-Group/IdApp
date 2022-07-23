@@ -9,7 +9,7 @@ using Xamarin.Forms;
 using IdApp.Services.Tag;
 using IdApp.Resx;
 
-namespace IdApp.Pages.Registration.ValidatePhoneNr
+namespace IdApp.Pages.Registration.ValidateContactInfo
 {
 	/// <summary>
 	/// For what purpose the app will be used
@@ -30,13 +30,13 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 	/// <summary>
 	/// The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
 	/// </summary>
-	public class ValidatePhoneNrViewModel : RegistrationStepViewModel
+	public class ValidateContactInfoViewModel : RegistrationStepViewModel
 	{
 		/// <summary>
-		/// Creates a new instance of the <see cref="ValidatePhoneNrViewModel"/> class.
+		/// Creates a new instance of the <see cref="ValidateContactInfoViewModel"/> class.
 		/// </summary>
-		public ValidatePhoneNrViewModel()
-			: base(RegistrationStep.ValidatePhoneNr)
+		public ValidateContactInfoViewModel()
+			: base(RegistrationStep.ValidateContactInfo)
 		{
 			this.SendCodeCommand = new Command(async () => await this.SendCode(), this.SendCodeCanExecute);
 			this.VerifyCodeCommand = new Command(async () => await this.VerifyCode(), this.VerifyCodeCanExecute);
@@ -99,7 +99,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// See <see cref="Purpose"/>
 		/// </summary>
 		public static readonly BindableProperty PurposeProperty =
-			BindableProperty.Create(nameof(Purpose), typeof(int), typeof(ValidatePhoneNrViewModel), -1);
+			BindableProperty.Create(nameof(Purpose), typeof(int), typeof(ValidateContactInfoViewModel), -1);
 
 		/// <summary>
 		/// Phone number
@@ -118,7 +118,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// See <see cref="PurposeSelected"/>
 		/// </summary>
 		public static readonly BindableProperty PurposeSelectedProperty =
-			BindableProperty.Create(nameof(PurposeSelected), typeof(bool), typeof(ValidatePhoneNrViewModel), default(bool));
+			BindableProperty.Create(nameof(PurposeSelected), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
 
 		/// <summary>
 		/// If Phone number is valid or not
@@ -133,7 +133,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// See <see cref="PhoneNumber"/>
 		/// </summary>
 		public static readonly BindableProperty PhoneNumberProperty =
-			BindableProperty.Create(nameof(PhoneNumber), typeof(string), typeof(ValidatePhoneNrViewModel), default(string));
+			BindableProperty.Create(nameof(PhoneNumber), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
 
 		/// <summary>
 		/// Phone number
@@ -152,7 +152,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// See <see cref="PhoneNumberValid"/>
 		/// </summary>
 		public static readonly BindableProperty PhoneNumberValidProperty =
-			BindableProperty.Create(nameof(PhoneNumberValid), typeof(bool), typeof(ValidatePhoneNrViewModel), default(bool));
+			BindableProperty.Create(nameof(PhoneNumberValid), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
 
 		/// <summary>
 		/// If Phone number is valid or not
@@ -167,7 +167,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// See <see cref="CodeSent"/>
 		/// </summary>
 		public static readonly BindableProperty CodeSentProperty =
-			BindableProperty.Create(nameof(CodeSent), typeof(bool), typeof(ValidatePhoneNrViewModel), default(bool));
+			BindableProperty.Create(nameof(CodeSent), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
 
 		/// <summary>
 		/// If Phone number is valid or not
@@ -182,7 +182,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// See <see cref="VerificationCode"/>
 		/// </summary>
 		public static readonly BindableProperty VerificationCodeProperty =
-			BindableProperty.Create(nameof(VerificationCode), typeof(string), typeof(ValidatePhoneNrViewModel), default(string));
+			BindableProperty.Create(nameof(VerificationCode), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
 
 		/// <summary>
 		/// Phone number
@@ -201,7 +201,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// See <see cref="VerificationCodeValid"/>
 		/// </summary>
 		public static readonly BindableProperty VerificationCodeValidProperty =
-			BindableProperty.Create(nameof(VerificationCodeValid), typeof(bool), typeof(ValidatePhoneNrViewModel), default(bool));
+			BindableProperty.Create(nameof(VerificationCodeValid), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
 
 		/// <summary>
 		/// If Phone number is valid or not

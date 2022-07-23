@@ -16,9 +16,9 @@ namespace IdApp.Services.Tag
 	public enum RegistrationStep
 	{
 		/// <summary>
-		/// Validate Phone Number
+		/// Validate Phone Number and e-mail address
 		/// </summary>
-		ValidatePhoneNr = 0,
+		ValidateContactInfo = 0,
 
 		/// <summary>
 		/// Create or connect to an account
@@ -82,7 +82,7 @@ namespace IdApp.Services.Tag
 		private bool usePin;
 		private bool isTest;
 		private DateTime? testOtpTimestamp;
-		private RegistrationStep step = RegistrationStep.ValidatePhoneNr;
+		private RegistrationStep step = RegistrationStep.ValidateContactInfo;
 		private bool suppressPropertyChangedEvents;
 		private bool defaultXmppConnectivity;
 
@@ -605,12 +605,12 @@ namespace IdApp.Services.Tag
 			{
 				switch (this.Step)
 				{
-					case RegistrationStep.ValidatePhoneNr:
+					case RegistrationStep.ValidateContactInfo:
 						// Do nothing
 						break;
 
 					case RegistrationStep.Account:
-						this.Step = RegistrationStep.ValidatePhoneNr;
+						this.Step = RegistrationStep.ValidateContactInfo;
 						break;
 
 					case RegistrationStep.RegisterIdentity:
@@ -636,7 +636,7 @@ namespace IdApp.Services.Tag
 			{
 				switch (this.Step)
 				{
-					case RegistrationStep.ValidatePhoneNr:
+					case RegistrationStep.ValidateContactInfo:
 						this.Step = RegistrationStep.Account;
 						break;
 
@@ -673,7 +673,7 @@ namespace IdApp.Services.Tag
 			this.ApiKey = Key;
 			this.ApiSecret = Secret;
 
-			if (!string.IsNullOrWhiteSpace(this.Domain) && this.Step == RegistrationStep.ValidatePhoneNr)
+			if (!string.IsNullOrWhiteSpace(this.Domain) && this.Step == RegistrationStep.ValidateContactInfo)
 				this.IncrementConfigurationStep();
 		}
 
@@ -681,7 +681,7 @@ namespace IdApp.Services.Tag
 		public void ClearDomain()
 		{
 			this.Domain = string.Empty;
-			this.DecrementConfigurationStep(RegistrationStep.ValidatePhoneNr);
+			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 		}
 
 		/// <inheritdoc/>
@@ -737,7 +737,7 @@ namespace IdApp.Services.Tag
 			this.PasswordHashMethod = string.Empty;
 			this.LegalJid = null;
 
-			this.DecrementConfigurationStep(RegistrationStep.ValidatePhoneNr); // prev
+			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo); // prev
 		}
 
 		/// <inheritdoc/>
@@ -930,7 +930,7 @@ namespace IdApp.Services.Tag
 			this.usePin = false;
 			this.isTest = false;
 			this.TestOtpTimestamp = null;
-			this.step = RegistrationStep.ValidatePhoneNr;
+			this.step = RegistrationStep.ValidateContactInfo;
 			this.defaultXmppConnectivity = false;
 
 			this.IsDirty = true;

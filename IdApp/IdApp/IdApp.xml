@@ -7963,9 +7963,9 @@
             A data template selector for displaying various types of registration steps.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ValidatePhoneNr">
+        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ValidateContactInfo">
             <summary>
-            The choose operator template.
+            The template for validating contact information.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ChooseAccount">
@@ -8162,6 +8162,136 @@
             </summary>
             <param name="sender">The event sender.</param>
             <param name="e">The default event args.</param>
+        </member>
+        <member name="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView">
+            <summary>
+            A view to display the 'choose operator' during the registration process.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView.ScrollDown">
+            <summary>
+            Scrolls down to the bottom of the view.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse">
+            <summary>
+            For what purpose the app will be used
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.WorkOrPersonal">
+            <summary>
+            For work or personal use
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.EducationalOrExperimental">
+            <summary>
+            For educational or experimental use
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel">
+            <summary>
+            The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.DoBind">
+            <summary>
+            Override this method to do view model specific setup when it's parent page/view appears on screen.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.Purposes">
+            <summary>
+            Holds the list of purposes to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.Purpose"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.Purpose">
+            <summary>
+            Phone number
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelectedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelected"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelected">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumber">
+            <summary>
+            Phone number
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValid">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CodeSentProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CodeSent"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CodeSent">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerificationCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerificationCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerificationCode">
+            <summary>
+            Phone number
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerificationCodeValidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerificationCodeValid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerificationCodeValid">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.SendCodeCommand">
+            <summary>
+            The command to bind to for sending a code to the provided phone number.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyCodeCommand">
+            <summary>
+            The command to bind to for sending a code verification request.
+            </summary>
         </member>
         <member name="T:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityView">
             <summary>
@@ -8447,136 +8577,6 @@
         <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.ConnectionStateText">
             <summary>
             The user friendly connection state text to display to the user.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView">
-            <summary>
-            A view to display the 'choose operator' during the registration process.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView.ScrollDown">
-            <summary>
-            Scrolls down to the bottom of the view.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Registration.ValidatePhoneNr.PurposeUse">
-            <summary>
-            For what purpose the app will be used
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.PurposeUse.WorkOrPersonal">
-            <summary>
-            For work or personal use
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.PurposeUse.EducationalOrExperimental">
-            <summary>
-            For educational or experimental use
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel">
-            <summary>
-            The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.DoBind">
-            <summary>
-            Override this method to do view model specific setup when it's parent page/view appears on screen.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Purposes">
-            <summary>
-            Holds the list of purposes to display.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PurposeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Purpose"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Purpose">
-            <summary>
-            Phone number
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PurposeSelectedProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PurposeSelected"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PurposeSelected">
-            <summary>
-            If Phone number is valid or not
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumber"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumber">
-            <summary>
-            Phone number
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberValidProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberValid"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberValid">
-            <summary>
-            If Phone number is valid or not
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.CodeSentProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.CodeSent"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.CodeSent">
-            <summary>
-            If Phone number is valid or not
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCode">
-            <summary>
-            Phone number
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCodeValidProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCodeValid"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCodeValid">
-            <summary>
-            If Phone number is valid or not
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.SendCodeCommand">
-            <summary>
-            The command to bind to for sending a code to the provided phone number.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerifyCodeCommand">
-            <summary>
-            The command to bind to for sending a code verification request.
             </summary>
         </member>
         <member name="T:IdApp.Pages.ShellBasePage">
@@ -18279,9 +18279,9 @@
             The different steps of a TAG Profile registration journey.
             </summary>
         </member>
-        <member name="F:IdApp.Services.Tag.RegistrationStep.ValidatePhoneNr">
+        <member name="F:IdApp.Services.Tag.RegistrationStep.ValidateContactInfo">
             <summary>
-            Validate Phone Number
+            Validate Phone Number and e-mail address
             </summary>
         </member>
         <member name="F:IdApp.Services.Tag.RegistrationStep.Account">
