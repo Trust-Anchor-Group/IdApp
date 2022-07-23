@@ -1161,7 +1161,7 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Vérifier le code</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Nous devons également valider votre numéro de téléphone mobile. Veuillez entrer votre numéro de téléphone mobile ci-dessous, en utilisant le format de numéro de téléphone international, sans espaces.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
@@ -1179,7 +1179,7 @@
   <data name="SelectPurpose" xml:space="preserve">
     <value>Sélectionner l’objectif</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>Un code a été envoyé au numéro indiqué ci-dessus. Lorsque vous le recevez, veuillez entrer le code de vérification ci-dessous pour continuer.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
@@ -1751,5 +1751,14 @@
   </data>
   <data name="PinContainsEMail" xml:space="preserve">
     <value>Un code PIN ne doit pas contenir l’adresse e-mail de l’identité.</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>courriel</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>Nous devons également valider votre adresse e-mail. Veuillez saisir votre adresse e-mail ci-dessous, sans espaces.</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>Un code a été envoyé à l’adresse e-mail indiquée ci-dessus. Lorsque vous le recevez, veuillez entrer le code de vérification ci-dessous pour continuer.</value>
   </data>
 </root>

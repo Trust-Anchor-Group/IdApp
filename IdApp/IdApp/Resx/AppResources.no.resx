@@ -1161,7 +1161,7 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Bekreft kode</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Vi må også validere mobilnummeret ditt. Skriv inn mobilnummeret ditt nedenfor, ved hjelp av internasjonalt telefonnummerformat, uten mellomrom.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
@@ -1179,7 +1179,7 @@
   <data name="SelectPurpose" xml:space="preserve">
     <value>Velg formål</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>En kode er sendt til nummeret som er angitt ovenfor. Når du mottar den, angir du bekreftelseskoden nedenfor for å fortsette.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
@@ -1751,5 +1751,14 @@
   </data>
   <data name="PinContainsEMail" xml:space="preserve">
     <value>En PIN-kode kan ikke inneholde identitetens e-postadresse.</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>e-post</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>Vi må også validere e-postadressen din. Skriv inn e-postadressen din nedenfor, uten mellomrom.</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>En kode er sendt til e-postadressen som er angitt ovenfor. Når du mottar den, angir du bekreftelseskoden nedenfor for å fortsette.</value>
   </data>
 </root>

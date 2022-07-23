@@ -1161,7 +1161,7 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Vahvista koodi</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Meidän on myös vahvistettava matkapuhelinnumerosi. Syötä matkapuhelinnumerosi alle käyttäen kansainvälistä puhelinnumeromuotoa ilman välilyöntejä.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
@@ -1179,7 +1179,7 @@
   <data name="SelectPurpose" xml:space="preserve">
     <value>Valitse Tarkoitus</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>Koodi on lähetetty yllä ilmoitettuun numeroon. Kun saat sen, kirjoita alla oleva vahvistuskoodi jatkaaksesi.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
@@ -1751,5 +1751,14 @@
   </data>
   <data name="PinContainsEMail" xml:space="preserve">
     <value>PIN-koodi ei saa sisältää tunnistetietojen sähköpostiosoitetta.</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>sähköposti</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>Meidän on myös vahvistettava sähköpostiosoitteesi. Kirjoita sähköpostiosoitteesi alle ilman välilyöntejä.</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>Koodi on lähetetty yllä ilmoitettuun sähköpostiosoitteeseen. Kun saat sen, kirjoita alla oleva vahvistuskoodi jatkaaksesi.</value>
   </data>
 </root>

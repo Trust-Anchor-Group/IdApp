@@ -1161,7 +1161,7 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Verifikuj kôd</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Takođe moramo da potvrdimo vaš broj mobilnog telefona. Unesite dole navedeni broj mobilnog telefona koristeći međunarodni format broja telefona, bez prostora.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
@@ -1179,7 +1179,7 @@
   <data name="SelectPurpose" xml:space="preserve">
     <value>Izaberi svrhu</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>Šifra je poslata na gore navedeni broj. Kada ga primite, unesite dole navedeni verifikacioni kôd da biste nastavili.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
@@ -1751,5 +1751,14 @@
   </data>
   <data name="PinContainsEMail" xml:space="preserve">
     <value>PIN ne sme da sadrži e-adresu identiteta.</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>e-pošta</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>Takođe moramo da potvrdimo vašu e-mail adresu. Unesite dole navedenu e-mail adresu, bez razmaka.</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>Šifra je poslata na gore označenu e-adresu. Kada ga primite, unesite dole navedeni verifikacioni kôd da biste nastavili.</value>
   </data>
 </root>

@@ -13576,6 +13576,11 @@
               Looks up a localized string similar to Enter.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.EnterEMail">
+            <summary>
+              Looks up a localized string similar to e-Mail.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.EnterNewPin">
             <summary>
               Looks up a localized string similar to Enter New PIN.
@@ -15496,9 +15501,9 @@
               Looks up a localized string similar to Warning.
             </summary>
         </member>
-        <member name="P:IdApp.Resx.AppResources.WelcomeToTagCodeSent">
+        <member name="P:IdApp.Resx.AppResources.WelcomeToTagEMailCodeSent">
             <summary>
-              Looks up a localized string similar to A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue..
+              Looks up a localized string similar to A code has been sent to the e-mail address indicated above. When you receive it, please enter the verification code below to continue..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.WelcomeToTagHeading">
@@ -15506,14 +15511,24 @@
               Looks up a localized string similar to Welcome to TAG Digital ID App!.
             </summary>
         </member>
-        <member name="P:IdApp.Resx.AppResources.WelcomeToTagPurposeSelected">
+        <member name="P:IdApp.Resx.AppResources.WelcomeToTagPhoneNrCodeSent">
             <summary>
-              Looks up a localized string similar to We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
+              Looks up a localized string similar to A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.WelcomeToTagSubheading">
             <summary>
               Looks up a localized string similar to Before connecting to the TAG ID network, we need to select a service provider for you. To do this, we need to know the purpose for using the app. Select the most appropriate option below..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.WelcomeToTagValidateEMail">
+            <summary>
+              Looks up a localized string similar to We also need to validate your e-mail address. Please enter your e-mail address below, without spaces..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.WelcomeToTagValidatePhoneNr">
+            <summary>
+              Looks up a localized string similar to We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Witness">

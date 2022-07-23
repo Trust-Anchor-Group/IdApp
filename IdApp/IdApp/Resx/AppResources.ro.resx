@@ -1161,7 +1161,7 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Verificați codul</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>De asemenea, trebuie să vă validăm numărul de telefon mobil. Vă rugăm să introduceți numărul de telefon mobil de mai jos, folosind formatul internațional al numărului de telefon, fără spații.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
@@ -1179,7 +1179,7 @@
   <data name="SelectPurpose" xml:space="preserve">
     <value>Selectați Scop</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>Un cod a fost trimis la numărul indicat mai sus. Când îl primiți, vă rugăm să introduceți codul de verificare de mai jos pentru a continua.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
@@ -1751,5 +1751,14 @@
   </data>
   <data name="PinContainsEMail" xml:space="preserve">
     <value>Un cod PIN nu trebuie să conțină adresa de e-mail de identitate.</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>De asemenea, trebuie să vă validăm adresa de e-mail. Vă rugăm să introduceți adresa de e-mail de mai jos, fără spații.</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>Un cod a fost trimis la adresa de e-mail indicată mai sus. Când îl primiți, vă rugăm să introduceți codul de verificare de mai jos pentru a continua.</value>
   </data>
 </root>

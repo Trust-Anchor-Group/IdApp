@@ -1635,13 +1635,13 @@
   <data name="WarningTitle" xml:space="preserve">
     <value>Varning</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>En kod har skickats till numret angivet ovan. När du tar emot det, var god skriv ner verifieringskoden nedan for att fortsätta.</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
     <value>Välkommen till TAGs digitala ID-app!</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Vi behöver också valdera ditt mobilnummer. Var god och skriv in ditt mobiltelefonnummer nedan, genom att använda det internationella telefonnummerformatet, utan mellanslag.</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
@@ -1754,5 +1754,14 @@
   </data>
   <data name="ZipCode" xml:space="preserve">
     <value>Postkod</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>e-Post</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>Vi behöver också valdera din e-postadress. Var god och skriv in din e-postadress nedan, utan mellanslag.</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>En kod har skickats till e-postadressen angiven ovan. När du tar emot det, var god skriv ner verifieringskoden nedan for att fortsätta.</value>
   </data>
 </root>

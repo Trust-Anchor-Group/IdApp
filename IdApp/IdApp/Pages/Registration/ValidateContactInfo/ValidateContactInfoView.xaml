@@ -35,10 +35,10 @@
                         <Picker Grid.Row="2" x:Name="PurposePicker" HorizontalOptions="FillAndExpand" Title="{x:Static resx:AppResources.SelectPurpose}"
                                 ItemsSource="{Binding Path=Purposes}" SelectedIndex="{Binding Path=Purpose, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}">
                             <Picker.Behaviors>
-                                <behaviors:ScrollToSelectedBehavior ScrollTo="PhoneNumberEntry" 
-                                                                    BindingContext="{Binding BindingContext, Source={x:Reference PhoneNumberFrame}}"/>
-                                <behaviors:SetFocusOnSelectedBehavior SetFocusTo="PhoneNumberEntry"
-                                                                      BindingContext="{Binding BindingContext, Source={x:Reference PhoneNumberFrame}}"/>
+                                <behaviors:ScrollToSelectedBehavior ScrollTo="EMailEntry" 
+                                                                    BindingContext="{Binding BindingContext, Source={x:Reference EMailFrame}}"/>
+								<behaviors:SetFocusOnSelectedBehavior SetFocusTo="EMailEntry"
+                                                                      BindingContext="{Binding BindingContext, Source={x:Reference EMailFrame}}"/>
                             </Picker.Behaviors>
                         </Picker>
                         <Label Grid.Row="3" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.PurposeWorkOrPersonalDescription}" FontSize="Body"
@@ -46,14 +46,65 @@
                         <Label Grid.Row="3" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.PurposeWorkEducationalOrExperimental}" FontSize="Body"
                            VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsOne}}" />
                     </Grid>
-                    <Grid x:Name="PhoneNumberFrame" IsVisible="{Binding Path=PurposeSelected}" Margin="{StaticResource DefaultBottomOnlyMargin}">
+					<Grid x:Name="EMailFrame" IsVisible="{Binding Path=PurposeSelected}" Margin="{StaticResource DefaultBottomOnlyMargin}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" BackgroundColor="#f0ffffff"/>
+						<Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagValidateEMail}" 
+                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" FontSize="Body" />
+						<Entry Grid.Row="2" x:Name="EMailEntry" Placeholder="{x:Static resx:AppResources.EnterEMail}" 
+                               ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
+                               Text="{Binding Path=EMail, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}">
+							<Entry.Behaviors>
+								<behaviors:ScrollToCompletedBehavior ScrollTo="SendEMailCodeButton" 
+                                                                     BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
+							</Entry.Behaviors>
+						</Entry>
+					</Grid>
+					<Button x:Name="SendEMailCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}" 
+                            Text="{x:Static resx:AppResources.SendCode}" Command="{Binding Path=SendEMailCodeCommand}"
+                            IsEnabled="{Binding Path=EMailValid}" IsVisible="{Binding Path=PurposeSelected}">
+						<Button.Behaviors>
+							<behaviors:ScrollToClickedBehavior ScrollTo="BottomIndicator" 
+                                                               BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
+						</Button.Behaviors>
+					</Button>
+					<Grid IsVisible="{Binding Path=EMailCodeSent}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" BackgroundColor="#f0ffffff"/>
+						<Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagEMailCodeSent}" FontSize="Body"
+                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
+						<Entry Grid.Row="1" Placeholder="{x:Static resx:AppResources.VerificationCode}" 
+                               ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
+                               Margin="{StaticResource DefaultMargin}" Text="{Binding Path=EMailVerificationCode, Mode=TwoWay}">
+							<Entry.Behaviors>
+								<behaviors:ScrollToCompletedBehavior ScrollTo="VerifyEMailCodeButton" 
+                                                                     BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
+							</Entry.Behaviors>
+						</Entry>
+					</Grid>
+					<Button x:Name="VerifyEMailCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}" 
+                            Text="{x:Static resx:AppResources.VerifyCode}" Command="{Binding Path=VerifyEMailCodeCommand}"
+                            IsEnabled="{Binding Path=EMailVerificationCodeValid}" IsVisible="{Binding Path=EMailCodeSent}">
+						<Button.Behaviors>
+							<behaviors:ScrollToClickedBehavior ScrollTo="BottomIndicator" 
+                                                               BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
+						</Button.Behaviors>
+					</Button>
+					<Grid x:Name="PhoneNumberFrame" IsVisible="{Binding Path=EMailVerificationCodeValid}" Margin="{StaticResource DefaultBottomOnlyMargin}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" BackgroundColor="#f0ffffff"/>
-                        <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagPurposeSelected}" 
+                        <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagValidatePhoneNr}" 
                            VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" FontSize="Body" />
                         <Entry Grid.Row="2" x:Name="PhoneNumberEntry" Placeholder="{x:Static resx:AppResources.EnterPhoneNumber}" 
                                ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
@@ -66,7 +117,7 @@
                     </Grid>
 					<Button x:Name="SendPhoneNrCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}" 
                             Text="{x:Static resx:AppResources.SendCode}" Command="{Binding Path=SendPhoneNrCodeCommand}"
-                            IsEnabled="{Binding Path=PhoneNumberValid}" IsVisible="{Binding Path=PurposeSelected}">
+                            IsEnabled="{Binding Path=PhoneNumberValid}" IsVisible="{Binding Path=EMailVerificationCodeValid}">
                         <Button.Behaviors>
                             <behaviors:ScrollToClickedBehavior ScrollTo="BottomIndicator" 
                                                                BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
@@ -78,7 +129,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" BackgroundColor="#f0ffffff"/>
-                        <Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagCodeSent}" FontSize="Body"
+                        <Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagPhoneNrCodeSent}" FontSize="Body"
                            VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
                         <Entry Grid.Row="1" Placeholder="{x:Static resx:AppResources.VerificationCode}" 
                                ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"

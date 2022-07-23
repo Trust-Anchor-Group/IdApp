@@ -1150,6 +1150,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to e-Mail.
+        /// </summary>
+        internal static string EnterEMail {
+            get {
+                return ResourceManager.GetString("EnterEMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter New PIN.
         /// </summary>
         internal static string EnterNewPin {
@@ -4606,11 +4615,11 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue..
+        ///   Looks up a localized string similar to A code has been sent to the e-mail address indicated above. When you receive it, please enter the verification code below to continue..
         /// </summary>
-        internal static string WelcomeToTagCodeSent {
+        internal static string WelcomeToTagEMailCodeSent {
             get {
-                return ResourceManager.GetString("WelcomeToTagCodeSent", resourceCulture);
+                return ResourceManager.GetString("WelcomeToTagEMailCodeSent", resourceCulture);
             }
         }
         
@@ -4624,11 +4633,11 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
+        ///   Looks up a localized string similar to A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue..
         /// </summary>
-        internal static string WelcomeToTagPurposeSelected {
+        internal static string WelcomeToTagPhoneNrCodeSent {
             get {
-                return ResourceManager.GetString("WelcomeToTagPurposeSelected", resourceCulture);
+                return ResourceManager.GetString("WelcomeToTagPhoneNrCodeSent", resourceCulture);
             }
         }
         
@@ -4638,6 +4647,24 @@ namespace IdApp.Resx {
         internal static string WelcomeToTagSubheading {
             get {
                 return ResourceManager.GetString("WelcomeToTagSubheading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We also need to validate your e-mail address. Please enter your e-mail address below, without spaces..
+        /// </summary>
+        internal static string WelcomeToTagValidateEMail {
+            get {
+                return ResourceManager.GetString("WelcomeToTagValidateEMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
+        /// </summary>
+        internal static string WelcomeToTagValidatePhoneNr {
+            get {
+                return ResourceManager.GetString("WelcomeToTagValidatePhoneNr", resourceCulture);
             }
         }
         
