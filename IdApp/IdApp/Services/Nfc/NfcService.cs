@@ -98,6 +98,20 @@ namespace IdApp.Services.Nfc
 									Ok = await Ndef.SetMessage(Items.ToArray());
 								}
 
+								if (!Ok)
+								{
+									while (Items.Count > 2)
+										Items.RemoveAt(2);
+
+									Ok = await Ndef.SetMessage(Items.ToArray());
+
+									if (!Ok)
+									{
+										Items.RemoveAt(0);
+										Ok = await Ndef.SetMessage(Items.ToArray());
+									}
+								}
+
 								if (Ok)
 								{
 									await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle,
