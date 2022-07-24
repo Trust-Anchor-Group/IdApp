@@ -8001,8 +8001,8 @@
             <summary>
             Adds a photo from the specified path to use as a profile photo.
             </summary>
-            <param name="filePath">The full path to the file.</param>
-            <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
+            <param name="FilePath">The full path to the file.</param>
+            <param name="SaveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
         </member>
         <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.DoSaveState">
             <inheritdoc />
