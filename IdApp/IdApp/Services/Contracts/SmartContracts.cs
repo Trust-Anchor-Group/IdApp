@@ -91,47 +91,84 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		public Task PetitionContract(CaseInsensitiveString contractId, string petitionId, string purpose)
+		/// <summary>
+		/// Petitions a contract with the specified id and purpose.
+		/// </summary>
+		/// <param name="ContractId">The contract id.</param>
+		/// <param name="PetitionId">The petition id.</param>
+		/// <param name="Purpose">The purpose.</param>
+		public Task PetitionContract(CaseInsensitiveString ContractId, string PetitionId, string Purpose)
 		{
-			return this.ContractsClient.PetitionContractAsync(contractId, petitionId, purpose);
+			return this.ContractsClient.PetitionContractAsync(ContractId, PetitionId, Purpose);
 		}
 
-		public Task<Contract> GetContract(CaseInsensitiveString contractId)
+		/// <summary>
+		/// Gets the contract with the specified id.
+		/// </summary>
+		/// <param name="ContractId">The contract id.</param>
+		/// <returns>Smart Contract</returns>
+		public Task<Contract> GetContract(CaseInsensitiveString ContractId)
 		{
-			return this.ContractsClient.GetContractAsync(contractId);
+			return this.ContractsClient.GetContractAsync(ContractId);
 		}
 
-		public Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url)
+		/// <summary>
+		/// Gets an attachment for a contract.
+		/// </summary>
+		/// <param name="Url">The url of the attachment.</param>
+		/// <param name="Timeout">Max timeout allowed when retrieving an attachment.</param>
+		/// <param name="SignWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
+		/// <returns>Content-Type, and attachment file.</returns>
+		public Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string Url, SignWith SignWith, TimeSpan Timeout)
 		{
-			return this.ContractsClient.GetAttachmentAsync(url, SignWith.LatestApprovedId);
+			return this.ContractsClient.GetAttachmentAsync(Url, SignWith, (int)Timeout.TotalMilliseconds);
 		}
 
-		public Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string url, SignWith signWith, TimeSpan timeout)
-		{
-			return this.ContractsClient.GetAttachmentAsync(url, signWith, (int)timeout.TotalMilliseconds);
-		}
-
+		/// <summary>
+		/// Creates a new contract.
+		/// </summary>
+		/// <param name="TemplateId">The id of the contract template to use.</param>
+		/// <param name="Parts">The individual contract parts.</param>
+		/// <param name="Parameters">Contract parameters.</param>
+		/// <param name="Visibility">The contract's visibility.</param>
+		/// <param name="PartsMode">The contract's parts.</param>
+		/// <param name="Duration">Duration of the contract.</param>
+		/// <param name="ArchiveRequired">Required duration for contract archival.</param>
+		/// <param name="ArchiveOptional">Optional duration for contract archival.</param>
+		/// <param name="SignAfter">Timestamp of when the contract can be signed at the earliest.</param>
+		/// <param name="SignBefore">Timestamp of when the contract can be signed at the latest.</param>
+		/// <param name="CanActAsTemplate">Can this contract act as a template itself?</param>
+		/// <returns>Smart Contract</returns>
 		public Task<Contract> CreateContract(
-			CaseInsensitiveString templateId,
-			Part[] parts,
-			Parameter[] parameters,
-			ContractVisibility visibility,
-			ContractParts partsMode,
-			Duration duration,
-			Duration archiveRequired,
-			Duration archiveOptional,
-			DateTime? signAfter,
-			DateTime? signBefore,
-			bool canActAsTemplate)
+			CaseInsensitiveString TemplateId,
+			Part[] Parts,
+			Parameter[] Parameters,
+			ContractVisibility Visibility,
+			ContractParts PartsMode,
+			Duration Duration,
+			Duration ArchiveRequired,
+			Duration ArchiveOptional,
+			DateTime? SignAfter,
+			DateTime? SignBefore,
+			bool CanActAsTemplate)
 		{
-			return this.ContractsClient.CreateContractAsync(templateId, parts, parameters, visibility, partsMode, duration, archiveRequired, archiveOptional, signAfter, signBefore, canActAsTemplate);
+			return this.ContractsClient.CreateContractAsync(TemplateId, Parts, Parameters, Visibility, PartsMode, Duration, ArchiveRequired, ArchiveOptional, SignAfter, SignBefore, CanActAsTemplate);
 		}
 
-		public Task<Contract> DeleteContract(CaseInsensitiveString contractId)
+		/// <summary>
+		/// Deletes a contract.
+		/// </summary>
+		/// <param name="ContractId">The id of the contract to delete.</param>
+		/// <returns>Smart Contract</returns>
+		public Task<Contract> DeleteContract(CaseInsensitiveString ContractId)
 		{
-			return this.ContractsClient.DeleteContractAsync(contractId);
+			return this.ContractsClient.DeleteContractAsync(ContractId);
 		}
 
+		/// <summary>
+		/// Gets created contracts.
+		/// </summary>
+		/// <returns>Created contracts.</returns>
 		public async Task<Contract[]> GetCreatedContracts()
 		{
 			List<Contract> Result = new();
@@ -154,6 +191,10 @@ namespace IdApp.Services.Contracts
 			return Result.ToArray();
 		}
 
+		/// <summary>
+		/// Gets signed contracts.
+		/// </summary>
+		/// <returns>Signed contracts.</returns>
 		public async Task<Contract[]> GetSignedContracts()
 		{
 			List<Contract> Result = new();
@@ -189,23 +230,41 @@ namespace IdApp.Services.Contracts
 			return Result.ToArray();
 		}
 
-		public Task<Contract> SignContract(Contract contract, string role, bool transferable)
+		/// <summary>
+		/// Signs a given contract.
+		/// </summary>
+		/// <param name="Contract">The contract to sign.</param>
+		/// <param name="Role">The role of the signer.</param>
+		/// <param name="Transferable">Whether the contract is transferable or not.</param>
+		/// <returns>Smart Contract</returns>
+		public Task<Contract> SignContract(Contract Contract, string Role, bool Transferable)
 		{
-			return this.ContractsClient.SignContractAsync(contract, role, transferable);
+			return this.ContractsClient.SignContractAsync(Contract, Role, Transferable);
 		}
 
-		public Task<Contract> ObsoleteContract(CaseInsensitiveString contractId)
+		/// <summary>
+		/// Obsoletes a contract.
+		/// </summary>
+		/// <param name="ContractId">The id of the contract to obsolete.</param>
+		/// <returns>Smart Contract</returns>
+		public Task<Contract> ObsoleteContract(CaseInsensitiveString ContractId)
 		{
-			return this.ContractsClient.ObsoleteContractAsync(contractId);
+			return this.ContractsClient.ObsoleteContractAsync(ContractId);
 		}
 
-		public async Task<LegalIdentity> AddLegalIdentity(RegisterIdentityModel model, params LegalIdentityAttachment[] attachments)
+		/// <summary>
+		/// Adds a legal identity.
+		/// </summary>
+		/// <param name="Model">The model holding all the values needed.</param>
+		/// <param name="Attachments">The physical attachments to upload.</param>
+		/// <returns>Legal Identity</returns>
+		public async Task<LegalIdentity> AddLegalIdentity(RegisterIdentityModel Model, params LegalIdentityAttachment[] Attachments)
 		{
 			await this.ContractsClient.GenerateNewKeys();
 
-			LegalIdentity identity = await this.ContractsClient.ApplyAsync(model.ToProperties(this.XmppService));
+			LegalIdentity identity = await this.ContractsClient.ApplyAsync(Model.ToProperties(this.XmppService));
 
-			foreach (LegalIdentityAttachment a in attachments)
+			foreach (LegalIdentityAttachment a in Attachments)
 			{
 				HttpFileUploadEventArgs e2 = await this.FileUploadClient.RequestUploadSlotAsync(Path.GetFileName(a.Filename), a.ContentType, a.ContentLength);
 				if (!e2.Ok)
@@ -267,35 +326,80 @@ namespace IdApp.Services.Contracts
 			return (!(Info is null) && !(Info.LegalIdentity is null));
 		}
 
-
-		public Task PetitionIdentity(CaseInsensitiveString legalId, string petitionId, string purpose)
+		/// <summary>
+		/// Petitions a legal identity.
+		/// </summary>
+		/// <param name="LegalId">The id of the legal identity.</param>
+		/// <param name="PetitionId">The petition id.</param>
+		/// <param name="Purpose">The purpose of the petitioning.</param>
+		public async Task PetitionIdentity(CaseInsensitiveString LegalId, string PetitionId, string Purpose)
 		{
-			return this.ContractsClient.PetitionIdentityAsync(legalId, petitionId, purpose);
+			await this.ContractsClient.AuthorizeAccessToIdAsync(this.TagProfile.LegalIdentity.Id, LegalId, true);
+			await this.ContractsClient.PetitionIdentityAsync(LegalId, PetitionId, Purpose);
 		}
 
-		public Task SendPetitionIdentityResponse(CaseInsensitiveString legalId, string petitionId, string requestorFullJid, bool response)
+		/// <summary>
+		/// Sends a response to a petitioning identity request.
+		/// </summary>
+		/// <param name="LegalId">The id of the legal identity.</param>
+		/// <param name="PetitionId">The petition id.</param>
+		/// <param name="RequestorFullJid">The full Jid of the requestor.</param>
+		/// <param name="Response">If the petition is accepted (true) or rejected (false).</param>
+		public Task SendPetitionIdentityResponse(CaseInsensitiveString LegalId, string PetitionId, string RequestorFullJid, bool Response)
 		{
-			return this.ContractsClient.PetitionIdentityResponseAsync(legalId, petitionId, requestorFullJid, response);
+			return this.ContractsClient.PetitionIdentityResponseAsync(LegalId, PetitionId, RequestorFullJid, Response);
 		}
 
-		public Task SendPetitionContractResponse(CaseInsensitiveString contractId, string petitionId, string requestorFullJid, bool response)
+		/// <summary>
+		/// Sends a response to a petitioning contract request.
+		/// </summary>
+		/// <param name="ContractId">The id of the contract.</param>
+		/// <param name="PetitionId">The petition id.</param>
+		/// <param name="RequestorFullJid">The full Jid of the requestor.</param>
+		/// <param name="Response">If the petition is accepted (true) or rejected (false).</param>
+		public Task SendPetitionContractResponse(CaseInsensitiveString ContractId, string PetitionId, string RequestorFullJid, bool Response)
 		{
-			return this.ContractsClient.PetitionContractResponseAsync(contractId, petitionId, requestorFullJid, response);
+			return this.ContractsClient.PetitionContractResponseAsync(ContractId, PetitionId, RequestorFullJid, Response);
 		}
 
-		public Task SendPetitionSignatureResponse(CaseInsensitiveString legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response)
+		/// <summary>
+		/// Sends a response to a petitioning signature request.
+		/// </summary>
+		/// <param name="LegalId">Legal Identity petitioned.</param>
+		/// <param name="Content">Content to be signed.</param>
+		/// <param name="Signature">Digital signature of content, made by the legal identity.</param>
+		/// <param name="PetitionId">A petition identifier. This identifier will follow the petition, and can be used
+		/// to identify the petition request.</param>
+		/// <param name="RequestorFullJid">Full JID of requestor.</param>
+		/// <param name="Response">If the petition is accepted (true) or rejected (false).</param>
+		public Task SendPetitionSignatureResponse(CaseInsensitiveString LegalId, byte[] Content, byte[] Signature, string PetitionId, string RequestorFullJid, bool Response)
 		{
-			return this.ContractsClient.PetitionSignatureResponseAsync(legalId, content, signature, petitionId, requestorFullJid, response);
+			return this.ContractsClient.PetitionSignatureResponseAsync(LegalId, Content, Signature, PetitionId, RequestorFullJid, Response);
 		}
 
-		public Task<LegalIdentity> AddPeerReviewIdAttachment(LegalIdentity identity, LegalIdentity reviewerLegalIdentity, byte[] peerSignature)
+		/// <summary>
+		/// Adds an attachment for the peer review.
+		/// </summary>
+		/// <param name="Identity">The identity to which the attachment should be added.</param>
+		/// <param name="ReviewerLegalIdentity">The identity of the reviewer.</param>
+		/// <param name="PeerSignature">The raw signature data.</param>
+		/// <returns>Legal Identity</returns>
+		public Task<LegalIdentity> AddPeerReviewIdAttachment(LegalIdentity Identity, LegalIdentity ReviewerLegalIdentity, byte[] PeerSignature)
 		{
-			return this.ContractsClient.AddPeerReviewIDAttachment(identity, reviewerLegalIdentity, peerSignature);
+			return this.ContractsClient.AddPeerReviewIDAttachment(Identity, ReviewerLegalIdentity, PeerSignature);
 		}
 
-		public Task PetitionPeerReviewId(CaseInsensitiveString legalId, LegalIdentity identity, string petitionId, string purpose)
+		/// <summary>
+		/// Sends a petition to a third-party to review a legal identity.
+		/// </summary>
+		/// <param name="LegalId">The legal id to petition.</param>
+		/// <param name="Identity">The legal id to peer review.</param>
+		/// <param name="PetitionId">The petition id.</param>
+		/// <param name="Purpose">The purpose.</param>
+		public async Task PetitionPeerReviewId(CaseInsensitiveString LegalId, LegalIdentity Identity, string PetitionId, string Purpose)
 		{
-			return this.ContractsClient.PetitionPeerReviewIDAsync(legalId, identity, petitionId, purpose);
+			await this.ContractsClient.AuthorizeAccessToIdAsync(Identity.Id, LegalId, true);
+			await this.ContractsClient.PetitionPeerReviewIDAsync(LegalId, Identity, PetitionId, Purpose);
 		}
 
 		public Task<byte[]> Sign(byte[] data, SignWith signWith)
