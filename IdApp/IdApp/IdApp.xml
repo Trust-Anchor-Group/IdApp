@@ -16255,8 +16255,8 @@
             <summary>
             Adds a legal identity.
             </summary>
-            <param name="model">The model holding all the values needed.</param>
-            <param name="attachments">The physical attachments to upload.</param>
+            <param name="Model">The model holding all the values needed.</param>
+            <param name="Attachments">The physical attachments to upload.</param>
             <returns>Legal Identity</returns>
         </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.GetLegalIdentities(Waher.Networking.XMPP.XmppClient)">
@@ -16306,18 +16306,18 @@
             <summary>
             Petitions a legal identity.
             </summary>
-            <param name="legalId">The id of the legal identity.</param>
-            <param name="petitionId">The petition id.</param>
-            <param name="purpose">The purpose of the petitioning.</param>
+            <param name="LegalId">The id of the legal identity.</param>
+            <param name="PetitionId">The petition id.</param>
+            <param name="Purpose">The purpose of the petitioning.</param>
         </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.SendPetitionIdentityResponse(Waher.Persistence.CaseInsensitiveString,System.String,System.String,System.Boolean)">
             <summary>
             Sends a response to a petitioning identity request.
             </summary>
-            <param name="legalId">The id of the legal identity.</param>
-            <param name="petitionId">The petition id.</param>
-            <param name="requestorFullJid">The full Jid of the requestor.</param>
-            <param name="response">If the petition is accepted (true) or rejected (false).</param>
+            <param name="LegalId">The id of the legal identity.</param>
+            <param name="PetitionId">The petition id.</param>
+            <param name="RequestorFullJid">The full Jid of the requestor.</param>
+            <param name="Response">If the petition is accepted (true) or rejected (false).</param>
         </member>
         <member name="E:IdApp.Services.Contracts.ISmartContracts.LegalIdentityChanged">
             <summary>
@@ -16338,7 +16338,7 @@
             <summary>
             Gets the contract with the specified id.
             </summary>
-            <param name="contractId">The contract id.</param>
+            <param name="ContractId">The contract id.</param>
             <returns>Smart Contract</returns>
         </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.GetCreatedContracts">
@@ -16363,58 +16363,58 @@
             <summary>
             Signs a given contract.
             </summary>
-            <param name="contract">The contract to sign.</param>
-            <param name="role">The role of the signer.</param>
-            <param name="transferable">Whether the contract is transferable or not.</param>
+            <param name="Contract">The contract to sign.</param>
+            <param name="Role">The role of the signer.</param>
+            <param name="Transferable">Whether the contract is transferable or not.</param>
             <returns>Smart Contract</returns>
         </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.ObsoleteContract(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Obsoletes a contract.
             </summary>
-            <param name="contractId">The id of the contract to obsolete.</param>
+            <param name="ContractId">The id of the contract to obsolete.</param>
             <returns>Smart Contract</returns>
         </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.CreateContract(Waher.Persistence.CaseInsensitiveString,Waher.Networking.XMPP.Contracts.Part[],Waher.Networking.XMPP.Contracts.Parameter[],Waher.Networking.XMPP.Contracts.ContractVisibility,Waher.Networking.XMPP.Contracts.ContractParts,Waher.Content.Duration,Waher.Content.Duration,Waher.Content.Duration,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Boolean)">
             <summary>
             Creates a new contract.
             </summary>
-            <param name="templateId">The id of the contract template to use.</param>
-            <param name="parts">The individual contract parts.</param>
-            <param name="parameters">Contract parameters.</param>
-            <param name="visibility">The contract's visibility.</param>
-            <param name="partsMode">The contract's parts.</param>
-            <param name="duration">Duration of the contract.</param>
-            <param name="archiveRequired">Required duration for contract archival.</param>
-            <param name="archiveOptional">Optional duration for contract archival.</param>
-            <param name="signAfter">Timestamp of when the contract can be signed at the earliest.</param>
-            <param name="signBefore">Timestamp of when the contract can be signed at the latest.</param>
-            <param name="canActAsTemplate">Can this contract act as a template itself?</param>
+            <param name="TemplateId">The id of the contract template to use.</param>
+            <param name="Parts">The individual contract parts.</param>
+            <param name="Parameters">Contract parameters.</param>
+            <param name="Visibility">The contract's visibility.</param>
+            <param name="PartsMode">The contract's parts.</param>
+            <param name="Duration">Duration of the contract.</param>
+            <param name="ArchiveRequired">Required duration for contract archival.</param>
+            <param name="ArchiveOptional">Optional duration for contract archival.</param>
+            <param name="SignAfter">Timestamp of when the contract can be signed at the earliest.</param>
+            <param name="SignBefore">Timestamp of when the contract can be signed at the latest.</param>
+            <param name="CanActAsTemplate">Can this contract act as a template itself?</param>
             <returns>Smart Contract</returns>
         </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.DeleteContract(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Deletes a contract.
             </summary>
-            <param name="contractId">The id of the contract to delete.</param>
+            <param name="ContractId">The id of the contract to delete.</param>
             <returns>Smart Contract</returns>
         </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.PetitionContract(Waher.Persistence.CaseInsensitiveString,System.String,System.String)">
             <summary>
             Petitions a contract with the specified id and purpose.
             </summary>
-            <param name="contractId">The contract id.</param>
-            <param name="petitionId">The petition id.</param>
-            <param name="purpose">The purpose.</param>
+            <param name="ContractId">The contract id.</param>
+            <param name="PetitionId">The petition id.</param>
+            <param name="Purpose">The purpose.</param>
         </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.SendPetitionContractResponse(Waher.Persistence.CaseInsensitiveString,System.String,System.String,System.Boolean)">
             <summary>
             Sends a response to a petitioning contract request.
             </summary>
-            <param name="contractId">The id of the contract.</param>
-            <param name="petitionId">The petition id.</param>
-            <param name="requestorFullJid">The full Jid of the requestor.</param>
-            <param name="response">If the petition is accepted (true) or rejected (false).</param>
+            <param name="ContractId">The id of the contract.</param>
+            <param name="PetitionId">The petition id.</param>
+            <param name="RequestorFullJid">The full Jid of the requestor.</param>
+            <param name="Response">If the petition is accepted (true) or rejected (false).</param>
         </member>
         <member name="E:IdApp.Services.Contracts.ISmartContracts.PetitionForContractReceived">
             <summary>
@@ -16437,27 +16437,27 @@
             <summary>
             Gets an attachment for a contract.
             </summary>
-            <param name="url">The url of the attachment.</param>
-            <param name="timeout">Max timeout allowed when retrieving an attachment.</param>
-            <param name="signWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <param name="Url">The url of the attachment.</param>
+            <param name="Timeout">Max timeout allowed when retrieving an attachment.</param>
+            <param name="SignWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
             <returns>Content-Type, and attachment file.</returns>
         </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.PetitionPeerReviewId(Waher.Persistence.CaseInsensitiveString,Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String)">
             <summary>
             Sends a petition to a third-party to review a legal identity.
             </summary>
-            <param name="legalId">The legal id to petition.</param>
-            <param name="identity">The legal id to peer review.</param>
-            <param name="petitionId">The petition id.</param>
-            <param name="purpose">The purpose.</param>
+            <param name="LegalId">The legal id to petition.</param>
+            <param name="Identity">The legal id to peer review.</param>
+            <param name="PetitionId">The petition id.</param>
+            <param name="Purpose">The purpose.</param>
         </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.AddPeerReviewIdAttachment(Waher.Networking.XMPP.Contracts.LegalIdentity,Waher.Networking.XMPP.Contracts.LegalIdentity,System.Byte[])">
             <summary>
             Adds an attachment for the peer review.
             </summary>
-            <param name="identity">The identity to which the attachment should be added.</param>
-            <param name="reviewerLegalIdentity">The identity of the reviewer.</param>
-            <param name="peerSignature">The raw signature data.</param>
+            <param name="Identity">The identity to which the attachment should be added.</param>
+            <param name="ReviewerLegalIdentity">The identity of the reviewer.</param>
+            <param name="PeerSignature">The raw signature data.</param>
             <returns>Legal Identity</returns>
         </member>
         <member name="E:IdApp.Services.Contracts.ISmartContracts.PetitionForPeerReviewIdReceived">
@@ -16498,13 +16498,13 @@
             <summary>
             Sends a response to a petitioning signature request.
             </summary>
-            <param name="legalId">Legal Identity petitioned.</param>
-            <param name="content">Content to be signed.</param>
-            <param name="signature">Digital signature of content, made by the legal identity.</param>
-            <param name="petitionId">A petition identifier. This identifier will follow the petition, and can be used
+            <param name="LegalId">Legal Identity petitioned.</param>
+            <param name="Content">Content to be signed.</param>
+            <param name="Signature">Digital signature of content, made by the legal identity.</param>
+            <param name="PetitionId">A petition identifier. This identifier will follow the petition, and can be used
             to identify the petition request.</param>
-            <param name="requestorFullJid">Full JID of requestor.</param>
-            <param name="response">If the petition is accepted (true) or rejected (false).</param>
+            <param name="RequestorFullJid">Full JID of requestor.</param>
+            <param name="Response">If the petition is accepted (true) or rejected (false).</param>
         </member>
         <member name="E:IdApp.Services.Contracts.ISmartContracts.PetitionForSignatureReceived">
             <summary>
@@ -16570,11 +16570,95 @@
             HTTP File Upload client
             </summary>
         </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.PetitionContract(Waher.Persistence.CaseInsensitiveString,System.String,System.String)">
+            <summary>
+            Petitions a contract with the specified id and purpose.
+            </summary>
+            <param name="ContractId">The contract id.</param>
+            <param name="PetitionId">The petition id.</param>
+            <param name="Purpose">The purpose.</param>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.GetContract(Waher.Persistence.CaseInsensitiveString)">
+            <summary>
+            Gets the contract with the specified id.
+            </summary>
+            <param name="ContractId">The contract id.</param>
+            <returns>Smart Contract</returns>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.GetAttachment(System.String,Waher.Networking.XMPP.Contracts.SignWith,System.TimeSpan)">
+            <summary>
+            Gets an attachment for a contract.
+            </summary>
+            <param name="Url">The url of the attachment.</param>
+            <param name="Timeout">Max timeout allowed when retrieving an attachment.</param>
+            <param name="SignWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <returns>Content-Type, and attachment file.</returns>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.CreateContract(Waher.Persistence.CaseInsensitiveString,Waher.Networking.XMPP.Contracts.Part[],Waher.Networking.XMPP.Contracts.Parameter[],Waher.Networking.XMPP.Contracts.ContractVisibility,Waher.Networking.XMPP.Contracts.ContractParts,Waher.Content.Duration,Waher.Content.Duration,Waher.Content.Duration,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Boolean)">
+            <summary>
+            Creates a new contract.
+            </summary>
+            <param name="TemplateId">The id of the contract template to use.</param>
+            <param name="Parts">The individual contract parts.</param>
+            <param name="Parameters">Contract parameters.</param>
+            <param name="Visibility">The contract's visibility.</param>
+            <param name="PartsMode">The contract's parts.</param>
+            <param name="Duration">Duration of the contract.</param>
+            <param name="ArchiveRequired">Required duration for contract archival.</param>
+            <param name="ArchiveOptional">Optional duration for contract archival.</param>
+            <param name="SignAfter">Timestamp of when the contract can be signed at the earliest.</param>
+            <param name="SignBefore">Timestamp of when the contract can be signed at the latest.</param>
+            <param name="CanActAsTemplate">Can this contract act as a template itself?</param>
+            <returns>Smart Contract</returns>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.DeleteContract(Waher.Persistence.CaseInsensitiveString)">
+            <summary>
+            Deletes a contract.
+            </summary>
+            <param name="ContractId">The id of the contract to delete.</param>
+            <returns>Smart Contract</returns>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.GetCreatedContracts">
+            <summary>
+            Gets created contracts.
+            </summary>
+            <returns>Created contracts.</returns>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.GetSignedContracts">
+            <summary>
+            Gets signed contracts.
+            </summary>
+            <returns>Signed contracts.</returns>
+        </member>
         <member name="M:IdApp.Services.Contracts.SmartContracts.GetContractTemplateIds">
             <summary>
             Gets the id's of contract templates used.
             </summary>
             <returns>Id's of contract templates, together with the last time they were used.</returns>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.SignContract(Waher.Networking.XMPP.Contracts.Contract,System.String,System.Boolean)">
+            <summary>
+            Signs a given contract.
+            </summary>
+            <param name="Contract">The contract to sign.</param>
+            <param name="Role">The role of the signer.</param>
+            <param name="Transferable">Whether the contract is transferable or not.</param>
+            <returns>Smart Contract</returns>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.ObsoleteContract(Waher.Persistence.CaseInsensitiveString)">
+            <summary>
+            Obsoletes a contract.
+            </summary>
+            <param name="ContractId">The id of the contract to obsolete.</param>
+            <returns>Smart Contract</returns>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.AddLegalIdentity(IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel,IdApp.Services.Contracts.LegalIdentityAttachment[])">
+            <summary>
+            Adds a legal identity.
+            </summary>
+            <param name="Model">The model holding all the values needed.</param>
+            <param name="Attachments">The physical attachments to upload.</param>
+            <returns>Legal Identity</returns>
         </member>
         <member name="M:IdApp.Services.Contracts.SmartContracts.HasPrivateKey(Waher.Persistence.CaseInsensitiveString,Waher.Networking.XMPP.XmppClient)">
             <summary>
@@ -16597,6 +16681,62 @@
             </summary>
             <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
             <returns>If the legal identity is in the contacts list.</returns>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.PetitionIdentity(Waher.Persistence.CaseInsensitiveString,System.String,System.String)">
+            <summary>
+            Petitions a legal identity.
+            </summary>
+            <param name="LegalId">The id of the legal identity.</param>
+            <param name="PetitionId">The petition id.</param>
+            <param name="Purpose">The purpose of the petitioning.</param>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.SendPetitionIdentityResponse(Waher.Persistence.CaseInsensitiveString,System.String,System.String,System.Boolean)">
+            <summary>
+            Sends a response to a petitioning identity request.
+            </summary>
+            <param name="LegalId">The id of the legal identity.</param>
+            <param name="PetitionId">The petition id.</param>
+            <param name="RequestorFullJid">The full Jid of the requestor.</param>
+            <param name="Response">If the petition is accepted (true) or rejected (false).</param>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.SendPetitionContractResponse(Waher.Persistence.CaseInsensitiveString,System.String,System.String,System.Boolean)">
+            <summary>
+            Sends a response to a petitioning contract request.
+            </summary>
+            <param name="ContractId">The id of the contract.</param>
+            <param name="PetitionId">The petition id.</param>
+            <param name="RequestorFullJid">The full Jid of the requestor.</param>
+            <param name="Response">If the petition is accepted (true) or rejected (false).</param>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.SendPetitionSignatureResponse(Waher.Persistence.CaseInsensitiveString,System.Byte[],System.Byte[],System.String,System.String,System.Boolean)">
+            <summary>
+            Sends a response to a petitioning signature request.
+            </summary>
+            <param name="LegalId">Legal Identity petitioned.</param>
+            <param name="Content">Content to be signed.</param>
+            <param name="Signature">Digital signature of content, made by the legal identity.</param>
+            <param name="PetitionId">A petition identifier. This identifier will follow the petition, and can be used
+            to identify the petition request.</param>
+            <param name="RequestorFullJid">Full JID of requestor.</param>
+            <param name="Response">If the petition is accepted (true) or rejected (false).</param>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.AddPeerReviewIdAttachment(Waher.Networking.XMPP.Contracts.LegalIdentity,Waher.Networking.XMPP.Contracts.LegalIdentity,System.Byte[])">
+            <summary>
+            Adds an attachment for the peer review.
+            </summary>
+            <param name="Identity">The identity to which the attachment should be added.</param>
+            <param name="ReviewerLegalIdentity">The identity of the reviewer.</param>
+            <param name="PeerSignature">The raw signature data.</param>
+            <returns>Legal Identity</returns>
+        </member>
+        <member name="M:IdApp.Services.Contracts.SmartContracts.PetitionPeerReviewId(Waher.Persistence.CaseInsensitiveString,Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String)">
+            <summary>
+            Sends a petition to a third-party to review a legal identity.
+            </summary>
+            <param name="LegalId">The legal id to petition.</param>
+            <param name="Identity">The legal id to peer review.</param>
+            <param name="PetitionId">The petition id.</param>
+            <param name="Purpose">The purpose.</param>
         </member>
         <member name="T:IdApp.Services.Crypto.ICryptoService">
             <summary>
