@@ -930,8 +930,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private RegisterIdentityModel CreateRegisterModel()
 		{
-			string s;
 			RegisterIdentityModel IdentityModel = new();
+			string s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.FirstName?.Trim()))
 				IdentityModel.FirstName = s;
@@ -967,7 +967,20 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				IdentityModel.Country = s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.TagProfile?.PhoneNumber?.Trim()))
+			{
+				if (string.IsNullOrWhiteSpace(s) && !(this.TagProfile.LegalIdentity is null))
+					s = this.TagProfile.LegalIdentity[Constants.XmppProperties.Phone];
+
 				IdentityModel.PhoneNr = s;
+			}
+
+			if (!string.IsNullOrWhiteSpace(s = this.TagProfile?.EMail?.Trim()))
+			{
+				if (string.IsNullOrWhiteSpace(s) && !(this.TagProfile.LegalIdentity is null))
+					s = this.TagProfile.LegalIdentity[Constants.XmppProperties.EMail];
+
+				IdentityModel.EMail = s;
+			}
 
 			return IdentityModel;
 		}
@@ -1112,7 +1125,6 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				this.City = Identity[Constants.XmppProperties.City];
 				this.Region = Identity[Constants.XmppProperties.Region];
 				string CountryCode = Identity[Constants.XmppProperties.Country];
-				string PhoneNr = this.TagProfile.PhoneNumber ?? Identity[Constants.XmppProperties.Phone];
 
 				if (!string.IsNullOrWhiteSpace(CountryCode) && ISO_3166_1.TryGetCountry(CountryCode, out string Country))
 					this.SelectedCountry = Country;

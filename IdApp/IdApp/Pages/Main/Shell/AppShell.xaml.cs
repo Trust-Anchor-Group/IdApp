@@ -100,7 +100,9 @@ namespace IdApp.Pages.Main.Shell
 
 			// Contacts:
 			Routing.RegisterRoute(nameof(Contacts.MyContacts.MyContactsPage), typeof(Contacts.MyContacts.MyContactsPage));
-			Routing.RegisterRoute(Device.RuntimePlatform == Device.iOS ? nameof(Contacts.Chat.ChatPageIos) : nameof(Contacts.Chat.ChatPage), Device.RuntimePlatform == Device.iOS ? typeof(Contacts.Chat.ChatPageIos) : typeof(Contacts.Chat.ChatPage));
+			Routing.RegisterRoute(nameof(Contacts.Chat.ChatPage),
+				Device.RuntimePlatform == Device.iOS ? typeof(Contacts.Chat.ChatPageIos) :
+				typeof(Contacts.Chat.ChatPage));
 
 			// Contracts:
 			Routing.RegisterRoute(nameof(Contracts.ClientSignature.ClientSignaturePage), typeof(Contracts.ClientSignature.ClientSignaturePage));

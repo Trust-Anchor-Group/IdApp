@@ -10,9 +10,9 @@ using Xamarin.Forms;
 namespace IdApp.Pages.Wallet.TokenEvents
 {
 	/// <summary>
-	/// The view model to bind to for when displaying the contents of a token.
+	/// The view model to bind to for when displaying the events of a token.
 	/// </summary>
-	public class TokenEventsViewModel : QrXmppViewModel
+	public class TokenEventsViewModel : BaseViewModel
 	{
 		/// <summary>
 		/// Creates an instance of the <see cref="TokenEventsViewModel"/> class.
@@ -44,8 +44,8 @@ namespace IdApp.Pages.Wallet.TokenEvents
 				}
 			}
 
-			AssignProperties();
-			EvaluateAllCommands();
+			this.AssignProperties();
+			this.EvaluateAllCommands();
 		}
 
 		/// <inheritdoc/>

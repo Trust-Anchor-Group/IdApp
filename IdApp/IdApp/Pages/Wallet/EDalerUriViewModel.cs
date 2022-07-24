@@ -33,7 +33,7 @@ namespace IdApp.Pages.Wallet
 			this.shareQrCode = ShareQrCode;
 			this.uriToSend = null;
 
-			this.AcceptCommand = new Command(async _ => await Accept(), _ => this.IsConnected);
+			this.AcceptCommand = new Command(async _ => await this.Accept(), _ => this.IsConnected);
 			this.GenerateQrCodeCommand = new Command(async _ => await this.GenerateQrCode(), _ => this.CanGenerateQrCode());
 			this.PayOnlineCommand = new Command(async _ => await this.PayOnline(), _ => this.CanPayOnline());
 			this.ShareCommand = new Command(async _ => await this.Share(), _ => this.CanShare());
@@ -72,7 +72,7 @@ namespace IdApp.Pages.Wallet
 					this.Complete = args.Uri.Complete;
 				}
 
-				this.HasQrCode = false;
+				this.RemoveQrCode();
 				this.NotPaid = true;
 
 				this.AmountText = this.Amount <= 0 ? string.Empty : MoneyToString.ToString(this.Amount);
@@ -117,16 +117,16 @@ namespace IdApp.Pages.Wallet
 				this.EncryptMessage = args.Uri?.ToType == EntityType.LegalId;
 			}
 
-			AssignProperties();
-			EvaluateAllCommands();
+			this.AssignProperties();
+			this.EvaluateAllCommands();
 
-			this.TagProfile.Changed += TagProfile_Changed;
+			this.TagProfile.Changed += this.TagProfile_Changed;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.TagProfile.Changed -= TagProfile_Changed;
+			this.TagProfile.Changed -= this.TagProfile_Changed;
 			this.uriToSend?.TrySetResult(null);
 			await base.DoUnbind();
 		}
@@ -153,7 +153,7 @@ namespace IdApp.Pages.Wallet
 
 		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
+			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
 
 		#region Properties
@@ -1010,6 +1010,16 @@ namespace IdApp.Pages.Wallet
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
+
+		#region ILinkableView
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public override Task<string> Title => Task.FromResult<string>(AppResources.Payment);
+
+		#endregion
+
 
 	}
 }

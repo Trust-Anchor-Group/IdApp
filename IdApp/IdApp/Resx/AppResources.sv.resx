@@ -999,6 +999,9 @@
   <data name="PinContainsAddress" xml:space="preserve">
     <value>En PIN får inte innehålla ord från identitetens adressrader.</value>
   </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>En PIN får inte innehålla identitetens epostadress.</value>
+  </data>
   <data name="PinContainsName" xml:space="preserve">
     <value>En PIN får inte innehålla ord från identitetens namn.</value>
   </data>
@@ -1103,6 +1106,9 @@
   </data>
   <data name="PublicKey" xml:space="preserve">
     <value>Publik nyckel</value>
+  </data>
+  <data name="PublishMarketplace" xml:space="preserve">
+    <value>Publicera på marknadsplatsen</value>
   </data>
   <data name="Purpose" xml:space="preserve">
     <value>Syfte</value>
@@ -1386,6 +1392,12 @@
   <data name="SuccessTitle" xml:space="preserve">
     <value>Operationen lyckades</value>
   </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Taggen graverades med en länk till {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Kund inte gravera taggen med en länk till {0}.</value>
+  </data>
   <data name="TagValueCopiedToClipboard" xml:space="preserve">
     <value>Värdet kopierades till klippboken</value>
   </data>
@@ -1623,13 +1635,13 @@
   <data name="WarningTitle" xml:space="preserve">
     <value>Varning</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>En kod har skickats till numret angivet ovan. När du tar emot det, var god skriv ner verifieringskoden nedan for att fortsätta.</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
     <value>Välkommen till TAGs digitala ID-app!</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Vi behöver också valdera ditt mobilnummer. Var god och skriv in ditt mobiltelefonnummer nedan, genom att använda det internationella telefonnummerformatet, utan mellanslag.</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
@@ -1742,5 +1754,17 @@
   </data>
   <data name="ZipCode" xml:space="preserve">
     <value>Postkod</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>e-Post</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>Vi behöver också valdera din e-postadress. Var god och skriv in din e-postadress nedan, utan mellanslag.</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Kontaktinformation</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>En kod har skickats till e-postadressen angiven ovan. När du tar emot det, var god skriv ner verifieringskoden nedan for att fortsätta.</value>
   </data>
 </root>

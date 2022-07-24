@@ -244,6 +244,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.Region = this.LegalIdentity[Constants.XmppProperties.Region];
 				this.CountryCode = this.LegalIdentity[Constants.XmppProperties.Country];
 				this.PhoneNr = this.LegalIdentity[Constants.XmppProperties.Phone];
+				this.EMail = this.LegalIdentity[Constants.XmppProperties.EMail];
 			}
 			else
 			{
@@ -259,6 +260,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.Region = string.Empty;
 				this.CountryCode = string.Empty;
 				this.PhoneNr = string.Empty;
+				this.EMail = string.Empty;
 			}
 
 			this.Country = ISO_3166_1.ToName(this.CountryCode);
@@ -707,6 +709,21 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			get => (string)this.GetValue(PhoneNrProperty);
 			set => this.SetValue(PhoneNrProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="EMail"/>
+		/// </summary>
+		public static readonly BindableProperty EMailProperty =
+			BindableProperty.Create(nameof(EMail), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// Country code of the identity
+		/// </summary>
+		public string EMail
+		{
+			get => (string)this.GetValue(EMailProperty);
+			set => this.SetValue(EMailProperty, value);
 		}
 
 		/// <summary>
@@ -1647,7 +1664,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				await this.NavigationService.GoToAsync(Device.RuntimePlatform == Device.iOS ? nameof(ChatPageIos) : nameof(ChatPage), new ChatNavigationArgs(this.LegalId, this.BareJid,
+				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(this.LegalId, this.BareJid,
 					ContactInfo.GetFriendlyName(this.LegalIdentity)) { UniqueId = this.BareJid });
 			}
 			catch (Exception ex)
@@ -1735,6 +1752,16 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			this.EvaluateAllCommands();
 		}
+
+		#region ILinkableView
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public override Task<string> Title => Task.FromResult<string>(ContactInfo.GetFriendlyName(this.LegalIdentity));
+
+		#endregion
+
 
 	}
 }

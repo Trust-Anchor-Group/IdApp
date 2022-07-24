@@ -9,9 +9,9 @@ namespace IdApp.Pages.Registration
     public class RegistrationStepDataTemplateSelector : DataTemplateSelector
     {
         /// <summary>
-        /// The choose operator template.
+        /// The template for validating contact information.
         /// </summary>
-        public DataTemplate ValidatePhoneNr { get; set; }
+        public DataTemplate ValidateContactInfo { get; set; }
         
         /// <summary>
         /// The choose account template.
@@ -45,11 +45,11 @@ namespace IdApp.Pages.Registration
 
 			return viewModel.Step switch
 			{
-				RegistrationStep.Account => ChooseAccount,
-				RegistrationStep.RegisterIdentity => RegisterIdentity,
-				RegistrationStep.ValidateIdentity => ValidateIdentity,
-				RegistrationStep.Pin => DefinePin,
-				_ => ValidatePhoneNr,
+				RegistrationStep.Account => this.ChooseAccount,
+				RegistrationStep.RegisterIdentity => this.RegisterIdentity,
+				RegistrationStep.ValidateIdentity => this.ValidateIdentity,
+				RegistrationStep.Pin => this.DefinePin,
+				_ => this.ValidateContactInfo,
 			};
 		}
 	}

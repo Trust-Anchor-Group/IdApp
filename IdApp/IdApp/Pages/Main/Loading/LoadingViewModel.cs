@@ -25,15 +25,15 @@ namespace IdApp.Pages.Main.Loading
 		protected override async Task DoBind()
 		{
 			await base.DoBind();
-			IsBusy = true;
+			this.IsBusy = true;
 			this.DisplayConnectionText = this.TagProfile.Step > RegistrationStep.Account;
-			this.XmppService.Loaded += XmppService_Loaded;
+			this.XmppService.Loaded += this.XmppService_Loaded;
 		}
 
 		/// <inheritdoc />
 		protected override async Task DoUnbind()
 		{
-			this.XmppService.Loaded -= XmppService_Loaded;
+			this.XmppService.Loaded -= this.XmppService_Loaded;
 			await base.DoUnbind();
 		}
 
@@ -59,7 +59,7 @@ namespace IdApp.Pages.Main.Loading
 		/// <inheritdoc/>
 		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(() => SetConnectionStateAndText(e.State));
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
 		}
 
 		/// <inheritdoc/>

@@ -63,6 +63,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			this.SendToContactCommand = new Command(async _ => await this.SendToContact());
 			this.ShareCommand = new Command(async _ => await this.Share());
 			this.OfferToSellCommand = new Command(async _ => await this.OfferToSell());
+			this.PublishMarketplaceCommand = new Command(async _ => await this.PublishMarketplace());
 			this.OfferToBuyCommand = new Command(async _ => await this.OfferToBuy());
 			this.ViewEventsCommand = new Command(async _ => await this.ViewEvents());
 			this.PresentReportCommand = new Command(async _ => await this.PresentReport());
@@ -957,6 +958,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		public ICommand ShareCommand { get; }
 
 		/// <summary>
+		/// Command to publish the token on the marketplace, for sale.
+		/// </summary>
+		public ICommand PublishMarketplaceCommand { get; }
+
+		/// <summary>
 		/// Command to offer the token for sale.
 		/// </summary>
 		public ICommand OfferToSellCommand { get; }
@@ -1085,7 +1091,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			try
 			{
-				await this.NavigationService.GoToAsync(Device.RuntimePlatform == Device.iOS ? nameof(ChatPageIos) : nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName) { UniqueId = BareJid });
+				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName) { UniqueId = BareJid });
 			}
 			catch (Exception ex)
 			{
@@ -1145,7 +1151,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			await Task.Delay(100);  // Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
 
-			await this.NavigationService.GoToAsync(Device.RuntimePlatform == Device.iOS ? nameof(ChatPageIos) : nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
+			await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
 		}
 
 		private async Task Share()
@@ -1163,6 +1169,47 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task PublishMarketplace()
+		{
+			try
+			{
+				CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
+				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TokenConsignmentTemplate);
+				Template.Visibility = ContractVisibility.Public;
+				NewContractNavigationArgs NewContractArgs = new(Template, true,
+					new Dictionary<string, object>()
+					{
+						{ "TokenID", this.TokenId },
+						{ "Category", this.Category },
+						{ "FriendlyName", this.FriendlyName },
+						{ "CommissionPercent", e.Commission },
+						{ "Currency", e.Currency }
+					});
+
+				Template.Parts = new Part[]
+				{
+					new Part()
+					{
+						Role = "Seller",
+						LegalId = this.TagProfile.LegalIdentity.Id
+					},
+					new Part()
+					{
+						Role = "Auctioneer",
+						LegalId = e.TrustProviderId
+					}
+				};
+
+				NewContractArgs.SuppressProposal(e.TrustProviderId);
+
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs);
+			}
+			catch (Exception ex)
+			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -1562,6 +1609,16 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		private static readonly Regex embeddedDynamicImage = new("<img(\\s+((border=[\"'](?'Border'\\d+)[\"'])|(width=[\"'](?'Width'\\d+)[\"'])|(height=[\"'](?'Height'\\d+)[\"'])|(alt=[\"'](?'Alt'[^\"']*)[\"'])|(src=[\"']data:(?'ContentType'\\w+\\/\\w+);base64,(?'Base64'[A-Za-z0-9+-\\/_=]+)[\"'])))*\\s*\\/>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
 
 		#endregion
+
+		#region ILinkableView
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public override Task<string> Title => Task.FromResult<string>(this.FriendlyName);
+
+		#endregion
+
 
 	}
 }

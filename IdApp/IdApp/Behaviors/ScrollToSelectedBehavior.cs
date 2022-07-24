@@ -17,14 +17,14 @@ namespace IdApp.Behaviors
         /// <inheritdoc/>
         protected override void OnAttachedTo(Picker Picker)
         {
-			Picker.SelectedIndexChanged += Picker_SelectedIndexChanged;
+			Picker.SelectedIndexChanged += this.Picker_SelectedIndexChanged;
             base.OnAttachedTo(Picker);
         }
 
 		/// <inheritdoc/>
 		protected override void OnDetachingFrom(Picker Picker)
         {
-            Picker.SelectedIndexChanged -= Picker_SelectedIndexChanged;
+            Picker.SelectedIndexChanged -= this.Picker_SelectedIndexChanged;
             base.OnDetachingFrom(Picker);
         }
 

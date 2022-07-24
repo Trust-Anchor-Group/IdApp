@@ -47,7 +47,7 @@ namespace IdApp.Services.UI
 
                 this.BeginInvokeOnMainThread(async () =>
                 {
-                    await ProcessAllTasks();
+                    await this.ProcessAllTasks();
                 });
             }
         }

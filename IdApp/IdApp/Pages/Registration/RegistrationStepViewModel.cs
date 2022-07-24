@@ -72,7 +72,7 @@ namespace IdApp.Pages.Registration
         /// <param name="commands">The commands to re-evaluate.</param>
         protected void BeginInvokeSetIsDone(params ICommand[] commands)
         {
-            this.UiSerializer.BeginInvokeOnMainThread(() => SetIsDone(commands));
+            this.UiSerializer.BeginInvokeOnMainThread(() => this.SetIsDone(commands));
         }
     }
 }

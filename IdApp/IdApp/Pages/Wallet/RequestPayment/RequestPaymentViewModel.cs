@@ -44,19 +44,19 @@ namespace IdApp.Pages.Wallet.RequestPayment
 			this.AmountExtra = 0;
 			this.AmountExtraText = string.Empty;
 			this.AmountExtraOk = false;
-			
-			this.HasQrCode = false;
 
-			AssignProperties();
-			EvaluateAllCommands();
+			this.RemoveQrCode();
 
-			this.TagProfile.Changed += TagProfile_Changed;
+			this.AssignProperties();
+			this.EvaluateAllCommands();
+
+			this.TagProfile.Changed += this.TagProfile_Changed;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.TagProfile.Changed -= TagProfile_Changed;
+			this.TagProfile.Changed -= this.TagProfile_Changed;
 			await base.DoUnbind();
 		}
 
@@ -81,7 +81,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
+			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
 
 		#region Properties
@@ -357,6 +357,16 @@ namespace IdApp.Pages.Wallet.RequestPayment
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
+
+		#region ILinkableView
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public override Task<string> Title => Task.FromResult<string>(AppResources.RequestPayment);
+
+		#endregion
+
 
 	}
 }

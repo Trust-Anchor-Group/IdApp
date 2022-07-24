@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Resx;
+using IdApp.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -98,5 +99,15 @@ namespace IdApp.Pages.Identity.TransferIdentity
 			await Clipboard.SetTextAsync(this.Uri);
 			await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
 		}
+
+		#region ILinkableView
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public override Task<string> Title => Task.FromResult<string>(ContactInfo.GetFriendlyName(this.TagProfile.LegalIdentity));
+
+		#endregion
+
 	}
 }

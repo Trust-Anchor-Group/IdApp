@@ -37,36 +37,36 @@ namespace IdApp.Services.Contracts
 				{
 					if (!(this.contractsClient is null))
 					{
-						this.contractsClient.IdentityUpdated -= ContractsClient_IdentityUpdated;
-						this.contractsClient.PetitionForIdentityReceived -= ContractsClient_PetitionForIdentityReceived;
-						this.contractsClient.PetitionedIdentityResponseReceived -= ContractsClient_PetitionedIdentityResponseReceived;
-						this.contractsClient.PetitionForContractReceived -= ContractsClient_PetitionForContractReceived;
-						this.contractsClient.PetitionedContractResponseReceived -= ContractsClient_PetitionedContractResponseReceived;
-						this.contractsClient.PetitionForSignatureReceived -= ContractsClient_PetitionForSignatureReceived;
-						this.contractsClient.PetitionedSignatureResponseReceived -= ContractsClient_PetitionedSignatureResponseReceived;
-						this.contractsClient.PetitionForPeerReviewIDReceived -= ContractsClient_PetitionForPeerReviewIdReceived;
-						this.contractsClient.PetitionedPeerReviewIDResponseReceived -= ContractsClient_PetitionedPeerReviewIdResponseReceived;
-						this.contractsClient.ContractProposalReceived -= ContractsClient_ContractProposalReceived;
-						this.contractsClient.ContractUpdated -= ContractsClient_ContractUpdatedOrSigned;
-						this.contractsClient.ContractSigned -= ContractsClient_ContractUpdatedOrSigned;
+						this.contractsClient.IdentityUpdated -= this.ContractsClient_IdentityUpdated;
+						this.contractsClient.PetitionForIdentityReceived -= this.ContractsClient_PetitionForIdentityReceived;
+						this.contractsClient.PetitionedIdentityResponseReceived -= this.ContractsClient_PetitionedIdentityResponseReceived;
+						this.contractsClient.PetitionForContractReceived -= this.ContractsClient_PetitionForContractReceived;
+						this.contractsClient.PetitionedContractResponseReceived -= this.ContractsClient_PetitionedContractResponseReceived;
+						this.contractsClient.PetitionForSignatureReceived -= this.ContractsClient_PetitionForSignatureReceived;
+						this.contractsClient.PetitionedSignatureResponseReceived -= this.ContractsClient_PetitionedSignatureResponseReceived;
+						this.contractsClient.PetitionForPeerReviewIDReceived -= this.ContractsClient_PetitionForPeerReviewIdReceived;
+						this.contractsClient.PetitionedPeerReviewIDResponseReceived -= this.ContractsClient_PetitionedPeerReviewIdResponseReceived;
+						this.contractsClient.ContractProposalReceived -= this.ContractsClient_ContractProposalReceived;
+						this.contractsClient.ContractUpdated -= this.ContractsClient_ContractUpdatedOrSigned;
+						this.contractsClient.ContractSigned -= this.ContractsClient_ContractUpdatedOrSigned;
 					}
 
 					this.contractsClient = (this.XmppService as XmppService)?.ContractsClient;
 					if (this.contractsClient is null)
 						throw new InvalidOperationException(AppResources.LegalServiceNotFound);
 
-					this.contractsClient.IdentityUpdated += ContractsClient_IdentityUpdated;
-					this.contractsClient.PetitionForIdentityReceived += ContractsClient_PetitionForIdentityReceived;
-					this.contractsClient.PetitionedIdentityResponseReceived += ContractsClient_PetitionedIdentityResponseReceived;
-					this.contractsClient.PetitionForContractReceived += ContractsClient_PetitionForContractReceived;
-					this.contractsClient.PetitionedContractResponseReceived += ContractsClient_PetitionedContractResponseReceived;
-					this.contractsClient.PetitionForSignatureReceived += ContractsClient_PetitionForSignatureReceived;
-					this.contractsClient.PetitionedSignatureResponseReceived += ContractsClient_PetitionedSignatureResponseReceived;
-					this.contractsClient.PetitionForPeerReviewIDReceived += ContractsClient_PetitionForPeerReviewIdReceived;
-					this.contractsClient.PetitionedPeerReviewIDResponseReceived += ContractsClient_PetitionedPeerReviewIdResponseReceived;
-					this.contractsClient.ContractProposalReceived += ContractsClient_ContractProposalReceived;
-					this.contractsClient.ContractUpdated += ContractsClient_ContractUpdatedOrSigned;
-					this.contractsClient.ContractSigned += ContractsClient_ContractUpdatedOrSigned;
+					this.contractsClient.IdentityUpdated += this.ContractsClient_IdentityUpdated;
+					this.contractsClient.PetitionForIdentityReceived += this.ContractsClient_PetitionForIdentityReceived;
+					this.contractsClient.PetitionedIdentityResponseReceived += this.ContractsClient_PetitionedIdentityResponseReceived;
+					this.contractsClient.PetitionForContractReceived += this.ContractsClient_PetitionForContractReceived;
+					this.contractsClient.PetitionedContractResponseReceived += this.ContractsClient_PetitionedContractResponseReceived;
+					this.contractsClient.PetitionForSignatureReceived += this.ContractsClient_PetitionForSignatureReceived;
+					this.contractsClient.PetitionedSignatureResponseReceived += this.ContractsClient_PetitionedSignatureResponseReceived;
+					this.contractsClient.PetitionForPeerReviewIDReceived += this.ContractsClient_PetitionForPeerReviewIdReceived;
+					this.contractsClient.PetitionedPeerReviewIDResponseReceived += this.ContractsClient_PetitionedPeerReviewIdResponseReceived;
+					this.contractsClient.ContractProposalReceived += this.ContractsClient_ContractProposalReceived;
+					this.contractsClient.ContractUpdated += this.ContractsClient_ContractUpdatedOrSigned;
+					this.contractsClient.ContractSigned += this.ContractsClient_ContractUpdatedOrSigned;
 				}
 
 				return this.contractsClient;
@@ -517,7 +517,7 @@ namespace IdApp.Services.Contracts
 			{
 				try
 				{
-					OnLegalIdentityChanged(new LegalIdentityChangedEventArgs(e.Identity));
+					this.OnLegalIdentityChanged(new LegalIdentityChangedEventArgs(e.Identity));
 				}
 				catch (Exception ex)
 				{

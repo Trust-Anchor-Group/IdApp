@@ -3,8 +3,12 @@ using Android.Nfc.Tech;
 using IdApp.Android.Nfc.Records;
 using IdApp.Nfc;
 using IdApp.Nfc.Records;
+using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
+using Waher.Content;
+using Waher.Runtime.Inventory;
 
 namespace IdApp.Android.Nfc
 {
@@ -51,6 +55,9 @@ namespace IdApp.Android.Nfc
 			await this.OpenIfClosed();
 
 			NdefMessage Message = this.ndef.NdefMessage;
+			if (Message is null)
+				return new INdefRecord[0];
+
 			NdefRecord[] Records = Message.GetRecords();
 			List<INdefRecord> Result = new();
 
@@ -67,7 +74,12 @@ namespace IdApp.Android.Nfc
 						break;
 
 					case NdefRecord.TnfWellKnown:
-						Result.Add(new WellKnownTypeRecord(Record));
+						string TypeInfo = Encoding.UTF8.GetString(Record.GetTypeInfo());
+
+						if (TypeInfo == "U")
+							Result.Add(new UriRecord(Record));
+						else
+							Result.Add(new WellKnownTypeRecord(Record));
 						break;
 
 					case NdefRecord.TnfExternalType:
@@ -83,6 +95,56 @@ namespace IdApp.Android.Nfc
 			}
 
 			return Result.ToArray();
+		}
+
+		/// <summary>
+		/// Sets the message (with recorsd) on the NDEF tag.
+		/// </summary>
+		/// <param name="Items">Items to encode</param>
+		/// <returns>If the items could be encoded and written to the tag.</returns>
+		public async Task<bool> SetMessage(params object[] Items)
+		{
+			try
+			{
+				await this.OpenIfClosed();
+
+				List<NdefRecord> Records = new();
+
+				foreach (object Item in Items)
+				{
+					if (Item is Uri Uri)
+					{
+						if (Uri.IsAbsoluteUri)
+							Records.Add(NdefRecord.CreateUri(Uri.AbsoluteUri));
+						else
+							return false;
+					}
+					else if (Item is string s)
+						Records.Add(NdefRecord.CreateTextRecord(null, s));
+					else
+					{
+						if (Item is not KeyValuePair<byte[], string> Mime)
+						{
+							if (!InternetContent.Encodes(Item, out Grade _, out IContentEncoder Encoder))
+								return false;
+
+							Mime = await Encoder.EncodeAsync(Item, Encoding.UTF8);
+						}
+
+						Records.Add(NdefRecord.CreateMime(Mime.Value, Mime.Key));
+					}
+				}
+
+				NdefMessage Message = new(Records.ToArray());
+
+				await this.ndef.WriteNdefMessageAsync(Message);
+
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 	}
 }

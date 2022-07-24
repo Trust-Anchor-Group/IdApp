@@ -31,15 +31,15 @@ namespace IdApp.Pages.Main.Shell
 
 			this.IsOnline = this.NetworkService.IsOnline;
 
-			this.XmppService.ConnectionStateChanged += XmppService_ConnectionStateChanged;
-			this.NetworkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
+			this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
+			this.NetworkService.ConnectivityChanged += this.NetworkService_ConnectivityChanged;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.XmppService.ConnectionStateChanged -= XmppService_ConnectionStateChanged;
-			this.NetworkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
+			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
+			this.NetworkService.ConnectivityChanged -= this.NetworkService_ConnectivityChanged;
 
 			await base.DoUnbind();
 		}

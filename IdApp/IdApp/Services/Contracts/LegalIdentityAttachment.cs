@@ -15,10 +15,10 @@ namespace IdApp.Services.Contracts
         /// <param name="data">The raw file data.</param>
         public LegalIdentityAttachment(string fileName, string contentType, byte[] data)
         {
-            Filename = fileName;
-            ContentType = contentType;
-            Data = data;
-            ContentLength = data?.Length ?? 0;
+			this.Filename = fileName;
+			this.ContentType = contentType;
+			this.Data = data;
+			this.ContentLength = data?.Length ?? 0;
         }
 
         /// <summary>

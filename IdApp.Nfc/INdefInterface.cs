@@ -22,5 +22,12 @@ namespace IdApp.Nfc
 		/// Gets the message (with records) of the NDEF tag.
 		/// </summary>
 		Task<INdefRecord[]> GetMessage();
+
+		/// <summary>
+		/// Sets the message (with recorsd) on the NDEF tag.
+		/// </summary>
+		/// <param name="Items">Items to encode</param>
+		/// <returns>If the items could be encoded and written to the tag.</returns>
+		Task<bool> SetMessage(params object[] Items);
 	}
 }

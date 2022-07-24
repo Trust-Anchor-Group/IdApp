@@ -18,7 +18,7 @@ namespace IdApp.Pages.Main.Main
 		public MainPage()
 		{
 			this.InitializeComponent();
-			this.ViewModel = new MainViewModel();
+			this.ViewModel = new MainViewModel(this);
 		}
 
 		/// <summary>
@@ -55,5 +55,15 @@ namespace IdApp.Pages.Main.Main
 		{
 			(this.ViewModel as MainViewModel)?.ShareQR();
 		}
+
+		/// <summary>
+		/// If the front view is showing.
+		/// </summary>
+		public bool IsFrontViewShowing => this.IdCard.IsFrontViewShowing;
+
+		/// <summary>
+		/// If the back view is showing.
+		/// </summary>
+		public bool IsBackViewShowing => this.IdCard.IsBackViewShowing;
 	}
 }

@@ -42,6 +42,8 @@
 		<string>fi</string>
 		<string>sr</string>
 		<string>pt</string>
+		<string>ro</string>
+		<string>ru</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>

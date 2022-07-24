@@ -16,9 +16,9 @@ namespace IdApp.Services.Tag
 	public enum RegistrationStep
 	{
 		/// <summary>
-		/// Validate Phone Number
+		/// Validate Phone Number and e-mail address
 		/// </summary>
-		ValidatePhoneNr = 0,
+		ValidateContactInfo = 0,
 
 		/// <summary>
 		/// Create or connect to an account
@@ -65,6 +65,7 @@ namespace IdApp.Services.Tag
 		private string apiKey;
 		private string apiSecret;
 		private string phoneNumber;
+		private string eMail;
 		private string account;
 		private string passwordHash;
 		private string passwordHashMethod;
@@ -82,7 +83,7 @@ namespace IdApp.Services.Tag
 		private bool usePin;
 		private bool isTest;
 		private DateTime? testOtpTimestamp;
-		private RegistrationStep step = RegistrationStep.ValidatePhoneNr;
+		private RegistrationStep step = RegistrationStep.ValidateContactInfo;
 		private bool suppressPropertyChangedEvents;
 		private bool defaultXmppConnectivity;
 
@@ -124,6 +125,7 @@ namespace IdApp.Services.Tag
 				ApiKey = this.ApiKey,
 				ApiSecret = this.ApiSecret,
 				PhoneNumber = this.PhoneNumber,
+				EMail = this.EMail,
 				DefaultXmppConnectivity = this.DefaultXmppConnectivity,
 				Account = this.Account,
 				PasswordHash = this.PasswordHash,
@@ -164,6 +166,7 @@ namespace IdApp.Services.Tag
 				this.ApiKey = configuration.ApiKey;
 				this.ApiSecret = configuration.ApiSecret;
 				this.PhoneNumber = configuration.PhoneNumber;
+				this.EMail = configuration.EMail;
 				this.DefaultXmppConnectivity = configuration.DefaultXmppConnectivity;
 				this.Account = configuration.Account;
 				this.PasswordHash = configuration.PasswordHash;
@@ -293,6 +296,20 @@ namespace IdApp.Services.Tag
 				{
 					this.phoneNumber = value;
 					this.FlagAsDirty(nameof(this.PhoneNumber));
+				}
+			}
+		}
+
+		/// <inheritdoc/>
+		public string EMail
+		{
+			get => this.eMail;
+			private set
+			{
+				if (!string.Equals(this.eMail, value))
+				{
+					this.eMail = value;
+					this.FlagAsDirty(nameof(this.EMail));
 				}
 			}
 		}
@@ -605,12 +622,12 @@ namespace IdApp.Services.Tag
 			{
 				switch (this.Step)
 				{
-					case RegistrationStep.ValidatePhoneNr:
+					case RegistrationStep.ValidateContactInfo:
 						// Do nothing
 						break;
 
 					case RegistrationStep.Account:
-						this.Step = RegistrationStep.ValidatePhoneNr;
+						this.Step = RegistrationStep.ValidateContactInfo;
 						break;
 
 					case RegistrationStep.RegisterIdentity:
@@ -636,7 +653,7 @@ namespace IdApp.Services.Tag
 			{
 				switch (this.Step)
 				{
-					case RegistrationStep.ValidatePhoneNr:
+					case RegistrationStep.ValidateContactInfo:
 						this.Step = RegistrationStep.Account;
 						break;
 
@@ -666,6 +683,12 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
+		public void SetEMail(string EMail)
+		{
+			this.EMail = EMail;
+		}
+
+		/// <inheritdoc/>
 		public void SetDomain(string domainName, bool defaultXmppConnectivity, string Key, string Secret)
 		{
 			this.Domain = domainName;
@@ -673,7 +696,7 @@ namespace IdApp.Services.Tag
 			this.ApiKey = Key;
 			this.ApiSecret = Secret;
 
-			if (!string.IsNullOrWhiteSpace(this.Domain) && this.Step == RegistrationStep.ValidatePhoneNr)
+			if (!string.IsNullOrWhiteSpace(this.Domain) && this.Step == RegistrationStep.ValidateContactInfo)
 				this.IncrementConfigurationStep();
 		}
 
@@ -681,7 +704,7 @@ namespace IdApp.Services.Tag
 		public void ClearDomain()
 		{
 			this.Domain = string.Empty;
-			this.DecrementConfigurationStep(RegistrationStep.ValidatePhoneNr);
+			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 		}
 
 		/// <inheritdoc/>
@@ -737,7 +760,7 @@ namespace IdApp.Services.Tag
 			this.PasswordHashMethod = string.Empty;
 			this.LegalJid = null;
 
-			this.DecrementConfigurationStep(RegistrationStep.ValidatePhoneNr); // prev
+			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo); // prev
 		}
 
 		/// <inheritdoc/>
@@ -913,6 +936,7 @@ namespace IdApp.Services.Tag
 			this.apiKey = string.Empty;
 			this.apiSecret = string.Empty;
 			this.phoneNumber = string.Empty;
+			this.eMail = string.Empty;
 			this.account = string.Empty;
 			this.passwordHash = string.Empty;
 			this.passwordHashMethod = string.Empty;
@@ -930,7 +954,7 @@ namespace IdApp.Services.Tag
 			this.usePin = false;
 			this.isTest = false;
 			this.TestOtpTimestamp = null;
-			this.step = RegistrationStep.ValidatePhoneNr;
+			this.step = RegistrationStep.ValidateContactInfo;
 			this.defaultXmppConnectivity = false;
 
 			this.IsDirty = true;
@@ -1015,14 +1039,13 @@ namespace IdApp.Services.Tag
 				const StringComparison Comparison = StringComparison.CurrentCultureIgnoreCase;
 
 				if (LegalIdentity[Constants.XmppProperties.PersonalNumber] is string PersonalNumber && PersonalNumber != "" && Pin.Contains(PersonalNumber, Comparison))
-				{
 					return PinStrength.ContainsPersonalNumber;
-				}
 
-				if (LegalIdentity[Constants.XmppProperties.Phone] is string Phone && Phone != "" && Pin.Contains(Phone, Comparison))
-				{
+				if (LegalIdentity[Constants.XmppProperties.Phone] is string Phone && !string.IsNullOrEmpty(Phone) && Pin.Contains(Phone, Comparison))
 					return PinStrength.ContainsPhoneNumber;
-				}
+
+				if (LegalIdentity[Constants.XmppProperties.EMail] is string EMail && !string.IsNullOrEmpty(EMail) && Pin.Contains(EMail, Comparison))
+					return PinStrength.ContainsEMail;
 
 				IEnumerable<string> NameWords = new string[]
 				{
@@ -1034,9 +1057,7 @@ namespace IdApp.Services.Tag
 				.Where(Word => Word?.GetUnicodeLength() > 2);
 
 				if (NameWords.Any(NameWord => Pin.Contains(NameWord, Comparison)))
-				{
 					return PinStrength.ContainsName;
-				}
 
 				IEnumerable<string> AddressWords = new string[]
 				{
@@ -1047,9 +1068,7 @@ namespace IdApp.Services.Tag
 				.Where(Word => Word?.GetUnicodeLength() > 2);
 
 				if (AddressWords.Any(AddressWord => Pin.Contains(AddressWord, Comparison)))
-				{
 					return PinStrength.ContainsAddress;
-				}
 			}
 
 			const int MinDigitsCount = Constants.Authentication.MinPinSymbolsFromDifferentClasses;

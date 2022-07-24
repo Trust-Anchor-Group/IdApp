@@ -12,8 +12,8 @@ namespace IdApp.Services.AttachmentCache
 	[Singleton]
 	internal sealed partial class AttachmentCacheService : LoadableService, IAttachmentCacheService
 	{
-		private static readonly TimeSpan ExpiryTemporary = TimeSpan.FromHours(24);
-		private const string CacheFolderName = "Attachments";
+		private static readonly TimeSpan expiryTemporary = TimeSpan.FromHours(24);
+		private const string cacheFolderName = "Attachments";
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="AttachmentCacheService"/> class.
@@ -29,10 +29,10 @@ namespace IdApp.Services.AttachmentCache
 			{
 				try
 				{
-					CreateCacheFolderIfNeeded();
+					this.CreateCacheFolderIfNeeded();
 
 					if (!isResuming)
-						await EvictOldEntries();
+						await this.EvictOldEntries();
 
 					this.EndLoad(true);
 				}
@@ -100,10 +100,10 @@ namespace IdApp.Services.AttachmentCache
 				return;
 			}
 
-			string CacheFolder = CreateCacheFolderIfNeeded();
+			string CacheFolder = this.CreateCacheFolderIfNeeded();
 
 			CacheEntry Entry = await Database.FindFirstDeleteRest<CacheEntry>(new FilterFieldEqualTo("Url", Url));
-			DateTime Expires = Permanent ? DateTime.MaxValue : (DateTime.UtcNow + ExpiryTemporary);
+			DateTime Expires = Permanent ? DateTime.MaxValue : (DateTime.UtcNow + expiryTemporary);
 
 			if (Entry is null)
 			{
@@ -142,7 +142,7 @@ namespace IdApp.Services.AttachmentCache
 			{
 				if (Entry.Expires == DateTime.MaxValue)
 				{
-					Entry.Expires = DateTime.UtcNow + ExpiryTemporary;
+					Entry.Expires = DateTime.UtcNow + expiryTemporary;
 					await Database.Update(Entry);
 				}
 			}
@@ -180,7 +180,7 @@ namespace IdApp.Services.AttachmentCache
 
 		private static string GetCacheFolder()
 		{
-			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), CacheFolderName);
+			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), cacheFolderName);
 		}
 
 		private async Task EvictOldEntries()

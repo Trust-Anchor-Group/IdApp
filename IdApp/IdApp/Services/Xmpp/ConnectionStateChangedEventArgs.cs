@@ -16,7 +16,7 @@ namespace IdApp.Services.Xmpp
         /// <param name="state">The current state.</param>
         public ConnectionStateChangedEventArgs(XmppState state)
         {
-            State = state;
+			this.State = state;
         }
 
         /// <summary>

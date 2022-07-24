@@ -949,13 +949,13 @@
     <value>ID de modelo</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
-    <value>O contrato exige pelo menos {0} parte(s) de {1} de papel. Adicione mais peças ao contrato e tente novamente.</value>
+    <value>O contrato exige pelo menos {0} parte(s) de papel {1}. Adicione mais peças ao contrato e tente novamente.</value>
   </data>
   <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
     <value>O contrato exige, no máximo, {0} parte(s) do papel {1}. Remova algumas das peças do contrato e tente novamente.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
-    <value>A senha da conexão é {0}. Isso foi copiado para a prancheta.</value>
+    <value>A senha para a conexão é {0}. Isso foi copiado para a prancheta.</value>
   </data>
   <data name="ThereIsNoNetwork" xml:space="preserve">
     <value>Não há rede</value>
@@ -1161,7 +1161,7 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Verificar código</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Também precisamos validar seu número de telefone celular. Digite seu número de telefone celular abaixo, usando o formato de número de telefone internacional, sem espaços.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
@@ -1179,7 +1179,7 @@
   <data name="SelectPurpose" xml:space="preserve">
     <value>Selecionar propósito</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>Um código foi enviado para o número indicado acima. Quando você recebê-lo, digite o código de verificação abaixo para continuar.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
@@ -1213,7 +1213,7 @@
     <value>Falha ao vincular {0} de modelo de exibição para {1} de página</value>
   </data>
   <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
-    <value>Falha ao restaurar estado para {0} de modelo de visualização para {1} de página</value>
+    <value>Falha ao restaurar estado para {0} de modelo de exibição para {1} de página</value>
   </data>
   <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
     <value>Falha ao salvar estado para {0} de modelo de exibição para {1} de página</value>
@@ -1739,5 +1739,29 @@
   </data>
   <data name="Variables" xml:space="preserve">
     <value>Variáveis</value>
+  </data>
+  <data name="PublishMarketplace" xml:space="preserve">
+    <value>Publicar no Marketplace</value>
+  </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Tag Gravado com link para {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Não é possível gravar tag com link para {0}.</value>
+  </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>Um PIN não deve conter o endereço de e-mail de identidade.</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>Também precisamos validar seu endereço de e-mail. Por favor, digite seu endereço de e-mail abaixo, sem espaços.</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Informações de contato</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>Um código foi enviado para o endereço de e-mail indicado acima. Quando você recebê-lo, digite o código de verificação abaixo para continuar.</value>
   </data>
 </root>

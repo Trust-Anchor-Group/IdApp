@@ -41,22 +41,22 @@ namespace IdApp.Behaviors
         /// <inheritdoc/>
         protected override void OnAttachedTo(Entry entry)
         {
-            entry.TextChanged += Entry_TextChanged;
+            entry.TextChanged += this.Entry_TextChanged;
             base.OnAttachedTo(entry);
         }
 
         /// <inheritdoc/>
         protected override void OnDetachingFrom(Entry entry)
         {
-            entry.TextChanged -= Entry_TextChanged;
+            entry.TextChanged -= this.Entry_TextChanged;
             base.OnDetachingFrom(entry);
         }
 
         void Entry_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!(TextChangedCommand is null) && TextChangedCommand.CanExecute(null))
+            if (!(this.TextChangedCommand is null) && this.TextChangedCommand.CanExecute(null))
             {
-                TextChangedCommand.Execute(TextChangedCommandParameter);
+				this.TextChangedCommand.Execute(this.TextChangedCommandParameter);
             }
         }
     }

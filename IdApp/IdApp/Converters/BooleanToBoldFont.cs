@@ -18,7 +18,7 @@ namespace IdApp.Converters
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (Invert)
+            if (this.Invert)
             {
                 return (bool)value ? FontAttributes.None : FontAttributes.Bold;
             }
@@ -28,7 +28,7 @@ namespace IdApp.Converters
         /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (Invert)
+            if (this.Invert)
             {
                 return (FontAttributes)value != FontAttributes.Bold;
             }

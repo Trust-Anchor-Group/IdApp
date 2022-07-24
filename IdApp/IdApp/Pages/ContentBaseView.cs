@@ -12,8 +12,8 @@ namespace IdApp.Pages
         /// </summary>
         protected BaseViewModel ViewModel
         {
-            get => BindingContext as BaseViewModel;
-            set => BindingContext = value;
+            get => this.BindingContext as BaseViewModel;
+            set => this.BindingContext = value;
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace IdApp.Pages
         /// <returns>View model</returns>
         protected T GetViewModel<T>() where T : BaseViewModel
         {
-            return (T)ViewModel;
+            return (T)this.ViewModel;
         }
     }
 }

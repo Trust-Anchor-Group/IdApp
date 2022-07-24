@@ -1,4 +1,5 @@
-﻿using IdApp.Pages.Wallet.TokenEvents.Events;
+﻿using IdApp.Pages.Contacts.Chat;
+using IdApp.Pages.Wallet.TokenEvents.Events;
 using IdApp.Resx;
 using IdApp.Services;
 using NeuroFeatures.Events;
@@ -244,8 +245,31 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		{
 			try
 			{
-				if (Source.IndexOf("://") < 0)
-					Source = "https://" + Source;
+				int i = Source.IndexOf('@');
+				if (i < 0)
+				{
+					if (Source.IndexOf(':') < 0)
+						Source = "https://" + Source;
+				}
+				else
+				{
+					string Account = Source.Substring(0, i);
+
+					if (Guid.TryParse(Account, out _))
+						Source = Constants.UriSchemes.UriSchemeIotId + ":" + Source;
+					else
+					{
+						ContactInfo Contact = await ContactInfo.FindByBareJid(Source);
+
+						await this.@ref.NavigationService.GoToAsync(nameof(ChatPage),
+							new ChatNavigationArgs(Contact?.LegalId, Contact?.BareJid ?? Source, Contact?.FriendlyName ?? Source)
+							{
+								UniqueId = Contact?.BareJid ?? Source
+							});
+
+						return;
+					}
+				}
 
 				await App.OpenUrl(Source);
 			}

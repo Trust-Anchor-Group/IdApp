@@ -382,10 +382,25 @@ namespace IdApp.Pages.Registration.ValidateIdentity
             set => this.SetValue(PhoneNrProperty, value);
         }
 
-        /// <summary>
-        /// The <see cref="IsApproved"/>
-        /// </summary>
-        public static readonly BindableProperty IsApprovedProperty =
+		/// <summary>
+		/// The <see cref="EMail"/>
+		/// </summary>
+		public static readonly BindableProperty EMailProperty =
+			BindableProperty.Create(nameof(EMail), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// Gets or sets the user's country.
+		/// </summary>
+		public string EMail
+		{
+			get => (string)this.GetValue(EMailProperty);
+			set => this.SetValue(EMailProperty, value);
+		}
+
+		/// <summary>
+		/// The <see cref="IsApproved"/>
+		/// </summary>
+		public static readonly BindableProperty IsApprovedProperty =
             BindableProperty.Create(nameof(IsApproved), typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
 
         /// <summary>
@@ -469,8 +484,9 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 				this.Region = this.TagProfile.LegalIdentity[Constants.XmppProperties.Region];
 				this.CountryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.Country];
 				this.PhoneNr = this.TagProfile.LegalIdentity[Constants.XmppProperties.Phone];
-            }
-            else
+				this.EMail = this.TagProfile.LegalIdentity[Constants.XmppProperties.EMail];
+			}
+			else
             {
 				this.FirstName = string.Empty;
 				this.MiddleNames = string.Empty;
@@ -484,7 +500,8 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 				this.Region = string.Empty;
 				this.CountryCode = string.Empty;
 				this.PhoneNr = string.Empty;
-            }
+				this.EMail = string.Empty;
+			}
 
 			this.Country = ISO_3166_1.ToName(this.CountryCode);
 			this.IsApproved = this.TagProfile.LegalIdentity?.State == IdentityState.Approved;

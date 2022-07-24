@@ -119,7 +119,7 @@
     <EmbeddedResource Update="Pages\Registration\ChooseAccount\ChooseAccountView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Registration\ValidatePhoneNr\ValidatePhoneNrView.xaml">
+    <EmbeddedResource Update="Pages\Registration\ValidateContactInfo\ValidateContactInfoView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Main\Loading\LoadingPage.xaml">
@@ -161,9 +161,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resx\AppResources.ro.resx">
+		<SubType>Designer</SubType>
+		<Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resx\AppResources.ru.resx">
+		<SubType>Designer</SubType>
+		<Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resx\AppResources.sr.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
+		<SubType>Designer</SubType>
+		<Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resx\AppResources.fi.resx">
       <SubType>Designer</SubType>
@@ -232,8 +240,8 @@
     <Compile Update="Pages\Registration\ChooseAccount\ChooseAccountView.xaml.cs">
       <DependentUpon>ChooseAccountView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\Registration\ValidatePhoneNr\ValidatePhoneNrView.xaml.cs">
-      <DependentUpon>ValidatePhoneNrView.xaml</DependentUpon>
+    <Compile Update="Pages\Registration\ValidateContactInfo\ValidateContactInfoView.xaml.cs">
+      <DependentUpon>ValidateContactInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\Things\ViewThing\ViewThingPage.xaml.cs">
       <DependentUpon>ViewThingPage.xaml</DependentUpon>

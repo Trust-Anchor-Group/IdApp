@@ -563,7 +563,12 @@
         </member>
         <member name="F:IdApp.Constants.XmppProperties.Phone">
             <summary>
-            Jabber ID
+            Phone number
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.EMail">
+            <summary>
+            e-Mail address
             </summary>
         </member>
         <member name="T:IdApp.Constants.Intervals">
@@ -681,6 +686,11 @@
             Contract template for transferring a token from a seller to a buyer
             </summary>
         </member>
+        <member name="F:IdApp.Constants.ContractTemplates.TokenConsignmentTemplate">
+            <summary>
+            Contract template for consigning the token to an auctioneer with the purpose of selling it.
+            </summary>
+        </member>
         <member name="T:IdApp.Constants.PushChannels">
             <summary>
             Push chennels
@@ -779,6 +789,21 @@
         <member name="F:IdApp.Constants.Pin.Reason">
             <summary>
             Reason for LogAuditor
+            </summary>
+        </member>
+        <member name="T:IdApp.Constants.References">
+            <summary>
+            References to external resources
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.References.AndroidApp">
+            <summary>
+            Resource where Android App can be downloaded.
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.References.IPhoneApp">
+            <summary>
+            Resource where iPhone App can be downloaded.
             </summary>
         </member>
         <member name="T:IdApp.Controls.Extended.ExtendedDatePicker">
@@ -2608,6 +2633,36 @@
             <param name="TagProfile">TAG Profile</param>
             <returns>If URI could be processed.</returns>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.IsLinkable">
+            <summary>
+            If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.HasMedia">
+            <summary>
+            If linkable view has media associated with link.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.MediaContentType">
+            <summary>
+            Content-Type of associated media.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.UriScheme">
             <summary>
             URI Scheme
@@ -3534,6 +3589,16 @@
             Gets or sets the Bare Jid of the signature.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.EMail">
+            <summary>
+            Gets or sets the Bare Jid of the signature.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.SignatureProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.Signature"/>
@@ -3542,6 +3607,36 @@
         <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.Signature">
             <summary>
             The signature in plain text.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.IsLinkable">
+            <summary>
+            If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.HasMedia">
+            <summary>
+            If linkable view has media associated with link.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.MediaContentType">
+            <summary>
+            Content-Type of associated media.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector">
@@ -4126,6 +4221,36 @@
             Gets or sets whether a user can add parts to a contract.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.IsLinkable">
+            <summary>
+            If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.HasMedia">
+            <summary>
+            If linkable view has media associated with link.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.MediaContentType">
+            <summary>
+            Content-Type of associated media.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractVisibilityModel">
             <summary>
             The data model for contract visibility.
@@ -4476,6 +4601,16 @@
             PhoneNr of the contract
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.EMail">
+            <summary>
+            EMail of the contract
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.IsApprovedProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.IsApproved"/>
@@ -4815,6 +4950,16 @@
         <member name="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.PhoneNr">
             <summary>
             PhoneNr of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.EMail">
+            <summary>
+            EMail of the identity
             </summary>
         </member>
         <member name="F:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.IsApprovedProperty">
@@ -5330,6 +5475,16 @@
             Gets or sets whether a user can delete or obsolete a contract.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a petition of a legal identity.
@@ -5635,6 +5790,16 @@
             PhoneNr of the identity
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.EMail">
+            <summary>
+            EMail of the identity
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.IsApprovedProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.IsApproved"/>
@@ -5751,6 +5916,11 @@
         <member name="P:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.Uri">
             <summary>
             Uri date of the identity
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.Title">
+            <summary>
+            Title of the current view
             </summary>
         </member>
         <member name="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs">
@@ -6104,6 +6274,16 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.PhoneNr">
+            <summary>
+            Country code of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.EMail">
             <summary>
             Country code of the identity
             </summary>
@@ -6468,6 +6648,46 @@
             Rotation of the first photo in the identity.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.ILinkableView">
+            <summary>
+            Interfaces for linkable views.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ILinkableView.IsLinkable">
+            <summary>
+            If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ILinkableView.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ILinkableView.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ILinkableView.HasMedia">
+            <summary>
+            If linkable view has media associated with link.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ILinkableView.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ILinkableView.MediaContentType">
+            <summary>
+            Content-Type of associated media.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.IItemGroup">
             <summary>
             Grouped item interface.
@@ -6571,16 +6791,27 @@
             Asynchronous OnAppearing-method.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Main.Main.MainPage.IsFrontViewShowing">
+            <summary>
+            If the front view is showing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainPage.IsBackViewShowing">
+            <summary>
+            If the back view is showing.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Main.Main.MainViewModel">
             <summary>
             The view model to bind to for the main page of the application. Holds basic user profile state
             as well as connection state.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Main.MainViewModel.#ctor">
+        <member name="M:IdApp.Pages.Main.Main.MainViewModel.#ctor(IdApp.Pages.Main.Main.MainPage)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Main.MainViewModel"/> class.
             </summary>
+            <param name="MainPage">Main Page</param>
         </member>
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.DoBind">
             <inheritdoc />
@@ -6813,6 +7044,21 @@
         </member>
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.MediaContentType">
+            <summary>
+            Content-Type of associated media.
+            </summary>
         </member>
         <member name="T:IdApp.Pages.Main.ScanQrCode.CodeScannedEventArgs">
             <summary>
@@ -7126,6 +7372,16 @@
             Determines whether there's a generated <see cref="P:IdApp.Pages.QrXmppViewModel.QrCode"/> image for this identity.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.QrXmppViewModel.QrCodeUriProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.QrXmppViewModel.QrCodeUri"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.QrCodeUri">
+            <summary>
+            Determines whether there's a generated <see cref="P:IdApp.Pages.QrXmppViewModel.QrCode"/> image for this identity.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.QrXmppViewModel.QrCodeWidthProperty">
             <summary>
             See <see cref="P:IdApp.Pages.QrXmppViewModel.QrCodeWidth"/>
@@ -7164,6 +7420,36 @@
         <member name="P:IdApp.Pages.QrXmppViewModel.QrCodeContentType">
             <summary>
             Content-Type of QR Code
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.IsLinkable">
+            <summary>
+            If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.HasMedia">
+            <summary>
+            If linkable view has media associated with link.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.MediaContentType">
+            <summary>
+            Content-Type of associated media.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
@@ -7430,7 +7716,12 @@
         </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.PhoneNr">
             <summary>
-            Country
+            Phone Number
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.EMail">
+            <summary>
+            EMail
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.DeviceId">
@@ -7732,9 +8023,9 @@
             A data template selector for displaying various types of registration steps.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ValidatePhoneNr">
+        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ValidateContactInfo">
             <summary>
-            The choose operator template.
+            The template for validating contact information.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ChooseAccount">
@@ -7931,6 +8222,196 @@
             </summary>
             <param name="sender">The event sender.</param>
             <param name="e">The default event args.</param>
+        </member>
+        <member name="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView">
+            <summary>
+            A view to display the 'choose operator' during the registration process.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView.ScrollDown">
+            <summary>
+            Scrolls down to the bottom of the view.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse">
+            <summary>
+            For what purpose the app will be used
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.WorkOrPersonal">
+            <summary>
+            For work or personal use
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.EducationalOrExperimental">
+            <summary>
+            For educational or experimental use
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel">
+            <summary>
+            The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.DoBind">
+            <summary>
+            Override this method to do view model specific setup when it's parent page/view appears on screen.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.Purposes">
+            <summary>
+            Holds the list of purposes to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.Purpose"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.Purpose">
+            <summary>
+            Phone number
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelectedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelected"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelected">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMail">
+            <summary>
+            e-mail
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValid">
+            <summary>
+            If e-mail address is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailCodeSentProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailCodeSent"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailCodeSent">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCode">
+            <summary>
+            Phone number
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCodeValidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCodeValid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCodeValid">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumber">
+            <summary>
+            Phone number
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValid">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrCodeSentProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrCodeSent"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrCodeSent">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCode">
+            <summary>
+            Phone number
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeValidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeValid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeValid">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.SendEMailCodeCommand">
+            <summary>
+            The command to bind to for sending a code to the provided e-mail address.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyEMailCodeCommand">
+            <summary>
+            The command to bind to for sending an e-mail code verification request.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.SendPhoneNrCodeCommand">
+            <summary>
+            The command to bind to for sending a code to the provided phone number.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyPhoneNrCodeCommand">
+            <summary>
+            The command to bind to for sending a phone message code verification request.
+            </summary>
         </member>
         <member name="T:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityView">
             <summary>
@@ -8178,6 +8659,16 @@
             Gets or sets the user's country.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.EMailProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.EMail">
+            <summary>
+            Gets or sets the user's country.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.IsApprovedProperty">
             <summary>
             The <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.IsApproved"/>
@@ -8216,136 +8707,6 @@
         <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.ConnectionStateText">
             <summary>
             The user friendly connection state text to display to the user.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView">
-            <summary>
-            A view to display the 'choose operator' during the registration process.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView.ScrollDown">
-            <summary>
-            Scrolls down to the bottom of the view.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Registration.ValidatePhoneNr.PurposeUse">
-            <summary>
-            For what purpose the app will be used
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.PurposeUse.WorkOrPersonal">
-            <summary>
-            For work or personal use
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.PurposeUse.EducationalOrExperimental">
-            <summary>
-            For educational or experimental use
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel">
-            <summary>
-            The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.DoBind">
-            <summary>
-            Override this method to do view model specific setup when it's parent page/view appears on screen.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Purposes">
-            <summary>
-            Holds the list of purposes to display.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PurposeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Purpose"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Purpose">
-            <summary>
-            Phone number
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PurposeSelectedProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PurposeSelected"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PurposeSelected">
-            <summary>
-            If Phone number is valid or not
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumber"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumber">
-            <summary>
-            Phone number
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberValidProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberValid"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberValid">
-            <summary>
-            If Phone number is valid or not
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.CodeSentProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.CodeSent"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.CodeSent">
-            <summary>
-            If Phone number is valid or not
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCode">
-            <summary>
-            Phone number
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCodeValidProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCodeValid"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCodeValid">
-            <summary>
-            If Phone number is valid or not
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.SendCodeCommand">
-            <summary>
-            The command to bind to for sending a code to the provided phone number.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerifyCodeCommand">
-            <summary>
-            The command to bind to for sending a code verification request.
             </summary>
         </member>
         <member name="T:IdApp.Pages.ShellBasePage">
@@ -9583,6 +9944,11 @@
         <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.FromClickCommand">
             <summary>
             Command to bind to for detecting when a from label has been clicked on.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.Title">
+            <summary>
+            Title of the current view
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.IShareQrCode">
@@ -10952,6 +11318,11 @@
             The command to bind to for sharing the QR code
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.SendPayment.SendPaymentPage">
             <summary>
             A page that allows the user to realize payments.
@@ -11615,6 +11986,11 @@
             Command to share token with other applications
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.PublishMarketplaceCommand">
+            <summary>
+            Command to publish the token on the marketplace, for sale.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OfferToSellCommand">
             <summary>
             Command to offer the token for sale.
@@ -11653,6 +12029,11 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ProfilingReportCommand">
             <summary>
             Command to display a profiling report of a state-machine.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.Title">
+            <summary>
+            Title of the current view
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.EventType">
@@ -12131,7 +12512,7 @@
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel">
             <summary>
-            The view model to bind to for when displaying the contents of a token.
+            The view model to bind to for when displaying the events of a token.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.#ctor">
@@ -12910,6 +13291,11 @@
               Looks up a localized string similar to Connection.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ContactInformation">
+            <summary>
+              Looks up a localized string similar to Contact Information.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Contacts">
             <summary>
               Looks up a localized string similar to Contacts.
@@ -13193,6 +13579,11 @@
         <member name="P:IdApp.Resx.AppResources.Enter">
             <summary>
               Looks up a localized string similar to Enter.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.EnterEMail">
+            <summary>
+              Looks up a localized string similar to e-Mail.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.EnterNewPin">
@@ -14060,6 +14451,11 @@
               Looks up a localized string similar to A PIN must not contain any word from the identity address lines..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.PinContainsEMail">
+            <summary>
+              Looks up a localized string similar to A PIN must not contain the identity e-mail address..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.PinContainsName">
             <summary>
               Looks up a localized string similar to A PIN must not contain any word from the identity names..
@@ -14233,6 +14629,11 @@
         <member name="P:IdApp.Resx.AppResources.PublicKey">
             <summary>
               Looks up a localized string similar to Public key.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PublishMarketplace">
+            <summary>
+              Looks up a localized string similar to Publish on Marketplace.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Purpose">
@@ -14695,6 +15096,16 @@
               Looks up a localized string similar to Success.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.TagEngraved">
+            <summary>
+              Looks up a localized string similar to Tag Engraved with link to {0}..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TagNotEngraved">
+            <summary>
+              Looks up a localized string similar to Unable to engrave tag with link to {0}..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.TagValueCopiedToClipboard">
             <summary>
               Looks up a localized string similar to Tag value copied to clipboard.
@@ -15095,9 +15506,9 @@
               Looks up a localized string similar to Warning.
             </summary>
         </member>
-        <member name="P:IdApp.Resx.AppResources.WelcomeToTagCodeSent">
+        <member name="P:IdApp.Resx.AppResources.WelcomeToTagEMailCodeSent">
             <summary>
-              Looks up a localized string similar to A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue..
+              Looks up a localized string similar to A code has been sent to the e-mail address indicated above. When you receive it, please enter the verification code below to continue..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.WelcomeToTagHeading">
@@ -15105,14 +15516,24 @@
               Looks up a localized string similar to Welcome to TAG Digital ID App!.
             </summary>
         </member>
-        <member name="P:IdApp.Resx.AppResources.WelcomeToTagPurposeSelected">
+        <member name="P:IdApp.Resx.AppResources.WelcomeToTagPhoneNrCodeSent">
             <summary>
-              Looks up a localized string similar to We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
+              Looks up a localized string similar to A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.WelcomeToTagSubheading">
             <summary>
               Looks up a localized string similar to Before connecting to the TAG ID network, we need to select a service provider for you. To do this, we need to know the purpose for using the app. Select the most appropriate option below..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.WelcomeToTagValidateEMail">
+            <summary>
+              Looks up a localized string similar to We also need to validate your e-mail address. Please enter your e-mail address below, without spaces..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.WelcomeToTagValidatePhoneNr">
+            <summary>
+              Looks up a localized string similar to We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Witness">
@@ -17469,6 +17890,11 @@
             Verified Phone Number
             </summary>
         </member>
+        <member name="P:IdApp.Services.TagConfiguration.EMail">
+            <summary>
+            Verified e-mail address
+            </summary>
+        </member>
         <member name="P:IdApp.Services.TagConfiguration.DefaultXmppConnectivity">
             <summary>
             If connecting to the domain can be done using default parameters (host=domain, default c2s port).
@@ -17605,6 +18031,11 @@
         <member name="P:IdApp.Services.Tag.ITagProfile.PhoneNumber">
             <summary>
             Verified phone number.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Tag.ITagProfile.EMail">
+            <summary>
+            Verified e-mail address.
             </summary>
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.DefaultXmppConnectivity">
@@ -17770,9 +18201,15 @@
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetPhone(System.String)">
             <summary>
-            Step 1 - set the domain name to connect to.
+            Step 1 - sets the phone number used for contacting the user.
             </summary>
             <param name="PhoneNumber">Verified phone number.</param>
+        </member>
+        <member name="M:IdApp.Services.Tag.ITagProfile.SetEMail(System.String)">
+            <summary>
+            Step 1 - sets the e-mail address used for contacting the user.
+            </summary>
+            <param name="EMail">Verified e-mail address.</param>
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetDomain(System.String,System.Boolean,System.String,System.String)">
             <summary>
@@ -17998,6 +18435,11 @@
             A PIN contains the legal identity phone number.
             </summary>
         </member>
+        <member name="F:IdApp.Services.Tag.PinStrength.ContainsEMail">
+            <summary>
+            A PIN contains the legal identity e-mail.
+            </summary>
+        </member>
         <member name="F:IdApp.Services.Tag.PinStrength.ContainsName">
             <summary>
             A PIN contains a word from the legal identity name.
@@ -18013,9 +18455,9 @@
             The different steps of a TAG Profile registration journey.
             </summary>
         </member>
-        <member name="F:IdApp.Services.Tag.RegistrationStep.ValidatePhoneNr">
+        <member name="F:IdApp.Services.Tag.RegistrationStep.ValidateContactInfo">
             <summary>
-            Validate Phone Number
+            Validate Phone Number and e-mail address
             </summary>
         </member>
         <member name="F:IdApp.Services.Tag.RegistrationStep.Account">
@@ -18112,6 +18554,9 @@
         <member name="P:IdApp.Services.Tag.TagProfile.PhoneNumber">
             <inheritdoc/>
         </member>
+        <member name="P:IdApp.Services.Tag.TagProfile.EMail">
+            <inheritdoc/>
+        </member>
         <member name="P:IdApp.Services.Tag.TagProfile.Account">
             <inheritdoc/>
         </member>
@@ -18185,6 +18630,9 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetPhone(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Tag.TagProfile.SetEMail(System.String)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetDomain(System.String,System.Boolean,System.String,System.String)">
