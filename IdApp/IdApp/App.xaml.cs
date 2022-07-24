@@ -155,7 +155,7 @@ namespace IdApp
 
 		private void InitLocalizationResource()
 		{
-			List<string> SupportedLanguages = new() { "en", "sv", "es", "fr", "de", "da", "no", "fi", "sr", "pt" };
+			List<string> SupportedLanguages = new() { "en", "sv", "es", "fr", "de", "da", "no", "fi", "sr", "pt", "ro", "ru" };
 
 			string SelectedLanguage = Preferences.Get("user_selected_language", null);
 
