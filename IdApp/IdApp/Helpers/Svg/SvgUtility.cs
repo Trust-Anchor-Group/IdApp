@@ -44,7 +44,7 @@ namespace IdApp.Helpers.Svg
 
 			using SKImage Image = SKImage.FromBitmap(Bitmap);
 			using SKData Encoded = Image.Encode();
-			using MemoryStream ImageStream = new();
+			MemoryStream ImageStream = new();
 
 			Encoded.SaveTo(ImageStream);
 			ImageStream.Position = 0;
