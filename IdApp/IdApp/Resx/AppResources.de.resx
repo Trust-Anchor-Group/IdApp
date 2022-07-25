@@ -1161,7 +1161,7 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Code überprüfen</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Wir müssen auch Ihre Mobiltelefonnummer validieren. Bitte geben Sie unten Ihre Mobiltelefonnummer im internationalen Telefonnummernformat ohne Leerzeichen ein.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
@@ -1179,7 +1179,7 @@
   <data name="SelectPurpose" xml:space="preserve">
     <value>Zweck auswählen</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>Ein Code wurde an die oben angegebene Nummer gesendet. Wenn Sie es erhalten, geben Sie bitte den Bestätigungscode unten ein, um fortzufahren.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
@@ -1739,5 +1739,29 @@
   </data>
   <data name="Variables" xml:space="preserve">
     <value>Variablen</value>
+  </data>
+  <data name="PublishMarketplace" xml:space="preserve">
+    <value>Auf dem Marketplace veröffentlichen</value>
+  </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Tag Graviert mit Link zu {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Tag mit Link zu {0} kann nicht graviert werden.</value>
+  </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>Eine PIN darf nicht die Identitäts-E-Mail-Adresse enthalten.</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>Wir müssen auch Ihre E-Mail-Adresse validieren. Bitte geben Sie unten Ihre E-Mail-Adresse ohne Leerzeichen ein.</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Kontaktinformationen</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>An die oben angegebene E-Mail-Adresse wurde ein Code gesendet. Wenn Sie es erhalten, geben Sie bitte den Bestätigungscode unten ein, um fortzufahren.</value>
   </data>
 </root>

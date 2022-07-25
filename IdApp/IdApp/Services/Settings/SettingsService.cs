@@ -10,7 +10,7 @@ namespace IdApp.Services.Settings
 	[Singleton]
 	internal sealed class SettingsService : ServiceReferences, ISettingsService
 	{
-		private const string WildCard = "*";
+		private const string wildCard = "*";
 
 		public SettingsService()
 		{
@@ -19,10 +19,10 @@ namespace IdApp.Services.Settings
 		private static string FormatKey(string keyPrefix)
 		{
 			if (string.IsNullOrWhiteSpace(keyPrefix))
-				return WildCard;
+				return wildCard;
 
-			if (!keyPrefix.EndsWith(WildCard))
-				keyPrefix += WildCard;
+			if (!keyPrefix.EndsWith(wildCard))
+				keyPrefix += wildCard;
 
 			return keyPrefix;
 		}
@@ -143,7 +143,7 @@ namespace IdApp.Services.Settings
 			try
 			{
 				keyPrefix = FormatKey(keyPrefix);
-				Dictionary<string, object> existingStates = (await RuntimeSettings.GetWhereKeyLikeAsync(keyPrefix, WildCard));
+				Dictionary<string, object> existingStates = (await RuntimeSettings.GetWhereKeyLikeAsync(keyPrefix, wildCard));
 
 				foreach (KeyValuePair<string, object> state in existingStates)
 				{
@@ -305,7 +305,7 @@ namespace IdApp.Services.Settings
 			try
 			{
 				keyPrefix = FormatKey(keyPrefix);
-				await RuntimeSettings.DeleteWhereKeyLikeAsync(keyPrefix, WildCard);
+				await RuntimeSettings.DeleteWhereKeyLikeAsync(keyPrefix, wildCard);
 				await Database.Provider.Flush();
 			}
 			catch (Exception e)

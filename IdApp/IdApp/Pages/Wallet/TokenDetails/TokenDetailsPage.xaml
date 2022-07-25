@@ -275,7 +275,11 @@
                 <Button Text="{x:Static resx:AppResources.Share}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                         Command="{Binding Path=ShareCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
 
-                <Button Text="{x:Static resx:AppResources.OfferToSell}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+				<Button Text="{x:Static resx:AppResources.PublishMarketplace}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                        Command="{Binding Path=PublishMarketplaceCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"
+                        IsVisible="{Binding IsMyToken}"/>
+
+				<Button Text="{x:Static resx:AppResources.OfferToSell}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                         Command="{Binding Path=OfferToSellCommand}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"
                         IsVisible="{Binding IsMyToken}"/>
 

@@ -3,7 +3,9 @@ using IdApp.DeviceSpecific;
 using IdApp.Extensions;
 using IdApp.Helpers.Svg;
 using IdApp.Pages;
+using IdApp.Pages.Main.Loading;
 using IdApp.Pages.Main.Shell;
+using IdApp.Pages.Registration.Registration;
 using IdApp.Popups.Pin.PinPopup;
 using IdApp.Resx;
 using IdApp.Services;
@@ -62,8 +64,9 @@ using Waher.Script;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using IdApp.Pages.Main.Loading;
-using IdApp.Pages.Registration.Registration;
+using System.Globalization;
+using System.Linq;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp
 {
@@ -106,6 +109,8 @@ namespace IdApp
 			// If the previous instance is null, create the app state from scratch. If not, just copy the state from the previous instance.
 			if (PreviousInstance is null)
 			{
+				this.InitLocalizationResource();
+
 				this.startupProfiler = new Profiler("App.ctor", ProfilerThreadType.Sequential);  // Comment out to remove startup profiling.
 				this.startupProfiler?.Start();
 				this.startupProfiler?.NewState("Init");
@@ -150,6 +155,27 @@ namespace IdApp
 			}
 
 			this.startupProfiler?.MainThread?.Idle();
+		}
+
+		private void InitLocalizationResource()
+		{
+			List<string> SupportedLanguages = new() { "en", "sv", "es", "fr", "de", "da", "no", "fi", "sr", "pt", "ro", "ru" };
+
+			string SelectedLanguage = Preferences.Get("user_selected_language", null);
+
+			if (SelectedLanguage is null)
+			{
+				string LanguageName = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+				string SupportedLanguage = SupportedLanguages.FirstOrDefault(el => el == LanguageName);
+				SelectedLanguage = string.IsNullOrEmpty(SupportedLanguage) ? "en" : LanguageName;
+
+				Preferences.Set("user_selected_language", SelectedLanguage);
+			}
+
+			CultureInfo[] Infos = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
+			CultureInfo SelectedInfo = Infos.First(el => el.Name == SelectedLanguage);
+
+			LocalizationResourceManager.Current.Init(AppResources.ResourceManager, SelectedInfo);
 		}
 
 		private Task<bool> Init()

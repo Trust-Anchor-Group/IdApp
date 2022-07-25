@@ -60,6 +60,11 @@
 		ContainsPhoneNumber,
 
 		/// <summary>
+		/// A PIN contains the legal identity e-mail.
+		/// </summary>
+		ContainsEMail,
+
+		/// <summary>
 		/// A PIN contains a word from the legal identity name.
 		/// </summary>
 		ContainsName,

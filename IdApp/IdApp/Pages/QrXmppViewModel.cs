@@ -8,7 +8,7 @@ namespace IdApp.Pages
     /// <summary>
     /// A view model that holds the XMPP state.
     /// </summary>
-    public class QrXmppViewModel : XmppViewModel
+    public abstract class QrXmppViewModel : XmppViewModel, ILinkableView
     {
         /// <summary>
         /// Creates an instance of a <see cref="XmppViewModel"/>.
@@ -40,6 +40,7 @@ namespace IdApp.Pages
 			this.QrCode = ImageSource.FromStream(() => new MemoryStream(Bin));
 			this.QrCodeBin = Bin;
 			this.QrCodeContentType = Constants.MimeTypes.Png;
+			this.QrCodeUri = Uri;
 			this.HasQrCode = true;
 		}
 
@@ -51,7 +52,8 @@ namespace IdApp.Pages
 			this.QrCode = null;
 			this.QrCodeBin = null;
 			this.QrCodeContentType = string.Empty;
-			this.HasQrCode = true;
+			this.QrCodeUri = null;
+			this.HasQrCode = false;
 		}
 
 		#region Properties
@@ -60,11 +62,7 @@ namespace IdApp.Pages
 		/// See <see cref="QrCodeProperty"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeProperty =
-			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(QrXmppViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
-			{
-				QrXmppViewModel viewModel = (QrXmppViewModel)b;
-				viewModel.HasQrCode = !(newValue is null);
-			});
+			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(QrXmppViewModel), default(ImageSource));
 
 		/// <summary>
 		/// Generated QR code image for the identity
@@ -88,6 +86,21 @@ namespace IdApp.Pages
 		{
 			get => (bool)this.GetValue(HasQrCodeProperty);
 			set => this.SetValue(HasQrCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="QrCodeUri"/>
+		/// </summary>
+		public static readonly BindableProperty QrCodeUriProperty =
+			BindableProperty.Create(nameof(QrCodeUri), typeof(string), typeof(QrXmppViewModel), default(string));
+
+		/// <summary>
+		/// Determines whether there's a generated <see cref="QrCode"/> image for this identity.
+		/// </summary>
+		public string QrCodeUri
+		{
+			get => (string)this.GetValue(QrCodeUriProperty);
+			set => this.SetValue(QrCodeUriProperty, value);
 		}
 
 		/// <summary>
@@ -151,5 +164,40 @@ namespace IdApp.Pages
 		}
 
 		#endregion
+
+		#region ILinkableView
+
+		/// <summary>
+		/// If the current view is linkable.
+		/// </summary>
+		public virtual bool IsLinkable => this.HasQrCode;
+
+		/// <summary>
+		/// Link to the current view
+		/// </summary>
+		public virtual string Link => this.QrCodeUri;
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public abstract Task<string> Title { get; }
+
+		/// <summary>
+		/// If linkable view has media associated with link.
+		/// </summary>
+		public virtual bool HasMedia => this.HasQrCode;
+
+		/// <summary>
+		/// Encoded media, if available.
+		/// </summary>
+		public virtual byte[] Media => this.QrCodeBin;
+
+		/// <summary>
+		/// Content-Type of associated media.
+		/// </summary>
+		public virtual string MediaContentType => this.QrCodeContentType;
+
+		#endregion
+
 	}
 }

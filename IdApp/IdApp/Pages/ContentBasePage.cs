@@ -37,7 +37,7 @@ namespace IdApp.Pages
         public BaseViewModel ViewModel
         {
             get => this.BindingContext as BaseViewModel;
-            set => this.BindingContext = value;
+            protected set => this.BindingContext = value;
         }
 
         /// <summary>

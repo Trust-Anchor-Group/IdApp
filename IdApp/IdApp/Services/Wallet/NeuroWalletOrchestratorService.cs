@@ -29,7 +29,7 @@ namespace IdApp.Services.Wallet
 		{
 			if (this.BeginLoad(cancellationToken))
 			{
-				this.XmppService.Wallet.BalanceUpdated += Wallet_BalanceUpdated;
+				this.XmppService.Wallet.BalanceUpdated += this.Wallet_BalanceUpdated;
 				this.EndLoad(true);
 			}
 
@@ -40,7 +40,7 @@ namespace IdApp.Services.Wallet
 		{
 			if (this.BeginUnload())
 			{
-				this.XmppService.Wallet.BalanceUpdated -= Wallet_BalanceUpdated;
+				this.XmppService.Wallet.BalanceUpdated -= this.Wallet_BalanceUpdated;
 				this.EndUnload();
 			}
 

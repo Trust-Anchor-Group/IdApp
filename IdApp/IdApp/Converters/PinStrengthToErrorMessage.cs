@@ -31,6 +31,7 @@ namespace IdApp.Converters
 					PinStrength.ContainsName => AppResources.PinContainsName,
 					PinStrength.ContainsPersonalNumber => AppResources.PinContainsPersonalNumber,
 					PinStrength.ContainsPhoneNumber => AppResources.PinContainsPhoneNumber,
+					PinStrength.ContainsEMail => AppResources.PinContainsEMail,
 
 					PinStrength.TooManyIdenticalSymbols => string.Format(AppResources.PinWithTooManyIdenticalSymbols, Constants.Authentication.MaxPinIdenticalSymbols),
 					PinStrength.TooManySequencedSymbols => string.Format(AppResources.PinWithTooManySequencedSymbols, Constants.Authentication.MaxPinSequencedSymbols),

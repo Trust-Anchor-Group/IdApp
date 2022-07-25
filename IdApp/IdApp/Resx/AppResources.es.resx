@@ -1161,7 +1161,7 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Verificar código</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>También necesitamos validar su número de teléfono móvil. Introduzca su número de teléfono móvil a continuación, utilizando el formato de número de teléfono internacional, sin espacios.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
@@ -1179,7 +1179,7 @@
   <data name="SelectPurpose" xml:space="preserve">
     <value>Seleccione Propósito</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>Se ha enviado un código al número indicado anteriormente. Cuando lo reciba, ingrese el código de verificación a continuación para continuar.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
@@ -1739,5 +1739,29 @@
   </data>
   <data name="Variables" xml:space="preserve">
     <value>Variables</value>
+  </data>
+  <data name="PublishMarketplace" xml:space="preserve">
+    <value>Publicar en Marketplace</value>
+  </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Etiqueta Grabada con enlace a {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>No se puede grabar la etiqueta con un enlace a {0}.</value>
+  </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>Un PIN no debe contener la dirección de correo electrónico de identidad.</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>correo electrónico</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>También necesitamos validar su dirección de correo electrónico. Por favor, introduzca su dirección de correo electrónico a continuación, sin espacios.</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Información de contacto</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>Se ha enviado un código a la dirección de correo electrónico indicada anteriormente. Cuando lo reciba, ingrese el código de verificación a continuación para continuar.</value>
   </data>
 </root>

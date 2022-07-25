@@ -1161,7 +1161,7 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Проверка кода</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Нам также необходимо подтвердить ваш номер мобильного телефона. Пожалуйста, введите свой номер мобильного телефона ниже, используя формат международного номера телефона, без пробелов.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
@@ -1179,7 +1179,7 @@
   <data name="SelectPurpose" xml:space="preserve">
     <value>Выберите цель</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>Код был отправлен на номер, указанный выше. Когда вы получите его, пожалуйста, введите проверочный код ниже, чтобы продолжить.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
@@ -1739,5 +1739,29 @@
   </data>
   <data name="Variables" xml:space="preserve">
     <value>Переменные</value>
+  </data>
+  <data name="PublishMarketplace" xml:space="preserve">
+    <value>Публикация в Marketplace</value>
+  </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Тег Выгравирован со ссылкой на {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Не удалось выгравировать тег со ссылкой на {0}.</value>
+  </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>ПИН-код не должен содержать идентификационный адрес электронной почты.</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>электронная почта</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>Нам также необходимо подтвердить ваш адрес электронной почты. Пожалуйста, введите свой адрес электронной почты ниже, без пробелов.</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Контактная информация</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>Код был отправлен на адрес электронной почты, указанный выше. Когда вы получите его, пожалуйста, введите проверочный код ниже, чтобы продолжить.</value>
   </data>
 </root>

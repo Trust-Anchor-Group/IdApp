@@ -147,15 +147,10 @@ namespace IdApp.Android
 
 			if (nfcAdapter is not null)
 			{
-				IntentFilter TagDetected = new(NfcAdapter.ActionTagDiscovered);
-				IntentFilter NDefDetected = new(NfcAdapter.ActionNdefDiscovered);
-				IntentFilter TechDetected = new(NfcAdapter.ActionTechDiscovered);
-				IntentFilter[] Filters = new IntentFilter[] { TagDetected, NDefDetected, TechDetected };
-
 				Intent Intent = new Intent(this, this.GetType()).AddFlags(ActivityFlags.SingleTop);
 
-				PendingIntent PendingIntent = PendingIntent.GetActivity(this, 0, Intent, PendingIntentFlags.Immutable | PendingIntentFlags.UpdateCurrent);
-				nfcAdapter.EnableForegroundDispatch(this, PendingIntent, Filters, null);
+				PendingIntent PendingIntent = PendingIntent.GetActivity(this, 0, Intent, 0);
+				nfcAdapter.EnableForegroundDispatch(this, PendingIntent, null, null);
 			}
 
 			this.RemoveAllNotifications();

@@ -38,7 +38,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 	/// </summary>
 	public class RegisterIdentityViewModel : RegistrationStepViewModel
 	{
-		private const string ProfilePhotoFileName = "ProfilePhoto.jpg";
+		private const string profilePhotoFileName = "ProfilePhoto.jpg";
 		private readonly string localPhotoFileName;
 		private LegalIdentityAttachment photo;
 		private readonly PhotosLoader photosLoader;
@@ -57,16 +57,16 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				this.Countries.Add(country);
 
 			this.SelectedCountry = null;
-			this.RegisterCommand = new Command(async _ => await Register(), _ => CanRegister());
-			this.TakePhotoCommand = new Command(async _ => await TakePhoto(), _ => !IsBusy);
-			this.PickPhotoCommand = new Command(async _ => await PickPhoto(), _ => !IsBusy);
-			this.EPassportCommand = new Command(async _ => await ScanPassport(), _ => !IsBusy);
-			this.RemovePhotoCommand = new Command(_ => RemovePhoto(true));
+			this.RegisterCommand = new Command(async _ => await this.Register(), _ => this.CanRegister());
+			this.TakePhotoCommand = new Command(async _ => await this.TakePhoto(), _ => !this.IsBusy);
+			this.PickPhotoCommand = new Command(async _ => await this.PickPhoto(), _ => !this.IsBusy);
+			this.EPassportCommand = new Command(async _ => await this.ScanPassport(), _ => !this.IsBusy);
+			this.RemovePhotoCommand = new Command(_ => this.RemovePhoto(true));
 
 			this.Title = AppResources.PersonalLegalInformation;
 			this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
 
-			this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ProfilePhotoFileName);
+			this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), profilePhotoFileName);
 			this.photosLoader = new PhotosLoader();
 		}
 
@@ -74,15 +74,15 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		protected override async Task DoBind()
 		{
 			await base.DoBind();
-			RegisterCommand.ChangeCanExecute();
-			this.XmppService.ConnectionStateChanged += XmppService_ConnectionStateChanged;
+			this.RegisterCommand.ChangeCanExecute();
+			this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
 		}
 
 		/// <inheritdoc />
 		protected override async Task DoUnbind()
 		{
 			this.photosLoader.CancelLoadPhotos();
-			this.XmppService.ConnectionStateChanged -= XmppService_ConnectionStateChanged;
+			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
 			await base.DoUnbind();
 		}
 
@@ -140,7 +140,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			BindableProperty.Create(nameof(Image), typeof(ImageSource), typeof(RegisterIdentityViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
 			{
 				RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
-				viewModel.HasPhoto = !(newValue is null);
+				viewModel.HasPhoto = (newValue is not null);
 			});
 
 		/// <summary>
@@ -178,19 +178,20 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public static readonly BindableProperty SelectedCountryProperty =
 			BindableProperty.Create(nameof(SelectedCountry), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
 			{
-				RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
-				viewModel.RegisterCommand.ChangeCanExecute();
-				if (!string.IsNullOrWhiteSpace(viewModel.SelectedCountry) &&
-					ISO_3166_1.TryGetCode(viewModel.SelectedCountry, out string CountryCode))
+				RegisterIdentityViewModel ViewModel = (RegisterIdentityViewModel)b;
+				ViewModel.RegisterCommand.ChangeCanExecute();
+
+				if (!string.IsNullOrWhiteSpace(ViewModel.SelectedCountry) &&
+					ISO_3166_1.TryGetCode(ViewModel.SelectedCountry, out string CountryCode))
 				{
 					string format = PersonalNumberSchemes.DisplayStringForCountry(CountryCode);
 					if (!string.IsNullOrWhiteSpace(format))
-						viewModel.PersonalNumberPlaceholder = string.Format(AppResources.PersonalNumberPlaceholder, format);
+						ViewModel.PersonalNumberPlaceholder = string.Format(AppResources.PersonalNumberPlaceholder, format);
 					else
-						viewModel.PersonalNumberPlaceholder = AppResources.PersonalNumber;
+						ViewModel.PersonalNumberPlaceholder = AppResources.PersonalNumber;
 				}
 				else
-					viewModel.PersonalNumberPlaceholder = AppResources.PersonalNumber;
+					ViewModel.PersonalNumberPlaceholder = AppResources.PersonalNumber;
 			});
 
 		/// <summary>
@@ -423,8 +424,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				SetConnectionStateAndText(e.State);
-				RegisterCommand.ChangeCanExecute();
+				this.SetConnectionStateAndText(e.State);
+				this.RegisterCommand.ChangeCanExecute();
 			});
 		}
 
@@ -436,7 +437,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private void SetConnectionStateAndText(XmppState state)
 		{
-			IsConnected = state == XmppState.Connected;
+			this.IsConnected = state == XmppState.Connected;
 			this.ConnectionStateText = state.ToDisplayText();
 		}
 
@@ -450,11 +451,11 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (Device.RuntimePlatform == Device.iOS)
 			{
-				MediaFile capturedPhoto;
+				MediaFile CapturedPhoto;
 
 				try
 				{
-					capturedPhoto = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
+					CapturedPhoto = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
 					{
 						CompressionQuality = 80,
 						RotateImage = false
@@ -466,11 +467,11 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 					return;
 				}
 
-				if (!(capturedPhoto is null))
+				if (CapturedPhoto is not null)
 				{
 					try
 					{
-						await AddPhoto(capturedPhoto.Path, true);
+						await this.AddPhoto(CapturedPhoto.Path, true);
 					}
 					catch (Exception ex)
 					{
@@ -480,12 +481,12 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			}
 			else
 			{
-				FileResult capturedPhoto;
+				FileResult CapturedPhoto;
 
 				try
 				{
-					capturedPhoto = await MediaPicker.CapturePhotoAsync();
-					if (capturedPhoto is null)
+					CapturedPhoto = await MediaPicker.CapturePhotoAsync();
+					if (CapturedPhoto is null)
 						return;
 				}
 				catch (Exception ex)
@@ -494,11 +495,11 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 					return;
 				}
 
-				if (!(capturedPhoto is null))
+				if (CapturedPhoto is not null)
 				{
 					try
 					{
-						await AddPhoto(capturedPhoto.FullPath, true);
+						await this.AddPhoto(CapturedPhoto.FullPath, true);
 					}
 					catch (Exception ex)
 					{
@@ -516,10 +517,10 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				return;
 			}
 
-			FileResult pickedPhoto = await MediaPicker.PickPhotoAsync();
+			FileResult PickedPhoto = await MediaPicker.PickPhotoAsync();
 
-			if (!(pickedPhoto is null))
-				await AddPhoto(pickedPhoto.FullPath, true);
+			if (PickedPhoto is not null)
+				await this.AddPhoto(PickedPhoto.FullPath, true);
 		}
 
 		private async Task ScanPassport()
@@ -530,11 +531,11 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (Device.RuntimePlatform == Device.iOS)
 			{
-				MediaFile capturedPhoto;
+				MediaFile CapturedPhoto;
 
 				try
 				{
-					capturedPhoto = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
+					CapturedPhoto = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
 					{
 						CompressionQuality = 80,
 						RotateImage = false
@@ -546,19 +547,19 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 					return;
 				}
 
-				if (capturedPhoto is null)
+				if (CapturedPhoto is null)
 					return;
 
-				FileName = capturedPhoto.Path;
+				FileName = CapturedPhoto.Path;
 			}
 			else
 			{
-				FileResult capturedPhoto;
+				FileResult CapturedPhoto;
 
 				try
 				{
-					capturedPhoto = await MediaPicker.CapturePhotoAsync();
-					if (capturedPhoto is null)
+					CapturedPhoto = await MediaPicker.CapturePhotoAsync();
+					if (CapturedPhoto is null)
 						return;
 				}
 				catch (Exception ex)
@@ -567,7 +568,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 					return;
 				}
 
-				FileName = capturedPhoto.FullPath;
+				FileName = CapturedPhoto.FullPath;
 			}
 
 			try
@@ -674,13 +675,13 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				return;
 			}
 
-			RemovePhoto(saveLocalCopy);
+			this.RemovePhoto(saveLocalCopy);
 
 			if (saveLocalCopy)
 			{
 				try
 				{
-					File.WriteAllBytes(localPhotoFileName, Bin);
+					File.WriteAllBytes(this.localPhotoFileName, Bin);
 				}
 				catch (Exception e)
 				{
@@ -688,44 +689,44 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				}
 			}
 
-			this.photo = new LegalIdentityAttachment(localPhotoFileName, ContentType, Bin);
+			this.photo = new LegalIdentityAttachment(this.localPhotoFileName, ContentType, Bin);
 			this.ImageRotation = Rotation;
 			this.Image = ImageSource.FromStream(() => new MemoryStream(Bin));
 
-			RegisterCommand.ChangeCanExecute();
+			this.RegisterCommand.ChangeCanExecute();
 		}
 
 		/// <summary>
 		/// Adds a photo from the specified path to use as a profile photo.
 		/// </summary>
-		/// <param name="filePath">The full path to the file.</param>
-		/// <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
-		protected internal async Task AddPhoto(string filePath, bool saveLocalCopy)
+		/// <param name="FilePath">The full path to the file.</param>
+		/// <param name="SaveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
+		protected internal async Task AddPhoto(string FilePath, bool SaveLocalCopy)
 		{
 			try
 			{
 				bool FallbackOriginal = true;
 
-				if (saveLocalCopy)
+				if (SaveLocalCopy)
 				{
 					// try to downscale and comress the image
-					using FileStream InputStream = File.OpenRead(filePath);
-					using SKData ImageData = CompressImage(InputStream);
+					using FileStream InputStream = File.OpenRead(FilePath);
+					using SKData ImageData = this.CompressImage(InputStream);
 
 					if (ImageData is not null)
 					{
 						FallbackOriginal = false;
-						await AddPhoto(ImageData.ToArray(), Constants.MimeTypes.Jpeg, 0, saveLocalCopy, true);
+						await this.AddPhoto(ImageData.ToArray(), Constants.MimeTypes.Jpeg, 0, SaveLocalCopy, true);
 					}
 				}
 
 				if (FallbackOriginal)
-				{ 
-					byte[] Bin = File.ReadAllBytes(filePath);
-					if (!InternetContent.TryGetContentType(Path.GetExtension(filePath), out string ContentType))
+				{
+					byte[] Bin = File.ReadAllBytes(FilePath);
+					if (!InternetContent.TryGetContentType(Path.GetExtension(FilePath), out string ContentType))
 						ContentType = "application/octet-stream";
 
-					await AddPhoto(Bin, ContentType, PhotosLoader.GetImageRotation(Bin), saveLocalCopy, true);
+					await this.AddPhoto(Bin, ContentType, PhotosLoader.GetImageRotation(Bin), SaveLocalCopy, true);
 				}
 			}
 			catch (Exception ex)
@@ -746,7 +747,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				SKCodec Codec = SKCodec.Create(ImageData);
 				SKBitmap SkBitmap = SKBitmap.Decode(ImageData);
 
-				SkBitmap = HandleOrientation(SkBitmap, Codec.EncodedOrigin);
+				SkBitmap = this.HandleOrientation(SkBitmap, Codec.EncodedOrigin);
 
 				bool Resize = false;
 				int Height = SkBitmap.Height;
@@ -783,59 +784,59 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			return null;
 		}
 
-		private SKBitmap HandleOrientation(SKBitmap bitmap, SKEncodedOrigin orientation)
+		private SKBitmap HandleOrientation(SKBitmap Bitmap, SKEncodedOrigin Orientation)
 		{
 			SKBitmap Rotated;
 
-			switch (orientation)
+			switch (Orientation)
 			{
 				case SKEncodedOrigin.BottomRight:
-					Rotated = new SKBitmap(bitmap.Width, bitmap.Height);
+					Rotated = new SKBitmap(Bitmap.Width, Bitmap.Height);
 
 					using (SKCanvas Surface = new(Rotated))
 					{
-						Surface.RotateDegrees(180, bitmap.Width / 2, bitmap.Height / 2);
-						Surface.DrawBitmap(bitmap, 0, 0);
+						Surface.RotateDegrees(180, Bitmap.Width / 2, Bitmap.Height / 2);
+						Surface.DrawBitmap(Bitmap, 0, 0);
 					}
 					break;
 
 				case SKEncodedOrigin.RightTop:
-					Rotated = new SKBitmap(bitmap.Height, bitmap.Width);
+					Rotated = new SKBitmap(Bitmap.Height, Bitmap.Width);
 
 					using (SKCanvas Surface = new(Rotated))
 					{
 						Surface.Translate(Rotated.Width, 0);
 						Surface.RotateDegrees(90);
-						Surface.DrawBitmap(bitmap, 0, 0);
+						Surface.DrawBitmap(Bitmap, 0, 0);
 					}
 					break;
 
 				case SKEncodedOrigin.LeftBottom:
-					Rotated = new SKBitmap(bitmap.Height, bitmap.Width);
+					Rotated = new SKBitmap(Bitmap.Height, Bitmap.Width);
 
 					using (SKCanvas Surface = new(Rotated))
 					{
 						Surface.Translate(0, Rotated.Height);
 						Surface.RotateDegrees(270);
-						Surface.DrawBitmap(bitmap, 0, 0);
+						Surface.DrawBitmap(Bitmap, 0, 0);
 					}
 					break;
 
 				default:
-					return bitmap;
+					return Bitmap;
 			}
 
 			return Rotated;
 		}
 
-		private void RemovePhoto(bool removeFileOnDisc)
+		private void RemovePhoto(bool RemoveFileOnDisc)
 		{
 			try
 			{
 				this.photo = null;
-				Image = null;
+				this.Image = null;
 
-				if (removeFileOnDisc && File.Exists(this.localPhotoFileName))
+				if (RemoveFileOnDisc && File.Exists(this.localPhotoFileName))
 					File.Delete(this.localPhotoFileName);
 			}
 			catch (Exception e)
@@ -849,9 +850,9 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (!(await this.ValidateInput(true)))
 				return;
 
-			string countryCode = ISO_3166_1.ToCode(this.SelectedCountry);
-			string pnrBeforeValidation = PersonalNumber.Trim();
-			NumberInformation NumberInfo = await PersonalNumberSchemes.Validate(countryCode, pnrBeforeValidation);
+			string CountryCode = ISO_3166_1.ToCode(this.SelectedCountry);
+			string PnrBeforeValidation = this.PersonalNumber.Trim();
+			NumberInformation NumberInfo = await PersonalNumberSchemes.Validate(CountryCode, PnrBeforeValidation);
 
 			if (NumberInfo.IsValid.HasValue && !NumberInfo.IsValid.Value)
 			{
@@ -863,7 +864,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				return;
 			}
 
-			if (NumberInfo.PersonalNumber != pnrBeforeValidation)
+			if (NumberInfo.PersonalNumber != PnrBeforeValidation)
 				this.PersonalNumber = NumberInfo.PersonalNumber;
 
 			if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
@@ -890,21 +891,23 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				return;
 			}
 
-			SetIsBusy(RegisterCommand, TakePhotoCommand, PickPhotoCommand, EPassportCommand);
+			this.SetIsBusy(this.RegisterCommand, this.TakePhotoCommand, this.PickPhotoCommand, this.EPassportCommand);
 
 			try
 			{
-				RegisterIdentityModel model = CreateRegisterModel();
-				LegalIdentityAttachment[] photos = { this.photo };
-				(bool succeeded, LegalIdentity addedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.AddLegalIdentity(model, photos));
-				if (succeeded)
+				RegisterIdentityModel IdentityModel = this.CreateRegisterModel();
+				LegalIdentityAttachment[] Photos = { this.photo };
+
+				(bool Succeeded, LegalIdentity AddedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.AddLegalIdentity(IdentityModel, Photos));
+
+				if (Succeeded)
 				{
-					this.LegalIdentity = addedIdentity;
+					this.LegalIdentity = AddedIdentity;
 					this.TagProfile.SetLegalIdentity(this.LegalIdentity);
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
-						SetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand, EPassportCommand);
-						OnStepCompleted(EventArgs.Empty);
+						this.SetIsDone(this.RegisterCommand, this.TakePhotoCommand, this.PickPhotoCommand, this.EPassportCommand);
+						this.OnStepCompleted(EventArgs.Empty);
 					});
 				}
 			}
@@ -915,64 +918,78 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			}
 			finally
 			{
-				BeginInvokeSetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand, EPassportCommand);
+				this.BeginInvokeSetIsDone(this.RegisterCommand, this.TakePhotoCommand, this.PickPhotoCommand, this.EPassportCommand);
 			}
 		}
 
 		private bool CanRegister()
 		{
 			// Ok to 'wait' on, since we're not actually waiting on anything.
-			return ValidateInput(false).GetAwaiter().GetResult() && this.XmppService.IsOnline;
+			return this.ValidateInput(false).GetAwaiter().GetResult() && this.XmppService.IsOnline;
 		}
 
 		private RegisterIdentityModel CreateRegisterModel()
 		{
+			RegisterIdentityModel IdentityModel = new();
 			string s;
-			RegisterIdentityModel model = new();
+
 			if (!string.IsNullOrWhiteSpace(s = this.FirstName?.Trim()))
-				model.FirstName = s;
+				IdentityModel.FirstName = s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.MiddleNames?.Trim()))
-				model.MiddleNames = s;
+				IdentityModel.MiddleNames = s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.LastNames?.Trim()))
-				model.LastNames = s;
+				IdentityModel.LastNames = s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.PersonalNumber?.Trim()))
-				model.PersonalNumber = s;
+				IdentityModel.PersonalNumber = s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.Address?.Trim()))
-				model.Address = s;
+				IdentityModel.Address = s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.Address2?.Trim()))
-				model.Address2 = s;
+				IdentityModel.Address2 = s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.ZipCode?.Trim()))
-				model.ZipCode = s;
+				IdentityModel.ZipCode = s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.Area?.Trim()))
-				model.Area = s;
+				IdentityModel.Area = s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.City?.Trim()))
-				model.City = s;
+				IdentityModel.City = s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.Region?.Trim()))
-				model.Region = s;
+				IdentityModel.Region = s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.SelectedCountry?.Trim()))
-				model.Country = s;
+				IdentityModel.Country = s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.TagProfile?.PhoneNumber?.Trim()))
-				model.PhoneNr = s;
+			{
+				if (string.IsNullOrWhiteSpace(s) && !(this.TagProfile.LegalIdentity is null))
+					s = this.TagProfile.LegalIdentity[Constants.XmppProperties.Phone];
 
-			return model;
+				IdentityModel.PhoneNr = s;
+			}
+
+			if (!string.IsNullOrWhiteSpace(s = this.TagProfile?.EMail?.Trim()))
+			{
+				if (string.IsNullOrWhiteSpace(s) && !(this.TagProfile.LegalIdentity is null))
+					s = this.TagProfile.LegalIdentity[Constants.XmppProperties.EMail];
+
+				IdentityModel.EMail = s;
+			}
+
+			return IdentityModel;
 		}
 
-		private async Task<bool> ValidateInput(bool alertUser)
+		private async Task<bool> ValidateInput(bool AlertUser)
 		{
 			if (string.IsNullOrWhiteSpace(this.FirstName?.Trim()))
 			{
-				if (alertUser)
+				if (AlertUser)
 					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAFirstName);
 
 				return false;
@@ -980,7 +997,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (string.IsNullOrWhiteSpace(this.LastNames?.Trim()))
 			{
-				if (alertUser)
+				if (AlertUser)
 					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideALastName);
 
 				return false;
@@ -988,7 +1005,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (string.IsNullOrWhiteSpace(this.PersonalNumber?.Trim()))
 			{
-				if (alertUser)
+				if (AlertUser)
 					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPersonalNumber);
 
 				return false;
@@ -996,15 +1013,16 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (string.IsNullOrWhiteSpace(this.SelectedCountry))
 			{
-				if (alertUser)
+				if (AlertUser)
 					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideACountry);
 
 				return false;
 			}
 
-			if (this.photo is null && alertUser)
+			if (this.photo is null)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPhoto);
+				if (AlertUser)
+					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPhoto);
 
 				return false;
 			}
@@ -1016,33 +1034,33 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		protected override async Task DoSaveState()
 		{
 			await base.DoSaveState();
-			await this.SettingsService.SaveState(GetSettingsKey(nameof(SelectedCountry)), this.SelectedCountry);
-			await this.SettingsService.SaveState(GetSettingsKey(nameof(FirstName)), this.FirstName);
-			await this.SettingsService.SaveState(GetSettingsKey(nameof(MiddleNames)), this.MiddleNames);
-			await this.SettingsService.SaveState(GetSettingsKey(nameof(LastNames)), this.LastNames);
-			await this.SettingsService.SaveState(GetSettingsKey(nameof(PersonalNumber)), this.PersonalNumber);
-			await this.SettingsService.SaveState(GetSettingsKey(nameof(Address)), this.Address);
-			await this.SettingsService.SaveState(GetSettingsKey(nameof(Address2)), this.Address2);
-			await this.SettingsService.SaveState(GetSettingsKey(nameof(Area)), this.Area);
-			await this.SettingsService.SaveState(GetSettingsKey(nameof(City)), this.City);
-			await this.SettingsService.SaveState(GetSettingsKey(nameof(ZipCode)), this.ZipCode);
-			await this.SettingsService.SaveState(GetSettingsKey(nameof(Region)), this.Region);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.SelectedCountry)), this.SelectedCountry);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.FirstName)), this.FirstName);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.MiddleNames)), this.MiddleNames);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.LastNames)), this.LastNames);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.PersonalNumber)), this.PersonalNumber);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.Address)), this.Address);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.Address2)), this.Address2);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.Area)), this.Area);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.City)), this.City);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.ZipCode)), this.ZipCode);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.Region)), this.Region);
 		}
 
 		/// <inheritdoc />
 		protected override async Task DoRestoreState()
 		{
-			this.SelectedCountry = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(SelectedCountry)));
-			this.FirstName = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(FirstName)));
-			this.MiddleNames = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(MiddleNames)));
-			this.LastNames = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(LastNames)));
-			this.PersonalNumber = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(PersonalNumber)));
-			this.Address = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(Address)));
-			this.Address2 = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(Address2)));
-			this.Area = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(Area)));
-			this.City = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(City)));
-			this.ZipCode = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(ZipCode)));
-			this.Region = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(Region)));
+			this.SelectedCountry = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.SelectedCountry)));
+			this.FirstName = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.FirstName)));
+			this.MiddleNames = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.MiddleNames)));
+			this.LastNames = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.LastNames)));
+			this.PersonalNumber = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.PersonalNumber)));
+			this.Address = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.Address)));
+			this.Address2 = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.Address2)));
+			this.Area = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.Area)));
+			this.City = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.City)));
+			this.ZipCode = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.ZipCode)));
+			this.Region = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.Region)));
 
 			try
 			{
@@ -1060,7 +1078,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// <inheritdoc />
 		public override void ClearStepState()
 		{
-			RemovePhoto(true);
+			this.RemovePhoto(true);
 
 			this.SelectedCountry = null;
 			this.FirstName = string.Empty;
@@ -1074,17 +1092,17 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			this.ZipCode = string.Empty;
 			this.Region = string.Empty;
 
-			this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedCountry)));
-			this.SettingsService.RemoveState(GetSettingsKey(nameof(FirstName)));
-			this.SettingsService.RemoveState(GetSettingsKey(nameof(MiddleNames)));
-			this.SettingsService.RemoveState(GetSettingsKey(nameof(LastNames)));
-			this.SettingsService.RemoveState(GetSettingsKey(nameof(PersonalNumber)));
-			this.SettingsService.RemoveState(GetSettingsKey(nameof(Address)));
-			this.SettingsService.RemoveState(GetSettingsKey(nameof(Address2)));
-			this.SettingsService.RemoveState(GetSettingsKey(nameof(Area)));
-			this.SettingsService.RemoveState(GetSettingsKey(nameof(City)));
-			this.SettingsService.RemoveState(GetSettingsKey(nameof(ZipCode)));
-			this.SettingsService.RemoveState(GetSettingsKey(nameof(Region)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedCountry)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.FirstName)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.MiddleNames)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.LastNames)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.PersonalNumber)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.Address)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.Address2)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.Area)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.City)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.ZipCode)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.Region)));
 		}
 
 		/// <summary>
@@ -1092,27 +1110,27 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// </summary>
 		public virtual void PopulateFromTagProfile()
 		{
-			LegalIdentity identity = this.TagProfile.LegalIdentity;
-			if (!(identity is null))
+			LegalIdentity Identity = this.TagProfile.LegalIdentity;
+
+			if (Identity is not null)
 			{
-				this.FirstName = identity[Constants.XmppProperties.FirstName];
-				this.MiddleNames = identity[Constants.XmppProperties.MiddleName];
-				this.LastNames = identity[Constants.XmppProperties.LastName];
-				this.PersonalNumber = identity[Constants.XmppProperties.PersonalNumber];
-				this.Address = identity[Constants.XmppProperties.Address];
-				this.Address2 = identity[Constants.XmppProperties.Address2];
-				this.ZipCode = identity[Constants.XmppProperties.ZipCode];
-				this.Area = identity[Constants.XmppProperties.Area];
-				this.City = identity[Constants.XmppProperties.City];
-				this.Region = identity[Constants.XmppProperties.Region];
-				string CountryCode = identity[Constants.XmppProperties.Country];
-				string PhoneNr = this.TagProfile.PhoneNumber ?? identity[Constants.XmppProperties.Phone];
+				this.FirstName = Identity[Constants.XmppProperties.FirstName];
+				this.MiddleNames = Identity[Constants.XmppProperties.MiddleName];
+				this.LastNames = Identity[Constants.XmppProperties.LastName];
+				this.PersonalNumber = Identity[Constants.XmppProperties.PersonalNumber];
+				this.Address = Identity[Constants.XmppProperties.Address];
+				this.Address2 = Identity[Constants.XmppProperties.Address2];
+				this.ZipCode = Identity[Constants.XmppProperties.ZipCode];
+				this.Area = Identity[Constants.XmppProperties.Area];
+				this.City = Identity[Constants.XmppProperties.City];
+				this.Region = Identity[Constants.XmppProperties.Region];
+				string CountryCode = Identity[Constants.XmppProperties.Country];
 
 				if (!string.IsNullOrWhiteSpace(CountryCode) && ISO_3166_1.TryGetCountry(CountryCode, out string Country))
 					this.SelectedCountry = Country;
 
-				Attachment FirstAttachment = identity.Attachments?.GetFirstImageAttachment();
-				if (!(FirstAttachment is null))
+				Attachment FirstAttachment = Identity.Attachments?.GetFirstImageAttachment();
+				if (FirstAttachment is not null)
 				{
 					// Don't await this one, just let it run asynchronously.
 					this.photosLoader
@@ -1120,7 +1138,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 						.ContinueWith(task =>
 						{
 							(byte[] Bin, string ContentType, int Rotation) = task.Result;
-							if (!(Bin is null))
+							if (Bin is not null)
 							{
 								if (!this.IsBound) // Page no longer on screen when download is done?
 									return;

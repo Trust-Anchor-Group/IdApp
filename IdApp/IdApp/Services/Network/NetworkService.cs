@@ -20,8 +20,8 @@ namespace IdApp.Services.Network
 	[Singleton]
 	internal class NetworkService : LoadableService, INetworkService
 	{
-		private const int DefaultXmppPortNumber = 5222;
-
+		private const int defaultXmppPortNumber = 5222;
+		
 		public event EventHandler<ConnectivityChangedEventArgs> ConnectivityChanged;
 
 		public NetworkService()
@@ -34,7 +34,7 @@ namespace IdApp.Services.Network
 			if (this.BeginLoad(cancellationToken))
 			{
 				if (DeviceInfo.Platform != DevicePlatform.Unknown && !DesignMode.IsDesignModeEnabled) // Need to check this, as Xamarin.Essentials doesn't work in unit tests. It has no effect when running on a real phone.
-					Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
+					Connectivity.ConnectivityChanged += this.Connectivity_ConnectivityChanged;
 
 				this.EndLoad(true);
 			}
@@ -48,7 +48,7 @@ namespace IdApp.Services.Network
 			if (this.BeginUnload())
 			{
 				if (DeviceInfo.Platform != DevicePlatform.Unknown)
-					Connectivity.ConnectivityChanged -= Connectivity_ConnectivityChanged;
+					Connectivity.ConnectivityChanged -= this.Connectivity_ConnectivityChanged;
 
 				this.EndUnload();
 			}
@@ -68,7 +68,7 @@ namespace IdApp.Services.Network
 		public async Task<(string hostName, int port, bool isIpAddress)> LookupXmppHostnameAndPort(string domainName)
 		{
 			if (IPAddress.TryParse(domainName, out IPAddress _))
-				return (domainName, DefaultXmppPortNumber, true);
+				return (domainName, defaultXmppPortNumber, true);
 
 			try
 			{
@@ -81,12 +81,12 @@ namespace IdApp.Services.Network
 				// No service endpoint registered
 			}
 
-			return (domainName, DefaultXmppPortNumber, false);
+			return (domainName, defaultXmppPortNumber, false);
 		}
 
 		public async Task<bool> TryRequest(Func<Task> func, bool rethrowException = false, bool displayAlert = true, [CallerMemberName] string memberName = "")
 		{
-			(bool succeeded, bool _) = await PerformRequestInner(async () =>
+			(bool succeeded, bool _) = await this.PerformRequestInner(async () =>
 			{
 				await func();
 				return true;
@@ -97,7 +97,7 @@ namespace IdApp.Services.Network
 
 		public Task<(bool Succeeded, TReturn ReturnValue)> TryRequest<TReturn>(Func<Task<TReturn>> func, bool rethrowException = false, bool displayAlert = true, [CallerMemberName] string memberName = "")
 		{
-			return PerformRequestInner(async () => await func(), memberName, rethrowException, displayAlert);
+			return this.PerformRequestInner(async () => await func(), memberName, rethrowException, displayAlert);
 		}
 
 		private async Task<(bool Succeeded, TReturn ReturnValue)> PerformRequestInner<TReturn>(Func<Task<TReturn>> func, string memberName, bool rethrowException = false, bool displayAlert = true)

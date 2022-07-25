@@ -637,6 +637,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact Information.
+        /// </summary>
+        internal static string ContactInformation {
+            get {
+                return ResourceManager.GetString("ContactInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contacts.
         /// </summary>
         internal static string Contacts {
@@ -1146,6 +1155,15 @@ namespace IdApp.Resx {
         internal static string Enter {
             get {
                 return ResourceManager.GetString("Enter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e-Mail.
+        /// </summary>
+        internal static string EnterEMail {
+            get {
+                return ResourceManager.GetString("EnterEMail", resourceCulture);
             }
         }
         
@@ -2707,6 +2725,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A PIN must not contain the identity e-mail address..
+        /// </summary>
+        internal static string PinContainsEMail {
+            get {
+                return ResourceManager.GetString("PinContainsEMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A PIN must not contain any word from the identity names..
         /// </summary>
         internal static string PinContainsName {
@@ -3018,6 +3045,15 @@ namespace IdApp.Resx {
         internal static string PublicKey {
             get {
                 return ResourceManager.GetString("PublicKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish on Marketplace.
+        /// </summary>
+        internal static string PublishMarketplace {
+            get {
+                return ResourceManager.GetString("PublishMarketplace", resourceCulture);
             }
         }
         
@@ -3850,6 +3886,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tag Engraved with link to {0}..
+        /// </summary>
+        internal static string TagEngraved {
+            get {
+                return ResourceManager.GetString("TagEngraved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to engrave tag with link to {0}..
+        /// </summary>
+        internal static string TagNotEngraved {
+            get {
+                return ResourceManager.GetString("TagNotEngraved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tag value copied to clipboard.
         /// </summary>
         internal static string TagValueCopiedToClipboard {
@@ -4570,11 +4624,11 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue..
+        ///   Looks up a localized string similar to A code has been sent to the e-mail address indicated above. When you receive it, please enter the verification code below to continue..
         /// </summary>
-        internal static string WelcomeToTagCodeSent {
+        internal static string WelcomeToTagEMailCodeSent {
             get {
-                return ResourceManager.GetString("WelcomeToTagCodeSent", resourceCulture);
+                return ResourceManager.GetString("WelcomeToTagEMailCodeSent", resourceCulture);
             }
         }
         
@@ -4588,11 +4642,11 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
+        ///   Looks up a localized string similar to A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue..
         /// </summary>
-        internal static string WelcomeToTagPurposeSelected {
+        internal static string WelcomeToTagPhoneNrCodeSent {
             get {
-                return ResourceManager.GetString("WelcomeToTagPurposeSelected", resourceCulture);
+                return ResourceManager.GetString("WelcomeToTagPhoneNrCodeSent", resourceCulture);
             }
         }
         
@@ -4602,6 +4656,24 @@ namespace IdApp.Resx {
         internal static string WelcomeToTagSubheading {
             get {
                 return ResourceManager.GetString("WelcomeToTagSubheading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We also need to validate your e-mail address. Please enter your e-mail address below, without spaces..
+        /// </summary>
+        internal static string WelcomeToTagValidateEMail {
+            get {
+                return ResourceManager.GetString("WelcomeToTagValidateEMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
+        /// </summary>
+        internal static string WelcomeToTagValidatePhoneNr {
+            get {
+                return ResourceManager.GetString("WelcomeToTagValidatePhoneNr", resourceCulture);
             }
         }
         

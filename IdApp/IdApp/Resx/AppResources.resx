@@ -1161,7 +1161,7 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Verify Code</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
@@ -1179,7 +1179,7 @@
   <data name="SelectPurpose" xml:space="preserve">
     <value>Select Purpose</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
@@ -1739,5 +1739,29 @@
   </data>
   <data name="Variables" xml:space="preserve">
     <value>Variables</value>
+  </data>
+  <data name="PublishMarketplace" xml:space="preserve">
+    <value>Publish on Marketplace</value>
+  </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Tag Engraved with link to {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Unable to engrave tag with link to {0}.</value>
+  </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>A PIN must not contain the identity e-mail address.</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>e-Mail</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>We also need to validate your e-mail address. Please enter your e-mail address below, without spaces.</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Contact Information</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>A code has been sent to the e-mail address indicated above. When you receive it, please enter the verification code below to continue.</value>
   </data>
 </root>

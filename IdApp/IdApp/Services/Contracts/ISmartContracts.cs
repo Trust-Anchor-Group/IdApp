@@ -42,10 +42,10 @@ namespace IdApp.Services.Contracts
         /// <summary>
         /// Adds a legal identity.
         /// </summary>
-        /// <param name="model">The model holding all the values needed.</param>
-        /// <param name="attachments">The physical attachments to upload.</param>
+        /// <param name="Model">The model holding all the values needed.</param>
+        /// <param name="Attachments">The physical attachments to upload.</param>
         /// <returns>Legal Identity</returns>
-        Task<LegalIdentity> AddLegalIdentity(RegisterIdentityModel model, params LegalIdentityAttachment[] attachments);
+        Task<LegalIdentity> AddLegalIdentity(RegisterIdentityModel Model, params LegalIdentityAttachment[] Attachments);
 
         /// <summary>
         /// Returns a list of legal identities.
@@ -93,19 +93,19 @@ namespace IdApp.Services.Contracts
         /// <summary>
         /// Petitions a legal identity.
         /// </summary>
-        /// <param name="legalId">The id of the legal identity.</param>
-        /// <param name="petitionId">The petition id.</param>
-        /// <param name="purpose">The purpose of the petitioning.</param>
-        Task PetitionIdentity(CaseInsensitiveString legalId, string petitionId, string purpose);
+        /// <param name="LegalId">The id of the legal identity.</param>
+        /// <param name="PetitionId">The petition id.</param>
+        /// <param name="Purpose">The purpose of the petitioning.</param>
+        Task PetitionIdentity(CaseInsensitiveString LegalId, string PetitionId, string Purpose);
 
         /// <summary>
         /// Sends a response to a petitioning identity request.
         /// </summary>
-        /// <param name="legalId">The id of the legal identity.</param>
-        /// <param name="petitionId">The petition id.</param>
-        /// <param name="requestorFullJid">The full Jid of the requestor.</param>
-        /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
-        Task SendPetitionIdentityResponse(CaseInsensitiveString legalId, string petitionId, string requestorFullJid, bool response);
+        /// <param name="LegalId">The id of the legal identity.</param>
+        /// <param name="PetitionId">The petition id.</param>
+        /// <param name="RequestorFullJid">The full Jid of the requestor.</param>
+        /// <param name="Response">If the petition is accepted (true) or rejected (false).</param>
+        Task SendPetitionIdentityResponse(CaseInsensitiveString LegalId, string PetitionId, string RequestorFullJid, bool Response);
 
         /// <summary>
         /// An event that fires when a legal identity changes.
@@ -129,9 +129,9 @@ namespace IdApp.Services.Contracts
         /// <summary>
         /// Gets the contract with the specified id.
         /// </summary>
-        /// <param name="contractId">The contract id.</param>
+        /// <param name="ContractId">The contract id.</param>
         /// <returns>Smart Contract</returns>
-        Task<Contract> GetContract(CaseInsensitiveString contractId);
+        Task<Contract> GetContract(CaseInsensitiveString ContractId);
         
         /// <summary>
         /// Gets created contracts.
@@ -154,70 +154,70 @@ namespace IdApp.Services.Contracts
         /// <summary>
         /// Signs a given contract.
         /// </summary>
-        /// <param name="contract">The contract to sign.</param>
-        /// <param name="role">The role of the signer.</param>
-        /// <param name="transferable">Whether the contract is transferable or not.</param>
+        /// <param name="Contract">The contract to sign.</param>
+        /// <param name="Role">The role of the signer.</param>
+        /// <param name="Transferable">Whether the contract is transferable or not.</param>
         /// <returns>Smart Contract</returns>
-        Task<Contract> SignContract(Contract contract, string role, bool transferable);
+        Task<Contract> SignContract(Contract Contract, string Role, bool Transferable);
 
         /// <summary>
         /// Obsoletes a contract.
         /// </summary>
-        /// <param name="contractId">The id of the contract to obsolete.</param>
+        /// <param name="ContractId">The id of the contract to obsolete.</param>
         /// <returns>Smart Contract</returns>
-        Task<Contract> ObsoleteContract(CaseInsensitiveString contractId);
+        Task<Contract> ObsoleteContract(CaseInsensitiveString ContractId);
 
         /// <summary>
         /// Creates a new contract.
         /// </summary>
-        /// <param name="templateId">The id of the contract template to use.</param>
-        /// <param name="parts">The individual contract parts.</param>
-        /// <param name="parameters">Contract parameters.</param>
-        /// <param name="visibility">The contract's visibility.</param>
-        /// <param name="partsMode">The contract's parts.</param>
-        /// <param name="duration">Duration of the contract.</param>
-        /// <param name="archiveRequired">Required duration for contract archival.</param>
-        /// <param name="archiveOptional">Optional duration for contract archival.</param>
-        /// <param name="signAfter">Timestamp of when the contract can be signed at the earliest.</param>
-        /// <param name="signBefore">Timestamp of when the contract can be signed at the latest.</param>
-        /// <param name="canActAsTemplate">Can this contract act as a template itself?</param>
+        /// <param name="TemplateId">The id of the contract template to use.</param>
+        /// <param name="Parts">The individual contract parts.</param>
+        /// <param name="Parameters">Contract parameters.</param>
+        /// <param name="Visibility">The contract's visibility.</param>
+        /// <param name="PartsMode">The contract's parts.</param>
+        /// <param name="Duration">Duration of the contract.</param>
+        /// <param name="ArchiveRequired">Required duration for contract archival.</param>
+        /// <param name="ArchiveOptional">Optional duration for contract archival.</param>
+        /// <param name="SignAfter">Timestamp of when the contract can be signed at the earliest.</param>
+        /// <param name="SignBefore">Timestamp of when the contract can be signed at the latest.</param>
+        /// <param name="CanActAsTemplate">Can this contract act as a template itself?</param>
         /// <returns>Smart Contract</returns>
         Task<Contract> CreateContract(
-            CaseInsensitiveString templateId,
-            Part[] parts,
-            Parameter[] parameters,
-            ContractVisibility visibility,
-            ContractParts partsMode,
-            Duration duration,
-            Duration archiveRequired,
-            Duration archiveOptional,
-            DateTime? signAfter,
-            DateTime? signBefore,
-            bool canActAsTemplate);
+            CaseInsensitiveString TemplateId,
+            Part[] Parts,
+            Parameter[] Parameters,
+            ContractVisibility Visibility,
+            ContractParts PartsMode,
+            Duration Duration,
+            Duration ArchiveRequired,
+            Duration ArchiveOptional,
+            DateTime? SignAfter,
+            DateTime? SignBefore,
+            bool CanActAsTemplate);
 
         /// <summary>
         /// Deletes a contract.
         /// </summary>
-        /// <param name="contractId">The id of the contract to delete.</param>
+        /// <param name="ContractId">The id of the contract to delete.</param>
         /// <returns>Smart Contract</returns>
-        Task<Contract> DeleteContract(CaseInsensitiveString contractId);
+        Task<Contract> DeleteContract(CaseInsensitiveString ContractId);
 
         /// <summary>
         /// Petitions a contract with the specified id and purpose.
         /// </summary>
-        /// <param name="contractId">The contract id.</param>
-        /// <param name="petitionId">The petition id.</param>
-        /// <param name="purpose">The purpose.</param>
-        Task PetitionContract(CaseInsensitiveString contractId, string petitionId, string purpose);
+        /// <param name="ContractId">The contract id.</param>
+        /// <param name="PetitionId">The petition id.</param>
+        /// <param name="Purpose">The purpose.</param>
+        Task PetitionContract(CaseInsensitiveString ContractId, string PetitionId, string Purpose);
 
         /// <summary>
         /// Sends a response to a petitioning contract request.
         /// </summary>
-        /// <param name="contractId">The id of the contract.</param>
-        /// <param name="petitionId">The petition id.</param>
-        /// <param name="requestorFullJid">The full Jid of the requestor.</param>
-        /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
-        Task SendPetitionContractResponse(CaseInsensitiveString contractId, string petitionId, string requestorFullJid, bool response);
+        /// <param name="ContractId">The id of the contract.</param>
+        /// <param name="PetitionId">The petition id.</param>
+        /// <param name="RequestorFullJid">The full Jid of the requestor.</param>
+        /// <param name="Response">If the petition is accepted (true) or rejected (false).</param>
+        Task SendPetitionContractResponse(CaseInsensitiveString ContractId, string PetitionId, string RequestorFullJid, bool Response);
 
         /// <summary>
         /// An event that fires when a petition for a contract is received.
@@ -243,11 +243,11 @@ namespace IdApp.Services.Contracts
         /// <summary>
         /// Gets an attachment for a contract.
         /// </summary>
-        /// <param name="url">The url of the attachment.</param>
-        /// <param name="timeout">Max timeout allowed when retrieving an attachment.</param>
-        /// <param name="signWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
+        /// <param name="Url">The url of the attachment.</param>
+        /// <param name="Timeout">Max timeout allowed when retrieving an attachment.</param>
+        /// <param name="SignWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
         /// <returns>Content-Type, and attachment file.</returns>
-        Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string url, SignWith signWith, TimeSpan timeout);
+        Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string Url, SignWith SignWith, TimeSpan Timeout);
 
         #endregion
 
@@ -256,20 +256,20 @@ namespace IdApp.Services.Contracts
         /// <summary>
         /// Sends a petition to a third-party to review a legal identity.
         /// </summary>
-        /// <param name="legalId">The legal id to petition.</param>
-        /// <param name="identity">The legal id to peer review.</param>
-        /// <param name="petitionId">The petition id.</param>
-        /// <param name="purpose">The purpose.</param>
-        Task PetitionPeerReviewId(CaseInsensitiveString legalId, LegalIdentity identity, string petitionId, string purpose);
+        /// <param name="LegalId">The legal id to petition.</param>
+        /// <param name="Identity">The legal id to peer review.</param>
+        /// <param name="PetitionId">The petition id.</param>
+        /// <param name="Purpose">The purpose.</param>
+        Task PetitionPeerReviewId(CaseInsensitiveString LegalId, LegalIdentity Identity, string PetitionId, string Purpose);
 
         /// <summary>
         /// Adds an attachment for the peer review.
         /// </summary>
-        /// <param name="identity">The identity to which the attachment should be added.</param>
-        /// <param name="reviewerLegalIdentity">The identity of the reviewer.</param>
-        /// <param name="peerSignature">The raw signature data.</param>
+        /// <param name="Identity">The identity to which the attachment should be added.</param>
+        /// <param name="ReviewerLegalIdentity">The identity of the reviewer.</param>
+        /// <param name="PeerSignature">The raw signature data.</param>
         /// <returns>Legal Identity</returns>
-        Task<LegalIdentity> AddPeerReviewIdAttachment(LegalIdentity identity, LegalIdentity reviewerLegalIdentity, byte[] peerSignature);
+        Task<LegalIdentity> AddPeerReviewIdAttachment(LegalIdentity Identity, LegalIdentity ReviewerLegalIdentity, byte[] PeerSignature);
 
         /// <summary>
         /// An event that fires when a petition for peer review is received.
@@ -312,14 +312,14 @@ namespace IdApp.Services.Contracts
         /// <summary>
         /// Sends a response to a petitioning signature request.
         /// </summary>
-        /// <param name="legalId">Legal Identity petitioned.</param>
-        /// <param name="content">Content to be signed.</param>
-        /// <param name="signature">Digital signature of content, made by the legal identity.</param>
-        /// <param name="petitionId">A petition identifier. This identifier will follow the petition, and can be used
+        /// <param name="LegalId">Legal Identity petitioned.</param>
+        /// <param name="Content">Content to be signed.</param>
+        /// <param name="Signature">Digital signature of content, made by the legal identity.</param>
+        /// <param name="PetitionId">A petition identifier. This identifier will follow the petition, and can be used
         /// to identify the petition request.</param>
-        /// <param name="requestorFullJid">Full JID of requestor.</param>
-        /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
-        Task SendPetitionSignatureResponse(CaseInsensitiveString legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response);
+        /// <param name="RequestorFullJid">Full JID of requestor.</param>
+        /// <param name="Response">If the petition is accepted (true) or rejected (false).</param>
+        Task SendPetitionSignatureResponse(CaseInsensitiveString LegalId, byte[] Content, byte[] Signature, string PetitionId, string RequestorFullJid, bool Response);
 
         /// <summary>
         /// An event that fires when a petition for a signature is received.

@@ -1161,7 +1161,7 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Verificați codul</value>
   </data>
-  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+  <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>De asemenea, trebuie să vă validăm numărul de telefon mobil. Vă rugăm să introduceți numărul de telefon mobil de mai jos, folosind formatul internațional al numărului de telefon, fără spații.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
@@ -1179,7 +1179,7 @@
   <data name="SelectPurpose" xml:space="preserve">
     <value>Selectați Scop</value>
   </data>
-  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+  <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>Un cod a fost trimis la numărul indicat mai sus. Când îl primiți, vă rugăm să introduceți codul de verificare de mai jos pentru a continua.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
@@ -1739,5 +1739,29 @@
   </data>
   <data name="Variables" xml:space="preserve">
     <value>Variabile</value>
+  </data>
+  <data name="PublishMarketplace" xml:space="preserve">
+    <value>Publicarea pe Marketplace</value>
+  </data>
+  <data name="TagEngraved" xml:space="preserve">
+    <value>Tag gravate cu link-ul de a {0}.</value>
+  </data>
+  <data name="TagNotEngraved" xml:space="preserve">
+    <value>Imposibil de gravat tag-ul cu link-ul la {0}.</value>
+  </data>
+  <data name="PinContainsEMail" xml:space="preserve">
+    <value>Un cod PIN nu trebuie să conțină adresa de e-mail de identitate.</value>
+  </data>
+  <data name="EnterEMail" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="WelcomeToTagValidateEMail" xml:space="preserve">
+    <value>De asemenea, trebuie să vă validăm adresa de e-mail. Vă rugăm să introduceți adresa de e-mail de mai jos, fără spații.</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Informații de contact</value>
+  </data>
+  <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
+    <value>Un cod a fost trimis la adresa de e-mail indicată mai sus. Când îl primiți, vă rugăm să introduceți codul de verificare de mai jos pentru a continua.</value>
   </data>
 </root>

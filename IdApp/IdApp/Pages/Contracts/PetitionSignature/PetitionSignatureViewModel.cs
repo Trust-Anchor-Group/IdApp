@@ -27,9 +27,9 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         protected internal PetitionSignatureViewModel()
         {
-            this.AcceptCommand = new Command(async _ => await Accept());
-            this.DeclineCommand = new Command(async _ => await Decline());
-            this.IgnoreCommand = new Command(async _ => await Ignore());
+            this.AcceptCommand = new Command(async _ => await this.Accept());
+            this.DeclineCommand = new Command(async _ => await this.Decline());
+            this.IgnoreCommand = new Command(async _ => await this.Ignore());
             
             this.Photos = new ObservableCollection<Photo>();
             this.photosLoader = new PhotosLoader(this.Photos);
@@ -407,10 +407,25 @@ namespace IdApp.Pages.Contracts.PetitionSignature
             set => this.SetValue(PhoneNrProperty, value);
         }
 
-        /// <summary>
-        /// See <see cref="IsApproved"/>
-        /// </summary>
-        public static readonly BindableProperty IsApprovedProperty =
+		/// <summary>
+		/// See <see cref="EMail"/>
+		/// </summary>
+		public static readonly BindableProperty EMailProperty =
+			BindableProperty.Create(nameof(EMail), typeof(string), typeof(PetitionSignatureViewModel), default(string));
+
+		/// <summary>
+		/// EMail of the identity
+		/// </summary>
+		public string EMail
+		{
+			get => (string)this.GetValue(EMailProperty);
+			set => this.SetValue(EMailProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsApproved"/>
+		/// </summary>
+		public static readonly BindableProperty IsApprovedProperty =
             BindableProperty.Create(nameof(IsApproved), typeof(bool), typeof(PetitionSignatureViewModel), default(bool));
 
         /// <summary>
@@ -462,6 +477,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
                 this.CountryCode = this.RequestorIdentity[Constants.XmppProperties.Country];
                 this.Country = ISO_3166_1.ToName(this.CountryCode);
                 this.PhoneNr = this.RequestorIdentity[Constants.XmppProperties.Phone];
+                this.EMail = this.RequestorIdentity[Constants.XmppProperties.EMail];
                 this.IsApproved = this.RequestorIdentity.State == IdentityState.Approved;
             }
             else
@@ -485,6 +501,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
                 this.CountryCode = Constants.NotAvailableValue;
                 this.Country = Constants.NotAvailableValue;
                 this.PhoneNr = Constants.NotAvailableValue;
+                this.EMail = Constants.NotAvailableValue;
                 this.IsApproved = false;
             }
             this.Purpose = this.purpose;

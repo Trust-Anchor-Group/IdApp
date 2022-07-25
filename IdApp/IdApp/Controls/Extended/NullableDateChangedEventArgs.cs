@@ -14,8 +14,8 @@ namespace IdApp.Controls.Extended
 		/// <param name="newDate">The selected date</param>
 		public NullableDateChangedEventArgs(DateTime? oldDate, DateTime? newDate)
 		{
-			OldDate = oldDate;
-			NewDate = newDate;
+			this.OldDate = oldDate;
+			this.NewDate = newDate;
 		}
 
 		/// <summary>

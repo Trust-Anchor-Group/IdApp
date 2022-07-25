@@ -45,13 +45,13 @@ namespace IdApp.Controls.LoadingListView
         /// </summary>
         public LoadingListView()
         {
-            this.ItemAppearing += LoadingListView_ItemAppearing;
-			this.ItemSelected += LoadingListView_ItemSelected;
+            this.ItemAppearing += this.LoadingListView_ItemAppearing;
+			this.ItemSelected += this.LoadingListView_ItemSelected;
         }
 
 		private void LoadingListView_ItemAppearing(object sender, ItemVisibilityEventArgs e)
         {
-            if (ItemsSource is IList List && e.Item == List[List.Count - 1])
+            if (this.ItemsSource is IList List && e.Item == List[List.Count - 1])
             {
                 if (this.LoadMoreCommand?.CanExecute(null) ?? false)
                     this.LoadMoreCommand.Execute(null);

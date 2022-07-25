@@ -66,9 +66,14 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string Country { get; set; }
 
 		/// <summary>
-		/// Country
+		/// Phone Number
 		/// </summary>
 		public string PhoneNr { get; set; }
+
+		/// <summary>
+		/// EMail
+		/// </summary>
+		public string EMail { get; set; }
 
 		/// <summary>
 		/// Device Id
@@ -125,6 +130,9 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (!string.IsNullOrWhiteSpace(s = this.PhoneNr?.Trim()))
 				properties.Add(new Property(Constants.XmppProperties.Phone, s));
+
+			if (!string.IsNullOrWhiteSpace(s = this.EMail?.Trim()))
+				properties.Add(new Property(Constants.XmppProperties.EMail, s));
 
 			if (!string.IsNullOrWhiteSpace(s = this.DeviceId?.Trim()))
 				properties.Add(new Property(Constants.XmppProperties.DeviceId, s));

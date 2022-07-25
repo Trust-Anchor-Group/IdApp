@@ -1,10 +1,12 @@
 ﻿using IdApp.Nfc;
 using IdApp.Nfc.Extensions;
+using IdApp.Nfc.Records;
+using IdApp.Pages;
+using IdApp.Resx;
+using IdApp.Services.Navigation;
 using System;
-using System.Security.Cryptography;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Waher.Networking.XMPP.Contracts;
-using Waher.Persistence;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Settings;
 using Waher.Security;
@@ -31,29 +33,175 @@ namespace IdApp.Services.Nfc
 		/// <param name="Tag">NFC Tag</param>
 		public async Task TagDetected(INfcTag Tag)
 		{
-			string TagId = Hashes.BinaryToString(Tag.ID).ToUpper();
-			NfcTagReference TagReference = await NfcTagReference.FindByTagId(TagId);
-
-			foreach (INfcInterface Interface in Tag.Interfaces)
+			try
 			{
-				if (Interface is IIsoDepInterface Iso14443_4)
+				if (!await App.VerifyPin())
+					return;
+
+				string TagId = Hashes.BinaryToString(Tag.ID).ToUpper();
+				NfcTagReference TagReference = await NfcTagReference.FindByTagId(TagId);
+
+				foreach (INfcInterface Interface in Tag.Interfaces)
 				{
-					string Mrz = await RuntimeSettings.GetAsync("NFC.LastMrz", string.Empty);
-
-					if (!string.IsNullOrEmpty(Mrz) &&
-						BasicAccessControl.ParseMrz(Mrz, out DocumentInformation DocInfo))
+					if (Interface is IIsoDepInterface IsoDep)
 					{
-						// §4.3, §D.3, https://www.icao.int/publications/Documents/9303_p11_cons_en.pdf
+						// ISO 14443-4
 
-						byte[] Challenge = await Iso14443_4.GetChallenge();
-						if (!(Challenge is null))
+						string Mrz = await RuntimeSettings.GetAsync("NFC.LastMrz", string.Empty);
+
+						if (!string.IsNullOrEmpty(Mrz) &&
+							BasicAccessControl.ParseMrz(Mrz, out DocumentInformation DocInfo))
 						{
-							byte[] ChallengeResponse = DocInfo.CalcChallengeResponse(Challenge);
-							byte[] Response = await Iso14443_4.ExternalAuthenticate(ChallengeResponse);
+							// §4.3, §D.3, https://www.icao.int/publications/Documents/9303_p11_cons_en.pdf
 
+							byte[] Challenge = await IsoDep.GetChallenge();
+							if (!(Challenge is null))
+							{
+								byte[] ChallengeResponse = DocInfo.CalcChallengeResponse(Challenge);
+								byte[] Response = await IsoDep.ExternalAuthenticate(ChallengeResponse);
+
+								// TODO
+							}
 						}
 					}
+					else if (Interface is INdefInterface Ndef)
+					{
+						bool CanMakeReadOnly = await Ndef.CanMakeReadOnly();
+						bool IsWritable = await Ndef.IsWritable();
+						INdefRecord[] Records = await Ndef.GetMessage();
+
+						if (Records.Length == 0)
+						{
+							INavigationService Nav = App.Instantiate<INavigationService>();
+							if (Nav.CurrentPage is ContentBasePage ContentPage &&
+								ContentPage.ViewModel is ILinkableView LinkableView &&
+								LinkableView.IsLinkable &&
+								IsWritable)
+							{
+								string Link = LinkableView.Link;
+								string Title = await LinkableView.Title;
+
+								List<object> Items = new()
+								{
+									Title,
+									new Uri(Link),
+									new Uri(Constants.References.AndroidApp),
+									new Uri(Constants.References.IPhoneApp)
+								};
+
+								if (LinkableView.HasMedia)
+									Items.Add(new KeyValuePair<byte[], string>(LinkableView.Media, LinkableView.MediaContentType));
+
+								bool Ok = await Ndef.SetMessage(Items.ToArray());
+
+								if (!Ok && LinkableView.HasMedia)
+								{
+									Items.RemoveAt(Items.Count - 1);
+									Ok = await Ndef.SetMessage(Items.ToArray());
+								}
+
+								if (!Ok)
+								{
+									while (Items.Count > 2)
+										Items.RemoveAt(2);
+
+									Ok = await Ndef.SetMessage(Items.ToArray());
+
+									if (!Ok)
+									{
+										Items.RemoveAt(0);
+										Ok = await Ndef.SetMessage(Items.ToArray());
+									}
+								}
+
+								if (Ok)
+								{
+									await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle,
+										string.Format(AppResources.TagEngraved, Title));
+								}
+								else
+								{
+									await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle,
+										string.Format(AppResources.TagNotEngraved, Title));
+								}
+
+								// TODO: Make read-only if able
+
+								return;
+							}
+						}
+						else
+						{
+							foreach (INdefRecord Record in Records)
+							{
+								if (Record is INdefUriRecord UriRecord)
+								{
+									if (!string.IsNullOrEmpty(Constants.UriSchemes.GetScheme(UriRecord.Uri)))
+									{
+										if (await App.OpenUrl(UriRecord.Uri))
+											return;
+									}
+								}
+							}
+
+							// TODO: Open NFC view
+						}
+					}
+					//else if (Interface is INfcAInterface NfcA)
+					//{
+					//	byte[] Atqa = await NfcA.GetAtqa();
+					//	short Sqk = await NfcA.GetSqk();
+					//
+					//	// TODO
+					//}
+					//else if (Interface is INfcBInterface NfcB)
+					//{
+					//	byte[] ApplicationData = await NfcB.GetApplicationData();
+					//	byte[] ProtocolInfo = await NfcB.GetProtocolInfo();
+					//
+					//	// TODO
+					//}
+					//else if (Interface is INfcFInterface NfcF)
+					//{
+					//	byte[] Manufacturer = await NfcF.GetManufacturer();
+					//	byte[] SystemCode = await NfcF.GetSystemCode();
+					//
+					//	// TODO
+					//}
+					//else if (Interface is INfcVInterface NfcV)
+					//{
+					//	sbyte DsfId = await NfcV.GetDsfId();
+					//	short ResponseFlags = await NfcV.GetResponseFlags();
+					//
+					//	// TODO
+					//}
+					//else if (Interface is INfcBarcodeInterface Barcode)
+					//{
+					//	byte[] Data = await Barcode.ReadAllData();
+					//
+					//	// TODO
+					//}
+					//else if (Interface is INdefFormatableInterface NdefFormatable)
+					//{
+					//	// TODO
+					//}
+					//else if (Interface is IMifareUltralightInterface MifareUltralight)
+					//{
+					//	byte[] Data = await MifareUltralight.ReadAllData();
+					//
+					//	// TODO
+					//}
+					//else if (Interface is IMifareClassicInterface MifareClassic)
+					//{
+					//	byte[] Data = await MifareClassic.ReadAllData();
+					//
+					//	// TODO
+					//}
 				}
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 	}

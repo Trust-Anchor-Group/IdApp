@@ -28,13 +28,16 @@ namespace IdApp.Pages.Main.Main
 	public class MainViewModel : QrXmppViewModel
 	{
 		private readonly PhotosLoader photosLoader;
+		private readonly MainPage mainPage;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="MainViewModel"/> class.
 		/// </summary>
-		protected internal MainViewModel()
+		/// <param name="MainPage">Main Page</param>
+		protected internal MainViewModel(MainPage MainPage)
 			: base()
 		{
+			this.mainPage = MainPage;
 			this.photosLoader = new PhotosLoader();
 
 			this.ViewMyIdentityCommand = new Command(async () => await this.ViewMyIdentity(), () => this.IsConnected);
@@ -670,5 +673,43 @@ namespace IdApp.Pages.Main.Main
 				}
 			}
 		}
+
+		#region ILinkableView
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public override Task<string> Title => Task.FromResult<string>(this.FullName);
+
+		/// <summary>
+		/// Encoded media, if available.
+		/// </summary>
+		public override byte[] Media
+		{
+			get
+			{
+				if (this.mainPage.IsFrontViewShowing && this.HasPhoto)
+					return this.ImageBin;
+				else
+					return base.Media;
+			}
+		}
+
+		/// <summary>
+		/// Content-Type of associated media.
+		/// </summary>
+		public override string MediaContentType
+		{
+			get
+			{
+				if (this.mainPage.IsFrontViewShowing && this.HasPhoto)
+					return this.ImageContentType;
+				else
+					return base.MediaContentType;
+			}
+		}
+
+		#endregion
+
 	}
 }

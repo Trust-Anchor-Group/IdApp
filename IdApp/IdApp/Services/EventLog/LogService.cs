@@ -13,7 +13,7 @@ namespace IdApp.Services.EventLog
 	[Singleton]
 	internal sealed class LogService : ILogService
 	{
-		private const string StartupCrashFileName = "CrashDump.txt";
+		private const string startupCrashFileName = "CrashDump.txt";
 		private string bareJid = string.Empty;
 
 		public void AddListener(IEventSink eventSink)
@@ -40,7 +40,7 @@ namespace IdApp.Services.EventLog
 		{
 			e = Log.UnnestException(e);
 
-			IList<KeyValuePair<string, string>> parameters = GetParameters();
+			IList<KeyValuePair<string, string>> parameters = this.GetParameters();
 
 			if (!(extraParameters is null) && extraParameters.Length > 0)
 			{
@@ -54,19 +54,19 @@ namespace IdApp.Services.EventLog
 		public void LogWarning(string format, params object[] args)
 		{
 			string message = string.Format(format, args);
-			IList<KeyValuePair<string, string>> parameters = GetParameters();
+			IList<KeyValuePair<string, string>> parameters = this.GetParameters();
 
 			Log.Warning(message, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
 		}
 
 		public void LogException(Exception e)
 		{
-			LogException(e, null);
+			this.LogException(e, null);
 		}
 
 		public void LogEvent(string name, params KeyValuePair<string, string>[] extraParameters)
 		{
-			IList<KeyValuePair<string, string>> parameters = GetParameters();
+			IList<KeyValuePair<string, string>> parameters = this.GetParameters();
 			if (!(extraParameters is null) && extraParameters.Length > 0)
 			{
 				foreach (KeyValuePair<string, string> extraParameter in extraParameters)
@@ -82,7 +82,7 @@ namespace IdApp.Services.EventLog
 			stackTrace = Log.CleanStackTrace(stackTrace);
 
 			string contents;
-			string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
+			string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), startupCrashFileName);
 
 			if (File.Exists(fileName))
 				contents = File.ReadAllText(fileName);
@@ -95,7 +95,7 @@ namespace IdApp.Services.EventLog
 		public string LoadExceptionDump()
 		{
 			string contents;
-			string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
+			string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), startupCrashFileName);
 
 			if (File.Exists(fileName))
 				contents = File.ReadAllText(fileName);
@@ -107,7 +107,7 @@ namespace IdApp.Services.EventLog
 
 		public void DeleteExceptionDump()
 		{
-			string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
+			string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), startupCrashFileName);
 
 			if (File.Exists(fileName))
 				File.Delete(fileName);

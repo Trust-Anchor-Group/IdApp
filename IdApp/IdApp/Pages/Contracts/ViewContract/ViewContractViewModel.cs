@@ -10,6 +10,7 @@ using System.Windows.Input;
 using IdApp.Converters;
 using IdApp.Extensions;
 using IdApp.Pages.Contracts.ClientSignature;
+using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.ServerSignature;
 using IdApp.Pages.Contracts.ViewContract.ObjectModel;
 using IdApp.Resx;
@@ -38,8 +39,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 			this.Photos = new ObservableCollection<Photo>();
 			this.photosLoader = new PhotosLoader(this.Photos);
 
-			this.ObsoleteContractCommand = new Command(async _ => await ObsoleteContract());
-			this.DeleteContractCommand = new Command(async _ => await DeleteContract());
+			this.ObsoleteContractCommand = new Command(async _ => await this.ObsoleteContract());
+			this.DeleteContractCommand = new Command(async _ => await this.DeleteContract());
 			this.ShowDetailsCommand = new Command(async _ => await this.ShowDetails());
 
 			this.GeneralInformation = new ObservableCollection<PartModel>();
@@ -66,8 +67,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.IsProposal = false;
 			}
 
-			this.XmppService.Contracts.ContractsClient.ContractUpdated += ContractsClient_ContractUpdatedOrSigned;
-			this.XmppService.Contracts.ContractsClient.ContractSigned += ContractsClient_ContractUpdatedOrSigned;
+			this.XmppService.Contracts.ContractsClient.ContractUpdated += this.ContractsClient_ContractUpdatedOrSigned;
+			this.XmppService.Contracts.ContractsClient.ContractSigned += this.ContractsClient_ContractUpdatedOrSigned;
 
 			if (!(this.Contract is null))
 			{
@@ -75,15 +76,15 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (DateTime.Now.Subtract(TP).TotalSeconds < 5)
 					this.Contract = await this.XmppService.Contracts.GetContract(this.Contract.ContractId);
 
-				await DisplayContract();
+				await this.DisplayContract();
 			}
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.XmppService.Contracts.ContractsClient.ContractUpdated -= ContractsClient_ContractUpdatedOrSigned;
-			this.XmppService.Contracts.ContractsClient.ContractSigned -= ContractsClient_ContractUpdatedOrSigned;
+			this.XmppService.Contracts.ContractsClient.ContractUpdated -= this.ContractsClient_ContractUpdatedOrSigned;
+			this.XmppService.Contracts.ContractsClient.ContractSigned -= this.ContractsClient_ContractUpdatedOrSigned;
 
 			this.ClearContract();
 			await base.DoUnbind();
@@ -118,7 +119,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			this.Contract = Contract;
 
 			if (!(this.Contract is null))
-				await DisplayContract();
+				await this.DisplayContract();
 		}
 
 		#region Properties
@@ -468,7 +469,6 @@ namespace IdApp.Pages.Contracts.ViewContract
 			this.ClientSignatures = null;
 			this.ServerSignatures = null;
 			this.HasPhotos = false;
-			this.HasQrCode = false;
 			this.HasRoles = false;
 			this.HasParts = false;
 			this.HasParameters = false;
@@ -488,15 +488,15 @@ namespace IdApp.Pages.Contracts.ViewContract
 			{
 				bool hasSigned = false;
 				bool acceptsSignatures =
-					(Contract.State == ContractState.Approved || Contract.State == ContractState.BeingSigned) &&
-					(!Contract.SignAfter.HasValue || Contract.SignAfter.Value < DateTime.Now) &&
-					(!Contract.SignBefore.HasValue || Contract.SignBefore.Value > DateTime.Now);
+					(this.Contract.State == ContractState.Approved || this.Contract.State == ContractState.BeingSigned) &&
+					(!this.Contract.SignAfter.HasValue || this.Contract.SignAfter.Value < DateTime.Now) &&
+					(!this.Contract.SignBefore.HasValue || this.Contract.SignBefore.Value > DateTime.Now);
 				Dictionary<string, int> nrSignatures = new();
 				bool canObsolete = false;
 
-				if (!(Contract.ClientSignatures is null))
+				if (!(this.Contract.ClientSignatures is null))
 				{
-					foreach (Waher.Networking.XMPP.Contracts.ClientSignature signature in Contract.ClientSignatures)
+					foreach (Waher.Networking.XMPP.Contracts.ClientSignature signature in this.Contract.ClientSignatures)
 					{
 						if (signature.LegalId == this.TagProfile.LegalIdentity.Id)
 							hasSigned = true;
@@ -508,18 +508,18 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 						if (string.Compare(signature.BareJid, this.XmppService.BareJid, true) == 0)
 						{
-							if (!(Contract.Roles is null))
+							if (!(this.Contract.Roles is null))
 							{
-								foreach (Role Role in Contract.Roles)
+								foreach (Role Role in this.Contract.Roles)
 								{
 									if (Role.Name == signature.Role)
 									{
 										if (Role.CanRevoke)
 										{
 											canObsolete =
-												Contract.State == ContractState.Approved ||
-												Contract.State == ContractState.BeingSigned ||
-												Contract.State == ContractState.Signed;
+												this.Contract.State == ContractState.Approved ||
+												this.Contract.State == ContractState.BeingSigned ||
+												this.Contract.State == ContractState.Signed;
 										}
 
 										break;
@@ -531,29 +531,29 @@ namespace IdApp.Pages.Contracts.ViewContract
 				}
 
 				// General Information
-				this.GeneralInformation.Add(new PartModel(AppResources.Created, Contract.Created.ToString(CultureInfo.CurrentUICulture)));
+				this.GeneralInformation.Add(new PartModel(AppResources.Created, this.Contract.Created.ToString(CultureInfo.CurrentUICulture)));
 
-				if (Contract.Updated > DateTime.MinValue)
-					this.GeneralInformation.Add(new PartModel(AppResources.Updated, Contract.Updated.ToString(CultureInfo.CurrentUICulture)));
+				if (this.Contract.Updated > DateTime.MinValue)
+					this.GeneralInformation.Add(new PartModel(AppResources.Updated, this.Contract.Updated.ToString(CultureInfo.CurrentUICulture)));
 
-				this.GeneralInformation.Add(new PartModel(AppResources.State, Contract.State.ToString(), ContractStateToColor.ToColor(Contract.State)));
-				this.GeneralInformation.Add(new PartModel(AppResources.Visibility, Contract.Visibility.ToString()));
-				this.GeneralInformation.Add(new PartModel(AppResources.Duration, Contract.Duration.ToString()));
-				this.GeneralInformation.Add(new PartModel(AppResources.From, Contract.From.ToString(CultureInfo.CurrentUICulture)));
-				this.GeneralInformation.Add(new PartModel(AppResources.To, Contract.To.ToString(CultureInfo.CurrentUICulture)));
-				this.GeneralInformation.Add(new PartModel(AppResources.Archiving_Optional, Contract.ArchiveOptional.ToString()));
-				this.GeneralInformation.Add(new PartModel(AppResources.Archiving_Required, Contract.ArchiveRequired.ToString()));
-				this.GeneralInformation.Add(new PartModel(AppResources.CanActAsTemplate, Contract.CanActAsTemplate.ToYesNo()));
+				this.GeneralInformation.Add(new PartModel(AppResources.State, this.Contract.State.ToString(), ContractStateToColor.ToColor(this.Contract.State)));
+				this.GeneralInformation.Add(new PartModel(AppResources.Visibility, this.Contract.Visibility.ToString()));
+				this.GeneralInformation.Add(new PartModel(AppResources.Duration, this.Contract.Duration.ToString()));
+				this.GeneralInformation.Add(new PartModel(AppResources.From, this.Contract.From.ToString(CultureInfo.CurrentUICulture)));
+				this.GeneralInformation.Add(new PartModel(AppResources.To, this.Contract.To.ToString(CultureInfo.CurrentUICulture)));
+				this.GeneralInformation.Add(new PartModel(AppResources.Archiving_Optional, this.Contract.ArchiveOptional.ToString()));
+				this.GeneralInformation.Add(new PartModel(AppResources.Archiving_Required, this.Contract.ArchiveRequired.ToString()));
+				this.GeneralInformation.Add(new PartModel(AppResources.CanActAsTemplate, this.Contract.CanActAsTemplate.ToYesNo()));
 
 				this.GenerateQrCode(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId));
 
 				// Roles
-				if (!(Contract.Roles is null))
+				if (!(this.Contract.Roles is null))
 				{
 					StackLayout rolesLayout = new();
-					foreach (Role role in Contract.Roles)
+					foreach (Role role in this.Contract.Roles)
 					{
-						string html = await role.ToHTML(Contract.DeviceLanguage(), Contract);
+						string html = await role.ToHTML(this.Contract.DeviceLanguage(), this.Contract);
 						html = Waher.Content.Html.HtmlDocument.GetBody(html);
 
 						AddKeyValueLabelPair(rolesLayout, role.Name, html + GenerateMinMaxCountString(role.MinCount, role.MaxCount), true, string.Empty, null);
@@ -568,7 +568,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 								StyleId = role.Name
 							};
 
-							button.Clicked += SignButton_Clicked;
+							button.Clicked += this.SignButton_Clicked;
 							rolesLayout.Children.Add(button);
 						}
 					}
@@ -577,21 +577,20 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 				// Parts
 				StackLayout partsLayout = new();
-				if (Contract.SignAfter.HasValue)
-					AddKeyValueLabelPair(partsLayout, AppResources.SignAfter, Contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture));
+				if (this.Contract.SignAfter.HasValue)
+					AddKeyValueLabelPair(partsLayout, AppResources.SignAfter, this.Contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture));
 
-				if (Contract.SignBefore.HasValue)
-					AddKeyValueLabelPair(partsLayout, AppResources.SignBefore, Contract.SignBefore.Value.ToString(CultureInfo.CurrentUICulture));
+				if (this.Contract.SignBefore.HasValue)
+					AddKeyValueLabelPair(partsLayout, AppResources.SignBefore, this.Contract.SignBefore.Value.ToString(CultureInfo.CurrentUICulture));
 
-				AddKeyValueLabelPair(partsLayout, AppResources.Mode, Contract.PartsMode.ToString());
+				AddKeyValueLabelPair(partsLayout, AppResources.Mode, this.Contract.PartsMode.ToString());
 
-
-				if (!(Contract.Parts is null))
+				if (!(this.Contract.Parts is null))
 				{
 					TapGestureRecognizer openLegalId = new();
 					openLegalId.Tapped += this.Part_Tapped;
 
-					foreach (Part part in Contract.Parts)
+					foreach (Part part in this.Contract.Parts)
 					{
 						AddKeyValueLabelPair(partsLayout, part.Role, part.LegalId, false, part.LegalId, openLegalId);
 
@@ -603,7 +602,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 								StyleId = part.Role
 							};
 
-							button.Clicked += SignButton_Clicked;
+							button.Clicked += this.SignButton_Clicked;
 							partsLayout.Children.Add(button);
 						}
 					}
@@ -611,11 +610,11 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.Parts = partsLayout;
 
 				// Parameters
-				if (!(Contract.Parameters is null))
+				if (!(this.Contract.Parameters is null))
 				{
 					StackLayout parametersLayout = new();
 
-					foreach (Parameter parameter in Contract.Parameters)
+					foreach (Parameter parameter in this.Contract.Parameters)
 					{
 						if (parameter.ObjectValue is bool b)
 							AddKeyValueLabelPair(parametersLayout, parameter.Name, b ? "✔" : "✗");
@@ -628,7 +627,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 				// Human readable text
 				StackLayout humanReadableTextLayout = new();
-				string xaml = await Contract.ToXamarinForms(Contract.DeviceLanguage());
+				string xaml = await this.Contract.ToXamarinForms(this.Contract.DeviceLanguage());
 				StackLayout humanReadableXaml = new StackLayout().LoadFromXaml(xaml);
 				List<View> children = new();
 				children.AddRange(humanReadableXaml.Children);
@@ -638,23 +637,23 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 				// Machine readable text
 				StackLayout machineReadableTextLayout = new();
-				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.ContractId, Contract.ContractId);
-				if (!string.IsNullOrEmpty(Contract.TemplateId))
-					AddKeyValueLabelPair(machineReadableTextLayout, AppResources.TemplateId, Contract.TemplateId);
-				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.Digest, Convert.ToBase64String(Contract.ContentSchemaDigest));
-				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.HashFunction, Contract.ContentSchemaHashFunction.ToString());
-				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.LocalName, Contract.ForMachinesLocalName);
-				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.Namespace, Contract.ForMachinesNamespace);
+				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.ContractId, this.Contract.ContractId);
+				if (!string.IsNullOrEmpty(this.Contract.TemplateId))
+					AddKeyValueLabelPair(machineReadableTextLayout, AppResources.TemplateId, this.Contract.TemplateId);
+				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.Digest, Convert.ToBase64String(this.Contract.ContentSchemaDigest));
+				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.HashFunction, this.Contract.ContentSchemaHashFunction.ToString());
+				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.LocalName, this.Contract.ForMachinesLocalName);
+				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.Namespace, this.Contract.ForMachinesNamespace);
 				this.MachineReadableText = machineReadableTextLayout;
 
 				// Client signatures
-				if (!(Contract.ClientSignatures is null))
+				if (!(this.Contract.ClientSignatures is null))
 				{
 					StackLayout clientSignaturesLayout = new();
 					TapGestureRecognizer openClientSignature = new();
 					openClientSignature.Tapped += this.ClientSignature_Tapped;
 
-					foreach (Waher.Networking.XMPP.Contracts.ClientSignature signature in Contract.ClientSignatures)
+					foreach (Waher.Networking.XMPP.Contracts.ClientSignature signature in this.Contract.ClientSignatures)
 					{
 						string sign = Convert.ToBase64String(signature.DigitalSignature);
 						AddKeyValueLabelPair(clientSignaturesLayout, signature.Role, signature.LegalId + ", " + signature.BareJid + ", " +
@@ -665,18 +664,18 @@ namespace IdApp.Pages.Contracts.ViewContract
 				}
 
 				// Server signature
-				if (!(Contract.ServerSignature is null))
+				if (!(this.Contract.ServerSignature is null))
 				{
 					StackLayout serverSignaturesLayout = new();
 					TapGestureRecognizer openServerSignature = new();
 					openServerSignature.Tapped += this.ServerSignature_Tapped;
 
-					AddKeyValueLabelPair(serverSignaturesLayout, Contract.Provider, Contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture) + ", " +
-						Convert.ToBase64String(Contract.ServerSignature.DigitalSignature), false, Contract.ContractId, openServerSignature);
+					AddKeyValueLabelPair(serverSignaturesLayout, this.Contract.Provider, this.Contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture) + ", " +
+						Convert.ToBase64String(this.Contract.ServerSignature.DigitalSignature), false, this.Contract.ContractId, openServerSignature);
 					this.ServerSignatures = serverSignaturesLayout;
 				}
 
-				this.CanDeleteContract = !this.isReadOnly && !Contract.IsLegallyBinding(true);
+				this.CanDeleteContract = !this.isReadOnly && !this.Contract.IsLegallyBinding(true);
 				this.CanObsoleteContract = this.CanDeleteContract || canObsolete;
 
 				this.HasRoles = this.Roles?.Children.Count > 0;
@@ -703,7 +702,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 					.Append(new KeyValuePair<string, string>("ContractId", this.Contract?.ContractId))
 					.ToArray());
 
-				ClearContract();
+				this.ClearContract();
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -894,6 +893,20 @@ namespace IdApp.Pages.Contracts.ViewContract
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
+
+		#region ILinkableView
+
+		/// <summary>
+		/// Link to the current view
+		/// </summary>
+		public override string Link { get; }
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public override Task<string> Title => ContractModel.GetName(this.Contract, this);
+
+		#endregion
 
 	}
 }

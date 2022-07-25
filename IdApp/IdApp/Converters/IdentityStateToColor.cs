@@ -27,20 +27,12 @@ namespace IdApp.Converters
 		/// <returns>Color</returns>
 		public static Color ToColor(IdentityState State)
 		{
-			switch (State)
+			return State switch
 			{
-				case IdentityState.Approved:
-					return Color.LightGreen;
-
-				case IdentityState.Created:
-					return Color.LightYellow;
-
-				case IdentityState.Compromised:
-				case IdentityState.Obsoleted:
-				case IdentityState.Rejected:
-				default:
-					return Color.LightSalmon;
-			}
+				IdentityState.Approved => Color.LightGreen,
+				IdentityState.Created => Color.LightYellow,
+				_ => Color.LightSalmon,
+			};
 		}
 
 		/// <inheritdoc/>

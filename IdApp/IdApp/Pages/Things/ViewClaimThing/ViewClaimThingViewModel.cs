@@ -32,7 +32,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 			: base()
 		{
 			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
-			this.ClaimThingCommand = new Command(async _ => await ClaimThing(), _ => this.CanClaimThing);
+			this.ClaimThingCommand = new Command(async _ => await this.ClaimThing(), _ => this.CanClaimThing);
 			this.Tags = new ObservableCollection<HumanReadableTag>();
 		}
 
@@ -52,16 +52,16 @@ namespace IdApp.Pages.Things.ViewClaimThing
 				}
 			}
 
-			AssignProperties();
-			EvaluateAllCommands();
+			this.AssignProperties();
+			this.EvaluateAllCommands();
 
-			this.TagProfile.Changed += TagProfile_Changed;
+			this.TagProfile.Changed += this.TagProfile_Changed;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.TagProfile.Changed -= TagProfile_Changed;
+			this.TagProfile.Changed -= this.TagProfile_Changed;
 			await base.DoUnbind();
 		}
 
@@ -86,7 +86,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 
 		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
+			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
 
 		#region Properties

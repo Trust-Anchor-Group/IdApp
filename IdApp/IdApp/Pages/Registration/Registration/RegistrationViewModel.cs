@@ -22,11 +22,11 @@ namespace IdApp.Pages.Registration.Registration
 		/// </summary>
 		protected internal RegistrationViewModel()
 		{
-			this.GoToPrevCommand = new Command(this.GoToPrev, () => (RegistrationStep)this.CurrentStep > RegistrationStep.ValidatePhoneNr);
+			this.GoToPrevCommand = new Command(this.GoToPrev, () => (RegistrationStep)this.CurrentStep > RegistrationStep.ValidateContactInfo);
 
 			this.RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
 			{
-				this.AddChildViewModel(new ValidatePhoneNr.ValidatePhoneNrViewModel()),
+				this.AddChildViewModel(new ValidateContactInfo.ValidateContactInfoViewModel()),
 				this.AddChildViewModel(new ChooseAccount.ChooseAccountViewModel()),
 				this.AddChildViewModel(new RegisterIdentity.RegisterIdentityViewModel()),
 				this.AddChildViewModel(new ValidateIdentity.ValidateIdentityViewModel()),

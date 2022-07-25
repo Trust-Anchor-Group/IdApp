@@ -48,7 +48,7 @@ namespace IdApp.Pages.Contacts.Chat
 	/// <summary>
 	/// The view model to bind to when displaying the list of contacts.
 	/// </summary>
-	public class ChatViewModel : XmppViewModel, IChatView
+	public class ChatViewModel : XmppViewModel, IChatView, ILinkableView
 	{
 		private TaskCompletionSource<bool> waitUntilBound = new();
 
@@ -1174,6 +1174,40 @@ namespace IdApp.Pages.Contacts.Chat
 					return false;
 			}
 		}
+
+		#region ILinkableView
+
+		/// <summary>
+		/// If the current view is linkable.
+		/// </summary>
+		public bool IsLinkable => true;
+
+		/// <summary>
+		/// Link to the current view
+		/// </summary>
+		public string Link => Constants.UriSchemes.UriSchemeXmpp + ":" + this.BareJid;
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public Task<string> Title => Task.FromResult<string>(this.FriendlyName);
+
+		/// <summary>
+		/// If linkable view has media associated with link.
+		/// </summary>
+		public bool HasMedia => false;
+
+		/// <summary>
+		/// Encoded media, if available.
+		/// </summary>
+		public byte[] Media => null;
+
+		/// <summary>
+		/// Content-Type of associated media.
+		/// </summary>
+		public string MediaContentType => null;
+
+		#endregion
 
 	}
 }

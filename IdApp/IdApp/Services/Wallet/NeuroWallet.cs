@@ -38,13 +38,13 @@ namespace IdApp.Services.Wallet
 				if (this.eDalerClient is null || this.eDalerClient.Client != this.XmppService.Xmpp)
 				{
 					if (!(this.eDalerClient is null))
-						this.eDalerClient.BalanceUpdated -= EDalerClient_BalanceUpdated;
+						this.eDalerClient.BalanceUpdated -= this.EDalerClient_BalanceUpdated;
 
 					this.eDalerClient = (this.XmppService as XmppService)?.EDalerClient;
 					if (this.eDalerClient is null)
 						throw new InvalidOperationException(AppResources.EDalerServiceNotFound);
 
-					this.eDalerClient.BalanceUpdated += EDalerClient_BalanceUpdated;
+					this.eDalerClient.BalanceUpdated += this.EDalerClient_BalanceUpdated;
 				}
 
 				return this.eDalerClient;
@@ -273,16 +273,16 @@ namespace IdApp.Services.Wallet
 				{
 					if (!(this.neuroFeaturesClient is null))
 					{
-						this.neuroFeaturesClient.TokenAdded -= NeuroFeaturesClient_TokenAdded;
-						this.neuroFeaturesClient.TokenRemoved -= NeuroFeaturesClient_TokenRemoved;
+						this.neuroFeaturesClient.TokenAdded -= this.NeuroFeaturesClient_TokenAdded;
+						this.neuroFeaturesClient.TokenRemoved -= this.NeuroFeaturesClient_TokenRemoved;
 					}
 
 					this.neuroFeaturesClient = (this.XmppService as XmppService)?.NeuroFeaturesClient;
 					if (this.neuroFeaturesClient is null)
 						throw new InvalidOperationException(AppResources.NeuroFeaturesServiceNotFound);
 
-					this.neuroFeaturesClient.TokenAdded += NeuroFeaturesClient_TokenAdded;
-					this.neuroFeaturesClient.TokenRemoved += NeuroFeaturesClient_TokenRemoved;
+					this.neuroFeaturesClient.TokenAdded += this.NeuroFeaturesClient_TokenAdded;
+					this.neuroFeaturesClient.TokenRemoved += this.NeuroFeaturesClient_TokenRemoved;
 				}
 
 				return this.neuroFeaturesClient;

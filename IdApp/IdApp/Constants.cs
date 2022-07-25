@@ -300,15 +300,20 @@ namespace IdApp
             public const string Jid = "JID";
 
             /// <summary>
-            /// Jabber ID
+            /// Phone number
             /// </summary>
             public const string Phone = "PHONE";
-        }
 
-        /// <summary>
-        /// Timer Intervals
-        /// </summary>
-        public static class Intervals
+			/// <summary>
+			/// e-Mail address
+			/// </summary>
+			public const string EMail = "EMAIL";
+		}
+
+		/// <summary>
+		/// Timer Intervals
+		/// </summary>
+		public static class Intervals
         {
             /// <summary>
             /// Auto Save interval
@@ -417,13 +422,18 @@ namespace IdApp
             /// <summary>
             /// Contract template for creating a demo token
             /// </summary>
-            public const string CreateDemoTokenTemplate = "2a6ca104-cae9-aef3-4015-a272cd79c85e@legal.lab.tagroot.io";
+            public const string CreateDemoTokenTemplate = "2a6d69dc-cae9-bb6e-4015-a272cdb645ec@legal.lab.tagroot.io";
 
             /// <summary>
             /// Contract template for transferring a token from a seller to a buyer
             /// </summary>
-            public const string TransferTokenTemplate = "2a6ca0a5-cae9-aeee-4015-a272cd1cb32f@legal.lab.tagroot.io";
-        }
+            public const string TransferTokenTemplate = "2a6d6b09-cae9-bb7e-4015-a272cd9cd5b9@legal.lab.tagroot.io";
+
+			/// <summary>
+			/// Contract template for consigning the token to an auctioneer with the purpose of selling it.
+			/// </summary>
+			public const string TokenConsignmentTemplate = "2a6d86d3-cae9-be05-4015-a272cd0cbbb9@legal.lab.tagroot.io";
+		}
 
 		/// <summary>
 		/// Push chennels
@@ -528,5 +538,22 @@ namespace IdApp
             /// </summary>
             public const string Reason = "pinEnteringFailure";
         }
+
+		/// <summary>
+		/// References to external resources
+		/// </summary>
+		public static class References
+		{
+			/// <summary>
+			/// Resource where Android App can be downloaded.
+			/// </summary>
+			public const string AndroidApp = "https://play.google.com/store/apps/details?id=com.tag.IdApp";
+
+			/// <summary>
+			/// Resource where iPhone App can be downloaded.
+			/// </summary>
+			public const string IPhoneApp = "https://apps.apple.com/se/app/trust-anchor-id/id1580610247";
+		}
+
 	}
 }
