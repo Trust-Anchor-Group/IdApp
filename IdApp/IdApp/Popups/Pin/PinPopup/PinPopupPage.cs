@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
+using IdApp.Resx;
 
 namespace IdApp.Popups.Pin.PinPopup
 {
@@ -23,6 +24,12 @@ namespace IdApp.Popups.Pin.PinPopup
 		public PinPopupPage()
         {
 			this.InitializeComponent();
+            this.CloseWhenBackgroundIsClicked = false;
+        }
+
+        protected override void LayoutChildren(double x, double y, double width, double height)
+        {
+            base.LayoutChildren(x, y, width, height + 1);
         }
 
         /// <inheritdoc/>
@@ -36,7 +43,7 @@ namespace IdApp.Popups.Pin.PinPopup
         {
             this.result.TrySetResult(this.Pin.Text);
             await PopupNavigation.Instance.PopAsync();
-        }
+		}
 
         private void OnCloseButtonTapped(object sender, EventArgs e)
         {
@@ -59,7 +66,7 @@ namespace IdApp.Popups.Pin.PinPopup
 
         private async void Close()
         {
-            await PopupNavigation.Instance.PopAsync();
+            //await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(null);
         }
     }

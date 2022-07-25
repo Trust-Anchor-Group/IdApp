@@ -835,7 +835,7 @@ namespace IdApp
 		/// <returns>If the user has provided the correct PIN</returns>
 		public static async Task<bool> VerifyPin()
 		{
-#if !DEBUG
+//#if !DEBUG
 			ITagProfile Profile = App.Instantiate<ITagProfile>();
 			if (!Profile.UsePin)
 				return true;
@@ -844,7 +844,7 @@ namespace IdApp
 
 			if (!displayedPinPopup && NeedToVerifyPin)
 				return await InputPin(Profile) is not null;
-#endif
+//#endif
 
 			return true;
 		}
@@ -897,6 +897,7 @@ namespace IdApp
 						ClearStartInactivityTime();
 						SetCurrentPinCounter(0);
 						await instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
+						//await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
 						return Pin;
 					}
 					else
