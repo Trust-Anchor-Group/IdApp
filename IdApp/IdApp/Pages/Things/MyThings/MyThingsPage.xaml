@@ -8,6 +8,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Things.MyThings;assembly=IdApp"
                        x:DataType="model:MyThingsViewModel"
                        x:Class="IdApp.Pages.Things.MyThings.MyThingsPage"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"
                        Title="{x:Static resx:AppResources.Things}">
     <StackLayout Margin="{StaticResource DefaultMargin}">
         <Label Text="{x:Static resx:AppResources.Things}" Style="{StaticResource Heading}"/>

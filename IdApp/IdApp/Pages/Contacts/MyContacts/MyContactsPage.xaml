@@ -8,7 +8,8 @@
                        xmlns:services="clr-namespace:IdApp.Services;assembly=IdApp"
                        x:DataType="model:ContactListViewModel"
                        x:Class="IdApp.Pages.Contacts.MyContacts.MyContactsPage"
-                       Title="{x:Static resx:AppResources.Contacts}">
+                       Title="{x:Static resx:AppResources.Contacts}"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
     <Grid Margin="{StaticResource DefaultMargin}" ColumnDefinitions="*" RowDefinitions="auto,auto,auto,*,auto" 
           HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
         <Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.Contacts}" Style="{StaticResource Heading}"/>
