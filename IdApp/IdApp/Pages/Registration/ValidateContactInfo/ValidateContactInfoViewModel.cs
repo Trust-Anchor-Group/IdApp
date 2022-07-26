@@ -89,6 +89,15 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			this.EvaluateAllCommands();
 		}
 
+		/// <inheritdoc/>
+		protected override void OnStepCompleted(EventArgs e)
+		{
+			if (this.PhoneNrValidated && this.EMailValidated)
+			{
+				base.OnStepCompleted(e);
+			}
+		}
+
 		private void EvaluateAllCommands()
 		{
 			this.EvaluateCommands(
@@ -453,8 +462,6 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 						DefaultConnectivity = false;
 					}
 
-					this.SetIsDone(this.VerifyPhoneNrCodeCommand);
-
 					this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 					this.OnStepCompleted(EventArgs.Empty);
 				}
@@ -558,6 +565,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				{
 					this.EMailValidated = true;
 					this.TagProfile.SetEMail(this.EMail);
+					this.OnStepCompleted(EventArgs.Empty);
 				}
 				else
 				{

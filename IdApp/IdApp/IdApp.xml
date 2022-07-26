@@ -8233,11 +8233,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView.ScrollDown">
-            <summary>
-            Scrolls down to the bottom of the view.
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse">
             <summary>
             For what purpose the app will be used
@@ -8267,6 +8262,9 @@
             <summary>
             Override this method to do view model specific setup when it's parent page/view appears on screen.
             </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.OnStepCompleted(System.EventArgs)">
+            <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.Purposes">
             <summary>
@@ -18373,6 +18371,11 @@
             Represent an attachment to a <see cref="T:Waher.Networking.XMPP.Contracts.LegalIdentity"/>.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Tag.LegalIdentityAttachment.#ctor">
+            <summary>
+            Creates an instance of a <see cref="T:IdApp.Services.Tag.LegalIdentityAttachment"/>.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Tag.LegalIdentityAttachment.#ctor(System.String,System.String,System.Byte[])">
             <summary>
             Creates an instance of a <see cref="T:IdApp.Services.Tag.LegalIdentityAttachment"/>.
@@ -18380,6 +18383,11 @@
             <param name="fileName">The actual filename</param>
             <param name="contentType">The content type.</param>
             <param name="data">The raw file data.</param>
+        </member>
+        <member name="P:IdApp.Services.Tag.LegalIdentityAttachment.ObjectId">
+            <summary>
+            The primary key in persistent storage.
+            </summary>
         </member>
         <member name="P:IdApp.Services.Tag.LegalIdentityAttachment.Filename">
             <summary>
