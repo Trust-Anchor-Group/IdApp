@@ -92,6 +92,8 @@
     <Compile Include="Renderers\CustomEntryRenderer.cs" />
     <Compile Include="Renderers\CustomPickerRenderer.cs" />
     <Compile Include="Renderers\IdAppNavigationRenderer.cs" />
+    <Compile Include="Renderers\IdAppShellFlyoutContentRenderer.cs" />
+    <Compile Include="Renderers\IdAppShellRenderer.cs" />
     <Compile Include="ShareContent.cs" />
     <Compile Include="..\Version\Version.cs" />
     <Compile Include="Renderers\ExtendedDatePickeriOSRenderer.cs" />
