@@ -1,12 +1,19 @@
 ﻿using Waher.Networking.XMPP.Contracts;
+using Waher.Persistence.Attributes;
 
 namespace IdApp.Services.Tag
 {
 	/// <summary>
 	/// Represent an attachment to a <see cref="LegalIdentity"/>.
 	/// </summary>
+	[CollectionName("LegalAttachments")]
 	public sealed class LegalIdentityAttachment
 	{
+		/// <summary>
+		/// Creates an instance of a <see cref="LegalIdentityAttachment"/>.
+		/// </summary>
+		public LegalIdentityAttachment() { }
+
 		/// <summary>
 		/// Creates an instance of a <see cref="LegalIdentityAttachment"/>.
 		/// </summary>
@@ -22,23 +29,29 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <summary>
+		/// The primary key in persistent storage.
+		/// </summary>
+		[ObjectId]
+		public string ObjectId { get; set; }
+
+		/// <summary>
 		/// The raw filename.
 		/// </summary>
-		public string Filename { get; }
+		public string Filename { get; set; }
 
 		/// <summary>
 		/// Content type (mime) of the attachment.
 		/// </summary>
-		public string ContentType { get; }
+		public string ContentType { get; set; }
 
 		/// <summary>
 		/// The raw file data.
 		/// </summary>
-		public byte[] Data { get; }
+		public byte[] Data { get; set; }
 
 		/// <summary>
 		/// Attachment content length.
 		/// </summary>
-		public long ContentLength { get; }
+		public long ContentLength { get; set; }
 	}
 }
