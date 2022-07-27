@@ -1,12 +1,11 @@
 ﻿using Waher.Networking.XMPP.Contracts;
-using Waher.Persistence.Attributes;
 
-namespace IdApp.Services.Tag
+// !!! keep the namespace as is. It's impotant for the database
+namespace IdApp.Services
 {
 	/// <summary>
 	/// Represent an attachment to a <see cref="LegalIdentity"/>.
 	/// </summary>
-	[CollectionName("LegalAttachments")]
 	public sealed class LegalIdentityAttachment
 	{
 		/// <summary>
@@ -27,12 +26,6 @@ namespace IdApp.Services.Tag
 			this.Data = data;
 			this.ContentLength = data?.Length ?? 0;
 		}
-
-		/// <summary>
-		/// The primary key in persistent storage.
-		/// </summary>
-		[ObjectId]
-		public string ObjectId { get; set; }
 
 		/// <summary>
 		/// The raw filename.

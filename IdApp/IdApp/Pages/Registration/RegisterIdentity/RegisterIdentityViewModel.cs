@@ -29,6 +29,7 @@ using IdApp.Nfc.Extensions;
 using IdApp.Cv.Arithmetics;
 using IdApp.Resx;
 using SkiaSharp;
+using IdApp.Services;
 
 namespace IdApp.Pages.Registration.RegisterIdentity
 {

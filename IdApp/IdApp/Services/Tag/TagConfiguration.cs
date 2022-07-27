@@ -2,7 +2,8 @@
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence.Attributes;
 
-namespace IdApp.Services.Tag
+// !!! keep the namespace as is. It's impotant for the database
+namespace IdApp.Services
 {
 	/// <summary>
 	/// A simple POCO object for serializing and deserializing configuration properties.
@@ -163,7 +164,7 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// Current step in the registration process.
 		/// </summary>
-		[DefaultValue(RegistrationStep.ValidateContactInfo)]
-		public RegistrationStep Step { get; set; }
+		[DefaultValue(Tag.RegistrationStep.ValidateContactInfo)]
+		public Tag.RegistrationStep Step { get; set; }
 	}
 }

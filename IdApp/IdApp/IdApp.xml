@@ -16302,7 +16302,7 @@
             HTTP File Upload client
             </summary>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.AddLegalIdentity(IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel,IdApp.Services.Tag.LegalIdentityAttachment[])">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.AddLegalIdentity(IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel,IdApp.Services.LegalIdentityAttachment[])">
             <summary>
             Adds a legal identity.
             </summary>
@@ -16670,7 +16670,7 @@
             <param name="ContractId">The id of the contract to obsolete.</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.SmartContracts.AddLegalIdentity(IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel,IdApp.Services.Tag.LegalIdentityAttachment[])">
+        <member name="M:IdApp.Services.Contracts.SmartContracts.AddLegalIdentity(IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel,IdApp.Services.LegalIdentityAttachment[])">
             <summary>
             Adds a legal identity.
             </summary>
@@ -18183,13 +18183,13 @@
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.ToConfiguration">
             <summary>
-            Converts the current <see cref="T:IdApp.Services.Tag.ITagProfile"/> to a <see cref="T:IdApp.Services.Tag.TagConfiguration"/> object that can be persisted to the <see cref="T:IdApp.Services.Storage.IStorageService"/>.
+            Converts the current <see cref="T:IdApp.Services.Tag.ITagProfile"/> to a <see cref="T:IdApp.Services.TagConfiguration"/> object that can be persisted to the <see cref="T:IdApp.Services.Storage.IStorageService"/>.
             </summary>
             <returns>Configuration object</returns>
         </member>
-        <member name="M:IdApp.Services.Tag.ITagProfile.FromConfiguration(IdApp.Services.Tag.TagConfiguration)">
+        <member name="M:IdApp.Services.Tag.ITagProfile.FromConfiguration(IdApp.Services.TagConfiguration)">
             <summary>
-            Copies values from the <see cref="T:IdApp.Services.Tag.TagConfiguration"/> to this instance.
+            Copies values from the <see cref="T:IdApp.Services.TagConfiguration"/> to this instance.
             </summary>
             <param name="configuration"></param>
         </member>
@@ -18399,49 +18399,6 @@
             <param name="Pin">PIN to validate.</param>
             <returns>A <see cref="T:IdApp.Services.Tag.PinStrength"/> value indicating if the <paramref name="Pin"/> is strong enough.</returns>
         </member>
-        <member name="T:IdApp.Services.Tag.LegalIdentityAttachment">
-            <summary>
-            Represent an attachment to a <see cref="T:Waher.Networking.XMPP.Contracts.LegalIdentity"/>.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Tag.LegalIdentityAttachment.#ctor">
-            <summary>
-            Creates an instance of a <see cref="T:IdApp.Services.Tag.LegalIdentityAttachment"/>.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Tag.LegalIdentityAttachment.#ctor(System.String,System.String,System.Byte[])">
-            <summary>
-            Creates an instance of a <see cref="T:IdApp.Services.Tag.LegalIdentityAttachment"/>.
-            </summary>
-            <param name="fileName">The actual filename</param>
-            <param name="contentType">The content type.</param>
-            <param name="data">The raw file data.</param>
-        </member>
-        <member name="P:IdApp.Services.Tag.LegalIdentityAttachment.ObjectId">
-            <summary>
-            The primary key in persistent storage.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.LegalIdentityAttachment.Filename">
-            <summary>
-            The raw filename.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.LegalIdentityAttachment.ContentType">
-            <summary>
-            Content type (mime) of the attachment.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.LegalIdentityAttachment.Data">
-            <summary>
-            The raw file data.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.LegalIdentityAttachment.ContentLength">
-            <summary>
-            Attachment content length.
-            </summary>
-        </member>
         <member name="T:IdApp.Services.Tag.PinStrength">
             <summary>
             Represents a result of validating PIN strength.
@@ -18516,141 +18473,6 @@
             A PIN contains a word from the legal identity address.
             </summary>
         </member>
-        <member name="T:IdApp.Services.Tag.TagConfiguration">
-            <summary>
-            A simple POCO object for serializing and deserializing configuration properties.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.ObjectId">
-            <summary>
-            The primary key in persistent storage.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.Domain">
-            <summary>
-            Current domain
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.ApiKey">
-            <summary>
-            API Key
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.ApiSecret">
-            <summary>
-            API Secret
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.PhoneNumber">
-            <summary>
-            Verified Phone Number
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.EMail">
-            <summary>
-            Verified e-mail address
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.DefaultXmppConnectivity">
-            <summary>
-            If connecting to the domain can be done using default parameters (host=domain, default c2s port).
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.Account">
-            <summary>
-            Account name
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.PasswordHash">
-            <summary>
-            Password hash
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.PasswordHashMethod">
-            <summary>
-            Password hash method
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.LegalJid">
-            <summary>
-            Legal Jabber Id
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.RegistryJid">
-            <summary>
-            The Thing Registry JID
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.ProvisioningJid">
-            <summary>
-            Provisioning Jabber Id
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.HttpFileUploadJid">
-            <summary>
-            Http File Upload Jabber Id
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.HttpFileUploadMaxSize">
-            <summary>
-            Http File Upload max file size
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.LogJid">
-            <summary>
-            Log Jabber JID
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.MucJid">
-            <summary>
-            Multi user chat Jabber JID
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.EDalerJid">
-            <summary>
-            eDaler Service JID
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.NeuroFeaturesJid">
-            <summary>
-            Neuro-Features Service JID
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.SupportsPushNotification">
-            <summary>
-            If Push Notification is supported by server.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.PinHash">
-            <summary>
-            The hash of the user's pin.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.UsePin">
-            <summary>
-            Set to true if the PIN should be used.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.IsTest">
-            <summary>
-            Set to true if the user choose the educational or experimental purpose.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.TestOtpTimestamp">
-            <summary>
-            Set to current timestamp if the user used a Test OTP Code.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.LegalIdentity">
-            <summary>
-            User's current legal identity.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Tag.TagConfiguration.Step">
-            <summary>
-            Current step in the registration process.
-            </summary>
-        </member>
         <member name="T:IdApp.Services.Tag.RegistrationStep">
             <summary>
             The different steps of a TAG Profile registration journey.
@@ -18718,13 +18540,13 @@
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.ToConfiguration">
             <summary>
-            Converts the current instance into a <see cref="T:IdApp.Services.Tag.TagConfiguration"/> object for serialization.
+            Converts the current instance into a <see cref="T:IdApp.Services.TagConfiguration"/> object for serialization.
             </summary>
             <returns>Configuration object</returns>
         </member>
-        <member name="M:IdApp.Services.Tag.TagProfile.FromConfiguration(IdApp.Services.Tag.TagConfiguration)">
+        <member name="M:IdApp.Services.Tag.TagProfile.FromConfiguration(IdApp.Services.TagConfiguration)">
             <summary>
-            Parses an instance of a <see cref="T:IdApp.Services.Tag.TagConfiguration"/> object to update this instance's properties.
+            Parses an instance of a <see cref="T:IdApp.Services.TagConfiguration"/> object to update this instance's properties.
             </summary>
             <param name="configuration"></param>
         </member>
@@ -18918,6 +18740,179 @@
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.ValidatePinStrength(System.String)">
             <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Services.LegalIdentityAttachment">
+            <summary>
+            Represent an attachment to a <see cref="T:Waher.Networking.XMPP.Contracts.LegalIdentity"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.LegalIdentityAttachment.#ctor">
+            <summary>
+            Creates an instance of a <see cref="T:IdApp.Services.LegalIdentityAttachment"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.LegalIdentityAttachment.#ctor(System.String,System.String,System.Byte[])">
+            <summary>
+            Creates an instance of a <see cref="T:IdApp.Services.LegalIdentityAttachment"/>.
+            </summary>
+            <param name="fileName">The actual filename</param>
+            <param name="contentType">The content type.</param>
+            <param name="data">The raw file data.</param>
+        </member>
+        <member name="P:IdApp.Services.LegalIdentityAttachment.Filename">
+            <summary>
+            The raw filename.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.LegalIdentityAttachment.ContentType">
+            <summary>
+            Content type (mime) of the attachment.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.LegalIdentityAttachment.Data">
+            <summary>
+            The raw file data.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.LegalIdentityAttachment.ContentLength">
+            <summary>
+            Attachment content length.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.TagConfiguration">
+            <summary>
+            A simple POCO object for serializing and deserializing configuration properties.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.ObjectId">
+            <summary>
+            The primary key in persistent storage.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.Domain">
+            <summary>
+            Current domain
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.ApiKey">
+            <summary>
+            API Key
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.ApiSecret">
+            <summary>
+            API Secret
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.PhoneNumber">
+            <summary>
+            Verified Phone Number
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.EMail">
+            <summary>
+            Verified e-mail address
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.DefaultXmppConnectivity">
+            <summary>
+            If connecting to the domain can be done using default parameters (host=domain, default c2s port).
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.Account">
+            <summary>
+            Account name
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.PasswordHash">
+            <summary>
+            Password hash
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.PasswordHashMethod">
+            <summary>
+            Password hash method
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.LegalJid">
+            <summary>
+            Legal Jabber Id
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.RegistryJid">
+            <summary>
+            The Thing Registry JID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.ProvisioningJid">
+            <summary>
+            Provisioning Jabber Id
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.HttpFileUploadJid">
+            <summary>
+            Http File Upload Jabber Id
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.HttpFileUploadMaxSize">
+            <summary>
+            Http File Upload max file size
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.LogJid">
+            <summary>
+            Log Jabber JID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.MucJid">
+            <summary>
+            Multi user chat Jabber JID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.EDalerJid">
+            <summary>
+            eDaler Service JID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.NeuroFeaturesJid">
+            <summary>
+            Neuro-Features Service JID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.SupportsPushNotification">
+            <summary>
+            If Push Notification is supported by server.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.PinHash">
+            <summary>
+            The hash of the user's pin.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.UsePin">
+            <summary>
+            Set to true if the PIN should be used.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.IsTest">
+            <summary>
+            Set to true if the user choose the educational or experimental purpose.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.TestOtpTimestamp">
+            <summary>
+            Set to current timestamp if the user used a Test OTP Code.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.LegalIdentity">
+            <summary>
+            User's current legal identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.Step">
+            <summary>
+            Current step in the registration process.
+            </summary>
         </member>
         <member name="T:IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService">
             <summary>
