@@ -11,7 +11,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Registration.DefinePin;assembly=IdApp"
                        x:DataType="model:DefinePinViewModel"
                        x:Class="IdApp.Pages.Registration.DefinePin.DefinePinView">
-	<ContentView.Content>
+	<ContentView.Content >
 		<StackLayout Margin="{StaticResource DefaultMargin}" x:Name="PinContent">
 			<StackLayout.Resources>
 				<ResourceDictionary>
@@ -19,6 +19,8 @@
 						<!-- VerticalOptions="Center" is required so that the size of the eye does not affect the size of the Entry. -->
 						<Setter Property="VerticalOptions" Value="Center" />
 						<Setter Property="IsPassword" Value="True" />
+						<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
+                <Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
 					</Style>
 					<Style TargetType="templatedSwitch:TemplatedSwitch" BasedOn="{StaticResource PasswordToggler}">
 						<Setter Property="HorizontalOptions" Value="End" />

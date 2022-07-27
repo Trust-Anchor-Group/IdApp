@@ -17,13 +17,5 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
         {
 			this.InitializeComponent();
         }
-
-        /// <summary>
-        /// Scrolls down to the bottom of the view.
-        /// </summary>
-        public async void ScrollDown()
-		{
-            await this.ScrollView.ScrollToAsync(0, this.ScrollView.Height, true);
-		}
 	}
 }

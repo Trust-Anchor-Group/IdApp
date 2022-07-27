@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IdApp.Pages.Registration.RegisterIdentity;
+using IdApp.Services.Tag;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
@@ -12,10 +13,10 @@ using Waher.Runtime.Temporary;
 
 namespace IdApp.Services.Contracts
 {
-    /// <summary>
-    /// Adds support for legal identities, smart contracts and signatures to an XMPP Service.
-    /// </summary>
-    [DefaultImplementation(typeof(SmartContracts))]
+	/// <summary>
+	/// Adds support for legal identities, smart contracts and signatures to an XMPP Service.
+	/// </summary>
+	[DefaultImplementation(typeof(SmartContracts))]
     public interface ISmartContracts
     {
         #region General

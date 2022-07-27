@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
@@ -20,7 +20,7 @@
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
     <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
-        <Frame Margin="15" BackgroundColor="White" HorizontalOptions="FillAndExpand">
+        <Frame Style="{StaticResource PopupFrame}" HorizontalOptions="FillAndExpand">
             <StackLayout Padding="10,5" Spacing="3" HorizontalOptions="FillAndExpand">
                 <Label Text="{x:Static resx:AppResources.TextNote}" HorizontalOptions="FillAndExpand"/>
                 <Editor Text="{Binding TextNote}" HorizontalOptions="StartAndExpand" AutoSize="TextChanges" Keyboard="Text"/>
@@ -40,19 +40,19 @@
                 </Button>
             </StackLayout>
         </Frame>
-        <Grid HorizontalOptions="End" VerticalOptions="Start">
+        <Grid Style="{StaticResource PopupGrid}">
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnCloseButtonTapped" />
             </Grid.GestureRecognizers>
             <Ellipse StrokeThickness="2" WidthRequest="32" HeightRequest="32" HorizontalOptions="Center" VerticalOptions="Center">
-                <Ellipse.Fill>
-                    <SolidColorBrush Color="{StaticResource PageBackgroundColor}"/>
-                </Ellipse.Fill>
-                <Ellipse.Stroke>
-                    <SolidColorBrush Color="{StaticResource HeadingBackground}"/>
-                </Ellipse.Stroke>
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+                    </Ellipse.Fill>
+                    <Ellipse.Stroke>
+                        <SolidColorBrush Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
+                    </Ellipse.Stroke>
             </Ellipse>
-            <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static resx:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Style="{StaticResource PopupCloseButton}"/>
         </Grid>
     </AbsoluteLayout>
 </pages:PopupPage>

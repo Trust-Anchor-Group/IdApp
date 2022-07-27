@@ -89,6 +89,15 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			this.EvaluateAllCommands();
 		}
 
+		/// <inheritdoc/>
+		protected override void OnStepCompleted(EventArgs e)
+		{
+			if (this.PhoneNrValidated && this.EMailValidated)
+			{
+				base.OnStepCompleted(e);
+			}
+		}
+
 		private void EvaluateAllCommands()
 		{
 			this.EvaluateCommands(
@@ -221,6 +230,21 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		}
 
 		/// <summary>
+		/// See <see cref="EMailValidated"/>
+		/// </summary>
+		public static readonly BindableProperty EMailValidatedProperty =
+			BindableProperty.Create(nameof(EMailValidated), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
+
+		/// <summary>
+		/// If Phone number is valid or not
+		/// </summary>
+		public bool EMailValidated
+		{
+			get => (bool)this.GetValue(EMailValidatedProperty);
+			set => this.SetValue(EMailValidatedProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="PhoneNumber"/>
 		/// </summary>
 		public static readonly BindableProperty PhoneNumberProperty =
@@ -301,6 +325,21 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		{
 			get => (bool)this.GetValue(PhoneNrVerificationCodeValidProperty);
 			set => this.SetValue(PhoneNrVerificationCodeValidProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="PhoneNrValidated"/>
+		/// </summary>
+		public static readonly BindableProperty PhoneNrValidatedProperty =
+			BindableProperty.Create(nameof(PhoneNrValidated), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
+
+		/// <summary>
+		/// If Phone number is valid or not
+		/// </summary>
+		public bool PhoneNrValidated
+		{
+			get => (bool)this.GetValue(PhoneNrValidatedProperty);
+			set => this.SetValue(PhoneNrValidatedProperty, value);
 		}
 
 		/// <summary>
@@ -408,6 +447,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				{
 					bool DefaultConnectivity;
 
+					this.PhoneNrValidated = true;
 					this.TagProfile.SetPhone(TrimmedNumber);
 					this.TagProfile.SetIsTest(IsTest);
 					this.TagProfile.SetTestOtpTimestamp(IsTemporary ? DateTime.Now : null);
@@ -422,14 +462,12 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 						DefaultConnectivity = false;
 					}
 
-					this.SetIsDone(this.VerifyPhoneNrCodeCommand);
-
 					this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 					this.OnStepCompleted(EventArgs.Empty);
 				}
 				else
 				{
-					this.PhoneNrCodeSent = false;
+					this.PhoneNrValidated = false;
 					this.PhoneNrVerificationCode = string.Empty;
 
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
@@ -525,11 +563,13 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				if (Result is Dictionary<string, object> Response &&
 					Response.TryGetValue("Status", out object Obj) && Obj is bool Status && Status)
 				{
+					this.EMailValidated = true;
 					this.TagProfile.SetEMail(this.EMail);
+					this.OnStepCompleted(EventArgs.Empty);
 				}
 				else
 				{
-					this.EMailCodeSent = false;
+					this.EMailValidated = false;
 					this.EMailVerificationCode = string.Empty;
 
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
