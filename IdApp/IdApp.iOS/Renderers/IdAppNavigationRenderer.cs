@@ -1,4 +1,5 @@
-﻿using UIKit;
+﻿using System.ComponentModel;
+using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
@@ -7,12 +8,55 @@ namespace IdApp.iOS.Renderers
 {
 	public class IdAppNavigationRenderer : NavigationRenderer
 	{
+		private bool disposed = false;
+
+		// We want status bar style to be the same regardless of navigation bar text color and iOS theme. However, the default Xamarin.Forms
+		// renderer updates status bar style in various places in a way which is undesirable, see https://github.com/xamarin/Xamarin.Forms/issues/4343.
+		private UIStatusBarStyle originalStatusBarStyle = UIStatusBarStyle.Default;
+
+		public override void ViewDidLoad()
+		{
+			this.originalStatusBarStyle = UIApplication.SharedApplication.StatusBarStyle;
+
+			base.ViewDidLoad();
+			this.Element.PropertyChanged += this.OnElementPropertyChanged;
+
+			UIApplication.SharedApplication.StatusBarStyle = this.originalStatusBarStyle;
+		}
+
 		public override void ViewWillAppear(bool animated)
 		{
-			// https://github.com/xamarin/Xamarin.Forms/issues/4343
-			UIStatusBarStyle StatusBarStyle = UIApplication.SharedApplication.StatusBarStyle;
 			base.ViewWillAppear(animated);
-			UIApplication.SharedApplication.StatusBarStyle = StatusBarStyle;
+			UIApplication.SharedApplication.StatusBarStyle = this.originalStatusBarStyle;
+		}
+
+		public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+		{
+			base.TraitCollectionDidChange(previousTraitCollection);
+			UIApplication.SharedApplication.StatusBarStyle = this.originalStatusBarStyle;
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (this.disposed)
+				return;
+
+			this.disposed = true;
+
+			if (disposing)
+			{
+				this.Element.PropertyChanged -= this.OnElementPropertyChanged;
+			}
+
+			base.Dispose(disposing);
+		}
+
+		private void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == NavigationPage.BarTextColorProperty.PropertyName)
+			{
+				UIApplication.SharedApplication.StatusBarStyle = this.originalStatusBarStyle;
+			}
 		}
 	}
 }
