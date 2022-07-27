@@ -65,6 +65,7 @@ using Xamarin.Forms.Internals;
 using System.Globalization;
 using System.Linq;
 using Xamarin.CommunityToolkit.Helpers;
+using Rg.Plugins.Popup.Services;
 
 namespace IdApp
 {
@@ -845,8 +846,67 @@ namespace IdApp
 			if (!displayedPinPopup && NeedToVerifyPin)
 				return await InputPin(Profile) is not null;
 //#endif
-
+			//await instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
 			return true;
+		}
+
+		public static async Task CheckUserLock()
+		{
+			IUiSerializer Ui = null;
+			if (Ui is null)
+				Ui = Instantiate<IUiSerializer>();
+			DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
+								Constants.Pin.Protocol);
+
+			if (DateTimeForLogin.HasValue)
+			{
+				string MessageAlert;
+
+				if (DateTimeForLogin == DateTime.MaxValue)
+				{
+					MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
+					await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
+					await Stop();
+				}
+				else
+				{
+					MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateTimeForLogin);
+					await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
+					await Stop();
+				}
+			}
+		}
+
+		public static async Task<string> CheckPin(string Pin, ITagProfile Profile)
+		{
+			if (Pin is null)
+				return null;
+			long PinAttemptCounter = await GetCurrentPinCounter();
+			IUiSerializer Ui = null;
+			if (Ui is null)
+				Ui = App.Instantiate<IUiSerializer>();
+			if (Profile.ComputePinHash(Pin) == Profile.PinHash)
+			{
+				ClearStartInactivityTime();
+				SetCurrentPinCounter(0);
+				await instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
+				await PopupNavigation.Instance.PopAsync();
+				return Pin;
+			}
+			else
+			{
+				await instance.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
+						Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
+
+				PinAttemptCounter++;
+				SetCurrentPinCounter(PinAttemptCounter);
+			}
+
+			long RemainingAttempts = Constants.Pin.MaxPinAttempts - PinAttemptCounter;
+
+			await Ui.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinIsInvalid, RemainingAttempts));
+			await CheckUserLock();
+			return Pin;
 		}
 
 		private static async Task<string> InputPin(ITagProfile Profile)
@@ -858,61 +918,12 @@ namespace IdApp
 				if (!Profile.UsePin)
 					return string.Empty;
 
-				IUiSerializer Ui = null;
-
-				long PinAttemptCounter = await GetCurrentPinCounter();
-
-				if (Ui is null)
-					Ui = App.Instantiate<IUiSerializer>();
-
-				while (true)
-				{
-					DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
-								Constants.Pin.Protocol);
-
-					if (DateTimeForLogin.HasValue)
-					{
-						string MessageAlert;
-
-						if (DateTimeForLogin == DateTime.MaxValue)
-							MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
-						else
-							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateTimeForLogin);
-
-						await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
-						return null;
-					}
-
-					PinPopupPage Page = new();
-
-					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
-
-					string Pin = await Page.Result;
-
-					if (Pin is null)
-						return null;
-
-					if (Profile.ComputePinHash(Pin) == Profile.PinHash)
-					{
-						ClearStartInactivityTime();
-						SetCurrentPinCounter(0);
-						await instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
-						//await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
-						return Pin;
-					}
-					else
-					{
-						await instance.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
-								Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
-
-						PinAttemptCounter++;
-						SetCurrentPinCounter(PinAttemptCounter);
-					}
-
-					long RemainingAttempts = Constants.Pin.MaxPinAttempts - PinAttemptCounter;
-
-					await Ui.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinIsInvalid, RemainingAttempts));
-				}
+				PinPopupPage Page = new();
+				await PopupNavigation.Instance.PushAsync(Page);
+				await CheckUserLock();
+				string Pin = await Page.Result;
+				return await CheckPin(Pin, Profile);
+					
 			}
 			finally
 			{

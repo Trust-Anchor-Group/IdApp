@@ -1,8 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Rg.Plugins.Popup.Pages;
-using Rg.Plugins.Popup.Services;
-using IdApp.Resx;
+using IdApp.Services.Tag;
 
 namespace IdApp.Popups.Pin.PinPopup
 {
@@ -41,33 +40,10 @@ namespace IdApp.Popups.Pin.PinPopup
 
 		private async void OnEnter(object sender, EventArgs e)
         {
-            this.result.TrySetResult(this.Pin.Text);
-            await PopupNavigation.Instance.PopAsync();
+
+            //this.result.TrySetResult(this.Pin.Text);
+            await App.CheckPin(this.Pin.Text, App.Instantiate<ITagProfile>());
+            this.Pin.Text = "";
 		}
-
-        private void OnCloseButtonTapped(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        /// <inheritdoc/>
-        protected override bool OnBackgroundClicked()
-        {
-			this.Close();
-            return false;
-        }
-
-		/// <inheritdoc/>
-		protected override bool OnBackButtonPressed()
-        {
-			this.Close();
-            return false;
-        }
-
-        private async void Close()
-        {
-            //await PopupNavigation.Instance.PopAsync();
-            this.result.TrySetResult(null);
-        }
     }
 }
