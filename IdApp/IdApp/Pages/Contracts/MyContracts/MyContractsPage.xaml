@@ -8,7 +8,8 @@
                        xmlns:objectmodel="clr-namespace:IdApp.Pages.Contracts.MyContracts.ObjectModels;assembly=IdApp"
 					   xmlns:selector="clr-namespace:IdApp.Pages.Contracts.MyContracts;assembly=IdApp"
                        x:DataType="model:MyContractsViewModel"
-                       x:Class="IdApp.Pages.Contracts.MyContracts.MyContractsPage">
+                       x:Class="IdApp.Pages.Contracts.MyContracts.MyContractsPage"
+					   BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
 	<views:ContentBasePage.Resources>
 		<DataTemplate x:Key="DefaultTemplate">
 			<Grid />

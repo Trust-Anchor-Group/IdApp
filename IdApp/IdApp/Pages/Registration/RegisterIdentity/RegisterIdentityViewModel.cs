@@ -6,7 +6,6 @@ using IdApp.Cv.Utilities;
 using IdApp.DeviceSpecific;
 using IdApp.Extensions;
 using IdApp.Services.Data.PersonalNumbers;
-using IdApp.Services.Contracts;
 using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.Photos;

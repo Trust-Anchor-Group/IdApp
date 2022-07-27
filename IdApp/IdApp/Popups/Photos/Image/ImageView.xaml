@@ -38,19 +38,19 @@
                     </IndicatorView>
                 </StackLayout>
                 <!-- Close button -->
-                <Grid HorizontalOptions="End" VerticalOptions="Start">
+                <Grid Style="{StaticResource PopupGrid}">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="CloseIcon_Tapped"/>
                     </Grid.GestureRecognizers>
                     <Ellipse StrokeThickness="2" WidthRequest="32" HeightRequest="32" HorizontalOptions="Center" VerticalOptions="Center">
                         <Ellipse.Fill>
-                            <SolidColorBrush Color="{StaticResource PageBackgroundColor}"/>
+                            <SolidColorBrush Color="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
-                            <SolidColorBrush Color="{StaticResource HeadingBackground}"/>
+                            <SolidColorBrush Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
                         </Ellipse.Stroke>
                     </Ellipse>
-                    <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static resx:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Style="{StaticResource PopupCloseButton}"/>
                 </Grid>
             </Grid>
         </Frame>

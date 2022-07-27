@@ -1,9 +1,8 @@
 ﻿using System;
-using IdApp.Services.Tag;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence.Attributes;
 
-namespace IdApp.Services
+namespace IdApp.Services.Tag
 {
 	/// <summary>
 	/// A simple POCO object for serializing and deserializing configuration properties.

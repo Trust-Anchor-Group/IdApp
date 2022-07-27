@@ -7,23 +7,54 @@
                         xmlns:sdkViews="clr-namespace:IdApp.Pages;assembly=IdApp"
                         Title="TestIosAppDeploy"
                         x:Class="IdApp.Pages.Main.Shell.AppShell"
-						FlyoutBackgroundColor="{StaticResource HeadingBackground}">
+						FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}">
 
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource HeadingBackground}" />
-                <Setter Property="Shell.ForegroundColor" Value="{StaticResource HeadingForeground}" />
-                <Setter Property="Shell.TitleColor" Value="{StaticResource HeadingForeground}" />
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource HeadingBackgroundLightTheme}" />
+                <Setter Property="Shell.ForegroundColor" Value="{StaticResource HeadingForegroundLightTheme}" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource HeadingForegroundLightTheme}" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
-                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource HeadingBackground}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource HeadingForeground}"/>
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light={StaticResource HeadingForegroundLightTheme}, Dark={StaticResource HeadingForegroundDarkTheme}}"/>
                 <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource HeadingForeground}"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource HeadingForegroundLightTheme}, Dark={StaticResource HeadingForegroundDarkTheme}}"/>
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+
+             <Style TargetType="Label" >
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
+             </Style>
+
+             <Style TargetType="Entry" >
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
+                <Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
+            </Style>
+
+            <Style TargetType="Editor" >
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
+                <Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
+            </Style>
+
+            <Style TargetType="Frame" >
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+            </Style>
+
+             <Style TargetType="ContentPage">
+                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+             </Style>
+
+             <Style TargetType="Grid">
+                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+             </Style>
+
+            <Style TargetType="ContentView">
+                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+             </Style>
+
 
             <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -31,14 +62,14 @@
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource HeadingForeground}" />
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource HeadingBackground}" />
+                                    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource HeadingForegroundLightTheme}, Dark={StaticResource HeadingForegroundDarkTheme}}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource HeadingForeground}" />
+                                    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{AppThemeBinding Light={StaticResource HeadingForegroundLightTheme}, Dark={StaticResource HeadingForegroundDarkTheme}}" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -49,12 +80,12 @@
     </Shell.Resources>
 
     <Shell.FlyoutHeader>
-        <Frame BorderColor="Black" Padding="1" CornerRadius="0">
+        <Frame BorderColor="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" Padding="1" CornerRadius="0">
             <Grid HeightRequest="200">
                 <Image Aspect="AspectFill" Source="city.jpg" />
                 <Grid HorizontalOptions="End" HeightRequest="48" WidthRequest="150" VerticalOptions="Center">
-                    <BoxView BackgroundColor="{StaticResource HeadingBackgroundTranslucent}" />
-                    <Label Text="T A G" TextColor="White" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="End" VerticalTextAlignment="Center" Margin="0,0,48,0" />
+                    <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource HeadingBackgroundTranslucentLightTheme}, Dark={StaticResource HeadingBackgroundTranslucentDarkTheme}}" />
+                    <Label Text="T A G" TextColor="{AppThemeBinding Light={StaticResource TextColorLightTheme}, Dark={StaticResource TextColorDarkTheme}}" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="End" VerticalTextAlignment="Center" Margin="0,0,48,0" />
                 </Grid>
             </Grid>
         </Frame>
@@ -69,49 +100,58 @@
     <FlyoutItem FlyoutDisplayOptions="AsSingleItem" Title="{x:Static resx:AppResources.Home}">
         <ShellContent Route="MainPage" ContentTemplate="{DataTemplate main:MainPage}">
             <ShellContent.Icon>
-                <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Home}" Color="{StaticResource HeadingBackground}"/>
+                <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Home}"
+                                 Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
             </ShellContent.Icon>
         </ShellContent>
     </FlyoutItem>
 
     <MenuItem Text="{x:Static resx:AppResources.MyIdentity}" Clicked="ViewIdentityMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.User}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.User}"
+                             Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static resx:AppResources.Contacts}" Clicked="ContactsMenuItem_Clicked">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Contacts}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Contacts}"
+                             Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static resx:AppResources.Things}" Clicked="ThingsMenuItem_Clicked">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Things}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Things}"
+                             Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static resx:AppResources.MyContracts}" Clicked="MyContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Contract}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Contract}"
+                             Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static resx:AppResources.SignedContracts}" Clicked="SignedContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.SignedContract}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.SignedContract}"
+                             Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static resx:AppResources.NewContract}" Clicked="NewContractMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.NewContract}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.NewContract}"
+                             Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem x:Name="ExitMenuItem" Text="{x:Static resx:AppResources.Exit}" Clicked="ExitMenuItem_Clicked">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Exit}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Exit}"
+                             Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static resx:AppResources.About}" Clicked="AboutMenuItem_Clicked">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.QuestionCircle}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.QuestionCircle}"
+                             Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
 

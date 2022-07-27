@@ -7,6 +7,7 @@
                  BackgroundInputTransparent="False"
                  BackgroundColor="White"
                  x:Class="IdApp.Popups.Pin.PinPopup.PinPopupPage">
+<<<<<<< HEAD
         <AbsoluteLayout BackgroundColor="White" HorizontalOptions="FillAndExpand" >
             <StackLayout
                 IsClippedToBounds="True"
@@ -23,5 +24,46 @@
                     </Button.HeightRequest>
                 </Button>
             </StackLayout>
+=======
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <ScrollView HorizontalOptions="Center" VerticalOptions="Center">
+        <AbsoluteLayout>
+            <Frame Style="{StaticResource PopupFrame}">
+                <StackLayout Padding="10,5" IsClippedToBounds="True" Spacing="3">
+                    <Entry x:Name="Pin" HorizontalOptions="Center" IsPassword="True"
+                        Placeholder="{x:Static resx:AppResources.EnterPin}" Completed="OnEnter" />
+                    <Button Margin="10,5" Clicked="OnEnter" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Enter}">
+                        <Button.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
+                        </Button.HeightRequest>
+                    </Button>
+                </StackLayout>
+            </Frame>
+            <Grid Style="{StaticResource PopupGrid}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCloseButtonTapped" />
+                </Grid.GestureRecognizers>
+                <Ellipse StrokeThickness="2" WidthRequest="32" HeightRequest="32" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+                    </Ellipse.Fill>
+                    <Ellipse.Stroke>
+                        <SolidColorBrush Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
+                    </Ellipse.Stroke>
+                </Ellipse>
+                <Label Style="{StaticResource PopupCloseButton}"/>
+            </Grid>
+>>>>>>> develop
         </AbsoluteLayout>
 </pages:PopupPage>

@@ -8,12 +8,13 @@ using IdApp.Android.Renderers;
 using IdApp.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Xamarin.Forms.Platform.Android.AppCompat;
 using AndroidColor = Android.Graphics.Color;
 
 [assembly: ExportRenderer(typeof(Picker), typeof(CustomPickerRenderer), new[] { typeof(VisualMarker.DefaultVisual) })]
 namespace IdApp.Android.Renderers
 {
-	public class CustomPickerRenderer : PickerRenderer
+	public class CustomPickerRenderer : PickerAppCompatRenderer
 	{
 		public CustomPickerRenderer(Context context) : base(context) { }
 

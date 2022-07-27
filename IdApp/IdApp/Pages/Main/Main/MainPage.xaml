@@ -11,7 +11,8 @@
                        x:Class="IdApp.Pages.Main.Main.MainPage"
                        Title="{x:Static resx:AppResources.MainPageTitle}"
                        Shell.FlyoutBehavior="Flyout">
-    <ContentPage.Content>
+    <ContentPage.Content BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -81,7 +82,7 @@
                     <flipView:FlipView.FrontView>
                         <Frame Margin="2" Padding="2" BackgroundColor="{StaticResource HeadingBackground}"
                                CornerRadius="6" IsClippedToBounds="True" HasShadow="True">
-                            <Grid RowDefinitions="auto,*,auto" ColumnDefinitions="*">
+                            <Grid RowDefinitions="auto,*,auto" ColumnDefinitions="*" BackgroundColor="Transparent">
                                 <Image Grid.Row="0" WidthRequest="20" HeightRequest="20"
                                        VerticalOptions="Start" HorizontalOptions="End" Margin="12,12,12,4">
                                     <Image.Source>
@@ -129,26 +130,29 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Row="0"
-                                       Text="{x:Static resx:AppResources.Qrcode}" TextColor="{StaticResource HeadingBackground}"
+                                       Text="{x:Static resx:AppResources.Qrcode}"
+                                       TextColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"
                                        HorizontalOptions="Center" VerticalOptions="Center"
                                        FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                                 <Image Grid.Row="0" WidthRequest="20" HeightRequest="20"
                                        VerticalOptions="Start" HorizontalOptions="End" Margin="{StaticResource DefaultMargin}">
                                     <Image.Source>
-                                        <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.User}" Color="{StaticResource HeadingBackground}"/>
+                                        <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.User}"
+                                                         Color="{StaticResource HeadingForeground}"/>
                                     </Image.Source>
                                 </Image>
                                 <Image Grid.Row="0" WidthRequest="20" HeightRequest="20"
                                        VerticalOptions="Start" HorizontalOptions="Start" Margin="{StaticResource DefaultMargin}">
                                     <Image.Source>
-                                        <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Share}" Color="{StaticResource HeadingBackground}"/>
+                                        <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Share}"
+                                                         Color="{StaticResource HeadingForeground}"/>
                                     </Image.Source>
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="ShareQR_Tapped"/>
                                     </Image.GestureRecognizers>
                                 </Image>
                                 <Image x:Name="QrCode" Grid.Row="1"
-                                       BackgroundColor="{StaticResource HeadingForeground}"
+                                       BackgroundColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"
                                        Source="{Binding Path=QrCode}"
                                        IsVisible="{Binding Path=HasQrCode}"
                                        Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="20" />

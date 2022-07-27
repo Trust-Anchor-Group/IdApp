@@ -50,7 +50,7 @@
                         <!-- - -->
                         <Label Grid.Row="2" Grid.Column="0" Text="{x:Static resx:AppResources.State}" Margin="0,20,0,20" FontSize="Large"/>
                         <Label Grid.Row="2" Grid.Column="1" Text="{Binding Path=State}" Style="{StaticResource ValueLabel}" Margin="0,20,0,20" FontSize="Large"
-                           BackgroundColor="{Binding Path=State, Converter={converters:IdentityStateToColor}}"/>
+                           BackgroundColor="{Binding Path=State, Converter={converters:IdentityStateToColor}}" TextColor="{StaticResource ForegroundColorLightTheme}"/>
                         <!-- - -->
                         <Label Grid.Row="3" Grid.Column="0" Text="{x:Static resx:AppResources.FirstName}"/>
                         <Label Grid.Row="3" Grid.Column="1" Text="{Binding Path=FirstName}" Style="{StaticResource ValueLabel}"/>
