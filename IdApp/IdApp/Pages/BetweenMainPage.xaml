@@ -8,7 +8,7 @@
 	x:Class="IdApp.Pages.BetweenMainPage"
 	ios:Page.UseSafeArea="True"
 	ios:Page.ModalPresentationStyle="OverFullScreen"
-	BackgroundColor="{StaticResource HeadingBackground}">
+	BackgroundColor="{AppThemeBinding Dark={StaticResource PageBackgroundColorDarkTheme}, Default={StaticResource PageBackgroundColorLightTheme}}">
 
 	<ContentPage.Resources>
 		<ResourceDictionary>
