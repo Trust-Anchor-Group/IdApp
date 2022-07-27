@@ -20,18 +20,18 @@
             </Image>
             <noBounce:NoBounceScrollView x:Name="ScrollView" Margin="{StaticResource DefaultLeftRightMargin}">
 				<StackLayout x:Name="Frames" Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
-					<Grid Margin="{StaticResource DefaultBottomOnlyMargin}">
+					<Grid Style="{StaticResource OnboardingGrid}">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
-						<Frame Grid.Row="0" Grid.RowSpan="4" CornerRadius="5" BackgroundColor="#f0ffffff"/>
+						<Frame Grid.Row="0" Grid.RowSpan="4" CornerRadius="5" Style="{StaticResource OnboardingFrame}"/>
 						<Label Grid.Row="0" Margin="20" Text="{x:Static resx:AppResources.WelcomeToTagHeading}"
                            HorizontalOptions="Center" VerticalOptions="Start" Style="{StaticResource Heading}" />
 						<Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagSubheading}" FontSize="Body"
-                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
+                           VerticalOptions="Start" HorizontalOptions="Center" />
 						<Picker Grid.Row="2" x:Name="PurposePicker" HorizontalOptions="FillAndExpand" Title="{x:Static resx:AppResources.SelectPurpose}"
                                 ItemsSource="{Binding Path=Purposes}" SelectedIndex="{Binding Path=Purpose, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}">
 							<Picker.Behaviors>
@@ -42,16 +42,16 @@
 							</Picker.Behaviors>
 						</Picker>
 						<Label Grid.Row="3" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.PurposeWorkOrPersonalDescription}" FontSize="Body"
-                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsZero}}" />
+                           VerticalOptions="Start" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsZero}}" />
 						<Label Grid.Row="3" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.PurposeWorkEducationalOrExperimental}" FontSize="Body"
-                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsOne}}" />
+                           VerticalOptions="Start" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsOne}}" />
 					</Grid>
 
-					<Grid Margin="{StaticResource DefaultBottomOnlyMargin}" RowDefinitions="auto,auto,auto"
+					<Grid Style="{StaticResource OnboardingGrid}" RowDefinitions="auto,auto,auto"
 						  IsVisible="{Binding Path=PurposeSelected}">
-						<Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" BackgroundColor="#f0ffffff"/>
+						<Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" Style="{StaticResource OnboardingFrame}"/>
 						<Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagValidateEMail}"
-							   VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" FontSize="Body" />
+							   VerticalOptions="Start"  HorizontalOptions="Center" FontSize="Body" />
 						<Entry Grid.Row="2" x:Name="EMailEntry" Placeholder="{x:Static resx:AppResources.EnterEMail}"
 								   ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
 								   Text="{Binding Path=EMail, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}" />
@@ -66,10 +66,10 @@
 						</Button.Behaviors>
 					</Button>
 
-					<Grid IsVisible="{Binding Path=PurposeSelected}" RowDefinitions="auto,auto">
-						<Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" BackgroundColor="#f0ffffff"/>
+					<Grid IsVisible="{Binding Path=PurposeSelected}" RowDefinitions="auto,auto" Style="{StaticResource OnboardingGrid}">
+						<Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" Style="{StaticResource OnboardingFrame}"/>
 						<Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagEMailCodeSent}" FontSize="Body"
-                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
+                           VerticalOptions="Start" HorizontalOptions="Center" />
 						<Entry x:Name="EMailCodeEntry" Grid.Row="1" Placeholder="{x:Static resx:AppResources.VerificationCode}"
                                ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
                                Margin="{StaticResource DefaultMargin}" Text="{Binding Path=EMailVerificationCode, Mode=TwoWay}" />
@@ -84,11 +84,11 @@
 						</Button.Behaviors>
 					</Button>
 
-					<Grid Margin="{StaticResource DefaultBottomOnlyMargin}" RowDefinitions="auto,auto,auto"
+					<Grid Style="{StaticResource OnboardingGrid}" RowDefinitions="auto,auto,auto"
 						  IsVisible="{Binding Path=PurposeSelected}">
-						<Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" BackgroundColor="#f0ffffff"/>
+						<Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" Style="{StaticResource OnboardingFrame}"/>
 						<Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagValidatePhoneNr}"
-                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" FontSize="Body" />
+                           VerticalOptions="Start" HorizontalOptions="Center" FontSize="Body" />
 						<Entry Grid.Row="2" x:Name="PhoneNumberEntry" Placeholder="{x:Static resx:AppResources.EnterPhoneNumber}"
                                ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
                                Text="{Binding Path=PhoneNumber, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}" />
@@ -103,10 +103,10 @@
 						</Button.Behaviors>
 					</Button>
 
-					<Grid IsVisible="{Binding Path=PurposeSelected}" RowDefinitions="auto,auto">
-						<Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" BackgroundColor="#f0ffffff"/>
+					<Grid IsVisible="{Binding Path=PurposeSelected}" RowDefinitions="auto,auto" Style="{StaticResource OnboardingGrid}">
+						<Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" Style="{StaticResource OnboardingFrame}"/>
 						<Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagPhoneNrCodeSent}" FontSize="Body"
-                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
+                           VerticalOptions="Start" HorizontalOptions="Center" />
 						<Entry Grid.Row="1" Placeholder="{x:Static resx:AppResources.VerificationCode}"
                                ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
                                Margin="{StaticResource DefaultMargin}" Text="{Binding Path=PhoneNrVerificationCode, Mode=TwoWay}"/>
