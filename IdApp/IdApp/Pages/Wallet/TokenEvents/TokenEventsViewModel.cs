@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Waher.Content.Xml;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.TokenEvents
@@ -106,18 +107,35 @@ namespace IdApp.Pages.Wallet.TokenEvents
 
 				if (Result.HasValue && Result.Value)
 				{
-					await this.XmppService.Wallet.AddTextNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
+					NoteItem NewEvent;
 
-					NoteTextItem NewEvent = new(new NoteText()
+					if (XML.IsValidXml(AddTextNotePage.TextNote))
 					{
-						Note = AddTextNotePage.TextNote,
-						Personal = AddTextNotePage.Personal,
-						TokenId = this.TokenId,
-						Timestamp = DateTime.Now
-					});
+						await this.XmppService.Wallet.AddXmlNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
+
+						NewEvent = new NoteXmlItem(new NoteXml()
+						{
+							Note = AddTextNotePage.TextNote,
+							Personal = AddTextNotePage.Personal,
+							TokenId = this.TokenId,
+							Timestamp = DateTime.Now
+						});
+					}
+					else
+					{
+						await this.XmppService.Wallet.AddTextNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
+
+						NewEvent = new NoteTextItem(new NoteText()
+						{
+							Note = AddTextNotePage.TextNote,
+							Personal = AddTextNotePage.Personal,
+							TokenId = this.TokenId,
+							Timestamp = DateTime.Now
+						});
+					}
 
 					await NewEvent.DoBind(this);
-					
+
 					this.Events.Insert(0, NewEvent);
 				}
 			}

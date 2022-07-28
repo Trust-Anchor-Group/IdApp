@@ -121,7 +121,7 @@ namespace IdApp.Services.Wallet
 					await this.NavigationService.GoToAsync(nameof(PaymentAcceptancePage), new EDalerUriNavigationArgs(Parsed));
 				});
 			}
-			else if (Parsed is EDalerIncompletePaymeUri)
+			else if (Parsed is EDalerIncompletePaymentUri)
 			{
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
