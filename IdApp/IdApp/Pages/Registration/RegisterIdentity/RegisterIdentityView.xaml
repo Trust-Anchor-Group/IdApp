@@ -13,7 +13,7 @@
         <ScrollView x:Name="RegistrationLayout" Orientation="Vertical" Margin="{StaticResource DefaultTopOnlyMargin}">
             <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}" Spacing="12">
                 <!-- BEGIN HEADER -->
-                <Frame Padding="1" CornerRadius="4" BorderColor="LightGray" HasShadow="False">
+                <Frame Style="{StaticResource OnboardingFrame}" Padding="1" CornerRadius="4" BorderColor="LightGray" HasShadow="False">
                     <Grid ColumnSpacing="4" RowSpacing="4" Padding="6" ColumnDefinitions="*,auto" RowDefinitions="auto,auto">
                         <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"  VerticalOptions="Start"
                                Margin="{StaticResource DefaultRightOnlyMargin}"
