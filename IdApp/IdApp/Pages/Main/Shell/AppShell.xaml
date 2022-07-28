@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{StaticResource HeadingBackgroundLightTheme}" />
+				<!-- Because there is no Shell during on-boarding, Shell.ForegroundColor and Shell.TitleColor should be in sync with NavigationPage.BarTextColor (defined in App.xaml). -->
                 <Setter Property="Shell.ForegroundColor" Value="{StaticResource HeadingForegroundLightTheme}" />
                 <Setter Property="Shell.TitleColor" Value="{StaticResource HeadingForegroundLightTheme}" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />

@@ -256,7 +256,8 @@
 		<!-- An explicit navigation page with a visible navigation header is displayed when scanning a QR code during on-boarding (when there is no Shell). -->
 		<Style TargetType="NavigationPage">
 			<Setter Property="BarBackgroundColor" Value="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}" />
-			<Setter Property="BarTextColor" Value="{AppThemeBinding Dark={StaticResource HeadingForegroundDarkTheme}, Default={StaticResource HeadingForegroundLightTheme}}" />
+			<!-- Always using light theme color because this is what we use in Shell. -->
+			<Setter Property="BarTextColor" Value="{AppThemeBinding Dark={StaticResource HeadingForegroundLightTheme}, Default={StaticResource HeadingForegroundLightTheme}}" />
 		</Style>
 	</Application.Resources>
 </Application>
