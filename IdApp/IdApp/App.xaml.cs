@@ -138,7 +138,6 @@ namespace IdApp
 			}
 
 			this.InitializeComponent();
-			Current.UserAppTheme = OSAppTheme.Unspecified;
 
 			// Start page
 			try
@@ -837,7 +836,7 @@ namespace IdApp
 		/// <returns>If the user has provided the correct PIN</returns>
 		public static async Task<bool> VerifyPin()
 		{
-//#if !DEBUG
+			#if !DEBUG
 			ITagProfile Profile = App.Instantiate<ITagProfile>();
 			if (!Profile.UsePin)
 				return true;
@@ -846,46 +845,61 @@ namespace IdApp
 
 			if (!displayedPinPopup && NeedToVerifyPin)
 				return await InputPin(Profile) is not null;
-//#endif
-			//await instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
+			#endif
 			return true;
 		}
 
-		public static async Task CheckUserLock()
+		public static async Task CheckUserBlocking()
 		{
 			IUiSerializer Ui = null;
 			if (Ui is null)
 				Ui = Instantiate<IUiSerializer>();
-			DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint,
-								Constants.Pin.Protocol);
-
-			if (DateTimeForLogin.HasValue)
 			{
-				string MessageAlert;
+				DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint, Constants.Pin.Protocol);
+				DateTime localDateTime;
 
-				if (DateTimeForLogin == DateTime.MaxValue)
+				if (DateTimeForLogin.HasValue)
 				{
-					MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
-					await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
-					await Stop();
-				}
-				else
-				{
-					MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateTimeForLogin);
-					await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
-					await Stop();
+					string MessageAlert, dateString;
+
+					if (DateTimeForLogin == DateTime.MaxValue)
+					{
+						MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
+						await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
+						await Stop();
+					}
+					else
+					{
+						localDateTime = DateTimeForLogin.Value.ToLocalTime();
+						if (DateTimeForLogin.Value.ToShortDateString() == DateTime.Today.ToShortDateString())
+						{
+							dateString = localDateTime.ToShortTimeString();
+							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, dateString);
+						}
+						else if (DateTimeForLogin.Value.ToShortDateString() == DateTime.Today.AddDays(1).ToShortDateString())
+						{
+							dateString = localDateTime.ToShortTimeString();
+							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlockedTillTomorrow, dateString);
+						}
+						else
+						{
+							dateString = localDateTime.ToString("yyyy-MM-dd, 'at' HH:mm");
+							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, dateString);
+						}
+						await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
+						await Stop();
+					}
 				}
 			}
 		}
-
-		public static async Task<string> CheckPin(string Pin, ITagProfile Profile)
+		public static async Task<string> CheckPinAndUnblockUser(string Pin, ITagProfile Profile)
 		{
 			if (Pin is null)
 				return null;
 			long PinAttemptCounter = await GetCurrentPinCounter();
 			IUiSerializer Ui = null;
 			if (Ui is null)
-				Ui = App.Instantiate<IUiSerializer>();
+				Ui = Instantiate<IUiSerializer>();
 			if (Profile.ComputePinHash(Pin) == Profile.PinHash)
 			{
 				ClearStartInactivityTime();
@@ -906,7 +920,7 @@ namespace IdApp
 			long RemainingAttempts = Constants.Pin.MaxPinAttempts - PinAttemptCounter;
 
 			await Ui.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinIsInvalid, RemainingAttempts));
-			await CheckUserLock();
+			await CheckUserBlocking();
 			return Pin;
 		}
 
@@ -921,10 +935,9 @@ namespace IdApp
 
 				PinPopupPage Page = new();
 				await PopupNavigation.Instance.PushAsync(Page);
-				await CheckUserLock();
+				await CheckUserBlocking();
 				string Pin = await Page.Result;
-				return await CheckPin(Pin, Profile);
-					
+				return await CheckPinAndUnblockUser(Pin, Profile);
 			}
 			finally
 			{

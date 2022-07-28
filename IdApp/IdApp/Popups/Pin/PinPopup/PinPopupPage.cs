@@ -12,17 +12,17 @@ namespace IdApp.Popups.Pin.PinPopup
     {
         private readonly TaskCompletionSource<string> result = new();
 
-		/// <summary>
-		/// Task waiting for result. null means dialog was closed without providing a PIN.
-		/// </summary>
-		public Task<string> Result => this.result.Task;
+        /// <summary>
+        /// Task waiting for result. null means dialog was closed without providing a PIN.
+        /// </summary>
+        public Task<string> Result => this.result.Task;
 
-		/// <summary>
-		/// Prompts the user for its PIN
-		/// </summary>
-		public PinPopupPage()
+        /// <summary>
+        /// Prompts the user for its PIN
+        /// </summary>
+        public PinPopupPage()
         {
-			this.InitializeComponent();
+            this.InitializeComponent();
             this.CloseWhenBackgroundIsClicked = false;
         }
 
@@ -33,17 +33,17 @@ namespace IdApp.Popups.Pin.PinPopup
 
         /// <inheritdoc/>
 		protected override void OnAppearing()
-		{
-			base.OnAppearing();
+        {
+            base.OnAppearing();
             this.Pin.Focus();
-		}
+        }
 
-		private async void OnEnter(object sender, EventArgs e)
+        private async void OnEnter(object sender, EventArgs e)
         {
 
             //this.result.TrySetResult(this.Pin.Text);
-            await App.CheckPin(this.Pin.Text, App.Instantiate<ITagProfile>());
+            await App.CheckPinAndUnblockUser(this.Pin.Text, App.Instantiate<ITagProfile>());
             this.Pin.Text = "";
-		}
+        }
     }
 }
