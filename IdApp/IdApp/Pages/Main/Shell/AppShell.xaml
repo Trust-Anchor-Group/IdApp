@@ -25,15 +25,6 @@
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
 
-             <Style TargetType="Label" >
-                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
-             </Style>
-
-             <Style TargetType="Entry" >
-                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
-                <Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
-            </Style>
-
             <Style TargetType="Editor" >
                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
                 <Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
