@@ -1100,7 +1100,7 @@ namespace IdApp.Services.Xmpp
 			await RuntimeSettings.SetAsync("TransferId.CodesSent", string.Empty);
 			await Database.Provider.Flush();
 
-			await App.Current.SetRegistrationPageAsync();
+			this.UiSerializer.BeginInvokeOnMainThread(async () => await App.Current.SetRegistrationPageAsync());
 		}
 
 		/// <summary>
