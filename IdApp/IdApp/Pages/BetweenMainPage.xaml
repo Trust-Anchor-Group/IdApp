@@ -6,9 +6,8 @@
 	xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
 	xmlns:pages="clr-namespace:IdApp.Pages"
 	x:Class="IdApp.Pages.BetweenMainPage"
-	ios:Page.UseSafeArea="True"
 	ios:Page.ModalPresentationStyle="OverFullScreen"
-	BackgroundColor="{AppThemeBinding Dark={StaticResource PageBackgroundColorDarkTheme}, Default={StaticResource PageBackgroundColorLightTheme}}">
+	BackgroundColor="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}">
 
 	<ContentPage.Resources>
 		<ResourceDictionary>
