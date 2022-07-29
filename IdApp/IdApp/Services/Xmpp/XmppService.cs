@@ -48,7 +48,6 @@ using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
 using Xamarin.Forms;
-using IdApp.Pages.Registration.Registration;
 
 namespace IdApp.Services.Xmpp
 {
