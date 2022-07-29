@@ -195,7 +195,6 @@
                CanCascade="True">
             <Setter Property="BackgroundColor" Value="Transparent" />
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
-			<Setter Property="TitleColor" Value="{StaticResource HintColor}" />
 			<Setter Property="helpers:EntryProperties.BorderColor" Value="Gray" />
 			<Setter Property="HeightRequest" Value="40" />
 		</Style>
