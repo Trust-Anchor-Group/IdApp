@@ -177,7 +177,7 @@ namespace IdApp.Pages.Registration.Registration
 						break;
 
 					case RegistrationStep.Pin:
-						await App.Current.SetAppShellPage();
+						await App.Current.SetAppShellPageAsync();
 						break;
 
 					default: // RegistrationStep.Operator
@@ -232,7 +232,7 @@ namespace IdApp.Pages.Registration.Registration
 		private async Task SyncTagProfileStep()
 		{
 			if (this.TagProfile.Step == RegistrationStep.Complete)
-				await App.Current.SetAppShellPage();
+				await App.Current.SetAppShellPageAsync();
 			else
 				this.CurrentStep = (int)this.TagProfile.Step;
 		}

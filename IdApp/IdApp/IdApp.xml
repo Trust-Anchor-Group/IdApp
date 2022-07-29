@@ -29,12 +29,12 @@
         <member name="M:IdApp.App.OnSleep">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.App.SetRegistrationPage">
+        <member name="M:IdApp.App.SetRegistrationPageAsync">
             <summary>
             Switches the application to the on-boarding experience.
             </summary>
         </member>
-        <member name="M:IdApp.App.SetAppShellPage">
+        <member name="M:IdApp.App.SetAppShellPageAsync">
             <summary>
             Switches the application to the main experience.
             </summary>

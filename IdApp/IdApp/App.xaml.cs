@@ -597,22 +597,22 @@ namespace IdApp
 		/// <summary>
 		/// Switches the application to the on-boarding experience.
 		/// </summary>
-		public Task SetRegistrationPage()
+		public Task SetRegistrationPageAsync()
 		{
 			// NavigationPage is used to allow non modal navigation. Scan QR code page is pushed not modally to allow the user to dismiss it
 			// on iOS (on iOS this page doesn't have any other means of going back without actually entering valid data).
-			return this.SetMainPage(new NavigationPage(new RegistrationPage()));
+			return this.SetMainPageAsync(new NavigationPage(new RegistrationPage()));
 		}
 
 		/// <summary>
 		/// Switches the application to the main experience.
 		/// </summary>
-		public Task SetAppShellPage()
+		public Task SetAppShellPageAsync()
 		{
-			return this.SetMainPage(new AppShell());
+			return this.SetMainPageAsync(new AppShell());
 		}
 
-		private async Task SetMainPage(Page Page)
+		private async Task SetMainPageAsync(Page Page)
 		{
 			Page CurrentPage = this.MainPage is Shell Shell ? Shell.CurrentPage : this.MainPage;
 			if (CurrentPage is NavigationPage NavigationPage)

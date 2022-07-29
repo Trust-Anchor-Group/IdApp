@@ -91,11 +91,11 @@ namespace IdApp.Pages.Main.Loading
 						{
 							if (this.TagProfile.IsComplete())
 							{
-								await App.Current.SetAppShellPage();
+								await App.Current.SetAppShellPageAsync();
 							}
 							else
 							{
-								await App.Current.SetRegistrationPage();
+								await App.Current.SetRegistrationPageAsync();
 							}
 						}
 						catch (Exception Exception)
