@@ -19349,7 +19349,7 @@
             Helper class to perform scanning of QR Codes by displaying the UI and handling async results.
             </summary>
         </member>
-        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCodeAndHandleResult">
+        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCodeAndHandleResult(System.Boolean)">
             <summary>
             Scans a QR Code, and depending on the actual result, takes different actions. 
             This typically means navigating to an appropriate page.
@@ -19384,7 +19384,7 @@
             <param name="navigationService">The navigation service to use for page navigation.</param>
             <param name="commandName">The localized name of the command to display when scanning.</param>
             <param name="action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
-            <param name="UseNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
+            <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
             <returns>Decoded string</returns>
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.TrySetResultAndClosePage(IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,System.String,System.Boolean)">
@@ -19393,7 +19393,7 @@
             </summary>
             <param name="navigationService">The navigation service to use for page navigation.</param>
             <param name="uiSerializer">The current UI Dispatcher to use for marshalling back to the main thread.</param>
-            <param name="UseNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.</param>
+            <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.</param>
             <param name="Url">The URL to set.</param>
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.GeneratePng(System.String,System.Int32,System.Int32)">

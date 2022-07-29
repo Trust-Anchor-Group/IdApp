@@ -163,14 +163,14 @@ namespace IdApp.Services.UI.QR
 		/// <param name="navigationService">The navigation service to use for page navigation.</param>
 		/// <param name="commandName">The localized name of the command to display when scanning.</param>
 		/// <param name="action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
-		/// <param name="UseNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
+		/// <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
 		/// <returns>Decoded string</returns>
-		public static Task<string> ScanQrCode(INavigationService navigationService, string commandName, Func<string, Task> action = null, bool UseNavigationService = true)
+		public static Task<string> ScanQrCode(INavigationService navigationService, string commandName, Func<string, Task> action = null, bool UseShellNavigationService = true)
 		{
 			callback = action;
 
 			ScanQrCodeNavigationArgs NavigationArgs = new(commandName);
-			if (UseNavigationService)
+			if (UseShellNavigationService)
 			{
 				_ = navigationService.GoToAsync(nameof(ScanQrCodePage), NavigationArgs);
 			}
@@ -188,9 +188,9 @@ namespace IdApp.Services.UI.QR
 		/// </summary>
 		/// <param name="navigationService">The navigation service to use for page navigation.</param>
 		/// <param name="uiSerializer">The current UI Dispatcher to use for marshalling back to the main thread.</param>
-		/// <param name="UseNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.</param>
+		/// <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.</param>
 		/// <param name="Url">The URL to set.</param>
-		internal static void TrySetResultAndClosePage(INavigationService navigationService, IUiSerializer uiSerializer, string Url, bool UseNavigationService = true)
+		internal static void TrySetResultAndClosePage(INavigationService navigationService, IUiSerializer uiSerializer, string Url, bool UseShellNavigationService = true)
 		{
 			uiSerializer.BeginInvokeOnMainThread(async () =>
 			{
@@ -200,7 +200,7 @@ namespace IdApp.Services.UI.QR
 					callback = null;
 				}
 
-				if (UseNavigationService)
+				if (UseShellNavigationService)
 				{
 					await navigationService.GoBackAsync();
 				}
