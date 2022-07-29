@@ -36,24 +36,24 @@ namespace IdApp.iOS.Renderers
 			UIApplication.SharedApplication.StatusBarStyle = this.originalStatusBarStyle;
 		}
 
-		protected override void Dispose(bool disposing)
+		protected override void Dispose(bool Disposing)
 		{
 			if (this.disposed)
 				return;
 
 			this.disposed = true;
 
-			if (disposing)
+			if (Disposing)
 			{
 				this.Element.PropertyChanged -= this.OnElementPropertyChanged;
 			}
 
-			base.Dispose(disposing);
+			base.Dispose(Disposing);
 		}
 
-		private void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		private void OnElementPropertyChanged(object Sender, PropertyChangedEventArgs Args)
 		{
-			if (e.PropertyName == NavigationPage.BarTextColorProperty.PropertyName)
+			if (Args.PropertyName == NavigationPage.BarTextColorProperty.PropertyName)
 			{
 				UIApplication.SharedApplication.StatusBarStyle = this.originalStatusBarStyle;
 			}
