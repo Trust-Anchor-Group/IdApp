@@ -55,8 +55,9 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text=" ("/>
-                            <Span Text="{Binding Path=Balance, Converter={converters:MoneyToString}}" FontSize="14"/>
-                            <Span Text=" "/>
+							<Span Text="{Binding Path=Balance, Converter={converters:MoneyToString}}" FontSize="14"/>
+							<Span Text="{Binding Path=ReservedSuffix}" FontSize="14" TextColor="{StaticResource PendingColor}"/>
+							<Span Text=" "/>
                             <Span Text="{Binding Path=Currency}" FontSize="12"/>
                             <Span Text=" ) "/>
                         </FormattedString>
@@ -109,7 +110,19 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                    </Grid>
+						<Label Grid.Row="2" HorizontalOptions="End" TextColor="{StaticResource PendingColor}"
+                               IsVisible="{Binding Path=ReservedAmount, Converter={converters:GreaterThanZero}}" BackgroundColor="Transparent" >
+							<Label.FormattedText>
+								<FormattedString>
+									<Span Text="(+"/>
+									<Span Text="{Binding Path=ReservedAmount, Converter={converters:MoneyToString}}" FontAttributes="Bold"/>
+									<Span Text=" "/>
+									<Span Text="{Binding Path=Currency}"/>
+									<Span Text=")"/>
+								</FormattedString>
+							</Label.FormattedText>
+						</Label>
+					</Grid>
                 </Frame>
 
                 <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}">

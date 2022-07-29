@@ -9276,6 +9276,36 @@
             <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.BalanceText"/> and <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.Currency"/>.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.ReservedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.Reserved"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.Reserved">
+            <summary>
+            Reserved of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.ReservedTextProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.ReservedText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.ReservedText">
+            <summary>
+            <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.Reserved"/> as text.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.ReservedAndCurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.ReservedAndCurrency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.ReservedAndCurrency">
+            <summary>
+            <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.ReservedText"/> and <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.Currency"/>.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.CurrencyProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.Currency"/>
@@ -10493,6 +10523,16 @@
             PendingCurrency of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.ReservedAmountProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.ReservedAmount"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.ReservedAmount">
+            <summary>
+            ReservedAmount of eDaler to process
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.TimestampProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Timestamp"/>
@@ -10676,6 +10716,11 @@
             Balance after event.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.Reserved">
+            <summary>
+            Reserved after event.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.Change">
             <summary>
             Balance change
@@ -10727,6 +10772,11 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.TimestampStr">
             <summary>
             String representation of timestamp
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.ReservedSuffix">
+            <summary>
+            Formatted string of any amount being reserved.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.ObjectModels.PendingPaymentItem">
@@ -14875,6 +14925,11 @@
         <member name="P:IdApp.Resx.AppResources.RequestWasCancelled">
             <summary>
               Looks up a localized string similar to The request was cancelled.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Reserved">
+            <summary>
+              Looks up a localized string similar to Reserved:.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.RetypePinOrPassword">

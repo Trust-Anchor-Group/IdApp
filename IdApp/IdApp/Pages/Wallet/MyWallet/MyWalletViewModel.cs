@@ -107,6 +107,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				this.Balance = Balance;
 				this.Amount = Balance.Amount;
+				this.ReservedAmount = Balance.Reserved;
 				this.Currency = Balance.Currency;
 				this.Timestamp = Balance.Timestamp;
 			}
@@ -315,6 +316,21 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			get => (string)this.GetValue(PendingCurrencyProperty);
 			set => this.SetValue(PendingCurrencyProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="ReservedAmount"/>
+		/// </summary>
+		public static readonly BindableProperty ReservedAmountProperty =
+			BindableProperty.Create(nameof(ReservedAmount), typeof(decimal), typeof(MyWalletViewModel), default(decimal));
+
+		/// <summary>
+		/// ReservedAmount of eDaler to process
+		/// </summary>
+		public decimal ReservedAmount
+		{
+			get => (decimal)this.GetValue(ReservedAmountProperty);
+			set => this.SetValue(ReservedAmountProperty, value);
 		}
 
 		/// <summary>
