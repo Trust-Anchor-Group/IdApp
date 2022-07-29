@@ -33,9 +33,9 @@ namespace IdApp.Services.UI.QR
 		/// Scans a QR Code, and depending on the actual result, takes different actions. 
 		/// This typically means navigating to an appropriate page.
 		/// </summary>
-		public static async Task ScanQrCodeAndHandleResult()
+		public static async Task ScanQrCodeAndHandleResult(bool UseShellNavigationService = true)
 		{
-			string Url = await QrCode.ScanQrCode(App.Instantiate<INavigationService>(), AppResources.Open);
+			string Url = await QrCode.ScanQrCode(App.Instantiate<INavigationService>(), AppResources.Open, action: null, UseShellNavigationService: UseShellNavigationService);
 			if (string.IsNullOrWhiteSpace(Url))
 				return;
 
