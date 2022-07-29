@@ -17,6 +17,9 @@ namespace IdApp.iOS.Renderers
 			if (this.ChildViewControllers.OfType<ShellTableViewController>().FirstOrDefault() is ShellTableViewController Controller)
 			{
 				this.flyoutTable = Controller.TableView;
+
+				// Shell doesn't reuse renderers, so it seems safe to subscribe without unsubscribing in Dispose(bool) override.
+				// ShellFlyoutContentRenderer doesn't unsubscribe: https://github.com/xamarin/Xamarin.Forms/blob/94acebbb4bee16bf71338ef6906b308ca08524c2/Xamarin.Forms.Platform.iOS/Renderers/ShellFlyoutContentRenderer.cs#L36.
 				ShellContext.Shell.PropertyChanged += this.OnShellPropertyChanged;
 			}
 		}
