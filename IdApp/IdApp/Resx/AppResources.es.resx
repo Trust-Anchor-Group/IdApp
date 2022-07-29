@@ -1764,4 +1764,7 @@
   <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
     <value>Se ha enviado un código a la dirección de correo electrónico indicada anteriormente. Cuando lo reciba, ingrese el código de verificación a continuación para continuar.</value>
   </data>
+  <data name="Reserved" xml:space="preserve">
+    <value>Reservado:</value>
+  </data>
 </root>

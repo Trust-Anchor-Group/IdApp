@@ -36,6 +36,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 				this.Change = args.Event.Change;
 				this.ChangeColor = args.Event.TextColor;
 				this.Balance = args.Event.Balance;
+				this.Reserved = args.Event.Reserved;
 				this.Message = args.Event.Message;
 				this.HasMessage = args.Event.HasMessage;
 				this.MessageIsUri = this.HasMessage && Uri.TryCreate(this.Message, UriKind.Absolute, out _);
@@ -47,6 +48,9 @@ namespace IdApp.Pages.Wallet.AccountEvent
 
 				this.BalanceText = MoneyToString.ToString(this.Balance);
 				this.BalanceAndCurrency = this.BalanceText + " " + this.Currency;
+
+				this.ReservedText = MoneyToString.ToString(this.Reserved);
+				this.ReservedAndCurrency = this.ReservedText + " " + this.Currency;
 			}
 
 			this.AssignProperties();
@@ -191,6 +195,51 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		{
 			get => (string)this.GetValue(BalanceAndCurrencyProperty);
 			set => this.SetValue(BalanceAndCurrencyProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Reserved"/>
+		/// </summary>
+		public static readonly BindableProperty ReservedProperty =
+			BindableProperty.Create(nameof(Reserved), typeof(decimal), typeof(EDalerUriViewModel), default(decimal));
+
+		/// <summary>
+		/// Reserved of eDaler
+		/// </summary>
+		public decimal Reserved
+		{
+			get => (decimal)this.GetValue(ReservedProperty);
+			set => this.SetValue(ReservedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="ReservedText"/>
+		/// </summary>
+		public static readonly BindableProperty ReservedTextProperty =
+			BindableProperty.Create(nameof(ReservedText), typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// <see cref="Reserved"/> as text.
+		/// </summary>
+		public string ReservedText
+		{
+			get => (string)this.GetValue(ReservedTextProperty);
+			set => this.SetValue(ReservedTextProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="ReservedAndCurrency"/>
+		/// </summary>
+		public static readonly BindableProperty ReservedAndCurrencyProperty =
+			BindableProperty.Create(nameof(ReservedAndCurrency), typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// <see cref="ReservedText"/> and <see cref="Currency"/>.
+		/// </summary>
+		public string ReservedAndCurrency
+		{
+			get => (string)this.GetValue(ReservedAndCurrencyProperty);
+			set => this.SetValue(ReservedAndCurrencyProperty, value);
 		}
 
 		/// <summary>

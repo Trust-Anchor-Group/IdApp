@@ -3400,6 +3400,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reserved:.
+        /// </summary>
+        internal static string Reserved {
+            get {
+                return ResourceManager.GetString("Reserved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Retype PIN or password.
         /// </summary>
         internal static string RetypePinOrPassword {

@@ -4,6 +4,7 @@
                        xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.AccountEvent;assembly=IdApp"
+                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:AccountEventViewModel"
                        x:Class="IdApp.Pages.Wallet.AccountEvent.AccountEventPage"
                        Title="{x:Static resx:AppResources.AccountEvent}">
@@ -21,7 +22,9 @@
                 <Entry Text="{Binding Path=ChangeAndCurrency}" IsReadOnly="True" TextColor="{Binding Path=ChangeColor}"/>
                 <Label Text="{x:Static resx:AppResources.Balance}"/>
                 <Entry Text="{Binding Path=BalanceAndCurrency}" IsReadOnly="True"/>
-                <Label Text="{x:Static resx:AppResources.Message}" IsVisible="{Binding Path=HasMessage}"/>
+				<Label Text="{x:Static resx:AppResources.Reserved}" IsVisible="{Binding Reserved, Converter={converters:GreaterThanZero}}"/>
+				<Entry Text="{Binding Path=ReservedAndCurrency}" IsReadOnly="True" IsVisible="{Binding Reserved, Converter={converters:GreaterThanZero}}"/>
+				<Label Text="{x:Static resx:AppResources.Message}" IsVisible="{Binding Path=HasMessage}"/>
                 <Entry Text="{Binding Path=Message}" IsReadOnly="True" IsVisible="{Binding Path=HasMessage}"/>
                 <Button Text="{Static resx:AppResources.OpenMessageLink}" Command="{Binding OpenMessageLinkCommand}" IsVisible="{Binding MessageIsUri}"/>
                 <Label Text="{x:Static resx:AppResources.TransactionId}"/>

@@ -1764,4 +1764,7 @@
   <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
     <value>Un cod a fost trimis la adresa de e-mail indicată mai sus. Când îl primiți, vă rugăm să introduceți codul de verificare de mai jos pentru a continua.</value>
   </data>
+  <data name="Reserved" xml:space="preserve">
+    <value>Rezervat:</value>
+  </data>
 </root>

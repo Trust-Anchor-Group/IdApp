@@ -1764,4 +1764,7 @@
   <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
     <value>En kode er sendt til e-postadressen som er angitt ovenfor. Når du mottar den, angir du bekreftelseskoden nedenfor for å fortsette.</value>
   </data>
+  <data name="Reserved" xml:space="preserve">
+    <value>Reservert:</value>
+  </data>
 </root>

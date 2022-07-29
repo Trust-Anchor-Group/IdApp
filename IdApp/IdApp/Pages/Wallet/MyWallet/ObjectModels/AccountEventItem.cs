@@ -1,4 +1,5 @@
-﻿using IdApp.Resx;
+﻿using IdApp.Converters;
+using IdApp.Resx;
 using System;
 using Xamarin.Forms;
 
@@ -10,7 +11,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 	public class AccountEventItem : IItemGroup
 	{
 		private readonly EDaler.AccountEvent accountEvent;
-		private readonly MyWallet.MyWalletViewModel viewModel;
+		private readonly MyWalletViewModel viewModel;
 		private readonly string friendlyName;
 
 		/// <summary>
@@ -19,7 +20,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// <param name="AccountEvent">Account event.</param>
 		/// <param name="ViewModel">Current view model</param>
 		/// <param name="FriendlyName">Friendly name of remote entity.</param>
-		public AccountEventItem(EDaler.AccountEvent AccountEvent, MyWallet.MyWalletViewModel ViewModel, string FriendlyName)
+		public AccountEventItem(EDaler.AccountEvent AccountEvent, MyWalletViewModel ViewModel, string FriendlyName)
 		{
 			this.accountEvent = AccountEvent;
 			this.viewModel = ViewModel;
@@ -30,6 +31,11 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// Balance after event.
 		/// </summary>
 		public decimal Balance => this.accountEvent.Balance;
+
+		/// <summary>
+		/// Reserved after event.
+		/// </summary>
+		public decimal Reserved => this.accountEvent.Reserved;
 
 		/// <summary>
 		/// Balance change
@@ -103,6 +109,20 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 					return AppResources.Yesterday + ", " + this.Timestamp.ToLongTimeString();
 				else
 					return this.Timestamp.ToShortDateString() + ", " + this.Timestamp.ToLongTimeString();
+			}
+		}
+
+		/// <summary>
+		/// Formatted string of any amount being reserved.
+		/// </summary>
+		public string ReservedSuffix
+		{
+			get
+			{
+				if (this.accountEvent.Reserved == 0)
+					return string.Empty;
+
+				return "+" + MoneyToString.ToString(this.accountEvent.Reserved);
 			}
 		}
 	}

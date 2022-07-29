@@ -1764,4 +1764,7 @@
   <data name="WelcomeToTagEMailCodeSent" xml:space="preserve">
     <value>Код был отправлен на адрес электронной почты, указанный выше. Когда вы получите его, пожалуйста, введите проверочный код ниже, чтобы продолжить.</value>
   </data>
+  <data name="Reserved" xml:space="preserve">
+    <value>Скрытный:</value>
+  </data>
 </root>
