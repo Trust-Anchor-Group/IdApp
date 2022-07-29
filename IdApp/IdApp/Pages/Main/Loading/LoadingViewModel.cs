@@ -1,13 +1,11 @@
-﻿using IdApp.Extensions;
+﻿using System;
 using System.Threading.Tasks;
+using IdApp.Extensions;
 using IdApp.Services;
+using IdApp.Services.Tag;
+using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
-using IdApp.Services.Xmpp;
-using IdApp.Services.Tag;
-using IdApp.Pages.Main.Shell;
-using IdApp.Pages.Registration.Registration;
-using System;
 
 namespace IdApp.Pages.Main.Loading
 {
