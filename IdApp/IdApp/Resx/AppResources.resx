@@ -1767,4 +1767,19 @@
   <data name="Reserved" xml:space="preserve">
     <value>Reserved:</value>
   </data>
+  <data name="StateDiagram" xml:space="preserve">
+    <value>State Diagram</value>
+  </data>
+  <data name="UnableToGetHistory" xml:space="preserve">
+    <value>Unable to get history report.</value>
+  </data>
+  <data name="UnableToGetPresent" xml:space="preserve">
+    <value>Unable to get present report.</value>
+  </data>
+  <data name="UnableToGetProfiling" xml:space="preserve">
+    <value>Unable to get profiling report.</value>
+  </data>
+  <data name="UnableToGetStateDiagram" xml:space="preserve">
+    <value>Unable to get state diagram report.</value>
+  </data>
 </root>

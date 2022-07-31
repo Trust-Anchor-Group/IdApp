@@ -1767,4 +1767,19 @@
   <data name="Reserved" xml:space="preserve">
     <value>Reserviert:</value>
   </data>
+  <data name="StateDiagram" xml:space="preserve">
+    <value>Zustandsdiagramm</value>
+  </data>
+  <data name="UnableToGetHistory" xml:space="preserve">
+    <value>Der Verlaufsbericht konnte nicht abgerufen werden.</value>
+  </data>
+  <data name="UnableToGetPresent" xml:space="preserve">
+    <value>Der aktuelle Bericht konnte nicht abgerufen werden.</value>
+  </data>
+  <data name="UnableToGetProfiling" xml:space="preserve">
+    <value>Profilerstellungsbericht kann nicht abgerufen werden.</value>
+  </data>
+  <data name="UnableToGetStateDiagram" xml:space="preserve">
+    <value>Statusdiagrammbericht konnte nicht abgerufen werden.</value>
+  </data>
 </root>

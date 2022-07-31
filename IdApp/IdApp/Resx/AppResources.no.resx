@@ -1767,4 +1767,19 @@
   <data name="Reserved" xml:space="preserve">
     <value>Reservert:</value>
   </data>
+  <data name="StateDiagram" xml:space="preserve">
+    <value>Tilstandsdiagram</value>
+  </data>
+  <data name="UnableToGetHistory" xml:space="preserve">
+    <value>Kan ikke hente loggrapport.</value>
+  </data>
+  <data name="UnableToGetPresent" xml:space="preserve">
+    <value>Kan ikke hente gjeldende rapport.</value>
+  </data>
+  <data name="UnableToGetProfiling" xml:space="preserve">
+    <value>Kan ikke hente profileringsrapport.</value>
+  </data>
+  <data name="UnableToGetStateDiagram" xml:space="preserve">
+    <value>Kan ikke hente tilstandsdiagramrapport.</value>
+  </data>
 </root>

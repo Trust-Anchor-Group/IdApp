@@ -1770,4 +1770,19 @@
   <data name="Reserved" xml:space="preserve">
     <value>Reserverat:</value>
   </data>
+  <data name="StateDiagram" xml:space="preserve">
+    <value>Tillståndsdiagram</value>
+  </data>
+  <data name="UnableToGetHistory" xml:space="preserve">
+    <value>Kunde inte hämta historikrapporten.</value>
+  </data>
+  <data name="UnableToGetPresent" xml:space="preserve">
+    <value>Kunde inte hämta nutidsrapporten.</value>
+  </data>
+  <data name="UnableToGetProfiling" xml:space="preserve">
+    <value>Kunde inte hämta profileringsrapporten.</value>
+  </data>
+  <data name="UnableToGetStateDiagram" xml:space="preserve">
+    <value>Kunde inte hämta tillståndsdiagrammet.</value>
+  </data>
 </root>

@@ -1767,4 +1767,19 @@
   <data name="Reserved" xml:space="preserve">
     <value>Rezervat:</value>
   </data>
+  <data name="StateDiagram" xml:space="preserve">
+    <value>Diagramă de stare</value>
+  </data>
+  <data name="UnableToGetHistory" xml:space="preserve">
+    <value>Imposibil de obținut raportul istoric.</value>
+  </data>
+  <data name="UnableToGetPresent" xml:space="preserve">
+    <value>Imposibil de obținut raportul prezent.</value>
+  </data>
+  <data name="UnableToGetProfiling" xml:space="preserve">
+    <value>Imposibil de obținut raport de profilare.</value>
+  </data>
+  <data name="UnableToGetStateDiagram" xml:space="preserve">
+    <value>Imposibil de obținut raport diagramă de stare.</value>
+  </data>
 </root>

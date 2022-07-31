@@ -1767,4 +1767,19 @@
   <data name="Reserved" xml:space="preserve">
     <value>Скрытный:</value>
   </data>
+  <data name="StateDiagram" xml:space="preserve">
+    <value>Диаграмма состояния</value>
+  </data>
+  <data name="UnableToGetHistory" xml:space="preserve">
+    <value>Не удается получить отчет по истории.</value>
+  </data>
+  <data name="UnableToGetPresent" xml:space="preserve">
+    <value>Не удается получить настоящий отчет.</value>
+  </data>
+  <data name="UnableToGetProfiling" xml:space="preserve">
+    <value>Не удается получить отчет о профилировании.</value>
+  </data>
+  <data name="UnableToGetStateDiagram" xml:space="preserve">
+    <value>Не удается получить отчет диаграммы состояния.</value>
+  </data>
 </root>

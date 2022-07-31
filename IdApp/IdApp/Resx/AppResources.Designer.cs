@@ -3805,6 +3805,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to State Diagram.
+        /// </summary>
+        internal static string StateDiagram {
+            get {
+                return ResourceManager.GetString("StateDiagram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to States.
         /// </summary>
         internal static string States {
@@ -4372,11 +4381,47 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to get history report..
+        /// </summary>
+        internal static string UnableToGetHistory {
+            get {
+                return ResourceManager.GetString("UnableToGetHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to get list of my devices..
         /// </summary>
         internal static string UnableToGetListOfMyDevices {
             get {
                 return ResourceManager.GetString("UnableToGetListOfMyDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to get present report..
+        /// </summary>
+        internal static string UnableToGetPresent {
+            get {
+                return ResourceManager.GetString("UnableToGetPresent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to get profiling report..
+        /// </summary>
+        internal static string UnableToGetProfiling {
+            get {
+                return ResourceManager.GetString("UnableToGetProfiling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to get state diagram report..
+        /// </summary>
+        internal static string UnableToGetStateDiagram {
+            get {
+                return ResourceManager.GetString("UnableToGetStateDiagram", resourceCulture);
             }
         }
         
