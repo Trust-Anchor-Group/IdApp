@@ -595,7 +595,7 @@ namespace IdApp
 		{
 			// NavigationPage is used to allow non modal navigation. Scan QR code page is pushed not modally to allow the user to dismiss it
 			// on iOS (on iOS this page doesn't have any other means of going back without actually entering valid data).
-			return this.SetMainPageAsync(new NavigationPage(new Pages.Registration.Registration.RegistrationPage()));
+			return this.SetMainPageAsync(new NavigationBasePage(new Pages.Registration.Registration.RegistrationPage()));
 		}
 
 		/// <summary>
