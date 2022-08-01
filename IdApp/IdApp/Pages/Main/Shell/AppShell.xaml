@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{StaticResource HeadingBackgroundLightTheme}" />
+				<!-- Because there is no Shell during on-boarding, Shell.ForegroundColor and Shell.TitleColor should be in sync with NavigationPage.BarTextColor (defined in App.xaml). -->
                 <Setter Property="Shell.ForegroundColor" Value="{StaticResource HeadingForegroundLightTheme}" />
                 <Setter Property="Shell.TitleColor" Value="{StaticResource HeadingForegroundLightTheme}" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
@@ -24,37 +25,6 @@
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
-
-             <Style TargetType="Label" >
-                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
-             </Style>
-
-             <Style TargetType="Entry" >
-                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
-                <Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
-            </Style>
-
-            <Style TargetType="Editor" >
-                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
-                <Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
-            </Style>
-
-            <Style TargetType="Frame" >
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
-            </Style>
-
-             <Style TargetType="ContentPage">
-                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
-             </Style>
-
-             <Style TargetType="Grid">
-                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
-             </Style>
-
-            <Style TargetType="ContentView">
-                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
-             </Style>
-
 
             <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -90,11 +60,6 @@
             </Grid>
         </Frame>
     </Shell.FlyoutHeader>
-
-    <!-- The 'loading' page, always displayed first on startup -->
-    <FlyoutItem x:Name="LoadingFlyout" FlyoutDisplayOptions="AsSingleItem" Title="{x:Static resx:AppResources.Loading}">
-        <ShellContent ContentTemplate="{DataTemplate loading:LoadingPage}"/>
-    </FlyoutItem>
 
 	<!-- The main or root page of the app -->
     <FlyoutItem FlyoutDisplayOptions="AsSingleItem" Title="{x:Static resx:AppResources.Home}">

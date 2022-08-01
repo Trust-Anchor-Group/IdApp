@@ -33,9 +33,9 @@ namespace IdApp.Services.UI.QR
 		/// Scans a QR Code, and depending on the actual result, takes different actions. 
 		/// This typically means navigating to an appropriate page.
 		/// </summary>
-		public static async Task ScanQrCodeAndHandleResult()
+		public static async Task ScanQrCodeAndHandleResult(bool UseShellNavigationService = true)
 		{
-			string Url = await QrCode.ScanQrCode(App.Instantiate<INavigationService>(), AppResources.Open);
+			string Url = await QrCode.ScanQrCode(App.Instantiate<INavigationService>(), AppResources.Open, action: null, UseShellNavigationService: UseShellNavigationService);
 			if (string.IsNullOrWhiteSpace(Url))
 				return;
 
@@ -163,11 +163,22 @@ namespace IdApp.Services.UI.QR
 		/// <param name="navigationService">The navigation service to use for page navigation.</param>
 		/// <param name="commandName">The localized name of the command to display when scanning.</param>
 		/// <param name="action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
+		/// <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
 		/// <returns>Decoded string</returns>
-		public static Task<string> ScanQrCode(INavigationService navigationService, string commandName, Func<string, Task> action = null)
+		public static Task<string> ScanQrCode(INavigationService navigationService, string commandName, Func<string, Task> action = null, bool UseShellNavigationService = true)
 		{
 			callback = action;
-			_ = navigationService.GoToAsync(nameof(ScanQrCodePage), new ScanQrCodeNavigationArgs(commandName));
+
+			ScanQrCodeNavigationArgs NavigationArgs = new(commandName);
+			if (UseShellNavigationService)
+			{
+				_ = navigationService.GoToAsync(nameof(ScanQrCodePage), NavigationArgs);
+			}
+			else
+			{
+				_ = App.Current.MainPage.Navigation.PushAsync(new ScanQrCodePage(NavigationArgs));
+			}
+			
 			qrCodeScanned = new TaskCompletionSource<string>();
 			return qrCodeScanned.Task;
 		}
@@ -177,8 +188,9 @@ namespace IdApp.Services.UI.QR
 		/// </summary>
 		/// <param name="navigationService">The navigation service to use for page navigation.</param>
 		/// <param name="uiSerializer">The current UI Dispatcher to use for marshalling back to the main thread.</param>
+		/// <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.</param>
 		/// <param name="Url">The URL to set.</param>
-		internal static void TrySetResultAndClosePage(INavigationService navigationService, IUiSerializer uiSerializer, string Url)
+		internal static void TrySetResultAndClosePage(INavigationService navigationService, IUiSerializer uiSerializer, string Url, bool UseShellNavigationService = true)
 		{
 			uiSerializer.BeginInvokeOnMainThread(async () =>
 			{
@@ -188,7 +200,14 @@ namespace IdApp.Services.UI.QR
 					callback = null;
 				}
 
-				await navigationService.GoBackAsync();
+				if (UseShellNavigationService)
+				{
+					await navigationService.GoBackAsync();
+				}
+				else
+				{
+					await App.Current.MainPage.Navigation.PopAsync();
+				}
 
 				if (!string.IsNullOrWhiteSpace(Url) && !(qrCodeScanned is null))
 				{

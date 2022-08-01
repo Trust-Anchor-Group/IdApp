@@ -22,6 +22,7 @@ using Waher.Persistence;
 using System.Xml;
 using System.IO;
 using System.Collections.Generic;
+using Xamarin.Forms;
 
 namespace IdApp.Services.Contracts
 {
@@ -366,7 +367,7 @@ namespace IdApp.Services.Contracts
 
 					if (gotoRegistrationPage)
 					{
-						await this.NavigationService.GoToAsync(nameof(RegistrationPage));
+						await App.Current.SetRegistrationPageAsync();
 
 						// After navigating to the registration page, show the user why this happened.
 						if (!string.IsNullOrWhiteSpace(userMessage))

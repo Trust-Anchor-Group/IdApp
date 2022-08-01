@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+					   xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Main.Loading;assembly=IdApp"
                        x:DataType="model:LoadingViewModel"
@@ -15,7 +16,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Grid.RowSpan="4" Source="tag_bg.jpg" Aspect="AspectFill"/>
+            <ffimage:CachedImage Grid.Row="0" Grid.RowSpan="4" Source="tag_bg.jpg" Aspect="AspectFill"/>
             <StackLayout Grid.Row="1" Opacity="0" x:Name="LabelLayout" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center" Margin="12,-12,12,12">
                 <Label Text="NEW" TextColor="White" FontSize="16" VerticalTextAlignment="Center" />
                 <Label Text="WAYS" TextColor="White" FontSize="24" VerticalTextAlignment="Center" />

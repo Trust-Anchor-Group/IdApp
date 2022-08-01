@@ -1,10 +1,11 @@
-﻿using IdApp.Extensions;
+﻿using System;
 using System.Threading.Tasks;
+using IdApp.Extensions;
 using IdApp.Services;
+using IdApp.Services.Tag;
+using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
-using IdApp.Services.Xmpp;
-using IdApp.Services.Tag;
 
 namespace IdApp.Pages.Main.Loading
 {
@@ -73,17 +74,38 @@ namespace IdApp.Pages.Main.Loading
 
 		private void XmppService_Loaded(object sender, LoadedEventArgs e)
 		{
-			if (e.IsLoaded)
+			try
 			{
-				this.IsBusy = false;
-
-				this.UiSerializer.BeginInvokeOnMainThread(async () =>
+				if (e.IsLoaded)
 				{
-					if (this.TagProfile.IsComplete())
-						await this.NavigationService.GoToAsync("///" + nameof(Main.MainPage));
-					else
-						await this.NavigationService.GoToAsync("/" + nameof(Registration.Registration.RegistrationPage));
-				});
+					this.IsBusy = false;
+
+					// XmppService_Loaded method might be called from DoBind method, which in turn is called from OnAppearing method.
+					// We cannot update the main page while some OnAppearing is still running (well, we can technically but there will be chaos).
+					// Therefore, do not await this method and do not call it synchronously, even if we are already on the main thread.
+					this.UiSerializer.BeginInvokeOnMainThread(async () =>
+					{
+						try
+						{
+							if (this.TagProfile.IsComplete())
+							{
+								await App.Current.SetAppShellPageAsync();
+							}
+							else
+							{
+								await App.Current.SetRegistrationPageAsync();
+							}
+						}
+						catch (Exception Exception)
+						{
+							this.LogService?.LogException(Exception);
+						}
+					});
+				}
+			}
+			catch (Exception Exception)
+			{
+				this.LogService?.LogException(Exception);
 			}
 		}
 	}

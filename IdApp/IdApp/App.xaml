@@ -133,7 +133,7 @@
         <Style TargetType="Label"
                ApplyToDerivedTypes="True"
                CanCascade="True">
-            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
         </Style>
         <Style TargetType="Label" x:Key="ValueLabel">
             <Setter Property="FontAttributes" Value="Bold"/>
@@ -185,7 +185,8 @@
         </Style>
         <Style TargetType="Entry" ApplyToDerivedTypes="True" CanCascade="True">
 			<Setter Property="BackgroundColor" Value="Transparent" />
-			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColorLightTheme}, Dark={StaticResource TextColorDarkTheme}}" />
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
+			<Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
 			<Setter Property="helpers:EntryProperties.BorderColor" Value="Gray" />
 			<Setter Property="Margin" Value="{OnPlatform Android='4'}" />
 		</Style>
@@ -251,5 +252,29 @@
                ApplyToDerivedTypes="True">
             <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource FrameLightTheme}, Dark={StaticResource FrameDarkTheme}}"/>
         </Style>
+
+		<!-- An explicit navigation page with a visible navigation header is displayed when scanning a QR code during on-boarding (when there is no Shell). -->
+		<Style TargetType="NavigationPage">
+			<Setter Property="BarBackgroundColor" Value="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}" />
+			<!-- Always using light theme color because this is what we use in Shell. -->
+			<Setter Property="BarTextColor" Value="{AppThemeBinding Dark={StaticResource HeadingForegroundLightTheme}, Default={StaticResource HeadingForegroundLightTheme}}" />
+		</Style>
+
+		<Style TargetType="Editor">
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
+			<Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
+		</Style>
+		<Style TargetType="Frame">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+		</Style>
+		<Style TargetType="ContentPage">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+		</Style>
+		<Style TargetType="Grid">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+		</Style>
+		<Style TargetType="ContentView">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+		</Style>
 	</Application.Resources>
 </Application>

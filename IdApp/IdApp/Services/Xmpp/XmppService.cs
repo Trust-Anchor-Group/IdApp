@@ -1099,10 +1099,7 @@ namespace IdApp.Services.Xmpp
 			await RuntimeSettings.SetAsync("TransferId.CodesSent", string.Empty);
 			await Database.Provider.Flush();
 
-			INavigationService NavigationService = App.Instantiate<INavigationService>();
-
-			this.UiSerializer.BeginInvokeOnMainThread(async () =>
-				await NavigationService.GoToAsync("/" + nameof(Pages.Registration.Registration.RegistrationPage)));
+			this.UiSerializer.BeginInvokeOnMainThread(async () => await App.Current.SetRegistrationPageAsync());
 		}
 
 		/// <summary>

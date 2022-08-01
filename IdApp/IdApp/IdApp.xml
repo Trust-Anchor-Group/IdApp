@@ -29,6 +29,16 @@
         <member name="M:IdApp.App.OnSleep">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.App.SetRegistrationPageAsync">
+            <summary>
+            Switches the application to the on-boarding experience.
+            </summary>
+        </member>
+        <member name="M:IdApp.App.SetAppShellPageAsync">
+            <summary>
+            Switches the application to the main experience.
+            </summary>
+        </member>
         <member name="M:IdApp.App.EvaluateDatabaseDiff(System.String,System.Boolean,System.Boolean)">
             <summary>
             Sends the contents of the database to support.
@@ -2311,6 +2321,16 @@
             </summary>
             <param name="commands">The commands to re-evaluate.</param>
         </member>
+        <member name="T:IdApp.Pages.BetweenMainPage">
+            <summary>
+            A page which is displayed when switching the application main page, while the old main page is performing cleanup asynchronously.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BetweenMainPage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:IdApp.Pages.BetweenMainPage"/> class.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.BootstrapErrorPage">
             <summary>
             A page which is displayed when an unexpected exception is encountered during the application startup.
@@ -3235,6 +3255,11 @@
             when the page is shown on screen.
             </summary>
             <remarks>It also handles safe area insets for iOS applications, specifically on iPhones with the 'rabbit ear' displays.</remarks>
+        </member>
+        <member name="E:IdApp.Pages.ContentBasePage.OnDisappearingCompleted">
+            <summary>
+            An event which is raised when <see cref="M:IdApp.Pages.ContentBasePage.OnDisappearing"/> has actually completed (normally or because of an exception).
+            </summary>
         </member>
         <member name="M:IdApp.Pages.ContentBasePage.#ctor">
             <summary>
@@ -7102,10 +7127,21 @@
             A page to display for scanning of a QR code, either automatically via the camera, or by entering the code manually.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.#ctor(IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"/> class.
+            </summary>
+            <param name="NavigationArgs">
+            Navigation arguments, which are manually passed to the constructor when Shell navigation is not available, namely during on-boarding.
+            </param>
+        </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"/> class.
             </summary>
+            <remarks>
+            A parameterless constructor is required for shell routing system (it uses <c>Activator.CreateInstance</c>).
+            </remarks>
         </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.OnAppearingAsync">
             <summary>
@@ -7133,7 +7169,7 @@
             An event that is fired when the scanning mode changes from automatic scan to manual entry.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.#ctor">
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.#ctor(IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel"/> class.
             </summary>
@@ -7274,9 +7310,6 @@
             <summary>
             Current Neuro-Wallet Orchestrator Service
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.Shell.AppShell.OnNavigated(Xamarin.Forms.ShellNavigatedEventArgs)">
-            <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Main.Shell.AppShellViewModel">
             <summary>
@@ -19340,7 +19373,7 @@
             Helper class to perform scanning of QR Codes by displaying the UI and handling async results.
             </summary>
         </member>
-        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCodeAndHandleResult">
+        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCodeAndHandleResult(System.Boolean)">
             <summary>
             Scans a QR Code, and depending on the actual result, takes different actions. 
             This typically means navigating to an appropriate page.
@@ -19354,7 +19387,7 @@
             <param name="Url">URL to open.</param>
             <returns>If URL was handled.</returns>
         </member>
-        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCode(IdApp.Services.Navigation.INavigationService,System.String,System.Func{System.String,System.Threading.Tasks.Task})">
+        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCode(IdApp.Services.Navigation.INavigationService,System.String,System.Func{System.String,System.Threading.Tasks.Task},System.Boolean)">
             <summary>
             Navigates to the Scan QR Code Page, waits for scan to complete, and returns the result.
             This is seemingly simple, but performs several operations, namely:
@@ -19375,14 +19408,16 @@
             <param name="navigationService">The navigation service to use for page navigation.</param>
             <param name="commandName">The localized name of the command to display when scanning.</param>
             <param name="action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
+            <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
             <returns>Decoded string</returns>
         </member>
-        <member name="M:IdApp.Services.UI.QR.QrCode.TrySetResultAndClosePage(IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,System.String)">
+        <member name="M:IdApp.Services.UI.QR.QrCode.TrySetResultAndClosePage(IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,System.String,System.Boolean)">
             <summary>
             Tries to set the Scan QR Code result and close the scan page.
             </summary>
             <param name="navigationService">The navigation service to use for page navigation.</param>
             <param name="uiSerializer">The current UI Dispatcher to use for marshalling back to the main thread.</param>
+            <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.</param>
             <param name="Url">The URL to set.</param>
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.GeneratePng(System.String,System.Int32,System.Int32)">

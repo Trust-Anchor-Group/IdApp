@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Pages.Main.Shell;
 using IdApp.Services.Tag;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -149,37 +150,44 @@ namespace IdApp.Pages.Registration.Registration
 		/// </summary>
 		/// <param name="sender">The event sender.</param>
 		/// <param name="e">The default event args.</param>
-		protected internal void RegistrationStep_Completed(object sender, EventArgs e)
+		protected internal async void RegistrationStep_Completed(object sender, EventArgs e)
 		{
-			RegistrationStep Step = ((RegistrationStepViewModel)sender).Step;
-
-			switch (Step)
+			try
 			{
-				case RegistrationStep.Account:
-					// User connected to an existing account (as opposed to creating a new one). Copy values from the legal identity.
-					if (this.TagProfile.LegalIdentity is not null)
-					{
-						RegisterIdentity.RegisterIdentityViewModel vm = (RegisterIdentity.RegisterIdentityViewModel)this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
-						vm.PopulateFromTagProfile();
-					}
-					this.SyncTagProfileStep();
-					break;
+				RegistrationStep Step = ((RegistrationStepViewModel)sender).Step;
 
-				case RegistrationStep.RegisterIdentity:
-					this.SyncTagProfileStep();
-					break;
+				switch (Step)
+				{
+					case RegistrationStep.Account:
+						// User connected to an existing account (as opposed to creating a new one). Copy values from the legal identity.
+						if (this.TagProfile.LegalIdentity is not null)
+						{
+							RegisterIdentity.RegisterIdentityViewModel vm = (RegisterIdentity.RegisterIdentityViewModel)this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
+							vm.PopulateFromTagProfile();
+						}
+						this.SyncTagProfileStep();
+						break;
 
-				case RegistrationStep.ValidateIdentity:
-					this.SyncTagProfileStep();
-					break;
+					case RegistrationStep.RegisterIdentity:
+						this.SyncTagProfileStep();
+						break;
 
-				case RegistrationStep.Pin:
-					this.NavigationService.GoToAsync("///" + nameof(Main.Main.MainPage));
-					break;
+					case RegistrationStep.ValidateIdentity:
+						this.SyncTagProfileStep();
+						break;
 
-				default: // RegistrationStep.Operator
-					this.SyncTagProfileStep();
-					break;
+					case RegistrationStep.Pin:
+						await App.Current.SetAppShellPageAsync();
+						break;
+
+					default: // RegistrationStep.Operator
+						this.SyncTagProfileStep();
+						break;
+				}
+			}
+			catch (Exception Exception)
+			{
+				this.LogService?.LogException(Exception);
 			}
 		}
 
@@ -221,10 +229,10 @@ namespace IdApp.Pages.Registration.Registration
 			this.SyncTagProfileStep();
 		}
 
-		private void SyncTagProfileStep()
+		private async Task SyncTagProfileStep()
 		{
 			if (this.TagProfile.Step == RegistrationStep.Complete)
-				this.NavigationService.GoToAsync("///" + nameof(Main.Main.MainPage));
+				await App.Current.SetAppShellPageAsync();
 			else
 				this.CurrentStep = (int)this.TagProfile.Step;
 		}

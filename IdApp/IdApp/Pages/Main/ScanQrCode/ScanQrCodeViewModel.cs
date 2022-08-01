@@ -11,16 +11,19 @@ namespace IdApp.Pages.Main.ScanQrCode
     /// </summary>
     public class ScanQrCodeViewModel : BaseViewModel
     {
-        /// <summary>
-        /// An event that is fired when the scanning mode changes from automatic scan to manual entry.
-        /// </summary>
-        public event EventHandler ModeChanged;
+		private readonly ScanQrCodeNavigationArgs navigationArgs;
+
+		/// <summary>
+		/// An event that is fired when the scanning mode changes from automatic scan to manual entry.
+		/// </summary>
+		public event EventHandler ModeChanged;
 
         /// <summary>
         /// Creates a new instance of the <see cref="ScanQrCodeViewModel"/> class.
         /// </summary>
-        public ScanQrCodeViewModel()
+        public ScanQrCodeViewModel(ScanQrCodeNavigationArgs NavigationArgs)
         {
+			this.navigationArgs = NavigationArgs;
 			this.SwitchModeCommand = new Command(this.SwitchMode);
 			this.OpenCommandText = AppResources.Open;
 			this.SetModeText();
@@ -30,10 +33,13 @@ namespace IdApp.Pages.Main.ScanQrCode
         protected override async Task DoBind()
         {
             await base.DoBind();
-            if (this.NavigationService.TryPopArgs(out ScanQrCodeNavigationArgs args) && !string.IsNullOrWhiteSpace(args.CommandName))
-				this.OpenCommandText = args.CommandName;
-            else
-				this.OpenCommandText = AppResources.Open;
+
+			ScanQrCodeNavigationArgs NavigationArgs = this.navigationArgs
+				?? (this.NavigationService.TryPopArgs(out ScanQrCodeNavigationArgs Args) ? Args : null);
+
+			this.OpenCommandText = !string.IsNullOrWhiteSpace(NavigationArgs?.CommandName)
+				? NavigationArgs.CommandName
+				: AppResources.Open;
         }
 
         /// <inheritdoc />
@@ -182,7 +188,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// <param name="e"></param>
         protected virtual void OnModeChanged(EventArgs e)
         {
-            ModeChanged?.Invoke(this, e);
+            this.ModeChanged?.Invoke(this, e);
         }
     }
 }

@@ -15,12 +15,18 @@ namespace IdApp.Pages.Main.ScanQrCode
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ScanQrCodePage
 	{
+		private readonly bool useShellNavigationService;
+
 		/// <summary>
 		/// Creates a new instance of the <see cref="ScanQrCodePage"/> class.
 		/// </summary>
-		public ScanQrCodePage()
+		/// <param name="NavigationArgs">
+		/// Navigation arguments, which are manually passed to the constructor when Shell navigation is not available, namely during on-boarding.
+		/// </param>
+		public ScanQrCodePage(ScanQrCodeNavigationArgs NavigationArgs)
 		{
-			this.ViewModel = new ScanQrCodeViewModel();
+			this.useShellNavigationService = NavigationArgs == null;
+			this.ViewModel = new ScanQrCodeViewModel(NavigationArgs);
 			this.InitializeComponent();
 
 			this.Scanner.Options = new MobileBarcodeScanningOptions
@@ -28,6 +34,16 @@ namespace IdApp.Pages.Main.ScanQrCode
 				PossibleFormats = new List<ZXing.BarcodeFormat> { ZXing.BarcodeFormat.QR_CODE },
 				TryHarder = true
 			};
+		}
+
+		/// <summary>
+		/// Creates a new instance of the <see cref="ScanQrCodePage"/> class.
+		/// </summary>
+		/// <remarks>
+		/// A parameterless constructor is required for shell routing system (it uses <c>Activator.CreateInstance</c>).
+		/// </remarks>
+		public ScanQrCodePage() : this(null)
+		{
 		}
 
 		/// <summary>
@@ -68,7 +84,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 				string Url = result.Text?.Trim();
 
 				this.GetViewModel<ScanQrCodeViewModel>().Url = Url;
-				QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, Url);
+				QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, Url, this.useShellNavigationService);
 			}
 		}
 
@@ -91,7 +107,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 				return;
 			}
 
-			QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, Url);
+			QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, Url, this.useShellNavigationService);
 		}
 
 		/// <summary>
@@ -100,7 +116,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 		/// <returns>Whether or not the back navigation was handled</returns>
 		protected override bool OnBackButtonPressed()
 		{
-			QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, string.Empty);
+			QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, string.Empty, this.useShellNavigationService);
 			return true;
 		}
 
