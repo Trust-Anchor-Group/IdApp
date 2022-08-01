@@ -29,7 +29,10 @@ namespace IdApp.Services.Navigation
 			{
 				try
 				{
-					Shell.Current.Navigating += this.Shell_Navigating;
+					Application Application = Application.Current;
+					Application.PropertyChanging += this.OnApplicationPropertyChanging;
+					Application.PropertyChanged += this.OnApplicationPropertyChanged;
+					this.SubscribeToShellNavigatingIfNecessary(Application);
 
 					this.EndLoad(true);
 				}
@@ -50,7 +53,10 @@ namespace IdApp.Services.Navigation
 			{
 				try
 				{
-					Shell.Current.Navigating -= this.Shell_Navigating;
+					Application Application = Application.Current;
+					this.UnsubscribeFromShellNavigatingIfNecessary(Application);
+					Application.PropertyChanged -= this.OnApplicationPropertyChanged;
+					Application.PropertyChanging -= this.OnApplicationPropertyChanging;
 				}
 				catch (Exception e)
 				{
@@ -63,6 +69,33 @@ namespace IdApp.Services.Navigation
 			return Task.CompletedTask;
 		}
 
+		private void OnApplicationPropertyChanged(object Sender, System.ComponentModel.PropertyChangedEventArgs Args)
+		{
+			if (Args.PropertyName == nameof(Application.MainPage))
+			{
+				this.SubscribeToShellNavigatingIfNecessary((Application)Sender);
+			}
+		}
+
+		private void OnApplicationPropertyChanging(object Sender, PropertyChangingEventArgs Args)
+		{
+			if (Args.PropertyName == nameof(Application.MainPage))
+			{
+				this.UnsubscribeFromShellNavigatingIfNecessary((Application)Sender);
+			}
+		}
+
+		private void SubscribeToShellNavigatingIfNecessary(Application Application)
+		{
+			if (Application.MainPage is Shell Shell)
+				Shell.Navigating += this.Shell_Navigating;
+		}
+
+		private void UnsubscribeFromShellNavigatingIfNecessary(Application Application)
+		{
+			if (Application.MainPage is Shell Shell)
+				Shell.Navigating -= this.Shell_Navigating;
+		}
 
 		private async void Shell_Navigating(object sender, ShellNavigatingEventArgs e)
 		{
