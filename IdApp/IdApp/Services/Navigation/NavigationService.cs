@@ -114,26 +114,26 @@ namespace IdApp.Services.Navigation
 			}
 		}
 
-		public bool TryPopArgs<TArgs>(out TArgs args, string UniqueId = null) where TArgs : NavigationArgs
+		public bool TryPopArgs<TArgs>(out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs
 		{
-			return this.TryPopArgs(Shell.Current.CurrentPage, out args, UniqueId);
+			return this.TryPopArgs(Shell.Current.CurrentPage, out Args, UniqueId);
 		}
 
 		public TArgs GetPopArgs<TArgs>(string UniqueId = null) where TArgs : NavigationArgs
 		{
-			return this.TryPopArgs(Shell.Current.CurrentPage, out TArgs args, UniqueId) ? args : null;
+			return this.TryPopArgs(Shell.Current.CurrentPage, out TArgs Args, UniqueId) ? Args : null;
 		}
 
-		private bool TryPopArgs<TArgs>(Page CurrentPage, out TArgs args, string UniqueId = null) where TArgs : NavigationArgs
+		private bool TryPopArgs<TArgs>(Page CurrentPage, out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs
 		{
 			if (CurrentPage is null)
 			{
-				args = default;
+				Args = default;
 				return false;
 			}
 
-			return this.TryPopArgs(CurrentPage.GetType().Name, out args, UniqueId)
-				|| this.TryPopArgs(Routing.GetRoute(CurrentPage), out args, UniqueId);
+			return this.TryPopArgs(CurrentPage.GetType().Name, out Args, UniqueId)
+				|| this.TryPopArgs(Routing.GetRoute(CurrentPage), out Args, UniqueId);
 		}
 
 		private bool TryPopArgs<TArgs>(string PageName, out TArgs args, string UniqueId = null) where TArgs : NavigationArgs
