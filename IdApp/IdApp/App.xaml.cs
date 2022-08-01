@@ -3,10 +3,6 @@ using IdApp.DeviceSpecific;
 using IdApp.Extensions;
 using IdApp.Helpers.Svg;
 using IdApp.Pages;
-using IdApp.Pages.Main.Loading;
-using IdApp.Pages.Main.Shell;
-using IdApp.Pages.Registration.Registration;
-using IdApp.Popups.Pin.PinPopup;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.AttachmentCache;
@@ -146,7 +142,7 @@ namespace IdApp
 			{
 				this.startupProfiler?.NewState("MainPage");
 
-				this.MainPage = new LoadingPage();
+				this.MainPage = new Pages.Main.Loading.LoadingPage();
 			}
 			catch (Exception ex)
 			{
@@ -338,7 +334,7 @@ namespace IdApp
 			await configLoaded.Task;
 		}
 
-		#region Startup/Shutdown
+#region Startup/Shutdown
 
 		///<inheritdoc/>
 		protected override async void OnStart()
@@ -521,7 +517,7 @@ namespace IdApp
 			}
 		}
 
-		#endregion
+#endregion
 
 		private void StopAutoSaveTimer()
 		{
@@ -599,7 +595,7 @@ namespace IdApp
 		{
 			// NavigationPage is used to allow non modal navigation. Scan QR code page is pushed not modally to allow the user to dismiss it
 			// on iOS (on iOS this page doesn't have any other means of going back without actually entering valid data).
-			return this.SetMainPageAsync(new NavigationPage(new RegistrationPage()));
+			return this.SetMainPageAsync(new NavigationPage(new Pages.Registration.Registration.RegistrationPage()));
 		}
 
 		/// <summary>
@@ -607,7 +603,7 @@ namespace IdApp
 		/// </summary>
 		public Task SetAppShellPageAsync()
 		{
-			return this.SetMainPageAsync(new AppShell());
+			return this.SetMainPageAsync(new Pages.Main.Shell.AppShell());
 		}
 
 		private async Task SetMainPageAsync(Page Page)
@@ -619,7 +615,7 @@ namespace IdApp
 			}
 
 			// LoadingPage already looks like a loading page, so it would look strange to push another loading page on top of it.
-			if (CurrentPage is LoadingPage LoadingPage)
+			if (CurrentPage is Pages.Main.Loading.LoadingPage LoadingPage)
 			{
 				// When we change the main page, OnDisappearing is called but not awaited (it returns void). This leads to a race
 				// condition between asynchronous continuation of the old page's OnDisappearing and the new page's OnAppearing.
@@ -640,7 +636,7 @@ namespace IdApp
 			this.MainPage = Page;
 		}
 
-		#region Error Handling
+#region Error Handling
 
 		private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
 		{
@@ -855,7 +851,7 @@ namespace IdApp
 			File.WriteAllText(FileName + ".diff.md", DiffMsg);
 		}
 
-		#endregion
+#endregion
 
 		/// <summary>
 		/// Opens an URL in the application.
@@ -886,7 +882,7 @@ namespace IdApp
 		/// <returns>If the user has provided the correct PIN</returns>
 		public static async Task<bool> VerifyPin()
 		{
-			#if !DEBUG
+#if !DEBUG
 			ITagProfile Profile = App.Instantiate<ITagProfile>();
 			if (!Profile.UsePin)
 				return true;
@@ -895,7 +891,7 @@ namespace IdApp
 
 			if (!displayedPinPopup && NeedToVerifyPin)
 				return await InputPin(Profile) is not null;
-			#endif
+#endif
 			return true;
 		}
 
@@ -984,7 +980,7 @@ namespace IdApp
 				if (!Profile.UsePin)
 					return string.Empty;
 
-				PinPopupPage Page = new();
+				Popups.Pin.PinPopup.PinPopupPage Page = new();
 				await PopupNavigation.Instance.PushAsync(Page);
 				await CheckUserBlocking();
 				string Pin = await Page.Result;
