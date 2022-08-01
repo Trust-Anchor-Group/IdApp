@@ -6,6 +6,7 @@ using Android.Nfc;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Android.Widget;
 using IdApp.Android.Nfc;
 using IdApp.Nfc;
 using IdApp.Services.Nfc;
@@ -36,9 +37,9 @@ namespace IdApp.Android
 
 		private void Init(Bundle SavedInstanceState)
 		{
-			this.Window.SetFlags(
-				WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure,
-				WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure);
+		//	this.Window.SetFlags(
+			//	WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure,
+				//WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure);
 
 			nfcAdapter = NfcAdapter.GetDefaultAdapter(this);
 
@@ -149,11 +150,17 @@ namespace IdApp.Android
 			{
 				Intent Intent = new Intent(this, this.GetType()).AddFlags(ActivityFlags.SingleTop);
 
-				PendingIntent PendingIntent = PendingIntent.GetActivity(this, 0, Intent, 0);
+				PendingIntent PendingIntent = PendingIntent.GetActivity(this, 0, Intent, PendingIntentFlags.Mutable);
 				nfcAdapter.EnableForegroundDispatch(this, PendingIntent, null, null);
 			}
 
 			this.RemoveAllNotifications();
+		}
+
+		protected override void OnPause()
+		{
+			base.OnPause();
+			nfcAdapter.DisableForegroundDispatch(this);
 		}
 
 		protected override async void OnNewIntent(Intent Intent)
@@ -175,6 +182,7 @@ namespace IdApp.Android
 
 							foreach (string Tech in TechList)
 							{
+								Toast.MakeText(this, " " + Tech, ToastLength.Long).Show();
 								switch (Tech)
 								{
 									case "android.nfc.tech.IsoDep":
