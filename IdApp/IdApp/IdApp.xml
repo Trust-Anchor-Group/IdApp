@@ -12785,12 +12785,6 @@
         <member name="M:IdApp.Popups.Pin.PinPopup.PinPopupPage.OnAppearing">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Popups.Pin.PinPopup.PinPopupPage.OnBackgroundClicked">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Popups.Pin.PinPopup.PinPopupPage.OnBackButtonPressed">
-            <inheritdoc/>
-        </member>
         <member name="T:IdApp.Popups.Tokens.AddTextNote.AddTextNotePage">
             <summary>
             Prompts the user for text to add as a note for a token.
@@ -14557,6 +14551,11 @@
         <member name="P:IdApp.Resx.AppResources.PinIsInvalidAplicationBlockedForOneWeek">
             <summary>
               Looks up a localized string similar to PIN attempts entering is exceded. Your application has been blocked for one week.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PinIsInvalidAplicationBlockedTillTomorrow">
+            <summary>
+              Looks up a localized string similar to PIN attempts entering is exceded. Your application has been blocked till tomorrow at {0}..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PinMustNotIncludeWhitespace">

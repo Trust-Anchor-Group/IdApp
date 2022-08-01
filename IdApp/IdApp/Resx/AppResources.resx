@@ -735,6 +735,9 @@
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
     <value>PIN attempts entering is exceded. Your application has been blocked till {0}.</value>
   </data>
+  <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
+    <value>PIN attempts entering is exceded. Your application has been blocked till tomorrow at {0}.</value>
+  </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
     <value>PIN attempts entering is exceded. Your application has been blocked for one week</value>
   </data>
