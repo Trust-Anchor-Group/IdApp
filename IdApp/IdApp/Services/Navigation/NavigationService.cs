@@ -116,7 +116,7 @@ namespace IdApp.Services.Navigation
 
 		public bool TryPopArgs<TArgs>(out TArgs args, string UniqueId = null) where TArgs : NavigationArgs
 		{
-			string PageName = Shell.Current.CurrentPage?.GetType().Name;
+			string PageName = Shell.Current.CurrentPage is Page CurrentPage ? Routing.GetRoute(CurrentPage) : null;
 
 			return this.TryPopArgs(PageName, out args, UniqueId);
 		}
