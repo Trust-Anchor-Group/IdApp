@@ -25,7 +25,9 @@ using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -55,16 +57,12 @@ using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
 using Waher.Runtime.Text;
-using Waher.Security;
-using Waher.Security.LoginMonitor;
-
 using Waher.Script;
+using Waher.Security.LoginMonitor;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using System.Globalization;
-using System.Linq;
-using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp
 {

@@ -15119,6 +15119,11 @@
               Looks up a localized string similar to State.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.StateDiagram">
+            <summary>
+              Looks up a localized string similar to State Diagram.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.States">
             <summary>
               Looks up a localized string similar to States.
@@ -15434,9 +15439,29 @@
               Looks up a localized string similar to The application was unable to get access to the private keys of the identity. This typically means the identity has been changed outside of the scope of the app. It can also be a result of a corruption of data. You can try one of two things. Press the Continue button, to continue, without the private keys. You get access to the app, but cannot sign anything. You can then choose to reapply for a new identity from the main menu, with new private keys. You can also try to repair the database, by pressing the R [rest of string was truncated]&quot;;.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.UnableToGetHistory">
+            <summary>
+              Looks up a localized string similar to Unable to get history report..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.UnableToGetListOfMyDevices">
             <summary>
               Looks up a localized string similar to Unable to get list of my devices..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.UnableToGetPresent">
+            <summary>
+              Looks up a localized string similar to Unable to get present report..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.UnableToGetProfiling">
+            <summary>
+              Looks up a localized string similar to Unable to get profiling report..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.UnableToGetStateDiagram">
+            <summary>
+              Looks up a localized string similar to Unable to get state diagram report..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.UnabletoInitializeTesseract">
