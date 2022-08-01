@@ -7358,6 +7358,22 @@
             Gets or sets whether the application is online, i.e. has network access.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.NavigationBasePage">
+            <summary>
+            A base class for all navigation pages.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.NavigationBasePage.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.NavigationBasePage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.NavigationBasePage.#ctor(Xamarin.Forms.Page)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.NavigationBasePage"/> class.
+            </summary>
+            <param name="Root">The starting page.</param>
+        </member>
         <member name="T:IdApp.Pages.QrXmppViewModel">
             <summary>
             A view model that holds the XMPP state.
