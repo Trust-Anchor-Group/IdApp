@@ -92,6 +92,9 @@ namespace IdApp
 		// there is only one instance (see the references to onStartResumesApplication).
 		private bool onStartResumesApplication = false;
 
+		/// <summary>
+		/// Gets the current application, type casted to <see cref="App"/>.
+		/// </summary>
 		public static new App Current => (App)Application.Current;
 
 		///<inheritdoc/>

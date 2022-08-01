@@ -9,6 +9,11 @@
             The Application class, representing an instance of the IdApp.
             </summary>
         </member>
+        <member name="P:IdApp.App.Current">
+            <summary>
+            Gets the current application, type casted to <see cref="T:IdApp.App"/>.
+            </summary>
+        </member>
         <member name="M:IdApp.App.#ctor">
             <inheritdoc/>
         </member>
