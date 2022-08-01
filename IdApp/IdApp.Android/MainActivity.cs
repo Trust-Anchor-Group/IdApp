@@ -6,7 +6,6 @@ using Android.Nfc;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using IdApp.Android.Nfc;
 using IdApp.Nfc;
 using IdApp.Services.Nfc;
@@ -37,9 +36,9 @@ namespace IdApp.Android
 
 		private void Init(Bundle SavedInstanceState)
 		{
-		//	this.Window.SetFlags(
-			//	WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure,
-				//WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure);
+			this.Window.SetFlags(
+				WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure,
+				WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure);
 
 			nfcAdapter = NfcAdapter.GetDefaultAdapter(this);
 
@@ -182,7 +181,6 @@ namespace IdApp.Android
 
 							foreach (string Tech in TechList)
 							{
-								Toast.MakeText(this, " " + Tech, ToastLength.Long).Show();
 								switch (Tech)
 								{
 									case "android.nfc.tech.IsoDep":
