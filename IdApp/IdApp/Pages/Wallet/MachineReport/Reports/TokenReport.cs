@@ -171,16 +171,6 @@ namespace IdApp.Pages.Wallet.MachineReport.Reports
 
 		private static readonly Regex dynamicImage = new("<!--<img(\\s+((border=[\"'](?'Border'\\d+)[\"'])|(width=[\"'](?'Width'\\d+)[\"'])|(height=[\"'](?'Height'\\d+)[\"'])|(alt=[\"'](?'Alt'[^\"']*)[\"'])|(src=[\"']data:(?'ContentType'\\w+\\/\\w+);base64,(?'Base64'[A-Za-z0-9+-\\/_=]+)[\"'])))*\\s*\\/>-->", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
 
-		private class DynamicImageRef
-		{
-			public string Border;
-			public string Width;
-			public string Height;
-			public string Alt;
-			public string ContentType;
-			public string Base64;
-		}
-
 		/// <summary>
 		/// Method called when the underlying state-machine has changed state.
 		/// </summary>
