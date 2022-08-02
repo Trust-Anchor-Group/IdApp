@@ -174,6 +174,16 @@ namespace IdApp.Services.Wallet
 		event TokenEventHandler TokenAdded;
 
 		/// <summary>
+		/// Event raised when variables have been updated in a state-machine.
+		/// </summary>
+		event VariablesUpdatedEventHandler VariablesUpdated;
+
+		/// <summary>
+		/// Event raised when a state-machine has received a new state.
+		/// </summary>
+		event NewStateEventHandler StateUpdated;
+
+		/// <summary>
 		/// Timepoint of last Neuro-Feature token event.
 		/// </summary>
 		DateTime LastTokenEvent { get; }

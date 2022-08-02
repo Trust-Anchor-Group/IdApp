@@ -275,6 +275,9 @@ namespace IdApp.Services.Wallet
 					{
 						this.neuroFeaturesClient.TokenAdded -= this.NeuroFeaturesClient_TokenAdded;
 						this.neuroFeaturesClient.TokenRemoved -= this.NeuroFeaturesClient_TokenRemoved;
+
+						this.neuroFeaturesClient.StateUpdated -= this.NeuroFeaturesClient_StateUpdated;
+						this.neuroFeaturesClient.VariablesUpdated -= this.NeuroFeaturesClient_VariablesUpdated;
 					}
 
 					this.neuroFeaturesClient = (this.XmppService as XmppService)?.NeuroFeaturesClient;
@@ -283,6 +286,9 @@ namespace IdApp.Services.Wallet
 
 					this.neuroFeaturesClient.TokenAdded += this.NeuroFeaturesClient_TokenAdded;
 					this.neuroFeaturesClient.TokenRemoved += this.NeuroFeaturesClient_TokenRemoved;
+
+					this.neuroFeaturesClient.StateUpdated += this.NeuroFeaturesClient_StateUpdated;
+					this.neuroFeaturesClient.VariablesUpdated += this.NeuroFeaturesClient_VariablesUpdated;
 				}
 
 				return this.neuroFeaturesClient;
@@ -339,6 +345,48 @@ namespace IdApp.Services.Wallet
 		/// Event raised when a token has been added to the wallet.
 		/// </summary>
 		public event TokenEventHandler TokenAdded;
+
+		private async Task NeuroFeaturesClient_VariablesUpdated(object Sender, VariablesUpdatedEventArgs e)
+		{
+			VariablesUpdatedEventHandler h = this.VariablesUpdated;
+			if (!(h is null))
+			{
+				try
+				{
+					await h(this, e);
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Event raised when variables have been updated in a state-machine.
+		/// </summary>
+		public event VariablesUpdatedEventHandler VariablesUpdated;
+
+		private async Task NeuroFeaturesClient_StateUpdated(object Sender, NewStateEventArgs e)
+		{
+			NewStateEventHandler h = this.StateUpdated;
+			if (!(h is null))
+			{
+				try
+				{
+					await h(this, e);
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Event raised when a state-machine has received a new state.
+		/// </summary>
+		public event NewStateEventHandler StateUpdated;
 
 		/// <summary>
 		/// Gets available tokens

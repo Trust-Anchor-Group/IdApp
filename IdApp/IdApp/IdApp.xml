@@ -19945,6 +19945,16 @@
             Event raised when a token has been added to the wallet.
             </summary>
         </member>
+        <member name="E:IdApp.Services.Wallet.INeuroWallet.VariablesUpdated">
+            <summary>
+            Event raised when variables have been updated in a state-machine.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Wallet.INeuroWallet.StateUpdated">
+            <summary>
+            Event raised when a state-machine has received a new state.
+            </summary>
+        </member>
         <member name="P:IdApp.Services.Wallet.INeuroWallet.LastTokenEvent">
             <summary>
             Timepoint of last Neuro-Feature token event.
@@ -20225,6 +20235,16 @@
         <member name="E:IdApp.Services.Wallet.NeuroWallet.TokenAdded">
             <summary>
             Event raised when a token has been added to the wallet.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Wallet.NeuroWallet.VariablesUpdated">
+            <summary>
+            Event raised when variables have been updated in a state-machine.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Wallet.NeuroWallet.StateUpdated">
+            <summary>
+            Event raised when a state-machine has received a new state.
             </summary>
         </member>
         <member name="M:IdApp.Services.Wallet.NeuroWallet.GetTokens">

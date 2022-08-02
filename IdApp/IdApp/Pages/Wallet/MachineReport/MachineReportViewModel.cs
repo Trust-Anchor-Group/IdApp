@@ -30,14 +30,35 @@ namespace IdApp.Pages.Wallet.MachineReport
 				this.Title = await this.TokenReport.GetTitle();
 				await this.TokenReport.GenerateReport(this);
 			}
+
+			this.XmppService.Wallet.VariablesUpdated += this.Wallet_VariablesUpdated;
+			this.XmppService.Wallet.StateUpdated += this.Wallet_StateUpdated;
 		}
 
 		/// <inheritdoc/>
 		protected override Task DoUnbind()
 		{
+			this.XmppService.Wallet.VariablesUpdated -= this.Wallet_VariablesUpdated;
+			this.XmppService.Wallet.StateUpdated -= this.Wallet_StateUpdated;
+
 			this.DeleteTemporaryFiles();
 
 			return base.DoUnbind();
+		}
+
+		private Task Wallet_StateUpdated(object Sender, NeuroFeatures.NewStateEventArgs e)
+		{
+			return this.UpdateReport();
+		}
+
+		private Task Wallet_VariablesUpdated(object Sender, NeuroFeatures.VariablesUpdatedEventArgs e)
+		{
+			return this.UpdateReport();
+		}
+
+		private Task UpdateReport()
+		{
+			return this.TokenReport.GenerateReport(this);
 		}
 
 		#region Properties
