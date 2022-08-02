@@ -53,7 +53,7 @@ namespace IdApp.Services.Push
 			}
 			catch (Exception ex)
 			{
-				Log.Critical(ex);
+				this.LogService.LogException(ex);
 			}
 		}
 

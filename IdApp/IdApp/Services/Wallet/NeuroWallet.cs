@@ -113,7 +113,7 @@ namespace IdApp.Services.Wallet
 			}
 			catch (Exception ex)
 			{
-				Log.Critical(ex);
+				this.LogService.LogException(ex);
 				return string.Empty;
 			}
 		}
