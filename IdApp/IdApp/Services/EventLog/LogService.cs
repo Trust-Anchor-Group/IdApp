@@ -1,9 +1,15 @@
-﻿using System;
+﻿using IdApp.DeviceSpecific;
+using IdApp.Resx;
+using IdApp.Services.Storage;
+using IdApp.Services.UI;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Waher.Events;
 using Waher.Events.XMPP;
+using Waher.Persistence.Exceptions;
 using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -15,6 +21,7 @@ namespace IdApp.Services.EventLog
 	{
 		private const string startupCrashFileName = "CrashDump.txt";
 		private string bareJid = string.Empty;
+		private bool repairRequested = false;
 
 		public void AddListener(IEventSink eventSink)
 		{
@@ -44,14 +51,14 @@ namespace IdApp.Services.EventLog
 			Log.Warning(message, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
 		}
 
-		public void LogException(Exception e)
+		public void LogException(Exception ex)
 		{
-			this.LogException(e, null);
+			this.LogException(ex, null);
 		}
 
-		public void LogException(Exception e, params KeyValuePair<string, string>[] extraParameters)
+		public void LogException(Exception ex, params KeyValuePair<string, string>[] extraParameters)
 		{
-			e = Log.UnnestException(e);
+			ex = Log.UnnestException(ex);
 
 			IList<KeyValuePair<string, string>> parameters = this.GetParameters();
 
@@ -61,7 +68,25 @@ namespace IdApp.Services.EventLog
 					parameters.Add(new KeyValuePair<string, string>(extraParameter.Key, extraParameter.Value));
 			}
 
-			Log.Critical(e, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
+			Log.Critical(ex, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
+
+			if (ex is InconsistencyException && !this.repairRequested)
+			{
+				this.repairRequested = true;
+				Task.Run(() => this.RestartForRepair());
+			}
+		}
+
+		private async Task RestartForRepair()
+		{
+			IStorageService StorageService = App.Instantiate<IStorageService>();
+			StorageService.FlagForRepair();
+
+			IUiSerializer UiSerializer = App.Instantiate<IUiSerializer>();
+			await UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.RepairRestart, AppResources.Ok);
+
+			ICloseApplication CloseApplication = App.Instantiate<ICloseApplication>();
+			await CloseApplication.Close();
 		}
 
 		public void SaveExceptionDump(string title, string stackTrace)

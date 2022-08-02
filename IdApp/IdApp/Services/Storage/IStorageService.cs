@@ -69,6 +69,11 @@ namespace IdApp.Services.Storage
         /// </summary>
         /// <param name="exportOutput">Receives the contents of the database.</param>
         Task Export(IDatabaseExport exportOutput);
+
+		/// <summary>
+		/// Flags the database for repair, so that the next time the app is opened, the database will be repaired.
+		/// </summary>
+		void FlagForRepair();
     }
 
 }

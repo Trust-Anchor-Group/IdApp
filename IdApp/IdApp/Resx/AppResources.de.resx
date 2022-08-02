@@ -735,6 +735,9 @@
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
     <value>PIN-Versuche, die eingegeben werden, werden überschritten. Ihre Bewerbung wurde bis {0} gesperrt.</value>
   </data>
+  <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
+    <value>PIN-Versuche, die eingegeben werden, werden überschritten. Ihre Bewerbung wurde bis morgen um {0} gesperrt.</value>
+  </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
     <value>PIN-Versuche, die eingegeben werden, werden überschritten. Ihre Bewerbung wurde für eine Woche gesperrt</value>
   </data>
@@ -1781,5 +1784,8 @@
   </data>
   <data name="UnableToGetStateDiagram" xml:space="preserve">
     <value>Statusdiagrammbericht konnte nicht abgerufen werden.</value>
+  </data>
+  <data name="RepairRestart" xml:space="preserve">
+    <value>Eine Inkonsistenz in der internen Datenbank wurde festgestellt. Dies kann passieren, wenn die App nicht ordnungsgemäß geschlossen wird. Die App wird daher geschlossen. Wenn Sie die App das nächste Mal starten, wird die Datenbank repariert.</value>
   </data>
 </root>

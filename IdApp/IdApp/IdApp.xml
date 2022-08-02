@@ -15070,6 +15070,11 @@
               Looks up a localized string similar to Repair and continue.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.RepairRestart">
+            <summary>
+              Looks up a localized string similar to An inconsistency in the internal database has been detected. This can happen if the app is not closed properly. The app will therefore close. The next time you start the app, the database will be repaired..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.RepeatNewPin">
             <summary>
               Looks up a localized string similar to Repeat New PIN.
@@ -18270,6 +18275,11 @@
             </summary>
             <param name="exportOutput">Receives the contents of the database.</param>
         </member>
+        <member name="M:IdApp.Services.Storage.IStorageService.FlagForRepair">
+            <summary>
+            Flags the database for repair, so that the next time the app is opened, the database will be repaired.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Storage.StorageService.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Services.Storage.StorageService"/> class.
@@ -18288,6 +18298,11 @@
         </member>
         <member name="M:IdApp.Services.Storage.StorageService.Shutdown">
             <inheritdoc />
+        </member>
+        <member name="M:IdApp.Services.Storage.StorageService.FlagForRepair">
+            <summary>
+            Flags the database for repair, so that the next time the app is opened, the database will be repaired.
+            </summary>
         </member>
         <member name="T:IdApp.Services.Tag.ITagProfile">
             <summary>

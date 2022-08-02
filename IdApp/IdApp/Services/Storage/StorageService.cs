@@ -227,5 +227,30 @@ namespace IdApp.Services.Storage
 		{
 			return Database.Export(exportOutput);
 		}
+
+		/// <summary>
+		/// Flags the database for repair, so that the next time the app is opened, the database will be repaired.
+		/// </summary>
+		public void FlagForRepair()
+		{
+			this.DeleteFile("Start.txt");
+			this.DeleteFile("Stop.txt");
+		}
+
+		private void DeleteFile(string FileName)
+		{
+			try
+			{
+				FileName = Path.Combine(this.dataFolder, FileName);
+
+				if (File.Exists(FileName))
+					File.Delete(FileName);
+			}
+			catch (Exception)
+			{
+				// Ignore, to avoid infinite loops if event log has an inconsistency.
+			}
+		}
+
 	}
 }
