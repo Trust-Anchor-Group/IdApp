@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdApp.Pages.Wallet.MachineReport.Reports;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -25,9 +26,9 @@ namespace IdApp.Pages.Wallet.MachineReport
 
 			if (this.NavigationService.TryPopArgs(out MachineReportNavigationArgs args))
 			{
-				this.Title = args.Title;
-				this.Report = args.Report;
-				this.TemporaryFiles = args.TemporaryFiles;
+				this.TokenReport = args.Report;
+				this.Title = await this.TokenReport.GetTitle();
+				await this.TokenReport.GenerateReport(this);
 			}
 		}
 
@@ -72,18 +73,18 @@ namespace IdApp.Pages.Wallet.MachineReport
 		}
 
 		/// <summary>
-		/// See <see cref="TemporaryFiles"/>
+		/// See <see cref="TokenReport"/>
 		/// </summary>
-		public static readonly BindableProperty TemporaryFilesProperty =
-			BindableProperty.Create(nameof(TemporaryFiles), typeof(string[]), typeof(MachineReportViewModel), default);
+		public static readonly BindableProperty TokenReportProperty =
+			BindableProperty.Create(nameof(TokenReport), typeof(TokenReport), typeof(MachineReportViewModel), default);
 
 		/// <summary>
-		/// Temporary Files. Will be deleted when view is closed.
+		/// Parsed report from state-machine.
 		/// </summary>
-		public string[] TemporaryFiles
+		public TokenReport TokenReport
 		{
-			get => (string[])this.GetValue(TemporaryFilesProperty);
-			set => this.SetValue(TemporaryFilesProperty, value);
+			get => (TokenReport)this.GetValue(TokenReportProperty);
+			set => this.SetValue(TokenReportProperty, value);
 		}
 
 		/// <summary>
@@ -96,19 +97,7 @@ namespace IdApp.Pages.Wallet.MachineReport
 
 		private void DeleteTemporaryFiles()
 		{
-			foreach (string FileName in this.TemporaryFiles)
-			{
-				try
-				{
-					File.Delete(FileName);
-				}
-				catch (Exception ex)
-				{
-					this.LogService.LogException(ex);
-				}
-			}
-
-			this.TemporaryFiles = new string[0];
+			this.TokenReport?.DeleteTemporaryFiles();
 		}
 
 		#endregion

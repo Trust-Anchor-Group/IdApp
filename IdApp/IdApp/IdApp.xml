@@ -7358,6 +7358,22 @@
             Gets or sets whether the application is online, i.e. has network access.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.NavigationBasePage">
+            <summary>
+            A base class for all navigation pages.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.NavigationBasePage.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.NavigationBasePage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.NavigationBasePage.#ctor(Xamarin.Forms.Page)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.NavigationBasePage"/> class.
+            </summary>
+            <param name="Root">The starting page.</param>
+        </member>
         <member name="T:IdApp.Pages.QrXmppViewModel">
             <summary>
             A view model that holds the XMPP state.
@@ -10091,27 +10107,14 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.#ctor(System.String,System.Object,System.String[])">
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.#ctor(IdApp.Pages.Wallet.MachineReport.Reports.TokenReport)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs"/> class.
-            </summary>
-            <param name="Title">Title of report</param>
-            <param name="Report">Report content</param>
-            <param name="TemporaryFiles">Temporary Files. Will be deleted when view is closed.</param>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.Title">
-            <summary>
-            Title of report
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.Report">
             <summary>
-            Report content
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs.TemporaryFiles">
-            <summary>
-            Temporary Files. Will be deleted when view is closed.
+            Report to display.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.MachineReport.MachineReportPage">
@@ -10166,20 +10169,198 @@
             Parsed report from state-machine.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TemporaryFilesProperty">
+        <member name="F:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TokenReportProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TemporaryFiles"/>
+            See <see cref="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TokenReport"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TemporaryFiles">
+        <member name="P:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TokenReport">
             <summary>
-            Temporary Files. Will be deleted when view is closed.
+            Parsed report from state-machine.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Dispose">
             <summary>
             <see cref="M:System.IDisposable.Dispose"/>
             </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineReport.Reports.TokenHistoryReport">
+            <summary>
+            Represent a report of the historical states of a token and the underlying state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenHistoryReport.#ctor(NeuroFeatures.NeuroFeaturesClient,System.String)">
+            <summary>
+            Represent a report of the historical states of a token and the underlying state-machine.
+            </summary>
+            <param name="Client">Neuro-Features client.</param>
+            <param name="TokenId">ID of token being viewed.</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenHistoryReport.GetTitle">
+            <summary>
+            Gets the title of report.
+            </summary>
+            <returns>Title</returns>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenHistoryReport.GetReportXaml">
+            <summary>
+            Gets the XAML for the report.
+            </summary>
+            <returns>String-representation of XAML of report.</returns>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineReport.Reports.TokenPresentReport">
+            <summary>
+            Represent a report of the present state of a token and the underlying state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenPresentReport.#ctor(NeuroFeatures.NeuroFeaturesClient,System.String)">
+            <summary>
+            Represent a report of the present state of a token and the underlying state-machine.
+            </summary>
+            <param name="Client">Neuro-Features client.</param>
+            <param name="TokenId">ID of token being viewed.</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenPresentReport.GetTitle">
+            <summary>
+            Gets the title of report.
+            </summary>
+            <returns>Title</returns>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenPresentReport.GetReportXaml">
+            <summary>
+            Gets the XAML for the report.
+            </summary>
+            <returns>String-representation of XAML of report.</returns>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineReport.Reports.TokenProfilingReport">
+            <summary>
+            Represent a profiling report of a token and the underlying state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenProfilingReport.#ctor(NeuroFeatures.NeuroFeaturesClient,System.String)">
+            <summary>
+            Represent a profiling report of a token and the underlying state-machine.
+            </summary>
+            <param name="Client">Neuro-Features client.</param>
+            <param name="TokenId">ID of token being viewed.</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenProfilingReport.GetTitle">
+            <summary>
+            Gets the title of report.
+            </summary>
+            <returns>Title</returns>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenProfilingReport.GetReportXaml">
+            <summary>
+            Gets the XAML for the report.
+            </summary>
+            <returns>String-representation of XAML of report.</returns>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport">
+            <summary>
+            Abstract base class for token reports.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.client">
+            <summary>
+            Refernce to the Neuro-Features client.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.#ctor(NeuroFeatures.NeuroFeaturesClient,System.String)">
+            <summary>
+            Abstract base class for token reports.
+            </summary>
+            <param name="Client">Neuro-Features client.</param>
+            <param name="TokenId">ID of token being viewed.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.TokenId">
+            <summary>
+            Token ID associated with the state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.GetTitle">
+            <summary>
+            Gets the title of report.
+            </summary>
+            <returns>Title</returns>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.GetReportXaml">
+            <summary>
+            Gets the XAML for the report.
+            </summary>
+            <returns>String-representation of XAML of report.</returns>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.ParseReport(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Parses report XAML
+            </summary>
+            <param name="Xaml">String-representation of XAML</param>
+            <param name="TemporaryFiles">List that will receive file names of temporary files generated.</param>
+            <returns>Parsed XAML</returns>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.OnNewState(System.Object,NeuroFeatures.NewStateEventArgs)">
+            <summary>
+            Method called when the underlying state-machine has changed state.
+            </summary>
+            <param name="Sender">Sender of event.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.OnVariablesUpdated(System.Object,NeuroFeatures.VariablesUpdatedEventArgs)">
+            <summary>
+            Method called when variables in the underlying state-machine have been updated.
+            </summary>
+            <param name="Sender">Sender of event.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.Action(System.Object)">
+            <summary>
+            Method called when it is time to execute action.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.GenerateReport(IdApp.Pages.Wallet.MachineReport.MachineReportViewModel)">
+            <summary>
+            Generates the report.
+            </summary>
+            <param name="ReportView">Report View</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.Dispose">
+            <summary>
+            <see cref="M:System.IDisposable.Dispose"/>
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.DeleteTemporaryFiles">
+            <summary>
+            Deletes any temporary files.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenReport.StopTimer">
+            <summary>
+            Stops the timer for any queued delayed refresh action.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MachineReport.Reports.TokenStateDiagramReport">
+            <summary>
+            Represent a state diagram of a token and the underlying state-machine.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenStateDiagramReport.#ctor(NeuroFeatures.NeuroFeaturesClient,System.String)">
+            <summary>
+            Represent a state diagram of a token and the underlying state-machine.
+            </summary>
+            <param name="Client">Neuro-Features client.</param>
+            <param name="TokenId">ID of token being viewed.</param>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenStateDiagramReport.GetTitle">
+            <summary>
+            Gets the title of report.
+            </summary>
+            <returns>Title</returns>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineReport.Reports.TokenStateDiagramReport.GetReportXaml">
+            <summary>
+            Gets the XAML for the report.
+            </summary>
+            <returns>String-representation of XAML of report.</returns>
         </member>
         <member name="T:IdApp.Pages.Wallet.MachineVariables.MachineVariablesNavigationArgs">
             <summary>

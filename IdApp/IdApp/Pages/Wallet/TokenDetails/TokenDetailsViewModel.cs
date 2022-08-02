@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Input;
@@ -15,6 +13,7 @@ using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Wallet.MachineReport;
+using IdApp.Pages.Wallet.MachineReport.Reports;
 using IdApp.Pages.Wallet.MachineVariables;
 using IdApp.Pages.Wallet.TokenEvents;
 using IdApp.Resx;
@@ -23,7 +22,6 @@ using NeuroFeatures;
 using NeuroFeatures.Events;
 using NeuroFeatures.Tags;
 using Waher.Content;
-using Waher.Content.Xml;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Security;
@@ -1421,54 +1419,22 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 		private async Task PresentReport()
 		{
-			try
-			{
-				ReportEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GeneratePresentReportAsync(this.TokenId, ReportFormat.XamarinXaml);
-				await this.ShowReport(AppResources.Present, e);
-			}
-			catch (Exception ex)
-			{
-				await this.UiSerializer.DisplayAlert(ex);
-			}
+			await this.ShowReport(new TokenPresentReport(this.XmppService.Wallet.NeuroFeaturesClient, this.TokenId));
 		}
 
 		private async Task HistoryReport()
 		{
-			try
-			{
-				ReportEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GenerateHistoryReportAsync(this.TokenId, ReportFormat.XamarinXaml);
-				await this.ShowReport(AppResources.History, e);
-			}
-			catch (Exception ex)
-			{
-				await this.UiSerializer.DisplayAlert(ex);
-			}
+			await this.ShowReport(new TokenHistoryReport(this.XmppService.Wallet.NeuroFeaturesClient, this.TokenId));
 		}
 
 		private async Task StatesReport()
 		{
-			try
-			{
-				ReportEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GenerateStateDiagramAsync(this.TokenId, ReportFormat.XamarinXaml);
-				await this.ShowReport(AppResources.States, e);
-			}
-			catch (Exception ex)
-			{
-				await this.UiSerializer.DisplayAlert(ex);
-			}
+			await this.ShowReport(new TokenStateDiagramReport(this.XmppService.Wallet.NeuroFeaturesClient, this.TokenId));
 		}
 
 		private async Task ProfilingReport()
 		{
-			try
-			{
-				ReportEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GenerateProfilingReportAsync(this.TokenId, ReportFormat.XamarinXaml);
-				await this.ShowReport(AppResources.Profiling, e);
-			}
-			catch (Exception ex)
-			{
-				await this.UiSerializer.DisplayAlert(ex);
-			}
+			await this.ShowReport(new TokenProfilingReport(this.XmppService.Wallet.NeuroFeaturesClient, this.TokenId));
 		}
 
 		private async Task VariablesReport()
@@ -1490,123 +1456,18 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			}
 		}
 
-		private async Task ShowReport(string Title, ReportEventArgs e)
+		private async Task ShowReport(TokenReport Report)
 		{
-			if (!e.Ok)
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, e.ErrorText);
-			else
+			try
 			{
-				List<string> TemporaryFiles = new();
-				StringBuilder sb = new();
-				string Xaml = e.ReportText;
-				string s;
-				int i = 0;
-				int c = Xaml.Length;
-
-				while (i < c)
-				{
-					Match M = standaloneDynamicImage.Match(Xaml, i);
-
-					if (M.Success)
-					{
-						sb.Append(Xaml.Substring(i, M.Index));
-						i = M.Index + M.Length;
-
-						// TODO: Border width
-
-						sb.Append("<Image");
-
-						string ContentType = M.Groups["ContentType"].Value;
-						string FileExtension = InternetContent.GetFileExtension(ContentType);
-						byte[] Bin = Convert.FromBase64String(M.Groups["Base64"].Value);
-
-						string FileName = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + "." + FileExtension);
-						using (FileStream TempFile = File.Create(FileName))
-						{
-							await TempFile.WriteAsync(Bin, 0, Bin.Length);
-						}
-
-						sb.Append(" Source=\"");
-						sb.Append(XML.HtmlAttributeEncode(FileName));
-						sb.Append("\"/>");
-
-						TemporaryFiles.Add(FileName);
-					}
-					else
-					{
-						M = embeddedDynamicImage.Match(Xaml, i);
-						if (M.Success)
-						{
-							sb.Append(Xaml.Substring(i, M.Index));
-							i = M.Index + M.Length;
-
-							sb.Append("<img");
-
-							s = M.Groups["Border"].Value;
-							if (!string.IsNullOrEmpty(s))
-							{
-								sb.Append(" border=\"");
-								sb.Append(s);
-								sb.Append("\"");
-							}
-
-							s = M.Groups["Width"].Value;
-							if (!string.IsNullOrEmpty(s))
-							{
-								sb.Append(" width=\"");
-								sb.Append(s);
-								sb.Append("\"");
-							}
-
-							s = M.Groups["Height"].Value;
-							if (!string.IsNullOrEmpty(s))
-							{
-								sb.Append(" height=\"");
-								sb.Append(s);
-								sb.Append("\"");
-							}
-
-							s = M.Groups["Alt"].Value;
-							if (!string.IsNullOrEmpty(s))
-							{
-								sb.Append(" alt=\"");
-								sb.Append(s);
-								sb.Append("\"");
-							}
-
-							string ContentType = M.Groups["ContentType"].Value;
-							string FileExtension = InternetContent.GetFileExtension(ContentType);
-							byte[] Bin = Convert.FromBase64String(M.Groups["Base64"].Value);
-
-							string FileName = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + "." + FileExtension);
-							using (FileStream TempFile = File.Create(FileName))
-							{
-								await TempFile.WriteAsync(Bin, 0, Bin.Length);
-							}
-
-							sb.Append(" src=\"");
-							sb.Append(XML.HtmlAttributeEncode(FileName));
-							sb.Append("\"/>");
-
-							TemporaryFiles.Add(FileName);
-						}
-						else
-						{
-							sb.Append(Xaml[i..c]);
-							i = c;
-						}
-					}
-				}
-
-				object Parsed = sb.ToString().ParseXaml();
-
 				await this.NavigationService.GoToAsync(nameof(MachineReportPage),
-					new MachineReportNavigationArgs(Title, Parsed, TemporaryFiles.ToArray()) { CancelReturnCounter = true });
+					new MachineReportNavigationArgs(Report) { CancelReturnCounter = true });
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
-
-		private static readonly Regex standaloneDynamicImage = new("<Label LineBreakMode=\"WordWrap\" TextType=\"Html\"><!\\[CDATA\\[<img(\\s+((border=[\"'](?'Border'\\d+)[\"'])|(width=[\"'](?'Width'\\d+)[\"'])|(height=[\"'](?'Height'\\d+)[\"'])|(alt=[\"'](?'Alt'[^\"']*)[\"'])|(src=[\"']data:(?'ContentType'\\w+\\/\\w+);base64,(?'Base64'[A-Za-z0-9+-\\/_=]+)[\"'])))*\\s*\\/>]]><\\/Label>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
-		private static readonly Regex embeddedDynamicImage = new("<img(\\s+((border=[\"'](?'Border'\\d+)[\"'])|(width=[\"'](?'Width'\\d+)[\"'])|(height=[\"'](?'Height'\\d+)[\"'])|(alt=[\"'](?'Alt'[^\"']*)[\"'])|(src=[\"']data:(?'ContentType'\\w+\\/\\w+);base64,(?'Base64'[A-Za-z0-9+-\\/_=]+)[\"'])))*\\s*\\/>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
 
 		#endregion
 
