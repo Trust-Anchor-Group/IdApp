@@ -33,9 +33,64 @@ namespace IdApp.Pages.Wallet.MachineVariables
 				if (args.Variables is not null)
 				{
 					foreach (Variable Variable in args.Variables)
-						this.Variables.Add(new VariableModel(Variable.Name, Variable.ValueObject, Expression.ToString(Variable.ValueObject)));
+						this.Variables.Add(new VariableModel(Variable.Name, Variable.ValueObject));
 				}
 			}
+
+			this.XmppService.Wallet.VariablesUpdated += this.Wallet_VariablesUpdated;
+			this.XmppService.Wallet.StateUpdated += this.Wallet_StateUpdated;
+		}
+
+		/// <inheritdoc/>
+		protected override Task DoUnbind()
+		{
+			this.XmppService.Wallet.VariablesUpdated -= this.Wallet_VariablesUpdated;
+			this.XmppService.Wallet.StateUpdated -= this.Wallet_StateUpdated;
+
+			return base.DoUnbind();
+		}
+
+		private Task Wallet_StateUpdated(object Sender, NeuroFeatures.NewStateEventArgs e)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				this.CurrentState = e.NewState;
+				this.Ended = string.IsNullOrEmpty(e.NewState);
+				this.Running = !this.Ended;
+			});
+
+			return Task.CompletedTask;
+		}
+
+		private Task Wallet_VariablesUpdated(object Sender, NeuroFeatures.VariablesUpdatedEventArgs e)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				foreach (Variable Variable in e.Variables)
+				{
+					if (this.TryGetVariableMode(Variable.Name, out VariableModel Model))
+						Model.UpdateValue(Variable.ValueObject);
+					else
+						this.Variables.Add(new VariableModel(Variable.Name, Variable.ValueObject));
+				}
+			});
+
+			return Task.CompletedTask;
+		}
+
+		private bool TryGetVariableMode(string Name, out VariableModel Result)
+		{
+			foreach (VariableModel Model in this.Variables)
+			{
+				if (Model.Name==Name)
+				{
+					Result = Model;
+					return true;
+				}
+			}
+
+			Result = null;
+			return false;
 		}
 
 		#region Properties

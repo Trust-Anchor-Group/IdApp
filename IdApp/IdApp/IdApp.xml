@@ -10440,6 +10440,9 @@
         <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.DoBind">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.Variables">
             <summary>
             Current variables
@@ -10480,13 +10483,12 @@
             Represents a state-machine variable.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MachineVariables.VariableModel.#ctor(System.String,System.Object,System.String)">
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.VariableModel.#ctor(System.String,System.Object)">
             <summary>
             Represents a state-machine variable.
             </summary>
             <param name="Name">Name of variable</param>
             <param name="Value">Value of variable</param>
-            <param name="AsScript">Value as script</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.MachineVariables.VariableModel.Name">
             <summary>
@@ -10502,6 +10504,12 @@
             <summary>
             Value as script
             </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.VariableModel.UpdateValue(System.Object)">
+            <summary>
+            Updates the value of the variable.
+            </summary>
+            <param name="Value">Value of variable</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.MachineVariables.VariableModel.CopyToClipboardCommand">
             <summary>

@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Waher.Script;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -12,17 +13,20 @@ namespace IdApp.Pages.Wallet.MachineVariables
 	/// </summary>
 	public class VariableModel : BaseViewModel
 	{
+		private readonly string name;
+		private object value;
+		private string asScript;
+
 		/// <summary>
 		/// Represents a state-machine variable.
 		/// </summary>
 		/// <param name="Name">Name of variable</param>
 		/// <param name="Value">Value of variable</param>
-		/// <param name="AsScript">Value as script</param>
-		public VariableModel(string Name, object Value, string AsScript)
+		public VariableModel(string Name, object Value)
 		{
-			this.Name = Name;
-			this.Value = Value;
-			this.AsScript = AsScript;
+			this.name = Name;
+			this.value = Value;
+			this.asScript = Expression.ToString(Value);
 
 			this.CopyToClipboardCommand = new Command(async _ => await this.CopyToClipboard());
 		}
@@ -30,17 +34,45 @@ namespace IdApp.Pages.Wallet.MachineVariables
 		/// <summary>
 		/// Name of variable
 		/// </summary>
-		public string Name { get; }
+		public string Name => this.name;
 
 		/// <summary>
 		/// Value of variable
 		/// </summary>
-		public object Value { get; }
+		public object Value
+		{
+			get => this.value;
+			private set
+			{
+				this.OnPropertyChanging(nameof(this.Value));
+				this.value = value;
+				this.OnPropertyChanged(nameof(this.Value));
+			}
+		}
 
 		/// <summary>
 		/// Value as script
 		/// </summary>
-		public string AsScript { get; }
+		public string AsScript
+		{
+			get => this.asScript;
+			private set
+			{
+				this.OnPropertyChanging(nameof(this.AsScript));
+				this.asScript = value;
+				this.OnPropertyChanged(nameof(this.AsScript));
+			}
+		}
+
+		/// <summary>
+		/// Updates the value of the variable.
+		/// </summary>
+		/// <param name="Value">Value of variable</param>
+		public void UpdateValue(object Value)
+		{
+			this.Value = Value;
+			this.AsScript = Expression.ToString(Value);
+		}
 
 		#region Commands
 
