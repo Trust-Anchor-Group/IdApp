@@ -8180,6 +8180,11 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationPage"/> class.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Registration.Registration.RegistrationPage.Create">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationPage"/> class.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Registration.Registration.RegistrationPage.OnAppearingAsync">
             <summary>
             Overridden to sync the view with the view model when the page appears on screen.
@@ -8203,6 +8208,11 @@
             </summary>
         </member>
         <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.Create">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationViewModel"/> class.
             </summary>

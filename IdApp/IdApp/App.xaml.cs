@@ -591,11 +591,14 @@ namespace IdApp
 		/// <summary>
 		/// Switches the application to the on-boarding experience.
 		/// </summary>
-		public Task SetRegistrationPageAsync()
+		public async Task SetRegistrationPageAsync()
 		{
 			// NavigationPage is used to allow non modal navigation. Scan QR code page is pushed not modally to allow the user to dismiss it
 			// on iOS (on iOS this page doesn't have any other means of going back without actually entering valid data).
-			return this.SetMainPageAsync(new NavigationBasePage(new Pages.Registration.Registration.RegistrationPage()));
+
+			Pages.Registration.Registration.RegistrationPage Page = await Pages.Registration.Registration.RegistrationPage.Create();
+
+			await this.SetMainPageAsync(new NavigationBasePage(Page));
 		}
 
 		/// <summary>

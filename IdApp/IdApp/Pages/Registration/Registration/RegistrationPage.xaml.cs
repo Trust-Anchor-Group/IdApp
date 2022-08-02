@@ -18,18 +18,29 @@ namespace IdApp.Pages.Registration.Registration
         /// <summary>
         /// Creates a new instance of the <see cref="RegistrationPage"/> class.
         /// </summary>
-        public RegistrationPage()
+        private RegistrationPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
             this.uiSerializer = App.Instantiate<IUiSerializer>();
-            this.ViewModel = new RegistrationViewModel();
-			this.InitializeComponent();
         }
 
-        /// <summary>
-        /// Overridden to sync the view with the view model when the page appears on screen.
-        /// </summary>
-        protected override async Task OnAppearingAsync()
+		/// <summary>
+		/// Creates a new instance of the <see cref="RegistrationPage"/> class.
+		/// </summary>
+		public static async Task<RegistrationPage> Create()
+		{
+			RegistrationPage Result = new();
+
+			Result.ViewModel =  await RegistrationViewModel.Create();
+			Result.InitializeComponent();
+
+			return Result;
+		}
+
+		/// <summary>
+		/// Overridden to sync the view with the view model when the page appears on screen.
+		/// </summary>
+		protected override async Task OnAppearingAsync()
         {
             await base.OnAppearingAsync();
 
