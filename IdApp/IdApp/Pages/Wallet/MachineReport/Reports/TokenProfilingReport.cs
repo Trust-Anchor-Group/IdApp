@@ -32,7 +32,7 @@ namespace IdApp.Pages.Wallet.MachineReport.Reports
 		/// <returns>String-representation of XAML of report.</returns>
 		public override async Task<string> GetReportXaml()
 		{
-			ReportEventArgs e = await this.client.GenerateProfilingReportAsync(this.TokenId, ReportFormat.Xaml);
+			ReportEventArgs e = await this.client.GenerateProfilingReportAsync(this.TokenId, ReportFormat.XamarinXaml);
 			if (!e.Ok)
 				throw e.StanzaError ?? new Exception(AppResources.UnableToGetProfiling);
 
