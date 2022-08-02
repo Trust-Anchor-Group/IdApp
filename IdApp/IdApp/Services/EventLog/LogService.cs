@@ -36,21 +36,6 @@ namespace IdApp.Services.EventLog
 				Log.Unregister(eventSink);
 		}
 
-		public void LogException(Exception e, params KeyValuePair<string, string>[] extraParameters)
-		{
-			e = Log.UnnestException(e);
-
-			IList<KeyValuePair<string, string>> parameters = this.GetParameters();
-
-			if (!(extraParameters is null) && extraParameters.Length > 0)
-			{
-				foreach (KeyValuePair<string, string> extraParameter in extraParameters)
-					parameters.Add(new KeyValuePair<string, string>(extraParameter.Key, extraParameter.Value));
-			}
-
-			Log.Critical(e, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
-		}
-
 		public void LogWarning(string format, params object[] args)
 		{
 			string message = string.Format(format, args);
@@ -64,17 +49,19 @@ namespace IdApp.Services.EventLog
 			this.LogException(e, null);
 		}
 
-		public void LogEvent(string name, params KeyValuePair<string, string>[] extraParameters)
+		public void LogException(Exception e, params KeyValuePair<string, string>[] extraParameters)
 		{
+			e = Log.UnnestException(e);
+
 			IList<KeyValuePair<string, string>> parameters = this.GetParameters();
+
 			if (!(extraParameters is null) && extraParameters.Length > 0)
 			{
 				foreach (KeyValuePair<string, string> extraParameter in extraParameters)
 					parameters.Add(new KeyValuePair<string, string>(extraParameter.Key, extraParameter.Value));
 			}
 
-			KeyValuePair<string, object>[] tags = parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray();
-			Log.Event(new Event(DateTime.UtcNow, EventType.Informational, name, string.Empty, this.bareJid, string.Empty, EventLevel.Medium, string.Empty, string.Empty, string.Empty, tags));
+			Log.Critical(e, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
 		}
 
 		public void SaveExceptionDump(string title, string stackTrace)
