@@ -114,23 +114,26 @@ namespace IdApp.Services.Navigation
 			}
 		}
 
-		public bool TryPopArgs<TArgs>(out TArgs args, string UniqueId = null) where TArgs : NavigationArgs
+		public bool TryPopArgs<TArgs>(out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs
 		{
-			string PageName = Shell.Current.CurrentPage?.GetType().Name;
-
-			return this.TryPopArgs(PageName, out args, UniqueId);
+			return this.TryPopArgs(Shell.Current.CurrentPage, out Args, UniqueId);
 		}
 
 		public TArgs GetPopArgs<TArgs>(string UniqueId = null) where TArgs : NavigationArgs
 		{
-			string PageName = Shell.Current.CurrentPage?.GetType().Name;
+			return this.TryPopArgs(Shell.Current.CurrentPage, out TArgs Args, UniqueId) ? Args : null;
+		}
 
-			if (this.TryPopArgs<TArgs>(PageName, out TArgs args, UniqueId))
+		private bool TryPopArgs<TArgs>(Page CurrentPage, out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs
+		{
+			if (CurrentPage is null)
 			{
-				return args;
+				Args = default;
+				return false;
 			}
 
-			return null;
+			return this.TryPopArgs(CurrentPage.GetType().Name, out Args, UniqueId)
+				|| this.TryPopArgs(Routing.GetRoute(CurrentPage), out Args, UniqueId);
 		}
 
 		private bool TryPopArgs<TArgs>(string PageName, out TArgs args, string UniqueId = null) where TArgs : NavigationArgs
