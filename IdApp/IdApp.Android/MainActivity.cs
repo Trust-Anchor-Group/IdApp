@@ -159,7 +159,7 @@ namespace IdApp.Android
 		protected override void OnPause()
 		{
 			base.OnPause();
-			nfcAdapter.DisableForegroundDispatch(this);
+			nfcAdapter?.DisableForegroundDispatch(this);
 		}
 
 		protected override async void OnNewIntent(Intent Intent)
