@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
@@ -18,7 +18,7 @@
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
     <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
-        <Frame Margin="15" BackgroundColor="White">
+        <Frame Margin="15" BackgroundColor="{StaticResource PageBackgroundColor}">
             <StackLayout Padding="10,5" Spacing="3">
                 <Label Text="{x:Static resx:AppResources.FurtherAction}" FontSize="Large"/>
                 <Label>
