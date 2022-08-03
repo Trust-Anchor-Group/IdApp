@@ -155,6 +155,16 @@ namespace IdApp
 			this.startupProfiler?.MainThread?.Idle();
 		}
 
+		/// <summary>
+		/// Gets a value indicating if the application has completed on-boarding.
+		/// </summary>
+		/// <remarks>
+		/// This is not the same as <see cref="TagProfile.IsComplete"/>. <see cref="TagProfile.IsComplete"/> is required but not
+		/// sufficient for the application to be "on-boarded". An application is on-boarded when its legal identity is on-boarded
+		/// and when its internal systems are ready. For example, the loading stage of the app must complete.
+		/// </remarks>
+		public static bool IsOnboarded => Shell.Current != null;
+
 		private void InitLocalizationResource()
 		{
 			List<string> SupportedLanguages = new() { "en", "sv", "es", "fr", "de", "da", "no", "fi", "sr", "pt", "ro", "ru" };

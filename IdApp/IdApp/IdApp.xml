@@ -17,6 +17,16 @@
         <member name="M:IdApp.App.#ctor">
             <inheritdoc/>
         </member>
+        <member name="P:IdApp.App.IsOnboarded">
+            <summary>
+            Gets a value indicating if the application has completed on-boarding.
+            </summary>
+            <remarks>
+            This is not the same as <see cref="M:IdApp.Services.Tag.TagProfile.IsComplete"/>. <see cref="M:IdApp.Services.Tag.TagProfile.IsComplete"/> is required but not
+            sufficient for the application to be "on-boarded". An application is on-boarded when its legal identity is on-boarded
+            and when its internal systems are ready. For example, the loading stage of the app must complete.
+            </remarks>
+        </member>
         <member name="M:IdApp.App.Instantiate``1">
             <summary>
             Instantiates an object of type <typeparamref name="T"/>, after assuring default instances have been created first.
