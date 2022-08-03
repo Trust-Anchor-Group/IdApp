@@ -48,7 +48,7 @@
                     Grid.Column="0"
                     FontSize="24" 
                     Text="{x:Static resx:FontAwesome.ArrowACircleLeft}"
-					TextColor="White"
+					TextColor="{StaticResource TextColorLightTheme}"
                     FontFamily="{StaticResource FontAwesomeSolid}"
                     VerticalOptions="Center"
                     Margin="0,-12,0,-6"

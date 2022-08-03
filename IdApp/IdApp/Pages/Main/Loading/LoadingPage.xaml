@@ -18,10 +18,10 @@
             </Grid.RowDefinitions>
             <ffimage:CachedImage Grid.Row="0" Grid.RowSpan="4" Source="tag_bg.jpg" Aspect="AspectFill"/>
             <StackLayout Grid.Row="1" Opacity="0" x:Name="LabelLayout" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center" Margin="12,-12,12,12">
-                <Label Text="NEW" TextColor="White" FontSize="16" VerticalTextAlignment="Center" />
-                <Label Text="WAYS" TextColor="White" FontSize="24" VerticalTextAlignment="Center" />
-                <Label Text="OF" TextColor="White"  FontSize="16" VerticalTextAlignment="Center"/>
-                <Label Text="WORLDMAKING" TextColor="White"  FontSize="24"  VerticalTextAlignment="Center"/>
+                <Label Text="NEW" TextColor="{StaticResource TextColorLightTheme}" FontSize="16" VerticalTextAlignment="Center" />
+                <Label Text="WAYS" TextColor="{StaticResource TextColorLightTheme}" FontSize="24" VerticalTextAlignment="Center" />
+                <Label Text="OF" TextColor="{StaticResource TextColorLightTheme}"  FontSize="16" VerticalTextAlignment="Center"/>
+                <Label Text="WORLDMAKING" TextColor="{StaticResource TextColorLightTheme}"  FontSize="24"  VerticalTextAlignment="Center"/>
             </StackLayout>
             <ActivityIndicator Grid.Row="2" IsVisible="true" IsRunning="true" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
             <Frame Grid.Row="3" IsVisible="{Binding Path=DisplayConnectionText}" CornerRadius="5" BackgroundColor="#99ffffff">
