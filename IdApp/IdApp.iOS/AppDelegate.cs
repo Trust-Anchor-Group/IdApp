@@ -1,4 +1,5 @@
 ﻿using CoreGraphics;
+using CoreNFC;
 using Firebase.CloudMessaging;
 using Foundation;
 using IdApp.Helpers;
@@ -339,7 +340,22 @@ namespace IdApp.iOS
             UNCenter.RemoveAllPendingNotificationRequests();
         }
 
-        /*
+		public override bool ContinueUserActivity(UIApplication application, NSUserActivity userActivity, UIApplicationRestorationHandler completionHandler)
+		{
+			if (userActivity.ActivityType != "NSUserActivityTypeBrowsingWeb")
+				return base.ContinueUserActivity(application, userActivity, completionHandler);
+
+			NFCNdefMessage NDefMessage = userActivity.GetNdefMessagePayload();
+			if (!(NDefMessage?.Records?.Length > 0))
+				return base.ContinueUserActivity(application, userActivity, completionHandler);
+
+			if (NDefMessage.Records[0].TypeNameFormat == NFCTypeNameFormat.Empty)
+				return base.ContinueUserActivity(application, userActivity, completionHandler);
+
+			return true;
+		}
+
+		/*
         public override void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
         {
             try
@@ -352,7 +368,7 @@ namespace IdApp.iOS
             }
         }
         */
-        /*
+		/*
         public async Task StartLongRunningBackgroundTask()
         {
             var _backgroundTaskID = UIApplication.SharedApplication.BeginBackgroundTask(() => {
@@ -380,7 +396,7 @@ namespace IdApp.iOS
             UIApplication.SharedApplication.EndBackgroundTask(_backgroundTaskID);
         }
         */
-    }
+	}
 
     public class UserNotificationCenterDelegate : UNUserNotificationCenterDelegate
     {
