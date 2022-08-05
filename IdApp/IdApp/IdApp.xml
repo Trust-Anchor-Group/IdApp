@@ -6850,6 +6850,116 @@
             Property of eDaler
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DecimalSeparatorDecimalSeparator">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DecimalSeparator"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DecimalSeparator">
+            <summary>
+            DecimalSeparator of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayMainDisplayMain">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayMain"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayMain">
+            <summary>
+            DisplayMain of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayFunctionsDisplayFunctions">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayFunctions"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayFunctions">
+            <summary>
+            DisplayFunctions of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicDisplayHyperbolic">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolic"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolic">
+            <summary>
+            DisplayHyperbolic of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayInverseDisplayInverse">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayInverse"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayInverse">
+            <summary>
+            DisplayInverse of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicNotInverseDisplayNotHyperbolicNotInverse">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicNotInverse"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicNotInverse">
+            <summary>
+            DisplayNotHyperbolicNotInverse of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicNotInverseDisplayHyperbolicNotInverse">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicNotInverse"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicNotInverse">
+            <summary>
+            DisplayHyperbolicNotInverse of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicInverseDisplayNotHyperbolicInverse">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicInverse"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicInverse">
+            <summary>
+            DisplayNotHyperbolicInverse of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicInverseDisplayHyperbolicInverse">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicInverse"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicInverse">
+            <summary>
+            DisplayHyperbolicInverse of eDaler
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ToggleCommand">
+            <summary>
+            Command executed when user wants to toggle buttons.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ToggleHyperbolicCommand">
+            <summary>
+            Command executed when user wants to toggle hyperbolic functions on/off.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ToggleInverseCommand">
+            <summary>
+            Command executed when user wants to toggle inverse functions on/off.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.KeyPressCommand">
+            <summary>
+            Command executed when user presses a key buttonn.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Main.Loading.LoadingPage">
             <summary>
             A page to use when the application is loading, or initializing.
