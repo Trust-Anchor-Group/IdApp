@@ -412,6 +412,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calculator.
+        /// </summary>
+        internal static string Calculator {
+            get {
+                return ResourceManager.GetString("Calculator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can act as template.
         /// </summary>
         internal static string CanActAsTemplate {

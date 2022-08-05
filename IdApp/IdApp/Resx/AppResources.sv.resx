@@ -1788,4 +1788,7 @@
   <data name="RepairRestart" xml:space="preserve">
     <value>En inkonsistens i den interna databasen har upptäckts. Detta kan inträffa om appen inte stängs ordentligt. Appen kommer därför att stängas. Nästa gång du startar appen kommer databasen att repareras.</value>
   </data>
+  <data name="Calculator" xml:space="preserve">
+    <value>Miniräknare</value>
+  </data>
 </root>

@@ -1788,4 +1788,7 @@
   <data name="RepairRestart" xml:space="preserve">
     <value>A fost detectată o inconsecvență în baza de date internă. Acest lucru se poate întâmpla dacă aplicația nu este închisă corect. Prin urmare, aplicația se va închide. Data viitoare când porniți aplicația, baza de date va fi reparată.</value>
   </data>
+  <data name="Calculator" xml:space="preserve">
+    <value>Calculator</value>
+  </data>
 </root>

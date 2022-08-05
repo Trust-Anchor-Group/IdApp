@@ -13,6 +13,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Resx;
 using IdApp.Converters;
+using IdApp.Pages.Main.Calculator;
 
 namespace IdApp.Pages.Wallet
 {
@@ -40,6 +41,7 @@ namespace IdApp.Pages.Wallet
 			this.SubmitCommand = new Command(async _ => await this.Submit(), _ => this.IsConnected);
 			this.ShowCodeCommand = new Command(async _ => await this.ShowCode());
 			this.SendPaymentCommand = new Command(async _ => await this.SendPayment(), _ => this.CanSendPayment());
+			this.OpenCalculatorCommand = new Command(async P => await this.OpenCalculator(P));
 
 			this.FromClickCommand = new Command(async x => await this.FromLabelClicked());
 		}
@@ -138,7 +140,7 @@ namespace IdApp.Pages.Wallet
 		private void EvaluateAllCommands()
 		{
 			this.EvaluateCommands(this.AcceptCommand, this.PayOnlineCommand, this.GenerateQrCodeCommand, this.ShareCommand,
-				this.SubmitCommand, this.ShareCommand, this.SendPaymentCommand);
+				this.SubmitCommand, this.ShareCommand, this.SendPaymentCommand, this.OpenCalculatorCommand);
 		}
 
 		/// <inheritdoc/>
@@ -698,6 +700,16 @@ namespace IdApp.Pages.Wallet
 		public ICommand SendPaymentCommand { get; }
 
 		/// <summary>
+		/// Command to bind to for detecting when a from label has been clicked on.
+		/// </summary>
+		public ICommand FromClickCommand { get; }
+
+		/// <summary>
+		/// The command to bind to open the calculator.
+		/// </summary>
+		public ICommand OpenCalculatorCommand { get; }
+
+		/// <summary>
 		/// See <see cref="EDalerFrontGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerFrontGlyphProperty =
@@ -728,11 +740,6 @@ namespace IdApp.Pages.Wallet
 		}
 
 		#endregion
-
-		/// <summary>
-		/// Command to bind to for detecting when a from label has been clicked on.
-		/// </summary>
-		public ICommand FromClickCommand { get; }
 
 		private async Task FromLabelClicked()
 		{
@@ -1011,6 +1018,31 @@ namespace IdApp.Pages.Wallet
 			}
 		}
 
+		/// <summary>
+		/// Opens the calculator for calculating the value of a numerical property.
+		/// </summary>
+		/// <param name="Parameter">Property to calculate</param>
+		public async Task OpenCalculator(object Parameter)
+		{
+			try
+			{
+				switch (Parameter?.ToString())
+				{
+					case "AmountText":
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty));
+						break;
+
+					case "AmountExtraText":
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountExtraTextProperty));
+						break;
+				}
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
 		#region ILinkableView
 
 		/// <summary>
@@ -1019,7 +1051,6 @@ namespace IdApp.Pages.Wallet
 		public override Task<string> Title => Task.FromResult<string>(AppResources.Payment);
 
 		#endregion
-
 
 	}
 }

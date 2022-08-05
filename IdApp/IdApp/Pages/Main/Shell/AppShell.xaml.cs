@@ -77,6 +77,7 @@ namespace IdApp.Pages.Main.Shell
 		{
 			// General:
 			Routing.RegisterRoute(nameof(ScanQrCode.ScanQrCodePage), typeof(ScanQrCode.ScanQrCodePage));
+			Routing.RegisterRoute(nameof(Calculator.CalculatorPage), typeof(Calculator.CalculatorPage));
 
 			// Identity:
 			Routing.RegisterRoute(nameof(Identity.ViewIdentity.ViewIdentityPage), typeof(Identity.ViewIdentity.ViewIdentityPage));

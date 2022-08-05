@@ -1788,4 +1788,7 @@
   <data name="RepairRestart" xml:space="preserve">
     <value>Eine Inkonsistenz in der internen Datenbank wurde festgestellt. Dies kann passieren, wenn die App nicht ordnungsgemäß geschlossen wird. Die App wird daher geschlossen. Wenn Sie die App das nächste Mal starten, wird die Datenbank repariert.</value>
   </data>
+  <data name="Calculator" xml:space="preserve">
+    <value>Rechner</value>
+  </data>
 </root>

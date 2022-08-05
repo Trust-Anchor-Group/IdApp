@@ -1788,4 +1788,7 @@
   <data name="RepairRestart" xml:space="preserve">
     <value>Der er konstateret en inkonsekvens i den interne database. Dette kan ske, hvis appen ikke lukkes korrekt. Appen lukker derfor. Næste gang du starter appen, repareres databasen.</value>
   </data>
+  <data name="Calculator" xml:space="preserve">
+    <value>Regnemaskine</value>
+  </data>
 </root>

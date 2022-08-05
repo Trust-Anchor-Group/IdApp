@@ -12,12 +12,12 @@ using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract.ObjectModel;
 using IdApp.Pages.Contracts.ViewContract;
+using IdApp.Pages.Main.Calculator;
 using IdApp.Pages.Main.Main;
 using IdApp.Resx;
 using IdApp.Services;
 using Waher.Content;
 using Waher.Content.Xml;
-using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Waher.Script;
@@ -1031,7 +1031,60 @@ namespace IdApp.Pages.Contracts.NewContract
 						HorizontalOptions = LayoutOptions.FillAndExpand,
 					};
 
-					parametersLayout.Children.Add(Entry);
+					if (Parameter is NumericalParameter NP)
+					{
+						Grid Grid = new()
+						{
+							RowDefinitions = new RowDefinitionCollection()
+							{
+								new RowDefinition()
+								{
+									Height = GridLength.Auto
+								}
+							},
+							ColumnDefinitions = new ColumnDefinitionCollection()
+							{
+								new ColumnDefinition()
+								{
+									Width = GridLength.Star
+								},
+								new ColumnDefinition()
+								{
+									Width = GridLength.Auto
+								}
+							},
+							RowSpacing = 0,
+							ColumnSpacing = 0,
+							Padding = new Thickness(0),
+							Margin = new Thickness(0)
+						};
+
+						Grid.SetColumn(Entry, 0);
+						Grid.SetRow(Entry, 0);
+						Grid.Children.Add(Entry);
+
+						Button CalcButton = new()
+						{
+							FontFamily = (OnPlatform<string>)Application.Current.Resources["FontAwesomeSolid"],
+							TextColor = (Color)Application.Current.Resources["TextColorLightTheme"],
+							Text = FontAwesome.Calculator,
+							HorizontalOptions = LayoutOptions.End,
+							WidthRequest = 40,
+							HeightRequest = 40,
+							CornerRadius = 8,
+							StyleId = Parameter.Name
+						};
+
+						CalcButton.Clicked += this.CalcButton_Clicked;
+
+						Grid.SetColumn(CalcButton, 1);
+						Grid.SetRow(CalcButton, 0);
+						Grid.Children.Add(CalcButton);
+
+						parametersLayout.Children.Add(Grid);
+					}
+					else
+						parametersLayout.Children.Add(Entry);
 
 					Entry.TextChanged += this.Parameter_TextChanged;
 
@@ -1111,6 +1164,28 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			return !(this.template is null) && this.ParametersOk;
 		}
+
+		private async void CalcButton_Clicked(object sender, EventArgs e)
+		{
+			try
+			{
+				if (sender is not Button CalcButton)
+					return;
+
+				if (!this.parametersByName.TryGetValue(CalcButton.StyleId, out ParameterInfo ParameterInfo))
+					return;
+
+				if (ParameterInfo.Control is not Entry Entry)
+					return;
+
+				await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(Entry));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+		}
+
 
 		#region ILinkableView
 

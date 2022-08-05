@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.DeviceSpecific;
+using IdApp.Pages.Main.Calculator;
 using IdApp.Resx;
 using IdApp.Services.Xmpp;
 using Waher.Content;
@@ -27,6 +28,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 			this.GenerateQrCodeCommand = new Command(async _ => await this.GenerateQrCode(), _ => this.CanGenerateQrCode());
 			this.ShareCommand = new Command(async _ => await this.Share(), _ => this.CanShare());
+			this.OpenCalculatorCommand = new Command(async P => await this.OpenCalculator(P));
 		}
 
 		/// <inheritdoc/>
@@ -66,7 +68,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.GenerateQrCodeCommand, this.ShareCommand);
+			this.EvaluateCommands(this.GenerateQrCodeCommand, this.ShareCommand, this.OpenCalculatorCommand);
 		}
 
 		/// <inheritdoc/>
@@ -301,6 +303,11 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public ICommand ShareCommand { get; }
 
+		/// <summary>
+		/// The command to bind to open the calculator.
+		/// </summary>
+		public ICommand OpenCalculatorCommand { get; }
+
 		#endregion
 
 		private Task GenerateQrCode()
@@ -354,6 +361,31 @@ namespace IdApp.Pages.Wallet.RequestPayment
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		/// <summary>
+		/// Opens the calculator for calculating the value of a numerical property.
+		/// </summary>
+		/// <param name="Parameter">Property to calculate</param>
+		public async Task OpenCalculator(object Parameter)
+		{
+			try
+			{
+				switch (Parameter?.ToString())
+				{
+					case "AmountText":
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty));
+						break;
+
+					case "AmountExtraText":
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountExtraTextProperty));
+						break;
+				}
+			}
+			catch (Exception ex)
+			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}

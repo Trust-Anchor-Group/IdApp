@@ -1788,4 +1788,7 @@
   <data name="RepairRestart" xml:space="preserve">
     <value>Une incohérence dans la base de données interne a été détectée. Cela peut se produire si l’application n’est pas fermée correctement. L’application va donc se fermer. La prochaine fois que vous démarrerez l’application, la base de données sera réparée.</value>
   </data>
+  <data name="Calculator" xml:space="preserve">
+    <value>Calculatrice</value>
+  </data>
 </root>

@@ -6753,6 +6753,103 @@
             <param name="Name">Group's unique name.</param>
             <param name="Items">Group's item collection.</param>
         </member>
+        <member name="T:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs">
+            <summary>
+            Holds navigation parameters for the calculator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs.#ctor">
+            <summary>
+            Holds navigation parameters for the calculator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs.#ctor(Xamarin.Forms.Entry)">
+            <summary>
+            Holds navigation parameters for the calculator.
+            </summary>
+            <param name="Entry">Entry whose value is being calculated.</param>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs.#ctor(IdApp.Pages.BaseViewModel,Xamarin.Forms.BindableProperty)">
+            <summary>
+            Holds navigation parameters for the calculator.
+            </summary>
+            <param name="ViewModel">View model containing a bindable property with the value to calculate.</param>
+            <param name="Property">Property containing the value to calculate.</param>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs.Entry">
+            <summary>
+            Entry whose value is being calculated.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs.ViewModel">
+            <summary>
+            View model containing a bindable property with the value to calculate.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs.Property">
+            <summary>
+            Property containing the value to calculate.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Calculator.CalculatorPage">
+            <summary>
+            A page that allows the user to calculate the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorPage.#ctor">
+            <summary>
+            A page that allows the user to calculate the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="T:IdApp.Pages.Main.Calculator.CalculatorViewModel">
+            <summary>
+            The view model to bind to for when displaying the calculator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Main.Calculator.CalculatorViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.EntryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Entry"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Entry">
+            <summary>
+            Entry of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.ViewModelProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ViewModel"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ViewModel">
+            <summary>
+            ViewModel of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.PropertyProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Property"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Property">
+            <summary>
+            Property of eDaler
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Main.Loading.LoadingPage">
             <summary>
             A page to use when the application is loading, or initializing.
@@ -10033,6 +10130,16 @@
             The command to bind to send the payment via the parent page.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.FromClickCommand">
+            <summary>
+            Command to bind to for detecting when a from label has been clicked on.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.OpenCalculatorCommand">
+            <summary>
+            The command to bind to open the calculator.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerFrontGlyphProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerFrontGlyph"/>
@@ -10053,10 +10160,11 @@
             eDaler glyph URL
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.FromClickCommand">
+        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.OpenCalculator(System.Object)">
             <summary>
-            Command to bind to for detecting when a from label has been clicked on.
+            Opens the calculator for calculating the value of a numerical property.
             </summary>
+            <param name="Parameter">Property to calculate</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.Title">
             <summary>
@@ -11622,6 +11730,17 @@
             <summary>
             The command to bind to for sharing the QR code
             </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.OpenCalculatorCommand">
+            <summary>
+            The command to bind to open the calculator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.OpenCalculator(System.Object)">
+            <summary>
+            Opens the calculator for calculating the value of a numerical property.
+            </summary>
+            <param name="Parameter">Property to calculate</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.Title">
             <summary>
@@ -13463,6 +13582,11 @@
         <member name="P:IdApp.Resx.AppResources.Building">
             <summary>
               Looks up a localized string similar to Building.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Calculator">
+            <summary>
+              Looks up a localized string similar to Calculator.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.CanActAsTemplate">
@@ -16229,6 +16353,11 @@
         <member name="F:IdApp.Resx.FontAwesome.EllipsisH">
             <summary>
             ellipsis-h
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.FontAwesome.Calculator">
+            <summary>
+            calculator
             </summary>
         </member>
         <member name="T:IdApp.Resx.Pngs">

@@ -1788,4 +1788,7 @@
   <data name="RepairRestart" xml:space="preserve">
     <value>Sisäisessä tietokannassa on havaittu epäjohdonmukaisuus. Näin voi käydä, jos sovellusta ei suljeta oikein. Sovellus sulkeutuu siis. Kun seuraavan kerran käynnistät sovelluksen, tietokanta korjataan.</value>
   </data>
+  <data name="Calculator" xml:space="preserve">
+    <value>Laskin</value>
+  </data>
 </root>
