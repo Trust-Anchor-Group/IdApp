@@ -50,12 +50,12 @@
     </Shell.Resources>
 
     <Shell.FlyoutHeader>
-        <Frame BorderColor="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" Padding="1" CornerRadius="0">
+        <Frame Style="{StaticResource ShellFrame}" Padding="1" CornerRadius="0">
             <Grid HeightRequest="200">
                 <Image Aspect="AspectFill" Source="city.jpg" />
                 <Grid HorizontalOptions="End" HeightRequest="48" WidthRequest="150" VerticalOptions="Center">
-                    <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource HeadingBackgroundTranslucentLightTheme}, Dark={StaticResource HeadingBackgroundTranslucentDarkTheme}}" />
-                    <Label Text="T A G" TextColor="{AppThemeBinding Light={StaticResource TextColorLightTheme}, Dark={StaticResource TextColorDarkTheme}}" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="End" VerticalTextAlignment="Center" Margin="0,0,48,0" />
+                    <BoxView Style="{StaticResource ShellBoxView}" />
+                    <Label Text="T A G" Style="{StaticResource ShellLabel}"  HorizontalTextAlignment="End" VerticalTextAlignment="Center" Margin="0,0,48,0" />
                 </Grid>
             </Grid>
         </Frame>

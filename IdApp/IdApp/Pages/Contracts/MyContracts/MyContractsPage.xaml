@@ -52,10 +52,10 @@
 	<StackLayout Margin="{StaticResource DefaultMargin}">
         <Label Text="{Binding Path=Title, Mode=OneTime}" Style="{StaticResource Heading}"/>
         <Label Text="{Binding Path=Description, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start"/>
-        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static resx:AppResources.NoContractsFound}" />
+        <Label Style="{StaticResource AlertLabel}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static resx:AppResources.NoContractsFound}" />
         <ActivityIndicator x:Name="Loading" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}"
-                           Color="{StaticResource AccentColor}"/>
+                           Style="{StaticResource AccentIndicator}"/>
 
         <noBounce:NoBounceCollectionView x:Name="Contracts" VerticalOptions="StartAndExpand"
                                          ItemSizingStrategy="MeasureAllItems" SelectionMode="Single"

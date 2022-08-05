@@ -51,7 +51,7 @@
 			<Label
                 Text="{Binding Path=PinStrength, Converter={converters:PinStrengthToErrorMessage}}"
                 IsVisible="False"
-                TextColor="{StaticResource AlertColor}"
+                Style="{StaticResource AlertLabel}"
                 Margin="{StaticResource DefaultBottomOnlyMargin}">
 				<Label.Triggers>
 					<MultiTrigger TargetType="Label">
@@ -82,7 +82,7 @@
 			<Label
                 Text="{x:Static resx:AppResources.PinsDoNotMatch}"
                 IsVisible="False"
-                TextColor="{StaticResource AlertColor}"
+                Style="{StaticResource AlertLabel}"
                 Margin="{StaticResource DefaultBottomOnlyMargin}">
 				<Label.Triggers>
 					<MultiTrigger TargetType="Label">

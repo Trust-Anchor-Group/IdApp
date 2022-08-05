@@ -98,7 +98,7 @@
                         <Picker x:Name="CountryPicker" HorizontalOptions="FillAndExpand" Title="{x:Static resx:AppResources.Country}"
                                 ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry}"
                                 IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="FirstNameEntry" HorizontalOptions="FillAndExpand"
@@ -109,7 +109,7 @@
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="MiddleNamesEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="MiddleNamesEntry" HorizontalOptions="FillAndExpand"
@@ -131,7 +131,7 @@
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="PersonalNumberEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="PersonalNumberEntry" HorizontalOptions="FillAndExpand"
@@ -142,7 +142,7 @@
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="AddressEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="AddressEntry" HorizontalOptions="FillAndExpand"
@@ -153,7 +153,7 @@
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="Address2Entry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="Address2Entry" HorizontalOptions="FillAndExpand"
@@ -175,7 +175,7 @@
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="AreaEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="AreaEntry" HorizontalOptions="FillAndExpand"
@@ -197,7 +197,7 @@
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegionEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="RegionEntry" HorizontalOptions="FillAndExpand"
@@ -210,7 +210,7 @@
                         </Entry>
                         <Label Text="*" TextColor="Transparent" VerticalOptions="Center"/>
                     </StackLayout>
-                    <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}"/>
+                    <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Style="{StaticResource AccentIndicator}"/>
                     <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
                     <Button x:Name="RegisterButton" Text="{x:Static resx:AppResources.Register}" Command="{Binding Path=RegisterCommand}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
                 </StackLayout>

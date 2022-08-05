@@ -70,7 +70,7 @@
                         <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=ConnectionErrorsText}" FontAttributes="Italic"
                                 HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" IsVisible="{Binding Path=HasConnectionErrors}" />
                     </Grid>
-                    <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="Start" Margin="{StaticResource DefaultBottomOnlyMargin}" />
+                    <BoxView Style="{StaticResource AccentView}" HeightRequest="3" VerticalOptions="Start" Margin="{StaticResource DefaultBottomOnlyMargin}" />
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Path=ViewMyIdentityCommand}" CommandParameter="{Binding .}"/>
                     </StackLayout.GestureRecognizers>
@@ -131,9 +131,8 @@
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Row="0"
                                        Text="{x:Static resx:AppResources.Qrcode}"
-                                       TextColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"
-                                       HorizontalOptions="Center" VerticalOptions="Center"
-                                       FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                                       Style="{StaticResource MainPageTextGrid}"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
                                 <Image Grid.Row="0" WidthRequest="20" HeightRequest="20"
                                        VerticalOptions="Start" HorizontalOptions="End" Margin="{StaticResource DefaultMargin}">
                                     <Image.Source>
@@ -152,10 +151,10 @@
                                     </Image.GestureRecognizers>
                                 </Image>
                                 <Image x:Name="QrCode" Grid.Row="1"
-                                       BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"
+                                       Style="{StaticResource MainPageImage}"
                                        Source="{Binding Path=QrCode}"
                                        IsVisible="{Binding Path=HasQrCode}"
-                                       Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="20" />
+                                       Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  />
                             </Grid>
                         </Frame>
                     </flipView:FlipView.BackView>

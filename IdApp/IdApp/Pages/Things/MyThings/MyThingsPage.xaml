@@ -13,7 +13,7 @@
     <StackLayout Margin="{StaticResource DefaultMargin}">
         <Label Text="{x:Static resx:AppResources.Things}" Style="{StaticResource Heading}"/>
         <Label Text="{x:Static resx:AppResources.ThingsDescription}" HorizontalOptions="Center" VerticalOptions="Start"/>
-        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowThingsMissing}" Text="{x:Static resx:AppResources.NoThingsFound}" />
+        <Label Style="{StaticResource AlertLabel}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowThingsMissing}" Text="{x:Static resx:AppResources.NoThingsFound}" />
 
         <noBounce:NoBounceCollectionView x:Name="Things" VerticalOptions="StartAndExpand"
                                          ItemSizingStrategy="MeasureAllItems" SelectionMode="Single"

@@ -14,7 +14,7 @@
           HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
         <Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.Contacts}" Style="{StaticResource Heading}"/>
         <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=Description}" HorizontalOptions="Center" VerticalOptions="Start"/>
-        <Label Grid.Column="0" Grid.Row="2" TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContactsMissing}" Text="{x:Static resx:AppResources.NoContactsFound}" />
+        <Label Grid.Column="0" Grid.Row="2" Style="{StaticResource AlertLabel}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContactsMissing}" Text="{x:Static resx:AppResources.NoContactsFound}" />
 
         <noBounce:NoBounceCollectionView Grid.Column="0" Grid.Row="3" x:Name="Contacts" VerticalOptions="StartAndExpand"
                                          ItemSizingStrategy="MeasureAllItems" SelectionMode="Single" ItemsSource="{Binding Path=Contacts}"
