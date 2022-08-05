@@ -735,6 +735,9 @@
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
     <value>Se exceden los intentos de PIN que ingresan. Su aplicación ha sido bloqueada hasta {0}.</value>
   </data>
+  <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
+    <value>Se exceden los intentos de PIN que ingresan. Su solicitud ha sido bloqueada hasta mañana en {0}.</value>
+  </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
     <value>Se exceden los intentos de PIN que ingresan. Su solicitud ha sido bloqueada durante una semana</value>
   </data>
@@ -1781,5 +1784,8 @@
   </data>
   <data name="UnableToGetStateDiagram" xml:space="preserve">
     <value>No se puede obtener el informe de diagrama de estado.</value>
+  </data>
+  <data name="RepairRestart" xml:space="preserve">
+    <value>Se ha detectado una inconsistencia en la base de datos interna. Esto puede suceder si la aplicación no se cierra correctamente. Por lo tanto, la aplicación se cerrará. La próxima vez que inicie la aplicación, la base de datos se reparará.</value>
   </data>
 </root>

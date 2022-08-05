@@ -598,7 +598,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 			catch (Exception ex)
 			{
-				Log.Critical(ex);
+				this.LogService.LogException(ex);
 			}
 		}
 
@@ -682,7 +682,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 			catch (Exception ex)
 			{
-				Log.Critical(ex);
+				this.LogService.LogException(ex);
 			}
 		}
 
@@ -701,7 +701,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 			catch (Exception ex)
 			{
-				Log.Critical(ex);
+				this.LogService.LogException(ex);
 			}
 		}
 

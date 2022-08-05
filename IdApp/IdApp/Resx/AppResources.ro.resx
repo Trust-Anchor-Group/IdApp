@@ -735,6 +735,9 @@
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
     <value>Pin încearcă introducerea este excededed. Cererea dumneavoastră a fost blocată până la {0}.</value>
   </data>
+  <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
+    <value>Pin încearcă introducerea este excededed. Cererea dumneavoastră a fost blocată până mâine, la {0}.</value>
+  </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
     <value>Pin încearcă introducerea este excededed. Cererea dumneavoastră a fost blocată timp de o săptămână</value>
   </data>
@@ -1781,5 +1784,8 @@
   </data>
   <data name="UnableToGetStateDiagram" xml:space="preserve">
     <value>Imposibil de obținut raport diagramă de stare.</value>
+  </data>
+  <data name="RepairRestart" xml:space="preserve">
+    <value>A fost detectată o inconsecvență în baza de date internă. Acest lucru se poate întâmpla dacă aplicația nu este închisă corect. Prin urmare, aplicația se va închide. Data viitoare când porniți aplicația, baza de date va fi reparată.</value>
   </data>
 </root>

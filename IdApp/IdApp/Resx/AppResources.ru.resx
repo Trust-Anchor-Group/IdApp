@@ -735,6 +735,9 @@
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
     <value>Попытки ввода ПИН-кода исключаются. Ваша заявка заблокирована до {0}.</value>
   </data>
+  <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
+    <value>Попытки ввода ПИН-кода исключаются. Ваша заявка заблокирована до завтра в {0}.</value>
+  </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
     <value>Попытки ввода ПИН-кода исключаются. Ваша заявка заблокирована на одну неделю</value>
   </data>
@@ -1781,5 +1784,8 @@
   </data>
   <data name="UnableToGetStateDiagram" xml:space="preserve">
     <value>Не удается получить отчет диаграммы состояния.</value>
+  </data>
+  <data name="RepairRestart" xml:space="preserve">
+    <value>Обнаружена несогласованность во внутренней базе данных. Это может произойти, если приложение не закрыто должным образом. Поэтому приложение закроется. При следующем запуске приложения база данных будет восстановлена.</value>
   </data>
 </root>

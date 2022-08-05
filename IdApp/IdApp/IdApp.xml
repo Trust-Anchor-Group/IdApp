@@ -9,6 +9,11 @@
             The Application class, representing an instance of the IdApp.
             </summary>
         </member>
+        <member name="P:IdApp.App.Current">
+            <summary>
+            Gets the current application, type casted to <see cref="T:IdApp.App"/>.
+            </summary>
+        </member>
         <member name="M:IdApp.App.#ctor">
             <inheritdoc/>
         </member>
@@ -10440,6 +10445,9 @@
         <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.DoBind">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.Variables">
             <summary>
             Current variables
@@ -10480,13 +10488,12 @@
             Represents a state-machine variable.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MachineVariables.VariableModel.#ctor(System.String,System.Object,System.String)">
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.VariableModel.#ctor(System.String,System.Object)">
             <summary>
             Represents a state-machine variable.
             </summary>
             <param name="Name">Name of variable</param>
             <param name="Value">Value of variable</param>
-            <param name="AsScript">Value as script</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.MachineVariables.VariableModel.Name">
             <summary>
@@ -10502,6 +10509,12 @@
             <summary>
             Value as script
             </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.VariableModel.UpdateValue(System.Object)">
+            <summary>
+            Updates the value of the variable.
+            </summary>
+            <param name="Value">Value of variable</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.MachineVariables.VariableModel.CopyToClipboardCommand">
             <summary>
@@ -15062,6 +15075,11 @@
               Looks up a localized string similar to Repair and continue.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.RepairRestart">
+            <summary>
+              Looks up a localized string similar to An inconsistency in the internal database has been detected. This can happen if the app is not closed properly. The app will therefore close. The next time you start the app, the database will be repaired..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.RepeatNewPin">
             <summary>
               Looks up a localized string similar to Repeat New PIN.
@@ -17195,13 +17213,6 @@
             <param name="e">The exception to log.</param>
             <param name="extraParameters">Any extra parameters that are added to the log.</param>
         </member>
-        <member name="M:IdApp.Services.EventLog.ILogService.LogEvent(System.String,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
-            <summary>
-            Invoke this method to add an event entry to the log.
-            </summary>
-            <param name="name">The name of the event.</param>
-            <param name="extraParameters">Any extra parameters that are added to the log.</param>
-        </member>
         <member name="M:IdApp.Services.EventLog.ILogService.SaveExceptionDump(System.String,System.String)">
             <summary>
             Saves an exception dump to disc, completely offline. A last resort operation.
@@ -18269,6 +18280,11 @@
             </summary>
             <param name="exportOutput">Receives the contents of the database.</param>
         </member>
+        <member name="M:IdApp.Services.Storage.IStorageService.FlagForRepair">
+            <summary>
+            Flags the database for repair, so that the next time the app is opened, the database will be repaired.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Storage.StorageService.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Services.Storage.StorageService"/> class.
@@ -18287,6 +18303,11 @@
         </member>
         <member name="M:IdApp.Services.Storage.StorageService.Shutdown">
             <inheritdoc />
+        </member>
+        <member name="M:IdApp.Services.Storage.StorageService.FlagForRepair">
+            <summary>
+            Flags the database for repair, so that the next time the app is opened, the database will be repaired.
+            </summary>
         </member>
         <member name="T:IdApp.Services.Tag.ITagProfile">
             <summary>
@@ -19945,6 +19966,16 @@
             Event raised when a token has been added to the wallet.
             </summary>
         </member>
+        <member name="E:IdApp.Services.Wallet.INeuroWallet.VariablesUpdated">
+            <summary>
+            Event raised when variables have been updated in a state-machine.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Wallet.INeuroWallet.StateUpdated">
+            <summary>
+            Event raised when a state-machine has received a new state.
+            </summary>
+        </member>
         <member name="P:IdApp.Services.Wallet.INeuroWallet.LastTokenEvent">
             <summary>
             Timepoint of last Neuro-Feature token event.
@@ -20225,6 +20256,16 @@
         <member name="E:IdApp.Services.Wallet.NeuroWallet.TokenAdded">
             <summary>
             Event raised when a token has been added to the wallet.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Wallet.NeuroWallet.VariablesUpdated">
+            <summary>
+            Event raised when variables have been updated in a state-machine.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Wallet.NeuroWallet.StateUpdated">
+            <summary>
+            Event raised when a state-machine has received a new state.
             </summary>
         </member>
         <member name="M:IdApp.Services.Wallet.NeuroWallet.GetTokens">

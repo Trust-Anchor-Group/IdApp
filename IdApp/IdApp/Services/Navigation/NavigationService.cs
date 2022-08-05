@@ -29,7 +29,10 @@ namespace IdApp.Services.Navigation
 			{
 				try
 				{
-					Shell.Current.Navigating += this.Shell_Navigating;
+					Application Application = Application.Current;
+					Application.PropertyChanging += this.OnApplicationPropertyChanging;
+					Application.PropertyChanged += this.OnApplicationPropertyChanged;
+					this.SubscribeToShellNavigatingIfNecessary(Application);
 
 					this.EndLoad(true);
 				}
@@ -50,7 +53,10 @@ namespace IdApp.Services.Navigation
 			{
 				try
 				{
-					Shell.Current.Navigating -= this.Shell_Navigating;
+					Application Application = Application.Current;
+					this.UnsubscribeFromShellNavigatingIfNecessary(Application);
+					Application.PropertyChanged -= this.OnApplicationPropertyChanged;
+					Application.PropertyChanging -= this.OnApplicationPropertyChanging;
 				}
 				catch (Exception e)
 				{
@@ -63,6 +69,33 @@ namespace IdApp.Services.Navigation
 			return Task.CompletedTask;
 		}
 
+		private void OnApplicationPropertyChanged(object Sender, System.ComponentModel.PropertyChangedEventArgs Args)
+		{
+			if (Args.PropertyName == nameof(Application.MainPage))
+			{
+				this.SubscribeToShellNavigatingIfNecessary((Application)Sender);
+			}
+		}
+
+		private void OnApplicationPropertyChanging(object Sender, PropertyChangingEventArgs Args)
+		{
+			if (Args.PropertyName == nameof(Application.MainPage))
+			{
+				this.UnsubscribeFromShellNavigatingIfNecessary((Application)Sender);
+			}
+		}
+
+		private void SubscribeToShellNavigatingIfNecessary(Application Application)
+		{
+			if (Application.MainPage is Shell Shell)
+				Shell.Navigating += this.Shell_Navigating;
+		}
+
+		private void UnsubscribeFromShellNavigatingIfNecessary(Application Application)
+		{
+			if (Application.MainPage is Shell Shell)
+				Shell.Navigating -= this.Shell_Navigating;
+		}
 
 		private async void Shell_Navigating(object sender, ShellNavigatingEventArgs e)
 		{
@@ -114,23 +147,26 @@ namespace IdApp.Services.Navigation
 			}
 		}
 
-		public bool TryPopArgs<TArgs>(out TArgs args, string UniqueId = null) where TArgs : NavigationArgs
+		public bool TryPopArgs<TArgs>(out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs
 		{
-			string PageName = Shell.Current.CurrentPage?.GetType().Name;
-
-			return this.TryPopArgs(PageName, out args, UniqueId);
+			return this.TryPopArgs(Shell.Current.CurrentPage, out Args, UniqueId);
 		}
 
 		public TArgs GetPopArgs<TArgs>(string UniqueId = null) where TArgs : NavigationArgs
 		{
-			string PageName = Shell.Current.CurrentPage?.GetType().Name;
+			return this.TryPopArgs(Shell.Current.CurrentPage, out TArgs Args, UniqueId) ? Args : null;
+		}
 
-			if (this.TryPopArgs<TArgs>(PageName, out TArgs args, UniqueId))
+		private bool TryPopArgs<TArgs>(Page CurrentPage, out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs
+		{
+			if (CurrentPage is null)
 			{
-				return args;
+				Args = default;
+				return false;
 			}
 
-			return null;
+			return this.TryPopArgs(CurrentPage.GetType().Name, out Args, UniqueId)
+				|| this.TryPopArgs(Routing.GetRoute(CurrentPage), out Args, UniqueId);
 		}
 
 		private bool TryPopArgs<TArgs>(string PageName, out TArgs args, string UniqueId = null) where TArgs : NavigationArgs

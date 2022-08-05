@@ -675,7 +675,7 @@ namespace IdApp.Services.Xmpp
 			}
 			catch (Exception ex)
 			{
-				Log.Critical(ex);
+				this.LogService.LogException(ex);
 			}
 		}
 
@@ -1410,7 +1410,7 @@ namespace IdApp.Services.Xmpp
 				}
 				catch (Exception ex)
 				{
-					Log.Critical(ex);
+					this.LogService.LogException(ex);
 					Message.Markdown = string.Empty;
 				}
 			}

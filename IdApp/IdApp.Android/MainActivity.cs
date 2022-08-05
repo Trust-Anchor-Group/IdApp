@@ -149,11 +149,17 @@ namespace IdApp.Android
 			{
 				Intent Intent = new Intent(this, this.GetType()).AddFlags(ActivityFlags.SingleTop);
 
-				PendingIntent PendingIntent = PendingIntent.GetActivity(this, 0, Intent, 0);
+				PendingIntent PendingIntent = PendingIntent.GetActivity(this, 0, Intent, PendingIntentFlags.Mutable);
 				nfcAdapter.EnableForegroundDispatch(this, PendingIntent, null, null);
 			}
 
 			this.RemoveAllNotifications();
+		}
+
+		protected override void OnPause()
+		{
+			base.OnPause();
+			nfcAdapter?.DisableForegroundDispatch(this);
 		}
 
 		protected override async void OnNewIntent(Intent Intent)

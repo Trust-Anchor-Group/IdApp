@@ -735,6 +735,9 @@
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
     <value>Pokušaji unošenja PIN-a su izusti. Vaša prijava je blokirana do {0}.</value>
   </data>
+  <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
+    <value>Pokušaji unošenja PIN-a su izusti. Vaša prijava je blokirana do sutra u {0}.</value>
+  </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
     <value>Pokušaji unošenja PIN-a su izusti. Vaša prijava je blokirana već nedelju dana</value>
   </data>
@@ -1781,5 +1784,8 @@
   </data>
   <data name="UnableToGetStateDiagram" xml:space="preserve">
     <value>Nije moguće dobiti izveštaj o državnom dijagramu.</value>
+  </data>
+  <data name="RepairRestart" xml:space="preserve">
+    <value>Otkrivena je nedoslednost u internoj bazi podataka. To se može dogoditi ako aplikacija nije ispravno zatvorena. Aplikacija će se stoga zatvoriti. Kada sledeći put pokrenete aplikaciju, baza podataka će biti popravljena.</value>
   </data>
 </root>

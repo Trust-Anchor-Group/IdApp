@@ -735,6 +735,9 @@
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
     <value>PIN-koodin syöttöyritykset poistetaan. Sovelluksesi on estetty {0} asti.</value>
   </data>
+  <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
+    <value>PIN-koodin syöttöyritykset poistetaan. Hakemuksesi on estetty huomiseen asti {0}.</value>
+  </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
     <value>PIN-koodin syöttöyritykset poistetaan. Hakemuksesi on estetty viikon ajan</value>
   </data>
@@ -1781,5 +1784,8 @@
   </data>
   <data name="UnableToGetStateDiagram" xml:space="preserve">
     <value>Tilakaavioraporttia ei voi saada.</value>
+  </data>
+  <data name="RepairRestart" xml:space="preserve">
+    <value>Sisäisessä tietokannassa on havaittu epäjohdonmukaisuus. Näin voi käydä, jos sovellusta ei suljeta oikein. Sovellus sulkeutuu siis. Kun seuraavan kerran käynnistät sovelluksen, tietokanta korjataan.</value>
   </data>
 </root>

@@ -15,7 +15,7 @@
             <StackLayout Margin="{StaticResource DefaultMargin}" VerticalOptions="Start">
                 <Label Text="{x:Static resx:AppResources.Petition}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Style="{StaticResource Heading}" />
                 <Label Text="{x:Static resx:AppResources.PetitionContractInformationText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
-                <Frame BorderColor="Black" Margin="50,10,50,10" CornerRadius="10">
+                <Frame BorderColor="{StaticResource ForegroundColor}" Margin="50,10,50,10" CornerRadius="10">
                     <Image Source="{Binding FirstPhotoSource}" Rotation="{Binding FirstPhotoRotation}" 
                            HorizontalOptions="Center" VerticalOptions="Start"/>
                 </Frame>

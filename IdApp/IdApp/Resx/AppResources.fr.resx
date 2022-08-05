@@ -735,6 +735,9 @@
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
     <value>Les tentatives de saisie de code PIN sont exclues. Votre application a été bloquée jusqu’à {0}.</value>
   </data>
+  <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
+    <value>Les tentatives de saisie de code PIN sont exclues. Votre candidature a été bloquée jusqu’à demain à {0}.</value>
+  </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
     <value>Les tentatives de saisie de code PIN sont exclues. Votre demande est bloquée depuis une semaine</value>
   </data>
@@ -1781,5 +1784,8 @@
   </data>
   <data name="UnableToGetStateDiagram" xml:space="preserve">
     <value>Impossible d’obtenir le rapport de diagramme d’état.</value>
+  </data>
+  <data name="RepairRestart" xml:space="preserve">
+    <value>Une incohérence dans la base de données interne a été détectée. Cela peut se produire si l’application n’est pas fermée correctement. L’application va donc se fermer. La prochaine fois que vous démarrerez l’application, la base de données sera réparée.</value>
   </data>
 </root>

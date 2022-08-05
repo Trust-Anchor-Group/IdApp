@@ -735,6 +735,9 @@
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
     <value>PIN-kodeforsøk som skrives inn, er utskilt. Søknaden din er blokkert til {0}.</value>
   </data>
+  <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
+    <value>PIN-kodeforsøk som skrives inn, er utskilt. Søknaden din er blokkert til i morgen klokken {0}.</value>
+  </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
     <value>PIN-kodeforsøk som skrives inn, er utskilt. Søknaden din har vært blokkert i én uke</value>
   </data>
@@ -1781,5 +1784,8 @@
   </data>
   <data name="UnableToGetStateDiagram" xml:space="preserve">
     <value>Kan ikke hente tilstandsdiagramrapport.</value>
+  </data>
+  <data name="RepairRestart" xml:space="preserve">
+    <value>Det er oppdaget en inkonsekvens i den interne databasen. Dette kan skje hvis appen ikke er lukket ordentlig. Appen vil derfor lukkes. Neste gang du starter appen, repareres databasen.</value>
   </data>
 </root>

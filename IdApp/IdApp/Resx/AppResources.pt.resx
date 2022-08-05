@@ -735,6 +735,9 @@
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
     <value>As tentativas de digitamento do PIN são excededas. Sua inscrição foi bloqueada até {0}.</value>
   </data>
+  <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
+    <value>As tentativas de digitamento do PIN são excededas. Sua inscrição foi bloqueada até amanhã em {0}.</value>
+  </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
     <value>As tentativas de digitamento do PIN são excededas. Sua inscrição foi bloqueada por uma semana</value>
   </data>
@@ -1781,5 +1784,8 @@
   </data>
   <data name="UnableToGetStateDiagram" xml:space="preserve">
     <value>Não foi possível obter o relatório do diagrama do estado.</value>
+  </data>
+  <data name="RepairRestart" xml:space="preserve">
+    <value>Foi detectada uma inconsistência no banco de dados interno. Isso pode acontecer se o aplicativo não estiver fechado corretamente. O aplicativo, portanto, fechará. Da próxima vez que você iniciar o aplicativo, o banco de dados será reparado.</value>
   </data>
 </root>

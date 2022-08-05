@@ -269,7 +269,7 @@ namespace IdApp.Services.Contracts
 			}
 			catch (Exception ex)
 			{
-				Log.Critical(ex);
+				this.LogService.LogException(ex);
 			}
 		}
 
@@ -306,7 +306,7 @@ namespace IdApp.Services.Contracts
 			}
 			catch (Exception ex)
 			{
-				Log.Critical(ex);
+				this.LogService.LogException(ex);
 			}
 		}
 

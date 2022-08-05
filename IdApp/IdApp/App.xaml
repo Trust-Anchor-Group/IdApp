@@ -57,6 +57,23 @@
 
         <Color x:Key="HintColor">#a5a5a5</Color>
 
+        <Color x:Key="SendMessageBackground">LightYellow</Color>
+        <Color x:Key="SendMessageBorder">Yellow</Color>
+
+        <Color x:Key="RecivedMessageBackground">LightBlue</Color>
+        <Color x:Key="RecivedMessageBorder">SkyBlue</Color>
+
+        <Color x:Key="OtherMessageBackground">LightSalmon</Color>
+        <Color x:Key="OtherMessageBorder">Salmon</Color>
+
+        <Color x:Key="DisplayConnectionTextColor">#99ffffff</Color>
+        <Color x:Key="DisabledTextColor">#B4FFFFFF</Color>
+        <Color x:Key="UnselectedTextColor">#95FFFFFF</Color>
+        <Color x:Key="WhiteColor">White</Color>
+        <Color x:Key="BlueColor">Blue</Color>
+        <Color x:Key="GrayColor">Gray</Color>
+        <Color x:Key="LightGrayColor">LightGray</Color>
+
         <Thickness x:Key="LargeMargin">24</Thickness>
         <Thickness x:Key="DefaultMargin">12</Thickness>
         <Thickness x:Key="DefaultLeftOnlyMargin">12,0,0,0</Thickness>
@@ -76,7 +93,7 @@
                CanCascade="True">
             <Setter Property="FontSize" Value="Medium" />
             <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
-            <Setter Property="TextColor" Value="White" />
+            <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
             <Setter Property="CornerRadius" Value="5" />
             <Style.Triggers>
                 <Trigger TargetType="Button"
@@ -92,7 +109,7 @@
                CanCascade="True">
             <Setter Property="FontSize" Value="Medium" />
             <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
-            <Setter Property="TextColor" Value="White" />
+            <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
             <Setter Property="CornerRadius" Value="4" />
             <Setter Property="HeightRequest" Value="40" />
             <Setter Property="WidthRequest" Value="40" />
@@ -145,11 +162,11 @@
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="LineBreakMode" Value="WordWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
-            <Setter Property="TextColor" Value="Blue"/>
+            <Setter Property="TextColor" Value="{StaticResource BlueColor}"/>
         </Style>
 		<Style TargetType="Span" x:Key="ClickableValueSpan">
 			<Setter Property="FontAttributes" Value="Bold"/>
-			<Setter Property="TextColor" Value="Blue"/>
+			<Setter Property="TextColor" Value="{StaticResource BlueColor}"/>
 		</Style>
 		<Style TargetType="Span" x:Key="ValueSpan">
 			<Setter Property="FontAttributes" Value="Bold"/>
@@ -159,11 +176,11 @@
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
             <Setter Property="LineBreakMode" Value="WordWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
-            <Setter Property="BackgroundColor" Value="LightGray"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource LightGrayColor}"/>
             <Setter Property="FontSize" Value="Large"/>
         </Style>
         <Style TargetType="Label" x:Key="HyperlinkColor">
-            <Setter Property="TextColor" Value="Blue"/>
+            <Setter Property="TextColor" Value="{StaticResource BlueColor}"/>
         </Style>
         <Style TargetType="Label" x:Key="FormattedValueLabel">
             <Setter Property="LineBreakMode" Value="WordWrap"/>
@@ -187,7 +204,7 @@
 			<Setter Property="BackgroundColor" Value="Transparent" />
 			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
 			<Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
-			<Setter Property="helpers:EntryProperties.BorderColor" Value="Gray" />
+			<Setter Property="helpers:EntryProperties.BorderColor" Value="{StaticResource GrayColor}" />
 			<Setter Property="Margin" Value="{OnPlatform Android='4'}" />
 		</Style>
         <Style TargetType="Picker"
@@ -195,7 +212,7 @@
                CanCascade="True">
             <Setter Property="BackgroundColor" Value="Transparent" />
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
-			<Setter Property="helpers:EntryProperties.BorderColor" Value="Gray" />
+			<Setter Property="helpers:EntryProperties.BorderColor" Value="{StaticResource GrayColor}" />
 			<Setter Property="HeightRequest" Value="40" />
 		</Style>
 		<Style TargetType="templatedSwitch:TemplatedSwitch" x:Key="PasswordToggler">

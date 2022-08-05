@@ -43,13 +43,6 @@ namespace IdApp.Services.EventLog
         /// <param name="e">The exception to log.</param>
         /// <param name="extraParameters">Any extra parameters that are added to the log.</param>
         void LogException(Exception e, params KeyValuePair<string, string>[] extraParameters);
-        
-        /// <summary>
-        /// Invoke this method to add an event entry to the log.
-        /// </summary>
-        /// <param name="name">The name of the event.</param>
-        /// <param name="extraParameters">Any extra parameters that are added to the log.</param>
-        void LogEvent(string name, params KeyValuePair<string, string>[] extraParameters);
 
         /// <summary>
         /// Saves an exception dump to disc, completely offline. A last resort operation.
