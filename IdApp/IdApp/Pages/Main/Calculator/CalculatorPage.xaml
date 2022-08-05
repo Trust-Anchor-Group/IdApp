@@ -8,12 +8,12 @@
                        x:Class="IdApp.Pages.Main.Calculator.CalculatorPage"
                        Title="{x:Static resx:AppResources.Calculator}">
 	<Grid RowDefinitions="auto,*,*,*,*,*,*,*" ColumnDefinitions="*,*,*,*,*" RowSpacing="2" ColumnSpacing="2" Padding="2" Margin="0">
-		<Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Text="{x:Static resx:AppResources.Calculator}" Margin="10"
+		<Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Text="{Binding Status}" Margin="10"
 			   HorizontalOptions="Fill" VerticalOptions="Fill" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
 			   FontSize="Subtitle"/>
 		<Frame Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" HorizontalOptions="Fill" VerticalOptions="Fill"
 			   BorderColor="Black" Margin="5" CornerRadius="8" BackgroundColor="Transparent" Padding="20,5,20,5">
-			<Label Text="0" FontSize="Title"
+			<Label Text="{Binding Value}" FontSize="Title"
 				   HorizontalOptions="Fill" VerticalOptions="Fill" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
 		</Frame>
 

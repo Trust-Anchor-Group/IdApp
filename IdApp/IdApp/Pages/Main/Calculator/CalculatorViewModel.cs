@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -32,6 +33,16 @@ namespace IdApp.Pages.Main.Calculator
 				this.Entry = args.Entry;
 				this.ViewModel = args.ViewModel;
 				this.Property = args.Property;
+
+				if (this.Entry is not null)
+					this.Value = this.Entry.Text;
+				else if (this.ViewModel is not null && this.Property is not null)
+					this.Value = (string)this.ViewModel.GetValue(this.Property);
+				else
+					this.Value = string.Empty;
+
+				if (string.IsNullOrEmpty(this.Value))
+					this.Value = "0";
 			}
 
 			this.DecimalSeparator = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
@@ -39,9 +50,56 @@ namespace IdApp.Pages.Main.Calculator
 			this.DisplayFunctions = false;
 			this.DisplayHyperbolic = false;
 			this.DisplayInverse = false;
+			this.Status = string.Empty;
+			this.Memory = null;
 		}
 
 		#region Properties
+
+		/// <summary>
+		/// See <see cref="Value"/>
+		/// </summary>
+		public static readonly BindableProperty ValueProperty =
+			BindableProperty.Create(nameof(Value), typeof(string), typeof(CalculatorViewModel), default(string));
+
+		/// <summary>
+		/// Current entry
+		/// </summary>
+		public string Value
+		{
+			get => (string)this.GetValue(ValueProperty);
+			set => this.SetValue(ValueProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Status"/>
+		/// </summary>
+		public static readonly BindableProperty StatusProperty =
+			BindableProperty.Create(nameof(Status), typeof(string), typeof(CalculatorViewModel), default(string));
+
+		/// <summary>
+		/// Current entry
+		/// </summary>
+		public string Status
+		{
+			get => (string)this.GetValue(StatusProperty);
+			set => this.SetValue(StatusProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Memory"/>
+		/// </summary>
+		public static readonly BindableProperty MemoryProperty =
+			BindableProperty.Create(nameof(Memory), typeof(object), typeof(CalculatorViewModel), default);
+
+		/// <summary>
+		/// Current entry
+		/// </summary>
+		public object Memory
+		{
+			get => (object)this.GetValue(MemoryProperty);
+			set => this.SetValue(MemoryProperty, value);
+		}
 
 		/// <summary>
 		/// See <see cref="Entry"/>
@@ -50,7 +108,7 @@ namespace IdApp.Pages.Main.Calculator
 			BindableProperty.Create(nameof(Entry), typeof(Entry), typeof(CalculatorViewModel), default(Entry));
 
 		/// <summary>
-		/// Entry of eDaler
+		/// Entry control, if available
 		/// </summary>
 		public Entry Entry
 		{
@@ -65,7 +123,7 @@ namespace IdApp.Pages.Main.Calculator
 			BindableProperty.Create(nameof(ViewModel), typeof(BaseViewModel), typeof(CalculatorViewModel), default(BaseViewModel));
 
 		/// <summary>
-		/// ViewModel of eDaler
+		/// View model, if available
 		/// </summary>
 		public BaseViewModel ViewModel
 		{
@@ -80,7 +138,7 @@ namespace IdApp.Pages.Main.Calculator
 			BindableProperty.Create(nameof(Property), typeof(BindableProperty), typeof(CalculatorViewModel), default(BindableProperty));
 
 		/// <summary>
-		/// Property of eDaler
+		/// Property, if available.
 		/// </summary>
 		public BindableProperty Property
 		{
@@ -95,7 +153,7 @@ namespace IdApp.Pages.Main.Calculator
 			BindableProperty.Create(nameof(DecimalSeparator), typeof(string), typeof(CalculatorViewModel), default(string));
 
 		/// <summary>
-		/// DecimalSeparator of eDaler
+		/// Current decimal separator.
 		/// </summary>
 		public string DecimalSeparator
 		{
@@ -110,7 +168,7 @@ namespace IdApp.Pages.Main.Calculator
 			BindableProperty.Create(nameof(DisplayMain), typeof(bool), typeof(CalculatorViewModel), default(bool));
 
 		/// <summary>
-		/// DisplayMain of eDaler
+		/// If main key page is to be displayed
 		/// </summary>
 		public bool DisplayMain
 		{
@@ -125,7 +183,7 @@ namespace IdApp.Pages.Main.Calculator
 			BindableProperty.Create(nameof(DisplayFunctions), typeof(bool), typeof(CalculatorViewModel), default(bool));
 
 		/// <summary>
-		/// DisplayFunctions of eDaler
+		/// If function key page is to be displayed
 		/// </summary>
 		public bool DisplayFunctions
 		{
@@ -144,7 +202,7 @@ namespace IdApp.Pages.Main.Calculator
 			BindableProperty.Create(nameof(DisplayHyperbolic), typeof(bool), typeof(CalculatorViewModel), default(bool));
 
 		/// <summary>
-		/// DisplayHyperbolic of eDaler
+		/// If hyperbolic functions are to be displayed
 		/// </summary>
 		public bool DisplayHyperbolic
 		{
@@ -163,7 +221,7 @@ namespace IdApp.Pages.Main.Calculator
 			BindableProperty.Create(nameof(DisplayInverse), typeof(bool), typeof(CalculatorViewModel), default(bool));
 
 		/// <summary>
-		/// DisplayInverse of eDaler
+		/// If inverse functions are to be displayed
 		/// </summary>
 		public bool DisplayInverse
 		{
@@ -182,7 +240,7 @@ namespace IdApp.Pages.Main.Calculator
 			BindableProperty.Create(nameof(DisplayNotHyperbolicNotInverse), typeof(bool), typeof(CalculatorViewModel), default(bool));
 
 		/// <summary>
-		/// DisplayNotHyperbolicNotInverse of eDaler
+		/// If neither hyperbolic nor inverse functions are to be displayed
 		/// </summary>
 		public bool DisplayNotHyperbolicNotInverse
 		{
@@ -197,7 +255,7 @@ namespace IdApp.Pages.Main.Calculator
 			BindableProperty.Create(nameof(DisplayHyperbolicNotInverse), typeof(bool), typeof(CalculatorViewModel), default(bool));
 
 		/// <summary>
-		/// DisplayHyperbolicNotInverse of eDaler
+		/// If hyperbolic functions, but not inverse functions are to be displayed
 		/// </summary>
 		public bool DisplayHyperbolicNotInverse
 		{
@@ -212,7 +270,7 @@ namespace IdApp.Pages.Main.Calculator
 			BindableProperty.Create(nameof(DisplayNotHyperbolicInverse), typeof(bool), typeof(CalculatorViewModel), default(bool));
 
 		/// <summary>
-		/// DisplayNotHyperbolicInverse of eDaler
+		/// If inverse functions, but not hyperbolic functions are to be displayed
 		/// </summary>
 		public bool DisplayNotHyperbolicInverse
 		{
@@ -227,7 +285,7 @@ namespace IdApp.Pages.Main.Calculator
 			BindableProperty.Create(nameof(DisplayHyperbolicInverse), typeof(bool), typeof(CalculatorViewModel), default(bool));
 
 		/// <summary>
-		/// DisplayHyperbolicInverse of eDaler
+		/// If inverse hyperbolic functions are to be displayed
 		/// </summary>
 		public bool DisplayHyperbolicInverse
 		{
@@ -285,84 +343,135 @@ namespace IdApp.Pages.Main.Calculator
 
 		private void ExecuteKeyPressed(object P)
 		{
-			string Key = P?.ToString() ?? string.Empty;
-
-			switch (Key)
+			try
 			{
-				case "0": break;
-				case "1": break;
-				case "2": break;
-				case "3": break;
-				case "4": break;
-				case "5": break;
-				case "6": break;
-				case "7": break;
-				case "8": break;
-				case "9": break;
-				case "+": break;
-				case "M+": break;
-				case "-": break;
-				case "M-": break;
-				case "*": break;
-				case "MR": break;
-				case "+-": break;
-				case "/": break;
-				case "C": break;
-				case "1/x": break;
-				case "%": break;
-				case "%0": break;
-				case "°": break;
-				case "x2": break;
-				case "^": break;
-				case "CE": break;
-				case "()": break;
-				case "sqrt": break;
-				case "yrt": break;
-				case ".": break;
-				case "exp": break;
-				case "sin": break;
-				case "sinh": break;
-				case "asin": break;
-				case "asinh": break;
-				case "abs": break;
-				case "10^x": break;
-				case "2^x": break;
-				case "cos": break;
-				case "cosh": break;
-				case "acos": break;
-				case "acosh": break;
-				case "frac": break;
-				case "log": break;
-				case "lg2": break;
-				case "tan": break;
-				case "tanh": break;
-				case "atan": break;
-				case "atanh": break;
-				case "sign": break;
-				case "ln": break;
-				case "sec": break;
-				case "sech": break;
-				case "asec": break;
-				case "asech": break;
-				case "round": break;
-				case "csc": break;
-				case "csch": break;
-				case "acsc": break;
-				case "acsch": break;
-				case "ceil": break;
-				case "cot": break;
-				case "coth": break;
-				case "acot": break;
-				case "acoth": break;
-				case "floor": break;
-				case "rad": break;
-				case "E": break;
-				case "stddev": break;
-				case "sum": break;
-				case "prod": break;
-				case "inf": break;
-				case "sup": break;
-				case "=": break;
+				string Key = P?.ToString() ?? string.Empty;
+
+				switch (Key)
+				{
+					// Key entry
+
+					case "0":
+					case "1":
+					case "2":
+					case "3":
+					case "4":
+					case "5":
+					case "6":
+					case "7":
+					case "8":
+					case "9":
+						if (this.Value == "0")
+							this.Value = Key;
+						else
+							this.Value += Key;
+						break;
+
+					case ".":
+						Key = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
+						if (this.Value == "0")
+							this.Value = Key;
+						else
+							this.Value += Key;
+						break;
+
+					// Results
+
+					case "C":
+						this.Value = "0";
+						break;
+
+					case "CE":
+						this.Value = "0";
+						this.Memory = null;
+						break;
+
+					case "=": break;
+
+					// Binary operators
+
+					case "+": break;
+					case "-": break;
+					case "*": break;
+					case "/": break;
+					case "^": break;
+					case "yrt": break;
+
+					// Unary operators
+
+					case "+-": break;
+					case "1/x": break;
+					case "%": break;
+					case "%0": break;
+					case "°": break;
+					case "x2": break;
+					case "sqrt": break;
+					case "10^x": break;
+					case "2^x": break;
+					case "rad": break;
+
+					// Order
+
+					case "()": break;
+
+					// Analytical Funcions
+
+					case "exp": break;
+					case "log": break;
+					case "lg2": break;
+					case "ln": break;
+
+					case "sin": break;
+					case "sinh": break;
+					case "asin": break;
+					case "asinh": break;
+					case "cos": break;
+					case "cosh": break;
+					case "acos": break;
+					case "acosh": break;
+					case "tan": break;
+					case "tanh": break;
+					case "atan": break;
+					case "atanh": break;
+					case "sec": break;
+					case "sech": break;
+					case "asec": break;
+					case "asech": break;
+					case "csc": break;
+					case "csch": break;
+					case "acsc": break;
+					case "acsch": break;
+					case "cot": break;
+					case "coth": break;
+					case "acot": break;
+					case "acoth": break;
+
+					// Other scalar functions
+
+					case "abs": break;
+					case "frac": break;
+					case "sign": break;
+					case "round": break;
+					case "ceil": break;
+					case "floor": break;
+
+					// Statistics
+
+					case "M+": break;
+					case "M-": break;
+					case "MR": break;
+
+					case "E": break;
+					case "stddev": break;
+					case "sum": break;
+					case "prod": break;
+					case "inf": break;
+					case "sup": break;
+				}
+			}
+			catch (Exception ex)
+			{
+				this.Status = ex.Message;
 			}
 		}
 

@@ -6820,6 +6820,36 @@
         <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.DoBind">
             <inheritdoc/>
         </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.ValueProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Value"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Value">
+            <summary>
+            Current entry
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.StatusProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Status"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Status">
+            <summary>
+            Current entry
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.MemoryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Memory"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Memory">
+            <summary>
+            Current entry
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.EntryProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Entry"/>
@@ -6827,7 +6857,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Entry">
             <summary>
-            Entry of eDaler
+            Entry control, if available
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.ViewModelProperty">
@@ -6837,7 +6867,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ViewModel">
             <summary>
-            ViewModel of eDaler
+            View model, if available
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.PropertyProperty">
@@ -6847,7 +6877,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Property">
             <summary>
-            Property of eDaler
+            Property, if available.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DecimalSeparatorDecimalSeparator">
@@ -6857,7 +6887,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DecimalSeparator">
             <summary>
-            DecimalSeparator of eDaler
+            Current decimal separator.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayMainDisplayMain">
@@ -6867,7 +6897,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayMain">
             <summary>
-            DisplayMain of eDaler
+            If main key page is to be displayed
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayFunctionsDisplayFunctions">
@@ -6877,7 +6907,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayFunctions">
             <summary>
-            DisplayFunctions of eDaler
+            If function key page is to be displayed
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicDisplayHyperbolic">
@@ -6887,7 +6917,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolic">
             <summary>
-            DisplayHyperbolic of eDaler
+            If hyperbolic functions are to be displayed
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayInverseDisplayInverse">
@@ -6897,7 +6927,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayInverse">
             <summary>
-            DisplayInverse of eDaler
+            If inverse functions are to be displayed
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicNotInverseDisplayNotHyperbolicNotInverse">
@@ -6907,7 +6937,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicNotInverse">
             <summary>
-            DisplayNotHyperbolicNotInverse of eDaler
+            If neither hyperbolic nor inverse functions are to be displayed
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicNotInverseDisplayHyperbolicNotInverse">
@@ -6917,7 +6947,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicNotInverse">
             <summary>
-            DisplayHyperbolicNotInverse of eDaler
+            If hyperbolic functions, but not inverse functions are to be displayed
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicInverseDisplayNotHyperbolicInverse">
@@ -6927,7 +6957,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicInverse">
             <summary>
-            DisplayNotHyperbolicInverse of eDaler
+            If inverse functions, but not hyperbolic functions are to be displayed
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicInverseDisplayHyperbolicInverse">
@@ -6937,7 +6967,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicInverse">
             <summary>
-            DisplayHyperbolicInverse of eDaler
+            If inverse hyperbolic functions are to be displayed
             </summary>
         </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ToggleCommand">
