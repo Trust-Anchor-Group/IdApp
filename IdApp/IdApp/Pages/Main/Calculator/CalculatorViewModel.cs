@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Waher.Script;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Main.Calculator
@@ -17,10 +20,12 @@ namespace IdApp.Pages.Main.Calculator
 		public CalculatorViewModel()
 			: base()
 		{
+			this.Stack = new ObservableCollection<StackItem>();
+
 			this.ToggleCommand = new Command(() => this.ExecuteToggle());
 			this.ToggleHyperbolicCommand = new Command(() => this.ExecuteToggleHyperbolic());
 			this.ToggleInverseCommand = new Command(() => this.ExecuteToggleInverse());
-			this.KeyPressCommand = new Command((P) => this.ExecuteKeyPressed(P));
+			this.KeyPressCommand = new Command(async (P) => await this.ExecuteKeyPressed(P));
 		}
 
 		/// <inheritdoc/>
@@ -40,9 +45,6 @@ namespace IdApp.Pages.Main.Calculator
 					this.Value = (string)this.ViewModel.GetValue(this.Property);
 				else
 					this.Value = string.Empty;
-
-				if (string.IsNullOrEmpty(this.Value))
-					this.Value = "0";
 			}
 
 			this.DecimalSeparator = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
@@ -52,6 +54,7 @@ namespace IdApp.Pages.Main.Calculator
 			this.DisplayInverse = false;
 			this.Status = string.Empty;
 			this.Memory = null;
+			this.Entering = false;
 		}
 
 		#region Properties
@@ -84,6 +87,21 @@ namespace IdApp.Pages.Main.Calculator
 		{
 			get => (string)this.GetValue(StatusProperty);
 			set => this.SetValue(StatusProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Entering"/>
+		/// </summary>
+		public static readonly BindableProperty EnteringProperty =
+			BindableProperty.Create(nameof(Entering), typeof(bool), typeof(CalculatorViewModel), default(bool));
+
+		/// <summary>
+		/// Current entry
+		/// </summary>
+		public bool Entering
+		{
+			get => (bool)this.GetValue(EnteringProperty);
+			set => this.SetValue(EnteringProperty, value);
 		}
 
 		/// <summary>
@@ -301,6 +319,11 @@ namespace IdApp.Pages.Main.Calculator
 			this.DisplayNotHyperbolicNotInverse = this.DisplayFunctions && !this.DisplayHyperbolic && !this.DisplayInverse;
 		}
 
+		/// <summary>
+		/// Holds the contents of the calculation stack
+		/// </summary>
+		public ObservableCollection<StackItem> Stack { get; }
+
 		#endregion
 
 		#region Commands
@@ -341,7 +364,7 @@ namespace IdApp.Pages.Main.Calculator
 		/// </summary>
 		public ICommand KeyPressCommand { get; }
 
-		private void ExecuteKeyPressed(object P)
+		private async Task ExecuteKeyPressed(object P)
 		{
 			try
 			{
@@ -352,6 +375,12 @@ namespace IdApp.Pages.Main.Calculator
 					// Key entry
 
 					case "0":
+						if (!this.Entering)
+							break;
+
+						this.Value += Key;
+						break;
+
 					case "1":
 					case "2":
 					case "3":
@@ -361,112 +390,170 @@ namespace IdApp.Pages.Main.Calculator
 					case "7":
 					case "8":
 					case "9":
-						if (this.Value == "0")
-							this.Value = Key;
-						else
-							this.Value += Key;
+						if (!this.Entering)
+						{
+							this.Value = string.Empty;
+							this.Entering = true;
+						}
+
+						this.Value += Key;
 						break;
 
 					case ".":
 						Key = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
-						if (this.Value == "0")
-							this.Value = Key;
-						else
-							this.Value += Key;
+						this.Value += Key;
+						this.Entering = true;
 						break;
 
 					// Results
 
 					case "C":
-						this.Value = "0";
+						this.Value = string.Empty;
+						this.Entering = false;
 						break;
 
 					case "CE":
-						this.Value = "0";
+						this.Value = string.Empty;
 						this.Memory = null;
+						this.Stack.Clear();
+						this.Entering = false;
 						break;
 
-					case "=": break;
-
-					// Binary operators
-
-					case "+": break;
-					case "-": break;
-					case "*": break;
-					case "/": break;
-					case "^": break;
-					case "yrt": break;
+					case "=":
+						await this.EvaluateStack();
+						break;
 
 					// Unary operators
 
-					case "+-": break;
-					case "1/x": break;
-					case "%": break;
-					case "%0": break;
-					case "°": break;
-					case "x2": break;
-					case "sqrt": break;
-					case "10^x": break;
-					case "2^x": break;
-					case "rad": break;
+					case "+-":
+						await this.Evaluate("-x");
+						break;
+
+					case "1/x":
+						await this.Evaluate("1/x");
+						break;
+
+					case "%":
+						await this.Evaluate("x%");
+						break;
+
+					case "%0":
+						await this.Evaluate("x‰");
+						break;
+
+					case "°":
+						await this.Evaluate("x°");
+						break;
+
+					case "x2":
+						await this.Evaluate("x^2");
+						break;
+
+					case "sqrt":
+						await this.Evaluate("sqrt(x)");
+						break;
+
+					case "10^x":
+						await this.Evaluate("10^x");
+						break;
+
+					case "2^x":
+						await this.Evaluate("2^x");
+						break;
+
+					case "rad":
+						await this.Evaluate("x*180/pi");
+						break;
+
+					// Binary operators
+
+					case "+":
+						await this.Evaluate("x+y", "+", OperatorPriority.Terms);
+						break;
+
+					case "-":
+						await this.Evaluate("x-y", "−", OperatorPriority.Terms);
+						break;
+
+					case "*":
+						await this.Evaluate("x*y", "⨉", OperatorPriority.Factors);
+						break;
+
+					case "/":
+						await this.Evaluate("x/y", "÷", OperatorPriority.Factors);
+						break;
+
+					case "^":
+						await this.Evaluate("x^y", "^", OperatorPriority.Powers);
+						break;
+
+					case "yrt":
+						await this.Evaluate("x^(1/y)", "ʸ√", OperatorPriority.Powers);
+						break;
 
 					// Order
 
-					case "()": break;
+					case "()": break;    // TODO
 
 					// Analytical Funcions
 
-					case "exp": break;
-					case "log": break;
-					case "lg2": break;
-					case "ln": break;
-
-					case "sin": break;
-					case "sinh": break;
-					case "asin": break;
-					case "asinh": break;
-					case "cos": break;
-					case "cosh": break;
-					case "acos": break;
-					case "acosh": break;
-					case "tan": break;
-					case "tanh": break;
-					case "atan": break;
-					case "atanh": break;
-					case "sec": break;
-					case "sech": break;
-					case "asec": break;
-					case "asech": break;
-					case "csc": break;
-					case "csch": break;
-					case "acsc": break;
-					case "acsch": break;
-					case "cot": break;
-					case "coth": break;
-					case "acot": break;
-					case "acoth": break;
+					case "exp":
+					case "lg":
+					case "log2":
+					case "ln":
+					case "sin":
+					case "sinh":
+					case "asin":
+					case "asinh":
+					case "cos":
+					case "cosh":
+					case "acos":
+					case "acosh":
+					case "tan":
+					case "tanh":
+					case "atan":
+					case "atanh":
+					case "sec":
+					case "sech":
+					case "asec":
+					case "asech":
+					case "csc":
+					case "csch":
+					case "acsc":
+					case "acsch":
+					case "cot":
+					case "coth":
+					case "acot":
+					case "acoth":
+						await this.Evaluate(Key + "(x)");
+						break;
 
 					// Other scalar functions
 
-					case "abs": break;
-					case "frac": break;
-					case "sign": break;
-					case "round": break;
-					case "ceil": break;
-					case "floor": break;
+					case "abs":
+					case "sign":
+					case "round":
+					case "ceil":
+					case "floor":
+						await this.Evaluate(Key + "(x)");
+						break;
+
+					case "frac":
+						await this.Evaluate("x-floor(x)");
+						break;
 
 					// Statistics
 
-					case "M+": break;
-					case "M-": break;
-					case "MR": break;
+					case "M+": break;    // TODO
+					case "M-": break;    // TODO
+					case "MR": break;    // TODO
 
-					case "E": break;
-					case "stddev": break;
-					case "sum": break;
-					case "prod": break;
-					case "inf": break;
-					case "sup": break;
+					case "E": break;    // TODO
+					case "stddev": break;    // TODO
+					case "sum": break;    // TODO
+					case "prod": break;    // TODO
+					case "inf": break;    // TODO
+					case "sup": break;    // TODO
 				}
 			}
 			catch (Exception ex)
@@ -475,8 +562,138 @@ namespace IdApp.Pages.Main.Calculator
 			}
 		}
 
+		private async Task<object> Evaluate()
+		{
+			if (string.IsNullOrEmpty(this.Value))
+				throw new Exception("You need to enter a value first.");
+
+			Variables v = new();
+
+			try
+			{
+				Expression Exp = new(this.Value);
+				return await Exp.EvaluateAsync(v);
+			}
+			catch (Exception)
+			{
+				throw new Exception("Enter a valid value first.");
+			}
+		}
+
+		private async Task Evaluate(string Script)
+		{
+			object x = await this.Evaluate();
+
+			try
+			{
+				Expression Exp = new(Script);
+				Variables v = new();
+
+				v["x"] = x;
+
+				object y = await Exp.EvaluateAsync(v);
+
+				this.Value = Expression.ToString(y);
+				this.Entering = false;
+			}
+			catch (Exception)
+			{
+				throw new Exception("Unable to perform calculation.");
+			}
+		}
+
+		private async Task Evaluate(string Script, string Operator, OperatorPriority Priority)
+		{
+			object x = await this.Evaluate();
+			StackItem Item;
+			int c = this.Stack.Count;
+
+			while (c > 0 && (Item = this.Stack[c - 1]).Priority >= Priority)
+			{
+				object y = x;
+
+				this.Value = Item.Entry;
+				x = await this.Evaluate();
+
+				try
+				{
+					Expression Exp = new(Item.Script);
+					Variables v = new();
+
+					v["x"] = x;
+					v["y"] = y;
+
+					x = await Exp.EvaluateAsync(v);
+
+					this.Value = Expression.ToString(x);
+					this.Entering = false;
+				}
+				catch (Exception)
+				{
+					throw new Exception("Unable to perform calculation.");
+				}
+
+				c--;
+				this.Stack.RemoveAt(c);
+			}
+
+			if (!string.IsNullOrEmpty(Script))
+			{
+				this.Stack.Add(new StackItem()
+				{
+					Entry = this.Value,
+					Script = Script,
+					Operator = Operator,
+					Priority = Priority
+				});
+
+				this.Value = string.Empty;
+			}
+
+			this.Entering = false;
+			this.OnPropertyChanged(nameof(this.StackString));
+		}
+
+		/// <summary>
+		/// String representation of contents on the stack.
+		/// </summary>
+		public string StackString
+		{
+			get
+			{
+				StringBuilder sb = new();
+				bool First = true;
+
+				foreach (StackItem Item in this.Stack)
+				{
+					if (First)
+						First = false;
+					else
+						sb.Append(' ');
+
+					sb.Append(Item.Entry);
+					sb.Append(' ');
+					sb.Append(Item.Operator);
+				}
+
+				return sb.ToString();
+			}
+		}
+
+		/// <summary>
+		/// Evaluates the current stack.
+		/// </summary>
+		public async Task EvaluateStack()
+		{
+			await this.Evaluate(string.Empty, "=", OperatorPriority.Equals);
+
+			if (this.Entry is not null)
+				this.Entry.Text = this.Value;
+
+			if (this.ViewModel is not null && this.Property is not null)
+				this.ViewModel.SetValue(this.Property, this.Value);
+		}
+
 		#endregion
-
-
 	}
 }

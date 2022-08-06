@@ -6840,6 +6840,16 @@
             Current entry
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.EnteringProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Entering"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Entering">
+            <summary>
+            Current entry
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.MemoryProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Memory"/>
@@ -6970,6 +6980,11 @@
             If inverse hyperbolic functions are to be displayed
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Stack">
+            <summary>
+            Holds the contents of the calculation stack
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ToggleCommand">
             <summary>
             Command executed when user wants to toggle buttons.
@@ -6988,6 +7003,66 @@
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.KeyPressCommand">
             <summary>
             Command executed when user presses a key buttonn.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.StackString">
+            <summary>
+            String representation of contents on the stack.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.EvaluateStack">
+            <summary>
+            Evaluates the current stack.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Calculator.OperatorPriority">
+            <summary>
+            Binary operator priority
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.OperatorPriority.Equals">
+            <summary>
+            Evaluation operator
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.OperatorPriority.Terms">
+            <summary>
+            Addition and Subtraction
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.OperatorPriority.Factors">
+            <summary>
+            Multiplication and division
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.OperatorPriority.Powers">
+            <summary>
+            Powers and exponents
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Calculator.StackItem">
+            <summary>
+            Calculation stack item
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.StackItem.Entry">
+            <summary>
+            Entry
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.StackItem.Script">
+            <summary>
+            Corresponding script
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.StackItem.Priority">
+            <summary>
+            Priority level
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.StackItem.Operator">
+            <summary>
+            Operator to display
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Loading.LoadingPage">

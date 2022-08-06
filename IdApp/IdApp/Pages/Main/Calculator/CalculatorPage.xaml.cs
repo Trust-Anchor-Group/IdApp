@@ -24,6 +24,9 @@ namespace IdApp.Pages.Main.Calculator
 		/// <returns>Whether or not the back navigation was handled</returns>
 		protected override bool OnBackButtonPressed()
 		{
+			if (this.ViewModel is CalculatorViewModel CalculatorViewModel)
+				CalculatorViewModel.EvaluateStack().Wait();
+
 			this.ViewModel.NavigationService.GoBackAsync();
 			return true;
 		}
