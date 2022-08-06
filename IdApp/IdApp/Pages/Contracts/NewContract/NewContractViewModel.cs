@@ -58,7 +58,6 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			await base.DoBind();
 
-			bool FirstTime = false;
 			ContractVisibility? Visibility = null;
 
 			if (this.NavigationService.TryPopArgs(out NewContractNavigationArgs args))
@@ -69,10 +68,15 @@ namespace IdApp.Pages.Contracts.NewContract
 				if (!(args.ParameterValues is null))
 					this.presetParameterValues = args.ParameterValues;
 
-				if (args.SetVisibility)
-					Visibility = args.Template.Visibility;
+				if (args.ViewInitialized)
+					Visibility = this.template?.Visibility;
+				else
+				{
+					if (args.SetVisibility)
+						Visibility = args.Template.Visibility;
 
-				FirstTime = true;
+					args.ViewInitialized = true;
+				}
 			}
 			else if (!(this.stateTemplateWhileScanning is null))
 			{
@@ -89,7 +93,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.Public, AppResources.ContractVisibility_Public));
 			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable));
 
-			await this.PopulateTemplateForm(FirstTime, Visibility);
+			await this.PopulateTemplateForm(Visibility);
 		}
 
 		/// <inheritdoc/>
@@ -226,7 +230,13 @@ namespace IdApp.Pages.Contracts.NewContract
 		public ContractVisibilityModel SelectedContractVisibilityItem
 		{
 			get => (ContractVisibilityModel)this.GetValue(SelectedContractVisibilityItemProperty);
-			set => this.SetValue(SelectedContractVisibilityItemProperty, value);
+			set
+			{
+				this.SetValue(SelectedContractVisibilityItemProperty, value);
+
+				if (this.template is not null && value is not null)
+					this.template.Visibility = value.Visibility;
+			}
 		}
 
 		/// <summary>
@@ -426,6 +436,19 @@ namespace IdApp.Pages.Contracts.NewContract
 			if (this.Roles is null)
 				return;
 
+			if (this.template?.Parts is not null)
+			{
+				List<Part> Parts = new();
+
+				foreach (Part Part in this.template.Parts)
+				{
+					if (Part.LegalId != legalId || Part.Role != role)
+						Parts.Add(Part);
+				}
+
+				this.template.Parts = Parts.ToArray();
+			}
+
 			foreach (View View in this.Roles.Children)
 			{
 				switch (State)
@@ -475,6 +498,28 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			if (RoleObj is null)
 				return;
+
+			if (this.template is not null)
+			{
+				List<Part> Parts = new();
+
+				if (this.template.Parts is not null)
+				{
+					foreach (Part Part in this.template.Parts)
+					{
+						if (Part.LegalId != legalId || Part.Role != role)
+							Parts.Add(Part);
+					}
+				}
+
+				Parts.Add(new Part()
+				{
+					LegalId = legalId,
+					Role = role
+				});
+
+				this.template.Parts = Parts.ToArray();
+			}
 
 			foreach (View View in this.Roles.Children)
 			{
@@ -710,7 +755,8 @@ namespace IdApp.Pages.Contracts.NewContract
 			Variables Variables = new();
 			bool Ok = true;
 
-			Variables["Duration"] = this.template.Duration;
+			if (this.template is not null)
+				Variables["Duration"] = this.template.Duration;
 
 			foreach (ParameterInfo P in this.parametersByName.Values)
 				P.Parameter.Populate(Variables);
@@ -903,7 +949,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				Layout.Children.Add(Element);
 		}
 
-		private async Task PopulateTemplateForm(bool FirstTime, ContractVisibility? Visibility)
+		private async Task PopulateTemplateForm(ContractVisibility? Visibility)
 		{
 			this.ClearTemplate(true);
 
@@ -1101,46 +1147,55 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.Parameters = parametersLayout;
 			this.HasParameters = this.Parameters.Children.Count > 0;
 
-			if (FirstTime)
+			if (!(this.template.Parts is null))
 			{
-				if (!(this.template.Parts is null))
+				foreach (Part Part in this.template.Parts)
 				{
-					foreach (Part Part in this.template.Parts)
+					if (this.TagProfile.LegalIdentity.Id == Part.LegalId)
+						this.SelectedRole = Part.Role;
+					else
+						await this.AddRole(Part.Role, Part.LegalId);
+				}
+			}
+
+			if (this.presetParameterValues.TryGetValue("Visibility", out object Obj) &&
+				(Obj is ContractVisibility Visibility2 || Enum.TryParse(Obj?.ToString() ?? string.Empty, out Visibility2)))
+			{
+				Visibility = Visibility2;
+				this.presetParameterValues.Remove("Visibility");
+			}
+
+			if (Visibility.HasValue)
+				this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == Visibility.Value);
+
+			if (this.HasRoles)
+			{
+				foreach (string Role in this.AvailableRoles)
+				{
+					if (this.presetParameterValues.TryGetValue(Role, out Obj) && Obj is string LegalId)
 					{
-						if (this.TagProfile.LegalIdentity.Id == Part.LegalId)
-							this.SelectedRole = Part.Role;
-						else
-							await this.AddRole(Part.Role, Part.LegalId);
+						int i = LegalId.IndexOf('@');
+						if (i < 0 || !Guid.TryParse(LegalId.Substring(0, i), out _))
+							continue;
+
+						await this.AddRole(Role, LegalId);
+						this.presetParameterValues.Remove(Role);
 					}
-				}
-
-				if (this.presetParameterValues.TryGetValue("Visibility", out object Obj) &&
-					(Obj is ContractVisibility Visibility2 || Enum.TryParse(Obj?.ToString() ?? string.Empty, out Visibility2)))
-				{
-					Visibility = Visibility2;
-					this.presetParameterValues.Remove("Visibility");
-				}
-
-				if (Visibility.HasValue)
-					this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == Visibility.Value);
-
-				if (this.HasRoles)
-				{
-					foreach (string Role in this.AvailableRoles)
+					else if (this.template.Parts is not null)
 					{
-						if (this.presetParameterValues.TryGetValue(Role, out Obj) && Obj is string LegalId)
+						foreach (Part Part in this.template.Parts)
 						{
-							int i = LegalId.IndexOf('@');
-							if (i < 0 || !Guid.TryParse(LegalId.Substring(0, i), out _))
-								continue;
-
-							await this.AddRole(Role, LegalId);
+							if (Part.Role == Role)
+								await this.AddRole(Part.Role, Part.LegalId);
 						}
 					}
 				}
+			}
 
-				if (this.presetParameterValues.TryGetValue("Role", out Obj) && Obj is string SelectedRole)
-					this.SelectedRole = SelectedRole;
+			if (this.presetParameterValues.TryGetValue("Role", out Obj) && Obj is string SelectedRole)
+			{
+				this.SelectedRole = SelectedRole;
+				this.presetParameterValues.Remove("Role");
 			}
 
 			await this.ValidateParameters();

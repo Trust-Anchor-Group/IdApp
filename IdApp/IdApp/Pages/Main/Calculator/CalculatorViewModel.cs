@@ -35,16 +35,21 @@ namespace IdApp.Pages.Main.Calculator
 
 			if (this.NavigationService.TryPopArgs(out CalculatorNavigationArgs args))
 			{
-				this.Entry = args.Entry;
-				this.ViewModel = args.ViewModel;
-				this.Property = args.Property;
+				if (!args.ViewInitialized)
+				{
+					this.Entry = args.Entry;
+					this.ViewModel = args.ViewModel;
+					this.Property = args.Property;
 
-				if (this.Entry is not null)
-					this.Value = this.Entry.Text;
-				else if (this.ViewModel is not null && this.Property is not null)
-					this.Value = (string)this.ViewModel.GetValue(this.Property);
-				else
-					this.Value = string.Empty;
+					if (this.Entry is not null)
+						this.Value = this.Entry.Text;
+					else if (this.ViewModel is not null && this.Property is not null)
+						this.Value = (string)this.ViewModel.GetValue(this.Property);
+					else
+						this.Value = string.Empty;
+
+					args.ViewInitialized = true;
+				}
 			}
 
 			this.DecimalSeparator = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;

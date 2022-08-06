@@ -36,16 +36,28 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		{
 			await base.DoBind();
 
+			bool SkipInitialization = false;
+
 			if (this.NavigationService.TryPopArgs(out EDalerBalanceNavigationArgs args))
-				this.Currency = args.Balance.Currency;
+			{
+				SkipInitialization = args.ViewInitialized;
+				if (!SkipInitialization)
+				{
+					this.Currency = args.Balance.Currency;
+					args.ViewInitialized = true;
+				}
+			}
 
-			this.Amount = 0;
-			this.AmountText = string.Empty;
-			this.AmountOk = false;
+			if (!SkipInitialization)
+			{
+				this.Amount = 0;
+				this.AmountText = string.Empty;
+				this.AmountOk = false;
 
-			this.AmountExtra = 0;
-			this.AmountExtraText = string.Empty;
-			this.AmountExtraOk = false;
+				this.AmountExtra = 0;
+				this.AmountExtraText = string.Empty;
+				this.AmountExtraOk = false;
+			}
 
 			this.RemoveQrCode();
 

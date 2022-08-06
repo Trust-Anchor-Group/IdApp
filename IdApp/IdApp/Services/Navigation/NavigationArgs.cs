@@ -32,5 +32,10 @@
 		/// An untique view identificator used to search the args of similar view types.
 		/// </summary>
 		public string UniqueId { get; set; }
+
+		/// <summary>
+		/// If view has been initialized by the arguments.
+		/// </summary>
+		public bool ViewInitialized { get; set; }
 	}
 }

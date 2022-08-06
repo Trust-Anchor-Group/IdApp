@@ -17925,6 +17925,11 @@
             An untique view identificator used to search the args of similar view types.
             </summary>
         </member>
+        <member name="P:IdApp.Services.Navigation.NavigationArgs.ViewInitialized">
+            <summary>
+            If view has been initialized by the arguments.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Navigation.NavigationService.Load(System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
