@@ -6850,6 +6850,36 @@
             Current entry
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.HasValueProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.HasValue"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.HasValue">
+            <summary>
+            If there's a value in the input field
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.HasStatisticsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.HasStatistics"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.HasStatistics">
+            <summary>
+            If there's values available for statistical computations.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.NrParenthesesProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.NrParentheses"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.NrParentheses">
+            <summary>
+            Number of open parentheses
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.MemoryProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Memory"/>
@@ -6980,6 +7010,26 @@
             If inverse hyperbolic functions are to be displayed
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayEqualsDisplayEquals">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayEquals"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayEquals">
+            <summary>
+            If the equals button should be displayed
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayEndParenthesisDisplayEndParenthesis">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayEndParenthesis"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayEndParenthesis">
+            <summary>
+            If the end parenthesis button should be displayed.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Stack">
             <summary>
             Holds the contents of the calculation stack
@@ -7025,6 +7075,11 @@
             Evaluation operator
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Main.Calculator.OperatorPriority.Parenthesis">
+            <summary>
+            Parenthesis operator
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Main.Calculator.OperatorPriority.Terms">
             <summary>
             Addition and Subtraction
@@ -7063,6 +7118,11 @@
         <member name="F:IdApp.Pages.Main.Calculator.StackItem.Operator">
             <summary>
             Operator to display
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.StackItem.StartParenthesis">
+            <summary>
+            If parenthesis was started
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Loading.LoadingPage">

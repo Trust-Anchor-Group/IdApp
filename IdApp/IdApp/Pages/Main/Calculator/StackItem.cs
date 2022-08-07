@@ -11,19 +11,24 @@
 		Equals = 0,
 
 		/// <summary>
+		/// Parenthesis operator
+		/// </summary>
+		Parenthesis = 1,
+
+		/// <summary>
 		/// Addition and Subtraction
 		/// </summary>
-		Terms = 1,
+		Terms = 2,
 
 		/// <summary>
 		/// Multiplication and division
 		/// </summary>
-		Factors = 2,
+		Factors = 3,
 
 		/// <summary>
 		/// Powers and exponents
 		/// </summary>
-		Powers = 3
+		Powers = 4
 	}
 
 	/// <summary>
@@ -50,5 +55,10 @@
 		/// Operator to display
 		/// </summary>
 		public string Operator;
+
+		/// <summary>
+		/// If parenthesis was started
+		/// </summary>
+		public bool StartParenthesis;
 	}
 }

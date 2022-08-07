@@ -57,9 +57,14 @@ namespace IdApp.Pages.Main.Calculator
 			this.DisplayFunctions = false;
 			this.DisplayHyperbolic = false;
 			this.DisplayInverse = false;
+			this.DisplayEndParenthesis = false;
+			this.DisplayEquals = true;
 			this.Status = string.Empty;
 			this.Memory = null;
 			this.Entering = false;
+			this.NrParentheses = 0;
+			this.HasValue = !string.IsNullOrEmpty(this.Value);
+			this.HasStatistics = false;
 		}
 
 		#region Properties
@@ -76,7 +81,11 @@ namespace IdApp.Pages.Main.Calculator
 		public string Value
 		{
 			get => (string)this.GetValue(ValueProperty);
-			set => this.SetValue(ValueProperty, value);
+			set
+			{
+				this.SetValue(ValueProperty, value);
+				this.HasValue = !string.IsNullOrEmpty(value);
+			}
 		}
 
 		/// <summary>
@@ -107,6 +116,55 @@ namespace IdApp.Pages.Main.Calculator
 		{
 			get => (bool)this.GetValue(EnteringProperty);
 			set => this.SetValue(EnteringProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasValue"/>
+		/// </summary>
+		public static readonly BindableProperty HasValueProperty =
+			BindableProperty.Create(nameof(HasValue), typeof(bool), typeof(CalculatorViewModel), default(bool));
+
+		/// <summary>
+		/// If there's a value in the input field
+		/// </summary>
+		public bool HasValue
+		{
+			get => (bool)this.GetValue(HasValueProperty);
+			set => this.SetValue(HasValueProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasStatistics"/>
+		/// </summary>
+		public static readonly BindableProperty HasStatisticsProperty =
+			BindableProperty.Create(nameof(HasStatistics), typeof(bool), typeof(CalculatorViewModel), default(bool));
+
+		/// <summary>
+		/// If there's values available for statistical computations.
+		/// </summary>
+		public bool HasStatistics
+		{
+			get => (bool)this.GetValue(HasStatisticsProperty);
+			set => this.SetValue(HasStatisticsProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="NrParentheses"/>
+		/// </summary>
+		public static readonly BindableProperty NrParenthesesProperty =
+			BindableProperty.Create(nameof(NrParentheses), typeof(int), typeof(CalculatorViewModel), default(int));
+
+		/// <summary>
+		/// Number of open parentheses
+		/// </summary>
+		public int NrParentheses
+		{
+			get => (int)this.GetValue(NrParenthesesProperty);
+			set
+			{
+				this.SetValue(NrParenthesesProperty, value);
+				this.CalcDisplay();
+			}
 		}
 
 		/// <summary>
@@ -316,12 +374,44 @@ namespace IdApp.Pages.Main.Calculator
 			set => this.SetValue(DisplayHyperbolicInverseDisplayHyperbolicInverse, value);
 		}
 
+		/// <summary>
+		/// See <see cref="DisplayEquals"/>
+		/// </summary>
+		public static readonly BindableProperty DisplayEqualsDisplayEquals =
+			BindableProperty.Create(nameof(DisplayEquals), typeof(bool), typeof(CalculatorViewModel), default(bool));
+
+		/// <summary>
+		/// If the equals button should be displayed
+		/// </summary>
+		public bool DisplayEquals
+		{
+			get => (bool)this.GetValue(DisplayEqualsDisplayEquals);
+			set => this.SetValue(DisplayEqualsDisplayEquals, value);
+		}
+
+		/// <summary>
+		/// See <see cref="DisplayEndParenthesis"/>
+		/// </summary>
+		public static readonly BindableProperty DisplayEndParenthesisDisplayEndParenthesis =
+			BindableProperty.Create(nameof(DisplayEndParenthesis), typeof(bool), typeof(CalculatorViewModel), default(bool));
+
+		/// <summary>
+		/// If the end parenthesis button should be displayed.
+		/// </summary>
+		public bool DisplayEndParenthesis
+		{
+			get => (bool)this.GetValue(DisplayEndParenthesisDisplayEndParenthesis);
+			set => this.SetValue(DisplayEndParenthesisDisplayEndParenthesis, value);
+		}
+
 		private void CalcDisplay()
 		{
 			this.DisplayHyperbolicInverse = this.DisplayFunctions && this.DisplayHyperbolic && this.DisplayInverse;
 			this.DisplayNotHyperbolicInverse = this.DisplayFunctions && !this.DisplayHyperbolic && this.DisplayInverse;
 			this.DisplayHyperbolicNotInverse = this.DisplayFunctions && this.DisplayHyperbolic && !this.DisplayInverse;
 			this.DisplayNotHyperbolicNotInverse = this.DisplayFunctions && !this.DisplayHyperbolic && !this.DisplayInverse;
+			this.DisplayEquals = this.DisplayMain && this.NrParentheses == 0;
+			this.DisplayEndParenthesis = this.DisplayMain && this.NrParentheses > 0;
 		}
 
 		/// <summary>
@@ -422,6 +512,8 @@ namespace IdApp.Pages.Main.Calculator
 						this.Memory = null;
 						this.Stack.Clear();
 						this.Entering = false;
+
+						this.OnPropertyChanged(nameof(this.StackString));
 						break;
 
 					case "=":
@@ -473,32 +565,55 @@ namespace IdApp.Pages.Main.Calculator
 					// Binary operators
 
 					case "+":
-						await this.Evaluate("x+y", "+", OperatorPriority.Terms);
+						await this.Evaluate("x+y", "+", OperatorPriority.Terms, false);
 						break;
 
 					case "-":
-						await this.Evaluate("x-y", "−", OperatorPriority.Terms);
+						await this.Evaluate("x-y", "−", OperatorPriority.Terms, false);
 						break;
 
 					case "*":
-						await this.Evaluate("x*y", "⨉", OperatorPriority.Factors);
+						await this.Evaluate("x*y", "⨉", OperatorPriority.Factors, false);
 						break;
 
 					case "/":
-						await this.Evaluate("x/y", "÷", OperatorPriority.Factors);
+						await this.Evaluate("x/y", "÷", OperatorPriority.Factors, false);
 						break;
 
 					case "^":
-						await this.Evaluate("x^y", "^", OperatorPriority.Powers);
+						await this.Evaluate("x^y", "^", OperatorPriority.Powers, false);
 						break;
 
 					case "yrt":
-						await this.Evaluate("x^(1/y)", "ʸ√", OperatorPriority.Powers);
+						await this.Evaluate("x^(1/y)", "ʸ√", OperatorPriority.Powers, false);
 						break;
 
 					// Order
 
-					case "()": break;    // TODO
+					case "(":
+
+						if (this.Entering)
+						{
+							await this.Evaluate("x*y", "⨉", OperatorPriority.Factors, true);
+							break;
+						}
+
+						if (this.Stack.Count > 0)
+						{
+							this.Stack[^1].StartParenthesis = true;
+							this.OnPropertyChanged(nameof(this.StackString));
+						}
+
+						break;
+
+					case ")":
+						await this.Evaluate(string.Empty, "=", OperatorPriority.Parenthesis, false);
+						if (this.Stack.Count > 0)
+						{
+							this.Stack[^1].StartParenthesis = false;
+							this.OnPropertyChanged(nameof(this.StackString));
+						}
+						break;
 
 					// Analytical Funcions
 
@@ -607,13 +722,16 @@ namespace IdApp.Pages.Main.Calculator
 			}
 		}
 
-		private async Task Evaluate(string Script, string Operator, OperatorPriority Priority)
+		private async Task Evaluate(string Script, string Operator, OperatorPriority Priority, bool StartParenthesis)
 		{
 			object x = await this.Evaluate();
 			StackItem Item;
 			int c = this.Stack.Count;
 
-			while (c > 0 && (Item = this.Stack[c - 1]).Priority >= Priority)
+			// if (c > 0 && (Item = this.Stack[c - 1]).StartParenthesis)
+			// 	Priority = OperatorPriority.Parenthesis;
+
+			while (c > 0 && (Item = this.Stack[c - 1]).Priority >= Priority && !Item.StartParenthesis)
 			{
 				object y = x;
 
@@ -649,7 +767,8 @@ namespace IdApp.Pages.Main.Calculator
 					Entry = this.Value,
 					Script = Script,
 					Operator = Operator,
-					Priority = Priority
+					Priority = Priority,
+					StartParenthesis = StartParenthesis
 				});
 
 				this.Value = string.Empty;
@@ -668,6 +787,9 @@ namespace IdApp.Pages.Main.Calculator
 			{
 				StringBuilder sb = new();
 				bool First = true;
+				int NrParantheses = 0;
+				OperatorPriority PrevPriority = OperatorPriority.Equals;
+				bool StartParenthesis = false;
 
 				foreach (StackItem Item in this.Stack)
 				{
@@ -676,9 +798,32 @@ namespace IdApp.Pages.Main.Calculator
 					else
 						sb.Append(' ');
 
+					if (Item.Priority < PrevPriority || StartParenthesis)
+					{
+						NrParantheses++;
+						sb.Append(" ( ");
+					}
+
+					PrevPriority = Item.Priority;
+					StartParenthesis = Item.StartParenthesis;
+
 					sb.Append(Item.Entry);
 					sb.Append(' ');
 					sb.Append(Item.Operator);
+				}
+
+				if (StartParenthesis)
+				{
+					sb.Append(" (");
+					NrParantheses++;
+				}
+
+				this.NrParentheses = NrParantheses;
+
+				while (NrParantheses > 0)
+				{
+					sb.Append(" )");
+					NrParantheses--;
 				}
 
 				return sb.ToString();
@@ -690,7 +835,7 @@ namespace IdApp.Pages.Main.Calculator
 		/// </summary>
 		public async Task EvaluateStack()
 		{
-			await this.Evaluate(string.Empty, "=", OperatorPriority.Equals);
+			await this.Evaluate(string.Empty, "=", OperatorPriority.Equals, false);
 
 			if (this.Entry is not null)
 				this.Entry.Text = this.Value;
