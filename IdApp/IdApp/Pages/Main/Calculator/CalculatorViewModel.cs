@@ -21,7 +21,8 @@ namespace IdApp.Pages.Main.Calculator
 			: base()
 		{
 			this.Stack = new ObservableCollection<StackItem>();
-
+			this.MemoryItems = new ObservableCollection<object>();
+			
 			this.ToggleCommand = new Command(() => this.ExecuteToggle());
 			this.ToggleHyperbolicCommand = new Command(() => this.ExecuteToggleHyperbolic());
 			this.ToggleInverseCommand = new Command(() => this.ExecuteToggleInverse());
@@ -419,6 +420,11 @@ namespace IdApp.Pages.Main.Calculator
 		/// </summary>
 		public ObservableCollection<StackItem> Stack { get; }
 
+		/// <summary>
+		/// Holds the contents of the memory
+		/// </summary>
+		public ObservableCollection<object> MemoryItems { get; }
+
 		#endregion
 
 		#region Commands
@@ -511,9 +517,12 @@ namespace IdApp.Pages.Main.Calculator
 						this.Value = string.Empty;
 						this.Memory = null;
 						this.Stack.Clear();
+						this.MemoryItems.Clear();
 						this.Entering = false;
+						this.HasStatistics = false;
 
 						this.OnPropertyChanged(nameof(this.StackString));
+						this.OnPropertyChanged(nameof(this.MemoryString));
 						break;
 
 					case "=":
@@ -664,9 +673,18 @@ namespace IdApp.Pages.Main.Calculator
 
 					// Statistics
 
-					case "M+": break;    // TODO
-					case "M-": break;    // TODO
-					case "MR": break;    // TODO
+					case "M+":
+						await this.AddToMemory();
+						break;
+
+					case "M-":
+						await this.SubtractFromMemory();
+						break;
+
+					case "MR":
+						this.Value = Expression.ToString(this.Memory);
+						this.Entering = false;
+						break;
 
 					case "E": break;    // TODO
 					case "stddev": break;    // TODO
@@ -687,12 +705,9 @@ namespace IdApp.Pages.Main.Calculator
 			if (string.IsNullOrEmpty(this.Value))
 				throw new Exception("You need to enter a value first.");
 
-			Variables v = new();
-
 			try
 			{
-				Expression Exp = new(this.Value);
-				return await Exp.EvaluateAsync(v);
+				return await Expression.EvalAsync(this.Value);
 			}
 			catch (Exception)
 			{
@@ -706,12 +721,11 @@ namespace IdApp.Pages.Main.Calculator
 
 			try
 			{
-				Expression Exp = new(Script);
 				Variables v = new();
 
 				v["x"] = x;
 
-				object y = await Exp.EvaluateAsync(v);
+				object y = await Expression.EvalAsync(Script, v);
 
 				this.Value = Expression.ToString(y);
 				this.Entering = false;
@@ -740,13 +754,12 @@ namespace IdApp.Pages.Main.Calculator
 
 				try
 				{
-					Expression Exp = new(Item.Script);
 					Variables v = new();
 
 					v["x"] = x;
 					v["y"] = y;
 
-					x = await Exp.EvaluateAsync(v);
+					x = await Expression.EvalAsync(Item.Script, v);
 
 					this.Value = Expression.ToString(x);
 					this.Entering = false;
@@ -842,6 +855,82 @@ namespace IdApp.Pages.Main.Calculator
 
 			if (this.ViewModel is not null && this.Property is not null)
 				this.ViewModel.SetValue(this.Property, this.Value);
+		}
+
+		/// <summary>
+		/// String representation of contents on the statistical memory.
+		/// </summary>
+		public string MemoryString
+		{
+			get
+			{
+				if (this.Memory is null)
+					return string.Empty;
+
+				StringBuilder sb = new();
+
+				sb.Append("M: ");
+				sb.Append(Expression.ToString(this.Memory));
+				sb.Append(" (");
+				sb.Append(this.MemoryItems.Count.ToString());
+				sb.Append(")");
+
+				return sb.ToString();
+			}
+		}
+
+		private async Task AddToMemory()
+		{
+			await this.EvaluateStack();
+
+			object x = await this.Evaluate();
+
+			this.MemoryItems.Add(x);
+
+			if (this.Memory is null)
+				this.Memory = x;
+			else
+			{
+				Variables v = new();
+
+				v["M"] = this.Memory;
+				v["x"] = x;
+
+				this.Memory = await Expression.EvalAsync("M+x", v);
+			}
+
+			this.HasStatistics = true;
+			this.OnPropertyChanged(nameof(this.MemoryString));
+		}
+
+		private async Task SubtractFromMemory()
+		{
+			await this.EvaluateStack();
+
+			object x = await this.Evaluate();
+
+			this.MemoryItems.Add(x);
+
+			if (this.Memory is null)
+			{
+				Variables v = new();
+
+				v["x"] = x;
+
+				this.Memory = await Expression.EvalAsync("-x", v);
+			}
+			else
+			{
+				Variables v = new();
+
+				v["M"] = this.Memory;
+				v["x"] = x;
+
+				this.Memory = await Expression.EvalAsync("M+x", v);
+			}
+
+			this.HasStatistics = true;
+			this.OnPropertyChanged(nameof(this.MemoryString));
 		}
 
 		#endregion

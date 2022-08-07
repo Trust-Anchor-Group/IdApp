@@ -7035,6 +7035,11 @@
             Holds the contents of the calculation stack
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.MemoryItems">
+            <summary>
+            Holds the contents of the memory
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ToggleCommand">
             <summary>
             Command executed when user wants to toggle buttons.
@@ -7063,6 +7068,11 @@
         <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.EvaluateStack">
             <summary>
             Evaluates the current stack.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.MemoryString">
+            <summary>
+            String representation of contents on the statistical memory.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Calculator.OperatorPriority">

@@ -8,6 +8,9 @@
                        x:Class="IdApp.Pages.Main.Calculator.CalculatorPage"
                        Title="{x:Static resx:AppResources.Calculator}">
 	<Grid RowDefinitions="auto,*,*,*,*,*,*,*" ColumnDefinitions="*,*,*,*,*" RowSpacing="2" ColumnSpacing="2" Padding="2" Margin="0">
+		<Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Text="{Binding MemoryString}" Margin="10"
+			   HorizontalOptions="Fill" VerticalOptions="Fill" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+			   FontSize="Subtitle"/>
 		<Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Text="{Binding StackString}" Margin="10"
 			   HorizontalOptions="Fill" VerticalOptions="Fill" HorizontalTextAlignment="End" VerticalTextAlignment="Center"
 			   FontSize="Subtitle"/>
@@ -57,7 +60,7 @@
 		<Button Grid.Column="3" Grid.Row="4" Text="⨉" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="*"
 			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayMain}" Padding="-2" IsEnabled="{Binding HasValue}"/>
 		<Button Grid.Column="4" Grid.Row="4" Text="MR" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="MR"
-			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayMain}" Padding="-2"/>
+			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayMain}" Padding="-2" IsEnabled="{Binding HasStatistics}"/>
 
 		<Button Grid.Column="0" Grid.Row="5" Text="±" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="+-"
 			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayMain}" Padding="-2" IsEnabled="{Binding HasValue}"/>
