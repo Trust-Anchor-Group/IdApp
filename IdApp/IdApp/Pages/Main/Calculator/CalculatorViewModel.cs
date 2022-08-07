@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Script;
+using Waher.Script.Abstraction.Elements;
+using Waher.Script.Operators.Vectors;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Main.Calculator
@@ -22,7 +25,7 @@ namespace IdApp.Pages.Main.Calculator
 		{
 			this.Stack = new ObservableCollection<StackItem>();
 			this.MemoryItems = new ObservableCollection<object>();
-			
+
 			this.ToggleCommand = new Command(() => this.ExecuteToggle());
 			this.ToggleHyperbolicCommand = new Command(() => this.ExecuteToggleHyperbolic());
 			this.ToggleInverseCommand = new Command(() => this.ExecuteToggleInverse());
@@ -686,12 +689,14 @@ namespace IdApp.Pages.Main.Calculator
 						this.Entering = false;
 						break;
 
-					case "E": break;    // TODO
-					case "stddev": break;    // TODO
-					case "sum": break;    // TODO
-					case "prod": break;    // TODO
-					case "inf": break;    // TODO
-					case "sup": break;    // TODO
+					case "avg":
+					case "stddev":
+					case "sum": 
+					case "prod":
+					case "min": 
+					case "max":
+						await this.EvaluateStatistics(Key + "(x)");
+						break;
 				}
 			}
 			catch (Exception ex)
@@ -789,6 +794,30 @@ namespace IdApp.Pages.Main.Calculator
 
 			this.Entering = false;
 			this.OnPropertyChanged(nameof(this.StackString));
+		}
+
+		private async Task EvaluateStatistics(string Script)
+		{
+			List<IElement> Elements = new();
+
+			foreach (object Item in this.MemoryItems)
+				Elements.Add(Expression.Encapsulate(Item));
+
+			try
+			{
+				Variables v = new();
+
+				v["x"] = VectorDefinition.Encapsulate(Elements, false, null);
+
+				object y = await Expression.EvalAsync(Script, v);
+
+				this.Value = Expression.ToString(y);
+				this.Entering = false;
+			}
+			catch (Exception)
+			{
+				throw new Exception("Unable to perform calculation.");
+			}
 		}
 
 		/// <summary>

@@ -113,7 +113,7 @@
 			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayHyperbolicInverse}" Padding="-2" IsEnabled="{Binding HasValue}"/>
 		<Button Grid.Column="3" Grid.Row="2" Text="|x|" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="abs"
 			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayFunctions}" Padding="-2" IsEnabled="{Binding HasValue}"/>
-		<Button Grid.Column="4" Grid.Row="2" Text="µ" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="E"
+		<Button Grid.Column="4" Grid.Row="2" Text="µ" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="avg"
 			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayFunctions}" Padding="-2" IsEnabled="{Binding HasStatistics}"/>
 
 		<Button Grid.Column="0" Grid.Row="3" Text="°" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="°"
@@ -181,7 +181,7 @@
 			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayHyperbolicInverse}" Padding="-2" IsEnabled="{Binding HasValue}"/>
 		<Button Grid.Column="3" Grid.Row="6" Text="⌈x⌉" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="ceil"
 			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayFunctions}" Padding="-2" IsEnabled="{Binding HasValue}"/>
-		<Button Grid.Column="4" Grid.Row="6" Text="inf" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="inf"
+		<Button Grid.Column="4" Grid.Row="6" Text="inf" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="min"
 			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayFunctions}" Padding="-2" IsEnabled="{Binding HasStatistics}"/>
 
 		<Button Grid.Column="0" Grid.Row="7" Text="op" FontSize="Large" TextTransform="None" Command="{Binding ToggleCommand}"
@@ -198,7 +198,7 @@
 			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayHyperbolicInverse}" Padding="-2" IsEnabled="{Binding HasValue}"/>
 		<Button Grid.Column="3" Grid.Row="7" Text="⌊x⌋" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="floor"
 			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayFunctions}" Padding="-2" IsEnabled="{Binding HasValue}"/>
-		<Button Grid.Column="4" Grid.Row="7" Text="sup" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="sup"
+		<Button Grid.Column="4" Grid.Row="7" Text="sup" FontSize="Large" TextTransform="None" Command="{Binding KeyPressCommand}" CommandParameter="max"
 			   HorizontalOptions="Fill" VerticalOptions="Fill" IsVisible="{Binding DisplayFunctions}" Padding="-2" IsEnabled="{Binding HasStatistics}"/>
 
 	</Grid>
