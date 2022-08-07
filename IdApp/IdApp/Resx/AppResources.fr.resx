@@ -1791,4 +1791,13 @@
   <data name="Calculator" xml:space="preserve">
     <value>Calculatrice</value>
   </data>
+  <data name="CalculationError" xml:space="preserve">
+    <value>Impossible d’effectuer le calcul.</value>
+  </data>
+  <data name="EnterValidValue" xml:space="preserve">
+    <value>Entrez d’abord une valeur valide.</value>
+  </data>
+  <data name="EnterValue" xml:space="preserve">
+    <value>Vous devez d’abord entrer une valeur.</value>
+  </data>
 </root>

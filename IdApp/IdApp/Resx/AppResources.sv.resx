@@ -1791,4 +1791,13 @@
   <data name="Calculator" xml:space="preserve">
     <value>Miniräknare</value>
   </data>
+  <data name="CalculationError" xml:space="preserve">
+    <value>Kunde inte utföra beräkningen.</value>
+  </data>
+  <data name="EnterValidValue" xml:space="preserve">
+    <value>Ange ett giltigt värde först.</value>
+  </data>
+  <data name="EnterValue" xml:space="preserve">
+    <value>Du måste ange ett värde först.</value>
+  </data>
 </root>

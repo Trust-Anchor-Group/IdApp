@@ -1791,4 +1791,13 @@
   <data name="Calculator" xml:space="preserve">
     <value>Calculator</value>
   </data>
+  <data name="CalculationError" xml:space="preserve">
+    <value>Imposibil de efectuat calculul.</value>
+  </data>
+  <data name="EnterValidValue" xml:space="preserve">
+    <value>Introduceți mai întâi o valoare validă.</value>
+  </data>
+  <data name="EnterValue" xml:space="preserve">
+    <value>Trebuie să introduceți mai întâi o valoare.</value>
+  </data>
 </root>

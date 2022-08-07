@@ -1791,4 +1791,13 @@
   <data name="Calculator" xml:space="preserve">
     <value>Laskin</value>
   </data>
+  <data name="CalculationError" xml:space="preserve">
+    <value>Laskentaa ei voi suorittaa.</value>
+  </data>
+  <data name="EnterValidValue" xml:space="preserve">
+    <value>Anna ensin kelvollinen arvo.</value>
+  </data>
+  <data name="EnterValue" xml:space="preserve">
+    <value>Sinun on ensin annettava arvo.</value>
+  </data>
 </root>

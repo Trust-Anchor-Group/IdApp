@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdApp.Resx;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -708,7 +709,7 @@ namespace IdApp.Pages.Main.Calculator
 		private async Task<object> Evaluate()
 		{
 			if (string.IsNullOrEmpty(this.Value))
-				throw new Exception("You need to enter a value first.");
+				throw new Exception(AppResources.EnterValue);
 
 			try
 			{
@@ -716,7 +717,7 @@ namespace IdApp.Pages.Main.Calculator
 			}
 			catch (Exception)
 			{
-				throw new Exception("Enter a valid value first.");
+				throw new Exception(AppResources.EnterValidValue);
 			}
 		}
 
@@ -737,7 +738,7 @@ namespace IdApp.Pages.Main.Calculator
 			}
 			catch (Exception)
 			{
-				throw new Exception("Unable to perform calculation.");
+				throw new Exception(AppResources.CalculationError);
 			}
 		}
 
@@ -771,7 +772,7 @@ namespace IdApp.Pages.Main.Calculator
 				}
 				catch (Exception)
 				{
-					throw new Exception("Unable to perform calculation.");
+					throw new Exception(AppResources.CalculationError);
 				}
 
 				c--;
@@ -816,7 +817,7 @@ namespace IdApp.Pages.Main.Calculator
 			}
 			catch (Exception)
 			{
-				throw new Exception("Unable to perform calculation.");
+				throw new Exception(AppResources.CalculationError);
 			}
 		}
 
