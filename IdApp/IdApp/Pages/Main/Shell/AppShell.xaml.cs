@@ -14,6 +14,7 @@ using IdApp.Services.Wallet;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Resx;
+using IdApp.Pages.Main.Calculator;
 
 namespace IdApp.Pages.Main.Shell
 {
@@ -176,6 +177,11 @@ namespace IdApp.Pages.Main.Shell
 		private async void NewContractMenuItem_Clicked(object sender, EventArgs e)
 		{
 			await this.GoToPage(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.ContractTemplates));
+		}
+
+		private async void Calculator_Clicked(object sender, EventArgs e)
+		{
+			await this.GoToPage(nameof(CalculatorPage), new CalculatorNavigationArgs(null));
 		}
 
 		private void ExitMenuItem_Clicked(object sender, EventArgs e)
