@@ -94,9 +94,14 @@ namespace IdApp.iOS
 		/// <param name="url">URL</param>
 		/// <param name="options">Options</param>
 		/// <returns>If URL is handled.</returns>
+
+		// This method is called on the UI thread, so you should exercise extreme caution when blocking it.
+		// Any method that you call from this method cannot await the UI thread inside because the UI thread is already blocked
+		// by this method, which will lead to a deadlock.
 		public override bool OpenUrl(UIApplication Application, NSUrl Url, NSDictionary Options)
 		{
-			return App.OpenUrl(Url.AbsoluteString).Result;
+			_ = App.OpenUrl(Url.AbsoluteString);
+			return true;
 		}
 
 		private void RegisterKeyBoardObserver()
