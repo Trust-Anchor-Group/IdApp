@@ -13,6 +13,11 @@ The **ID App** (or *TAG ID App*) is a *white-label* Xamarin app written in C# pr
 It is built with .NET Standard 2.0 and Xamarin.Forms 5.0 (Shell), and relies on nugets from the [IoTGateway](https://github.com/PeterWaher/IoTGateway) 
 framework to perform tasks related to communication and functionality defined in IEEE P1451.99.
 
+The ID App is also published to [Google Play Store][] (for Android devices) and [Apple App Store][] (for iOS devices).
+
+[Google Play Store]: https://play.google.com/store/apps/details?id=com.tag.IdApp
+[Apple App Store]: https://apps.apple.com/se/app/trust-anchor-id/id1580610247
+
 ## Documentation ##
 
 The following sections presend an overview of the architecture, as well as technical guides for implementing and using the TAG Neuron SDK 
