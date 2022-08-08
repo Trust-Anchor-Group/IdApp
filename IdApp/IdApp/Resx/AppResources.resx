@@ -1788,4 +1788,16 @@
   <data name="RepairRestart" xml:space="preserve">
     <value>An inconsistency in the internal database has been detected. This can happen if the app is not closed properly. The app will therefore close. The next time you start the app, the database will be repaired.</value>
   </data>
+  <data name="Calculator" xml:space="preserve">
+    <value>Calculator</value>
+  </data>
+  <data name="CalculationError" xml:space="preserve">
+    <value>Unable to perform calculation.</value>
+  </data>
+  <data name="EnterValidValue" xml:space="preserve">
+    <value>Enter a valid value first.</value>
+  </data>
+  <data name="EnterValue" xml:space="preserve">
+    <value>You need to enter a value first.</value>
+  </data>
 </root>

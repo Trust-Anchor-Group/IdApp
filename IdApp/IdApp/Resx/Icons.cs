@@ -176,5 +176,10 @@
 		/// </summary>
 		public const string EllipsisH = "\uf141";
 
+		/// <summary>
+		/// calculator
+		/// </summary>
+		public const string Calculator = "\uf1ec";
+
 	}
 }

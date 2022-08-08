@@ -412,6 +412,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to perform calculation..
+        /// </summary>
+        internal static string CalculationError {
+            get {
+                return ResourceManager.GetString("CalculationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculator.
+        /// </summary>
+        internal static string Calculator {
+            get {
+                return ResourceManager.GetString("Calculator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can act as template.
         /// </summary>
         internal static string CanActAsTemplate {
@@ -1200,6 +1218,24 @@ namespace IdApp.Resx {
         internal static string EnterProposal {
             get {
                 return ResourceManager.GetString("EnterProposal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a valid value first..
+        /// </summary>
+        internal static string EnterValidValue {
+            get {
+                return ResourceManager.GetString("EnterValidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to enter a value first..
+        /// </summary>
+        internal static string EnterValue {
+            get {
+                return ResourceManager.GetString("EnterValue", resourceCulture);
             }
         }
         

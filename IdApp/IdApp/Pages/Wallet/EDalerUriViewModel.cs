@@ -13,6 +13,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Resx;
 using IdApp.Converters;
+using IdApp.Pages.Main.Calculator;
 
 namespace IdApp.Pages.Wallet
 {
@@ -40,6 +41,7 @@ namespace IdApp.Pages.Wallet
 			this.SubmitCommand = new Command(async _ => await this.Submit(), _ => this.IsConnected);
 			this.ShowCodeCommand = new Command(async _ => await this.ShowCode());
 			this.SendPaymentCommand = new Command(async _ => await this.SendPayment(), _ => this.CanSendPayment());
+			this.OpenCalculatorCommand = new Command(async P => await this.OpenCalculator(P));
 
 			this.FromClickCommand = new Command(async x => await this.FromLabelClicked());
 		}
@@ -51,70 +53,76 @@ namespace IdApp.Pages.Wallet
 
 			if (this.NavigationService.TryPopArgs(out EDalerUriNavigationArgs args))
 			{
-				this.FriendlyName = args.FriendlyName;
 				this.uriToSend = args.UriToSend;
 
-				if (!(args.Uri is null))
+				if (!args.ViewInitialized)
 				{
-					this.Uri = args.Uri.UriString;
-					this.Id = args.Uri.Id;
-					this.Amount = args.Uri.Amount;
-					this.AmountExtra = args.Uri.AmountExtra;
-					this.Currency = args.Uri.Currency;
-					this.Created = args.Uri.Created;
-					this.Expires = args.Uri.Expires;
-					this.ExpiresStr = this.Expires.ToShortDateString();
-					this.From = args.Uri.From;
-					this.FromType = args.Uri.FromType;
-					this.To = args.Uri.To;
-					this.ToType = args.Uri.ToType;
-					this.ToPreset = !string.IsNullOrEmpty(args.Uri.To);
-					this.Complete = args.Uri.Complete;
-				}
+					this.FriendlyName = args.FriendlyName;
 
-				this.RemoveQrCode();
-				this.NotPaid = true;
-
-				this.AmountText = this.Amount <= 0 ? string.Empty : MoneyToString.ToString(this.Amount);
-				this.AmountOk = CommonTypes.TryParse(this.AmountText, out decimal d) && d > 0;
-				this.AmountPreset = !string.IsNullOrEmpty(this.AmountText) && this.AmountOk;
-				this.AmountAndCurrency = this.AmountText + " " + this.Currency;
-
-				this.AmountExtraText = this.AmountExtra.HasValue ? MoneyToString.ToString(this.AmountExtra.Value) : string.Empty;
-				this.AmountExtraOk = !this.AmountExtra.HasValue || this.AmountExtra.Value >= 0;
-				this.AmountExtraPreset = this.AmountExtra.HasValue;
-				this.AmountExtraAndCurrency = this.AmountExtraText + " " + this.Currency;
-
-				StringBuilder Url = new();
-
-				Url.Append("https://");
-				Url.Append(this.From);
-				Url.Append("/Images/eDalerFront200.png");
-
-				this.EDalerFrontGlyph = Url.ToString();
-
-				Url.Clear();
-				Url.Append("https://");
-				Url.Append(this.XmppService.Xmpp.Host);
-				Url.Append("/Images/eDalerBack200.png");
-
-				this.EDalerBackGlyph = Url.ToString();
-
-				if (!(args.Uri?.EncryptedMessage is null))
-				{
-					if (args.Uri.EncryptionPublicKey is null)
-						this.Message = Encoding.UTF8.GetString(args.Uri.EncryptedMessage);
-					else
+					if (!(args.Uri is null))
 					{
-						this.Message = await this.XmppService.Wallet.TryDecryptMessage(args.Uri.EncryptedMessage,
-							args.Uri.EncryptionPublicKey, args.Uri.Id, args.Uri.From);
+						this.Uri = args.Uri.UriString;
+						this.Id = args.Uri.Id;
+						this.Amount = args.Uri.Amount;
+						this.AmountExtra = args.Uri.AmountExtra;
+						this.Currency = args.Uri.Currency;
+						this.Created = args.Uri.Created;
+						this.Expires = args.Uri.Expires;
+						this.ExpiresStr = this.Expires.ToShortDateString();
+						this.From = args.Uri.From;
+						this.FromType = args.Uri.FromType;
+						this.To = args.Uri.To;
+						this.ToType = args.Uri.ToType;
+						this.ToPreset = !string.IsNullOrEmpty(args.Uri.To);
+						this.Complete = args.Uri.Complete;
 					}
 
-					this.HasMessage = !string.IsNullOrEmpty(this.Message);
-				}
+					this.RemoveQrCode();
+					this.NotPaid = true;
 
-				this.MessagePreset = !string.IsNullOrEmpty(this.Message);
-				this.EncryptMessage = args.Uri?.ToType == EntityType.LegalId;
+					this.AmountText = this.Amount <= 0 ? string.Empty : MoneyToString.ToString(this.Amount);
+					this.AmountOk = CommonTypes.TryParse(this.AmountText, out decimal d) && d > 0;
+					this.AmountPreset = !string.IsNullOrEmpty(this.AmountText) && this.AmountOk;
+					this.AmountAndCurrency = this.AmountText + " " + this.Currency;
+
+					this.AmountExtraText = this.AmountExtra.HasValue ? MoneyToString.ToString(this.AmountExtra.Value) : string.Empty;
+					this.AmountExtraOk = !this.AmountExtra.HasValue || this.AmountExtra.Value >= 0;
+					this.AmountExtraPreset = this.AmountExtra.HasValue;
+					this.AmountExtraAndCurrency = this.AmountExtraText + " " + this.Currency;
+
+					StringBuilder Url = new();
+
+					Url.Append("https://");
+					Url.Append(this.From);
+					Url.Append("/Images/eDalerFront200.png");
+
+					this.EDalerFrontGlyph = Url.ToString();
+
+					Url.Clear();
+					Url.Append("https://");
+					Url.Append(this.XmppService.Xmpp.Host);
+					Url.Append("/Images/eDalerBack200.png");
+
+					this.EDalerBackGlyph = Url.ToString();
+
+					if (!(args.Uri?.EncryptedMessage is null))
+					{
+						if (args.Uri.EncryptionPublicKey is null)
+							this.Message = Encoding.UTF8.GetString(args.Uri.EncryptedMessage);
+						else
+						{
+							this.Message = await this.XmppService.Wallet.TryDecryptMessage(args.Uri.EncryptedMessage,
+								args.Uri.EncryptionPublicKey, args.Uri.Id, args.Uri.From);
+						}
+
+						this.HasMessage = !string.IsNullOrEmpty(this.Message);
+					}
+
+					this.MessagePreset = !string.IsNullOrEmpty(this.Message);
+					this.EncryptMessage = args.Uri?.ToType == EntityType.LegalId;
+
+					args.ViewInitialized = true;
+				}
 			}
 
 			this.AssignProperties();
@@ -138,7 +146,7 @@ namespace IdApp.Pages.Wallet
 		private void EvaluateAllCommands()
 		{
 			this.EvaluateCommands(this.AcceptCommand, this.PayOnlineCommand, this.GenerateQrCodeCommand, this.ShareCommand,
-				this.SubmitCommand, this.ShareCommand, this.SendPaymentCommand);
+				this.SubmitCommand, this.ShareCommand, this.SendPaymentCommand, this.OpenCalculatorCommand);
 		}
 
 		/// <inheritdoc/>
@@ -698,6 +706,16 @@ namespace IdApp.Pages.Wallet
 		public ICommand SendPaymentCommand { get; }
 
 		/// <summary>
+		/// Command to bind to for detecting when a from label has been clicked on.
+		/// </summary>
+		public ICommand FromClickCommand { get; }
+
+		/// <summary>
+		/// The command to bind to open the calculator.
+		/// </summary>
+		public ICommand OpenCalculatorCommand { get; }
+
+		/// <summary>
 		/// See <see cref="EDalerFrontGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerFrontGlyphProperty =
@@ -728,11 +746,6 @@ namespace IdApp.Pages.Wallet
 		}
 
 		#endregion
-
-		/// <summary>
-		/// Command to bind to for detecting when a from label has been clicked on.
-		/// </summary>
-		public ICommand FromClickCommand { get; }
 
 		private async Task FromLabelClicked()
 		{
@@ -1011,6 +1024,31 @@ namespace IdApp.Pages.Wallet
 			}
 		}
 
+		/// <summary>
+		/// Opens the calculator for calculating the value of a numerical property.
+		/// </summary>
+		/// <param name="Parameter">Property to calculate</param>
+		public async Task OpenCalculator(object Parameter)
+		{
+			try
+			{
+				switch (Parameter?.ToString())
+				{
+					case "AmountText":
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty));
+						break;
+
+					case "AmountExtraText":
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountExtraTextProperty));
+						break;
+				}
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
 		#region ILinkableView
 
 		/// <summary>
@@ -1019,7 +1057,6 @@ namespace IdApp.Pages.Wallet
 		public override Task<string> Title => Task.FromResult<string>(AppResources.Payment);
 
 		#endregion
-
 
 	}
 }
