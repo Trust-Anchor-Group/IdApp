@@ -870,6 +870,18 @@ namespace IdApp
 		}
 
 		/// <summary>
+		/// Checks if the <paramref name="Url"/> can be handled by the application.
+		/// </summary>
+		/// <param name="Url">The URL to check.</param>
+		/// <returns>
+		/// <c>true</c> if the <paramref name="Url"/> is a valid absolute URL which can be handled by the application and <c>false</c> otherwise.
+		/// </returns>
+		public static bool CanOpenUrl(string Url)
+		{
+			return QrCode.CanOpenUrl(Url);
+		}
+
+		/// <summary>
 		/// Asks the user to input its PIN. PIN is verified before being returned.
 		/// </summary>
 		/// <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
