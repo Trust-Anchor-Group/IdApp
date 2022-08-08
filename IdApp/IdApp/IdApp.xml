@@ -59,6 +59,15 @@
             <param name="Url">URL</param>
             <returns>If URL is processed or not.</returns>
         </member>
+        <member name="M:IdApp.App.CanOpenUrl(System.String)">
+            <summary>
+            Checks if the <paramref name="Url"/> can be handled by the application.
+            </summary>
+            <param name="Url">The URL to check.</param>
+            <returns>
+            <c>true</c> if the <paramref name="Url"/> is a valid absolute URL which can be handled by the application and <c>false</c> otherwise.
+            </returns>
+        </member>
         <member name="M:IdApp.App.InputPin">
             <summary>
             Asks the user to input its PIN. PIN is verified before being returned.
@@ -20017,6 +20026,15 @@
             </summary>
             <param name="Url">URL to open.</param>
             <returns>If URL was handled.</returns>
+        </member>
+        <member name="M:IdApp.Services.UI.QR.QrCode.CanOpenUrl(System.String)">
+            <summary>
+            Checks if the <paramref name="Url"/> can be handled by the application.
+            </summary>
+            <param name="Url">The URL to check.</param>
+            <returns>
+            <c>true</c> if the <paramref name="Url"/> is a valid absolute URL which can be handled by the application and <c>false</c> otherwise.
+            </returns>
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCode(IdApp.Services.Navigation.INavigationService,System.String,System.Func{System.String,System.Threading.Tasks.Task},System.Boolean)">
             <summary>
