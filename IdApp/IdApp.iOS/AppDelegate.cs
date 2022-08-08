@@ -100,8 +100,15 @@ namespace IdApp.iOS
 		// by this method, which will lead to a deadlock.
 		public override bool OpenUrl(UIApplication Application, NSUrl Url, NSDictionary Options)
 		{
-			_ = App.OpenUrl(Url.AbsoluteString);
-			return true;
+			string AbsoluteUrlString = Url.AbsoluteString;
+			bool CanOpenUrl = App.CanOpenUrl(AbsoluteUrlString);
+
+			if (CanOpenUrl)
+			{
+				_ = App.OpenUrl(Url.AbsoluteString);
+			}
+
+			return CanOpenUrl;
 		}
 
 		private void RegisterKeyBoardObserver()
