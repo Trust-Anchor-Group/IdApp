@@ -105,10 +105,22 @@ namespace IdApp.iOS
 
 			if (CanOpenUrl)
 			{
-				_ = App.OpenUrl(Url.AbsoluteString);
+				this.OpenUrlLogExceptions(AbsoluteUrlString);
 			}
 
 			return CanOpenUrl;
+		}
+
+		private async void OpenUrlLogExceptions(string AbsoluteUrlString)
+		{
+			try
+			{
+				await App.OpenUrl(AbsoluteUrlString).ConfigureAwait(false);
+			}
+			catch (Exception Exception)
+			{
+				Log.Critical(Exception);
+			}
 		}
 
 		private void RegisterKeyBoardObserver()
