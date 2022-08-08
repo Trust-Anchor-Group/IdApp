@@ -50,6 +50,8 @@ namespace IdApp.Services.UI.QR
 		/// <returns>If URL was handled.</returns>
 		public static async Task<bool> OpenUrl(string Url)
 		{
+			// Should be in sync with CanOpenUrl method.
+
 			ILogService LogService = App.Instantiate<ILogService>();
 			IUiSerializer UiSerializer = App.Instantiate<IUiSerializer>();
 			IXmppService XmppService = App.Instantiate<IXmppService>();
@@ -152,6 +154,8 @@ namespace IdApp.Services.UI.QR
 		/// </returns>
 		public static bool CanOpenUrl(string Url)
 		{
+			// Should be in sync with OpenUrl method.
+
 			try
 			{
 				IXmppService XmppService = App.Instantiate<IXmppService>();
