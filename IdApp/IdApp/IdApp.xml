@@ -6753,6 +6753,388 @@
             <param name="Name">Group's unique name.</param>
             <param name="Items">Group's item collection.</param>
         </member>
+        <member name="T:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs">
+            <summary>
+            Holds navigation parameters for the calculator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs.#ctor">
+            <summary>
+            Holds navigation parameters for the calculator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs.#ctor(Xamarin.Forms.Entry)">
+            <summary>
+            Holds navigation parameters for the calculator.
+            </summary>
+            <param name="Entry">Entry whose value is being calculated.</param>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs.#ctor(IdApp.Pages.BaseViewModel,Xamarin.Forms.BindableProperty)">
+            <summary>
+            Holds navigation parameters for the calculator.
+            </summary>
+            <param name="ViewModel">View model containing a bindable property with the value to calculate.</param>
+            <param name="Property">Property containing the value to calculate.</param>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs.Entry">
+            <summary>
+            Entry whose value is being calculated.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs.ViewModel">
+            <summary>
+            View model containing a bindable property with the value to calculate.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs.Property">
+            <summary>
+            Property containing the value to calculate.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Calculator.CalculatorPage">
+            <summary>
+            A page that allows the user to calculate the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorPage.#ctor">
+            <summary>
+            A page that allows the user to calculate the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="T:IdApp.Pages.Main.Calculator.CalculatorViewModel">
+            <summary>
+            The view model to bind to for when displaying the calculator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Main.Calculator.CalculatorViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.ValueProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Value"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Value">
+            <summary>
+            Current entry
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.StatusProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Status"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Status">
+            <summary>
+            Current entry
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.EnteringProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Entering"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Entering">
+            <summary>
+            Current entry
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.HasValueProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.HasValue"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.HasValue">
+            <summary>
+            If there's a value in the input field
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.HasStatisticsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.HasStatistics"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.HasStatistics">
+            <summary>
+            If there's values available for statistical computations.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.NrParenthesesProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.NrParentheses"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.NrParentheses">
+            <summary>
+            Number of open parentheses
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.MemoryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Memory"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Memory">
+            <summary>
+            Current entry
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.EntryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Entry"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Entry">
+            <summary>
+            Entry control, if available
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.ViewModelProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ViewModel"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ViewModel">
+            <summary>
+            View model, if available
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.PropertyProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Property"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Property">
+            <summary>
+            Property, if available.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DecimalSeparatorDecimalSeparator">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DecimalSeparator"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DecimalSeparator">
+            <summary>
+            Current decimal separator.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayMainDisplayMain">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayMain"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayMain">
+            <summary>
+            If main key page is to be displayed
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayFunctionsDisplayFunctions">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayFunctions"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayFunctions">
+            <summary>
+            If function key page is to be displayed
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicDisplayHyperbolic">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolic"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolic">
+            <summary>
+            If hyperbolic functions are to be displayed
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayInverseDisplayInverse">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayInverse"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayInverse">
+            <summary>
+            If inverse functions are to be displayed
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicNotInverseDisplayNotHyperbolicNotInverse">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicNotInverse"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicNotInverse">
+            <summary>
+            If neither hyperbolic nor inverse functions are to be displayed
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicNotInverseDisplayHyperbolicNotInverse">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicNotInverse"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicNotInverse">
+            <summary>
+            If hyperbolic functions, but not inverse functions are to be displayed
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicInverseDisplayNotHyperbolicInverse">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicInverse"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayNotHyperbolicInverse">
+            <summary>
+            If inverse functions, but not hyperbolic functions are to be displayed
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicInverseDisplayHyperbolicInverse">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicInverse"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayHyperbolicInverse">
+            <summary>
+            If inverse hyperbolic functions are to be displayed
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayEqualsDisplayEquals">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayEquals"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayEquals">
+            <summary>
+            If the equals button should be displayed
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayEndParenthesisDisplayEndParenthesis">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayEndParenthesis"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.DisplayEndParenthesis">
+            <summary>
+            If the end parenthesis button should be displayed.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.Stack">
+            <summary>
+            Holds the contents of the calculation stack
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.MemoryItems">
+            <summary>
+            Holds the contents of the memory
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ToggleCommand">
+            <summary>
+            Command executed when user wants to toggle buttons.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ToggleHyperbolicCommand">
+            <summary>
+            Command executed when user wants to toggle hyperbolic functions on/off.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.ToggleInverseCommand">
+            <summary>
+            Command executed when user wants to toggle inverse functions on/off.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.KeyPressCommand">
+            <summary>
+            Command executed when user presses a key buttonn.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.StackString">
+            <summary>
+            String representation of contents on the stack.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.EvaluateStack">
+            <summary>
+            Evaluates the current stack.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.MemoryString">
+            <summary>
+            String representation of contents on the statistical memory.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Calculator.OperatorPriority">
+            <summary>
+            Binary operator priority
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.OperatorPriority.Equals">
+            <summary>
+            Evaluation operator
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.OperatorPriority.Parenthesis">
+            <summary>
+            Parenthesis operator
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.OperatorPriority.Terms">
+            <summary>
+            Addition and Subtraction
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.OperatorPriority.Factors">
+            <summary>
+            Multiplication and division
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.OperatorPriority.Powers">
+            <summary>
+            Powers and exponents
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Calculator.StackItem">
+            <summary>
+            Calculation stack item
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.StackItem.Entry">
+            <summary>
+            Entry
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.StackItem.Script">
+            <summary>
+            Corresponding script
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.StackItem.Priority">
+            <summary>
+            Priority level
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.StackItem.Operator">
+            <summary>
+            Operator to display
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Calculator.StackItem.StartParenthesis">
+            <summary>
+            If parenthesis was started
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Main.Loading.LoadingPage">
             <summary>
             A page to use when the application is loading, or initializing.
@@ -10033,6 +10415,16 @@
             The command to bind to send the payment via the parent page.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.FromClickCommand">
+            <summary>
+            Command to bind to for detecting when a from label has been clicked on.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.OpenCalculatorCommand">
+            <summary>
+            The command to bind to open the calculator.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerFrontGlyphProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerFrontGlyph"/>
@@ -10053,10 +10445,11 @@
             eDaler glyph URL
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.FromClickCommand">
+        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.OpenCalculator(System.Object)">
             <summary>
-            Command to bind to for detecting when a from label has been clicked on.
+            Opens the calculator for calculating the value of a numerical property.
             </summary>
+            <param name="Parameter">Property to calculate</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.Title">
             <summary>
@@ -11622,6 +12015,17 @@
             <summary>
             The command to bind to for sharing the QR code
             </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.OpenCalculatorCommand">
+            <summary>
+            The command to bind to open the calculator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.OpenCalculator(System.Object)">
+            <summary>
+            Opens the calculator for calculating the value of a numerical property.
+            </summary>
+            <param name="Parameter">Property to calculate</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.Title">
             <summary>
@@ -13463,6 +13867,11 @@
         <member name="P:IdApp.Resx.AppResources.Building">
             <summary>
               Looks up a localized string similar to Building.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Calculator">
+            <summary>
+              Looks up a localized string similar to Calculator.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.CanActAsTemplate">
@@ -16231,6 +16640,11 @@
             ellipsis-h
             </summary>
         </member>
+        <member name="F:IdApp.Resx.FontAwesome.Calculator">
+            <summary>
+            calculator
+            </summary>
+        </member>
         <member name="T:IdApp.Resx.Pngs">
             <summary>
             A list of png resources.
@@ -17579,6 +17993,11 @@
         <member name="P:IdApp.Services.Navigation.NavigationArgs.UniqueId">
             <summary>
             An untique view identificator used to search the args of similar view types.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Navigation.NavigationArgs.ViewInitialized">
+            <summary>
+            If view has been initialized by the arguments.
             </summary>
         </member>
         <member name="M:IdApp.Services.Navigation.NavigationService.Load(System.Boolean,System.Threading.CancellationToken)">

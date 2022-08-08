@@ -1788,4 +1788,16 @@
   <data name="RepairRestart" xml:space="preserve">
     <value>Otkrivena je nedoslednost u internoj bazi podataka. To se može dogoditi ako aplikacija nije ispravno zatvorena. Aplikacija će se stoga zatvoriti. Kada sledeći put pokrenete aplikaciju, baza podataka će biti popravljena.</value>
   </data>
+  <data name="Calculator" xml:space="preserve">
+    <value>Kalkulator</value>
+  </data>
+  <data name="CalculationError" xml:space="preserve">
+    <value>Nije moguće izvršiti izračunavanje.</value>
+  </data>
+  <data name="EnterValidValue" xml:space="preserve">
+    <value>Prvo unesite važeću vrednost.</value>
+  </data>
+  <data name="EnterValue" xml:space="preserve">
+    <value>Prvo morate da unesete vrednost.</value>
+  </data>
 </root>
