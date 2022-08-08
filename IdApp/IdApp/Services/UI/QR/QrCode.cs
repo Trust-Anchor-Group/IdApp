@@ -144,6 +144,67 @@ namespace IdApp.Services.UI.QR
 		}
 
 		/// <summary>
+		/// Checks if the <paramref name="Url"/> can be handled by the application.
+		/// </summary>
+		/// <param name="Url">The URL to check.</param>
+		/// <returns>
+		/// <c>true</c> if the <paramref name="Url"/> is a valid absolute URL which can be handled by the application and <c>false</c> otherwise.
+		/// </returns>
+		public static bool CanOpenUrl(string Url)
+		{
+			try
+			{
+				IXmppService XmppService = App.Instantiate<IXmppService>();
+
+				if (!Uri.TryCreate(Url, UriKind.Absolute, out Uri uri))
+					return false;
+
+				switch (uri.Scheme.ToLower())
+				{
+					case Constants.UriSchemes.UriSchemeIotId:
+						return true;
+
+					case Constants.UriSchemes.UriSchemeIotSc:
+						return true;
+
+					case Constants.UriSchemes.UriSchemeIotDisco:
+						if (XmppService.ThingRegistry.IsIoTDiscoClaimURI(Url))
+							return true;
+
+						if (XmppService.ThingRegistry.IsIoTDiscoSearchURI(Url))
+							return true;
+
+						if (XmppService.ThingRegistry.IsIoTDiscoDirectURI(Url))
+							return true;
+						
+						return false;
+
+					case Constants.UriSchemes.UriSchemeTagSign:
+						return true;
+
+					case Constants.UriSchemes.UriSchemeEDaler:
+						return true;
+
+					case Constants.UriSchemes.UriSchemeNeuroFeature:
+						return true;
+
+					case Constants.UriSchemes.UriSchemeOnboarding:
+						return false;
+
+					case Constants.UriSchemes.UriSchemeXmpp:
+						return true;
+
+					default:
+						return false;
+				}
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
 		/// Navigates to the Scan QR Code Page, waits for scan to complete, and returns the result.
 		/// This is seemingly simple, but performs several operations, namely:
 		/// <list type="bullet">
