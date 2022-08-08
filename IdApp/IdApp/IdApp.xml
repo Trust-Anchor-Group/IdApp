@@ -13869,6 +13869,11 @@
               Looks up a localized string similar to Building.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.CalculationError">
+            <summary>
+              Looks up a localized string similar to Unable to perform calculation..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Calculator">
             <summary>
               Looks up a localized string similar to Calculator.
@@ -14312,6 +14317,16 @@
         <member name="P:IdApp.Resx.AppResources.EnterProposal">
             <summary>
               Looks up a localized string similar to Enter the text to include in the proposal to {0}, or leave blank if a proposal should not be sent..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.EnterValidValue">
+            <summary>
+              Looks up a localized string similar to Enter a valid value first..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.EnterValue">
+            <summary>
+              Looks up a localized string similar to You need to enter a value first..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ErrorTitle">

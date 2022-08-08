@@ -90,6 +90,12 @@ namespace IdApp.Pages.Main.Calculator
 			{
 				this.SetValue(ValueProperty, value);
 				this.HasValue = !string.IsNullOrEmpty(value);
+
+				if (this.Entry is not null)
+					this.Entry.Text = this.Value;
+
+				if (this.ViewModel is not null && this.Property is not null)
+					this.ViewModel.SetValue(this.Property, this.Value);
 			}
 		}
 
@@ -879,12 +885,6 @@ namespace IdApp.Pages.Main.Calculator
 		public async Task EvaluateStack()
 		{
 			await this.Evaluate(string.Empty, "=", OperatorPriority.Equals, false);
-
-			if (this.Entry is not null)
-				this.Entry.Text = this.Value;
-
-			if (this.ViewModel is not null && this.Property is not null)
-				this.ViewModel.SetValue(this.Property, this.Value);
 		}
 
 		/// <summary>
