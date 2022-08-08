@@ -33,13 +33,13 @@
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource HeadingForegroundLightTheme}, Dark={StaticResource HeadingForegroundDarkTheme}}" />
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{AppThemeBinding Light={StaticResource HeadingForegroundLightTheme}, Dark={StaticResource HeadingForegroundDarkTheme}}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{AppThemeBinding Light={StaticResource HeadingForegroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
