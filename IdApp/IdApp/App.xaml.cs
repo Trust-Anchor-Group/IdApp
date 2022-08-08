@@ -12,6 +12,8 @@ using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Network;
 using IdApp.Services.Nfc;
+using IdApp.Services.Notification;
+using IdApp.Services.Push;
 using IdApp.Services.Settings;
 using IdApp.Services.Storage;
 using IdApp.Services.Tag;
@@ -284,6 +286,8 @@ namespace IdApp
 			Types.InstantiateDefault<IContractOrchestratorService>(false);
 			Types.InstantiateDefault<IThingRegistryOrchestratorService>(false);
 			Types.InstantiateDefault<INeuroWalletOrchestratorService>(false);
+			Types.InstantiateDefault<INotificationService>(false);
+			Types.InstantiateDefault<IPushNotificationService>(false);
 			Types.InstantiateDefault<INfcService>(false);
 
 			this.services = new ServiceReferences();
@@ -418,6 +422,10 @@ namespace IdApp
 				Thread?.NewState("Orchestrators");
 				await this.services.ContractOrchestratorService.Load(isResuming, Token);
 				await this.services.ThingRegistryOrchestratorService.Load(isResuming, Token);
+				await this.services.NeuroWalletOrchestratorService.Load(isResuming, Token);
+
+				Thread?.NewState("Notifications");
+				await this.services.NotificationService.Load(isResuming, Token);
 			}
 			catch (OperationCanceledException)
 			{
@@ -495,6 +503,9 @@ namespace IdApp
 					if (this.services.ThingRegistryOrchestratorService is not null)
 						await this.services.ThingRegistryOrchestratorService.Unload();
 
+					if (this.services.NeuroWalletOrchestratorService is not null)
+						await this.services.NeuroWalletOrchestratorService.Unload();
+
 					if (this.services?.XmppService is not null)
 						await this.services.XmppService.Unload();
 
@@ -503,6 +514,9 @@ namespace IdApp
 
 					if (this.services.AttachmentCacheService is not null)
 						await this.services.AttachmentCacheService.Unload();
+
+					if (this.services.NavigationService is not null)
+						await this.services.NavigationService.Unload();
 				}
 
 				foreach (IEventSink Sink in Waher.Events.Log.Sinks)

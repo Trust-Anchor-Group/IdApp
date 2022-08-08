@@ -59,6 +59,7 @@ namespace IdApp.Pages.Main.Main
 			this.SetConnectionStateAndText(this.XmppService.State);
 			this.XmppService.ConnectionStateChanged += this.Contracts_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged += this.NetworkService_ConnectivityChanged;
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
 		}
 
 		/// <inheritdoc />
@@ -67,12 +68,15 @@ namespace IdApp.Pages.Main.Main
 			this.photosLoader.CancelLoadPhotos();
 			this.XmppService.ConnectionStateChanged -= this.Contracts_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged -= this.NetworkService_ConnectivityChanged;
+			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
 
 			return base.DoUnbind();
 		}
 
 		private void AssignProperties()
 		{
+			this.AssignOverlays();
+
 			if (this.TagProfile?.LegalIdentity is not null)
 			{
 				string FirstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
@@ -124,6 +128,14 @@ namespace IdApp.Pages.Main.Main
 			}
 		}
 
+		private void AssignOverlays()
+		{
+			this.Left1Overlay = this.NotificationService.NrNotificationsLeft1;
+			this.Left2Overlay = this.NotificationService.NrNotificationsLeft2;
+			this.Right1Overlay = this.NotificationService.NrNotificationsRight1;
+			this.Right2Overlay = this.NotificationService.NrNotificationsRight2;
+		}
+
 		private async Task LoadProfilePhoto(Attachment FirstAttachment)
 		{
 			try
@@ -153,6 +165,11 @@ namespace IdApp.Pages.Main.Main
 			{
 				this.LogService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 			}
+		}
+
+		private void NotificationService_OnNewNotification(object sender, EventArgs e)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.AssignOverlays());	
 		}
 
 		#region Properties
@@ -497,6 +514,66 @@ namespace IdApp.Pages.Main.Main
 		{
 			get => (string)this.GetValue(ConnectionErrorsTextProperty);
 			set => this.SetValue(ConnectionErrorsTextProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Left1Overlay"/>
+		/// </summary>
+		public static readonly BindableProperty Left1OverlayProperty =
+			BindableProperty.Create(nameof(Left1Overlay), typeof(int), typeof(MainViewModel), default(int));
+
+		/// <summary>
+		/// Integer overlay of button Left1
+		/// </summary>
+		public int Left1Overlay
+		{
+			get => (int)this.GetValue(Left1OverlayProperty);
+			set => this.SetValue(Left1OverlayProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Left2Overlay"/>
+		/// </summary>
+		public static readonly BindableProperty Left2OverlayProperty =
+			BindableProperty.Create(nameof(Left2Overlay), typeof(int), typeof(MainViewModel), default(int));
+
+		/// <summary>
+		/// Integer overlay of button Left2
+		/// </summary>
+		public int Left2Overlay
+		{
+			get => (int)this.GetValue(Left2OverlayProperty);
+			set => this.SetValue(Left2OverlayProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Right1Overlay"/>
+		/// </summary>
+		public static readonly BindableProperty Right1OverlayProperty =
+			BindableProperty.Create(nameof(Right1Overlay), typeof(int), typeof(MainViewModel), default(int));
+
+		/// <summary>
+		/// Integer overlay of button Right1
+		/// </summary>
+		public int Right1Overlay
+		{
+			get => (int)this.GetValue(Right1OverlayProperty);
+			set => this.SetValue(Right1OverlayProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Right2Overlay"/>
+		/// </summary>
+		public static readonly BindableProperty Right2OverlayProperty =
+			BindableProperty.Create(nameof(Right2Overlay), typeof(int), typeof(MainViewModel), default(int));
+
+		/// <summary>
+		/// Integer overlay of button Right2
+		/// </summary>
+		public int Right2Overlay
+		{
+			get => (int)this.GetValue(Right2OverlayProperty);
+			set => this.SetValue(Right2OverlayProperty, value);
 		}
 
 		#endregion

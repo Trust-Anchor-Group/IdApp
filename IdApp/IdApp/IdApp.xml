@@ -1186,7 +1186,7 @@
         </member>
         <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2FontFamily">
             <summary>
-            The font family to use for text on the first button
+            The font family to use for text on the second button
             </summary>
         </member>
         <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonFontFamilyProperty">
@@ -1216,7 +1216,7 @@
         </member>
         <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2FontFamily">
             <summary>
-            The font family to use for text on the third button
+            The font family to use for text on the fourth button
             </summary>
         </member>
         <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1TextProperty">
@@ -1236,7 +1236,7 @@
         </member>
         <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2Text">
             <summary>
-            The text to use for text on the first button
+            The text to use for text on the second button
             </summary>
         </member>
         <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonTextProperty">
@@ -1266,7 +1266,47 @@
         </member>
         <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2Text">
             <summary>
-            The text to use for text on the third button
+            The text to use for text on the fourth button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1Overlay">
+            <summary>
+            Overlay on the first button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2Overlay">
+            <summary>
+            Overlay on the second button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1Overlay">
+            <summary>
+            Overlay on the third button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2Overlay">
+            <summary>
+            Overlay on the fourth button
             </summary>
         </member>
         <member name="M:IdApp.Controls.MainTabBar.MainTabBarView.Show">
@@ -7449,6 +7489,46 @@
         <member name="P:IdApp.Pages.Main.Main.MainViewModel.ConnectionErrorsText">
             <summary>
             Gets or sets the user friendly connection errors text for display. Can be null.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Main.MainViewModel.Left1OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.Left1Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.Left1Overlay">
+            <summary>
+            Integer overlay of button Left1
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Main.MainViewModel.Left2OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.Left2Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.Left2Overlay">
+            <summary>
+            Integer overlay of button Left2
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Main.MainViewModel.Right1OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.Right1Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.Right1Overlay">
+            <summary>
+            Integer overlay of button Right1
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Main.MainViewModel.Right2OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.Right2Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.Right2Overlay">
+            <summary>
+            Integer overlay of button Right2
             </summary>
         </member>
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
@@ -18170,6 +18250,267 @@
             <param name="PropertyName">Name of property</param>
             <returns>Property value.</returns>
         </member>
+        <member name="T:IdApp.Services.Notification.INotificationService">
+            <summary>
+            Interface for push notification services.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.NewEvent(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            Registers a new event and notifies the user.
+            </summary>
+            <param name="Event">Notification event.</param>
+        </member>
+        <member name="E:IdApp.Services.Notification.INotificationService.OnNewNotification">
+            <summary>
+            Event raised when a new notification has been logged.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsLeft1">
+            <summary>
+            Number of notifications but button Left1
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsLeft2">
+            <summary>
+            Number of notifications but button Left2
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsRight1">
+            <summary>
+            Number of notifications but button Right1
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsRight2">
+            <summary>
+            Number of notifications but button Right2
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.EventButton">
+            <summary>
+            Button on which event is to be displayed.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Notification.EventButton.Left1">
+            <summary>
+            Left 1
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Notification.EventButton.Left2">
+            <summary>
+            Left 2
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Notification.EventButton.Right1">
+            <summary>
+            Right 1
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Notification.EventButton.Right2">
+            <summary>
+            Right 2
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.NotificationEvent">
+            <summary>
+            Abstract base class of notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationEvent.#ctor">
+            <summary>
+            Abstract base class of notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationEvent.ObjectId">
+            <summary>
+            Object ID of notification event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationEvent.Received">
+            <summary>
+            When event was received
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationEvent.Category">
+            <summary>
+            Category string. Events having the same category are grouped and processed together.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationEvent.Button">
+            <summary>
+            Button on which notification should be displayed
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.NotificationService">
+            <summary>
+            Notification service
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.#ctor">
+            <summary>
+            Notification service
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.Load(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Loads the specified service.
+            </summary>
+            <param name="isResuming">Set to <c>true</c> to indicate the app is resuming as opposed to starting cold.</param>
+            <param name="cancellationToken">Will stop the service load if the token is set.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.NewEvent(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            Registers a new event and notifies the user.
+            </summary>
+            <param name="Event">Notification event.</param>
+        </member>
+        <member name="E:IdApp.Services.Notification.NotificationService.OnNewNotification">
+            <summary>
+            Event raised when a new notification has been logged.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsLeft1">
+            <summary>
+            Number of notifications but button Left1
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsLeft2">
+            <summary>
+            Number of notifications but button Left2
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsRight1">
+            <summary>
+            Number of notifications but button Right1
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsRight2">
+            <summary>
+            Number of notifications but button Right2
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.BalanceNotificationEvent">
+            <summary>
+            Contains information about an incoming chat message.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.#ctor">
+            <summary>
+            Contains information about an incoming chat message.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Amount">
+            <summary>
+            Amount
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Reserved">
+            <summary>
+            Amount reserved
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Currency">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Event">
+            <summary>
+            Account event
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent">
+            <summary>
+            Contains information about an incoming chat message.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.#ctor">
+            <summary>
+            Contains information about an incoming chat message.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.ReplaceObjectId">
+            <summary>
+            ID of message object being updated
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Xmpp.XmppNotificationEvent">
+            <summary>
+            Abstract base class of XMPP notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Xmpp.XmppNotificationEvent.#ctor">
+            <summary>
+            Abstract base class of XMPP notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Xmpp.XmppNotificationEvent.BareJid">
+            <summary>
+            Bare JID of sender.
+            </summary>
+        </member>
         <member name="T:IdApp.Services.Ocr.IOcrService">
             <summary>
             Interface for the Optical Character Recognition (OCR) Service.
@@ -18492,6 +18833,11 @@
         <member name="P:IdApp.Services.ServiceReferences.NfcService">
             <summary>
             Near-Field Communication (NFC) service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.NotificationService">
+            <summary>
+            Notification Service
             </summary>
         </member>
         <member name="P:IdApp.Services.ServiceReferences.PushNotificationService">

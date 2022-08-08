@@ -9,6 +9,7 @@ using IdApp.Resx;
 using IdApp.Services.Contracts;
 using IdApp.Services.Messages;
 using IdApp.Services.Navigation;
+using IdApp.Services.Notification.Xmpp;
 using IdApp.Services.Push;
 using IdApp.Services.Provisioning;
 using IdApp.Services.Tag;
@@ -47,7 +48,6 @@ using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
-using Xamarin.Forms;
 
 namespace IdApp.Services.Xmpp
 {
@@ -1443,11 +1443,11 @@ namespace IdApp.Services.Xmpp
 
 			INavigationService NavigationService = App.Instantiate<INavigationService>();
 
-			if (NavigationService.TryPopArgs(out ChatNavigationArgs args, e.FromBareJID))
+			if (NavigationService.TryPopArgs(out ChatNavigationArgs args, this.BareJid))
 			{
 				if ((NavigationService.CurrentPage is ChatPage || NavigationService.CurrentPage is ChatPageIos) &&
 					NavigationService.CurrentPage.BindingContext is ChatViewModel ChatViewModel &&
-					ChatViewModel.BareJid == e.FromBareJID)
+					ChatViewModel.BareJid == this.BareJid)
 				{
 					if (string.IsNullOrEmpty(ReplaceObjectId))
 						await ChatViewModel.MessageAddedAsync(Message);
@@ -1457,13 +1457,14 @@ namespace IdApp.Services.Xmpp
 			}
 			else
 			{
-				string LegalId = ContactInfo?.LegalId;
-				string BareJid = ContactInfo?.BareJid ?? e.FromBareJID;
-
-				this.UiSerializer.BeginInvokeOnMainThread(async () =>
-					await NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName) { UniqueId = BareJid }));
-
-				Thread.Sleep(100);
+				await this.NotificationService.NewEvent(new ChatMessageNotificationEvent()
+				{
+					Category = "Chat:" + e.FromBareJID,
+					BareJid = e.FromBareJID,
+					ReplaceObjectId = ReplaceObjectId,
+					Received = DateTime.UtcNow,
+					Button = 0
+				});
 			}
 		}
 

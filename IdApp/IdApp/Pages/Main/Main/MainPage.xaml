@@ -20,16 +20,25 @@
             </Grid.RowDefinitions>
             <mainTabBar:MainTabBarView x:Name="MainTabBar"
                                        Grid.Row="1"
-                                       LeftButton1Text="{x:Static resx:FontAwesome.Contacts}"
-                                       LeftButton2Text="{x:Static resx:FontAwesome.Things}"
-                                       CenterButtonText="{x:Static resx:FontAwesome.ScanQr}"
-                                       RightButton1Text="{x:Static resx:FontAwesome.Paragraph}"
-                                       RightButton2Text="{x:Static resx:FontAwesome.Wallet}"
+
+									   LeftButton1Text="{x:Static resx:FontAwesome.Contacts}"
                                        LeftButton1Command="{Binding Path=ViewMyContactsCommand}"
+									   LeftButton1Overlay="{Binding Path=Left1Overlay}"
+									   
+                                       LeftButton2Text="{x:Static resx:FontAwesome.Things}"
                                        LeftButton2Command="{Binding Path=ViewMyThingsCommand}"
+									   LeftButton2Overlay="{Binding Path=Left2Overlay}"
+
+									   CenterButtonText="{x:Static resx:FontAwesome.ScanQr}"
                                        CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
-                                       RightButton1Command="{Binding Path=ViewSignedContractsCommand}"
-                                       RightButton2Command="{Binding Path=ViewWalletCommand}"/>
+
+									   RightButton1Text="{x:Static resx:FontAwesome.Paragraph}"
+									   RightButton1Command="{Binding Path=ViewSignedContractsCommand}"
+									   RightButton1Overlay="{Binding Path=Right1Overlay}"
+
+									   RightButton2Text="{x:Static resx:FontAwesome.Wallet}"
+                                       RightButton2Command="{Binding Path=ViewWalletCommand}"
+									   RightButton2Overlay="{Binding Path=Right2Overlay}"/>
             <Grid Grid.Row="0" Margin="{StaticResource DefaultMargin}" VerticalOptions="StartAndExpand">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

@@ -13,6 +13,8 @@ using IdApp.Pages.Wallet.Payment;
 using IdApp.Pages.Wallet.PaymentAcceptance;
 using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Resx;
+using IdApp.Services.Notification;
+using IdApp.Services.Notification.Wallet;
 using NeuroFeatures;
 using Waher.Runtime.Inventory;
 
@@ -49,17 +51,25 @@ namespace IdApp.Services.Wallet
 
 		#region Event Handlers
 
-		private Task Wallet_BalanceUpdated(object Sender, EDaler.BalanceEventArgs e)
+		private async Task Wallet_BalanceUpdated(object Sender, BalanceEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			if (this.NavigationService.CurrentPage is not null &&
+				this.NavigationService.CurrentPage.GetType().Namespace.StartsWith(typeof(EDalerUriViewModel).Namespace))
 			{
-				if ((e.Balance.Event?.Change ?? 0) > 0)
-					await this.NavigationService.GoToAsync(nameof(EDalerReceivedPage), new EDalerBalanceNavigationArgs(e.Balance));
-				else
-					await this.OpenWallet();
-			});
+				return;
+			}
 
-			return Task.CompletedTask;
+			await this.NotificationService.NewEvent(new BalanceNotificationEvent()
+			{
+				Amount = e.Balance.Amount,
+				Currency = e.Balance.Currency,
+				Event = e.Balance.Event,
+				Received = DateTime.UtcNow,
+				Reserved = e.Balance.Reserved,
+				Timestamp = e.Balance.Timestamp,
+				Category = "Balance:" + (e.Balance.Event?.Remote ?? string.Empty),
+				Button = EventButton.Right2
+			});
 		}
 
 		#endregion

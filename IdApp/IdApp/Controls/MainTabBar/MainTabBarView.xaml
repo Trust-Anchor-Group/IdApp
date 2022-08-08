@@ -15,15 +15,11 @@
                         <Setter Property="Margin" Value="0"/>
                         <Setter Property="HeightRequest" Value="48"/>
                         <Style.Triggers>
-                            <Trigger TargetType="Button"
-                                     Property="IsEnabled"
-                                     Value="False">
+                            <Trigger TargetType="Button" Property="IsEnabled" Value="False">
                                 <Setter Property="TextColor" Value="Gray" />
                                 <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
                             </Trigger>
-                            <Trigger TargetType="Button"
-                                     Property="IsEnabled"
-                                     Value="True">
+                            <Trigger TargetType="Button" Property="IsEnabled" Value="True">
                                 <Setter Property="TextColor" Value="{StaticResource HeadingForeground}" />
                                 <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
                             </Trigger>
@@ -40,13 +36,36 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
+				
                 <!-- Left buttons -->
-                <Button x:Name="LeftButton1" Grid.Row="0" Grid.Column="0" FontSize="Medium" Style="{StaticResource TabBarButton}" />
-                <Button x:Name="LeftButton2" Grid.Row="0" Grid.Column="1" FontSize="Medium" Style="{StaticResource TabBarButton}" />
-                <!-- Right button -->
-                <Button x:Name="RightButton1" Grid.Row="0" Grid.Column="3" FontSize="Medium" Style="{StaticResource TabBarButton}"/>
-                <Button x:Name="RightButton2" Grid.Row="0" Grid.Column="4" FontSize="Medium" Style="{StaticResource TabBarButton}"/>
-                <!-- BEGIN round button backdrop -->
+
+				<Button x:Name="LeftButton1" Grid.Row="0" Grid.Column="0" FontSize="Medium" Style="{StaticResource TabBarButton}" />
+				<Frame x:Name="LeftButton1OverlayFrame" Grid.Row="0" Grid.Column="0" CornerRadius="12" Margin="2" Padding="8,3,8,3"
+					   HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+					<Label x:Name="LeftButton1OverlayLabel" FontSize="Caption" TextColor="{StaticResource HeadingForeground}"/>
+				</Frame>
+
+				<Button x:Name="LeftButton2" Grid.Row="0" Grid.Column="1" FontSize="Medium" Style="{StaticResource TabBarButton}" />
+				<Frame x:Name="LeftButton2OverlayFrame" Grid.Row="0" Grid.Column="1" CornerRadius="12" Margin="2" Padding="8,3,8,3"
+					   HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+					<Label x:Name="LeftButton2OverlayLabel" FontSize="Caption" TextColor="{StaticResource HeadingForeground}"/>
+				</Frame>
+
+				<!-- Right buttons -->
+
+				<Button x:Name="RightButton1" Grid.Row="0" Grid.Column="3" FontSize="Medium" Style="{StaticResource TabBarButton}"/>
+				<Frame x:Name="RightButton1OverlayFrame" Grid.Row="0" Grid.Column="0" CornerRadius="12" Margin="2" Padding="8,3,8,3"
+					   HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+					<Label x:Name="RightButton1OverlayLabel" FontSize="Caption" TextColor="{StaticResource HeadingForeground}"/>
+				</Frame>
+
+				<Button x:Name="RightButton2" Grid.Row="0" Grid.Column="4" FontSize="Medium" Style="{StaticResource TabBarButton}"/>
+				<Frame x:Name="RightButton2OverlayFrame" Grid.Row="0" Grid.Column="0" CornerRadius="12" Margin="2" Padding="8,3,8,3"
+					   HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+					<Label x:Name="RightButton2OverlayLabel" FontSize="Caption" TextColor="{StaticResource HeadingForeground}"/>
+				</Frame>
+
+				<!-- BEGIN round button backdrop -->
                 <!-- solid background -->
                 <BoxView Grid.Row="0" Grid.Column="2" VerticalOptions="End" HorizontalOptions="Fill" HeightRequest="48" BackgroundColor="{StaticResource HeadingBackground}"/>
                 <!-- bottom half circle -->
@@ -66,10 +85,7 @@
                                         </PathFigure.Segments>
                                     </PathFigure>
                                     <PathFigure StartPoint="0,32">
-                                        <ArcSegment IsLargeArc="True"
-                                                    Size="36, 36"
-                                                    Point="72, 32"
-                                                    SweepDirection="CounterClockwise" />
+                                        <ArcSegment IsLargeArc="True" Size="36, 36" Point="72, 32" SweepDirection="CounterClockwise" />
                                     </PathFigure>
                                 </PathFigureCollection>
                             </PathGeometry.Figures>
