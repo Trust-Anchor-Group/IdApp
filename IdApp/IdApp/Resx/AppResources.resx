@@ -552,6 +552,12 @@
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>Network seems to be missing. Please check your configuration and coverage and try again.</value>
   </data>
+   <data name="SendEmailWarning" xml:space="preserve">
+    <value>Code has been sent, check email, spam…</value>
+  </data>
+  <data name="SendPhoneNumberWarning" xml:space="preserve">
+    <value>Code has been sent, check your phone</value>
+  </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>
   </data>
@@ -1154,6 +1160,9 @@
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Send Code</value>
+  </data>
+  <data name="DisabledFor" xml:space="preserve">
+    <value>DISABLED FOR {0} SECONDS</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>The code was not correct.</value>
