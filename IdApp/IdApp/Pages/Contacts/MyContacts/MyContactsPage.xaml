@@ -37,7 +37,11 @@
 
 						<Ellipse Grid.Column="1" Grid.Row="0" WidthRequest="24" HeightRequest="24"
 								 Fill="{Binding ConnectionColor}" Stroke="Black" StrokeThickness="2"
-								 HorizontalOptions="Center" VerticalOptions="Center"/>
+								 HorizontalOptions="Center" VerticalOptions="Center">
+							<Ellipse.GestureRecognizers>
+								<TapGestureRecognizer Command="{Binding ToggleSubscriptionCommand}" />
+							</Ellipse.GestureRecognizers>
+						</Ellipse>
 					</Grid>
 				</DataTemplate>
                 </CollectionView.ItemTemplate>

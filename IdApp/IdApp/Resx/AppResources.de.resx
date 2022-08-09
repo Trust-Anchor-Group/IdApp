@@ -1800,4 +1800,10 @@
   <data name="EnterValue" xml:space="preserve">
     <value>Sie müssen zuerst einen Wert eingeben.</value>
   </data>
+  <data name="Question" xml:space="preserve">
+    <value>Frage</value>
+  </data>
+  <data name="RemoveSubscriptionFrom" xml:space="preserve">
+    <value>Möchten Sie das Anwesenheitsabonnement aus {0} entfernen?</value>
+  </data>
 </root>

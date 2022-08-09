@@ -1800,4 +1800,10 @@
   <data name="EnterValue" xml:space="preserve">
     <value>Sinun on ensin annettava arvo.</value>
   </data>
+  <data name="Question" xml:space="preserve">
+    <value>Kysymys</value>
+  </data>
+  <data name="RemoveSubscriptionFrom" xml:space="preserve">
+    <value>Haluatko poistaa tavoitettavuustilauksen {0}?</value>
+  </data>
 </root>

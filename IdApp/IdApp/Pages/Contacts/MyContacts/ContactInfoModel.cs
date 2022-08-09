@@ -1,5 +1,11 @@
-﻿using IdApp.Services;
+﻿using IdApp.Popups.Xmpp.RemoveSubscription;
+using IdApp.Popups.Xmpp.SubscribeTo;
+using IdApp.Resx;
+using IdApp.Services;
 using IdApp.Services.Notification;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
@@ -16,6 +22,8 @@ namespace IdApp.Pages.Contacts.MyContacts
 		private readonly ContactInfo contact;
 		private readonly NotificationEvent[] events;
 
+		private readonly ICommand toggleSubscriptionCommand;
+
 		/// <summary>
 		/// Contact Information model, including related notification information.
 		/// </summary>
@@ -27,6 +35,8 @@ namespace IdApp.Pages.Contacts.MyContacts
 			this.references = References;
 			this.contact = Contact;
 			this.events = Events;
+
+			this.toggleSubscriptionCommand = new Command(async () => await this.ToggleSubscription(), () => this.CanToggleSubscription());
 		}
 
 		/// <summary>
@@ -143,5 +153,90 @@ namespace IdApp.Pages.Contacts.MyContacts
 			}
 		}
 
+		/// <summary>
+		/// Command to execute when user wants to toggle XMPP subcription.
+		/// </summary>
+		public ICommand ToggleSubscriptionCommand => this.toggleSubscriptionCommand;
+
+		/// <summary>
+		/// If toggle subscription can be performed on the contact.
+		/// </summary>
+		/// <returns>If command is enabled.</returns>
+		public bool CanToggleSubscription()
+		{
+			return !string.IsNullOrEmpty(this.contact.BareJid);
+		}
+
+		/// <summary>
+		/// Subscribes to an unsubscribed contact; unsubscribes from a subscribed one, with user permission.
+		/// </summary>
+		/// <returns></returns>
+		public async Task ToggleSubscription()
+		{
+			if (string.IsNullOrEmpty(this.contact.BareJid))
+				return;
+
+			RosterItem Item = this.references.XmppService.Xmpp[this.contact.BareJid];
+			bool Subscribed;
+
+			if (Item is null)
+				Subscribed = false;
+			else
+				Subscribed = Item.State == SubscriptionState.To || Item.State == SubscriptionState.Both;
+
+			if (Subscribed)
+			{
+				if (!await this.references.UiSerializer.DisplayAlert(AppResources.Question,
+					string.Format(AppResources.RemoveSubscriptionFrom, this.FriendlyName),
+					AppResources.Yes, AppResources.Cancel))
+				{
+					return;
+				}
+
+				this.references.XmppService.Xmpp.RequestPresenceUnsubscription(this.BareJid);
+
+				if (Item.State == SubscriptionState.From || Item.State == SubscriptionState.Both)
+				{
+					RemoveSubscriptionPopupPage Page = new(this.BareJid);
+
+					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
+					bool? Remove = await Page.Result;
+
+					if (Remove.HasValue && Remove.Value)
+					{
+						this.references.XmppService.Xmpp.RequestRevokePresenceSubscription(this.BareJid);
+
+						if (this.contact.AllowSubscriptionFrom.HasValue && this.contact.AllowSubscriptionFrom.Value)
+						{
+							this.contact.AllowSubscriptionFrom = null;
+							await Database.Update(this.contact);
+						}
+					}
+				}
+			}
+			else
+			{
+				SubscribeToPopupPage SubscribeToPopupPage = new(this.BareJid);
+
+				await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(SubscribeToPopupPage);
+				bool? SubscribeTo = await SubscribeToPopupPage.Result;
+
+				if (SubscribeTo.HasValue && SubscribeTo.Value)
+				{
+					string IdXml;
+
+					if (this.references.TagProfile.LegalIdentity is null)
+						IdXml = string.Empty;
+					else
+					{
+						StringBuilder Xml = new();
+						this.references.TagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
+						IdXml = Xml.ToString();
+					}
+
+					this.references.XmppService.Xmpp.RequestPresenceSubscription(this.BareJid, IdXml);
+				}
+			}
+		}
 	}
 }

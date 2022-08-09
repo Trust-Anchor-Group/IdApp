@@ -1800,4 +1800,10 @@
   <data name="EnterValue" xml:space="preserve">
     <value>Trebuie să introduceți mai întâi o valoare.</value>
   </data>
+  <data name="Question" xml:space="preserve">
+    <value>Întrebare</value>
+  </data>
+  <data name="RemoveSubscriptionFrom" xml:space="preserve">
+    <value>Doriți să eliminați abonamentul de prezență din {0}?</value>
+  </data>
 </root>

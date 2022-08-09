@@ -3220,6 +3220,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        internal static string Question {
+            get {
+                return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Receive eDaler.
         /// </summary>
         internal static string ReceiveEDaler {
@@ -3324,6 +3333,15 @@ namespace IdApp.Resx {
         internal static string RemoveSubscription2 {
             get {
                 return ResourceManager.GetString("RemoveSubscription2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove the presence subscription from {0}?.
+        /// </summary>
+        internal static string RemoveSubscriptionFrom {
+            get {
+                return ResourceManager.GetString("RemoveSubscriptionFrom", resourceCulture);
             }
         }
         
