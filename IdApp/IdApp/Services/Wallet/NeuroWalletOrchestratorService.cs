@@ -67,7 +67,7 @@ namespace IdApp.Services.Wallet
 				Received = DateTime.UtcNow,
 				Reserved = e.Balance.Reserved,
 				Timestamp = e.Balance.Timestamp,
-				Category = "Balance:" + (e.Balance.Event?.Remote ?? string.Empty),
+				Category = e.Balance.Event?.Remote ?? string.Empty,
 				Button = EventButton.Right2
 			});
 		}

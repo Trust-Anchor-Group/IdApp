@@ -4,8 +4,7 @@
                        xmlns:noBounce="clr-namespace:IdApp.Controls.NoBounceView;assembly=IdApp"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
-                       xmlns:model="clr-namespace:IdApp.Pages.Contacts;assembly=IdApp"
-                       xmlns:services="clr-namespace:IdApp.Services;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Contacts.MyContacts;assembly=IdApp"
                        x:DataType="model:ContactListViewModel"
                        x:Class="IdApp.Pages.Contacts.MyContacts.MyContactsPage"
                        Title="{x:Static resx:AppResources.Contacts}"
@@ -24,7 +23,7 @@
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="services:ContactInfo">
+                    <DataTemplate x:DataType="model:ContactInfoModel">
                         <Label LineBreakMode="CharacterWrap" TextType="Text" Margin="0,10,0,10"
                                Text="{Binding Path=FriendlyName}" VerticalTextAlignment="Center"
                                Style="{StaticResource ClickableValueLabel}"/>

@@ -8,7 +8,6 @@ using System.Windows.Input;
 using System.Xml;
 using IdApp.DeviceSpecific;
 using IdApp.Extensions;
-using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.NewContract;
@@ -1125,7 +1124,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 		private async Task SendToContact()
 		{
-			TaskCompletionSource<ContactInfo> Selected = new();
+			TaskCompletionSource<ContactInfoModel> Selected = new();
 			ContactListNavigationArgs Args = new(AppResources.SendInformationTo, Selected)
 			{
 				CanScanQrCode = true,
@@ -1134,7 +1133,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
 
-			ContactInfo Contact = await Args.Selection.Task;
+			ContactInfoModel Contact = await Args.Selection.Task;
 			if (Contact is null)
 				return;
 
@@ -1149,7 +1148,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			await Task.Delay(100);  // Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
 
-			await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
+			await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact.Contact)
+			{
+				UniqueId = Contact.BareJid
+			});
 		}
 
 		private async Task Share()

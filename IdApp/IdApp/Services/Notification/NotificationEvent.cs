@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Waher.Persistence;
 using Waher.Persistence.Attributes;
 
 namespace IdApp.Services.Notification
@@ -59,7 +60,7 @@ namespace IdApp.Services.Notification
 		/// <summary>
 		/// Category string. Events having the same category are grouped and processed together.
 		/// </summary>
-		public string Category { get; set; }
+		public CaseInsensitiveString Category { get; set; }
 
 		/// <summary>
 		/// Button on which notification should be displayed

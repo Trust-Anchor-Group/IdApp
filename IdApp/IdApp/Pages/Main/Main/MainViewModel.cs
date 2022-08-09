@@ -1,11 +1,11 @@
 ﻿using IdApp.DeviceSpecific;
 using IdApp.Extensions;
-using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts;
 using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Resx;
 using IdApp.Services.Data.Countries;
+using IdApp.Services.Notification;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Xmpp;
 using System;
@@ -588,8 +588,8 @@ namespace IdApp.Pages.Main.Main
 
 		private async Task ViewMyContacts()
 		{
-			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-				new ContactListNavigationArgs(AppResources.ContactsDescription, SelectContactAction.ViewIdentity));
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage), new ContactListNavigationArgs(AppResources.ContactsDescription,
+				SelectContactAction.ViewIdentity, this.NotificationService.GetEventsByCategory(EventButton.Left1)));
 		}
 
 		private async Task ViewMyThings()

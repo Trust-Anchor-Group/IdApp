@@ -2393,18 +2393,18 @@
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="!:ContactListNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(IdApp.Services.ContactInfo)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="!:ContactListNavigationArgs"/> class.
             </summary>
             <param name="Contact">Contact information.</param>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(System.String,System.String,System.String)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="!:ContactListNavigationArgs"/> class.
             </summary>
             <param name="LegalId">Legal ID, if available.</param>
             <param name="BareJid">Bare JID of remote chat party</param>
@@ -3138,142 +3138,250 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Pages.Contacts.SelectContactAction">
+        <member name="T:IdApp.Pages.Contacts.MyContacts.ContactInfoModel">
+            <summary>
+            Contact Information model, including related notification information.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.#ctor(IdApp.Services.ContactInfo,IdApp.Services.Notification.NotificationEvent[])">
+            <summary>
+            Contact Information model, including related notification information.
+            </summary>
+            <param name="Contact">Contact information.</param>
+            <param name="Events">Notification events</param>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.Contact">
+            <summary>
+            Contact Information object in database.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.BareJid">
+            <summary>
+            Bare JID of contact.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.LegalId">
+            <summary>
+            Legal ID of contact.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.LegalIdentity">
+            <summary>
+            Legal Identity object.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.FriendlyName">
+            <summary>
+            Friendly name.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.SourceId">
+            <summary>
+            Source ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.Partition">
+            <summary>
+            Partition
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.NodeId">
+            <summary>
+            Node ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.RegistryJid">
+            <summary>
+            Registry JID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.SubcribeTo">
+            <summary>
+            Subscribe to this contact
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.AllowSubscriptionFrom">
+            <summary>
+            Allow subscriptions from this contact
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.IsThing">
+            <summary>
+            The contact is a thing
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.Owner">
+            <summary>
+            If the account is registered as the owner of the thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.MetaData">
+            <summary>
+            Meta-data related to a thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.Events">
+            <summary>
+            Notification events.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.MyContacts.SelectContactAction">
             <summary>
             Actions to take when a contact has been selected.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contacts.SelectContactAction.MakePayment">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.SelectContactAction.MakePayment">
             <summary>
             Make a payment to contact.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contacts.SelectContactAction.ViewIdentity">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.SelectContactAction.ViewIdentity">
             <summary>
             View the identity.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contacts.SelectContactAction.Select">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.SelectContactAction.Select">
             <summary>
             Embed link to ID in chat
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Contacts.ContactListNavigationArgs">
+        <member name="T:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a list of contacts.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListNavigationArgs.#ctor">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.#ctor">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListNavigationArgs.#ctor(System.String,IdApp.Pages.Contacts.SelectContactAction)">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.#ctor(System.String,IdApp.Pages.Contacts.MyContacts.SelectContactAction)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs"/> class.
             </summary>
             <param name="Description">Description presented to user.</param>
             <param name="Action">Action to take when a contact has been selected.</param>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListNavigationArgs.#ctor(System.String,System.Threading.Tasks.TaskCompletionSource{IdApp.Services.ContactInfo})">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.#ctor(System.String,IdApp.Pages.Contacts.MyContacts.SelectContactAction,System.Collections.Generic.SortedDictionary{Waher.Persistence.CaseInsensitiveString,IdApp.Services.Notification.NotificationEvent[]})">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs"/> class.
+            </summary>
+            <param name="Description">Description presented to user.</param>
+            <param name="Action">Action to take when a contact has been selected.</param>
+            <param name="NotificationEvents">Pending notification events.</param>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.#ctor(System.String,System.Threading.Tasks.TaskCompletionSource{IdApp.Pages.Contacts.MyContacts.ContactInfoModel})">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs"/> class.
             </summary>
             <param name="Description">Description presented to user.</param>
             <param name="Selection">Selection source, where selected item will be stored, or null if cancelled.</param>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.Description">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.Description">
             <summary>
             Description presented to user.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.Action">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.Action">
             <summary>
             Action to take when a contact has been selected.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.Selection">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.Selection">
             <summary>
             Selection source, if selecting identity.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.CanScanQrCode">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.CanScanQrCode">
             <summary>
             If the user should be able to scane QR Codes.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Contacts.ContactListViewModel">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.HasNotificationEvents">
+            <summary>
+            If notification events are available.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.TryGetNotificationEvents(Waher.Persistence.CaseInsensitiveString,IdApp.Services.Notification.NotificationEvent[]@)">
+            <summary>
+            Tries to get available notification events.
+            </summary>
+            <param name="Category">Notification event category</param>
+            <param name="Events">Notification events, if found.</param>
+            <returns>If notification events where found for the given category.</returns>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.MyContacts.ContactListViewModel">
             <summary>
             The view model to bind to when displaying the list of contacts.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListViewModel.#ctor">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.#ctor">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListViewModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.ContactListViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListViewModel.DoBind">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.DoBind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="F:IdApp.Pages.Contacts.ContactListViewModel.ShowContactsMissingProperty">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ShowContactsMissingProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.ShowContactsMissing"/>
+            See <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ShowContactsMissing"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.ShowContactsMissing">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ShowContactsMissing">
             <summary>
             Gets or sets whether to show a contacts missing alert or not.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contacts.ContactListViewModel.DescriptionProperty">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.DescriptionProperty">
             <summary>
-            <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.Description"/>
+            <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.Description"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.Description">
-            <summary>
-            The description to present to the user.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Contacts.ContactListViewModel.CanScanQrCodeProperty">
-            <summary>
-            <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.CanScanQrCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.CanScanQrCode">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.Description">
             <summary>
             The description to present to the user.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contacts.ContactListViewModel.ActionProperty">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.CanScanQrCodeProperty">
             <summary>
-            <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.Action"/>
+            <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.CanScanQrCode"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.Action">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.CanScanQrCode">
+            <summary>
+            The description to present to the user.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ActionProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.Action"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.Action">
             <summary>
             The action to take when contact has been selected.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.Contacts">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.Contacts">
             <summary>
             Holds the list of contacts to display.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contacts.ContactListViewModel.SelectedContactProperty">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.SelectedContactProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.SelectedContact"/>
+            See <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.SelectedContact"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.SelectedContact">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.SelectedContact">
             <summary>
             The currently selected contact, if any.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.ScanQrCodeCommand">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ScanQrCodeCommand">
             <summary>
             Command executed when the user wants to scan a contact from a QR Code.
             </summary>
@@ -18261,6 +18369,27 @@
             </summary>
             <param name="Event">Notification event.</param>
         </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.GetCategories(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available categories for a button.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded categories.</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.GetEvents(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available notification events for a button.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded events.</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.GetEventsByCategory(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available notification events for a button, sorted by category.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded events.</returns>
+        </member>
         <member name="E:IdApp.Services.Notification.INotificationService.OnNewNotification">
             <summary>
             Event raised when a new notification has been logged.
@@ -18382,6 +18511,27 @@
             Registers a new event and notifies the user.
             </summary>
             <param name="Event">Notification event.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.GetEvents(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available notification events for a button.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded events.</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.GetCategories(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available categories for a button.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded categories.</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.GetEventsByCategory(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available notification events for a button, sorted by category.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded events.</returns>
         </member>
         <member name="E:IdApp.Services.Notification.NotificationService.OnNewNotification">
             <summary>

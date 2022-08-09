@@ -11,19 +11,20 @@ using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.Payment;
 using IdApp.Resx;
 using IdApp.Services;
+using IdApp.Services.Notification;
 using IdApp.Services.UI.QR;
 using Waher.Networking.XMPP;
 using Waher.Persistence;
 using Xamarin.Forms;
 
-namespace IdApp.Pages.Contacts
+namespace IdApp.Pages.Contacts.MyContacts
 {
 	/// <summary>
 	/// The view model to bind to when displaying the list of contacts.
 	/// </summary>
 	public class ContactListViewModel : BaseViewModel
 	{
-		private TaskCompletionSource<ContactInfo> selection;
+		private TaskCompletionSource<ContactInfoModel> selection;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
@@ -32,7 +33,7 @@ namespace IdApp.Pages.Contacts
 		{
 			this.ScanQrCodeCommand = new Command(async _ => await this.ScanQrCode());
 
-			this.Contacts = new ObservableCollection<ContactInfo>();
+			this.Contacts = new ObservableCollection<ContactInfoModel>();
 
 			this.Description = AppResources.ContactsDescription;
 			this.Action = SelectContactAction.ViewIdentity;
@@ -52,7 +53,7 @@ namespace IdApp.Pages.Contacts
 				this.CanScanQrCode = args.CanScanQrCode;
 			}
 
-			SortedDictionary<string, ContactInfo> Sorted = new();
+			SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted = new();
 			Dictionary<CaseInsensitiveString, bool> Jids = new();
 
 			foreach (ContactInfo Info in await Database.Find<ContactInfo>())
@@ -87,12 +88,17 @@ namespace IdApp.Pages.Contacts
 
 			this.Contacts.Clear();
 			foreach (ContactInfo Info in Sorted.Values)
-				this.Contacts.Add(Info);
+			{
+				if (!args.TryGetNotificationEvents(Info.BareJid, out NotificationEvent[] Events))
+					Events = new NotificationEvent[0];
+
+				this.Contacts.Add(new ContactInfoModel(Info, Events));
+			}
 
 			this.ShowContactsMissing = Sorted.Count == 0;
 		}
 
-		private static void Add(SortedDictionary<string, ContactInfo> Sorted, string Name, ContactInfo Info)
+		private static void Add(SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted, CaseInsensitiveString Name, ContactInfo Info)
 		{
 			if (Sorted.ContainsKey(Name))
 			{
@@ -188,20 +194,20 @@ namespace IdApp.Pages.Contacts
 		/// <summary>
 		/// Holds the list of contacts to display.
 		/// </summary>
-		public ObservableCollection<ContactInfo> Contacts { get; }
+		public ObservableCollection<ContactInfoModel> Contacts { get; }
 
 		/// <summary>
 		/// See <see cref="SelectedContact"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedContactProperty =
-			BindableProperty.Create(nameof(SelectedContact), typeof(ContactInfo), typeof(ContactListViewModel), default(ContactInfo),
+			BindableProperty.Create(nameof(SelectedContact), typeof(ContactInfoModel), typeof(ContactListViewModel), default(ContactInfoModel),
 				propertyChanged: (b, oldValue, newValue) =>
 				{
-					if (b is ContactListViewModel viewModel && newValue is ContactInfo Contact)
+					if (b is ContactListViewModel viewModel && newValue is ContactInfoModel Contact)
 						viewModel.OnSelected(Contact);
 				});
 
-		private void OnSelected(ContactInfo Contact)
+		private void OnSelected(ContactInfoModel Contact)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
@@ -249,7 +255,12 @@ namespace IdApp.Pages.Contacts
 						else if (!string.IsNullOrEmpty(Contact.LegalId))
 							await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId, AppResources.ScannedQrCode);
 						else if (!string.IsNullOrEmpty(Contact.BareJid))
-							await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
+						{
+							await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact.Contact)
+							{
+								UniqueId = Contact.BareJid
+							});
+						}
 
 						break;
 
@@ -264,9 +275,9 @@ namespace IdApp.Pages.Contacts
 		/// <summary>
 		/// The currently selected contact, if any.
 		/// </summary>
-		public ContactInfo SelectedContact
+		public ContactInfoModel SelectedContact
 		{
-			get => (ContactInfo)this.GetValue(SelectedContactProperty);
+			get => (ContactInfoModel)this.GetValue(SelectedContactProperty);
 			set => this.SetValue(SelectedContactProperty, value);
 		}
 
@@ -281,10 +292,10 @@ namespace IdApp.Pages.Contacts
 			{
 				if (Constants.UriSchemes.StartsWithIdScheme(code))
 				{
-					this.OnSelected(new ContactInfo()
+					this.OnSelected(new ContactInfoModel(new ContactInfo()
 					{
 						LegalId = Constants.UriSchemes.RemoveScheme(code)
-					});
+					}, new NotificationEvent[0]));
 				}
 				else
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);

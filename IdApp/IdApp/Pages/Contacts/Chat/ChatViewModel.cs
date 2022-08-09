@@ -766,7 +766,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedId()
 		{
-			TaskCompletionSource<ContactInfo> SelectedContact = new();
+			TaskCompletionSource<ContactInfoModel> SelectedContact = new();
 
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
 				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectedContact)
@@ -774,7 +774,7 @@ namespace IdApp.Pages.Contacts.Chat
 					CanScanQrCode = true
 				});
 
-			ContactInfo Contact = await SelectedContact.Task;
+			ContactInfoModel Contact = await SelectedContact.Task;
 			if (Contact is null)
 				return;
 

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Waher.Persistence;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Notification
 {
-
 	/// <summary>
 	/// Interface for push notification services.
 	/// </summary>
@@ -16,6 +17,27 @@ namespace IdApp.Services.Notification
 		/// </summary>
 		/// <param name="Event">Notification event.</param>
 		Task NewEvent(NotificationEvent Event);
+
+		/// <summary>
+		/// Gets available categories for a button.
+		/// </summary>
+		/// <param name="Button">Button</param>
+		/// <returns>Recorded categories.</returns>
+		CaseInsensitiveString[] GetCategories(EventButton Button);
+
+		/// <summary>
+		/// Gets available notification events for a button.
+		/// </summary>
+		/// <param name="Button">Button</param>
+		/// <returns>Recorded events.</returns>
+		NotificationEvent[] GetEvents(EventButton Button);
+
+		/// <summary>
+		/// Gets available notification events for a button, sorted by category.
+		/// </summary>
+		/// <param name="Button">Button</param>
+		/// <returns>Recorded events.</returns>
+		SortedDictionary<CaseInsensitiveString, NotificationEvent[]> GetEventsByCategory(EventButton Button);
 
 		/// <summary>
 		/// Event raised when a new notification has been logged.

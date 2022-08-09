@@ -1441,31 +1441,31 @@ namespace IdApp.Services.Xmpp
 				}
 			}
 
-			INavigationService NavigationService = App.Instantiate<INavigationService>();
-
-			if (NavigationService.TryPopArgs(out ChatNavigationArgs args, this.BareJid))
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
+				INavigationService NavigationService = App.Instantiate<INavigationService>();
+
 				if ((NavigationService.CurrentPage is ChatPage || NavigationService.CurrentPage is ChatPageIos) &&
 					NavigationService.CurrentPage.BindingContext is ChatViewModel ChatViewModel &&
-					ChatViewModel.BareJid == this.BareJid)
+					string.Compare(ChatViewModel.BareJid, e.FromBareJID, true) == 0)
 				{
 					if (string.IsNullOrEmpty(ReplaceObjectId))
 						await ChatViewModel.MessageAddedAsync(Message);
 					else
 						await ChatViewModel.MessageUpdatedAsync(Message);
 				}
-			}
-			else
-			{
-				await this.NotificationService.NewEvent(new ChatMessageNotificationEvent()
+				else
 				{
-					Category = "Chat:" + e.FromBareJID,
-					BareJid = e.FromBareJID,
-					ReplaceObjectId = ReplaceObjectId,
-					Received = DateTime.UtcNow,
-					Button = 0
-				});
-			}
+					await this.NotificationService.NewEvent(new ChatMessageNotificationEvent()
+					{
+						Category = e.FromBareJID,
+						BareJid = e.FromBareJID,
+						ReplaceObjectId = ReplaceObjectId,
+						Received = DateTime.UtcNow,
+						Button = 0
+					});
+				}
+			});
 		}
 
 		#region Push Notification

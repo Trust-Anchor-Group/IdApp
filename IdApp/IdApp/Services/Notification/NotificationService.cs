@@ -15,7 +15,7 @@ namespace IdApp.Services.Notification
 	{
 		private const int nrButtons = 4;
 
-		private readonly SortedDictionary<string, List<NotificationEvent>>[] events;
+		private readonly SortedDictionary<CaseInsensitiveString, List<NotificationEvent>>[] events;
 
 		/// <summary>
 		/// Notification service
@@ -24,10 +24,10 @@ namespace IdApp.Services.Notification
 		{
 			int i;
 
-			this.events = new SortedDictionary<string, List<NotificationEvent>>[nrButtons];
+			this.events = new SortedDictionary<CaseInsensitiveString, List<NotificationEvent>>[nrButtons];
 
 			for (i = 0; i < nrButtons; i++)
-				this.events[i] = new SortedDictionary<string, List<NotificationEvent>>();
+				this.events[i] = new SortedDictionary<CaseInsensitiveString, List<NotificationEvent>>();
 		}
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace IdApp.Services.Notification
 		/// <param name="cancellationToken">Will stop the service load if the token is set.</param>
 		public override async Task Load(bool isResuming, CancellationToken cancellationToken)
 		{
-			SortedDictionary<string, List<NotificationEvent>> ByCategory = null;
+			SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = null;
 			List<NotificationEvent> Events = null;
 			string PrevCategory = null;
 			int PrevButton = -1;
@@ -83,7 +83,7 @@ namespace IdApp.Services.Notification
 			int Button = (int)Event.Button;
 			if (Button >= 0 && Button < nrButtons)
 			{
-				SortedDictionary<string, List<NotificationEvent>> ByCategory = this.events[Button];
+				SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[Button];
 
 				if (!ByCategory.TryGetValue(Event.Category, out List<NotificationEvent> Events))
 				{
@@ -102,6 +102,66 @@ namespace IdApp.Services.Notification
 					this.LogService.LogException(ex);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Gets available notification events for a button.
+		/// </summary>
+		/// <param name="Button">Button</param>
+		/// <returns>Recorded events.</returns>
+		public NotificationEvent[] GetEvents(EventButton Button)
+		{
+			int i = (int)Button;
+			if (i < 0 || i >= nrButtons)
+				return new NotificationEvent[0];
+
+			SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[i];
+			List<NotificationEvent> Result = new();
+
+			foreach (List<NotificationEvent> Events in ByCategory.Values)
+				Result.AddRange(Events);
+
+			return Result.ToArray();
+		}
+
+		/// <summary>
+		/// Gets available categories for a button.
+		/// </summary>
+		/// <param name="Button">Button</param>
+		/// <returns>Recorded categories.</returns>
+		public CaseInsensitiveString[] GetCategories(EventButton Button)
+		{
+			int i = (int)Button;
+			if (i < 0 || i >= nrButtons)
+				return new CaseInsensitiveString[0];
+
+			SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[i];
+			List<CaseInsensitiveString> Result = new();
+
+			foreach (CaseInsensitiveString Category in ByCategory.Keys)
+				Result.Add(Category);
+
+			return Result.ToArray();
+		}
+
+		/// <summary>
+		/// Gets available notification events for a button, sorted by category.
+		/// </summary>
+		/// <param name="Button">Button</param>
+		/// <returns>Recorded events.</returns>
+		public SortedDictionary<CaseInsensitiveString, NotificationEvent[]> GetEventsByCategory(EventButton Button)
+		{
+			int i = (int)Button;
+			if (i < 0 || i >= nrButtons)
+				return new SortedDictionary<CaseInsensitiveString, NotificationEvent[]>();
+
+			SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[i];
+			SortedDictionary<CaseInsensitiveString, NotificationEvent[]> Result = new();
+
+			foreach (KeyValuePair<CaseInsensitiveString, List<NotificationEvent>> P in ByCategory)
+				Result[P.Key] = P.Value.ToArray();
+
+			return Result;
 		}
 
 		/// <summary>
@@ -129,7 +189,7 @@ namespace IdApp.Services.Notification
 		/// </summary>
 		public int NrNotificationsRight2 => this.Count(this.events[3]);
 
-		private int Count(SortedDictionary<string, List<NotificationEvent>> Events)
+		private int Count(SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> Events)
 		{
 			int Result = 0;
 
