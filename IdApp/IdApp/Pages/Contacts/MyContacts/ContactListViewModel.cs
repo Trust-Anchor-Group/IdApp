@@ -116,7 +116,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 						}
 					}
 
-					this.Contacts.Add(new ContactInfoModel(Info, Events));
+					this.Contacts.Add(new ContactInfoModel(this, Info, Events));
 				}
 			}
 
@@ -125,7 +125,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 				if (args is null || !args.TryGetNotificationEvents(Info.BareJid, out Events))
 					Events = new NotificationEvent[0];
 
-				this.Contacts.Add(new ContactInfoModel(Info, Events));
+				this.Contacts.Add(new ContactInfoModel(this, Info, Events));
 			}
 
 			this.ShowContactsMissing = Sorted.Count == 0;
@@ -347,7 +347,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 			{
 				if (Constants.UriSchemes.StartsWithIdScheme(code))
 				{
-					this.OnSelected(new ContactInfoModel(new ContactInfo()
+					this.OnSelected(new ContactInfoModel(this, new ContactInfo()
 					{
 						LegalId = Constants.UriSchemes.RemoveScheme(code)
 					}, new NotificationEvent[0]));

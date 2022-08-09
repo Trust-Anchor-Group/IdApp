@@ -3143,10 +3143,11 @@
             Contact Information model, including related notification information.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.#ctor(IdApp.Services.ContactInfo,IdApp.Services.Notification.NotificationEvent[])">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.#ctor(IdApp.Services.ServiceReferences,IdApp.Services.ContactInfo,IdApp.Services.Notification.NotificationEvent[])">
             <summary>
             Contact Information model, including related notification information.
             </summary>
+            <param name="References">Service references.</param>
             <param name="Contact">Contact information.</param>
             <param name="Events">Notification events</param>
         </member>
@@ -3223,6 +3224,21 @@
         <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.Events">
             <summary>
             Notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.HasEvents">
+            <summary>
+            If the contact has associated events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.NrEvents">
+            <summary>
+            Number of events associated with contact.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.ConnectionColor">
+            <summary>
+            A color representing the current connection state of the contact.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contacts.MyContacts.SelectContactAction">
