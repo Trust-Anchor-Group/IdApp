@@ -179,7 +179,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		public string EmailButtonLabel
 		{
 			get => (string)this.GetValue(EmailLabelProperty);
-			set 
+			set
 			{
 				this.SetValue(EmailLabelProperty, value);
 			}
@@ -201,7 +201,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		}
 
 		/// <summary>
-		/// See <see cref="EmailDisabled"/>
+		/// See <see cref="EmailButtonDisabled"/>
 		/// </summary>
 		public static readonly BindableProperty EmailButtonDisabledDisabledProperty =
 			BindableProperty.Create(nameof(EmailButtonDisabled), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
@@ -300,7 +300,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		}
 
 		/// <summary>
-		/// See <see cref="PhoneNumberLabelProperty"/>
+		/// See <see cref="PhoneButtonLabel"/>
 		/// </summary>
 		public static readonly BindableProperty PhoneNumberLabelProperty =
 			BindableProperty.Create(nameof(PhoneButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
@@ -705,9 +705,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 
 				if (this.countSeconds > 0)
 				{
-					
 					this.countSeconds--;
-					if (type == "email") {
+					if (type == "email")
+					{
 						this.EmailButtonLabel = string.Format(AppResources.DisabledFor, this.countSeconds);
 						this.EmailButtonDisabled = false;
 					}
@@ -716,7 +716,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 						this.PhoneButtonLabel = string.Format(AppResources.DisabledFor, this.countSeconds);
 						this.PhoneButtonDisabled = false;
 					}
-					
+
 					return true;
 				}
 				else
@@ -725,7 +725,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					this.PhoneButtonDisabled = this.PhoneNumberValid;
 					this.countSeconds = 30;
 					this.EmailButtonLabel = AppResources.SendCode;
-					
+
 					return false;
 				}
 			});

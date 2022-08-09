@@ -59,7 +59,7 @@
 
 					<Button x:Name="SendEMailCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}"
 							Text="{Binding Path=EmailButtonLabel}" Command="{Binding Path=SendEMailCodeCommand}"
-							IsEnabled="{Binding Path=EmailDisabled}" IsVisible="{Binding Path=PurposeSelected}">
+							IsEnabled="{Binding Path=EmailButtonDisabled}" IsVisible="{Binding Path=PurposeSelected}">
 						<Button.Behaviors>
 							<behaviors:ScrollToClickedBehavior ScrollTo="VerifyEMailCodeButton"
 															   BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
