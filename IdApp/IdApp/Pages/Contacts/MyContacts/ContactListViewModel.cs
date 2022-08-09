@@ -86,10 +86,43 @@ namespace IdApp.Pages.Contacts.MyContacts
 				Add(Sorted, Info.FriendlyName, Info);
 			}
 
+			NotificationEvent[] Events;
+
 			this.Contacts.Clear();
+
+			if (args is not null && args.HasNotificationEvents)
+			{
+				foreach (CaseInsensitiveString Category in args.NotificationCategories)
+				{
+					if (!args.TryGetNotificationEvents(Category, out Events))
+						continue;
+
+					if (Sorted.TryGetValue(Category, out ContactInfo Info))
+						Sorted.Remove(Category);
+					else
+					{
+						Info = await ContactInfo.FindByBareJid(Category);
+
+						if (Info is not null)
+							Remove(Sorted, Info.FriendlyName, Info);
+						else
+						{
+							Info = new()
+							{
+								BareJid = Category,
+								FriendlyName = Category,
+								IsThing = null
+							};
+						}
+					}
+
+					this.Contacts.Add(new ContactInfoModel(Info, Events));
+				}
+			}
+
 			foreach (ContactInfo Info in Sorted.Values)
 			{
-				if (!args.TryGetNotificationEvents(Info.BareJid, out NotificationEvent[] Events))
+				if (args is null || !args.TryGetNotificationEvents(Info.BareJid, out Events))
 					Events = new NotificationEvent[0];
 
 				this.Contacts.Add(new ContactInfoModel(Info, Events));
@@ -115,6 +148,28 @@ namespace IdApp.Pages.Contacts.MyContacts
 			}
 			else
 				Sorted[Name] = Info;
+		}
+
+		private static void Remove(SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted, CaseInsensitiveString Name, ContactInfo Info)
+		{
+			int i = 1;
+			string Suffix = string.Empty;
+
+			while (Sorted.TryGetValue(Name + Suffix, out ContactInfo Info2))
+			{
+				if (Info2.BareJid == Info.BareJid &&
+					Info2.SourceId == Info.SourceId &&
+					Info2.Partition == Info.Partition &&
+					Info2.NodeId == Info.NodeId &&
+					Info2.LegalId == Info.LegalId)
+				{
+					Sorted.Remove(Name + Suffix);
+					return;
+				}
+
+				i++;
+				Suffix = " " + i.ToString();
+			}
 		}
 
 		/// <inheritdoc/>

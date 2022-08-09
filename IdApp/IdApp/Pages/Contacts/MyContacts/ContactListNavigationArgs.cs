@@ -121,5 +121,23 @@ namespace IdApp.Pages.Contacts.MyContacts
 				return this.notificationEvents.TryGetValue(Category, out Events);
 		}
 
+		/// <summary>
+		/// Available notification categories.
+		/// </summary>
+		public CaseInsensitiveString[] NotificationCategories
+		{
+			get
+			{
+				if (this.notificationEvents is null)
+					return new CaseInsensitiveString[0];
+				else
+				{
+					CaseInsensitiveString[] Result = new CaseInsensitiveString[this.notificationEvents.Count];
+					this.notificationEvents.Keys.CopyTo(Result, 0);
+					return Result;
+				}
+			}
+		}
+
 	}
 }

@@ -3310,6 +3310,11 @@
             <param name="Events">Notification events, if found.</param>
             <returns>If notification events where found for the given category.</returns>
         </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.NotificationCategories">
+            <summary>
+            Available notification categories.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contacts.MyContacts.ContactListViewModel">
             <summary>
             The view model to bind to when displaying the list of contacts.
