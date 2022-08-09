@@ -590,7 +590,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					this.EMailCodeSent = true;
 					await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.SendEmailWarning);
 					this.StartTimer("email");
-					this.EmailButtonDisabled = false;
+					//this.EmailButtonDisabled = false;
 				}
 			}
 			catch (Exception ex)
@@ -725,6 +725,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					this.PhoneButtonDisabled = this.PhoneNumberValid;
 					this.countSeconds = 30;
 					this.EmailButtonLabel = AppResources.SendCode;
+					this.PhoneButtonLabel = AppResources.SendCode;
 
 					return false;
 				}

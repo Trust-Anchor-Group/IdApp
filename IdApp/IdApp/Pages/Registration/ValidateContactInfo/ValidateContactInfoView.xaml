@@ -96,7 +96,7 @@
 
 					<Button x:Name="SendPhoneNrCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             Text="{Binding Path=PhoneButtonLabel}" Command="{Binding Path=SendPhoneNrCodeCommand}"
-                            IsEnabled="{Binding Path=PhoneNumberValid}" IsVisible="{Binding Path=PurposeSelected}">
+                            IsEnabled="{Binding Path=PhoneButtonDisabled}" IsVisible="{Binding Path=PurposeSelected}">
 						<Button.Behaviors>
 							<behaviors:ScrollToClickedBehavior ScrollTo="VerifyPhoneNrCodeButton"
 															   BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
