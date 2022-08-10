@@ -3,6 +3,8 @@ using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Notification;
+using System;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -16,11 +18,11 @@ namespace IdApp.Pages.Contacts.MyContacts
 	/// <summary>
 	/// Contact Information model, including related notification information.
 	/// </summary>
-	public class ContactInfoModel
+	public class ContactInfoModel : INotifyPropertyChanged
 	{
 		private readonly ServiceReferences references;
 		private readonly ContactInfo contact;
-		private readonly NotificationEvent[] events;
+		private NotificationEvent[] events;
 
 		private readonly ICommand toggleSubscriptionCommand;
 
@@ -238,5 +240,48 @@ namespace IdApp.Pages.Contacts.MyContacts
 				}
 			}
 		}
+
+		/// <summary>
+		/// Method called when presence for contact has been updated.
+		/// </summary>
+		public void PresenceUpdated()
+		{
+			this.OnPropertyChanged(nameof(this.ConnectionColor));
+		}
+
+		/// <summary>
+		/// Called when a property has changed.
+		/// </summary>
+		/// <param name="PropertyName">Name of property</param>
+		public void	OnPropertyChanged(string PropertyName)
+		{
+			try
+			{
+				this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+			}
+			catch (Exception ex)
+			{
+				this.references.LogService.LogException(ex);
+			}
+		}
+
+		/// <summary>
+		/// Occurs when a property value changes.
+		/// </summary>
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		/// <summary>
+		/// Method called when notifications for the item have been updated.
+		/// </summary>
+		/// <param name="Events">Updated set of events.</param>
+		public void NotificationsUpdated(NotificationEvent[] Events)
+		{
+			this.events = Events;
+
+			this.OnPropertyChanged(nameof(this.Events));
+			this.OnPropertyChanged(nameof(this.HasEvents));
+			this.OnPropertyChanged(nameof(this.NrEvents));
+		}
+
 	}
 }

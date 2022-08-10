@@ -3258,6 +3258,28 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.PresenceUpdated">
+            <summary>
+            Method called when presence for contact has been updated.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.OnPropertyChanged(System.String)">
+            <summary>
+            Called when a property has changed.
+            </summary>
+            <param name="PropertyName">Name of property</param>
+        </member>
+        <member name="E:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.PropertyChanged">
+            <summary>
+            Occurs when a property value changes.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.NotificationsUpdated(IdApp.Services.Notification.NotificationEvent[])">
+            <summary>
+            Method called when notifications for the item have been updated.
+            </summary>
+            <param name="Events">Updated set of events.</param>
+        </member>
         <member name="T:IdApp.Pages.Contacts.MyContacts.SelectContactAction">
             <summary>
             Actions to take when a contact has been selected.

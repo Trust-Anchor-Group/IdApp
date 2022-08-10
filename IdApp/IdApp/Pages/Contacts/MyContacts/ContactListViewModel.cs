@@ -24,6 +24,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 	/// </summary>
 	public class ContactListViewModel : BaseViewModel
 	{
+		private readonly Dictionary<CaseInsensitiveString, List<ContactInfoModel>> byBareJid;
 		private TaskCompletionSource<ContactInfoModel> selection;
 
 		/// <summary>
@@ -34,6 +35,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 			this.ScanQrCodeCommand = new Command(async _ => await this.ScanQrCode());
 
 			this.Contacts = new ObservableCollection<ContactInfoModel>();
+			this.byBareJid = new();
 
 			this.Description = AppResources.ContactsDescription;
 			this.Action = SelectContactAction.ViewIdentity;
@@ -128,7 +130,26 @@ namespace IdApp.Pages.Contacts.MyContacts
 				this.Contacts.Add(new ContactInfoModel(this, Info, Events));
 			}
 
+			this.byBareJid.Clear();
+
+			foreach (ContactInfoModel Contact in this.Contacts)
+			{
+				if (string.IsNullOrEmpty(Contact.BareJid))
+					continue;
+
+				if (!this.byBareJid.TryGetValue(Contact.BareJid, out List<ContactInfoModel> Contacts))
+				{
+					Contacts = new List<ContactInfoModel>();
+					this.byBareJid[Contact.BareJid] = Contacts;
+				}
+
+				Contacts.Add(Contact);
+			}
+
 			this.ShowContactsMissing = Sorted.Count == 0;
+
+			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
 		}
 
 		private static void Add(SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted, CaseInsensitiveString Name, ContactInfo Info)
@@ -175,6 +196,9 @@ namespace IdApp.Pages.Contacts.MyContacts
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
+			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
+			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
+
 			if (this.Action != SelectContactAction.Select)
 			{
 				this.ShowContactsMissing = false;
@@ -356,5 +380,33 @@ namespace IdApp.Pages.Contacts.MyContacts
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
 			});
 		}
+
+		private Task Xmpp_OnPresence(object Sender, PresenceEventArgs e)
+		{
+			if (this.byBareJid.TryGetValue(e.FromBareJID, out List<ContactInfoModel> Contacts))
+			{
+				foreach (ContactInfoModel Contact in Contacts)
+					Contact.PresenceUpdated();
+			}
+
+			return Task.CompletedTask;
+		}
+
+		private void NotificationService_OnNewNotification(object sender, System.EventArgs e)
+		{
+			SortedDictionary<CaseInsensitiveString, NotificationEvent[]> ByCategory = this.NotificationService.GetEventsByCategory(EventButton.Left1);
+			ContactListNavigationArgs Args = new(this.Description, this.Action, ByCategory);
+
+			foreach ( CaseInsensitiveString Category in Args.NotificationCategories)
+			{
+				if (this.byBareJid.TryGetValue(Category, out List<ContactInfoModel> Contacts) &&
+					Args.TryGetNotificationEvents(Category,out NotificationEvent[] Events))
+				{
+					foreach (ContactInfoModel Contact in Contacts)
+						Contact.NotificationsUpdated(Events);
+				}
+			}
+		}
+
 	}
 }
