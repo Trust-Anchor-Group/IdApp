@@ -92,9 +92,9 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 			this.Contacts.Clear();
 
-			foreach (CaseInsensitiveString Category in this.NotificationService.GetCategories(EventButton.Left1))
+			foreach (CaseInsensitiveString Category in this.NotificationService.GetCategories(EventButton.Contacts))
 			{
-				if (this.NotificationService.TryGetNotificationEvents(EventButton.Left1, Category, out Events))
+				if (this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Category, out Events))
 				{
 					if (Sorted.TryGetValue(Category, out ContactInfo Info))
 						Sorted.Remove(Category);
@@ -121,7 +121,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 			foreach (ContactInfo Info in Sorted.Values)
 			{
-				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Left1, Info.BareJid, out Events))
+				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Info.BareJid, out Events))
 					Events = new NotificationEvent[0];
 
 				this.Contacts.Add(new ContactInfoModel(this, Info, Events));
@@ -398,10 +398,10 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 		private void UpdateNotifications()
 		{
-			foreach (CaseInsensitiveString Category in this.NotificationService.GetCategories(EventButton.Left1))
+			foreach (CaseInsensitiveString Category in this.NotificationService.GetCategories(EventButton.Contacts))
 			{
 				if (this.byBareJid.TryGetValue(Category, out List<ContactInfoModel> Contacts) &&
-					this.NotificationService.TryGetNotificationEvents(EventButton.Left1, Category, out NotificationEvent[] Events))
+					this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Category, out NotificationEvent[] Events))
 				{
 					foreach (ContactInfoModel Contact in Contacts)
 						Contact.NotificationsUpdated(Events);

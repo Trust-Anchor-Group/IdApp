@@ -11,24 +11,24 @@ namespace IdApp.Services.Notification
 	public enum EventButton
 	{
 		/// <summary>
-		/// Left 1
+		/// Contacts (Left 1)
 		/// </summary>
-		Left1 = 0,
+		Contacts = 0,
 
 		/// <summary>
-		/// Left 2
+		/// Things (Left 2)
 		/// </summary>
-		Left2 = 1,
+		Things = 1,
 
 		/// <summary>
-		/// Right 1
+		/// Contracts (Right 1)
 		/// </summary>
-		Right1 = 2,
+		Contracts = 2,
 
 		/// <summary>
-		/// Right 2
+		/// Wallet (Right 2)
 		/// </summary>
-		Right2 = 3
+		Wallet = 3
 	}
 
 	/// <summary>

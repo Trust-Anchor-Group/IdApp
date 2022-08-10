@@ -97,7 +97,7 @@ namespace IdApp.Pages.Contacts.Chat
 			this.EvaluateAllCommands();
 			this.waitUntilBound.TrySetResult(true);
 
-			await this.NotificationService.DeleteEvents(EventButton.Left1, this.BareJid);
+			await this.NotificationService.DeleteEvents(EventButton.Contacts, this.BareJid);
 		}
 
 		/// <inheritdoc/>

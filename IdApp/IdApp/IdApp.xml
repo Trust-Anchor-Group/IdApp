@@ -18485,24 +18485,24 @@
             Button on which event is to be displayed.
             </summary>
         </member>
-        <member name="F:IdApp.Services.Notification.EventButton.Left1">
+        <member name="F:IdApp.Services.Notification.EventButton.Contacts">
             <summary>
-            Left 1
+            Contacts (Left 1)
             </summary>
         </member>
-        <member name="F:IdApp.Services.Notification.EventButton.Left2">
+        <member name="F:IdApp.Services.Notification.EventButton.Things">
             <summary>
-            Left 2
+            Things (Left 2)
             </summary>
         </member>
-        <member name="F:IdApp.Services.Notification.EventButton.Right1">
+        <member name="F:IdApp.Services.Notification.EventButton.Contracts">
             <summary>
-            Right 1
+            Contracts (Right 1)
             </summary>
         </member>
-        <member name="F:IdApp.Services.Notification.EventButton.Right2">
+        <member name="F:IdApp.Services.Notification.EventButton.Wallet">
             <summary>
-            Right 2
+            Wallet (Right 2)
             </summary>
         </member>
         <member name="T:IdApp.Services.Notification.NotificationEvent">

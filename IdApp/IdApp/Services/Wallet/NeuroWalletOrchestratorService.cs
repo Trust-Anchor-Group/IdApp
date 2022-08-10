@@ -68,7 +68,7 @@ namespace IdApp.Services.Wallet
 				Reserved = e.Balance.Reserved,
 				Timestamp = e.Balance.Timestamp,
 				Category = e.Balance.Event?.Remote ?? string.Empty,
-				Button = EventButton.Right2
+				Button = EventButton.Wallet
 			});
 		}
 
