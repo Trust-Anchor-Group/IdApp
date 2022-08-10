@@ -2,7 +2,6 @@
 using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.EDalerReceived;
 using IdApp.Resx;
-using System;
 using System.Threading.Tasks;
 using Waher.Persistence;
 
@@ -11,7 +10,7 @@ namespace IdApp.Services.Notification.Wallet
 	/// <summary>
 	/// Contains information about an incoming chat message.
 	/// </summary>
-	public class BalanceNotificationEvent : NotificationEvent
+	public class BalanceNotificationEvent : WalletNotificationEvent
 	{
 		/// <summary>
 		/// Contains information about an incoming chat message.
@@ -20,11 +19,6 @@ namespace IdApp.Services.Notification.Wallet
 			: base()
 		{
 		}
-
-		/// <summary>
-		/// Timestamp
-		/// </summary>
-		public DateTime Timestamp { get; set; }
 
 		/// <summary>
 		/// Amount
@@ -45,16 +39,6 @@ namespace IdApp.Services.Notification.Wallet
 		/// Account event
 		/// </summary>
 		public AccountEvent Event { get; set; }
-
-		/// <summary>
-		/// Gets an icon for the category of event.
-		/// </summary>
-		/// <param name="ServiceReferences"></param>
-		/// <returns></returns>
-		public override Task<string> GetCategoryIcon(ServiceReferences ServiceReferences)
-		{
-			return Task.FromResult<string>(FontAwesome.MoneyBill);
-		}
 
 		/// <summary>
 		/// Gets a descriptive text for the event.

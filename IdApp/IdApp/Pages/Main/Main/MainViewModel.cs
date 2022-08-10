@@ -130,10 +130,10 @@ namespace IdApp.Pages.Main.Main
 
 		private void AssignOverlays()
 		{
-			this.Left1Overlay = this.NotificationService.NrNotificationsLeft1;
-			this.Left2Overlay = this.NotificationService.NrNotificationsLeft2;
-			this.Right1Overlay = this.NotificationService.NrNotificationsRight1;
-			this.Right2Overlay = this.NotificationService.NrNotificationsRight2;
+			this.Left1Overlay = this.NotificationService.NrNotificationsContacts;
+			this.Left2Overlay = this.NotificationService.NrNotificationsThings;
+			this.Right1Overlay = this.NotificationService.NrNotificationsContracts;
+			this.Right2Overlay = this.NotificationService.NrNotificationsWallet;
 		}
 
 		private async Task LoadProfilePhoto(Attachment FirstAttachment)

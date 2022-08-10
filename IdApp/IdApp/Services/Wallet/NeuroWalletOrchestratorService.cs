@@ -32,6 +32,11 @@ namespace IdApp.Services.Wallet
 			if (this.BeginLoad(cancellationToken))
 			{
 				this.XmppService.Wallet.BalanceUpdated += this.Wallet_BalanceUpdated;
+				this.XmppService.Wallet.TokenAdded += this.Wallet_TokenAdded;
+				this.XmppService.Wallet.TokenRemoved += this.Wallet_TokenRemoved;
+				this.XmppService.Wallet.StateUpdated += this.Wallet_StateUpdated;
+				this.XmppService.Wallet.VariablesUpdated += this.Wallet_VariablesUpdated;
+
 				this.EndLoad(true);
 			}
 
@@ -43,6 +48,11 @@ namespace IdApp.Services.Wallet
 			if (this.BeginUnload())
 			{
 				this.XmppService.Wallet.BalanceUpdated -= this.Wallet_BalanceUpdated;
+				this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;
+				this.XmppService.Wallet.TokenRemoved -= this.Wallet_TokenRemoved;
+				this.XmppService.Wallet.StateUpdated -= this.Wallet_StateUpdated;
+				this.XmppService.Wallet.VariablesUpdated -= this.Wallet_VariablesUpdated;
+
 				this.EndUnload();
 			}
 
@@ -53,12 +63,6 @@ namespace IdApp.Services.Wallet
 
 		private async Task Wallet_BalanceUpdated(object Sender, BalanceEventArgs e)
 		{
-			if (this.NavigationService.CurrentPage is not null &&
-				this.NavigationService.CurrentPage.GetType().Namespace.StartsWith(typeof(EDalerUriViewModel).Namespace))
-			{
-				return;
-			}
-
 			await this.NotificationService.NewEvent(new BalanceNotificationEvent()
 			{
 				Amount = e.Balance.Amount,
@@ -69,6 +73,45 @@ namespace IdApp.Services.Wallet
 				Timestamp = e.Balance.Timestamp,
 				Category = e.Balance.Event?.Remote ?? string.Empty,
 				Button = EventButton.Wallet
+			});
+		}
+
+		private async Task Wallet_TokenAdded(object Sender, TokenEventArgs e)
+		{
+			await this.NotificationService.NewEvent(new TokenAddedNotificationEvent()
+			{
+				TokenId = e.Token.TokenId,
+				FriendlyName = e.Token.FriendlyName,
+				TokenCategory = e.Token.Category,
+				Token = e.Token
+			});
+		}
+
+		private async Task Wallet_TokenRemoved(object Sender, TokenEventArgs e)
+		{
+			await this.NotificationService.NewEvent(new TokenRemovedNotificationEvent()
+			{
+				TokenId = e.Token.TokenId,
+				FriendlyName = e.Token.FriendlyName,
+				TokenCategory = e.Token.Category,
+				Token = e.Token
+			});
+		}
+
+		private async Task Wallet_StateUpdated(object Sender, NewStateEventArgs e)
+		{
+			await this.NotificationService.NewEvent(new StateMachineNewStateNotificationEvent()
+			{
+				TokenId = e.TokenId,
+				NewState = e.NewState
+			});
+		}
+
+		private async Task Wallet_VariablesUpdated(object Sender, VariablesUpdatedEventArgs e)
+		{
+			await this.NotificationService.NewEvent(new StateMachineVariablesUpdatedNotificationEvent()
+			{
+				TokenId = e.TokenId
 			});
 		}
 

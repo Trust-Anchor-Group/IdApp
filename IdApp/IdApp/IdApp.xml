@@ -2393,18 +2393,18 @@
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor">
             <summary>
-            Creates an instance of the <see cref="!:ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(IdApp.Services.ContactInfo)">
             <summary>
-            Creates an instance of the <see cref="!:ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatNavigationArgs"/> class.
             </summary>
             <param name="Contact">Contact information.</param>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(System.String,System.String,System.String)">
             <summary>
-            Creates an instance of the <see cref="!:ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatNavigationArgs"/> class.
             </summary>
             <param name="LegalId">Legal ID, if available.</param>
             <param name="BareJid">Bare JID of remote chat party</param>
@@ -18228,7 +18228,7 @@
             <summary>
             Set it to 1 to start a counter of the number of times to pop when going back.
             It will be incremented on every push using the <see cref="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String)"/> method.
-            If this parrameter exist, it supercedes the <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute"/>
+            If this parameter exist, it supercedes the <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute"/>
             </summary>
         </member>
         <member name="P:IdApp.Services.Navigation.NavigationArgs.CancelReturnCounter">
@@ -18460,24 +18460,24 @@
             Event raised when notifications have been deleted.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsLeft1">
+        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsContacts">
             <summary>
-            Number of notifications but button Left1
+            Number of notifications but button Contacts
             </summary>
         </member>
-        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsLeft2">
+        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsThings">
             <summary>
-            Number of notifications but button Left2
+            Number of notifications but button Things
             </summary>
         </member>
-        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsRight1">
+        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsContracts">
             <summary>
-            Number of notifications but button Right1
+            Number of notifications but button Contracts
             </summary>
         </member>
-        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsRight2">
+        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsWallet">
             <summary>
-            Number of notifications but button Right2
+            Number of notifications but button Wallet
             </summary>
         </member>
         <member name="T:IdApp.Services.Notification.EventButton">
@@ -18624,24 +18624,24 @@
             Event raised when notifications have been deleted.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsLeft1">
+        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsContacts">
             <summary>
-            Number of notifications but button Left1
+            Number of notifications but button Contacts
             </summary>
         </member>
-        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsLeft2">
+        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsThings">
             <summary>
-            Number of notifications but button Left2
+            Number of notifications but button Things
             </summary>
         </member>
-        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsRight1">
+        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsContracts">
             <summary>
-            Number of notifications but button Right1
+            Number of notifications but button Contracts
             </summary>
         </member>
-        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsRight2">
+        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsWallet">
             <summary>
-            Number of notifications but button Right2
+            Number of notifications but button Wallet
             </summary>
         </member>
         <member name="T:IdApp.Services.Notification.Wallet.BalanceNotificationEvent">
@@ -18652,11 +18652,6 @@
         <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.#ctor">
             <summary>
             Contains information about an incoming chat message.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Timestamp">
-            <summary>
-            Timestamp
             </summary>
         </member>
         <member name="P:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Amount">
@@ -18679,13 +18674,6 @@
             Account event
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
-            <summary>
-            Gets an icon for the category of event.
-            </summary>
-            <param name="ServiceReferences"></param>
-            <returns></returns>
-        </member>
         <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
@@ -18697,6 +18685,115 @@
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.StateMachineNewStateNotificationEvent">
+            <summary>
+            Contains information about a change in a state-machine associated with a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.StateMachineNewStateNotificationEvent.#ctor">
+            <summary>
+            Contains information about a change in a state-machine associated with a token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.StateMachineNewStateNotificationEvent.NewState">
+            <summary>
+            New state of state-machine.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.StateMachineVariablesUpdatedNotificationEvent">
+            <summary>
+            Contains information about a change in internal variables of a state-machine associated with a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.StateMachineVariablesUpdatedNotificationEvent.#ctor">
+            <summary>
+            Contains information about a change in internal variables of a state-machine associated with a token.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.TokenAddedNotificationEvent">
+            <summary>
+            Contains information about a token that has been added.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenAddedNotificationEvent.#ctor">
+            <summary>
+            Contains information about a token that has been added.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.TokenNotificationEvent">
+            <summary>
+            Abstract base class for token notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.#ctor">
+            <summary>
+            Abstract base class for token notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.TokenNotificationEvent.TokenId">
+            <summary>
+            Token ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.TokenNotificationEvent.TokenCategory">
+            <summary>
+            Category of token
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.TokenNotificationEvent.FriendlyName">
+            <summary>
+            Friendly Name of token
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.TokenNotificationEvent.Token">
+            <summary>
+            Loaded token
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.TokenRemovedNotificationEvent">
+            <summary>
+            Contains information about a token that has been removed.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenRemovedNotificationEvent.#ctor">
+            <summary>
+            Contains information about a token that has been removed.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.WalletNotificationEvent">
+            <summary>
+            Abstract base class for wallet notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.WalletNotificationEvent.#ctor">
+            <summary>
+            Abstract base class for wallet notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.WalletNotificationEvent.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.WalletNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences"></param>
+            <returns></returns>
         </member>
         <member name="T:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent">
             <summary>

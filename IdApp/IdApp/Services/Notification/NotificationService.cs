@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Waher.Persistence;
+using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Notification
@@ -43,7 +44,21 @@ namespace IdApp.Services.Notification
 			int PrevButton = -1;
 			int Button;
 
-			foreach (NotificationEvent Event in await Database.Find<NotificationEvent>("Button", "Category"))
+			IEnumerable<NotificationEvent> LoadedEvents;
+
+			try
+			{
+				LoadedEvents = await Database.Find<NotificationEvent>("Button", "Category");
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+
+				await Database.Clear("Notifications");
+				LoadedEvents = new NotificationEvent[0];
+			}
+
+			foreach (NotificationEvent Event in LoadedEvents)
 			{
 				Button = (int)Event.Button;
 				if (Button < 0 || Button >= nrButtons)
@@ -256,24 +271,24 @@ namespace IdApp.Services.Notification
 		public event EventHandler OnNotificationsDeleted;
 
 		/// <summary>
-		/// Number of notifications but button Left1
+		/// Number of notifications but button Contacts
 		/// </summary>
-		public int NrNotificationsLeft1 => this.Count(0);
+		public int NrNotificationsContacts => this.Count((int)EventButton.Contacts);
 
 		/// <summary>
-		/// Number of notifications but button Left2
+		/// Number of notifications but button Things
 		/// </summary>
-		public int NrNotificationsLeft2 => this.Count(1);
+		public int NrNotificationsThings => this.Count((int)EventButton.Things);
 
 		/// <summary>
-		/// Number of notifications but button Right1
+		/// Number of notifications but button Contracts
 		/// </summary>
-		public int NrNotificationsRight1 => this.Count(2);
+		public int NrNotificationsContracts => this.Count((int)EventButton.Contracts);
 
 		/// <summary>
-		/// Number of notifications but button Right2
+		/// Number of notifications but button Wallet
 		/// </summary>
-		public int NrNotificationsRight2 => this.Count(3);
+		public int NrNotificationsWallet => this.Count((int)EventButton.Wallet);
 
 		private int Count(int Index)
 		{

@@ -237,12 +237,14 @@ namespace IdApp.Services.Xmpp
 					{
 						Thread?.NewState("eDaler");
 						this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.EDalerJid);
+						this.wallet.CheckEDalerClient();
 					}
 
 					if (!string.IsNullOrWhiteSpace(this.TagProfile.NeuroFeaturesJid))
 					{
 						Thread?.NewState("Neuro-Features");
 						this.neuroFeaturesClient = new NeuroFeaturesClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.NeuroFeaturesJid);
+						this.wallet.CheckNeuroFeaturesClient();
 					}
 
 					if (this.TagProfile.SupportsPushNotification.HasValue && this.TagProfile.SupportsPushNotification.Value)

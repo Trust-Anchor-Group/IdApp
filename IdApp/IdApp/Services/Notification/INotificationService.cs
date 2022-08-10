@@ -66,23 +66,23 @@ namespace IdApp.Services.Notification
 		event EventHandler OnNotificationsDeleted;
 
 		/// <summary>
-		/// Number of notifications but button Left1
+		/// Number of notifications but button Contacts
 		/// </summary>
-		int NrNotificationsLeft1 { get; }
+		int NrNotificationsContacts { get; }
 
 		/// <summary>
-		/// Number of notifications but button Left2
+		/// Number of notifications but button Things
 		/// </summary>
-		int NrNotificationsLeft2 { get; }
+		int NrNotificationsThings { get; }
 
 		/// <summary>
-		/// Number of notifications but button Right1
+		/// Number of notifications but button Contracts
 		/// </summary>
-		int NrNotificationsRight1 { get; }
+		int NrNotificationsContracts { get; }
 
 		/// <summary>
-		/// Number of notifications but button Right2
+		/// Number of notifications but button Wallet
 		/// </summary>
-		int NrNotificationsRight2 { get; }
+		int NrNotificationsWallet { get; }
 	}
 }
