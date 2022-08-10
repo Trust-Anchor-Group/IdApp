@@ -588,8 +588,8 @@ namespace IdApp.Pages.Main.Main
 
 		private async Task ViewMyContacts()
 		{
-			await this.NavigationService.GoToAsync(nameof(MyContactsPage), new ContactListNavigationArgs(AppResources.ContactsDescription,
-				SelectContactAction.ViewIdentity, this.NotificationService.GetEventsByCategory(EventButton.Left1)));
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
+				new ContactListNavigationArgs(AppResources.ContactsDescription, SelectContactAction.ViewIdentity));
 		}
 
 		private async Task ViewMyThings()

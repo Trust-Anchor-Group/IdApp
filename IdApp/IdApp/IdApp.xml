@@ -3317,14 +3317,6 @@
             <param name="Description">Description presented to user.</param>
             <param name="Action">Action to take when a contact has been selected.</param>
         </member>
-        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.#ctor(System.String,IdApp.Pages.Contacts.MyContacts.SelectContactAction,System.Collections.Generic.SortedDictionary{Waher.Persistence.CaseInsensitiveString,IdApp.Services.Notification.NotificationEvent[]})">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs"/> class.
-            </summary>
-            <param name="Description">Description presented to user.</param>
-            <param name="Action">Action to take when a contact has been selected.</param>
-            <param name="NotificationEvents">Pending notification events.</param>
-        </member>
         <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.#ctor(System.String,System.Threading.Tasks.TaskCompletionSource{IdApp.Pages.Contacts.MyContacts.ContactInfoModel})">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs"/> class.
@@ -3350,24 +3342,6 @@
         <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.CanScanQrCode">
             <summary>
             If the user should be able to scane QR Codes.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.HasNotificationEvents">
-            <summary>
-            If notification events are available.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.TryGetNotificationEvents(Waher.Persistence.CaseInsensitiveString,IdApp.Services.Notification.NotificationEvent[]@)">
-            <summary>
-            Tries to get available notification events.
-            </summary>
-            <param name="Category">Notification event category</param>
-            <param name="Events">Notification events, if found.</param>
-            <returns>If notification events where found for the given category.</returns>
-        </member>
-        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.NotificationCategories">
-            <summary>
-            Available notification categories.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contacts.MyContacts.ContactListViewModel">
@@ -18439,6 +18413,13 @@
             </summary>
             <param name="Event">Notification event.</param>
         </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.DeleteEvents(IdApp.Services.Notification.EventButton,Waher.Persistence.CaseInsensitiveString)">
+            <summary>
+            Deletes events for a given button and category.
+            </summary>
+            <param name="Button">Button</param>
+            <param name="Category">Category</param>
+        </member>
         <member name="M:IdApp.Services.Notification.INotificationService.GetCategories(IdApp.Services.Notification.EventButton)">
             <summary>
             Gets available categories for a button.
@@ -18460,9 +18441,23 @@
             <param name="Button">Button</param>
             <returns>Recorded events.</returns>
         </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.TryGetNotificationEvents(IdApp.Services.Notification.EventButton,Waher.Persistence.CaseInsensitiveString,IdApp.Services.Notification.NotificationEvent[]@)">
+            <summary>
+            Tries to get available notification events.
+            </summary>
+            <param name="Button">Event Button</param>
+            <param name="Category">Notification event category</param>
+            <param name="Events">Notification events, if found.</param>
+            <returns>If notification events where found for the given category.</returns>
+        </member>
         <member name="E:IdApp.Services.Notification.INotificationService.OnNewNotification">
             <summary>
             Event raised when a new notification has been logged.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Notification.INotificationService.OnNotificationsDeleted">
+            <summary>
+            Event raised when notifications have been deleted.
             </summary>
         </member>
         <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsLeft1">
@@ -18582,6 +18577,13 @@
             </summary>
             <param name="Event">Notification event.</param>
         </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.DeleteEvents(IdApp.Services.Notification.EventButton,Waher.Persistence.CaseInsensitiveString)">
+            <summary>
+            Deletes events for a given button and category.
+            </summary>
+            <param name="Button">Button</param>
+            <param name="Category">Category</param>
+        </member>
         <member name="M:IdApp.Services.Notification.NotificationService.GetEvents(IdApp.Services.Notification.EventButton)">
             <summary>
             Gets available notification events for a button.
@@ -18603,9 +18605,23 @@
             <param name="Button">Button</param>
             <returns>Recorded events.</returns>
         </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.TryGetNotificationEvents(IdApp.Services.Notification.EventButton,Waher.Persistence.CaseInsensitiveString,IdApp.Services.Notification.NotificationEvent[]@)">
+            <summary>
+            Tries to get available notification events.
+            </summary>
+            <param name="Button">Event Button</param>
+            <param name="Category">Notification event category</param>
+            <param name="Events">Notification events, if found.</param>
+            <returns>If notification events where found for the given category.</returns>
+        </member>
         <member name="E:IdApp.Services.Notification.NotificationService.OnNewNotification">
             <summary>
             Event raised when a new notification has been logged.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Notification.NotificationService.OnNotificationsDeleted">
+            <summary>
+            Event raised when notifications have been deleted.
             </summary>
         </member>
         <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsLeft1">

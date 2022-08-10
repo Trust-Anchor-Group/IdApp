@@ -15,6 +15,7 @@ using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Messages;
+using IdApp.Services.Notification;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.QR;
 using IdApp.Services.Xmpp;
@@ -95,6 +96,8 @@ namespace IdApp.Pages.Contacts.Chat
 
 			this.EvaluateAllCommands();
 			this.waitUntilBound.TrySetResult(true);
+
+			await this.NotificationService.DeleteEvents(EventButton.Left1, this.BareJid);
 		}
 
 		/// <inheritdoc/>

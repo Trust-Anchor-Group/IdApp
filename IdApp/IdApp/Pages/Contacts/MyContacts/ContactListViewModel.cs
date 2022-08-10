@@ -92,13 +92,10 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 			this.Contacts.Clear();
 
-			if (args is not null && args.HasNotificationEvents)
+			foreach (CaseInsensitiveString Category in this.NotificationService.GetCategories(EventButton.Left1))
 			{
-				foreach (CaseInsensitiveString Category in args.NotificationCategories)
+				if (this.NotificationService.TryGetNotificationEvents(EventButton.Left1, Category, out Events))
 				{
-					if (!args.TryGetNotificationEvents(Category, out Events))
-						continue;
-
 					if (Sorted.TryGetValue(Category, out ContactInfo Info))
 						Sorted.Remove(Category);
 					else
@@ -124,7 +121,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 			foreach (ContactInfo Info in Sorted.Values)
 			{
-				if (args is null || !args.TryGetNotificationEvents(Info.BareJid, out Events))
+				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Left1, Info.BareJid, out Events))
 					Events = new NotificationEvent[0];
 
 				this.Contacts.Add(new ContactInfoModel(this, Info, Events));
@@ -150,6 +147,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
 			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
 		}
 
 		private static void Add(SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted, CaseInsensitiveString Name, ContactInfo Info)
@@ -198,6 +196,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 		{
 			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
 			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted -= this.NotificationService_OnNotificationsDeleted;
 
 			if (this.Action != SelectContactAction.Select)
 			{
@@ -394,18 +393,25 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 		private void NotificationService_OnNewNotification(object sender, System.EventArgs e)
 		{
-			SortedDictionary<CaseInsensitiveString, NotificationEvent[]> ByCategory = this.NotificationService.GetEventsByCategory(EventButton.Left1);
-			ContactListNavigationArgs Args = new(this.Description, this.Action, ByCategory);
+			this.UpdateNotifications();
+		}
 
-			foreach ( CaseInsensitiveString Category in Args.NotificationCategories)
+		private void UpdateNotifications()
+		{
+			foreach (CaseInsensitiveString Category in this.NotificationService.GetCategories(EventButton.Left1))
 			{
 				if (this.byBareJid.TryGetValue(Category, out List<ContactInfoModel> Contacts) &&
-					Args.TryGetNotificationEvents(Category,out NotificationEvent[] Events))
+					this.NotificationService.TryGetNotificationEvents(EventButton.Left1, Category, out NotificationEvent[] Events))
 				{
 					foreach (ContactInfoModel Contact in Contacts)
 						Contact.NotificationsUpdated(Events);
 				}
 			}
+		}
+
+		private void NotificationService_OnNotificationsDeleted(object sender, System.EventArgs e)
+		{
+			this.UpdateNotifications();
 		}
 
 	}

@@ -49,24 +49,27 @@ namespace IdApp.Services.Notification
 				if (Button < 0 || Button >= nrButtons)
 					continue;
 
-				if (ByCategory is null || Button != PrevButton)
+				lock (this.events)
 				{
-					ByCategory = this.events[Button];
-					PrevButton = Button;
-				}
-
-				if (Events is null || Event.Category != PrevCategory)
-				{
-					if (!ByCategory.TryGetValue(Event.Category, out Events))
+					if (ByCategory is null || Button != PrevButton)
 					{
-						Events = new List<NotificationEvent>();
-						ByCategory[Event.Category] = Events;
+						ByCategory = this.events[Button];
+						PrevButton = Button;
 					}
 
-					PrevCategory = Event.Category;
-				}
+					if (Events is null || Event.Category != PrevCategory)
+					{
+						if (!ByCategory.TryGetValue(Event.Category, out Events))
+						{
+							Events = new List<NotificationEvent>();
+							ByCategory[Event.Category] = Events;
+						}
 
-				Events.Add(Event);
+						PrevCategory = Event.Category;
+					}
+
+					Events.Add(Event);
+				}
 			}
 
 			await base.Load(isResuming, cancellationToken);
@@ -83,19 +86,57 @@ namespace IdApp.Services.Notification
 			int Button = (int)Event.Button;
 			if (Button >= 0 && Button < nrButtons)
 			{
-				SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[Button];
-
-				if (!ByCategory.TryGetValue(Event.Category, out List<NotificationEvent> Events))
+				lock (this.events)
 				{
-					Events = new List<NotificationEvent>();
-					ByCategory[Event.Category] = Events;
-				}
+					SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[Button];
 
-				Events.Add(Event);
+					if (!ByCategory.TryGetValue(Event.Category, out List<NotificationEvent> Events))
+					{
+						Events = new List<NotificationEvent>();
+						ByCategory[Event.Category] = Events;
+					}
+
+					Events.Add(Event);
+				}
 
 				try
 				{
 					this.OnNewNotification?.Invoke(this, EventArgs.Empty);
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Deletes events for a given button and category.
+		/// </summary>
+		/// <param name="Button">Button</param>
+		/// <param name="Category">Category</param>
+		public async Task DeleteEvents(EventButton Button, CaseInsensitiveString Category)
+		{
+			List<NotificationEvent> Events;
+			int ButtonIndex = (int)Button;
+
+			if (ButtonIndex >= 0 && ButtonIndex < nrButtons)
+			{
+				lock (this.events)
+				{
+					SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[ButtonIndex];
+
+					if (!ByCategory.TryGetValue(Category, out Events))
+						return;
+
+					ByCategory.Remove(Category);
+				}
+
+				await Database.Delete(Events);
+
+				try
+				{
+					this.OnNotificationsDeleted?.Invoke(this, EventArgs.Empty);
 				}
 				catch (Exception ex)
 				{
@@ -115,13 +156,16 @@ namespace IdApp.Services.Notification
 			if (i < 0 || i >= nrButtons)
 				return new NotificationEvent[0];
 
-			SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[i];
-			List<NotificationEvent> Result = new();
+			lock (this.events)
+			{
+				SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[i];
+				List<NotificationEvent> Result = new();
 
-			foreach (List<NotificationEvent> Events in ByCategory.Values)
-				Result.AddRange(Events);
+				foreach (List<NotificationEvent> Events in ByCategory.Values)
+					Result.AddRange(Events);
 
-			return Result.ToArray();
+				return Result.ToArray();
+			}
 		}
 
 		/// <summary>
@@ -135,13 +179,16 @@ namespace IdApp.Services.Notification
 			if (i < 0 || i >= nrButtons)
 				return new CaseInsensitiveString[0];
 
-			SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[i];
-			List<CaseInsensitiveString> Result = new();
+			lock (this.events)
+			{
+				SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[i];
+				List<CaseInsensitiveString> Result = new();
 
-			foreach (CaseInsensitiveString Category in ByCategory.Keys)
-				Result.Add(Category);
+				foreach (CaseInsensitiveString Category in ByCategory.Keys)
+					Result.Add(Category);
 
-			return Result.ToArray();
+				return Result.ToArray();
+			}
 		}
 
 		/// <summary>
@@ -155,13 +202,47 @@ namespace IdApp.Services.Notification
 			if (i < 0 || i >= nrButtons)
 				return new SortedDictionary<CaseInsensitiveString, NotificationEvent[]>();
 
-			SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[i];
-			SortedDictionary<CaseInsensitiveString, NotificationEvent[]> Result = new();
+			lock (this.events)
+			{
+				SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[i];
+				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> Result = new();
 
-			foreach (KeyValuePair<CaseInsensitiveString, List<NotificationEvent>> P in ByCategory)
-				Result[P.Key] = P.Value.ToArray();
+				foreach (KeyValuePair<CaseInsensitiveString, List<NotificationEvent>> P in ByCategory)
+					Result[P.Key] = P.Value.ToArray();
 
-			return Result;
+				return Result;
+			}
+		}
+
+		/// <summary>
+		/// Tries to get available notification events.
+		/// </summary>
+		/// <param name="Button">Event Button</param>
+		/// <param name="Category">Notification event category</param>
+		/// <param name="Events">Notification events, if found.</param>
+		/// <returns>If notification events where found for the given category.</returns>
+		public bool TryGetNotificationEvents(EventButton Button, CaseInsensitiveString Category, out NotificationEvent[] Events)
+		{
+			int i = (int)Button;
+			if (i < 0 || i >= nrButtons)
+			{
+				Events = null;
+				return false;
+			}
+
+			lock (this.events)
+			{
+				SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[i];
+
+				if (!ByCategory.TryGetValue(Category, out List<NotificationEvent> Events2))
+				{
+					Events = null;
+					return false;
+				}
+
+				Events = Events2.ToArray();
+				return true;
+			}
 		}
 
 		/// <summary>
@@ -170,34 +251,43 @@ namespace IdApp.Services.Notification
 		public event EventHandler OnNewNotification;
 
 		/// <summary>
+		/// Event raised when notifications have been deleted.
+		/// </summary>
+		public event EventHandler OnNotificationsDeleted;
+
+		/// <summary>
 		/// Number of notifications but button Left1
 		/// </summary>
-		public int NrNotificationsLeft1 => this.Count(this.events[0]);
+		public int NrNotificationsLeft1 => this.Count(0);
 
 		/// <summary>
 		/// Number of notifications but button Left2
 		/// </summary>
-		public int NrNotificationsLeft2 => this.Count(this.events[1]);
+		public int NrNotificationsLeft2 => this.Count(1);
 
 		/// <summary>
 		/// Number of notifications but button Right1
 		/// </summary>
-		public int NrNotificationsRight1 => this.Count(this.events[2]);
+		public int NrNotificationsRight1 => this.Count(2);
 
 		/// <summary>
 		/// Number of notifications but button Right2
 		/// </summary>
-		public int NrNotificationsRight2 => this.Count(this.events[3]);
+		public int NrNotificationsRight2 => this.Count(3);
 
-		private int Count(SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> Events)
+		private int Count(int Index)
 		{
-			int Result = 0;
+			lock (this.events)
+			{
+				SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> Events = this.events[Index];
+				int Result = 0;
 
-			foreach (List<NotificationEvent> List in Events.Values)
-				Result += List.Count;
+				foreach (List<NotificationEvent> List in Events.Values)
+					Result += List.Count;
 
-			return Result;
+				return Result;
+			}
 		}
-		
+
 	}
 }
