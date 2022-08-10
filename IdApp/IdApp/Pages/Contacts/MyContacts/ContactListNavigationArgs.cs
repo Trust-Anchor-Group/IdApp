@@ -1,9 +1,5 @@
-﻿using IdApp.Services;
-using IdApp.Services.Navigation;
-using IdApp.Services.Notification;
-using System.Collections.Generic;
+﻿using IdApp.Services.Navigation;
 using System.Threading.Tasks;
-using Waher.Persistence;
 
 namespace IdApp.Pages.Contacts.MyContacts
 {
