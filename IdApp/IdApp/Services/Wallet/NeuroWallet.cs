@@ -6,7 +6,6 @@ using IdApp.Resx;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using NeuroFeatures.Events;
-using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
 
@@ -35,19 +34,24 @@ namespace IdApp.Services.Wallet
 		{
 			get
 			{
-				if (this.eDalerClient is null || this.eDalerClient.Client != this.XmppService.Xmpp)
-				{
-					if (!(this.eDalerClient is null))
-						this.eDalerClient.BalanceUpdated -= this.EDalerClient_BalanceUpdated;
-
-					this.eDalerClient = (this.XmppService as XmppService)?.EDalerClient;
-					if (this.eDalerClient is null)
-						throw new InvalidOperationException(AppResources.EDalerServiceNotFound);
-
-					this.eDalerClient.BalanceUpdated += this.EDalerClient_BalanceUpdated;
-				}
+				this.CheckEDalerClient();
 
 				return this.eDalerClient;
+			}
+		}
+
+		internal void CheckEDalerClient()
+		{
+			if (this.eDalerClient is null || this.eDalerClient.Client != this.XmppService.Xmpp)
+			{
+				if (!(this.eDalerClient is null))
+					this.eDalerClient.BalanceUpdated -= this.EDalerClient_BalanceUpdated;
+
+				this.eDalerClient = (this.XmppService as XmppService)?.EDalerClient;
+				if (this.eDalerClient is null)
+					throw new InvalidOperationException(AppResources.EDalerServiceNotFound);
+
+				this.eDalerClient.BalanceUpdated += this.EDalerClient_BalanceUpdated;
 			}
 		}
 
@@ -269,29 +273,34 @@ namespace IdApp.Services.Wallet
 		{
 			get
 			{
-				if (this.neuroFeaturesClient is null || this.neuroFeaturesClient.Client != this.XmppService.Xmpp)
-				{
-					if (!(this.neuroFeaturesClient is null))
-					{
-						this.neuroFeaturesClient.TokenAdded -= this.NeuroFeaturesClient_TokenAdded;
-						this.neuroFeaturesClient.TokenRemoved -= this.NeuroFeaturesClient_TokenRemoved;
-
-						this.neuroFeaturesClient.StateUpdated -= this.NeuroFeaturesClient_StateUpdated;
-						this.neuroFeaturesClient.VariablesUpdated -= this.NeuroFeaturesClient_VariablesUpdated;
-					}
-
-					this.neuroFeaturesClient = (this.XmppService as XmppService)?.NeuroFeaturesClient;
-					if (this.neuroFeaturesClient is null)
-						throw new InvalidOperationException(AppResources.NeuroFeaturesServiceNotFound);
-
-					this.neuroFeaturesClient.TokenAdded += this.NeuroFeaturesClient_TokenAdded;
-					this.neuroFeaturesClient.TokenRemoved += this.NeuroFeaturesClient_TokenRemoved;
-
-					this.neuroFeaturesClient.StateUpdated += this.NeuroFeaturesClient_StateUpdated;
-					this.neuroFeaturesClient.VariablesUpdated += this.NeuroFeaturesClient_VariablesUpdated;
-				}
+				this.CheckNeuroFeaturesClient();
 
 				return this.neuroFeaturesClient;
+			}
+		}
+
+		internal void CheckNeuroFeaturesClient()
+		{
+			if (this.neuroFeaturesClient is null || this.neuroFeaturesClient.Client != this.XmppService.Xmpp)
+			{
+				if (!(this.neuroFeaturesClient is null))
+				{
+					this.neuroFeaturesClient.TokenAdded -= this.NeuroFeaturesClient_TokenAdded;
+					this.neuroFeaturesClient.TokenRemoved -= this.NeuroFeaturesClient_TokenRemoved;
+
+					this.neuroFeaturesClient.StateUpdated -= this.NeuroFeaturesClient_StateUpdated;
+					this.neuroFeaturesClient.VariablesUpdated -= this.NeuroFeaturesClient_VariablesUpdated;
+				}
+
+				this.neuroFeaturesClient = (this.XmppService as XmppService)?.NeuroFeaturesClient;
+				if (this.neuroFeaturesClient is null)
+					throw new InvalidOperationException(AppResources.NeuroFeaturesServiceNotFound);
+
+				this.neuroFeaturesClient.TokenAdded += this.NeuroFeaturesClient_TokenAdded;
+				this.neuroFeaturesClient.TokenRemoved += this.NeuroFeaturesClient_TokenRemoved;
+
+				this.neuroFeaturesClient.StateUpdated += this.NeuroFeaturesClient_StateUpdated;
+				this.neuroFeaturesClient.VariablesUpdated += this.NeuroFeaturesClient_VariablesUpdated;
 			}
 		}
 

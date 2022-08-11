@@ -15,6 +15,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Resx;
 using IdApp.Pages.Main.Calculator;
+using IdApp.Pages.Contacts.MyContacts;
 
 namespace IdApp.Pages.Main.Shell
 {
@@ -216,7 +217,7 @@ namespace IdApp.Pages.Main.Shell
 		internal async void ContactsMenuItem_Clicked(object sender, EventArgs e)
 		{
 			await this.GoToPage(nameof(Contacts.MyContacts.MyContactsPage),
-				new Contacts.ContactListNavigationArgs(AppResources.ContactsDescription, Contacts.SelectContactAction.ViewIdentity));
+				new ContactListNavigationArgs(AppResources.ContactsDescription, SelectContactAction.ViewIdentity));
 		}
 
 		internal async void ThingsMenuItem_Clicked(object sender, EventArgs e)

@@ -1800,4 +1800,10 @@
   <data name="EnterValue" xml:space="preserve">
     <value>Prvo morate da unesete vrednost.</value>
   </data>
+  <data name="Question" xml:space="preserve">
+    <value>Pitanje</value>
+  </data>
+  <data name="RemoveSubscriptionFrom" xml:space="preserve">
+    <value>Želite li da uklonite pretplatu na prisustvo iz {0}?</value>
+  </data>
 </root>

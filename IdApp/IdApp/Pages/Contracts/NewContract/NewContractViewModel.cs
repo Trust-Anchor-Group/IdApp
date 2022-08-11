@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Controls.Extended;
 using IdApp.Extensions;
-using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract.ObjectModel;
@@ -587,7 +586,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					this.saveStateWhileScanning = true;
 					this.stateTemplateWhileScanning = this.template;
 
-					TaskCompletionSource<ContactInfo> Selected = new();
+					TaskCompletionSource<ContactInfoModel> Selected = new();
 					ContactListNavigationArgs Args = new(AppResources.AddContactToContract, Selected)
 					{
 						CanScanQrCode = true,
@@ -596,7 +595,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
 
-					ContactInfo Contact = await Selected.Task;
+					ContactInfoModel Contact = await Selected.Task;
 					if (Contact is null)
 						return;
 

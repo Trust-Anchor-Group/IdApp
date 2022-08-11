@@ -18,7 +18,7 @@
         /// <summary>
         /// Set it to 1 to start a counter of the number of times to pop when going back.
         /// It will be incremented on every push using the <see cref="INavigationService.GoToAsync"/> method.
-        /// If this parrameter exist, it supercedes the <see cref="ReturnRoute"/>
+        /// If this parameter exist, it supercedes the <see cref="ReturnRoute"/>
         /// </summary>
         public int ReturnCounter { get; set; }
 

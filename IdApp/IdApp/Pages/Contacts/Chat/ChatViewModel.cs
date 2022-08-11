@@ -15,6 +15,7 @@ using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Messages;
+using IdApp.Services.Notification;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.QR;
 using IdApp.Services.Xmpp;
@@ -95,6 +96,8 @@ namespace IdApp.Pages.Contacts.Chat
 
 			this.EvaluateAllCommands();
 			this.waitUntilBound.TrySetResult(true);
+
+			await this.NotificationService.DeleteEvents(EventButton.Contacts, this.BareJid);
 		}
 
 		/// <inheritdoc/>
@@ -766,7 +769,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedId()
 		{
-			TaskCompletionSource<ContactInfo> SelectedContact = new();
+			TaskCompletionSource<ContactInfoModel> SelectedContact = new();
 
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
 				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectedContact)
@@ -774,7 +777,7 @@ namespace IdApp.Pages.Contacts.Chat
 					CanScanQrCode = true
 				});
 
-			ContactInfo Contact = await SelectedContact.Task;
+			ContactInfoModel Contact = await SelectedContact.Task;
 			if (Contact is null)
 				return;
 

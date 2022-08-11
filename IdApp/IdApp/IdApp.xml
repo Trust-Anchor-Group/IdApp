@@ -1186,7 +1186,7 @@
         </member>
         <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2FontFamily">
             <summary>
-            The font family to use for text on the first button
+            The font family to use for text on the second button
             </summary>
         </member>
         <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonFontFamilyProperty">
@@ -1216,7 +1216,7 @@
         </member>
         <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2FontFamily">
             <summary>
-            The font family to use for text on the third button
+            The font family to use for text on the fourth button
             </summary>
         </member>
         <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1TextProperty">
@@ -1236,7 +1236,7 @@
         </member>
         <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2Text">
             <summary>
-            The text to use for text on the first button
+            The text to use for text on the second button
             </summary>
         </member>
         <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonTextProperty">
@@ -1266,7 +1266,47 @@
         </member>
         <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2Text">
             <summary>
-            The text to use for text on the third button
+            The text to use for text on the fourth button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1Overlay">
+            <summary>
+            Overlay on the first button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2Overlay">
+            <summary>
+            Overlay on the second button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1Overlay">
+            <summary>
+            Overlay on the third button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2Overlay">
+            <summary>
+            Overlay on the fourth button
             </summary>
         </member>
         <member name="M:IdApp.Controls.MainTabBar.MainTabBarView.Show">
@@ -2353,18 +2393,18 @@
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatNavigationArgs"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(IdApp.Services.ContactInfo)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatNavigationArgs"/> class.
             </summary>
             <param name="Contact">Contact information.</param>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(System.String,System.String,System.String)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatNavigationArgs"/> class.
             </summary>
             <param name="LegalId">Legal ID, if available.</param>
             <param name="BareJid">Bare JID of remote chat party</param>
@@ -3098,142 +3138,284 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Pages.Contacts.SelectContactAction">
+        <member name="T:IdApp.Pages.Contacts.MyContacts.ContactInfoModel">
+            <summary>
+            Contact Information model, including related notification information.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.#ctor(IdApp.Services.ServiceReferences,IdApp.Services.ContactInfo,IdApp.Services.Notification.NotificationEvent[])">
+            <summary>
+            Contact Information model, including related notification information.
+            </summary>
+            <param name="References">Service references.</param>
+            <param name="Contact">Contact information.</param>
+            <param name="Events">Notification events</param>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.Contact">
+            <summary>
+            Contact Information object in database.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.BareJid">
+            <summary>
+            Bare JID of contact.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.LegalId">
+            <summary>
+            Legal ID of contact.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.LegalIdentity">
+            <summary>
+            Legal Identity object.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.FriendlyName">
+            <summary>
+            Friendly name.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.SourceId">
+            <summary>
+            Source ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.Partition">
+            <summary>
+            Partition
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.NodeId">
+            <summary>
+            Node ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.RegistryJid">
+            <summary>
+            Registry JID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.SubcribeTo">
+            <summary>
+            Subscribe to this contact
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.AllowSubscriptionFrom">
+            <summary>
+            Allow subscriptions from this contact
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.IsThing">
+            <summary>
+            The contact is a thing
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.Owner">
+            <summary>
+            If the account is registered as the owner of the thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.MetaData">
+            <summary>
+            Meta-data related to a thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.Events">
+            <summary>
+            Notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.HasEvents">
+            <summary>
+            If the contact has associated events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.NrEvents">
+            <summary>
+            Number of events associated with contact.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.ConnectionColor">
+            <summary>
+            A color representing the current connection state of the contact.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.ToggleSubscriptionCommand">
+            <summary>
+            Command to execute when user wants to toggle XMPP subcription.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.CanToggleSubscription">
+            <summary>
+            If toggle subscription can be performed on the contact.
+            </summary>
+            <returns>If command is enabled.</returns>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.ToggleSubscription">
+            <summary>
+            Subscribes to an unsubscribed contact; unsubscribes from a subscribed one, with user permission.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.PresenceUpdated">
+            <summary>
+            Method called when presence for contact has been updated.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.OnPropertyChanged(System.String)">
+            <summary>
+            Called when a property has changed.
+            </summary>
+            <param name="PropertyName">Name of property</param>
+        </member>
+        <member name="E:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.PropertyChanged">
+            <summary>
+            Occurs when a property value changes.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.NotificationsUpdated(IdApp.Services.Notification.NotificationEvent[])">
+            <summary>
+            Method called when notifications for the item have been updated.
+            </summary>
+            <param name="Events">Updated set of events.</param>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.MyContacts.SelectContactAction">
             <summary>
             Actions to take when a contact has been selected.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contacts.SelectContactAction.MakePayment">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.SelectContactAction.MakePayment">
             <summary>
             Make a payment to contact.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contacts.SelectContactAction.ViewIdentity">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.SelectContactAction.ViewIdentity">
             <summary>
             View the identity.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contacts.SelectContactAction.Select">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.SelectContactAction.Select">
             <summary>
             Embed link to ID in chat
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Contacts.ContactListNavigationArgs">
+        <member name="T:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a list of contacts.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListNavigationArgs.#ctor">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.#ctor">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListNavigationArgs.#ctor(System.String,IdApp.Pages.Contacts.SelectContactAction)">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.#ctor(System.String,IdApp.Pages.Contacts.MyContacts.SelectContactAction)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs"/> class.
             </summary>
             <param name="Description">Description presented to user.</param>
             <param name="Action">Action to take when a contact has been selected.</param>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListNavigationArgs.#ctor(System.String,System.Threading.Tasks.TaskCompletionSource{IdApp.Services.ContactInfo})">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.#ctor(System.String,System.Threading.Tasks.TaskCompletionSource{IdApp.Pages.Contacts.MyContacts.ContactInfoModel})">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs"/> class.
             </summary>
             <param name="Description">Description presented to user.</param>
             <param name="Selection">Selection source, where selected item will be stored, or null if cancelled.</param>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.Description">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.Description">
             <summary>
             Description presented to user.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.Action">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.Action">
             <summary>
             Action to take when a contact has been selected.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.Selection">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.Selection">
             <summary>
             Selection source, if selecting identity.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.CanScanQrCode">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.CanScanQrCode">
             <summary>
             If the user should be able to scane QR Codes.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Contacts.ContactListViewModel">
+        <member name="T:IdApp.Pages.Contacts.MyContacts.ContactListViewModel">
             <summary>
             The view model to bind to when displaying the list of contacts.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListViewModel.#ctor">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.#ctor">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListViewModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.ContactListViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListViewModel.DoBind">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.DoBind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="F:IdApp.Pages.Contacts.ContactListViewModel.ShowContactsMissingProperty">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ShowContactsMissingProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.ShowContactsMissing"/>
+            See <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ShowContactsMissing"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.ShowContactsMissing">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ShowContactsMissing">
             <summary>
             Gets or sets whether to show a contacts missing alert or not.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contacts.ContactListViewModel.DescriptionProperty">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.DescriptionProperty">
             <summary>
-            <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.Description"/>
+            <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.Description"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.Description">
-            <summary>
-            The description to present to the user.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Contacts.ContactListViewModel.CanScanQrCodeProperty">
-            <summary>
-            <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.CanScanQrCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.CanScanQrCode">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.Description">
             <summary>
             The description to present to the user.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contacts.ContactListViewModel.ActionProperty">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.CanScanQrCodeProperty">
             <summary>
-            <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.Action"/>
+            <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.CanScanQrCode"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.Action">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.CanScanQrCode">
+            <summary>
+            The description to present to the user.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ActionProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.Action"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.Action">
             <summary>
             The action to take when contact has been selected.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.Contacts">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.Contacts">
             <summary>
             Holds the list of contacts to display.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contacts.ContactListViewModel.SelectedContactProperty">
+        <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.SelectedContactProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Contacts.ContactListViewModel.SelectedContact"/>
+            See <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.SelectedContact"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.SelectedContact">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.SelectedContact">
             <summary>
             The currently selected contact, if any.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.ContactListViewModel.ScanQrCodeCommand">
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ScanQrCodeCommand">
             <summary>
             Command executed when the user wants to scan a contact from a QR Code.
             </summary>
@@ -7449,6 +7631,46 @@
         <member name="P:IdApp.Pages.Main.Main.MainViewModel.ConnectionErrorsText">
             <summary>
             Gets or sets the user friendly connection errors text for display. Can be null.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Main.MainViewModel.Left1OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.Left1Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.Left1Overlay">
+            <summary>
+            Integer overlay of button Left1
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Main.MainViewModel.Left2OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.Left2Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.Left2Overlay">
+            <summary>
+            Integer overlay of button Left2
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Main.MainViewModel.Right1OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.Right1Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.Right1Overlay">
+            <summary>
+            Integer overlay of button Right1
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Main.MainViewModel.Right2OverlayProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.Right2Overlay"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.Right2Overlay">
+            <summary>
+            Integer overlay of button Right2
             </summary>
         </member>
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
@@ -13869,6 +14091,11 @@
               Looks up a localized string similar to Building.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.CalculationError">
+            <summary>
+              Looks up a localized string similar to Unable to perform calculation..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Calculator">
             <summary>
               Looks up a localized string similar to Calculator.
@@ -14312,6 +14539,16 @@
         <member name="P:IdApp.Resx.AppResources.EnterProposal">
             <summary>
               Looks up a localized string similar to Enter the text to include in the proposal to {0}, or leave blank if a proposal should not be sent..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.EnterValidValue">
+            <summary>
+              Looks up a localized string similar to Enter a valid value first..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.EnterValue">
+            <summary>
+              Looks up a localized string similar to You need to enter a value first..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ErrorTitle">
@@ -15414,6 +15651,11 @@
               Looks up a localized string similar to URI:.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Question">
+            <summary>
+              Looks up a localized string similar to Question.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ReceiveEDaler">
             <summary>
               Looks up a localized string similar to Receive eDaler.
@@ -15472,6 +15714,11 @@
         <member name="P:IdApp.Resx.AppResources.RemoveSubscription2">
             <summary>
               Looks up a localized string similar to Do you want to revoke this permission also?.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.RemoveSubscriptionFrom">
+            <summary>
+              Looks up a localized string similar to Do you want to remove the presence subscription from {0}?.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Repair">
@@ -17981,7 +18228,7 @@
             <summary>
             Set it to 1 to start a counter of the number of times to pop when going back.
             It will be incremented on every push using the <see cref="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String)"/> method.
-            If this parrameter exist, it supercedes the <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute"/>
+            If this parameter exist, it supercedes the <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute"/>
             </summary>
         </member>
         <member name="P:IdApp.Services.Navigation.NavigationArgs.CancelReturnCounter">
@@ -18154,6 +18401,448 @@
             </summary>
             <param name="PropertyName">Name of property</param>
             <returns>Property value.</returns>
+        </member>
+        <member name="T:IdApp.Services.Notification.INotificationService">
+            <summary>
+            Interface for push notification services.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.NewEvent(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            Registers a new event and notifies the user.
+            </summary>
+            <param name="Event">Notification event.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.DeleteEvents(IdApp.Services.Notification.EventButton,Waher.Persistence.CaseInsensitiveString)">
+            <summary>
+            Deletes events for a given button and category.
+            </summary>
+            <param name="Button">Button</param>
+            <param name="Category">Category</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.GetCategories(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available categories for a button.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded categories.</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.GetEvents(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available notification events for a button.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded events.</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.GetEventsByCategory(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available notification events for a button, sorted by category.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded events.</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.TryGetNotificationEvents(IdApp.Services.Notification.EventButton,Waher.Persistence.CaseInsensitiveString,IdApp.Services.Notification.NotificationEvent[]@)">
+            <summary>
+            Tries to get available notification events.
+            </summary>
+            <param name="Button">Event Button</param>
+            <param name="Category">Notification event category</param>
+            <param name="Events">Notification events, if found.</param>
+            <returns>If notification events where found for the given category.</returns>
+        </member>
+        <member name="E:IdApp.Services.Notification.INotificationService.OnNewNotification">
+            <summary>
+            Event raised when a new notification has been logged.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Notification.INotificationService.OnNotificationsDeleted">
+            <summary>
+            Event raised when notifications have been deleted.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsContacts">
+            <summary>
+            Number of notifications but button Contacts
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsThings">
+            <summary>
+            Number of notifications but button Things
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsContracts">
+            <summary>
+            Number of notifications but button Contracts
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.INotificationService.NrNotificationsWallet">
+            <summary>
+            Number of notifications but button Wallet
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.EventButton">
+            <summary>
+            Button on which event is to be displayed.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Notification.EventButton.Contacts">
+            <summary>
+            Contacts (Left 1)
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Notification.EventButton.Things">
+            <summary>
+            Things (Left 2)
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Notification.EventButton.Contracts">
+            <summary>
+            Contracts (Right 1)
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Notification.EventButton.Wallet">
+            <summary>
+            Wallet (Right 2)
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.NotificationEvent">
+            <summary>
+            Abstract base class of notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationEvent.#ctor">
+            <summary>
+            Abstract base class of notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationEvent.ObjectId">
+            <summary>
+            Object ID of notification event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationEvent.Received">
+            <summary>
+            When event was received
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationEvent.Category">
+            <summary>
+            Category string. Events having the same category are grouped and processed together.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationEvent.Button">
+            <summary>
+            Button on which notification should be displayed
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.NotificationService">
+            <summary>
+            Notification service
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.#ctor">
+            <summary>
+            Notification service
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.Load(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Loads the specified service.
+            </summary>
+            <param name="isResuming">Set to <c>true</c> to indicate the app is resuming as opposed to starting cold.</param>
+            <param name="cancellationToken">Will stop the service load if the token is set.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.NewEvent(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            Registers a new event and notifies the user.
+            </summary>
+            <param name="Event">Notification event.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.DeleteEvents(IdApp.Services.Notification.EventButton,Waher.Persistence.CaseInsensitiveString)">
+            <summary>
+            Deletes events for a given button and category.
+            </summary>
+            <param name="Button">Button</param>
+            <param name="Category">Category</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.GetEvents(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available notification events for a button.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded events.</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.GetCategories(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available categories for a button.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded categories.</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.GetEventsByCategory(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available notification events for a button, sorted by category.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded events.</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.TryGetNotificationEvents(IdApp.Services.Notification.EventButton,Waher.Persistence.CaseInsensitiveString,IdApp.Services.Notification.NotificationEvent[]@)">
+            <summary>
+            Tries to get available notification events.
+            </summary>
+            <param name="Button">Event Button</param>
+            <param name="Category">Notification event category</param>
+            <param name="Events">Notification events, if found.</param>
+            <returns>If notification events where found for the given category.</returns>
+        </member>
+        <member name="E:IdApp.Services.Notification.NotificationService.OnNewNotification">
+            <summary>
+            Event raised when a new notification has been logged.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Notification.NotificationService.OnNotificationsDeleted">
+            <summary>
+            Event raised when notifications have been deleted.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsContacts">
+            <summary>
+            Number of notifications but button Contacts
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsThings">
+            <summary>
+            Number of notifications but button Things
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsContracts">
+            <summary>
+            Number of notifications but button Contracts
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationService.NrNotificationsWallet">
+            <summary>
+            Number of notifications but button Wallet
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.BalanceNotificationEvent">
+            <summary>
+            Contains information about an incoming chat message.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.#ctor">
+            <summary>
+            Contains information about an incoming chat message.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Amount">
+            <summary>
+            Amount
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Reserved">
+            <summary>
+            Amount reserved
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Currency">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Event">
+            <summary>
+            Account event
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.StateMachineNewStateNotificationEvent">
+            <summary>
+            Contains information about a change in a state-machine associated with a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.StateMachineNewStateNotificationEvent.#ctor">
+            <summary>
+            Contains information about a change in a state-machine associated with a token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.StateMachineNewStateNotificationEvent.NewState">
+            <summary>
+            New state of state-machine.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.StateMachineVariablesUpdatedNotificationEvent">
+            <summary>
+            Contains information about a change in internal variables of a state-machine associated with a token.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.StateMachineVariablesUpdatedNotificationEvent.#ctor">
+            <summary>
+            Contains information about a change in internal variables of a state-machine associated with a token.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.TokenAddedNotificationEvent">
+            <summary>
+            Contains information about a token that has been added.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenAddedNotificationEvent.#ctor">
+            <summary>
+            Contains information about a token that has been added.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.TokenNotificationEvent">
+            <summary>
+            Abstract base class for token notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.#ctor">
+            <summary>
+            Abstract base class for token notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.TokenNotificationEvent.TokenId">
+            <summary>
+            Token ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.TokenNotificationEvent.TokenCategory">
+            <summary>
+            Category of token
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.TokenNotificationEvent.FriendlyName">
+            <summary>
+            Friendly Name of token
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.TokenNotificationEvent.Token">
+            <summary>
+            Loaded token
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.TokenRemovedNotificationEvent">
+            <summary>
+            Contains information about a token that has been removed.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenRemovedNotificationEvent.#ctor">
+            <summary>
+            Contains information about a token that has been removed.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.Wallet.WalletNotificationEvent">
+            <summary>
+            Abstract base class for wallet notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.WalletNotificationEvent.#ctor">
+            <summary>
+            Abstract base class for wallet notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Wallet.WalletNotificationEvent.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.WalletNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences"></param>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent">
+            <summary>
+            Contains information about an incoming chat message.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.#ctor">
+            <summary>
+            Contains information about an incoming chat message.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.ReplaceObjectId">
+            <summary>
+            ID of message object being updated
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Xmpp.XmppNotificationEvent">
+            <summary>
+            Abstract base class of XMPP notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Xmpp.XmppNotificationEvent.#ctor">
+            <summary>
+            Abstract base class of XMPP notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Xmpp.XmppNotificationEvent.BareJid">
+            <summary>
+            Bare JID of sender.
+            </summary>
         </member>
         <member name="T:IdApp.Services.Ocr.IOcrService">
             <summary>
@@ -18477,6 +19166,11 @@
         <member name="P:IdApp.Services.ServiceReferences.NfcService">
             <summary>
             Near-Field Communication (NFC) service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.NotificationService">
+            <summary>
+            Notification Service
             </summary>
         </member>
         <member name="P:IdApp.Services.ServiceReferences.PushNotificationService">

@@ -11,19 +11,21 @@ using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.Payment;
 using IdApp.Resx;
 using IdApp.Services;
+using IdApp.Services.Notification;
 using IdApp.Services.UI.QR;
 using Waher.Networking.XMPP;
 using Waher.Persistence;
 using Xamarin.Forms;
 
-namespace IdApp.Pages.Contacts
+namespace IdApp.Pages.Contacts.MyContacts
 {
 	/// <summary>
 	/// The view model to bind to when displaying the list of contacts.
 	/// </summary>
 	public class ContactListViewModel : BaseViewModel
 	{
-		private TaskCompletionSource<ContactInfo> selection;
+		private readonly Dictionary<CaseInsensitiveString, List<ContactInfoModel>> byBareJid;
+		private TaskCompletionSource<ContactInfoModel> selection;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
@@ -32,7 +34,8 @@ namespace IdApp.Pages.Contacts
 		{
 			this.ScanQrCodeCommand = new Command(async _ => await this.ScanQrCode());
 
-			this.Contacts = new ObservableCollection<ContactInfo>();
+			this.Contacts = new ObservableCollection<ContactInfoModel>();
+			this.byBareJid = new();
 
 			this.Description = AppResources.ContactsDescription;
 			this.Action = SelectContactAction.ViewIdentity;
@@ -52,7 +55,7 @@ namespace IdApp.Pages.Contacts
 				this.CanScanQrCode = args.CanScanQrCode;
 			}
 
-			SortedDictionary<string, ContactInfo> Sorted = new();
+			SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted = new();
 			Dictionary<CaseInsensitiveString, bool> Jids = new();
 
 			foreach (ContactInfo Info in await Database.Find<ContactInfo>())
@@ -85,14 +88,69 @@ namespace IdApp.Pages.Contacts
 				Add(Sorted, Info.FriendlyName, Info);
 			}
 
+			NotificationEvent[] Events;
+
 			this.Contacts.Clear();
+
+			foreach (CaseInsensitiveString Category in this.NotificationService.GetCategories(EventButton.Contacts))
+			{
+				if (this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Category, out Events))
+				{
+					if (Sorted.TryGetValue(Category, out ContactInfo Info))
+						Sorted.Remove(Category);
+					else
+					{
+						Info = await ContactInfo.FindByBareJid(Category);
+
+						if (Info is not null)
+							Remove(Sorted, Info.FriendlyName, Info);
+						else
+						{
+							Info = new()
+							{
+								BareJid = Category,
+								FriendlyName = Category,
+								IsThing = null
+							};
+						}
+					}
+
+					this.Contacts.Add(new ContactInfoModel(this, Info, Events));
+				}
+			}
+
 			foreach (ContactInfo Info in Sorted.Values)
-				this.Contacts.Add(Info);
+			{
+				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Info.BareJid, out Events))
+					Events = new NotificationEvent[0];
+
+				this.Contacts.Add(new ContactInfoModel(this, Info, Events));
+			}
+
+			this.byBareJid.Clear();
+
+			foreach (ContactInfoModel Contact in this.Contacts)
+			{
+				if (string.IsNullOrEmpty(Contact.BareJid))
+					continue;
+
+				if (!this.byBareJid.TryGetValue(Contact.BareJid, out List<ContactInfoModel> Contacts))
+				{
+					Contacts = new List<ContactInfoModel>();
+					this.byBareJid[Contact.BareJid] = Contacts;
+				}
+
+				Contacts.Add(Contact);
+			}
 
 			this.ShowContactsMissing = Sorted.Count == 0;
+
+			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
 		}
 
-		private static void Add(SortedDictionary<string, ContactInfo> Sorted, string Name, ContactInfo Info)
+		private static void Add(SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted, CaseInsensitiveString Name, ContactInfo Info)
 		{
 			if (Sorted.ContainsKey(Name))
 			{
@@ -111,9 +169,35 @@ namespace IdApp.Pages.Contacts
 				Sorted[Name] = Info;
 		}
 
+		private static void Remove(SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted, CaseInsensitiveString Name, ContactInfo Info)
+		{
+			int i = 1;
+			string Suffix = string.Empty;
+
+			while (Sorted.TryGetValue(Name + Suffix, out ContactInfo Info2))
+			{
+				if (Info2.BareJid == Info.BareJid &&
+					Info2.SourceId == Info.SourceId &&
+					Info2.Partition == Info.Partition &&
+					Info2.NodeId == Info.NodeId &&
+					Info2.LegalId == Info.LegalId)
+				{
+					Sorted.Remove(Name + Suffix);
+					return;
+				}
+
+				i++;
+				Suffix = " " + i.ToString();
+			}
+		}
+
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
+			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
+			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted -= this.NotificationService_OnNotificationsDeleted;
+
 			if (this.Action != SelectContactAction.Select)
 			{
 				this.ShowContactsMissing = false;
@@ -188,20 +272,20 @@ namespace IdApp.Pages.Contacts
 		/// <summary>
 		/// Holds the list of contacts to display.
 		/// </summary>
-		public ObservableCollection<ContactInfo> Contacts { get; }
+		public ObservableCollection<ContactInfoModel> Contacts { get; }
 
 		/// <summary>
 		/// See <see cref="SelectedContact"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedContactProperty =
-			BindableProperty.Create(nameof(SelectedContact), typeof(ContactInfo), typeof(ContactListViewModel), default(ContactInfo),
+			BindableProperty.Create(nameof(SelectedContact), typeof(ContactInfoModel), typeof(ContactListViewModel), default(ContactInfoModel),
 				propertyChanged: (b, oldValue, newValue) =>
 				{
-					if (b is ContactListViewModel viewModel && newValue is ContactInfo Contact)
+					if (b is ContactListViewModel viewModel && newValue is ContactInfoModel Contact)
 						viewModel.OnSelected(Contact);
 				});
 
-		private void OnSelected(ContactInfo Contact)
+		private void OnSelected(ContactInfoModel Contact)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
@@ -249,7 +333,12 @@ namespace IdApp.Pages.Contacts
 						else if (!string.IsNullOrEmpty(Contact.LegalId))
 							await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId, AppResources.ScannedQrCode);
 						else if (!string.IsNullOrEmpty(Contact.BareJid))
-							await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
+						{
+							await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact.Contact)
+							{
+								UniqueId = Contact.BareJid
+							});
+						}
 
 						break;
 
@@ -264,9 +353,9 @@ namespace IdApp.Pages.Contacts
 		/// <summary>
 		/// The currently selected contact, if any.
 		/// </summary>
-		public ContactInfo SelectedContact
+		public ContactInfoModel SelectedContact
 		{
-			get => (ContactInfo)this.GetValue(SelectedContactProperty);
+			get => (ContactInfoModel)this.GetValue(SelectedContactProperty);
 			set => this.SetValue(SelectedContactProperty, value);
 		}
 
@@ -281,14 +370,49 @@ namespace IdApp.Pages.Contacts
 			{
 				if (Constants.UriSchemes.StartsWithIdScheme(code))
 				{
-					this.OnSelected(new ContactInfo()
+					this.OnSelected(new ContactInfoModel(this, new ContactInfo()
 					{
 						LegalId = Constants.UriSchemes.RemoveScheme(code)
-					});
+					}, new NotificationEvent[0]));
 				}
 				else
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
 			});
 		}
+
+		private Task Xmpp_OnPresence(object Sender, PresenceEventArgs e)
+		{
+			if (this.byBareJid.TryGetValue(e.FromBareJID, out List<ContactInfoModel> Contacts))
+			{
+				foreach (ContactInfoModel Contact in Contacts)
+					Contact.PresenceUpdated();
+			}
+
+			return Task.CompletedTask;
+		}
+
+		private void NotificationService_OnNewNotification(object sender, System.EventArgs e)
+		{
+			this.UpdateNotifications();
+		}
+
+		private void UpdateNotifications()
+		{
+			foreach (CaseInsensitiveString Category in this.NotificationService.GetCategories(EventButton.Contacts))
+			{
+				if (this.byBareJid.TryGetValue(Category, out List<ContactInfoModel> Contacts) &&
+					this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Category, out NotificationEvent[] Events))
+				{
+					foreach (ContactInfoModel Contact in Contacts)
+						Contact.NotificationsUpdated(Events);
+				}
+			}
+		}
+
+		private void NotificationService_OnNotificationsDeleted(object sender, System.EventArgs e)
+		{
+			this.UpdateNotifications();
+		}
+
 	}
 }

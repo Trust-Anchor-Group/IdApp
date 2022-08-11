@@ -9,6 +9,7 @@ using IdApp.Resx;
 using IdApp.Services.Contracts;
 using IdApp.Services.Messages;
 using IdApp.Services.Navigation;
+using IdApp.Services.Notification.Xmpp;
 using IdApp.Services.Push;
 using IdApp.Services.Provisioning;
 using IdApp.Services.Tag;
@@ -47,7 +48,6 @@ using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
-using Xamarin.Forms;
 
 namespace IdApp.Services.Xmpp
 {
@@ -237,12 +237,14 @@ namespace IdApp.Services.Xmpp
 					{
 						Thread?.NewState("eDaler");
 						this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.EDalerJid);
+						this.wallet.CheckEDalerClient();
 					}
 
 					if (!string.IsNullOrWhiteSpace(this.TagProfile.NeuroFeaturesJid))
 					{
 						Thread?.NewState("Neuro-Features");
 						this.neuroFeaturesClient = new NeuroFeaturesClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.NeuroFeaturesJid);
+						this.wallet.CheckNeuroFeaturesClient();
 					}
 
 					if (this.TagProfile.SupportsPushNotification.HasValue && this.TagProfile.SupportsPushNotification.Value)
@@ -1441,30 +1443,31 @@ namespace IdApp.Services.Xmpp
 				}
 			}
 
-			INavigationService NavigationService = App.Instantiate<INavigationService>();
-
-			if (NavigationService.TryPopArgs(out ChatNavigationArgs args, e.FromBareJID))
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
+				INavigationService NavigationService = App.Instantiate<INavigationService>();
+
 				if ((NavigationService.CurrentPage is ChatPage || NavigationService.CurrentPage is ChatPageIos) &&
 					NavigationService.CurrentPage.BindingContext is ChatViewModel ChatViewModel &&
-					ChatViewModel.BareJid == e.FromBareJID)
+					string.Compare(ChatViewModel.BareJid, e.FromBareJID, true) == 0)
 				{
 					if (string.IsNullOrEmpty(ReplaceObjectId))
 						await ChatViewModel.MessageAddedAsync(Message);
 					else
 						await ChatViewModel.MessageUpdatedAsync(Message);
 				}
-			}
-			else
-			{
-				string LegalId = ContactInfo?.LegalId;
-				string BareJid = ContactInfo?.BareJid ?? e.FromBareJID;
-
-				this.UiSerializer.BeginInvokeOnMainThread(async () =>
-					await NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName) { UniqueId = BareJid }));
-
-				Thread.Sleep(100);
-			}
+				else
+				{
+					await this.NotificationService.NewEvent(new ChatMessageNotificationEvent()
+					{
+						Category = e.FromBareJID,
+						BareJid = e.FromBareJID,
+						ReplaceObjectId = ReplaceObjectId,
+						Received = DateTime.UtcNow,
+						Button = 0
+					});
+				}
+			});
 		}
 
 		#region Push Notification

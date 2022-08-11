@@ -14,6 +14,7 @@ using IdApp.Services.UI;
 using IdApp.Services.Wallet;
 using Xamarin.Forms;
 using IdApp.Services.Push;
+using IdApp.Services.Notification;
 
 namespace IdApp.Services
 {
@@ -43,6 +44,7 @@ namespace IdApp.Services
         private ISettingsService settingsService;
         private IStorageService storageService;
         private INfcService nfcService;
+        private INotificationService notificationService;
         private IPushNotificationService pushNotificationService;
         private ISmartContracts smartContracts;
 
@@ -242,10 +244,24 @@ namespace IdApp.Services
             }
         }
 
-        /// <summary>
-        /// Push Notification Service
-        /// </summary>
-        public IPushNotificationService PushNotificationService
+		/// <summary>
+		/// Notification Service
+		/// </summary>
+		public INotificationService NotificationService
+		{
+			get
+			{
+				if (this.notificationService is null)
+					this.notificationService = App.Instantiate<INotificationService>();
+
+				return this.notificationService;
+			}
+		}
+
+		/// <summary>
+		/// Push Notification Service
+		/// </summary>
+		public IPushNotificationService PushNotificationService
         {
             get
             {
