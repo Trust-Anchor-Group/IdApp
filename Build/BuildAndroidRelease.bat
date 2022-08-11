@@ -13,9 +13,9 @@ REM Path to MsBuild
 REM set msbuild="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\msbuild.exe"
 set msbuild="C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\msbuild.exe"
 REM Path to ZipAlign
-set zipalign="C:\Program Files (x86)\Android\android-sdk\build-tools\30.0.3\zipalign.exe"
+set zipalign="C:\Program Files (x86)\Android\android-sdk\build-tools\32.0.0\zipalign.exe"
 REM Path to JarSigner
-set jarsigner="C:\Program Files (x86)\Android\android-sdk\build-tools\30.0.3\apksigner.bat"
+set jarsigner="C:\Program Files (x86)\Android\android-sdk\build-tools\32.0.0\apksigner.bat"
 REM Path to APK file
 set apkPath=..\IdApp\IdApp.Android\bin\%buildmode%\com.Tag.IdApp.aab
 
