@@ -26,6 +26,12 @@ namespace IdApp.Services.Notification
 		Task DeleteEvents(EventButton Button, CaseInsensitiveString Category);
 
 		/// <summary>
+		/// Deletes a specified set of events.
+		/// </summary>
+		/// <param name="Events">Events to delete.</param>
+		Task DeleteEvents(NotificationEvent[] Events);
+
+		/// <summary>
 		/// Gets available categories for a button.
 		/// </summary>
 		/// <param name="Button">Button</param>

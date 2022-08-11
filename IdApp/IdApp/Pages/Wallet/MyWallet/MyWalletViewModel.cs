@@ -7,15 +7,16 @@ using System.Windows.Input;
 using System.Xml;
 using EDaler;
 using EDaler.Uris;
-using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Resx;
 using IdApp.Services;
+using IdApp.Services.Notification;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Persistence;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MyWallet
@@ -68,8 +69,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 			if (this.Balance is null && this.NavigationService.TryPopArgs(out WalletNavigationArgs args))
 			{
-				await this.AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency,
-					args.PendingPayments, args.Events, args.More, this.XmppService.Wallet.LastEDalerEvent);
+				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
+
+				await this.AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments,
+					args.Events, args.More, this.XmppService.Wallet.LastEDalerEvent, NotificationEvents);
 			}
 			else if (((this.Balance is not null) && (this.XmppService.Wallet.LastBalance is not null) &&
 				(this.Balance.Amount != this.XmppService.Wallet.LastBalance.Amount ||
@@ -101,7 +104,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		private async Task AssignProperties(Balance Balance, decimal PendingAmount, string PendingCurrency,
-			EDaler.PendingPayment[] PendingPayments, EDaler.AccountEvent[] Events, bool More, DateTime LastEvent)
+			EDaler.PendingPayment[] PendingPayments, EDaler.AccountEvent[] Events, bool More, DateTime LastEvent,
+			SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents)
 		{
 			if (Balance is not null)
 			{
@@ -149,7 +153,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 						FriendlyNames[Event.Remote] = FriendlyName;
 					}
 
-					NewPaymentItems.Add(new AccountEventItem(Event, this, FriendlyName));
+					if (!NotificationEvents.TryGetValue(Event.TransactionId.ToString(), out NotificationEvent[] CategoryEvents))
+						CategoryEvents = new NotificationEvent[0];
+
+					NewPaymentItems.Add(new AccountEventItem(Event, this, FriendlyName, CategoryEvents, this));
 				}
 			}
 
@@ -191,9 +198,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
 				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
+				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await this.AssignProperties(Balance, PendingAmount, PendingCurrency,
-					PendingPayments, Events, More, this.XmppService.Wallet.LastEDalerEvent));
+					PendingPayments, Events, More, this.XmppService.Wallet.LastEDalerEvent, NotificationEvents));
 			}
 			catch (Exception ex)
 			{
@@ -610,6 +618,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 					if (Events is not null)
 					{
 						Dictionary<string, string> FriendlyNames = new();
+						SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
 
 						foreach (EDaler.AccountEvent Event in Events)
 						{
@@ -619,7 +628,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 								FriendlyNames[Event.Remote] = FriendlyName;
 							}
 
-							this.PaymentItems.Add(new AccountEventItem(Event, this, FriendlyName));
+							if (!NotificationEvents.TryGetValue(Event.TransactionId.ToString(), out NotificationEvent[] CategoryEvents))
+								CategoryEvents = new NotificationEvent[0];
+
+							this.PaymentItems.Add(new AccountEventItem(Event, this, FriendlyName, CategoryEvents, this));
 						}
 					}
 				}

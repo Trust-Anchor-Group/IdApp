@@ -1,6 +1,7 @@
 ﻿using IdApp.Resx;
 using System;
 using System.Threading.Tasks;
+using Waher.Networking.XMPP;
 
 namespace IdApp.Services.Notification.Wallet
 {
@@ -15,6 +16,17 @@ namespace IdApp.Services.Notification.Wallet
 		public WalletNotificationEvent()
 			: base()
 		{
+		}
+
+		/// <summary>
+		/// Abstract base class for wallet notification events.
+		/// </summary>
+		/// <param name="_">Event arguments</param>
+		public WalletNotificationEvent(EventArgs _)
+			: base()
+		{
+			this.Button = EventButton.Wallet;
+			this.Timestamp = this.Received = DateTime.UtcNow;
 		}
 
 		/// <summary>

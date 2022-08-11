@@ -20,6 +20,32 @@ namespace IdApp.Services.Notification.Wallet
 		}
 
 		/// <summary>
+		/// Abstract base class for token notification events.
+		/// </summary>
+		/// <param name="e">Event arguments.</param>
+		public TokenNotificationEvent(TokenEventArgs e)
+			: base(e)
+		{
+			this.TokenId = e.Token.TokenId;
+			this.FriendlyName = e.Token.FriendlyName;
+			this.TokenCategory = e.Token.Category;
+			this.Token = e.Token;
+			this.Category = e.Token.TokenId;
+		}
+
+		/// <summary>
+		/// Abstract base class for token notification events.
+		/// </summary>
+		/// <param name="e">Event arguments.</param>
+		public TokenNotificationEvent(StateMachineEventArgs e)
+			: base(e)
+		{
+			this.TokenId = e.TokenId;
+			this.Token = null;
+			this.Category = e.TokenId;
+		}
+
+		/// <summary>
 		/// Token ID
 		/// </summary>
 		public string TokenId { get; set; }

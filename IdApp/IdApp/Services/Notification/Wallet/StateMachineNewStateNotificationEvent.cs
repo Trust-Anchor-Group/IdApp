@@ -1,4 +1,6 @@
-﻿namespace IdApp.Services.Notification.Wallet
+﻿using NeuroFeatures;
+
+namespace IdApp.Services.Notification.Wallet
 {
 	/// <summary>
 	/// Contains information about a change in a state-machine associated with a token.
@@ -11,6 +13,16 @@
 		public StateMachineNewStateNotificationEvent()
 			: base()
 		{
+		}
+
+		/// <summary>
+		/// Contains information about a change in a state-machine associated with a token.
+		/// </summary>
+		/// <param name="e">Event arguments.</param>
+		public StateMachineNewStateNotificationEvent(NewStateEventArgs e)
+			: base(e)
+		{
+			this.NewState = e.NewState;
 		}
 
 		/// <summary>

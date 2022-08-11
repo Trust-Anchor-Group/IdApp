@@ -41,7 +41,11 @@
 		<DataTemplate x:Key="AccountEventTemplate" x:DataType="objectmodel:AccountEventItem">
             <Grid ColumnDefinitions="2*,*" RowDefinitions="auto,auto,auto" >
                 <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
-                <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=TimestampStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"/>
+				<Label Grid.Row="0" Grid.Column="1" FontSize="50" Padding="0,-25,0,-25"
+					   TextColor="{StaticResource AlertColor}" Text="•"
+					   HorizontalOptions="Start" VerticalOptions="Center" IsVisible="{Binding New}"/>
+
+				<Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=TimestampStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"/>
                 <Label Grid.Column="1" Grid.Row="0" LineBreakMode="TailTruncation" HorizontalTextAlignment="End">
                     <Label.FormattedText>
                         <FormattedString>

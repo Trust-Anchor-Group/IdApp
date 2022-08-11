@@ -132,31 +132,41 @@ namespace IdApp.Services.Notification
 		/// <param name="Category">Category</param>
 		public async Task DeleteEvents(EventButton Button, CaseInsensitiveString Category)
 		{
-			List<NotificationEvent> Events;
 			int ButtonIndex = (int)Button;
 
 			if (ButtonIndex >= 0 && ButtonIndex < nrButtons)
 			{
+				NotificationEvent[] ToDelete;
+
 				lock (this.events)
 				{
 					SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[ButtonIndex];
 
-					if (!ByCategory.TryGetValue(Category, out Events))
+					if (!ByCategory.TryGetValue(Category, out List<NotificationEvent> Events))
 						return;
 
+					ToDelete = Events.ToArray();
 					ByCategory.Remove(Category);
 				}
 
-				await Database.Delete(Events);
+				await this.DeleteEvents(ToDelete);
+			}
+		}
 
-				try
-				{
-					this.OnNotificationsDeleted?.Invoke(this, EventArgs.Empty);
-				}
-				catch (Exception ex)
-				{
-					this.LogService.LogException(ex);
-				}
+		/// <summary>
+		/// Deletes a specified set of events.
+		/// </summary>
+		/// <param name="Events">Events to delete.</param>
+		public async Task DeleteEvents(NotificationEvent[] Events)
+		{
+			try
+			{
+				await Database.DeleteLazy(Events);
+				this.OnNotificationsDeleted?.Invoke(this, EventArgs.Empty);
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
 			}
 		}
 

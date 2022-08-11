@@ -63,56 +63,27 @@ namespace IdApp.Services.Wallet
 
 		private async Task Wallet_BalanceUpdated(object Sender, BalanceEventArgs e)
 		{
-			await this.NotificationService.NewEvent(new BalanceNotificationEvent()
-			{
-				Amount = e.Balance.Amount,
-				Currency = e.Balance.Currency,
-				Event = e.Balance.Event,
-				Received = DateTime.UtcNow,
-				Reserved = e.Balance.Reserved,
-				Timestamp = e.Balance.Timestamp,
-				Category = e.Balance.Event?.Remote ?? string.Empty,
-				Button = EventButton.Wallet
-			});
+			await this.NotificationService.NewEvent(new BalanceNotificationEvent(e));
 		}
 
 		private async Task Wallet_TokenAdded(object Sender, TokenEventArgs e)
 		{
-			await this.NotificationService.NewEvent(new TokenAddedNotificationEvent()
-			{
-				TokenId = e.Token.TokenId,
-				FriendlyName = e.Token.FriendlyName,
-				TokenCategory = e.Token.Category,
-				Token = e.Token
-			});
+			await this.NotificationService.NewEvent(new TokenAddedNotificationEvent(e));
 		}
 
 		private async Task Wallet_TokenRemoved(object Sender, TokenEventArgs e)
 		{
-			await this.NotificationService.NewEvent(new TokenRemovedNotificationEvent()
-			{
-				TokenId = e.Token.TokenId,
-				FriendlyName = e.Token.FriendlyName,
-				TokenCategory = e.Token.Category,
-				Token = e.Token
-			});
+			await this.NotificationService.NewEvent(new TokenRemovedNotificationEvent(e));
 		}
 
 		private async Task Wallet_StateUpdated(object Sender, NewStateEventArgs e)
 		{
-			await this.NotificationService.NewEvent(new StateMachineNewStateNotificationEvent()
-			{
-				TokenId = e.TokenId,
-				NewState = e.NewState
-			});
+			await this.NotificationService.NewEvent(new StateMachineNewStateNotificationEvent(e));
 		}
 
 		private async Task Wallet_VariablesUpdated(object Sender, VariablesUpdatedEventArgs e)
 		{
-			await this.NotificationService.NewEvent(new StateMachineVariablesUpdatedNotificationEvent()
-			{
-				TokenId = e.TokenId
-			});
+			await this.NotificationService.NewEvent(new StateMachineVariablesUpdatedNotificationEvent(e));
 		}
 
 		#endregion
