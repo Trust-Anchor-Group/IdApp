@@ -28,7 +28,7 @@
         <Color x:Key="AccentColor">#BADA55</Color>
         <Color x:Key="AccentColorDarkTheme">#FFD60A</Color>
         <Color x:Key="AlertColor">Red</Color>
-        <Color x:Key="AlertColorDarkTheme">	#ff453a</Color>
+        <Color x:Key="AlertColorDarkTheme">#ff453a</Color>
         <Color x:Key="PageBackgroundColor">White</Color>
         <Color x:Key="ForegroundColor">Black</Color>
         <Color x:Key="PendingColor">Salmon</Color>
