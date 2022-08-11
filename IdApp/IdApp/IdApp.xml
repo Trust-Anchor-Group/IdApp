@@ -8979,6 +8979,11 @@
             e-mail
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailLabelProperty">
+            <summary>
+            See <see cref="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailLabelProperty"/>
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValid"/>
@@ -8987,6 +8992,16 @@
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValid">
             <summary>
             If e-mail address is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonDisabledDisabledProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonDisabled"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonDisabled">
+            <summary>
+            If send e-mail code button is disabled or not
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailCodeSentProperty">
@@ -9039,6 +9054,11 @@
             Phone number
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberLabelProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonLabel"/>
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValidProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValid"/>
@@ -9047,6 +9067,16 @@
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValid">
             <summary>
             If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonDisabledProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonDisabled"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonDisabled">
+            <summary>
+            If send code Phone button is disabled or not
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrCodeSentProperty">
@@ -14476,6 +14506,11 @@
               Looks up a localized string similar to Digest.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.DisabledFor">
+            <summary>
+              Looks up a localized string similar to DISABLED FOR {0} SECONDS.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.DisownThing">
             <summary>
               Looks up a localized string similar to Disown Thing.
@@ -15906,6 +15941,11 @@
               Looks up a localized string similar to Send Code.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.SendEmailWarning">
+            <summary>
+              Looks up a localized string similar to Code has been sent, check email, spam….
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.SendInformationTo">
             <summary>
               Looks up a localized string similar to Send Information To?.
@@ -15919,6 +15959,11 @@
         <member name="P:IdApp.Resx.AppResources.SendPaymentTo">
             <summary>
               Looks up a localized string similar to Send Payment.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SendPhoneNumberWarning">
+            <summary>
+              Looks up a localized string similar to Code has been sent, check your phone.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SendToContact">

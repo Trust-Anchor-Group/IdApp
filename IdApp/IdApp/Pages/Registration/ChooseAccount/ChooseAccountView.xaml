@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<registration:RegistrationStepView xmlns="http://xamarin.com/schemas/2014/forms" 
+<registration:RegistrationStepView xmlns="http://xamarin.com/schemas/2014/forms"
                                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                                    xmlns:noBounce="clr-namespace:IdApp.Controls.NoBounceView;assembly=IdApp"
                                    xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
@@ -7,25 +7,24 @@
                                    xmlns:model="clr-namespace:IdApp.Pages.Registration.ChooseAccount;assembly=IdApp"
                                    x:DataType="model:ChooseAccountViewModel"
                                    x:Class="IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
-    <ContentView.Content>
-        <Grid RowSpacing="12" RowDefinitions="*,auto,auto,auto,auto"
+	<noBounce:NoBounceScrollView>
+		<Grid RowSpacing="12" RowDefinitions="*,auto,auto,auto,auto"
               Margin="{StaticResource DefaultMargin}">
-            <noBounce:NoBounceScrollView Grid.Row="0">
-                <Label FontSize="Body">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="{x:Static resx:AppResources.ToConnectToDomainYouNeedAnAccount1}"/>
-                            <Span Text=" "/>
-                            <Span Text="{Binding Path=DomainName}" FontAttributes="Bold"/>
-                            <Span Text=". "/>
-                            <Span Text="{x:Static resx:AppResources.ToConnectToDomainYouNeedAnAccount2}"/>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-            </noBounce:NoBounceScrollView>
+
+			<Label FontSize="Body" Grid.Row="0">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resx:AppResources.ToConnectToDomainYouNeedAnAccount1}"/>
+                        <Span Text=" "/>
+                        <Span Text="{Binding Path=DomainName}" FontAttributes="Bold"/>
+                        <Span Text=". "/>
+                        <Span Text="{x:Static resx:AppResources.ToConnectToDomainYouNeedAnAccount2}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
             <ActivityIndicator Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center"
-                               IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}"                                
+                               IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}"
                                Style="{StaticResource AccentIndicator}"/>
 
             <StackLayout Grid.Row="2">
@@ -42,5 +41,5 @@
                     Text="{x:Static resx:AppResources.ScanInvitation}"
                     Command="{Binding Path=ScanQrCodeCommand}" />
         </Grid>
-    </ContentView.Content>
+	</noBounce:NoBounceScrollView>
 </registration:RegistrationStepView>

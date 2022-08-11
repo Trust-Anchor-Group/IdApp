@@ -552,7 +552,7 @@
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>Network seems to be missing. Please check your configuration and coverage and try again.</value>
   </data>
-   <data name="SendEmailWarning" xml:space="preserve">
+  <data name="SendEmailWarning" xml:space="preserve">
     <value>Code has been sent, check email, spam…</value>
   </data>
   <data name="SendPhoneNumberWarning" xml:space="preserve">

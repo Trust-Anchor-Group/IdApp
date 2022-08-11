@@ -19,7 +19,7 @@ namespace IdApp.Resx {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppResources {
@@ -1083,6 +1083,15 @@ namespace IdApp.Resx {
         internal static string Digest {
             get {
                 return ResourceManager.GetString("Digest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DISABLED FOR {0} SECONDS.
+        /// </summary>
+        internal static string DisabledFor {
+            get {
+                return ResourceManager.GetString("DisabledFor", resourceCulture);
             }
         }
         
@@ -3661,6 +3670,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code has been sent, check email, spam….
+        /// </summary>
+        internal static string SendEmailWarning {
+            get {
+                return ResourceManager.GetString("SendEmailWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send Information To?.
         /// </summary>
         internal static string SendInformationTo {
@@ -3684,6 +3702,15 @@ namespace IdApp.Resx {
         internal static string SendPaymentTo {
             get {
                 return ResourceManager.GetString("SendPaymentTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code has been sent, check your phone.
+        /// </summary>
+        internal static string SendPhoneNumberWarning {
+            get {
+                return ResourceManager.GetString("SendPhoneNumberWarning", resourceCulture);
             }
         }
         
