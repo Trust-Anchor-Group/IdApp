@@ -58,8 +58,8 @@
 					</Grid>
 
 					<Button x:Name="SendEMailCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}"
-							Text="{x:Static resx:AppResources.SendCode}" Command="{Binding Path=SendEMailCodeCommand}"
-							IsEnabled="{Binding Path=EMailValid}" IsVisible="{Binding Path=PurposeSelected}">
+							Text="{Binding Path=EmailButtonLabel}" Command="{Binding Path=SendEMailCodeCommand}"
+							IsEnabled="{Binding Path=EmailButtonDisabled}" IsVisible="{Binding Path=PurposeSelected}">
 						<Button.Behaviors>
 							<behaviors:ScrollToClickedBehavior ScrollTo="VerifyEMailCodeButton"
 															   BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
@@ -95,8 +95,8 @@
 					</Grid>
 
 					<Button x:Name="SendPhoneNrCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}"
-                            Text="{x:Static resx:AppResources.SendCode}" Command="{Binding Path=SendPhoneNrCodeCommand}"
-                            IsEnabled="{Binding Path=PhoneNumberValid}" IsVisible="{Binding Path=PurposeSelected}">
+                            Text="{Binding Path=PhoneButtonLabel}" Command="{Binding Path=SendPhoneNrCodeCommand}"
+                            IsEnabled="{Binding Path=PhoneButtonDisabled}" IsVisible="{Binding Path=PurposeSelected}">
 						<Button.Behaviors>
 							<behaviors:ScrollToClickedBehavior ScrollTo="VerifyPhoneNrCodeButton"
 															   BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>

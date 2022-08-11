@@ -32,6 +32,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 	/// </summary>
 	public class ValidateContactInfoViewModel : RegistrationStepViewModel
 	{
+
+		private int countSeconds = 30;
 		/// <summary>
 		/// Creates a new instance of the <see cref="ValidateContactInfoViewModel"/> class.
 		/// </summary>
@@ -46,6 +48,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 
 			this.Title = AppResources.ContactInformation;
 			this.Purposes = new ObservableCollection<string>();
+			this.EmailButtonLabel = AppResources.SendCode;
+			this.PhoneButtonLabel = AppResources.SendCode;
 		}
 
 		/// <summary>
@@ -162,6 +166,22 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			{
 				this.SetValue(EMailProperty, value);
 				this.SetValue(EMailValidProperty, this.IsEMailAdress(value));
+				this.SetValue(EmailButtonDisabledDisabledProperty, this.IsEMailAdress(value));
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="EmailLabelProperty"/>
+		/// </summary>
+		public static readonly BindableProperty EmailLabelProperty =
+			BindableProperty.Create(nameof(EmailButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
+
+		public string EmailButtonLabel
+		{
+			get => (string)this.GetValue(EmailLabelProperty);
+			set
+			{
+				this.SetValue(EmailLabelProperty, value);
 			}
 		}
 
@@ -178,6 +198,21 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		{
 			get => (bool)this.GetValue(EMailValidProperty);
 			set => this.SetValue(EMailValidProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="EmailButtonDisabled"/>
+		/// </summary>
+		public static readonly BindableProperty EmailButtonDisabledDisabledProperty =
+			BindableProperty.Create(nameof(EmailButtonDisabled), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
+
+		/// <summary>
+		/// If send e-mail code button is disabled or not
+		/// </summary>
+		public bool EmailButtonDisabled
+		{
+			get => (bool)this.GetValue(EmailButtonDisabledDisabledProperty);
+			set => this.SetValue(EmailButtonDisabledDisabledProperty, value);
 		}
 
 		/// <summary>
@@ -260,6 +295,22 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			{
 				this.SetValue(PhoneNumberProperty, value);
 				this.SetValue(PhoneNumberValidProperty, this.IsInternationalPhoneNumberFormat(value));
+				this.SetValue(PhoneButtonDisabledProperty, this.IsInternationalPhoneNumberFormat(value));
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="PhoneButtonLabel"/>
+		/// </summary>
+		public static readonly BindableProperty PhoneNumberLabelProperty =
+			BindableProperty.Create(nameof(PhoneButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
+
+		public string PhoneButtonLabel
+		{
+			get => (string)this.GetValue(PhoneNumberLabelProperty);
+			set
+			{
+				this.SetValue(PhoneNumberLabelProperty, value);
 			}
 		}
 
@@ -276,6 +327,21 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		{
 			get => (bool)this.GetValue(PhoneNumberValidProperty);
 			set => this.SetValue(PhoneNumberValidProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="PhoneButtonDisabled"/>
+		/// </summary>
+		public static readonly BindableProperty PhoneButtonDisabledProperty =
+			BindableProperty.Create(nameof(PhoneButtonDisabled), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
+
+		/// <summary>
+		/// If send code Phone button is disabled or not
+		/// </summary>
+		public bool PhoneButtonDisabled
+		{
+			get => (bool)this.GetValue(PhoneButtonDisabledProperty);
+			set => this.SetValue(PhoneButtonDisabledProperty, value);
 		}
 
 		/// <summary>
@@ -394,6 +460,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				{
 					this.PhoneNrVerificationCode = string.Empty;
 					this.PhoneNrCodeSent = true;
+					await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.SendPhoneNumberWarning);
+					this.StartTimer("phone");
 				}
 			}
 			catch (Exception ex)
@@ -520,6 +588,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				{
 					this.EMailVerificationCode = string.Empty;
 					this.EMailCodeSent = true;
+					await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.SendEmailWarning);
+					this.StartTimer("email");
+					//this.EmailButtonDisabled = false;
 				}
 			}
 			catch (Exception ex)
@@ -626,6 +697,39 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				return false;
 
 			return emailAddress.IsMatch(EMailAddress);
+		}
+
+		private void StartTimer(string type)
+		{
+			Device.StartTimer(TimeSpan.FromSeconds(1), () => {
+
+				if (this.countSeconds > 0)
+				{
+					this.countSeconds--;
+					if (type == "email")
+					{
+						this.EmailButtonLabel = string.Format(AppResources.DisabledFor, this.countSeconds);
+						this.EmailButtonDisabled = false;
+					}
+					else
+					{
+						this.PhoneButtonLabel = string.Format(AppResources.DisabledFor, this.countSeconds);
+						this.PhoneButtonDisabled = false;
+					}
+
+					return true;
+				}
+				else
+				{
+					this.EmailButtonDisabled = this.EMailValid;
+					this.PhoneButtonDisabled = this.PhoneNumberValid;
+					this.countSeconds = 30;
+					this.EmailButtonLabel = AppResources.SendCode;
+					this.PhoneButtonLabel = AppResources.SendCode;
+
+					return false;
+				}
+			});
 		}
 
 		private static readonly Regex internationalPhoneNr = new(@"^\+[1-9]\d{4,}$", RegexOptions.Singleline);
