@@ -149,7 +149,7 @@ namespace IdApp.Services.Notification
 					ByCategory.Remove(Category);
 				}
 
-				await this.DeleteEvents(ToDelete);
+				await this.DoDeleteEvents(ToDelete);
 			}
 		}
 
@@ -157,7 +157,33 @@ namespace IdApp.Services.Notification
 		/// Deletes a specified set of events.
 		/// </summary>
 		/// <param name="Events">Events to delete.</param>
-		public async Task DeleteEvents(NotificationEvent[] Events)
+		public Task DeleteEvents(NotificationEvent[] Events)
+		{
+			foreach (NotificationEvent Event in Events)
+			{
+				int ButtonIndex = (int)Event.Button;
+
+				if (ButtonIndex >= 0 && ButtonIndex < nrButtons)
+				{
+					lock (this.events)
+					{
+						SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[ButtonIndex];
+
+						if (ByCategory.TryGetValue(Event.Category, out List<NotificationEvent> List) &&
+							List.Remove(Event) &&
+							List.Count == 0)
+						{
+							ByCategory.Remove(Event.Category);
+						}
+					}
+				}
+
+			}
+
+			return this.DoDeleteEvents(Events);
+		}
+
+		private async Task DoDeleteEvents(NotificationEvent[] Events)
 		{
 			try
 			{

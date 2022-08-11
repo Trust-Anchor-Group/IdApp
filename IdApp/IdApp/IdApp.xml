@@ -11563,13 +11563,14 @@
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.#ctor(EDaler.AccountEvent,IdApp.Pages.Wallet.MyWallet.MyWalletViewModel,System.String,IdApp.Services.Notification.NotificationEvent[],IdApp.Services.ServiceReferences)">
-             <summary>
-             Encapsulates a <see cref="N:IdApp.Pages.Wallet.AccountEvent"/> object.
-             </summary>
-             <param name="AccountEvent">Account event.</param>
-             <param name="ViewModel">Current view model</param>
-             <param name="FriendlyName">Friendly name of remote entity.</param>
+            <summary>
+            Encapsulates a <see cref="N:IdApp.Pages.Wallet.AccountEvent"/> object.
+            </summary>
+            <param name="AccountEvent">Account event.</param>
+            <param name="ViewModel">Current view model</param>
+            <param name="FriendlyName">Friendly name of remote entity.</param>
             <param name="NotificationEvents">Notification events.</param>
+            <param name="Services">Service references.</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.Balance">
             <summary>

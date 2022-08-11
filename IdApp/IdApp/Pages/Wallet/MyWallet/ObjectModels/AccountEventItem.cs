@@ -26,7 +26,8 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// <param name="AccountEvent">Account event.</param>
 		/// <param name="ViewModel">Current view model</param>
 		/// <param name="FriendlyName">Friendly name of remote entity.</param>
-		///<param name="NotificationEvents">Notification events.</param>
+		/// <param name="NotificationEvents">Notification events.</param>
+		/// <param name="Services">Service references.</param>
 		public AccountEventItem(EDaler.AccountEvent AccountEvent, MyWalletViewModel ViewModel, string FriendlyName, NotificationEvent[] NotificationEvents,
 			ServiceReferences Services)
 		{
