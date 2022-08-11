@@ -9,6 +9,7 @@
 					   xmlns:selector="clr-namespace:IdApp.Pages.Contracts.MyContracts;assembly=IdApp"
                        x:DataType="model:MyContractsViewModel"
                        x:Class="IdApp.Pages.Contracts.MyContracts.MyContractsPage"
+					   Title="{Binding Path=Title}"
 					   BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
 	<views:ContentBasePage.Resources>
 		<DataTemplate x:Key="DefaultTemplate">
@@ -50,16 +51,18 @@
 	</views:ContentBasePage.Resources>
 
 	<StackLayout Margin="{StaticResource DefaultMargin}">
-        <Label Text="{Binding Path=Title, Mode=OneTime}" Style="{StaticResource Heading}"/>
-        <Label Text="{Binding Path=Description, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start"/>
+        <Label Text="{Binding Path=Title}" Style="{StaticResource Heading}"/>
+        <Label Text="{Binding Path=Description}" HorizontalOptions="Center" VerticalOptions="Start"/>
         <Label Style="{StaticResource AlertLabel}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static resx:AppResources.NoContractsFound}" />
         <ActivityIndicator x:Name="Loading" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}"
                            Style="{StaticResource AccentIndicator}"/>
 
+		<!-- CollectionView's IsVisible used to be bound to IsIdle, but there seems to be a race condition somewhere because this led
+		the CollectionView not appearing sometimes on iOS. Always showing it seems to be OK because it is empty before contracts are loaded anyway. -->
         <noBounce:NoBounceCollectionView x:Name="Contracts" VerticalOptions="StartAndExpand"
                                          ItemSizingStrategy="MeasureAllItems" SelectionMode="Single"
-                                         IsVisible="{Binding Path=IsIdle}"
+                                         IsVisible="True"
                                          ItemsSource="{Binding Path=Categories}"
                                          ItemTemplate="{StaticResource ItemStyleSelector}"
 										 SelectionChanged="ContractsSelectionChanged">
