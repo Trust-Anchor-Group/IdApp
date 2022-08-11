@@ -26,7 +26,9 @@
         <Color x:Key="HeadingBackgroundLight">#536173</Color>
         <Color x:Key="HeadingBackgroundTranslucent">#cc202E40</Color>
         <Color x:Key="AccentColor">#BADA55</Color>
+        <Color x:Key="AccentColorDarkTheme">#FFD60A</Color>
         <Color x:Key="AlertColor">Red</Color>
+        <Color x:Key="AlertColorDarkTheme">	#ff453a</Color>
         <Color x:Key="PageBackgroundColor">White</Color>
         <Color x:Key="ForegroundColor">Black</Color>
         <Color x:Key="PendingColor">Salmon</Color>
@@ -71,7 +73,9 @@
         <Color x:Key="UnselectedTextColor">#95FFFFFF</Color>
         <Color x:Key="WhiteColor">White</Color>
         <Color x:Key="BlueColor">Blue</Color>
+        <Color x:Key="BlueColorDarkTheme">#0a84ff</Color>
         <Color x:Key="GrayColor">Gray</Color>
+        <Color x:Key="GrayColorDarkTheme">#8E8E93</Color>
         <Color x:Key="LightGrayColor">LightGray</Color>
 
         <Thickness x:Key="LargeMargin">24</Thickness>
@@ -204,7 +208,7 @@
 			<Setter Property="BackgroundColor" Value="Transparent" />
 			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
 			<Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
-			<Setter Property="helpers:EntryProperties.BorderColor" Value="{StaticResource GrayColor}" />
+			<Setter Property="helpers:EntryProperties.BorderColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColorDarkTheme}}" />
 			<Setter Property="Margin" Value="{OnPlatform Android='4'}" />
 		</Style>
         <Style TargetType="Picker"
@@ -212,7 +216,7 @@
                CanCascade="True">
             <Setter Property="BackgroundColor" Value="Transparent" />
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
-			<Setter Property="helpers:EntryProperties.BorderColor" Value="{StaticResource GrayColor}" />
+			<Setter Property="helpers:EntryProperties.BorderColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColorDarkTheme}}" />
 			<Setter Property="HeightRequest" Value="40" />
 		</Style>
 		<Style TargetType="templatedSwitch:TemplatedSwitch" x:Key="PasswordToggler">
@@ -276,7 +280,6 @@
 			<!-- Always using light theme color because this is what we use in Shell. -->
 			<Setter Property="BarTextColor" Value="{AppThemeBinding Dark={StaticResource HeadingForegroundLightTheme}, Default={StaticResource HeadingForegroundLightTheme}}" />
 		</Style>
-
 		<Style TargetType="Editor">
 			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
 			<Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
@@ -293,5 +296,42 @@
 		<Style TargetType="ContentView">
 			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
 		</Style>
+        <Style x:Key="MainPageTextGrid" TargetType="Label">
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}"/>
+		</Style>
+        <Style x:Key="MainPageImage" TargetType="Image">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+            <Setter Property="Margin" Value="20"/>
+		</Style>
+        <Style x:Key="ShellFrame" TargetType="Frame">
+            <Setter Property="BorderColor"  Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
+        </Style>
+        <Style x:Key="ShellBoxView" TargetType="BoxView">
+            <Setter Property="BackgroundColor"  Value="{AppThemeBinding Light={StaticResource HeadingBackgroundTranslucentLightTheme}, Dark={StaticResource HeadingBackgroundTranslucentDarkTheme}}" />
+        </Style>
+        <Style x:Key="ShellLabel" TargetType="Label">
+            <Setter Property="TextColor"  Value="{AppThemeBinding Light={StaticResource TextColorLightTheme}, Dark={StaticResource TextColorDarkTheme}}" />
+            <Setter Property="FontSize"  Value="Large" />
+            <Setter Property="FontAttributes"  Value="Bold" />
+        </Style>
+        <Style x:Key="MyWalletView" TargetType="BoxView">
+            <Setter Property="BackgroundColor"  Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}" />
+        </Style>
+        <Style x:Key="MyWalletFrame" TargetType="Frame">
+            <Setter Property="BorderColor"  Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
+            <Setter Property="CornerRadius"  Value="6" />
+            <Setter Property="Margin"  Value="5" />
+        </Style>
+        <Style x:Key="AlertLabel" TargetType="Label">
+            <Setter Property="TextColor"  Value="{AppThemeBinding Light={StaticResource AlertColor}, Dark={StaticResource AlertColorDarkTheme}}" />
+        </Style>
+        <Style x:Key="AccentView" TargetType="BoxView">
+            <Setter Property="Color"  Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColorDarkTheme}}" />
+        </Style>
+        <Style x:Key="AccentIndicator" TargetType="ActivityIndicator">
+            <Setter Property="Color"  Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColorDarkTheme}}" />
+        </Style>
 	</Application.Resources>
 </Application>

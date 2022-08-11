@@ -127,8 +127,8 @@
 
                 <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}">
                     <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single"
+                                                   Style="{StaticResource MyWalletView}"
                                                    ItemSizingStrategy="MeasureAllItems"
-                                                   BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"
                                                    RemainingItemsThreshold="1"
 												   ItemsSource="{Binding Path=PaymentItems}"
                                                    ItemTemplate="{StaticResource ItemStyleSelector}"
@@ -154,7 +154,7 @@
         </flipView:FlipView.FrontView>
         <flipView:FlipView.BackView>
             <Grid RowDefinitions="auto,*,auto">
-                <Frame Grid.Row="0" HeightRequest="150" BorderColor="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" CornerRadius="6" HasShadow="True" Margin="5"
+                <Frame Grid.Row="0"  Style="{StaticResource MyWalletFrame}" HeightRequest="150" HasShadow="True"
                        BackgroundColor="{StaticResource HeadingBackground}">
                     <Grid HeightRequest="150" RowDefinitions="25,125" BackgroundColor="Transparent">
                         <Image x:Name="ImgBack" Grid.RowSpan="2" Source="{Binding Path=EDalerBackGlyph}" Opacity="0.5"/>
@@ -192,7 +192,7 @@
                 <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}" >
                     <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single"
                                                    RemainingItemsThreshold="1" ItemSizingStrategy="MeasureFirstItem"
-                                                   BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"
+                                                   Style="{StaticResource MyWalletView}"
                                                    ItemsSource="{Binding Path=Tokens}" LoadMoreCommand="{Binding LoadMoreTokensCommand}">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
