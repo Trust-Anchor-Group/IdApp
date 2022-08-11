@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Pages.Wallet.MyWallet.ObjectModels;
+using IdApp.Services.Notification;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
+using Waher.Persistence;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MyTokens
@@ -39,6 +42,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 			try
 			{
 				TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.BatchSizes.TokenBatchSize);
+				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
 
 				this.UiSerializer.BeginInvokeOnMainThread(() =>
 				{
@@ -49,7 +53,12 @@ namespace IdApp.Pages.Wallet.MyTokens
 						if (!(e.Tokens is null))
 						{
 							foreach (Token Token in e.Tokens)
-								this.Tokens.Add(new TokenItem(Token, this, this.selected));
+							{
+								if (!EventsByCateogy.TryGetValue(Token.TokenId, out NotificationEvent[] Events))
+									Events = new NotificationEvent[0];
+
+								this.Tokens.Add(new TokenItem(Token, this, this.selected, Events));
+							}
 
 							this.HasTokens = true;
 							this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
@@ -81,12 +90,17 @@ namespace IdApp.Pages.Wallet.MyTokens
 
 		private Task Wallet_TokenAdded(object Sender, TokenEventArgs e)
 		{
+			if (!this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, e.Token.TokenId, out NotificationEvent[] Events))
+				Events = new NotificationEvent[0];
+
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
+				TokenItem Item = new(e.Token, this, this.selected, Events);
+
 				if (this.Tokens.Count == 0)
-					this.Tokens.Add(new TokenItem(e.Token, this, this.selected));
+					this.Tokens.Add(Item);
 				else
-					this.Tokens.Insert(0, new TokenItem(e.Token, this, this.selected));
+					this.Tokens.Insert(0, Item);
 			});
 
 			return Task.CompletedTask;
@@ -186,6 +200,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 				try
 				{
 					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(this.Tokens.Count, Constants.BatchSizes.TokenBatchSize);
+					SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
@@ -194,7 +209,12 @@ namespace IdApp.Pages.Wallet.MyTokens
 							if (!(e.Tokens is null))
 							{
 								foreach (Token Token in e.Tokens)
-									this.Tokens.Add(new TokenItem(Token, this));
+								{
+									if (!EventsByCateogy.TryGetValue(Token.TokenId, out NotificationEvent[] Events))
+										Events = new NotificationEvent[0];
+
+									this.Tokens.Add(new TokenItem(Token, this, Events));
+								}
 
 								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
 							}

@@ -89,8 +89,11 @@ namespace IdApp.Services.Notification.Wallet
 			if (this.Token is null)
 				this.Token = await ServiceReferences.XmppService.Wallet.GetToken(this.TokenId);
 
+			if (!ServiceReferences.NotificationService.TryGetNotificationEvents(EventButton.Wallet, this.TokenId, out NotificationEvent[] Events))
+				Events = new NotificationEvent[0];
+
 			await ServiceReferences.NavigationService.GoToAsync(nameof(TokenDetailsPage),
-				new TokenDetailsNavigationArgs(new TokenItem(this.Token, ServiceReferences)) { ReturnCounter = 1 });
+				new TokenDetailsNavigationArgs(new TokenItem(this.Token, ServiceReferences, Events)) { ReturnCounter = 1 });
 		}
 	}
 }

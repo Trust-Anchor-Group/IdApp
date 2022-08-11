@@ -116,7 +116,7 @@ namespace IdApp.Services.Notification
 
 				try
 				{
-					this.OnNewNotification?.Invoke(this, EventArgs.Empty);
+					this.OnNewNotification?.Invoke(this, new NotificationEventArgs(Event));
 				}
 				catch (Exception ex)
 				{
@@ -188,7 +188,7 @@ namespace IdApp.Services.Notification
 			try
 			{
 				await Database.DeleteLazy(Events);
-				this.OnNotificationsDeleted?.Invoke(this, EventArgs.Empty);
+				this.OnNotificationsDeleted?.Invoke(this, new NotificationEventsArgs(Events));
 			}
 			catch (Exception ex)
 			{
@@ -299,12 +299,12 @@ namespace IdApp.Services.Notification
 		/// <summary>
 		/// Event raised when a new notification has been logged.
 		/// </summary>
-		public event EventHandler OnNewNotification;
+		public event NotificationEventHandler OnNewNotification;
 
 		/// <summary>
 		/// Event raised when notifications have been deleted.
 		/// </summary>
-		public event EventHandler OnNotificationsDeleted;
+		public event NotificationEventsHandler OnNotificationsDeleted;
 
 		/// <summary>
 		/// Number of notifications but button Contacts

@@ -13,6 +13,7 @@ using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Notification;
+using IdApp.Services.Notification.Wallet;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using Waher.Networking.XMPP.Contracts;
@@ -69,7 +70,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 			if (this.Balance is null && this.NavigationService.TryPopArgs(out WalletNavigationArgs args))
 			{
-				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
+				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.GetNotificationEvents();
 
 				await this.AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments,
 					args.Events, args.More, this.XmppService.Wallet.LastEDalerEvent, NotificationEvents);
@@ -91,6 +92,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.XmppService.Wallet.BalanceUpdated += this.Wallet_BalanceUpdated;
 			this.XmppService.Wallet.TokenAdded += this.Wallet_TokenAdded;
 			this.XmppService.Wallet.TokenRemoved += this.Wallet_TokenRemoved;
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
 		}
 
 		/// <inheritdoc/>
@@ -99,8 +101,32 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.XmppService.Wallet.BalanceUpdated -= this.Wallet_BalanceUpdated;
 			this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;
 			this.XmppService.Wallet.TokenRemoved -= this.Wallet_TokenRemoved;
+			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
 
 			await base.DoUnbind();
+		}
+
+		private SortedDictionary<CaseInsensitiveString, NotificationEvent[]> GetNotificationEvents()
+		{
+			SortedDictionary<CaseInsensitiveString, NotificationEvent[]> Result = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
+			int NrBalance = 0;
+			int NrToken = 0;
+
+			foreach (NotificationEvent[] Events in Result.Values)
+			{
+				foreach (NotificationEvent Event in Events)
+				{
+					if (Event is BalanceNotificationEvent)
+						NrBalance++;
+					else if (Event is TokenNotificationEvent)
+						NrToken++;
+				}
+			}
+
+			this.NrBalanceNotifications = NrBalance;
+			this.NrTokenNotifications = NrToken;
+
+			return Result;
 		}
 
 		private async Task AssignProperties(Balance Balance, decimal PendingAmount, string PendingCurrency,
@@ -198,7 +224,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
 				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
-				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
+				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.GetNotificationEvents();
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await this.AssignProperties(Balance, PendingAmount, PendingCurrency,
 					PendingPayments, Events, More, this.XmppService.Wallet.LastEDalerEvent, NotificationEvents));
@@ -492,6 +518,36 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
+		/// See <see cref="NrBalanceNotifications"/>
+		/// </summary>
+		public static readonly BindableProperty NrBalanceNotificationsProperty =
+			BindableProperty.Create(nameof(NrBalanceNotifications), typeof(int), typeof(MyWalletViewModel), default(int));
+
+		/// <summary>
+		/// When last eDaler event was received.
+		/// </summary>
+		public int NrBalanceNotifications
+		{
+			get => (int)this.GetValue(NrBalanceNotificationsProperty);
+			set => this.SetValue(NrBalanceNotificationsProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="NrTokenNotifications"/>
+		/// </summary>
+		public static readonly BindableProperty NrTokenNotificationsProperty =
+			BindableProperty.Create(nameof(NrTokenNotifications), typeof(int), typeof(MyWalletViewModel), default(int));
+
+		/// <summary>
+		/// When last eDaler event was received.
+		/// </summary>
+		public int NrTokenNotifications
+		{
+			get => (int)this.GetValue(NrTokenNotificationsProperty);
+			set => this.SetValue(NrTokenNotificationsProperty, value);
+		}
+
+		/// <summary>
 		/// Holds a list of pending payments and account events
 		/// </summary>
 		//public ObservableCollection<IItemGroupCollection> PaymentItems { get; }
@@ -579,7 +635,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		private async Task ShowPaymentItem(object Item)
-        {
+		{
 			if (Item is PendingPaymentItem PendingItem)
 			{
 				if (!this.XmppService.Wallet.TryParseEDalerUri(PendingItem.Uri, out EDalerUri Uri, out string Reason))
@@ -600,7 +656,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			if (this.HasMoreEvents)
 			{
-				this.HasMoreEvents = false;	// So multiple requests are not made while scrolling.
+				this.HasMoreEvents = false; // So multiple requests are not made while scrolling.
 
 				try
 				{
@@ -618,7 +674,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 					if (Events is not null)
 					{
 						Dictionary<string, string> FriendlyNames = new();
-						SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
+						SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.GetNotificationEvents();
 
 						foreach (EDaler.AccountEvent Event in Events)
 						{
@@ -706,6 +762,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				try
 				{
 					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.BatchSizes.TokenBatchSize);
+					SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.GetNotificationEvents();
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
@@ -718,7 +775,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 								this.Tokens.Clear();
 
 								foreach (Token Token in e.Tokens)
-									this.Tokens.Add(new TokenItem(Token, this));
+								{
+									if (!EventsByCateogy.TryGetValue(Token.TokenId, out NotificationEvent[] Events))
+										Events = new NotificationEvent[0];
+
+									this.Tokens.Add(new TokenItem(Token, this, Events));
+								}
 
 								this.HasTokens = true;
 								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
@@ -831,6 +893,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				try
 				{
 					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(this.Tokens.Count, Constants.BatchSizes.TokenBatchSize);
+					SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.GetNotificationEvents();
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
@@ -839,7 +902,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 							if (e.Tokens is not null)
 							{
 								foreach (Token Token in e.Tokens)
-									this.Tokens.Add(new TokenItem(Token, this));
+								{
+									if (!EventsByCateogy.TryGetValue(Token.TokenId, out NotificationEvent[] Events))
+										Events = new NotificationEvent[0];
+
+									this.Tokens.Add(new TokenItem(Token, this, Events));
+								}
 
 								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
 							}
@@ -853,20 +921,25 @@ namespace IdApp.Pages.Wallet.MyWallet
 			}
 		}
 
-		private Task Wallet_TokenAdded(object Sender, TokenEventArgs e)
+		private Task Wallet_TokenAdded(object _, TokenEventArgs e)
 		{
+			if (!this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, e.Token.TokenId, out NotificationEvent[] Events))
+				Events = new NotificationEvent[0];
+
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
+				TokenItem Item = new(e.Token, this, Events);
+
 				if (this.Tokens.Count == 0)
-					this.Tokens.Add(new TokenItem(e.Token, this));
+					this.Tokens.Add(Item);
 				else
-					this.Tokens.Insert(0, new TokenItem(e.Token, this));
+					this.Tokens.Insert(0, Item);
 			});
 
 			return Task.CompletedTask;
 		}
 
-		private Task Wallet_TokenRemoved(object Sender, TokenEventArgs e)
+		private Task Wallet_TokenRemoved(object _, TokenEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -885,6 +958,20 @@ namespace IdApp.Pages.Wallet.MyWallet
 			});
 
 			return Task.CompletedTask;
+		}
+
+		private void NotificationService_OnNewNotification(object sender, NotificationEventArgs e)
+		{
+			if (e.Event.Button == EventButton.Wallet)
+			{
+				this.UiSerializer.BeginInvokeOnMainThread(() =>
+				{
+					if (e.Event is BalanceNotificationEvent)
+						this.NrBalanceNotifications++;
+					else if (e.Event is TokenNotificationEvent)
+						this.NrTokenNotifications++;
+				});
+			}
 		}
 
 	}

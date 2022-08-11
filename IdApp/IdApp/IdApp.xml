@@ -11492,6 +11492,26 @@
             When last eDaler event was received.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.NrBalanceNotificationsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.NrBalanceNotifications"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.NrBalanceNotifications">
+            <summary>
+            When last eDaler event was received.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.NrTokenNotificationsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.NrTokenNotifications"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.NrTokenNotifications">
+            <summary>
+            When last eDaler event was received.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PaymentItems">
             <summary>
             Holds a list of pending payments and account events
@@ -11715,20 +11735,22 @@
             Encapsulates a <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Token"/> object.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences,IdApp.Services.Notification.NotificationEvent[])">
             <summary>
             Encapsulates a <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Token"/> object.
             </summary>
             <param name="Token">Token</param>
             <param name="Model">View model</param>
+            <param name="NotificationEvents">Notification events.</param>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences,System.Threading.Tasks.TaskCompletionSource{IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem})">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences,System.Threading.Tasks.TaskCompletionSource{IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem},IdApp.Services.Notification.NotificationEvent[])">
             <summary>
             Encapsulates a <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Token"/> object.
             </summary>
             <param name="Token">Token</param>
             <param name="Model">View model</param>
             <param name="Selected">Asynchronous task completion source, waiting for the user to select a token.</param>
+            <param name="NotificationEvents">Notification events.</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Token">
             <summary>
@@ -11988,6 +12010,16 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.GlyphHeight">
             <summary>
             Gets or sets the value representing the height of the glyph.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.NotificationEvents">
+            <summary>
+            Associated notification events
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.New">
+            <summary>
+            If the event item is new or not.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.ClickedCommand">
@@ -18626,6 +18658,52 @@
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.NotificationEventHandler">
+            <summary>
+            Delegate for notification event handlers.
+            </summary>
+            <param name="Sender">Sender of event.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.NotificationEventArgs">
+            <summary>
+            Event argument for notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationEventArgs.#ctor(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            Event argument for notification events.
+            </summary>
+            <param name="Event">Referenced event.</param>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationEventArgs.Event">
+            <summary>
+            Referenced event.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.NotificationEventsHandler">
+            <summary>
+            Delegate for notification events handlers.
+            </summary>
+            <param name="Sender">Sender of event.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.NotificationEventsArgs">
+            <summary>
+            Event argument for notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationEventsArgs.#ctor(IdApp.Services.Notification.NotificationEvent[])">
+            <summary>
+            Event argument for notification events.
+            </summary>
+            <param name="Events">Referenced event.</param>
+        </member>
+        <member name="P:IdApp.Services.Notification.NotificationEventsArgs.Events">
+            <summary>
+            Referenced events.
+            </summary>
         </member>
         <member name="T:IdApp.Services.Notification.NotificationService">
             <summary>

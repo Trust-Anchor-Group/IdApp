@@ -64,12 +64,12 @@ namespace IdApp.Services.Notification
 		/// <summary>
 		/// Event raised when a new notification has been logged.
 		/// </summary>
-		event EventHandler OnNewNotification;
+		event NotificationEventHandler OnNewNotification;
 
 		/// <summary>
 		/// Event raised when notifications have been deleted.
 		/// </summary>
-		event EventHandler OnNotificationsDeleted;
+		event NotificationEventsHandler OnNotificationsDeleted;
 
 		/// <summary>
 		/// Number of notifications but button Contacts

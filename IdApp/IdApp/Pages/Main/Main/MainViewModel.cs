@@ -167,9 +167,29 @@ namespace IdApp.Pages.Main.Main
 			}
 		}
 
-		private void NotificationService_OnNewNotification(object sender, EventArgs e)
+		private void NotificationService_OnNewNotification(object sender, NotificationEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(() => this.AssignOverlays());	
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				switch (e.Event.Button)
+				{
+					case EventButton.Contacts:
+						this.Left1Overlay++;
+						break;
+
+					case EventButton.Things:
+						this.Left2Overlay++;
+						break;
+
+					case EventButton.Contracts:
+						this.Right1Overlay++;
+						break;
+
+					case EventButton.Wallet:
+						this.Right2Overlay++;
+						break;
+				}
+			});	
 		}
 
 		#region Properties
