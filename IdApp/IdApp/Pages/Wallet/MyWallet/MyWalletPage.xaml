@@ -215,14 +215,15 @@
                                             WidthRequest="{Binding Path=GlyphWidth, Mode=OneTime}"
                                             HeightRequest="{Binding Path=GlyphHeight, Mode=OneTime}"
                                             VerticalOptions="Center" HorizontalOptions="Center" />
-                                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding Path=FriendlyName}"
+									<Label Grid.Column="1" Grid.Row="0" Text="{Binding Path=FriendlyName}"
                                             Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"
                                             FontAttributes="Bold" FontSize="18" HorizontalTextAlignment="Start"
                                             BackgroundColor="Transparent"
                                             VerticalOptions="Center"/>
-									<Label Grid.Row="0" Grid.Column="2" FontSize="50" Padding="0,-25,0,-25"
-										   TextColor="{StaticResource AlertColor}" Text="•"
-										   HorizontalOptions="Start" VerticalOptions="Center" IsVisible="{Binding New}"/>
+									<Frame Grid.Row="0" Grid.Column="2" CornerRadius="12" Margin="2" Padding="8,3,8,3" IsVisible="{Binding New}"
+										   HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+										<Label FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Text="{Binding NrEvents}" Padding="1"/>
+									</Frame>
 									<Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Value, Converter={converters:MoneyToString}}"
                                             Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontSize="18"
                                             BackgroundColor="Transparent"

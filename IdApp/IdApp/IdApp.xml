@@ -12017,6 +12017,11 @@
             Associated notification events
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.NrEvents">
+            <summary>
+            Number of notification events recorded for the item.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.New">
             <summary>
             If the event item is new or not.

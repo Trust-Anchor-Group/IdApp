@@ -24,6 +24,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		private readonly ServiceReferences model;
 		private readonly TaskCompletionSource<TokenItem> selected;
 		private bool? @new;
+		private int nrEvents;
 		private NotificationEvent[] notificationEvents;
 
 		/// <summary>
@@ -364,26 +365,46 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		public NotificationEvent[] NotificationEvents => this.notificationEvents;
 
 		/// <summary>
+		/// Number of notification events recorded for the item.
+		/// </summary>
+		public int NrEvents
+		{
+			get
+			{
+				this.CheckEvents();
+
+				return this.nrEvents;
+			}
+		}
+
+		/// <summary>
 		/// If the event item is new or not.
 		/// </summary>
 		public bool New
 		{
 			get
 			{
-				if (!this.@new.HasValue)
-				{
-					this.@new = this.notificationEvents.Length > 0;
-					if (this.@new.Value)
-					{
-						NotificationEvent[] ToDelete = this.notificationEvents;
-
-						this.notificationEvents = new NotificationEvent[0];
-
-						Task.Run(() => this.model.NotificationService.DeleteEvents(ToDelete));
-					}
-				}
+				this.CheckEvents();
 
 				return this.@new.Value;
+			}
+		}
+
+		private void CheckEvents()
+		{
+			if (!this.@new.HasValue)
+			{
+				this.nrEvents = this.notificationEvents.Length;
+				this.@new = this.nrEvents > 0;
+
+				if (this.@new.Value)
+				{
+					NotificationEvent[] ToDelete = this.notificationEvents;
+
+					this.notificationEvents = new NotificationEvent[0];
+
+					Task.Run(() => this.model.NotificationService.DeleteEvents(ToDelete));
+				}
 			}
 		}
 
