@@ -22,6 +22,10 @@ namespace IdApp.Services.Navigation
 			this.navigationArgsMap = new Dictionary<string, NavigationArgs>();
 		}
 
+		// Navigation service uses Shell and its routing system, which are only available after the application reached the main page.
+		// Before that (during on-boarding and the loading page), we need to use the usual Xamarin Forms navigation.
+		private bool CanUseNavigationService => App.IsOnboarded;
+
 		///<inheritdoc/>
 		public override Task Load(bool isResuming, CancellationToken cancellationToken)
 		{
@@ -149,12 +153,18 @@ namespace IdApp.Services.Navigation
 
 		public bool TryPopArgs<TArgs>(out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs
 		{
+			if (!this.CanUseNavigationService)
+			{
+				Args = default;
+				return false;
+			}
+
 			return this.TryPopArgs(Shell.Current.CurrentPage, out Args, UniqueId);
 		}
 
 		public TArgs GetPopArgs<TArgs>(string UniqueId = null) where TArgs : NavigationArgs
 		{
-			return this.TryPopArgs(Shell.Current.CurrentPage, out TArgs Args, UniqueId) ? Args : null;
+			return (this.CanUseNavigationService && this.TryPopArgs(Shell.Current.CurrentPage, out TArgs Args, UniqueId)) ? Args : null;
 		}
 
 		private bool TryPopArgs<TArgs>(Page CurrentPage, out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs
@@ -199,6 +209,9 @@ namespace IdApp.Services.Navigation
 			NavigationLogger.Log("GoBackAsync.");
 #endif
 
+			if (!this.CanUseNavigationService)
+				return Task.CompletedTask;
+
 			try
 			{
 				string ReturnRoute = defaultGoBackRoute;
@@ -239,6 +252,9 @@ namespace IdApp.Services.Navigation
 
 		public Task GoToAsync<TArgs>(string Route, TArgs args) where TArgs : NavigationArgs, new()
 		{
+			if (!this.CanUseNavigationService)
+				return Task.CompletedTask;
+
 			NavigationArgs NavigationArgs = this.GetPopArgs<NavigationArgs>();
 
 			if ((args is not null) && args.CancelReturnCounter)

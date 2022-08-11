@@ -28,6 +28,9 @@ namespace IdApp.Android.Push
 		{
 			try
 			{
+				if (!App.IsOnboarded)
+					return;
+
 				string Body = Message.Data["myBody"];
 				string Title = Message.Data["myTitle"];
 				string ChannelId = Message.Data["channelId"];

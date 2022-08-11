@@ -141,6 +141,9 @@ namespace IdApp.iOS
 		[Export("application:didReceiveRemoteNotification:fetchCompletionHandler:")]
 		public override void DidReceiveRemoteNotification(UIApplication Application, NSDictionary UserInfo, Action<UIBackgroundFetchResult> CompletionHandler)
 		{
+			if (!App.IsOnboarded)
+				return;
+
 			string MessageId = UserInfo.ObjectForKey(new NSString("gcm.message_id")).ToString();
 			string ChannelId = UserInfo.ObjectForKey(new NSString("channelId"))?.ToString() ?? string.Empty;
 			string Title = UserInfo.ObjectForKey(new NSString("myTitle"))?.ToString() ?? string.Empty;
