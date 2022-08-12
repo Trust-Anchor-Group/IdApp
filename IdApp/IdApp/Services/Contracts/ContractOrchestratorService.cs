@@ -8,21 +8,17 @@ using IdApp.Pages.Contracts.PetitionSignature;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Identity.PetitionIdentity;
 using IdApp.Pages.Identity.ViewIdentity;
-using IdApp.Pages.Registration.Registration;
 using IdApp.Extensions;
 using Waher.Content.Xml;
-using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.StanzaErrors;
 using Waher.Runtime.Inventory;
 using IdApp.Services.Xmpp;
 using IdApp.Resx;
 using System.Threading;
-using Waher.Persistence;
-using System.Xml;
 using System.IO;
 using System.Collections.Generic;
-using Xamarin.Forms;
+using IdApp.Services.Notification.Contracts;
 
 namespace IdApp.Services.Contracts
 {
@@ -45,7 +41,10 @@ namespace IdApp.Services.Contracts
 				this.XmppService.Contracts.PetitionForContractReceived += this.Contracts_PetitionForSmartContractReceived;
 				this.XmppService.Contracts.PetitionedIdentityResponseReceived += this.Contracts_PetitionedIdentityResponseReceived;
 				this.XmppService.Contracts.PetitionedPeerReviewIdResponseReceived += this.Contracts_PetitionedPeerReviewResponseReceived;
+				this.XmppService.Contracts.SignaturePetitionResponseReceived += this.Contracts_SignaturePetitionResponseReceived;
 				this.XmppService.Contracts.ContractProposalReceived += this.Contracts_ContractProposalReceived;
+				this.XmppService.Contracts.ContractUpdated += this.Contracts_ContractUpdated;
+				this.XmppService.Contracts.ContractSigned += this.Contracts_ContractSigned;
 
 				this.EndLoad(true);
 			}
@@ -64,7 +63,10 @@ namespace IdApp.Services.Contracts
 				this.XmppService.Contracts.PetitionForContractReceived -= this.Contracts_PetitionForSmartContractReceived;
 				this.XmppService.Contracts.PetitionedIdentityResponseReceived -= this.Contracts_PetitionedIdentityResponseReceived;
 				this.XmppService.Contracts.PetitionedPeerReviewIdResponseReceived -= this.Contracts_PetitionedPeerReviewResponseReceived;
+				this.XmppService.Contracts.SignaturePetitionResponseReceived -= this.Contracts_SignaturePetitionResponseReceived;
 				this.XmppService.Contracts.ContractProposalReceived -= this.Contracts_ContractProposalReceived;
+				this.XmppService.Contracts.ContractUpdated -= this.Contracts_ContractUpdated;
+				this.XmppService.Contracts.ContractSigned -= this.Contracts_ContractSigned;
 
 				this.EndUnload();
 			}
@@ -80,7 +82,8 @@ namespace IdApp.Services.Contracts
 				{
 					if (this.TagProfile.IsCompleteOrWaitingForValidation())
 					{
-						await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(e.RequestorIdentity, e));
+						await this.NavigationService.GoToAsync(nameof(ViewIdentityPage),
+							new ViewIdentityNavigationArgs(e.RequestorIdentity, e));
 					}
 				}
 			);
@@ -91,9 +94,7 @@ namespace IdApp.Services.Contracts
 			LegalIdentity identity;
 
 			if (e.RequestedIdentityId == this.TagProfile.LegalIdentity?.Id)
-			{
 				identity = this.TagProfile.LegalIdentity;
-			}
 			else
 			{
 				(bool succeeded, LegalIdentity li) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.RequestedIdentityId));
@@ -275,24 +276,20 @@ namespace IdApp.Services.Contracts
 
 		private async void Contracts_ContractProposalReceived(object sender, ContractProposalEventArgs e)
 		{
-			Contract contract;
-			bool succeeded;
+			Contract Contract;
+			bool Succeeded;
 
-			(succeeded, contract) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetContract(e.ContractId));
-			if (!succeeded || contract is null)
+			(Succeeded, Contract) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetContract(e.ContractId));
+			if (!Succeeded || Contract is null)
 				return;     // Contract not available.
 
-			if (contract.State != ContractState.Approved && contract.State != ContractState.BeingSigned)
+			if (Contract.State != ContractState.Approved && Contract.State != ContractState.BeingSigned)
 				return;     // Not in a state to be signed.
 
-			this.UiSerializer.BeginInvokeOnMainThread(async () =>
-			{
-				if (this.TagProfile.IsCompleteOrWaitingForValidation())
-				{
-					await this.NavigationService.GoToAsync(nameof(ViewContractPage),
-						new ViewContractNavigationArgs(contract, false, e.Role, e.MessageText) { ReturnCounter = 1 });
-				}
-			});
+			ContractProposalNotificationEvent Event = new(e);
+			Event.SetContract(Contract);
+
+			await this.NotificationService.NewEvent(Event);
 		}
 
 		#endregion
@@ -490,6 +487,21 @@ namespace IdApp.Services.Contracts
 				throw new InvalidOperationException("App is not connected to the network.");
 
 			await this.XmppService.Xmpp.IqSetAsync(JID, Xml.ToString());
+		}
+
+		private void Contracts_SignaturePetitionResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
+		{
+			// TODO
+		}
+
+		private void Contracts_ContractSigned(object sender, ContractReferenceEventArgs e)
+		{
+			// TODO
+		}
+
+		private void Contracts_ContractUpdated(object sender, ContractReferenceEventArgs e)
+		{
+			// TODO
 		}
 
 	}

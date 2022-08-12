@@ -3,6 +3,8 @@ using NeuroFeatures;
 using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using Waher.Persistence.Attributes;
+using System.Text;
+using System.Xml;
 
 namespace IdApp.Services.Notification.Wallet
 {
@@ -11,6 +13,8 @@ namespace IdApp.Services.Notification.Wallet
 	/// </summary>
 	public abstract class TokenNotificationEvent : WalletNotificationEvent
 	{
+		private Token token;
+
 		/// <summary>
 		/// Abstract base class for token notification events.
 		/// </summary>
@@ -29,8 +33,12 @@ namespace IdApp.Services.Notification.Wallet
 			this.TokenId = e.Token.TokenId;
 			this.FriendlyName = e.Token.FriendlyName;
 			this.TokenCategory = e.Token.Category;
-			this.Token = e.Token;
+			this.token = e.Token;
 			this.Category = e.Token.TokenId;
+
+			StringBuilder Xml = new();
+			e.Token.Serialize(Xml);
+			this.TokenXml = Xml.ToString();
 		}
 
 		/// <summary>
@@ -41,7 +49,8 @@ namespace IdApp.Services.Notification.Wallet
 			: base(e)
 		{
 			this.TokenId = e.TokenId;
-			this.Token = null;
+			this.token = null;
+			this.TokenXml = null;
 			this.Category = e.TokenId;
 		}
 
@@ -61,10 +70,44 @@ namespace IdApp.Services.Notification.Wallet
 		public string FriendlyName { get; set; }
 
 		/// <summary>
-		/// Loaded token
+		/// XML of token.
+		/// </summary>
+		public string TokenXml { get; set; }
+
+		/// <summary>
+		/// Parsed token
 		/// </summary>
 		[IgnoreMember]
-		internal Token Token { get; set; }
+		public Token Token
+		{
+			get
+			{
+				if (this.token is null && !string.IsNullOrEmpty(this.TokenXml))
+				{
+					XmlDocument Doc = new();
+					Doc.LoadXml(this.TokenXml);
+
+					if (Token.TryParse(Doc.DocumentElement, out Token T))
+						this.token = T;
+				}
+
+				return this.token;
+			}
+
+			set
+			{
+				this.token = value;
+
+				if (value is null)
+					this.TokenXml = null;
+				else
+				{
+					StringBuilder Xml = new();
+					value.Serialize(Xml);
+					this.TokenXml = Xml.ToString();
+				}
+			}
+		}
 
 		/// <summary>
 		/// Gets a descriptive text for the event.

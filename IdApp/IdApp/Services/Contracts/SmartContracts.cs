@@ -4,7 +4,6 @@ using System.IO;
 using System.Threading.Tasks;
 using IdApp.Pages.Registration.RegisterIdentity;
 using IdApp.Resx;
-using IdApp.Services.Tag;
 using IdApp.Services.Xmpp;
 using Waher.Content;
 using Waher.Networking.XMPP;
@@ -48,8 +47,8 @@ namespace IdApp.Services.Contracts
 						this.contractsClient.PetitionForPeerReviewIDReceived -= this.ContractsClient_PetitionForPeerReviewIdReceived;
 						this.contractsClient.PetitionedPeerReviewIDResponseReceived -= this.ContractsClient_PetitionedPeerReviewIdResponseReceived;
 						this.contractsClient.ContractProposalReceived -= this.ContractsClient_ContractProposalReceived;
-						this.contractsClient.ContractUpdated -= this.ContractsClient_ContractUpdatedOrSigned;
-						this.contractsClient.ContractSigned -= this.ContractsClient_ContractUpdatedOrSigned;
+						this.contractsClient.ContractUpdated -= this.ContractsClient_ContractUpdated;
+						this.contractsClient.ContractSigned -= this.ContractsClient_ContractSigned;
 					}
 
 					this.contractsClient = (this.XmppService as XmppService)?.ContractsClient;
@@ -66,8 +65,8 @@ namespace IdApp.Services.Contracts
 					this.contractsClient.PetitionForPeerReviewIDReceived += this.ContractsClient_PetitionForPeerReviewIdReceived;
 					this.contractsClient.PetitionedPeerReviewIDResponseReceived += this.ContractsClient_PetitionedPeerReviewIdResponseReceived;
 					this.contractsClient.ContractProposalReceived += this.ContractsClient_ContractProposalReceived;
-					this.contractsClient.ContractUpdated += this.ContractsClient_ContractUpdatedOrSigned;
-					this.contractsClient.ContractSigned += this.ContractsClient_ContractUpdatedOrSigned;
+					this.contractsClient.ContractUpdated += this.ContractsClient_ContractUpdated;
+					this.contractsClient.ContractSigned += this.ContractsClient_ContractSigned;
 				}
 
 				return this.contractsClient;
@@ -665,7 +664,39 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private Task ContractsClient_ContractUpdatedOrSigned(object Sender, ContractReferenceEventArgs e)
+		private async Task ContractsClient_ContractUpdated(object Sender, ContractReferenceEventArgs e)
+		{
+			await this.ContractUpdatedOrSigned(e);
+
+			try
+			{
+				this.ContractUpdated?.Invoke(this, e);
+			}
+			catch (Exception ex)
+			{
+				this.LogService?.LogException(ex);
+			}
+		}
+
+		public event EventHandler<ContractReferenceEventArgs> ContractUpdated;
+
+		private async Task ContractsClient_ContractSigned(object Sender, ContractReferenceEventArgs e)
+		{
+			await this.ContractUpdatedOrSigned(e);
+
+			try
+			{
+				this.ContractSigned?.Invoke(this, e);
+			}
+			catch (Exception ex)
+			{
+				this.LogService?.LogException(ex);
+			}
+		}
+
+		public event EventHandler<ContractReferenceEventArgs> ContractSigned;
+
+		private Task ContractUpdatedOrSigned(ContractReferenceEventArgs e)
 		{
 			lock (this.lastContractEvent)
 			{

@@ -81,6 +81,16 @@
             </summary>
             <returns>If the user has provided the correct PIN</returns>
         </member>
+        <member name="M:IdApp.App.CheckUserBlocking">
+            <summary>
+            Verify if the user is blocked and show an allert
+            </summary>
+        </member>
+        <member name="M:IdApp.App.CheckPinAndUnblockUser(System.String,IdApp.Services.Tag.ITagProfile)">
+            <summary>
+            Check the PIN and reset the blocking counters if it matches
+            </summary>
+        </member>
         <member name="M:IdApp.App.SetStartInactivityTime">
             <summary>
             Set start time of inactivity
@@ -17587,9 +17597,24 @@
             An event that fires when a petitioned peer review response is received.
             </summary>
         </member>
+        <member name="E:IdApp.Services.Contracts.ISmartContracts.SignaturePetitionResponseReceived">
+            <summary>
+            Event raised when a response to a signature petition has been received.
+            </summary>
+        </member>
         <member name="E:IdApp.Services.Contracts.ISmartContracts.ContractProposalReceived">
             <summary>
             Event raised when a contract proposal has been received.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Contracts.ISmartContracts.ContractUpdated">
+            <summary>
+            Event raised when contract was updated.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Contracts.ISmartContracts.ContractSigned">
+            <summary>
+            Event raised when contract was signed.
             </summary>
         </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.Sign(System.Byte[],Waher.Networking.XMPP.Contracts.SignWith)">
@@ -18519,6 +18544,89 @@
             <param name="PropertyName">Name of property</param>
             <returns>Property value.</returns>
         </member>
+        <member name="T:IdApp.Services.Notification.Contracts.ContractNotificationEvent">
+            <summary>
+            Abstract base class of Contract notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.#ctor">
+            <summary>
+            Abstract base class of XMPP notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.ContractProposalEventArgs)">
+            <summary>
+            Abstract base class of XMPP notification events.
+            </summary>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="P:IdApp.Services.Notification.Contracts.ContractNotificationEvent.ContractId">
+            <summary>
+            Contract ID.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Contracts.ContractNotificationEvent.ContractXml">
+            <summary>
+            XML of contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.GetContract">
+            <summary>
+            Gets a parsed contract.
+            </summary>
+            <returns>Parsed contract</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.SetContract(Waher.Networking.XMPP.Contracts.Contract)">
+            <summary>
+            Sets a parsed contract.
+            </summary>
+            <param name="Contract">Contract</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent">
+            <summary>
+            Notification event for contract proposals.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.#ctor">
+            <summary>
+            Notification event for contract proposals.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.ContractProposalEventArgs)">
+            <summary>
+            Notification event for contract proposals.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="P:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.Role">
+            <summary>
+            Role
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.Message">
+            <summary>
+            Message
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.INotificationService">
             <summary>
             Interface for push notification services.
@@ -18957,9 +19065,14 @@
             Friendly Name of token
             </summary>
         </member>
+        <member name="P:IdApp.Services.Notification.Wallet.TokenNotificationEvent.TokenXml">
+            <summary>
+            XML of token.
+            </summary>
+        </member>
         <member name="P:IdApp.Services.Notification.Wallet.TokenNotificationEvent.Token">
             <summary>
-            Loaded token
+            Parsed token
             </summary>
         </member>
         <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">

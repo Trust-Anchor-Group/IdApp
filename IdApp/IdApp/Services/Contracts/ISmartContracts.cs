@@ -282,22 +282,37 @@ namespace IdApp.Services.Contracts
         /// </summary>
         event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
 
-        /// <summary>
-        /// Event raised when a contract proposal has been received.
-        /// </summary>
-        event EventHandler<ContractProposalEventArgs> ContractProposalReceived;
+		/// <summary>
+		/// Event raised when a response to a signature petition has been received.
+		/// </summary>
+		event EventHandler<SignaturePetitionResponseEventArgs> SignaturePetitionResponseReceived;
 
-        #endregion
+		/// <summary>
+		/// Event raised when a contract proposal has been received.
+		/// </summary>
+		event EventHandler<ContractProposalEventArgs> ContractProposalReceived;
 
-        #region Signatures
+		/// <summary>
+		/// Event raised when contract was updated.
+		/// </summary>
+		public event EventHandler<ContractReferenceEventArgs> ContractUpdated;
 
-        /// <summary>
-        /// Signs binary data with the corresponding private key.
-        /// </summary>
-        /// <param name="data">The data to sign.</param>
-        /// <param name="signWith">What keys that can be used to sign the data.</param>
-        /// <returns>Signature</returns>
-        Task<byte[]> Sign(byte[] data, SignWith signWith);
+		/// <summary>
+		/// Event raised when contract was signed.
+		/// </summary>
+		public event EventHandler<ContractReferenceEventArgs> ContractSigned;
+
+		#endregion
+
+		#region Signatures
+
+		/// <summary>
+		/// Signs binary data with the corresponding private key.
+		/// </summary>
+		/// <param name="data">The data to sign.</param>
+		/// <param name="signWith">What keys that can be used to sign the data.</param>
+		/// <returns>Signature</returns>
+		Task<byte[]> Sign(byte[] data, SignWith signWith);
 
         /// <summary>Validates a signature of binary data.</summary>
         /// <param name="legalIdentity">Legal identity used to create the signature.</param>
