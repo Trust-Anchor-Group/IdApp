@@ -341,7 +341,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 						if (Contact.LegalIdentity is not null)
 						{
 							await this.NavigationService.GoToAsync(nameof(ViewIdentityPage),
-								new ViewIdentityNavigationArgs(Contact.LegalIdentity, null));
+								new ViewIdentityNavigationArgs(Contact.LegalIdentity));
 						}
 						else if (!string.IsNullOrEmpty(Contact.LegalId))
 							await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId, AppResources.ScannedQrCode);

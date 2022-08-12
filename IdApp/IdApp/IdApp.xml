@@ -6165,6 +6165,12 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs"/> class.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs"/> class.
+            </summary>
+            <param name="identity">The identity.</param>
+        </member>
         <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,Waher.Networking.XMPP.Contracts.SignaturePetitionEventArgs)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs"/> class.
@@ -6177,9 +6183,34 @@
             The identity to display.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.IdentityToReview">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.RequestorIdentity">
             <summary>
-            The identity to review, if any.
+            Legal Identity of requesting entity.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.RequestorFullJid">
+            <summary>
+            Full JID of requestor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.SignatoryIdentityId">
+            <summary>
+            Legal identity of petitioned signatory.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.PetitionId">
+            <summary>
+            Petition ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.Purpose">
+            <summary>
+            Purpose
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.ContentToSign">
+            <summary>
+            Content to sign.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityPage">
@@ -6217,72 +6248,72 @@
         <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Photos">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Photos">
             <summary>
             Holds a list of photos associated with this identity.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ApproveCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ApproveCommand">
             <summary>
             The command to bind to for approving an identity
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.RejectCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.RejectCommand">
             <summary>
             The command to bind to for rejecting an identity
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ChangePinCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ChangePinCommand">
             <summary>
             The command to bind to for changing PIN.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CompromiseCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CompromiseCommand">
             <summary>
             The command to bind to for flagging an identity as compromised.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.RevokeCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.RevokeCommand">
             <summary>
             The command to bind to for revoking an identity
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.TransferCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.TransferCommand">
             <summary>
             The command to bind to for transferring an identity
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CopyCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CopyCommand">
             <summary>
             The command for copying data to clipboard.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.AddContactCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.AddContactCommand">
             <summary>
             The command for adding the identity to the list of contacts.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.RemoveContactCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.RemoveContactCommand">
             <summary>
             The command for removing the identity from the list of contacts.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.SendPaymentToCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.SendPaymentToCommand">
             <summary>
             The command for sending a payment to entity.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ChatCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ChatCommand">
             <summary>
             The command for opening the chat page.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.SubscribeToCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.SubscribeToCommand">
             <summary>
             The command for subscribing to the presence of a contact
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.UnsubscribeFromCommand">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.UnsubscribeFromCommand">
             <summary>
             The command for unsubscribing from the presence of a contact
             </summary>
@@ -17329,7 +17360,7 @@
             <summary>
             TAG Signature request scanned.
             </summary>
-            <param name="request">Request string.</param>
+            <param name="Request">Request string.</param>
         </member>
         <member name="T:IdApp.Services.Contracts.IContractOrchestratorService">
             <summary>
@@ -17341,22 +17372,22 @@
             <summary>
             Downloads the specified <see cref="T:Waher.Networking.XMPP.Contracts.LegalIdentity"/> and opens the corresponding page in the app to show it.
             </summary>
-            <param name="legalId">The id of the legal identity to show.</param>
-            <param name="purpose">The purpose to state if the identity can't be downloaded and needs to be petitioned instead.</param>
+            <param name="LegalId">The id of the legal identity to show.</param>
+            <param name="Purpose">The purpose to state if the identity can't be downloaded and needs to be petitioned instead.</param>
         </member>
         <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.OpenContract(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
             Downloads the specified <see cref="T:Waher.Networking.XMPP.Contracts.Contract"/> and opens the corresponding page in the app to show it.
             </summary>
-            <param name="contractId">The id of the contract to show.</param>
-            <param name="purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
+            <param name="ContractId">The id of the contract to show.</param>
+            <param name="Purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
             <param name="ParameterValues">Parameter values to set in new contract.</param>
         </member>
         <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.TagSignature(System.String)">
             <summary>
             TAG Signature request scanned.
             </summary>
-            <param name="request">Request string.</param>
+            <param name="Request">Request string.</param>
         </member>
         <member name="T:IdApp.Services.Contracts.ISmartContracts">
             <summary>

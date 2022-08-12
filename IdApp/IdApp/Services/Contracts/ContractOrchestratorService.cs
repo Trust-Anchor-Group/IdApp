@@ -96,9 +96,9 @@ namespace IdApp.Services.Contracts
 				Identity = this.TagProfile.LegalIdentity;
 			else
 			{
-				(bool succeeded, LegalIdentity li) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.RequestedIdentityId));
-				if (succeeded && !(li is null))
-					Identity = li;
+				(bool Succeeded, LegalIdentity LegalId) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.RequestedIdentityId));
+				if (Succeeded && !(LegalId is null))
+					Identity = LegalId;
 				else
 					return;
 			}
@@ -201,7 +201,7 @@ namespace IdApp.Services.Contracts
 			{
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(e.RequestedIdentity, null));
+					await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(e.RequestedIdentity));
 				});
 			}
 		}
@@ -388,7 +388,7 @@ namespace IdApp.Services.Contracts
 				LegalIdentity identity = await this.XmppService.Contracts.GetLegalIdentity(LegalId);
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(identity, null));
+					await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(identity));
 				});
 			}
 			catch (ForbiddenException)

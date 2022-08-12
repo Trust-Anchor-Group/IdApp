@@ -1071,7 +1071,7 @@ namespace IdApp.Pages.Contacts.Chat
 						{
 							case UriScheme.IotId:
 								LegalIdentity Id = LegalIdentity.Parse(Doc.DocumentElement);
-								await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(Id, null));
+								await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(Id));
 								break;
 
 							case UriScheme.IotSc:

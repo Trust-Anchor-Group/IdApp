@@ -8,7 +8,6 @@ using System.Windows.Input;
 using System.Xml;
 using EDaler;
 using IdApp.Extensions;
-using IdApp.Pages.Registration.Registration;
 using IdApp.Services;
 using Waher.Content.Xml;
 using Waher.Networking.XMPP;
@@ -33,8 +32,13 @@ namespace IdApp.Pages.Identity.ViewIdentity
 	/// </summary>
 	public class ViewIdentityViewModel : QrXmppViewModel
 	{
-		private SignaturePetitionEventArgs identityToReview;
 		private readonly PhotosLoader photosLoader;
+		private LegalIdentity requestorIdentity;
+		private string requestorFullJid;
+		private string signatoryIdentityId;
+		private string petitionId;
+		private string purpose;
+		private byte[] contentToSign;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ViewIdentityViewModel"/> class.
@@ -68,13 +72,23 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			if (this.NavigationService.TryPopArgs(out ViewIdentityNavigationArgs args))
 			{
 				this.LegalIdentity = args.Identity ?? this.TagProfile.LegalIdentity;
-				this.identityToReview = args.IdentityToReview;
+				this.requestorIdentity = args.RequestorIdentity;
+				this.requestorFullJid = args.RequestorFullJid;
+				this.signatoryIdentityId = args.SignatoryIdentityId;
+				this.petitionId = args.PetitionId;
+				this.purpose = args.Purpose;
+				this.contentToSign = args.ContentToSign;
 			}
 
 			if (this.LegalIdentity is null)
 			{
 				this.LegalIdentity = this.TagProfile.LegalIdentity;
-				this.identityToReview = null;
+				this.requestorIdentity = null;
+				this.requestorFullJid = null;
+				this.signatoryIdentityId = null;
+				this.petitionId = null;
+				this.purpose = null;
+				this.contentToSign = null;
 				this.IsPersonal = true;
 			}
 			else
@@ -82,7 +96,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			this.AssignProperties();
 
-			if (this.ThirdParty)
+			if (this.ThirdParty)	
 			{
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 
@@ -139,72 +153,72 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// <summary>
 		/// Holds a list of photos associated with this identity.
 		/// </summary>
-		public ObservableCollection<Photo> Photos { get; }
+		public ObservableCollection<Photo> Photos;
 
 		/// <summary>
 		/// The command to bind to for approving an identity
 		/// </summary>
-		public ICommand ApproveCommand { get; }
+		public ICommand ApproveCommand;
 
 		/// <summary>
 		/// The command to bind to for rejecting an identity
 		/// </summary>
-		public ICommand RejectCommand { get; }
+		public ICommand RejectCommand;
 
 		/// <summary>
 		/// The command to bind to for changing PIN.
 		/// </summary>
-		public ICommand ChangePinCommand { get; }
+		public ICommand ChangePinCommand;
 
 		/// <summary>
 		/// The command to bind to for flagging an identity as compromised.
 		/// </summary>
-		public ICommand CompromiseCommand { get; }
+		public ICommand CompromiseCommand;
 
 		/// <summary>
 		/// The command to bind to for revoking an identity
 		/// </summary>
-		public ICommand RevokeCommand { get; }
+		public ICommand RevokeCommand;
 
 		/// <summary>
 		/// The command to bind to for transferring an identity
 		/// </summary>
-		public ICommand TransferCommand { get; }
+		public ICommand TransferCommand;
 
 		/// <summary>
 		/// The command for copying data to clipboard.
 		/// </summary>
-		public ICommand CopyCommand { get; }
+		public ICommand CopyCommand;
 
 		/// <summary>
 		/// The command for adding the identity to the list of contacts.
 		/// </summary>
-		public ICommand AddContactCommand { get; }
+		public ICommand AddContactCommand;
 
 		/// <summary>
 		/// The command for removing the identity from the list of contacts.
 		/// </summary>
-		public ICommand RemoveContactCommand { get; }
+		public ICommand RemoveContactCommand;
 
 		/// <summary>
 		/// The command for sending a payment to entity.
 		/// </summary>
-		public ICommand SendPaymentToCommand { get; }
+		public ICommand SendPaymentToCommand;
 
 		/// <summary>
 		/// The command for opening the chat page.
 		/// </summary>
-		public ICommand ChatCommand { get; }
+		public ICommand ChatCommand;
 
 		/// <summary>
 		/// The command for subscribing to the presence of a contact
 		/// </summary>
-		public ICommand SubscribeToCommand { get; }
+		public ICommand SubscribeToCommand;
 
 		/// <summary>
 		/// The command for unsubscribing from the presence of a contact
 		/// </summary>
-		public ICommand UnsubscribeFromCommand { get; }
+		public ICommand UnsubscribeFromCommand;
 
 		#endregion
 
@@ -214,8 +228,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.Updated = this.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
 			this.LegalId = this.LegalIdentity?.Id;
 
-			if (this.identityToReview?.RequestorIdentity is not null)
-				this.BareJid = this.identityToReview.RequestorIdentity.GetJid(Constants.NotAvailableValue);
+			if (this.requestorIdentity is not null)
+				this.BareJid = this.requestorIdentity.GetJid(Constants.NotAvailableValue);
 			else if (this.LegalIdentity is not null)
 				this.BareJid = this.LegalIdentity.GetJid(Constants.NotAvailableValue);
 			else
@@ -267,7 +281,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.IsApproved = this.LegalIdentity?.State == IdentityState.Approved;
 			this.IsCreated = this.LegalIdentity?.State == IdentityState.Created;
 
-			this.IsForReview = this.identityToReview is not null;
+			this.IsForReview = this.requestorIdentity is not null;
 			this.IsNotForReview = !this.IsForReview;
 			this.ThirdParty = (this.LegalIdentity is not null) && !this.IsPersonal;
 
@@ -353,8 +367,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 				Attachment[] Attachments;
 
-				if (this.identityToReview?.RequestorIdentity?.Attachments is not null)
-					Attachments = this.identityToReview.RequestorIdentity.Attachments;
+				if (this.requestorIdentity?.Attachments is not null)
+					Attachments = this.requestorIdentity.Attachments;
 				else
 					Attachments = this.LegalIdentity?.Attachments;
 
@@ -1270,7 +1284,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private async Task Approve()
 		{
-			if (this.identityToReview is null)
+			if (this.requestorIdentity is null)
 				return;
 
 			try
@@ -1306,19 +1320,20 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (!await App.VerifyPin())
 					return;
 
-				(bool succeeded1, byte[] signature) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.Sign(this.identityToReview.ContentToSign, SignWith.LatestApprovedId));
+				(bool Succeeded1, byte[] Signature) = await this.NetworkService.TryRequest(() =>
+					this.XmppService.Contracts.Sign(this.contentToSign, SignWith.LatestApprovedId));
 
-				if (!succeeded1)
-				{
+				if (!Succeeded1)
 					return;
-				}
 
-				bool succeeded2 = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, signature, this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, true));
-
-				if (succeeded2)
+				bool Succeeded2 = await this.NetworkService.TryRequest(() =>
 				{
+					return this.XmppService.Contracts.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign,
+						Signature, this.petitionId, this.requestorFullJid, true);
+				});
+
+				if (Succeeded2)
 					await this.NavigationService.GoBackAsync();
-				}
 			}
 			catch (Exception ex)
 			{
@@ -1329,16 +1344,19 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private async Task Reject()
 		{
-			if (this.identityToReview is null)
+			if (this.requestorIdentity is null)
 				return;
 
 			try
 			{
-				bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false));
-				if (succeeded)
+				bool Succeeded = await this.NetworkService.TryRequest(() =>
 				{
+					return this.XmppService.Contracts.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign,
+						new byte[0], this.petitionId, this.requestorFullJid, false);
+				});
+
+				if (Succeeded)
 					await this.NavigationService.GoBackAsync();
-				}
 			}
 			catch (Exception ex)
 			{
