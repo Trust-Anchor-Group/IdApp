@@ -21,6 +21,21 @@ namespace IdApp.Services.Notification.Wallet
 		}
 
 		/// <summary>
+		/// Contains information about an incoming chat message.
+		/// </summary>
+		/// <param name="e">Event arguments</param>
+		public BalanceNotificationEvent(BalanceEventArgs e)
+			: base(e)
+		{
+			this.Amount = e.Balance.Amount;
+			this.Currency = e.Balance.Currency;
+			this.Event = e.Balance.Event;
+			this.Reserved = e.Balance.Reserved;
+			this.Timestamp = e.Balance.Timestamp;
+			this.Category = e.Balance.Event?.TransactionId.ToString() ?? string.Empty;
+		}
+
+		/// <summary>
 		/// Amount
 		/// </summary>
 		public decimal Amount { get; set; }

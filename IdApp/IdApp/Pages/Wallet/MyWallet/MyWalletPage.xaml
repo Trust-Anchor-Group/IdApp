@@ -41,7 +41,11 @@
 		<DataTemplate x:Key="AccountEventTemplate" x:DataType="objectmodel:AccountEventItem">
             <Grid ColumnDefinitions="2*,*" RowDefinitions="auto,auto,auto" >
                 <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
-                <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=TimestampStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"/>
+				<Label Grid.Row="0" Grid.Column="1" FontSize="50" Padding="0,-25,0,-25"
+					   TextColor="{StaticResource AlertColor}" Text="•"
+					   HorizontalOptions="Start" VerticalOptions="Center" IsVisible="{Binding New}"/>
+
+				<Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=TimestampStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"/>
                 <Label Grid.Column="1" Grid.Row="0" LineBreakMode="TailTruncation" HorizontalTextAlignment="End">
                     <Label.FormattedText>
                         <FormattedString>
@@ -140,15 +144,21 @@
                 </StackLayout>
 
                 <mainTabBar:MainTabBarView x:Name="WalletFrontTabBar" Grid.Row="2"
+										   
                                            LeftButton1Text="{x:Static resx:FontAwesome.ArrowLeft}"
-                                           LeftButton2Text="{x:Static resx:FontAwesome.Rotate}"
-                                           CenterButtonText="{x:Static resx:FontAwesome.ScanQr}"
-                                           RightButton1Text="{x:Static resx:FontAwesome.HandHolding}"
-                                           RightButton2Text="{x:Static resx:FontAwesome.MoneyBill}"
                                            LeftButton1Command="{Binding Path=BackCommand}"
+
+										   LeftButton2Text="{x:Static resx:FontAwesome.Rotate}"
                                            LeftButton2Command="{Binding Path=FlipCommand}"
+										   LeftButton2Overlay="{Binding Path=NrTokenNotifications}"
+										   
+                                           CenterButtonText="{x:Static resx:FontAwesome.ScanQr}"
                                            CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
+										   
+                                           RightButton1Text="{x:Static resx:FontAwesome.HandHolding}"
                                            RightButton1Command="{Binding Path=RequestPaymentCommand}"
+
+										   RightButton2Text="{x:Static resx:FontAwesome.MoneyBill}"
                                            RightButton2Command="{Binding Path=MakePaymentCommand}"/>
             </Grid>
         </flipView:FlipView.FrontView>
@@ -205,12 +215,16 @@
                                             WidthRequest="{Binding Path=GlyphWidth, Mode=OneTime}"
                                             HeightRequest="{Binding Path=GlyphHeight, Mode=OneTime}"
                                             VerticalOptions="Center" HorizontalOptions="Center" />
-                                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding Path=FriendlyName}"
+									<Label Grid.Column="1" Grid.Row="0" Text="{Binding Path=FriendlyName}"
                                             Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"
                                             FontAttributes="Bold" FontSize="18" HorizontalTextAlignment="Start"
                                             BackgroundColor="Transparent"
                                             VerticalOptions="Center"/>
-                                    <Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Value, Converter={converters:MoneyToString}}"
+									<Frame Grid.Row="0" Grid.Column="2" CornerRadius="12" Margin="2" Padding="8,3,8,3" IsVisible="{Binding New}"
+										   HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+										<Label FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Text="{Binding NrEvents}" Padding="1"/>
+									</Frame>
+									<Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Value, Converter={converters:MoneyToString}}"
                                             Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontSize="18"
                                             BackgroundColor="Transparent"
                                             HorizontalTextAlignment="End" VerticalOptions="Center"/>
@@ -228,13 +242,18 @@
                 </StackLayout>
 
                 <mainTabBar:MainTabBarView x:Name="WalletBackTabBar" Grid.Row="2"
+										   
                                            LeftButton1Text="{x:Static resx:FontAwesome.ArrowLeft}"
-                                           LeftButton2Text="{x:Static resx:FontAwesome.Rotate}"
-                                           CenterButtonText="{x:Static resx:FontAwesome.ScanQr}"
-                                           RightButton1Text="{x:Static resx:FontAwesome.StarOfLife}"
                                            LeftButton1Command="{Binding Path=BackCommand}"
+										   
+                                           LeftButton2Text="{x:Static resx:FontAwesome.Rotate}"
                                            LeftButton2Command="{Binding Path=FlipCommand}"
+										   LeftButton2Overlay="{Binding Path=NrBalanceNotifications}"
+										   
+                                           CenterButtonText="{x:Static resx:FontAwesome.ScanQr}"
                                            CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
+										   
+                                           RightButton1Text="{x:Static resx:FontAwesome.StarOfLife}"
                                            RightButton1Command="{Binding Path=CreateTokenCommand}"/>
             </Grid>
         </flipView:FlipView.BackView>

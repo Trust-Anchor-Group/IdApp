@@ -116,7 +116,7 @@ namespace IdApp.Services.Notification
 
 				try
 				{
-					this.OnNewNotification?.Invoke(this, EventArgs.Empty);
+					this.OnNewNotification?.Invoke(this, new NotificationEventArgs(Event));
 				}
 				catch (Exception ex)
 				{
@@ -132,31 +132,67 @@ namespace IdApp.Services.Notification
 		/// <param name="Category">Category</param>
 		public async Task DeleteEvents(EventButton Button, CaseInsensitiveString Category)
 		{
-			List<NotificationEvent> Events;
 			int ButtonIndex = (int)Button;
 
 			if (ButtonIndex >= 0 && ButtonIndex < nrButtons)
 			{
+				NotificationEvent[] ToDelete;
+
 				lock (this.events)
 				{
 					SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[ButtonIndex];
 
-					if (!ByCategory.TryGetValue(Category, out Events))
+					if (!ByCategory.TryGetValue(Category, out List<NotificationEvent> Events))
 						return;
 
+					ToDelete = Events.ToArray();
 					ByCategory.Remove(Category);
 				}
 
-				await Database.Delete(Events);
+				await this.DoDeleteEvents(ToDelete);
+			}
+		}
 
-				try
+		/// <summary>
+		/// Deletes a specified set of events.
+		/// </summary>
+		/// <param name="Events">Events to delete.</param>
+		public Task DeleteEvents(NotificationEvent[] Events)
+		{
+			foreach (NotificationEvent Event in Events)
+			{
+				int ButtonIndex = (int)Event.Button;
+
+				if (ButtonIndex >= 0 && ButtonIndex < nrButtons)
 				{
-					this.OnNotificationsDeleted?.Invoke(this, EventArgs.Empty);
+					lock (this.events)
+					{
+						SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[ButtonIndex];
+
+						if (ByCategory.TryGetValue(Event.Category, out List<NotificationEvent> List) &&
+							List.Remove(Event) &&
+							List.Count == 0)
+						{
+							ByCategory.Remove(Event.Category);
+						}
+					}
 				}
-				catch (Exception ex)
-				{
-					this.LogService.LogException(ex);
-				}
+
+			}
+
+			return this.DoDeleteEvents(Events);
+		}
+
+		private async Task DoDeleteEvents(NotificationEvent[] Events)
+		{
+			try
+			{
+				await Database.DeleteLazy(Events);
+				this.OnNotificationsDeleted?.Invoke(this, new NotificationEventsArgs(Events));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
 			}
 		}
 
@@ -263,12 +299,12 @@ namespace IdApp.Services.Notification
 		/// <summary>
 		/// Event raised when a new notification has been logged.
 		/// </summary>
-		public event EventHandler OnNewNotification;
+		public event NotificationEventHandler OnNewNotification;
 
 		/// <summary>
 		/// Event raised when notifications have been deleted.
 		/// </summary>
-		public event EventHandler OnNotificationsDeleted;
+		public event NotificationEventsHandler OnNotificationsDeleted;
 
 		/// <summary>
 		/// Number of notifications but button Contacts

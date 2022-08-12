@@ -1,6 +1,9 @@
 ﻿using IdApp.Converters;
 using IdApp.Resx;
+using IdApp.Services;
+using IdApp.Services.Notification;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
@@ -10,9 +13,12 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 	/// </summary>
 	public class AccountEventItem : IItemGroup
 	{
+		private readonly ServiceReferences services;
 		private readonly EDaler.AccountEvent accountEvent;
 		private readonly MyWalletViewModel viewModel;
 		private readonly string friendlyName;
+		private bool? @new;
+		private NotificationEvent[] notificationEvents;
 
 		/// <summary>
 		/// Encapsulates a <see cref="AccountEvent"/> object.
@@ -20,11 +26,16 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// <param name="AccountEvent">Account event.</param>
 		/// <param name="ViewModel">Current view model</param>
 		/// <param name="FriendlyName">Friendly name of remote entity.</param>
-		public AccountEventItem(EDaler.AccountEvent AccountEvent, MyWalletViewModel ViewModel, string FriendlyName)
+		/// <param name="NotificationEvents">Notification events.</param>
+		/// <param name="Services">Service references.</param>
+		public AccountEventItem(EDaler.AccountEvent AccountEvent, MyWalletViewModel ViewModel, string FriendlyName, NotificationEvent[] NotificationEvents,
+			ServiceReferences Services)
 		{
 			this.accountEvent = AccountEvent;
 			this.viewModel = ViewModel;
 			this.friendlyName = FriendlyName;
+			this.notificationEvents = NotificationEvents;
+			this.services = Services;
 		}
 
 		/// <summary>
@@ -79,6 +90,35 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// Currency used for event.
 		/// </summary>
 		public string Currency => this.viewModel.Currency;
+
+		/// <summary>
+		/// Associated notification events
+		/// </summary>
+		public NotificationEvent[] NotificationEvents => this.notificationEvents;
+
+		/// <summary>
+		/// If the event item is new or not.
+		/// </summary>
+		public bool New
+		{
+			get
+			{
+				if (!this.@new.HasValue)
+				{
+					this.@new = this.notificationEvents.Length > 0;
+					if (this.@new.Value)
+					{
+						NotificationEvent[] ToDelete = this.notificationEvents;
+
+						this.notificationEvents = new NotificationEvent[0];
+
+						Task.Run(() => this.services.NotificationService.DeleteEvents(ToDelete));
+					}
+				}
+
+				return this.@new.Value;
+			}
+		}
 
 		/// <summary>
 		/// Color to use when displaying change.

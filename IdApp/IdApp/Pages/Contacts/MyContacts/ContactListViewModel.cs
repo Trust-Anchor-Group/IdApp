@@ -183,6 +183,19 @@ namespace IdApp.Pages.Contacts.MyContacts
 					Info2.LegalId == Info.LegalId)
 				{
 					Sorted.Remove(Name + Suffix);
+
+					i++;
+					string Suffix2 = " " + i.ToString();
+
+					while (Sorted.TryGetValue(Name + Suffix2, out Info2))
+					{
+						Sorted[Name + Suffix] = Info2;
+						Sorted.Remove(Name + Suffix2);
+
+						i++;
+						Suffix2 = " " + i.ToString();
+					}
+
 					return;
 				}
 
@@ -391,25 +404,29 @@ namespace IdApp.Pages.Contacts.MyContacts
 			return Task.CompletedTask;
 		}
 
-		private void NotificationService_OnNewNotification(object sender, System.EventArgs e)
+		private void NotificationService_OnNewNotification(object sender, NotificationEventArgs e)
 		{
-			this.UpdateNotifications();
+			if (e.Event.Button == EventButton.Contacts)
+				this.UpdateNotifications(e.Event.Category);
 		}
 
 		private void UpdateNotifications()
 		{
 			foreach (CaseInsensitiveString Category in this.NotificationService.GetCategories(EventButton.Contacts))
+				this.UpdateNotifications(Category);
+		}
+
+		private void UpdateNotifications(CaseInsensitiveString Category)
+		{
+			if (this.byBareJid.TryGetValue(Category, out List<ContactInfoModel> Contacts) &&
+				this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Category, out NotificationEvent[] Events))
 			{
-				if (this.byBareJid.TryGetValue(Category, out List<ContactInfoModel> Contacts) &&
-					this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Category, out NotificationEvent[] Events))
-				{
-					foreach (ContactInfoModel Contact in Contacts)
-						Contact.NotificationsUpdated(Events);
-				}
+				foreach (ContactInfoModel Contact in Contacts)
+					Contact.NotificationsUpdated(Events);
 			}
 		}
 
-		private void NotificationService_OnNotificationsDeleted(object sender, System.EventArgs e)
+		private void NotificationService_OnNotificationsDeleted(object sender, NotificationEventsArgs e)
 		{
 			this.UpdateNotifications();
 		}

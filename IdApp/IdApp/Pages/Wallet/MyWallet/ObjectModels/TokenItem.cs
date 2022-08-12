@@ -1,6 +1,7 @@
 ﻿using IdApp.Extensions;
 using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Services;
+using IdApp.Services.Notification;
 using NeuroFeatures;
 using NeuroFeatures.Tags;
 using System;
@@ -22,14 +23,18 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		private readonly Token token;
 		private readonly ServiceReferences model;
 		private readonly TaskCompletionSource<TokenItem> selected;
+		private bool? @new;
+		private int nrEvents;
+		private NotificationEvent[] notificationEvents;
 
 		/// <summary>
 		/// Encapsulates a <see cref="Token"/> object.
 		/// </summary>
 		/// <param name="Token">Token</param>
 		/// <param name="Model">View model</param>
-		public TokenItem(Token Token, ServiceReferences Model)
-			: this(Token, Model, null)
+		/// <param name="NotificationEvents">Notification events.</param>
+		public TokenItem(Token Token, ServiceReferences Model, NotificationEvent[] NotificationEvents)
+			: this(Token, Model, null, NotificationEvents)
 		{
 		}
 
@@ -39,11 +44,13 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// <param name="Token">Token</param>
 		/// <param name="Model">View model</param>
 		/// <param name="Selected">Asynchronous task completion source, waiting for the user to select a token.</param>
-		public TokenItem(Token Token, ServiceReferences Model, TaskCompletionSource<TokenItem> Selected)
+		/// <param name="NotificationEvents">Notification events.</param>
+		public TokenItem(Token Token, ServiceReferences Model, TaskCompletionSource<TokenItem> Selected, NotificationEvent[] NotificationEvents)
 		{
 			this.token = Token;
 			this.model = Model;
 			this.selected = Selected;
+			this.notificationEvents = NotificationEvents;
 
 			if (!(this.Glyph is null) && this.GlyphContentType.StartsWith("image/"))
 			{
@@ -350,6 +357,55 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		{
 			get => (int)this.GetValue(GlyphHeightProperty);
 			set => this.SetValue(GlyphHeightProperty, value);
+		}
+
+		/// <summary>
+		/// Associated notification events
+		/// </summary>
+		public NotificationEvent[] NotificationEvents => this.notificationEvents;
+
+		/// <summary>
+		/// Number of notification events recorded for the item.
+		/// </summary>
+		public int NrEvents
+		{
+			get
+			{
+				this.CheckEvents();
+
+				return this.nrEvents;
+			}
+		}
+
+		/// <summary>
+		/// If the event item is new or not.
+		/// </summary>
+		public bool New
+		{
+			get
+			{
+				this.CheckEvents();
+
+				return this.@new.Value;
+			}
+		}
+
+		private void CheckEvents()
+		{
+			if (!this.@new.HasValue)
+			{
+				this.nrEvents = this.notificationEvents.Length;
+				this.@new = this.nrEvents > 0;
+
+				if (this.@new.Value)
+				{
+					NotificationEvent[] ToDelete = this.notificationEvents;
+
+					this.notificationEvents = new NotificationEvent[0];
+
+					Task.Run(() => this.model.NotificationService.DeleteEvents(ToDelete));
+				}
+			}
 		}
 
 		/// <summary>

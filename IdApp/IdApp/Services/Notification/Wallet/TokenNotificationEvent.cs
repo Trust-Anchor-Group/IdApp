@@ -20,6 +20,32 @@ namespace IdApp.Services.Notification.Wallet
 		}
 
 		/// <summary>
+		/// Abstract base class for token notification events.
+		/// </summary>
+		/// <param name="e">Event arguments.</param>
+		public TokenNotificationEvent(TokenEventArgs e)
+			: base(e)
+		{
+			this.TokenId = e.Token.TokenId;
+			this.FriendlyName = e.Token.FriendlyName;
+			this.TokenCategory = e.Token.Category;
+			this.Token = e.Token;
+			this.Category = e.Token.TokenId;
+		}
+
+		/// <summary>
+		/// Abstract base class for token notification events.
+		/// </summary>
+		/// <param name="e">Event arguments.</param>
+		public TokenNotificationEvent(StateMachineEventArgs e)
+			: base(e)
+		{
+			this.TokenId = e.TokenId;
+			this.Token = null;
+			this.Category = e.TokenId;
+		}
+
+		/// <summary>
 		/// Token ID
 		/// </summary>
 		public string TokenId { get; set; }
@@ -63,8 +89,11 @@ namespace IdApp.Services.Notification.Wallet
 			if (this.Token is null)
 				this.Token = await ServiceReferences.XmppService.Wallet.GetToken(this.TokenId);
 
+			if (!ServiceReferences.NotificationService.TryGetNotificationEvents(EventButton.Wallet, this.TokenId, out NotificationEvent[] Events))
+				Events = new NotificationEvent[0];
+
 			await ServiceReferences.NavigationService.GoToAsync(nameof(TokenDetailsPage),
-				new TokenDetailsNavigationArgs(new TokenItem(this.Token, ServiceReferences)) { ReturnCounter = 1 });
+				new TokenDetailsNavigationArgs(new TokenItem(this.Token, ServiceReferences, Events)) { ReturnCounter = 1 });
 		}
 	}
 }
