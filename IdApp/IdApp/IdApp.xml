@@ -6171,12 +6171,16 @@
             </summary>
             <param name="identity">The identity.</param>
         </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,Waher.Networking.XMPP.Contracts.SignaturePetitionEventArgs)">
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String,System.String,System.String,System.Byte[])">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs"/> class.
             </summary>
             <param name="identity">The identity.</param>
-            <param name="identityToReview">An identity to review, or <c>null</c>.</param>
+            <param name="RequestorFullJid">Full JID of requestor.</param>
+            <param name="SignatoryIdentityId">Legal identity of signatory.</param>
+            <param name="PetitionId">ID of petition.</param>
+            <param name="Purpose">Purpose message to display.</param>
+            <param name="ContentToSign">Content to sign.</param>
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityNavigationArgs.Identity">
             <summary>
@@ -18582,12 +18586,12 @@
         </member>
         <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.#ctor">
             <summary>
-            Abstract base class of XMPP notification events.
+            Abstract base class of Contract notification events.
             </summary>
         </member>
         <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.ContractProposalEventArgs)">
             <summary>
-            Abstract base class of XMPP notification events.
+            Abstract base class of Contract notification events.
             </summary>
             <param name="e">Event arguments</param>
         </member>
@@ -18653,6 +18657,93 @@
             </summary>
         </member>
         <member name="M:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Identities.IdentityNotificationEvent">
+            <summary>
+            Abstract base class of Identity notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.#ctor">
+            <summary>
+            Abstract base class of Identity notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.SignaturePetitionEventArgs)">
+            <summary>
+            Abstract base class of Identity notification events.
+            </summary>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="P:IdApp.Services.Notification.Identities.IdentityNotificationEvent.RequestorFullJid">
+            <summary>
+            Full JID of requestor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Identities.IdentityNotificationEvent.SignatoryIdentityId">
+            <summary>
+            Legal identity of petitioned signatory.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Identities.IdentityNotificationEvent.PetitionId">
+            <summary>
+            Petition ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Identities.IdentityNotificationEvent.Purpose">
+            <summary>
+            Purpose
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Identities.IdentityNotificationEvent.ContentToSign">
+            <summary>
+            Content to sign.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Identities.IdentityNotificationEvent.IdentityXml">
+            <summary>
+            XML of identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Identities.IdentityNotificationEvent.Identity">
+            <summary>
+            Gets a parsed identity.
+            </summary>
+            <returns>Parsed identity</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent">
+            <summary>
+            Notification event for peer reviews of identities.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.#ctor">
+            <summary>
+            Notification event for peer reviews of identities.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.SignaturePetitionEventArgs)">
+            <summary>
+            Notification event for contract proposals.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.Open(IdApp.Services.ServiceReferences)">
             <summary>
             Opens the event.
             </summary>

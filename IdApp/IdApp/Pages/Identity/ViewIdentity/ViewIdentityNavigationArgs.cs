@@ -34,16 +34,21 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// Creates a new instance of the <see cref="ViewIdentityNavigationArgs"/> class.
 		/// </summary>
 		/// <param name="identity">The identity.</param>
-		/// <param name="identityToReview">An identity to review, or <c>null</c>.</param>
-		public ViewIdentityNavigationArgs(LegalIdentity identity, SignaturePetitionEventArgs identityToReview)
+		/// <param name="RequestorFullJid">Full JID of requestor.</param>
+		/// <param name="SignatoryIdentityId">Legal identity of signatory.</param>
+		/// <param name="PetitionId">ID of petition.</param>
+		/// <param name="Purpose">Purpose message to display.</param>
+		/// <param name="ContentToSign">Content to sign.</param>
+		public ViewIdentityNavigationArgs(LegalIdentity identity, string RequestorFullJid, string SignatoryIdentityId,
+			string PetitionId, string Purpose, byte[] ContentToSign)
 		{
 			this.Identity = identity;
-			this.RequestorIdentity = identityToReview.RequestorIdentity;
-			this.RequestorFullJid = identityToReview.RequestorFullJid;
-			this.SignatoryIdentityId = identityToReview.SignatoryIdentityId;
-			this.PetitionId = identityToReview.PetitionId;
-			this.Purpose = identityToReview.Purpose;
-			this.ContentToSign = identityToReview.ContentToSign;
+			this.RequestorIdentity = identity;
+			this.RequestorFullJid = RequestorFullJid;
+			this.SignatoryIdentityId = SignatoryIdentityId;
+			this.PetitionId = PetitionId;
+			this.Purpose = Purpose;
+			this.ContentToSign = ContentToSign;
 		}
 
 		/// <summary>

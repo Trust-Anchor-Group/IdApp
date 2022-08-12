@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Persistence.Attributes;
 
 namespace IdApp.Services.Notification.Contracts
 {
@@ -17,7 +16,7 @@ namespace IdApp.Services.Notification.Contracts
 		private Contract contract;
 
 		/// <summary>
-		/// Abstract base class of XMPP notification events.
+		/// Abstract base class of Contract notification events.
 		/// </summary>
 		public ContractNotificationEvent()
 			: base()
@@ -25,7 +24,7 @@ namespace IdApp.Services.Notification.Contracts
 		}
 
 		/// <summary>
-		/// Abstract base class of XMPP notification events.
+		/// Abstract base class of Contract notification events.
 		/// </summary>
 		/// <param name="e">Event arguments</param>
 		public ContractNotificationEvent(ContractProposalEventArgs e)

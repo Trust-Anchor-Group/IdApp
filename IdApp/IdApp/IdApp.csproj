@@ -291,7 +291,6 @@
   <ItemGroup>
     <Folder Include="Popups\Pin\PinPopup\" />
     <Folder Include="Controls\Extended\" />
-    <Folder Include="Services\Notification\Identities\" />
   </ItemGroup>
 
   <ItemGroup>

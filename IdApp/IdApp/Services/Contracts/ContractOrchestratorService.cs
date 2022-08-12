@@ -19,6 +19,7 @@ using System.Threading;
 using System.IO;
 using System.Collections.Generic;
 using IdApp.Services.Notification.Contracts;
+using IdApp.Services.Notification.Identities;
 
 namespace IdApp.Services.Contracts
 {
@@ -76,16 +77,16 @@ namespace IdApp.Services.Contracts
 
 		#region Event Handlers
 
-		private void Contracts_PetitionForPeerReviewIdReceived(object Sender, SignaturePetitionEventArgs e)
+		private async void Contracts_PetitionForPeerReviewIdReceived(object Sender, SignaturePetitionEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			try
 			{
-				if (this.TagProfile.IsCompleteOrWaitingForValidation())
-				{
-					await this.NavigationService.GoToAsync(nameof(ViewIdentityPage),
-						new ViewIdentityNavigationArgs(e.RequestorIdentity, e));
-				}
-			});
+				await this.NotificationService.NewEvent(new PeerRequestIdentityReviewNotificationEvent(e));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
 		}
 
 		private async void Contracts_PetitionForIdentityReceived(object Sender, LegalIdentityPetitionEventArgs e)
