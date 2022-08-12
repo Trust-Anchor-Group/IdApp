@@ -52,7 +52,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			await base.DoUnbind();
 		}
 
-		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{

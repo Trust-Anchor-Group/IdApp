@@ -420,7 +420,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		#endregion
 
-		private void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		private void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{

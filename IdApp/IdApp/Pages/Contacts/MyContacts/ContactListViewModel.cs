@@ -404,7 +404,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 			return Task.CompletedTask;
 		}
 
-		private void NotificationService_OnNewNotification(object sender, NotificationEventArgs e)
+		private void NotificationService_OnNewNotification(object Sender, NotificationEventArgs e)
 		{
 			if (e.Event.Button == EventButton.Contacts)
 				this.UpdateNotifications(e.Event.Category);
@@ -426,7 +426,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 			}
 		}
 
-		private void NotificationService_OnNotificationsDeleted(object sender, NotificationEventsArgs e)
+		private void NotificationService_OnNotificationsDeleted(object Sender, NotificationEventsArgs e)
 		{
 			this.UpdateNotifications();
 		}

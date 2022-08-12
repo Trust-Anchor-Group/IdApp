@@ -105,7 +105,7 @@ namespace IdApp.Pages.Contacts.Chat
 			
 		}
 
-		private void OnEditorControlUnfocused(object sender, FocusEventArgs e)
+		private void OnEditorControlUnfocused(object Sender, FocusEventArgs e)
 		{
 			this.CollectionView.SelectedItem = null;
 		}

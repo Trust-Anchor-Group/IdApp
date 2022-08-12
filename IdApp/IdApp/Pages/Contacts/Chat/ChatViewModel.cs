@@ -115,9 +115,9 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
 		{
-			base.XmppService_ConnectionStateChanged(sender, e);
+			base.XmppService_ConnectionStateChanged(Sender, e);
 			this.UiSerializer.BeginInvokeOnMainThread(() => this.EvaluateAllCommands());
 		}
 

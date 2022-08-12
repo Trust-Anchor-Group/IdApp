@@ -55,7 +55,7 @@ namespace IdApp.Popups.Photos.Image
             this.IsVisible = false;
         }
 
-        private void CloseIcon_Tapped(object sender, EventArgs e)
+        private void CloseIcon_Tapped(object Sender, EventArgs e)
         {
             this.HidePhotos();
         }

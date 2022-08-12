@@ -41,7 +41,7 @@ namespace IdApp.Pages.Contracts.ViewContract
             return true;
 		}
 
-		private void Image_Tapped(object sender, EventArgs e)
+		private void Image_Tapped(object Sender, EventArgs e)
 		{
 			Attachment[] attachments = this.GetViewModel<ViewContractViewModel>().Contract?.Attachments;
 			this.PhotoViewer.ShowPhotos(attachments);

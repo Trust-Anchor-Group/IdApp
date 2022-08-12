@@ -670,7 +670,7 @@ namespace IdApp
 
 #region Error Handling
 
-		private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+		private async void TaskScheduler_UnobservedTaskException(object Sender, UnobservedTaskExceptionEventArgs e)
 		{
 			Exception ex = e.Exception;
 			e.SetObserved();
@@ -680,7 +680,7 @@ namespace IdApp
 			await this.Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false);
 		}
 
-		private async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		private async void CurrentDomain_UnhandledException(object Sender, UnhandledExceptionEventArgs e)
 		{
 			await this.Handle_UnhandledException(e.ExceptionObject as Exception, nameof(CurrentDomain_UnhandledException), true);
 		}
@@ -707,7 +707,7 @@ namespace IdApp
 #endif
 		}
 
-		private void CurrentDomain_FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
+		private void CurrentDomain_FirstChanceException(object Sender, FirstChanceExceptionEventArgs e)
 		{
 			this.startupProfiler?.Exception(e.Exception);
 		}

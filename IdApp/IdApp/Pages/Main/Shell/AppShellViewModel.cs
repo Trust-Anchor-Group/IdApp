@@ -93,7 +93,7 @@ namespace IdApp.Pages.Main.Shell
 
 		#endregion
 
-		private void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		private void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -102,7 +102,7 @@ namespace IdApp.Pages.Main.Shell
 			});
 		}
 
-		private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+		private void NetworkService_ConnectivityChanged(object Sender, ConnectivityChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() => this.IsOnline = this.NetworkService.IsOnline);
 		}

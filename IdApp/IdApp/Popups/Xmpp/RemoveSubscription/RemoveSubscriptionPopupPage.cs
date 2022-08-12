@@ -31,7 +31,7 @@ namespace IdApp.Popups.Xmpp.RemoveSubscription
         /// </summary>
         public string BareJid => this.bareJid;
 
-        private void OnCloseButtonTapped(object sender, EventArgs e)
+        private void OnCloseButtonTapped(object Sender, EventArgs e)
         {
 			this.Close();
         }
@@ -49,13 +49,13 @@ namespace IdApp.Popups.Xmpp.RemoveSubscription
             this.result.TrySetResult(null);
         }
 
-        private async void OnYes(object sender, EventArgs e)
+        private async void OnYes(object Sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(true);
         }
 
-        private async void OnNo(object sender, EventArgs e)
+        private async void OnNo(object Sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(false);

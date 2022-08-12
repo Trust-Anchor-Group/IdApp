@@ -17,7 +17,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			this.InitializeComponent();
         }
 
-		private void Image_Tapped(object sender, System.EventArgs e)
+		private void Image_Tapped(object Sender, System.EventArgs e)
 		{
             Attachment[] attachments = this.GetViewModel<ValidateIdentityViewModel>().LegalIdentity?.Attachments;
             this.PhotoViewer.ShowPhotos(attachments);

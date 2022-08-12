@@ -751,14 +751,14 @@ namespace IdApp.Pages.Contracts.ViewContract
 				layout.GestureRecognizers.Add(tapGestureRecognizer);
 		}
 
-		private async void SignButton_Clicked(object sender, EventArgs e)
+		private async void SignButton_Clicked(object Sender, EventArgs e)
 		{
 			try
 			{
 				if (!await App.VerifyPin())
 					return;
 
-				if (sender is Button button && !string.IsNullOrEmpty(button.StyleId))
+				if (Sender is Button button && !string.IsNullOrEmpty(button.StyleId))
 				{
 					this.skipContractEvent = DateTime.Now;
 
@@ -775,11 +775,11 @@ namespace IdApp.Pages.Contracts.ViewContract
 			}
 		}
 
-		private async void Part_Tapped(object sender, EventArgs e)
+		private async void Part_Tapped(object Sender, EventArgs e)
 		{
 			try
 			{
-				if (sender is StackLayout Layout && !string.IsNullOrEmpty(Layout.StyleId))
+				if (Sender is StackLayout Layout && !string.IsNullOrEmpty(Layout.StyleId))
 					await this.ContractOrchestratorService.OpenLegalIdentity(Layout.StyleId, AppResources.PurposeReviewContract);
 			}
 			catch (Exception ex)
@@ -789,11 +789,11 @@ namespace IdApp.Pages.Contracts.ViewContract
 			}
 		}
 
-		private async void ClientSignature_Tapped(object sender, EventArgs e)
+		private async void ClientSignature_Tapped(object Sender, EventArgs e)
 		{
 			try
 			{
-				if (sender is StackLayout layout && !string.IsNullOrEmpty(layout.StyleId))
+				if (Sender is StackLayout layout && !string.IsNullOrEmpty(layout.StyleId))
 				{
 					string sign = layout.StyleId;
 					Waher.Networking.XMPP.Contracts.ClientSignature signature = this.Contract.ClientSignatures.FirstOrDefault(x => sign == Convert.ToBase64String(x.DigitalSignature));
@@ -814,11 +814,11 @@ namespace IdApp.Pages.Contracts.ViewContract
 			}
 		}
 
-		private async void ServerSignature_Tapped(object sender, EventArgs e)
+		private async void ServerSignature_Tapped(object Sender, EventArgs e)
 		{
 			try
 			{
-				if (sender is StackLayout layout && !string.IsNullOrEmpty(layout.StyleId))
+				if (Sender is StackLayout layout && !string.IsNullOrEmpty(layout.StyleId))
 				{
 					await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ServerSignature.ServerSignaturePage),
 						  new ServerSignatureNavigationArgs(this.Contract));

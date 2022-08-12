@@ -40,7 +40,7 @@ namespace IdApp.Popups.Tokens.AddTextNote
             set;
 		}
 
-        private void OnCloseButtonTapped(object sender, EventArgs e)
+        private void OnCloseButtonTapped(object Sender, EventArgs e)
         {
 			this.Close();
         }
@@ -58,13 +58,13 @@ namespace IdApp.Popups.Tokens.AddTextNote
             this.result.TrySetResult(null);
         }
 
-        private async void OnAdd(object sender, EventArgs e)
+        private async void OnAdd(object Sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(true);
         }
 
-        private async void OnCancel(object sender, EventArgs e)
+        private async void OnCancel(object Sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(false);

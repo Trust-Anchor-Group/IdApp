@@ -101,7 +101,7 @@ namespace IdApp.Services.Navigation
 				Shell.Navigating -= this.Shell_Navigating;
 		}
 
-		private async void Shell_Navigating(object sender, ShellNavigatingEventArgs e)
+		private async void Shell_Navigating(object Sender, ShellNavigatingEventArgs e)
 		{
 			if ((e.Source == ShellNavigationSource.Pop) &&
 				(this.currentNavigationArgs is not null) &&

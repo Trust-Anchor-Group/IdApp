@@ -8908,7 +8908,7 @@
             <summary>
             An event handler for listening to completion of the different registration steps.
             </summary>
-            <param name="sender">The event sender.</param>
+            <param name="Sender">The event sender.</param>
             <param name="e">The default event args.</param>
         </member>
         <member name="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView">
@@ -13652,7 +13652,7 @@
             <summary>
             Listens to connection state changes from the XMPP server.
             </summary>
-            <param name="sender">The XMPP service instance.</param>
+            <param name="Sender">The XMPP service instance.</param>
             <param name="e">The event args.</param>
         </member>
         <member name="T:IdApp.Popups.Photos.Image.ImageView">

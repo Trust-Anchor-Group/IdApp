@@ -22,7 +22,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			this.InitializeComponent();
         }
 
-        private void AccountNameTextChanged(object sender, TextChangedEventArgs e)
+        private void AccountNameTextChanged(object Sender, TextChangedEventArgs e)
         {
             string NewTextValue = e.NewTextValue;
 
@@ -44,7 +44,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
                 }
             }
 
-            ((Entry)sender).Text = NewTextValue;
+            ((Entry)Sender).Text = NewTextValue;
         }
     }
 }

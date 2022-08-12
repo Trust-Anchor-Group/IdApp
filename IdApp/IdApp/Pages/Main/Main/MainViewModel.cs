@@ -167,7 +167,7 @@ namespace IdApp.Pages.Main.Main
 			}
 		}
 
-		private void NotificationService_OnNewNotification(object sender, NotificationEventArgs e)
+		private void NotificationService_OnNewNotification(object Sender, NotificationEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -643,7 +643,7 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		/// <inheritdoc />
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -651,7 +651,7 @@ namespace IdApp.Pages.Main.Main
 			});
 		}
 
-		private void Contracts_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		private void Contracts_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -659,7 +659,7 @@ namespace IdApp.Pages.Main.Main
 			});
 		}
 
-		private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+		private void NetworkService_ConnectivityChanged(object Sender, ConnectivityChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(this.XmppService.State));
 		}

@@ -40,17 +40,17 @@ namespace IdApp.Pages.Main.Main
 			await base.OnDisappearingAsync();
 		}
 
-		private void IdCard_Tapped(object sender, EventArgs e)
+		private void IdCard_Tapped(object Sender, EventArgs e)
 		{
 			this.IdCard.Flip();
 		}
 
-		private void SharePhoto_Tapped(object sender, EventArgs e)
+		private void SharePhoto_Tapped(object Sender, EventArgs e)
 		{
 			(this.ViewModel as MainViewModel)?.SharePhoto();
 		}
 
-		private void ShareQR_Tapped(object sender, EventArgs e)
+		private void ShareQR_Tapped(object Sender, EventArgs e)
 		{
 			(this.ViewModel as MainViewModel)?.ShareQR();
 		}

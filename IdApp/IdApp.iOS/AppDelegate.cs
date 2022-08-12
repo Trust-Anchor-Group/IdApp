@@ -102,7 +102,7 @@ namespace IdApp.iOS
 		{
 			if (this.onKeyboardShowObserver == null)
 			{
-				this.onKeyboardShowObserver = UIKeyboard.Notifications.ObserveWillShow((object sender, UIKeyboardEventArgs args) =>
+				this.onKeyboardShowObserver = UIKeyboard.Notifications.ObserveWillShow((object Sender, UIKeyboardEventArgs args) =>
 				{
 					NSValue Result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
 					CGSize keyboardSize = Result.RectangleFValue.Size;
@@ -114,7 +114,7 @@ namespace IdApp.iOS
 
 			if (this.onKeyboardHideObserver == null)
 			{
-				this.onKeyboardHideObserver = UIKeyboard.Notifications.ObserveWillHide((object sender, UIKeyboardEventArgs args) =>
+				this.onKeyboardHideObserver = UIKeyboard.Notifications.ObserveWillHide((object Sender, UIKeyboardEventArgs args) =>
 				{
 					MessagingCenter.Send<object>(this, Constants.MessagingCenter.KeyboardDisappears);
 				});

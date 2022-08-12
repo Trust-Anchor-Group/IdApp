@@ -22,58 +22,76 @@ namespace UpdateVersionInfo
 		}
 
 		#region ICollection
-		void ICollection.CopyTo(Array array, int index) { (values as ICollection).CopyTo(array, index); }
-		bool ICollection.IsSynchronized { get { return (values as ICollection).IsSynchronized; } }
-		object ICollection.SyncRoot { get { return (values as ICollection).SyncRoot; } }
+
+		void ICollection.CopyTo(Array array, int index)
+		{
+			(this.values as ICollection).CopyTo(array, index);
+		}
+
+		bool ICollection.IsSynchronized
+		{
+			get
+			{
+				return (this.values as ICollection).IsSynchronized;
+			}
+		}
+		object ICollection.SyncRoot
+		{
+			get
+			{
+				return (this.values as ICollection).SyncRoot;
+			}
+		}
+
 		#endregion
 
 		#region ICollection<T>
-		public void Add(string item) { values.Add(item); }
-		public void Clear() { values.Clear(); }
-		public bool Contains(string item) { return values.Contains(item); }
-		public void CopyTo(string[] array, int arrayIndex) { values.CopyTo(array, arrayIndex); }
-		public bool Remove(string item) { return values.Remove(item); }
-		public int Count { get { return values.Count; } }
+		public void Add(string item) { this.values.Add(item); }
+		public void Clear() { this.values.Clear(); }
+		public bool Contains(string item) { return this.values.Contains(item); }
+		public void CopyTo(string[] array, int arrayIndex) { this.values.CopyTo(array, arrayIndex); }
+		public bool Remove(string item) { return this.values.Remove(item); }
+		public int Count { get { return this.values.Count; } }
 		public bool IsReadOnly { get { return false; } }
 		#endregion
 
 		#region IEnumerable
-		IEnumerator IEnumerable.GetEnumerator() { return values.GetEnumerator(); }
+		IEnumerator IEnumerable.GetEnumerator() { return this.values.GetEnumerator(); }
 		#endregion
 
 		#region IEnumerable<T>
-		public IEnumerator<string> GetEnumerator() { return values.GetEnumerator(); }
+		public IEnumerator<string> GetEnumerator() { return this.values.GetEnumerator(); }
 		#endregion
 
 		#region IList
-		int IList.Add(object value) { return (values as IList).Add(value); }
-		bool IList.Contains(object value) { return (values as IList).Contains(value); }
-		int IList.IndexOf(object value) { return (values as IList).IndexOf(value); }
-		void IList.Insert(int index, object value) { (values as IList).Insert(index, value); }
-		void IList.Remove(object value) { (values as IList).Remove(value); }
-		void IList.RemoveAt(int index) { (values as IList).RemoveAt(index); }
+		int IList.Add(object value) { return (this.values as IList).Add(value); }
+		bool IList.Contains(object value) { return (this.values as IList).Contains(value); }
+		int IList.IndexOf(object value) { return (this.values as IList).IndexOf(value); }
+		void IList.Insert(int index, object value) { (this.values as IList).Insert(index, value); }
+		void IList.Remove(object value) { (this.values as IList).Remove(value); }
+		void IList.RemoveAt(int index) { (this.values as IList).RemoveAt(index); }
 		bool IList.IsFixedSize { get { return false; } }
-		object IList.this[int index] { get { return this[index]; } set { (values as IList)[index] = value; } }
+		object IList.this[int index] { get { return this[index]; } set { (this.values as IList)[index] = value; } }
 		#endregion
 
 		#region IList<T>
-		public int IndexOf(string item) { return values.IndexOf(item); }
-		public void Insert(int index, string item) { values.Insert(index, item); }
-		public void RemoveAt(int index) { values.RemoveAt(index); }
+		public int IndexOf(string item) { return this.values.IndexOf(item); }
+		public void Insert(int index, string item) { this.values.Insert(index, item); }
+		public void RemoveAt(int index) { this.values.RemoveAt(index); }
 
 		private void AssertValid(int index)
 		{
-			if (c.Option is null)
+			if (this.c.Option is null)
 				throw new InvalidOperationException("OptionContext.Option is null.");
 
-			if (index >= c.Option.MaxValueCount)
+			if (index >= this.c.Option.MaxValueCount)
 				throw new ArgumentOutOfRangeException(nameof(index));
 
-			if (c.Option.OptionValueType == OptionValueType.Required && index >= values.Count)
+			if (this.c.Option.OptionValueType == OptionValueType.Required && index >= this.values.Count)
 			{
 				throw new OptionException(string.Format(
-							c.OptionSet.MessageLocalizer("Missing required value for option '{0}'."), c.OptionName),
-						c.OptionName);
+							this.c.OptionSet.MessageLocalizer("Missing required value for option '{0}'."), this.c.OptionName),
+						this.c.OptionName);
 			}
 		}
 
@@ -81,29 +99,29 @@ namespace UpdateVersionInfo
 		{
 			get
 			{
-				AssertValid(index);
-				return index >= values.Count ? null : values[index];
+				this.AssertValid(index);
+				return index >= this.values.Count ? null : this.values[index];
 			}
 			set
 			{
-				values[index] = value;
+				this.values[index] = value;
 			}
 		}
 		#endregion
 
 		public List<string> ToList()
 		{
-			return new List<string>(values);
+			return new List<string>(this.values);
 		}
 
 		public string[] ToArray()
 		{
-			return values.ToArray();
+			return this.values.ToArray();
 		}
 
 		public override string ToString()
 		{
-			return string.Join(", ", values.ToArray());
+			return string.Join(", ", this.values.ToArray());
 		}
 	}
 
@@ -123,30 +141,30 @@ namespace UpdateVersionInfo
 
 		public Option Option
 		{
-			get { return option; }
-			set { option = value; }
+			get { return this.option; }
+			set { this.option = value; }
 		}
 
 		public string OptionName
 		{
-			get { return name; }
-			set { name = value; }
+			get { return this.name; }
+			set { this.name = value; }
 		}
 
 		public int OptionIndex
 		{
-			get { return index; }
-			set { index = value; }
+			get { return this.index; }
+			set { this.index = value; }
 		}
 
 		public OptionSet OptionSet
 		{
-			get { return set; }
+			get { return this.set; }
 		}
 
 		public OptionValueCollection OptionValues
 		{
-			get { return c; }
+			get { return this.c; }
 		}
 	}
 
@@ -185,9 +203,9 @@ namespace UpdateVersionInfo
 			this.names = prototype.Split('|');
 			this.description = description;
 			this.count = maxValueCount;
-			this.type = ParsePrototype();
+			this.type = this.ParsePrototype();
 
-			if (this.count == 0 && type != OptionValueType.None)
+			if (this.count == 0 && this.type != OptionValueType.None)
 				throw new ArgumentException(
 						"Cannot provide maxValueCount of 0 for OptionValueType.Required or OptionValueType.Optional.",
 						nameof(maxValueCount));
@@ -195,29 +213,30 @@ namespace UpdateVersionInfo
 				throw new ArgumentException(
 						string.Format("Cannot provide maxValueCount of {0} for OptionValueType.None.", maxValueCount),
 						nameof(maxValueCount));
-			if (Array.IndexOf(names, "<>") >= 0 &&
-					((names.Length == 1 && this.type != OptionValueType.None) ||
-					 (names.Length > 1 && this.MaxValueCount > 1)))
+			if (Array.IndexOf(this.names, "<>") >= 0 &&
+					((this.names.Length == 1 && this.type != OptionValueType.None) ||
+					 (this.names.Length > 1 && this.MaxValueCount > 1)))
 				throw new ArgumentException(
 						"The default option handler '<>' cannot require values.",
 						nameof(prototype));
 		}
 
-		public string Prototype { get { return prototype; } }
-		public string Description { get { return description; } }
-		public OptionValueType OptionValueType { get { return type; } }
-		public int MaxValueCount { get { return count; } }
+		public string Prototype { get { return this.prototype; } }
+		public string Description { get { return this.description; } }
+		public OptionValueType OptionValueType { get { return this.type; } }
+		public int MaxValueCount { get { return this.count; } }
 
 		public string[] GetNames()
 		{
-			return (string[])names.Clone();
+			return (string[])this.names.Clone();
 		}
 
 		public string[] GetValueSeparators()
 		{
-			if (separators is null)
+			if (this.separators is null)
 				return Array.Empty<string>();
-			return (string[])separators.Clone();
+
+			return (string[])this.separators.Clone();
 		}
 
 		protected static T Parse<T>(string value, OptionContext c)
@@ -240,25 +259,25 @@ namespace UpdateVersionInfo
 			return t;
 		}
 
-		internal string[] Names { get { return names; } }
-		internal string[] ValueSeparators { get { return separators; } }
+		internal string[] Names { get { return this.names; } }
+		internal string[] ValueSeparators { get { return this.separators; } }
 
-		static readonly char[] NameTerminator = new char[] { '=', ':' };
+		static readonly char[] nameTerminator = new char[] { '=', ':' };
 
 		private OptionValueType ParsePrototype()
 		{
 			char type = '\0';
 			List<string> seps = new();
-			for (int i = 0; i < names.Length; ++i)
+			for (int i = 0; i < this.names.Length; ++i)
 			{
-				string name = names[i];
+				string name = this.names[i];
 				if (name.Length == 0)
 					throw new ArgumentException("Empty option names are not supported.", "prototype");
 
-				int end = name.IndexOfAny(NameTerminator);
+				int end = name.IndexOfAny(nameTerminator);
 				if (end == -1)
 					continue;
-				names[i] = name.Substring(0, end);
+				this.names[i] = name.Substring(0, end);
 				if (type == '\0' || type == name[end])
 					type = name[end];
 				else
@@ -271,11 +290,11 @@ namespace UpdateVersionInfo
 			if (type == '\0')
 				return OptionValueType.None;
 
-			if (count <= 1 && seps.Count != 0)
+			if (this.count <= 1 && seps.Count != 0)
 				throw new ArgumentException(
-						string.Format("Cannot provide key/value separators for Options taking {0} value(s).", count),
+						string.Format("Cannot provide key/value separators for Options taking {0} value(s).", this.count),
 						"prototype");
-			if (count > 1)
+			if (this.count > 1)
 			{
 				if (seps.Count == 0)
 					this.separators = new string[] { ":", "=" };
@@ -324,7 +343,7 @@ namespace UpdateVersionInfo
 
 		public void Invoke(OptionContext c)
 		{
-			OnParseComplete(c);
+			this.OnParseComplete(c);
 			c.OptionName = null;
 			c.Option = null;
 			c.OptionValues.Clear();
@@ -334,7 +353,7 @@ namespace UpdateVersionInfo
 
 		public override string ToString()
 		{
-			return Prototype;
+			return this.Prototype;
 		}
 	}
 
@@ -373,7 +392,7 @@ namespace UpdateVersionInfo
 		public override void GetObjectData(SerializationInfo info, StreamingContext context)
 		{
 			base.GetObjectData(info, context);
-			info.AddValue("OptionName", option);
+			info.AddValue("OptionName", this.option);
 		}
 	}
 
@@ -395,7 +414,7 @@ namespace UpdateVersionInfo
 
 		public Converter<string, string> MessageLocalizer
 		{
-			get { return localizer; }
+			get { return this.localizer; }
 		}
 
 		protected override string GetKeyForItem(Option item)
@@ -427,25 +446,25 @@ namespace UpdateVersionInfo
 		protected override void InsertItem(int index, Option item)
 		{
 			base.InsertItem(index, item);
-			AddImpl(item);
+			this.AddImpl(item);
 		}
 
 		protected override void RemoveItem(int index)
 		{
 			base.RemoveItem(index);
-			Option p = Items[index];
+			Option p = this.Items[index];
 			// KeyedCollection.RemoveItem() handles the 0th item
 			for (int i = 1; i < p.Names.Length; ++i)
 			{
-				Dictionary.Remove(p.Names[i]);
+				this.Dictionary.Remove(p.Names[i]);
 			}
 		}
 
 		protected override void SetItem(int index, Option item)
 		{
 			base.SetItem(index, item);
-			RemoveItem(index);
-			AddImpl(item);
+			this.RemoveItem(index);
+			this.AddImpl(item);
 		}
 
 		private void AddImpl(Option option)
@@ -458,14 +477,14 @@ namespace UpdateVersionInfo
 				// KeyedCollection.InsertItem/SetItem handle the 0th name.
 				for (int i = 1; i < option.Names.Length; ++i)
 				{
-					Dictionary.Add(option.Names[i], option);
+					this.Dictionary.Add(option.Names[i], option);
 					added.Add(option.Names[i]);
 				}
 			}
 			catch (Exception)
 			{
 				foreach (string name in added)
-					Dictionary.Remove(name);
+					this.Dictionary.Remove(name);
 				throw;
 			}
 		}
@@ -488,13 +507,13 @@ namespace UpdateVersionInfo
 
 			protected override void OnParseComplete(OptionContext c)
 			{
-				action(c.OptionValues);
+				this.action(c.OptionValues);
 			}
 		}
 
 		public OptionSet Add(string prototype, Action<string> action)
 		{
-			return Add(prototype, null, action);
+			return this.Add(prototype, null, action);
 		}
 
 		public OptionSet Add(string prototype, string description, Action<string> action)
@@ -509,7 +528,7 @@ namespace UpdateVersionInfo
 
 		public OptionSet Add(string prototype, OptionAction<string, string> action)
 		{
-			return Add(prototype, null, action);
+			return this.Add(prototype, null, action);
 		}
 
 		public OptionSet Add(string prototype, string description, OptionAction<string, string> action)
@@ -534,7 +553,7 @@ namespace UpdateVersionInfo
 
 			protected override void OnParseComplete(OptionContext c)
 			{
-				action(Parse<T>(c.OptionValues[0], c));
+				this.action(Parse<T>(c.OptionValues[0], c));
 			}
 		}
 
@@ -550,7 +569,7 @@ namespace UpdateVersionInfo
 
 			protected override void OnParseComplete(OptionContext c)
 			{
-				action(
+				this.action(
 						Parse<TKey>(c.OptionValues[0], c),
 						Parse<TValue>(c.OptionValues[1], c));
 			}
@@ -558,22 +577,22 @@ namespace UpdateVersionInfo
 
 		public OptionSet Add<T>(string prototype, Action<T> action)
 		{
-			return Add(prototype, null, action);
+			return this.Add(prototype, null, action);
 		}
 
 		public OptionSet Add<T>(string prototype, string description, Action<T> action)
 		{
-			return Add(new ActionOption<T>(prototype, description, action));
+			return this.Add(new ActionOption<T>(prototype, description, action));
 		}
 
 		public OptionSet Add<TKey, TValue>(string prototype, OptionAction<TKey, TValue> action)
 		{
-			return Add(prototype, null, action);
+			return this.Add(prototype, null, action);
 		}
 
 		public OptionSet Add<TKey, TValue>(string prototype, string description, OptionAction<TKey, TValue> action)
 		{
-			return Add(new ActionOption<TKey, TValue>(prototype, description, action));
+			return this.Add(new ActionOption<TKey, TValue>(prototype, description, action));
 		}
 
 		protected virtual OptionContext CreateOptionContext()
@@ -612,11 +631,11 @@ namespace UpdateVersionInfo
 #else
 		public List<string> Parse(IEnumerable<string> arguments)
 		{
-			OptionContext c = CreateOptionContext();
+			OptionContext c = this.CreateOptionContext();
 			c.OptionIndex = -1;
 			bool process = true;
 			List<string> unprocessed = new();
-			Option def = Contains("<>") ? this["<>"] : null;
+			Option def = this.Contains("<>") ? this["<>"] : null;
 			foreach (string argument in arguments)
 			{
 				++c.OptionIndex;
@@ -630,7 +649,7 @@ namespace UpdateVersionInfo
 					Unprocessed(unprocessed, def, c, argument);
 					continue;
 				}
-				if (!Parse(argument, c))
+				if (!this.Parse(argument, c))
 					Unprocessed(unprocessed, def, c, argument);
 			}
 			if (!(c.Option is null))
@@ -652,7 +671,7 @@ namespace UpdateVersionInfo
 			return false;
 		}
 
-		private readonly Regex ValueOption = new(
+		private readonly Regex valueOption = new(
 			@"^(?<flag>--|-|/)(?<name>[^:=]+)((?<sep>[:=])(?<value>.*))?$");
 
 		protected bool GetOptionParts(string argument, out string flag, out string name, out string sep, out string value)
@@ -661,7 +680,7 @@ namespace UpdateVersionInfo
 				throw new ArgumentNullException(nameof(argument));
 
 			flag = name = sep = value = null;
-			Match m = ValueOption.Match(argument);
+			Match m = this.valueOption.Match(argument);
 			if (!m.Success)
 			{
 				return false;
@@ -680,15 +699,15 @@ namespace UpdateVersionInfo
 		{
 			if (!(c.Option is null))
 			{
-				ParseValue(argument, c);
+				this.ParseValue(argument, c);
 				return true;
 			}
 
-			if (!GetOptionParts(argument, out string f, out string n, out string s, out string v))
+			if (!this.GetOptionParts(argument, out string f, out string n, out string s, out string v))
 				return false;
 
 			Option p;
-			if (Contains(n))
+			if (this.Contains(n))
 			{
 				p = this[n];
 				c.OptionName = f + n;
@@ -701,16 +720,16 @@ namespace UpdateVersionInfo
 						break;
 					case OptionValueType.Optional:
 					case OptionValueType.Required:
-						ParseValue(v, c);
+						this.ParseValue(v, c);
 						break;
 				}
 				return true;
 			}
 			// no match; is it a bool option?
-			if (ParseBool(argument, n, c))
+			if (this.ParseBool(argument, n, c))
 				return true;
 			// is it a bundled option?
-			if (ParseBundledValue(f, string.Concat(n + s + v), c))
+			if (this.ParseBundledValue(f, string.Concat(n + s + v), c))
 				return true;
 
 			return false;
@@ -730,7 +749,7 @@ namespace UpdateVersionInfo
 				c.Option.Invoke(c);
 			else if (c.OptionValues.Count > c.Option.MaxValueCount)
 			{
-				throw new OptionException(localizer(string.Format(
+				throw new OptionException(this.localizer(string.Format(
 								"Error: Found {0} option values when expecting {1}.",
 								c.OptionValues.Count, c.Option.MaxValueCount)),
 						c.OptionName);
@@ -742,7 +761,7 @@ namespace UpdateVersionInfo
 			Option p;
 			string rn;
 			if (n.Length >= 1 && (n[^1] == '+' || n[^1] == '-') &&
-					Contains((rn = n[0..^1])))
+					this.Contains((rn = n[0..^1])))
 			{
 				p = this[rn];
 				string v = n[^1] == '+' ? option : null;
@@ -764,11 +783,11 @@ namespace UpdateVersionInfo
 				Option p;
 				string opt = f + n[i].ToString();
 				string rn = n[i].ToString();
-				if (!Contains(rn))
+				if (!this.Contains(rn))
 				{
 					if (i == 0)
 						return false;
-					throw new OptionException(string.Format(localizer(
+					throw new OptionException(string.Format(this.localizer(
 									"Cannot bundle unregistered option '{0}'."), opt), opt);
 				}
 				p = this[rn];
@@ -783,7 +802,7 @@ namespace UpdateVersionInfo
 							string v = n[(i + 1)..];
 							c.Option = p;
 							c.OptionName = opt;
-							ParseValue(v.Length != 0 ? v : null, c);
+							this.ParseValue(v.Length != 0 ? v : null, c);
 							return true;
 						}
 					default:
@@ -801,27 +820,27 @@ namespace UpdateVersionInfo
 			option.Invoke(c);
 		}
 
-		private const int OptionWidth = 29;
+		private const int optionWidth = 29;
 
 		public void WriteOptionDescriptions(TextWriter o)
 		{
 			foreach (Option p in this)
 			{
 				int written = 0;
-				if (!WriteOptionPrototype(o, p, ref written))
+				if (!this.WriteOptionPrototype(o, p, ref written))
 					continue;
 
-				if (written < OptionWidth)
-					o.Write(new string(' ', OptionWidth - written));
+				if (written < optionWidth)
+					o.Write(new string(' ', optionWidth - written));
 				else
 				{
 					o.WriteLine();
-					o.Write(new string(' ', OptionWidth));
+					o.Write(new string(' ', optionWidth));
 				}
 
-				List<string> lines = GetLines(localizer(GetDescription(p.Description)));
+				List<string> lines = GetLines(this.localizer(GetDescription(p.Description)));
 				o.WriteLine(lines[0]);
-				string prefix = new(' ', OptionWidth + 2);
+				string prefix = new(' ', optionWidth + 2);
 				for (int i = 1; i < lines.Count; ++i)
 				{
 					o.Write(prefix);
@@ -862,19 +881,19 @@ namespace UpdateVersionInfo
 			{
 				if (p.OptionValueType == OptionValueType.Optional)
 				{
-					Write(o, ref written, localizer("["));
+					Write(o, ref written, this.localizer("["));
 				}
-				Write(o, ref written, localizer("=" + GetArgumentName(0, p.MaxValueCount, p.Description)));
+				Write(o, ref written, this.localizer("=" + GetArgumentName(0, p.MaxValueCount, p.Description)));
 				string sep = !(p.ValueSeparators is null) && p.ValueSeparators.Length > 0
 					? p.ValueSeparators[0]
 					: " ";
 				for (int c = 1; c < p.MaxValueCount; ++c)
 				{
-					Write(o, ref written, localizer(sep + GetArgumentName(c, p.MaxValueCount, p.Description)));
+					Write(o, ref written, this.localizer(sep + GetArgumentName(c, p.MaxValueCount, p.Description)));
 				}
 				if (p.OptionValueType == OptionValueType.Optional)
 				{
-					Write(o, ref written, localizer("]"));
+					Write(o, ref written, this.localizer("]"));
 				}
 			}
 			return true;
@@ -909,11 +928,11 @@ namespace UpdateVersionInfo
 				int start, j = 0;
 				do
 				{
-					start = description.IndexOf(nameStart[i], j);
+					start = description.IndexOf(nameStart[i], j, StringComparison.InvariantCultureIgnoreCase);
 				} while (start >= 0 && j != 0 && description[j++ - 1] == '{');
 				if (start == -1)
 					continue;
-				int end = description.IndexOf("}", start);
+				int end = description.IndexOf("}", start, StringComparison.InvariantCultureIgnoreCase);
 				if (end == -1)
 					continue;
 				return description.Substring(start + nameStart[i].Length, end - start - nameStart[i].Length);
@@ -976,7 +995,7 @@ namespace UpdateVersionInfo
 				lines.Add(string.Empty);
 				return lines;
 			}
-			int length = 80 - OptionWidth - 2;
+			int length = 80 - optionWidth - 2;
 			int start = 0, end;
 			do
 			{

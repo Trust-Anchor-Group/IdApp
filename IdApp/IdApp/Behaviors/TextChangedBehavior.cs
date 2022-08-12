@@ -52,7 +52,7 @@ namespace IdApp.Behaviors
             base.OnDetachingFrom(entry);
         }
 
-        void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        void Entry_TextChanged(object Sender, TextChangedEventArgs e)
         {
             if (!(this.TextChangedCommand is null) && this.TextChangedCommand.CanExecute(null))
             {

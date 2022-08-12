@@ -41,7 +41,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
             return true;
         }
 
-        private void Image_Tapped(object sender, EventArgs e)
+        private void Image_Tapped(object Sender, EventArgs e)
         {
             Attachment[] attachments = this.GetViewModel<PetitionContractViewModel>().RequestorIdentity?.Attachments;
             this.PhotoViewer.ShowPhotos(attachments);

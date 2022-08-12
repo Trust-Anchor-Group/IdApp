@@ -60,7 +60,7 @@ namespace IdApp.iOS.Effects
 			}
 		}
 
-		private void OnEditingBegin(object sender, System.EventArgs e)
+		private void OnEditingBegin(object Sender, System.EventArgs e)
 		{
 			if (this.TextField.SecureTextEntry && !string.IsNullOrEmpty(this.TextField.Text) && this.Entry != null)
 			{

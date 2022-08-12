@@ -28,7 +28,7 @@ namespace IdApp.Behaviors
             base.OnDetachingFrom(Button);
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private void Button_Clicked(object Sender, EventArgs e)
         {
             Unfocus(this.UnfocusControl);
         }

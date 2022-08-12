@@ -56,7 +56,7 @@ namespace IdApp.Services.Network
 			return Task.CompletedTask;
 		}
 
-		private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+		private void Connectivity_ConnectivityChanged(object Sender, ConnectivityChangedEventArgs e)
 		{
 			this.ConnectivityChanged?.Invoke(this, e);
 		}

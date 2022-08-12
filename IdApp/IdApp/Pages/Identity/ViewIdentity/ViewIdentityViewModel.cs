@@ -331,7 +331,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
@@ -372,12 +372,12 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			}
 		}
 
-		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
 
-		private void SmartContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
+		private void SmartContracts_LegalIdentityChanged(object Sender, LegalIdentityChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{

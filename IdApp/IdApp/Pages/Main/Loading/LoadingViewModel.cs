@@ -58,7 +58,7 @@ namespace IdApp.Pages.Main.Loading
 		#endregion
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
 		}
@@ -72,7 +72,7 @@ namespace IdApp.Pages.Main.Loading
 			this.StateSummaryText = (this.TagProfile.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
 		}
 
-		private void XmppService_Loaded(object sender, LoadedEventArgs e)
+		private void XmppService_Loaded(object Sender, LoadedEventArgs e)
 		{
 			try
 			{

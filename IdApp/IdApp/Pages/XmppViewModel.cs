@@ -118,9 +118,9 @@ namespace IdApp.Pages
         /// <summary>
         /// Listens to connection state changes from the XMPP server.
         /// </summary>
-        /// <param name="sender">The XMPP service instance.</param>
+        /// <param name="Sender">The XMPP service instance.</param>
         /// <param name="e">The event args.</param>
-        protected virtual void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        protected virtual void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
         {
             this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
         }

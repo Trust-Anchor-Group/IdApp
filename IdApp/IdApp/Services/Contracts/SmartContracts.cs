@@ -509,7 +509,7 @@ namespace IdApp.Services.Contracts
 
 		#region Event Handlers
 
-		private async Task ContractsClient_PetitionedContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
+		private async Task ContractsClient_PetitionedContractResponseReceived(object Sender, ContractPetitionResponseEventArgs e)
 		{
 			try
 			{
@@ -522,7 +522,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async Task ContractsClient_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
+		private async Task ContractsClient_PetitionForContractReceived(object Sender, ContractPetitionEventArgs e)
 		{
 			try
 			{
@@ -535,7 +535,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async Task ContractsClient_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
+		private async Task ContractsClient_PetitionedIdentityResponseReceived(object Sender, LegalIdentityPetitionResponseEventArgs e)
 		{
 			try
 			{
@@ -548,7 +548,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async Task ContractsClient_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
+		private async Task ContractsClient_PetitionForIdentityReceived(object Sender, LegalIdentityPetitionEventArgs e)
 		{
 			try
 			{
@@ -561,7 +561,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async Task ContractsClient_PetitionedPeerReviewIdResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
+		private async Task ContractsClient_PetitionedPeerReviewIdResponseReceived(object Sender, SignaturePetitionResponseEventArgs e)
 		{
 			try
 			{
@@ -574,7 +574,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async Task ContractsClient_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
+		private async Task ContractsClient_PetitionForPeerReviewIdReceived(object Sender, SignaturePetitionEventArgs e)
 		{
 			try
 			{
@@ -587,7 +587,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async Task ContractsClient_PetitionedSignatureResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
+		private async Task ContractsClient_PetitionedSignatureResponseReceived(object Sender, SignaturePetitionResponseEventArgs e)
 		{
 			try
 			{
@@ -600,7 +600,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async Task ContractsClient_PetitionForSignatureReceived(object sender, SignaturePetitionEventArgs e)
+		private async Task ContractsClient_PetitionForSignatureReceived(object Sender, SignaturePetitionEventArgs e)
 		{
 			try
 			{
@@ -613,7 +613,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async Task ContractsClient_IdentityUpdated(object sender, LegalIdentityEventArgs e)
+		private async Task ContractsClient_IdentityUpdated(object Sender, LegalIdentityEventArgs e)
 		{
 			if (this.TagProfile.LegalIdentity is null ||
 				this.TagProfile.LegalIdentity.Id == e.Identity.Id ||

@@ -414,7 +414,7 @@ namespace IdApp.Services.Xmpp
 
 		#endregion
 
-		private async void TagProfile_StepChanged(object sender, EventArgs e)
+		private async void TagProfile_StepChanged(object Sender, EventArgs e)
 		{
 			if (!this.IsLoaded)
 				return;
@@ -425,13 +425,13 @@ namespace IdApp.Services.Xmpp
 				this.DestroyXmppClient();
 		}
 
-		private Task XmppClient_Error(object sender, Exception e)
+		private Task XmppClient_Error(object Sender, Exception e)
 		{
 			this.LatestError = e.Message;
 			return Task.CompletedTask;
 		}
 
-		private Task XmppClient_ConnectionError(object sender, Exception e)
+		private Task XmppClient_ConnectionError(object Sender, Exception e)
 		{
 			if (e is ObjectDisposedException)
 				this.LatestConnectionError = AppResources.UnableToConnect;
@@ -441,7 +441,7 @@ namespace IdApp.Services.Xmpp
 			return Task.CompletedTask;
 		}
 
-		private async Task XmppClient_StateChanged(object sender, XmppState newState)
+		private async Task XmppClient_StateChanged(object Sender, XmppState newState)
 		{
 			this.xmppLastStateChange = DateTime.Now;
 

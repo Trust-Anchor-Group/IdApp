@@ -563,11 +563,11 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 		}
 
-		private async void LegalId_Tapped(object sender, EventArgs e)
+		private async void LegalId_Tapped(object Sender, EventArgs e)
 		{
 			try
 			{
-				if (sender is Label label && !string.IsNullOrEmpty(label.StyleId))
+				if (Sender is Label label && !string.IsNullOrEmpty(label.StyleId))
 					await this.ContractOrchestratorService.OpenLegalIdentity(label.StyleId, AppResources.ForInclusionInContract);
 			}
 			catch (Exception ex)
@@ -577,11 +577,11 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 		}
 
-		private async void AddPartButton_Clicked(object sender, EventArgs e)
+		private async void AddPartButton_Clicked(object Sender, EventArgs e)
 		{
 			try
 			{
-				if (sender is Button button)
+				if (Sender is Button button)
 				{
 					this.saveStateWhileScanning = true;
 					this.stateTemplateWhileScanning = this.template;
@@ -616,11 +616,11 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 		}
 
-		private async void Parameter_DateChanged(object sender, NullableDateChangedEventArgs e)
+		private async void Parameter_DateChanged(object Sender, NullableDateChangedEventArgs e)
 		{
 			try
 			{
-				if (sender is not ExtendedDatePicker Picker || !this.parametersByName.TryGetValue(Picker.StyleId, out ParameterInfo ParameterInfo))
+				if (Sender is not ExtendedDatePicker Picker || !this.parametersByName.TryGetValue(Picker.StyleId, out ParameterInfo ParameterInfo))
 					return;
 
 				if (ParameterInfo.Parameter is DateParameter DP)
@@ -646,11 +646,11 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 		}
 
-		private async void Parameter_TextChanged(object sender, TextChangedEventArgs e)
+		private async void Parameter_TextChanged(object Sender, TextChangedEventArgs e)
 		{
 			try
 			{
-				if (sender is not Entry Entry || !this.parametersByName.TryGetValue(Entry.StyleId, out ParameterInfo ParameterInfo))
+				if (Sender is not Entry Entry || !this.parametersByName.TryGetValue(Entry.StyleId, out ParameterInfo ParameterInfo))
 					return;
 
 				if (ParameterInfo.Parameter is StringParameter SP)
@@ -730,11 +730,11 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 		}
 
-		private async void Parameter_CheckedChanged(object sender, CheckedChangedEventArgs e)
+		private async void Parameter_CheckedChanged(object Sender, CheckedChangedEventArgs e)
 		{
 			try
 			{
-				if (sender is not CheckBox CheckBox || !this.parametersByName.TryGetValue(CheckBox.StyleId, out ParameterInfo ParameterInfo))
+				if (Sender is not CheckBox CheckBox || !this.parametersByName.TryGetValue(CheckBox.StyleId, out ParameterInfo ParameterInfo))
 					return;
 
 				if (ParameterInfo.Parameter is BooleanParameter BP)
@@ -1219,11 +1219,11 @@ namespace IdApp.Pages.Contracts.NewContract
 			return !(this.template is null) && this.ParametersOk;
 		}
 
-		private async void CalcButton_Clicked(object sender, EventArgs e)
+		private async void CalcButton_Clicked(object Sender, EventArgs e)
 		{
 			try
 			{
-				if (sender is not Button CalcButton)
+				if (Sender is not Button CalcButton)
 					return;
 
 				if (!this.parametersByName.TryGetValue(CalcButton.StyleId, out ParameterInfo ParameterInfo))

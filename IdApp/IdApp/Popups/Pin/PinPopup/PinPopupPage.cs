@@ -39,7 +39,7 @@ namespace IdApp.Popups.Pin.PinPopup
             this.Pin.Focus();
         }
 
-        private async void OnEnter(object sender, EventArgs e)
+        private async void OnEnter(object Sender, EventArgs e)
         {
 
             //this.result.TrySetResult(this.Pin.Text);

@@ -158,13 +158,13 @@ namespace IdApp.Pages.Registration.Registration
 		/// <summary>
 		/// An event handler for listening to completion of the different registration steps.
 		/// </summary>
-		/// <param name="sender">The event sender.</param>
+		/// <param name="Sender">The event sender.</param>
 		/// <param name="e">The default event args.</param>
-		protected internal async void RegistrationStep_Completed(object sender, EventArgs e)
+		protected internal async void RegistrationStep_Completed(object Sender, EventArgs e)
 		{
 			try
 			{
-				RegistrationStep Step = ((RegistrationStepViewModel)sender).Step;
+				RegistrationStep Step = ((RegistrationStepViewModel)Sender).Step;
 
 				switch (Step)
 				{

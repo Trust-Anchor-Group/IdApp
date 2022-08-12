@@ -38,7 +38,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
             return true;
         }
 
-        private void Image_Tapped(object sender, EventArgs e)
+        private void Image_Tapped(object Sender, EventArgs e)
         {
             Attachment[] attachments = this.GetViewModel<ViewIdentityViewModel>().LegalIdentity?.Attachments;
             this.PhotoViewer.ShowPhotos(attachments);

@@ -51,20 +51,20 @@ namespace IdApp.Pages.Wallet.MyWallet
 			await base.OnDisappearingAsync();
 		}
 
-		internal void WalletFlipView_Tapped(object sender, EventArgs e)
+		internal void WalletFlipView_Tapped(object Sender, EventArgs e)
 		{
 			this.WalletFlipView.Flip();
 		}
 
-		private void WalletFlipView_BackViewShowing(object sender, EventArgs e)
+		private void WalletFlipView_BackViewShowing(object Sender, EventArgs e)
 		{
 			if (this.ViewModel is MyWalletViewModel Model)
 				Model.BindTokens();
 		}
 
-		private void WalletFlipView_Flipped(object sender, EventArgs e)
+		private void WalletFlipView_Flipped(object Sender, EventArgs e)
 		{
-			if (this.ViewModel is MyWalletViewModel Model && sender is FlipView FlipView)
+			if (this.ViewModel is MyWalletViewModel Model && Sender is FlipView FlipView)
 				Model.ViewsFlipped(FlipView.IsFrontViewShowing);
 		}
 	}

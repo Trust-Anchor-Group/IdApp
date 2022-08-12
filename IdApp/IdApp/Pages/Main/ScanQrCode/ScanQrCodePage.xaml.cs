@@ -70,7 +70,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 			await base.OnDisappearingAsync();
 		}
 
-		private void ViewModel_ModeChanged(object sender, EventArgs e)
+		private void ViewModel_ModeChanged(object Sender, EventArgs e)
 		{
 			if (this.GetViewModel<ScanQrCodeViewModel>().ScanIsManual)
 				this.LinkEntry.Focus();
@@ -88,7 +88,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 			}
 		}
 
-		private async void OpenButton_Click(object sender, EventArgs e)
+		private async void OpenButton_Click(object Sender, EventArgs e)
 		{
 			string Url = this.GetViewModel<ScanQrCodeViewModel>().LinkText?.Trim();
 			try
@@ -120,7 +120,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 			return true;
 		}
 
-		private void ContentBasePage_SizeChanged(object sender, EventArgs e)
+		private void ContentBasePage_SizeChanged(object Sender, EventArgs e)
 		{
 			// cf. https://github.com/Redth/ZXing.Net.Mobile/issues/808
 

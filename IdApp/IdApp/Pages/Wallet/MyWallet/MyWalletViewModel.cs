@@ -236,7 +236,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -960,7 +960,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			return Task.CompletedTask;
 		}
 
-		private void NotificationService_OnNewNotification(object sender, NotificationEventArgs e)
+		private void NotificationService_OnNewNotification(object Sender, NotificationEventArgs e)
 		{
 			if (e.Event.Button == EventButton.Wallet)
 			{

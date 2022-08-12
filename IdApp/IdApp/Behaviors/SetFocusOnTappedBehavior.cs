@@ -40,7 +40,7 @@ namespace IdApp.Behaviors
             base.OnDetachingFrom(View);
         }
 
-        private void Tap_Tapped(object sender, EventArgs e)
+        private void Tap_Tapped(object Sender, EventArgs e)
         {
             FocusOn(this.SetFocusTo);
         }

@@ -38,7 +38,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 			return true;
 		}
 
-		private void ContractsSelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void ContractsSelectionChanged(object Sender, SelectionChangedEventArgs e)
 		{
 			object SelectedItem = this.Contracts.SelectedItem;
 			MyContractsViewModel ViewModel = this.GetViewModel<MyContractsViewModel>();

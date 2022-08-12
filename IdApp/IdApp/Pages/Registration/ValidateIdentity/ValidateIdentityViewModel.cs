@@ -521,7 +521,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			this.BareJid = this.XmppService?.BareJid ?? string.Empty;
         }
 
-        private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+        private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(this.TagProfile.Step) || e.PropertyName == nameof(this.TagProfile.LegalIdentity))
                 this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
@@ -529,7 +529,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
                 this.UiSerializer.BeginInvokeOnMainThread(this.AssignBareJid);
         }
 
-        private void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        private void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
         {
             this.UiSerializer.BeginInvokeOnMainThread(async () =>
             {
@@ -569,7 +569,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			}
         }
 
-        private void XmppContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
+        private void XmppContracts_LegalIdentityChanged(object Sender, LegalIdentityChangedEventArgs e)
         {
             this.UiSerializer.BeginInvokeOnMainThread(() =>
             {

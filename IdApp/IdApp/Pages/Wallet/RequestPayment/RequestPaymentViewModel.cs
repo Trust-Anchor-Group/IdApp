@@ -84,7 +84,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -93,7 +93,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 			});
 		}
 
-		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}

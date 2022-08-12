@@ -152,7 +152,7 @@ namespace IdApp.Pages.Main.Shell
 				await this.NavigationService.GoToAsync<TArgs>(route, e);
 		}
 
-		private async void ViewIdentityMenuItem_Clicked(object sender, EventArgs e)
+		private async void ViewIdentityMenuItem_Clicked(object Sender, EventArgs e)
 		{
 			if (!await App.VerifyPin())
 				return;
@@ -160,32 +160,32 @@ namespace IdApp.Pages.Main.Shell
 			await this.GoToPage(nameof(Identity.ViewIdentity.ViewIdentityPage));
 		}
 
-		internal async void ScanQrCodeMenuItem_Clicked(object sender, EventArgs e)
+		internal async void ScanQrCodeMenuItem_Clicked(object Sender, EventArgs e)
 		{
 			await QrCode.ScanQrCodeAndHandleResult();
 		}
 
-		private async void MyContractsMenuItem_Clicked(object sender, EventArgs e)
+		private async void MyContractsMenuItem_Clicked(object Sender, EventArgs e)
 		{
 			await this.GoToPage(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.MyContracts));
 		}
 
-		private async void SignedContractsMenuItem_Clicked(object sender, EventArgs e)
+		private async void SignedContractsMenuItem_Clicked(object Sender, EventArgs e)
 		{
 			await this.GoToPage(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.SignedContracts));
 		}
 
-		private async void NewContractMenuItem_Clicked(object sender, EventArgs e)
+		private async void NewContractMenuItem_Clicked(object Sender, EventArgs e)
 		{
 			await this.GoToPage(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.ContractTemplates));
 		}
 
-		private async void Calculator_Clicked(object sender, EventArgs e)
+		private async void Calculator_Clicked(object Sender, EventArgs e)
 		{
 			await this.GoToPage(nameof(CalculatorPage), new CalculatorNavigationArgs(null));
 		}
 
-		private void ExitMenuItem_Clicked(object sender, EventArgs e)
+		private void ExitMenuItem_Clicked(object Sender, EventArgs e)
 		{
 			Current.FlyoutIsPresented = false;
 			// Break the call chain by 'posting' to the main thread, allowing the fly out menu to hide before initiating the login/out.
@@ -195,7 +195,7 @@ namespace IdApp.Pages.Main.Shell
 			});
 		}
 
-		private void AboutMenuItem_Clicked(object sender, EventArgs e)
+		private void AboutMenuItem_Clicked(object Sender, EventArgs e)
 		{
 			Current.FlyoutIsPresented = false;
 
@@ -214,13 +214,13 @@ namespace IdApp.Pages.Main.Shell
 			});
 		}
 
-		internal async void ContactsMenuItem_Clicked(object sender, EventArgs e)
+		internal async void ContactsMenuItem_Clicked(object Sender, EventArgs e)
 		{
 			await this.GoToPage(nameof(Contacts.MyContacts.MyContactsPage),
 				new ContactListNavigationArgs(AppResources.ContactsDescription, SelectContactAction.ViewIdentity));
 		}
 
-		internal async void ThingsMenuItem_Clicked(object sender, EventArgs e)
+		internal async void ThingsMenuItem_Clicked(object Sender, EventArgs e)
 		{
 			await this.GoToPage(nameof(Things.MyThings.MyThingsPage));
 		}
