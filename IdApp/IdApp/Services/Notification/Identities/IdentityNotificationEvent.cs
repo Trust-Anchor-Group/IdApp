@@ -28,12 +28,41 @@ namespace IdApp.Services.Notification.Identities
 		public IdentityNotificationEvent(SignaturePetitionEventArgs e)
 			: base()
 		{
-			this.identity = e.RequestorIdentity;
+			this.Identity = e.RequestorIdentity;
 			this.RequestorFullJid = e.RequestorFullJid;
 			this.SignatoryIdentityId = e.SignatoryIdentityId;
 			this.PetitionId = e.PetitionId;
 			this.Purpose = e.Purpose;
 			this.ContentToSign = e.ContentToSign;
+			this.Button = EventButton.Contracts;
+		}
+
+		/// <summary>
+		/// Abstract base class of Identity notification events.
+		/// </summary>
+		/// <param name="e">Event arguments</param>
+		public IdentityNotificationEvent(LegalIdentityPetitionEventArgs e)
+			: base()
+		{
+			this.Identity = e.RequestorIdentity;
+			this.RequestorFullJid = e.RequestorFullJid;
+			this.SignatoryIdentityId = e.RequestedIdentityId;
+			this.PetitionId = e.PetitionId;
+			this.Purpose = e.Purpose;
+			this.ContentToSign = null;
+			this.Button = EventButton.Contracts;
+		}
+
+		/// <summary>
+		/// Abstract base class of Identity notification events.
+		/// </summary>
+		/// <param name="e">Event arguments</param>
+		public IdentityNotificationEvent(LegalIdentityPetitionResponseEventArgs e)
+			: base()
+		{
+			this.Identity = e.RequestedIdentity;
+			this.PetitionId = e.PetitionId;
+			this.Button = EventButton.Contracts;
 		}
 
 		/// <summary>

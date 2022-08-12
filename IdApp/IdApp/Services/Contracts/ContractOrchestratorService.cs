@@ -91,119 +91,127 @@ namespace IdApp.Services.Contracts
 
 		private async void Contracts_PetitionForIdentityReceived(object Sender, LegalIdentityPetitionEventArgs e)
 		{
-			LegalIdentity Identity;
-
-			if (e.RequestedIdentityId == this.TagProfile.LegalIdentity?.Id)
-				Identity = this.TagProfile.LegalIdentity;
-			else
+			try
 			{
-				(bool Succeeded, LegalIdentity LegalId) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.RequestedIdentityId));
-				if (Succeeded && !(LegalId is null))
-					Identity = LegalId;
+				LegalIdentity Identity;
+
+				if (e.RequestedIdentityId == this.TagProfile.LegalIdentity?.Id)
+					Identity = this.TagProfile.LegalIdentity;
 				else
-					return;
-			}
-
-			if (Identity is null)
-			{
-				this.LogService.LogWarning(this.GetType().Name + "." + nameof(Contracts_PetitionForIdentityReceived) + "() - identity is missing or cannot be retrieved, ignore.");
-				return;
-			}
-
-			if (Identity.State == IdentityState.Compromised ||
-				Identity.State == IdentityState.Rejected)
-			{
-				await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionIdentityResponse(e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false));
-			}
-			else
-			{
-				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					if (this.TagProfile.IsCompleteOrWaitingForValidation())
+					(bool Succeeded, LegalIdentity LegalId) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.RequestedIdentityId));
+					if (Succeeded && !(LegalId is null))
+						Identity = LegalId;
+					else
+						return;
+				}
+
+				if (Identity is null)
+				{
+					this.LogService.LogWarning(this.GetType().Name + "." + nameof(Contracts_PetitionForIdentityReceived) + "() - identity is missing or cannot be retrieved, ignore.");
+					return;
+				}
+
+				if (Identity.State == IdentityState.Compromised ||
+					Identity.State == IdentityState.Rejected)
+				{
+					await this.NetworkService.TryRequest(() =>
 					{
-						await this.NavigationService.GoToAsync(nameof(PetitionIdentityPage), new PetitionIdentityNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose));
-					}
-				});
+						return this.XmppService.Contracts.SendPetitionIdentityResponse(
+							e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
+					});
+				}
+				else
+					await this.NotificationService.NewEvent(new RequestIdentityNotificationEvent(e));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
 			}
 		}
 
 		private async void Contracts_PetitionForSignatureReceived(object Sender, SignaturePetitionEventArgs e)
 		{
-			LegalIdentity identity;
-
-			if (e.SignatoryIdentityId == this.TagProfile.LegalIdentity?.Id)
-				identity = this.TagProfile.LegalIdentity;
-			else
+			try
 			{
-				(bool succeeded, LegalIdentity li) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.SignatoryIdentityId));
+				LegalIdentity Identity;
 
-				if (succeeded && !(li is null))
-					identity = li;
+				if (e.SignatoryIdentityId == this.TagProfile.LegalIdentity?.Id)
+					Identity = this.TagProfile.LegalIdentity;
 				else
-					return;
-			}
-
-			if (identity is null)
-			{
-				this.LogService.LogWarning(this.GetType().Name + "." + nameof(Contracts_PetitionForSignatureReceived) + "() - identity is missing or cannot be retrieved, ignore.");
-				return;
-			}
-
-			if (identity.State == IdentityState.Compromised || identity.State == IdentityState.Rejected)
-				await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionSignatureResponse(e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false));
-			else
-			{
-				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					if (this.TagProfile.IsCompleteOrWaitingForValidation())
-						await this.NavigationService.GoToAsync(nameof(PetitionSignaturePage), new PetitionSignatureNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, e.SignatoryIdentityId, e.ContentToSign, e.PetitionId, e.Purpose));
-				});
+					(bool Succeeded, LegalIdentity LegalId) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.SignatoryIdentityId));
+
+					if (Succeeded && !(LegalId is null))
+						Identity = LegalId;
+					else
+						return;
+				}
+
+				if (Identity is null)
+				{
+					this.LogService.LogWarning(this.GetType().Name + "." + nameof(Contracts_PetitionForSignatureReceived) + "() - identity is missing or cannot be retrieved, ignore.");
+					return;
+				}
+
+				if (Identity.State == IdentityState.Compromised || Identity.State == IdentityState.Rejected)
+				{
+					await this.NetworkService.TryRequest(() =>
+					{
+						return this.XmppService.Contracts.SendPetitionSignatureResponse(e.SignatoryIdentityId, e.ContentToSign,
+							new byte[0], e.PetitionId, e.RequestorFullJid, false);
+					});
+				}
+				else
+					await this.NotificationService.NewEvent(new RequestSignatureNotificationEvent(e));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
 			}
 		}
 
-		private void Contracts_PetitionedSmartContractResponseReceived(object Sender, ContractPetitionResponseEventArgs e)
+		private async void Contracts_PetitionedSmartContractResponseReceived(object Sender, ContractPetitionResponseEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			try
 			{
-				if (!e.Response || e.RequestedContract is null)
-					await this.UiSerializer.DisplayAlert(AppResources.Message, AppResources.PetitionToViewContractWasDenied, AppResources.Ok);
-				else
-				{
-					await this.NavigationService.GoToAsync(nameof(ViewContractPage),
-						new ViewContractNavigationArgs(e.RequestedContract, false));
-				}
-			});
+				await this.NotificationService.NewEvent(new ContractResponseNotificationEvent(e));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
 		}
 
 		private async void Contracts_PetitionForSmartContractReceived(object Sender, ContractPetitionEventArgs e)
 		{
-			(bool succeeded, Contract contract) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetContract(e.RequestedContractId));
-
-			if (!succeeded)
-				return;
-
-			if (contract.State == ContractState.Deleted || contract.State == ContractState.Rejected)
-				await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionContractResponse(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false));
-			else
+			try
 			{
-				this.UiSerializer.BeginInvokeOnMainThread(async () =>
-				{
-					await this.NavigationService.GoToAsync(nameof(PetitionContractPage),
-						new PetitionContractNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
-				});
+				(bool Succeeded, Contract Contract) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetContract(e.RequestedContractId));
+
+				if (!Succeeded)
+					return;
+
+				if (Contract.State == ContractState.Deleted || Contract.State == ContractState.Rejected)
+					await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionContractResponse(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false));
+				else
+					await this.NotificationService.NewEvent(new ContractPetitionNotificationEvent(Contract, e));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
 			}
 		}
 
 		private async void Contracts_PetitionedIdentityResponseReceived(object Sender, LegalIdentityPetitionResponseEventArgs e)
 		{
-			if (!e.Response || e.RequestedIdentity is null)
-				await this.UiSerializer.DisplayAlert(AppResources.Message, AppResources.PetitionToViewLegalIdentityWasDenied, AppResources.Ok);
-			else
+			try
 			{
-				this.UiSerializer.BeginInvokeOnMainThread(async () =>
-				{
-					await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(e.RequestedIdentity));
-				});
+				await this.NotificationService.NewEvent(new IdentityResponseNotificationEvent(e));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
 			}
 		}
 

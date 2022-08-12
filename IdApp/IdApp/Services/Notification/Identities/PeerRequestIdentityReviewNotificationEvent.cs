@@ -1,5 +1,4 @@
-﻿using IdApp.Pages.Contracts.ViewContract;
-using IdApp.Pages.Identity.ViewIdentity;
+﻿using IdApp.Pages.Identity.ViewIdentity;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
 
