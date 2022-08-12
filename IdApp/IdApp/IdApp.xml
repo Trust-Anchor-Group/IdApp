@@ -8984,6 +8984,11 @@
             See <see cref="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailLabelProperty"/>
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonLabel">
+            <summary>
+            The label of the SendEMailCodeButton
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValid"/>
@@ -9057,6 +9062,11 @@
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberLabelProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonLabel"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonLabel">
+            <summary>
+            The label of the SendPhoneNrCodeButton
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValidProperty">
@@ -13733,6 +13743,9 @@
             <summary>
             Prompts the user for its PIN
             </summary>
+        </member>
+        <member name="M:IdApp.Popups.Pin.PinPopup.PinPopupPage.LayoutChildren(System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc/>
         </member>
         <member name="M:IdApp.Popups.Pin.PinPopup.PinPopupPage.OnAppearing">
             <inheritdoc/>

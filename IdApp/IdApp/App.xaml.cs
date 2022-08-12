@@ -914,71 +914,77 @@ namespace IdApp
 		/// <returns>If the user has provided the correct PIN</returns>
 		public static async Task<bool> VerifyPin()
 		{
-#if !DEBUG
-			ITagProfile Profile = App.Instantiate<ITagProfile>();
-			if (!Profile.UsePin)
-				return true;
-
-			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
-
-			if (!displayedPinPopup && NeedToVerifyPin)
-				return await InputPin(Profile) is not null;
+#if DEBUG
+			// Skip the PIN verification during the debug. Set the IsDebug to false to work normal
+			bool IsDebug = true;
+#else
+			bool IsDebug = false;
 #endif
+			if (!IsDebug)
+			{
+				ITagProfile Profile = App.Instantiate<ITagProfile>();
+				if (!Profile.UsePin)
+					return true;
+
+				bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
+
+				if (!displayedPinPopup && NeedToVerifyPin)
+					return await InputPin(Profile) is not null;
+			}
 			return true;
 		}
 
+		/// <summary>
+		/// Verify if the user is blocked and show an allert
+		/// </summary>
 		public static async Task CheckUserBlocking()
 		{
-			IUiSerializer Ui = null;
-			if (Ui is null)
-				Ui = Instantiate<IUiSerializer>();
+			DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint, Constants.Pin.Protocol);
+
+			if (DateTimeForLogin.HasValue)
 			{
-				DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint, Constants.Pin.Protocol);
-				DateTime localDateTime;
+				IUiSerializer Ui = Instantiate<IUiSerializer>();
+				string MessageAlert;
 
-				if (DateTimeForLogin.HasValue)
+				if (DateTimeForLogin == DateTime.MaxValue)
 				{
-					string MessageAlert, dateString;
-
-					if (DateTimeForLogin == DateTime.MaxValue)
+					MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
+				}
+				else
+				{
+					DateTime LocalDateTime = DateTimeForLogin.Value.ToLocalTime();
+					if (DateTimeForLogin.Value.ToShortDateString() == DateTime.Today.ToShortDateString())
 					{
-						MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
-						await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
-						await Stop();
+						string DateString = LocalDateTime.ToShortTimeString();
+						MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateString);
+					}
+					else if (DateTimeForLogin.Value.ToShortDateString() == DateTime.Today.AddDays(1).ToShortDateString())
+					{
+						string DateString = LocalDateTime.ToShortTimeString();
+						MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlockedTillTomorrow, DateString);
 					}
 					else
 					{
-						localDateTime = DateTimeForLogin.Value.ToLocalTime();
-						if (DateTimeForLogin.Value.ToShortDateString() == DateTime.Today.ToShortDateString())
-						{
-							dateString = localDateTime.ToShortTimeString();
-							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, dateString);
-						}
-						else if (DateTimeForLogin.Value.ToShortDateString() == DateTime.Today.AddDays(1).ToShortDateString())
-						{
-							dateString = localDateTime.ToShortTimeString();
-							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlockedTillTomorrow, dateString);
-						}
-						else
-						{
-							dateString = localDateTime.ToString("yyyy-MM-dd, 'at' HH:mm");
-							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, dateString);
-						}
-						await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
-						await Stop();
+						string DateString = LocalDateTime.ToString("yyyy-MM-dd, 'at' HH:mm");
+						MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateString);
 					}
 				}
+
+				await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
+				await Stop();
 			}
 		}
 
+		/// <summary>
+		/// Check the PIN and reset the blocking counters if it matches
+		/// </summary>
 		public static async Task<string> CheckPinAndUnblockUser(string Pin, ITagProfile Profile)
 		{
 			if (Pin is null)
 				return null;
+
 			long PinAttemptCounter = await GetCurrentPinCounter();
-			IUiSerializer Ui = null;
-			if (Ui is null)
-				Ui = Instantiate<IUiSerializer>();
+
 			if (Profile.ComputePinHash(Pin) == Profile.PinHash)
 			{
 				ClearStartInactivityTime();
@@ -997,6 +1003,7 @@ namespace IdApp
 			}
 
 			long RemainingAttempts = Constants.Pin.MaxPinAttempts - PinAttemptCounter;
+			IUiSerializer Ui = Instantiate<IUiSerializer>();
 
 			await Ui.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinIsInvalid, RemainingAttempts));
 			await CheckUserBlocking();

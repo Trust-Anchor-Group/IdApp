@@ -176,6 +176,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		public static readonly BindableProperty EmailLabelProperty =
 			BindableProperty.Create(nameof(EmailButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
 
+		/// <summary>
+		/// The label of the SendEMailCodeButton
+		/// </summary>
 		public string EmailButtonLabel
 		{
 			get => (string)this.GetValue(EmailLabelProperty);
@@ -305,6 +308,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		public static readonly BindableProperty PhoneNumberLabelProperty =
 			BindableProperty.Create(nameof(PhoneButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
 
+		/// <summary>
+		/// The label of the SendPhoneNrCodeButton
+		/// </summary>
 		public string PhoneButtonLabel
 		{
 			get => (string)this.GetValue(PhoneNumberLabelProperty);
