@@ -76,7 +76,7 @@
 					</Grid>
 
 					<Button x:Name="VerifyEMailCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}"
-                            Text="{x:Static resx:AppResources.VerifyCode}" Command="{Binding Path=VerifyEMailCodeCommand}"
+                            Text="{Binding Path=VerifyEmailCodeButtonLabel}" Command="{Binding Path=VerifyEMailCodeCommand}"
                             IsEnabled="{Binding Path=EMailVerificationCodeValid}" IsVisible="{Binding Path=PurposeSelected}">
 						<Button.Behaviors>
 							<behaviors:ScrollToClickedBehavior ScrollTo="SendPhoneNrCodeButton"
@@ -114,7 +114,7 @@
 					</Grid>
 
 					<Button x:Name="VerifyPhoneNrCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}"
-                            Text="{x:Static resx:AppResources.VerifyCode}" Command="{Binding Path=VerifyPhoneNrCodeCommand}"
+                            Text="{Binding Path=VerifyPhoneCodeButtonLabel}" Command="{Binding Path=VerifyPhoneNrCodeCommand}"
                             IsEnabled="{Binding Path=PhoneNrVerificationCodeValid}" IsVisible="{Binding Path=PurposeSelected}">
 						<Button.Behaviors>
 							<behaviors:ScrollToClickedBehavior ScrollTo="ActivityIndicator"
