@@ -96,7 +96,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			this.AssignProperties();
 
-			if (this.ThirdParty)	
+			if (this.ThirdParty)
 			{
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 
@@ -380,7 +380,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					this.FirstPhotoRotation = First?.Rotation ?? 0;
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
 			}
