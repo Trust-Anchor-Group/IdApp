@@ -6248,72 +6248,72 @@
         <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Photos">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Photos">
             <summary>
             Holds a list of photos associated with this identity.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ApproveCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ApproveCommand">
             <summary>
             The command to bind to for approving an identity
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.RejectCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.RejectCommand">
             <summary>
             The command to bind to for rejecting an identity
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ChangePinCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ChangePinCommand">
             <summary>
             The command to bind to for changing PIN.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CompromiseCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CompromiseCommand">
             <summary>
             The command to bind to for flagging an identity as compromised.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.RevokeCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.RevokeCommand">
             <summary>
             The command to bind to for revoking an identity
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.TransferCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.TransferCommand">
             <summary>
             The command to bind to for transferring an identity
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CopyCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CopyCommand">
             <summary>
             The command for copying data to clipboard.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.AddContactCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.AddContactCommand">
             <summary>
             The command for adding the identity to the list of contacts.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.RemoveContactCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.RemoveContactCommand">
             <summary>
             The command for removing the identity from the list of contacts.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.SendPaymentToCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.SendPaymentToCommand">
             <summary>
             The command for sending a payment to entity.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ChatCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ChatCommand">
             <summary>
             The command for opening the chat page.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.SubscribeToCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.SubscribeToCommand">
             <summary>
             The command for subscribing to the presence of a contact
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.UnsubscribeFromCommand">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.UnsubscribeFromCommand">
             <summary>
             The command for unsubscribing from the presence of a contact
             </summary>

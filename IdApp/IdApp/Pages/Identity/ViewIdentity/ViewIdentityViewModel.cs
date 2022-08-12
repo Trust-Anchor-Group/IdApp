@@ -153,72 +153,72 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// <summary>
 		/// Holds a list of photos associated with this identity.
 		/// </summary>
-		public ObservableCollection<Photo> Photos;
+		public ObservableCollection<Photo> Photos { get; }
 
 		/// <summary>
 		/// The command to bind to for approving an identity
 		/// </summary>
-		public ICommand ApproveCommand;
+		public ICommand ApproveCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for rejecting an identity
 		/// </summary>
-		public ICommand RejectCommand;
+		public ICommand RejectCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for changing PIN.
 		/// </summary>
-		public ICommand ChangePinCommand;
+		public ICommand ChangePinCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for flagging an identity as compromised.
 		/// </summary>
-		public ICommand CompromiseCommand;
+		public ICommand CompromiseCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for revoking an identity
 		/// </summary>
-		public ICommand RevokeCommand;
+		public ICommand RevokeCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for transferring an identity
 		/// </summary>
-		public ICommand TransferCommand;
+		public ICommand TransferCommand { get; }
 
 		/// <summary>
 		/// The command for copying data to clipboard.
 		/// </summary>
-		public ICommand CopyCommand;
+		public ICommand CopyCommand { get; }
 
 		/// <summary>
 		/// The command for adding the identity to the list of contacts.
 		/// </summary>
-		public ICommand AddContactCommand;
+		public ICommand AddContactCommand { get; }
 
 		/// <summary>
 		/// The command for removing the identity from the list of contacts.
 		/// </summary>
-		public ICommand RemoveContactCommand;
+		public ICommand RemoveContactCommand { get; }
 
 		/// <summary>
 		/// The command for sending a payment to entity.
 		/// </summary>
-		public ICommand SendPaymentToCommand;
+		public ICommand SendPaymentToCommand { get; }
 
 		/// <summary>
 		/// The command for opening the chat page.
 		/// </summary>
-		public ICommand ChatCommand;
+		public ICommand ChatCommand { get; }
 
 		/// <summary>
 		/// The command for subscribing to the presence of a contact
 		/// </summary>
-		public ICommand SubscribeToCommand;
+		public ICommand SubscribeToCommand { get; }
 
 		/// <summary>
 		/// The command for unsubscribing from the presence of a contact
 		/// </summary>
-		public ICommand UnsubscribeFromCommand;
+		public ICommand UnsubscribeFromCommand { get; }
 
 		#endregion
 
