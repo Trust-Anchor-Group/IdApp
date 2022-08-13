@@ -1489,6 +1489,21 @@
         <member name="M:IdApp.Converters.DateTimeToString.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Converters.DateToString">
+            <summary>
+            Converts the date part of a <see cref="T:System.DateTime"/> value to a <see cref="T:System.String"/> value. If the value is
+            <see cref="F:System.DateTime.MinValue"/> or <see cref="F:System.DateTime.MaxValue"/>, the empty string is returned.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.DateToString.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.DateToString.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.DateToString.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Converters.EqualsOne">
             <summary>
             Is true if an integer property is equal to one.
@@ -1637,6 +1652,22 @@
             <summary>
             Returns an instance of <see cref="T:IdApp.Converters.PinStrengthToErrorMessage"/> class.
             </summary>
+        </member>
+        <member name="T:IdApp.Converters.TimeToString">
+            <summary>
+            Converts the time part of a <see cref="T:System.DateTime"/> value, or a <see cref="T:System.TimeSpan"/> value
+            to a <see cref="T:System.String"/> value. If the value is <see cref="F:System.DateTime.MinValue"/> or <see cref="F:System.DateTime.MaxValue"/>,
+            the empty string is returned.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.TimeToString.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.TimeToString.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.TimeToString.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.DeviceSpecific.ICloseApplication">
             <summary>

@@ -20,9 +20,9 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
     public class ContractModel : IItemGroup
 	{
         private readonly string contractId;
-        private readonly string timestamp;
         private readonly string category;
         private readonly string name;
+        private readonly DateTime timestamp;
         private readonly Contract contract;
 		private readonly NotificationEvent[] events;
 
@@ -31,7 +31,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
         {
             this.contract = Contract;
             this.contractId = ContractId;
-            this.timestamp = Timestamp.ToString(CultureInfo.CurrentUICulture);
+            this.timestamp = Timestamp;
             this.category = Category;
             this.name = Name;
 			this.events = Events;
@@ -143,7 +143,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 		/// <summary>
 		/// The created timestamp of the contract.
 		/// </summary>
-		public string Timestamp => this.timestamp;
+		public DateTime Timestamp => this.timestamp;
 
         /// <summary>
         /// A reference to the contract.

@@ -106,7 +106,7 @@ namespace IdApp.Services.Notification.Contracts
 
 				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement);
 
-				this.contract = Parsed.Contract;
+				this.contract = Parsed?.Contract;
 			}
 
 			return this.contract;

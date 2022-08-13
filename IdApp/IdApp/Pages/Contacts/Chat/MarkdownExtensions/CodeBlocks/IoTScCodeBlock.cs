@@ -88,6 +88,9 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 				Doc.LoadXml(sb.ToString());
 
 				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement);
+				if (Parsed is null)
+					return false;
+
 				Contract = Parsed.Contract;
 			}
 			catch (Exception ex)
