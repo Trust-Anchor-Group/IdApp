@@ -1815,4 +1815,7 @@
   <data name="RemoveSubscriptionFrom" xml:space="preserve">
     <value>Do you want to remove the presence subscription from {0}?</value>
   </data>
+  <data name="SignaturePetitionDenied" xml:space="preserve">
+    <value>The signature petition was denied.</value>
+  </data>
 </root>

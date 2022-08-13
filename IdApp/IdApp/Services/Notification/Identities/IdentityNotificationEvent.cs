@@ -1,4 +1,5 @@
 ﻿using IdApp.Resx;
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -29,12 +30,14 @@ namespace IdApp.Services.Notification.Identities
 			: base()
 		{
 			this.Identity = e.RequestorIdentity;
+			this.Category = e.RequestorIdentity.Id;
 			this.RequestorFullJid = e.RequestorFullJid;
 			this.SignatoryIdentityId = e.SignatoryIdentityId;
 			this.PetitionId = e.PetitionId;
 			this.Purpose = e.Purpose;
 			this.ContentToSign = e.ContentToSign;
 			this.Button = EventButton.Contracts;
+			this.Received = DateTime.UtcNow;
 		}
 
 		/// <summary>
@@ -45,12 +48,29 @@ namespace IdApp.Services.Notification.Identities
 			: base()
 		{
 			this.Identity = e.RequestorIdentity;
+			this.Category = e.RequestorIdentity.Id;
 			this.RequestorFullJid = e.RequestorFullJid;
 			this.SignatoryIdentityId = e.RequestedIdentityId;
 			this.PetitionId = e.PetitionId;
 			this.Purpose = e.Purpose;
 			this.ContentToSign = null;
 			this.Button = EventButton.Contracts;
+			this.Received = DateTime.UtcNow;
+		}
+
+		/// <summary>
+		/// Abstract base class of Identity notification events.
+		/// </summary>
+		/// <param name="e">Event arguments</param>
+		public IdentityNotificationEvent(SignaturePetitionResponseEventArgs e)
+			: base()
+		{
+			this.Identity = e.RequestedIdentity;
+			this.Category = e.RequestedIdentity.Id;
+			this.Button = EventButton.Contracts;
+			this.PetitionId = e.PetitionId;
+			this.ContentToSign = e.Signature;
+			this.Received = DateTime.UtcNow;
 		}
 
 		/// <summary>

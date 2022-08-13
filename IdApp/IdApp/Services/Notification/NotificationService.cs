@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Waher.Events;
 using Waher.Persistence;
-using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Notification

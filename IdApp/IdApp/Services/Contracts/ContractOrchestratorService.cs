@@ -3,10 +3,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using IdApp.Pages.Contracts.NewContract;
-using IdApp.Pages.Contracts.PetitionContract;
-using IdApp.Pages.Contracts.PetitionSignature;
 using IdApp.Pages.Contracts.ViewContract;
-using IdApp.Pages.Identity.PetitionIdentity;
 using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Extensions;
 using Waher.Content.Xml;
@@ -219,47 +216,12 @@ namespace IdApp.Services.Contracts
 		{
 			try
 			{
-				if (!e.Response)
-					await this.UiSerializer.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasRejected, AppResources.Ok);
-				else
-				{
-					StringBuilder xml = new();
-					this.TagProfile.LegalIdentity.Serialize(xml, true, true, true, true, true, true, true);
-					byte[] data = Encoding.UTF8.GetBytes(xml.ToString());
-					bool? result;
-
-					try
-					{
-						result = this.XmppService.Contracts.ValidateSignature(e.RequestedIdentity, data, e.Signature);
-					}
-					catch (Exception ex)
-					{
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
-						return;
-					}
-
-					this.UiSerializer.BeginInvokeOnMainThread(async () =>
-					{
-						if (!result.HasValue || !result.Value)
-							await this.UiSerializer.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError, AppResources.Ok);
-						else
-						{
-							(bool succeeded, LegalIdentity legalIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.AddPeerReviewIdAttachment(this.TagProfile.LegalIdentity, e.RequestedIdentity, e.Signature));
-
-							if (succeeded)
-							{
-								await this.UiSerializer.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
-							}
-						}
-					});
-				}
+				await this.NotificationService.NewEvent(new PeerIdentityReviewResponseNotificationEvent(e));
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
-
 		}
 
 		private async void Contracts_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
@@ -497,9 +459,16 @@ namespace IdApp.Services.Contracts
 			await this.XmppService.Xmpp.IqSetAsync(JID, Xml.ToString());
 		}
 
-		private void Contracts_SignaturePetitionResponseReceived(object Sender, SignaturePetitionResponseEventArgs e)
+		private async void Contracts_SignaturePetitionResponseReceived(object Sender, SignaturePetitionResponseEventArgs e)
 		{
-			// TODO
+			try
+			{
+				await this.NotificationService.NewEvent(new SignatureResponseNotificationEvent(e));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
 		}
 
 		private void Contracts_ContractSigned(object Sender, ContractReferenceEventArgs e)

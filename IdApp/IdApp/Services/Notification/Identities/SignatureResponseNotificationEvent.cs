@@ -6,23 +6,23 @@ using Waher.Networking.XMPP.Contracts;
 namespace IdApp.Services.Notification.Identities
 {
 	/// <summary>
-	/// Notification event for identity responses.
+	/// Notification event for signature responses.
 	/// </summary>
-	public class IdentityResponseNotificationEvent : IdentityNotificationEvent
+	public class SignatureResponseNotificationEvent : IdentityNotificationEvent
 	{
 		/// <summary>
-		/// Notification event for identity responses.
+		/// Notification event for signature responses.
 		/// </summary>
-		public IdentityResponseNotificationEvent()
+		public SignatureResponseNotificationEvent()
 			: base()
 		{
 		}
 
 		/// <summary>
-		/// Notification event for identity responses.
+		/// Notification event for signature responses.
 		/// </summary>
 		/// <param name="e">Event arguments.</param>
-		public IdentityResponseNotificationEvent(LegalIdentityPetitionResponseEventArgs e)
+		public SignatureResponseNotificationEvent(SignaturePetitionResponseEventArgs e)
 			: base(e)
 		{
 			this.Response = e.Response;
@@ -42,7 +42,7 @@ namespace IdApp.Services.Notification.Identities
 			LegalIdentity Identity = this.Identity;
 
 			if (!this.Response || Identity is null)
-				await ServiceReferences.UiSerializer.DisplayAlert(AppResources.Message, AppResources.SignaturePetitionDenied, AppResources.Ok);
+				await ServiceReferences.UiSerializer.DisplayAlert(AppResources.Message, AppResources.PetitionToViewLegalIdentityWasDenied, AppResources.Ok);
 			else
 			{
 				ServiceReferences.UiSerializer.BeginInvokeOnMainThread(async () =>

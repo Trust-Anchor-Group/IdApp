@@ -1806,4 +1806,7 @@
   <data name="RemoveSubscriptionFrom" xml:space="preserve">
     <value>Vill du ta bort prenumerationen från {0}?</value>
   </data>
+  <data name="SignaturePetitionDenied" xml:space="preserve">
+    <value>Signaturförfrågan nekades.</value>
+  </data>
 </root>
