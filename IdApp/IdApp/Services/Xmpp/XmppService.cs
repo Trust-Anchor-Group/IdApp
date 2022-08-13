@@ -1458,13 +1458,9 @@ namespace IdApp.Services.Xmpp
 				}
 				else
 				{
-					await this.NotificationService.NewEvent(new ChatMessageNotificationEvent()
+					await this.NotificationService.NewEvent(new ChatMessageNotificationEvent(e)
 					{
-						Category = e.FromBareJID,
-						BareJid = e.FromBareJID,
-						ReplaceObjectId = ReplaceObjectId,
-						Received = DateTime.UtcNow,
-						Button = 0
+						ReplaceObjectId = ReplaceObjectId
 					});
 				}
 			});

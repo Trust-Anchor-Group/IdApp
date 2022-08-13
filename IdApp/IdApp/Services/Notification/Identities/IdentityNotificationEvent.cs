@@ -81,6 +81,7 @@ namespace IdApp.Services.Notification.Identities
 			: base()
 		{
 			this.Identity = e.RequestedIdentity;
+			this.Category = e.RequestedIdentity.Id;
 			this.PetitionId = e.PetitionId;
 			this.Button = EventButton.Contracts;
 		}

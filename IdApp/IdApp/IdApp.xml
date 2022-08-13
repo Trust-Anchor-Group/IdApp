@@ -16148,6 +16148,11 @@
               Looks up a localized string similar to Signature information.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.SignaturePetitionDenied">
+            <summary>
+              Looks up a localized string similar to The signature petition was denied..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.SignBefore">
             <summary>
               Looks up a localized string similar to Sign before.
@@ -18954,6 +18959,33 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="T:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent">
+            <summary>
+            Notification event for signature responses.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.#ctor">
+            <summary>
+            Notification event for signature responses.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.SignaturePetitionResponseEventArgs)">
+            <summary>
+            Notification event for signature responses.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="P:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.Response">
+            <summary>
+            Response
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.INotificationService">
             <summary>
             Interface for push notification services.
@@ -19467,6 +19499,12 @@
             <summary>
             Contains information about an incoming chat message.
             </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.#ctor(Waher.Networking.XMPP.MessageEventArgs)">
+            <summary>
+            Contains information about an incoming chat message.
+            </summary>
+            <param name="e">Event arguments</param>
         </member>
         <member name="P:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.ReplaceObjectId">
             <summary>

@@ -66,21 +66,18 @@ namespace IdApp.Services.Notification.Identities
 							return;
 						}
 
-						ServiceReferences.UiSerializer.BeginInvokeOnMainThread(async () =>
+						if (!Result.HasValue || !Result.Value)
+							await ServiceReferences.UiSerializer.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError, AppResources.Ok);
+						else
 						{
-							if (!Result.HasValue || !Result.Value)
-								await ServiceReferences.UiSerializer.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError, AppResources.Ok);
-							else
-							{
-								(bool Succeeded, LegalIdentity LegalIdentity) = await ServiceReferences.NetworkService.TryRequest(
-									() => ServiceReferences.XmppService.Contracts.AddPeerReviewIdAttachment(
-										ServiceReferences.TagProfile.LegalIdentity, this.Identity, this.ContentToSign));
-								// ContentToSign contains signature
+							(bool Succeeded, LegalIdentity LegalIdentity) = await ServiceReferences.NetworkService.TryRequest(
+								() => ServiceReferences.XmppService.Contracts.AddPeerReviewIdAttachment(
+									ServiceReferences.TagProfile.LegalIdentity, this.Identity, this.ContentToSign));
+							// ContentToSign contains signature
 
-								if (Succeeded)
-									await ServiceReferences.UiSerializer.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
-							}
-						});
+							if (Succeeded)
+								await ServiceReferences.UiSerializer.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
+						}
 					}
 				}
 				catch (Exception ex)

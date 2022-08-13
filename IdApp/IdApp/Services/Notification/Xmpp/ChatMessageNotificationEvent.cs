@@ -1,6 +1,8 @@
 ﻿using IdApp.Pages.Contacts.Chat;
 using IdApp.Resx;
+using System;
 using System.Threading.Tasks;
+using Waher.Networking.XMPP;
 
 namespace IdApp.Services.Notification.Xmpp
 {
@@ -15,6 +17,19 @@ namespace IdApp.Services.Notification.Xmpp
 		public ChatMessageNotificationEvent()
 			: base()
 		{
+		}
+
+		/// <summary>
+		/// Contains information about an incoming chat message.
+		/// </summary>
+		/// <param name="e">Event arguments</param>
+		public ChatMessageNotificationEvent(MessageEventArgs e)
+			: base()
+		{
+			this.Category = e.FromBareJID;
+			this.BareJid = e.FromBareJID;
+			this.Received = DateTime.UtcNow;
+			this.Button = EventButton.Contacts;
 		}
 
 		/// <summary>

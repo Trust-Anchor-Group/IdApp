@@ -44,13 +44,7 @@ namespace IdApp.Services.Notification.Identities
 			if (!this.Response || Identity is null)
 				await ServiceReferences.UiSerializer.DisplayAlert(AppResources.Message, AppResources.PetitionToViewLegalIdentityWasDenied, AppResources.Ok);
 			else
-			{
-				ServiceReferences.UiSerializer.BeginInvokeOnMainThread(async () =>
-				{
-					await ServiceReferences.NavigationService.GoToAsync(nameof(ViewIdentityPage),
-						new ViewIdentityNavigationArgs(Identity));
-				});
-			}
+				await ServiceReferences.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(Identity));
 		}
 	}
 }

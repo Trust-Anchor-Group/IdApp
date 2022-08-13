@@ -45,11 +45,8 @@ namespace IdApp.Services.Notification.Identities
 				await ServiceReferences.UiSerializer.DisplayAlert(AppResources.Message, AppResources.SignaturePetitionDenied, AppResources.Ok);
 			else
 			{
-				ServiceReferences.UiSerializer.BeginInvokeOnMainThread(async () =>
-				{
-					await ServiceReferences.NavigationService.GoToAsync(nameof(ViewIdentityPage),
-						new ViewIdentityNavigationArgs(Identity));
-				});
+				await ServiceReferences.NavigationService.GoToAsync(nameof(ViewIdentityPage),
+					new ViewIdentityNavigationArgs(Identity));
 			}
 		}
 	}
