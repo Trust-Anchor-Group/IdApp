@@ -68,6 +68,22 @@ namespace IdApp.Services.Notification.Contracts
 		}
 
 		/// <summary>
+		/// Abstract base class of Contract notification events.
+		/// </summary>
+		/// <param name="Contract">Requested contract.</param>
+		/// <param name="e">Event arguments</param>
+		public ContractNotificationEvent(Contract Contract, ContractReferenceEventArgs e)
+			: base()
+		{
+			this.ContractId = Contract.ContractId;
+			this.Category = e.ContractId;
+			this.Button = EventButton.Contracts;
+			this.Received = DateTime.UtcNow;
+
+			this.SetContract(Contract);
+		}
+
+		/// <summary>
 		/// Contract ID.
 		/// </summary>
 		public string ContractId { get; set; }

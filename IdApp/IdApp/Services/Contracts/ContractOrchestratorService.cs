@@ -1,22 +1,24 @@
-﻿using System;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IdApp.Extensions;
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Identity.ViewIdentity;
-using IdApp.Extensions;
+using IdApp.Resx;
+using IdApp.Services.Notification.Contracts;
+using IdApp.Services.Notification.Identities;
+using IdApp.Services.Xmpp;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Waher.Content.Xml;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.StanzaErrors;
+using Waher.Persistence;
+using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
-using IdApp.Services.Xmpp;
-using IdApp.Resx;
-using System.Threading;
-using System.IO;
-using System.Collections.Generic;
-using IdApp.Services.Notification.Contracts;
-using IdApp.Services.Notification.Identities;
 
 namespace IdApp.Services.Contracts
 {
@@ -46,6 +48,7 @@ namespace IdApp.Services.Contracts
 
 				this.EndLoad(true);
 			}
+
 			return Task.CompletedTask;
 		}
 
@@ -471,14 +474,76 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private void Contracts_ContractSigned(object Sender, ContractReferenceEventArgs e)
+		private async void Contracts_ContractSigned(object Sender, ContractReferenceEventArgs e)
 		{
-			// TODO
+			try
+			{
+				Contract Contract = await this.XmppService.Contracts.GetContract(e.ContractId);
+				ContractReference Ref = await Database.FindFirstDeleteRest<ContractReference>(new FilterFieldEqualTo("ContractId", e.ContractId));
+				DateTime TP = DateTime.UtcNow;
+
+				if (Ref is null)
+				{
+					Ref = new ContractReference()
+					{
+						ContractId = e.ContractId,
+						Created = TP,
+						Updated = TP
+					};
+
+					await Ref.SetContract(Contract, this);
+					await Database.Insert(Ref);
+				}
+				else
+				{
+					Ref.Updated = TP;
+
+					await Ref.SetContract(Contract, this);
+					await Database.Update(Ref);
+				}
+
+				await this.NotificationService.NewEvent(new ContractSignedNotificationEvent(Contract, e));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
 		}
 
-		private void Contracts_ContractUpdated(object Sender, ContractReferenceEventArgs e)
+		private async void Contracts_ContractUpdated(object Sender, ContractReferenceEventArgs e)
 		{
-			// TODO
+			try
+			{
+				Contract Contract = await this.XmppService.Contracts.GetContract(e.ContractId);
+				ContractReference Ref = await Database.FindFirstDeleteRest<ContractReference>(new FilterFieldEqualTo("ContractId", e.ContractId));
+				DateTime TP = DateTime.UtcNow;
+
+				if (Ref is null)
+				{
+					Ref = new ContractReference()
+					{
+						ContractId = e.ContractId,
+						Created = TP,
+						Updated = TP
+					};
+
+					await Ref.SetContract(Contract, this);
+					await Database.Insert(Ref);
+				}
+				else
+				{
+					Ref.Updated = TP;
+
+					await Ref.SetContract(Contract, this);
+					await Database.Update(Ref);
+				}
+
+				await this.NotificationService.NewEvent(new ContractUpdatedNotificationEvent(Contract, e));
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
 		}
 
 	}

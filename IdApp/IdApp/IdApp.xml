@@ -17371,6 +17371,64 @@
             </summary>
             <param name="Request">Request string.</param>
         </member>
+        <member name="T:IdApp.Services.Contracts.ContractReference">
+            <summary>
+            Contains a local reference to a contract that the user has created or signed.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Contracts.ContractReference.#ctor">
+            <summary>
+            Contains a local reference to a contract that the user has created or signed.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Contracts.ContractReference.ObjectId">
+            <summary>
+            Object ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Contracts.ContractReference.ContractId">
+            <summary>
+            Contract reference
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Contracts.ContractReference.Created">
+            <summary>
+            When object was created
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Contracts.ContractReference.Updated">
+            <summary>
+            When object was last updated.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Contracts.ContractReference.ContractXml">
+            <summary>
+            XML of contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Contracts.ContractReference.Name">
+            <summary>
+            Name of contract
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Contracts.ContractReference.Category">
+            <summary>
+            Category of contract
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Contracts.ContractReference.GetContract">
+            <summary>
+            Gets a parsed contract.
+            </summary>
+            <returns>Parsed contract</returns>
+        </member>
+        <member name="M:IdApp.Services.Contracts.ContractReference.SetContract(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
+            <summary>
+            Sets a parsed contract.
+            </summary>
+            <param name="Contract">Contract</param>
+            <param name="Services">Service references.</param>
+        </member>
         <member name="T:IdApp.Services.Contracts.IContractOrchestratorService">
             <summary>
             Orchestrates operations on contracts upon receiving certain events, like approving or rejecting other peers' review requests.
@@ -18613,6 +18671,13 @@
             <param name="Contract">Requested contract.</param>
             <param name="e">Event arguments</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.Contract,Waher.Networking.XMPP.Contracts.ContractReferenceEventArgs)">
+            <summary>
+            Abstract base class of Contract notification events.
+            </summary>
+            <param name="Contract">Requested contract.</param>
+            <param name="e">Event arguments</param>
+        </member>
         <member name="P:IdApp.Services.Notification.Contracts.ContractNotificationEvent.ContractId">
             <summary>
             Contract ID.
@@ -18751,6 +18816,52 @@
             </summary>
         </member>
         <member name="M:IdApp.Services.Notification.Contracts.ContractResponseNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent">
+            <summary>
+            Notification event for when a contract has been signed.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.#ctor">
+            <summary>
+            Notification event for when a contract has been signed.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.Contract,Waher.Networking.XMPP.Contracts.ContractReferenceEventArgs)">
+            <summary>
+            Notification event for when a contract has been signed.
+            </summary>
+            <param name="Contract">Requested contract.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent">
+            <summary>
+            Notification event for when a contract has been updated.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.#ctor">
+            <summary>
+            Notification event for when a contract has been updated.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.Contract,Waher.Networking.XMPP.Contracts.ContractReferenceEventArgs)">
+            <summary>
+            Notification event for when a contract has been updated.
+            </summary>
+            <param name="Contract">Requested contract.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.Open(IdApp.Services.ServiceReferences)">
             <summary>
             Opens the event.
             </summary>
