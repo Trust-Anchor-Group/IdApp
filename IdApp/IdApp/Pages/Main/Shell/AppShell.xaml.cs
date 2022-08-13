@@ -165,14 +165,9 @@ namespace IdApp.Pages.Main.Shell
 			await QrCode.ScanQrCodeAndHandleResult();
 		}
 
-		private async void MyContractsMenuItem_Clicked(object Sender, EventArgs e)
+		private async void ContractsMenuItem_Clicked(object Sender, EventArgs e)
 		{
-			await this.GoToPage(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.MyContracts));
-		}
-
-		private async void SignedContractsMenuItem_Clicked(object Sender, EventArgs e)
-		{
-			await this.GoToPage(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.SignedContracts));
+			await this.GoToPage(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.Contracts));
 		}
 
 		private async void NewContractMenuItem_Clicked(object Sender, EventArgs e)

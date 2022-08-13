@@ -781,6 +781,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Below is a list of contracts that you have created or signed. Click on a contract for more information about it..
+        /// </summary>
+        internal static string ContractsInfoText {
+            get {
+                return ResourceManager.GetString("ContractsInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contract successfully signed..
         /// </summary>
         internal static string ContractSuccessfullySigned {
@@ -1992,33 +2001,6 @@ namespace IdApp.Resx {
         internal static string Model {
             get {
                 return ResourceManager.GetString("Model", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to My Contracts.
-        /// </summary>
-        internal static string MyContracts {
-            get {
-                return ResourceManager.GetString("MyContracts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Below is a list of contracts that you have created. Click on a contract for more information about it..
-        /// </summary>
-        internal static string MyContractsInfoText {
-            get {
-                return ResourceManager.GetString("MyContractsInfoText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to My Created Contracts.
-        /// </summary>
-        internal static string MyCreatedContracts {
-            get {
-                return ResourceManager.GetString("MyCreatedContracts", resourceCulture);
             }
         }
         
@@ -3864,24 +3846,6 @@ namespace IdApp.Resx {
         internal static string SignBefore {
             get {
                 return ResourceManager.GetString("SignBefore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Signed Contracts.
-        /// </summary>
-        internal static string SignedContracts {
-            get {
-                return ResourceManager.GetString("SignedContracts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Below is a list of contracts that you have signed. Click on a contract for more information about it..
-        /// </summary>
-        internal static string SignedContractsInfoText {
-            get {
-                return ResourceManager.GetString("SignedContractsInfoText", resourceCulture);
             }
         }
         

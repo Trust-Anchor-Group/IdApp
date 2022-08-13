@@ -2,11 +2,13 @@
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Resx;
+using IdApp.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
+using Waher.Persistence.Filters;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -46,14 +48,9 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 				switch (this.contractsListMode)
 				{
-					case ContractsListMode.MyContracts:
-						this.Title = AppResources.MyContracts;
-						this.Description = AppResources.MyContractsInfoText;
-						break;
-
-					case ContractsListMode.SignedContracts:
-						this.Title = AppResources.SignedContracts;
-						this.Description = AppResources.SignedContractsInfoText;
+					case ContractsListMode.Contracts:
+						this.Title = AppResources.Contracts;
+						this.Description = AppResources.ContractsInfoText;
 						break;
 
 					case ContractsListMode.ContractTemplates:
@@ -207,32 +204,20 @@ namespace IdApp.Pages.Contracts.MyContracts
 		{
 			try
 			{
-				bool Succeeded;
-				Contract[] Contracts;
-				ContractReference[] ContractReferences;
+				IEnumerable<ContractReference> ContractReferences;
 
 				switch (this.contractsListMode)
 				{
-					case ContractsListMode.MyContracts:
-						(Succeeded, Contracts) = await this.NetworkService.TryRequest(this.XmppService.Contracts.GetCreatedContracts);
-						ContractReferences = ToReferences(Contracts);
-						break;
-
-					case ContractsListMode.SignedContracts:
-						(Succeeded, Contracts) = await this.NetworkService.TryRequest(this.XmppService.Contracts.GetSignedContracts);
-						ContractReferences = ToReferences(Contracts);
+					case ContractsListMode.Contracts:
+						ContractReferences = await Database.Find<ContractReference>(new FilterAnd(
+							new FilterFieldEqualTo("IsTemplate", false),
+							new FilterFieldEqualTo("ContractLoaded", true)));
 						break;
 
 					case ContractsListMode.ContractTemplates:
-						KeyValuePair<DateTime, CaseInsensitiveString>[] Templates;
-						(Succeeded, Templates) = await this.NetworkService.TryRequest(this.XmppService.Contracts.GetContractTemplateIds);
-
-						int i = 0;
-						int c = Templates.Length;
-						ContractReferences = new ContractReference[c];
-
-						foreach (KeyValuePair<DateTime, CaseInsensitiveString> P in Templates)
-							ContractReferences[i++] = new ContractReference(P.Key, P.Value);
+						ContractReferences = await Database.Find<ContractReference>(new FilterAnd(
+							new FilterFieldEqualTo("IsTemplate", true),
+							new FilterFieldEqualTo("ContractLoaded", true)));
 
 						break;
 
@@ -240,33 +225,40 @@ namespace IdApp.Pages.Contracts.MyContracts
 						return;
 				}
 
-				if (!Succeeded)
-					return;
+				bool Found = false;
 
-				if (ContractReferences.Length <= 0)
+				foreach (ContractReference Ref in ContractReferences)
+				{
+					Found = true;
+					break;
+				}
+
+				if (!Found)
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
 					return;
 				}
 
 				SortedDictionary<string, List<ContractModel>> ContractsByCategory = new(StringComparer.CurrentCultureIgnoreCase);
+				Contract Contract;
 
 				foreach (ContractReference Ref in ContractReferences)
 				{
-					Contract contract;
-
 					try
 					{
-						contract = await Ref.GetContract(this.XmppService.Contracts);
+						Contract = await Ref.GetContract();
+						if (Contract is null)
+							continue;
 					}
-					catch (Waher.Networking.XMPP.StanzaErrors.ItemNotFoundException)
+					catch (Exception ex)
 					{
-						continue;   // Contract not available for some reason. Ignore, and display the rest.
+						this.LogService.LogException(ex);
+						continue;
 					}
 
-					this.contractsMap[Ref.ContractId] = contract;
+					this.contractsMap[Ref.ContractId] = Contract;
 
-					ContractModel Item = await ContractModel.Create(Ref.ContractId, Ref.Timestamp, contract, this);
+					ContractModel Item = await ContractModel.Create(Ref.ContractId, Ref.Created, Contract, this);
 					string Category = Item.Category;
 
 					if (!ContractsByCategory.TryGetValue(Category, out List<ContractModel> Contracts2))
@@ -301,20 +293,6 @@ namespace IdApp.Pages.Contracts.MyContracts
 		private class DateTimeDesc : IComparer<ContractModel>
 		{
 			public int Compare(ContractModel x, ContractModel y) => y.Timestamp.CompareTo(x.Timestamp);
-		}
-
-		private static ContractReference[] ToReferences(Contract[] Contracts)
-		{
-			if (Contracts is null)
-				return new ContractReference[0];
-
-			ContractReference[] Result = new ContractReference[Contracts.Length];
-			int i = 0;
-
-			foreach (Contract Contract in Contracts)
-				Result[i++] = new ContractReference(Contract);
-
-			return Result;
 		}
 
 	}

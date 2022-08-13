@@ -528,14 +528,8 @@
   <data name="Model" xml:space="preserve">
     <value>Model</value>
   </data>
-  <data name="MyContracts" xml:space="preserve">
-    <value>My Contracts</value>
-  </data>
-  <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Below is a list of contracts that you have created. Click on a contract for more information about it.</value>
-  </data>
-  <data name="MyCreatedContracts" xml:space="preserve">
-    <value>My Created Contracts</value>
+  <data name="ContractsInfoText" xml:space="preserve">
+    <value>Below is a list of contracts that you have created or signed. Click on a contract for more information about it.</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
     <value>My Identity</value>
@@ -920,12 +914,6 @@
   </data>
   <data name="SignBefore" xml:space="preserve">
     <value>Sign before</value>
-  </data>
-  <data name="SignedContracts" xml:space="preserve">
-    <value>Signed Contracts</value>
-  </data>
-  <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Below is a list of contracts that you have signed. Click on a contract for more information about it.</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Skip</value>

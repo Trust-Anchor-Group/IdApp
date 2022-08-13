@@ -33,7 +33,7 @@
                                        CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
 
 									   RightButton1Text="{x:Static resx:FontAwesome.Paragraph}"
-									   RightButton1Command="{Binding Path=ViewSignedContractsCommand}"
+									   RightButton1Command="{Binding Path=ViewContractsCommand}"
 									   RightButton1Overlay="{Binding Path=Right1Overlay}"
 
 									   RightButton2Text="{x:Static resx:FontAwesome.Wallet}"

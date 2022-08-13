@@ -528,14 +528,8 @@
   <data name="Model" xml:space="preserve">
     <value>Modell</value>
   </data>
-  <data name="MyContracts" xml:space="preserve">
-    <value>Meine Verträge</value>
-  </data>
-  <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Nachfolgend finden Sie eine Liste der Verträge, die Sie erstellt haben. Klicken Sie auf einen Vertrag, um weitere Informationen darüber zu erhalten.</value>
-  </data>
-  <data name="MyCreatedContracts" xml:space="preserve">
-    <value>Meine erstellten Verträge</value>
+  <data name="ContractsInfoText" xml:space="preserve">
+    <value>Nachfolgend finden Sie eine Liste der Verträge, die Sie erstellt oder unterzeichnet haben. Klicken Sie auf einen Vertrag, um weitere Informationen darüber zu erhalten.</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
     <value>Meine Identität</value>
@@ -920,12 +914,6 @@
   </data>
   <data name="SignBefore" xml:space="preserve">
     <value>Vorher unterschreiben</value>
-  </data>
-  <data name="SignedContracts" xml:space="preserve">
-    <value>Unterzeichnete Verträge</value>
-  </data>
-  <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Nachfolgend finden Sie eine Liste der Verträge, die Sie unterzeichnet haben. Klicken Sie auf einen Vertrag, um weitere Informationen darüber zu erhalten.</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Hüpfen</value>

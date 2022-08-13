@@ -827,7 +827,7 @@ namespace IdApp.Pages.Contacts.Chat
 			TaskCompletionSource<Contract> SelectedContract = new();
 
 			await this.NavigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(
-				ContractsListMode.MyContracts, SelectedContract));
+				ContractsListMode.Contracts, SelectedContract));
 
 			Contract Contract = await SelectedContract.Task;
 			if (Contract is null)

@@ -528,14 +528,8 @@
   <data name="Model" xml:space="preserve">
     <value>Model</value>
   </data>
-  <data name="MyContracts" xml:space="preserve">
-    <value>Contractele mele</value>
-  </data>
-  <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Mai jos este o listă de contracte pe care le-ați creat. Faceți clic pe un contract pentru mai multe informații despre acesta.</value>
-  </data>
-  <data name="MyCreatedContracts" xml:space="preserve">
-    <value>Contractele mele create</value>
+  <data name="ContractsInfoText" xml:space="preserve">
+    <value>Mai jos este o listă de contracte pe care le-ați creat sau semnat. Faceți clic pe un contract pentru mai multe informații despre acesta.</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
     <value>Identitatea mea</value>
@@ -920,12 +914,6 @@
   </data>
   <data name="SignBefore" xml:space="preserve">
     <value>Semnează înainte</value>
-  </data>
-  <data name="SignedContracts" xml:space="preserve">
-    <value>Contracte semnate</value>
-  </data>
-  <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Mai jos este o listă de contracte pe care le-ați semnat. Faceți clic pe un contract pentru mai multe informații despre acesta.</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Sări peste</value>

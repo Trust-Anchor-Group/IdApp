@@ -64,7 +64,7 @@ namespace IdApp.Services.Notification
 				if (Button < 0 || Button >= nrButtons)
 					continue;
 
-				if (Event.Category is null)
+				if (CaseInsensitiveString.IsNullOrEmpty(Event.Category))
 				{
 					Log.Debug("Notification event of type " + Event.GetType().FullName + " lacked Category.");
 					await Database.Delete(Event);

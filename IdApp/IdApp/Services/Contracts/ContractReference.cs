@@ -13,7 +13,7 @@ namespace IdApp.Services.Contracts
 	/// </summary>
 	[CollectionName("ContractReferences")]
 	[Index("ContractId")]
-	[Index("Category", "Name", "Created")]
+	[Index("IsTemplate", "ContractLoaded", "Category", "Name", "Created")]
 	public class ContractReference
 	{
 		private Contract contract;
@@ -47,6 +47,11 @@ namespace IdApp.Services.Contracts
 		public DateTime Updated { get; set; }
 
 		/// <summary>
+		/// When object was last loaded.
+		/// </summary>
+		public DateTime Loaded { get; set; }
+
+		/// <summary>
 		/// XML of contract.
 		/// </summary>
 		public string ContractXml { get; set; }
@@ -62,6 +67,21 @@ namespace IdApp.Services.Contracts
 		public string Category { get; set; }
 
 		/// <summary>
+		/// If a local copy of the contract is available.
+		/// </summary>
+		public bool ContractLoaded { get; set; }
+
+		/// <summary>
+		/// If the contract can work as a template
+		/// </summary>
+		public bool IsTemplate { get; set; }
+
+		/// <summary>
+		/// Contract state
+		/// </summary>
+		public ContractState State { get; set; }
+
+		/// <summary>
 		/// Gets a parsed contract.
 		/// </summary>
 		/// <returns>Parsed contract</returns>
@@ -72,7 +92,7 @@ namespace IdApp.Services.Contracts
 				XmlDocument Doc = new();
 				Doc.LoadXml(this.ContractXml);
 
-				ParsedContract Parsed = await Contract.Parse(Doc);
+				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement);
 
 				this.contract = Parsed.Contract;
 			}
@@ -90,16 +110,30 @@ namespace IdApp.Services.Contracts
 			this.contract = Contract;
 
 			if (Contract is null)
+			{
 				this.ContractXml = null;
+				this.ContractLoaded = false;
+				this.IsTemplate = false;
+				this.Name = string.Empty;
+				this.Category = string.Empty;
+				this.State = ContractState.Failed;
+			}
 			else
 			{
 				StringBuilder Xml = new();
 				Contract.Serialize(Xml, true, true, true, true, true, true, true);
 				this.ContractXml = Xml.ToString();
-			}
+				this.ContractLoaded = true;
+				this.ContractId = Contract.ContractId;
+				this.IsTemplate = Contract.PartsMode == ContractParts.TemplateOnly;
+				Contract.State = Contract.State;
+				this.Created = Contract.Created;
+				this.Updated = Contract.Updated;
+				this.Loaded = DateTime.UtcNow;
 
-			this.Name = await ContractModel.GetName(Contract, Services);
-			this.Category = await ContractModel.GetCategory(Contract);
+				this.Name = await ContractModel.GetName(Contract, Services);
+				this.Category = await ContractModel.GetCategory(Contract);
+			}
 		}
 	}
 }

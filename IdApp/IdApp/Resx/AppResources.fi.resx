@@ -528,14 +528,8 @@
   <data name="Model" xml:space="preserve">
     <value>Malli</value>
   </data>
-  <data name="MyContracts" xml:space="preserve">
-    <value>Omat sopimukset</value>
-  </data>
-  <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Alla on luettelo sopimuksista, jotka olet luonut. Napsauta sopimusta saadaksesi lisätietoja siitä.</value>
-  </data>
-  <data name="MyCreatedContracts" xml:space="preserve">
-    <value>Luomani sopimukset</value>
+  <data name="ContractsInfoText" xml:space="preserve">
+    <value>Alla on luettelo sopimuksista, jotka olet luonut tai allekirjoittanut. Napsauta sopimusta saadaksesi lisätietoja siitä.</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
     <value>Minun identiteettini</value>
@@ -920,12 +914,6 @@
   </data>
   <data name="SignBefore" xml:space="preserve">
     <value>Allekirjoita ennen</value>
-  </data>
-  <data name="SignedContracts" xml:space="preserve">
-    <value>Allekirjoitetut sopimukset</value>
-  </data>
-  <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Alla on luettelo allekirjoittamistasi sopimuksista. Napsauta sopimusta saadaksesi lisätietoja siitä.</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Hyppiä</value>

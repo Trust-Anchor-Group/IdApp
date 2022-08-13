@@ -104,7 +104,7 @@ namespace IdApp.Services.Notification.Contracts
 				XmlDocument Doc = new();
 				Doc.LoadXml(this.ContractXml);
 
-				ParsedContract Parsed = await Contract.Parse(Doc);
+				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement);
 
 				this.contract = Parsed.Contract;
 			}

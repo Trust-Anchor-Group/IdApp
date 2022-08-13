@@ -169,21 +169,18 @@ namespace IdApp.Services.Contracts
 		/// Gets created contracts.
 		/// </summary>
 		/// <returns>Created contracts.</returns>
-		public async Task<Contract[]> GetCreatedContracts()
+		public async Task<string[]> GetCreatedContractReferences()
 		{
-			List<Contract> Result = new();
-			ContractsEventArgs Contracts;
+			List<string> Result = new();
+			string[] ContractIds;
 			int Offset = 0;
 			int Nr;
 
 			do
 			{
-				Contracts = await this.ContractsClient.GetCreatedContractsAsync(Offset, 20);
-				if (!Contracts.Ok)
-					throw Contracts.StanzaError ?? new Exception("Unable to get created contracts.");
-
-				Result.AddRange(Contracts.Contracts);
-				Nr = Contracts.Contracts.Length + Contracts.References.Length;
+				ContractIds = await this.ContractsClient.GetCreatedContractReferencesAsync(Offset, 20);
+				Result.AddRange(ContractIds);
+				Nr = ContractIds.Length;
 				Offset += Nr;
 			}
 			while (Nr == 20);
@@ -195,37 +192,21 @@ namespace IdApp.Services.Contracts
 		/// Gets signed contracts.
 		/// </summary>
 		/// <returns>Signed contracts.</returns>
-		public async Task<Contract[]> GetSignedContracts()
+		public async Task<string[]> GetSignedContractReferences()
 		{
-			List<Contract> Result = new();
-			ContractsEventArgs Contracts;
+			List<string> Result = new();
+			string[] ContractIds;
 			int Offset = 0;
 			int Nr;
 
 			do
 			{
-				Contracts = await this.ContractsClient.GetSignedContractsAsync(Offset, 20);
-				Result.AddRange(Contracts.Contracts);
-				Nr = Contracts.Contracts.Length + Contracts.References.Length;
+				ContractIds = await this.ContractsClient.GetSignedContractReferencesAsync(Offset, 20);
+				Result.AddRange(ContractIds);
+				Nr = ContractIds.Length;
 				Offset += Nr;
 			}
 			while (Nr == 20);
-
-			return Result.ToArray();
-		}
-
-		/// <summary>
-		/// Gets the id's of contract templates used.
-		/// </summary>
-		/// <returns>Id's of contract templates, together with the last time they were used.</returns>
-		public async Task<KeyValuePair<DateTime, CaseInsensitiveString>[]> GetContractTemplateIds()
-		{
-			List<KeyValuePair<DateTime, CaseInsensitiveString>> Result = new();
-			string Prefix = Constants.KeyPrefixes.ContractTemplatePrefix;
-			int PrefixLen = Prefix.Length;
-
-			foreach ((string Key, DateTime LastUsed) in await this.SettingsService.RestoreStateWhereKeyStartsWith<DateTime>(Prefix))
-				Result.Add(new KeyValuePair<DateTime, CaseInsensitiveString>(LastUsed, Key[PrefixLen..]));
 
 			return Result.ToArray();
 		}

@@ -135,22 +135,16 @@ namespace IdApp.Services.Contracts
         Task<Contract> GetContract(CaseInsensitiveString ContractId);
         
         /// <summary>
-        /// Gets created contracts.
+        /// Gets references to created contracts.
         /// </summary>
         /// <returns>Created contracts.</returns>
-        Task<Contract[]> GetCreatedContracts();
-        
-        /// <summary>
-        /// Gets signed contracts.
-        /// </summary>
-        /// <returns>Signed contracts.</returns>
-        Task<Contract[]> GetSignedContracts();
+        Task<string[]> GetCreatedContractReferences();
 
-        /// <summary>
-        /// Gets the id's of contract templates used.
-        /// </summary>
-        /// <returns>Id's of contract templates.</returns>
-        Task<KeyValuePair<DateTime, CaseInsensitiveString>[]> GetContractTemplateIds();
+		/// <summary>
+		/// Gets references to signed contracts.
+		/// </summary>
+		/// <returns>Signed contracts.</returns>
+		Task<string[]> GetSignedContractReferences();
 
         /// <summary>
         /// Signs a given contract.

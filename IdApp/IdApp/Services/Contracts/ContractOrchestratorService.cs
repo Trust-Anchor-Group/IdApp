@@ -231,14 +231,16 @@ namespace IdApp.Services.Contracts
 		{
 			try
 			{
-				if (this.XmppService.IsOnline && this.XmppService.IsOnline)
+				if (this.XmppService.IsOnline && this.TagProfile.IsCompleteOrWaitingForValidation())
 				{
-					if (!(this.TagProfile.LegalIdentity is null) && this.TagProfile.IsCompleteOrWaitingForValidation())
+					if (this.TagProfile.LegalIdentity is not null)
 					{
 						string id = this.TagProfile.LegalIdentity.Id;
 						await Task.Delay(Constants.Timeouts.XmppInit);
 						this.DownloadLegalIdentityInternal(id);
 					}
+
+					await this.CheckContractReferences();
 				}
 			}
 			catch (Exception ex)
@@ -391,17 +393,36 @@ namespace IdApp.Services.Contracts
 		{
 			try
 			{
-				Contract contract = await this.XmppService.Contracts.GetContract(ContractId);
+				Contract Contract = await this.XmppService.Contracts.GetContract(ContractId);
+
+				ContractReference Ref = await Database.FindFirstDeleteRest<ContractReference>(
+					new FilterFieldEqualTo("ContractId", Contract.ContractId));
+
+				if (Ref is not null && Ref.Updated != Contract.Updated)
+				{
+					await Ref.SetContract(Contract, this);
+					await Database.Update(Ref);
+				}
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
+					if (Contract.PartsMode == ContractParts.TemplateOnly && Contract.State == ContractState.Approved)
 					{
-						await this.SettingsService.SaveState(Constants.KeyPrefixes.ContractTemplatePrefix + contract.ContractId, DateTime.Now);
-						await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(contract, ParameterValues));
+						if (Ref is null)
+						{
+							Ref = new ContractReference()
+							{
+								ContractId = Contract.ContractId
+							};
+
+							await Ref.SetContract(Contract, this);
+							await Database.Insert(Ref);
+						}
+
+						await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(Contract, ParameterValues));
 					}
 					else
-						await this.NavigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false));
+						await this.NavigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(Contract, false));
 				});
 			}
 			catch (ForbiddenException)
@@ -480,24 +501,16 @@ namespace IdApp.Services.Contracts
 			{
 				Contract Contract = await this.XmppService.Contracts.GetContract(e.ContractId);
 				ContractReference Ref = await Database.FindFirstDeleteRest<ContractReference>(new FilterFieldEqualTo("ContractId", e.ContractId));
-				DateTime TP = DateTime.UtcNow;
 
 				if (Ref is null)
 				{
-					Ref = new ContractReference()
-					{
-						ContractId = e.ContractId,
-						Created = TP,
-						Updated = TP
-					};
+					Ref = new ContractReference();
 
 					await Ref.SetContract(Contract, this);
 					await Database.Insert(Ref);
 				}
 				else
 				{
-					Ref.Updated = TP;
-
 					await Ref.SetContract(Contract, this);
 					await Database.Update(Ref);
 				}
@@ -516,24 +529,16 @@ namespace IdApp.Services.Contracts
 			{
 				Contract Contract = await this.XmppService.Contracts.GetContract(e.ContractId);
 				ContractReference Ref = await Database.FindFirstDeleteRest<ContractReference>(new FilterFieldEqualTo("ContractId", e.ContractId));
-				DateTime TP = DateTime.UtcNow;
 
 				if (Ref is null)
 				{
-					Ref = new ContractReference()
-					{
-						ContractId = e.ContractId,
-						Created = TP,
-						Updated = TP
-					};
+					Ref = new ContractReference();
 
 					await Ref.SetContract(Contract, this);
 					await Database.Insert(Ref);
 				}
 				else
 				{
-					Ref.Updated = TP;
-
 					await Ref.SetContract(Contract, this);
 					await Database.Update(Ref);
 				}
@@ -543,6 +548,65 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
+			}
+		}
+
+		public async Task CheckContractReferences()
+		{
+			try
+			{
+				DateTime TP = await this.SettingsService.RestoreDateTimeState("ContractReferences.LastCheck", DateTime.MinValue);
+
+				if ((DateTime.UtcNow - TP).Days < 30)
+					return;
+
+				await this.CheckContractReferences(await this.SmartContracts.GetCreatedContractReferences());
+				await this.CheckContractReferences(await this.SmartContracts.GetSignedContractReferences());
+
+				await this.SettingsService.SaveState("ContractReferences.LastCheck", DateTime.UtcNow);
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+		}
+
+		private async Task CheckContractReferences(string[] ContractIds)
+		{
+			foreach (string ContractId in ContractIds)
+			{
+				try
+				{
+					ContractReference Ref = await Database.FindFirstDeleteRest<ContractReference>(new FilterFieldEqualTo("ContractId", ContractId));
+
+					if (Ref is null)
+					{
+						Ref = new ContractReference()
+						{
+							ContractId = ContractId
+						};
+
+						try
+						{
+							Contract Contract = await this.XmppService.Contracts.GetContract(ContractId);
+
+							await Ref.SetContract(Contract, this);
+						}
+						catch (Exception)
+						{
+							DateTime TP = DateTime.UtcNow;
+
+							Ref.Created = TP;
+							Ref.Updated = TP;
+						}
+
+						await Database.Insert(Ref);
+					}
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
 			}
 		}
 

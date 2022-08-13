@@ -44,7 +44,7 @@ namespace IdApp.Pages.Main.Main
 			this.ViewMyContactsCommand = new Command(async () => await this.ViewMyContacts(), () => this.IsConnected);
 			this.ViewMyThingsCommand = new Command(async () => await this.ViewMyThings(), () => this.IsConnected);
 			this.ScanQrCodeCommand = new Command(async () => await this.ScanQrCode());
-			this.ViewSignedContractsCommand = new Command(async () => await this.ViewSignedContracts(), () => this.IsConnected);
+			this.ViewContractsCommand = new Command(async () => await this.ViewContracts(), () => this.IsConnected);
 			this.ViewWalletCommand = new Command(async () => await this.ViewWallet(), () => this.IsConnected);
 			this.SharePhotoCommand = new Command(async () => await this.SharePhoto());
 			this.ShareQRCommand = new Command(async () => await this.ShareQR());
@@ -255,18 +255,18 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		/// <summary>
-		/// See <see cref="ViewSignedContractsCommand"/>
+		/// See <see cref="ViewContractsCommand"/>
 		/// </summary>
-		public static readonly BindableProperty ViewSignedContractsCommandProperty =
-			BindableProperty.Create(nameof(ViewSignedContractsCommand), typeof(ICommand), typeof(MainViewModel), default(ICommand));
+		public static readonly BindableProperty ViewContractsCommandProperty =
+			BindableProperty.Create(nameof(ViewContractsCommand), typeof(ICommand), typeof(MainViewModel), default(ICommand));
 
 		/// <summary>
-		/// The command to bind to for viewing a user's wallet.
+		/// The command to bind to for viewing a user's contracts.
 		/// </summary>
-		public ICommand ViewSignedContractsCommand
+		public ICommand ViewContractsCommand
 		{
-			get => (ICommand)this.GetValue(ViewSignedContractsCommandProperty);
-			set => this.SetValue(ViewSignedContractsCommandProperty, value);
+			get => (ICommand)this.GetValue(ViewContractsCommandProperty);
+			set => this.SetValue(ViewContractsCommandProperty, value);
 		}
 
 		/// <summary>
@@ -617,9 +617,9 @@ namespace IdApp.Pages.Main.Main
 			await this.NavigationService.GoToAsync(nameof(Things.MyThings.MyThingsPage));
 		}
 
-		private async Task ViewSignedContracts()
+		private async Task ViewContracts()
 		{
-			await this.NavigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.SignedContracts));
+			await this.NavigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.Contracts));
 		}
 
 		private async Task ViewWallet()
@@ -700,7 +700,7 @@ namespace IdApp.Pages.Main.Main
 
 				this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
 				this.EvaluateCommands(this.ViewMyIdentityCommand, this.ViewMyContactsCommand, this.ViewMyThingsCommand,
-					this.ScanQrCodeCommand, this.ViewSignedContractsCommand, this.ViewWalletCommand);
+					this.ScanQrCodeCommand, this.ViewContractsCommand, this.ViewWalletCommand);
 			}
 			catch (Exception ex)
 			{

@@ -741,14 +741,8 @@
   <data name="Model" xml:space="preserve">
     <value>Modell</value>
   </data>
-  <data name="MyContracts" xml:space="preserve">
-    <value>Mina kontrakt</value>
-  </data>
-  <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Nedan visas en lista över kontrakt du har skapat. Klicka på ett kontrakt för att få mer information om det.</value>
-  </data>
-  <data name="MyCreatedContracts" xml:space="preserve">
-    <value>Mina skapade kontrakt</value>
+  <data name="ContractsInfoText" xml:space="preserve">
+    <value>Nedan visas en lista över kontrakt du har skapat eller skrivit under. Klicka på ett kontrakt för att få mer information om det.</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
     <value>Min identitet</value>
@@ -1337,12 +1331,6 @@
   </data>
   <data name="SignBefore" xml:space="preserve">
     <value>Signera före</value>
-  </data>
-  <data name="SignedContracts" xml:space="preserve">
-    <value>Signerade kontrakt</value>
-  </data>
-  <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Nedan visas en lista över kontrakt du har skrivit under. Klicka på ett kontrakt för att få mer information om det.</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Logga in</value>

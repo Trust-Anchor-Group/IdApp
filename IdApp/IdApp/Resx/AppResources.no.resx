@@ -528,14 +528,8 @@
   <data name="Model" xml:space="preserve">
     <value>Modell</value>
   </data>
-  <data name="MyContracts" xml:space="preserve">
-    <value>Mine kontrakter</value>
-  </data>
-  <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Nedenfor finner du en liste over kontrakter du har opprettet. Klikk på en kontrakt for mer informasjon om den.</value>
-  </data>
-  <data name="MyCreatedContracts" xml:space="preserve">
-    <value>Mine opprettede kontrakter</value>
+  <data name="ContractsInfoText" xml:space="preserve">
+    <value>Nedenfor finner du en liste over kontrakter du har opprettet eller signert. Klikk på en kontrakt for mer informasjon om den.</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
     <value>Min identitet</value>
@@ -920,12 +914,6 @@
   </data>
   <data name="SignBefore" xml:space="preserve">
     <value>Signer før</value>
-  </data>
-  <data name="SignedContracts" xml:space="preserve">
-    <value>Signerte kontrakter</value>
-  </data>
-  <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Nedenfor finner du en liste over kontrakter du har signert. Klikk på en kontrakt for mer informasjon om den.</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Hoppe over</value>

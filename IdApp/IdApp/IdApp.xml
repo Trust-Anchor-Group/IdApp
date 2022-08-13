@@ -399,16 +399,6 @@
             The default language code.
             </summary>
         </member>
-        <member name="T:IdApp.Constants.KeyPrefixes">
-            <summary>
-            Key prefix constants
-            </summary>
-        </member>
-        <member name="F:IdApp.Constants.KeyPrefixes.ContractTemplatePrefix">
-            <summary>
-            Contract.Template.
-            </summary>
-        </member>
         <member name="T:IdApp.Constants.UriSchemes">
             <summary>
             IoT Schemes
@@ -3899,14 +3889,9 @@
             What list of contracts to display
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contracts.MyContracts.ContractsListMode.MyContracts">
+        <member name="F:IdApp.Pages.Contracts.MyContracts.ContractsListMode.Contracts">
             <summary>
-            Contracts I have created
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Contracts.MyContracts.ContractsListMode.SignedContracts">
-            <summary>
-            Contracts I have signed
+            Contracts I have created or signed
             </summary>
         </member>
         <member name="F:IdApp.Pages.Contracts.MyContracts.ContractsListMode.ContractTemplates">
@@ -4147,41 +4132,6 @@
             <summary>
             Displayable category for the contract.
             </summary>
-        </member>
-        <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractReference">
-            <summary>
-            Contract reference.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractReference.#ctor(System.DateTime,System.String)">
-            <summary>
-            Contract reference.
-            </summary>
-            <param name="Timestamp">Timestamp</param>
-            <param name="ContractId">Contract ID</param>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractReference.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
-            <summary>
-            Contract reference.
-            </summary>
-            <param name="Contract">Contract</param>
-        </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractReference.ContractId">
-            <summary>
-            Contract ID
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractReference.Timestamp">
-            <summary>
-            Timestamp
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractReference.GetContract(IdApp.Services.Contracts.ISmartContracts)">
-            <summary>
-            Gets the contract
-            </summary>
-            <param name="Contracts">Contracts.</param>
-            <returns>Contract reference.</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel">
             <summary>
@@ -7508,14 +7458,14 @@
             The command to bind to for scanning a QR code.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Main.Main.MainViewModel.ViewSignedContractsCommandProperty">
+        <member name="F:IdApp.Pages.Main.Main.MainViewModel.ViewContractsCommandProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.ViewSignedContractsCommand"/>
+            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.ViewContractsCommand"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Main.Main.MainViewModel.ViewSignedContractsCommand">
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.ViewContractsCommand">
             <summary>
-            The command to bind to for viewing a user's wallet.
+            The command to bind to for viewing a user's contracts.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Main.MainViewModel.ViewWalletCommandProperty">
@@ -14443,6 +14393,11 @@
               Looks up a localized string similar to A contract has been signed..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ContractsInfoText">
+            <summary>
+              Looks up a localized string similar to Below is a list of contracts that you have created or signed. Click on a contract for more information about it..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ContractSuccessfullySigned">
             <summary>
               Looks up a localized string similar to Contract successfully signed..
@@ -15116,21 +15071,6 @@
         <member name="P:IdApp.Resx.AppResources.Model">
             <summary>
               Looks up a localized string similar to Model.
-            </summary>
-        </member>
-        <member name="P:IdApp.Resx.AppResources.MyContracts">
-            <summary>
-              Looks up a localized string similar to My Contracts.
-            </summary>
-        </member>
-        <member name="P:IdApp.Resx.AppResources.MyContractsInfoText">
-            <summary>
-              Looks up a localized string similar to Below is a list of contracts that you have created. Click on a contract for more information about it..
-            </summary>
-        </member>
-        <member name="P:IdApp.Resx.AppResources.MyCreatedContracts">
-            <summary>
-              Looks up a localized string similar to My Created Contracts.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.MyIdentity">
@@ -16156,16 +16096,6 @@
         <member name="P:IdApp.Resx.AppResources.SignBefore">
             <summary>
               Looks up a localized string similar to Sign before.
-            </summary>
-        </member>
-        <member name="P:IdApp.Resx.AppResources.SignedContracts">
-            <summary>
-              Looks up a localized string similar to Signed Contracts.
-            </summary>
-        </member>
-        <member name="P:IdApp.Resx.AppResources.SignedContractsInfoText">
-            <summary>
-              Looks up a localized string similar to Below is a list of contracts that you have signed. Click on a contract for more information about it..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Skip">
@@ -17401,6 +17331,11 @@
             When object was last updated.
             </summary>
         </member>
+        <member name="P:IdApp.Services.Contracts.ContractReference.Loaded">
+            <summary>
+            When object was last loaded.
+            </summary>
+        </member>
         <member name="P:IdApp.Services.Contracts.ContractReference.ContractXml">
             <summary>
             XML of contract.
@@ -17414,6 +17349,21 @@
         <member name="P:IdApp.Services.Contracts.ContractReference.Category">
             <summary>
             Category of contract
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Contracts.ContractReference.ContractLoaded">
+            <summary>
+            If a local copy of the contract is available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Contracts.ContractReference.IsTemplate">
+            <summary>
+            If the contract can work as a template
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Contracts.ContractReference.State">
+            <summary>
+            Contract state
             </summary>
         </member>
         <member name="M:IdApp.Services.Contracts.ContractReference.GetContract">
@@ -17566,23 +17516,17 @@
             <param name="ContractId">The contract id.</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetCreatedContracts">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetCreatedContractReferences">
             <summary>
-            Gets created contracts.
+            Gets references to created contracts.
             </summary>
             <returns>Created contracts.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetSignedContracts">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetSignedContractReferences">
             <summary>
-            Gets signed contracts.
+            Gets references to signed contracts.
             </summary>
             <returns>Signed contracts.</returns>
-        </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetContractTemplateIds">
-            <summary>
-            Gets the id's of contract templates used.
-            </summary>
-            <returns>Id's of contract templates.</returns>
         </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.SignContract(Waher.Networking.XMPP.Contracts.Contract,System.String,System.Boolean)">
             <summary>
@@ -17825,23 +17769,17 @@
             <param name="ContractId">The id of the contract to delete.</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.SmartContracts.GetCreatedContracts">
+        <member name="M:IdApp.Services.Contracts.SmartContracts.GetCreatedContractReferences">
             <summary>
             Gets created contracts.
             </summary>
             <returns>Created contracts.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.SmartContracts.GetSignedContracts">
+        <member name="M:IdApp.Services.Contracts.SmartContracts.GetSignedContractReferences">
             <summary>
             Gets signed contracts.
             </summary>
             <returns>Signed contracts.</returns>
-        </member>
-        <member name="M:IdApp.Services.Contracts.SmartContracts.GetContractTemplateIds">
-            <summary>
-            Gets the id's of contract templates used.
-            </summary>
-            <returns>Id's of contract templates, together with the last time they were used.</returns>
         </member>
         <member name="M:IdApp.Services.Contracts.SmartContracts.SignContract(Waher.Networking.XMPP.Contracts.Contract,System.String,System.Boolean)">
             <summary>
