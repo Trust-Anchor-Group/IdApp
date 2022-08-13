@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IdApp.Extensions;
 using IdApp.Services;
+using IdApp.Services.Notification;
 using Waher.Content.Markdown;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Contracts.HumanReadable;
@@ -23,14 +24,17 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
         private readonly string category;
         private readonly string name;
         private readonly Contract contract;
+		private readonly NotificationEvent[] events;
 
-        private ContractModel(string ContractId, DateTime Timestamp, Contract Contract, string Category, string Name)
+
+		private ContractModel(string ContractId, DateTime Timestamp, Contract Contract, string Category, string Name, NotificationEvent[] Events)
         {
             this.contract = Contract;
             this.contractId = ContractId;
             this.timestamp = Timestamp.ToString(CultureInfo.CurrentUICulture);
             this.category = Category;
             this.name = Name;
+			this.events = Events;
         }
 
         /// <summary>
@@ -45,7 +49,10 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
             string Category = await GetCategory(Contract) ?? Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
             string Name = await GetName(Contract, Ref) ?? Contract.ContractId;
 
-            return new ContractModel(ContractId, Timestamp, Contract, Category, Name);
+			if (!Ref.NotificationService.TryGetNotificationEvents(EventButton.Contracts, ContractId, out NotificationEvent[] Events))
+				Events = new NotificationEvent[0];
+
+            return new ContractModel(ContractId, Timestamp, Contract, Category, Name, Events);
         }
 
         /// <summary>
@@ -152,5 +159,20 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
         /// Displayable category for the contract.
         /// </summary>
         public string Category => this.category;
+
+		/// <summary>
+		/// If the contract has associated notification events.
+		/// </summary>
+		public bool HasEvents => this.NrEvents > 0;
+
+		/// <summary>
+		/// Number of notification events associated with the contract.
+		/// </summary>
+		public int NrEvents => this.events?.Length ?? 0;
+
+		/// <summary>
+		/// Notification events.
+		/// </summary>
+		public NotificationEvent[] Events => this.events;
 	}
 }

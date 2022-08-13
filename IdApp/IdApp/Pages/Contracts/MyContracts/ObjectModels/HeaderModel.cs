@@ -16,10 +16,12 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 		/// </summary>
 		/// <param name="Category">Contract category</param>
 		/// <param name="Contracts">Contracts in category.</param>
-		public HeaderModel(string Category, ICollection<ContractModel> Contracts)
+		/// <param name="NrEvents">Number of events</param>
+		public HeaderModel(string Category, ICollection<ContractModel> Contracts, int NrEvents)
 		{
 			this.Category = Category;
 			this.Contracts = Contracts;
+			this.NrEvents = NrEvents;
 		}
 
 		/// <summary>
@@ -29,6 +31,16 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 
 		/// <inheritdoc/>
 		public string UniqueName => this.Category;
+
+		/// <summary>
+		/// Number of events.
+		/// </summary>
+		public int NrEvents { get; }
+
+		/// <summary>
+		/// If the category contains contracts with events.
+		/// </summary>
+		public bool HasEvents => this.NrEvents > 0;
 
 		/// <summary>
 		/// The category's contracts.

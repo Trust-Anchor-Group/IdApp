@@ -274,8 +274,13 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 				foreach (KeyValuePair<string, List<ContractModel>> P in ContractsByCategory)
 				{
+					int Nr = 0;
+
+					foreach (ContractModel Model in P.Value)
+						Nr += Model.NrEvents;
+
 					P.Value.Sort(new DateTimeDesc());
-					NewCategories.Add(new HeaderModel(P.Key, P.Value.ToArray()));
+					NewCategories.Add(new HeaderModel(P.Key, P.Value.ToArray(), Nr));
 				}
 
 				this.UiSerializer.BeginInvokeOnMainThread(() =>

@@ -4133,17 +4133,33 @@
             Displayable category for the contract.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.HasEvents">
+            <summary>
+            If the contract has associated notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.NrEvents">
+            <summary>
+            Number of notification events associated with the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Events">
+            <summary>
+            Notification events.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel">
             <summary>
             The data model for a contract category header containing a collection of contracts of the same category.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.#ctor(System.String,System.Collections.Generic.ICollection{IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel})">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.#ctor(System.String,System.Collections.Generic.ICollection{IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel},System.Int32)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel"/> class.
             </summary>
             <param name="Category">Contract category</param>
             <param name="Contracts">Contracts in category.</param>
+            <param name="NrEvents">Number of events</param>
         </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.Category">
             <summary>
@@ -4152,6 +4168,16 @@
         </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.UniqueName">
             <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.NrEvents">
+            <summary>
+            Number of events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.HasEvents">
+            <summary>
+            If the category contains contracts with events.
+            </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel.Contracts">
             <summary>
