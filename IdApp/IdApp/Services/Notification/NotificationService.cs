@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Waher.Events;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
@@ -64,6 +65,13 @@ namespace IdApp.Services.Notification
 				if (Button < 0 || Button >= nrButtons)
 					continue;
 
+				if (Event.Category is null)
+				{
+					Log.Debug("Notification event of type " + Event.GetType().FullName + " lacked Category.");
+					await Database.Delete(Event);
+					continue;
+				}
+				
 				lock (this.events)
 				{
 					if (ByCategory is null || Button != PrevButton)
