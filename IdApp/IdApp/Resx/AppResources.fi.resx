@@ -552,6 +552,12 @@
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>Verkko näyttää puuttuvan. Tarkista kokoonpanosi ja kattavuutesi ja yritä uudelleen.</value>
   </data>
+  <data name="SendEmailWarning" xml:space="preserve">
+    <value>Koodi on lähetetty, tarkista sähköposti, roskapostia...</value>
+  </data>
+  <data name="SendPhoneNumberWarning" xml:space="preserve">
+    <value>Koodi on lähetetty, tarkista puhelimesi</value>
+  </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuroni</value>
   </data>
@@ -1154,6 +1160,9 @@
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Lähetä koodi</value>
+  </data>
+  <data name="DisabledFor" xml:space="preserve">
+    <value>POISTETTU KÄYTÖSTÄ {0} SEKUNNIN AJAN</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>Koodi ei ollut oikea.</value>
@@ -1805,5 +1814,8 @@
   </data>
   <data name="RemoveSubscriptionFrom" xml:space="preserve">
     <value>Haluatko poistaa tavoitettavuustilauksen {0}?</value>
+  </data>
+  <data name="SignaturePetitionDenied" xml:space="preserve">
+    <value>Allekirjoitusvetoomus hylättiin.</value>
   </data>
 </root>

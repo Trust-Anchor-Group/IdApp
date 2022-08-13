@@ -552,6 +552,12 @@
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>A rede parece estar faltando. Verifique sua configuração e cobertura e tente novamente.</value>
   </data>
+  <data name="SendEmailWarning" xml:space="preserve">
+    <value>Código foi enviado, cheque e-mail, spam...</value>
+  </data>
+  <data name="SendPhoneNumberWarning" xml:space="preserve">
+    <value>O código foi enviado, verifique seu telefone.</value>
+  </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neurônio</value>
   </data>
@@ -1154,6 +1160,9 @@
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Enviar código</value>
+  </data>
+  <data name="DisabledFor" xml:space="preserve">
+    <value>DESATIVADO POR {0} SEGUNDOS</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>O código não estava correto.</value>
@@ -1805,5 +1814,8 @@
   </data>
   <data name="RemoveSubscriptionFrom" xml:space="preserve">
     <value>Deseja remover a assinatura de presença de {0}?</value>
+  </data>
+  <data name="SignaturePetitionDenied" xml:space="preserve">
+    <value>A petição de assinatura foi negada.</value>
   </data>
 </root>

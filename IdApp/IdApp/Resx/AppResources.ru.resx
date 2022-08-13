@@ -552,6 +552,12 @@
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>Сеть, похоже, отсутствует. Проверьте конфигурацию и покрытие и повторите попытку.</value>
   </data>
+  <data name="SendEmailWarning" xml:space="preserve">
+    <value>Код отправлен, проверьте электронную почту, спам...</value>
+  </data>
+  <data name="SendPhoneNumberWarning" xml:space="preserve">
+    <value>Код отправлен, проверьте свой телефон</value>
+  </data>
   <data name="Neuron" xml:space="preserve">
     <value>Нейрон</value>
   </data>
@@ -1154,6 +1160,9 @@
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Отправить код</value>
+  </data>
+  <data name="DisabledFor" xml:space="preserve">
+    <value>ОТКЛЮЧЕНО НА {0} СЕКУНД</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>Код был неправильным.</value>
@@ -1805,5 +1814,8 @@
   </data>
   <data name="RemoveSubscriptionFrom" xml:space="preserve">
     <value>Вы хотите удалить подписку на сведения о присутствии из {0}?</value>
+  </data>
+  <data name="SignaturePetitionDenied" xml:space="preserve">
+    <value>Ходатайство о подписании было отклонено.</value>
   </data>
 </root>

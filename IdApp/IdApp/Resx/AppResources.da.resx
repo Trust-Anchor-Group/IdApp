@@ -552,6 +552,12 @@
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>Netværk ser ud til at mangle. Kontroller din konfiguration og dækning, og prøv igen.</value>
   </data>
+  <data name="SendEmailWarning" xml:space="preserve">
+    <value>Kode er blevet sendt, tjek e-mail, spam ...</value>
+  </data>
+  <data name="SendPhoneNumberWarning" xml:space="preserve">
+    <value>Koden er sendt, tjek din telefon</value>
+  </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>
   </data>
@@ -1154,6 +1160,9 @@
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Send kode</value>
+  </data>
+  <data name="DisabledFor" xml:space="preserve">
+    <value>DEAKTIVERET I {0} SEKUNDER</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>Koden var ikke korrekt.</value>
@@ -1805,5 +1814,8 @@
   </data>
   <data name="RemoveSubscriptionFrom" xml:space="preserve">
     <value>Vil du fjerne tilstedeværelsesabonnementet fra {0}?</value>
+  </data>
+  <data name="SignaturePetitionDenied" xml:space="preserve">
+    <value>Underskriftsbegæringen blev afvist.</value>
   </data>
 </root>

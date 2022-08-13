@@ -552,6 +552,12 @@
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>Rețeaua pare să lipsească. Vă rugăm să verificați configurația și acoperirea și încercați din nou.</value>
   </data>
+  <data name="SendEmailWarning" xml:space="preserve">
+    <value>Codul a fost trimis, verifica e-mail, spam- ul ...</value>
+  </data>
+  <data name="SendPhoneNumberWarning" xml:space="preserve">
+    <value>Codul a fost trimis, verificați-vă telefonul</value>
+  </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>
   </data>
@@ -1154,6 +1160,9 @@
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Trimite cod</value>
+  </data>
+  <data name="DisabledFor" xml:space="preserve">
+    <value>DEZACTIVAT TIMP DE {0} SECUNDE</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>Codul nu a fost corect.</value>
@@ -1805,5 +1814,8 @@
   </data>
   <data name="RemoveSubscriptionFrom" xml:space="preserve">
     <value>Doriți să eliminați abonamentul de prezență din {0}?</value>
+  </data>
+  <data name="SignaturePetitionDenied" xml:space="preserve">
+    <value>Petiția de semnătură a fost respinsă.</value>
   </data>
 </root>

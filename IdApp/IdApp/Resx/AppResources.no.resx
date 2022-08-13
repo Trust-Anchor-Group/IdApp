@@ -552,6 +552,12 @@
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>Nettverket ser ut til å mangle. Kontroller konfigurasjonen og dekningen, og prøv på nytt.</value>
   </data>
+  <data name="SendEmailWarning" xml:space="preserve">
+    <value>Koden er sendt, sjekk e-post, spam ...</value>
+  </data>
+  <data name="SendPhoneNumberWarning" xml:space="preserve">
+    <value>Koden er sendt, sjekk telefonen</value>
+  </data>
   <data name="Neuron" xml:space="preserve">
     <value>Nevron</value>
   </data>
@@ -1154,6 +1160,9 @@
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Send kode</value>
+  </data>
+  <data name="DisabledFor" xml:space="preserve">
+    <value>DEAKTIVERT I {0} SEKUNDER</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>Koden var ikke riktig.</value>
@@ -1805,5 +1814,8 @@
   </data>
   <data name="RemoveSubscriptionFrom" xml:space="preserve">
     <value>Vil du fjerne tilstedeværelsesabonnementet fra {0}?</value>
+  </data>
+  <data name="SignaturePetitionDenied" xml:space="preserve">
+    <value>Signaturbegjæringen ble avslått.</value>
   </data>
 </root>

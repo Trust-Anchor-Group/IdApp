@@ -552,6 +552,12 @@
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>Izgleda da nedostaje mreža. Proverite konfiguraciju i pokrivenost i pokušajte ponovo.</value>
   </data>
+  <data name="SendEmailWarning" xml:space="preserve">
+    <value>Šifra je poslata, proverite e-poštu, bezvrednu poštu...</value>
+  </data>
+  <data name="SendPhoneNumberWarning" xml:space="preserve">
+    <value>Šifra je poslata, proverite telefon</value>
+  </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>
   </data>
@@ -1154,6 +1160,9 @@
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Pošalji kôd</value>
+  </data>
+  <data name="DisabledFor" xml:space="preserve">
+    <value>ONEMOGUĆENO ZA {0} SEKUNDI</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>Šifra nije bila tačna.</value>
@@ -1805,5 +1814,8 @@
   </data>
   <data name="RemoveSubscriptionFrom" xml:space="preserve">
     <value>Želite li da uklonite pretplatu na prisustvo iz {0}?</value>
+  </data>
+  <data name="SignaturePetitionDenied" xml:space="preserve">
+    <value>Peticija za potpis je odbijena.</value>
   </data>
 </root>
