@@ -1797,4 +1797,37 @@
   <data name="SignaturePetitionDenied" xml:space="preserve">
     <value>Signaturförfrågan nekades.</value>
   </data>
+  <data name="ContractProposal" xml:space="preserve">
+    <value>Kontraktförslag</value>
+  </data>
+  <data name="ContractResponse" xml:space="preserve">
+    <value>Svar på kontraktförfrågan</value>
+  </data>
+  <data name="ContractSignatureReceived" xml:space="preserve">
+    <value>Kontraktsignatur mottagen</value>
+  </data>
+  <data name="ContractUpdateReceived" xml:space="preserve">
+    <value>Kontraktet uppdaterat</value>
+  </data>
+  <data name="IdentityResponse" xml:space="preserve">
+    <value>Svar på identitetsförfrågan</value>
+  </data>
+  <data name="IdentityReviewRequest" xml:space="preserve">
+    <value>Förfrågan om granskning av identitet</value>
+  </data>
+  <data name="IdentityReviewResponse" xml:space="preserve">
+    <value>Svar på identitetsgranskningsförfrågan</value>
+  </data>
+  <data name="RequestSignature" xml:space="preserve">
+    <value>Förfrågan om signatur</value>
+  </data>
+  <data name="RequestToAccessContract" xml:space="preserve">
+    <value>Förfrågan att få åtkomst till kontrakt</value>
+  </data>
+  <data name="RequestToAccessIdentity" xml:space="preserve">
+    <value>Förfrågan att få åtkomst till identitet</value>
+  </data>
+  <data name="SignatureResponse" xml:space="preserve">
+    <value>Svar på signaturförfrågan</value>
+  </data>
 </root>

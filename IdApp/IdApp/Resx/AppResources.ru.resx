@@ -1806,4 +1806,37 @@
   <data name="SignaturePetitionDenied" xml:space="preserve">
     <value>Ходатайство о подписании было отклонено.</value>
   </data>
+  <data name="ContractProposal" xml:space="preserve">
+    <value>Предложение по контракту</value>
+  </data>
+  <data name="ContractResponse" xml:space="preserve">
+    <value>Ответ на запрос о заключении контракта</value>
+  </data>
+  <data name="ContractSignatureReceived" xml:space="preserve">
+    <value>Получена подпись под договором</value>
+  </data>
+  <data name="ContractUpdateReceived" xml:space="preserve">
+    <value>Контракт обновлен</value>
+  </data>
+  <data name="IdentityResponse" xml:space="preserve">
+    <value>Ответ на запрос удостоверения</value>
+  </data>
+  <data name="IdentityReviewRequest" xml:space="preserve">
+    <value>Запрос на проверку личности</value>
+  </data>
+  <data name="IdentityReviewResponse" xml:space="preserve">
+    <value>Ответ на запрос о проверке удостоверений</value>
+  </data>
+  <data name="RequestSignature" xml:space="preserve">
+    <value>Запросить подпись</value>
+  </data>
+  <data name="RequestToAccessContract" xml:space="preserve">
+    <value>Запрос на доступ к контракту</value>
+  </data>
+  <data name="RequestToAccessIdentity" xml:space="preserve">
+    <value>Запрос на доступ к удостоверению</value>
+  </data>
+  <data name="SignatureResponse" xml:space="preserve">
+    <value>Ответ на запрос подписи</value>
+  </data>
 </root>

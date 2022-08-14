@@ -1,5 +1,6 @@
 ﻿using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Services.Navigation;
+using IdApp.Services.Notification;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -43,7 +44,6 @@ namespace IdApp.Pages.Contracts.MyContracts
 			object SelectedItem = this.Contracts.SelectedItem;
 			MyContractsViewModel ViewModel = this.GetViewModel<MyContractsViewModel>();
 
-
 			if (SelectedItem is HeaderModel Category)
 			{
 				Category.Expanded = !Category.Expanded;
@@ -52,6 +52,25 @@ namespace IdApp.Pages.Contracts.MyContracts
 			else if (SelectedItem is ContractModel Contract)
 			{
 				ViewModel.ContractSelected(Contract.ContractId);
+
+				if (Contract.HasEvents)
+					ViewModel.NotificationService.DeleteEvents(Contract.Events);
+			}
+			else if (SelectedItem is EventModel Event)
+			{
+				ViewModel.UiSerializer.BeginInvokeOnMainThread(async () =>
+				{
+					try
+					{
+						await Event.Event.Open(ViewModel);
+
+						await ViewModel.NotificationService.DeleteEvents(new NotificationEvent[] { Event.Event });
+					}
+					catch (Exception ex)
+					{
+						ViewModel.LogService.LogException(ex);
+					}
+				});
 			}
 
 			this.Contracts.SelectedItem = null;

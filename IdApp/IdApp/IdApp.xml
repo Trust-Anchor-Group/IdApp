@@ -14475,9 +14475,19 @@
               Looks up a localized string similar to Contract ID.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ContractProposal">
+            <summary>
+              Looks up a localized string similar to Contract proposal.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ContractProposed">
             <summary>
               Looks up a localized string similar to A contract has been proposed..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ContractResponse">
+            <summary>
+              Looks up a localized string similar to Response to contract request.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ContractRoleMustBeSelected">
@@ -14488,6 +14498,11 @@
         <member name="P:IdApp.Resx.AppResources.Contracts">
             <summary>
               Looks up a localized string similar to Contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ContractSignatureReceived">
+            <summary>
+              Looks up a localized string similar to Contract signature received.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ContractSigned">
@@ -14518,6 +14533,11 @@
         <member name="P:IdApp.Resx.AppResources.ContractUpdated">
             <summary>
               Looks up a localized string similar to A contract has been updated..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ContractUpdateReceived">
+            <summary>
+              Looks up a localized string similar to Contract updated.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ContractVisibility_CreatorAndParts">
@@ -14933,6 +14953,21 @@
         <member name="P:IdApp.Resx.AppResources.IdentityInformationInfoText">
             <summary>
               Looks up a localized string similar to The following is personal information registered for the party who signed the contract..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.IdentityResponse">
+            <summary>
+              Looks up a localized string similar to Response to identity request.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.IdentityReviewRequest">
+            <summary>
+              Looks up a localized string similar to Request to review identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.IdentityReviewResponse">
+            <summary>
+              Looks up a localized string similar to Response to identity review request.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.IdentityState_Approved">
@@ -15975,9 +16010,24 @@
               Looks up a localized string similar to Requesting payment of {0} {1}..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.RequestSignature">
+            <summary>
+              Looks up a localized string similar to Request signature.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.RequestTimedOut">
             <summary>
               Looks up a localized string similar to The request timed out.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.RequestToAccessContract">
+            <summary>
+              Looks up a localized string similar to Request to access contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.RequestToAccessIdentity">
+            <summary>
+              Looks up a localized string similar to Request to access identity.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.RequestWasCancelled">
@@ -16193,6 +16243,11 @@
         <member name="P:IdApp.Resx.AppResources.SignaturePetitionDenied">
             <summary>
               Looks up a localized string similar to The signature petition was denied..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SignatureResponse">
+            <summary>
+              Looks up a localized string similar to Response to signature request.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SignBefore">
@@ -18802,6 +18857,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractPetitionNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent">
             <summary>
             Notification event for contract proposals.
@@ -18834,6 +18895,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Contracts.ContractResponseNotificationEvent">
             <summary>
             Notification event for contract petition responses.
@@ -18861,6 +18928,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractResponseNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent">
             <summary>
             Notification event for when a contract has been signed.
@@ -18884,6 +18957,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent">
             <summary>
             Notification event for when a contract has been updated.
@@ -18904,6 +18983,12 @@
         <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.Open(IdApp.Services.ServiceReferences)">
             <summary>
             Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
@@ -19017,6 +19102,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Identities.IdentityResponseNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Identities.PeerIdentityReviewResponseNotificationEvent">
             <summary>
             Notification event for peer review responses of identities.
@@ -19044,6 +19135,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Identities.PeerIdentityReviewResponseNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent">
             <summary>
             Notification event for peer reviews of identities.
@@ -19063,6 +19160,12 @@
         <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.Open(IdApp.Services.ServiceReferences)">
             <summary>
             Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
@@ -19088,6 +19191,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Identities.RequestIdentityNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Identities.RequestSignatureNotificationEvent">
             <summary>
             Notification event for signature petitions.
@@ -19107,6 +19216,12 @@
         <member name="M:IdApp.Services.Notification.Identities.RequestSignatureNotificationEvent.Open(IdApp.Services.ServiceReferences)">
             <summary>
             Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.RequestSignatureNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
@@ -19134,6 +19249,12 @@
         <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.Open(IdApp.Services.ServiceReferences)">
             <summary>
             Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>

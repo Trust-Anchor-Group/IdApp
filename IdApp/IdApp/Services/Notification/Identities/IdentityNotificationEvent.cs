@@ -168,7 +168,7 @@ namespace IdApp.Services.Notification.Identities
 		{
 			LegalIdentity Identity = this.Identity;
 
-			return Task.FromResult<string>(ContactInfo.GetFriendlyName(Identity));
+			return Task.FromResult(ContactInfo.GetFriendlyName(Identity));
 		}
 
 	}
