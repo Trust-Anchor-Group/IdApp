@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using IdApp.Extensions;
@@ -44,13 +43,12 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
         /// <param name="Timestamp">The timestamp to show with the contract reference.</param>
         /// <param name="Contract">Contract</param>
         /// <param name="Ref">Service References</param>
-        public static async Task<ContractModel> Create(string ContractId, DateTime Timestamp, Contract Contract, ServiceReferences Ref)
+		/// <param name="Events">Notification events associated with contract.</param>
+        public static async Task<ContractModel> Create(string ContractId, DateTime Timestamp, Contract Contract, ServiceReferences Ref,
+			NotificationEvent[] Events)
         {
             string Category = await GetCategory(Contract) ?? Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
             string Name = await GetName(Contract, Ref) ?? Contract.ContractId;
-
-			if (!Ref.NotificationService.TryGetNotificationEvents(EventButton.Contracts, ContractId, out NotificationEvent[] Events))
-				Events = new NotificationEvent[0];
 
             return new ContractModel(ContractId, Timestamp, Contract, Category, Name, Events);
         }

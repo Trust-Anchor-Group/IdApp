@@ -3907,6 +3907,11 @@
             Template to use for contracts
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector.EventTemplate">
+            <summary>
+            Template to use for standalone notification events.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector.DefaultTemplate">
             <summary>
             Template to use for other items.
@@ -4112,7 +4117,7 @@
             The data model for a contract.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences,IdApp.Services.Notification.NotificationEvent[])">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel"/> class.
             </summary>
@@ -4120,6 +4125,7 @@
             <param name="Timestamp">The timestamp to show with the contract reference.</param>
             <param name="Contract">Contract</param>
             <param name="Ref">Service References</param>
+            <param name="Events">Notification events associated with contract.</param>
         </member>
         <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
             <summary>
@@ -4177,6 +4183,45 @@
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Events">
             <summary>
             Notification events.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel">
+            <summary>
+            The data model for a notification event that is not associate with a referenced contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.#ctor(System.DateTime,System.String,System.String,IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel"/> class.
+            </summary>
+            <param name="Received">When event was received.</param>
+            <param name="Icon">Icon of event.</param>
+            <param name="Description">Description of event.</param>
+            <param name="Event">Notification event object.</param>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.Received">
+            <summary>
+            When event was received.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.Icon">
+            <summary>
+            Icon of event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.Description">
+            <summary>
+            Description of event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.Event">
+            <summary>
+            Notification event object.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.UniqueName">
+            <summary>
+            Unique name used to compare items.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel">

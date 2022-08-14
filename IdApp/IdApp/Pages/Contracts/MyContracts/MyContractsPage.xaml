@@ -65,9 +65,30 @@
 			</Grid>
 		</DataTemplate>
 
+		<DataTemplate x:Key="EventModelTemplate" x:DataType="objectmodel:EventModel">
+			<Grid ColumnDefinitions="auto,*,auto" RowDefinitions="auto,auto" Padding="5,5,5,5">
+				<Label Grid.Column="0" Grid.Row="0" LineBreakMode="NoWrap" Padding="5,2,5,0"
+					   Text="{Binding Path=Received, Converter={converters:DateToString}}"
+					   HorizontalOptions="Center" VerticalOptions="Center"/>
+				<Label Grid.Column="0" Grid.Row="1" LineBreakMode="NoWrap" Padding="5,0,5,2"
+					   Text="{Binding Path=Received, Converter={converters:TimeToString}}"
+					   HorizontalOptions="Center" VerticalOptions="Center"/>
+				<Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="CharacterWrap" TextType="Text"
+					   HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Padding="5,2,5,2"
+					   Text="{Binding Path=Description}" Style="{StaticResource ClickableValueLabel}"/>
+				<Label Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="NoWrap" Padding="5,2,5,0"
+					   Text="{Binding Path=Icon}" FontFamily="{StaticResource FontAwesomeSolid}"
+					   HorizontalOptions="Center" VerticalOptions="Center"/>
+				<Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="NoWrap" Padding="5,2,5,0"
+					   Text="•" TextColor="{StaticResource AlertColor}" FontSize="50"
+					   HorizontalOptions="End" VerticalOptions="Center"/>
+			</Grid>
+		</DataTemplate>
+
 		<selector:ItemTypeTemplateSelector x:Key="ItemStyleSelector"
 										   DefaultTemplate="{StaticResource DefaultTemplate}"
 										   HeaderTemplate="{StaticResource HeaderModelTemplate}"
+										   EventTemplate="{StaticResource EventModelTemplate}"
 										   ContractTemplate="{StaticResource ContractModelTemplate}"/>
 	</views:ContentBasePage.Resources>
 

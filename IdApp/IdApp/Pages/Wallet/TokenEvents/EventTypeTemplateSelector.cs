@@ -54,13 +54,13 @@ namespace IdApp.Pages.Wallet.TokenEvents
 			{
 				return Event.Type switch
 				{
-					EventType.Created => this.CreatedTemplate,
-					EventType.Destroyed => this.DestroyedTemplate,
-					EventType.Transferred => this.TransferredTemplate,
-					EventType.NoteText => this.NoteTextTemplate,
-					EventType.NoteXml => this.NoteXmlTemplate,
-					EventType.ExternalNoteText => this.ExternalNoteTextTemplate,
-					EventType.ExternalNoteXml => this.ExternalNoteXmlTemplate,
+					EventType.Created => this.CreatedTemplate ?? this.DefaultTemplate,
+					EventType.Destroyed => this.DestroyedTemplate ?? this.DefaultTemplate,
+					EventType.Transferred => this.TransferredTemplate ?? this.DefaultTemplate,
+					EventType.NoteText => this.NoteTextTemplate ?? this.DefaultTemplate,
+					EventType.NoteXml => this.NoteXmlTemplate ?? this.DefaultTemplate,
+					EventType.ExternalNoteText => this.ExternalNoteTextTemplate ?? this.DefaultTemplate,
+					EventType.ExternalNoteXml => this.ExternalNoteXmlTemplate ?? this.DefaultTemplate,
 					_ => this.DefaultTemplate,
 				};
 			}

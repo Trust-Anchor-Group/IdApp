@@ -3,6 +3,7 @@ using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Resx;
 using IdApp.Services.Contracts;
+using IdApp.Services.Notification;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -205,6 +206,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 			try
 			{
 				IEnumerable<ContractReference> ContractReferences;
+				bool ShowAdditionalEvents;
 
 				switch (this.contractsListMode)
 				{
@@ -212,6 +214,8 @@ namespace IdApp.Pages.Contracts.MyContracts
 						ContractReferences = await Database.Find<ContractReference>(new FilterAnd(
 							new FilterFieldEqualTo("IsTemplate", false),
 							new FilterFieldEqualTo("ContractLoaded", true)));
+
+						ShowAdditionalEvents = true;
 						break;
 
 					case ContractsListMode.ContractTemplates:
@@ -219,6 +223,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 							new FilterFieldEqualTo("IsTemplate", true),
 							new FilterFieldEqualTo("ContractLoaded", true)));
 
+						ShowAdditionalEvents = false;
 						break;
 
 					default:
@@ -240,6 +245,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 				}
 
 				SortedDictionary<string, List<ContractModel>> ContractsByCategory = new(StringComparer.CurrentCultureIgnoreCase);
+				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCategory = this.NotificationService.GetEventsByCategory(EventButton.Contracts);
 				Contract Contract;
 
 				foreach (ContractReference Ref in ContractReferences)
@@ -258,7 +264,12 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 					this.contractsMap[Ref.ContractId] = Contract;
 
-					ContractModel Item = await ContractModel.Create(Ref.ContractId, Ref.Created, Contract, this);
+					if (EventsByCategory.TryGetValue(Ref.ContractId, out NotificationEvent[] Events))
+						EventsByCategory.Remove(Ref.ContractId);
+					else
+						Events = new NotificationEvent[0];
+
+					ContractModel Item = await ContractModel.Create(Ref.ContractId, Ref.Created, Contract, this, Events);
 					string Category = Item.Category;
 
 					if (!ContractsByCategory.TryGetValue(Category, out List<ContractModel> Contracts2))
@@ -270,7 +281,21 @@ namespace IdApp.Pages.Contracts.MyContracts
 					Contracts2.Add(Item);
 				}
 
-				List<HeaderModel> NewCategories = new();
+				List<IItemGroup> NewCategories = new();
+
+				if (ShowAdditionalEvents)
+				{
+					foreach (KeyValuePair<CaseInsensitiveString, NotificationEvent[]> P in EventsByCategory)
+					{
+						foreach (NotificationEvent Event in P.Value)
+						{
+							string Icon = await Event.GetCategoryIcon(this);
+							string Description = await Event.GetCategoryDescription(this);
+
+							NewCategories.Add(new EventModel(Event.Received, Icon, Description, Event));
+						}
+					}
+				}
 
 				foreach (KeyValuePair<string, List<ContractModel>> P in ContractsByCategory)
 				{

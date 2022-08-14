@@ -27,15 +27,11 @@ namespace IdApp.Pages.Wallet
 		protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
 		{
 			if (item is PendingPaymentItem)
-			{
-				return this.PendingPaymentTemplate;
-			}
+				return this.PendingPaymentTemplate ?? this.DefaultTemplate;
 			else if (item is AccountEventItem)
-			{
-				return this.AccountEventTemplate;
-			}
-
-			return this.DefaultTemplate;
+				return this.AccountEventTemplate ?? this.DefaultTemplate;
+			else
+				return this.DefaultTemplate;
 		}
 	}
 }
