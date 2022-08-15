@@ -1,4 +1,6 @@
-﻿using IdApp.Pages.Contracts.PetitionContract;
+﻿using IdApp.Pages.Contracts.MyContracts.ObjectModels;
+using IdApp.Pages.Contracts.PetitionContract;
+using IdApp.Resx;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -102,6 +104,28 @@ namespace IdApp.Services.Notification.Contracts
 				await ServiceReferences.NavigationService.GoToAsync(nameof(PetitionContractPage),
 					new PetitionContractNavigationArgs(this.Identity, this.RequestorFullJid, Contract, this.PetitionId, this.Purpose));
 			}
+		}
+
+		/// <summary>
+		/// Gets a descriptive text for the category of event.
+		/// </summary>
+		/// <param name="ServiceReferences">Service references</param>
+		public override async Task<string> GetCategoryDescription(ServiceReferences ServiceReferences)
+		{
+			Contract Contract = await this.GetContract();
+			StringBuilder Result = new();
+
+			Result.Append(AppResources.RequestToAccessContract);
+
+			if (Contract is not null)
+			{
+				Result.Append(": ");
+				Result.Append(await ContractModel.GetCategory(Contract));
+			}
+
+			Result.Append('.');
+
+			return Result.ToString();
 		}
 	}
 }

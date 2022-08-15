@@ -1806,4 +1806,37 @@
   <data name="SignaturePetitionDenied" xml:space="preserve">
     <value>Petiția de semnătură a fost respinsă.</value>
   </data>
+  <data name="ContractProposal" xml:space="preserve">
+    <value>Propunere de contract</value>
+  </data>
+  <data name="ContractResponse" xml:space="preserve">
+    <value>Răspunsul la cererea de contract</value>
+  </data>
+  <data name="ContractSignatureReceived" xml:space="preserve">
+    <value>Semnarea contractului primit</value>
+  </data>
+  <data name="ContractUpdateReceived" xml:space="preserve">
+    <value>Contract actualizat</value>
+  </data>
+  <data name="IdentityResponse" xml:space="preserve">
+    <value>Răspunsul la solicitarea de identitate</value>
+  </data>
+  <data name="IdentityReviewRequest" xml:space="preserve">
+    <value>Cerere de revizuire a identității</value>
+  </data>
+  <data name="IdentityReviewResponse" xml:space="preserve">
+    <value>Răspunsul la solicitarea de revizuire a identității</value>
+  </data>
+  <data name="RequestSignature" xml:space="preserve">
+    <value>Solicitați semnătura</value>
+  </data>
+  <data name="RequestToAccessContract" xml:space="preserve">
+    <value>Cerere de acces la contract</value>
+  </data>
+  <data name="RequestToAccessIdentity" xml:space="preserve">
+    <value>Cerere de acces la identitate</value>
+  </data>
+  <data name="SignatureResponse" xml:space="preserve">
+    <value>Răspunsul la solicitarea de semnătură</value>
+  </data>
 </root>

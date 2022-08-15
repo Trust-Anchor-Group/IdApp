@@ -1806,4 +1806,37 @@
   <data name="SignaturePetitionDenied" xml:space="preserve">
     <value>La petición de firma fue denegada.</value>
   </data>
+  <data name="ContractProposal" xml:space="preserve">
+    <value>Propuesta de contrato</value>
+  </data>
+  <data name="ContractResponse" xml:space="preserve">
+    <value>Respuesta a la solicitud de contrato</value>
+  </data>
+  <data name="ContractSignatureReceived" xml:space="preserve">
+    <value>Firma del contrato recibida</value>
+  </data>
+  <data name="ContractUpdateReceived" xml:space="preserve">
+    <value>Contrato actualizado</value>
+  </data>
+  <data name="IdentityResponse" xml:space="preserve">
+    <value>Respuesta a la solicitud de identidad</value>
+  </data>
+  <data name="IdentityReviewRequest" xml:space="preserve">
+    <value>Solicitud de revisión de identidad</value>
+  </data>
+  <data name="IdentityReviewResponse" xml:space="preserve">
+    <value>Respuesta a la solicitud de revisión de identidad</value>
+  </data>
+  <data name="RequestSignature" xml:space="preserve">
+    <value>Solicitar firma</value>
+  </data>
+  <data name="RequestToAccessContract" xml:space="preserve">
+    <value>Solicitud de contrato de acceso</value>
+  </data>
+  <data name="RequestToAccessIdentity" xml:space="preserve">
+    <value>Solicitud de acceso a la identidad</value>
+  </data>
+  <data name="SignatureResponse" xml:space="preserve">
+    <value>Respuesta a la solicitud de firma</value>
+  </data>
 </root>

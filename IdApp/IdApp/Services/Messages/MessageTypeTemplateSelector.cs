@@ -34,9 +34,9 @@ namespace IdApp.Services.Messages
 			{
 				return Message.MessageType switch
 				{
-					MessageType.Sent => this.SentTemplate,
-					MessageType.Received => this.ReceivedTemplate,
-					MessageType.Empty => this.EmptyTemplate,
+					MessageType.Sent => this.SentTemplate ?? this.DefaultTemplate,
+					MessageType.Received => this.ReceivedTemplate ?? this.DefaultTemplate,
+					MessageType.Empty => this.EmptyTemplate ?? this.DefaultTemplate,
 					_ => this.DefaultTemplate,
 				};
 			}

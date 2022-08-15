@@ -19,6 +19,11 @@ namespace IdApp.Pages.Contracts.MyContracts
 		public DataTemplate ContractTemplate { get; set; }
 
 		/// <summary>
+		/// Template to use for standalone notification events.
+		/// </summary>
+		public DataTemplate EventTemplate { get; set; }
+
+		/// <summary>
 		/// Template to use for other items.
 		/// </summary>
 		public DataTemplate DefaultTemplate { get; set; }
@@ -27,15 +32,13 @@ namespace IdApp.Pages.Contracts.MyContracts
 		protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
 		{
 			if (item is HeaderModel)
-			{
-				return this.HeaderTemplate;
-			}
+				return this.HeaderTemplate ?? this.DefaultTemplate;
 			else if (item is ContractModel)
-			{
-				return this.ContractTemplate;
-			}
-
-			return this.DefaultTemplate;
+				return this.ContractTemplate ?? this.DefaultTemplate;
+			else if (item is EventModel)
+				return this.EventTemplate ?? this.DefaultTemplate;
+			else
+				return this.DefaultTemplate;
 		}
 	}
 }

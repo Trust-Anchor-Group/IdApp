@@ -745,11 +745,29 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contract proposal.
+        /// </summary>
+        internal static string ContractProposal {
+            get {
+                return ResourceManager.GetString("ContractProposal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A contract has been proposed..
         /// </summary>
         internal static string ContractProposed {
             get {
                 return ResourceManager.GetString("ContractProposed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response to contract request.
+        /// </summary>
+        internal static string ContractResponse {
+            get {
+                return ResourceManager.GetString("ContractResponse", resourceCulture);
             }
         }
         
@@ -768,6 +786,15 @@ namespace IdApp.Resx {
         internal static string Contracts {
             get {
                 return ResourceManager.GetString("Contracts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract signature received.
+        /// </summary>
+        internal static string ContractSignatureReceived {
+            get {
+                return ResourceManager.GetString("ContractSignatureReceived", resourceCulture);
             }
         }
         
@@ -822,6 +849,15 @@ namespace IdApp.Resx {
         internal static string ContractUpdated {
             get {
                 return ResourceManager.GetString("ContractUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract updated.
+        /// </summary>
+        internal static string ContractUpdateReceived {
+            get {
+                return ResourceManager.GetString("ContractUpdateReceived", resourceCulture);
             }
         }
         
@@ -1569,6 +1605,33 @@ namespace IdApp.Resx {
         internal static string IdentityInformationInfoText {
             get {
                 return ResourceManager.GetString("IdentityInformationInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response to identity request.
+        /// </summary>
+        internal static string IdentityResponse {
+            get {
+                return ResourceManager.GetString("IdentityResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to review identity.
+        /// </summary>
+        internal static string IdentityReviewRequest {
+            get {
+                return ResourceManager.GetString("IdentityReviewRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response to identity review request.
+        /// </summary>
+        internal static string IdentityReviewResponse {
+            get {
+                return ResourceManager.GetString("IdentityReviewResponse", resourceCulture);
             }
         }
         
@@ -3445,11 +3508,38 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request signature.
+        /// </summary>
+        internal static string RequestSignature {
+            get {
+                return ResourceManager.GetString("RequestSignature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The request timed out.
         /// </summary>
         internal static string RequestTimedOut {
             get {
                 return ResourceManager.GetString("RequestTimedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to access contract.
+        /// </summary>
+        internal static string RequestToAccessContract {
+            get {
+                return ResourceManager.GetString("RequestToAccessContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to access identity.
+        /// </summary>
+        internal static string RequestToAccessIdentity {
+            get {
+                return ResourceManager.GetString("RequestToAccessIdentity", resourceCulture);
             }
         }
         
@@ -3837,6 +3927,15 @@ namespace IdApp.Resx {
         internal static string SignaturePetitionDenied {
             get {
                 return ResourceManager.GetString("SignaturePetitionDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response to signature request.
+        /// </summary>
+        internal static string SignatureResponse {
+            get {
+                return ResourceManager.GetString("SignatureResponse", resourceCulture);
             }
         }
         

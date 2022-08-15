@@ -1806,4 +1806,37 @@
   <data name="SignaturePetitionDenied" xml:space="preserve">
     <value>La pétition de signature a été rejetée.</value>
   </data>
+  <data name="ContractProposal" xml:space="preserve">
+    <value>Proposition de contrat</value>
+  </data>
+  <data name="ContractResponse" xml:space="preserve">
+    <value>Réponse à la demande de contrat</value>
+  </data>
+  <data name="ContractSignatureReceived" xml:space="preserve">
+    <value>Signature du contrat reçue</value>
+  </data>
+  <data name="ContractUpdateReceived" xml:space="preserve">
+    <value>Contrat mis à jour</value>
+  </data>
+  <data name="IdentityResponse" xml:space="preserve">
+    <value>Réponse à la demande d’identité</value>
+  </data>
+  <data name="IdentityReviewRequest" xml:space="preserve">
+    <value>Demande de révision de l’identité</value>
+  </data>
+  <data name="IdentityReviewResponse" xml:space="preserve">
+    <value>Réponse à la demande de révision d’identité</value>
+  </data>
+  <data name="RequestSignature" xml:space="preserve">
+    <value>Demander la signature</value>
+  </data>
+  <data name="RequestToAccessContract" xml:space="preserve">
+    <value>Demande de contrat d’accès</value>
+  </data>
+  <data name="RequestToAccessIdentity" xml:space="preserve">
+    <value>Demande d’accès à l’identité</value>
+  </data>
+  <data name="SignatureResponse" xml:space="preserve">
+    <value>Réponse à la demande de signature</value>
+  </data>
 </root>

@@ -1806,4 +1806,37 @@
   <data name="SignaturePetitionDenied" xml:space="preserve">
     <value>Die Unterschriftenpetition wurde abgelehnt.</value>
   </data>
+  <data name="ContractProposal" xml:space="preserve">
+    <value>Vertragsvorschlag</value>
+  </data>
+  <data name="ContractResponse" xml:space="preserve">
+    <value>Antwort auf Vertragsanfrage</value>
+  </data>
+  <data name="ContractSignatureReceived" xml:space="preserve">
+    <value>Vertragsunterzeichnung erhalten</value>
+  </data>
+  <data name="ContractUpdateReceived" xml:space="preserve">
+    <value>Vertrag aktualisiert</value>
+  </data>
+  <data name="IdentityResponse" xml:space="preserve">
+    <value>Antwort auf Identitätsanfrage</value>
+  </data>
+  <data name="IdentityReviewRequest" xml:space="preserve">
+    <value>Antrag auf Überprüfung der Identität</value>
+  </data>
+  <data name="IdentityReviewResponse" xml:space="preserve">
+    <value>Antwort auf die Anfrage zur Identitätsprüfung</value>
+  </data>
+  <data name="RequestSignature" xml:space="preserve">
+    <value>Unterschrift anfordern</value>
+  </data>
+  <data name="RequestToAccessContract" xml:space="preserve">
+    <value>Antrag auf Zugangsvertrag</value>
+  </data>
+  <data name="RequestToAccessIdentity" xml:space="preserve">
+    <value>Anforderung des Zugriffs auf die Identität</value>
+  </data>
+  <data name="SignatureResponse" xml:space="preserve">
+    <value>Antwort auf Unterschriftenanforderung</value>
+  </data>
 </root>

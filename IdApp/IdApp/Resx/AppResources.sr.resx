@@ -1806,4 +1806,37 @@
   <data name="SignaturePetitionDenied" xml:space="preserve">
     <value>Peticija za potpis je odbijena.</value>
   </data>
+  <data name="ContractProposal" xml:space="preserve">
+    <value>Predlog ugovora</value>
+  </data>
+  <data name="ContractResponse" xml:space="preserve">
+    <value>Odgovor na zahtev za ugovor</value>
+  </data>
+  <data name="ContractSignatureReceived" xml:space="preserve">
+    <value>Primljen potpis ugovora</value>
+  </data>
+  <data name="ContractUpdateReceived" xml:space="preserve">
+    <value>Ugovor je ažuriran</value>
+  </data>
+  <data name="IdentityResponse" xml:space="preserve">
+    <value>Odgovor na zahtev identiteta</value>
+  </data>
+  <data name="IdentityReviewRequest" xml:space="preserve">
+    <value>Zahtev za redigovanje identiteta</value>
+  </data>
+  <data name="IdentityReviewResponse" xml:space="preserve">
+    <value>Odgovor na zahtev za redigovanje identiteta</value>
+  </data>
+  <data name="RequestSignature" xml:space="preserve">
+    <value>Zahtevaj potpis</value>
+  </data>
+  <data name="RequestToAccessContract" xml:space="preserve">
+    <value>Zahtev za pristup ugovoru</value>
+  </data>
+  <data name="RequestToAccessIdentity" xml:space="preserve">
+    <value>Zahtev za pristup identitetu</value>
+  </data>
+  <data name="SignatureResponse" xml:space="preserve">
+    <value>Odgovor na zahtev za potpis</value>
+  </data>
 </root>

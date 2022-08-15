@@ -1489,6 +1489,21 @@
         <member name="M:IdApp.Converters.DateTimeToString.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Converters.DateToString">
+            <summary>
+            Converts the date part of a <see cref="T:System.DateTime"/> value to a <see cref="T:System.String"/> value. If the value is
+            <see cref="F:System.DateTime.MinValue"/> or <see cref="F:System.DateTime.MaxValue"/>, the empty string is returned.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.DateToString.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.DateToString.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.DateToString.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Converters.EqualsOne">
             <summary>
             Is true if an integer property is equal to one.
@@ -1637,6 +1652,22 @@
             <summary>
             Returns an instance of <see cref="T:IdApp.Converters.PinStrengthToErrorMessage"/> class.
             </summary>
+        </member>
+        <member name="T:IdApp.Converters.TimeToString">
+            <summary>
+            Converts the time part of a <see cref="T:System.DateTime"/> value, or a <see cref="T:System.TimeSpan"/> value
+            to a <see cref="T:System.String"/> value. If the value is <see cref="F:System.DateTime.MinValue"/> or <see cref="F:System.DateTime.MaxValue"/>,
+            the empty string is returned.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.TimeToString.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.TimeToString.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.TimeToString.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.DeviceSpecific.ICloseApplication">
             <summary>
@@ -3876,6 +3907,11 @@
             Template to use for contracts
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector.EventTemplate">
+            <summary>
+            Template to use for standalone notification events.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector.DefaultTemplate">
             <summary>
             Template to use for other items.
@@ -4081,7 +4117,7 @@
             The data model for a contract.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences,IdApp.Services.Notification.NotificationEvent[])">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel"/> class.
             </summary>
@@ -4089,6 +4125,7 @@
             <param name="Timestamp">The timestamp to show with the contract reference.</param>
             <param name="Contract">Contract</param>
             <param name="Ref">Service References</param>
+            <param name="Events">Notification events associated with contract.</param>
         </member>
         <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
             <summary>
@@ -4146,6 +4183,45 @@
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Events">
             <summary>
             Notification events.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel">
+            <summary>
+            The data model for a notification event that is not associate with a referenced contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.#ctor(System.DateTime,System.String,System.String,IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel"/> class.
+            </summary>
+            <param name="Received">When event was received.</param>
+            <param name="Icon">Icon of event.</param>
+            <param name="Description">Description of event.</param>
+            <param name="Event">Notification event object.</param>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.Received">
+            <summary>
+            When event was received.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.Icon">
+            <summary>
+            Icon of event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.Description">
+            <summary>
+            Description of event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.Event">
+            <summary>
+            Notification event object.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.UniqueName">
+            <summary>
+            Unique name used to compare items.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel">
@@ -14399,9 +14475,19 @@
               Looks up a localized string similar to Contract ID.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ContractProposal">
+            <summary>
+              Looks up a localized string similar to Contract proposal.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ContractProposed">
             <summary>
               Looks up a localized string similar to A contract has been proposed..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ContractResponse">
+            <summary>
+              Looks up a localized string similar to Response to contract request.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ContractRoleMustBeSelected">
@@ -14412,6 +14498,11 @@
         <member name="P:IdApp.Resx.AppResources.Contracts">
             <summary>
               Looks up a localized string similar to Contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ContractSignatureReceived">
+            <summary>
+              Looks up a localized string similar to Contract signature received.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ContractSigned">
@@ -14442,6 +14533,11 @@
         <member name="P:IdApp.Resx.AppResources.ContractUpdated">
             <summary>
               Looks up a localized string similar to A contract has been updated..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ContractUpdateReceived">
+            <summary>
+              Looks up a localized string similar to Contract updated.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ContractVisibility_CreatorAndParts">
@@ -14857,6 +14953,21 @@
         <member name="P:IdApp.Resx.AppResources.IdentityInformationInfoText">
             <summary>
               Looks up a localized string similar to The following is personal information registered for the party who signed the contract..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.IdentityResponse">
+            <summary>
+              Looks up a localized string similar to Response to identity request.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.IdentityReviewRequest">
+            <summary>
+              Looks up a localized string similar to Request to review identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.IdentityReviewResponse">
+            <summary>
+              Looks up a localized string similar to Response to identity review request.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.IdentityState_Approved">
@@ -15899,9 +16010,24 @@
               Looks up a localized string similar to Requesting payment of {0} {1}..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.RequestSignature">
+            <summary>
+              Looks up a localized string similar to Request signature.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.RequestTimedOut">
             <summary>
               Looks up a localized string similar to The request timed out.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.RequestToAccessContract">
+            <summary>
+              Looks up a localized string similar to Request to access contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.RequestToAccessIdentity">
+            <summary>
+              Looks up a localized string similar to Request to access identity.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.RequestWasCancelled">
@@ -16117,6 +16243,11 @@
         <member name="P:IdApp.Resx.AppResources.SignaturePetitionDenied">
             <summary>
               Looks up a localized string similar to The signature petition was denied..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SignatureResponse">
+            <summary>
+              Looks up a localized string similar to Response to signature request.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SignBefore">
@@ -18726,6 +18857,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractPetitionNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent">
             <summary>
             Notification event for contract proposals.
@@ -18758,6 +18895,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Contracts.ContractResponseNotificationEvent">
             <summary>
             Notification event for contract petition responses.
@@ -18785,6 +18928,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractResponseNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent">
             <summary>
             Notification event for when a contract has been signed.
@@ -18808,6 +18957,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent">
             <summary>
             Notification event for when a contract has been updated.
@@ -18828,6 +18983,12 @@
         <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.Open(IdApp.Services.ServiceReferences)">
             <summary>
             Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
@@ -18941,6 +19102,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Identities.IdentityResponseNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Identities.PeerIdentityReviewResponseNotificationEvent">
             <summary>
             Notification event for peer review responses of identities.
@@ -18968,6 +19135,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Identities.PeerIdentityReviewResponseNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent">
             <summary>
             Notification event for peer reviews of identities.
@@ -18987,6 +19160,12 @@
         <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.Open(IdApp.Services.ServiceReferences)">
             <summary>
             Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
@@ -19012,6 +19191,12 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Identities.RequestIdentityNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Identities.RequestSignatureNotificationEvent">
             <summary>
             Notification event for signature petitions.
@@ -19031,6 +19216,12 @@
         <member name="M:IdApp.Services.Notification.Identities.RequestSignatureNotificationEvent.Open(IdApp.Services.ServiceReferences)">
             <summary>
             Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.RequestSignatureNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
@@ -19058,6 +19249,12 @@
         <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.Open(IdApp.Services.ServiceReferences)">
             <summary>
             Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>

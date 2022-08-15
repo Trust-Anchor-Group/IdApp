@@ -1806,4 +1806,37 @@
   <data name="SignaturePetitionDenied" xml:space="preserve">
     <value>The signature petition was denied.</value>
   </data>
+  <data name="ContractProposal" xml:space="preserve">
+    <value>Contract proposal</value>
+  </data>
+  <data name="ContractResponse" xml:space="preserve">
+    <value>Response to contract request</value>
+  </data>
+  <data name="ContractSignatureReceived" xml:space="preserve">
+    <value>Contract signature received</value>
+  </data>
+  <data name="ContractUpdateReceived" xml:space="preserve">
+    <value>Contract updated</value>
+  </data>
+  <data name="IdentityResponse" xml:space="preserve">
+    <value>Response to identity request</value>
+  </data>
+  <data name="IdentityReviewRequest" xml:space="preserve">
+    <value>Request to review identity</value>
+  </data>
+  <data name="IdentityReviewResponse" xml:space="preserve">
+    <value>Response to identity review request</value>
+  </data>
+  <data name="RequestSignature" xml:space="preserve">
+    <value>Request signature</value>
+  </data>
+  <data name="RequestToAccessContract" xml:space="preserve">
+    <value>Request to access contract</value>
+  </data>
+  <data name="RequestToAccessIdentity" xml:space="preserve">
+    <value>Request to access identity</value>
+  </data>
+  <data name="SignatureResponse" xml:space="preserve">
+    <value>Response to signature request</value>
+  </data>
 </root>
