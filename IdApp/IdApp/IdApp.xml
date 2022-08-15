@@ -19263,6 +19263,13 @@
             Interface for push notification services.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.ExpectEvent``1(System.DateTime)">
+            <summary>
+            Registers a type of notification as expected.
+            </summary>
+            <typeparam name="T">Type of event to expect.</typeparam>
+            <param name="Before">If event is received before this time, it is opened automatically.</param>
+        </member>
         <member name="M:IdApp.Services.Notification.INotificationService.NewEvent(IdApp.Services.Notification.NotificationEvent)">
             <summary>
             Registers a new event and notifies the user.
@@ -19478,6 +19485,13 @@
             </summary>
             <param name="isResuming">Set to <c>true</c> to indicate the app is resuming as opposed to starting cold.</param>
             <param name="cancellationToken">Will stop the service load if the token is set.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.ExpectEvent``1(System.DateTime)">
+            <summary>
+            Registers a type of notification as expected.
+            </summary>
+            <typeparam name="T">Type of event to expect.</typeparam>
+            <param name="Before">If event is received before this time, it is opened automatically.</param>
         </member>
         <member name="M:IdApp.Services.Notification.NotificationService.NewEvent(IdApp.Services.Notification.NotificationEvent)">
             <summary>

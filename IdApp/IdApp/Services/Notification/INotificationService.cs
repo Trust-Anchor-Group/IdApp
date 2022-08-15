@@ -13,6 +13,14 @@ namespace IdApp.Services.Notification
 	public interface INotificationService : ILoadableService
 	{
 		/// <summary>
+		/// Registers a type of notification as expected.
+		/// </summary>
+		/// <typeparam name="T">Type of event to expect.</typeparam>
+		/// <param name="Before">If event is received before this time, it is opened automatically.</param>
+		void ExpectEvent<T>(DateTime Before)
+			where T : NotificationEvent;
+
+		/// <summary>
 		/// Registers a new event and notifies the user.
 		/// </summary>
 		/// <param name="Event">Notification event.</param>
