@@ -17,6 +17,7 @@ namespace IdApp.Services.Notification
 		private const int nrButtons = 4;
 
 		private readonly SortedDictionary<CaseInsensitiveString, List<NotificationEvent>>[] events;
+		private readonly LinkedList<KeyValuePair<Type, DateTime>> expected;
 
 		/// <summary>
 		/// Notification service
@@ -26,6 +27,7 @@ namespace IdApp.Services.Notification
 			int i;
 
 			this.events = new SortedDictionary<CaseInsensitiveString, List<NotificationEvent>>[nrButtons];
+			this.expected = new LinkedList<KeyValuePair<Type, DateTime>>();
 
 			for (i = 0; i < nrButtons; i++)
 				this.events[i] = new SortedDictionary<CaseInsensitiveString, List<NotificationEvent>>();
@@ -70,7 +72,7 @@ namespace IdApp.Services.Notification
 					await Database.Delete(Event);
 					continue;
 				}
-				
+
 				lock (this.events)
 				{
 					if (ByCategory is null || Button != PrevButton)
@@ -98,36 +100,93 @@ namespace IdApp.Services.Notification
 		}
 
 		/// <summary>
+		/// Registers a type of notification as expected.
+		/// </summary>
+		/// <typeparam name="T">Type of event to expect.</typeparam>
+		/// <param name="Before">If event is received before this time, it is opened automatically.</param>
+		public void ExpectEvent<T>(DateTime Before)
+			where T : NotificationEvent
+		{
+			lock (this.expected)
+			{
+				this.expected.AddLast(new KeyValuePair<Type, DateTime>(typeof(T), Before));
+			}
+		}
+
+		/// <summary>
 		/// Registers a new event and notifies the user.
 		/// </summary>
 		/// <param name="Event">Notification event.</param>
 		public async Task NewEvent(NotificationEvent Event)
 		{
-			await Database.Insert(Event);
+			DateTime Now = DateTime.Now;
+			bool Expected = false;
 
-			int Button = (int)Event.Button;
-			if (Button >= 0 && Button < nrButtons)
+			lock (this.expected)
 			{
-				lock (this.events)
-				{
-					SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[Button];
+				LinkedListNode<KeyValuePair<Type, DateTime>> Loop = this.expected.First;
+				LinkedListNode<KeyValuePair<Type, DateTime>> Next;
+				Type EventType = Event.GetType();
 
-					if (!ByCategory.TryGetValue(Event.Category, out List<NotificationEvent> Events))
+				while (Loop is not null)
+				{
+					Next = Loop.Next;
+
+					if (Loop.Value.Value < Now)
+						this.expected.Remove(Loop);
+					else if (Loop.Value.Key == EventType)
 					{
-						Events = new List<NotificationEvent>();
-						ByCategory[Event.Category] = Events;
+						this.expected.Remove(Loop);
+						Expected = true;
+						break;
 					}
 
-					Events.Add(Event);
+					Loop = Next;
 				}
+			}
 
-				try
+			if (Expected)
+			{
+				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					this.OnNewNotification?.Invoke(this, new NotificationEventArgs(Event));
-				}
-				catch (Exception ex)
+					try
+					{
+						await Event.Open(this);
+					}
+					catch (Exception ex)
+					{
+						this.LogService.LogException(ex);
+					}
+				});
+			}
+			else
+			{
+				await Database.Insert(Event);
+
+				int Button = (int)Event.Button;
+				if (Button >= 0 && Button < nrButtons)
 				{
-					this.LogService.LogException(ex);
+					lock (this.events)
+					{
+						SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[Button];
+
+						if (!ByCategory.TryGetValue(Event.Category, out List<NotificationEvent> Events))
+						{
+							Events = new List<NotificationEvent>();
+							ByCategory[Event.Category] = Events;
+						}
+
+						Events.Add(Event);
+					}
+
+					try
+					{
+						this.OnNewNotification?.Invoke(this, new NotificationEventArgs(Event));
+					}
+					catch (Exception ex)
+					{
+						this.LogService.LogException(ex);
+					}
 				}
 			}
 		}

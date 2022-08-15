@@ -17,6 +17,9 @@ using IdApp.Resx;
 using System.Collections.Generic;
 using System.Web;
 using System.Collections.Specialized;
+using IdApp.Services.Notification;
+using IdApp.Services.Notification.Identities;
+using IdApp.Services.Notification.Contracts;
 
 namespace IdApp.Services.UI.QR
 {
@@ -56,6 +59,7 @@ namespace IdApp.Services.UI.QR
 			IContractOrchestratorService ContractOrchestratorService = App.Instantiate<IContractOrchestratorService>();
 			IThingRegistryOrchestratorService ThingRegistryOrchestratorService = App.Instantiate<IThingRegistryOrchestratorService>();
 			INeuroWalletOrchestratorService EDalerOrchestratorService = App.Instantiate<INeuroWalletOrchestratorService>();
+			INotificationService NotificationService = App.Instantiate<INotificationService>();
 
 			try
 			{
@@ -68,11 +72,14 @@ namespace IdApp.Services.UI.QR
 				switch (uri.Scheme.ToLower())
 				{
 					case Constants.UriSchemes.UriSchemeIotId:
+						NotificationService.ExpectEvent<IdentityResponseNotificationEvent>(DateTime.Now.AddMinutes(1));
 						string legalId = Constants.UriSchemes.RemoveScheme(Url);
 						await ContractOrchestratorService.OpenLegalIdentity(legalId, AppResources.ScannedQrCode);
 						return true;
 
 					case Constants.UriSchemes.UriSchemeIotSc:
+						NotificationService.ExpectEvent<ContractResponseNotificationEvent>(DateTime.Now.AddMinutes(1));
+
 						Dictionary<string, object> Parameters = new();
 
 						string contractId = Constants.UriSchemes.RemoveScheme(Url);
@@ -106,6 +113,8 @@ namespace IdApp.Services.UI.QR
 						return true;
 
 					case Constants.UriSchemes.UriSchemeTagSign:
+						NotificationService.ExpectEvent<RequestSignatureNotificationEvent>(DateTime.Now.AddMinutes(1));
+
 						string request = Constants.UriSchemes.RemoveScheme(Url);
 						await ContractOrchestratorService.TagSignature(request);
 						return true;
