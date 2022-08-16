@@ -142,7 +142,7 @@ namespace IdApp
 
 			this.InitializeComponent();
 
-			Current.UserAppTheme = OSAppTheme.Unspecified;
+			Current.UserAppTheme = OSAppTheme.Light;
 
 			// Start page
 			try
