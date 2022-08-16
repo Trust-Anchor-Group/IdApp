@@ -1,4 +1,6 @@
-﻿using IdApp.Resx;
+﻿using IdApp.Extensions;
+using IdApp.Resx;
+using IdApp.Services.UI.Photos;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -169,6 +171,29 @@ namespace IdApp.Services.Notification.Identities
 			LegalIdentity Identity = this.Identity;
 
 			return Task.FromResult(ContactInfo.GetFriendlyName(Identity));
+		}
+
+		/// <summary>
+		/// Performs perparatory tasks, that will simplify opening the notification.
+		/// </summary>
+		public override async Task Prepare(ServiceReferences ServiceReferences)
+		{
+			LegalIdentity Identity = this.Identity;
+
+			if (Identity?.Attachments is not null)
+			{
+				foreach (Attachment Attachment in Identity.Attachments.GetImageAttachments())
+				{
+					try
+					{
+						await PhotosLoader.LoadPhoto(Attachment);
+					}
+					catch (Exception ex)
+					{
+						ServiceReferences.LogService.LogException(ex);
+					}
+				}
+			}
 		}
 
 	}
