@@ -197,6 +197,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		public static readonly BindableProperty VerifyEmailCodeButtonLabelProperty =
 			BindableProperty.Create(nameof(VerifyEmailCodeButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
 
+		/// <summary>
+		/// The label of the VerifyEMailCodeButton
+		/// </summary>
 		public string VerifyEmailCodeButtonLabel
 		{
 			get => (string)this.GetValue(VerifyEmailCodeButtonLabelProperty);
@@ -345,6 +348,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		public static readonly BindableProperty VerifyPhoneCodeButtonLabelProperty =
 			BindableProperty.Create(nameof(VerifyPhoneCodeButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
 
+		/// <summary>
+		/// The label of the VerifyPhoneNrCodeButton
+		/// </summary>
 		public string VerifyPhoneCodeButtonLabel
 		{
 			get => (string)this.GetValue(VerifyPhoneCodeButtonLabelProperty);
@@ -579,7 +585,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					this.PhoneNrValidated = false;
 					this.PhoneNrVerificationCode = string.Empty;
 					this.VerifyPhoneCodeButtonLabel = AppResources.VerificationCode;
-					
+
 
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
 				}
