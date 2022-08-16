@@ -753,17 +753,17 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				int Height = SkBitmap.Height;
 				int Width = SkBitmap.Width;
 
-				// resize if more than 4K
-				if ((Width >= Height) && (Width > 3840))
+				// downdsample to FHD
+				if ((Width >= Height) && (Width > 1920))
 				{
-					Height = (int)(Height * (3840.0 / Width) + 0.5);
-					Width = 3840;
+					Height = (int)(Height * (1920.0 / Width) + 0.5);
+					Width = 1920;
 					Resize = true;
 				}
-				else if ((Height > Width) && (Height > 3840))
+				else if ((Height > Width) && (Height > 1920))
 				{
-					Width = (int)(Width * (3840.0 / Height) + 0.5);
-					Height = 3840;
+					Width = (int)(Width * (1920.0 / Height) + 0.5);
+					Height = 1920;
 					Resize = true;
 				}
 
