@@ -476,21 +476,18 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 		}
 
-		private async Task AddRole(string role, string legalId)
+		private async Task AddRole(string Role, string LegalId)
 		{
-			int State = 0;
-			int i = 0;
-			int NrParts = 0;
-			Role RoleObj = null;
-
 			Contract contractToUse = this.template ?? this.stateTemplateWhileScanning;
 
 			if ((contractToUse is null) || (this.Roles is null))
 				return;
 
+			Role RoleObj = null;
+
 			foreach (Role R in contractToUse.Roles)
 			{
-				if (R.Name == role)
+				if (R.Name == Role)
 				{
 					RoleObj = R;
 					break;
@@ -508,36 +505,52 @@ namespace IdApp.Pages.Contracts.NewContract
 				{
 					foreach (Part Part in this.template.Parts)
 					{
-						if (Part.LegalId != legalId || Part.Role != role)
+						if (Part.LegalId != LegalId || Part.Role != Role)
 							Parts.Add(Part);
 					}
 				}
 
 				Parts.Add(new Part()
 				{
-					LegalId = legalId,
-					Role = role
+					LegalId = LegalId,
+					Role = Role
 				});
 
 				this.template.Parts = Parts.ToArray();
 			}
 
+			int NrParts = 0;
+			int i = 0;
+			bool CurrentRole = false;
+			bool LegalIdAdded = false;
+
 			foreach (View View in this.Roles.Children)
 			{
-				switch (State)
+				if (View is Label Label)
 				{
-					case 0:
-						if (View is Label Label && Label.StyleId == role)
-							State++;
-						break;
+					if (Label.StyleId == Role)
+					{
+						CurrentRole = true;
+						NrParts = 0;
+					}
+					else
+					{
+						if (Label.StyleId == LegalId)
+							LegalIdAdded = true;
 
-					case 1:
-						if (View is Button Button)
+						NrParts++;
+					}
+				}
+				else if (View is Button Button)
+				{
+					if (CurrentRole)
+					{
+						if (!LegalIdAdded)
 						{
 							Label = new Label
 							{
-								Text = await ContactInfo.GetFriendlyName(legalId, this),
-								StyleId = legalId,
+								Text = await ContactInfo.GetFriendlyName(LegalId, this),
+								StyleId = LegalId,
 								HorizontalOptions = LayoutOptions.FillAndExpand,
 								HorizontalTextAlignment = TextAlignment.Center,
 								FontAttributes = FontAttributes.Bold
@@ -553,12 +566,16 @@ namespace IdApp.Pages.Contracts.NewContract
 
 							if (NrParts >= RoleObj.MaxCount)
 								Button.IsEnabled = false;
-
-							return;
 						}
-						else if (View is Label)
-							NrParts++;
-						break;
+
+						return;
+					}
+					else
+					{
+						CurrentRole = false;
+						LegalIdAdded = false;
+						NrParts = 0;
+					}
 				}
 
 				i++;
