@@ -698,9 +698,9 @@ namespace IdApp.Pages.Main.Calculator
 
 					case "avg":
 					case "stddev":
-					case "sum": 
+					case "sum":
 					case "prod":
-					case "min": 
+					case "min":
 					case "max":
 						await this.EvaluateStatistics(Key + "(x)");
 						break;
@@ -882,9 +882,32 @@ namespace IdApp.Pages.Main.Calculator
 		/// <summary>
 		/// Evaluates the current stack.
 		/// </summary>
-		public async Task EvaluateStack()
+		public Task EvaluateStack()
 		{
-			await this.Evaluate(string.Empty, "=", OperatorPriority.Equals, false);
+			return this.EvaluateStack(false);
+		}
+
+		/// <summary>
+		/// Evaluates the current stack.
+		/// </summary>
+		public async Task EvaluateStack(bool IgnoreError)
+		{
+			if (this.Stack.Count == 0 && string.IsNullOrEmpty(this.Value))
+				return;
+
+			if (IgnoreError)
+			{
+				try
+				{
+					await this.Evaluate(string.Empty, "=", OperatorPriority.Equals, false);
+				}
+				catch (Exception)
+				{
+					// Ignore
+				}
+			}
+			else
+				await this.Evaluate(string.Empty, "=", OperatorPriority.Equals, false);
 		}
 
 		/// <summary>

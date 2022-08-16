@@ -7359,6 +7359,11 @@
             Evaluates the current stack.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.EvaluateStack(System.Boolean)">
+            <summary>
+            Evaluates the current stack.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Main.Calculator.CalculatorViewModel.MemoryString">
             <summary>
             String representation of contents on the statistical memory.
@@ -9078,12 +9083,22 @@
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailLabelProperty">
             <summary>
-            See <see cref="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailLabelProperty"/>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonLabel"/>
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonLabel">
             <summary>
             The label of the SendEMailCodeButton
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyEmailCodeButtonLabelProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyEmailCodeButtonLabel"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyEmailCodeButtonLabel">
+            <summary>
+            The label of the VerifyEMailCodeButton
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidProperty">
@@ -9164,6 +9179,16 @@
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonLabel">
             <summary>
             The label of the SendPhoneNrCodeButton
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyPhoneCodeButtonLabelProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyPhoneCodeButtonLabel"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyPhoneCodeButtonLabel">
+            <summary>
+            The label of the VerifyPhoneNrCodeButton
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValidProperty">
@@ -16708,6 +16733,11 @@
         <member name="P:IdApp.Resx.AppResources.VerificationCode">
             <summary>
               Looks up a localized string similar to Verification Code.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.VerifiedButton">
+            <summary>
+              Looks up a localized string similar to Verified.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.VerifyCode">
