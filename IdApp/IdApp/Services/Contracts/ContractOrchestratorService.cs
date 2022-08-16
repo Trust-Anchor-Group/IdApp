@@ -219,7 +219,50 @@ namespace IdApp.Services.Contracts
 		{
 			try
 			{
-				await this.NotificationService.NewEvent(new PeerIdentityReviewResponseNotificationEvent(e));
+				LegalIdentity Identity = e.RequestedIdentity;
+
+				if (Identity is not null)
+				{
+					try
+					{
+						if (!e.Response)
+							await this.UiSerializer.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasRejected, AppResources.Ok);
+						else
+						{
+							StringBuilder Xml = new();
+							this.TagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
+							byte[] Data = Encoding.UTF8.GetBytes(Xml.ToString());
+							bool? Result;
+
+							try
+							{
+								Result = this.XmppService.Contracts.ValidateSignature(Identity, Data, e.Signature);
+							}
+							catch (Exception ex)
+							{
+								await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+								return;
+							}
+
+							if (!Result.HasValue || !Result.Value)
+								await this.UiSerializer.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError, AppResources.Ok);
+							else
+							{
+								(bool Succeeded, LegalIdentity LegalIdentity) = await this.NetworkService.TryRequest(
+									() => this.XmppService.Contracts.AddPeerReviewIdAttachment(
+										this.TagProfile.LegalIdentity, Identity, e.Signature));
+
+								if (Succeeded)
+									await this.UiSerializer.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
+							}
+						}
+					}
+					catch (Exception ex)
+					{
+						this.LogService.LogException(ex);
+						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+					}
+				}
 			}
 			catch (Exception ex)
 			{

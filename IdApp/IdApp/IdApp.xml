@@ -19108,39 +19108,6 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="T:IdApp.Services.Notification.Identities.PeerIdentityReviewResponseNotificationEvent">
-            <summary>
-            Notification event for peer review responses of identities.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Notification.Identities.PeerIdentityReviewResponseNotificationEvent.#ctor">
-            <summary>
-            Notification event for peer review responses of identities.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Notification.Identities.PeerIdentityReviewResponseNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.SignaturePetitionResponseEventArgs)">
-            <summary>
-            Notification event for peer review responses of identities.
-            </summary>
-            <param name="e">Event arguments.</param>
-        </member>
-        <member name="P:IdApp.Services.Notification.Identities.PeerIdentityReviewResponseNotificationEvent.Response">
-            <summary>
-            Response
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Notification.Identities.PeerIdentityReviewResponseNotificationEvent.Open(IdApp.Services.ServiceReferences)">
-            <summary>
-            Opens the event.
-            </summary>
-            <param name="ServiceReferences">Service references</param>
-        </member>
-        <member name="M:IdApp.Services.Notification.Identities.PeerIdentityReviewResponseNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
-            <summary>
-            Gets a descriptive text for the category of event.
-            </summary>
-            <param name="ServiceReferences">Service references</param>
-        </member>
         <member name="T:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent">
             <summary>
             Notification event for peer reviews of identities.
