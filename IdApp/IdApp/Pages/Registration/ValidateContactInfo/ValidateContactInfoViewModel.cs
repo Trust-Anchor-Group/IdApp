@@ -50,6 +50,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			this.Purposes = new ObservableCollection<string>();
 			this.EmailButtonLabel = AppResources.SendCode;
 			this.PhoneButtonLabel = AppResources.SendCode;
+			this.VerifyEmailCodeButtonLabel = AppResources.VerifyCode;
+			this.VerifyPhoneCodeButtonLabel = AppResources.VerifyCode;
 		}
 
 		/// <summary>
@@ -167,11 +169,12 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				this.SetValue(EMailProperty, value);
 				this.SetValue(EMailValidProperty, this.IsEMailAdress(value));
 				this.SetValue(EmailButtonDisabledDisabledProperty, this.IsEMailAdress(value));
+				this.SetValue(VerifyEmailCodeButtonLabelProperty, AppResources.VerificationCode);
 			}
 		}
 
 		/// <summary>
-		/// See <see cref="EmailLabelProperty"/>
+		/// See <see cref="EmailButtonLabel"/>
 		/// </summary>
 		public static readonly BindableProperty EmailLabelProperty =
 			BindableProperty.Create(nameof(EmailButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
@@ -185,6 +188,21 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			set
 			{
 				this.SetValue(EmailLabelProperty, value);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="VerifyEmailCodeButtonLabel"/>
+		/// </summary>
+		public static readonly BindableProperty VerifyEmailCodeButtonLabelProperty =
+			BindableProperty.Create(nameof(VerifyEmailCodeButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
+
+		public string VerifyEmailCodeButtonLabel
+		{
+			get => (string)this.GetValue(VerifyEmailCodeButtonLabelProperty);
+			set
+			{
+				this.SetValue(VerifyEmailCodeButtonLabelProperty, value);
 			}
 		}
 
@@ -299,6 +317,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				this.SetValue(PhoneNumberProperty, value);
 				this.SetValue(PhoneNumberValidProperty, this.IsInternationalPhoneNumberFormat(value));
 				this.SetValue(PhoneButtonDisabledProperty, this.IsInternationalPhoneNumberFormat(value));
+				this.SetValue(VerifyPhoneCodeButtonLabelProperty, AppResources.VerifyCode);
 			}
 		}
 
@@ -317,6 +336,21 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			set
 			{
 				this.SetValue(PhoneNumberLabelProperty, value);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="VerifyPhoneCodeButtonLabel"/>
+		/// </summary>
+		public static readonly BindableProperty VerifyPhoneCodeButtonLabelProperty =
+			BindableProperty.Create(nameof(VerifyPhoneCodeButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
+
+		public string VerifyPhoneCodeButtonLabel
+		{
+			get => (string)this.GetValue(VerifyPhoneCodeButtonLabelProperty);
+			set
+			{
+				this.SetValue(VerifyPhoneCodeButtonLabelProperty, value);
 			}
 		}
 
@@ -522,6 +556,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					bool DefaultConnectivity;
 
 					this.PhoneNrValidated = true;
+					this.VerifyPhoneCodeButtonLabel = AppResources.VerifiedButton;
 					this.TagProfile.SetPhone(TrimmedNumber);
 					this.TagProfile.SetIsTest(IsTest);
 					this.TagProfile.SetTestOtpTimestamp(IsTemporary ? DateTime.Now : null);
@@ -543,6 +578,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				{
 					this.PhoneNrValidated = false;
 					this.PhoneNrVerificationCode = string.Empty;
+					this.VerifyPhoneCodeButtonLabel = AppResources.VerificationCode;
+					
 
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
 				}
@@ -596,7 +633,6 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					this.EMailCodeSent = true;
 					await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.SendEmailWarning);
 					this.StartTimer("email");
-					//this.EmailButtonDisabled = false;
 				}
 			}
 			catch (Exception ex)
@@ -641,6 +677,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					Response.TryGetValue("Status", out object Obj) && Obj is bool Status && Status)
 				{
 					this.EMailValidated = true;
+					this.VerifyEmailCodeButtonLabel = AppResources.VerifiedButton;
 					this.TagProfile.SetEMail(this.EMail);
 					this.OnStepCompleted(EventArgs.Empty);
 				}
@@ -648,6 +685,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				{
 					this.EMailValidated = false;
 					this.EMailVerificationCode = string.Empty;
+					this.VerifyEmailCodeButtonLabel = AppResources.VerificationCode;
 
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
 				}

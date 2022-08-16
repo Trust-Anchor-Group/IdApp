@@ -1161,6 +1161,9 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Verify Code</value>
   </data>
+  <data name="VerifiedButton" xml:space="preserve">
+    <value>Verified</value>
+  </data>
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces.</value>
   </data>
