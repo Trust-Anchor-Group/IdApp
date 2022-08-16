@@ -178,9 +178,16 @@
                 <Button Text="{x:Static resx:AppResources.SendPaymentTo}" 
                             Command="{Binding Path=SendPaymentToCommand}" IsVisible="{Binding Path=ThirdParty}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                <Button Text="{x:Static resx:AppResources.Chat}" 
+				<Grid ColumnDefinitions="*" RowDefinitions="auto" Padding="0" Margin="0" ColumnSpacing="0" RowSpacing="0">
+					<Button Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.Chat}" 
                             Command="{Binding Path=ChatCommand}" IsVisible="{Binding Path=ThirdParty}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+					<Frame Grid.Row="0" Grid.Column="0" CornerRadius="12" Padding="8,3,8,3" IsVisible="{Binding HasPendingChatMessages}"
+						   HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}"
+						   Margin="{StaticResource DefaultLeftRightAndBottomMargin}">
+						<Label FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Text="{Binding NrPendingChatMessages}" Padding="1"/>
+					</Frame>
+				</Grid>
                 <Button Text="{x:Static resx:AppResources.SubscribeTo}" 
                             Command="{Binding Path=SubscribeToCommand}" IsVisible="{Binding Path=NotSubscribed}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />

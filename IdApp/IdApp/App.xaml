@@ -84,8 +84,8 @@
         <Thickness x:Key="DefaultTopOnlyMargin">0,12,0,0</Thickness>
         <Thickness x:Key="DefaultTopAndBottomOnlyMargin">0,12,0,12</Thickness>
         <Thickness x:Key="DefaultRightOnlyMargin">0,0,12,0</Thickness>
-        <Thickness x:Key="DefaultBottomOnlyMargin">0,0,0,12</Thickness>
-        <Thickness x:Key="DefaultLeftRightMargin">12,0,12,0</Thickness>
+		<Thickness x:Key="DefaultBottomOnlyMargin">0,0,0,12</Thickness>
+		<Thickness x:Key="DefaultLeftRightMargin">12,0,12,0</Thickness>
         <Thickness x:Key="DefaultLeftRightAndBottomMargin">12,0,12,12</Thickness>
         <x:Int32 x:Key="DefaultLeftMargin">12</x:Int32>
         <x:Int32 x:Key="DefaultTopMargin">12</x:Int32>
