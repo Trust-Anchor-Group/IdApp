@@ -17752,7 +17752,7 @@
             An event that fires when a petitioned contract response is received.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetTimeOfLastContraceEvent(Waher.Persistence.CaseInsensitiveString)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetTimeOfLastContractEvent(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Gets the timestamp of the last event received for a given contract ID.
             </summary>

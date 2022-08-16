@@ -229,7 +229,7 @@ namespace IdApp.Services.Contracts
         /// </summary>
         /// <param name="ContractId">Contract ID</param>
         /// <returns>Timestamp</returns>
-        DateTime GetTimeOfLastContraceEvent(CaseInsensitiveString ContractId);
+        DateTime GetTimeOfLastContractEvent(CaseInsensitiveString ContractId);
 
         #endregion
 

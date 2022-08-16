@@ -72,7 +72,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 			if (!(this.Contract is null))
 			{
-				DateTime TP = this.XmppService.Contracts.GetTimeOfLastContraceEvent(this.Contract.ContractId);
+				DateTime TP = this.XmppService.Contracts.GetTimeOfLastContractEvent(this.Contract.ContractId);
 				if (DateTime.Now.Subtract(TP).TotalSeconds < 5)
 					this.Contract = await this.XmppService.Contracts.GetContract(this.Contract.ContractId);
 

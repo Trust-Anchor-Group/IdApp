@@ -10,6 +10,7 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Persistence;
+using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Temporary;
 
@@ -139,7 +140,7 @@ namespace IdApp.Services.Contracts
 		/// <param name="SignBefore">Timestamp of when the contract can be signed at the latest.</param>
 		/// <param name="CanActAsTemplate">Can this contract act as a template itself?</param>
 		/// <returns>Smart Contract</returns>
-		public Task<Contract> CreateContract(
+		public async Task<Contract> CreateContract(
 			CaseInsensitiveString TemplateId,
 			Part[] Parts,
 			Parameter[] Parameters,
@@ -152,7 +153,31 @@ namespace IdApp.Services.Contracts
 			DateTime? SignBefore,
 			bool CanActAsTemplate)
 		{
-			return this.ContractsClient.CreateContractAsync(TemplateId, Parts, Parameters, Visibility, PartsMode, Duration, ArchiveRequired, ArchiveOptional, SignAfter, SignBefore, CanActAsTemplate);
+			Contract Result = await this.ContractsClient.CreateContractAsync(TemplateId, Parts, Parameters, Visibility, PartsMode, Duration, ArchiveRequired, ArchiveOptional, SignAfter, SignBefore, CanActAsTemplate);
+			await this.UpdateContractReference(Result);
+			return Result;
+		}
+
+		private async Task UpdateContractReference(Contract Contract)
+		{
+			ContractReference Ref = await Database.FindFirstDeleteRest<ContractReference>(
+				new FilterFieldEqualTo("ContractId", Contract.ContractId));
+
+			if (Ref is null)
+			{
+				Ref = new ContractReference()
+				{
+					ContractId = Contract.ContractId
+				};
+
+				await Ref.SetContract(Contract, this);
+				await Database.Insert(Ref);
+			}
+			else
+			{
+				await Ref.SetContract(Contract, this);
+				await Database.Update(Ref);
+			}
 		}
 
 		/// <summary>
@@ -160,9 +185,11 @@ namespace IdApp.Services.Contracts
 		/// </summary>
 		/// <param name="ContractId">The id of the contract to delete.</param>
 		/// <returns>Smart Contract</returns>
-		public Task<Contract> DeleteContract(CaseInsensitiveString ContractId)
+		public async Task<Contract> DeleteContract(CaseInsensitiveString ContractId)
 		{
-			return this.ContractsClient.DeleteContractAsync(ContractId);
+			Contract Contract = await this.ContractsClient.DeleteContractAsync(ContractId);
+			await this.UpdateContractReference(Contract);
+			return Contract;
 		}
 
 		/// <summary>
@@ -218,9 +245,11 @@ namespace IdApp.Services.Contracts
 		/// <param name="Role">The role of the signer.</param>
 		/// <param name="Transferable">Whether the contract is transferable or not.</param>
 		/// <returns>Smart Contract</returns>
-		public Task<Contract> SignContract(Contract Contract, string Role, bool Transferable)
+		public async Task<Contract> SignContract(Contract Contract, string Role, bool Transferable)
 		{
-			return this.ContractsClient.SignContractAsync(Contract, Role, Transferable);
+			Contract Result = await this.ContractsClient.SignContractAsync(Contract, Role, Transferable);
+			await this.UpdateContractReference(Result);
+			return Result;
 		}
 
 		/// <summary>
@@ -228,9 +257,11 @@ namespace IdApp.Services.Contracts
 		/// </summary>
 		/// <param name="ContractId">The id of the contract to obsolete.</param>
 		/// <returns>Smart Contract</returns>
-		public Task<Contract> ObsoleteContract(CaseInsensitiveString ContractId)
+		public async Task<Contract> ObsoleteContract(CaseInsensitiveString ContractId)
 		{
-			return this.ContractsClient.ObsoleteContractAsync(ContractId);
+			Contract Result = await this.ContractsClient.ObsoleteContractAsync(ContractId);
+			await this.UpdateContractReference(Result);
+			return Result;
 		}
 
 		/// <summary>
@@ -687,7 +718,7 @@ namespace IdApp.Services.Contracts
 			return Task.CompletedTask;
 		}
 
-		public DateTime GetTimeOfLastContraceEvent(CaseInsensitiveString ContractId)
+		public DateTime GetTimeOfLastContractEvent(CaseInsensitiveString ContractId)
 		{
 			lock (this.lastContractEvent)
 			{
