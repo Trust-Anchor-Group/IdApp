@@ -8904,6 +8904,11 @@
             Override this to clear any settings for the specific step view model.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.DoAssignProperties">
+            <summary>
+            Override this method to do view model specific of setting the default properties values.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.BeginInvokeSetIsDone(System.Windows.Input.ICommand[])">
             <summary>
             A helper method for asynchronously setting this registration step to Done, and also calling
@@ -8972,6 +8977,11 @@
         <member name="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.GoToPrevCommand">
             <summary>
             The command to bind to for moving backwards to the previous step in the registration process.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.CurrentStepChangedCommand">
+            <summary>
+            An opportunity to make some initialisation on the page change.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.Registration.RegistrationViewModel.CanGoBackProperty">
@@ -9063,6 +9073,9 @@
             Override this method to do view model specific setup when it's parent page/view appears on screen.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.DoAssignProperties">
+            <inheritdoc />
+        </member>
         <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.OnStepCompleted(System.EventArgs)">
             <inheritdoc/>
         </member>
@@ -9091,6 +9104,26 @@
             If Phone number is valid or not
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CountEmailSecondsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CountEmailSeconds"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CountEmailSeconds">
+            <summary>
+            how long the email button will stay disabled
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CountPhoneSecondsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CountPhoneSeconds"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CountPhoneSeconds">
+            <summary>
+            how long the phone button will stay disabled
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMail"/>
@@ -9101,52 +9134,32 @@
             e-mail
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailLabelProperty">
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonLabel"/>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumber"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonLabel">
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumber">
             <summary>
-            The label of the SendEMailCodeButton
+            Phone number
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyEmailCodeButtonLabelProperty">
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidatedProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyEmailCodeButtonLabel"/>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidated"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyEmailCodeButtonLabel">
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidated">
             <summary>
-            The label of the VerifyEMailCodeButton
+            If Phone number is valid or not
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidProperty">
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrValidatedProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValid"/>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrValidated"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValid">
-            <summary>
-            If e-mail address is valid or not
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonDisabledDisabledProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonDisabled"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonDisabled">
-            <summary>
-            If send e-mail code button is disabled or not
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailCodeSentProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailCodeSent"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailCodeSent">
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrValidated">
             <summary>
             If Phone number is valid or not
             </summary>
@@ -9161,86 +9174,6 @@
             Phone number
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCodeValidProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCodeValid"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCodeValid">
-            <summary>
-            If Phone number is valid or not
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidatedProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidated"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidated">
-            <summary>
-            If Phone number is valid or not
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumber"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumber">
-            <summary>
-            Phone number
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberLabelProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonLabel"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonLabel">
-            <summary>
-            The label of the SendPhoneNrCodeButton
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyPhoneCodeButtonLabelProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyPhoneCodeButtonLabel"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyPhoneCodeButtonLabel">
-            <summary>
-            The label of the VerifyPhoneNrCodeButton
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValidProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValid"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNumberValid">
-            <summary>
-            If Phone number is valid or not
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonDisabledProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonDisabled"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonDisabled">
-            <summary>
-            If send code Phone button is disabled or not
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrCodeSentProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrCodeSent"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrCodeSent">
-            <summary>
-            If Phone number is valid or not
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCode"/>
@@ -9251,24 +9184,44 @@
             Phone number
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeValidProperty">
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonEnabled">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeValid"/>
+            If send e-mail code button is disabled or not
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeValid">
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonEnabled">
+            <summary>
+            If send code Phone button is disabled or not
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonLabel">
+            <summary>
+            The label of the SendEMailCodeButton
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneButtonLabel">
+            <summary>
+            The label of the SendPhoneNrCodeButton
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyEmailCodeButtonEnabled">
             <summary>
             If Phone number is valid or not
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrValidatedProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrValidated"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrValidated">
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyPhoneCodeButtonEnabled">
             <summary>
             If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyEmailCodeButtonLabel">
+            <summary>
+            The label of the VerifyEMailCodeButton
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyPhoneCodeButtonLabel">
+            <summary>
+            The label of the VerifyPhoneNrCodeButton
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.SendEMailCodeCommand">

@@ -7,7 +7,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Registration.Registration;assembly=IdApp"
                        x:DataType="model:RegistrationViewModel"
                        x:Class="IdApp.Pages.Registration.Registration.RegistrationPage"
-					   BackgroundColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"					   
+					   BackgroundColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"
                        Shell.FlyoutBehavior="Disabled"
                        Shell.NavBarIsVisible="False">
 	<StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
@@ -46,7 +46,7 @@
 				</Grid.ColumnDefinitions>
 				<Label
                     Grid.Column="0"
-                    FontSize="24" 
+                    FontSize="24"
                     Text="{x:Static resx:FontAwesome.ArrowACircleLeft}"
 					TextColor="{StaticResource TextColorLightTheme}"
                     FontFamily="{StaticResource FontAwesomeSolid}"
@@ -59,11 +59,11 @@
 				</Label>
 				<Label
 					Grid.Column="1"
-                    Text="{Binding Path=CurrentStepTitle}" 
-                    HorizontalOptions="StartAndExpand" 
+                    Text="{Binding Path=CurrentStepTitle}"
+                    HorizontalOptions="StartAndExpand"
                     VerticalOptions="CenterAndExpand"
 					TextColor="{StaticResource TextColorLightTheme}"
-                    FontSize="24" 
+                    FontSize="24"
                     Margin="0,-8,0,0" />
 			</Grid>
 		</StackLayout>
@@ -74,6 +74,7 @@
 			HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
             Margin="0,-6,0,-6"
+			CurrentItemChangedCommand="{Binding Path=CurrentStepChangedCommand}"
             Position="{Binding Path=CurrentStep, Mode=TwoWay}"
             ItemsSource="{Binding Path=RegistrationSteps}"
             ItemTemplate="{StaticResource StepTemplateSelector}"

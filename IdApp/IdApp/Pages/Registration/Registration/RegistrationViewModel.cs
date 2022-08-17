@@ -23,6 +23,7 @@ namespace IdApp.Pages.Registration.Registration
 		private RegistrationViewModel()
 		{
 			this.GoToPrevCommand = new Command(() => this.GoToPrev(), () => (RegistrationStep)this.CurrentStep > RegistrationStep.ValidateContactInfo);
+			this.CurrentStepChangedCommand = new Command(() => this.DoStepChanged());
 
 			this.RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
 			{
@@ -73,6 +74,11 @@ namespace IdApp.Pages.Registration.Registration
 		/// The command to bind to for moving backwards to the previous step in the registration process.
 		/// </summary>
 		public ICommand GoToPrevCommand { get; }
+
+		/// <summary>
+		/// An opportunity to make some initialisation on the page change.
+		/// </summary>
+		public ICommand CurrentStepChangedCommand { get; }
 
 		/// <summary>
 		/// See <see cref="CanGoBack"/>
@@ -200,6 +206,11 @@ namespace IdApp.Pages.Registration.Registration
 			{
 				this.LogService?.LogException(Exception);
 			}
+		}
+
+		private async void DoStepChanged()
+		{
+			await this.RegistrationSteps[this.CurrentStep].DoAssignProperties();
 		}
 
 		private async void GoToPrev()

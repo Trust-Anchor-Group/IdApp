@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Services.Tag;
 using Xamarin.Forms;
@@ -65,12 +66,20 @@ namespace IdApp.Pages.Registration
         {
         }
 
-        /// <summary>
-        /// A helper method for asynchronously setting this registration step to Done, and also calling
-        /// <see cref="Command.ChangeCanExecute"/> on the list of commands passed in.
-        /// </summary>
-        /// <param name="commands">The commands to re-evaluate.</param>
-        protected void BeginInvokeSetIsDone(params ICommand[] commands)
+		/// <summary>
+		/// Override this method to do view model specific of setting the default properties values.
+		/// </summary>
+		public virtual Task DoAssignProperties()
+		{
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// A helper method for asynchronously setting this registration step to Done, and also calling
+		/// <see cref="Command.ChangeCanExecute"/> on the list of commands passed in.
+		/// </summary>
+		/// <param name="commands">The commands to re-evaluate.</param>
+		protected void BeginInvokeSetIsDone(params ICommand[] commands)
         {
             this.UiSerializer.BeginInvokeOnMainThread(() => this.SetIsDone(commands));
         }

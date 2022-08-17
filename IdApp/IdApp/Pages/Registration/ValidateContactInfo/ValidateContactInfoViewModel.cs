@@ -32,8 +32,6 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 	/// </summary>
 	public class ValidateContactInfoViewModel : RegistrationStepViewModel
 	{
-
-		private int countSeconds = 30;
 		/// <summary>
 		/// Creates a new instance of the <see cref="ValidateContactInfoViewModel"/> class.
 		/// </summary>
@@ -48,10 +46,6 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 
 			this.Title = AppResources.ContactInformation;
 			this.Purposes = new ObservableCollection<string>();
-			this.EmailButtonLabel = AppResources.SendCode;
-			this.PhoneButtonLabel = AppResources.SendCode;
-			this.VerifyEmailCodeButtonLabel = AppResources.VerifyCode;
-			this.VerifyPhoneCodeButtonLabel = AppResources.VerifyCode;
 		}
 
 		/// <summary>
@@ -93,6 +87,25 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			this.EMail = this.TagProfile.EMail;
 
 			this.EvaluateAllCommands();
+		}
+
+		/// <inheritdoc />
+		public override Task DoAssignProperties()
+		{
+			this.EMailVerificationCode = String.Empty;
+			this.PhoneNrVerificationCode = String.Empty;
+			this.EMailValidated = false;
+			this.PhoneNrValidated = false;
+
+			if (!string.IsNullOrEmpty(this.TagProfile.PhoneNumber))
+			{
+				this.PhoneNumber = this.TagProfile.PhoneNumber;
+				this.EMail = this.TagProfile.EMail;
+			}
+
+			this.EvaluateAllCommands();
+
+			return base.DoAssignProperties();
 		}
 
 		/// <inheritdoc/>
@@ -153,6 +166,46 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		}
 
 		/// <summary>
+		/// See <see cref="CountEmailSeconds"/>
+		/// </summary>
+		public static readonly BindableProperty CountEmailSecondsProperty =
+			BindableProperty.Create(nameof(CountEmailSeconds), typeof(int), typeof(ValidateContactInfoViewModel), default);
+
+		/// <summary>
+		/// how long the email button will stay disabled
+		/// </summary>
+		public int CountEmailSeconds
+		{
+			get => (int)this.GetValue(CountEmailSecondsProperty);
+			set
+			{
+				this.SetValue(CountEmailSecondsProperty, value);
+				this.OnPropertyChanged(nameof(this.EmailButtonEnabled));
+				this.OnPropertyChanged(nameof(this.EmailButtonLabel));
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="CountPhoneSeconds"/>
+		/// </summary>
+		public static readonly BindableProperty CountPhoneSecondsProperty =
+			BindableProperty.Create(nameof(CountPhoneSeconds), typeof(int), typeof(ValidateContactInfoViewModel), default);
+
+		/// <summary>
+		/// how long the phone button will stay disabled
+		/// </summary>
+		public int CountPhoneSeconds
+		{
+			get => (int)this.GetValue(CountPhoneSecondsProperty);
+			set
+			{
+				this.SetValue(CountPhoneSecondsProperty, value);
+				this.OnPropertyChanged(nameof(this.PhoneButtonEnabled));
+				this.OnPropertyChanged(nameof(this.PhoneButtonLabel));
+			}
+		}
+
+		/// <summary>
 		/// See <see cref="EMail"/>
 		/// </summary>
 		public static readonly BindableProperty EMailProperty =
@@ -167,140 +220,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			set
 			{
 				this.SetValue(EMailProperty, value);
-				this.SetValue(EMailValidProperty, this.IsEMailAdress(value));
-				this.SetValue(EmailButtonDisabledDisabledProperty, this.IsEMailAdress(value));
-				this.SetValue(VerifyEmailCodeButtonLabelProperty, AppResources.VerificationCode);
+				this.OnPropertyChanged(nameof(this.EmailButtonEnabled));
 			}
-		}
-
-		/// <summary>
-		/// See <see cref="EmailButtonLabel"/>
-		/// </summary>
-		public static readonly BindableProperty EmailLabelProperty =
-			BindableProperty.Create(nameof(EmailButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
-
-		/// <summary>
-		/// The label of the SendEMailCodeButton
-		/// </summary>
-		public string EmailButtonLabel
-		{
-			get => (string)this.GetValue(EmailLabelProperty);
-			set
-			{
-				this.SetValue(EmailLabelProperty, value);
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="VerifyEmailCodeButtonLabel"/>
-		/// </summary>
-		public static readonly BindableProperty VerifyEmailCodeButtonLabelProperty =
-			BindableProperty.Create(nameof(VerifyEmailCodeButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
-
-		/// <summary>
-		/// The label of the VerifyEMailCodeButton
-		/// </summary>
-		public string VerifyEmailCodeButtonLabel
-		{
-			get => (string)this.GetValue(VerifyEmailCodeButtonLabelProperty);
-			set
-			{
-				this.SetValue(VerifyEmailCodeButtonLabelProperty, value);
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="EMailValid"/>
-		/// </summary>
-		public static readonly BindableProperty EMailValidProperty =
-			BindableProperty.Create(nameof(EMailValid), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
-
-		/// <summary>
-		/// If e-mail address is valid or not
-		/// </summary>
-		public bool EMailValid
-		{
-			get => (bool)this.GetValue(EMailValidProperty);
-			set => this.SetValue(EMailValidProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="EmailButtonDisabled"/>
-		/// </summary>
-		public static readonly BindableProperty EmailButtonDisabledDisabledProperty =
-			BindableProperty.Create(nameof(EmailButtonDisabled), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
-
-		/// <summary>
-		/// If send e-mail code button is disabled or not
-		/// </summary>
-		public bool EmailButtonDisabled
-		{
-			get => (bool)this.GetValue(EmailButtonDisabledDisabledProperty);
-			set => this.SetValue(EmailButtonDisabledDisabledProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="EMailCodeSent"/>
-		/// </summary>
-		public static readonly BindableProperty EMailCodeSentProperty =
-			BindableProperty.Create(nameof(EMailCodeSent), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
-
-		/// <summary>
-		/// If Phone number is valid or not
-		/// </summary>
-		public bool EMailCodeSent
-		{
-			get => (bool)this.GetValue(EMailCodeSentProperty);
-			set => this.SetValue(EMailCodeSentProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="EMailVerificationCode"/>
-		/// </summary>
-		public static readonly BindableProperty EMailVerificationCodeProperty =
-			BindableProperty.Create(nameof(EMailVerificationCode), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
-
-		/// <summary>
-		/// Phone number
-		/// </summary>
-		public string EMailVerificationCode
-		{
-			get => (string)this.GetValue(EMailVerificationCodeProperty);
-			set
-			{
-				this.SetValue(EMailVerificationCodeProperty, value);
-				this.SetValue(EMailVerificationCodeValidProperty, this.IsVerificationCode(value));
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="EMailVerificationCodeValid"/>
-		/// </summary>
-		public static readonly BindableProperty EMailVerificationCodeValidProperty =
-			BindableProperty.Create(nameof(EMailVerificationCodeValid), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
-
-		/// <summary>
-		/// If Phone number is valid or not
-		/// </summary>
-		public bool EMailVerificationCodeValid
-		{
-			get => (bool)this.GetValue(EMailVerificationCodeValidProperty);
-			set => this.SetValue(EMailVerificationCodeValidProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="EMailValidated"/>
-		/// </summary>
-		public static readonly BindableProperty EMailValidatedProperty =
-			BindableProperty.Create(nameof(EMailValidated), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
-
-		/// <summary>
-		/// If Phone number is valid or not
-		/// </summary>
-		public bool EMailValidated
-		{
-			get => (bool)this.GetValue(EMailValidatedProperty);
-			set => this.SetValue(EMailValidatedProperty, value);
 		}
 
 		/// <summary>
@@ -318,91 +239,67 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			set
 			{
 				this.SetValue(PhoneNumberProperty, value);
-				this.SetValue(PhoneNumberValidProperty, this.IsInternationalPhoneNumberFormat(value));
-				this.SetValue(PhoneButtonDisabledProperty, this.IsInternationalPhoneNumberFormat(value));
-				this.SetValue(VerifyPhoneCodeButtonLabelProperty, AppResources.VerifyCode);
+				this.OnPropertyChanged(nameof(this.PhoneButtonEnabled));
 			}
 		}
 
 		/// <summary>
-		/// See <see cref="PhoneButtonLabel"/>
+		/// See <see cref="EMailValidated"/>
 		/// </summary>
-		public static readonly BindableProperty PhoneNumberLabelProperty =
-			BindableProperty.Create(nameof(PhoneButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
-
-		/// <summary>
-		/// The label of the SendPhoneNrCodeButton
-		/// </summary>
-		public string PhoneButtonLabel
-		{
-			get => (string)this.GetValue(PhoneNumberLabelProperty);
-			set
-			{
-				this.SetValue(PhoneNumberLabelProperty, value);
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="VerifyPhoneCodeButtonLabel"/>
-		/// </summary>
-		public static readonly BindableProperty VerifyPhoneCodeButtonLabelProperty =
-			BindableProperty.Create(nameof(VerifyPhoneCodeButtonLabel), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
-
-		/// <summary>
-		/// The label of the VerifyPhoneNrCodeButton
-		/// </summary>
-		public string VerifyPhoneCodeButtonLabel
-		{
-			get => (string)this.GetValue(VerifyPhoneCodeButtonLabelProperty);
-			set
-			{
-				this.SetValue(VerifyPhoneCodeButtonLabelProperty, value);
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="PhoneNumberValid"/>
-		/// </summary>
-		public static readonly BindableProperty PhoneNumberValidProperty =
-			BindableProperty.Create(nameof(PhoneNumberValid), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
+		public static readonly BindableProperty EMailValidatedProperty =
+			BindableProperty.Create(nameof(EMailValidated), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
 
 		/// <summary>
 		/// If Phone number is valid or not
 		/// </summary>
-		public bool PhoneNumberValid
+		public bool EMailValidated
 		{
-			get => (bool)this.GetValue(PhoneNumberValidProperty);
-			set => this.SetValue(PhoneNumberValidProperty, value);
+			get => (bool)this.GetValue(EMailValidatedProperty);
+			set
+			{
+				this.SetValue(EMailValidatedProperty, value);
+				this.OnPropertyChanged(nameof(this.VerifyEmailCodeButtonEnabled));
+				this.OnPropertyChanged(nameof(this.VerifyEmailCodeButtonLabel));
+			}
 		}
 
 		/// <summary>
-		/// See <see cref="PhoneButtonDisabled"/>
+		/// See <see cref="PhoneNrValidated"/>
 		/// </summary>
-		public static readonly BindableProperty PhoneButtonDisabledProperty =
-			BindableProperty.Create(nameof(PhoneButtonDisabled), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
-
-		/// <summary>
-		/// If send code Phone button is disabled or not
-		/// </summary>
-		public bool PhoneButtonDisabled
-		{
-			get => (bool)this.GetValue(PhoneButtonDisabledProperty);
-			set => this.SetValue(PhoneButtonDisabledProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="PhoneNrCodeSent"/>
-		/// </summary>
-		public static readonly BindableProperty PhoneNrCodeSentProperty =
-			BindableProperty.Create(nameof(PhoneNrCodeSent), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
+		public static readonly BindableProperty PhoneNrValidatedProperty =
+			BindableProperty.Create(nameof(PhoneNrValidated), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
 
 		/// <summary>
 		/// If Phone number is valid or not
 		/// </summary>
-		public bool PhoneNrCodeSent
+		public bool PhoneNrValidated
 		{
-			get => (bool)this.GetValue(PhoneNrCodeSentProperty);
-			set => this.SetValue(PhoneNrCodeSentProperty, value);
+			get => (bool)this.GetValue(PhoneNrValidatedProperty);
+			set
+			{
+				this.SetValue(PhoneNrValidatedProperty, value);
+				this.OnPropertyChanged(nameof(this.VerifyPhoneCodeButtonEnabled));
+				this.OnPropertyChanged(nameof(this.VerifyPhoneCodeButtonLabel));
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="EMailVerificationCode"/>
+		/// </summary>
+		public static readonly BindableProperty EMailVerificationCodeProperty =
+			BindableProperty.Create(nameof(EMailVerificationCode), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
+
+		/// <summary>
+		/// Phone number
+		/// </summary>
+		public string EMailVerificationCode
+		{
+			get => (string)this.GetValue(EMailVerificationCodeProperty);
+			set
+			{
+				this.SetValue(EMailVerificationCodeProperty, value);
+				this.OnPropertyChanged(nameof(this.VerifyEmailCodeButtonEnabled));
+			}
 		}
 
 		/// <summary>
@@ -420,39 +317,71 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			set
 			{
 				this.SetValue(PhoneNrVerificationCodeProperty, value);
-				this.SetValue(PhoneNrVerificationCodeValidProperty, this.IsVerificationCode(value));
+				this.OnPropertyChanged(nameof(this.VerifyPhoneCodeButtonEnabled));
 			}
 		}
 
 		/// <summary>
-		/// See <see cref="PhoneNrVerificationCodeValid"/>
+		/// If send e-mail code button is disabled or not
 		/// </summary>
-		public static readonly BindableProperty PhoneNrVerificationCodeValidProperty =
-			BindableProperty.Create(nameof(PhoneNrVerificationCodeValid), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
+		public bool EmailButtonEnabled => (this.CountEmailSeconds == 0) && this.IsEMailAdress(this.EMail);
+
+		/// <summary>
+		/// If send code Phone button is disabled or not
+		/// </summary>
+		public bool PhoneButtonEnabled => (this.CountPhoneSeconds == 0) && this.IsInternationalPhoneNumberFormat(this.PhoneNumber);
+
+		/// <summary>
+		/// The label of the SendEMailCodeButton
+		/// </summary>
+		public string EmailButtonLabel
+		{
+			get
+			{
+				if (this.CountEmailSeconds > 0)
+				{
+					return string.Format(AppResources.DisabledFor, this.CountEmailSeconds);
+				}
+
+				return AppResources.SendCode;
+			}
+		}
+
+		/// <summary>
+		/// The label of the SendPhoneNrCodeButton
+		/// </summary>
+		public string PhoneButtonLabel
+		{
+			get
+			{
+				if (this.CountPhoneSeconds > 0)
+				{
+					return string.Format(AppResources.DisabledFor, this.CountPhoneSeconds);
+				}
+
+				return AppResources.SendCode;
+			}
+		}
 
 		/// <summary>
 		/// If Phone number is valid or not
 		/// </summary>
-		public bool PhoneNrVerificationCodeValid
-		{
-			get => (bool)this.GetValue(PhoneNrVerificationCodeValidProperty);
-			set => this.SetValue(PhoneNrVerificationCodeValidProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="PhoneNrValidated"/>
-		/// </summary>
-		public static readonly BindableProperty PhoneNrValidatedProperty =
-			BindableProperty.Create(nameof(PhoneNrValidated), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
+		public bool VerifyEmailCodeButtonEnabled => !this.EMailValidated && this.IsVerificationCode(this.EMailVerificationCode);
 
 		/// <summary>
 		/// If Phone number is valid or not
 		/// </summary>
-		public bool PhoneNrValidated
-		{
-			get => (bool)this.GetValue(PhoneNrValidatedProperty);
-			set => this.SetValue(PhoneNrValidatedProperty, value);
-		}
+		public bool VerifyPhoneCodeButtonEnabled => !this.PhoneNrValidated && this.IsVerificationCode(this.PhoneNrVerificationCode);
+
+		/// <summary>
+		/// The label of the VerifyEMailCodeButton
+		/// </summary>
+		public string VerifyEmailCodeButtonLabel => this.EMailValidated ? AppResources.VerifiedButton : AppResources.VerifyCode;
+
+		/// <summary>
+		/// The label of the VerifyPhoneNrCodeButton
+		/// </summary>
+		public string VerifyPhoneCodeButtonLabel => this.PhoneNrValidated ? AppResources.VerifiedButton : AppResources.VerifyCode;
 
 		/// <summary>
 		/// The command to bind to for sending a code to the provided e-mail address.
@@ -478,6 +407,97 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 
 		#region Commands
 
+		#region E-Mail
+
+		private async Task SendEMailCode()
+		{
+			if (!this.NetworkService.IsOnline)
+			{
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				return;
+			}
+
+			this.EMailValidated = false;
+			this.SetIsBusy(this.SendEMailCodeCommand);
+
+			try
+			{
+				object Result = await InternetContent.PostAsync(
+					new Uri("https://" + Constants.Domains.IdDomain + "/ID/SendVerificationMessage.ws"),
+					new Dictionary<string, object>()
+					{
+						{ "EMail", this.EMail }
+					}, new KeyValuePair<string, string>("Accept", "application/json"));
+
+				if (Result is Dictionary<string, object> Response &&
+					Response.TryGetValue("Status", out object Obj) && Obj is bool Status &&
+					Status)
+				{
+					this.StartTimer("email");
+					await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.SendEmailWarning);
+				}
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+			}
+			finally
+			{
+				this.BeginInvokeSetIsDone(this.SendEMailCodeCommand);
+			}
+		}
+
+		private async Task VerifyEMailCode()
+		{
+			if (!this.NetworkService.IsOnline)
+			{
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				return;
+			}
+
+			this.SetIsBusy(this.VerifyEMailCodeCommand);
+
+			try
+			{
+				object Result = await InternetContent.PostAsync(
+					new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
+					new Dictionary<string, object>()
+					{
+						{ "EMail", this.EMail },
+						{ "Code", int.Parse(this.EMailVerificationCode) }
+					}, new KeyValuePair<string, string>("Accept", "application/json"));
+
+				this.EMailVerificationCode = string.Empty;
+
+				if (Result is Dictionary<string, object> Response &&
+					Response.TryGetValue("Status", out object Obj) && Obj is bool Status && Status)
+				{
+					this.EMailValidated = true;
+
+					this.TagProfile.SetEMail(this.EMail);
+					this.OnStepCompleted(EventArgs.Empty);
+				}
+				else
+				{
+					this.EMailValidated = false;
+
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
+				}
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+			}
+			finally
+			{
+				this.BeginInvokeSetIsDone(this.VerifyEMailCodeCommand);
+			}
+		}
+
+		#endregion
+
 		#region Phone Numbers
 
 		private async Task SendPhoneNrCode()
@@ -488,7 +508,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				return;
 			}
 
+			this.PhoneNrValidated = false;
 			this.SetIsBusy(this.SendPhoneNrCodeCommand);
+
 			try
 			{
 				string TrimmedNumber = this.TrimPhoneNumber(this.PhoneNumber);
@@ -504,10 +526,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					Response.TryGetValue("Status", out object Obj) && Obj is bool Status &&
 					Status)
 				{
-					this.PhoneNrVerificationCode = string.Empty;
-					this.PhoneNrCodeSent = true;
-					await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.SendPhoneNumberWarning);
 					this.StartTimer("phone");
+					await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.SendPhoneNumberWarning);
 				}
 			}
 			catch (Exception ex)
@@ -521,14 +541,6 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			}
 		}
 
-		private bool SendPhoneNrCodeCanExecute()
-		{
-			if (this.IsBusy) // is connecting
-				return false;
-
-			return this.IsInternationalPhoneNumberFormat(this.PhoneNumber);
-		}
-
 		private async Task VerifyPhoneNrCode()
 		{
 			if (!this.NetworkService.IsOnline)
@@ -538,6 +550,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			}
 
 			this.SetIsBusy(this.VerifyPhoneNrCodeCommand);
+
 			try
 			{
 				string TrimmedNumber = this.TrimPhoneNumber(this.PhoneNumber);
@@ -552,6 +565,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 						{ "Test", IsTest }
 					}, new KeyValuePair<string, string>("Accept", "application/json"));
 
+				this.PhoneNrVerificationCode = string.Empty;
+
 				if (Result is Dictionary<string, object> Response &&
 					Response.TryGetValue("Status", out object Obj) && Obj is bool Status && Status &&
 					Response.TryGetValue("Domain", out Obj) && Obj is string Domain &&
@@ -559,14 +574,13 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					Response.TryGetValue("Secret", out Obj) && Obj is string Secret &&
 					Response.TryGetValue("Temporary", out Obj) && Obj is bool IsTemporary)
 				{
-					bool DefaultConnectivity;
-
 					this.PhoneNrValidated = true;
-					this.VerifyPhoneCodeButtonLabel = AppResources.VerifiedButton;
+
 					this.TagProfile.SetPhone(TrimmedNumber);
 					this.TagProfile.SetIsTest(IsTest);
 					this.TagProfile.SetTestOtpTimestamp(IsTemporary ? DateTime.Now : null);
 
+					bool DefaultConnectivity;
 					try
 					{
 						(string HostName, int PortNumber, bool IsIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(Domain);
@@ -583,9 +597,6 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				else
 				{
 					this.PhoneNrValidated = false;
-					this.PhoneNrVerificationCode = string.Empty;
-					this.VerifyPhoneCodeButtonLabel = AppResources.VerificationCode;
-
 
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
 				}
@@ -601,110 +612,26 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			}
 		}
 
-		private bool VerifyPhoneNrCodeCanExecute()
-		{
-			if (this.IsBusy) // is connecting
-				return false;
-
-			return this.IsInternationalPhoneNumberFormat(this.PhoneNumber);
-		}
+		#endregion
 
 		#endregion
 
-		#region E-Mail
-
-		private async Task SendEMailCode()
-		{
-			if (!this.NetworkService.IsOnline)
-			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
-				return;
-			}
-
-			this.SetIsBusy(this.SendEMailCodeCommand);
-			try
-			{
-				object Result = await InternetContent.PostAsync(
-					new Uri("https://" + Constants.Domains.IdDomain + "/ID/SendVerificationMessage.ws"),
-					new Dictionary<string, object>()
-					{
-						{ "EMail", this.EMail }
-					}, new KeyValuePair<string, string>("Accept", "application/json"));
-
-				if (Result is Dictionary<string, object> Response &&
-					Response.TryGetValue("Status", out object Obj) && Obj is bool Status &&
-					Status)
-				{
-					this.EMailVerificationCode = string.Empty;
-					this.EMailCodeSent = true;
-					await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.SendEmailWarning);
-					this.StartTimer("email");
-				}
-			}
-			catch (Exception ex)
-			{
-				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
-			}
-			finally
-			{
-				this.BeginInvokeSetIsDone(this.SendEMailCodeCommand);
-			}
-		}
+		#region CanExecute
 
 		private bool SendEMailCodeCanExecute()
 		{
 			if (this.IsBusy) // is connecting
 				return false;
 
-			return this.IsEMailAdress(this.EMail);
+			return this.EmailButtonEnabled;
 		}
 
-		private async Task VerifyEMailCode()
+		private bool SendPhoneNrCodeCanExecute()
 		{
-			if (!this.NetworkService.IsOnline)
-			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
-				return;
-			}
+			if (this.IsBusy) // is connecting
+				return false;
 
-			this.SetIsBusy(this.VerifyEMailCodeCommand);
-			try
-			{
-				object Result = await InternetContent.PostAsync(
-					new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
-					new Dictionary<string, object>()
-					{
-						{ "EMail", this.EMail },
-						{ "Code", int.Parse(this.EMailVerificationCode) }
-					}, new KeyValuePair<string, string>("Accept", "application/json"));
-
-				if (Result is Dictionary<string, object> Response &&
-					Response.TryGetValue("Status", out object Obj) && Obj is bool Status && Status)
-				{
-					this.EMailValidated = true;
-					this.VerifyEmailCodeButtonLabel = AppResources.VerifiedButton;
-					this.TagProfile.SetEMail(this.EMail);
-					this.OnStepCompleted(EventArgs.Empty);
-				}
-				else
-				{
-					this.EMailValidated = false;
-					this.EMailVerificationCode = string.Empty;
-					this.VerifyEmailCodeButtonLabel = AppResources.VerificationCode;
-
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
-				}
-			}
-			catch (Exception ex)
-			{
-				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
-			}
-			finally
-			{
-				this.BeginInvokeSetIsDone(this.VerifyEMailCodeCommand);
-			}
+			return this.PhoneButtonEnabled;
 		}
 
 		private bool VerifyEMailCodeCanExecute()
@@ -712,10 +639,16 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			if (this.IsBusy) // is connecting
 				return false;
 
-			return this.IsInternationalPhoneNumberFormat(this.PhoneNumber);
+			return this.VerifyEmailCodeButtonEnabled;
 		}
 
-		#endregion
+		private bool VerifyPhoneNrCodeCanExecute()
+		{
+			if (this.IsBusy) // is connecting
+				return false;
+
+			return this.VerifyPhoneCodeButtonEnabled;
+		}
 
 		#endregion
 
@@ -751,35 +684,38 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 
 		private void StartTimer(string type)
 		{
-			Device.StartTimer(TimeSpan.FromSeconds(1), () => {
+			if (type == "email")
+			{
+				this.CountEmailSeconds = 30;
 
-				if (this.countSeconds > 0)
-				{
-					this.countSeconds--;
-					if (type == "email")
+				Device.StartTimer(TimeSpan.FromSeconds(1), () => {
+					if (this.CountEmailSeconds > 0)
 					{
-						this.EmailButtonLabel = string.Format(AppResources.DisabledFor, this.countSeconds);
-						this.EmailButtonDisabled = false;
+						this.CountEmailSeconds--;
+						return true;
 					}
 					else
 					{
-						this.PhoneButtonLabel = string.Format(AppResources.DisabledFor, this.countSeconds);
-						this.PhoneButtonDisabled = false;
+						return false;
 					}
+				});
+			}
+			else
+			{
+				this.CountPhoneSeconds = 30;
 
-					return true;
-				}
-				else
-				{
-					this.EmailButtonDisabled = this.EMailValid;
-					this.PhoneButtonDisabled = this.PhoneNumberValid;
-					this.countSeconds = 30;
-					this.EmailButtonLabel = AppResources.SendCode;
-					this.PhoneButtonLabel = AppResources.SendCode;
-
-					return false;
-				}
-			});
+				Device.StartTimer(TimeSpan.FromSeconds(1), () => {
+					if (this.CountPhoneSeconds > 0)
+					{
+						this.CountPhoneSeconds--;
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				});
+			}
 		}
 
 		private static readonly Regex internationalPhoneNr = new(@"^\+[1-9]\d{4,}$", RegexOptions.Singleline);
