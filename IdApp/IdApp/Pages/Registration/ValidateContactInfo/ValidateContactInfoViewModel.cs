@@ -146,24 +146,14 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			set
 			{
 				this.SetValue(PurposeProperty, value);
-				this.PurposeSelected = true;
+				this.OnPropertyChanged(nameof(this.PurposeSelected));
 			}
 		}
 
 		/// <summary>
-		/// See <see cref="PurposeSelected"/>
+		/// If the purpose was selected
 		/// </summary>
-		public static readonly BindableProperty PurposeSelectedProperty =
-			BindableProperty.Create(nameof(PurposeSelected), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
-
-		/// <summary>
-		/// If Phone number is valid or not
-		/// </summary>
-		public bool PurposeSelected
-		{
-			get => (bool)this.GetValue(PurposeSelectedProperty);
-			set => this.SetValue(PurposeSelectedProperty, value);
-		}
+		public bool PurposeSelected => this.Purpose != -1;
 
 		/// <summary>
 		/// See <see cref="CountEmailSeconds"/>

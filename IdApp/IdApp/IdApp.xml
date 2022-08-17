@@ -9094,14 +9094,9 @@
             Phone number
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelectedProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelected"/>
-            </summary>
-        </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelected">
             <summary>
-            If Phone number is valid or not
+            If the purpose was slected
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CountEmailSecondsProperty">
