@@ -18866,6 +18866,11 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractPetitionNotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+            <summary>
+            Performs perparatory tasks, that will simplify opening the notification.
+            </summary>
+        </member>
         <member name="T:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent">
             <summary>
             Notification event for contract proposals.
@@ -19077,6 +19082,11 @@
             Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+            <summary>
+            Performs perparatory tasks, that will simplify opening the notification.
+            </summary>
         </member>
         <member name="T:IdApp.Services.Notification.Identities.IdentityResponseNotificationEvent">
             <summary>
@@ -19392,6 +19402,12 @@
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+            <summary>
+            Performs perparatory tasks, that will simplify opening the notification.
+            </summary>
+            <param name="ServiceReferences">Service references.</param>
         </member>
         <member name="T:IdApp.Services.Notification.NotificationEventHandler">
             <summary>
@@ -21592,9 +21608,9 @@
             <summary>
             Loads photos from the specified list of attachments.
             </summary>
-            <param name="attachments">The attachments whose files to download.</param>
-            <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
-            <param name="whenDoneAction">A callback that is called when the photo load operation is done.</param>
+            <param name="Attachments">The attachments whose files to download.</param>
+            <param name="SignWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <param name="WhenDoneAction">A callback that is called when the photo load operation is done.</param>
             <returns>Returns the first photo, if available, null if no photos available.</returns>
         </member>
         <member name="M:IdApp.Services.UI.Photos.PhotosLoader.CancelLoadPhotos">
@@ -21607,8 +21623,8 @@
             <summary>
             Downloads one photo and stores in cache.
             </summary>
-            <param name="attachment">The attachment to download.</param>
-            <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <param name="Attachment">The attachment to download.</param>
+            <param name="SignWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
             <returns>Binary content (or null), Content-Type, Rotation</returns>
         </member>
         <member name="M:IdApp.Services.UI.Photos.PhotosLoader.GetImageRotation(System.Byte[])">

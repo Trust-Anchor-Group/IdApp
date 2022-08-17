@@ -188,6 +188,18 @@ namespace IdApp.Services.Notification
 						this.LogService.LogException(ex);
 					}
 				}
+
+				Task _ = Task.Run(async () =>
+				{
+					try
+					{
+						await Event.Prepare(this);
+					}
+					catch (Exception ex)
+					{
+						this.LogService.LogException(ex);
+					}
+				});
 			}
 		}
 

@@ -1,6 +1,9 @@
-﻿using IdApp.Pages.Contracts.MyContracts.ObjectModels;
+﻿using IdApp.Extensions;
+using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.PetitionContract;
 using IdApp.Resx;
+using IdApp.Services.UI.Photos;
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -127,5 +130,29 @@ namespace IdApp.Services.Notification.Contracts
 
 			return Result.ToString();
 		}
+
+		/// <summary>
+		/// Performs perparatory tasks, that will simplify opening the notification.
+		/// </summary>
+		public override async Task Prepare(ServiceReferences ServiceReferences)
+		{
+			LegalIdentity Identity = this.Identity;
+
+			if (Identity?.Attachments is not null)
+			{
+				foreach (Attachment Attachment in Identity.Attachments.GetImageAttachments())
+				{
+					try
+					{
+						await PhotosLoader.LoadPhoto(Attachment);
+					}
+					catch (Exception ex)
+					{
+						ServiceReferences.LogService.LogException(ex);
+					}
+				}
+			}
+		}
+
 	}
 }

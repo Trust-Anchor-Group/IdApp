@@ -85,5 +85,14 @@ namespace IdApp.Services.Notification
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
 		public abstract Task Open(ServiceReferences ServiceReferences);
+
+		/// <summary>
+		/// Performs perparatory tasks, that will simplify opening the notification.
+		/// </summary>
+		/// <param name="ServiceReferences">Service references.</param>
+		public virtual Task Prepare(ServiceReferences ServiceReferences)
+		{
+			return Task.CompletedTask;
+		}
 	}
 }
