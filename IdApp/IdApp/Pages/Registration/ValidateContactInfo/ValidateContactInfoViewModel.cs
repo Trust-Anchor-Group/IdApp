@@ -7,7 +7,7 @@ using System.Windows.Input;
 using Waher.Content;
 using Xamarin.Forms;
 using IdApp.Services.Tag;
-using IdApp.Resx;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Registration.ValidateContactInfo
 {
@@ -44,7 +44,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			this.SendPhoneNrCodeCommand = new Command(async () => await this.SendPhoneNrCode(), this.SendPhoneNrCodeCanExecute);
 			this.VerifyPhoneNrCodeCommand = new Command(async () => await this.VerifyPhoneNrCode(), this.VerifyPhoneNrCodeCanExecute);
 
-			this.Title = AppResources.ContactInformation;
+			this.Title = LocalizationResourceManager.Current["ContactInformation"];
 			this.Purposes = new ObservableCollection<string>();
 		}
 
@@ -56,8 +56,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			await base.DoBind();
 
 			this.Purposes.Clear();
-			this.Purposes.Add(AppResources.PurposeWorkOrPersonal);
-			this.Purposes.Add(AppResources.PurposeEducationalOrExperimental);
+			this.Purposes.Add(LocalizationResourceManager.Current["PurposeWorkOrPersonal"]);
+			this.Purposes.Add(LocalizationResourceManager.Current["PurposeEducationalOrExperimental"]);
 
 			if (string.IsNullOrEmpty(this.TagProfile.PhoneNumber))
 			{
@@ -340,10 +340,10 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			{
 				if (this.CountEmailSeconds > 0)
 				{
-					return string.Format(AppResources.DisabledFor, this.CountEmailSeconds);
+					return string.Format(LocalizationResourceManager.Current["DisabledFor"], this.CountEmailSeconds);
 				}
 
-				return AppResources.SendCode;
+				return LocalizationResourceManager.Current["SendCode"];
 			}
 		}
 
@@ -356,10 +356,10 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			{
 				if (this.CountPhoneSeconds > 0)
 				{
-					return string.Format(AppResources.DisabledFor, this.CountPhoneSeconds);
+					return string.Format(LocalizationResourceManager.Current["DisabledFor"], this.CountPhoneSeconds);
 				}
 
-				return AppResources.SendCode;
+				return LocalizationResourceManager.Current["SendCode"];
 			}
 		}
 
@@ -376,12 +376,12 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		/// <summary>
 		/// The label of the VerifyEMailCodeButton
 		/// </summary>
-		public string VerifyEmailCodeButtonLabel => this.EMailValidated ? AppResources.VerifiedButton : AppResources.VerifyCode;
+		public string VerifyEmailCodeButtonLabel => this.EMailValidated ? LocalizationResourceManager.Current["VerifiedButton"] : LocalizationResourceManager.Current["VerifyCode"];
 
 		/// <summary>
 		/// The label of the VerifyPhoneNrCodeButton
 		/// </summary>
-		public string VerifyPhoneCodeButtonLabel => this.PhoneNrValidated ? AppResources.VerifiedButton : AppResources.VerifyCode;
+		public string VerifyPhoneCodeButtonLabel => this.PhoneNrValidated ? LocalizationResourceManager.Current["VerifiedButton"] : LocalizationResourceManager.Current["VerifyCode"];
 
 		/// <summary>
 		/// The command to bind to for sending a code to the provided e-mail address.
@@ -413,7 +413,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		{
 			if (!this.NetworkService.IsOnline)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NetworkSeemsToBeMissing"]);
 				return;
 			}
 
@@ -434,13 +434,13 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					Status)
 				{
 					this.StartTimer("email");
-					await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.SendEmailWarning);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["WarningTitle"], LocalizationResourceManager.Current["SendEmailWarning"]);
 				}
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
 			}
 			finally
 			{
@@ -452,7 +452,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		{
 			if (!this.NetworkService.IsOnline)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NetworkSeemsToBeMissing"]);
 				return;
 			}
 
@@ -482,13 +482,13 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				{
 					this.EMailValidated = false;
 
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToVerifyCode"], LocalizationResourceManager.Current["Ok"]);
 				}
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
 			}
 			finally
 			{
@@ -504,7 +504,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		{
 			if (!this.NetworkService.IsOnline)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NetworkSeemsToBeMissing"]);
 				return;
 			}
 
@@ -527,13 +527,13 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					Status)
 				{
 					this.StartTimer("phone");
-					await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.SendPhoneNumberWarning);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["WarningTitle"], LocalizationResourceManager.Current["SendPhoneNumberWarning"]);
 				}
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
 			}
 			finally
 			{
@@ -545,7 +545,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		{
 			if (!this.NetworkService.IsOnline)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NetworkSeemsToBeMissing"]);
 				return;
 			}
 
@@ -598,13 +598,13 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				{
 					this.PhoneNrValidated = false;
 
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToVerifyCode"], LocalizationResourceManager.Current["Ok"]);
 				}
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
 			}
 			finally
 			{
