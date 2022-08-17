@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IdApp.Pages.Registration.RegisterIdentity;
-using IdApp.Services.Tag;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
@@ -294,7 +293,7 @@ namespace IdApp.Services.Contracts
 		/// <summary>
 		/// Event raised when contract was signed.
 		/// </summary>
-		public event EventHandler<ContractReferenceEventArgs> ContractSigned;
+		public event EventHandler<ContractSignedEventArgs> ContractSigned;
 
 		#endregion
 

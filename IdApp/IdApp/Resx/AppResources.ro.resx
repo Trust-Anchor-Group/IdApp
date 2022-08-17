@@ -1161,6 +1161,9 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Verificați codul</value>
   </data>
+  <data name="VerifiedButton" xml:space="preserve">
+    <value>Verificat</value>
+  </data>
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>De asemenea, trebuie să vă validăm numărul de telefon mobil. Vă rugăm să introduceți numărul de telefon mobil de mai jos, folosind formatul internațional al numărului de telefon, fără spații.</value>
   </data>
@@ -1838,5 +1841,8 @@
   </data>
   <data name="SignatureResponse" xml:space="preserve">
     <value>Răspunsul la solicitarea de semnătură</value>
+  </data>
+  <data name="UserSignedAs" xml:space="preserve">
+    <value>{0} semnat ca {1}.</value>
   </data>
 </root>

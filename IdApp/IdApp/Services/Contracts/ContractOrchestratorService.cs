@@ -538,7 +538,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async void Contracts_ContractSigned(object Sender, ContractReferenceEventArgs e)
+		private async void Contracts_ContractSigned(object Sender, ContractSignedEventArgs e)
 		{
 			try
 			{

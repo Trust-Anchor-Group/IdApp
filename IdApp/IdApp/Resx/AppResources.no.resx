@@ -1161,6 +1161,9 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Bekreft kode</value>
   </data>
+  <data name="VerifiedButton" xml:space="preserve">
+    <value>Bekreftet</value>
+  </data>
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Vi må også validere mobilnummeret ditt. Skriv inn mobilnummeret ditt nedenfor, ved hjelp av internasjonalt telefonnummerformat, uten mellomrom.</value>
   </data>
@@ -1838,5 +1841,8 @@
   </data>
   <data name="SignatureResponse" xml:space="preserve">
     <value>Svar på signaturforespørsel</value>
+  </data>
+  <data name="UserSignedAs" xml:space="preserve">
+    <value>{0} signert som {1}.</value>
   </data>
 </root>

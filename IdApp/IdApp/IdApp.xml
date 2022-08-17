@@ -9096,7 +9096,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelected">
             <summary>
-            If the purpose was slected
+            If the purpose was selected
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CountEmailSecondsProperty">
@@ -16658,6 +16658,11 @@
               Looks up a localized string similar to Updated.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.UserSignedAs">
+            <summary>
+              Looks up a localized string similar to {0} signed as {1}..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ValidateIdentityInfo1Text">
             <summary>
               Looks up a localized string similar to Your identity information has to be validated before it can be approved. This can be done manually by your operator. It can also be done by peers..
@@ -18947,12 +18952,22 @@
             Notification event for when a contract has been signed.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.Contract,Waher.Networking.XMPP.Contracts.ContractReferenceEventArgs)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.Contract,Waher.Networking.XMPP.Contracts.ContractSignedEventArgs)">
             <summary>
             Notification event for when a contract has been signed.
             </summary>
             <param name="Contract">Requested contract.</param>
             <param name="e">Event arguments.</param>
+        </member>
+        <member name="P:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.LegalId">
+            <summary>
+            Legal ID signing the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Role">
+            <summary>
+            Role being signed
+            </summary>
         </member>
         <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Open(IdApp.Services.ServiceReferences)">
             <summary>
@@ -18965,6 +18980,22 @@
             Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="P:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.IdentityXml">
+            <summary>
+            XML of identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Identity">
+            <summary>
+            Gets a parsed identity.
+            </summary>
+            <returns>Parsed identity</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+            <summary>
+            Performs perparatory tasks, that will simplify opening the notification.
+            </summary>
         </member>
         <member name="T:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent">
             <summary>

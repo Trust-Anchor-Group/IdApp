@@ -1161,6 +1161,9 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Verifikuj kôd</value>
   </data>
+  <data name="VerifiedButton" xml:space="preserve">
+    <value>Proveriti</value>
+  </data>
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Takođe moramo da potvrdimo vaš broj mobilnog telefona. Unesite dole navedeni broj mobilnog telefona koristeći međunarodni format broja telefona, bez prostora.</value>
   </data>
@@ -1838,5 +1841,8 @@
   </data>
   <data name="SignatureResponse" xml:space="preserve">
     <value>Odgovor na zahtev za potpis</value>
+  </data>
+  <data name="UserSignedAs" xml:space="preserve">
+    <value>{0} kao {1}.</value>
   </data>
 </root>

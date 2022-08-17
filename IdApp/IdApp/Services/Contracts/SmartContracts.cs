@@ -692,7 +692,7 @@ namespace IdApp.Services.Contracts
 
 		public event EventHandler<ContractReferenceEventArgs> ContractUpdated;
 
-		private async Task ContractsClient_ContractSigned(object Sender, ContractReferenceEventArgs e)
+		private async Task ContractsClient_ContractSigned(object Sender, ContractSignedEventArgs e)
 		{
 			await this.ContractUpdatedOrSigned(e);
 
@@ -706,7 +706,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		public event EventHandler<ContractReferenceEventArgs> ContractSigned;
+		public event EventHandler<ContractSignedEventArgs> ContractSigned;
 
 		private Task ContractUpdatedOrSigned(ContractReferenceEventArgs e)
 		{

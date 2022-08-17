@@ -1161,6 +1161,9 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Verificar código</value>
   </data>
+  <data name="VerifiedButton" xml:space="preserve">
+    <value>Verificado</value>
+  </data>
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Também precisamos validar seu número de telefone celular. Digite seu número de telefone celular abaixo, usando o formato de número de telefone internacional, sem espaços.</value>
   </data>
@@ -1838,5 +1841,8 @@
   </data>
   <data name="SignatureResponse" xml:space="preserve">
     <value>Resposta à solicitação de assinatura</value>
+  </data>
+  <data name="UserSignedAs" xml:space="preserve">
+    <value>{0} assinou como {1}.</value>
   </data>
 </root>
