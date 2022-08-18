@@ -32,7 +32,7 @@ namespace IdApp.Pages.Things.ViewThing
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -51,7 +51,7 @@ namespace IdApp.Pages.Things.ViewThing
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnDispose()
+		protected override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
 

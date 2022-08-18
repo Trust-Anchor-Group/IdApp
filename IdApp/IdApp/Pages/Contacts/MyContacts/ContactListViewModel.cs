@@ -43,7 +43,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -207,7 +207,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 		}
 
 		/// <inheritdoc/>
-		public override Task OnDispose()
+		protected override Task OnDispose()
 		{
 			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
 			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;

@@ -11,22 +11,22 @@ namespace IdApp.Pages
 		/// Method called when view is initialized for the first time. Use this method to implement registration
 		/// of event handlers, processing navigation arguments, etc.
 		/// </summary>
-		Task OnInitialize();
+		Task Initialize();
 
 		/// <summary>
 		/// Method called when the view is disposed, and will not be used more. Use this method to unregister
 		/// event handlers, etc.
 		/// </summary>
-		Task OnDispose();
+		Task Dispose();
 
 		/// <summary>
 		/// Method called when view is appearing on the screen.
 		/// </summary>
-		Task OnAppearing();
+		Task Appearing();
 
 		/// <summary>
 		/// Method called when view is disappearing from the screen.
 		/// </summary>
-		Task OnDisappearing();
+		Task Disappearing();
 	}
 }

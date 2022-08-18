@@ -75,7 +75,7 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -101,7 +101,7 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnDispose()
+		protected override async Task OnDispose()
 		{
 			await base.OnDispose();
 

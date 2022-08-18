@@ -2286,19 +2286,14 @@
             Create an instance of a <see cref="T:IdApp.Pages.BaseViewModel"/>.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.BaseViewModel.IsInitialized">
+            <summary>
+            Returns <c>true</c> if the viewmodel is initialized.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.BaseViewModel.IsAppearing">
             <summary>
-            Returns <c>true</c> if the viewmodel is bound, i.e. its parent page has appeared on screen.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.BaseViewModel.Appearing">
-            <summary>
-            Called by the parent page when it appears on screen.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.BaseViewModel.Disappearing">
-            <summary>
-            Called by the parent page when it disappears from screen.
+            Returns <c>true</c> if the viewmodel is shown.
             </summary>
         </member>
         <member name="P:IdApp.Pages.BaseViewModel.Children">
@@ -2395,10 +2390,22 @@
             </summary>
             <param name="commands">The commands to re-evaluate.</param>
         </member>
+        <member name="M:IdApp.Pages.BaseViewModel.Initialize">
+            <summary>
+            Method called when view is initialized for the first time. Use this method to implement registration
+            of event handlers, processing navigation arguments, etc.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.BaseViewModel.OnInitialize">
             <summary>
             Method called when view is initialized for the first time. Use this method to implement registration
             of event handlers, processing navigation arguments, etc.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.Dispose">
+            <summary>
+            Method called when the view is disposed, and will not be used more. Use this method to unregister
+            event handlers, etc.
             </summary>
         </member>
         <member name="M:IdApp.Pages.BaseViewModel.OnDispose">
@@ -2407,9 +2414,19 @@
             event handlers, etc.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.BaseViewModel.Appearing">
+            <summary>
+            Method called when view is appearing on the screen.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.BaseViewModel.OnAppearing">
             <summary>
             Method called when view is appearing on the screen.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.Disappearing">
+            <summary>
+            Method called when view is disappearing from the screen.
             </summary>
         </member>
         <member name="M:IdApp.Pages.BaseViewModel.OnDisappearing">
@@ -6949,24 +6966,24 @@
             Interface for views who need to react to life-cycle events.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.ILifeCycleView.OnInitialize">
+        <member name="M:IdApp.Pages.ILifeCycleView.Initialize">
             <summary>
             Method called when view is initialized for the first time. Use this method to implement registration
             of event handlers, processing navigation arguments, etc.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.ILifeCycleView.OnDispose">
+        <member name="M:IdApp.Pages.ILifeCycleView.Dispose">
             <summary>
             Method called when the view is disposed, and will not be used more. Use this method to unregister
             event handlers, etc.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.ILifeCycleView.OnAppearing">
+        <member name="M:IdApp.Pages.ILifeCycleView.Appearing">
             <summary>
             Method called when view is appearing on the screen.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.ILifeCycleView.OnDisappearing">
+        <member name="M:IdApp.Pages.ILifeCycleView.Disappearing">
             <summary>
             Method called when view is disappearing from the screen.
             </summary>
@@ -10867,7 +10884,7 @@
             Parsed report from state-machine.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.Dispose">
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.System#IDisposable#Dispose">
             <summary>
             <see cref="M:System.IDisposable.Dispose"/>
             </summary>

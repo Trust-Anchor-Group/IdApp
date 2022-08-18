@@ -23,7 +23,7 @@ namespace IdApp.Pages.Main.Loading
 		}
 
 		/// <inheritdoc />
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -33,7 +33,7 @@ namespace IdApp.Pages.Main.Loading
 		}
 
 		/// <inheritdoc />
-		public override async Task OnDispose()
+		protected override async Task OnDispose()
 		{
 			this.XmppService.Loaded -= this.XmppService_Loaded;
 

@@ -26,7 +26,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -59,7 +59,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		}
 
 		/// <inheritdoc/>
-		public override Task OnDispose()
+		protected override Task OnDispose()
 		{
 			this.timer?.Dispose();
 			this.timer = null;

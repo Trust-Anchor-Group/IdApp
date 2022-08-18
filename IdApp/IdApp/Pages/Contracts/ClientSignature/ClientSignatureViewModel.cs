@@ -27,7 +27,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         }
 
         /// <inheritdoc/>
-        public override async Task OnInitialize()
+        protected override async Task OnInitialize()
         {
             await base.OnInitialize();
 

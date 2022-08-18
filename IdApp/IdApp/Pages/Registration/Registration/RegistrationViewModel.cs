@@ -48,7 +48,7 @@ namespace IdApp.Pages.Registration.Registration
 		}
 
 		/// <inheritdoc />
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -57,7 +57,7 @@ namespace IdApp.Pages.Registration.Registration
 		}
 
 		/// <inheritdoc />
-		public override Task OnDispose()
+		protected override Task OnDispose()
 		{
 			this.RegistrationSteps.ForEach(x => x.StepCompleted -= this.RegistrationStep_Completed);
 

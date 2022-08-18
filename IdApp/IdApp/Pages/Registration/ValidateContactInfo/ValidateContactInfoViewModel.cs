@@ -51,7 +51,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		/// <summary>
 		/// Override this method to do view model specific setup when it's parent page/view appears on screen.
 		/// </summary>
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 

@@ -71,7 +71,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 

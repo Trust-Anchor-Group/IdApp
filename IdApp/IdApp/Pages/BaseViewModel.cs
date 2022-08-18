@@ -26,42 +26,14 @@ namespace IdApp.Pages
 		}
 
 		/// <summary>
-		/// Returns <c>true</c> if the viewmodel is bound, i.e. its parent page has appeared on screen.
+		/// Returns <c>true</c> if the viewmodel is initialized.
+		/// </summary>
+		public bool IsInitialized { get; private set; }
+
+		/// <summary>
+		/// Returns <c>true</c> if the viewmodel is shown.
 		/// </summary>
 		public bool IsAppearing { get; private set; }
-
-		/// <summary>
-		/// Called by the parent page when it appears on screen.
-		/// </summary>
-		public async Task Appearing()
-		{
-			if (!this.IsAppearing)
-			{
-				DeviceDisplay.KeepScreenOn = true;
-
-				await this.OnAppearing();
-
-				foreach (BaseViewModel childViewModel in this.childViewModels)
-					await childViewModel.Appearing();
-
-				this.IsAppearing = true;
-			}
-		}
-
-		/// <summary>
-		/// Called by the parent page when it disappears from screen.
-		/// </summary>
-		public async Task Disappearing()
-		{
-			if (this.IsAppearing)
-			{
-				foreach (BaseViewModel childViewModel in this.childViewModels)
-					await childViewModel.Disappearing();
-
-				await this.OnDisappearing();
-				this.IsAppearing = false;
-			}
-		}
 
 		/// <summary>
 		/// Gets the child view models.
@@ -224,7 +196,23 @@ namespace IdApp.Pages
 		/// Method called when view is initialized for the first time. Use this method to implement registration
 		/// of event handlers, processing navigation arguments, etc.
 		/// </summary>
-		public virtual Task OnInitialize()
+		public Task Initialize()
+		{
+			if (!this.IsInitialized)
+			{
+				this.IsInitialized = true;
+
+				return this.OnInitialize();
+			}
+			else
+				return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Method called when view is initialized for the first time. Use this method to implement registration
+		/// of event handlers, processing navigation arguments, etc.
+		/// </summary>
+		protected virtual Task OnInitialize()
 		{
 			return Task.CompletedTask;  // Do nothing by default.
 		}
@@ -233,7 +221,20 @@ namespace IdApp.Pages
 		/// Method called when the view is disposed, and will not be used more. Use this method to unregister
 		/// event handlers, etc.
 		/// </summary>
-		public virtual Task OnDispose()
+		public async Task Dispose()
+		{
+			if (this.IsAppearing)
+				await this.Disappearing();
+			
+			this.IsInitialized = false;
+			await this.OnDispose();
+		}
+
+		/// <summary>
+		/// Method called when the view is disposed, and will not be used more. Use this method to unregister
+		/// event handlers, etc.
+		/// </summary>
+		protected virtual Task OnDispose()
 		{
 			return Task.CompletedTask;  // Do nothing by default.
 		}
@@ -241,15 +242,50 @@ namespace IdApp.Pages
 		/// <summary>
 		/// Method called when view is appearing on the screen.
 		/// </summary>
-		public virtual Task OnAppearing()
+		public async Task Appearing()
+		{
+			if (!this.IsInitialized)
+				await this.Initialize();
+
+			if (!this.IsAppearing)
+			{
+				DeviceDisplay.KeepScreenOn = true;
+
+				await this.OnAppearing();
+
+				foreach (BaseViewModel childViewModel in this.childViewModels)
+					await childViewModel.Appearing();
+
+				this.IsAppearing = true;
+			}
+		}
+
+		/// <summary>
+		/// Method called when view is appearing on the screen.
+		/// </summary>
+		protected virtual Task OnAppearing()
 		{
 			return Task.CompletedTask;  // Do nothing by default.
+		}
+		/// <summary>
+		/// Method called when view is disappearing from the screen.
+		/// </summary>
+		public async Task Disappearing()
+		{
+			if (this.IsAppearing)
+			{
+				foreach (BaseViewModel childViewModel in this.childViewModels)
+					await childViewModel.Disappearing();
+
+				await this.OnDisappearing();
+				this.IsAppearing = false;
+			}
 		}
 
 		/// <summary>
 		/// Method called when view is disappearing from the screen.
 		/// </summary>
-		public virtual Task OnDisappearing()
+		protected virtual Task OnDisappearing()
 		{
 			return Task.CompletedTask;  // Do nothing by default.
 		}

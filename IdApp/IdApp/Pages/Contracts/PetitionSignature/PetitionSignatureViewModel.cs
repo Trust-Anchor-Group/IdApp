@@ -36,7 +36,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         }
 
         /// <inheritdoc/>
-        public override async Task OnInitialize()
+        protected override async Task OnInitialize()
         {
             await base.OnInitialize();
         
@@ -59,7 +59,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         }
 
         /// <inheritdoc/>
-        public override async Task OnDispose()
+        protected override async Task OnDispose()
         {
             this.photosLoader.CancelLoadPhotos();
 

@@ -34,7 +34,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -65,7 +65,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnDispose()
+		protected override async Task OnDispose()
 		{
 			if (this.Action != SelectContractAction.Select)
 			{

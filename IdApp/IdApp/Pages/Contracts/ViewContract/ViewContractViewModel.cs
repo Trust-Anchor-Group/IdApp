@@ -47,7 +47,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -81,7 +81,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnDispose()
+		protected override async Task OnDispose()
 		{
 			this.XmppService.Contracts.ContractsClient.ContractUpdated -= this.ContractsClient_ContractUpdatedOrSigned;
 			this.XmppService.Contracts.ContractsClient.ContractSigned -= this.ContractsClient_ContractUpdatedOrSigned;

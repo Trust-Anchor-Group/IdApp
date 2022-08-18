@@ -32,7 +32,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -80,7 +80,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 		}
 
 		/// <inheritdoc/>
-		public override Task OnDispose()
+		protected override Task OnDispose()
 		{
 			this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;
 			this.XmppService.Wallet.TokenRemoved -= this.Wallet_TokenRemoved;

@@ -51,7 +51,7 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		/// <inheritdoc />
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -63,7 +63,7 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		/// <inheritdoc />
-		public override Task OnDispose()
+		protected override Task OnDispose()
 		{
 			this.photosLoader.CancelLoadPhotos();
 			this.XmppService.ConnectionStateChanged -= this.Contracts_ConnectionStateChanged;
@@ -74,7 +74,7 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		/// <inheritdoc />
-		public override Task OnAppearing()
+		protected override Task OnAppearing()
 		{
 			this.AssignOverlays();
 			return base.OnAppearing();

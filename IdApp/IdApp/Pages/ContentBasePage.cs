@@ -226,12 +226,12 @@ namespace IdApp.Pages
 				if (this.Parent is null)
 				{
 					if (this.ViewModel is ILifeCycleView LifeCycleView)
-						await LifeCycleView.OnDispose();
+						await LifeCycleView.Dispose();
 				}
 				else
 				{
 					if (this.ViewModel is ILifeCycleView LifeCycleView)
-						await LifeCycleView.OnInitialize();
+						await LifeCycleView.Initialize();
 				}
 			}
 			catch (Exception ex)

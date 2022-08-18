@@ -20,7 +20,7 @@ namespace IdApp.Pages.Wallet.MachineVariables
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -42,7 +42,7 @@ namespace IdApp.Pages.Wallet.MachineVariables
 		}
 
 		/// <inheritdoc/>
-		public override Task OnDispose()
+		protected override Task OnDispose()
 		{
 			this.XmppService.Wallet.VariablesUpdated -= this.Wallet_VariablesUpdated;
 			this.XmppService.Wallet.StateUpdated -= this.Wallet_StateUpdated;

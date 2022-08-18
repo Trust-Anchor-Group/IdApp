@@ -23,7 +23,7 @@ namespace IdApp.Pages.Main.Shell
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -36,7 +36,7 @@ namespace IdApp.Pages.Main.Shell
 		}
 
 		/// <inheritdoc/>
-		public override async Task OnDispose()
+		protected override async Task OnDispose()
 		{
 			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged -= this.NetworkService_ConnectivityChanged;

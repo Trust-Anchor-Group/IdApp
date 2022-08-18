@@ -28,7 +28,7 @@ namespace IdApp.Pages.Registration.DefinePin
 		}
 
 		/// <inheritdoc />
-		public override async Task OnInitialize()
+		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
 
@@ -37,7 +37,7 @@ namespace IdApp.Pages.Registration.DefinePin
 		}
 
 		/// <inheritdoc />
-		public override async Task OnDispose()
+		protected override async Task OnDispose()
 		{
 			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
 
