@@ -106,16 +106,6 @@ namespace IdApp.Services.Navigation
 		{
 			try
 			{
-				switch (e.Source)
-				{
-					case ShellNavigationSource.Pop:
-					case ShellNavigationSource.PopToRoot:
-					case ShellNavigationSource.Remove:
-						if (Shell.Current.CurrentPage is ContentBasePage ContentBasePage)
-							ContentBasePage.OnClosingPage();
-						break;
-				}
-
 				if ((e.Source == ShellNavigationSource.Pop) &&
 					(this.currentNavigationArgs is not null) &&
 					(!string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute) ||

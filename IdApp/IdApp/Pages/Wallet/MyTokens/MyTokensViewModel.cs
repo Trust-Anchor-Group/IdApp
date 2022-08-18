@@ -32,9 +32,9 @@ namespace IdApp.Pages.Wallet.MyTokens
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out MyTokensNavigationArgs args))
 				this.selected = args.Selected;
@@ -80,12 +80,14 @@ namespace IdApp.Pages.Wallet.MyTokens
 		}
 
 		/// <inheritdoc/>
-		protected override Task DoUnbind()
+		public override Task OnDispose()
 		{
 			this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;
 			this.XmppService.Wallet.TokenRemoved -= this.Wallet_TokenRemoved;
 
-			return base.DoUnbind();
+			this.selected?.TrySetResult(null);
+
+			return base.OnDispose();
 		}
 
 		private Task Wallet_TokenAdded(object Sender, TokenEventArgs e)
@@ -189,16 +191,6 @@ namespace IdApp.Pages.Wallet.MyTokens
 		{
 			this.selected.TrySetResult(null);
 			await this.NavigationService.GoBackAsync();
-		}
-
-		/// <summary>
-		/// Method called when closing view model, returning to a previous view.
-		/// </summary>
-		public override void OnClosingPage()
-		{
-			this.selected?.TrySetResult(null);
-
-			base.OnClosingPage();
 		}
 
 		private async Task LoadMoreTokens()

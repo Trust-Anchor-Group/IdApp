@@ -20,9 +20,9 @@ namespace IdApp.Pages.Wallet.MachineReport
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out MachineReportNavigationArgs args))
 			{
@@ -36,14 +36,14 @@ namespace IdApp.Pages.Wallet.MachineReport
 		}
 
 		/// <inheritdoc/>
-		protected override Task DoUnbind()
+		public override Task OnDispose()
 		{
 			this.XmppService.Wallet.VariablesUpdated -= this.Wallet_VariablesUpdated;
 			this.XmppService.Wallet.StateUpdated -= this.Wallet_StateUpdated;
 
 			this.DeleteTemporaryFiles();
 
-			return base.DoUnbind();
+			return base.OnDispose();
 		}
 
 		private Task Wallet_StateUpdated(object Sender, NeuroFeatures.NewStateEventArgs e)

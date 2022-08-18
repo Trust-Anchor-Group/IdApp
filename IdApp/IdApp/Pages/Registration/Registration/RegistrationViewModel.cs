@@ -48,18 +48,20 @@ namespace IdApp.Pages.Registration.Registration
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
+
 			this.RegistrationSteps.ForEach(x => x.StepCompleted += this.RegistrationStep_Completed);
 			await this.SyncTagProfileStep();
 		}
 
 		/// <inheritdoc />
-		protected override Task DoUnbind()
+		public override Task OnDispose()
 		{
 			this.RegistrationSteps.ForEach(x => x.StepCompleted -= this.RegistrationStep_Completed);
-			return base.DoUnbind();
+
+			return base.OnDispose();
 		}
 
 		#region Properties

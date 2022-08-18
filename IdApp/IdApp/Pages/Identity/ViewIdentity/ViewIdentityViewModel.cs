@@ -66,9 +66,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out ViewIdentityNavigationArgs args))
 			{
@@ -169,7 +169,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		public override async Task OnDispose()
 		{
 			this.photosLoader.CancelLoadPhotos();
 
@@ -183,7 +183,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			this.LegalIdentity = null;
 
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		#region Properties

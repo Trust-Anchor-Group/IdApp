@@ -655,7 +655,7 @@ namespace IdApp
 				// condition between asynchronous continuation of the old page's OnDisappearing and the new page's OnAppearing.
 				// Thus, it is safer to explicitly await Unbind() before actually switching the main page. We could do it for all pages,
 				// but it would look confusing because we would have to block the user from interacting with the page while unbinding.
-				await LoadingPage.ViewModel.Unbind();
+				await LoadingPage.ViewModel.Disappearing();
 
 				this.MainPage = Page;
 				return;

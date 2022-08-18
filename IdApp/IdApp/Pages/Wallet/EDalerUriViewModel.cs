@@ -47,9 +47,9 @@ namespace IdApp.Pages.Wallet
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out EDalerUriNavigationArgs args))
 			{
@@ -132,21 +132,13 @@ namespace IdApp.Pages.Wallet
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		public override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
 
-			await base.DoUnbind();
-		}
-
-		/// <summary>
-		/// Method called when closing view model, returning to a previous view.
-		/// </summary>
-		public override void OnClosingPage()
-		{
 			this.uriToSend?.TrySetResult(null);
 
-			base.OnClosingPage();
+			await base.OnDispose();
 		}
 
 		private void AssignProperties()
@@ -891,7 +883,7 @@ namespace IdApp.Pages.Wallet
 				// TODO: Validate To is a Bare JID or proper Legal Identity
 				// TODO: Offline options: Expiry days
 
-				if (this.IsBound)
+				if (this.IsAppearing)
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					{
@@ -967,7 +959,7 @@ namespace IdApp.Pages.Wallet
 
 			try
 			{
-				if (this.IsBound)
+				if (this.IsAppearing)
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					{

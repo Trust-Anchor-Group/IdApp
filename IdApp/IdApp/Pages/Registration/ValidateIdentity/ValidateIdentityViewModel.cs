@@ -40,9 +40,9 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         }
 
         /// <inheritdoc />
-        protected override async Task DoBind()
+        public override async Task OnInitialize()
         {
-            await base.DoBind();
+            await base.OnInitialize();
             this.AssignProperties();
 
             this.TagProfile.Changed += this.TagProfile_Changed;
@@ -51,13 +51,13 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         }
 
         /// <inheritdoc />
-        protected override async Task DoUnbind()
+        public override async Task OnDispose()
         {
             this.photosLoader.CancelLoadPhotos();
             this.TagProfile.Changed -= this.TagProfile_Changed;
             this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
             this.XmppService.Contracts.LegalIdentityChanged -= this.XmppContracts_LegalIdentityChanged;
-            await base.DoUnbind();
+            await base.OnDispose();
         }
 
         #region Properties

@@ -18,18 +18,6 @@ namespace IdApp.Pages
         {
         }
 
-        /// <inheritdoc/>
-        protected override async Task DoBind()
-        {
-            await base.DoBind();
-        }
-
-        /// <inheritdoc/>
-        protected override async Task DoUnbind()
-        {
-            await base.DoUnbind();
-        }
-
 		/// <summary>
 		/// Generates a QR-code
 		/// </summary>

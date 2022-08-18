@@ -61,9 +61,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			this.EDalerFrontGlyph = "https://" + this.XmppService.Xmpp.Host + "/Images/eDalerFront200.png";
 			this.EDalerBackGlyph = "https://" + this.XmppService.Xmpp.Host + "/Images/eDalerBack200.png";
@@ -96,14 +96,14 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		public override async Task OnDispose()
 		{
 			this.XmppService.Wallet.BalanceUpdated -= this.Wallet_BalanceUpdated;
 			this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;
 			this.XmppService.Wallet.TokenRemoved -= this.Wallet_TokenRemoved;
 			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
 
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		private SortedDictionary<CaseInsensitiveString, NotificationEvent[]> GetNotificationEvents()

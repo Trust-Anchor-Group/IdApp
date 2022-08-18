@@ -17,15 +17,15 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// Creates an instance of the <see cref="EDalerReceivedViewModel"/> class.
 		/// </summary>
 		public EDalerReceivedViewModel()
-		: base()
+			: base()
 		{
 			this.AcceptCommand = new Command(async _ => await this.Accept(), _ => this.IsConnected);
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out EDalerBalanceNavigationArgs args))
 			{
@@ -76,10 +76,10 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		public override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		private void AssignProperties()

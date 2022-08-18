@@ -34,9 +34,9 @@ namespace IdApp.Pages.Contracts.PetitionContract
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out PetitionContractNavigationArgs args))
 			{
@@ -46,7 +46,9 @@ namespace IdApp.Pages.Contracts.PetitionContract
 				this.petitionId = args.PetitionId;
 				this.purpose = args.Purpose;
 			}
+
 			this.AssignProperties();
+
 			if (!(this.RequestorIdentity?.Attachments is null))
 				this.LoadPhotos();
 		}
@@ -67,10 +69,11 @@ namespace IdApp.Pages.Contracts.PetitionContract
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		public override async Task OnDispose()
 		{
 			this.photosLoader.CancelLoadPhotos();
-			await base.DoUnbind();
+
+			await base.OnDispose();
 		}
 
 		/// <summary>

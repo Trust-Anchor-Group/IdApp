@@ -32,9 +32,9 @@ namespace IdApp.Pages.Things.ViewThing
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out ViewThingNavigationArgs args))
 			{
@@ -51,10 +51,11 @@ namespace IdApp.Pages.Things.ViewThing
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		public override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
-			await base.DoUnbind();
+
+			await base.OnDispose();
 		}
 
 		private void AssignProperties()

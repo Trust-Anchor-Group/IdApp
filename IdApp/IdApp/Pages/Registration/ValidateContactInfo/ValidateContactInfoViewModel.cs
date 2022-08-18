@@ -51,9 +51,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		/// <summary>
 		/// Override this method to do view model specific setup when it's parent page/view appears on screen.
 		/// </summary>
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			this.Purposes.Clear();
 			this.Purposes.Add(LocalizationResourceManager.Current["PurposeWorkOrPersonal"]);

@@ -36,20 +36,20 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			this.DomainName = this.TagProfile.Domain;
 			this.TagProfile.Changed += this.TagProfile_Changed;
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoUnbind()
+		public override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
 
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)

@@ -36,9 +36,9 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         }
 
         /// <inheritdoc/>
-        protected override async Task DoBind()
+        public override async Task OnInitialize()
         {
-            await base.DoBind();
+            await base.OnInitialize();
         
             if (this.NavigationService.TryPopArgs(out PetitionSignatureNavigationArgs args))
             {
@@ -59,10 +59,11 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         }
 
         /// <inheritdoc/>
-        protected override async Task DoUnbind()
+        public override async Task OnDispose()
         {
             this.photosLoader.CancelLoadPhotos();
-            await base.DoUnbind();
+
+            await base.OnDispose();
         }
 
         /// <summary>

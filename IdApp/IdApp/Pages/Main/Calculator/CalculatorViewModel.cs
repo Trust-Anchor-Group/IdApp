@@ -34,9 +34,9 @@ namespace IdApp.Pages.Main.Calculator
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out CalculatorNavigationArgs args))
 			{
@@ -72,14 +72,12 @@ namespace IdApp.Pages.Main.Calculator
 			this.HasStatistics = false;
 		}
 
-		/// <summary>
-		/// Method called when closing view model, returning to a previous view.
-		/// </summary>
-		public override void OnClosingPage()
+		/// <inheritdoc/>
+		public override async Task OnDispose()
 		{
-			this.EvaluateStack(true).Wait();
+			await this.EvaluateStack(true);
 
-			base.OnClosingPage();
+			await base.OnDispose();
 		}
 
 		#region Properties

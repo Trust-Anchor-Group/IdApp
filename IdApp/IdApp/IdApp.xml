@@ -2277,8 +2277,6 @@
         <member name="T:IdApp.Pages.BaseViewModel">
             <summary>
             A base class for all view models, inheriting from the <see cref="T:Xamarin.Forms.BindableObject"/>.
-            This class provides default implementations for the <see cref="M:IdApp.Pages.BaseViewModel.DoBind"/> and <see cref="M:IdApp.Pages.BaseViewModel.DoUnbind"/> methods.
-            Override those to implement setup/teardown when a page/view is appearing and disappearing to/from the screen respectively.
             <br/>
             NOTE: using this class requires your page/view to inherit from <see cref="T:IdApp.Pages.ContentBasePage"/>.
             </summary>
@@ -2288,17 +2286,17 @@
             Create an instance of a <see cref="T:IdApp.Pages.BaseViewModel"/>.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.BaseViewModel.IsBound">
+        <member name="P:IdApp.Pages.BaseViewModel.IsAppearing">
             <summary>
             Returns <c>true</c> if the viewmodel is bound, i.e. its parent page has appeared on screen.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.BaseViewModel.Bind">
+        <member name="M:IdApp.Pages.BaseViewModel.Appearing">
             <summary>
             Called by the parent page when it appears on screen.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.BaseViewModel.Unbind">
+        <member name="M:IdApp.Pages.BaseViewModel.Disappearing">
             <summary>
             Called by the parent page when it disappears from screen.
             </summary>
@@ -2324,29 +2322,19 @@
             <param name="childViewModel">The child viewmodel to remove.</param>
             <returns>Child view model</returns>
         </member>
-        <member name="M:IdApp.Pages.BaseViewModel.DoBind">
-            <summary>
-            Override this method to do view model specific setup when it's parent page/view appears on screen.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.BaseViewModel.DoUnbind">
-            <summary>
-            Override this method to do view model specific teardown when it's parent page/view disappears from screen.
-            </summary>
-        </member>
         <member name="M:IdApp.Pages.BaseViewModel.RestoreState">
             <summary>
-            Called by the parent page when it appears on screen, <em>after</em> the <see cref="M:IdApp.Pages.BaseViewModel.Bind"/> method is called.
+            Called by the parent page when it appears on screen, <em>after</em> the <see cref="M:IdApp.Pages.BaseViewModel.Appearing"/> method is called.
             </summary>
         </member>
         <member name="M:IdApp.Pages.BaseViewModel.SaveState">
             <summary>
-            Called by the parent page when it disappears on screen, <em>before</em> the <see cref="M:IdApp.Pages.BaseViewModel.Unbind"/> method is called.
+            Called by the parent page when it disappears on screen, <em>before</em> the <see cref="M:IdApp.Pages.BaseViewModel.Disappearing"/> method is called.
             </summary>
         </member>
         <member name="M:IdApp.Pages.BaseViewModel.Shutdown">
             <summary>
-            Convenience method that calls <see cref="M:IdApp.Pages.BaseViewModel.SaveState"/> and then <see cref="M:IdApp.Pages.BaseViewModel.Unbind"/>.
+            Convenience method that calls <see cref="M:IdApp.Pages.BaseViewModel.SaveState"/> and then <see cref="M:IdApp.Pages.BaseViewModel.Disappearing"/>.
             </summary>
         </member>
         <member name="M:IdApp.Pages.BaseViewModel.DoRestoreState">
@@ -2407,9 +2395,26 @@
             </summary>
             <param name="commands">The commands to re-evaluate.</param>
         </member>
-        <member name="M:IdApp.Pages.BaseViewModel.OnClosingPage">
+        <member name="M:IdApp.Pages.BaseViewModel.OnInitialize">
             <summary>
-            Method called when closing view model, returning to a previous view.
+            Method called when view is initialized for the first time. Use this method to implement registration
+            of event handlers, processing navigation arguments, etc.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.OnDispose">
+            <summary>
+            Method called when the view is disposed, and will not be used more. Use this method to unregister
+            event handlers, etc.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.OnAppearing">
+            <summary>
+            Method called when view is appearing on the screen.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.OnDisappearing">
+            <summary>
+            Method called when view is disappearing from the screen.
             </summary>
         </member>
         <member name="T:IdApp.Pages.BetweenMainPage">
@@ -2523,10 +2528,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.DoBind">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
@@ -3388,16 +3393,11 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.ContactListViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.DoBind">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.OnDispose">
             <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.OnClosingPage">
-            <summary>
-            Method called when closing view model, returning to a previous view.
-            </summary>
         </member>
         <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ShowContactsMissingProperty">
             <summary>
@@ -3514,16 +3514,16 @@
             </summary>
             <param name="layouts">The layout components to re-render.</param>
         </member>
-        <member name="M:IdApp.Pages.ContentBasePage.OnClosingPage">
-            <summary>
-            Method called when closing view, returning to a previous page.
-            </summary>
-        </member>
         <member name="M:IdApp.Pages.ContentBasePage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="M:IdApp.Pages.ContentBasePage.OnParentSet">
+            <summary>
+            Called when the <see cref="T:Xamarin.Forms.Page"/>'s <see cref="P:Xamarin.Forms.Element.Parent"/> property has changed.
+            </summary>
         </member>
         <member name="T:IdApp.Pages.ContentBaseView">
             <summary>
@@ -3589,7 +3589,7 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.DoBind">
+        <member name="M:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.OnInitialize">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.CreatedProperty">
@@ -3998,16 +3998,11 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.DoBind">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.OnDispose">
             <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.OnClosingPage">
-            <summary>
-            Method called when closing view model, returning to a previous view.
-            </summary>
         </member>
         <member name="F:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.TitleProperty">
             <summary>
@@ -4346,10 +4341,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractViewModel.DoBind">
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contracts.NewContract.NewContractViewModel.DoSaveState">
@@ -4641,10 +4636,10 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.DoBind">
+        <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.AcceptCommand">
@@ -4991,10 +4986,10 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.DoBind">
+        <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.AcceptCommand">
@@ -5283,7 +5278,7 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ServerSignature.ServerSignatureViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.ServerSignature.ServerSignatureViewModel.DoBind">
+        <member name="M:IdApp.Pages.Contracts.ServerSignature.ServerSignatureViewModel.OnInitialize">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Contracts.ServerSignature.ServerSignatureViewModel.ProviderProperty">
@@ -5487,10 +5482,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.DoBind">
+        <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.ObsoleteContractCommand">
@@ -5801,10 +5796,10 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.DoBind">
+        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.AcceptCommand">
@@ -6133,10 +6128,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.DoBind">
+        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.CopyUriToClipboard">
@@ -6244,10 +6239,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.DoBind">
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Photos">
@@ -6938,6 +6933,33 @@
             Title of the current view
             </summary>
         </member>
+        <member name="T:IdApp.Pages.ILifeCycleView">
+            <summary>
+            Interface for views who need to react to life-cycle events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.ILifeCycleView.OnInitialize">
+            <summary>
+            Method called when view is initialized for the first time. Use this method to implement registration
+            of event handlers, processing navigation arguments, etc.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.ILifeCycleView.OnDispose">
+            <summary>
+            Method called when the view is disposed, and will not be used more. Use this method to unregister
+            event handlers, etc.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.ILifeCycleView.OnAppearing">
+            <summary>
+            Method called when view is appearing on the screen.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.ILifeCycleView.OnDisappearing">
+            <summary>
+            Method called when view is disappearing from the screen.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.ILinkableView">
             <summary>
             Interface for linkable views.
@@ -6971,16 +6993,6 @@
         <member name="P:IdApp.Pages.ILinkableView.MediaContentType">
             <summary>
             Content-Type of associated media.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.IModalView">
-            <summary>
-            Interface for modal views.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.IModalView.OnClosingPage">
-            <summary>
-            Method called when closing view model, returning to a previous view.
             </summary>
         </member>
         <member name="T:IdApp.Pages.IItemGroup">
@@ -7076,13 +7088,11 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Main.Calculator.CalculatorViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.DoBind">
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.OnClosingPage">
-            <summary>
-            Method called when closing view model, returning to a previous view.
-            </summary>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.OnDispose">
+            <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.ValueProperty">
             <summary>
@@ -7429,10 +7439,10 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Loading.LoadingViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.DoBind">
+        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.OnInitialize">
             <inheritdoc />
         </member>
-        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.OnDispose">
             <inheritdoc />
         </member>
         <member name="F:IdApp.Pages.Main.Loading.LoadingViewModel.DisplayConnectionTextProperty">
@@ -7494,10 +7504,10 @@
             </summary>
             <param name="MainPage">Main Page</param>
         </member>
-        <member name="M:IdApp.Pages.Main.Main.MainViewModel.DoBind">
+        <member name="M:IdApp.Pages.Main.Main.MainViewModel.OnInitialize">
             <inheritdoc />
         </member>
-        <member name="M:IdApp.Pages.Main.Main.MainViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Main.Main.MainViewModel.OnDispose">
             <inheritdoc />
         </member>
         <member name="F:IdApp.Pages.Main.Main.MainViewModel.ViewMyIdentityCommandProperty">
@@ -7875,10 +7885,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.DoBind">
-            <inheritdoc />
-        </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.OnInitialize">
             <inheritdoc />
         </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.TrySetResultAndClosePage(System.String)">
@@ -7887,10 +7894,8 @@
             </summary>
             <param name="Url">The URL to set.</param>
         </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.OnClosingPage">
-            <summary>
-            Method called when closing view model, returning to a previous view.
-            </summary>
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.OnDispose">
+            <inheritdoc />
         </member>
         <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.UseShellNavigationService">
             <summary>
@@ -8039,10 +8044,10 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Shell.AppShellViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Shell.AppShellViewModel.DoBind">
+        <member name="M:IdApp.Pages.Main.Shell.AppShellViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Main.Shell.AppShellViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Main.Shell.AppShellViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Main.Shell.AppShellViewModel.ConnectionStateTextProperty">
@@ -8100,12 +8105,6 @@
             <summary>
             Creates an instance of a <see cref="T:IdApp.Pages.XmppViewModel"/>.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.QrXmppViewModel.DoBind">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.QrXmppViewModel.DoUnbind">
-            <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.QrXmppViewModel.GenerateQrCode(System.String)">
             <summary>
@@ -8238,10 +8237,10 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DoBind">
+        <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.OnInitialize">
             <inheritdoc />
         </member>
-        <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.OnDispose">
             <inheritdoc />
         </member>
         <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DomainNameProperty">
@@ -8308,10 +8307,10 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.DefinePin.DefinePinViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.DoBind">
+        <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.OnInitialize">
             <inheritdoc />
         </member>
-        <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.OnDispose">
             <inheritdoc />
         </member>
         <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.ClearStepState">
@@ -8527,10 +8526,10 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.DoBind">
+        <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OnInitialize">
             <inheritdoc />
         </member>
-        <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OnDispose">
             <inheritdoc />
         </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.IsTest">
@@ -8933,10 +8932,10 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.DoBind">
+        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.OnInitialize">
             <inheritdoc />
         </member>
-        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.OnDispose">
             <inheritdoc />
         </member>
         <member name="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.RegistrationSteps">
@@ -9038,7 +9037,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.DoBind">
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.OnInitialize">
             <summary>
             Override this method to do view model specific setup when it's parent page/view appears on screen.
             </summary>
@@ -9229,10 +9228,10 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.DoBind">
+        <member name="M:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OnInitialize">
             <inheritdoc />
         </member>
-        <member name="M:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OnDispose">
             <inheritdoc />
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.Photos">
@@ -9598,16 +9597,11 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Things.MyThings.MyThingsViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.DoBind">
+        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnDispose">
             <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnClosingPage">
-            <summary>
-            Method called when closing view model, returning to a previous view.
-            </summary>
         </member>
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.AreSame(Waher.Networking.XMPP.Contracts.Property[],Waher.Networking.XMPP.Contracts.Property[])">
             <summary>
@@ -9704,10 +9698,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.DoBind">
+        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
@@ -9807,10 +9801,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Things.ViewThing.ThingViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.DoBind">
+        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
@@ -9923,10 +9917,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.DoBind">
+        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
@@ -10168,10 +10162,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.DoBind">
+        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
@@ -10368,16 +10362,11 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.DoBind">
+        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.OnDispose">
             <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.OnClosingPage">
-            <summary>
-            Method called when closing view model, returning to a previous view.
-            </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
@@ -10851,10 +10840,10 @@
             The view model to bind to for when displaying information about the current state of a state-machine.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.DoBind">
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel.TitleProperty">
@@ -11129,10 +11118,10 @@
             The view model to bind to for when displaying information about the current state of a state-machine.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.DoBind">
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel.Variables">
@@ -11249,10 +11238,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.DoBind">
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
@@ -11293,11 +11282,6 @@
             Command executed when more tokens need to be loaded.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.OnClosingPage">
-            <summary>
-            Method called when closing view model, returning to a previous view.
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.MyWalletPage">
             <summary>
             A page that allows the user to view the contents of its wallet, pending payments and recent account events.
@@ -11328,10 +11312,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.DoBind">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
@@ -12199,10 +12183,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.DoBind">
+        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
@@ -12467,7 +12451,7 @@
             </summary>
             <param name="Page">Page hosting details.</param>
         </member>
-        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DoBind">
+        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.OnInitialize">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.DefinitionSchemaUrlProperty">
@@ -13523,10 +13507,10 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.DoBind">
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel.Events">
@@ -13559,10 +13543,10 @@
             Creates an instance of a <see cref="T:IdApp.Pages.XmppViewModel"/>.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.XmppViewModel.DoBind">
+        <member name="M:IdApp.Pages.XmppViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.XmppViewModel.DoUnbind">
+        <member name="M:IdApp.Pages.XmppViewModel.OnDispose">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.XmppViewModel.ConnectionStateTextProperty">

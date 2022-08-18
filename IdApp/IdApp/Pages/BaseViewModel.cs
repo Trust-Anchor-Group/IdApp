@@ -10,12 +10,10 @@ namespace IdApp.Pages
 {
 	/// <summary>
 	/// A base class for all view models, inheriting from the <see cref="BindableObject"/>.
-	/// This class provides default implementations for the <see cref="DoBind"/> and <see cref="DoUnbind"/> methods.
-	/// Override those to implement setup/teardown when a page/view is appearing and disappearing to/from the screen respectively.
 	/// <br/>
 	/// NOTE: using this class requires your page/view to inherit from <see cref="ContentBasePage"/>.
 	/// </summary>
-	public abstract class BaseViewModel : ServiceReferences, IModalView
+	public abstract class BaseViewModel : ServiceReferences, ILifeCycleView
 	{
 		private readonly List<BaseViewModel> childViewModels;
 
@@ -30,39 +28,38 @@ namespace IdApp.Pages
 		/// <summary>
 		/// Returns <c>true</c> if the viewmodel is bound, i.e. its parent page has appeared on screen.
 		/// </summary>
-		public bool IsBound { get; private set; }
+		public bool IsAppearing { get; private set; }
 
 		/// <summary>
 		/// Called by the parent page when it appears on screen.
 		/// </summary>
-		public async Task Bind()
+		public async Task Appearing()
 		{
-			if (!this.IsBound)
+			if (!this.IsAppearing)
 			{
 				DeviceDisplay.KeepScreenOn = true;
 
-				await this.DoBind();
+				await this.OnAppearing();
 
 				foreach (BaseViewModel childViewModel in this.childViewModels)
-					await childViewModel.Bind();
+					await childViewModel.Appearing();
 
-				this.IsBound = true;
+				this.IsAppearing = true;
 			}
 		}
 
 		/// <summary>
 		/// Called by the parent page when it disappears from screen.
 		/// </summary>
-		public async Task Unbind()
+		public async Task Disappearing()
 		{
-			if (this.IsBound)
+			if (this.IsAppearing)
 			{
 				foreach (BaseViewModel childViewModel in this.childViewModels)
-				{
-					await childViewModel.Unbind();
-				}
-				await this.DoUnbind();
-				this.IsBound = false;
+					await childViewModel.Disappearing();
+
+				await this.OnDisappearing();
+				this.IsAppearing = false;
 			}
 		}
 
@@ -96,23 +93,7 @@ namespace IdApp.Pages
 		}
 
 		/// <summary>
-		/// Override this method to do view model specific setup when it's parent page/view appears on screen.
-		/// </summary>
-		protected virtual Task DoBind()
-		{
-			return Task.CompletedTask;
-		}
-
-		/// <summary>
-		/// Override this method to do view model specific teardown when it's parent page/view disappears from screen.
-		/// </summary>
-		protected virtual Task DoUnbind()
-		{
-			return Task.CompletedTask;
-		}
-
-		/// <summary>
-		/// Called by the parent page when it appears on screen, <em>after</em> the <see cref="Bind"/> method is called.
+		/// Called by the parent page when it appears on screen, <em>after</em> the <see cref="Appearing"/> method is called.
 		/// </summary>
 		public async Task RestoreState()
 		{
@@ -123,7 +104,7 @@ namespace IdApp.Pages
 		}
 
 		/// <summary>
-		/// Called by the parent page when it disappears on screen, <em>before</em> the <see cref="Unbind"/> method is called.
+		/// Called by the parent page when it disappears on screen, <em>before</em> the <see cref="Disappearing"/> method is called.
 		/// </summary>
 		public async Task SaveState()
 		{
@@ -134,12 +115,12 @@ namespace IdApp.Pages
 		}
 
 		/// <summary>
-		/// Convenience method that calls <see cref="SaveState"/> and then <see cref="Unbind"/>.
+		/// Convenience method that calls <see cref="SaveState"/> and then <see cref="Disappearing"/>.
 		/// </summary>
 		public async Task Shutdown()
 		{
 			await this.SaveState();
-			await this.Unbind();
+			await this.Disappearing();
 		}
 
 		/// <summary>
@@ -176,9 +157,7 @@ namespace IdApp.Pages
 		protected void EvaluateCommands(params ICommand[] commands)
 		{
 			foreach (ICommand command in commands)
-			{
 				command.ChangeCanExecute();
-			}
 		}
 
 		/// <summary>
@@ -242,11 +221,37 @@ namespace IdApp.Pages
 		}
 
 		/// <summary>
-		/// Method called when closing view model, returning to a previous view.
+		/// Method called when view is initialized for the first time. Use this method to implement registration
+		/// of event handlers, processing navigation arguments, etc.
 		/// </summary>
-		public virtual void OnClosingPage()
+		public virtual Task OnInitialize()
 		{
-			// Do nothing by default.
+			return Task.CompletedTask;  // Do nothing by default.
+		}
+
+		/// <summary>
+		/// Method called when the view is disposed, and will not be used more. Use this method to unregister
+		/// event handlers, etc.
+		/// </summary>
+		public virtual Task OnDispose()
+		{
+			return Task.CompletedTask;  // Do nothing by default.
+		}
+
+		/// <summary>
+		/// Method called when view is appearing on the screen.
+		/// </summary>
+		public virtual Task OnAppearing()
+		{
+			return Task.CompletedTask;  // Do nothing by default.
+		}
+
+		/// <summary>
+		/// Method called when view is disappearing from the screen.
+		/// </summary>
+		public virtual Task OnDisappearing()
+		{
+			return Task.CompletedTask;  // Do nothing by default.
 		}
 	}
 }

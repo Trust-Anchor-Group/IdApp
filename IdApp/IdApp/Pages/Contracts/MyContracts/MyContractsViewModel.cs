@@ -34,9 +34,9 @@ namespace IdApp.Pages.Contracts.MyContracts
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			this.IsBusy = true;
 			this.ShowContractsMissing = false;
@@ -65,7 +65,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		public override async Task OnDispose()
 		{
 			if (this.Action != SelectContractAction.Select)
 			{
@@ -73,17 +73,9 @@ namespace IdApp.Pages.Contracts.MyContracts
 				this.contractsMap.Clear();
 			}
 
-			await base.DoUnbind();
-		}
-
-		/// <summary>
-		/// Method called when closing view model, returning to a previous view.
-		/// </summary>
-		public override void OnClosingPage()
-		{
 			this.selection?.TrySetResult(null);
 
-			base.OnClosingPage();
+			await base.OnDispose();
 		}
 
 		/// <summary>

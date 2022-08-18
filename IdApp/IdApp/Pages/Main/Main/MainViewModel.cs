@@ -51,9 +51,9 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoBind()
+		public override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			this.AssignProperties();
 			this.SetConnectionStateAndText(this.XmppService.State);
@@ -63,14 +63,14 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		/// <inheritdoc />
-		protected override Task DoUnbind()
+		public override Task OnDispose()
 		{
 			this.photosLoader.CancelLoadPhotos();
 			this.XmppService.ConnectionStateChanged -= this.Contracts_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged -= this.NetworkService_ConnectivityChanged;
 			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
 
-			return base.DoUnbind();
+			return base.OnDispose();
 		}
 
 		private void AssignProperties()
@@ -153,7 +153,7 @@ namespace IdApp.Pages.Main.Main
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
-						if (this.IsBound)
+						if (this.IsAppearing)
 						{
 							this.ImageRotation = Rotation;
 							this.Image = ImageSource.FromStream(() => new MemoryStream(Bin));

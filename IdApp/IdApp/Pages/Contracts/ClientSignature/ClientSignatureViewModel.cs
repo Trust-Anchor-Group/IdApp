@@ -27,9 +27,9 @@ namespace IdApp.Pages.Contracts.ClientSignature
         }
 
         /// <inheritdoc/>
-        protected override async Task DoBind()
+        public override async Task OnInitialize()
         {
-            await base.DoBind();
+            await base.OnInitialize();
 
             if (this.NavigationService.TryPopArgs(out ClientSignatureNavigationArgs args))
             {
