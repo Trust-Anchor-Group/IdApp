@@ -18,6 +18,12 @@ namespace IdApp.Services
 		public string ObjectId { get; set; }
 
 		/// <summary>
+		/// Current purpose
+		/// </summary>
+		[DefaultValueStringEmpty]
+		public string Purpose { get; set; }
+
+		/// <summary>
 		/// Current domain
 		/// </summary>
 		[DefaultValueStringEmpty]
@@ -166,5 +172,11 @@ namespace IdApp.Services
 		/// </summary>
 		[DefaultValue(Tag.RegistrationStep.ValidateContactInfo)]
 		public Tag.RegistrationStep Step { get; set; }
+
+		/// <summary>
+		/// User's current rejected state.
+		/// </summary>
+		[DefaultValue(false)]
+		public bool WasRejected { get; set; }
 	}
 }

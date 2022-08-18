@@ -121,6 +121,7 @@ namespace IdApp.Services.Tag
 			TagConfiguration clone = new()
 			{
 				ObjectId = this.objectId,
+				Purpose = this.Purpose,
 				Domain = this.Domain,
 				ApiKey = this.ApiKey,
 				ApiSecret = this.ApiSecret,
@@ -145,7 +146,8 @@ namespace IdApp.Services.Tag
 				IsTest = this.IsTest,
 				TestOtpTimestamp = this.TestOtpTimestamp,
 				LegalIdentity = this.LegalIdentity,
-				Step = this.Step
+				Step = this.Step,
+				WasRejected = this.WasRejected
 			};
 
 			return clone;
@@ -162,6 +164,7 @@ namespace IdApp.Services.Tag
 				this.suppressPropertyChangedEvents = true;
 
 				this.objectId = configuration.ObjectId;
+				this.Purpose = configuration.Purpose;
 				this.Domain = configuration.Domain;
 				this.ApiKey = configuration.ApiKey;
 				this.ApiSecret = configuration.ApiSecret;
@@ -186,6 +189,7 @@ namespace IdApp.Services.Tag
 				this.IsTest = configuration.IsTest;
 				this.TestOtpTimestamp = configuration.TestOtpTimestamp;
 				this.LegalIdentity = configuration.LegalIdentity;
+				this.WasRejected = configuration.WasRejected;
 
 				// Do this last, as listeners will read the other properties when the event is fired.
 				this.Step = configuration.Step;
@@ -243,6 +247,9 @@ namespace IdApp.Services.Tag
 				}
 			}
 		}
+
+		/// <inheritdoc/>
+		public string Purpose { get; private set; }
 
 		/// <inheritdoc/>
 		public string Domain
@@ -610,6 +617,21 @@ namespace IdApp.Services.Tag
 			this.IsDirty = false;
 		}
 
+		/// <inheritdoc/>
+		public bool WasRejected { get; private set; }
+
+		/// <inheritdoc/>
+		public void SetWasRejected(bool value)
+		{
+			this.WasRejected = value;
+		}
+
+		/// <inheritdoc/>
+		public void SetPurpose(string value)
+		{
+			this.Purpose = value;
+		}
+
 		#endregion
 
 		#region Build Steps
@@ -654,7 +676,14 @@ namespace IdApp.Services.Tag
 				switch (this.Step)
 				{
 					case RegistrationStep.ValidateContactInfo:
-						this.Step = RegistrationStep.Account;
+						if (this.WasRejected)
+						{
+							this.Step = RegistrationStep.RegisterIdentity;
+						}
+						else
+						{
+							this.Step = RegistrationStep.Account;
+						}
 						break;
 
 					case RegistrationStep.Account:
@@ -671,6 +700,7 @@ namespace IdApp.Services.Tag
 
 					case RegistrationStep.Pin:
 						this.Step = RegistrationStep.Complete;
+						this.WasRejected = false;
 						break;
 				}
 			}
@@ -701,9 +731,12 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public void ClearDomain()
+		public void ClearDomain(bool doClear)
 		{
-			this.Domain = string.Empty;
+			if (doClear)
+			{
+				this.Domain = string.Empty;
+			}
 			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 		}
 
@@ -787,15 +820,17 @@ namespace IdApp.Services.Tag
 		/// <inheritdoc/>
 		public void RevokeLegalIdentity(LegalIdentity revokedIdentity)
 		{
+			this.WasRejected = true;
 			this.LegalIdentity = revokedIdentity;
-			this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
+			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 		}
 
 		/// <inheritdoc/>
 		public void CompromiseLegalIdentity(LegalIdentity compromisedIdentity)
 		{
+			this.WasRejected = true;
 			this.LegalIdentity = compromisedIdentity;
-			this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
+			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 		}
 
 		/// <inheritdoc/>
@@ -956,6 +991,7 @@ namespace IdApp.Services.Tag
 			this.TestOtpTimestamp = null;
 			this.step = RegistrationStep.ValidateContactInfo;
 			this.defaultXmppConnectivity = false;
+			this.WasRejected = false;
 
 			this.IsDirty = true;
 		}

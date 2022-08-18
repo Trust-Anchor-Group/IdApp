@@ -245,7 +245,8 @@ namespace IdApp.Pages.Registration.Registration
 						break;
 
 					default: // RegistrationStep.Operator
-						this.TagProfile.ClearDomain();
+						bool doClear = !this.TagProfile.WasRejected;
+						this.TagProfile.ClearDomain(doClear);
 						break;
 				}
 

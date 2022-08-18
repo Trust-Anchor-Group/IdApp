@@ -20,7 +20,9 @@
             </Image>
             <noBounce:NoBounceScrollView x:Name="ScrollView" Margin="{StaticResource DefaultLeftRightMargin}">
 				<StackLayout x:Name="Frames" Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
-					<Grid Style="{StaticResource OnboardingGrid}">
+					<Grid
+						IsVisible="{Binding Path=ShowPurpose}"
+						Style="{StaticResource OnboardingGrid}">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>

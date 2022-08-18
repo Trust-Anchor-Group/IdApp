@@ -86,6 +86,15 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 
 			this.EMail = this.TagProfile.EMail;
 
+			this.ShowPurpose = true;
+			string Purpose = this.TagProfile.Purpose ?? "";
+			if (this.TagProfile.WasRejected && Purpose != "")
+			{
+				int purposeInt = int.Parse(Purpose);
+				this.Purpose = purposeInt;
+				this.ShowPurpose = purposeInt < 0;
+			}
+			
 			this.EvaluateAllCommands();
 		}
 
@@ -130,6 +139,21 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		/// Holds the list of purposes to display.
 		/// </summary>
 		public ObservableCollection<string> Purposes { get; }
+
+		/// <summary>
+		/// See <see cref="ShowPurpose"/>
+		/// </summary>
+		public static readonly BindableProperty ShowPurposeProperty =
+			BindableProperty.Create(nameof(ShowPurpose), typeof(bool), typeof(ValidateContactInfoViewModel), true);
+
+		/// <summary>
+		/// Show purpose field
+		/// </summary>
+		public bool ShowPurpose
+		{
+			get => (bool)this.GetValue(ShowPurposeProperty);
+			set => this.SetValue(ShowPurposeProperty, value);
+		}
 
 		/// <summary>
 		/// See <see cref="Purpose"/>
@@ -582,6 +606,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					}
 
 					this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
+					this.TagProfile.SetPurpose(this.Purpose.ToString());
+
 					this.OnStepCompleted(EventArgs.Empty);
 				}
 				else
