@@ -4154,6 +4154,11 @@
             Displayable name for the contract.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.NameOrCategory">
+            <summary>
+            Name, or category if no name.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Category">
             <summary>
             Displayable category for the contract.

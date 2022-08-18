@@ -153,6 +153,11 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
         /// </summary>
         public string Name => this.name;
 
+		/// <summary>
+		/// Name, or category if no name.
+		/// </summary>
+		public string NameOrCategory => string.IsNullOrEmpty(this.name) ? this.category : this.name;
+
         /// <summary>
         /// Displayable category for the contract.
         /// </summary>
