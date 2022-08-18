@@ -33,6 +33,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		private static readonly string partSettingsPrefix = typeof(NewContractViewModel).FullName + ".Part_";
 
 		private readonly SortedDictionary<string, ParameterInfo> parametersByName = new();
+		private readonly LinkedList<ParameterInfo> parametersInOrder = new();
 		private Dictionary<string, object> presetParameterValues = new();
 		private CaseInsensitiveString[] suppressedProposalIds;
 		private Contract template;
@@ -794,16 +795,18 @@ namespace IdApp.Pages.Contracts.NewContract
 			if (this.template is not null)
 				Variables["Duration"] = this.template.Duration;
 
-			foreach (ParameterInfo P in this.parametersByName.Values)
+			foreach (ParameterInfo P in this.parametersInOrder)
 				P.Parameter.Populate(Variables);
 
-			foreach (ParameterInfo P in this.parametersByName.Values)
+			foreach (ParameterInfo P in this.parametersInOrder)
 			{
 				bool Valid;
 
 				try
 				{
-					Valid = await P.Parameter.IsParameterValid(Variables);
+					// Calculation parameters might only execute on the server. So, if they fail in the client, allow user to propose contract anyway.
+
+					Valid = await P.Parameter.IsParameterValid(Variables) || P.Control is null;
 				}
 				catch (Exception)
 				{
@@ -1051,6 +1054,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 
 			this.parametersByName.Clear();
+			this.parametersInOrder.Clear();
 
 			foreach (Parameter Parameter in this.template.Parameters)
 			{
@@ -1074,7 +1078,9 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					CheckBox.CheckedChanged += this.Parameter_CheckedChanged;
 
-					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, CheckBox);
+					ParameterInfo PI = new(Parameter, CheckBox);
+					this.parametersByName[Parameter.Name] = PI;
+					this.parametersInOrder.AddLast(PI);
 
 					if (this.presetParameterValues.TryGetValue(Parameter.Name, out object PresetValue))
 					{
@@ -1086,7 +1092,10 @@ namespace IdApp.Pages.Contracts.NewContract
 				}
 				else if (Parameter is CalcParameter)
 				{
-					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, null);
+					ParameterInfo PI = new(Parameter, null);
+					this.parametersByName[Parameter.Name] = PI;
+					this.parametersInOrder.AddLast(PI);
+
 					this.presetParameterValues.Remove(Parameter.Name);
 				}
 				else if (Parameter is DateParameter DP)
@@ -1105,7 +1114,9 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					Picker.NullableDateSelected += this.Parameter_DateChanged;
 
-					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, Picker);
+					ParameterInfo PI = new(Parameter, Picker);
+					this.parametersByName[Parameter.Name] = PI;
+					this.parametersInOrder.AddLast(PI);
 
 					if (this.presetParameterValues.TryGetValue(Parameter.Name, out object PresetValue))
 					{
@@ -1184,7 +1195,9 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					Entry.TextChanged += this.Parameter_TextChanged;
 
-					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, Entry);
+					ParameterInfo PI = new(Parameter, Entry);
+					this.parametersByName[Parameter.Name] = PI;
+					this.parametersInOrder.AddLast(PI);
 
 					if (this.presetParameterValues.TryGetValue(Parameter.Name, out object PresetValue))
 					{
