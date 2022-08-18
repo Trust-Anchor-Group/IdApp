@@ -7510,6 +7510,9 @@
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.OnDispose">
             <inheritdoc />
         </member>
+        <member name="M:IdApp.Pages.Main.Main.MainViewModel.OnAppearing">
+            <inheritdoc />
+        </member>
         <member name="F:IdApp.Pages.Main.Main.MainViewModel.ViewMyIdentityCommandProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.ViewMyIdentityCommand"/>

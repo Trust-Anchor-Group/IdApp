@@ -73,6 +73,13 @@ namespace IdApp.Pages.Main.Main
 			return base.OnDispose();
 		}
 
+		/// <inheritdoc />
+		public override Task OnAppearing()
+		{
+			this.AssignOverlays();
+			return base.OnAppearing();
+		}
+
 		private void AssignProperties()
 		{
 			this.AssignOverlays();
