@@ -18,7 +18,7 @@
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
     <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
-        <Frame Margin="15" BackgroundColor="{StaticResource PageBackgroundColor}">
+		<Frame Margin="15" Style="{StaticResource PopupFrame}">
             <StackLayout Padding="10,5" Spacing="3">
                 <Label Text="{x:Static resx:AppResources.FurtherAction}" FontSize="Large"/>
                 <Label>
@@ -59,7 +59,7 @@
                 </StackLayout>
             </StackLayout>
         </Frame>
-        <Grid HorizontalOptions="End" VerticalOptions="Start">
+		<Grid  Style="{StaticResource PopupGrid}" HorizontalOptions="End" VerticalOptions="Start">
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnCloseButtonTapped" />
             </Grid.GestureRecognizers>
@@ -71,7 +71,7 @@
                     <SolidColorBrush Color="{StaticResource HeadingBackground}"/>
                 </Ellipse.Stroke>
             </Ellipse>
-            <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static resx:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
+			<Label Style="{StaticResource PopupFrame}" />
         </Grid>
     </AbsoluteLayout>
 </pages:PopupPage>

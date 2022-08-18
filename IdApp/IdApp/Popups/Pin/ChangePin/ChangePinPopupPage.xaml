@@ -149,8 +149,7 @@
                         <SolidColorBrush Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
                     </Ellipse.Stroke>
                 </Ellipse>
-                <Label
-					Style="{StaticResource PopupCloseButton}"/>
+                <Label Style="{StaticResource PopupCloseButton}" />
             </Grid>
 			
         </AbsoluteLayout>

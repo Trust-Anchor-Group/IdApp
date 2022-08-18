@@ -8,8 +8,9 @@
                        x:DataType="model:ImageViewModel"
                        x:Class="IdApp.Popups.Photos.Image.ImageView">
     <ContentView.Content>
-        <Frame x:Name="PhotoViewer" HasShadow="true" BackgroundColor="{DynamicResource HeadingBackgroundTranslucent}" 
-               Opacity="0" HorizontalOptions="Center" VerticalOptions="Center">
+        <Frame Style="{StaticResource PopupFrame}"
+			x:Name="PhotoViewer" HasShadow="true" BackgroundColor="{DynamicResource HeadingBackgroundTranslucent}" 
+            Opacity="0" HorizontalOptions="Center" VerticalOptions="Center">
             <Grid>
                 <StackLayout Orientation="Vertical" Margin="0">
                     <CarouselView x:Name="CarouselView"
