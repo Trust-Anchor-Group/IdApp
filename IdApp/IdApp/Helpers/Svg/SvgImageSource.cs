@@ -247,7 +247,7 @@ namespace IdApp.Helpers.Svg
 			{
 				using (Stream Stream = await this.StreamFunc(this.CancellationTokenSource.Token).ConfigureAwait(false))
 				{
-					if (Stream == null)
+					if (Stream is null)
 					{
 						this.OnLoadingCompleted(false);
 						return null;

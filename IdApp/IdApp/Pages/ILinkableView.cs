@@ -3,7 +3,7 @@
 namespace IdApp.Pages
 {
 	/// <summary>
-	/// Interfaces for linkable views.
+	/// Interface for linkable views.
 	/// </summary>
 	public interface ILinkableView
 	{

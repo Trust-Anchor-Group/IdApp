@@ -13,15 +13,11 @@ namespace IdApp.Pages.Contracts.MyContracts
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MyContractsPage
 	{
-		private readonly INavigationService navigationService;
-
 		/// <summary>
 		/// Creates a new instance of the <see cref="MyContractsPage"/> class.
 		/// </summary>
 		public MyContractsPage()
 		{
-			this.navigationService = App.Instantiate<INavigationService>();
-
 			MyContractsViewModel ViewModel = new();
 			this.Title = ViewModel.Title;
 			this.ViewModel = ViewModel;
@@ -29,51 +25,43 @@ namespace IdApp.Pages.Contracts.MyContracts
 			this.InitializeComponent();
 		}
 
-		/// <summary>
-		/// Overrides the back button behavior to handle navigation internally instead.
-		/// </summary>
-		/// <returns>Whether or not the back navigation was handled</returns>
-		protected override bool OnBackButtonPressed()
-		{
-			this.navigationService.GoBackAsync();
-			return true;
-		}
-
 		private void ContractsSelectionChanged(object Sender, SelectionChangedEventArgs e)
 		{
-			object SelectedItem = this.Contracts.SelectedItem;
-			MyContractsViewModel ViewModel = this.GetViewModel<MyContractsViewModel>();
+			if (this.ViewModel is MyContractsViewModel MyContractsViewModel)
+			{
+				object SelectedItem = this.Contracts.SelectedItem;
 
-			if (SelectedItem is HeaderModel Category)
-			{
-				Category.Expanded = !Category.Expanded;
-				ViewModel.AddOrRemoveContracts(Category, Category.Expanded);
-			}
-			else if (SelectedItem is ContractModel Contract)
-			{
-				ViewModel.ContractSelected(Contract.ContractId);
-
-				if (Contract.HasEvents)
-					ViewModel.NotificationService.DeleteEvents(Contract.Events);
-			}
-			else if (SelectedItem is EventModel Event)
-			{
-				ViewModel.UiSerializer.BeginInvokeOnMainThread(async () =>
+				if (SelectedItem is HeaderModel Category)
 				{
-					try
-					{
-						await Event.Event.Open(ViewModel);
+					Category.Expanded = !Category.Expanded;
+					MyContractsViewModel.AddOrRemoveContracts(Category, Category.Expanded);
+				}
+				else if (SelectedItem is ContractModel Contract)
+				{
+					MyContractsViewModel.ContractSelected(Contract.ContractId);
 
-						await ViewModel.NotificationService.DeleteEvents(new NotificationEvent[] { Event.Event });
-					}
-					catch (Exception ex)
+					if (Contract.HasEvents)
+						MyContractsViewModel.NotificationService.DeleteEvents(Contract.Events);
+				}
+				else if (SelectedItem is EventModel Event)
+				{
+					MyContractsViewModel.UiSerializer.BeginInvokeOnMainThread(async () =>
 					{
-						ViewModel.LogService.LogException(ex);
-					}
-				});
+						try
+						{
+							await Event.Event.Open(MyContractsViewModel);
+
+							await MyContractsViewModel.NotificationService.DeleteEvents(new NotificationEvent[] { Event.Event });
+						}
+						catch (Exception ex)
+						{
+							MyContractsViewModel.LogService.LogException(ex);
+						}
+					});
+				}
+
+				this.Contracts.SelectedItem = null;
 			}
-
-			this.Contracts.SelectedItem = null;
 		}
 	}
 }

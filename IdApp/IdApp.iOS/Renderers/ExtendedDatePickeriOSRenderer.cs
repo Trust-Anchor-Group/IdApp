@@ -72,7 +72,7 @@ namespace IdApp.iOS.Renderers
         private void SetFont(ExtendedDatePicker DatePicker)
         {
             UIFont UiFont;
-            if (DatePicker.Font != Font.Default && (UiFont = DatePicker.Font.ToUIFont()) != null)
+            if (DatePicker.Font != Font.Default && (UiFont = DatePicker.Font.ToUIFont()) is not null)
                 this.Control.Font = UiFont;
             else if (DatePicker.Font == Font.Default)
                 this.Control.Font = UIFont.SystemFontOfSize(17f);
@@ -85,7 +85,7 @@ namespace IdApp.iOS.Renderers
 
         private void SetNullableText(ExtendedDatePicker DatePicker)
         {
-            if (DatePicker.NullableDate == null)
+            if (!DatePicker.NullableDate.HasValue)
                 this.Control.Text = DatePicker.Placeholder;
         }
 

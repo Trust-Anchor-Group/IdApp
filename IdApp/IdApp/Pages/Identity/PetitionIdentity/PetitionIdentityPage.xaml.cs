@@ -12,14 +12,11 @@ namespace IdApp.Pages.Identity.PetitionIdentity
     [DesignTimeVisible(true)]
     public partial class PetitionIdentityPage
     {
-        private readonly INavigationService navigationService;
-
         /// <summary>
         /// Creates a new instance of the <see cref="PetitionIdentityPage"/> class.
         /// </summary>
         public PetitionIdentityPage()
         {
-            this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new PetitionIdentityViewModel();
 			this.InitializeComponent();
         }
@@ -31,20 +28,13 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             return base.OnDisappearingAsync();
         }
 
-        /// <summary>
-        /// Overrides the back button behavior to handle navigation internally instead.
-        /// </summary>
-        /// <returns>Whether or not the back navigation was handled</returns>
-        protected override bool OnBackButtonPressed()
-        {
-            this.navigationService.GoBackAsync();
-            return true;
-        }
-
         private void Image_Tapped(object Sender, EventArgs e)
         {
-            Attachment[] attachments = this.GetViewModel<PetitionIdentityViewModel>().RequestorIdentity?.Attachments;
-            this.PhotoViewer.ShowPhotos(attachments);
+			if (this.ViewModel is PetitionIdentityViewModel PetitionIdentityViewModel)
+			{
+				Attachment[] attachments = PetitionIdentityViewModel.RequestorIdentity?.Attachments;
+				this.PhotoViewer.ShowPhotos(attachments);
+			}
         }
     }
 }

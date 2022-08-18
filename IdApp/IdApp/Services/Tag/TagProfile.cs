@@ -963,10 +963,8 @@ namespace IdApp.Services.Tag
 		/// <inheritdoc/>
 		public PinStrength ValidatePinStrength(string Pin)
 		{
-			if (Pin == null)
-			{
+			if (Pin is null)
 				return PinStrength.NotEnoughDigitsLettersSigns;
-			}
 
 			Pin = Pin.Normalize();
 

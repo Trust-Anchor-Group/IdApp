@@ -21,16 +21,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		}
 
 		/// <summary>
-		/// Overrides the back button behavior to handle navigation internally instead.
-		/// </summary>
-		/// <returns>Whether or not the back navigation was handled</returns>
-		protected override bool OnBackButtonPressed()
-		{
-			this.ViewModel.NavigationService.GoBackAsync();
-			return true;
-		}
-
-		/// <summary>
 		/// Adds a Legal ID record in the parts section.
 		/// 
 		/// (Grouped collections do not work. Need to do this manually. TODO: MVVC when this is possible.)

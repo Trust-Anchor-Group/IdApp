@@ -137,8 +137,16 @@ namespace IdApp.Pages.Things.MyThings
 			this.Things.Clear();
 
 			await base.DoUnbind();
+		}
 
+		/// <summary>
+		/// Method called when closing view model, returning to a previous view.
+		/// </summary>
+		public override void OnClosingPage()
+		{
 			this.thingToShare?.TrySetResult(null);
+
+			base.OnClosingPage();
 		}
 
 		/// <summary>

@@ -59,6 +59,7 @@ using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
 using Waher.Runtime.Text;
 using Waher.Script;
+using Waher.Script.Content;
 using Waher.Security.LoginMonitor;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
@@ -167,7 +168,7 @@ namespace IdApp
 		/// sufficient for the application to be "on-boarded". An application is on-boarded when its legal identity is on-boarded
 		/// and when its internal systems are ready. For example, the loading stage of the app must complete.
 		/// </remarks>
-		public static bool IsOnboarded => Shell.Current != null;
+		public static bool IsOnboarded => Shell.Current is not null;
 
 		private void InitLocalizationResource()
 		{
@@ -270,6 +271,7 @@ namespace IdApp
 					typeof(ControlClient).Assembly,             // Serialization of XMPP objects related to actuators
 					typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
 					typeof(Expression).Assembly,                // Indexes basic script functions
+					typeof(GraphEncoder).Assembly,              // Indexes content script functions
 					typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
 					typeof(NeuroFeaturesClient).Assembly,       // Indexes Neuro-Features client framework
 					typeof(PushNotificationClient).Assembly,    // Indexes Push Notification client framework

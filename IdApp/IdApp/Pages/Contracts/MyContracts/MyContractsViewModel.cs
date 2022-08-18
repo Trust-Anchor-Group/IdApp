@@ -73,9 +73,17 @@ namespace IdApp.Pages.Contracts.MyContracts
 				this.contractsMap.Clear();
 			}
 
+			await base.DoUnbind();
+		}
+
+		/// <summary>
+		/// Method called when closing view model, returning to a previous view.
+		/// </summary>
+		public override void OnClosingPage()
+		{
 			this.selection?.TrySetResult(null);
 
-			await base.DoUnbind();
+			base.OnClosingPage();
 		}
 
 		/// <summary>

@@ -81,6 +81,7 @@
     <PackageReference Include="Waher.Runtime.Text" Version="1.0.1" />
     <PackageReference Include="Waher.Runtime.Timing" Version="1.0.5" />
     <PackageReference Include="Waher.Script" Version="2.4.7" />
+    <PackageReference Include="Waher.Script.Content" Version="2.0.5" />
     <PackageReference Include="Waher.Security" Version="1.0.8" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xamarin.Build.Download" Version="0.11.3" />

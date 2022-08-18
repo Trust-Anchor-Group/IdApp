@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using IdApp.Pages.Registration.Registration;
 using IdApp.Services.Tag;
 using IdApp.Services.UI;
 using Xamarin.Forms;
@@ -59,36 +60,21 @@ namespace IdApp.Pages.Registration.Registration
         {
             this.uiSerializer.BeginInvokeOnMainThread(() =>
             {
-                RegistrationViewModel vm = this.GetViewModel<RegistrationViewModel>();
-                int Step = vm.CurrentStep;
+				if (this.ViewModel is RegistrationViewModel RegistrationViewModel)
+				{
+					int Step = RegistrationViewModel.CurrentStep;
 
-                if (Step < (int)RegistrationStep.Complete)
-                {
-                    int OtherStep = Step + ((Step > 0) ? -1 : 1);
+					if (Step < (int)RegistrationStep.Complete)
+					{
+						int OtherStep = Step + ((Step > 0) ? -1 : 1);
 
-                    vm.MuteStepSync();
-                    this.CarouselView.ScrollTo(OtherStep, position: ScrollToPosition.Center, animate: false);
-                    this.CarouselView.ScrollTo(Step, position: ScrollToPosition.Center, animate: false);
-                    this.uiSerializer.BeginInvokeOnMainThread(() => vm.UnMuteStepSync());
-                }
+						RegistrationViewModel.MuteStepSync();
+						this.CarouselView.ScrollTo(OtherStep, position: ScrollToPosition.Center, animate: false);
+						this.CarouselView.ScrollTo(Step, position: ScrollToPosition.Center, animate: false);
+						this.uiSerializer.BeginInvokeOnMainThread(() => RegistrationViewModel.UnMuteStepSync());
+					}
+				}
             });
-        }
-
-        /// <summary>
-        /// Overrides the back button behavior to handle navigation internally instead.
-        /// </summary>
-        /// <returns>Whether or not the back navigation was handled</returns>
-        protected override bool OnBackButtonPressed()
-        {
-            RegistrationViewModel viewModel = this.GetViewModel<RegistrationViewModel>();
-
-            if (viewModel.CanGoBack)
-            {
-                viewModel.GoToPrevCommand.Execute(null);
-                return true;
-            }
-
-            return base.OnBackButtonPressed();
         }
     }
 }

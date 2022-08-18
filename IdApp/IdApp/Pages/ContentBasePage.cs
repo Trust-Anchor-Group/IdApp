@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Waher.Events;
+using IdApp.Pages.Registration.Registration;
 using IdApp.Resx;
 
 namespace IdApp.Pages
@@ -38,16 +39,6 @@ namespace IdApp.Pages
         {
             get => this.BindingContext as BaseViewModel;
             protected set => this.BindingContext = value;
-        }
-
-        /// <summary>
-        /// Returns the viewmodel, type cast to the proper type.
-        /// </summary>
-        /// <typeparam name="T">The viewmodel type.</typeparam>
-        /// <returns>View model</returns>
-        protected T GetViewModel<T>() where T : BaseViewModel
-        {
-            return (T)this.ViewModel;
         }
 
         /// <inheritdoc />
@@ -197,5 +188,40 @@ namespace IdApp.Pages
                 }
             });
         }
+
+		/// <summary>
+		/// Method called when closing view, returning to a previous page.
+		/// </summary>
+		public virtual void OnClosingPage()
+		{
+			if (this.ViewModel is IModalView ModalView)
+				ModalView.OnClosingPage();
+		}
+
+		/// <summary>
+		/// Overrides the back button behavior to handle navigation internally instead.
+		/// </summary>
+		/// <returns>Whether or not the back navigation was handled</returns>
+		protected sealed override bool OnBackButtonPressed()
+		{
+			if (this.ViewModel is RegistrationViewModel RegistrationViewModel)
+			{
+				if (RegistrationViewModel.CanGoBack)
+				{
+					RegistrationViewModel.GoToPrevCommand.Execute(null);
+					return true;
+				}
+				else
+					return base.OnBackButtonPressed();
+			}
+			else
+			{
+				if (this.ViewModel is not null)
+					this.ViewModel.NavigationService.GoBackAsync();
+
+				return true;
+			}
+		}
+
 	}
 }

@@ -135,8 +135,18 @@ namespace IdApp.Pages.Wallet
 		protected override async Task DoUnbind()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
-			this.uriToSend?.TrySetResult(null);
+
 			await base.DoUnbind();
+		}
+
+		/// <summary>
+		/// Method called when closing view model, returning to a previous view.
+		/// </summary>
+		public override void OnClosingPage()
+		{
+			this.uriToSend?.TrySetResult(null);
+
+			base.OnClosingPage();
 		}
 
 		private void AssignProperties()

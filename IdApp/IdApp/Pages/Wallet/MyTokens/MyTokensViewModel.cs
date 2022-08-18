@@ -191,6 +191,16 @@ namespace IdApp.Pages.Wallet.MyTokens
 			await this.NavigationService.GoBackAsync();
 		}
 
+		/// <summary>
+		/// Method called when closing view model, returning to a previous view.
+		/// </summary>
+		public override void OnClosingPage()
+		{
+			this.selected?.TrySetResult(null);
+
+			base.OnClosingPage();
+		}
+
 		private async Task LoadMoreTokens()
 		{
 			if (this.HasMoreTokens)
