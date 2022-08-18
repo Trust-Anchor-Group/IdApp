@@ -3,12 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Main.ScanQrCode;
-using IdApp.Services.Contracts;
-using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
-using IdApp.Services.Xmpp;
-using IdApp.Services.ThingRegistries;
-using IdApp.Services.Wallet;
 using SkiaSharp;
 using Waher.Content.QR;
 using Waher.Content.QR.Encoding;
@@ -17,7 +12,6 @@ using IdApp.Resx;
 using System.Collections.Generic;
 using System.Web;
 using System.Collections.Specialized;
-using IdApp.Services.Notification;
 using IdApp.Services.Notification.Identities;
 using IdApp.Services.Notification.Contracts;
 
@@ -29,8 +23,6 @@ namespace IdApp.Services.UI.QR
 	public static class QrCode
 	{
 		private static readonly QrEncoder encoder = new();
-		private static TaskCompletionSource<string> qrCodeScanned;
-		private static Func<string, Task> callback;
 
 		/// <summary>
 		/// Scans a QR Code, and depending on the actual result, takes different actions. 
@@ -38,7 +30,7 @@ namespace IdApp.Services.UI.QR
 		/// </summary>
 		public static async Task ScanQrCodeAndHandleResult(bool UseShellNavigationService = true)
 		{
-			string Url = await QrCode.ScanQrCode(App.Instantiate<INavigationService>(), AppResources.Open, action: null, UseShellNavigationService: UseShellNavigationService);
+			string Url = await QrCode.ScanQrCode(AppResources.Open, Action: null, UseShellNavigationService: UseShellNavigationService);
 			if (string.IsNullOrWhiteSpace(Url))
 				return;
 
@@ -53,32 +45,26 @@ namespace IdApp.Services.UI.QR
 		/// <returns>If URL was handled.</returns>
 		public static async Task<bool> OpenUrl(string Url)
 		{
-			ILogService LogService = App.Instantiate<ILogService>();
-			IUiSerializer UiSerializer = App.Instantiate<IUiSerializer>();
-			IXmppService XmppService = App.Instantiate<IXmppService>();
-			IContractOrchestratorService ContractOrchestratorService = App.Instantiate<IContractOrchestratorService>();
-			IThingRegistryOrchestratorService ThingRegistryOrchestratorService = App.Instantiate<IThingRegistryOrchestratorService>();
-			INeuroWalletOrchestratorService EDalerOrchestratorService = App.Instantiate<INeuroWalletOrchestratorService>();
-			INotificationService NotificationService = App.Instantiate<INotificationService>();
+			ServiceReferences Services = new();
 
 			try
 			{
 				if (!Uri.TryCreate(Url, UriKind.Absolute, out Uri uri))
 				{
-					await UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.CodeNotRecognized);
+					await Services.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.CodeNotRecognized);
 					return false;
 				}
 
 				switch (uri.Scheme.ToLower())
 				{
 					case Constants.UriSchemes.UriSchemeIotId:
-						NotificationService.ExpectEvent<IdentityResponseNotificationEvent>(DateTime.Now.AddMinutes(1));
+						Services.NotificationService.ExpectEvent<IdentityResponseNotificationEvent>(DateTime.Now.AddMinutes(1));
 						string legalId = Constants.UriSchemes.RemoveScheme(Url);
-						await ContractOrchestratorService.OpenLegalIdentity(legalId, AppResources.ScannedQrCode);
+						await Services.ContractOrchestratorService.OpenLegalIdentity(legalId, AppResources.ScannedQrCode);
 						return true;
 
 					case Constants.UriSchemes.UriSchemeIotSc:
-						NotificationService.ExpectEvent<ContractResponseNotificationEvent>(DateTime.Now.AddMinutes(1));
+						Services.NotificationService.ExpectEvent<ContractResponseNotificationEvent>(DateTime.Now.AddMinutes(1));
 
 						Dictionary<string, object> Parameters = new();
 
@@ -95,40 +81,40 @@ namespace IdApp.Services.UI.QR
 							contractId = contractId.Substring(0, i);
 						}
 
-						await ContractOrchestratorService.OpenContract(contractId, AppResources.ScannedQrCode, Parameters);
+						await Services.ContractOrchestratorService.OpenContract(contractId, AppResources.ScannedQrCode, Parameters);
 						return true;
 
 					case Constants.UriSchemes.UriSchemeIotDisco:
-						if (XmppService.ThingRegistry.IsIoTDiscoClaimURI(Url))
-							await ThingRegistryOrchestratorService.OpenClaimDevice(Url);
-						else if (XmppService.ThingRegistry.IsIoTDiscoSearchURI(Url))
-							await ThingRegistryOrchestratorService.OpenSearchDevices(Url);
-						else if (XmppService.ThingRegistry.IsIoTDiscoDirectURI(Url))
-							await ThingRegistryOrchestratorService.OpenDeviceReference(Url);
+						if (Services.XmppService.ThingRegistry.IsIoTDiscoClaimURI(Url))
+							await Services.ThingRegistryOrchestratorService.OpenClaimDevice(Url);
+						else if (Services.XmppService.ThingRegistry.IsIoTDiscoSearchURI(Url))
+							await Services.ThingRegistryOrchestratorService.OpenSearchDevices(Url);
+						else if (Services.XmppService.ThingRegistry.IsIoTDiscoDirectURI(Url))
+							await Services.ThingRegistryOrchestratorService.OpenDeviceReference(Url);
 						else
 						{
-							await UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidIoTDiscoveryCode + Environment.NewLine + Environment.NewLine + Url);
+							await Services.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidIoTDiscoveryCode + Environment.NewLine + Environment.NewLine + Url);
 							return false;
 						}
 						return true;
 
 					case Constants.UriSchemes.UriSchemeTagSign:
-						NotificationService.ExpectEvent<RequestSignatureNotificationEvent>(DateTime.Now.AddMinutes(1));
+						Services.NotificationService.ExpectEvent<RequestSignatureNotificationEvent>(DateTime.Now.AddMinutes(1));
 
 						string request = Constants.UriSchemes.RemoveScheme(Url);
-						await ContractOrchestratorService.TagSignature(request);
+						await Services.ContractOrchestratorService.TagSignature(request);
 						return true;
 
 					case Constants.UriSchemes.UriSchemeEDaler:
-						await EDalerOrchestratorService.OpenEDalerUri(Url);
+						await Services.NeuroWalletOrchestratorService.OpenEDalerUri(Url);
 						return true;
 
 					case Constants.UriSchemes.UriSchemeNeuroFeature:
-						await EDalerOrchestratorService.OpenNeuroFeatureUri(Url);
+						await Services.NeuroWalletOrchestratorService.OpenNeuroFeatureUri(Url);
 						return true;
 
 					case Constants.UriSchemes.UriSchemeOnboarding:
-						await UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ThisCodeCannotBeClaimedAtThisTime);
+						await Services.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ThisCodeCannotBeClaimedAtThisTime);
 						return false;
 
 					case Constants.UriSchemes.UriSchemeXmpp:
@@ -139,15 +125,15 @@ namespace IdApp.Services.UI.QR
 							return true;
 						else
 						{
-							await UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.QrCodeNotUnderstood + Environment.NewLine + Environment.NewLine + Url);
+							await Services.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.QrCodeNotUnderstood + Environment.NewLine + Environment.NewLine + Url);
 							return false;
 						}
 				}
 			}
 			catch (Exception ex)
 			{
-				LogService.LogException(ex);
-				await UiSerializer.DisplayAlert(ex);
+				Services.LogService.LogException(ex);
+				await Services.UiSerializer.DisplayAlert(ex);
 				return false;
 			}
 		}
@@ -169,61 +155,24 @@ namespace IdApp.Services.UI.QR
 		/// In order to handle processing in the correct order, you may need to use the <c>action</c> parameter. It is provided
 		/// to do additional processing <em>before</em> the <see cref="ScanQrCodePage"/> is navigated away from.
 		/// </summary>
-		/// <param name="navigationService">The navigation service to use for page navigation.</param>
-		/// <param name="commandName">The localized name of the command to display when scanning.</param>
-		/// <param name="action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
+		/// <param name="CommandName">The localized name of the command to display when scanning.</param>
+		/// <param name="Action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
 		/// <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
 		/// <returns>Decoded string</returns>
-		public static Task<string> ScanQrCode(INavigationService navigationService, string commandName, Func<string, Task> action = null, bool UseShellNavigationService = true)
+		public static Task<string> ScanQrCode(string CommandName, Func<string, Task> Action = null, bool UseShellNavigationService = true)
 		{
-			callback = action;
-
-			ScanQrCodeNavigationArgs NavigationArgs = new(commandName);
+			ScanQrCodeNavigationArgs NavigationArgs = new(CommandName, Action);
 			if (UseShellNavigationService)
 			{
-				_ = navigationService.GoToAsync(nameof(ScanQrCodePage), NavigationArgs);
+				INavigationService NavigationService = App.Instantiate<INavigationService>();
+				_ = NavigationService.GoToAsync(nameof(ScanQrCodePage), NavigationArgs);
 			}
 			else
 			{
 				_ = App.Current.MainPage.Navigation.PushAsync(new ScanQrCodePage(NavigationArgs));
 			}
-			
-			qrCodeScanned = new TaskCompletionSource<string>();
-			return qrCodeScanned.Task;
-		}
 
-		/// <summary>
-		/// Tries to set the Scan QR Code result and close the scan page.
-		/// </summary>
-		/// <param name="navigationService">The navigation service to use for page navigation.</param>
-		/// <param name="uiSerializer">The current UI Dispatcher to use for marshalling back to the main thread.</param>
-		/// <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.</param>
-		/// <param name="Url">The URL to set.</param>
-		internal static void TrySetResultAndClosePage(INavigationService navigationService, IUiSerializer uiSerializer, string Url, bool UseShellNavigationService = true)
-		{
-			uiSerializer.BeginInvokeOnMainThread(async () =>
-			{
-				if (!(callback is null))
-				{
-					await callback(Url);
-					callback = null;
-				}
-
-				if (UseShellNavigationService)
-				{
-					await navigationService.GoBackAsync();
-				}
-				else
-				{
-					await App.Current.MainPage.Navigation.PopAsync();
-				}
-
-				if (!string.IsNullOrWhiteSpace(Url) && !(qrCodeScanned is null))
-				{
-					qrCodeScanned.TrySetResult(Url.Trim());
-					qrCodeScanned = null;
-				}
-			});
+			return NavigationArgs.QrCodeScanned.Task;
 		}
 
 		/// <summary>

@@ -9,14 +9,11 @@ namespace IdApp.Pages.Contracts.NewContract
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewContractPage
 	{
-        private readonly INavigationService navigationService;
-
         /// <summary>
         /// Creates a new instance of the <see cref="NewContractPage"/> class.
         /// </summary>
 		public NewContractPage()
         {
-            this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new NewContractViewModel();
 			this.InitializeComponent();
         }
@@ -27,15 +24,5 @@ namespace IdApp.Pages.Contracts.NewContract
         //    base.OnAppearing();
         //    this.ForceReRender(this.RootScrollView);
         //}
-
-        /// <summary>
-        /// Overrides the back button behavior to handle navigation internally instead.
-        /// </summary>
-        /// <returns>Whether or not the back navigation was handled</returns>
-        protected override bool OnBackButtonPressed()
-        {
-            this.navigationService.GoBackAsync();
-            return true;
-        }
 	}
 }

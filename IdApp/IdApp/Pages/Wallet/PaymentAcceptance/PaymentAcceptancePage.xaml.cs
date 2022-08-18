@@ -17,15 +17,5 @@ namespace IdApp.Pages.Wallet.PaymentAcceptance
 
 			this.InitializeComponent();
         }
-
-        /// <summary>
-        /// Overrides the back button behavior to handle navigation internally instead.
-        /// </summary>
-        /// <returns>Whether or not the back navigation was handled</returns>
-        protected override bool OnBackButtonPressed()
-        {
-            this.ViewModel.NavigationService.GoBackAsync();
-            return true;
-        }
     }
 }

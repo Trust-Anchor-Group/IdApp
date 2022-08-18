@@ -15,7 +15,7 @@ namespace IdApp.iOS.Effects
 
 		protected override void OnAttached()
 		{
-			if (this.TextField != null)
+			if (this.TextField is not null)
 			{
 				this.TextField.EditingDidBegin += this.OnEditingBegin;
 			}
@@ -25,7 +25,7 @@ namespace IdApp.iOS.Effects
 
 		protected override void OnDetached()
 		{
-			if (this.TextField != null)
+			if (this.TextField is not null)
 			{
 				this.TextField.EditingDidBegin -= this.OnEditingBegin;
 			}
@@ -43,7 +43,7 @@ namespace IdApp.iOS.Effects
 
 		private void UpdateSecureTextEntry()
 		{
-			if (this.Entry != null && this.Entry.IsPassword && this.TextField != null)
+			if (this.Entry is not null && this.Entry.IsPassword && this.TextField is not null)
 			{
 				bool IsPasswordMasked = PasswordMask.GetIsEnabled(this.Entry);
 				if (IsPasswordMasked)
@@ -62,7 +62,7 @@ namespace IdApp.iOS.Effects
 
 		private void OnEditingBegin(object Sender, System.EventArgs e)
 		{
-			if (this.TextField.SecureTextEntry && !string.IsNullOrEmpty(this.TextField.Text) && this.Entry != null)
+			if (this.TextField.SecureTextEntry && !string.IsNullOrEmpty(this.TextField.Text) && this.Entry is not null)
 			{
 				string OriginalText = this.TextField.Text;
 

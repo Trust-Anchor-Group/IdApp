@@ -1226,7 +1226,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				if (Template.ForMachinesLocalName == "Transfer" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
 					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
-					XmlDocument Doc = new();
+					XmlDocument Doc = new()
+					{
+						PreserveWhitespace = true
+					};
 					Doc.LoadXml(Template.ForMachines.OuterXml);
 
 					TrustProviderId = e.TrustProviderId;
@@ -1315,7 +1318,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				if (Template.ForMachinesLocalName == "Transfer" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
 					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
-					XmlDocument Doc = new();
+					XmlDocument Doc = new()
+					{
+						PreserveWhitespace = true
+					};
 					Doc.LoadXml(Template.ForMachines.OuterXml);
 
 					TrustProviderId = e.TrustProviderId;

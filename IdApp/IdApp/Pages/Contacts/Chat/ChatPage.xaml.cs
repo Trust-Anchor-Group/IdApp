@@ -16,8 +16,6 @@ namespace IdApp.Pages.Contacts.Chat
 	[QueryProperty(nameof(UniqueId), nameof(UniqueId))]
 	public partial class ChatPage
 	{
-		private readonly INavigationService navigationService;
-
 		/// <summary>
 		/// Views unique ID
 		/// </summary>
@@ -33,20 +31,9 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public ChatPage()
 		{
-			this.navigationService = App.Instantiate<INavigationService>();
 			this.ViewModel = new ChatViewModel();
 
 			this.InitializeComponent();
-		}
-
-		/// <summary>
-		/// Overrides the back button behavior to handle navigation internally instead.
-		/// </summary>
-		/// <returns>Whether or not the back navigation was handled</returns>
-		protected override bool OnBackButtonPressed()
-		{
-			this.navigationService.GoBackAsync();
-			return true;
 		}
 
 		/// <inheritdoc/>
@@ -55,9 +42,7 @@ namespace IdApp.Pages.Contacts.Chat
 			await base.OnAppearingAsync();
 
 			if (Device.RuntimePlatform == Device.Android)
-			{
 				App.Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
-			}
 
 			MessagingCenter.Subscribe<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears, (sender, eargs) =>
 			{
@@ -82,9 +67,7 @@ namespace IdApp.Pages.Contacts.Chat
 			MessagingCenter.Subscribe<object>(this, Constants.MessagingCenter.ChatEditorFocus, (sender) =>
 			{
 				if (!this.EditorControl.IsFocused)
-				{
 					this.EditorControl.Focus();
-				}
 			});
 
 			this.ContainerView.ResolveLayoutChanges();  // Strange Xamarin issue: https://github.com/xamarin/Xamarin.Forms/issues/15066
@@ -98,9 +81,8 @@ namespace IdApp.Pages.Contacts.Chat
 			MessagingCenter.Unsubscribe<object>(this, Constants.MessagingCenter.ChatEditorFocus);
 
 			if (Device.RuntimePlatform == Device.Android)
-			{
 				App.Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Pan);
-			}
+
 			await base.OnDisappearingAsync();
 			
 		}

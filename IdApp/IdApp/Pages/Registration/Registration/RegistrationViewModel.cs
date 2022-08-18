@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Pages.Main.Shell;
 using IdApp.Services.Tag;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;

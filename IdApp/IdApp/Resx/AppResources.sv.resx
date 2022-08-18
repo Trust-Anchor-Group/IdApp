@@ -1830,4 +1830,7 @@
   <data name="SignatureResponse" xml:space="preserve">
     <value>Svar på signaturförfrågan</value>
   </data>
+  <data name="UserSignedAs" xml:space="preserve">
+    <value>{0} skrev under som {1}.</value>
+  </data>
 </root>

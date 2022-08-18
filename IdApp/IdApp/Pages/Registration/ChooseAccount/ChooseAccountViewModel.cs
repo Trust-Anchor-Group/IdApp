@@ -219,7 +219,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 		private async Task<bool> ScanQrCode()
 		{
-			string URI = await QrCode.ScanQrCode(this.NavigationService, AppResources.ClaimInvitation, UseShellNavigationService: false);
+			string URI = await QrCode.ScanQrCode(AppResources.ClaimInvitation, UseShellNavigationService: false);
 			string Scheme = Constants.UriSchemes.GetScheme(URI);
 
 			if (string.Compare(Scheme, Constants.UriSchemes.UriSchemeOnboarding, true) != 0)
@@ -292,7 +292,10 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 					string Xml = Encoding.UTF8.GetString(Decrypted);
 
-					XmlDocument Doc = new();
+					XmlDocument Doc = new()
+					{
+						PreserveWhitespace = true
+					};
 					Doc.LoadXml(Xml);
 
 					if (Doc.DocumentElement is null || Doc.DocumentElement.NamespaceURI != ContractsClient.NamespaceOnboarding)

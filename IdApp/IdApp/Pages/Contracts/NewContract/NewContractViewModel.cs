@@ -15,12 +15,10 @@ using IdApp.Pages.Main.Calculator;
 using IdApp.Pages.Main.Main;
 using IdApp.Resx;
 using IdApp.Services;
-using IdApp.Services.Contracts;
 using Waher.Content;
 using Waher.Content.Xml;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
-using Waher.Persistence.Filters;
 using Waher.Script;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -35,6 +33,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		private static readonly string partSettingsPrefix = typeof(NewContractViewModel).FullName + ".Part_";
 
 		private readonly SortedDictionary<string, ParameterInfo> parametersByName = new();
+		private readonly LinkedList<ParameterInfo> parametersInOrder = new();
 		private Dictionary<string, object> presetParameterValues = new();
 		private CaseInsensitiveString[] suppressedProposalIds;
 		private Contract template;
@@ -129,9 +128,9 @@ namespace IdApp.Pages.Contracts.NewContract
 			else
 				await this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedRole)));
 
-			if (this.partsToAdd.Count > 0)
+			if (this.HasPartsToAdd)
 			{
-				foreach (KeyValuePair<string, string> part in this.partsToAdd)
+				foreach (KeyValuePair<string, string> part in this.GetPartsToAdd())
 				{
 					string settingsKey = partSettingsPrefix + part.Key;
 					await this.SettingsService.SaveState(settingsKey, part.Value);
@@ -141,6 +140,20 @@ namespace IdApp.Pages.Contracts.NewContract
 				await this.SettingsService.RemoveStateWhereKeyStartsWith(partSettingsPrefix);
 
 			this.partsToAdd.Clear();
+		}
+
+		private bool HasPartsToAdd => this.partsToAdd.Count > 0;
+
+		private KeyValuePair<string, string>[] GetPartsToAdd()
+		{
+			int i = 0;
+			int c = this.partsToAdd.Count;
+			KeyValuePair<string, string>[] Result = new KeyValuePair<string, string>[c];
+
+			foreach (KeyValuePair<string, string> Part in this.partsToAdd)
+				Result[i++] = Part;
+
+			return Result;
 		}
 
 		/// <inheritdoc/>
@@ -172,9 +185,9 @@ namespace IdApp.Pages.Contracts.NewContract
 					}
 				}
 
-				if (this.partsToAdd.Count > 0)
+				if (this.HasPartsToAdd)
 				{
-					foreach (KeyValuePair<string, string> part in this.partsToAdd)
+					foreach (KeyValuePair<string, string> part in this.GetPartsToAdd())
 						await this.AddRole(part.Key, part.Value);
 				}
 
@@ -450,31 +463,34 @@ namespace IdApp.Pages.Contracts.NewContract
 				this.template.Parts = Parts.ToArray();
 			}
 
-			foreach (View View in this.Roles.Children)
+			if (this.Roles is not null)
 			{
-				switch (State)
+				foreach (View View in this.Roles.Children)
 				{
-					case 0:
-						if (View is Label Label && Label.StyleId == role)
-							State++;
-						break;
+					switch (State)
+					{
+						case 0:
+							if (View is Label Label && Label.StyleId == role)
+								State++;
+							break;
 
-					case 1:
-						if (View is Button Button)
-						{
-							if (!(ToRemove is null))
+						case 1:
+							if (View is Button Button)
 							{
-								this.Roles.Children.Remove(ToRemove);
-								Button.IsEnabled = true;
+								if (!(ToRemove is null))
+								{
+									this.Roles.Children.Remove(ToRemove);
+									Button.IsEnabled = true;
+								}
+								return;
 							}
-							return;
-						}
-						else if (View is Label Label2 && Label2.StyleId == legalId)
-							ToRemove = Label2;
-						break;
+							else if (View is Label Label2 && Label2.StyleId == legalId)
+								ToRemove = Label2;
+							break;
+					}
 				}
 			}
-		}
+		} 
 
 		private async Task AddRole(string Role, string LegalId)
 		{
@@ -519,66 +535,69 @@ namespace IdApp.Pages.Contracts.NewContract
 				this.template.Parts = Parts.ToArray();
 			}
 
-			int NrParts = 0;
-			int i = 0;
-			bool CurrentRole = false;
-			bool LegalIdAdded = false;
-
-			foreach (View View in this.Roles.Children)
+			if (this.Roles is not null)
 			{
-				if (View is Label Label)
-				{
-					if (Label.StyleId == Role)
-					{
-						CurrentRole = true;
-						NrParts = 0;
-					}
-					else
-					{
-						if (Label.StyleId == LegalId)
-							LegalIdAdded = true;
+				int NrParts = 0;
+				int i = 0;
+				bool CurrentRole = false;
+				bool LegalIdAdded = false;
 
-						NrParts++;
-					}
-				}
-				else if (View is Button Button)
+				foreach (View View in this.Roles.Children)
 				{
-					if (CurrentRole)
+					if (View is Label Label)
 					{
-						if (!LegalIdAdded)
+						if (Label.StyleId == Role)
 						{
-							Label = new Label
-							{
-								Text = await ContactInfo.GetFriendlyName(LegalId, this),
-								StyleId = LegalId,
-								HorizontalOptions = LayoutOptions.FillAndExpand,
-								HorizontalTextAlignment = TextAlignment.Center,
-								FontAttributes = FontAttributes.Bold
-							};
-
-							TapGestureRecognizer OpenLegalId = new();
-							OpenLegalId.Tapped += this.LegalId_Tapped;
-
-							Label.GestureRecognizers.Add(OpenLegalId);
-
-							this.Roles.Children.Insert(i, Label);
-							NrParts++;
-
-							if (NrParts >= RoleObj.MaxCount)
-								Button.IsEnabled = false;
+							CurrentRole = true;
+							NrParts = 0;
 						}
+						else
+						{
+							if (Label.StyleId == LegalId)
+								LegalIdAdded = true;
 
-						return;
+							NrParts++;
+						}
 					}
-					else
+					else if (View is Button Button)
 					{
-						CurrentRole = false;
-						LegalIdAdded = false;
-						NrParts = 0;
-					}
-				}
+						if (CurrentRole)
+						{
+							if (!LegalIdAdded)
+							{
+								Label = new Label
+								{
+									Text = await ContactInfo.GetFriendlyName(LegalId, this),
+									StyleId = LegalId,
+									HorizontalOptions = LayoutOptions.FillAndExpand,
+									HorizontalTextAlignment = TextAlignment.Center,
+									FontAttributes = FontAttributes.Bold
+								};
 
-				i++;
+								TapGestureRecognizer OpenLegalId = new();
+								OpenLegalId.Tapped += this.LegalId_Tapped;
+
+								Label.GestureRecognizers.Add(OpenLegalId);
+
+								this.Roles?.Children.Insert(i, Label);
+								NrParts++;
+
+								if (NrParts >= RoleObj.MaxCount)
+									Button.IsEnabled = false;
+							}
+
+							return;
+						}
+						else
+						{
+							CurrentRole = false;
+							LegalIdAdded = false;
+							NrParts = 0;
+						}
+					}
+
+					i++;
+				}
 			}
 		}
 
@@ -776,19 +795,32 @@ namespace IdApp.Pages.Contracts.NewContract
 			if (this.template is not null)
 				Variables["Duration"] = this.template.Duration;
 
-			foreach (ParameterInfo P in this.parametersByName.Values)
+			foreach (ParameterInfo P in this.parametersInOrder)
 				P.Parameter.Populate(Variables);
 
-			foreach (ParameterInfo P in this.parametersByName.Values)
+			foreach (ParameterInfo P in this.parametersInOrder)
 			{
-				if (await P.Parameter.IsParameterValid(Variables))
+				bool Valid;
+
+				try
 				{
-					if (!(P.Control is null))
+					// Calculation parameters might only execute on the server. So, if they fail in the client, allow user to propose contract anyway.
+
+					Valid = await P.Parameter.IsParameterValid(Variables) || P.Control is null;
+				}
+				catch (Exception)
+				{
+					Valid = false;
+				}
+
+				if (Valid)
+				{
+					if (P.Control is not null)
 						P.Control.BackgroundColor = Color.Default;
 				}
 				else
 				{
-					if (!(P.Control is null))
+					if (P.Control is not null)
 						P.Control.BackgroundColor = Color.Salmon;
 
 					Ok = false;
@@ -812,58 +844,61 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			try
 			{
-				foreach (View View in this.Roles.Children)
+				if (this.Roles is not null)
 				{
-					switch (State)
+					foreach (View View in this.Roles.Children)
 					{
-						case 0:
-							if (View is Label Label && !string.IsNullOrEmpty(Label.StyleId))
-							{
-								Role = Label.StyleId;
-								State++;
-								Nr = Min = Max = 0;
-
-								foreach (Role R in this.template.Roles)
+						switch (State)
+						{
+							case 0:
+								if (View is Label Label && !string.IsNullOrEmpty(Label.StyleId))
 								{
-									if (R.Name == Role)
+									Role = Label.StyleId;
+									State++;
+									Nr = Min = Max = 0;
+
+									foreach (Role R in this.template.Roles)
 									{
-										Min = R.MinCount;
-										Max = R.MaxCount;
-										break;
+										if (R.Name == Role)
+										{
+											Min = R.MinCount;
+											Max = R.MaxCount;
+											break;
+										}
 									}
 								}
-							}
-							break;
+								break;
 
-						case 1:
-							if (View is Button)
-							{
-								if (Nr < Min)
+							case 1:
+								if (View is Button)
 								{
-									await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtLeast_AddMoreParts, Min, Role));
-									return;
+									if (Nr < Min)
+									{
+										await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtLeast_AddMoreParts, Min, Role));
+										return;
+									}
+
+									if (Nr > Min)
+									{
+										await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtMost_RemoveParts, Max, Role));
+										return;
+									}
+
+									State--;
+									Role = string.Empty;
 								}
-
-								if (Nr > Min)
+								else if (View is Label Label2 && !string.IsNullOrEmpty(Role))
 								{
-									await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtMost_RemoveParts, Max, Role));
-									return;
+									Parts.Add(new Part
+									{
+										Role = Role,
+										LegalId = Label2.StyleId
+									});
+
+									Nr++;
 								}
-
-								State--;
-								Role = string.Empty;
-							}
-							else if (View is Label Label2 && !string.IsNullOrEmpty(Role))
-							{
-								Parts.Add(new Part
-								{
-									Role = Role,
-									LegalId = Label2.StyleId
-								});
-
-								Nr++;
-							}
-							break;
+								break;
+						}
 					}
 				}
 
@@ -976,7 +1011,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			await this.PopulateHumanReadableText();
 
-			this.HasRoles = this.template.Roles.Length > 0;
+			this.HasRoles = (this.template.Roles?.Length ?? 0) > 0;
 			this.VisibilityIsEnabled = true;
 
 			StackLayout rolesLayout = new();
@@ -1019,6 +1054,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 
 			this.parametersByName.Clear();
+			this.parametersInOrder.Clear();
 
 			foreach (Parameter Parameter in this.template.Parameters)
 			{
@@ -1042,7 +1078,9 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					CheckBox.CheckedChanged += this.Parameter_CheckedChanged;
 
-					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, CheckBox);
+					ParameterInfo PI = new(Parameter, CheckBox);
+					this.parametersByName[Parameter.Name] = PI;
+					this.parametersInOrder.AddLast(PI);
 
 					if (this.presetParameterValues.TryGetValue(Parameter.Name, out object PresetValue))
 					{
@@ -1054,7 +1092,10 @@ namespace IdApp.Pages.Contracts.NewContract
 				}
 				else if (Parameter is CalcParameter)
 				{
-					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, null);
+					ParameterInfo PI = new(Parameter, null);
+					this.parametersByName[Parameter.Name] = PI;
+					this.parametersInOrder.AddLast(PI);
+
 					this.presetParameterValues.Remove(Parameter.Name);
 				}
 				else if (Parameter is DateParameter DP)
@@ -1073,7 +1114,9 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					Picker.NullableDateSelected += this.Parameter_DateChanged;
 
-					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, Picker);
+					ParameterInfo PI = new(Parameter, Picker);
+					this.parametersByName[Parameter.Name] = PI;
+					this.parametersInOrder.AddLast(PI);
 
 					if (this.presetParameterValues.TryGetValue(Parameter.Name, out object PresetValue))
 					{
@@ -1152,7 +1195,9 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					Entry.TextChanged += this.Parameter_TextChanged;
 
-					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, Entry);
+					ParameterInfo PI = new(Parameter, Entry);
+					this.parametersByName[Parameter.Name] = PI;
+					this.parametersInOrder.AddLast(PI);
 
 					if (this.presetParameterValues.TryGetValue(Parameter.Name, out object PresetValue))
 					{

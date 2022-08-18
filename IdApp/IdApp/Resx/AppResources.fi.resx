@@ -1161,6 +1161,9 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Vahvista koodi</value>
   </data>
+  <data name="VerifiedButton" xml:space="preserve">
+    <value>Tarkistaa</value>
+  </data>
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Meidän on myös vahvistettava matkapuhelinnumerosi. Syötä matkapuhelinnumerosi alle käyttäen kansainvälistä puhelinnumeromuotoa ilman välilyöntejä.</value>
   </data>
@@ -1838,5 +1841,8 @@
   </data>
   <data name="SignatureResponse" xml:space="preserve">
     <value>Vastaus allekirjoituspyyntöön</value>
+  </data>
+  <data name="UserSignedAs" xml:space="preserve">
+    <value>{0} allekirjoitettu nimellä {1}.</value>
   </data>
 </root>

@@ -217,9 +217,17 @@ namespace IdApp.Pages.Contacts.MyContacts
 				this.Contacts.Clear();
 			}
 
+			await base.DoUnbind();
+		}
+
+		/// <summary>
+		/// Method called when closing view model, returning to a previous view.
+		/// </summary>
+		public override void OnClosingPage()
+		{
 			this.selection?.TrySetResult(null);
 
-			await base.DoUnbind();
+			base.OnClosingPage();
 		}
 
 		/// <summary>
@@ -379,7 +387,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 		private async Task ScanQrCode()
 		{
-			await QrCode.ScanQrCode(this.NavigationService, AppResources.ScanQRCode, async code =>
+			await QrCode.ScanQrCode(AppResources.ScanQRCode, async code =>
 			{
 				if (Constants.UriSchemes.StartsWithIdScheme(code))
 				{

@@ -441,7 +441,7 @@ namespace IdApp.Services.Contracts
 				ContractReference Ref = await Database.FindFirstDeleteRest<ContractReference>(
 					new FilterFieldEqualTo("ContractId", Contract.ContractId));
 
-				if (Ref is not null && Ref.Updated != Contract.Updated)
+				if (Ref is not null && (Ref.Updated != Contract.Updated || !Ref.ContractLoaded))
 				{
 					await Ref.SetContract(Contract, this);
 					await Database.Update(Ref);
@@ -538,7 +538,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async void Contracts_ContractSigned(object Sender, ContractReferenceEventArgs e)
+		private async void Contracts_ContractSigned(object Sender, ContractSignedEventArgs e)
 		{
 			try
 			{

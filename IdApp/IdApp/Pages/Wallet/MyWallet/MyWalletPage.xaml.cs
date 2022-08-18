@@ -22,16 +22,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
-		/// Overrides the back button behavior to handle navigation internally instead.
-		/// </summary>
-		/// <returns>Whether or not the back navigation was handled</returns>
-		protected override bool OnBackButtonPressed()
-		{
-			this.ViewModel.NavigationService.GoBackAsync();
-			return true;
-		}
-
-		/// <summary>
 		/// Asynchronous OnAppearing-method.
 		/// </summary>
 		protected override async Task OnAppearingAsync()

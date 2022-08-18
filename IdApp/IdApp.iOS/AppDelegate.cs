@@ -66,13 +66,13 @@ namespace IdApp.iOS
 
 		public override void WillTerminate(UIApplication application)
 		{
-			if (this.onKeyboardShowObserver == null)
+			if (this.onKeyboardShowObserver is null)
 			{
 				this.onKeyboardShowObserver.Dispose();
 				this.onKeyboardShowObserver = null;
 			}
 
-			if (this.onKeyboardHideObserver == null)
+			if (this.onKeyboardHideObserver is null)
 			{
 				this.onKeyboardHideObserver.Dispose();
 				this.onKeyboardHideObserver = null;
@@ -100,7 +100,7 @@ namespace IdApp.iOS
 
 		private void RegisterKeyBoardObserver()
 		{
-			if (this.onKeyboardShowObserver == null)
+			if (this.onKeyboardShowObserver is null)
 			{
 				this.onKeyboardShowObserver = UIKeyboard.Notifications.ObserveWillShow((object Sender, UIKeyboardEventArgs args) =>
 				{
@@ -112,7 +112,7 @@ namespace IdApp.iOS
 				});
 			}
 
-			if (this.onKeyboardHideObserver == null)
+			if (this.onKeyboardHideObserver is null)
 			{
 				this.onKeyboardHideObserver = UIKeyboard.Notifications.ObserveWillHide((object Sender, UIKeyboardEventArgs args) =>
 				{

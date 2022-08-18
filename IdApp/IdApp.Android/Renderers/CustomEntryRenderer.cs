@@ -47,19 +47,19 @@ namespace IdApp.Android.Renderers
 
 		private void OverrideBackground()
 		{
-			double borderWidthInDip = this.Element != null ? EntryProperties.GetBorderWidth(this.Element) : 0;
-			double cornerRadiusInDip = this.Element != null ? EntryProperties.GetCornerRadius(this.Element) : 0;
+			double borderWidthInDip = this.Element is not null ? EntryProperties.GetBorderWidth(this.Element) : 0;
+			double cornerRadiusInDip = this.Element is not null ? EntryProperties.GetCornerRadius(this.Element) : 0;
 
 			RoundRectShape Shape = new(Enumerable.Repeat(this.Context.ToPixels(cornerRadiusInDip), 8).ToArray(), null, null);
 
 			ShapeDrawable Border = new(Shape);
 			Border.Paint.SetStyle(Paint.Style.Stroke);
 			Border.Paint.StrokeWidth = this.Context.ToPixels(borderWidthInDip);
-			Border.Paint.Color = this.Element != null ? EntryProperties.GetBorderColor(this.Element).ToAndroid() : AndroidColor.Transparent;
+			Border.Paint.Color = this.Element is not null ? EntryProperties.GetBorderColor(this.Element).ToAndroid() : AndroidColor.Transparent;
 
 			ShapeDrawable Fill = new(Shape);
 			Fill.Paint.SetStyle(Paint.Style.Fill);
-			Fill.Paint.Color = this.Element != null ? this.Element.BackgroundColor.ToAndroid() : AndroidColor.Transparent;
+			Fill.Paint.Color = this.Element is not null ? this.Element.BackgroundColor.ToAndroid() : AndroidColor.Transparent;
 
 			LayerDrawable Background = new(new Drawable[] { Fill, Border });
 

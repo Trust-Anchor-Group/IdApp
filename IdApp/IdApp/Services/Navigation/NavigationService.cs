@@ -1,4 +1,5 @@
-﻿using IdApp.Resx;
+﻿using IdApp.Pages;
+using IdApp.Resx;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -103,18 +104,35 @@ namespace IdApp.Services.Navigation
 
 		private async void Shell_Navigating(object Sender, ShellNavigatingEventArgs e)
 		{
-			if ((e.Source == ShellNavigationSource.Pop) &&
-				(this.currentNavigationArgs is not null) &&
-				(!string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute) ||
-				this.currentNavigationArgs.ReturnCounter > 1))
+			try
 			{
-				if (e.CanCancel && !this.isManuallyNavigatingBack)
+				switch (e.Source)
 				{
-					this.isManuallyNavigatingBack = true;
-					e.Cancel();
-					await this.GoBackAsync();
-					this.isManuallyNavigatingBack = false;
+					case ShellNavigationSource.Pop:
+					case ShellNavigationSource.PopToRoot:
+					case ShellNavigationSource.Remove:
+						if (Shell.Current.CurrentPage is ContentBasePage ContentBasePage)
+							ContentBasePage.OnClosingPage();
+						break;
 				}
+
+				if ((e.Source == ShellNavigationSource.Pop) &&
+					(this.currentNavigationArgs is not null) &&
+					(!string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute) ||
+					this.currentNavigationArgs.ReturnCounter > 1))
+				{
+					if (e.CanCancel && !this.isManuallyNavigatingBack)
+					{
+						this.isManuallyNavigatingBack = true;
+						e.Cancel();
+						await this.GoBackAsync();
+						this.isManuallyNavigatingBack = false;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
 			}
 		}
 

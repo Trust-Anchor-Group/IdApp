@@ -1161,6 +1161,9 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Проверка кода</value>
   </data>
+  <data name="VerifiedButton" xml:space="preserve">
+    <value>Проверить</value>
+  </data>
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Нам также необходимо подтвердить ваш номер мобильного телефона. Пожалуйста, введите свой номер мобильного телефона ниже, используя формат международного номера телефона, без пробелов.</value>
   </data>
@@ -1838,5 +1841,8 @@
   </data>
   <data name="SignatureResponse" xml:space="preserve">
     <value>Ответ на запрос подписи</value>
+  </data>
+  <data name="UserSignedAs" xml:space="preserve">
+    <value>{0} подписан как {1}.</value>
   </data>
 </root>

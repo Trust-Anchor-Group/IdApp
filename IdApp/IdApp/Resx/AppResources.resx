@@ -1842,4 +1842,7 @@
   <data name="SignatureResponse" xml:space="preserve">
     <value>Response to signature request</value>
   </data>
+  <data name="UserSignedAs" xml:space="preserve">
+    <value>{0} signed as {1}.</value>
+  </data>
 </root>

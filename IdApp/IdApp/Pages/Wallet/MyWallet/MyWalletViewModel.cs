@@ -817,7 +817,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 				if (Template.ForMachinesLocalName == "Create" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
 					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
-					XmlDocument Doc = new();
+					XmlDocument Doc = new()
+					{
+						PreserveWhitespace = true
+					};
 					Doc.LoadXml(Template.ForMachines.OuterXml);
 
 					XmlNamespaceManager NamespaceManager = new(Doc.NameTable);

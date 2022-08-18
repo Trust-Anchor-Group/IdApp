@@ -18,37 +18,21 @@ namespace IdApp.Pages.Contacts.Chat
 	[QueryProperty(nameof(UniqueId), nameof(UniqueId))]
 	public partial class ChatPageIos
 	{
-		private readonly INavigationService navigationService;
-
 		/// <summary>
 		/// Views unique ID
 		/// </summary>
 		public string UniqueId
 		{
-			set
-			{
-				(this.ViewModel as ChatViewModel).UniqueId = value;
-			}
+			set => (this.ViewModel as ChatViewModel).UniqueId = value;
 		}
 		/// <summary>
 		/// Creates a new instance of the <see cref="ChatPageIos"/> class.
 		/// </summary>
 		public ChatPageIos()
 		{
-			this.navigationService = App.Instantiate<INavigationService>();
 			this.ViewModel = new ChatViewModel();
 
 			this.InitializeComponent();
-		}
-
-		/// <summary>
-		/// Overrides the back button behavior to handle navigation internally instead.
-		/// </summary>
-		/// <returns>Whether or not the back navigation was handled</returns>
-		protected override bool OnBackButtonPressed()
-		{
-			this.navigationService.GoBackAsync();
-			return true;
 		}
 
 		/// <inheritdoc/>
@@ -111,7 +95,7 @@ namespace IdApp.Pages.Contacts.Chat
 			ViewCell.Appearing -= this.ViewCell_Appearing;
 
 			FFImageLoading.Forms.CachedImage Image = ViewCell.View.Descendants().OfType<FFImageLoading.Forms.CachedImage>().FirstOrDefault();
-			if (Image != null)
+			if (Image is not null)
 			{
 				ImageSizeChangedHandler SizeChangedHandler = new(new WeakReference<ViewCell>(ViewCell));
 				Image.SizeChanged += SizeChangedHandler.HandleSizeChanged;

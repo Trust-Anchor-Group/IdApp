@@ -11,7 +11,8 @@ namespace IdApp.Pages.Main.ScanQrCode
     /// </summary>
     public class ScanQrCodeViewModel : BaseViewModel
     {
-		private readonly ScanQrCodeNavigationArgs navigationArgs;
+		private ScanQrCodeNavigationArgs navigationArgs;
+		private bool useShellNavigationService;
 
 		/// <summary>
 		/// An event that is fired when the scanning mode changes from automatic scan to manual entry.
@@ -23,6 +24,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// </summary>
         public ScanQrCodeViewModel(ScanQrCodeNavigationArgs NavigationArgs)
         {
+			this.useShellNavigationService = NavigationArgs is null;
 			this.navigationArgs = NavigationArgs;
 			this.SwitchModeCommand = new Command(this.SwitchMode);
 			this.OpenCommandText = AppResources.Open;
@@ -34,11 +36,14 @@ namespace IdApp.Pages.Main.ScanQrCode
         {
             await base.DoBind();
 
-			ScanQrCodeNavigationArgs NavigationArgs = this.navigationArgs
-				?? (this.NavigationService.TryPopArgs(out ScanQrCodeNavigationArgs Args) ? Args : null);
+			if (this.navigationArgs is null && this.NavigationService.TryPopArgs(out ScanQrCodeNavigationArgs Args))
+			{
+				this.navigationArgs = Args;
+				this.useShellNavigationService = Args is not null;
+			}
 
-			this.OpenCommandText = !string.IsNullOrWhiteSpace(NavigationArgs?.CommandName)
-				? NavigationArgs.CommandName
+			this.OpenCommandText = !string.IsNullOrWhiteSpace(this.navigationArgs?.CommandName)
+				? this.navigationArgs.CommandName
 				: AppResources.Open;
         }
 
@@ -47,6 +52,47 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
             return base.DoUnbind();
 		}
+
+		/// <summary>
+		/// Tries to set the Scan QR Code result and close the scan page.
+		/// </summary>
+		/// <param name="Url">The URL to set.</param>
+		internal void TrySetResultAndClosePage(string Url)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				if (this.navigationArgs?.Action is not null)
+				{
+					await this.navigationArgs.Action(Url);
+					this.navigationArgs.Action = null;
+				}
+
+				if (this.useShellNavigationService)
+					await this.NavigationService.GoBackAsync();
+				else
+					await App.Current.MainPage.Navigation.PopAsync();
+
+				if (!string.IsNullOrWhiteSpace(Url) && this.navigationArgs.QrCodeScanned is not null)
+				{
+					this.navigationArgs.QrCodeScanned.TrySetResult(Url.Trim());
+					this.navigationArgs.QrCodeScanned = null;
+				}
+			});
+		}
+
+		/// <summary>
+		/// Method called when closing view model, returning to a previous view.
+		/// </summary>
+		public override void OnClosingPage()
+		{
+			this.TrySetResultAndClosePage(string.Empty);
+			base.OnClosingPage();
+		}
+
+		/// <summary>
+		/// A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.
+		/// </summary>
+		public bool UseShellNavigationService => this.useShellNavigationService;
 
 		#region Properties
 

@@ -2407,6 +2407,11 @@
             </summary>
             <param name="commands">The commands to re-evaluate.</param>
         </member>
+        <member name="M:IdApp.Pages.BaseViewModel.OnClosingPage">
+            <summary>
+            Method called when closing view model, returning to a previous view.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.BetweenMainPage">
             <summary>
             A page which is displayed when switching the application main page, while the old main page is performing cleanup asynchronously.
@@ -2481,12 +2486,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatPage.OnAppearingAsync">
             <inheritdoc/>
         </member>
@@ -2507,12 +2506,6 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatPageIos"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatPageIos.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatPageIos.OnAppearingAsync">
             <inheritdoc/>
@@ -3401,6 +3394,11 @@
         <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.DoUnbind">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.OnClosingPage">
+            <summary>
+            Method called when closing view model, returning to a previous view.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ShowContactsMissingProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ShowContactsMissing"/>
@@ -3471,12 +3469,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Contacts.MyContacts.MyContactsPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.MyContacts.MyContactsPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.ContentBasePage">
             <summary>
             A base class for all pages. This class works in close conjunction with the <see cref="T:IdApp.Pages.BaseViewModel"/> for binding and unbinding data
@@ -3498,13 +3490,6 @@
             <summary>
             Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.ContentBasePage.GetViewModel``1">
-            <summary>
-            Returns the viewmodel, type cast to the proper type.
-            </summary>
-            <typeparam name="T">The viewmodel type.</typeparam>
-            <returns>View model</returns>
         </member>
         <member name="M:IdApp.Pages.ContentBasePage.OnAppearing">
             <inheritdoc />
@@ -3528,6 +3513,17 @@
             It's a helper method for forcing a layout re-render of the specified components. It will do so asynchronously, by executing a BeginInvoke.
             </summary>
             <param name="layouts">The layout components to re-render.</param>
+        </member>
+        <member name="M:IdApp.Pages.ContentBasePage.OnClosingPage">
+            <summary>
+            Method called when closing view, returning to a previous page.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.ContentBasePage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.ContentBaseView">
             <summary>
@@ -3582,12 +3578,6 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.ClientSignature.ClientSignaturePage"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.ClientSignature.ClientSignaturePage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel">
             <summary>
@@ -3998,12 +3988,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel">
             <summary>
             The view model to bind to when displaying 'my' contracts.
@@ -4019,6 +4003,11 @@
         </member>
         <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.DoUnbind">
             <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.OnClosingPage">
+            <summary>
+            Method called when closing view model, returning to a previous view.
+            </summary>
         </member>
         <member name="F:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.TitleProperty">
             <summary>
@@ -4163,6 +4152,11 @@
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Name">
             <summary>
             Displayable name for the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.NameOrCategory">
+            <summary>
+            Name, or category if no name.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Category">
@@ -4341,12 +4335,6 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractPage"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.NewContractViewModel">
             <summary>
@@ -4642,12 +4630,6 @@
         </member>
         <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractPage.OnDisappearingAsync">
             <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel">
             <summary>
@@ -4999,12 +4981,6 @@
         <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignaturePage.OnDisappearingAsync">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignaturePage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel">
             <summary>
             The view model to bind to when displaying petitioning of a signature in a view or page.
@@ -5297,12 +5273,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.ServerSignature.ServerSignaturePage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.ServerSignature.ServerSignaturePage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Contracts.ServerSignature.ServerSignatureViewModel">
             <summary>
             The view model to bind to for when displaying server signatures.
@@ -5506,12 +5476,6 @@
         </member>
         <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractPage.OnDisappearingAsync">
             <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel">
             <summary>
@@ -5826,12 +5790,6 @@
         </member>
         <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityPage.OnDisappearingAsync">
             <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel">
             <summary>
@@ -6165,12 +6123,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Identity.TransferIdentity.TransferIdentityPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel">
             <summary>
             The view model to bind to for when displaying identities.
@@ -6281,12 +6233,6 @@
         </member>
         <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityPage.OnDisappearingAsync">
             <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel">
             <summary>
@@ -6994,7 +6940,7 @@
         </member>
         <member name="T:IdApp.Pages.ILinkableView">
             <summary>
-            Interfaces for linkable views.
+            Interface for linkable views.
             </summary>
         </member>
         <member name="P:IdApp.Pages.ILinkableView.IsLinkable">
@@ -7025,6 +6971,16 @@
         <member name="P:IdApp.Pages.ILinkableView.MediaContentType">
             <summary>
             Content-Type of associated media.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.IModalView">
+            <summary>
+            Interface for modal views.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.IModalView.OnClosingPage">
+            <summary>
+            Method called when closing view model, returning to a previous view.
             </summary>
         </member>
         <member name="T:IdApp.Pages.IItemGroup">
@@ -7110,12 +7066,6 @@
             A page that allows the user to calculate the value of a numerical input field.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Calculator.CalculatorPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Main.Calculator.CalculatorViewModel">
             <summary>
             The view model to bind to for when displaying the calculator.
@@ -7128,6 +7078,11 @@
         </member>
         <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.DoBind">
             <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Main.Calculator.CalculatorViewModel.OnClosingPage">
+            <summary>
+            Method called when closing view model, returning to a previous view.
+            </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Calculator.CalculatorViewModel.ValueProperty">
             <summary>
@@ -7852,15 +7807,26 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs.#ctor(System.String)">
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs.#ctor(System.String,System.Func{System.String,System.Threading.Tasks.Task})">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs"/> class.
             </summary>
-            <param name="commandName">The command name (localized) to display.</param>
+            <param name="CommandName">The command name (localized) to display.</param>
+            <param name="Action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
         </member>
         <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs.CommandName">
             <summary>
             The command name (localized) to display.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs.Action">
+            <summary>
+            The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs.QrCodeScanned">
+            <summary>
+            Task completion source; can be used to wait for a result.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage">
@@ -7894,12 +7860,6 @@
             Asynchronous OnAppearing-method.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel">
             <summary>
             The view model to bind to when scanning a QR code.
@@ -7920,6 +7880,22 @@
         </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.DoUnbind">
             <inheritdoc />
+        </member>
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.TrySetResultAndClosePage(System.String)">
+            <summary>
+            Tries to set the Scan QR Code result and close the scan page.
+            </summary>
+            <param name="Url">The URL to set.</param>
+        </member>
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.OnClosingPage">
+            <summary>
+            Method called when closing view model, returning to a previous view.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.UseShellNavigationService">
+            <summary>
+            A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.
+            </summary>
         </member>
         <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.SwitchModeCommand">
             <summary>
@@ -8942,12 +8918,6 @@
             it still doesn't show the correct view template for that step. Instead it shows the last view template.
             So here we scroll back and forth one step to get it to be in sync with the viewmodel.
         </member>
-        <member name="M:IdApp.Pages.Registration.Registration.RegistrationPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Registration.Registration.RegistrationViewModel">
             <summary>
             The view model to bind to for displaying a registration page or view to the user.
@@ -9096,7 +9066,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelected">
             <summary>
-            If the purpose was slected
+            If the purpose was selected
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CountEmailSecondsProperty">
@@ -9618,12 +9588,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Things.MyThings.MyThingsPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.MyThings.MyThingsPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Things.MyThings.MyThingsViewModel">
             <summary>
             The view model to bind to when displaying the list of things.
@@ -9639,6 +9603,11 @@
         </member>
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.DoUnbind">
             <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnClosingPage">
+            <summary>
+            Method called when closing view model, returning to a previous view.
+            </summary>
         </member>
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.AreSame(Waher.Networking.XMPP.Contracts.Property[],Waher.Networking.XMPP.Contracts.Property[])">
             <summary>
@@ -9724,12 +9693,6 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingPage"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel">
             <summary>
@@ -9919,12 +9882,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Things.ViewThing.ViewThingPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewThing.ViewThingPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Wallet.AccountEvent.AccountEventNavigationArgs">
             <summary>
             Holds navigation parameters specific to eDaler URIs.
@@ -9955,12 +9912,6 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.AccountEvent.AccountEventPage"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel">
             <summary>
@@ -10207,12 +10158,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel">
             <summary>
             The view model to bind to for displaying information about an incoming balance change.
@@ -10428,6 +10373,11 @@
         </member>
         <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.DoUnbind">
             <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.OnClosingPage">
+            <summary>
+            Method called when closing view model, returning to a previous view.
+            </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
@@ -10838,12 +10788,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.IssueEDaler.IssueEDalerPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.IssueEDaler.IssueEDalerPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Wallet.ItemTypeTemplateSelector">
             <summary>
             Data Template Selector, based on Item Type.
@@ -10896,12 +10840,6 @@
             <summary>
             A page that allows the user to view a state-machine report.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.MachineReport.MachineReportPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Wallet.MachineReport.MachineReportViewModel">
             <summary>
@@ -11181,12 +11119,6 @@
             A page that allows the user to view information about the current state of a state-machine.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MachineVariables.MachineVariablesPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Wallet.MachineVariables.MachineVariablesViewModel">
             <summary>
             The view model to bind to for when displaying information about the current state of a state-machine.
@@ -11307,12 +11239,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MyTokens.MyTokensPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel">
             <summary>
             The view model to bind to for when displaying my tokens.
@@ -11367,6 +11293,11 @@
             Command executed when more tokens need to be loaded.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.OnClosingPage">
+            <summary>
+            Method called when closing view model, returning to a previous view.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.MyWalletPage">
             <summary>
             A page that allows the user to view the contents of its wallet, pending payments and recent account events.
@@ -11376,12 +11307,6 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MyWallet.MyWalletPage"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletPage.OnAppearingAsync">
             <summary>
@@ -12219,12 +12144,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.PaymentAcceptance.PaymentAcceptancePage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.PaymentAcceptance.PaymentAcceptancePage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Wallet.Payment.PaymentPage">
             <summary>
             A page that allows the user to realize payments.
@@ -12234,12 +12153,6 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.Payment.PaymentPage"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.Payment.PaymentPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="M:IdApp.Pages.Wallet.Payment.PaymentPage.ShowQrCode">
             <summary>
@@ -12256,12 +12169,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.PendingPayment.PendingPaymentPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.PendingPayment.PendingPaymentPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="M:IdApp.Pages.Wallet.PendingPayment.PendingPaymentPage.ShowQrCode">
             <summary>
             Scrolls to display the QR-code.
@@ -12276,12 +12183,6 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage.ShowQrCode">
             <summary>
@@ -12453,12 +12354,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.SendPayment.SendPaymentPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.SendPayment.SendPaymentPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Wallet.TokenDetails.PartItem">
             <summary>
             Represents a part related to a token.
@@ -12517,12 +12412,6 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage.AddLegalId(IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel,System.String,System.String,System.String)">
             <summary>
@@ -13623,12 +13512,6 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsPage"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.TokenEvents.TokenEventsPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenEvents.TokenEventsViewModel">
             <summary>
@@ -16658,6 +16541,11 @@
               Looks up a localized string similar to Updated.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.UserSignedAs">
+            <summary>
+              Looks up a localized string similar to {0} signed as {1}..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ValidateIdentityInfo1Text">
             <summary>
               Looks up a localized string similar to Your identity information has to be validated before it can be approved. This can be done manually by your operator. It can also be done by peers..
@@ -18947,12 +18835,22 @@
             Notification event for when a contract has been signed.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.Contract,Waher.Networking.XMPP.Contracts.ContractReferenceEventArgs)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.#ctor(Waher.Networking.XMPP.Contracts.Contract,Waher.Networking.XMPP.Contracts.ContractSignedEventArgs)">
             <summary>
             Notification event for when a contract has been signed.
             </summary>
             <param name="Contract">Requested contract.</param>
             <param name="e">Event arguments.</param>
+        </member>
+        <member name="P:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.LegalId">
+            <summary>
+            Legal ID signing the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Role">
+            <summary>
+            Role being signed
+            </summary>
         </member>
         <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Open(IdApp.Services.ServiceReferences)">
             <summary>
@@ -18965,6 +18863,22 @@
             Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="P:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.IdentityXml">
+            <summary>
+            XML of identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Identity">
+            <summary>
+            Gets a parsed identity.
+            </summary>
+            <returns>Parsed identity</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+            <summary>
+            Performs perparatory tasks, that will simplify opening the notification.
+            </summary>
         </member>
         <member name="T:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent">
             <summary>
@@ -21680,7 +21594,7 @@
             <param name="Url">URL to open.</param>
             <returns>If URL was handled.</returns>
         </member>
-        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCode(IdApp.Services.Navigation.INavigationService,System.String,System.Func{System.String,System.Threading.Tasks.Task},System.Boolean)">
+        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCode(System.String,System.Func{System.String,System.Threading.Tasks.Task},System.Boolean)">
             <summary>
             Navigates to the Scan QR Code Page, waits for scan to complete, and returns the result.
             This is seemingly simple, but performs several operations, namely:
@@ -21698,20 +21612,10 @@
             In order to handle processing in the correct order, you may need to use the <c>action</c> parameter. It is provided
             to do additional processing <em>before</em> the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"/> is navigated away from.
             </summary>
-            <param name="navigationService">The navigation service to use for page navigation.</param>
-            <param name="commandName">The localized name of the command to display when scanning.</param>
-            <param name="action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
+            <param name="CommandName">The localized name of the command to display when scanning.</param>
+            <param name="Action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
             <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
             <returns>Decoded string</returns>
-        </member>
-        <member name="M:IdApp.Services.UI.QR.QrCode.TrySetResultAndClosePage(IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,System.String,System.Boolean)">
-            <summary>
-            Tries to set the Scan QR Code result and close the scan page.
-            </summary>
-            <param name="navigationService">The navigation service to use for page navigation.</param>
-            <param name="uiSerializer">The current UI Dispatcher to use for marshalling back to the main thread.</param>
-            <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.</param>
-            <param name="Url">The URL to set.</param>
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.GeneratePng(System.String,System.Int32,System.Int32)">
             <summary>

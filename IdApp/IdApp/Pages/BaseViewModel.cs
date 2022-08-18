@@ -15,7 +15,7 @@ namespace IdApp.Pages
 	/// <br/>
 	/// NOTE: using this class requires your page/view to inherit from <see cref="ContentBasePage"/>.
 	/// </summary>
-	public abstract class BaseViewModel : ServiceReferences
+	public abstract class BaseViewModel : ServiceReferences, IModalView
 	{
 		private readonly List<BaseViewModel> childViewModels;
 
@@ -239,6 +239,14 @@ namespace IdApp.Pages
 		{
 			this.IsBusy = true;
 			this.EvaluateCommands(commands);
+		}
+
+		/// <summary>
+		/// Method called when closing view model, returning to a previous view.
+		/// </summary>
+		public virtual void OnClosingPage()
+		{
+			// Do nothing by default.
 		}
 	}
 }

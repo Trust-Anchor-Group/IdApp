@@ -72,6 +72,16 @@ namespace IdApp.Pages.Main.Calculator
 			this.HasStatistics = false;
 		}
 
+		/// <summary>
+		/// Method called when closing view model, returning to a previous view.
+		/// </summary>
+		public override void OnClosingPage()
+		{
+			this.EvaluateStack(true).Wait();
+
+			base.OnClosingPage();
+		}
+
 		#region Properties
 
 		/// <summary>
