@@ -126,7 +126,7 @@ namespace IdApp.Services.Contracts
 				this.ContractLoaded = true;
 				this.ContractId = Contract.ContractId;
 				this.IsTemplate = Contract.PartsMode == ContractParts.TemplateOnly;
-				Contract.State = Contract.State;
+				this.State = Contract.State;
 				this.Created = Contract.Created;
 				this.Updated = Contract.Updated;
 				this.Loaded = DateTime.UtcNow;
