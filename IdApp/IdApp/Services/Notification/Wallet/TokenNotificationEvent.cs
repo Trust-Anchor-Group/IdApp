@@ -84,7 +84,10 @@ namespace IdApp.Services.Notification.Wallet
 			{
 				if (this.token is null && !string.IsNullOrEmpty(this.TokenXml))
 				{
-					XmlDocument Doc = new();
+					XmlDocument Doc = new()
+					{
+						PreserveWhitespace = true
+					};
 					Doc.LoadXml(this.TokenXml);
 
 					if (Token.TryParse(Doc.DocumentElement, out Token T))

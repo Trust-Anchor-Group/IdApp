@@ -292,7 +292,10 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 					string Xml = Encoding.UTF8.GetString(Decrypted);
 
-					XmlDocument Doc = new();
+					XmlDocument Doc = new()
+					{
+						PreserveWhitespace = true
+					};
 					Doc.LoadXml(Xml);
 
 					if (Doc.DocumentElement is null || Doc.DocumentElement.NamespaceURI != ContractsClient.NamespaceOnboarding)

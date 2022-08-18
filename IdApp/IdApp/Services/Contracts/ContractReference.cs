@@ -89,7 +89,10 @@ namespace IdApp.Services.Contracts
 		{
 			if (this.contract is null && !string.IsNullOrEmpty(this.ContractXml))
 			{
-				XmlDocument Doc = new();
+				XmlDocument Doc = new()
+				{
+					PreserveWhitespace = true
+				};
 				Doc.LoadXml(this.ContractXml);
 
 				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement);

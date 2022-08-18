@@ -1064,7 +1064,10 @@ namespace IdApp.Pages.Contacts.Chat
 					string s = Uri[(i + 1)..].Trim();
 					if (s.StartsWith("<") && s.EndsWith(">"))  // XML
 					{
-						XmlDocument Doc = new();
+						XmlDocument Doc = new()
+						{
+							PreserveWhitespace = true
+						};
 						Doc.LoadXml(s);
 
 						switch (Scheme)

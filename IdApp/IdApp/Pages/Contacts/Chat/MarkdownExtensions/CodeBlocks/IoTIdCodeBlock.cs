@@ -84,7 +84,10 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 				foreach (string Row in Rows)
 					sb.AppendLine(Row);
 
-				XmlDocument Doc = new();
+				XmlDocument Doc = new()
+				{
+					PreserveWhitespace = true
+				};
 				Doc.LoadXml(sb.ToString());
 
 				Identity = LegalIdentity.Parse(Doc.DocumentElement);

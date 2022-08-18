@@ -128,7 +128,10 @@ namespace IdApp.Services.Notification.Identities
 			{
 				if (this.identity is null && !string.IsNullOrEmpty(this.IdentityXml))
 				{
-					XmlDocument Doc = new();
+					XmlDocument Doc = new()
+					{
+						PreserveWhitespace = true
+					};
 					Doc.LoadXml(this.IdentityXml);
 
 					this.identity = LegalIdentity.Parse(Doc.DocumentElement);
