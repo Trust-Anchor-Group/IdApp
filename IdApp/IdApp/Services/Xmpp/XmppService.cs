@@ -1014,7 +1014,10 @@ namespace IdApp.Services.Xmpp
 			if (this.XmppStale())
 			{
 				this.xmppLastStateChange = DateTime.Now;
-				this.xmppClient.Reconnect();
+				if (this.xmppClient != null)
+                {
+					this.xmppClient.Reconnect();
+                }
 			}
 		}
 

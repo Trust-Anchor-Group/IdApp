@@ -26,6 +26,11 @@ namespace IdApp.Services.Tag
 		event PropertyChangedEventHandler Changed;
 
 		/// <summary>
+		/// The purpose user selected for this profile.
+		/// </summary>
+		string Purpose { get; }
+
+		/// <summary>
 		/// The domain this profile is connected to.
 		/// </summary>
 		string Domain { get; }
@@ -171,6 +176,11 @@ namespace IdApp.Services.Tag
 		bool IsDirty { get; }
 
 		/// <summary>
+		/// Returns <c>true</c> if the current user ID was rejected, compromized or obsoleted.
+		/// </summary>
+		bool WasRejected { get; }
+
+		/// <summary>
 		/// Converts the current <see cref="ITagProfile"/> to a <see cref="TagConfiguration"/> object that can be persisted to the <see cref="IStorageService"/>.
 		/// </summary>
 		/// <returns>Configuration object</returns>
@@ -207,6 +217,18 @@ namespace IdApp.Services.Tag
 		bool IsComplete();
 
 		/// <summary>
+		/// Sets the <see cref="Purpose"/> field value.
+		/// <param name="value">New value of field.</param>
+		/// </summary>
+		void SetPurpose(string value);
+
+		/// <summary>
+		/// Sets the <see cref="WasRejected"/> flag.
+		/// <param name="value">New value of flag.</param>
+		/// </summary>
+		void SetWasRejected(bool value);
+
+		/// <summary>
 		/// Resets the <see cref="IsDirty"/> flag, can be used after persisting values to <see cref="IStorageService"/>.
 		/// </summary>
 		void ResetIsDirty();
@@ -235,7 +257,7 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// Revert Step 1.
 		/// </summary>
-		void ClearDomain();
+		void ClearDomain(bool doClear = true);
 
 		/// <summary>
 		/// Step 2 - set the account name and password for a <em>new</em> account.
