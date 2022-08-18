@@ -4179,7 +4179,7 @@
             The data model for a notification event that is not associate with a referenced contract.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.#ctor(System.DateTime,System.String,System.String,IdApp.Services.Notification.NotificationEvent)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.#ctor(System.DateTime,System.String,System.String,IdApp.Services.Notification.NotificationEvent,IdApp.Services.ServiceReferences)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel"/> class.
             </summary>
@@ -4187,6 +4187,7 @@
             <param name="Icon">Icon of event.</param>
             <param name="Description">Description of event.</param>
             <param name="Event">Notification event object.</param>
+            <param name="References">Service references.</param>
         </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.Received">
             <summary>
@@ -4211,6 +4212,16 @@
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.UniqueName">
             <summary>
             Unique name used to compare items.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.ClickedCommand">
+            <summary>
+            Command executed when the token has been clicked or tapped.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.Clicked">
+            <summary>
+            Opens the notification event.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.HeaderModel">
@@ -10780,29 +10791,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.IssueEDaler.IssueEDalerPage"/> class.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Wallet.ItemTypeTemplateSelector">
-            <summary>
-            Data Template Selector, based on Item Type.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.ItemTypeTemplateSelector.PendingPaymentTemplate">
-            <summary>
-            ATemplate to use for pending payments
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.ItemTypeTemplateSelector.AccountEventTemplate">
-            <summary>
-            Template to use for account events.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.ItemTypeTemplateSelector.DefaultTemplate">
-            <summary>
-            Template to use for other items.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.ItemTypeTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
-            <inheritdoc/>
-        </member>
         <member name="T:IdApp.Pages.Wallet.MachineReport.MachineReportNavigationArgs">
             <summary>
             Holds navigation parameters specific to a report from a state-machine.
@@ -11284,6 +11272,29 @@
             <summary>
             Command executed when more tokens need to be loaded.
             </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MyWallet.AccountItemTypeTemplateSelector">
+            <summary>
+            Data Template Selector, based on Account Item Type.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.AccountItemTypeTemplateSelector.PendingPaymentTemplate">
+            <summary>
+            Template to use for pending payments
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.AccountItemTypeTemplateSelector.AccountEventTemplate">
+            <summary>
+            Template to use for account events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.AccountItemTypeTemplateSelector.DefaultTemplate">
+            <summary>
+            Template to use for other items.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyWallet.AccountItemTypeTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.MyWalletPage">
             <summary>
@@ -12069,6 +12080,29 @@
             <summary>
             Sub-total
             </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.MyWallet.TokenItemTypeTemplateSelector">
+            <summary>
+            Data Template Selector, based on Token Item Type.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.TokenItemTypeTemplateSelector.NotificationTemplate">
+            <summary>
+            Template to use for notifications
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.TokenItemTypeTemplateSelector.TokenTemplate">
+            <summary>
+            Template to use for tokens.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.TokenItemTypeTemplateSelector.DefaultTemplate">
+            <summary>
+            Template to use for other items.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyWallet.TokenItemTypeTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.WalletNavigationArgs">
             <summary>
@@ -19186,6 +19220,14 @@
             <param name="Button">Button</param>
             <returns>Recorded events.</returns>
         </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.GetEventsByCategory``1(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available notification events for a button, of a given type, sorted by category.
+            </summary>
+            <typeparam name="T">Type of notification event of interest.</typeparam>
+            <param name="Button">Button</param>
+            <returns>Recorded events.</returns>
+        </member>
         <member name="M:IdApp.Services.Notification.INotificationService.TryGetNotificationEvents(IdApp.Services.Notification.EventButton,Waher.Persistence.CaseInsensitiveString,IdApp.Services.Notification.NotificationEvent[]@)">
             <summary>
             Tries to get available notification events.
@@ -19409,6 +19451,13 @@
             <returns>Recorded categories.</returns>
         </member>
         <member name="M:IdApp.Services.Notification.NotificationService.GetEventsByCategory(IdApp.Services.Notification.EventButton)">
+            <summary>
+            Gets available notification events for a button, sorted by category.
+            </summary>
+            <param name="Button">Button</param>
+            <returns>Recorded events.</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.GetEventsByCategory``1(IdApp.Services.Notification.EventButton)">
             <summary>
             Gets available notification events for a button, sorted by category.
             </summary>

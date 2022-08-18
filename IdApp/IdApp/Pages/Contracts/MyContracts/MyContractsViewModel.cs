@@ -292,7 +292,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 							string Icon = await Event.GetCategoryIcon(this);
 							string Description = await Event.GetCategoryDescription(this);
 
-							NewCategories.Add(new EventModel(Event.Received, Icon, Description, Event));
+							NewCategories.Add(new EventModel(Event.Received, Icon, Description, Event, this));
 						}
 					}
 				}

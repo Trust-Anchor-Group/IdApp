@@ -1,6 +1,9 @@
-﻿using IdApp.Services.Notification;
+﻿using IdApp.Services;
+using IdApp.Services.Notification;
 using System;
+using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 {
@@ -9,6 +12,8 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 	/// </summary>
 	public class EventModel : ObservableObject, IItemGroup
 	{
+		private readonly ServiceReferences references;
+
 		/// <summary>
 		/// Creates an instance of the <see cref="EventModel"/> class.
 		/// </summary>
@@ -16,12 +21,16 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 		/// <param name="Icon">Icon of event.</param>
 		/// <param name="Description">Description of event.</param>
 		/// <param name="Event">Notification event object.</param>
-		public EventModel(DateTime Received, string Icon, string Description, NotificationEvent Event)
+		/// <param name="References">Service references.</param>
+		public EventModel(DateTime Received, string Icon, string Description, NotificationEvent Event, ServiceReferences References)
 		{
 			this.Received = Received;
 			this.Icon = Icon;
 			this.Description = Description;
 			this.Event = Event;
+			this.references = References;
+
+			this.ClickedCommand = new Command(_ => this.Clicked());
 		}
 
 		/// <summary>
@@ -48,5 +57,30 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 		/// Unique name used to compare items.
 		/// </summary>
 		public string UniqueName => this.Event.ObjectId;
+
+		/// <summary>
+		/// Command executed when the token has been clicked or tapped.
+		/// </summary>
+		public ICommand ClickedCommand { get; }
+
+		/// <summary>
+		/// Opens the notification event.
+		/// </summary>
+		public void Clicked()
+		{
+			this.references.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				try
+				{
+					await this.Event.Open(this.references);
+
+					await this.references.NotificationService.DeleteEvents(new NotificationEvent[] { this.Event });
+				}
+				catch (Exception ex)
+				{
+					this.references.LogService.LogException(ex);
+				}
+			});
+		}
 	}
 }

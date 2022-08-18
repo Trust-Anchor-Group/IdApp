@@ -7,7 +7,7 @@
                        xmlns:mainTabBar="clr-namespace:IdApp.Controls.MainTabBar;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.MyWallet;assembly=IdApp"
                        xmlns:objectmodel="clr-namespace:IdApp.Pages.Wallet.MyWallet.ObjectModels;assembly=IdApp"
-                       xmlns:selector="clr-namespace:IdApp.Pages.Wallet;assembly=IdApp"
+                       xmlns:objectmodel2="clr-namespace:IdApp.Pages.Contracts.MyContracts.ObjectModels;assembly=IdApp"
                        xmlns:flipView="clr-namespace:IdApp.Controls.FlipView;assembly=IdApp"
                        xmlns:loading="clr-namespace:IdApp.Controls.LoadingCollectionView;assembly=IdApp"
                        x:DataType="model:MyWalletViewModel" x:Name="ThisPage"
@@ -74,11 +74,66 @@
             </Grid>
         </DataTemplate>
 
-        <selector:ItemTypeTemplateSelector x:Key="ItemStyleSelector"
-										   DefaultTemplate="{StaticResource DefaultTemplate}"
-										   PendingPaymentTemplate="{StaticResource PendingPaymentTemplate}"
-										   AccountEventTemplate="{StaticResource AccountEventTemplate}"/>
-    </views:ContentBasePage.Resources>
+		<DataTemplate x:Key="TokenTemplate" x:DataType="objectmodel:TokenItem">
+			<Grid ColumnDefinitions="*,4*,2*,*" RowDefinitions="auto" BackgroundColor="Transparent">
+				<Image Grid.Column="0" Grid.Row="0"
+					   Source="{Binding Path=GlyphImage}" IsVisible="{Binding Path=HasGlyphImage}"
+					   WidthRequest="{Binding Path=GlyphWidth, Mode=OneTime}"
+					   HeightRequest="{Binding Path=GlyphHeight, Mode=OneTime}"
+					   VerticalOptions="Center" HorizontalOptions="Center" />
+				<Label Grid.Column="1" Grid.Row="0" Text="{Binding Path=FriendlyName}"
+					   Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"
+					   FontAttributes="Bold" FontSize="18" HorizontalTextAlignment="Start"
+					   BackgroundColor="Transparent" VerticalOptions="Center"/>
+				<Frame Grid.Row="0" Grid.Column="2" CornerRadius="12" Margin="2" Padding="8,3,8,3" IsVisible="{Binding New}"
+					   HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+					<Label FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Text="{Binding NrEvents}" Padding="1"/>
+				</Frame>
+				<Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Value, Converter={converters:MoneyToString}}"
+					   Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontSize="18"
+					   BackgroundColor="Transparent" HorizontalTextAlignment="End" VerticalOptions="Center"/>
+				<Label Grid.Column="3" Grid.Row="0" Text="{Binding Path=Currency}" FontSize="18"
+					   Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"
+					   BackgroundColor="Transparent" HorizontalTextAlignment="Start" VerticalOptions="Center"/>
+				<Grid.GestureRecognizers>
+					<TapGestureRecognizer Command="{Binding ClickedCommand}" CommandParameter="{Binding .}"/>
+				</Grid.GestureRecognizers>
+			</Grid>
+		</DataTemplate>
+
+		<DataTemplate x:Key="EventTemplate" x:DataType="objectmodel2:EventModel">
+			<Grid ColumnDefinitions="auto,*,auto" RowDefinitions="auto,auto" Padding="5,5,5,5">
+				<Label Grid.Column="0" Grid.Row="0" LineBreakMode="NoWrap" Padding="5,2,5,0"
+					   Text="{Binding Path=Received, Converter={converters:DateToString}}"
+					   HorizontalOptions="Center" VerticalOptions="Center"/>
+				<Label Grid.Column="0" Grid.Row="1" LineBreakMode="NoWrap" Padding="5,0,5,2"
+					   Text="{Binding Path=Received, Converter={converters:TimeToString}}"
+					   HorizontalOptions="Center" VerticalOptions="Center"/>
+				<Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="CharacterWrap" TextType="Text"
+					   HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Padding="5,2,5,2"
+					   Text="{Binding Path=Description}" Style="{StaticResource ClickableValueLabel}"/>
+				<Label Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="NoWrap" Padding="5,2,5,0"
+					   Text="{Binding Path=Icon}" FontFamily="{StaticResource FontAwesomeSolid}"
+					   HorizontalOptions="Center" VerticalOptions="Center"/>
+				<Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="NoWrap" Padding="5,2,5,0"
+					   Text="•" TextColor="{StaticResource AlertColor}" FontSize="50"
+					   HorizontalOptions="End" VerticalOptions="Center"/>
+				<Grid.GestureRecognizers>
+					<TapGestureRecognizer Command="{Binding ClickedCommand}" CommandParameter="{Binding .}"/>
+				</Grid.GestureRecognizers>
+			</Grid>
+		</DataTemplate>
+
+		<model:AccountItemTypeTemplateSelector x:Key="AccountItemStyleSelector"
+											   DefaultTemplate="{StaticResource DefaultTemplate}"
+											   PendingPaymentTemplate="{StaticResource PendingPaymentTemplate}"
+											   AccountEventTemplate="{StaticResource AccountEventTemplate}"/>
+
+		<model:TokenItemTypeTemplateSelector x:Key="TokenItemStyleSelector"
+											 DefaultTemplate="{StaticResource DefaultTemplate}"
+											 TokenTemplate="{StaticResource TokenTemplate}"
+											 NotificationTemplate="{StaticResource EventTemplate}"/>
+	</views:ContentBasePage.Resources>
 
     <flipView:FlipView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="WalletFlipView"
                        BackViewShowing="WalletFlipView_BackViewShowing" Flipped="WalletFlipView_Flipped">
@@ -135,7 +190,7 @@
                                                    ItemSizingStrategy="MeasureAllItems"
                                                    RemainingItemsThreshold="1"
 												   ItemsSource="{Binding Path=PaymentItems}"
-                                                   ItemTemplate="{StaticResource ItemStyleSelector}"
+                                                   ItemTemplate="{StaticResource AccountItemStyleSelector}"
                                                    LoadMoreCommand="{Binding LoadMoreAccountEventsCommand}">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
@@ -203,41 +258,12 @@
                     <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single"
                                                    RemainingItemsThreshold="1" ItemSizingStrategy="MeasureFirstItem"
                                                    Style="{StaticResource MyWalletView}"
-                                                   ItemsSource="{Binding Path=Tokens}" LoadMoreCommand="{Binding LoadMoreTokensCommand}">
+                                                   ItemsSource="{Binding Path=Tokens}"
+												   ItemTemplate="{StaticResource TokenItemStyleSelector}"
+												   LoadMoreCommand="{Binding LoadMoreTokensCommand}">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
                         </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="objectmodel:TokenItem">
-                                <Grid ColumnDefinitions="*,4*,2*,*" RowDefinitions="auto" BackgroundColor="Transparent">
-                                    <Image Grid.Column="0" Grid.Row="0"
-                                            Source="{Binding Path=GlyphImage}" IsVisible="{Binding Path=HasGlyphImage}"
-                                            WidthRequest="{Binding Path=GlyphWidth, Mode=OneTime}"
-                                            HeightRequest="{Binding Path=GlyphHeight, Mode=OneTime}"
-                                            VerticalOptions="Center" HorizontalOptions="Center" />
-									<Label Grid.Column="1" Grid.Row="0" Text="{Binding Path=FriendlyName}"
-                                            Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"
-                                            FontAttributes="Bold" FontSize="18" HorizontalTextAlignment="Start"
-                                            BackgroundColor="Transparent"
-                                            VerticalOptions="Center"/>
-									<Frame Grid.Row="0" Grid.Column="2" CornerRadius="12" Margin="2" Padding="8,3,8,3" IsVisible="{Binding New}"
-										   HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
-										<Label FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Text="{Binding NrEvents}" Padding="1"/>
-									</Frame>
-									<Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Value, Converter={converters:MoneyToString}}"
-                                            Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontSize="18"
-                                            BackgroundColor="Transparent"
-                                            HorizontalTextAlignment="End" VerticalOptions="Center"/>
-                                    <Label Grid.Column="3" Grid.Row="0" Text="{Binding Path=Currency}" FontSize="18"
-                                            Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"
-                                            BackgroundColor="Transparent"
-                                            HorizontalTextAlignment="Start" VerticalOptions="Center"/>
-                                    <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding ClickedCommand}" CommandParameter="{Binding .}"/>
-                                    </Grid.GestureRecognizers>
-                                </Grid>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
                     </loading:LoadingCollectionView>
                 </StackLayout>
 

@@ -344,6 +344,46 @@ namespace IdApp.Services.Notification
 		}
 
 		/// <summary>
+		/// Gets available notification events for a button, sorted by category.
+		/// </summary>
+		/// <param name="Button">Button</param>
+		/// <returns>Recorded events.</returns>
+		public SortedDictionary<CaseInsensitiveString, T[]> GetEventsByCategory<T>(EventButton Button)
+			where T : NotificationEvent
+		{
+			int i = (int)Button;
+			if (i < 0 || i >= nrButtons)
+				return new SortedDictionary<CaseInsensitiveString, T[]>();
+
+			lock (this.events)
+			{
+				SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory = this.events[i];
+				SortedDictionary<CaseInsensitiveString, T[]> Result = new();
+
+				foreach (KeyValuePair<CaseInsensitiveString, List<NotificationEvent>> P in ByCategory)
+				{
+					List<T> Items = null;
+
+					foreach (NotificationEvent Event in P.Value)
+					{
+						if (Event is T TypedItem)
+						{
+							if (Items is null)
+								Items = new List<T>();
+
+							Items.Add(TypedItem);
+						}
+					}
+
+					if (Items is not null)
+						Result[P.Key] = Items.ToArray();
+				}
+
+				return Result;
+			}
+		}
+
+		/// <summary>
 		/// Tries to get available notification events.
 		/// </summary>
 		/// <param name="Button">Event Button</param>

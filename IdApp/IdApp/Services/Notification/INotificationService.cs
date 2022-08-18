@@ -61,6 +61,15 @@ namespace IdApp.Services.Notification
 		SortedDictionary<CaseInsensitiveString, NotificationEvent[]> GetEventsByCategory(EventButton Button);
 
 		/// <summary>
+		/// Gets available notification events for a button, of a given type, sorted by category.
+		/// </summary>
+		/// <typeparam name="T">Type of notification event of interest.</typeparam>
+		/// <param name="Button">Button</param>
+		/// <returns>Recorded events.</returns>
+		SortedDictionary<CaseInsensitiveString, T[]> GetEventsByCategory<T>(EventButton Button)
+			where T : NotificationEvent;
+
+		/// <summary>
 		/// Tries to get available notification events.
 		/// </summary>
 		/// <param name="Button">Event Button</param>
