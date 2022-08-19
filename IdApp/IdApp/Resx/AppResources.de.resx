@@ -1845,4 +1845,13 @@
   <data name="UserSignedAs" xml:space="preserve">
     <value>{0} unterschrieben als {1}.</value>
   </data>
+  <data name="Security" xml:space="preserve">
+    <value>Sicherheit</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Sicherheitseinstellungen</value>
+  </data>
+  <data name="SecuritySettingsInformationText" xml:space="preserve">
+    <value>Unten können Sie die Sicherheitseinstellungen für die App ändern. Wenn Sie die Bildschirmaufnahme aktivieren, können Sie den Bildschirm für andere freigeben, jedoch nur für eine begrenzte Zeit.</value>
+  </data>
 </root>

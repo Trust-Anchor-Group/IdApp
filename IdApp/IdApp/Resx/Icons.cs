@@ -181,5 +181,10 @@
 		/// </summary>
 		public const string Calculator = "\uf1ec";
 
+		/// <summary>
+		/// user-shield
+		/// </summary>
+		public const string UserShield = "\uf505";
+
 	}
 }

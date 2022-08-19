@@ -1833,4 +1833,13 @@
   <data name="UserSignedAs" xml:space="preserve">
     <value>{0} skrev under som {1}.</value>
   </data>
+  <data name="Security" xml:space="preserve">
+    <value>Säkerhet</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Säkerhetsinställningar</value>
+  </data>
+  <data name="SecuritySettingsInformationText" xml:space="preserve">
+    <value>Nedan kan du ställa in säkerhetsinställningar för appen. Genom att tillåta skärminspelning kan du dela skärmen med andra, men bara för en begränsad tid.</value>
+  </data>
 </root>

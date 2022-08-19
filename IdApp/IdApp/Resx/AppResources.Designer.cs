@@ -3652,6 +3652,33 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Security.
+        /// </summary>
+        internal static string Security {
+            get {
+                return ResourceManager.GetString("Security", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Security Settings.
+        /// </summary>
+        internal static string SecuritySettings {
+            get {
+                return ResourceManager.GetString("SecuritySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below you can modify securit settings for the app. By enabling screen capture you can share the screen with others, but only for a limited time..
+        /// </summary>
+        internal static string SecuritySettingsInformationText {
+            get {
+                return ResourceManager.GetString("SecuritySettingsInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Below are all contacts in your contact book. Select the contact to whom you want to make the payment..
         /// </summary>
         internal static string SelectContactToPay {

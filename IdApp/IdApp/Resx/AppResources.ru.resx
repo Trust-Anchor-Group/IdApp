@@ -1845,4 +1845,13 @@
   <data name="UserSignedAs" xml:space="preserve">
     <value>{0} подписан как {1}.</value>
   </data>
+  <data name="Security" xml:space="preserve">
+    <value>Безопасность</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Настройки безопасности</value>
+  </data>
+  <data name="SecuritySettingsInformationText" xml:space="preserve">
+    <value>Ниже вы можете изменить настройки securit для приложения. Включив захват экрана, вы можете делиться экраном с другими, но только в течение ограниченного времени.</value>
+  </data>
 </root>

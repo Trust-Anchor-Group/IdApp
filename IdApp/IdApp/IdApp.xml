@@ -117,6 +117,16 @@
             Saves that the value for CurrentPinCounter
             </summary>
         </member>
+        <member name="P:IdApp.App.CanProhibitScreenCapture">
+            <summary>
+            If Screen Capture can be prohibited.
+            </summary>
+        </member>
+        <member name="P:IdApp.App.ProhibitScreenCapture">
+            <summary>
+            Controls of screen-capture is prohibited.
+            </summary>
+        </member>
         <member name="T:IdApp.Behaviors.ReRenderOnClickedBehavior">
             <summary>
             Used for Re-rendering a layout, when a button has been clicked.
@@ -1699,6 +1709,16 @@
             Gets a Push Notification token for the device.
             </summary>
             <returns>Token information.</returns>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.ISecureDisplay">
+            <summary>
+            Dependency interface for device-specific securing of display.
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.ISecureDisplay.ProhibitScreenCapture">
+            <summary>
+            If screen capture is prohibited or not.
+            </summary>
         </member>
         <member name="T:IdApp.DeviceSpecific.IShareContent">
             <summary>
@@ -8013,6 +8033,37 @@
             Invoke this method to fire the <see cref="E:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.ModeChanged"/> event.
             </summary>
             <param name="e"></param>
+        </member>
+        <member name="T:IdApp.Pages.Main.Security.SecurityPage">
+            <summary>
+            A page that allows the user to calculate the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Security.SecurityPage.#ctor">
+            <summary>
+            A page that allows the user to calculate the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Security.SecurityViewModel">
+            <summary>
+            The view model to bind to for when displaying the calculator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Security.SecurityViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Main.Security.SecurityViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Security.SecurityViewModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Main.Security.SecurityViewModel.OnDispose">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Main.Security.SecurityViewModel.ChangePinCommand">
+            <summary>
+            Command executed when user wants to change PIN.
+            </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Shell.AppShell">
             <summary>
@@ -16004,6 +16055,21 @@
               Looks up a localized string similar to Scan QR Code.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Security">
+            <summary>
+              Looks up a localized string similar to Security.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SecuritySettings">
+            <summary>
+              Looks up a localized string similar to Security Settings.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SecuritySettingsInformationText">
+            <summary>
+              Looks up a localized string similar to Below you can modify securit settings for the app. By enabling screen capture you can share the screen with others, but only for a limited time..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.SelectContactToPay">
             <summary>
               Looks up a localized string similar to Below are all contacts in your contact book. Select the contact to whom you want to make the payment..
@@ -17068,6 +17134,11 @@
         <member name="F:IdApp.Resx.FontAwesome.Calculator">
             <summary>
             calculator
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.FontAwesome.UserShield">
+            <summary>
+            user-shield
             </summary>
         </member>
         <member name="T:IdApp.Resx.Pngs">

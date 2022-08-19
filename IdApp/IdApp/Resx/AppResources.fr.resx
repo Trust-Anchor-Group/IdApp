@@ -1845,4 +1845,13 @@
   <data name="UserSignedAs" xml:space="preserve">
     <value>{0} signé comme {1}.</value>
   </data>
+  <data name="Security" xml:space="preserve">
+    <value>Sécurité</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Paramètres de sécurité</value>
+  </data>
+  <data name="SecuritySettingsInformationText" xml:space="preserve">
+    <value>Ci-dessous, vous pouvez modifier les paramètres de titrisation de l’application. En activant la capture d’écran, vous pouvez partager l’écran avec d’autres personnes, mais uniquement pour une durée limitée.</value>
+  </data>
 </root>

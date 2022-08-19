@@ -76,6 +76,7 @@ namespace IdApp
 		private static readonly TaskCompletionSource<bool> servicesSetup = new();
 		private static readonly TaskCompletionSource<bool> configLoaded = new();
 		private static readonly TaskCompletionSource<bool> defaultInstantiatedSource = new();
+		private static ISecureDisplay secureDisplay;
 		private static bool defaultInstantiated = false;
 		private static App instance;
 		private static DateTime savedStartTime = DateTime.MinValue;
@@ -319,6 +320,8 @@ namespace IdApp
 				return Types.Instantiate(true, type);
 			});
 
+			secureDisplay = DependencyService.Get<ISecureDisplay>();
+
 			servicesSetup.TrySetResult(true);
 		}
 
@@ -355,7 +358,7 @@ namespace IdApp
 			await configLoaded.Task;
 		}
 
-#region Startup/Shutdown
+		#region Startup/Shutdown
 
 		///<inheritdoc/>
 		protected override async void OnStart()
@@ -548,7 +551,7 @@ namespace IdApp
 			}
 		}
 
-#endregion
+		#endregion
 
 		private void StopAutoSaveTimer()
 		{
@@ -644,9 +647,7 @@ namespace IdApp
 		{
 			Page CurrentPage = this.MainPage is Shell Shell ? Shell.CurrentPage : this.MainPage;
 			if (CurrentPage is NavigationPage NavigationPage)
-			{
 				CurrentPage = NavigationPage.CurrentPage;
-			}
 
 			// LoadingPage already looks like a loading page, so it would look strange to push another loading page on top of it.
 			if (CurrentPage is Pages.Main.Loading.LoadingPage LoadingPage)
@@ -662,7 +663,7 @@ namespace IdApp
 			}
 
 			TaskCompletionSource<bool> OnDisappearingCompletedTaskSource = new();
-			((ContentBasePage)CurrentPage).OnDisappearingCompleted += (_, _) => OnDisappearingCompletedTaskSource.SetResult(true);
+			((ContentBasePage)CurrentPage).OnDisappearingCompleted += (_, _) => OnDisappearingCompletedTaskSource.TrySetResult(true);
 
 			await CurrentPage.Navigation.PushModalAsync(new BetweenMainPage(), animated: false);
 			await OnDisappearingCompletedTaskSource.Task;
@@ -670,7 +671,7 @@ namespace IdApp
 			this.MainPage = Page;
 		}
 
-#region Error Handling
+		#region Error Handling
 
 		private async void TaskScheduler_UnobservedTaskException(object Sender, UnobservedTaskExceptionEventArgs e)
 		{
@@ -885,7 +886,7 @@ namespace IdApp
 			File.WriteAllText(FileName + ".diff.md", DiffMsg);
 		}
 
-#endregion
+		#endregion
 
 		/// <summary>
 		/// Opens an URL in the application.
@@ -1073,6 +1074,24 @@ namespace IdApp
 		private static async void SetCurrentPinCounter(long CurrentPinAttemptCounter)
 		{
 			await instance.services.SettingsService.SaveState(Constants.Pin.CurrentPinAttemptCounter, CurrentPinAttemptCounter);
+		}
+
+		/// <summary>
+		/// If Screen Capture can be prohibited.
+		/// </summary>
+		public static bool CanProhibitScreenCapture => secureDisplay is not null;
+
+		/// <summary>
+		/// Controls of screen-capture is prohibited.
+		/// </summary>
+		public static bool ProhibitScreenCapture
+		{
+			get => secureDisplay?.ProhibitScreenCapture ?? false;
+			set
+			{
+				if (secureDisplay is not null)
+					secureDisplay.ProhibitScreenCapture = value;
+			}
 		}
 	}
 }
