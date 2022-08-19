@@ -43,9 +43,9 @@ namespace IdApp.Pages.Contacts.MyContacts
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out ContactListNavigationArgs args))
 			{
@@ -54,6 +54,8 @@ namespace IdApp.Pages.Contacts.MyContacts
 				this.selection = args.Selection;
 				this.CanScanQrCode = args.CanScanQrCode;
 			}
+
+
 
 			SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted = new();
 			Dictionary<CaseInsensitiveString, bool> Jids = new();
@@ -205,7 +207,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override Task OnDispose()
 		{
 			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
 			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
@@ -217,17 +219,9 @@ namespace IdApp.Pages.Contacts.MyContacts
 				this.Contacts.Clear();
 			}
 
-			await base.DoUnbind();
-		}
-
-		/// <summary>
-		/// Method called when closing view model, returning to a previous view.
-		/// </summary>
-		public override void OnClosingPage()
-		{
 			this.selection?.TrySetResult(null);
 
-			base.OnClosingPage();
+			return base.OnDispose();
 		}
 
 		/// <summary>

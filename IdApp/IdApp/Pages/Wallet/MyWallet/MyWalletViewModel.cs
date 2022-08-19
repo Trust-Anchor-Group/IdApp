@@ -8,6 +8,7 @@ using System.Xml;
 using EDaler;
 using EDaler.Uris;
 using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Resx;
@@ -57,13 +58,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 			*/
 
 			this.Totals = new ObservableCollection<TokenTotalItem>();
-			this.Tokens = new ObservableCollection<TokenItem>();
+			this.Tokens = new ObservableCollection<object>();
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			this.EDalerFrontGlyph = "https://" + this.XmppService.Xmpp.Host + "/Images/eDalerFront200.png";
 			this.EDalerBackGlyph = "https://" + this.XmppService.Xmpp.Host + "/Images/eDalerBack200.png";
@@ -96,14 +97,14 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.XmppService.Wallet.BalanceUpdated -= this.Wallet_BalanceUpdated;
 			this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;
 			this.XmppService.Wallet.TokenRemoved -= this.Wallet_TokenRemoved;
 			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
 
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		private SortedDictionary<CaseInsensitiveString, NotificationEvent[]> GetNotificationEvents()
@@ -561,7 +562,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// <summary>
 		/// Holds a list of tokens
 		/// </summary>
-		public ObservableCollection<TokenItem> Tokens { get; }
+		public ObservableCollection<object> Tokens { get; }
 
 		/// <summary>
 		/// The command to bind to for returning to previous view.
@@ -731,21 +732,16 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
-						if (e.Ok)
+						this.Totals.Clear();
+
+						if (e.Ok && e.Totals is not null)
 						{
 							this.Totals.Clear();
 
-							if (e.Totals is not null)
-							{
-								this.Totals.Clear();
+							foreach (TokenTotal Total in e.Totals)
+								this.Totals.Add(new TokenTotalItem(Total));
 
-								foreach (TokenTotal Total in e.Totals)
-									this.Totals.Add(new TokenTotalItem(Total));
-
-								this.HasTotals = true;
-							}
-							else
-								this.HasTotals = false;
+							this.HasTotals = true;
 						}
 						else
 							this.HasTotals = false;
@@ -761,21 +757,50 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				try
 				{
+					SortedDictionary<CaseInsensitiveString, TokenNotificationEvent[]> NotificationEvents =
+						this.NotificationService.GetEventsByCategory<TokenNotificationEvent>(EventButton.Wallet);
+
 					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.BatchSizes.TokenBatchSize);
 					SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.GetNotificationEvents();
 
-					this.UiSerializer.BeginInvokeOnMainThread(() =>
+					this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					{
-						if (e.Ok)
+						try
 						{
 							this.Tokens.Clear();
 
-							if (e.Tokens is not null)
+							foreach (KeyValuePair<CaseInsensitiveString, TokenNotificationEvent[]> P in NotificationEvents)
 							{
-								this.Tokens.Clear();
+								Token Token = null;
 
+								foreach (TokenNotificationEvent TokenEvent in P.Value)
+								{
+									Token = TokenEvent.Token;
+									if (Token is not null)
+										break;
+								}
+
+								if (Token is not null)
+									this.Tokens.Add(new TokenItem(Token, this, P.Value));
+								else
+								{
+									foreach (TokenNotificationEvent TokenEvent in P.Value)
+									{
+										string Icon = await TokenEvent.GetCategoryIcon(this);
+										string Description = await TokenEvent.GetCategoryDescription(this);
+
+										this.Tokens.Add(new EventModel(TokenEvent.Received, Icon, Description, TokenEvent, this));
+									}
+								}
+							}
+
+							if (e.Ok && e.Tokens is not null)
+							{
 								foreach (Token Token in e.Tokens)
 								{
+									if (NotificationEvents.ContainsKey(Token.TokenId))
+										continue;
+
 									if (!EventsByCateogy.TryGetValue(Token.TokenId, out NotificationEvent[] Events))
 										Events = new NotificationEvent[0];
 
@@ -788,8 +813,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 							else
 								this.HasTokens = false;
 						}
-						else
-							this.HasTokens = false;
+						catch (Exception ex)
+						{
+							this.LogService.LogException(ex);
+						}
 					});
 				}
 				catch (Exception ex)
@@ -950,9 +977,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 				for (i = 0; i < c; i++)
 				{
-					TokenItem Item = this.Tokens[i];
-
-					if (Item.TokenId == e.Token.TokenId)
+					if (this.Tokens[i] is TokenItem Item && Item.TokenId == e.Token.TokenId)
 					{
 						this.Tokens.RemoveAt(i);
 						break;

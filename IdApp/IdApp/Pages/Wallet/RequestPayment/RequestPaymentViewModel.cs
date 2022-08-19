@@ -32,9 +32,9 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			bool SkipInitialization = false;
 
@@ -68,10 +68,11 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
-			await base.DoUnbind();
+
+			await base.OnDispose();
 		}
 
 		private void AssignProperties()
@@ -337,7 +338,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 					this.Currency, this.Message);
 			}
 
-			if (this.IsBound)
+			if (this.IsAppearing)
 			{
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{

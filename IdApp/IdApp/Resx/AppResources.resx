@@ -1845,4 +1845,19 @@
   <data name="UserSignedAs" xml:space="preserve">
     <value>{0} signed as {1}.</value>
   </data>
+  <data name="PermitScreenCapture" xml:space="preserve">
+    <value>Permit Screen Capture</value>
+  </data>
+  <data name="ProhibitScreenCapture" xml:space="preserve">
+    <value>Prohibit Screen Capture</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Security Settings</value>
+  </data>
+  <data name="SecuritySettingsInformationText" xml:space="preserve">
+    <value>Below you can modify securit settings for the app. By enabling screen capture you can share the screen with others, but only for a limited time.</value>
+  </data>
 </root>

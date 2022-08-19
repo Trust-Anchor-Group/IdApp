@@ -69,14 +69,14 @@ namespace IdApp.Pages
         {
             if (this.ViewModel is not null)
             {
-                if (!this.ViewModel.IsBound)
+                if (!this.ViewModel.IsAppearing)
                 {
                     try
                     {
 #if DEBUG
 						NavigationLogger.Log(this.GetType().Name + " ViewModel (" + this.ViewModel.GetType().Name + ") Bind begins.");
 #endif
-						await this.ViewModel.Bind();
+						await this.ViewModel.Appearing();
 #if DEBUG
 						NavigationLogger.Log(this.GetType().Name + " ViewModel (" + this.ViewModel.GetType().Name + ") Bind ends.");
 #endif
@@ -136,7 +136,7 @@ namespace IdApp.Pages
         {
             if (this.ViewModel is not null)
             {
-                if (this.ViewModel.IsBound)
+                if (this.ViewModel.IsAppearing)
                 {
                     try
                     {
@@ -157,7 +157,7 @@ namespace IdApp.Pages
 #if DEBUG
 					NavigationLogger.Log(this.GetType().Name + " ViewModel (" + this.ViewModel.GetType().Name + ") Unbind begins.");
 #endif
-					await this.ViewModel.Unbind();
+					await this.ViewModel.Disappearing();
 #if DEBUG
 					NavigationLogger.Log(this.GetType().Name + " ViewModel (" + this.ViewModel.GetType().Name + ") Unbind ends.");
 #endif
@@ -190,15 +190,6 @@ namespace IdApp.Pages
         }
 
 		/// <summary>
-		/// Method called when closing view, returning to a previous page.
-		/// </summary>
-		public virtual void OnClosingPage()
-		{
-			if (this.ViewModel is IModalView ModalView)
-				ModalView.OnClosingPage();
-		}
-
-		/// <summary>
 		/// Overrides the back button behavior to handle navigation internally instead.
 		/// </summary>
 		/// <returns>Whether or not the back navigation was handled</returns>
@@ -220,6 +211,32 @@ namespace IdApp.Pages
 					this.ViewModel.NavigationService.GoBackAsync();
 
 				return true;
+			}
+		}
+
+		/// <summary>
+		/// Called when the <see cref="Xamarin.Forms.Page"/>'s <see cref="Xamarin.Forms.Element.Parent"/> property has changed.
+		/// </summary>
+		protected override sealed async void OnParentSet()
+		{
+			try
+			{
+				base.OnParentSet();
+
+				if (this.Parent is null)
+				{
+					if (this.ViewModel is ILifeCycleView LifeCycleView)
+						await LifeCycleView.Dispose();
+				}
+				else
+				{
+					if (this.ViewModel is ILifeCycleView LifeCycleView)
+						await LifeCycleView.Initialize();
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
 			}
 		}
 

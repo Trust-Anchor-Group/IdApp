@@ -27,9 +27,9 @@ namespace IdApp.Pages.Things.MyThings
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out MyThingsNavigationArgs Args))
 				this.thingToShare = Args.ThingToShare;
@@ -131,22 +131,14 @@ namespace IdApp.Pages.Things.MyThings
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.ShowThingsMissing = false;
 			this.Things.Clear();
 
-			await base.DoUnbind();
-		}
-
-		/// <summary>
-		/// Method called when closing view model, returning to a previous view.
-		/// </summary>
-		public override void OnClosingPage()
-		{
 			this.thingToShare?.TrySetResult(null);
 
-			base.OnClosingPage();
+			await base.OnDispose();
 		}
 
 		/// <summary>

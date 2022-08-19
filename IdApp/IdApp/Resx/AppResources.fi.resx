@@ -1845,4 +1845,19 @@
   <data name="UserSignedAs" xml:space="preserve">
     <value>{0} allekirjoitettu nimellä {1}.</value>
   </data>
+  <data name="PermitScreenCapture" xml:space="preserve">
+    <value>Salli näytön kaappaus</value>
+  </data>
+  <data name="ProhibitScreenCapture" xml:space="preserve">
+    <value>Estä näytön kaappaus</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Arvopaperi</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Suojausasetukset</value>
+  </data>
+  <data name="SecuritySettingsInformationText" xml:space="preserve">
+    <value>Alla voit muokata sovelluksen arvopaperiasetuksia. Ottamalla näytön kaappauksen käyttöön voit jakaa näytön muiden kanssa, mutta vain rajoitetun ajan.</value>
+  </data>
 </root>

@@ -1,15 +1,15 @@
 ﻿using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using Xamarin.Forms;
 
-namespace IdApp.Pages.Wallet
+namespace IdApp.Pages.Wallet.MyWallet
 {
 	/// <summary>
-	/// Data Template Selector, based on Item Type.
+	/// Data Template Selector, based on Account Item Type.
 	/// </summary>
-	public class ItemTypeTemplateSelector : DataTemplateSelector
+	public class AccountItemTypeTemplateSelector : DataTemplateSelector
 	{
 		/// <summary>
-		/// ATemplate to use for pending payments
+		/// Template to use for pending payments
 		/// </summary>
 		public DataTemplate PendingPaymentTemplate { get; set; }
 

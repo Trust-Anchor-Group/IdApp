@@ -1845,4 +1845,19 @@
   <data name="UserSignedAs" xml:space="preserve">
     <value>{0} firmó como {1}.</value>
   </data>
+  <data name="PermitScreenCapture" xml:space="preserve">
+    <value>Permitir captura de pantalla</value>
+  </data>
+  <data name="ProhibitScreenCapture" xml:space="preserve">
+    <value>Prohibir la captura de pantalla</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Seguridad</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Configuración de seguridad</value>
+  </data>
+  <data name="SecuritySettingsInformationText" xml:space="preserve">
+    <value>A continuación, puede modificar la configuración de securit para la aplicación. Al habilitar la captura de pantalla, puede compartir la pantalla con otros, pero solo por un tiempo limitado.</value>
+  </data>
 </root>

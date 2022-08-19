@@ -107,6 +107,12 @@
                              Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
 		</MenuItem.IconImageSource>
 	</MenuItem>
+	<MenuItem Text="{x:Static resx:AppResources.Security}" Clicked="Security_Clicked">
+		<MenuItem.IconImageSource>
+			<FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.UserShield}"
+                             Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+		</MenuItem.IconImageSource>
+	</MenuItem>
 	<MenuItem x:Name="ExitMenuItem" Text="{x:Static resx:AppResources.Exit}" Clicked="ExitMenuItem_Clicked">
         <MenuItem.IconImageSource>
             <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Exit}"

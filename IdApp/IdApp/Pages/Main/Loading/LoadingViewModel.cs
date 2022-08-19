@@ -23,19 +23,21 @@ namespace IdApp.Pages.Main.Loading
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
+
 			this.IsBusy = true;
 			this.DisplayConnectionText = this.TagProfile.Step > RegistrationStep.Account;
 			this.XmppService.Loaded += this.XmppService_Loaded;
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.XmppService.Loaded -= this.XmppService_Loaded;
-			await base.DoUnbind();
+
+			await base.OnDispose();
 		}
 
 		#region Properties

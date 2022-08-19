@@ -31,10 +31,10 @@ namespace IdApp.Pages.Main.ScanQrCode
 			this.SetModeText();
         }
 
-        /// <inheritdoc />
-        protected override async Task DoBind()
+		/// <inheritdoc />
+		protected override async Task OnInitialize()
         {
-            await base.DoBind();
+            await base.OnInitialize();
 
 			if (this.navigationArgs is null && this.NavigationService.TryPopArgs(out ScanQrCodeNavigationArgs Args))
 			{
@@ -47,46 +47,74 @@ namespace IdApp.Pages.Main.ScanQrCode
 				: AppResources.Open;
         }
 
-        /// <inheritdoc />
-		protected override Task DoUnbind()
-		{
-            return base.DoUnbind();
-		}
-
 		/// <summary>
 		/// Tries to set the Scan QR Code result and close the scan page.
 		/// </summary>
 		/// <param name="Url">The URL to set.</param>
-		internal void TrySetResultAndClosePage(string Url)
+		internal async void TrySetResultAndClosePage(string Url)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			if (this.navigationArgs is null)
 			{
-				if (this.navigationArgs?.Action is not null)
+				try
 				{
-					await this.navigationArgs.Action(Url);
-					this.navigationArgs.Action = null;
+					if (this.useShellNavigationService)
+						await this.NavigationService.GoBackAsync();
+					else
+						await App.Current.MainPage.Navigation.PopAsync();
 				}
-
-				if (this.useShellNavigationService)
-					await this.NavigationService.GoBackAsync();
-				else
-					await App.Current.MainPage.Navigation.PopAsync();
-
-				if (!string.IsNullOrWhiteSpace(Url) && this.navigationArgs.QrCodeScanned is not null)
+				catch (Exception ex)
 				{
-					this.navigationArgs.QrCodeScanned.TrySetResult(Url.Trim());
-					this.navigationArgs.QrCodeScanned = null;
+					this.LogService.LogException(ex);
 				}
-			});
+			}
+			else
+			{
+				Func<string, Task> Action = this.navigationArgs.Action;
+				TaskCompletionSource<string> QrCodeScanned = this.navigationArgs.QrCodeScanned;
+
+				this.navigationArgs.Action = null;
+				this.navigationArgs.QrCodeScanned = null;
+
+				this.UiSerializer.BeginInvokeOnMainThread(async () =>
+				{
+					try
+					{
+						Url = Url?.Trim();
+
+						if (Action is not null)
+						{
+							try
+							{
+								await Action(Url);
+							}
+							catch (Exception ex)
+							{
+								this.LogService.LogException(ex);
+							}
+						}
+
+						if (this.useShellNavigationService)
+							await this.NavigationService.GoBackAsync();
+						else
+							await App.Current.MainPage.Navigation.PopAsync();
+
+						if (QrCodeScanned is not null)
+							QrCodeScanned?.TrySetResult(Url);
+					}
+					catch (Exception ex)
+					{
+						this.LogService.LogException(ex);
+					}
+				});
+			}
 		}
 
-		/// <summary>
-		/// Method called when closing view model, returning to a previous view.
-		/// </summary>
-		public override void OnClosingPage()
+		/// <inheritdoc />
+		protected override async Task OnDispose()
 		{
 			this.TrySetResultAndClosePage(string.Empty);
-			base.OnClosingPage();
+
+			await base.OnDispose();
 		}
 
 		/// <summary>

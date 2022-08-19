@@ -16,7 +16,6 @@ using Waher.Persistence;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Pages.Identity.TransferIdentity;
-using IdApp.Popups.Pin.ChangePin;
 using IdApp.Services.Contracts;
 using IdApp.Services.Xmpp;
 using IdApp.Services.UI.Photos;
@@ -25,6 +24,7 @@ using IdApp.Pages.Contacts.Chat;
 using IdApp.Popups.Xmpp.RemoveSubscription;
 using IdApp.Resx;
 using IdApp.Services.Notification;
+using IdApp.Pages.Main.Security;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
@@ -66,9 +66,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out ViewIdentityNavigationArgs args))
 			{
@@ -169,7 +169,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.photosLoader.CancelLoadPhotos();
 
@@ -189,7 +189,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			this.LegalIdentity = null;
 
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		#region Properties
@@ -1704,52 +1704,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			if (!this.IsPersonal)
 				return;
 
-			try
-			{
-				while (true)
-				{
-					ChangePinPopupPage Page = new();
-
-					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
-					(string OldPin, string NewPin) = await Page.Result;
-
-					if (OldPin is null || OldPin == NewPin)
-						return;
-
-					if (this.TagProfile.ComputePinHash(OldPin) == this.TagProfile.PinHash)
-					{
-						TaskCompletionSource<bool> PasswordChanged = new();
-						string NewPassword = this.CryptoService.CreateRandomPassword();
-
-						this.XmppService.Xmpp.ChangePassword(NewPassword, (sender, e) =>
-						{
-							PasswordChanged.TrySetResult(e.Ok);
-							return Task.CompletedTask;
-						}, null);
-
-						if (!await PasswordChanged.Task)
-						{
-							await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToChangePassword);
-							return;
-						}
-
-						this.TagProfile.Pin = NewPin;
-						this.TagProfile.SetAccount(this.TagProfile.Account, NewPassword, string.Empty);
-
-						await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PinChanged);
-						return;
-					}
-
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
-
-					// TODO: Limit number of attempts.
-				}
-			}
-			catch (Exception ex)
-			{
-				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(ex);
-			}
+			await SecurityViewModel.ChangePin(this);
 		}
 
 		private async Task OpenChat()

@@ -54,9 +54,9 @@ namespace IdApp.Pages.Contracts.NewContract
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			ContractVisibility? Visibility = null;
 
@@ -84,7 +84,6 @@ namespace IdApp.Pages.Contracts.NewContract
 				this.stateTemplateWhileScanning = null;
 			}
 
-
 			this.templateId = this.template?.ContractId ?? string.Empty;
 			this.IsTemplate = this.template?.CanActAsTemplate ?? false;
 
@@ -97,7 +96,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.ContractVisibilityItems.Clear();
 
@@ -110,7 +109,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				await this.SettingsService.RemoveStateWhereKeyStartsWith(partSettingsPrefix);
 			}
 
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		/// <inheritdoc/>

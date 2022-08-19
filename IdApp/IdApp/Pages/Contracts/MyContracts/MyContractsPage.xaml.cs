@@ -44,21 +44,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 						MyContractsViewModel.NotificationService.DeleteEvents(Contract.Events);
 				}
 				else if (SelectedItem is EventModel Event)
-				{
-					MyContractsViewModel.UiSerializer.BeginInvokeOnMainThread(async () =>
-					{
-						try
-						{
-							await Event.Event.Open(MyContractsViewModel);
-
-							await MyContractsViewModel.NotificationService.DeleteEvents(new NotificationEvent[] { Event.Event });
-						}
-						catch (Exception ex)
-						{
-							MyContractsViewModel.LogService.LogException(ex);
-						}
-					});
-				}
+					Event.Clicked();
 
 				this.Contracts.SelectedItem = null;
 			}

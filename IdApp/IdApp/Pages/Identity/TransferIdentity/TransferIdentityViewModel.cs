@@ -26,9 +26,9 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out TransferIdentityNavigationArgs args))
 				this.Uri = args.Uri;
@@ -59,12 +59,12 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override Task DoUnbind()
+		protected override Task OnDispose()
 		{
 			this.timer?.Dispose();
 			this.timer = null;
 
-			return base.DoUnbind();
+			return base.OnDispose();
 		}
 
 		#region Properties

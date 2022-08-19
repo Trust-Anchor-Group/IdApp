@@ -85,7 +85,7 @@ namespace IdApp.Services.EventLog
 			IUiSerializer UiSerializer = App.Instantiate<IUiSerializer>();
 			await UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.RepairRestart, AppResources.Ok);
 
-			ICloseApplication CloseApplication = App.Instantiate<ICloseApplication>();
+			ICloseApplication CloseApplication = DependencyService.Get<ICloseApplication>();
 			await CloseApplication.Close();
 		}
 

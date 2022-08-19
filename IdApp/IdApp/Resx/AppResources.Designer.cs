@@ -2608,6 +2608,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permit Screen Capture.
+        /// </summary>
+        internal static string PermitScreenCapture {
+            get {
+                return ResourceManager.GetString("PermitScreenCapture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Personal/legal information.
         /// </summary>
         internal static string PersonalLegalInformation {
@@ -3099,6 +3108,15 @@ namespace IdApp.Resx {
         internal static string Profiling {
             get {
                 return ResourceManager.GetString("Profiling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prohibit Screen Capture.
+        /// </summary>
+        internal static string ProhibitScreenCapture {
+            get {
+                return ResourceManager.GetString("ProhibitScreenCapture", resourceCulture);
             }
         }
         
@@ -3648,6 +3666,33 @@ namespace IdApp.Resx {
         internal static string ScanQRCode {
             get {
                 return ResourceManager.GetString("ScanQRCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Security.
+        /// </summary>
+        internal static string Security {
+            get {
+                return ResourceManager.GetString("Security", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Security Settings.
+        /// </summary>
+        internal static string SecuritySettings {
+            get {
+                return ResourceManager.GetString("SecuritySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below you can modify securit settings for the app. By enabling screen capture you can share the screen with others, but only for a limited time..
+        /// </summary>
+        internal static string SecuritySettingsInformationText {
+            get {
+                return ResourceManager.GetString("SecuritySettingsInformationText", resourceCulture);
             }
         }
         

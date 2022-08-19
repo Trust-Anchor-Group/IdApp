@@ -153,7 +153,7 @@ namespace IdApp.Services.UI.Photos
 						this.UiSerializer.BeginInvokeOnMainThread(() =>
 						{
 							this.photos.Add(Photo);
-							PhotoAddedTaskSource.SetResult(true);
+							PhotoAddedTaskSource.TrySetResult(true);
 						});
 
 						await PhotoAddedTaskSource.Task;

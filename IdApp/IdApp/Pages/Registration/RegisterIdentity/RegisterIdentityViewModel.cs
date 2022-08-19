@@ -71,19 +71,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
+
 			this.RegisterCommand.ChangeCanExecute();
 			this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.photosLoader.CancelLoadPhotos();
 			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
-			await base.DoUnbind();
+
+			await base.OnDispose();
 		}
 
 		#region Properties
@@ -1140,7 +1142,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 							(byte[] Bin, string ContentType, int Rotation) = task.Result;
 							if (Bin is not null)
 							{
-								if (!this.IsBound) // Page no longer on screen when download is done?
+								if (!this.IsAppearing) // Page no longer on screen when download is done?
 									return;
 
 								this.UiSerializer.BeginInvokeOnMainThread(async () =>

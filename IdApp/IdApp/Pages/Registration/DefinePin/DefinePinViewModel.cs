@@ -28,18 +28,20 @@ namespace IdApp.Pages.Registration.DefinePin
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
+
 			this.AssignProperties(this.XmppService.State);
 			this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
-			await base.DoUnbind();
+
+			await base.OnDispose();
 		}
 
 		/// <inheritdoc />

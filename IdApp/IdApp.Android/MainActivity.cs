@@ -18,8 +18,10 @@ using Waher.Runtime.Inventory;
 namespace IdApp.Android
 {
 	[Activity(Label = "@string/app_name", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true,
-		ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.Locale, ScreenOrientation = ScreenOrientation.Portrait, LaunchMode = LaunchMode.SingleTop)]
-	[IntentFilter(new string[] { NfcAdapter.ActionNdefDiscovered }, Categories = new string[] { Intent.CategoryDefault }, DataMimeType = "*/*")]
+		ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.Locale,
+		ScreenOrientation = ScreenOrientation.Portrait, LaunchMode = LaunchMode.SingleTop)]
+	[IntentFilter(new string[] { NfcAdapter.ActionNdefDiscovered },
+		Categories = new string[] { Intent.CategoryDefault }, DataMimeType = "*/*")]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
 	{
 		private static NfcAdapter nfcAdapter = null;
@@ -36,6 +38,8 @@ namespace IdApp.Android
 
 		private void Init(Bundle SavedInstanceState)
 		{
+			SecureDisplay.SetMainWindow(this.Window);
+
 			this.Window.SetFlags(
 				WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure,
 				WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure);

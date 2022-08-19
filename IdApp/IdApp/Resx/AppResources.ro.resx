@@ -1845,4 +1845,19 @@
   <data name="UserSignedAs" xml:space="preserve">
     <value>{0} semnat ca {1}.</value>
   </data>
+  <data name="PermitScreenCapture" xml:space="preserve">
+    <value>Permite captura de ecran</value>
+  </data>
+  <data name="ProhibitScreenCapture" xml:space="preserve">
+    <value>Interzicerea capturării ecranului</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Securitate</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Setări de securitate</value>
+  </data>
+  <data name="SecuritySettingsInformationText" xml:space="preserve">
+    <value>Mai jos puteți modifica setările securit pentru aplicație. Activând captura de ecran, puteți partaja ecranul cu alte persoane, dar numai pentru o perioadă limitată de timp.</value>
+  </data>
 </root>

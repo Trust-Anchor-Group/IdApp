@@ -75,9 +75,9 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out ChatNavigationArgs args, this.UniqueId))
 			{
@@ -101,9 +101,9 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
-			await base.DoUnbind();
+			await base.OnDispose();
 
 			this.waitUntilBound = new TaskCompletionSource<bool>();
 		}

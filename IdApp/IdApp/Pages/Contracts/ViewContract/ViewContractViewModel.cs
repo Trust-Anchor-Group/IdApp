@@ -47,9 +47,9 @@ namespace IdApp.Pages.Contracts.ViewContract
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out ViewContractNavigationArgs args))
 			{
@@ -81,13 +81,14 @@ namespace IdApp.Pages.Contracts.ViewContract
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.XmppService.Contracts.ContractsClient.ContractUpdated -= this.ContractsClient_ContractUpdatedOrSigned;
 			this.XmppService.Contracts.ContractsClient.ContractSigned -= this.ContractsClient_ContractUpdatedOrSigned;
 
 			this.ClearContract();
-			await base.DoUnbind();
+
+			await base.OnDispose();
 		}
 
 		private Task ContractsClient_ContractUpdatedOrSigned(object Sender, ContractReferenceEventArgs e)

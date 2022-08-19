@@ -23,9 +23,9 @@ namespace IdApp.Pages.Main.Shell
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			await App.WaitForServiceSetup();
 
@@ -36,12 +36,12 @@ namespace IdApp.Pages.Main.Shell
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged -= this.NetworkService_ConnectivityChanged;
 
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		#region Properties

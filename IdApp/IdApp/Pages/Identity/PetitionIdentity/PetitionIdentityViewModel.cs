@@ -41,9 +41,9 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         }
 
         /// <inheritdoc/>
-        protected override async Task DoBind()
+        protected override async Task OnInitialize()
         {
-            await base.DoBind();
+            await base.OnInitialize();
 
             if (this.NavigationService.TryPopArgs(out PetitionIdentityNavigationArgs args))
             {
@@ -104,10 +104,11 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         }
 
         /// <inheritdoc/>
-        protected override async Task DoUnbind()
+        protected override async Task OnDispose()
         {
             this.photosLoader.CancelLoadPhotos();
-            await base.DoUnbind();
+
+            await base.OnDispose();
         }
 
         private void EvaluateAllCommands()
