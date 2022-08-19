@@ -651,18 +651,17 @@ namespace IdApp
 			Page CurrentPage = this.MainPage is Shell Shell ? Shell.CurrentPage : this.MainPage;
 			if (CurrentPage is NavigationPage NavigationPage)
 				CurrentPage = NavigationPage.CurrentPage;
+			
+			if (CurrentPage is not Pages.Main.Loading.LoadingPage)
+			{
+				await CurrentPage.Navigation.PushModalAsync(new BetweenMainPage(), animated: false);
+			}
 
 			if (CurrentPage is ContentBasePage ContentBasePage)
 			{
 				await ContentBasePage.ViewModel.Disappearing();
 				await ContentBasePage.ViewModel.Dispose();
 			}
-
-			TaskCompletionSource<bool> OnDisappearingCompletedTaskSource = new();
-			((ContentBasePage)CurrentPage).OnDisappearingCompleted += (_, _) => OnDisappearingCompletedTaskSource.TrySetResult(true);
-
-			await CurrentPage.Navigation.PushModalAsync(new BetweenMainPage(), animated: false);
-			await OnDisappearingCompletedTaskSource.Task;
 
 			this.MainPage = Page;
 		}

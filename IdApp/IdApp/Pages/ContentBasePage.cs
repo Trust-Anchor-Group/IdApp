@@ -17,11 +17,6 @@ namespace IdApp.Pages
     public class ContentBasePage : ContentPage
     {
 		/// <summary>
-		/// An event which is raised when <see cref="OnDisappearing"/> has actually completed (normally or because of an exception).
-		/// </summary>
-		public event EventHandler OnDisappearingCompleted;
-
-		/// <summary>
 		/// Creates an instance of the <see cref="ContentBasePage"/> class.
 		/// </summary>
 		protected internal ContentBasePage()
@@ -122,10 +117,6 @@ namespace IdApp.Pages
             catch (Exception ex)
             {
                 Log.Critical(ex);
-			}
-			finally
-			{
-				OnDisappearingCompleted?.Invoke(this, EventArgs.Empty);
 			}
         }
 
