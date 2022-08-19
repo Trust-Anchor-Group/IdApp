@@ -155,6 +155,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		/// </summary>
 		public bool PurposeSelected => this.Purpose != -1;
 
+		public volatile bool PhoneTimerStarted = false;
+		public volatile bool EmailTimerStarted = false;
+
 		/// <summary>
 		/// See <see cref="CountEmailSeconds"/>
 		/// </summary>
@@ -674,9 +677,10 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 
 		private void StartTimer(string type)
 		{
-			if (type == "email")
+			if (type == "email" && this.EmailTimerStarted == false)
 			{
 				this.CountEmailSeconds = 30;
+				this.EmailTimerStarted = true;
 
 				Device.StartTimer(TimeSpan.FromSeconds(1), () => {
 					if (this.CountEmailSeconds > 0)
@@ -686,13 +690,15 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					}
 					else
 					{
+						this.EmailTimerStarted = false;
 						return false;
 					}
 				});
 			}
-			else
+			else if (this.PhoneTimerStarted == false)
 			{
 				this.CountPhoneSeconds = 30;
+				this.PhoneTimerStarted = true;
 
 				Device.StartTimer(TimeSpan.FromSeconds(1), () => {
 					if (this.CountPhoneSeconds > 0)
@@ -702,6 +708,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					}
 					else
 					{
+						this.PhoneTimerStarted = false;
 						return false;
 					}
 				});
