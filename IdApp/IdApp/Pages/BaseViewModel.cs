@@ -225,9 +225,12 @@ namespace IdApp.Pages
 		{
 			if (this.IsAppearing)
 				await this.Disappearing();
-			
-			this.IsInitialized = false;
-			await this.OnDispose();
+
+			if (this.IsInitialized)
+			{
+				this.IsInitialized = false;
+				await this.OnDispose();
+			}
 		}
 
 		/// <summary>

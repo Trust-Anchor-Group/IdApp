@@ -652,18 +652,10 @@ namespace IdApp
 			if (CurrentPage is NavigationPage NavigationPage)
 				CurrentPage = NavigationPage.CurrentPage;
 
-			// LoadingPage already looks like a loading page, so it would look strange to push another loading page on top of it.
-			if (CurrentPage is Pages.Main.Loading.LoadingPage LoadingPage)
+			if (CurrentPage is ContentBasePage ContentBasePage)
 			{
-				// When we change the main page, OnDisappearing is called but not awaited (it returns void). This leads to a race
-				// condition between asynchronous continuation of the old page's OnDisappearing and the new page's OnAppearing.
-				// Thus, it is safer to explicitly await Unbind() before actually switching the main page. We could do it for all pages,
-				// but it would look confusing because we would have to block the user from interacting with the page while unbinding.
-				await LoadingPage.ViewModel.Disappearing();
-				await LoadingPage.ViewModel.Dispose();
-
-				this.MainPage = Page;
-				return;
+				await ContentBasePage.ViewModel.Disappearing();
+				await ContentBasePage.ViewModel.Dispose();
 			}
 
 			TaskCompletionSource<bool> OnDisappearingCompletedTaskSource = new();
