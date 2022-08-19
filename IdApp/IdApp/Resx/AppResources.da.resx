@@ -1845,6 +1845,12 @@
   <data name="UserSignedAs" xml:space="preserve">
     <value>{0} underskrevet som {1}.</value>
   </data>
+  <data name="PermitScreenCapture" xml:space="preserve">
+    <value>Tillad skærmoptagelse</value>
+  </data>
+  <data name="ProhibitScreenCapture" xml:space="preserve">
+    <value>Forbyd skærmoptagelse</value>
+  </data>
   <data name="Security" xml:space="preserve">
     <value>Sikkerhed</value>
   </data>

@@ -16,6 +16,14 @@
 			<Button Text="{x:Static resx:AppResources.ChangePin}"
 					Command="{Binding Path=ChangePinCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"
 					IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
+
+			<Button Text="{x:Static resx:AppResources.PermitScreenCapture}"
+					Command="{Binding Path=PermitScreenCaptureCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+					IsVisible="{Binding Path=CanEnableScreenCapture}"/>
+
+			<Button Text="{x:Static resx:AppResources.ProhibitScreenCapture}"
+					Command="{Binding Path=ProhibitScreenCaptureCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+					IsVisible="{Binding Path=CanDisableScreenCapture}"/>
 		</StackLayout>
 	</ScrollView>
 </views:ContentBasePage>

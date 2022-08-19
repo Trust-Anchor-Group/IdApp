@@ -8,8 +8,14 @@ namespace IdApp.Android
 {
     public class SecureDisplay : ISecureDisplay
 	{
+		private static Window? mainWindow;
 		private static bool screenProtected = true;     // App started with screen protected.
 		private static Timer protectionTimer = null;
+
+		internal static void SetMainWindow(Window? MainWindow)
+		{
+			mainWindow = MainWindow;
+		}
 
 		/// <summary>
 		/// If screen capture is prohibited or not.
@@ -20,19 +26,19 @@ namespace IdApp.Android
 
 			set
 			{
-				Activity Activity = Application.Context as Activity;    // TODO: returns null. Context points to Application instance.
-
 				protectionTimer?.Dispose();
 				protectionTimer = null;
 
-				if (value)
+				if (mainWindow is not null)
 				{
-					Activity.Window.AddFlags(WindowManagerFlags.Secure);
-
-					protectionTimer = new Timer(this.ProtectionTimerElapsed, null, 1000 * 60 * 60, Timeout.Infinite);
+					if (value)
+					{
+						mainWindow.AddFlags(WindowManagerFlags.Secure);
+						protectionTimer = new Timer(this.ProtectionTimerElapsed, null, 1000 * 60 * 60, Timeout.Infinite);
+					}
+					else
+						mainWindow.ClearFlags(WindowManagerFlags.Secure);
 				}
-				else
-					Activity.Window.ClearFlags(WindowManagerFlags.Secure);
 
 				screenProtected = value;
 			}

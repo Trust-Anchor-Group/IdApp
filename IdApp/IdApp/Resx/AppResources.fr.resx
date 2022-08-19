@@ -1845,6 +1845,12 @@
   <data name="UserSignedAs" xml:space="preserve">
     <value>{0} signé comme {1}.</value>
   </data>
+  <data name="PermitScreenCapture" xml:space="preserve">
+    <value>Autoriser la capture d’écran</value>
+  </data>
+  <data name="ProhibitScreenCapture" xml:space="preserve">
+    <value>Interdire la capture d’écran</value>
+  </data>
   <data name="Security" xml:space="preserve">
     <value>Sécurité</value>
   </data>

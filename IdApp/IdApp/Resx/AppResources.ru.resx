@@ -1845,6 +1845,12 @@
   <data name="UserSignedAs" xml:space="preserve">
     <value>{0} подписан как {1}.</value>
   </data>
+  <data name="PermitScreenCapture" xml:space="preserve">
+    <value>Разрешить захват экрана</value>
+  </data>
+  <data name="ProhibitScreenCapture" xml:space="preserve">
+    <value>Запретить захват экрана</value>
+  </data>
   <data name="Security" xml:space="preserve">
     <value>Безопасность</value>
   </data>

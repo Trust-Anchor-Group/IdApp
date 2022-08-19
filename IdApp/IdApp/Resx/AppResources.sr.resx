@@ -1845,6 +1845,12 @@
   <data name="UserSignedAs" xml:space="preserve">
     <value>{0} kao {1}.</value>
   </data>
+  <data name="PermitScreenCapture" xml:space="preserve">
+    <value>Dozvoli hvatanje ekrana</value>
+  </data>
+  <data name="ProhibitScreenCapture" xml:space="preserve">
+    <value>Zabrani hvatanje ekrana</value>
+  </data>
   <data name="Security" xml:space="preserve">
     <value>Bezbednosti</value>
   </data>

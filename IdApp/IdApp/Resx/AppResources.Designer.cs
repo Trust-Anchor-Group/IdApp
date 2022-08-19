@@ -2608,6 +2608,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permit Screen Capture.
+        /// </summary>
+        internal static string PermitScreenCapture {
+            get {
+                return ResourceManager.GetString("PermitScreenCapture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Personal/legal information.
         /// </summary>
         internal static string PersonalLegalInformation {
@@ -3099,6 +3108,15 @@ namespace IdApp.Resx {
         internal static string Profiling {
             get {
                 return ResourceManager.GetString("Profiling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prohibit Screen Capture.
+        /// </summary>
+        internal static string ProhibitScreenCapture {
+            get {
+                return ResourceManager.GetString("ProhibitScreenCapture", resourceCulture);
             }
         }
         

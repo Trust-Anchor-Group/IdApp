@@ -8057,12 +8057,49 @@
         <member name="M:IdApp.Pages.Main.Security.SecurityViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Main.Security.SecurityViewModel.OnDispose">
-            <inheritdoc/>
+        <member name="F:IdApp.Pages.Main.Security.SecurityViewModel.CanProhibitScreenCaptureProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Security.SecurityViewModel.CanProhibitScreenCapture"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Security.SecurityViewModel.CanProhibitScreenCapture">
+            <summary>
+            If screen capture prohibition can be controlled
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Security.SecurityViewModel.CanEnableScreenCaptureProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Security.SecurityViewModel.CanEnableScreenCapture"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Security.SecurityViewModel.CanEnableScreenCapture">
+            <summary>
+            Gets or sets whether the identity is approved or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Security.SecurityViewModel.CanDisableScreenCaptureProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Security.SecurityViewModel.CanDisableScreenCapture"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Security.SecurityViewModel.CanDisableScreenCapture">
+            <summary>
+            Gets or sets whether the identity is approved or not.
+            </summary>
         </member>
         <member name="P:IdApp.Pages.Main.Security.SecurityViewModel.ChangePinCommand">
             <summary>
             Command executed when user wants to change PIN.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Security.SecurityViewModel.PermitScreenCaptureCommand">
+            <summary>
+            Command executed when user wants to permit screen capture
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Security.SecurityViewModel.ProhibitScreenCaptureCommand">
+            <summary>
+            Command executed when user wants to prohibit screen capture
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Shell.AppShell">
@@ -15475,6 +15512,11 @@
               Looks up a localized string similar to Below you can see information about a payment that has been generated, but has not been fully processed yet..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.PermitScreenCapture">
+            <summary>
+              Looks up a localized string similar to Permit Screen Capture.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.PersonalLegalInformation">
             <summary>
               Looks up a localized string similar to Personal/legal information.
@@ -15748,6 +15790,11 @@
         <member name="P:IdApp.Resx.AppResources.Profiling">
             <summary>
               Looks up a localized string similar to Profiling.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ProhibitScreenCapture">
+            <summary>
+              Looks up a localized string similar to Prohibit Screen Capture.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Proposal">

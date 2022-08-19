@@ -2,14 +2,8 @@
 using IdApp.Resx;
 using IdApp.Services;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Waher.Script;
-using Waher.Script.Abstraction.Elements;
-using Waher.Script.Operators.Vectors;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Main.Security
@@ -26,6 +20,8 @@ namespace IdApp.Pages.Main.Security
 			: base()
 		{
 			this.ChangePinCommand = new Command(async _ => await this.ExecuteChangePin(), _ => this.IsConnected);
+			this.PermitScreenCaptureCommand = new Command(async _ => await this.ExecutePermitScreenCapture());
+			this.ProhibitScreenCaptureCommand = new Command(async _ => await this.ExecuteProhibitScreenCapture());
 		}
 
 		/// <inheritdoc/>
@@ -33,15 +29,57 @@ namespace IdApp.Pages.Main.Security
 		{
 			await base.OnInitialize();
 
-		}
-
-		/// <inheritdoc/>
-		protected override async Task OnDispose()
-		{
-			await base.OnDispose();
+			this.CanProhibitScreenCapture = App.CanProhibitScreenCapture;
+			this.CanEnableScreenCapture = App.CanProhibitScreenCapture && App.ProhibitScreenCapture;
+			this.CanDisableScreenCapture = App.CanProhibitScreenCapture && !App.ProhibitScreenCapture;
 		}
 
 		#region Properties
+
+		/// <summary>
+		/// See <see cref="CanProhibitScreenCapture"/>
+		/// </summary>
+		public static readonly BindableProperty CanProhibitScreenCaptureProperty =
+			BindableProperty.Create(nameof(CanProhibitScreenCapture), typeof(bool), typeof(SecurityViewModel), default(bool));
+
+		/// <summary>
+		/// If screen capture prohibition can be controlled
+		/// </summary>
+		public bool CanProhibitScreenCapture
+		{
+			get => (bool)this.GetValue(CanProhibitScreenCaptureProperty);
+			set => this.SetValue(CanProhibitScreenCaptureProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="CanEnableScreenCapture"/>
+		/// </summary>
+		public static readonly BindableProperty CanEnableScreenCaptureProperty =
+			BindableProperty.Create(nameof(CanEnableScreenCapture), typeof(bool), typeof(SecurityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the identity is approved or not.
+		/// </summary>
+		public bool CanEnableScreenCapture
+		{
+			get => (bool)this.GetValue(CanEnableScreenCaptureProperty);
+			set => this.SetValue(CanEnableScreenCaptureProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="CanDisableScreenCapture"/>
+		/// </summary>
+		public static readonly BindableProperty CanDisableScreenCaptureProperty =
+			BindableProperty.Create(nameof(CanDisableScreenCapture), typeof(bool), typeof(SecurityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the identity is approved or not.
+		/// </summary>
+		public bool CanDisableScreenCapture
+		{
+			get => (bool)this.GetValue(CanDisableScreenCaptureProperty);
+			set => this.SetValue(CanDisableScreenCaptureProperty, value);
+		}
 
 		#endregion
 
@@ -51,6 +89,16 @@ namespace IdApp.Pages.Main.Security
 		/// Command executed when user wants to change PIN.
 		/// </summary>
 		public ICommand ChangePinCommand { get; }
+
+		/// <summary>
+		/// Command executed when user wants to permit screen capture
+		/// </summary>
+		public ICommand PermitScreenCaptureCommand { get; }
+
+		/// <summary>
+		/// Command executed when user wants to prohibit screen capture
+		/// </summary>
+		public ICommand ProhibitScreenCaptureCommand { get; }
 
 		private async Task ExecuteChangePin()
 		{
@@ -105,6 +153,32 @@ namespace IdApp.Pages.Main.Security
 				References.LogService.LogException(ex);
 				await References.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		private async Task ExecutePermitScreenCapture()
+		{
+			if (!App.CanProhibitScreenCapture)
+				return;
+
+			if (!await App.VerifyPin())
+				return;
+
+			App.ProhibitScreenCapture = false;
+			this.CanEnableScreenCapture = false;
+			this.CanDisableScreenCapture = true;
+		}
+
+		private async Task ExecuteProhibitScreenCapture()
+		{
+			if (!App.CanProhibitScreenCapture)
+				return;
+
+			if (!await App.VerifyPin())
+				return;
+
+			App.ProhibitScreenCapture = true;
+			this.CanEnableScreenCapture = true;
+			this.CanDisableScreenCapture = false;
 		}
 
 		#endregion
