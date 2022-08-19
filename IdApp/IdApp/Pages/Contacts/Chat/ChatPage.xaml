@@ -15,6 +15,14 @@
 					   Title="{Binding Path=FriendlyName}"
 					   BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
 	<views:ContentBasePage.Resources>
+		<ResourceDictionary>
+			<Style TargetType="ContentView" >
+				<Setter Property="BackgroundColor" Value="Transparent" />
+			</Style>
+			<Style TargetType="Label">
+				<Setter Property="TextColor" Value="{StaticResource ForegroundColorLightTheme}" />
+			</Style>
+		</ResourceDictionary>
 		<DataTemplate x:Key="EmptyMessage" x:DataType="messages:ChatMessage">
 			<ContentView Content="{Binding Path=ParsedXaml}" HeightRequest="1"/>
 		</DataTemplate>
