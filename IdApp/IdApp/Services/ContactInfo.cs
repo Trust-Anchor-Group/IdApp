@@ -292,22 +292,27 @@ namespace IdApp.Services
 			{
 				try
 				{
-					LegalIdentity Id = await SmartContracts.ContractsClient.GetLegalIdentityAsync(RemoteId);    // Go directly to client, to avoid to replicate database search for stored identity.
-
-					lock (identityCache)
-					{
-						identityCache[RemoteId] = Id;
-					}
-
-					if (Id is not null)
-						return GetFriendlyName(Id);
-				}
-				catch (Exception)
-				{
 					lock (identityCache)
 					{
 						identityCache[RemoteId] = null;
 					}
+
+					SmartContracts.ContractsClient.GetLegalIdentity(RemoteId, (sender, e) =>
+					{
+						if (e.Ok)
+						{
+							lock (identityCache)
+							{
+								identityCache[RemoteId] = e.Identity;
+							}
+						}
+
+						return Task.CompletedTask;
+					}, null);
+				}
+				catch (Exception)
+				{
+					// Ignore
 				}
 			}
 
