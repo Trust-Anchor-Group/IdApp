@@ -25,7 +25,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
         /// </summary>
         public async Task ShowQrCode()
 		{
-            await this.ScrollView.ScrollToAsync(this.ShareButton, ScrollToPosition.MakeVisible, true);
+            await this.ScrollView.ScrollToAsync(this.ShareExternalButton, ScrollToPosition.MakeVisible, true);
 		}
 	}
 }

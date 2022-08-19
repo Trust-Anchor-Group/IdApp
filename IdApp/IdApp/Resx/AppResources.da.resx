@@ -1860,4 +1860,22 @@
   <data name="SecuritySettingsInformationText" xml:space="preserve">
     <value>Nedenfor kan du ændre sikkerhedsindstillinger for appen. Ved at aktivere skærmoptagelse kan du dele skærmen med andre, men kun i en begrænset periode.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Meddelelse modtaget.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Netværksadresse på kontakt ukendt.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Anden app</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Vælg, hvem du vil anmode om betaling fra.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>Nedenfor kan du finde yderligere muligheder for at dele QR-koden.</value>
+  </data>
 </root>

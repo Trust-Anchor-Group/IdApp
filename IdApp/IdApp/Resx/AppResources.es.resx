@@ -1860,4 +1860,22 @@
   <data name="SecuritySettingsInformationText" xml:space="preserve">
     <value>A continuación, puede modificar la configuración de securit para la aplicación. Al habilitar la captura de pantalla, puede compartir la pantalla con otros, pero solo por un tiempo limitado.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contacto</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Mensaje recibido.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Dirección de red de contacto desconocida.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Otra aplicación</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Seleccione a quién solicitar el pago.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>A continuación, puede encontrar opciones adicionales para compartir el código QR.</value>
+  </data>
 </root>

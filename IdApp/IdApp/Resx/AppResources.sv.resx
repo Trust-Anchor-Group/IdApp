@@ -1848,4 +1848,22 @@
   <data name="SecuritySettingsInformationText" xml:space="preserve">
     <value>Nedan kan du ställa in säkerhetsinställningar för appen. Genom att tillåta skärminspelning kan du dela skärmen med andra, men bara för en begränsad tid.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Meddelande mottaget.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Nätverksadressen för kontakten är okänd.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Annan app</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Välj från vem betalning efterfrågas.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>Nedan finner du ytterligare alternativ för delning av QR-koden.</value>
+  </data>
 </root>

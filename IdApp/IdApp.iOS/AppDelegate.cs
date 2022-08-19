@@ -221,7 +221,7 @@ namespace IdApp.iOS
 
 			if (!string.IsNullOrEmpty(IsObject) && bool.Parse(IsObject))
 			{
-				MessageBody = "[Sent you an object]";
+				MessageBody = App.AppResources_MessageReceived;
 			}
 
 			return MessageBody;

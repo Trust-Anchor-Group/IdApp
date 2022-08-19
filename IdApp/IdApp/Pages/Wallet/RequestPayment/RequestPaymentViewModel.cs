@@ -1,8 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.DeviceSpecific;
+using IdApp.Pages.Contacts.Chat;
+using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Main.Calculator;
 using IdApp.Resx;
 using IdApp.Services.Xmpp;
@@ -27,7 +30,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 			this.page = page;
 
 			this.GenerateQrCodeCommand = new Command(async _ => await this.GenerateQrCode(), _ => this.CanGenerateQrCode());
-			this.ShareCommand = new Command(async _ => await this.Share(), _ => this.CanShare());
+			this.ShareContactCommand = new Command(async _ => await this.ShareContact(), _ => this.CanShare());
+			this.ShareExternalCommand = new Command(async _ => await this.ShareExternal(), _ => this.CanShare());
 			this.OpenCalculatorCommand = new Command(async P => await this.OpenCalculator(P));
 		}
 
@@ -81,7 +85,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.GenerateQrCodeCommand, this.ShareCommand, this.OpenCalculatorCommand);
+			this.EvaluateCommands(this.GenerateQrCodeCommand, this.ShareContactCommand, this.ShareExternalCommand,
+				this.OpenCalculatorCommand);
 		}
 
 		/// <inheritdoc/>
@@ -312,9 +317,14 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		public ICommand GenerateQrCodeCommand { get; }
 
 		/// <summary>
-		/// The command to bind to for sharing the QR code
+		/// The command to bind to for sharing the QR code with a contact
 		/// </summary>
-		public ICommand ShareCommand { get; }
+		public ICommand ShareContactCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for sharing the QR code with external applications
+		/// </summary>
+		public ICommand ShareExternalCommand { get; }
 
 		/// <summary>
 		/// The command to bind to open the calculator.
@@ -346,7 +356,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 					this.QrCodeHeight = 300;
 					this.GenerateQrCode(Uri);
 
-					this.EvaluateCommands(this.ShareCommand);
+					this.EvaluateCommands(this.ShareContactCommand, this.ShareExternalCommand);
 
 					await this.page.ShowQrCode();
 				});
@@ -358,7 +368,54 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		private bool CanGenerateQrCode() => this.AmountOk;
 		private bool CanShare() => this.HasQrCode;
 
-		private async Task Share()
+		private async Task ShareContact()
+		{
+			try
+			{
+				TaskCompletionSource<ContactInfoModel> Selected = new();
+				ContactListNavigationArgs Args = new(AppResources.SelectFromWhomToRequestPayment, Selected)
+				{
+					CanScanQrCode = true,
+					CancelReturnCounter = true
+				};
+
+				await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
+
+				ContactInfoModel Contact = await Selected.Task;
+				if (Contact is null)
+					return;
+
+				if (string.IsNullOrEmpty(Contact.BareJid))
+				{
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkAddressOfContactUnknown);
+					return;
+				}
+
+				StringBuilder Markdown = new();
+
+				Markdown.Append("![");
+				Markdown.Append(AppResources.RequestPayment);
+				Markdown.Append("](");
+				Markdown.Append(this.QrCodeUri);
+				Markdown.Append(')');
+
+				await ChatViewModel.ExecuteSendMessage(string.Empty, Markdown.ToString(), Contact.BareJid, this);
+
+				await Task.Delay(100);  // Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
+
+				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact.Contact)
+				{
+					UniqueId = Contact.BareJid
+				});
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task ShareExternal()
 		{
 			try
 			{

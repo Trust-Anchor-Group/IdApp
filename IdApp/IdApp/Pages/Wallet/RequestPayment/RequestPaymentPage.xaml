@@ -42,7 +42,15 @@
                        IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth}" 
                        HeightRequest="{Binding Path=QrCodeHeight}" HorizontalOptions="Center" VerticalOptions="Start" 
                        Margin="0" />
-                <Button x:Name="ShareButton" Text="{x:Static resx:AppResources.Share}" Command="{Binding Path=ShareCommand}" 
+				<Label Text="{x:Static resx:AppResources.Share}" Style="{StaticResource Heading}"
+					   Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"
+					   IsVisible="{Binding Path=HasQrCode}" />
+				<Label Text="{x:Static resx:AppResources.ShareDescription}"
+					   Style="{StaticResource InfoText}" VerticalOptions="Start"
+					   IsVisible="{Binding Path=HasQrCode}" />
+				<Button x:Name="ShareContactButton" Text="{x:Static resx:AppResources.Contact}" Command="{Binding Path=ShareContactCommand}" 
+                        IsVisible="{Binding Path=HasQrCode}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+				<Button x:Name="ShareExternalButton" Text="{x:Static resx:AppResources.OtherApp}" Command="{Binding Path=ShareExternalCommand}" 
                         IsVisible="{Binding Path=HasQrCode}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>
         </ScrollView>

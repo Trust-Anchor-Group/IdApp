@@ -47,13 +47,24 @@ namespace IdApp.Pages.Registration
         /// </summary>
         public RegistrationStep Step { get; }
 
-        #endregion
+		#endregion
 
-        /// <summary>
-        /// Call this method to fire the <see cref="StepCompleted"/> event.
-        /// </summary>
-        /// <param name="e"></param>
-        protected virtual void OnStepCompleted(EventArgs e)
+		/// <summary>
+		/// Method called when view is appearing on the screen.
+		/// </summary>
+		protected override Task OnAppearing()
+		{
+			if (App.CanProhibitScreenCapture)
+				App.ProhibitScreenCapture = false;	// Permits support during onboarding, before option is presented in main menu.
+
+			return base.OnAppearing();
+		}
+
+		/// <summary>
+		/// Call this method to fire the <see cref="StepCompleted"/> event.
+		/// </summary>
+		/// <param name="e"></param>
+		protected virtual void OnStepCompleted(EventArgs e)
         {
             this.StepCompleted?.Invoke(this, e);
         }

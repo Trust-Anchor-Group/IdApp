@@ -127,6 +127,11 @@
             Controls of screen-capture is prohibited.
             </summary>
         </member>
+        <member name="P:IdApp.App.AppResources_MessageReceived">
+            <summary>
+            String <see cref="P:IdApp.Resx.AppResources.MessageReceived"/>
+            </summary>
+        </member>
         <member name="T:IdApp.Behaviors.ReRenderOnClickedBehavior">
             <summary>
             Used for Re-rendering a layout, when a button has been clicked.
@@ -8986,6 +8991,11 @@
             The current step for this view model instance.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.OnAppearing">
+            <summary>
+            Method called when view is appearing on the screen.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.OnStepCompleted(System.EventArgs)">
             <summary>
             Call this method to fire the <see cref="E:IdApp.Pages.Registration.RegistrationStepViewModel.StepCompleted"/> event.
@@ -12449,9 +12459,14 @@
             The command to bind to for generating a QR code
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.ShareCommand">
+        <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.ShareContactCommand">
             <summary>
-            The command to bind to for sharing the QR code
+            The command to bind to for sharing the QR code with a contact
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.ShareExternalCommand">
+            <summary>
+            The command to bind to for sharing the QR code with external applications
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.OpenCalculatorCommand">
@@ -14427,6 +14442,11 @@
               Looks up a localized string similar to Connection.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Contact">
+            <summary>
+              Looks up a localized string similar to Contact.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ContactInformation">
             <summary>
               Looks up a localized string similar to Contact Information.
@@ -15187,6 +15207,11 @@
               Looks up a localized string similar to Message from:.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.MessageReceived">
+            <summary>
+              Looks up a localized string similar to Message received..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.MeterLocation">
             <summary>
               Looks up a localized string similar to Meter Location.
@@ -15235,6 +15260,11 @@
         <member name="P:IdApp.Resx.AppResources.Network">
             <summary>
               Looks up a localized string similar to Network.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.NetworkAddressOfContactUnknown">
+            <summary>
+              Looks up a localized string similar to Network address of contact unknown..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.NetworkSeemsToBeMissing">
@@ -15390,6 +15420,11 @@
         <member name="P:IdApp.Resx.AppResources.Other">
             <summary>
               Looks up a localized string similar to Other.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OtherApp">
+            <summary>
+              Looks up a localized string similar to Other App.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Owner">
@@ -16127,6 +16162,11 @@
               Looks up a localized string similar to The selected contact cannot be added. It does not have a Legal ID registered..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.SelectFromWhomToRequestPayment">
+            <summary>
+              Looks up a localized string similar to Select from whom to request payment..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.SelectingAPhotoIsNotSupported">
             <summary>
               Looks up a localized string similar to Selecting a photo is not supported on this device.
@@ -16230,6 +16270,11 @@
         <member name="P:IdApp.Resx.AppResources.Share">
             <summary>
               Looks up a localized string similar to Share.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ShareDescription">
+            <summary>
+              Looks up a localized string similar to Below, you can find additional options for sharing the QR-code..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ShowCode">

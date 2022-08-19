@@ -1860,4 +1860,22 @@
   <data name="SecuritySettingsInformationText" xml:space="preserve">
     <value>Ci-dessous, vous pouvez modifier les paramètres de titrisation de l’application. En activant la capture d’écran, vous pouvez partager l’écran avec d’autres personnes, mais uniquement pour une durée limitée.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Message reçu.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Adresse réseau du contact inconnu.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Autre application</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Sélectionnez à qui demander le paiement.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>Vous trouverez ci-dessous des options supplémentaires pour partager le code QR.</value>
+  </data>
 </root>

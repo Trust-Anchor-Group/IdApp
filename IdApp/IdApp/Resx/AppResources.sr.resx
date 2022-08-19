@@ -1860,4 +1860,22 @@
   <data name="SecuritySettingsInformationText" xml:space="preserve">
     <value>U nastavku možete izmeniti postavke hartija od vrednosti za aplikaciju. Omogućavanjem hvatanja ekrana možete da delite ekran sa drugima, ali samo na ograničeno vreme.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Poruka primljena.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Mrežna adresa kontakta nepoznata.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Druga aplikacija</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Izaberite od koga želite da zatražite uplatu.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>U nastavku možete pronaći dodatne opcije za deljenje QR-koda.</value>
+  </data>
 </root>

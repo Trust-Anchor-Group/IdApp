@@ -655,6 +655,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        internal static string Contact {
+            get {
+                return ResourceManager.GetString("Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact Information.
         /// </summary>
         internal static string ContactInformation {
@@ -2023,6 +2032,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message received..
+        /// </summary>
+        internal static string MessageReceived {
+            get {
+                return ResourceManager.GetString("MessageReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meter Location.
         /// </summary>
         internal static string MeterLocation {
@@ -2109,6 +2127,15 @@ namespace IdApp.Resx {
         internal static string Network {
             get {
                 return ResourceManager.GetString("Network", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network address of contact unknown..
+        /// </summary>
+        internal static string NetworkAddressOfContactUnknown {
+            get {
+                return ResourceManager.GetString("NetworkAddressOfContactUnknown", resourceCulture);
             }
         }
         
@@ -2388,6 +2415,15 @@ namespace IdApp.Resx {
         internal static string Other {
             get {
                 return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other App.
+        /// </summary>
+        internal static string OtherApp {
+            get {
+                return ResourceManager.GetString("OtherApp", resourceCulture);
             }
         }
         
@@ -3715,6 +3751,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select from whom to request payment..
+        /// </summary>
+        internal static string SelectFromWhomToRequestPayment {
+            get {
+                return ResourceManager.GetString("SelectFromWhomToRequestPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecting a photo is not supported on this device.
         /// </summary>
         internal static string SelectingAPhotoIsNotSupported {
@@ -3900,6 +3945,15 @@ namespace IdApp.Resx {
         internal static string Share {
             get {
                 return ResourceManager.GetString("Share", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below, you can find additional options for sharing the QR-code..
+        /// </summary>
+        internal static string ShareDescription {
+            get {
+                return ResourceManager.GetString("ShareDescription", resourceCulture);
             }
         }
         

@@ -1860,4 +1860,22 @@
   <data name="SecuritySettingsInformationText" xml:space="preserve">
     <value>Ниже вы можете изменить настройки securit для приложения. Включив захват экрана, вы можете делиться экраном с другими, но только в течение ограниченного времени.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Контакт</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Сообщение получено.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Сетевой адрес контакта неизвестен.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Другое приложение</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Выберите, у кого запрашивать оплату.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>Ниже вы можете найти дополнительные опции для обмена QR-кодом.</value>
+  </data>
 </root>

@@ -640,6 +640,9 @@ namespace IdApp
 		/// </summary>
 		public Task SetAppShellPageAsync()
 		{
+			if (CanProhibitScreenCapture)
+				ProhibitScreenCapture = true;
+
 			return this.SetMainPageAsync(new Pages.Main.Shell.AppShell());
 		}
 
@@ -1094,5 +1097,10 @@ namespace IdApp
 					secureDisplay.ProhibitScreenCapture = value;
 			}
 		}
+
+		/// <summary>
+		/// String <see cref="AppResources.MessageReceived"/>
+		/// </summary>
+		public static string AppResources_MessageReceived => AppResources.MessageReceived;
 	}
 }

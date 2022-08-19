@@ -1860,4 +1860,22 @@
   <data name="SecuritySettingsInformationText" xml:space="preserve">
     <value>Alla voit muokata sovelluksen arvopaperiasetuksia. Ottamalla näytön kaappauksen käyttöön voit jakaa näytön muiden kanssa, mutta vain rajoitetun ajan.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakti</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Viesti vastaanotettu.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Yhteyshenkilön verkko-osoite tuntematon.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Muu sovellus</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Valitse, keneltä haluat pyytää maksua.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>Alta löydät lisävaihtoehtoja QR-koodin jakamiseen.</value>
+  </data>
 </root>

@@ -87,7 +87,7 @@ namespace IdApp.Android.Push
 
 			if (!string.IsNullOrEmpty(IsObject) && bool.Parse(IsObject))
 			{
-				Title = "[Sent you an object]";
+				Title = App.AppResources_MessageReceived;
 			}
 
 			Intent Intent = new(this, typeof(MainActivity));

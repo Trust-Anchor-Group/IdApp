@@ -1860,4 +1860,22 @@
   <data name="SecuritySettingsInformationText" xml:space="preserve">
     <value>Unten können Sie die Sicherheitseinstellungen für die App ändern. Wenn Sie die Bildschirmaufnahme aktivieren, können Sie den Bildschirm für andere freigeben, jedoch nur für eine begrenzte Zeit.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Nachricht empfangen.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Netzwerkadresse des Kontakts unbekannt.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Andere App</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Wählen Sie aus, von wem die Zahlung angefordert werden soll.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>Nachfolgend finden Sie weitere Optionen zum Teilen des QR-Codes.</value>
+  </data>
 </root>

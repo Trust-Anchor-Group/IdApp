@@ -1860,4 +1860,22 @@
   <data name="SecuritySettingsInformationText" xml:space="preserve">
     <value>Mai jos puteți modifica setările securit pentru aplicație. Activând captura de ecran, puteți partaja ecranul cu alte persoane, dar numai pentru o perioadă limitată de timp.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Mesajul primit.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Adresa de rețea a persoanei de contact necunoscută.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Altă aplicație</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Selectați dintre cine să solicitați plata.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>Mai jos, puteți găsi opțiuni suplimentare pentru partajarea codului QR.</value>
+  </data>
 </root>

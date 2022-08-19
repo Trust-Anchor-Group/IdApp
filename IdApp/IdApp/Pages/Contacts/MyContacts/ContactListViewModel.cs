@@ -390,7 +390,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 						LegalId = Constants.UriSchemes.RemoveScheme(code)
 					}, new NotificationEvent[0]));
 				}
-				else
+				else if (!string.IsNullOrEmpty(code))
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
 			});
 		}

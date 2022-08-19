@@ -1860,4 +1860,22 @@
   <data name="SecuritySettingsInformationText" xml:space="preserve">
     <value>Nedenfor kan du endre innstillinger for sikring for appen. Ved å aktivere skjermbilde kan du dele skjermen med andre, men bare i en begrenset periode.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Melding mottatt.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Ukjent nettverksadresse for kontakt.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Annen app</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Velg hvem du vil be om betaling fra.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>Nedenfor finner du flere alternativer for deling av QR-koden.</value>
+  </data>
 </root>
