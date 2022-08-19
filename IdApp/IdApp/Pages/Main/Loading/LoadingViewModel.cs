@@ -25,7 +25,7 @@ namespace IdApp.Pages.Main.Loading
 		/// <inheritdoc />
 		protected override async Task OnAppearing()
 		{
-			await base.OnInitialize();
+			await base.OnAppearing();
 
 			this.IsBusy = true;
 			this.DisplayConnectionText = this.TagProfile.Step > RegistrationStep.Account;
@@ -37,7 +37,7 @@ namespace IdApp.Pages.Main.Loading
 		{
 			this.XmppService.Loaded -= this.XmppService_Loaded;
 
-			await base.OnDispose();
+			await base.OnDisappearing();
 		}
 
 		#region Properties
