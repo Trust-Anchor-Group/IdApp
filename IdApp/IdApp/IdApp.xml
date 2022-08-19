@@ -7487,10 +7487,10 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Loading.LoadingViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.OnInitialize">
+        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.OnAppearing">
             <inheritdoc />
         </member>
-        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.OnDispose">
+        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.OnDisappearing">
             <inheritdoc />
         </member>
         <member name="F:IdApp.Pages.Main.Loading.LoadingViewModel.DisplayConnectionTextProperty">

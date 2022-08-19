@@ -23,7 +23,7 @@ namespace IdApp.Pages.Main.Loading
 		}
 
 		/// <inheritdoc />
-		protected override async Task OnInitialize()
+		protected override async Task OnAppearing()
 		{
 			await base.OnInitialize();
 
@@ -33,7 +33,7 @@ namespace IdApp.Pages.Main.Loading
 		}
 
 		/// <inheritdoc />
-		protected override async Task OnDispose()
+		protected override async Task OnDisappearing()
 		{
 			this.XmppService.Loaded -= this.XmppService_Loaded;
 
@@ -90,13 +90,9 @@ namespace IdApp.Pages.Main.Loading
 						try
 						{
 							if (this.TagProfile.IsComplete())
-							{
 								await App.Current.SetAppShellPageAsync();
-							}
 							else
-							{
 								await App.Current.SetRegistrationPageAsync();
-							}
 						}
 						catch (Exception Exception)
 						{
