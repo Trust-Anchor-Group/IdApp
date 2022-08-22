@@ -1,5 +1,4 @@
-﻿using Android.App;
-using Android.Views;
+﻿using Android.Views;
 using IdApp.DeviceSpecific;
 using System.Threading;
 
@@ -12,9 +11,10 @@ namespace IdApp.Android
 		private static bool screenProtected = true;     // App started with screen protected.
 		private static Timer protectionTimer = null;
 
-		internal static void SetMainWindow(Window? MainWindow)
+		internal static void SetMainWindow(Window? MainWindow, bool ScreenProtected)
 		{
 			mainWindow = MainWindow;
+			screenProtected = ScreenProtected;
 		}
 
 		/// <summary>
@@ -29,7 +29,7 @@ namespace IdApp.Android
 				protectionTimer?.Dispose();
 				protectionTimer = null;
 
-				if (mainWindow is not null)
+				if (mainWindow is not null && screenProtected != value)
 				{
 					if (value)
 					{
@@ -38,9 +38,9 @@ namespace IdApp.Android
 					}
 					else
 						mainWindow.ClearFlags(WindowManagerFlags.Secure);
-				}
 
-				screenProtected = value;
+					screenProtected = value;
+				}
 			}
 		}
 
