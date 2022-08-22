@@ -8,7 +8,7 @@
                  x:Class="IdApp.Popups.Tokens.AddTextNote.AddTextNotePage"
                  x:DataType="model:AddTextNotePage">
     <pages:PopupPage.Animation>
-        <animations:ScaleAnimation 
+        <animations:ScaleAnimation
             PositionIn="Center"
             PositionOut="Center"
             ScaleIn="1.2"
@@ -22,9 +22,12 @@
     <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
         <Frame Style="{StaticResource PopupFrame}" HorizontalOptions="FillAndExpand">
             <StackLayout Padding="10,5" Spacing="3" HorizontalOptions="FillAndExpand">
-                <Label Text="{x:Static resx:AppResources.TextNote}" HorizontalOptions="FillAndExpand"/>
-                <Editor Text="{Binding TextNote}" HorizontalOptions="StartAndExpand" AutoSize="TextChanges" Keyboard="Text"/>
-                <StackLayout Orientation="Horizontal">
+				<Label Text="{x:Static resx:AppResources.TextNote}" HorizontalOptions="FillAndExpand"/>
+				<Frame Style="{StaticResource BorderFrame}">
+					<Editor Text="{Binding TextNote}" AutoSize="TextChanges" Keyboard="Text"
+							VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+				</Frame>
+				<StackLayout Orientation="Horizontal">
                     <CheckBox IsChecked="{Binding Personal}" VerticalOptions="Center"/>
                     <Label Text="{x:Static resx:AppResources.NoteIsPersonal}" VerticalOptions="Center"/>
                 </StackLayout>

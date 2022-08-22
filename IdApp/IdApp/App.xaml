@@ -237,7 +237,13 @@
 			<Setter Property="IsToggled" Value="True" />
 		</Style>
 
-        <Style x:Key="PopupFrame" TargetType="Frame"
+		<Style x:Key="BorderFrame" TargetType="Frame">
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+			<Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+		</Style>
+		<Style x:Key="PopupFrame" TargetType="Frame"
                ApplyToDerivedTypes="True">
             <Setter Property="Margin" Value="15"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
