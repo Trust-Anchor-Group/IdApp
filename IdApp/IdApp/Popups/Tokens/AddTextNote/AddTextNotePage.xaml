@@ -19,43 +19,43 @@
             EasingOut="SinIn"
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
-    <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
-        <Frame Style="{StaticResource PopupFrame}" HorizontalOptions="FillAndExpand">
-            <StackLayout Padding="10,5" Spacing="3" HorizontalOptions="FillAndExpand">
+	<AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center">
+		<Frame Style="{StaticResource PopupFrame}" HorizontalOptions="FillAndExpand">
+			<StackLayout Padding="10,5" Spacing="3" HorizontalOptions="FillAndExpand">
 				<Label Text="{x:Static resx:AppResources.TextNote}" HorizontalOptions="FillAndExpand"/>
 				<Frame Style="{StaticResource BorderFrame}">
-					<Editor Text="{Binding TextNote}" AutoSize="TextChanges" Keyboard="Text"
-							VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+					<Editor Text="{Binding TextNote}" Keyboard="Text" HeightRequest="100" WidthRequest="300"
+							HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand"/>
 				</Frame>
 				<StackLayout Orientation="Horizontal">
-                    <CheckBox IsChecked="{Binding Personal}" VerticalOptions="Center"/>
-                    <Label Text="{x:Static resx:AppResources.NoteIsPersonal}" VerticalOptions="Center"/>
-                </StackLayout>
-                <Button Margin="10,5" Clicked="OnAdd" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Add}">
-                    <Button.HeightRequest>
-                        <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
-                    </Button.HeightRequest>
-                </Button>
-                <Button Margin="10,5" Clicked="OnCancel" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Cancel}">
-                    <Button.HeightRequest>
-                        <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
-                    </Button.HeightRequest>
-                </Button>
-            </StackLayout>
-        </Frame>
-        <Grid Style="{StaticResource PopupGrid}">
-            <Grid.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnCloseButtonTapped" />
-            </Grid.GestureRecognizers>
-            <Ellipse StrokeThickness="2" WidthRequest="32" HeightRequest="32" HorizontalOptions="Center" VerticalOptions="Center">
-                    <Ellipse.Fill>
-                        <SolidColorBrush Color="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
-                    </Ellipse.Fill>
-                    <Ellipse.Stroke>
-                        <SolidColorBrush Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
-                    </Ellipse.Stroke>
-            </Ellipse>
-            <Label Style="{StaticResource PopupCloseButton}"/>
-        </Grid>
-    </AbsoluteLayout>
+					<CheckBox IsChecked="{Binding Personal}" VerticalOptions="Center"/>
+					<Label Text="{x:Static resx:AppResources.NoteIsPersonal}" VerticalOptions="Center"/>
+				</StackLayout>
+				<Button Margin="10,5" Clicked="OnAdd" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Add}">
+					<Button.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
+					</Button.HeightRequest>
+				</Button>
+				<Button Margin="10,5" Clicked="OnCancel" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Cancel}">
+					<Button.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
+					</Button.HeightRequest>
+				</Button>
+			</StackLayout>
+		</Frame>
+		<Grid Style="{StaticResource PopupGrid}">
+			<Grid.GestureRecognizers>
+				<TapGestureRecognizer Tapped="OnCloseButtonTapped" />
+			</Grid.GestureRecognizers>
+			<Ellipse StrokeThickness="2" WidthRequest="32" HeightRequest="32" HorizontalOptions="Center" VerticalOptions="Center">
+					<Ellipse.Fill>
+						<SolidColorBrush Color="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+					</Ellipse.Fill>
+					<Ellipse.Stroke>
+						<SolidColorBrush Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
+					</Ellipse.Stroke>
+			</Ellipse>
+			<Label Style="{StaticResource PopupCloseButton}"/>
+		</Grid>
+	</AbsoluteLayout>
 </pages:PopupPage>
