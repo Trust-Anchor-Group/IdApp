@@ -313,6 +313,6 @@ namespace IdApp.Services.Navigation
 		/// <summary>
 		/// Current page
 		/// </summary>
-		public Page CurrentPage => Shell.Current.CurrentPage;
+		public Page CurrentPage => Shell.Current?.CurrentPage;
 	}
 }
