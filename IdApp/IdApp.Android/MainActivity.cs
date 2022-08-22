@@ -38,7 +38,7 @@ namespace IdApp.Android
 
 		private void Init(Bundle SavedInstanceState)
 		{
-			SecureDisplay.SetMainWindow(this.Window);
+			SecureDisplay.SetMainWindow(this.Window, true);
 
 			this.Window.SetFlags(
 				WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure,
