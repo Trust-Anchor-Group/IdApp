@@ -519,7 +519,9 @@ namespace IdApp.Services.Xmpp
 					if (this.xmppConnected && !this.IsUnloading)
 					{
 						this.xmppConnected = false;
-						this.xmppClient?.Reconnect();
+
+						if (this.xmppClient is not null && !this.xmppClient.Disposed)
+							this.xmppClient.Reconnect();
 					}
 
 					this.xmppThread?.Stop();
@@ -1014,7 +1016,9 @@ namespace IdApp.Services.Xmpp
 			if (this.XmppStale())
 			{
 				this.xmppLastStateChange = DateTime.Now;
-				this.xmppClient.Reconnect();
+
+				if (!this.xmppClient.Disposed)
+					this.xmppClient.Reconnect();
 			}
 		}
 
