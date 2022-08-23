@@ -183,8 +183,8 @@
                             Command="{Binding Path=ChatCommand}" IsVisible="{Binding Path=ThirdParty}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
 					<Frame Grid.Row="0" Grid.Column="0" CornerRadius="12" Padding="8,3,8,3" IsVisible="{Binding HasPendingChatMessages}"
-						   HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}"
-						   Margin="{StaticResource DefaultLeftRightAndBottomMargin}">
+						   HorizontalOptions="End" VerticalOptions="Center" Margin="{StaticResource DefaultLeftRightAndBottomMargin}"
+						   Style="{StaticResource AlertFrame}">
 						<Label FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Text="{Binding NrPendingChatMessages}" Padding="1"/>
 					</Frame>
 				</Grid>

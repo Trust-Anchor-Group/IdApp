@@ -42,9 +42,8 @@
             <Grid ColumnDefinitions="2*,*" RowDefinitions="auto,auto,auto" >
                 <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
 				<Label Grid.Row="0" Grid.Column="1" FontSize="50" Padding="0,-25,0,-25"
-					   TextColor="{StaticResource AlertColor}" Text="•"
-					   HorizontalOptions="Start" VerticalOptions="Center" IsVisible="{Binding New}"/>
-
+					   Text="•"  HorizontalOptions="Start" VerticalOptions="Center" IsVisible="{Binding New}"
+					   Style="{StaticResource AlertLabel}"/>
 				<Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=TimestampStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"/>
                 <Label Grid.Column="1" Grid.Row="0" LineBreakMode="TailTruncation" HorizontalTextAlignment="End">
                     <Label.FormattedText>
@@ -86,7 +85,7 @@
 					   FontAttributes="Bold" FontSize="18" HorizontalTextAlignment="Start"
 					   BackgroundColor="Transparent" VerticalOptions="Center"/>
 				<Frame Grid.Row="0" Grid.Column="2" CornerRadius="12" Margin="2" Padding="8,3,8,3" IsVisible="{Binding New}"
-					   HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+					   HorizontalOptions="Start" VerticalOptions="Center" Style="{StaticResource AlertFrame}">
 					<Label FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Text="{Binding NrEvents}" Padding="1"/>
 				</Frame>
 				<Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Value, Converter={converters:MoneyToString}}"
@@ -116,8 +115,8 @@
 					   Text="{Binding Path=Icon}" FontFamily="{StaticResource FontAwesomeSolid}"
 					   HorizontalOptions="Center" VerticalOptions="Center"/>
 				<Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="NoWrap" Padding="5,2,5,0"
-					   Text="•" TextColor="{StaticResource AlertColor}" FontSize="50"
-					   HorizontalOptions="End" VerticalOptions="Center"/>
+					   Text="•" FontSize="50" HorizontalOptions="End" VerticalOptions="Center"
+					   Style="{StaticResource AlertLabel}"/>
 				<Grid.GestureRecognizers>
 					<TapGestureRecognizer Command="{Binding ClickedCommand}" CommandParameter="{Binding .}"/>
 				</Grid.GestureRecognizers>

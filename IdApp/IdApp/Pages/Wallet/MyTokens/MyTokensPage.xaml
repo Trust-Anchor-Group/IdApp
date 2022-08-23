@@ -31,7 +31,7 @@
                                             FontAttributes="Bold" FontSize="18" HorizontalTextAlignment="Start"
                                             VerticalOptions="Center"/>
 						<Frame Grid.Row="0" Grid.Column="2" CornerRadius="12" Margin="2" Padding="8,3,8,3" IsVisible="{Binding New}"
-							   HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+							   HorizontalOptions="Start" VerticalOptions="Center" Style="{StaticResource AlertFrame}">
 							<Label FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Text="{Binding NrEvents}" Padding="1"/>
 						</Frame>
 						<Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Value, Converter={converters:MoneyToString}}"
