@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IdApp.Resx;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing;
 using ZXing.Mobile;
@@ -51,9 +52,6 @@ namespace IdApp.Pages.Main.ScanQrCode
 
 			if (this.ViewModel is ScanQrCodeViewModel ScanQrCodeViewModel)
 				ScanQrCodeViewModel.ModeChanged += this.ViewModel_ModeChanged;
-
-			this.Scanner.IsScanning = true;
-			this.Scanner.IsAnalyzing = true;
 		}
 
 		/// <summary>
@@ -162,6 +160,18 @@ namespace IdApp.Pages.Main.ScanQrCode
 			}
 
 			return Result;
+		}
+
+		private void Scanner_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == "Renderer")
+			{
+				this.ViewModel.UiSerializer.BeginInvokeOnMainThread(() =>
+				{
+					this.Scanner.IsScanning = true;
+					this.Scanner.IsAnalyzing = true;
+				});
+			}
 		}
 	}
 }

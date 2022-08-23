@@ -18,6 +18,7 @@
                   IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">
                 <forms:ZXingScannerView x:Name="Scanner"
                                         OnScanResult="Scanner_OnScanResult"
+										PropertyChanged="Scanner_PropertyChanged"
                                         IsScanning="False" IsAnalyzing="False"
                                         VerticalOptions="FillAndExpand"
                                         HorizontalOptions="FillAndExpand"/>
