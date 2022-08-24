@@ -15,6 +15,8 @@ namespace IdApp.Pages.Main.ScanQrCode
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ScanQrCodePage
 	{
+		private bool scannerRendered = false;
+
 		/// <summary>
 		/// Creates a new instance of the <see cref="ScanQrCodePage"/> class.
 		/// </summary>
@@ -25,7 +27,6 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
 			this.ViewModel = new ScanQrCodeViewModel(NavigationArgs);
 			this.InitializeComponent();
-			this.Scanner.PropertyChanged += this.OnScannerPropertyChanged;
 
 			this.Scanner.Options = new MobileBarcodeScanningOptions
 			{
@@ -53,6 +54,12 @@ namespace IdApp.Pages.Main.ScanQrCode
 
 			if (this.ViewModel is ScanQrCodeViewModel ScanQrCodeViewModel)
 				ScanQrCodeViewModel.ModeChanged += this.ViewModel_ModeChanged;
+
+			if (this.scannerRendered)
+			{
+				this.Scanner.IsScanning = true;
+				this.Scanner.IsAnalyzing = true;
+			}
 		}
 
 		/// <summary>
@@ -119,9 +126,19 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
 			// cf. https://github.com/Redth/ZXing.Net.Mobile/issues/808
 
-			this.Scanner.IsEnabled = false;
-			this.Scanner.Options.CameraResolutionSelector = this.SelectLowestResolutionMatchingDisplayAspectRatio;
-			this.Scanner.IsEnabled = true;
+			try
+			{
+				this.Scanner.Options.CameraResolutionSelector = this.SelectLowestResolutionMatchingDisplayAspectRatio;
+
+				this.Scanner.IsScanning = true;
+				this.Scanner.IsAnalyzing = true;
+
+				this.scannerRendered = true;
+			}
+			catch (Exception Exception)
+			{
+				this.ViewModel.LogService.LogException(Exception);
+			}
 		}
 
 		private CameraResolution SelectLowestResolutionMatchingDisplayAspectRatio(List<CameraResolution> AvailableResolutions)
@@ -161,22 +178,6 @@ namespace IdApp.Pages.Main.ScanQrCode
 			}
 
 			return Result;
-		}
-
-		private void OnScannerPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName == "Renderer")
-			{
-				this.Scanner.PropertyChanged -= this.OnScannerPropertyChanged;
-
-				// Activating the scanner in this manner, BeginInvokeOnMainThread after the renderer has been fully initialized, is the only
-				// way it started working on my Android device.
-				this.ViewModel.UiSerializer.BeginInvokeOnMainThread(() =>
-				{
-					this.Scanner.IsScanning = true;
-					this.Scanner.IsAnalyzing = true;
-				});
-			}
 		}
 	}
 }
