@@ -547,10 +547,10 @@
     <value>Rețeaua pare să lipsească. Vă rugăm să verificați configurația și acoperirea și încercați din nou.</value>
   </data>
   <data name="SendEmailWarning" xml:space="preserve">
-    <value>Codul a fost trimis, verifica e-mail, spam- ul ...</value>
+    <value>Un cod a fost trimis într-un mesaj de poștă electronică către adderii de e-mail. Dacă nu îl primiți, vă rugăm să verificați și folderul spam.</value>
   </data>
   <data name="SendPhoneNumberWarning" xml:space="preserve">
-    <value>Codul a fost trimis, verificați-vă telefonul</value>
+    <value>Un cod a fost trimis ca mesaj text pe telefon.</value>
   </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>

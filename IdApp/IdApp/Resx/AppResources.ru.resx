@@ -547,10 +547,10 @@
     <value>Сеть, похоже, отсутствует. Проверьте конфигурацию и покрытие и повторите попытку.</value>
   </data>
   <data name="SendEmailWarning" xml:space="preserve">
-    <value>Код отправлен, проверьте электронную почту, спам...</value>
+    <value>Код был отправлен в сообщении электронной почты вашим сумматорам электронной почты. Если вы не получили его, пожалуйста, также проверьте папку со спамом.</value>
   </data>
   <data name="SendPhoneNumberWarning" xml:space="preserve">
-    <value>Код отправлен, проверьте свой телефон</value>
+    <value>Код был отправлен в виде текстового сообщения на ваш телефон.</value>
   </data>
   <data name="Neuron" xml:space="preserve">
     <value>Нейрон</value>
