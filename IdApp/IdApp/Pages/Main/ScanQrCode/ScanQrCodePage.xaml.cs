@@ -169,6 +169,8 @@ namespace IdApp.Pages.Main.ScanQrCode
 			{
 				this.Scanner.PropertyChanged -= this.OnScannerPropertyChanged;
 
+				// Activating the scanner in this manner, BeginInvokeOnMainThread after the renderer has been fully initialized, is the only
+				// way it started working on my Android device.
 				this.ViewModel.UiSerializer.BeginInvokeOnMainThread(() =>
 				{
 					this.Scanner.IsScanning = true;
