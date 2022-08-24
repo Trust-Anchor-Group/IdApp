@@ -25,6 +25,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
 			this.ViewModel = new ScanQrCodeViewModel(NavigationArgs);
 			this.InitializeComponent();
+			this.Scanner.PropertyChanged += this.OnScannerPropertyChanged;
 
 			this.Scanner.Options = new MobileBarcodeScanningOptions
 			{
@@ -162,10 +163,12 @@ namespace IdApp.Pages.Main.ScanQrCode
 			return Result;
 		}
 
-		private void Scanner_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		private void OnScannerPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "Renderer")
 			{
+				this.Scanner.PropertyChanged -= this.OnScannerPropertyChanged;
+
 				this.ViewModel.UiSerializer.BeginInvokeOnMainThread(() =>
 				{
 					this.Scanner.IsScanning = true;
