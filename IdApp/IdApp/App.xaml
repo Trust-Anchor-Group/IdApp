@@ -166,11 +166,11 @@
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="LineBreakMode" Value="WordWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
-            <Setter Property="TextColor" Value="{StaticResource BlueColor}"/>
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource BlueColor}, Dark={StaticResource BlueColorDarkTheme}}"/>
         </Style>
 		<Style TargetType="Span" x:Key="ClickableValueSpan">
 			<Setter Property="FontAttributes" Value="Bold"/>
-			<Setter Property="TextColor" Value="{StaticResource BlueColor}"/>
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource BlueColor}, Dark={StaticResource BlueColorDarkTheme}}"/>
 		</Style>
 		<Style TargetType="Span" x:Key="ValueSpan">
 			<Setter Property="FontAttributes" Value="Bold"/>
@@ -184,7 +184,7 @@
             <Setter Property="FontSize" Value="Large"/>
         </Style>
         <Style TargetType="Label" x:Key="HyperlinkColor">
-            <Setter Property="TextColor" Value="{StaticResource BlueColor}"/>
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource BlueColor}, Dark={StaticResource BlueColorDarkTheme}}"/>
         </Style>
         <Style TargetType="Label" x:Key="FormattedValueLabel">
             <Setter Property="LineBreakMode" Value="WordWrap"/>
@@ -340,8 +340,8 @@
         <Style x:Key="AccentView" TargetType="BoxView">
             <Setter Property="Color"  Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColorDarkTheme}}" />
         </Style>
-        <Style x:Key="AccentIndicator" TargetType="ActivityIndicator">
-            <Setter Property="Color"  Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColorDarkTheme}}" />
+		<Style x:Key="IndicatorViewStyle" TargetType="IndicatorView">
+			<Setter Property="SelectedIndicatorColor"  Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColorDarkTheme}}" />
         </Style>
 	</Application.Resources>
 </Application>
