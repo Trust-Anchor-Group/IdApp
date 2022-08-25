@@ -41,13 +41,13 @@
 
 				<Button x:Name="LeftButton1" Grid.Row="0" Grid.Column="0" FontSize="Medium" Style="{StaticResource TabBarButton}" />
 				<Frame x:Name="LeftButton1OverlayFrame" Grid.Row="0" Grid.Column="0" CornerRadius="12" Margin="2" Padding="8,3,8,3"
-					   HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+					   HorizontalOptions="End" VerticalOptions="Center" Style="{StaticResource AlertFrame}">
 					<Label x:Name="LeftButton1OverlayLabel" FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Padding="2"/>
 				</Frame>
 
 				<Button x:Name="LeftButton2" Grid.Row="0" Grid.Column="1" FontSize="Medium" Style="{StaticResource TabBarButton}" />
 				<Frame x:Name="LeftButton2OverlayFrame" Grid.Row="0" Grid.Column="1" CornerRadius="12" Margin="2" Padding="8,3,8,3"
-					   HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+					   HorizontalOptions="End" VerticalOptions="Center" Style="{StaticResource AlertFrame}">
 					<Label x:Name="LeftButton2OverlayLabel" FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Padding="2"/>
 				</Frame>
 
@@ -55,13 +55,13 @@
 
 				<Button x:Name="RightButton1" Grid.Row="0" Grid.Column="3" FontSize="Medium" Style="{StaticResource TabBarButton}"/>
 				<Frame x:Name="RightButton1OverlayFrame" Grid.Row="0" Grid.Column="3" CornerRadius="12" Margin="2" Padding="8,3,8,3"
-					   HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+					   HorizontalOptions="End" VerticalOptions="Center" Style="{StaticResource AlertFrame}">
 					<Label x:Name="RightButton1OverlayLabel" FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Padding="2"/>
 				</Frame>
 
 				<Button x:Name="RightButton2" Grid.Row="0" Grid.Column="4" FontSize="Medium" Style="{StaticResource TabBarButton}"/>
 				<Frame x:Name="RightButton2OverlayFrame" Grid.Row="0" Grid.Column="4" CornerRadius="12" Margin="2" Padding="8,3,8,3"
-					   HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="{StaticResource AlertColor}">
+					   HorizontalOptions="End" VerticalOptions="Center" Style="{StaticResource AlertFrame}">
 					<Label x:Name="RightButton2OverlayLabel" FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Padding="2"/>
 				</Frame>
 
