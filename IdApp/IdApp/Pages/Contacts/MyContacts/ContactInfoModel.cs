@@ -136,7 +136,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 				if (string.IsNullOrEmpty(this.contact.BareJid))
 					return Color.Transparent;
 
-				RosterItem Item = this.references.XmppService.Xmpp[this.contact.BareJid];
+				RosterItem Item = this.references.XmppService.Xmpp?.GetRosterItem(this.contact.BareJid);
 				if (Item is null)
 					return Color.Transparent;
 

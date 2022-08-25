@@ -9035,6 +9035,9 @@
             Overridden to sync the view with the view model when the page appears on screen.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Registration.Registration.RegistrationPage.OnDisappearingAsync">
+            <inheritdoc />
+        </member>
         <member name="M:IdApp.Pages.Registration.Registration.RegistrationPage.UpdateUiStep">
             This is a hack. The issue is that the Carousel view doesn't reflect the CurrentStep binding correctly in the UI.
             The viewmodel is correct. The position property on the CarouselView is correct. But during restarts
@@ -16204,7 +16207,7 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.SendEmailWarning">
             <summary>
-              Looks up a localized string similar to Code has been sent, check email, spam….
+              Looks up a localized string similar to A code has been sent in an e-mail message to your e-mail adderss. If you don&apos;t receive it, please also check your spam folder..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SendInformationTo">
@@ -16224,7 +16227,7 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.SendPhoneNumberWarning">
             <summary>
-              Looks up a localized string similar to Code has been sent, check your phone.
+              Looks up a localized string similar to A code has been sent as a text message to your phone..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SendToContact">

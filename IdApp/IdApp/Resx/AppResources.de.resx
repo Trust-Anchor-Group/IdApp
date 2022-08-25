@@ -547,10 +547,10 @@
     <value>Netzwerk scheint zu fehlen. Bitte überprüfen Sie Ihre Konfiguration und Abdeckung und versuchen Sie es erneut.</value>
   </data>
   <data name="SendEmailWarning" xml:space="preserve">
-    <value>Code wurde gesendet, überprüfen Sie E-Mails, Spam ...</value>
+    <value>In einer E-Mail-Nachricht wurde ein Code an Ihre E-Mail-Addierer gesendet. Wenn Sie es nicht erhalten, überprüfen Sie bitte auch Ihren Spam-Ordner.</value>
   </data>
   <data name="SendPhoneNumberWarning" xml:space="preserve">
-    <value>Code wurde gesendet, überprüfen Sie Ihr Telefon</value>
+    <value>Ein Code wurde als Textnachricht an Ihr Telefon gesendet.</value>
   </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>

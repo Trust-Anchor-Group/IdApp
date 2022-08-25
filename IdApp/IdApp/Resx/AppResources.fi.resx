@@ -547,10 +547,10 @@
     <value>Verkko näyttää puuttuvan. Tarkista kokoonpanosi ja kattavuutesi ja yritä uudelleen.</value>
   </data>
   <data name="SendEmailWarning" xml:space="preserve">
-    <value>Koodi on lähetetty, tarkista sähköposti, roskapostia...</value>
+    <value>Koodi on lähetetty sähköpostiviestinä sähköpostin lisäyksille. Jos et saa sitä, tarkista myös roskapostikansiosi.</value>
   </data>
   <data name="SendPhoneNumberWarning" xml:space="preserve">
-    <value>Koodi on lähetetty, tarkista puhelimesi</value>
+    <value>Koodi on lähetetty tekstiviestinä puhelimeesi.</value>
   </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuroni</value>

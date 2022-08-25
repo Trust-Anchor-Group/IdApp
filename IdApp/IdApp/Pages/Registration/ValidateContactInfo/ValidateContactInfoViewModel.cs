@@ -424,7 +424,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					Status)
 				{
 					this.StartTimer("email");
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["WarningTitle"], LocalizationResourceManager.Current["SendEmailWarning"]);
+
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"],
+						LocalizationResourceManager.Current["SendEmailWarning"]);
 				}
 			}
 			catch (Exception ex)
@@ -472,13 +474,15 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				{
 					this.EMailValidated = false;
 
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToVerifyCode"], LocalizationResourceManager.Current["Ok"]);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"],
+						LocalizationResourceManager.Current["UnableToVerifyCode"], LocalizationResourceManager.Current["Ok"]);
 				}
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message,
+					LocalizationResourceManager.Current["Ok"]);
 			}
 			finally
 			{
@@ -517,7 +521,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					Status)
 				{
 					this.StartTimer("phone");
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["WarningTitle"], LocalizationResourceManager.Current["SendPhoneNumberWarning"]);
+
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"],
+						LocalizationResourceManager.Current["SendPhoneNumberWarning"]);
 				}
 			}
 			catch (Exception ex)

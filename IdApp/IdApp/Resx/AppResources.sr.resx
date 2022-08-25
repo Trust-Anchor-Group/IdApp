@@ -547,10 +547,10 @@
     <value>Izgleda da nedostaje mreža. Proverite konfiguraciju i pokrivenost i pokušajte ponovo.</value>
   </data>
   <data name="SendEmailWarning" xml:space="preserve">
-    <value>Šifra je poslata, proverite e-poštu, bezvrednu poštu...</value>
+    <value>Šifra je poslata u e-poruci dodavačima e-pošte. Ako je ne primite, proverite i fasciklu za bezvrednu pošte.</value>
   </data>
   <data name="SendPhoneNumberWarning" xml:space="preserve">
-    <value>Šifra je poslata, proverite telefon</value>
+    <value>Kôd je poslat kao tekstualna poruka vašem telefonu.</value>
   </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>
