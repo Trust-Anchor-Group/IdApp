@@ -72,6 +72,9 @@ namespace IdApp.Services.Wallet
 
 		private async Task Wallet_TokenRemoved(object Sender, TokenEventArgs e)
 		{
+			if (this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, e.Token.TokenId, out NotificationEvent[] Events))
+				await this.NotificationService.DeleteEvents(Events);
+
 			await this.NotificationService.NewEvent(new TokenRemovedNotificationEvent(e));
 		}
 
