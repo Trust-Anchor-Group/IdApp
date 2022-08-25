@@ -8,7 +8,7 @@
                        x:DataType="model:ScanQrCodeViewModel"
                        x:Class="IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"
                        Title="{x:Static resx:AppResources.ScanQRCode}"
-                       BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Shell.FlyoutBehavior="Disabled">
     <ContentPage.Content>
         <StackLayout Spacing="12" Orientation="Vertical" Margin="{StaticResource DefaultMargin}">

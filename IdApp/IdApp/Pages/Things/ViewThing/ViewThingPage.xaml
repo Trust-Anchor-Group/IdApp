@@ -7,7 +7,7 @@
                        xmlns:objectmodel="clr-namespace:IdApp.Pages.Things;assembly=IdApp"
                        x:DataType="model:ThingViewModel"
                        x:Class="IdApp.Pages.Things.ViewThing.ViewThingPage"
-                       BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.Thing}">
     <Grid>
         <ScrollView>

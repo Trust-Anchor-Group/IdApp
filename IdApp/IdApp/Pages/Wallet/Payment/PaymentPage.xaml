@@ -7,6 +7,7 @@
 					   xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:EDalerUriViewModel"
                        x:Class="IdApp.Pages.Wallet.Payment.PaymentPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.MakePayment}">
     <Grid>
         <ScrollView x:Name="ScrollView">

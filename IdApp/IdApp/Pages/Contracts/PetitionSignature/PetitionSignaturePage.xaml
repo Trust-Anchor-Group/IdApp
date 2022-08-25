@@ -9,6 +9,7 @@
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:PetitionSignatureViewModel"
                        x:Class="IdApp.Pages.Contracts.PetitionSignature.PetitionSignaturePage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.PetitionSignature}">
     <Grid>
         <ScrollView>

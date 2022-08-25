@@ -7,6 +7,7 @@
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:ClientSignatureViewModel"
                        x:Class="IdApp.Pages.Contracts.ClientSignature.ClientSignaturePage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.ClientSignature}">
     <ScrollView>
         <StackLayout Margin="{StaticResource DefaultMargin}" VerticalOptions="Start">
