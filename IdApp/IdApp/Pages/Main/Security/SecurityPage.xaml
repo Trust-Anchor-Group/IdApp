@@ -7,6 +7,7 @@
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:SecurityViewModel"
                        x:Class="IdApp.Pages.Main.Security.SecurityPage"
+					   Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.Security}">
 	<ScrollView>
 		<StackLayout Margin="{StaticResource DefaultMargin}" VerticalOptions="Start">

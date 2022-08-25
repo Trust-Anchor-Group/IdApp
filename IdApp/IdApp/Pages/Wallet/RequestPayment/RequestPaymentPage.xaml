@@ -5,7 +5,8 @@
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.RequestPayment;assembly=IdApp"
                        x:DataType="model:RequestPaymentViewModel"
-                       x:Class="IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage"     
+                       x:Class="IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.RequestPayment}">
     <Grid>
         <ScrollView x:Name="ScrollView">

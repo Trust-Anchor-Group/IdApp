@@ -13,7 +13,7 @@
 					   x:DataType="model:ChatViewModel"
 					   x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
 					   Title="{Binding Path=FriendlyName}"
-					   BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
+					   Style="{StaticResource BaseBackgroundPage}">
 	<views:ContentBasePage.Resources>
 		<ResourceDictionary>
 			<Style TargetType="ContentView" >

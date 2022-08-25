@@ -9,6 +9,7 @@
                        xmlns:loading="clr-namespace:IdApp.Controls.LoadingCollectionView;assembly=IdApp"
                        x:DataType="model:MyTokensViewModel" x:Name="ThisPage"
                        x:Class="IdApp.Pages.Wallet.MyTokens.MyTokensPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.MyTokens}">
 
     <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}" >

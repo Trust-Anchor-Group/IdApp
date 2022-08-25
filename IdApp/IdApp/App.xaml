@@ -57,7 +57,7 @@
         <Color x:Key="FrameLightTheme">#f0ffffff</Color>
         <Color x:Key="FrameDarkTheme">#f0282830</Color>
 
-        <Color x:Key="HintColor">#a5a5a5</Color>
+        <Color x:Key="HintColor">#ccc</Color>
 
         <Color x:Key="SendMessageBackground">LightYellow</Color>
         <Color x:Key="SendMessageBorder">Yellow</Color>
@@ -161,6 +161,18 @@
             <Setter Property="LineBreakMode" Value="WordWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+        </Style>
+        <Style TargetType="Label" x:Key="ValueLabelWithBackground">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+            <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            <Setter Property="TextColor" Value="{StaticResource ForegroundColorLightTheme}"/>
+        </Style>
+        <Style TargetType="Label" x:Key="ValueLabelForContacrt">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+            <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            <Setter Property="TextColor" Value="Gray"/>
         </Style>
         <Style TargetType="Label" x:Key="ClickableValueLabel">
             <Setter Property="FontAttributes" Value="Bold"/>
@@ -292,6 +304,9 @@
 			<Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
 		</Style>
 		<Style TargetType="Frame">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+		</Style>
+        <Style x:Key="BaseBackgroundPage" TargetType="ContentPage">
 			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
 		</Style>
 		<Style TargetType="ContentPage">

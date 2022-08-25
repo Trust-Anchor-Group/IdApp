@@ -7,6 +7,7 @@
                        xmlns:objectmodel="clr-namespace:IdApp.Pages.Things;assembly=IdApp"
                        x:DataType="model:ViewClaimThingViewModel"
                        x:Class="IdApp.Pages.Things.ViewClaimThing.ViewClaimThingPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.ClaimThing}">
     <Grid>
         <ScrollView>
