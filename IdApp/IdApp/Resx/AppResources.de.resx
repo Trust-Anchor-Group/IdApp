@@ -1878,4 +1878,16 @@
   <data name="ShareDescription" xml:space="preserve">
     <value>Nachfolgend finden Sie weitere Optionen zum Teilen des QR-Codes.</value>
   </data>
+  <data name="StateChangedTo" xml:space="preserve">
+    <value>Status geändert in {0}</value>
+  </data>
+  <data name="TokenAdded2" xml:space="preserve">
+    <value>Token hinzugefügt</value>
+  </data>
+  <data name="TokenRemoved2" xml:space="preserve">
+    <value>Token entfernt</value>
+  </data>
+  <data name="VariablesUpdated" xml:space="preserve">
+    <value>Aktualisierte Variablen</value>
+  </data>
 </root>

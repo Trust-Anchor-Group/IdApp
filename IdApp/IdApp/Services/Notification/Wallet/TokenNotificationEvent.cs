@@ -5,6 +5,7 @@ using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using Waher.Persistence.Attributes;
 using System.Text;
 using System.Xml;
+using IdApp.Resx;
 
 namespace IdApp.Services.Notification.Wallet
 {
@@ -113,10 +114,20 @@ namespace IdApp.Services.Notification.Wallet
 		}
 
 		/// <summary>
+		/// Gets an icon for the category of event.
+		/// </summary>
+		/// <param name="ServiceReferences"></param>
+		/// <returns></returns>
+		public override Task<string> GetCategoryIcon(ServiceReferences ServiceReferences)
+		{
+			return Task.FromResult<string>(FontAwesome.StarOfLife);
+		}
+
+		/// <summary>
 		/// Gets a descriptive text for the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override Task<string> GetCategoryDescription(ServiceReferences ServiceReferences)
+		public override Task<string> GetDescription(ServiceReferences ServiceReferences)
 		{
 			if (!string.IsNullOrEmpty(this.FriendlyName))
 				return Task.FromResult(this.FriendlyName);

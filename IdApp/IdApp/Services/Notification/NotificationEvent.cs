@@ -75,10 +75,10 @@ namespace IdApp.Services.Notification
 		public abstract Task<string> GetCategoryIcon(ServiceReferences ServiceReferences);
 
 		/// <summary>
-		/// Gets a descriptive text for the category of event.
+		/// Gets a descriptive text for the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public abstract Task<string> GetCategoryDescription(ServiceReferences ServiceReferences);
+		public abstract Task<string> GetDescription(ServiceReferences ServiceReferences);
 
 		/// <summary>
 		/// Opens the event.

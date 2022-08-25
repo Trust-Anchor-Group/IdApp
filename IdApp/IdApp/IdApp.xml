@@ -16335,6 +16335,11 @@
               Looks up a localized string similar to State.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.StateChangedTo">
+            <summary>
+              Looks up a localized string similar to State changed to {0}.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.StateDiagram">
             <summary>
               Looks up a localized string similar to State Diagram.
@@ -16515,6 +16520,11 @@
               Looks up a localized string similar to A token has been added to your wallet..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.TokenAdded2">
+            <summary>
+              Looks up a localized string similar to Token Added.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.TokenDetails">
             <summary>
               Looks up a localized string similar to Token Details.
@@ -16558,6 +16568,11 @@
         <member name="P:IdApp.Resx.AppResources.TokenRemoved">
             <summary>
               Looks up a localized string similar to A token has been removed from your wallet..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TokenRemoved2">
+            <summary>
+              Looks up a localized string similar to Token Removed.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.TokenVisibility">
@@ -16773,6 +16788,11 @@
         <member name="P:IdApp.Resx.AppResources.Variables">
             <summary>
               Looks up a localized string similar to Variables.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.VariablesUpdated">
+            <summary>
+              Looks up a localized string similar to Variables Updated.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.VerificationCode">
@@ -18882,7 +18902,7 @@
             <param name="ServiceReferences"></param>
             <returns></returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -18937,7 +18957,7 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractPetitionNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractPetitionNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -18980,7 +19000,7 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -19013,7 +19033,7 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractResponseNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractResponseNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -19052,7 +19072,7 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -19097,7 +19117,7 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -19180,7 +19200,7 @@
             <param name="ServiceReferences"></param>
             <returns></returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -19218,7 +19238,7 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.IdentityResponseNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.IdentityResponseNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -19246,7 +19266,7 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -19274,7 +19294,7 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.RequestIdentityNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.RequestIdentityNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -19302,7 +19322,7 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.RequestSignatureNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.RequestSignatureNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -19335,7 +19355,7 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -19502,9 +19522,9 @@
             <param name="ServiceReferences"></param>
             <returns></returns>
         </member>
-        <member name="M:IdApp.Services.Notification.NotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.NotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
-            Gets a descriptive text for the category of event.
+            Gets a descriptive text for the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
@@ -19712,7 +19732,7 @@
             Account event
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
@@ -19745,6 +19765,12 @@
             New state of state-machine.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Notification.Wallet.StateMachineNewStateNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Wallet.StateMachineVariablesUpdatedNotificationEvent">
             <summary>
             Contains information about a change in internal variables of a state-machine associated with a token.
@@ -19761,6 +19787,12 @@
             </summary>
             <param name="e">Event arguments.</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Wallet.StateMachineVariablesUpdatedNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
         <member name="T:IdApp.Services.Notification.Wallet.TokenAddedNotificationEvent">
             <summary>
             Contains information about a token that has been added.
@@ -19776,6 +19808,12 @@
             Contains information about a token that has been added.
             </summary>
             <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenAddedNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
         </member>
         <member name="T:IdApp.Services.Notification.Wallet.TokenNotificationEvent">
             <summary>
@@ -19824,7 +19862,14 @@
             Parsed token
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
@@ -19851,6 +19896,12 @@
             Contains information about a token that has been removed.
             </summary>
             <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Wallet.TokenRemovedNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
         </member>
         <member name="T:IdApp.Services.Notification.Wallet.WalletNotificationEvent">
             <summary>
@@ -19908,7 +19959,7 @@
             <param name="ServiceReferences"></param>
             <returns></returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.GetCategoryDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>

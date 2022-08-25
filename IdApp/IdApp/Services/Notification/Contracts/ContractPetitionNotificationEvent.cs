@@ -116,7 +116,7 @@ namespace IdApp.Services.Notification.Contracts
 		/// Gets a descriptive text for the category of event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task<string> GetCategoryDescription(ServiceReferences ServiceReferences)
+		public override async Task<string> GetDescription(ServiceReferences ServiceReferences)
 		{
 			Contract Contract = await this.GetContract();
 			StringBuilder Result = new();

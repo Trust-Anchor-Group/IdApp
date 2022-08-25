@@ -787,7 +787,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 									foreach (TokenNotificationEvent TokenEvent in P.Value)
 									{
 										string Icon = await TokenEvent.GetCategoryIcon(this);
-										string Description = await TokenEvent.GetCategoryDescription(this);
+										string Description = await TokenEvent.GetDescription(this);
 
 										this.Tokens.Add(new EventModel(TokenEvent.Received, Icon, Description, TokenEvent, this));
 									}

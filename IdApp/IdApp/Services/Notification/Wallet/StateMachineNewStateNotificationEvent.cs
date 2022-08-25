@@ -1,4 +1,7 @@
 ﻿using NeuroFeatures;
+using System.Text;
+using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Wallet
 {
@@ -29,5 +32,20 @@ namespace IdApp.Services.Notification.Wallet
 		/// New state of state-machine.
 		/// </summary>
 		public string NewState { get; set; }
+
+		/// <summary>
+		/// Gets a descriptive text for the event.
+		/// </summary>
+		/// <param name="ServiceReferences">Service references</param>
+		public override async Task<string> GetDescription(ServiceReferences ServiceReferences)
+		{
+			StringBuilder sb = new();
+
+			sb.Append(string.Format(LocalizationResourceManager.Current["StateChangedTo"], this.NewState));
+			sb.Append(": ");
+			sb.Append(await base.GetDescription(ServiceReferences));
+
+			return sb.ToString();
+		}
 	}
 }

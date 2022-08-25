@@ -290,7 +290,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 						foreach (NotificationEvent Event in P.Value)
 						{
 							string Icon = await Event.GetCategoryIcon(this);
-							string Description = await Event.GetCategoryDescription(this);
+							string Description = await Event.GetDescription(this);
 
 							NewCategories.Add(new EventModel(Event.Received, Icon, Description, Event, this));
 						}

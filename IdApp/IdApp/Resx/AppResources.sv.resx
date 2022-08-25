@@ -1872,4 +1872,16 @@
   <data name="SendPhoneNumberWarning" xml:space="preserve">
     <value>En kod har skickats som ett textmeddelande till din telefon.</value>
   </data>
+  <data name="StateChangedTo" xml:space="preserve">
+    <value>Tillstånd ändrat till {0}</value>
+  </data>
+  <data name="TokenAdded2" xml:space="preserve">
+    <value>Token tillagd</value>
+  </data>
+  <data name="TokenRemoved2" xml:space="preserve">
+    <value>Token borttagen</value>
+  </data>
+  <data name="VariablesUpdated" xml:space="preserve">
+    <value>Variabler uppdaterade</value>
+  </data>
 </root>

@@ -47,7 +47,7 @@ namespace IdApp.Services.Notification.Identities
 		/// Gets a descriptive text for the category of event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override Task<string> GetCategoryDescription(ServiceReferences ServiceReferences)
+		public override Task<string> GetDescription(ServiceReferences ServiceReferences)
 		{
 			LegalIdentity Identity = this.Identity;
 			StringBuilder Result = new();
