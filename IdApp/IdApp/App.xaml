@@ -343,5 +343,8 @@
 		<Style x:Key="IndicatorViewStyle" TargetType="IndicatorView">
 			<Setter Property="SelectedIndicatorColor"  Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColorDarkTheme}}" />
         </Style>
+		<Style x:Key="AccentIndicator" TargetType="ActivityIndicator">
+			<Setter Property="Color"  Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColorDarkTheme}}" />
+		</Style>
 	</Application.Resources>
 </Application>
