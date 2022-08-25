@@ -9,8 +9,7 @@
                        x:Class="IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"
                        Title="{x:Static resx:AppResources.ScanQRCode}"
                        BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"
-                       Shell.FlyoutBehavior="Disabled" 
-                       SizeChanged="ContentBasePage_SizeChanged">
+                       Shell.FlyoutBehavior="Disabled">
     <ContentPage.Content>
         <StackLayout Spacing="12" Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
             <Grid x:Name="AutomaticScanGrid"
@@ -18,7 +17,8 @@
                   IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">
                 <forms:ZXingScannerView x:Name="Scanner"
                                         OnScanResult="Scanner_OnScanResult"
-                                        IsScanning="False" IsAnalyzing="False"
+										IsScanning="False" IsAnalyzing="False"
+										SizeChanged="ZXingScannerView_SizeChanged"
                                         VerticalOptions="FillAndExpand"
                                         HorizontalOptions="FillAndExpand"/>
                 <forms:ZXingDefaultOverlay TopText="{x:Static resx:AppResources.QrScanOverlay}"/>

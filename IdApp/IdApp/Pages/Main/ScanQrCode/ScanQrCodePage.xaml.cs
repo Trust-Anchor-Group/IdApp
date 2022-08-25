@@ -14,6 +14,8 @@ namespace IdApp.Pages.Main.ScanQrCode
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ScanQrCodePage
 	{
+		private bool scannerRendered = false;
+
 		/// <summary>
 		/// Creates a new instance of the <see cref="ScanQrCodePage"/> class.
 		/// </summary>
@@ -52,8 +54,11 @@ namespace IdApp.Pages.Main.ScanQrCode
 			if (this.ViewModel is ScanQrCodeViewModel ScanQrCodeViewModel)
 				ScanQrCodeViewModel.ModeChanged += this.ViewModel_ModeChanged;
 
-			this.Scanner.IsScanning = true;
-			this.Scanner.IsAnalyzing = true;
+			if (this.scannerRendered)
+			{
+				this.Scanner.IsScanning = true;
+				this.Scanner.IsAnalyzing = true;
+			}
 		}
 
 		/// <summary>
@@ -116,13 +121,23 @@ namespace IdApp.Pages.Main.ScanQrCode
 			}
 		}
 
-		private void ContentBasePage_SizeChanged(object Sender, EventArgs e)
+		private void ZXingScannerView_SizeChanged(object Sender, EventArgs e)
 		{
 			// cf. https://github.com/Redth/ZXing.Net.Mobile/issues/808
 
-			this.Scanner.IsEnabled = false;
-			this.Scanner.Options.CameraResolutionSelector = this.SelectLowestResolutionMatchingDisplayAspectRatio;
-			this.Scanner.IsEnabled = true;
+			try
+			{
+				this.Scanner.Options.CameraResolutionSelector = this.SelectLowestResolutionMatchingDisplayAspectRatio;
+
+				this.Scanner.IsScanning = true;
+				this.Scanner.IsAnalyzing = true;
+
+				this.scannerRendered = true;
+			}
+			catch (Exception Exception)
+			{
+				this.ViewModel.LogService.LogException(Exception);
+			}
 		}
 
 		private CameraResolution SelectLowestResolutionMatchingDisplayAspectRatio(List<CameraResolution> AvailableResolutions)
