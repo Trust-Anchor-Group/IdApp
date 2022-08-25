@@ -18,7 +18,7 @@
                 <forms:ZXingScannerView x:Name="Scanner"
                                         OnScanResult="Scanner_OnScanResult"
 										IsScanning="False" IsAnalyzing="False"
-										SizeChanged="ContentBasePage_SizeChanged"
+										SizeChanged="ZXingScannerView_SizeChanged"
                                         VerticalOptions="FillAndExpand"
                                         HorizontalOptions="FillAndExpand"/>
                 <forms:ZXingDefaultOverlay TopText="{x:Static resx:AppResources.QrScanOverlay}"/>

@@ -122,7 +122,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 			}
 		}
 
-		private void ContentBasePage_SizeChanged(object Sender, EventArgs e)
+		private void ZXingScannerView_SizeChanged(object Sender, EventArgs e)
 		{
 			// cf. https://github.com/Redth/ZXing.Net.Mobile/issues/808
 
