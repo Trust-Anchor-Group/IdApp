@@ -285,9 +285,7 @@ namespace IdApp.Pages.Registration.DefinePin
 			this.OnStepCompleted(EventArgs.Empty);
 
 			if (this.TagProfile.TestOtpTimestamp is not null)
-			{
 				this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.TestOtpUsed, AppResources.Ok);
-			}
 		}
 
 		private bool CanContinue()

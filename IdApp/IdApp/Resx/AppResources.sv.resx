@@ -1866,4 +1866,10 @@
   <data name="ShareDescription" xml:space="preserve">
     <value>Nedan finner du ytterligare alternativ för delning av QR-koden.</value>
   </data>
+  <data name="SendEmailWarning" xml:space="preserve">
+    <value>En kod har skickats i ett e-postmeddelande till din e-postadress. Om du inte får den, kolla också inkorgen för skräpmail.</value>
+  </data>
+  <data name="SendPhoneNumberWarning" xml:space="preserve">
+    <value>En kod har skickats som ett textmeddelande till din telefon.</value>
+  </data>
 </root>

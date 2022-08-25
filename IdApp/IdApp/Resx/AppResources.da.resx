@@ -547,10 +547,10 @@
     <value>Netværk ser ud til at mangle. Kontroller din konfiguration og dækning, og prøv igen.</value>
   </data>
   <data name="SendEmailWarning" xml:space="preserve">
-    <value>Kode er blevet sendt, tjek e-mail, spam ...</value>
+    <value>Der er sendt en kode i en e-mail til dine e-mail-addere. Hvis du ikke modtager den, skal du også tjekke din spammappe.</value>
   </data>
   <data name="SendPhoneNumberWarning" xml:space="preserve">
-    <value>Koden er sendt, tjek din telefon</value>
+    <value>Der er sendt en kode som en sms til din telefon.</value>
   </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>

@@ -3832,7 +3832,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code has been sent, check email, spam….
+        ///   Looks up a localized string similar to A code has been sent in an e-mail message to your e-mail adderss. If you don&apos;t receive it, please also check your spam folder..
         /// </summary>
         internal static string SendEmailWarning {
             get {
@@ -3868,7 +3868,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code has been sent, check your phone.
+        ///   Looks up a localized string similar to A code has been sent as a text message to your phone..
         /// </summary>
         internal static string SendPhoneNumberWarning {
             get {
