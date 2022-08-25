@@ -7,6 +7,7 @@
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:TokenDetailsViewModel"
                        x:Class="IdApp.Pages.Wallet.TokenDetails.TokenDetailsPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.TokenDetails}">
     <Grid>
         <ScrollView x:Name="ScrollView">

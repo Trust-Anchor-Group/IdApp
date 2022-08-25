@@ -6,6 +6,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Contracts.NewContract;assembly=IdApp"
                        x:DataType="model:NewContractViewModel"
                        x:Class="IdApp.Pages.Contracts.NewContract.NewContractPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.NewContract}">
     <ScrollView>
         <StackLayout Orientation="Vertical" Padding="{StaticResource DefaultMargin}"

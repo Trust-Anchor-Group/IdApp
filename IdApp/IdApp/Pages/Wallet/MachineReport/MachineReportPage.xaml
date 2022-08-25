@@ -6,6 +6,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.MachineReport;assembly=IdApp"
                        x:DataType="model:MachineReportViewModel"
                        x:Class="IdApp.Pages.Wallet.MachineReport.MachineReportPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{Binding Title}">
 	<ScrollView>
 		<ContentView Content="{Binding Report}"/>

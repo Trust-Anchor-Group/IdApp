@@ -12,8 +12,17 @@
 					   xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
 					   x:DataType="model:ChatViewModel"
 					   x:Class="IdApp.Pages.Contacts.Chat.ChatPageIos"
-					   Title="{Binding Path=FriendlyName}">
+					   Title="{Binding Path=FriendlyName}"
+					   Style="{StaticResource BaseBackgroundPage}">
 	<views:ContentBasePage.Resources>
+        <ResourceDictionary>
+			<Style TargetType="ContentView" >
+				<Setter Property="BackgroundColor" Value="Transparent" />
+			</Style>
+			<Style TargetType="Label">
+				<Setter Property="TextColor" Value="{StaticResource ForegroundColorLightTheme}" />
+			</Style>
+		</ResourceDictionary>
 		<DataTemplate x:Key="EmptyMessage" x:DataType="messages:ChatMessage">
 			<ViewCell>
 				<ContentView Content="{Binding Path=ParsedXaml}" HeightRequest="1"/>
