@@ -784,13 +784,28 @@ namespace IdApp.Pages.Wallet.MyWallet
 									this.Tokens.Add(new TokenItem(Token, this, P.Value));
 								else
 								{
+									List<TokenNotificationEvent> ToDelete = null;
+
 									foreach (TokenNotificationEvent TokenEvent in P.Value)
 									{
-										string Icon = await TokenEvent.GetCategoryIcon(this);
-										string Description = await TokenEvent.GetDescription(this);
+										if (TokenEvent is TokenRemovedNotificationEvent)
+										{
+											string Icon = await TokenEvent.GetCategoryIcon(this);
+											string Description = await TokenEvent.GetDescription(this);
 
-										this.Tokens.Add(new EventModel(TokenEvent.Received, Icon, Description, TokenEvent, this));
+											this.Tokens.Add(new EventModel(TokenEvent.Received, Icon, Description, TokenEvent, this));
+										}
+										else
+										{
+											if (ToDelete is null)
+												ToDelete = new List<TokenNotificationEvent>();
+
+											ToDelete.Add(TokenEvent);
+										}
 									}
+
+									if (ToDelete is not null)
+										await this.NotificationService.DeleteEvents(ToDelete.ToArray());
 								}
 							}
 
