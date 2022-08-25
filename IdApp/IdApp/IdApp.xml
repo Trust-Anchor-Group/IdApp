@@ -2524,9 +2524,7 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatPage.UniqueId">
-            <summary>
-            Views unique ID
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatPage.#ctor">
             <summary>
@@ -3526,6 +3524,12 @@
         <member name="P:IdApp.Pages.ContentBasePage.ViewModel">
             <summary>
             Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ContentBasePage.UniqueId">
+            <summary>
+            Gets or sets a unique identifier, which allows this page to be distinguished from other pages of the same type without using
+            references to the page object itself.
             </summary>
         </member>
         <member name="M:IdApp.Pages.ContentBasePage.OnAppearing">

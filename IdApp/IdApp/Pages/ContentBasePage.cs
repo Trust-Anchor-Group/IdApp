@@ -9,12 +9,13 @@ using IdApp.Resx;
 
 namespace IdApp.Pages
 {
-    /// <summary>
-    /// A base class for all pages. This class works in close conjunction with the <see cref="BaseViewModel"/> for binding and unbinding data
-    /// when the page is shown on screen.
-    /// </summary>
-    /// <remarks>It also handles safe area insets for iOS applications, specifically on iPhones with the 'rabbit ear' displays.</remarks>
-    public class ContentBasePage : ContentPage
+	/// <summary>
+	/// A base class for all pages. This class works in close conjunction with the <see cref="BaseViewModel"/> for binding and unbinding data
+	/// when the page is shown on screen.
+	/// </summary>
+	/// <remarks>It also handles safe area insets for iOS applications, specifically on iPhones with the 'rabbit ear' displays.</remarks>
+	[QueryProperty(nameof(UniqueId), nameof(UniqueId))]
+	public class ContentBasePage : ContentPage
     {
 		/// <summary>
 		/// Creates an instance of the <see cref="ContentBasePage"/> class.
@@ -35,6 +36,16 @@ namespace IdApp.Pages
             get => this.BindingContext as BaseViewModel;
             protected set => this.BindingContext = value;
         }
+
+		/// <summary>
+		/// Gets or sets a unique identifier, which allows this page to be distinguished from other pages of the same type without using
+		/// references to the page object itself.
+		/// </summary>
+		public virtual string UniqueId
+		{
+			get;
+			set;
+		}
 
         /// <inheritdoc />
         protected override sealed async void OnAppearing()
