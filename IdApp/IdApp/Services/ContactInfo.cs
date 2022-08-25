@@ -1,5 +1,4 @@
-﻿using IdApp.Resx;
-using IdApp.Services.Contracts;
+﻿using IdApp.Services.Contracts;
 using IdApp.Services.Tag;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Waher.Persistence.Attributes;
 using Waher.Persistence.Filters;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services
 {
@@ -240,7 +240,7 @@ namespace IdApp.Services
 				return RemoteId;
 
 			if (RemoteId == TagProfile.LegalIdentity?.Id)
-				return AppResources.Me;
+				return LocalizationResourceManager.Current["Me"];
 
 			string Account = RemoteId.Substring(0, i);
 			ContactInfo Info;

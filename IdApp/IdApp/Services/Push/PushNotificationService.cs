@@ -1,6 +1,5 @@
 ﻿using EDaler;
 using IdApp.DeviceSpecific;
-using IdApp.Resx;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using System;
@@ -13,6 +12,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Settings;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Services.Push
@@ -147,7 +147,7 @@ namespace IdApp.Services.Push
 						Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
 						Content.Append("Content:=GetElement(Stanza,'content');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.MessageFrom));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["MessageFrom"]));
 						Content.Append(" ' + FriendlyName,");
 						Content.Append("'myBody':InnerText(GetElement(Stanza,'body')),");
 						Content.Append("'fromJid':FromJid,");
@@ -174,7 +174,7 @@ namespace IdApp.Services.Push
 						Content.Append("FromJid:=GetAttribute(E,'from');");
 						Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.PetitionFrom));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["PetitionFrom"]));
 						Content.Append(" ' + FriendlyName,");
 						Content.Append("'myBody':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
@@ -195,7 +195,7 @@ namespace IdApp.Services.Push
 						Content.Append("FromJid:=GetAttribute(E,'from');");
 						Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.PetitionFrom));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["PetitionFrom"]));
 						Content.Append(" ' + FriendlyName,");
 						Content.Append("'myBody':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
@@ -216,7 +216,7 @@ namespace IdApp.Services.Push
 						Content.Append("FromJid:=GetAttribute(E,'from');");
 						Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.PetitionFrom));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["PetitionFrom"]));
 						Content.Append(" ' + FriendlyName,");
 						Content.Append("'myBody':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
@@ -238,7 +238,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'identity');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.IdentityUpdated));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["IdentityUpdated"]));
 						Content.Append("',");
 						Content.Append("'legalId':GetAttribute(E,'id'),");
 						Content.Append("'channelId':'");
@@ -258,7 +258,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'contractCreated');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.ContractCreated));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ContractCreated"]));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
 						Content.Append("'channelId':'");
@@ -274,7 +274,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'contractSigned');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.ContractSigned));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ContractSigned"]));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
 						Content.Append("'legalId':GetAttribute(E,'legalId'),");
@@ -291,7 +291,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'contractUpdated');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.ContractUpdated));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ContractUpdated"]));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
 						Content.Append("'channelId':'");
@@ -307,7 +307,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'contractDeleted');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.ContractDeleted));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ContractDeleted"]));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
 						Content.Append("'channelId':'");
@@ -323,7 +323,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'contractProposal');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.ContractProposed));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ContractProposed"]));
 						Content.Append("',");
 						Content.Append("'myBody':GetAttribute(E,'message'),");
 						Content.Append("'contractId':Num(GetAttribute(E,'contractId')),");
@@ -345,7 +345,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'balance');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.BalanceUpdated));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["BalanceUpdated"]));
 						Content.Append("',");
 						Content.Append("'amount':Num(GetAttribute(E,'amount')),");
 						Content.Append("'currency':GetAttribute(E,'currency'),");
@@ -368,7 +368,7 @@ namespace IdApp.Services.Push
 						Content.Append("E:=GetElement(Stanza,'tokenAdded');");
 						Content.Append("E2:=GetElement(E,'token');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.TokenAdded));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["TokenAdded"]));
 						Content.Append("',");
 						Content.Append("'myBody':DateTime(GetAttribute(E,'friendlyName')),");
 						Content.Append("'value':Num(GetAttribute(E,'value')),");
@@ -387,7 +387,7 @@ namespace IdApp.Services.Push
 						Content.Append("E:=GetElement(Stanza,'tokenRemoved');");
 						Content.Append("E2:=GetElement(E,'token');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.TokenRemoved));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["TokenRemoved"]));
 						Content.Append("',");
 						Content.Append("'myBody':DateTime(GetAttribute(E,'friendlyName')),");
 						Content.Append("'value':Num(GetAttribute(E,'value')),");

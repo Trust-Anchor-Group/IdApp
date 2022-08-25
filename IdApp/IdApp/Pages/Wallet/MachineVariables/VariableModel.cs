@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Script;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -86,7 +87,7 @@ namespace IdApp.Pages.Wallet.MachineVariables
 			try
 			{
 				await Clipboard.SetTextAsync(this.AsScript);
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
 			}
 			catch (Exception ex)
 			{

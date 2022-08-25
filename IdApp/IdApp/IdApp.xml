@@ -127,11 +127,6 @@
             Controls of screen-capture is prohibited.
             </summary>
         </member>
-        <member name="P:IdApp.App.AppResources_MessageReceived">
-            <summary>
-            String <see cref="P:IdApp.Resx.AppResources.MessageReceived"/>
-            </summary>
-        </member>
         <member name="T:IdApp.Behaviors.ReRenderOnClickedBehavior">
             <summary>
             Used for Re-rendering a layout, when a button has been clicked.

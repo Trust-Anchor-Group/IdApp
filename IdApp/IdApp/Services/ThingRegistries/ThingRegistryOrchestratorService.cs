@@ -3,10 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Pages.Things.ViewThing;
-using IdApp.Resx;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.ThingRegistries
 {
@@ -56,7 +56,7 @@ namespace IdApp.Services.ThingRegistries
 				switch (Things.Length)
 				{
 					case 0:
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NoThingsFound);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NoThingsFound"]);
 						break;
 
 					case 1:

@@ -9,12 +9,12 @@ using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.Payment;
-using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Notification;
 using IdApp.Services.UI.QR;
 using Waher.Networking.XMPP;
 using Waher.Persistence;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Contacts.MyContacts
@@ -37,7 +37,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 			this.Contacts = new ObservableCollection<ContactInfoModel>();
 			this.byBareJid = new();
 
-			this.Description = AppResources.ContactsDescription;
+			this.Description = LocalizationResourceManager.Current["ContactsDescription"];
 			this.Action = SelectContactAction.ViewIdentity;
 			this.selection = null;
 		}
@@ -346,7 +346,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 								new ViewIdentityNavigationArgs(Contact.LegalIdentity));
 						}
 						else if (!string.IsNullOrEmpty(Contact.LegalId))
-							await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId, AppResources.ScannedQrCode);
+							await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId, LocalizationResourceManager.Current["ScannedQrCode"]);
 						else if (!string.IsNullOrEmpty(Contact.BareJid))
 						{
 							await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact.Contact)
@@ -381,7 +381,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 		private async Task ScanQrCode()
 		{
-			await QrCode.ScanQrCode(AppResources.ScanQRCode, async code =>
+			await QrCode.ScanQrCode(LocalizationResourceManager.Current["ScanQRCode"], async code =>
 			{
 				if (Constants.UriSchemes.StartsWithIdScheme(code))
 				{
@@ -391,7 +391,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 					}, new NotificationEvent[0]));
 				}
 				else if (!string.IsNullOrEmpty(code))
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
 			});
 		}
 

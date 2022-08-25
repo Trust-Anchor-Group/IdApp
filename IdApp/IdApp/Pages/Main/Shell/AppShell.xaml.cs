@@ -33,7 +33,6 @@ using IdApp.Pages.Wallet.RequestPayment;
 using IdApp.Pages.Wallet.SendPayment;
 using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Pages.Wallet.TokenEvents;
-using IdApp.Resx;
 using IdApp.Services.Contracts;
 using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
@@ -43,6 +42,7 @@ using IdApp.Services.UI;
 using IdApp.Services.UI.QR;
 using IdApp.Services.Wallet;
 using IdApp.Services.Xmpp;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -238,13 +238,13 @@ namespace IdApp.Pages.Main.Shell
 				sb.AppendLine("Phone: " + DeviceInfo.Model);
 				sb.AppendLine("Platform: " + DeviceInfo.Platform + " " + DeviceInfo.VersionString);
 
-				await this.UiSerializer.DisplayAlert(AppResources.About, sb.ToString());
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["About"], sb.ToString());
 			});
 		}
 
 		internal async void ContactsMenuItem_Clicked(object Sender, EventArgs e)
 		{
-			await this.GoToPage(nameof(MyContactsPage), new ContactListNavigationArgs(AppResources.ContactsDescription,
+			await this.GoToPage(nameof(MyContactsPage), new ContactListNavigationArgs(LocalizationResourceManager.Current["ContactsDescription"],
 				SelectContactAction.ViewIdentity));
 		}
 

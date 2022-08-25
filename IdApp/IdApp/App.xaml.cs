@@ -701,9 +701,9 @@ namespace IdApp
 			if (!shutdown)
 			{
 				if (Device.IsInvokeRequired && (this.MainPage is not null))
-					Device.BeginInvokeOnMainThread(async () => await this.MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok));
+					Device.BeginInvokeOnMainThread(async () => await this.MainPage.DisplayAlert(title, ex?.ToString(), LocalizationResourceManager.Current["Ok"]));
 				else if (this.MainPage is not null)
-					await this.MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok);
+					await this.MainPage.DisplayAlert(title, ex?.ToString(), LocalizationResourceManager.Current["Ok"]);
 			}
 #endif
 		}
@@ -949,7 +949,7 @@ namespace IdApp
 
 				if (DateTimeForLogin == DateTime.MaxValue)
 				{
-					MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
+					MessageAlert = LocalizationResourceManager.Current["PinIsInvalidAplicationBlockedForever"];
 				}
 				else
 				{
@@ -957,21 +957,21 @@ namespace IdApp
 					if (DateTimeForLogin.Value.ToShortDateString() == DateTime.Today.ToShortDateString())
 					{
 						string DateString = LocalDateTime.ToShortTimeString();
-						MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateString);
+						MessageAlert = string.Format(LocalizationResourceManager.Current["PinIsInvalidAplicationBlocked"], DateString);
 					}
 					else if (DateTimeForLogin.Value.ToShortDateString() == DateTime.Today.AddDays(1).ToShortDateString())
 					{
 						string DateString = LocalDateTime.ToShortTimeString();
-						MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlockedTillTomorrow, DateString);
+						MessageAlert = string.Format(LocalizationResourceManager.Current["PinIsInvalidAplicationBlockedTillTomorrow"], DateString);
 					}
 					else
 					{
 						string DateString = LocalDateTime.ToString("yyyy-MM-dd, 'at' HH:mm");
-						MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, DateString);
+						MessageAlert = string.Format(LocalizationResourceManager.Current["PinIsInvalidAplicationBlocked"], DateString);
 					}
 				}
 
-				await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
+				await Ui.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], MessageAlert);
 				await Stop();
 			}
 		}
@@ -1006,7 +1006,7 @@ namespace IdApp
 			long RemainingAttempts = Constants.Pin.MaxPinAttempts - PinAttemptCounter;
 			IUiSerializer Ui = Instantiate<IUiSerializer>();
 
-			await Ui.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinIsInvalid, RemainingAttempts));
+			await Ui.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["PinIsInvalid"], RemainingAttempts));
 			await CheckUserBlocking();
 			return Pin;
 		}
@@ -1091,10 +1091,5 @@ namespace IdApp
 					secureDisplay.ProhibitScreenCapture = value;
 			}
 		}
-
-		/// <summary>
-		/// String <see cref="AppResources.MessageReceived"/>
-		/// </summary>
-		public static string AppResources_MessageReceived => AppResources.MessageReceived;
 	}
 }

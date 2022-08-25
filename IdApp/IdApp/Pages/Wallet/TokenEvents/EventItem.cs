@@ -1,6 +1,5 @@
 ﻿using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Wallet.TokenEvents.Events;
-using IdApp.Resx;
 using IdApp.Services;
 using NeuroFeatures.Events;
 using System;
@@ -9,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Content;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -169,7 +169,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 					Personal = Event.Personal,
 					Timestamp = Event.Timestamp,
 					TokenId = Event.TokenId,
-					Note = AppResources.UnrecognizedEventType + " " + Event.GetType().FullName
+					Note = LocalizationResourceManager.Current["UnrecognizedEventType"] + " " + Event.GetType().FullName
 				});
 			}
 		}
@@ -190,7 +190,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		/// <param name="IdentityId">Identity ID</param>
 		public Task ViewId(string IdentityId)
 		{
-			return this.@ref.ContractOrchestratorService.OpenLegalIdentity(IdentityId, AppResources.PurposeReviewToken);
+			return this.@ref.ContractOrchestratorService.OpenLegalIdentity(IdentityId, LocalizationResourceManager.Current["PurposeReviewToken"]);
 		}
 
 		/// <summary>
@@ -199,7 +199,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		/// <param name="ContractId">Contract ID</param>
 		public Task ViewContract(string ContractId)
 		{
-			return this.@ref.ContractOrchestratorService.OpenContract(ContractId, AppResources.PurposeReviewToken, null);
+			return this.@ref.ContractOrchestratorService.OpenContract(ContractId, LocalizationResourceManager.Current["PurposeReviewToken"], null);
 		}
 
 		/// <summary>
@@ -209,7 +209,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		public async Task CopyToClipboard(string Text)
 		{
 			await Clipboard.SetTextAsync(Text);
-			await this.@ref.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.NoteCopiedToClipboard);
+			await this.@ref.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["NoteCopiedToClipboard"]);
 		}
 
 		/// <summary>

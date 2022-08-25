@@ -5,7 +5,7 @@ using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Waher.Events;
 using IdApp.Pages.Registration.Registration;
-using IdApp.Resx;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages
 {
@@ -80,8 +80,8 @@ namespace IdApp.Pages
                     {
                         e = Log.UnnestException(e);
                         this.ViewModel.LogService.LogException(e);
-                        string msg = string.Format(AppResources.FailedToBindViewModelForPage, this.ViewModel.GetType().FullName, this.GetType().FullName);
-                        await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
+                        string msg = string.Format(LocalizationResourceManager.Current["FailedToBindViewModelForPage"], this.ViewModel.GetType().FullName, this.GetType().FullName);
+                        await this.ViewModel.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], msg + Environment.NewLine + e.Message);
                     }
                 }
 
@@ -94,8 +94,8 @@ namespace IdApp.Pages
                 {
                     e = Log.UnnestException(e);
                     this.ViewModel.LogService.LogException(e);
-                    string msg = string.Format(AppResources.FailedToRestoreViewModelStateForPage, this.ViewModel.GetType().FullName, this.GetType().FullName);
-                    await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
+                    string msg = string.Format(LocalizationResourceManager.Current["FailedToRestoreViewModelStateForPage"], this.ViewModel.GetType().FullName, this.GetType().FullName);
+                    await this.ViewModel.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], msg + Environment.NewLine + e.Message);
                 }
             }
         }
@@ -138,8 +138,8 @@ namespace IdApp.Pages
                     {
                         e = Log.UnnestException(e);
                         this.ViewModel.LogService.LogException(e);
-                        string msg = string.Format(AppResources.FailedToSaveViewModelStateForPage, this.ViewModel.GetType().FullName, this.GetType().FullName);
-                        await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
+                        string msg = string.Format(LocalizationResourceManager.Current["FailedToSaveViewModelStateForPage"], this.ViewModel.GetType().FullName, this.GetType().FullName);
+                        await this.ViewModel.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], msg + Environment.NewLine + e.Message);
                     }
                 }
 
@@ -157,8 +157,8 @@ namespace IdApp.Pages
                 {
                     e = Log.UnnestException(e);
                     this.ViewModel.LogService.LogException(e);
-                    string msg = string.Format(AppResources.FailedToUnbindViewModelForPage, this.ViewModel.GetType().FullName, this.GetType().FullName);
-                    await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
+                    string msg = string.Format(LocalizationResourceManager.Current["FailedToUnbindViewModelForPage"], this.ViewModel.GetType().FullName, this.GetType().FullName);
+                    await this.ViewModel.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], msg + Environment.NewLine + e.Message);
                 }
             }
         }

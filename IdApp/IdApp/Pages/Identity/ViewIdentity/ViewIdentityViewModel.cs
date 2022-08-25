@@ -22,9 +22,9 @@ using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Popups.Xmpp.RemoveSubscription;
-using IdApp.Resx;
 using IdApp.Services.Notification;
 using IdApp.Pages.Main.Security;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
@@ -359,12 +359,12 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					if (Label == this.LegalId)
 					{
 						await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeIotId + ":" + this.LegalId);
-						await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["IdCopiedSuccessfully"]);
 					}
 					else
 					{
 						await Clipboard.SetTextAsync(Label);
-						await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
 					}
 				}
 			}
@@ -1369,19 +1369,19 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					(!string.IsNullOrEmpty(this.Region) && !this.RegionIsChecked) ||
 					(!string.IsNullOrEmpty(this.CountryCode) && !this.CountryCodeIsChecked))
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.Incomplete, AppResources.PleaseReviewAndCheckAllCheckboxes);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Incomplete"], LocalizationResourceManager.Current["PleaseReviewAndCheckAllCheckboxes"]);
 					return;
 				}
 
 				if (!this.CarefulReviewIsChecked)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToCheckCarefullyReviewed);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Incomplete"], LocalizationResourceManager.Current["YouNeedToCheckCarefullyReviewed"]);
 					return;
 				}
 
 				if (!this.ApprovePiiIsChecked)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToApproveToAssociate);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Incomplete"], LocalizationResourceManager.Current["YouNeedToApproveToAssociate"]);
 					return;
 				}
 
@@ -1440,7 +1440,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			try
 			{
-				if (!await this.AreYouSure(AppResources.AreYouSureYouWantToRevokeYourLegalIdentity))
+				if (!await this.AreYouSure(LocalizationResourceManager.Current["AreYouSureYouWantToRevokeYourLegalIdentity"]))
 					return;
 
 				(bool succeeded, LegalIdentity revokedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.ObsoleteLegalIdentity(this.LegalIdentity.Id));
@@ -1464,7 +1464,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			if (!await App.VerifyPin())
 				return false;
 
-			return await this.UiSerializer.DisplayAlert(AppResources.Confirm, Message, AppResources.Yes, AppResources.No);
+			return await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Confirm"], Message, LocalizationResourceManager.Current["Yes"], LocalizationResourceManager.Current["No"]);
 		}
 
 		private async Task Compromise()
@@ -1474,7 +1474,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			try
 			{
-				if (!await this.AreYouSure(AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized))
+				if (!await this.AreYouSure(LocalizationResourceManager.Current["AreYouSureYouWantToReportYourLegalIdentityAsCompromized"]))
 					return;
 
 				(bool succeeded, LegalIdentity compromisedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.CompromiseLegalIdentity(this.LegalIdentity.Id));
@@ -1545,7 +1545,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				if (!await this.UiSerializer.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRemoveContact, AppResources.Yes, AppResources.Cancel))
+				if (!await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Confirm"], LocalizationResourceManager.Current["AreYouSureYouWantToRemoveContact"], LocalizationResourceManager.Current["Yes"], LocalizationResourceManager.Current["Cancel"]))
 					return;
 
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
@@ -1602,7 +1602,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (Pin is null)
 					return;
 
-				if (!await this.UiSerializer.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToTransferYourLegalIdentity, AppResources.Yes, AppResources.No))
+				if (!await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Confirm"], LocalizationResourceManager.Current["AreYouSureYouWantToTransferYourLegalIdentity"], LocalizationResourceManager.Current["Yes"], LocalizationResourceManager.Current["No"]))
 					return;
 
 				this.IsBusy = true;
@@ -1678,7 +1678,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 						}
 					}
 
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnexpectedResponse);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnexpectedResponse"]);
 				}
 				finally
 				{
@@ -1734,7 +1734,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				}
 
 				this.XmppService.Xmpp.RequestPresenceSubscription(this.BareJid, IdXml);
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PresenceSubscriptionRequestSent);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["PresenceSubscriptionRequestSent"]);
 			}
 			catch (Exception ex)
 			{
@@ -1769,7 +1769,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					}
 				}
 
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PresenceUnsubscriptionRequestSent);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["PresenceUnsubscriptionRequestSent"]);
 			}
 			catch (Exception ex)
 			{

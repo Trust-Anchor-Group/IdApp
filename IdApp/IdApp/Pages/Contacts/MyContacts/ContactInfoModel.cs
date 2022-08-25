@@ -1,6 +1,5 @@
 ﻿using IdApp.Popups.Xmpp.RemoveSubscription;
 using IdApp.Popups.Xmpp.SubscribeTo;
-using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Notification;
 using System;
@@ -11,6 +10,7 @@ using System.Windows.Input;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Contacts.MyContacts
@@ -188,9 +188,9 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 			if (Subscribed)
 			{
-				if (!await this.references.UiSerializer.DisplayAlert(AppResources.Question,
-					string.Format(AppResources.RemoveSubscriptionFrom, this.FriendlyName),
-					AppResources.Yes, AppResources.Cancel))
+				if (!await this.references.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Question"],
+					string.Format(LocalizationResourceManager.Current["RemoveSubscriptionFrom"], this.FriendlyName),
+					LocalizationResourceManager.Current["Yes"], LocalizationResourceManager.Current["Cancel"]))
 				{
 					return;
 				}

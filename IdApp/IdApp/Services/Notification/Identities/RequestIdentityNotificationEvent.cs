@@ -1,8 +1,8 @@
 ﻿using IdApp.Pages.Identity.PetitionIdentity;
-using IdApp.Resx;
 using System.Text;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Identities
 {
@@ -52,7 +52,7 @@ namespace IdApp.Services.Notification.Identities
 			LegalIdentity Identity = this.Identity;
 			StringBuilder Result = new();
 
-			Result.Append(AppResources.RequestToAccessIdentity);
+			Result.Append(LocalizationResourceManager.Current["RequestToAccessIdentity"]);
 
 			if (Identity is not null)
 			{

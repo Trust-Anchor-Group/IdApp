@@ -43,7 +43,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 
 			this.SendPhoneNrCodeCommand = new Command(async () => await this.SendPhoneNrCode(), this.SendPhoneNrCodeCanExecute);
 			this.VerifyPhoneNrCodeCommand = new Command(async () => await this.VerifyPhoneNrCode(), this.VerifyPhoneNrCodeCanExecute);
-
+			
 			this.Title = LocalizationResourceManager.Current["ContactInformation"];
 			this.Purposes = new ObservableCollection<string>();
 		}

@@ -1,7 +1,7 @@
-﻿using IdApp.Resx;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Main.ScanQrCode
@@ -27,7 +27,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 			this.useShellNavigationService = NavigationArgs is null;
 			this.navigationArgs = NavigationArgs;
 			this.SwitchModeCommand = new Command(this.SwitchMode);
-			this.OpenCommandText = AppResources.Open;
+			this.OpenCommandText = LocalizationResourceManager.Current["Open"];
 			this.SetModeText();
         }
 
@@ -44,7 +44,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 
 			this.OpenCommandText = !string.IsNullOrWhiteSpace(this.navigationArgs?.CommandName)
 				? this.navigationArgs.CommandName
-				: AppResources.Open;
+				: LocalizationResourceManager.Current["Open"];
         }
 
 		/// <summary>
@@ -247,7 +247,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 
         private void SetModeText()
         {
-			this.ModeText = this.ScanIsAutomatic ? AppResources.QrEnterManually : AppResources.QrScanCode;
+			this.ModeText = this.ScanIsAutomatic ? LocalizationResourceManager.Current["QrEnterManually"] : LocalizationResourceManager.Current["QrScanCode"];
         }
 
         private void SwitchMode()

@@ -1,10 +1,10 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
-using IdApp.Resx;
 using IdApp.Services.Tag;
 using IdApp.Services.UI;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 
 namespace IdApp.Popups.Pin.ChangePin
@@ -68,7 +68,7 @@ namespace IdApp.Popups.Pin.ChangePin
 
 			if (EventArgs.PropertyName == nameof(this.ViewModel.IncorrectPinAlertShown) && this.ViewModel.IncorrectPinAlertShown)
 			{
-				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid, AppResources.Ok);
+				await this.uiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PinIsInvalid"], LocalizationResourceManager.Current["Ok"]);
 				this.ViewModel.IncorrectPinAlertShown = false;
 			}
 		}

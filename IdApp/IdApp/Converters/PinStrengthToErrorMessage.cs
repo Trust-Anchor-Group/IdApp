@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using IdApp.Resx;
 using IdApp.Services.Tag;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,22 +21,22 @@ namespace IdApp.Converters
 			{
 				return PinStrength switch
 				{
-					PinStrength.NotEnoughDigitsLettersSigns => string.Format(AppResources.PinWithNotEnoughDigitsLettersSigns, Constants.Authentication.MinPinSymbolsFromDifferentClasses),
+					PinStrength.NotEnoughDigitsLettersSigns => string.Format(LocalizationResourceManager.Current["PinWithNotEnoughDigitsLettersSigns"], Constants.Authentication.MinPinSymbolsFromDifferentClasses),
 
-					PinStrength.NotEnoughDigitsOrSigns => string.Format(AppResources.PinWithNotEnoughDigitsOrSigns, Constants.Authentication.MinPinSymbolsFromDifferentClasses),
-					PinStrength.NotEnoughLettersOrDigits => string.Format(AppResources.PinWithNotEnoughLettersOrDigits, Constants.Authentication.MinPinSymbolsFromDifferentClasses),
-					PinStrength.NotEnoughLettersOrSigns => string.Format(AppResources.PinWithNotEnoughLettersOrSigns, Constants.Authentication.MinPinSymbolsFromDifferentClasses),
+					PinStrength.NotEnoughDigitsOrSigns => string.Format(LocalizationResourceManager.Current["PinWithNotEnoughDigitsOrSigns"], Constants.Authentication.MinPinSymbolsFromDifferentClasses),
+					PinStrength.NotEnoughLettersOrDigits => string.Format(LocalizationResourceManager.Current["PinWithNotEnoughLettersOrDigits"], Constants.Authentication.MinPinSymbolsFromDifferentClasses),
+					PinStrength.NotEnoughLettersOrSigns => string.Format(LocalizationResourceManager.Current["PinWithNotEnoughLettersOrSigns"], Constants.Authentication.MinPinSymbolsFromDifferentClasses),
 
-					PinStrength.ContainsAddress => AppResources.PinContainsAddress,
-					PinStrength.ContainsName => AppResources.PinContainsName,
-					PinStrength.ContainsPersonalNumber => AppResources.PinContainsPersonalNumber,
-					PinStrength.ContainsPhoneNumber => AppResources.PinContainsPhoneNumber,
-					PinStrength.ContainsEMail => AppResources.PinContainsEMail,
+					PinStrength.ContainsAddress => LocalizationResourceManager.Current["PinContainsAddress"],
+					PinStrength.ContainsName => LocalizationResourceManager.Current["PinContainsName"],
+					PinStrength.ContainsPersonalNumber => LocalizationResourceManager.Current["PinContainsPersonalNumber"],
+					PinStrength.ContainsPhoneNumber => LocalizationResourceManager.Current["PinContainsPhoneNumber"],
+					PinStrength.ContainsEMail => LocalizationResourceManager.Current["PinContainsEMail"],
 
-					PinStrength.TooManyIdenticalSymbols => string.Format(AppResources.PinWithTooManyIdenticalSymbols, Constants.Authentication.MaxPinIdenticalSymbols),
-					PinStrength.TooManySequencedSymbols => string.Format(AppResources.PinWithTooManySequencedSymbols, Constants.Authentication.MaxPinSequencedSymbols),
+					PinStrength.TooManyIdenticalSymbols => string.Format(LocalizationResourceManager.Current["PinWithTooManyIdenticalSymbols"], Constants.Authentication.MaxPinIdenticalSymbols),
+					PinStrength.TooManySequencedSymbols => string.Format(LocalizationResourceManager.Current["PinWithTooManySequencedSymbols"], Constants.Authentication.MaxPinSequencedSymbols),
 
-					PinStrength.TooShort => string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength),
+					PinStrength.TooShort => string.Format(LocalizationResourceManager.Current["PinTooShort"], Constants.Authentication.MinPinLength),
 
 					_ => "",
 				};

@@ -1,10 +1,10 @@
-﻿using IdApp.Resx;
-using IdApp.Services.Xmpp;
+﻿using IdApp.Services.Xmpp;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Provisioning
 {
@@ -25,7 +25,7 @@ namespace IdApp.Services.Provisioning
 				{
 					this.provisioningClient = (this.XmppService as XmppService)?.ProvisioningClient;
 					if (this.provisioningClient is null)
-						throw new InvalidOperationException(AppResources.ProvisioningServiceNotFound);
+						throw new InvalidOperationException(LocalizationResourceManager.Current["ProvisioningServiceNotFound"]);
 				}
 
 				return this.provisioningClient;
@@ -52,7 +52,7 @@ namespace IdApp.Services.Provisioning
 				if (e.Ok)
 					Result.TrySetResult((e.Things, e.More));
 				else
-					Result.TrySetException(e.StanzaError ?? new Exception(AppResources.UnableToGetListOfMyDevices));
+					Result.TrySetException(e.StanzaError ?? new Exception(LocalizationResourceManager.Current["UnableToGetListOfMyDevices"]));
 
 				return Task.CompletedTask;
 			}, null);

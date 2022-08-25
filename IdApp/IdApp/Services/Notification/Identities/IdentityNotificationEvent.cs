@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Identities
 {

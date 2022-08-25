@@ -1,6 +1,5 @@
-﻿using IdApp.Resx;
-using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Services.UI.Tasks
@@ -73,7 +72,7 @@ namespace IdApp.Services.UI.Tasks
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert(this.Title, this.Message, AppResources.Ok);
+                await Application.Current.MainPage.DisplayAlert(this.Title, this.Message, LocalizationResourceManager.Current["Ok"]);
                 Result = true;
             }
 

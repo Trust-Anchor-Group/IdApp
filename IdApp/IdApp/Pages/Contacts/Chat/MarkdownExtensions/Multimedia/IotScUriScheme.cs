@@ -7,6 +7,7 @@ using System.Xml;
 using Waher.Content.Markdown;
 using Waher.Content.Markdown.Model;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 {

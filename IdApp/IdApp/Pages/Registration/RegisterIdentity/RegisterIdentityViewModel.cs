@@ -27,9 +27,9 @@ using Xamarin.Forms;
 using IdApp.Services.Ocr;
 using IdApp.Nfc.Extensions;
 using IdApp.Cv.Arithmetics;
-using IdApp.Resx;
 using SkiaSharp;
 using IdApp.Services;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Registration.RegisterIdentity
 {
@@ -63,8 +63,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			this.EPassportCommand = new Command(async _ => await this.ScanPassport(), _ => !this.IsBusy);
 			this.RemovePhotoCommand = new Command(_ => this.RemovePhoto(true));
 
-			this.Title = AppResources.PersonalLegalInformation;
-			this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
+			this.Title = LocalizationResourceManager.Current["PersonalLegalInformation"];
+			this.PersonalNumberPlaceholder = LocalizationResourceManager.Current["PersonalNumber"];
 
 			this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), profilePhotoFileName);
 			this.photosLoader = new PhotosLoader();
@@ -188,12 +188,12 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				{
 					string format = PersonalNumberSchemes.DisplayStringForCountry(CountryCode);
 					if (!string.IsNullOrWhiteSpace(format))
-						ViewModel.PersonalNumberPlaceholder = string.Format(AppResources.PersonalNumberPlaceholder, format);
+						ViewModel.PersonalNumberPlaceholder = string.Format(LocalizationResourceManager.Current["PersonalNumberPlaceholder"], format);
 					else
-						ViewModel.PersonalNumberPlaceholder = AppResources.PersonalNumber;
+						ViewModel.PersonalNumberPlaceholder = LocalizationResourceManager.Current["PersonalNumber"];
 				}
 				else
-					ViewModel.PersonalNumberPlaceholder = AppResources.PersonalNumber;
+					ViewModel.PersonalNumberPlaceholder = LocalizationResourceManager.Current["PersonalNumber"];
 			});
 
 		/// <summary>
@@ -447,7 +447,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		{
 			if (!this.XmppService.Contracts.FileUploadIsSupported)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.ServerDoesNotSupportFileUpload);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["ServerDoesNotSupportFileUpload"]);
 				return;
 			}
 
@@ -465,7 +465,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				}
 				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["TakingAPhotoIsNotSupported"] + ": " + ex.Message);
 					return;
 				}
 
@@ -493,7 +493,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				}
 				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["TakingAPhotoIsNotSupported"] + ": " + ex.Message);
 					return;
 				}
 
@@ -515,7 +515,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		{
 			if (!this.XmppService.Contracts.FileUploadIsSupported)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PickPhoto"], LocalizationResourceManager.Current["SelectingAPhotoIsNotSupported"]);
 				return;
 			}
 
@@ -545,7 +545,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				}
 				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["TakingAPhotoIsNotSupported"] + ": " + ex.Message);
 					return;
 				}
 
@@ -566,7 +566,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				}
 				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["TakingAPhotoIsNotSupported"] + ": " + ex.Message);
 					return;
 				}
 
@@ -604,7 +604,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				IOcrService OcrService = App.Instantiate<IOcrService>();
 				if (!OcrService.Created)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TesseractNotCreated);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["TesseractNotCreated"]);
 					return;
 				}
 
@@ -612,7 +612,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				{
 					if (!await OcrService.Initialize())
 					{
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnabletoInitializeTesseract);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnabletoInitializeTesseract"]);
 						return;
 					}
 				}
@@ -624,7 +624,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 				if (Rows.Length == 0)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToTesseractImage);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToTesseractImage"]);
 					return;
 				}
 
@@ -645,7 +645,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 				if (DocInfo is null)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToExtractMachineReadableString);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToExtractMachineReadableString"]);
 					return;
 				}
 			}
@@ -672,7 +672,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
 			{
 				if (showAlert)
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PhotoIsTooLarge"]);
 
 				return;
 			}
@@ -733,7 +733,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			}
 			catch (Exception ex)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToLoadPhoto);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["FailedToLoadPhoto"]);
 				this.LogService.LogException(ex);
 				return;
 			}
@@ -859,9 +859,9 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (NumberInfo.IsValid.HasValue && !NumberInfo.IsValid.Value)
 			{
 				if (string.IsNullOrWhiteSpace(NumberInfo.DisplayString))
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PersonalNumberDoesNotMatchCountry"]);
 				else
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + NumberInfo.DisplayString);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PersonalNumberDoesNotMatchCountry_ExpectedFormat"] + NumberInfo.DisplayString);
 
 				return;
 			}
@@ -871,25 +871,25 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportLegalIdentitiesAndSmartContracts);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["OperatorDoesNotSupportLegalIdentitiesAndSmartContracts"]);
 				return;
 			}
 
 			if (string.IsNullOrWhiteSpace(this.TagProfile.RegistryJid))
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportThingRegistries);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["OperatorDoesNotSupportThingRegistries"]);
 				return;
 			}
 
 			if (string.IsNullOrWhiteSpace(this.TagProfile.ProvisioningJid))
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportProvisioningAndDecisionSupportForThings);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["OperatorDoesNotSupportProvisioningAndDecisionSupportForThings"]);
 				return;
 			}
 
 			if (!this.XmppService.IsOnline)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NotConnectedToTheOperator);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NotConnectedToTheOperator"]);
 				return;
 			}
 
@@ -992,7 +992,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (string.IsNullOrWhiteSpace(this.FirstName?.Trim()))
 			{
 				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAFirstName);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"], LocalizationResourceManager.Current["YouNeedToProvideAFirstName"]);
 
 				return false;
 			}
@@ -1000,7 +1000,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (string.IsNullOrWhiteSpace(this.LastNames?.Trim()))
 			{
 				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideALastName);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"], LocalizationResourceManager.Current["YouNeedToProvideALastName"]);
 
 				return false;
 			}
@@ -1008,7 +1008,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (string.IsNullOrWhiteSpace(this.PersonalNumber?.Trim()))
 			{
 				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPersonalNumber);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"], LocalizationResourceManager.Current["YouNeedToProvideAPersonalNumber"]);
 
 				return false;
 			}
@@ -1016,7 +1016,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (string.IsNullOrWhiteSpace(this.SelectedCountry))
 			{
 				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideACountry);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"], LocalizationResourceManager.Current["YouNeedToProvideACountry"]);
 
 				return false;
 			}
@@ -1024,7 +1024,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (this.photo is null)
 			{
 				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPhoto);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"], LocalizationResourceManager.Current["YouNeedToProvideAPhoto"]);
 
 				return false;
 			}

@@ -11,9 +11,9 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Resx;
 using IdApp.Converters;
 using IdApp.Pages.Main.Calculator;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Wallet
 {
@@ -766,7 +766,7 @@ namespace IdApp.Pages.Wallet
 					return;
 
 				await Clipboard.SetTextAsync(Value);
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
 			}
 			catch (Exception ex)
 			{
@@ -786,10 +786,10 @@ namespace IdApp.Pages.Wallet
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
-					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TransactionAccepted);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TransactionAccepted"]);
 				}
 				else
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToProcessEDalerUri"]);
 			}
 			catch (Exception ex)
 			{
@@ -804,7 +804,7 @@ namespace IdApp.Pages.Wallet
 			{
 				if (!this.NotPaid)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PaymentAlreadySent);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PaymentAlreadySent"]);
 					return;
 				}
 
@@ -835,12 +835,12 @@ namespace IdApp.Pages.Wallet
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
-					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["PaymentSuccess"]);
 				}
 				else
 				{
 					this.NotPaid = true;
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToProcessEDalerUri"]);
 					this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
 				}
 			}
@@ -857,7 +857,7 @@ namespace IdApp.Pages.Wallet
 		{
 			if (!this.NotPaid)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PaymentAlreadySent);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PaymentAlreadySent"]);
 				return;
 			}
 
@@ -920,7 +920,7 @@ namespace IdApp.Pages.Wallet
 					Message = this.AmountAndCurrency;
 
 				shareContent.ShareImage(this.QrCodeBin, string.Format(Message, this.Amount, this.Currency),
-					AppResources.Share, "RequestPayment.png");
+					LocalizationResourceManager.Current["Share"], "RequestPayment.png");
 			}
 			catch (Exception ex)
 			{
@@ -940,10 +940,10 @@ namespace IdApp.Pages.Wallet
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
-					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["PaymentSuccess"]);
 				}
 				else
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToProcessEDalerUri"]);
 			}
 			catch (Exception ex)
 			{
@@ -990,7 +990,7 @@ namespace IdApp.Pages.Wallet
 		{
 			if (!this.NotPaid)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PaymentAlreadySent);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PaymentAlreadySent"]);
 				return;
 			}
 
@@ -1056,7 +1056,7 @@ namespace IdApp.Pages.Wallet
 		/// <summary>
 		/// Title of the current view
 		/// </summary>
-		public override Task<string> Title => Task.FromResult<string>(AppResources.Payment);
+		public override Task<string> Title => Task.FromResult<string>(LocalizationResourceManager.Current["Payment"]);
 
 		#endregion
 

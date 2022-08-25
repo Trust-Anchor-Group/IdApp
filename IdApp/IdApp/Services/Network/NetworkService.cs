@@ -7,11 +7,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using IdApp.Exceptions;
 using IdApp.Extensions;
-using IdApp.Resx;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -107,11 +107,11 @@ namespace IdApp.Services.Network
 			{
 				if (!this.IsOnline)
 				{
-					thrownException = new MissingNetworkException(AppResources.ThereIsNoNetwork);
+					thrownException = new MissingNetworkException(LocalizationResourceManager.Current["ThereIsNoNetwork"]);
 					this.LogService.LogException(thrownException, GetParameter(memberName));
 
 					if (displayAlert)
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.ThereIsNoNetwork, memberName));
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(LocalizationResourceManager.Current["ThereIsNoNetwork"], memberName));
 				}
 				else
 				{
@@ -128,28 +128,28 @@ namespace IdApp.Services.Network
 					this.LogService.LogException(te, GetParameter(memberName));
 
 					if (displayAlert)
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestTimedOut, memberName));
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(LocalizationResourceManager.Current["RequestTimedOut"], memberName));
 				}
 				else if (ae.InnerException is TaskCanceledException tce)
 				{
 					this.LogService.LogException(tce, GetParameter(memberName));
 
 					if (displayAlert)
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestWasCancelled, memberName));
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(LocalizationResourceManager.Current["RequestWasCancelled"], memberName));
 				}
 				else if (!(ae.InnerException is null))
 				{
 					this.LogService.LogException(ae.InnerException, GetParameter(memberName));
 
 					if (displayAlert)
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(ae.InnerException.Message, memberName));
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(ae.InnerException.Message, memberName));
 				}
 				else
 				{
 					this.LogService.LogException(ae, GetParameter(memberName));
 
 					if (displayAlert)
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(ae.Message, memberName));
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(ae.Message, memberName));
 				}
 			}
 			catch (TimeoutException te)
@@ -158,7 +158,7 @@ namespace IdApp.Services.Network
 				this.LogService.LogException(te, GetParameter(memberName));
 
 				if (displayAlert)
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestTimedOut, memberName));
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(LocalizationResourceManager.Current["RequestTimedOut"], memberName));
 			}
 			catch (TaskCanceledException tce)
 			{
@@ -166,7 +166,7 @@ namespace IdApp.Services.Network
 				this.LogService.LogException(tce, GetParameter(memberName));
 
 				if (displayAlert)
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestWasCancelled, memberName));
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(LocalizationResourceManager.Current["RequestWasCancelled"], memberName));
 			}
 			catch (Exception e)
 			{
@@ -182,7 +182,7 @@ namespace IdApp.Services.Network
 				this.LogService.LogException(e, GetParameter(memberName));
 
 				if (displayAlert)
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(message, memberName));
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(message, memberName));
 			}
 
 			if (rethrowException)

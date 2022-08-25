@@ -20,6 +20,7 @@ using Waher.Content.Xml;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Waher.Script;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -87,10 +88,10 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.templateId = this.template?.ContractId ?? string.Empty;
 			this.IsTemplate = this.template?.CanActAsTemplate ?? false;
 
-			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.CreatorAndParts, AppResources.ContractVisibility_CreatorAndParts));
-			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.DomainAndParts, AppResources.ContractVisibility_DomainAndParts));
-			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.Public, AppResources.ContractVisibility_Public));
-			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable));
+			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.CreatorAndParts, LocalizationResourceManager.Current["ContractVisibility_CreatorAndParts"]));
+			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.DomainAndParts, LocalizationResourceManager.Current["ContractVisibility_DomainAndParts"]));
+			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.Public, LocalizationResourceManager.Current["ContractVisibility_Public"]));
+			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, LocalizationResourceManager.Current["ContractVisibility_PublicSearchable"]));
 
 			await this.PopulateTemplateForm(Visibility);
 		}
@@ -605,7 +606,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			try
 			{
 				if (Sender is Label label && !string.IsNullOrEmpty(label.StyleId))
-					await this.ContractOrchestratorService.OpenLegalIdentity(label.StyleId, AppResources.ForInclusionInContract);
+					await this.ContractOrchestratorService.OpenLegalIdentity(label.StyleId, LocalizationResourceManager.Current["ForInclusionInContract"]);
 			}
 			catch (Exception ex)
 			{
@@ -624,7 +625,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					this.stateTemplateWhileScanning = this.template;
 
 					TaskCompletionSource<ContactInfoModel> Selected = new();
-					ContactListNavigationArgs Args = new(AppResources.AddContactToContract, Selected)
+					ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["AddContactToContract"], Selected)
 					{
 						CanScanQrCode = true,
 						CancelReturnCounter = true
@@ -637,7 +638,7 @@ namespace IdApp.Pages.Contracts.NewContract
 						return;
 
 					if (string.IsNullOrEmpty(Contact.LegalId))
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.SelectedContactCannotBeAdded);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SelectedContactCannotBeAdded"]);
 					else
 					{
 						this.partsToAdd[button.StyleId] = Contact.LegalId;
@@ -873,13 +874,13 @@ namespace IdApp.Pages.Contracts.NewContract
 								{
 									if (Nr < Min)
 									{
-										await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtLeast_AddMoreParts, Min, Role));
+										await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["TheContractRequiresAtLeast_AddMoreParts"], Min, Role));
 										return;
 									}
 
 									if (Nr > Min)
 									{
-										await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtMost_RemoveParts, Max, Role));
+										await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["TheContractRequiresAtMost_RemoveParts"], Max, Role));
 										return;
 									}
 
@@ -907,7 +908,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					{
 						if (Entry.BackgroundColor == Color.Salmon)
 						{
-							await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.YourContractContainsErrors);
+							await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["YourContractContainsErrors"]);
 							Entry.Focus();
 							return;
 						}
@@ -935,13 +936,13 @@ namespace IdApp.Pages.Contracts.NewContract
 						break;
 
 					default:
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractVisibilityMustBeSelected);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["ContractVisibilityMustBeSelected"]);
 						return;
 				}
 
 				if (this.SelectedRole is null)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["ContractRoleMustBeSelected"]);
 					return;
 				}
 
@@ -966,9 +967,9 @@ namespace IdApp.Pages.Contracts.NewContract
 						if (Info is null || string.IsNullOrEmpty(Info.BareJid))
 							continue;
 
-						string Proposal = await this.UiSerializer.DisplayPrompt(AppResources.Proposal,
-							string.Format(AppResources.EnterProposal, Info.FriendlyName),
-							AppResources.Send, AppResources.Cancel);
+						string Proposal = await this.UiSerializer.DisplayPrompt(LocalizationResourceManager.Current["Proposal"],
+							string.Format(LocalizationResourceManager.Current["EnterProposal"], Info.FriendlyName),
+							LocalizationResourceManager.Current["Send"], LocalizationResourceManager.Current["Cancel"]);
 
 						if (!string.IsNullOrEmpty(Proposal))
 							this.XmppService.Contracts.ContractsClient.SendContractProposal(Created.ContractId, Part.Role, Info.BareJid, Proposal);
@@ -1031,7 +1032,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				{
 					Button button = new()
 					{
-						Text = AppResources.AddPart,
+						Text = LocalizationResourceManager.Current["AddPart"],
 						StyleId = Role.Name,
 						Margin = (Thickness)Application.Current.Resources["DefaultBottomOnlyMargin"]
 					};
@@ -1047,7 +1048,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			{
 				parametersLayout.Children.Add(new Label
 				{
-					Text = AppResources.Parameters,
+					Text = LocalizationResourceManager.Current["Parameters"],
 					Style = (Style)Application.Current.Resources["LeftAlignedHeading"]
 				});
 			}

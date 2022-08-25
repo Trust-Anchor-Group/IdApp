@@ -1,5 +1,4 @@
 ﻿using IdApp.DeviceSpecific;
-using IdApp.Resx;
 using IdApp.Services.Storage;
 using IdApp.Services.UI;
 using System;
@@ -11,6 +10,7 @@ using Waher.Events;
 using Waher.Events.XMPP;
 using Waher.Persistence.Exceptions;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -83,7 +83,7 @@ namespace IdApp.Services.EventLog
 			StorageService.FlagForRepair();
 
 			IUiSerializer UiSerializer = App.Instantiate<IUiSerializer>();
-			await UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.RepairRestart, AppResources.Ok);
+			await UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["RepairRestart"], LocalizationResourceManager.Current["Ok"]);
 
 			ICloseApplication CloseApplication = DependencyService.Get<ICloseApplication>();
 			await CloseApplication.Close();

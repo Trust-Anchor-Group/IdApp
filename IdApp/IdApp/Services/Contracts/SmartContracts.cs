@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using IdApp.Pages.Registration.RegisterIdentity;
-using IdApp.Resx;
 using IdApp.Services.Xmpp;
 using Waher.Content;
 using Waher.Networking.XMPP;
@@ -13,6 +12,7 @@ using Waher.Persistence;
 using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Temporary;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Contracts
 {
@@ -54,7 +54,7 @@ namespace IdApp.Services.Contracts
 
 					this.contractsClient = (this.XmppService as XmppService)?.ContractsClient;
 					if (this.contractsClient is null)
-						throw new InvalidOperationException(AppResources.LegalServiceNotFound);
+						throw new InvalidOperationException(LocalizationResourceManager.Current["LegalServiceNotFound"]);
 
 					this.contractsClient.IdentityUpdated += this.ContractsClient_IdentityUpdated;
 					this.contractsClient.PetitionForIdentityReceived += this.ContractsClient_PetitionForIdentityReceived;
@@ -85,7 +85,7 @@ namespace IdApp.Services.Contracts
 				{
 					this.fileUploadClient = this.XmppService?.FileUploadClient;
 					if (this.fileUploadClient is null)
-						throw new InvalidOperationException(AppResources.FileUploadServiceNotFound);
+						throw new InvalidOperationException(LocalizationResourceManager.Current["FileUploadServiceNotFound"]);
 				}
 
 				return this.fileUploadClient;
@@ -530,7 +530,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 			}
 		}
 
@@ -543,7 +543,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 			}
 		}
 
@@ -556,7 +556,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 			}
 		}
 
@@ -569,7 +569,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 			}
 		}
 
@@ -582,7 +582,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 			}
 		}
 
@@ -595,7 +595,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 			}
 		}
 
@@ -608,7 +608,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 			}
 		}
 
@@ -621,7 +621,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 			}
 		}
 
@@ -638,7 +638,7 @@ namespace IdApp.Services.Contracts
 				catch (Exception ex)
 				{
 					this.LogService.LogException(ex);
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 				}
 			}
 		}
@@ -652,7 +652,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 			}
 		}
 

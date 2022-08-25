@@ -7,6 +7,7 @@ using System.Xml;
 using Waher.Content.Markdown;
 using Waher.Content.Markdown.Model;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 {
@@ -89,7 +90,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 				Doc.LoadXml(sb.ToString());
 
 				if (!NeuroFeatures.Token.TryParse(Doc.DocumentElement, out Token))
-					throw new Exception(AppResources.InvalidNeuroFeatureToken);
+					throw new Exception(LocalizationResourceManager.Current["InvalidNeuroFeatureToken"]);
 			}
 			catch (Exception ex)
 			{

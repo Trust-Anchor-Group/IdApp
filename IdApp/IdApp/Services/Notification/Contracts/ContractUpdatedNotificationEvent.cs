@@ -1,9 +1,9 @@
 ﻿using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.ViewContract;
-using IdApp.Resx;
 using System.Text;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Contracts
 {
@@ -51,7 +51,7 @@ namespace IdApp.Services.Notification.Contracts
 			Contract Contract = await this.GetContract();
 			StringBuilder Result = new();
 
-			Result.Append(AppResources.ContractUpdateReceived);
+			Result.Append(LocalizationResourceManager.Current["ContractUpdateReceived"]);
 
 			if (Contract is not null)
 			{

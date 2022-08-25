@@ -12,7 +12,6 @@ using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Pages.Wallet.SendPayment;
 using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Popups.Xmpp.SubscribeTo;
-using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Messages;
 using IdApp.Services.Notification;
@@ -40,6 +39,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -614,7 +614,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			if (!this.XmppService.Contracts.FileUploadIsSupported)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.ServerDoesNotSupportFileUpload);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["ServerDoesNotSupportFileUpload"]);
 				return;
 			}
 
@@ -632,7 +632,7 @@ namespace IdApp.Pages.Contacts.Chat
 				}
 				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["TakingAPhotoIsNotSupported"] + ": " + ex.Message);
 					return;
 				}
 
@@ -660,7 +660,7 @@ namespace IdApp.Pages.Contacts.Chat
 				}
 				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["TakingAPhotoIsNotSupported"] + ": " + ex.Message);
 					return;
 				}
 
@@ -688,14 +688,14 @@ namespace IdApp.Pages.Contacts.Chat
 
 				if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PhotoIsTooLarge"]);
 					return;
 				}
 
 				// Taking or picking photos switches to another app, so ID app has to reconnect again after.
 				if (!await this.XmppService.WaitForConnectedState(Constants.Timeouts.XmppConnect))
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain));
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["UnableToConnectTo"], this.TagProfile.Domain));
 					return;
 				}
 
@@ -727,7 +727,7 @@ namespace IdApp.Pages.Contacts.Chat
 			}
 			catch (Exception ex)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 				this.LogService.LogException(ex);
 				return;
 			}
@@ -747,7 +747,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			if (!this.XmppService.Contracts.FileUploadIsSupported)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PickPhoto"], LocalizationResourceManager.Current["SelectingAPhotoIsNotSupported"]);
 				return;
 			}
 
@@ -772,7 +772,7 @@ namespace IdApp.Pages.Contacts.Chat
 			TaskCompletionSource<ContactInfoModel> SelectedContact = new();
 
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectedContact)
+				new ContactListNavigationArgs(LocalizationResourceManager.Current["SelectContactToPay"], SelectedContact)
 				{
 					CanScanQrCode = true
 				});
@@ -1084,7 +1084,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 							case UriScheme.NeuroFeature:
 								if (!Token.TryParse(Doc.DocumentElement, out Token ParsedToken))
-									throw new Exception(AppResources.InvalidNeuroFeatureToken);
+									throw new Exception(LocalizationResourceManager.Current["InvalidNeuroFeatureToken"]);
 
 								if (!this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, ParsedToken.TokenId, out NotificationEvent[] Events))
 									Events = new NotificationEvent[0];

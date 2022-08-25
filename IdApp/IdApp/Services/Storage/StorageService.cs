@@ -1,5 +1,4 @@
-﻿using IdApp.Resx;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -11,6 +10,7 @@ using Waher.Persistence.Files;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Storage
 {
@@ -89,7 +89,7 @@ namespace IdApp.Services.Storage
 			{
 				/* On iOS the UI is not initialised at this point, need to fuind another solution
 				Thread?.NewState("UI");
-				if (await this.UiSerializer.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseCorruptInfoText, AppResources.RepairAndContinue, AppResources.ContinueAnyway))
+				if (await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["DatabaseIssue"], LocalizationResourceManager.Current["DatabaseCorruptInfoText"], LocalizationResourceManager.Current["RepairAndContinue"], LocalizationResourceManager.Current["ContinueAnyway"]))
 				*/
 				//TODO: when UI is ready, show an alert that the database was reset due to unrecoverable error
 				//TODO: say to close the application in a controlled manner
@@ -125,7 +125,7 @@ namespace IdApp.Services.Storage
 						await App.Stop();
 						/*
 						Thread?.NewState("UI");
-						await this.UiSerializer.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseRepairFailedInfoText, AppResources.Ok);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["DatabaseIssue"], LocalizationResourceManager.Current["DatabaseRepairFailedInfoText"], LocalizationResourceManager.Current["Ok"]);
 						*/
 					}
 				}

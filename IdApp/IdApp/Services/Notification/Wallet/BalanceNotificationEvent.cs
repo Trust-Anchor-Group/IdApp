@@ -1,9 +1,9 @@
 ﻿using EDaler;
 using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.EDalerReceived;
-using IdApp.Resx;
 using System.Threading.Tasks;
 using Waher.Persistence;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Wallet
 {
@@ -62,7 +62,7 @@ namespace IdApp.Services.Notification.Wallet
 		public override async Task<string> GetCategoryDescription(ServiceReferences ServiceReferences)
 		{
 			if (string.IsNullOrEmpty(this.Event?.Remote))
-				return AppResources.BalanceUpdated;
+				return LocalizationResourceManager.Current["BalanceUpdated"];
 			else
 				return await ContactInfo.GetFriendlyName(this.Event.Remote, ServiceReferences);
 		}

@@ -11,7 +11,6 @@ using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Wallet.MyWallet.ObjectModels;
-using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Notification;
 using IdApp.Services.Notification.Wallet;
@@ -19,6 +18,7 @@ using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MyWallet
@@ -629,7 +629,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		private async Task MakePayment()
 		{
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectContactAction.MakePayment)
+				new ContactListNavigationArgs(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
 				{
 					CanScanQrCode = true
 				});
@@ -641,7 +641,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				if (!this.XmppService.Wallet.TryParseEDalerUri(PendingItem.Uri, out EDalerUri Uri, out string Reason))
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.InvalidEDalerUri, Reason));
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["InvalidEDalerUri"], Reason));
 					return;
 				}
 

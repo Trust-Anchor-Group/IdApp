@@ -3,6 +3,7 @@ using IdApp.Resx;
 using System;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Xmpp
 {

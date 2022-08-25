@@ -1,9 +1,9 @@
 ﻿using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.ViewContract;
-using IdApp.Resx;
 using System.Text;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Contracts
 {
@@ -45,8 +45,8 @@ namespace IdApp.Services.Notification.Contracts
 
 			if (!this.Response || Contract is null)
 			{
-				await ServiceReferences.UiSerializer.DisplayAlert(AppResources.Message,
-					AppResources.PetitionToViewContractWasDenied, AppResources.Ok);
+				await ServiceReferences.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Message"],
+					LocalizationResourceManager.Current["PetitionToViewContractWasDenied"], LocalizationResourceManager.Current["Ok"]);
 			}
 			else
 			{
@@ -64,7 +64,7 @@ namespace IdApp.Services.Notification.Contracts
 			Contract Contract = await this.GetContract();
 			StringBuilder Result = new();
 
-			Result.Append(AppResources.ContractResponse);
+			Result.Append(LocalizationResourceManager.Current["ContractResponse"]);
 
 			if (Contract is not null)
 			{

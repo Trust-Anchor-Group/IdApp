@@ -5,7 +5,6 @@ using IdApp.Popups.Xmpp.ReportOrBlock;
 using IdApp.Popups.Xmpp.ReportType;
 using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Popups.Xmpp.SubscriptionRequest;
-using IdApp.Resx;
 using IdApp.Services.Contracts;
 using IdApp.Services.Messages;
 using IdApp.Services.Navigation;
@@ -48,6 +47,7 @@ using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Xmpp
 {
@@ -434,7 +434,7 @@ namespace IdApp.Services.Xmpp
 		private Task XmppClient_ConnectionError(object Sender, Exception e)
 		{
 			if (e is ObjectDisposedException)
-				this.LatestConnectionError = AppResources.UnableToConnect;
+				this.LatestConnectionError = LocalizationResourceManager.Current["UnableToConnect"];
 			else
 				this.LatestConnectionError = e.Message;
 
@@ -764,7 +764,7 @@ namespace IdApp.Services.Xmpp
 			Task OnConnectionError(object _, Exception e)
 			{
 				if (e is ObjectDisposedException)
-					connectionError = AppResources.UnableToConnect;
+					connectionError = LocalizationResourceManager.Current["UnableToConnect"];
 				else
 					connectionError = e.Message;
 
@@ -865,7 +865,7 @@ namespace IdApp.Services.Xmpp
 			{
 				this.LogService.LogException(ex, new KeyValuePair<string, string>(nameof(ConnectOperation), operation.ToString()));
 				succeeded = false;
-				errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
+				errorMessage = string.Format(LocalizationResourceManager.Current["UnableToConnectTo"], domain);
 			}
 			finally
 			{
@@ -878,26 +878,26 @@ namespace IdApp.Services.Xmpp
 				System.Diagnostics.Debug.WriteLine("Sniffer: ", this.sniffer.SnifferToText());
 
 				if (!streamNegotiation || timeout)
-					errorMessage = string.Format(AppResources.CantConnectTo, domain);
+					errorMessage = string.Format(LocalizationResourceManager.Current["CantConnectTo"], domain);
 				else if (!streamOpened)
-					errorMessage = string.Format(AppResources.DomainIsNotAValidOperator, domain);
+					errorMessage = string.Format(LocalizationResourceManager.Current["DomainIsNotAValidOperator"], domain);
 				else if (!startingEncryption)
-					errorMessage = string.Format(AppResources.DomainDoesNotFollowEncryptionPolicy, domain);
+					errorMessage = string.Format(LocalizationResourceManager.Current["DomainDoesNotFollowEncryptionPolicy"], domain);
 				else if (!authenticating)
-					errorMessage = string.Format(AppResources.UnableToAuthenticateWith, domain);
+					errorMessage = string.Format(LocalizationResourceManager.Current["UnableToAuthenticateWith"], domain);
 				else if (!registering)
 				{
 					if (!string.IsNullOrWhiteSpace(connectionError))
 						errorMessage = connectionError;
 					else
-						errorMessage = string.Format(AppResources.OperatorDoesNotSupportRegisteringNewAccounts, domain);
+						errorMessage = string.Format(LocalizationResourceManager.Current["OperatorDoesNotSupportRegisteringNewAccounts"], domain);
 				}
 				else if (operation == ConnectOperation.ConnectAndCreateAccount)
-					errorMessage = string.Format(AppResources.AccountNameAlreadyTaken, this.accountName);
+					errorMessage = string.Format(LocalizationResourceManager.Current["AccountNameAlreadyTaken"], this.accountName);
 				else if (operation == ConnectOperation.ConnectToAccount)
-					errorMessage = string.Format(AppResources.InvalidUsernameOrPassword, this.accountName);
+					errorMessage = string.Format(LocalizationResourceManager.Current["InvalidUsernameOrPassword"], this.accountName);
 				else
-					errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
+					errorMessage = string.Format(LocalizationResourceManager.Current["UnableToConnectTo"], domain);
 			}
 
 			return (succeeded, errorMessage);
