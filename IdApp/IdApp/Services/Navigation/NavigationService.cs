@@ -6,6 +6,7 @@ using Waher.Events;
 using Waher.Runtime.Inventory;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
+using IdApp.Pages;
 
 namespace IdApp.Services.Navigation
 {
