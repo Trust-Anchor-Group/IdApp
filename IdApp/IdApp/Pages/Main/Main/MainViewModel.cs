@@ -3,7 +3,6 @@ using IdApp.Extensions;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts;
 using IdApp.Pages.Identity.ViewIdentity;
-using IdApp.Resx;
 using IdApp.Services.Data.Countries;
 using IdApp.Services.Notification;
 using IdApp.Services.UI.Photos;
@@ -16,6 +15,7 @@ using System.Windows.Input;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -616,7 +616,7 @@ namespace IdApp.Pages.Main.Main
 		private async Task ViewMyContacts()
 		{
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-				new ContactListNavigationArgs(AppResources.ContactsDescription, SelectContactAction.ViewIdentity));
+				new ContactListNavigationArgs(LocalizationResourceManager.Current["ContactsDescription"], SelectContactAction.ViewIdentity));
 		}
 
 		private async Task ViewMyThings()
@@ -678,7 +678,7 @@ namespace IdApp.Pages.Main.Main
 			{
 				// Network
 				this.IsOnline = this.NetworkService?.IsOnline ?? false;
-				this.NetworkStateText = this.IsOnline ? AppResources.Online : AppResources.Offline;
+				this.NetworkStateText = this.IsOnline ? LocalizationResourceManager.Current["Online"] : LocalizationResourceManager.Current["Offline"];
 				this.IdentityStateText = this.TagProfile?.LegalIdentity?.State.ToDisplayText() ?? string.Empty;
 
 				// XMPP server
@@ -725,7 +725,7 @@ namespace IdApp.Pages.Main.Main
 				IShareContent ShareContent = DependencyService.Get<IShareContent>();
 				string FileName = "Photo." + InternetContent.GetFileExtension(this.ImageContentType);
 
-				ShareContent.ShareImage(this.ImageBin, this.FullName, AppResources.Share, FileName);
+				ShareContent.ShareImage(this.ImageBin, this.FullName, LocalizationResourceManager.Current["Share"], FileName);
 			}
 			catch (Exception ex)
 			{
@@ -744,7 +744,7 @@ namespace IdApp.Pages.Main.Main
 				IShareContent ShareContent = DependencyService.Get<IShareContent>();
 				string FileName = "QR." + InternetContent.GetFileExtension(this.QrCodeContentType);
 
-				ShareContent.ShareImage(this.QrCodeBin, this.FullName, AppResources.Share, FileName);
+				ShareContent.ShareImage(this.QrCodeBin, this.FullName, LocalizationResourceManager.Current["Share"], FileName);
 			}
 			catch (Exception ex)
 			{

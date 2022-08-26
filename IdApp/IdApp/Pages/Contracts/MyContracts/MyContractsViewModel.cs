@@ -1,7 +1,6 @@
 ﻿using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
-using IdApp.Resx;
 using IdApp.Services.Contracts;
 using IdApp.Services.Notification;
 using System;
@@ -10,6 +9,7 @@ using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -50,13 +50,13 @@ namespace IdApp.Pages.Contracts.MyContracts
 				switch (this.contractsListMode)
 				{
 					case ContractsListMode.Contracts:
-						this.Title = AppResources.Contracts;
-						this.Description = AppResources.ContractsInfoText;
+						this.Title = LocalizationResourceManager.Current["Contracts"];
+						this.Description = LocalizationResourceManager.Current["ContractsInfoText"];
 						break;
 
 					case ContractsListMode.ContractTemplates:
-						this.Title = AppResources.ContractTemplates;
-						this.Description = AppResources.ContractTemplatesInfoText;
+						this.Title = LocalizationResourceManager.Current["ContractTemplates"];
+						this.Description = LocalizationResourceManager.Current["ContractTemplatesInfoText"];
 						break;
 				}
 			}
@@ -290,7 +290,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 						foreach (NotificationEvent Event in P.Value)
 						{
 							string Icon = await Event.GetCategoryIcon(this);
-							string Description = await Event.GetCategoryDescription(this);
+							string Description = await Event.GetDescription(this);
 
 							NewCategories.Add(new EventModel(Event.Received, Icon, Description, Event, this));
 						}

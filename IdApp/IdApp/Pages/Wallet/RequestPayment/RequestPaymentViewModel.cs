@@ -7,9 +7,9 @@ using IdApp.DeviceSpecific;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Main.Calculator;
-using IdApp.Resx;
 using IdApp.Services.Xmpp;
 using Waher.Content;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.RequestPayment
@@ -373,7 +373,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 			try
 			{
 				TaskCompletionSource<ContactInfoModel> Selected = new();
-				ContactListNavigationArgs Args = new(AppResources.SelectFromWhomToRequestPayment, Selected)
+				ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["SelectFromWhomToRequestPayment"], Selected)
 				{
 					CanScanQrCode = true,
 					CancelReturnCounter = true
@@ -387,14 +387,14 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 				if (string.IsNullOrEmpty(Contact.BareJid))
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkAddressOfContactUnknown);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NetworkAddressOfContactUnknown"]);
 					return;
 				}
 
 				StringBuilder Markdown = new();
 
 				Markdown.Append("![");
-				Markdown.Append(AppResources.RequestPayment);
+				Markdown.Append(LocalizationResourceManager.Current["RequestPayment"]);
 				Markdown.Append("](");
 				Markdown.Append(this.QrCodeUri);
 				Markdown.Append(')');
@@ -423,10 +423,10 @@ namespace IdApp.Pages.Wallet.RequestPayment
 				string Message = this.Message;
 
 				if (string.IsNullOrEmpty(Message))
-					Message = AppResources.RequestPaymentMessage;
+					Message = LocalizationResourceManager.Current["RequestPaymentMessage"];
 
 				shareContent.ShareImage(this.QrCodeBin, string.Format(Message, this.Amount, this.Currency), 
-					AppResources.Share, "RequestPayment.png");
+					LocalizationResourceManager.Current["Share"], "RequestPayment.png");
 			}
 			catch (Exception ex)
 			{
@@ -465,7 +465,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// <summary>
 		/// Title of the current view
 		/// </summary>
-		public override Task<string> Title => Task.FromResult<string>(AppResources.RequestPayment);
+		public override Task<string> Title => Task.FromResult<string>(LocalizationResourceManager.Current["RequestPayment"]);
 
 		#endregion
 

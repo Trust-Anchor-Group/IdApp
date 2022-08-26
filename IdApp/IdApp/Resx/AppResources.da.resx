@@ -1878,4 +1878,16 @@
   <data name="ShareDescription" xml:space="preserve">
     <value>Nedenfor kan du finde yderligere muligheder for at dele QR-koden.</value>
   </data>
+  <data name="StateChangedTo" xml:space="preserve">
+    <value>Stat ændret til {0}</value>
+  </data>
+  <data name="TokenAdded2" xml:space="preserve">
+    <value>Token tilføjet</value>
+  </data>
+  <data name="TokenRemoved2" xml:space="preserve">
+    <value>Token fjernet</value>
+  </data>
+  <data name="VariablesUpdated" xml:space="preserve">
+    <value>Variabler opdateret</value>
+  </data>
 </root>

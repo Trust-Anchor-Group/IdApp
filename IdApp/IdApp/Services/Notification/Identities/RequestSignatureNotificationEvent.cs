@@ -1,8 +1,8 @@
 ﻿using IdApp.Pages.Contracts.PetitionSignature;
-using IdApp.Resx;
 using System.Text;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Identities
 {
@@ -47,12 +47,12 @@ namespace IdApp.Services.Notification.Identities
 		/// Gets a descriptive text for the category of event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override Task<string> GetCategoryDescription(ServiceReferences ServiceReferences)
+		public override Task<string> GetDescription(ServiceReferences ServiceReferences)
 		{
 			LegalIdentity Identity = this.Identity;
 			StringBuilder Result = new();
 
-			Result.Append(AppResources.RequestSignature);
+			Result.Append(LocalizationResourceManager.Current["RequestSignature"]);
 
 			if (Identity is not null)
 			{

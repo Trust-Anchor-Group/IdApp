@@ -4075,6 +4075,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to State changed to {0}.
+        /// </summary>
+        internal static string StateChangedTo {
+            get {
+                return ResourceManager.GetString("StateChangedTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to State Diagram.
         /// </summary>
         internal static string StateDiagram {
@@ -4399,6 +4408,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Token Added.
+        /// </summary>
+        internal static string TokenAdded2 {
+            get {
+                return ResourceManager.GetString("TokenAdded2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token Details.
         /// </summary>
         internal static string TokenDetails {
@@ -4476,6 +4494,15 @@ namespace IdApp.Resx {
         internal static string TokenRemoved {
             get {
                 return ResourceManager.GetString("TokenRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token Removed.
+        /// </summary>
+        internal static string TokenRemoved2 {
+            get {
+                return ResourceManager.GetString("TokenRemoved2", resourceCulture);
             }
         }
         
@@ -4863,6 +4890,15 @@ namespace IdApp.Resx {
         internal static string Variables {
             get {
                 return ResourceManager.GetString("Variables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variables Updated.
+        /// </summary>
+        internal static string VariablesUpdated {
+            get {
+                return ResourceManager.GetString("VariablesUpdated", resourceCulture);
             }
         }
         

@@ -2,7 +2,6 @@
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Identity.ViewIdentity;
-using IdApp.Resx;
 using IdApp.Services.Notification.Contracts;
 using IdApp.Services.Notification.Identities;
 using IdApp.Services.Xmpp;
@@ -19,6 +18,7 @@ using Waher.Networking.XMPP.StanzaErrors;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Contracts
 {
@@ -226,7 +226,7 @@ namespace IdApp.Services.Contracts
 					try
 					{
 						if (!e.Response)
-							await this.UiSerializer.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasRejected, AppResources.Ok);
+							await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PeerReviewRejected"], LocalizationResourceManager.Current["APeerYouRequestedToReviewHasRejected"], LocalizationResourceManager.Current["Ok"]);
 						else
 						{
 							StringBuilder Xml = new();
@@ -240,12 +240,12 @@ namespace IdApp.Services.Contracts
 							}
 							catch (Exception ex)
 							{
-								await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+								await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 								return;
 							}
 
 							if (!Result.HasValue || !Result.Value)
-								await this.UiSerializer.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError, AppResources.Ok);
+								await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PeerReviewRejected"], LocalizationResourceManager.Current["APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError"], LocalizationResourceManager.Current["Ok"]);
 							else
 							{
 								(bool Succeeded, LegalIdentity LegalIdentity) = await this.NetworkService.TryRequest(
@@ -253,14 +253,14 @@ namespace IdApp.Services.Contracts
 										this.TagProfile.LegalIdentity, Identity, e.Signature));
 
 								if (Succeeded)
-									await this.UiSerializer.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
+									await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PeerReviewAccepted"], LocalizationResourceManager.Current["APeerReviewYouhaveRequestedHasBeenAccepted"], LocalizationResourceManager.Current["Ok"]);
 							}
 						}
 					}
 					catch (Exception ex)
 					{
 						this.LogService.LogException(ex);
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
 					}
 				}
 			}
@@ -345,20 +345,20 @@ namespace IdApp.Services.Contracts
 
 					if (identity.State == IdentityState.Compromised)
 					{
-						userMessage = AppResources.YourLegalIdentityHasBeenCompromised;
+						userMessage = LocalizationResourceManager.Current["YourLegalIdentityHasBeenCompromised"];
 						this.TagProfile.CompromiseLegalIdentity(identity);
 						gotoRegistrationPage = true;
 					}
 					else if (identity.State == IdentityState.Obsoleted)
 					{
-						userMessage = AppResources.YourLegalIdentityHasBeenObsoleted;
+						userMessage = LocalizationResourceManager.Current["YourLegalIdentityHasBeenObsoleted"];
 						this.TagProfile.RevokeLegalIdentity(identity);
 						gotoRegistrationPage = true;
 					}
 					else if (identity.State == IdentityState.Approved && !await this.XmppService.Contracts.HasPrivateKey(identity.Id))
 					{
-						bool Response = await this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.UnableToGetAccessToYourPrivateKeys,
-							AppResources.Continue, AppResources.Repair);
+						bool Response = await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["WarningTitle"], LocalizationResourceManager.Current["UnableToGetAccessToYourPrivateKeys"],
+							LocalizationResourceManager.Current["Continue"], LocalizationResourceManager.Current["Repair"]);
 
 						if (Response)
 							this.TagProfile.SetLegalIdentity(identity);
@@ -392,7 +392,7 @@ namespace IdApp.Services.Contracts
 							// This gives a better UX experience.
 							this.UiSerializer.BeginInvokeOnMainThread(async () =>
 							{
-								await this.UiSerializer.DisplayAlert(AppResources.YourLegalIdentity, userMessage);
+								await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["YourLegalIdentity"], userMessage);
 							});
 						}
 					}
@@ -421,14 +421,14 @@ namespace IdApp.Services.Contracts
 					bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.PetitionIdentity(LegalId, Guid.NewGuid().ToString(), Purpose));
 					if (succeeded)
 					{
-						await this.UiSerializer.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PetitionSent"], LocalizationResourceManager.Current["APetitionHasBeenSentToTheOwner"]);
 					}
 				});
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex);
 			}
 		}
 
@@ -479,14 +479,14 @@ namespace IdApp.Services.Contracts
 					bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.PetitionContract(ContractId, Guid.NewGuid().ToString(), Purpose));
 					if (succeeded)
 					{
-						await this.UiSerializer.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PetitionSent"], LocalizationResourceManager.Current["APetitionHasBeenSentToTheContract"]);
 					}
 				});
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex);
 			}
 		}
 

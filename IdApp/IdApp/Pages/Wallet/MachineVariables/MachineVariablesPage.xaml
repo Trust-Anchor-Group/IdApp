@@ -6,6 +6,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.MachineVariables;assembly=IdApp"
                        x:DataType="model:MachineVariablesViewModel"
                        x:Class="IdApp.Pages.Wallet.MachineVariables.MachineVariablesPage"
+					   Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.Variables}">
 	<ScrollView>
 		<Grid ColumnDefinitions="*" RowDefinitions="auto,auto,auto,*" Margin="{StaticResource DefaultMargin}">

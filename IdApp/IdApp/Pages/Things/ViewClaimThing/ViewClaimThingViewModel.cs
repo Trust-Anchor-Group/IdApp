@@ -14,9 +14,9 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Resx;
 
 namespace IdApp.Pages.Things.ViewClaimThing
 {
@@ -212,7 +212,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 				}
 
 				await Clipboard.SetTextAsync(LocalizedValue);
-				await uiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+				await uiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
 			}
 			catch (Exception ex)
 			{
@@ -297,9 +297,9 @@ namespace IdApp.Pages.Things.ViewClaimThing
 				{
 					string Msg = e.ErrorText;
 					if (string.IsNullOrEmpty(Msg))
-						Msg = AppResources.UnableToClaimThing;
+						Msg = LocalizationResourceManager.Current["UnableToClaimThing"];
 
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, Msg);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], Msg);
 				}
 			}
 			catch (Exception ex)

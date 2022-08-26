@@ -8,12 +8,12 @@ using SkiaSharp;
 using Waher.Content.QR;
 using Waher.Content.QR.Encoding;
 using Xamarin.Essentials;
-using IdApp.Resx;
 using System.Collections.Generic;
 using System.Web;
 using System.Collections.Specialized;
 using IdApp.Services.Notification.Identities;
 using IdApp.Services.Notification.Contracts;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.UI.QR
 {
@@ -30,7 +30,7 @@ namespace IdApp.Services.UI.QR
 		/// </summary>
 		public static async Task ScanQrCodeAndHandleResult(bool UseShellNavigationService = true)
 		{
-			string Url = await QrCode.ScanQrCode(AppResources.Open, Action: null, UseShellNavigationService: UseShellNavigationService);
+			string Url = await QrCode.ScanQrCode(LocalizationResourceManager.Current["Open"], Action: null, UseShellNavigationService: UseShellNavigationService);
 			if (string.IsNullOrWhiteSpace(Url))
 				return;
 
@@ -51,7 +51,7 @@ namespace IdApp.Services.UI.QR
 			{
 				if (!Uri.TryCreate(Url, UriKind.Absolute, out Uri uri))
 				{
-					await Services.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.CodeNotRecognized);
+					await Services.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["CodeNotRecognized"]);
 					return false;
 				}
 
@@ -60,7 +60,7 @@ namespace IdApp.Services.UI.QR
 					case Constants.UriSchemes.UriSchemeIotId:
 						Services.NotificationService.ExpectEvent<IdentityResponseNotificationEvent>(DateTime.Now.AddMinutes(1));
 						string legalId = Constants.UriSchemes.RemoveScheme(Url);
-						await Services.ContractOrchestratorService.OpenLegalIdentity(legalId, AppResources.ScannedQrCode);
+						await Services.ContractOrchestratorService.OpenLegalIdentity(legalId, LocalizationResourceManager.Current["ScannedQrCode"]);
 						return true;
 
 					case Constants.UriSchemes.UriSchemeIotSc:
@@ -81,7 +81,7 @@ namespace IdApp.Services.UI.QR
 							contractId = contractId.Substring(0, i);
 						}
 
-						await Services.ContractOrchestratorService.OpenContract(contractId, AppResources.ScannedQrCode, Parameters);
+						await Services.ContractOrchestratorService.OpenContract(contractId, LocalizationResourceManager.Current["ScannedQrCode"], Parameters);
 						return true;
 
 					case Constants.UriSchemes.UriSchemeIotDisco:
@@ -93,7 +93,7 @@ namespace IdApp.Services.UI.QR
 							await Services.ThingRegistryOrchestratorService.OpenDeviceReference(Url);
 						else
 						{
-							await Services.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidIoTDiscoveryCode + Environment.NewLine + Environment.NewLine + Url);
+							await Services.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["InvalidIoTDiscoveryCode"] + Environment.NewLine + Environment.NewLine + Url);
 							return false;
 						}
 						return true;
@@ -114,7 +114,7 @@ namespace IdApp.Services.UI.QR
 						return true;
 
 					case Constants.UriSchemes.UriSchemeOnboarding:
-						await Services.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ThisCodeCannotBeClaimedAtThisTime);
+						await Services.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["ThisCodeCannotBeClaimedAtThisTime"]);
 						return false;
 
 					case Constants.UriSchemes.UriSchemeXmpp:
@@ -125,7 +125,7 @@ namespace IdApp.Services.UI.QR
 							return true;
 						else
 						{
-							await Services.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.QrCodeNotUnderstood + Environment.NewLine + Environment.NewLine + Url);
+							await Services.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["QrCodeNotUnderstood"] + Environment.NewLine + Environment.NewLine + Url);
 							return false;
 						}
 				}

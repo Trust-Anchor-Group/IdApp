@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using IdApp.Resx;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms.Xaml;
 using ZXing;
 using ZXing.Mobile;
@@ -107,13 +107,13 @@ namespace IdApp.Pages.Main.ScanQrCode
 
 					if (string.IsNullOrWhiteSpace(Scheme))
 					{
-						await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnsupportedUriScheme, AppResources.Ok);
+						await this.ViewModel.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnsupportedUriScheme"], LocalizationResourceManager.Current["Ok"]);
 						return;
 					}
 				}
 				catch (Exception ex)
 				{
-					await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+					await this.ViewModel.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
 					return;
 				}
 

@@ -1,9 +1,9 @@
 ﻿using IdApp.Converters;
-using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Notification;
 using System;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
@@ -146,7 +146,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 				if (this.Timestamp.Date == Today)
 					return this.Timestamp.ToLongTimeString();
 				else if (this.Timestamp.Date == Today.AddDays(-1))
-					return AppResources.Yesterday + ", " + this.Timestamp.ToLongTimeString();
+					return LocalizationResourceManager.Current["Yesterday"] + ", " + this.Timestamp.ToLongTimeString();
 				else
 					return this.Timestamp.ToShortDateString() + ", " + this.Timestamp.ToLongTimeString();
 			}

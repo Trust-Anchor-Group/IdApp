@@ -1,4 +1,4 @@
-﻿using IdApp.Resx;
+﻿using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Extensions
 {
@@ -14,7 +14,7 @@ namespace IdApp.Extensions
         /// <returns>String representation</returns>
         public static string ToYesNo(this bool b)
         {
-            return b ? AppResources.Yes : AppResources.No;
+            return b ? LocalizationResourceManager.Current["Yes"] : LocalizationResourceManager.Current["No"];
         }
     }
 }

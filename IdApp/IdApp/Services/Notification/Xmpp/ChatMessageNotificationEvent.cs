@@ -3,6 +3,7 @@ using IdApp.Resx;
 using System;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Xmpp
 {
@@ -51,7 +52,7 @@ namespace IdApp.Services.Notification.Xmpp
 		/// Gets a descriptive text for the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override Task<string> GetCategoryDescription(ServiceReferences ServiceReferences)
+		public override Task<string> GetDescription(ServiceReferences ServiceReferences)
 		{
 			return ContactInfo.GetFriendlyName(this.BareJid, ServiceReferences);
 		}
@@ -64,7 +65,7 @@ namespace IdApp.Services.Notification.Xmpp
 		{
 			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(this.BareJid);
 			string LegalId = ContactInfo?.LegalId;
-			string FriendlyName = await this.GetCategoryDescription(ServiceReferences);
+			string FriendlyName = await this.GetDescription(ServiceReferences);
 
 			await ServiceReferences.NavigationService.GoToAsync(nameof(ChatPage),
 				new ChatNavigationArgs(LegalId, this.BareJid, FriendlyName)

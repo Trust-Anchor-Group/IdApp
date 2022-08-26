@@ -3,11 +3,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Things.ViewThing
@@ -157,7 +157,7 @@ namespace IdApp.Pages.Things.ViewThing
 					await Database.Provider.Flush();
 				}
 
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ThingDisowned);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["ThingDisowned"]);
 				await this.NavigationService.GoBackAsync();
 			}
 			catch (Exception ex)

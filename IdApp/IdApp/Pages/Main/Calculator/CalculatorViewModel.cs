@@ -1,5 +1,4 @@
-﻿using IdApp.Resx;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -9,6 +8,7 @@ using System.Windows.Input;
 using Waher.Script;
 using Waher.Script.Abstraction.Elements;
 using Waher.Script.Operators.Vectors;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Main.Calculator
@@ -723,7 +723,7 @@ namespace IdApp.Pages.Main.Calculator
 		private async Task<object> Evaluate()
 		{
 			if (string.IsNullOrEmpty(this.Value))
-				throw new Exception(AppResources.EnterValue);
+				throw new Exception(LocalizationResourceManager.Current["EnterValue"]);
 
 			try
 			{
@@ -731,7 +731,7 @@ namespace IdApp.Pages.Main.Calculator
 			}
 			catch (Exception)
 			{
-				throw new Exception(AppResources.EnterValidValue);
+				throw new Exception(LocalizationResourceManager.Current["EnterValidValue"]);
 			}
 		}
 
@@ -752,7 +752,7 @@ namespace IdApp.Pages.Main.Calculator
 			}
 			catch (Exception)
 			{
-				throw new Exception(AppResources.CalculationError);
+				throw new Exception(LocalizationResourceManager.Current["CalculationError"]);
 			}
 		}
 
@@ -786,7 +786,7 @@ namespace IdApp.Pages.Main.Calculator
 				}
 				catch (Exception)
 				{
-					throw new Exception(AppResources.CalculationError);
+					throw new Exception(LocalizationResourceManager.Current["CalculationError"]);
 				}
 
 				c--;
@@ -831,7 +831,7 @@ namespace IdApp.Pages.Main.Calculator
 			}
 			catch (Exception)
 			{
-				throw new Exception(AppResources.CalculationError);
+				throw new Exception(LocalizationResourceManager.Current["CalculationError"]);
 			}
 		}
 

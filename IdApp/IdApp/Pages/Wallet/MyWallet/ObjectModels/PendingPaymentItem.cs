@@ -1,5 +1,5 @@
-﻿using IdApp.Resx;
-using System;
+﻿using System;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 {
@@ -38,7 +38,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// <summary>
 		/// String representation of <see cref="Expires"/>
 		/// </summary>
-		public string ExpiresStr => string.Format(AppResources.ExpiresAt, this.Expires.ToShortDateString());
+		public string ExpiresStr => string.Format(LocalizationResourceManager.Current["ExpiresAt"], this.Expires.ToShortDateString());
 
 		/// <summary>
 		/// Currency of pending payment

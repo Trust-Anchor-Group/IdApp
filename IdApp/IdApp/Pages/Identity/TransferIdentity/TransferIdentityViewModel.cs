@@ -2,8 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Resx;
 using IdApp.Services;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -97,7 +97,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		private async Task CopyUriToClipboardClicked()
 		{
 			await Clipboard.SetTextAsync(this.Uri);
-			await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+			await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
 		}
 
 		#region ILinkableView

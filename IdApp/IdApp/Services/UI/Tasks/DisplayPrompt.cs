@@ -1,6 +1,5 @@
-﻿using IdApp.Resx;
-using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Services.UI.Tasks
@@ -66,7 +65,7 @@ namespace IdApp.Services.UI.Tasks
             else if (!string.IsNullOrWhiteSpace(this.Accept))
                 Result = await Application.Current.MainPage.DisplayPromptAsync(this.Title, this.Message, this.Accept);
             else
-                Result = await Application.Current.MainPage.DisplayPromptAsync(this.Title, this.Message, AppResources.Ok);
+                Result = await Application.Current.MainPage.DisplayPromptAsync(this.Title, this.Message, LocalizationResourceManager.Current["Ok"]);
 
             this.CompletionSource.TrySetResult(Result);
         }

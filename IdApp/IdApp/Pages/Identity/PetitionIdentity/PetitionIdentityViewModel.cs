@@ -3,13 +3,13 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Extensions;
-using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Data.Countries;
 using IdApp.Services.UI.Photos;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Identity.PetitionIdentity
@@ -656,7 +656,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         {
             try
             {
-                if (!await this.UiSerializer.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRemoveContact, AppResources.Yes, AppResources.Cancel))
+                if (!await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Confirm"], LocalizationResourceManager.Current["AreYouSureYouWantToRemoveContact"], LocalizationResourceManager.Current["Yes"], LocalizationResourceManager.Current["Cancel"]))
                     return;
 
                 string BareJid = XmppClient.GetBareJID(this.requestorFullJid);

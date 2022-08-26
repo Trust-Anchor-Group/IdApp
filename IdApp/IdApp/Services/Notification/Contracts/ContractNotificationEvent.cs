@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Contracts
 {
@@ -147,7 +148,7 @@ namespace IdApp.Services.Notification.Contracts
 		/// Gets a descriptive text for the category of event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task<string> GetCategoryDescription(ServiceReferences ServiceReferences)
+		public override async Task<string> GetDescription(ServiceReferences ServiceReferences)
 		{
 			Contract Contract = await this.GetContract();
 

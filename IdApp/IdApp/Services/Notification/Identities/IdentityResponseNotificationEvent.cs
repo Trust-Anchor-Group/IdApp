@@ -1,8 +1,8 @@
 ﻿using IdApp.Pages.Identity.ViewIdentity;
-using IdApp.Resx;
 using System.Text;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Identities
 {
@@ -43,7 +43,7 @@ namespace IdApp.Services.Notification.Identities
 			LegalIdentity Identity = this.Identity;
 
 			if (!this.Response || Identity is null)
-				await ServiceReferences.UiSerializer.DisplayAlert(AppResources.Message, AppResources.SignaturePetitionDenied, AppResources.Ok);
+				await ServiceReferences.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Message"], LocalizationResourceManager.Current["SignaturePetitionDenied"], LocalizationResourceManager.Current["Ok"]);
 			else
 			{
 				await ServiceReferences.NavigationService.GoToAsync(nameof(ViewIdentityPage),
@@ -55,12 +55,12 @@ namespace IdApp.Services.Notification.Identities
 		/// Gets a descriptive text for the category of event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override Task<string> GetCategoryDescription(ServiceReferences ServiceReferences)
+		public override Task<string> GetDescription(ServiceReferences ServiceReferences)
 		{
 			LegalIdentity Identity = this.Identity;
 			StringBuilder Result = new();
 
-			Result.Append(AppResources.IdentityResponse);
+			Result.Append(LocalizationResourceManager.Current["IdentityResponse"]);
 
 			if (Identity is not null)
 			{

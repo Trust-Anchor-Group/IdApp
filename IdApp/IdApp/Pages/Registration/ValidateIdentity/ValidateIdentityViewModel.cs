@@ -13,8 +13,8 @@ using IdApp.Services.UI.QR;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
-using IdApp.Resx;
 using System.Threading;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Registration.ValidateIdentity
 {
@@ -34,7 +34,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 		{
 			this.InviteReviewerCommand = new Command(async _ => await this.InviteReviewer(), _ => this.State == IdentityState.Created && this.XmppService.IsOnline);
 			this.ContinueCommand = new Command(_ => this.Continue(), _ => this.IsApproved);
-			this.Title = AppResources.ValidatingInformation;
+			this.Title = LocalizationResourceManager.Current["ValidatingInformation"];
 			this.Photos = new ObservableCollection<Photo>();
 			this.photosLoader = new PhotosLoader(this.Photos);
 		}
@@ -581,21 +581,21 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
 		private async Task InviteReviewer()
 		{
-			string Url = await QrCode.ScanQrCode(AppResources.InvitePeerToReview, UseShellNavigationService: false);
+			string Url = await QrCode.ScanQrCode(LocalizationResourceManager.Current["InvitePeerToReview"], UseShellNavigationService: false);
 
 			if (!Constants.UriSchemes.StartsWithIdScheme(Url))
 			{
 				if (!string.IsNullOrEmpty(Url))
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
 
 				return;
 			}
 
 			bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.PetitionPeerReviewId(
-				Constants.UriSchemes.RemoveScheme(Url), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation));
+				Constants.UriSchemes.RemoveScheme(Url), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), LocalizationResourceManager.Current["CouldYouPleaseReviewMyIdentityInformation"]));
 
 			if (succeeded)
-				await this.UiSerializer.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PetitionSent"], LocalizationResourceManager.Current["APetitionHasBeenSentToYourPeer"]);
 		}
 
 		private void Continue()

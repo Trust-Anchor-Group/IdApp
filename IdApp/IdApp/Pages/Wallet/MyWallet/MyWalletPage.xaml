@@ -12,6 +12,7 @@
                        xmlns:loading="clr-namespace:IdApp.Controls.LoadingCollectionView;assembly=IdApp"
                        x:DataType="model:MyWalletViewModel" x:Name="ThisPage"
                        x:Class="IdApp.Pages.Wallet.MyWallet.MyWalletPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.Wallet}">
     <views:ContentBasePage.Resources>
         <DataTemplate x:Key="DefaultTemplate">

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
 using IdApp.Services.Xmpp;
-using IdApp.Resx;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages
 {
@@ -17,8 +17,8 @@ namespace IdApp.Pages
         /// </summary>
         protected XmppViewModel()
         {
-            this.StateSummaryText = AppResources.XmppState_Offline;
-            this.ConnectionStateText = AppResources.XmppState_Offline;
+            this.StateSummaryText = LocalizationResourceManager.Current["XmppState_Offline"];
+            this.ConnectionStateText = LocalizationResourceManager.Current["XmppState_Offline"];
             this.ConnectionStateColor = new SolidColorBrush(Color.Red);
             this.StateSummaryText = string.Empty;
         }

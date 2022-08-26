@@ -2,10 +2,10 @@
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading.Tasks;
-using IdApp.Resx;
 using IdApp.Services.UI.Tasks;
 using Waher.Events;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Services.UI
@@ -110,9 +110,9 @@ namespace IdApp.Services.UI
                     sb.AppendLine(exception.Message);
             }
             else
-                sb.AppendLine(AppResources.ErrorTitle);
+                sb.AppendLine(LocalizationResourceManager.Current["ErrorTitle"]);
 
-            return this.DisplayAlert(title ?? AppResources.ErrorTitle, sb.ToString(), AppResources.Ok);
+            return this.DisplayAlert(title ?? LocalizationResourceManager.Current["ErrorTitle"], sb.ToString(), LocalizationResourceManager.Current["Ok"]);
         }
 
         /// <inheritdoc/>
@@ -124,7 +124,7 @@ namespace IdApp.Services.UI
         /// <inheritdoc/>
         public Task DisplayAlert(Exception exception)
         {
-            return this.DisplayAlert(AppResources.ErrorTitle, null, exception);
+            return this.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], null, exception);
         }
 
         #endregion

@@ -9,6 +9,7 @@
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:PetitionContractViewModel"
                        x:Class="IdApp.Pages.Contracts.PetitionContract.PetitionContractPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.PetitionContract}">
     <Grid>
         <ScrollView>
@@ -63,7 +64,7 @@
                     <Label Grid.Row="4" Grid.Column="1" Text="{Binding Path=Updated}" Style="{StaticResource ValueLabel}"/>
                     <!-- -->
                     <Label Grid.Row="5" Grid.Column="0" Text="{x:Static resx:AppResources.State}" Style="{StaticResource KeyLabel}"/>
-                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding Path=State}" Style="{StaticResource ValueLabel}" 
+                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding Path=State}" Style="{StaticResource ValueLabelWithBackground}" 
                            BackgroundColor="{Binding Path=State, Converter={converters:IdentityStateToColor}}"/>
                     <!-- -->
                     <Label Grid.Row="6" Grid.Column="0" Text="{x:Static resx:AppResources.FirstName}" Style="{StaticResource KeyLabel}"/>

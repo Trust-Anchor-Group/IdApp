@@ -1,11 +1,10 @@
-﻿using IdApp.Pages;
-using IdApp.Resx;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Waher.Events;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Services.Navigation
@@ -251,7 +250,7 @@ namespace IdApp.Services.Navigation
 			catch (Exception e)
 			{
 				this.LogService.LogException(e);
-				return this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToClosePage);
+				return this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["FailedToClosePage"]);
 			}
 		}
 
@@ -308,7 +307,7 @@ namespace IdApp.Services.Navigation
 				e = Log.UnnestException(e);
 				this.LogService.LogException(e);
 				string ExtraInfo = Environment.NewLine + e.Message;
-				return this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, Route, ExtraInfo));
+				return this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["FailedToNavigateToPage"], Route, ExtraInfo));
 			}
 		}
 

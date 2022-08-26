@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Waher.Events;
 using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 [assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.Push.MessagingService))]
 namespace IdApp.Android.Push
@@ -86,9 +87,7 @@ namespace IdApp.Android.Push
 			}
 
 			if (!string.IsNullOrEmpty(IsObject) && bool.Parse(IsObject))
-			{
-				Title = App.AppResources_MessageReceived;
-			}
+				Title = LocalizationResourceManager.Current["MessageReceived"];
 
 			Intent Intent = new(this, typeof(MainActivity));
 			Intent.AddFlags(ActivityFlags.ClearTop);

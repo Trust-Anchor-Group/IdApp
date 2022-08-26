@@ -1,8 +1,7 @@
-﻿using IdApp.Services;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
-using IdApp.Resx;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Extensions
 {
@@ -69,19 +68,19 @@ namespace IdApp.Extensions
         {
 			return State switch
 			{
-				XmppState.Authenticating => AppResources.XmppState_Authenticating,
-				XmppState.Binding => AppResources.XmppState_Binding,
-				XmppState.Connected => AppResources.XmppState_Connected,
-				XmppState.Connecting => AppResources.XmppState_Connecting,
-				XmppState.Error => AppResources.XmppState_Error,
-				XmppState.FetchingRoster => AppResources.XmppState_FetchingRoster,
-				XmppState.Registering => AppResources.XmppState_Registering,
-				XmppState.RequestingSession => AppResources.XmppState_RequestingSession,
-				XmppState.SettingPresence => AppResources.XmppState_SettingPresence,
-				XmppState.StartingEncryption => AppResources.XmppState_StartingEncryption,
-				XmppState.StreamNegotiation => AppResources.XmppState_StreamNegotiation,
-				XmppState.StreamOpened => AppResources.XmppState_StreamOpened,
-				_ => AppResources.XmppState_Offline,
+				XmppState.Authenticating => LocalizationResourceManager.Current["XmppState_Authenticating"],
+				XmppState.Binding => LocalizationResourceManager.Current["XmppState_Binding"],
+				XmppState.Connected => LocalizationResourceManager.Current["XmppState_Connected"],
+				XmppState.Connecting => LocalizationResourceManager.Current["XmppState_Connecting"],
+				XmppState.Error => LocalizationResourceManager.Current["XmppState_Error"],
+				XmppState.FetchingRoster => LocalizationResourceManager.Current["XmppState_FetchingRoster"],
+				XmppState.Registering => LocalizationResourceManager.Current["XmppState_Registering"],
+				XmppState.RequestingSession => LocalizationResourceManager.Current["XmppState_RequestingSession"],
+				XmppState.SettingPresence => LocalizationResourceManager.Current["XmppState_SettingPresence"],
+				XmppState.StartingEncryption => LocalizationResourceManager.Current["XmppState_StartingEncryption"],
+				XmppState.StreamNegotiation => LocalizationResourceManager.Current["XmppState_StreamNegotiation"],
+				XmppState.StreamOpened => LocalizationResourceManager.Current["XmppState_StreamOpened"],
+				_ => LocalizationResourceManager.Current["XmppState_Offline"],
 			};
 		}
 
@@ -95,11 +94,11 @@ namespace IdApp.Extensions
         {
 			return State switch
 			{
-				IdentityState.Approved => AppResources.IdentityState_Approved,
-				IdentityState.Compromised => AppResources.IdentityState_Compromized,
-				IdentityState.Created => AppResources.IdentityState_Created,
-				IdentityState.Obsoleted => AppResources.IdentityState_Obsoleted,
-				IdentityState.Rejected => AppResources.IdentityState_Rejected,
+				IdentityState.Approved => LocalizationResourceManager.Current["IdentityState_Approved"],
+				IdentityState.Compromised => LocalizationResourceManager.Current["IdentityState_Compromized"],
+				IdentityState.Created => LocalizationResourceManager.Current["IdentityState_Created"],
+				IdentityState.Obsoleted => LocalizationResourceManager.Current["IdentityState_Obsoleted"],
+				IdentityState.Rejected => LocalizationResourceManager.Current["IdentityState_Rejected"],
 				_ => string.Empty,
 			};
 		}

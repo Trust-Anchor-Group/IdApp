@@ -2,7 +2,6 @@
 using IdApp.Nfc.Extensions;
 using IdApp.Nfc.Records;
 using IdApp.Pages;
-using IdApp.Resx;
 using IdApp.Services.Navigation;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ using System.Threading.Tasks;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Settings;
 using Waher.Security;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Nfc
 {
@@ -116,13 +116,13 @@ namespace IdApp.Services.Nfc
 
 								if (Ok)
 								{
-									await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle,
-										string.Format(AppResources.TagEngraved, Title));
+									await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"],
+										string.Format(LocalizationResourceManager.Current["TagEngraved"], Title));
 								}
 								else
 								{
-									await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle,
-										string.Format(AppResources.TagNotEngraved, Title));
+									await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"],
+										string.Format(LocalizationResourceManager.Current["TagNotEngraved"], Title));
 								}
 
 								// TODO: Make read-only if able

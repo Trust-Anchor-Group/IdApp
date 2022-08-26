@@ -1,7 +1,7 @@
-﻿using IdApp.Resx;
-using NeuroFeatures;
+﻿using NeuroFeatures;
 using System;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Wallet.MachineReport.Reports
 {
@@ -24,7 +24,7 @@ namespace IdApp.Pages.Wallet.MachineReport.Reports
 		/// Gets the title of report.
 		/// </summary>
 		/// <returns>Title</returns>
-		public override Task<string> GetTitle() => Task.FromResult<string>(AppResources.History);
+		public override Task<string> GetTitle() => Task.FromResult<string>(LocalizationResourceManager.Current["History"]);
 
 		/// <summary>
 		/// Gets the XAML for the report.
@@ -34,7 +34,7 @@ namespace IdApp.Pages.Wallet.MachineReport.Reports
 		{
 			ReportEventArgs e = await this.client.GenerateHistoryReportAsync(this.TokenId, ReportFormat.XamarinXaml);
 			if (!e.Ok)
-				throw e.StanzaError ?? new Exception(AppResources.UnableToGetHistory);
+				throw e.StanzaError ?? new Exception(LocalizationResourceManager.Current["UnableToGetHistory"]);
 
 			return e.ReportText;
 		}

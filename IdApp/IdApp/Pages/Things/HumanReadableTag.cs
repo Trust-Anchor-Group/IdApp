@@ -1,6 +1,6 @@
-﻿using IdApp.Resx;
-using Waher.Networking.XMPP.Contracts;
+﻿using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Things
 {
@@ -51,30 +51,30 @@ namespace IdApp.Pages.Things
 			{
 				return this.name switch
 				{
-					"ALT" => AppResources.Altitude,
-					"APT" => AppResources.Apartment,
-					"AREA" => AppResources.Area,
-					"BLD" => AppResources.Building,
-					"CITY" => AppResources.City,
-					"CLASS" => AppResources.Class,
-					"COUNTRY" => AppResources.Country,
-					"PHONE" => AppResources.Phone,
-					"KEY" => AppResources.Key,
-					"LAT" => AppResources.Latitude,
-					"LON" => AppResources.Longitude,
-					"MAN" => AppResources.Manufacturer,
-					"MLOC" => AppResources.MeterLocation,
-					"MNR" => AppResources.MeterNumber,
-					"MODEL" => AppResources.Model,
-					"NAME" => AppResources.Name,
-					"PURL" => AppResources.ProductInformation,
-					"R" => AppResources.Registry,
-					"REGION" => AppResources.Region,
-					"ROOM" => AppResources.Room,
-					"SN" => AppResources.SerialNumber,
-					"STREET" => AppResources.StreetName,
-					"STREETNR" => AppResources.StreetNumber,
-					"V" => AppResources.Version,
+					"ALT" => LocalizationResourceManager.Current["Altitude"],
+					"APT" => LocalizationResourceManager.Current["Apartment"],
+					"AREA" => LocalizationResourceManager.Current["Area"],
+					"BLD" => LocalizationResourceManager.Current["Building"],
+					"CITY" => LocalizationResourceManager.Current["City"],
+					"CLASS" => LocalizationResourceManager.Current["Class"],
+					"COUNTRY" => LocalizationResourceManager.Current["Country"],
+					"PHONE" => LocalizationResourceManager.Current["Phone"],
+					"KEY" => LocalizationResourceManager.Current["Key"],
+					"LAT" => LocalizationResourceManager.Current["Latitude"],
+					"LON" => LocalizationResourceManager.Current["Longitude"],
+					"MAN" => LocalizationResourceManager.Current["Manufacturer"],
+					"MLOC" => LocalizationResourceManager.Current["MeterLocation"],
+					"MNR" => LocalizationResourceManager.Current["MeterNumber"],
+					"MODEL" => LocalizationResourceManager.Current["Model"],
+					"NAME" => LocalizationResourceManager.Current["Name"],
+					"PURL" => LocalizationResourceManager.Current["ProductInformation"],
+					"R" => LocalizationResourceManager.Current["Registry"],
+					"REGION" => LocalizationResourceManager.Current["Region"],
+					"ROOM" => LocalizationResourceManager.Current["Room"],
+					"SN" => LocalizationResourceManager.Current["SerialNumber"],
+					"STREET" => LocalizationResourceManager.Current["StreetName"],
+					"STREETNR" => LocalizationResourceManager.Current["StreetNumber"],
+					"V" => LocalizationResourceManager.Current["Version"],
 					_ => this.name,
 				};
 			}

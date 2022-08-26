@@ -1878,4 +1878,16 @@
   <data name="ShareDescription" xml:space="preserve">
     <value>U nastavku možete pronaći dodatne opcije za deljenje QR-koda.</value>
   </data>
+  <data name="StateChangedTo" xml:space="preserve">
+    <value>Stanje je promenjeno u {0}</value>
+  </data>
+  <data name="TokenAdded2" xml:space="preserve">
+    <value>Dodat simbol</value>
+  </data>
+  <data name="TokenRemoved2" xml:space="preserve">
+    <value>Simbol je uklonjen</value>
+  </data>
+  <data name="VariablesUpdated" xml:space="preserve">
+    <value>Promenljive su ažurirane</value>
+  </data>
 </root>

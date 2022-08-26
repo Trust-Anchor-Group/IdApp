@@ -1,7 +1,6 @@
 ﻿using IdApp.Resx;
 using System;
 using System.Threading.Tasks;
-using Waher.Networking.XMPP;
 
 namespace IdApp.Services.Notification.Wallet
 {

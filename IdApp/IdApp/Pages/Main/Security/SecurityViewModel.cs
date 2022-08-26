@@ -1,9 +1,9 @@
 ﻿using IdApp.Popups.Pin.ChangePin;
-using IdApp.Resx;
 using IdApp.Services;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Main.Security
@@ -132,18 +132,18 @@ namespace IdApp.Pages.Main.Security
 
 						if (!await PasswordChanged.Task)
 						{
-							await References.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToChangePassword);
+							await References.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToChangePassword"]);
 							return;
 						}
 
 						References.TagProfile.Pin = NewPin;
 						References.TagProfile.SetAccount(References.TagProfile.Account, NewPassword, string.Empty);
 
-						await References.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PinChanged);
+						await References.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["PinChanged"]);
 						return;
 					}
 
-					await References.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+					await References.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PinIsInvalid"]);
 
 					// TODO: Limit number of attempts.
 				}

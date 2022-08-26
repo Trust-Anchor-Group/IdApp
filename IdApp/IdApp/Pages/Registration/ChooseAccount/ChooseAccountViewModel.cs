@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
-using IdApp.Resx;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.QR;
 using Waher.Content;
 using Waher.Content.Xml;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration.ChooseAccount
@@ -32,7 +32,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		{
 			this.CreateNewCommand = new Command(async _ => await this.PerformAction(this.CreateAccount, true), _ => this.CanCreateAccount());
 			this.ScanQrCodeCommand = new Command(async _ => await this.PerformAction(this.ScanQrCode, false), _ => this.CanScanQrCode());
-			this.Title = AppResources.ChooseAccount;
+			this.Title = LocalizationResourceManager.Current["ChooseAccount"];
 		}
 
 		/// <inheritdoc />
@@ -124,7 +124,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		{
 			if (!this.NetworkService.IsOnline)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NetworkSeemsToBeMissing"]);
 				return;
 			}
 
@@ -193,14 +193,14 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				if (succeeded)
 					return true;
 
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], errorMessage, LocalizationResourceManager.Current["Ok"]);
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				string userMessage = string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain);
+				string userMessage = string.Format(LocalizationResourceManager.Current["UnableToConnectTo"], this.TagProfile.Domain);
 				string message = userMessage + Environment.NewLine + ex.Message;
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, message, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], message, LocalizationResourceManager.Current["Ok"]);
 			}
 
 			return false;
@@ -219,19 +219,19 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 		private async Task<bool> ScanQrCode()
 		{
-			string URI = await QrCode.ScanQrCode(AppResources.ClaimInvitation, UseShellNavigationService: false);
+			string URI = await QrCode.ScanQrCode(LocalizationResourceManager.Current["ClaimInvitation"], UseShellNavigationService: false);
 			string Scheme = Constants.UriSchemes.GetScheme(URI);
 
 			if (string.Compare(Scheme, Constants.UriSchemes.UriSchemeOnboarding, true) != 0)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NotAnInvitationCode, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NotAnInvitationCode"], LocalizationResourceManager.Current["Ok"]);
 				return false;
 			}
 
 			string[] Parts = URI.Split(':');
 			if (Parts.Length != 5)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["InvalidInvitationCode"], LocalizationResourceManager.Current["Ok"]);
 				return false;
 			}
 
@@ -249,7 +249,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["InvalidInvitationCode"], LocalizationResourceManager.Current["Ok"]);
 				return false;
 			}
 
@@ -268,7 +268,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				catch (Exception ex)
 				{
 					this.LogService.LogException(ex);
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToAccessInvitation, AppResources.Ok);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToAccessInvitation"], LocalizationResourceManager.Current["Ok"]);
 					return false;
 				}
 
@@ -322,8 +322,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 								await this.SelectDomain(Domain, KeyStr, Secret);
 
-								await this.UiSerializer.DisplayAlert(AppResources.InvitationAccepted,
-									string.Format(AppResources.InvitedToCreateAccountOnDomain, Domain), AppResources.Ok);
+								await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InvitationAccepted"],
+									string.Format(LocalizationResourceManager.Current["InvitedToCreateAccountOnDomain"], Domain), LocalizationResourceManager.Current["Ok"]);
 								break;
 
 							case "Account":
@@ -387,7 +387,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				catch (Exception ex)
 				{
 					this.LogService.LogException(ex);
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["InvalidInvitationCode"], LocalizationResourceManager.Current["Ok"]);
 					return false;
 				}
 			}
@@ -532,14 +532,14 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					typeof(App).Assembly, OnConnected);
 
 				if (!succeeded)
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], errorMessage, LocalizationResourceManager.Current["Ok"]);
 
 				return succeeded;
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["UnableToConnectTo"], this.TagProfile.Domain), LocalizationResourceManager.Current["Ok"]);
 			}
 
 			return false;

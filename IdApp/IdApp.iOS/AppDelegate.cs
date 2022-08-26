@@ -12,6 +12,7 @@ using UserNotifications;
 using Waher.Events;
 using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.iOS
@@ -220,9 +221,7 @@ namespace IdApp.iOS
 			string IsObject = UserInfo.ObjectForKey(new NSString("isObject"))?.ToString() ?? string.Empty;
 
 			if (!string.IsNullOrEmpty(IsObject) && bool.Parse(IsObject))
-			{
-				MessageBody = App.AppResources_MessageReceived;
-			}
+				MessageBody = LocalizationResourceManager.Current["MessageReceived"];
 
 			return MessageBody;
 		}

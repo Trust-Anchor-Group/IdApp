@@ -15,7 +15,6 @@ using IdApp.Pages.Wallet.MachineReport;
 using IdApp.Pages.Wallet.MachineReport.Reports;
 using IdApp.Pages.Wallet.MachineVariables;
 using IdApp.Pages.Wallet.TokenEvents;
-using IdApp.Resx;
 using IdApp.Services;
 using NeuroFeatures;
 using NeuroFeatures.Events;
@@ -24,6 +23,7 @@ using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Security;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -129,7 +129,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 						RefUri.Scheme.ToLower() is string s &&
 						(s == "http" || s == "https"))
 					{
-						this.page.AddLink(this, AppResources.Reference, s);   // TODO: Replace with grouped collection, when this works in Xamarin.
+						this.page.AddLink(this, LocalizationResourceManager.Current["Reference"], s);   // TODO: Replace with grouped collection, when this works in Xamarin.
 					}
 				}
 
@@ -141,10 +141,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 				this.GenerateQrCode(Constants.UriSchemes.CreateTokenUri(this.TokenId));
 
-				await this.Populate(AppResources.Witness, string.Empty, args.Token.Witness, null, this.Witnesses);
-				await this.Populate(AppResources.Certifier, AppResources.CertifierJid, args.Token.Certifier, args.Token.CertifierJids, this.Certifiers);
-				await this.Populate(AppResources.Valuator, string.Empty, args.Token.Valuator, null, this.Valuators);
-				await this.Populate(AppResources.Assessor, string.Empty, args.Token.Assessor, null, this.Assessors);
+				await this.Populate(LocalizationResourceManager.Current["Witness"], string.Empty, args.Token.Witness, null, this.Witnesses);
+				await this.Populate(LocalizationResourceManager.Current["Certifier"], LocalizationResourceManager.Current["CertifierJid"], args.Token.Certifier, args.Token.CertifierJids, this.Certifiers);
+				await this.Populate(LocalizationResourceManager.Current["Valuator"], string.Empty, args.Token.Valuator, null, this.Valuators);
+				await this.Populate(LocalizationResourceManager.Current["Assessor"], string.Empty, args.Token.Assessor, null, this.Assessors);
 
 				this.Tags.Clear();
 
@@ -1009,12 +1009,12 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				if (i > 0 && Guid.TryParse(s[..i], out _))
 				{
 					await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeNeuroFeature + ":" + s);
-					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["IdCopiedSuccessfully"]);
 				}
 				else
 				{
 					await Clipboard.SetTextAsync(s);
-					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
 				}
 			}
 			catch (Exception ex)
@@ -1028,7 +1028,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				await this.ContractOrchestratorService.OpenLegalIdentity(Parameter.ToString(), AppResources.PurposeReviewToken);
+				await this.ContractOrchestratorService.OpenLegalIdentity(Parameter.ToString(), LocalizationResourceManager.Current["PurposeReviewToken"]);
 			}
 			catch (Exception ex)
 			{
@@ -1040,7 +1040,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				await this.ContractOrchestratorService.OpenContract(Parameter.ToString(), AppResources.PurposeReviewToken, null);
+				await this.ContractOrchestratorService.OpenContract(Parameter.ToString(), LocalizationResourceManager.Current["PurposeReviewToken"], null);
 			}
 			catch (Exception ex)
 			{
@@ -1125,7 +1125,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		private async Task SendToContact()
 		{
 			TaskCompletionSource<ContactInfoModel> Selected = new();
-			ContactListNavigationArgs Args = new(AppResources.SendInformationTo, Selected)
+			ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["SendInformationTo"], Selected)
 			{
 				CanScanQrCode = true,
 				CancelReturnCounter = true
@@ -1164,7 +1164,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				IShareContent shareContent = DependencyService.Get<IShareContent>();
 				string FileName = "Token.QR." + InternetContent.GetFileExtension(this.QrCodeContentType);
 
-				shareContent.ShareImage(this.QrCodeBin, this.FriendlyName, AppResources.Share, FileName);
+				shareContent.ShareImage(this.QrCodeBin, this.FriendlyName, LocalizationResourceManager.Current["Share"], FileName);
 			}
 			catch (Exception ex)
 			{
@@ -1456,7 +1456,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 						new MachineVariablesNavigationArgs(e.Running, e.Ended, e.CurrentState, e.Variables) { CancelReturnCounter = true });
 				}
 				else
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, e.ErrorText);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], e.ErrorText);
 			}
 			catch (Exception ex)
 			{
@@ -1473,7 +1473,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			}
 			catch (Exception ex)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 			}
 		}
 

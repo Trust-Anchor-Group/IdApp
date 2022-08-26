@@ -4,7 +4,7 @@ using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Services.Xmpp;
-using IdApp.Resx;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Main.Shell
 {
@@ -19,7 +19,7 @@ namespace IdApp.Pages.Main.Shell
 		/// </summary>
 		protected internal AppShellViewModel()
 		{
-			this.ConnectionStateText = AppResources.XmppState_Offline;
+			this.ConnectionStateText = LocalizationResourceManager.Current["XmppState_Offline"];
 		}
 
 		/// <inheritdoc/>

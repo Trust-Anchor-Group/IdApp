@@ -1878,4 +1878,16 @@
   <data name="ShareDescription" xml:space="preserve">
     <value>Alta löydät lisävaihtoehtoja QR-koodin jakamiseen.</value>
   </data>
+  <data name="StateChangedTo" xml:space="preserve">
+    <value>Tilaksi muutettu {0}</value>
+  </data>
+  <data name="TokenAdded2" xml:space="preserve">
+    <value>Lisätty tunnus</value>
+  </data>
+  <data name="TokenRemoved2" xml:space="preserve">
+    <value>Tunnus poistettu</value>
+  </data>
+  <data name="VariablesUpdated" xml:space="preserve">
+    <value>Muuttujat päivitetty</value>
+  </data>
 </root>

@@ -6,6 +6,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Identity.TransferIdentity;assembly=IdApp"
                        x:DataType="model:TransferIdentityViewModel"
                        x:Class="IdApp.Pages.Identity.TransferIdentity.TransferIdentityPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.Identity}">
     <Grid>
         <ScrollView>

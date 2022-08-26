@@ -6,8 +6,8 @@ using IdApp.Extensions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using IdApp.Services.Data.Countries;
-using IdApp.Resx;
 using IdApp.Services;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Contracts.ClientSignature
 {
@@ -490,7 +490,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
             {
                 this.Role = this.signature.Role;
                 this.Timestamp = this.signature.Timestamp.ToString(CultureInfo.CurrentUICulture);
-                this.IsTransferable = this.signature.Transferable ? AppResources.Yes : AppResources.No;
+                this.IsTransferable = this.signature.Transferable ? LocalizationResourceManager.Current["Yes"] : LocalizationResourceManager.Current["No"];
                 this.BareJid = this.signature.BareJid;
                 this.Signature = Convert.ToBase64String(this.signature.DigitalSignature);
             }
@@ -498,7 +498,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
             {
                 this.Role = Constants.NotAvailableValue;
                 this.Timestamp = Constants.NotAvailableValue;
-                this.IsTransferable = AppResources.No;
+                this.IsTransferable = LocalizationResourceManager.Current["No"];
                 this.Signature = Constants.NotAvailableValue;
             }
         }

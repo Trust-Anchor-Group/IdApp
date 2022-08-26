@@ -6,8 +6,8 @@ using Waher.Networking.XMPP;
 using Xamarin.Forms;
 using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
-using IdApp.Resx;
 using System.Runtime.CompilerServices;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Registration.DefinePin
 {
@@ -24,7 +24,7 @@ namespace IdApp.Pages.Registration.DefinePin
 		{
 			this.ContinueCommand = new Command(_ => this.Continue(), _ => this.CanContinue());
 			this.SkipCommand = new Command(_ => this.Skip(), _ => this.CanSkip());
-			this.Title = AppResources.DefinePin;
+			this.Title = LocalizationResourceManager.Current["DefinePin"];
 		}
 
 		/// <inheritdoc />
@@ -241,7 +241,7 @@ namespace IdApp.Pages.Registration.DefinePin
 			this.ConnectionStateText = State.ToDisplayText();
 			this.YouCanProtectYourWalletPinInfo =
 				(this.TagProfile.UsePin && !string.IsNullOrEmpty(this.TagProfile.PinHash))
-				? AppResources.YouCanProtectYourWalletPinInfoChange : AppResources.YouCanProtectYourWalletPinInfo;
+				? LocalizationResourceManager.Current["YouCanProtectYourWalletPinInfoChange"] : LocalizationResourceManager.Current["YouCanProtectYourWalletPinInfo"];
 		}
 
 		private void Skip()
@@ -264,12 +264,12 @@ namespace IdApp.Pages.Registration.DefinePin
 
 			if (PinToCheck.Length < Constants.Authentication.MinPinLength)
 			{
-				this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength));
+				this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["PinTooShort"], Constants.Authentication.MinPinLength));
 				return;
 			}
 			if (PinToCheck.Trim() != PinToCheck)
 			{
-				this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace);
+				this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PinMustNotIncludeWhitespace"]);
 				return;
 			}
 
@@ -285,7 +285,7 @@ namespace IdApp.Pages.Registration.DefinePin
 			this.OnStepCompleted(EventArgs.Empty);
 
 			if (this.TagProfile.TestOtpTimestamp is not null)
-				this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.TestOtpUsed, AppResources.Ok);
+				this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["WarningTitle"], LocalizationResourceManager.Current["TestOtpUsed"], LocalizationResourceManager.Current["Ok"]);
 		}
 
 		private bool CanContinue()

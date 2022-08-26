@@ -1878,4 +1878,16 @@
   <data name="ShareDescription" xml:space="preserve">
     <value>Ниже вы можете найти дополнительные опции для обмена QR-кодом.</value>
   </data>
+  <data name="StateChangedTo" xml:space="preserve">
+    <value>Штат изменен на {0}</value>
+  </data>
+  <data name="TokenAdded2" xml:space="preserve">
+    <value>Добавлен токен</value>
+  </data>
+  <data name="TokenRemoved2" xml:space="preserve">
+    <value>Токен удален</value>
+  </data>
+  <data name="VariablesUpdated" xml:space="preserve">
+    <value>Обновлены переменные</value>
+  </data>
 </root>

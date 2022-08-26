@@ -1,11 +1,11 @@
-﻿using IdApp.Resx;
-using IdApp.Services.Xmpp;
+﻿using IdApp.Services.Xmpp;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.Provisioning.SearchOperators;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.ThingRegistries
 {
@@ -26,7 +26,7 @@ namespace IdApp.Services.ThingRegistries
 				{
 					this.registryClient = (this.XmppService as XmppService)?.ThingRegistryClient;
 					if (this.registryClient is null)
-						throw new InvalidOperationException(AppResources.ThingRegistryServiceNotFound);
+						throw new InvalidOperationException(LocalizationResourceManager.Current["ThingRegistryServiceNotFound"]);
 				}
 
 				return this.registryClient;
@@ -142,7 +142,7 @@ namespace IdApp.Services.ThingRegistries
 		public Task<NodeResultEventArgs> ClaimThing(string DiscoUri, bool MakePublic)
 		{
 			if (!this.TryDecodeIoTDiscoClaimURI(DiscoUri, out MetaDataTag[] Tags))
-				throw new ArgumentException(AppResources.InvalidIoTDiscoClaimUri, nameof(DiscoUri));
+				throw new ArgumentException(LocalizationResourceManager.Current["InvalidIoTDiscoClaimUri"], nameof(DiscoUri));
 
 			TaskCompletionSource<NodeResultEventArgs> Result = new();
 

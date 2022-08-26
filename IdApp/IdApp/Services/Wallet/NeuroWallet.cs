@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using EDaler;
 using EDaler.Uris;
-using IdApp.Resx;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using NeuroFeatures.Events;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Wallet
 {
@@ -49,7 +49,7 @@ namespace IdApp.Services.Wallet
 
 				this.eDalerClient = (this.XmppService as XmppService)?.EDalerClient;
 				if (this.eDalerClient is null)
-					throw new InvalidOperationException(AppResources.EDalerServiceNotFound);
+					throw new InvalidOperationException(LocalizationResourceManager.Current["EDalerServiceNotFound"]);
 
 				this.eDalerClient.BalanceUpdated += this.EDalerClient_BalanceUpdated;
 			}
@@ -294,7 +294,7 @@ namespace IdApp.Services.Wallet
 
 				this.neuroFeaturesClient = (this.XmppService as XmppService)?.NeuroFeaturesClient;
 				if (this.neuroFeaturesClient is null)
-					throw new InvalidOperationException(AppResources.NeuroFeaturesServiceNotFound);
+					throw new InvalidOperationException(LocalizationResourceManager.Current["NeuroFeaturesServiceNotFound"]);
 
 				this.neuroFeaturesClient.TokenAdded += this.NeuroFeaturesClient_TokenAdded;
 				this.neuroFeaturesClient.TokenRemoved += this.NeuroFeaturesClient_TokenRemoved;

@@ -13,10 +13,10 @@ using IdApp.Pages.Contracts.ClientSignature;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.ServerSignature;
 using IdApp.Pages.Contracts.ViewContract.ObjectModel;
-using IdApp.Resx;
 using IdApp.Services.UI.Photos;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -57,7 +57,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.isReadOnly = args.IsReadOnly;
 				this.Role = args.Role;
 				this.IsProposal = !string.IsNullOrEmpty(this.Role);
-				this.Proposal = string.IsNullOrEmpty(args.Proposal) ? AppResources.YouHaveReceivedAProposal : args.Proposal;
+				this.Proposal = string.IsNullOrEmpty(args.Proposal) ? LocalizationResourceManager.Current["YouHaveReceivedAProposal"] : args.Proposal;
 			}
 			else
 			{
@@ -532,19 +532,19 @@ namespace IdApp.Pages.Contracts.ViewContract
 				}
 
 				// General Information
-				this.GeneralInformation.Add(new PartModel(AppResources.Created, this.Contract.Created.ToString(CultureInfo.CurrentUICulture)));
+				this.GeneralInformation.Add(new PartModel(LocalizationResourceManager.Current["Created"], this.Contract.Created.ToString(CultureInfo.CurrentUICulture)));
 
 				if (this.Contract.Updated > DateTime.MinValue)
-					this.GeneralInformation.Add(new PartModel(AppResources.Updated, this.Contract.Updated.ToString(CultureInfo.CurrentUICulture)));
+					this.GeneralInformation.Add(new PartModel(LocalizationResourceManager.Current["Updated"], this.Contract.Updated.ToString(CultureInfo.CurrentUICulture)));
 
-				this.GeneralInformation.Add(new PartModel(AppResources.State, this.Contract.State.ToString(), ContractStateToColor.ToColor(this.Contract.State)));
-				this.GeneralInformation.Add(new PartModel(AppResources.Visibility, this.Contract.Visibility.ToString()));
-				this.GeneralInformation.Add(new PartModel(AppResources.Duration, this.Contract.Duration.ToString()));
-				this.GeneralInformation.Add(new PartModel(AppResources.From, this.Contract.From.ToString(CultureInfo.CurrentUICulture)));
-				this.GeneralInformation.Add(new PartModel(AppResources.To, this.Contract.To.ToString(CultureInfo.CurrentUICulture)));
-				this.GeneralInformation.Add(new PartModel(AppResources.Archiving_Optional, this.Contract.ArchiveOptional.ToString()));
-				this.GeneralInformation.Add(new PartModel(AppResources.Archiving_Required, this.Contract.ArchiveRequired.ToString()));
-				this.GeneralInformation.Add(new PartModel(AppResources.CanActAsTemplate, this.Contract.CanActAsTemplate.ToYesNo()));
+				this.GeneralInformation.Add(new PartModel(LocalizationResourceManager.Current["State"], this.Contract.State.ToString(), ContractStateToColor.ToColor(this.Contract.State)));
+				this.GeneralInformation.Add(new PartModel(LocalizationResourceManager.Current["Visibility"], this.Contract.Visibility.ToString()));
+				this.GeneralInformation.Add(new PartModel(LocalizationResourceManager.Current["Duration"], this.Contract.Duration.ToString()));
+				this.GeneralInformation.Add(new PartModel(LocalizationResourceManager.Current["From"], this.Contract.From.ToString(CultureInfo.CurrentUICulture)));
+				this.GeneralInformation.Add(new PartModel(LocalizationResourceManager.Current["To"], this.Contract.To.ToString(CultureInfo.CurrentUICulture)));
+				this.GeneralInformation.Add(new PartModel(LocalizationResourceManager.Current["Archiving_Optional"], this.Contract.ArchiveOptional.ToString()));
+				this.GeneralInformation.Add(new PartModel(LocalizationResourceManager.Current["Archiving_Required"], this.Contract.ArchiveRequired.ToString()));
+				this.GeneralInformation.Add(new PartModel(LocalizationResourceManager.Current["CanActAsTemplate"], this.Contract.CanActAsTemplate.ToYesNo()));
 
 				this.GenerateQrCode(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId));
 
@@ -565,7 +565,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 						{
 							Button button = new()
 							{
-								Text = string.Format(AppResources.SignAsRole, role.Name),
+								Text = string.Format(LocalizationResourceManager.Current["SignAsRole"], role.Name),
 								StyleId = role.Name
 							};
 
@@ -579,12 +579,12 @@ namespace IdApp.Pages.Contracts.ViewContract
 				// Parts
 				StackLayout partsLayout = new();
 				if (this.Contract.SignAfter.HasValue)
-					AddKeyValueLabelPair(partsLayout, AppResources.SignAfter, this.Contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture));
+					AddKeyValueLabelPair(partsLayout, LocalizationResourceManager.Current["SignAfter"], this.Contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture));
 
 				if (this.Contract.SignBefore.HasValue)
-					AddKeyValueLabelPair(partsLayout, AppResources.SignBefore, this.Contract.SignBefore.Value.ToString(CultureInfo.CurrentUICulture));
+					AddKeyValueLabelPair(partsLayout, LocalizationResourceManager.Current["SignBefore"], this.Contract.SignBefore.Value.ToString(CultureInfo.CurrentUICulture));
 
-				AddKeyValueLabelPair(partsLayout, AppResources.Mode, this.Contract.PartsMode.ToString());
+				AddKeyValueLabelPair(partsLayout, LocalizationResourceManager.Current["Mode"], this.Contract.PartsMode.ToString());
 
 				if (!(this.Contract.Parts is null))
 				{
@@ -599,7 +599,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 						{
 							Button button = new()
 							{
-								Text = string.Format(AppResources.SignAsRole, part.Role),
+								Text = string.Format(LocalizationResourceManager.Current["SignAsRole"], part.Role),
 								StyleId = part.Role
 							};
 
@@ -638,13 +638,13 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 				// Machine readable text
 				StackLayout machineReadableTextLayout = new();
-				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.ContractId, this.Contract.ContractId);
+				AddKeyValueLabelPair(machineReadableTextLayout, LocalizationResourceManager.Current["ContractId"], this.Contract.ContractId);
 				if (!string.IsNullOrEmpty(this.Contract.TemplateId))
-					AddKeyValueLabelPair(machineReadableTextLayout, AppResources.TemplateId, this.Contract.TemplateId);
-				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.Digest, Convert.ToBase64String(this.Contract.ContentSchemaDigest));
-				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.HashFunction, this.Contract.ContentSchemaHashFunction.ToString());
-				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.LocalName, this.Contract.ForMachinesLocalName);
-				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.Namespace, this.Contract.ForMachinesNamespace);
+					AddKeyValueLabelPair(machineReadableTextLayout, LocalizationResourceManager.Current["TemplateId"], this.Contract.TemplateId);
+				AddKeyValueLabelPair(machineReadableTextLayout, LocalizationResourceManager.Current["Digest"], Convert.ToBase64String(this.Contract.ContentSchemaDigest));
+				AddKeyValueLabelPair(machineReadableTextLayout, LocalizationResourceManager.Current["HashFunction"], this.Contract.ContentSchemaHashFunction.ToString());
+				AddKeyValueLabelPair(machineReadableTextLayout, LocalizationResourceManager.Current["LocalName"], this.Contract.ForMachinesLocalName);
+				AddKeyValueLabelPair(machineReadableTextLayout, LocalizationResourceManager.Current["Namespace"], this.Contract.ForMachinesNamespace);
 				this.MachineReadableText = machineReadableTextLayout;
 
 				// Client signatures
@@ -766,7 +766,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 					Contract contract = await this.XmppService.Contracts.SignContract(this.Contract, button.StyleId, false);
 					await this.ContractUpdated(contract);
 
-					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["ContractSuccessfullySigned"]);
 				}
 			}
 			catch (Exception ex)
@@ -781,7 +781,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			try
 			{
 				if (Sender is StackLayout Layout && !string.IsNullOrEmpty(Layout.StyleId))
-					await this.ContractOrchestratorService.OpenLegalIdentity(Layout.StyleId, AppResources.PurposeReviewContract);
+					await this.ContractOrchestratorService.OpenLegalIdentity(Layout.StyleId, LocalizationResourceManager.Current["PurposeReviewContract"]);
 			}
 			catch (Exception ex)
 			{
@@ -844,7 +844,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				Contract obsoletedContract = await this.XmppService.Contracts.ObsoleteContract(this.Contract.ContractId);
 				await this.ContractUpdated(obsoletedContract);
 
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["ContractHasBeenObsoleted"]);
 			}
 			catch (Exception ex)
 			{
@@ -865,7 +865,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				Contract deletedContract = await this.XmppService.Contracts.DeleteContract(this.Contract.ContractId);
 				await this.ContractUpdated(deletedContract);
 
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["ContractHasBeenDeleted"]);
 			}
 			catch (Exception ex)
 			{
