@@ -112,7 +112,8 @@ namespace IdApp.Pages.Main.ScanQrCode
 		/// <inheritdoc />
 		protected override async Task OnDispose()
 		{
-			this.TrySetResultAndClosePage(string.Empty);
+			if (this.navigationArgs?.QrCodeScanned is TaskCompletionSource<string> TaskSource)
+				TaskSource.TrySetResult(string.Empty);
 
 			await base.OnDispose();
 		}
