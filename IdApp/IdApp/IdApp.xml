@@ -2396,6 +2396,11 @@
             A helper property to set/get when the ViewModel is idle.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.BaseViewModel.IsOverlayVisible">
+            <summary>
+            Gets or sets a value which indicates if the protective overlay with a spinner is visible.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.BaseViewModel.SetIsDone(System.Windows.Input.ICommand[])">
             <summary>
             A helper method for synchronously setting this registration step to Done, and also calling
