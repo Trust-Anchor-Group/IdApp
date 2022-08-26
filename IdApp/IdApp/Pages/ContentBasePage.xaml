@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="IdApp.Pages.ContentBasePage">
+	<ContentPage.ControlTemplate>
+		<ControlTemplate>
+			<RelativeLayout>
+				<ContentPresenter
+					RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=0}"
+					RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Constant=0}"
+					RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+					RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" />
+				<BoxView
+					RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=0}"
+					RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Constant=0}"
+					RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+					RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+					BackgroundColor="{AppThemeBinding Dark={StaticResource PageBackgroundColorDarkTheme}, Default={StaticResource PageBackgroundColorLightTheme}}"
+					IsVisible="{TemplateBinding Path=BindingContext.IsOverlayVisible}" />
+				<ActivityIndicator
+					RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.25}"
+					RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.25}"
+					RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5}"
+					RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"
+					Color="{AppThemeBinding Dark={StaticResource AccentColorDarkTheme}, Default={StaticResource AccentColor}}"
+					IsRunning="{TemplateBinding Path=BindingContext.IsOverlayVisible}"
+					IsVisible="{TemplateBinding Path=BindingContext.IsOverlayVisible}" />
+			</RelativeLayout>
+		</ControlTemplate>
+	</ContentPage.ControlTemplate>
+</ContentPage>
