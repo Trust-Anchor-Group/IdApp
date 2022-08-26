@@ -7947,11 +7947,6 @@
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.OnDispose">
             <inheritdoc />
         </member>
-        <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.UseShellNavigationService">
-            <summary>
-            A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.
-            </summary>
-        </member>
         <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.SwitchModeCommand">
             <summary>
             Action to bind to for switching scan mode from manual to automatic.

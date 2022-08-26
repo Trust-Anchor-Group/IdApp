@@ -118,11 +118,6 @@ namespace IdApp.Pages.Main.ScanQrCode
 			await base.OnDispose();
 		}
 
-		/// <summary>
-		/// A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.
-		/// </summary>
-		public bool UseShellNavigationService => this.useShellNavigationService;
-
 		#region Properties
 
 		/// <summary>
