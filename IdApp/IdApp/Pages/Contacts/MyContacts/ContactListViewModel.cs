@@ -381,18 +381,17 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 		private async Task ScanQrCode()
 		{
-			await QrCode.ScanQrCode(LocalizationResourceManager.Current["ScanQRCode"], async code =>
+			string Code = await QrCode.ScanQrCode(LocalizationResourceManager.Current["ScanQRCode"]);
+
+			if (Constants.UriSchemes.StartsWithIdScheme(Code))
 			{
-				if (Constants.UriSchemes.StartsWithIdScheme(code))
+				this.OnSelected(new ContactInfoModel(this, new ContactInfo()
 				{
-					this.OnSelected(new ContactInfoModel(this, new ContactInfo()
-					{
-						LegalId = Constants.UriSchemes.RemoveScheme(code)
-					}, new NotificationEvent[0]));
-				}
-				else if (!string.IsNullOrEmpty(code))
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
-			});
+					LegalId = Constants.UriSchemes.RemoveScheme(Code)
+				}, new NotificationEvent[0]));
+			}
+			else if (!string.IsNullOrEmpty(Code))
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
 		}
 
 		private Task Xmpp_OnPresence(object Sender, PresenceEventArgs e)
