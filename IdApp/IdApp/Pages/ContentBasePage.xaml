@@ -4,28 +4,22 @@
              x:Class="IdApp.Pages.ContentBasePage">
 	<ContentPage.ControlTemplate>
 		<ControlTemplate>
-			<RelativeLayout>
+			<AbsoluteLayout>
 				<ContentPresenter
-					RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=0}"
-					RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Constant=0}"
-					RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-					RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" />
+					AbsoluteLayout.LayoutBounds="0,0,1,1"
+					AbsoluteLayout.LayoutFlags="All" />
 				<BoxView
-					RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=0}"
-					RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, Constant=0}"
-					RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-					RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+					AbsoluteLayout.LayoutBounds="0,0,1,1"
+					AbsoluteLayout.LayoutFlags="All"
 					BackgroundColor="{AppThemeBinding Dark={StaticResource PageBackgroundColorDarkTheme}, Default={StaticResource PageBackgroundColorLightTheme}}"
 					IsVisible="{TemplateBinding Path=BindingContext.IsOverlayVisible}" />
 				<ActivityIndicator
-					RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.25}"
-					RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.25}"
-					RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5}"
-					RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"
+					AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5"
+					AbsoluteLayout.LayoutFlags="All"
 					Color="{AppThemeBinding Dark={StaticResource AccentColorDarkTheme}, Default={StaticResource AccentColor}}"
 					IsRunning="{TemplateBinding Path=BindingContext.IsOverlayVisible}"
 					IsVisible="{TemplateBinding Path=BindingContext.IsOverlayVisible}" />
-			</RelativeLayout>
+			</AbsoluteLayout>
 		</ControlTemplate>
 	</ContentPage.ControlTemplate>
 </ContentPage>
