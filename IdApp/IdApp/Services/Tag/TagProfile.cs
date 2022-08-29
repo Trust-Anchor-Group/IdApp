@@ -81,6 +81,7 @@ namespace IdApp.Services.Tag
 		private long? httpFileUploadMaxSize;
 		private bool? supportsPushNotification;
 		private bool usePin;
+		private PurposeUse purpose;
 		private bool isTest;
 		private DateTime? testOtpTimestamp;
 		private RegistrationStep step = RegistrationStep.ValidateContactInfo;
@@ -142,6 +143,7 @@ namespace IdApp.Services.Tag
 				SupportsPushNotification = this.SupportsPushNotification,
 				PinHash = this.PinHash,
 				UsePin = this.UsePin,
+				Purpose = this.Purpose,
 				IsTest = this.IsTest,
 				TestOtpTimestamp = this.TestOtpTimestamp,
 				LegalIdentity = this.LegalIdentity,
@@ -183,6 +185,7 @@ namespace IdApp.Services.Tag
 				this.SupportsPushNotification = configuration.SupportsPushNotification;
 				this.PinHash = configuration.PinHash;
 				this.UsePin = configuration.UsePin;
+				this.Purpose = configuration.Purpose ?? (configuration.IsTest ? PurposeUse.EducationalOrExperimental : PurposeUse.WorkOrPersonal);
 				this.IsTest = configuration.IsTest;
 				this.TestOtpTimestamp = configuration.TestOtpTimestamp;
 				this.LegalIdentity = configuration.LegalIdentity;
@@ -552,6 +555,20 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
+		public PurposeUse Purpose
+		{
+			get => this.purpose;
+			private set
+			{
+				if (this.purpose != value)
+				{
+					this.purpose = value;
+					this.FlagAsDirty(nameof(this.Purpose));
+				}
+			}
+		}
+
+		/// <inheritdoc/>
 		public bool IsTest
 		{
 			get => this.isTest;
@@ -830,6 +847,12 @@ namespace IdApp.Services.Tag
 
 			if (this.Step == RegistrationStep.Pin)
 				this.DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
+		}
+
+		/// <inheritdoc/>
+		public void SetPurpose(PurposeUse Purpose)
+		{
+			this.Purpose = Purpose;
 		}
 
 		/// <inheritdoc/>

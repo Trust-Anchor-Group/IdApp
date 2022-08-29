@@ -144,6 +144,15 @@ namespace IdApp.Services
 		public bool UsePin { get; set; }
 
 		/// <summary>
+		/// The purpose for using the application.
+		/// </summary>
+		/// <remarks>
+		/// This property is nullable for backward compatibility with databases saved before this property was introduced.
+		/// </remarks>
+		[DefaultValueNull]
+		public PurposeUse? Purpose { get; set; }
+
+		/// <summary>
 		/// Set to true if the user choose the educational or experimental purpose.
 		/// </summary>
 		[DefaultValue(false)]

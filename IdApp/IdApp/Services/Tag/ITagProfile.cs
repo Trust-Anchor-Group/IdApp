@@ -151,6 +151,11 @@ namespace IdApp.Services.Tag
 		bool UsePin { get; }
 
 		/// <summary>
+		/// Returns the selected purpose for using the application.
+		/// </summary>
+		PurposeUse Purpose { get; }
+
+		/// <summary>
 		/// Returns <c>true</c> if the user choose the educational or experimental purpose.
 		/// </summary>
 		bool IsTest { get; }
@@ -291,6 +296,12 @@ namespace IdApp.Services.Tag
 		/// Revert Step 5.
 		/// </summary>
 		void ClearPin();
+
+		/// <summary>
+		/// Sets the purpose for using the application.
+		/// </summary>
+		/// <param name="Purpose">The purpose for using the application.</param>
+		void SetPurpose(PurposeUse Purpose);
 
 		/// <summary>
 		/// Step 1 - Set if the user choose the educational or experimental purpose.
