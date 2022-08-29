@@ -12,6 +12,8 @@ namespace IdApp.Pages.Main.ScanQrCode
     public class ScanQrCodeViewModel : BaseViewModel
     {
 		private ScanQrCodeNavigationArgs navigationArgs;
+
+		// A Boolean flag indicating if Shell navigation should be used or a simple PopAsync.
 		private bool useShellNavigationService;
 
 		/// <summary>
@@ -112,15 +114,11 @@ namespace IdApp.Pages.Main.ScanQrCode
 		/// <inheritdoc />
 		protected override async Task OnDispose()
 		{
-			this.TrySetResultAndClosePage(string.Empty);
+			if (this.navigationArgs?.QrCodeScanned is TaskCompletionSource<string> TaskSource)
+				TaskSource.TrySetResult(string.Empty);
 
 			await base.OnDispose();
 		}
-
-		/// <summary>
-		/// A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.
-		/// </summary>
-		public bool UseShellNavigationService => this.useShellNavigationService;
 
 		#region Properties
 

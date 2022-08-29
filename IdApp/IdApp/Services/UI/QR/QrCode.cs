@@ -156,7 +156,13 @@ namespace IdApp.Services.UI.QR
 		/// to do additional processing <em>before</em> the <see cref="ScanQrCodePage"/> is navigated away from.
 		/// </summary>
 		/// <param name="CommandName">The localized name of the command to display when scanning.</param>
-		/// <param name="Action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
+		/// <param name="Action">
+		/// The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.
+		/// <para>
+		/// <paramref name="Action"/> should not navigate and (!) should not post navigation using BeginInvokeOnMainThread or
+		/// similar methods. Otherwise, trying to navigate back from the QR code page can actually navigate from the wrong page.
+		/// </para>
+		/// </param>
 		/// <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
 		/// <returns>Decoded string</returns>
 		public static Task<string> ScanQrCode(string CommandName, Func<string, Task> Action = null, bool UseShellNavigationService = true)

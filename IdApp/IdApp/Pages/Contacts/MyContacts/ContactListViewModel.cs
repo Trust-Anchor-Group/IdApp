@@ -304,63 +304,72 @@ namespace IdApp.Pages.Contacts.MyContacts
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
-				switch (this.Action)
+				this.IsOverlayVisible = true;
+
+				try
 				{
-					case SelectContactAction.MakePayment:
-						StringBuilder sb = new();
+					switch (this.Action)
+					{
+						case SelectContactAction.MakePayment:
+							StringBuilder sb = new();
 
-						sb.Append("edaler:");
+							sb.Append("edaler:");
 
-						if (!string.IsNullOrEmpty(Contact.LegalId))
-						{
-							sb.Append("ti=");
-							sb.Append(Contact.LegalId);
-						}
-						else if (!string.IsNullOrEmpty(Contact.BareJid))
-						{
-							sb.Append("t=");
-							sb.Append(Contact.BareJid);
-						}
-						else
-							break;
-
-						Balance Balance = await this.XmppService.Wallet.GetBalanceAsync();
-
-						sb.Append(";cu=");
-						sb.Append(Balance.Currency);
-
-						if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
-							break;
-
-						await this.NavigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed)
-						{
-							ReturnRoute = "../.."
-						});
-						break;
-
-					case SelectContactAction.ViewIdentity:
-					default:
-						if (Contact.LegalIdentity is not null)
-						{
-							await this.NavigationService.GoToAsync(nameof(ViewIdentityPage),
-								new ViewIdentityNavigationArgs(Contact.LegalIdentity));
-						}
-						else if (!string.IsNullOrEmpty(Contact.LegalId))
-							await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId, LocalizationResourceManager.Current["ScannedQrCode"]);
-						else if (!string.IsNullOrEmpty(Contact.BareJid))
-						{
-							await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact.Contact)
+							if (!string.IsNullOrEmpty(Contact.LegalId))
 							{
-								UniqueId = Contact.BareJid
+								sb.Append("ti=");
+								sb.Append(Contact.LegalId);
+							}
+							else if (!string.IsNullOrEmpty(Contact.BareJid))
+							{
+								sb.Append("t=");
+								sb.Append(Contact.BareJid);
+							}
+							else
+								break;
+
+							Balance Balance = await this.XmppService.Wallet.GetBalanceAsync();
+
+							sb.Append(";cu=");
+							sb.Append(Balance.Currency);
+
+							if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
+								break;
+
+							await this.NavigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed)
+							{
+								ReturnRoute = "../.."
 							});
-						}
+							break;
 
-						break;
+						case SelectContactAction.ViewIdentity:
+						default:
+							if (Contact.LegalIdentity is not null)
+							{
+								await this.NavigationService.GoToAsync(nameof(ViewIdentityPage),
+									new ViewIdentityNavigationArgs(Contact.LegalIdentity));
+							}
+							else if (!string.IsNullOrEmpty(Contact.LegalId))
+								await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId, LocalizationResourceManager.Current["ScannedQrCode"]);
+							else if (!string.IsNullOrEmpty(Contact.BareJid))
+							{
+								await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact.Contact)
+								{
+									UniqueId = Contact.BareJid
+								});
+							}
 
-					case SelectContactAction.Select:
-						this.selection?.TrySetResult(Contact);
-						await this.NavigationService.GoBackAsync();
-						break;
+							break;
+
+						case SelectContactAction.Select:
+							this.selection?.TrySetResult(Contact);
+							await this.NavigationService.GoBackAsync();
+							break;
+					}
+				}
+				finally
+				{
+					this.IsOverlayVisible = false;
 				}
 			});
 		}
@@ -381,18 +390,17 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 		private async Task ScanQrCode()
 		{
-			await QrCode.ScanQrCode(LocalizationResourceManager.Current["ScanQRCode"], async code =>
+			string Code = await QrCode.ScanQrCode(LocalizationResourceManager.Current["ScanQRCode"]);
+
+			if (Constants.UriSchemes.StartsWithIdScheme(Code))
 			{
-				if (Constants.UriSchemes.StartsWithIdScheme(code))
+				this.OnSelected(new ContactInfoModel(this, new ContactInfo()
 				{
-					this.OnSelected(new ContactInfoModel(this, new ContactInfo()
-					{
-						LegalId = Constants.UriSchemes.RemoveScheme(code)
-					}, new NotificationEvent[0]));
-				}
-				else if (!string.IsNullOrEmpty(code))
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
-			});
+					LegalId = Constants.UriSchemes.RemoveScheme(Code)
+				}, new NotificationEvent[0]));
+			}
+			else if (!string.IsNullOrEmpty(Code))
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
 		}
 
 		private Task Xmpp_OnPresence(object Sender, PresenceEventArgs e)

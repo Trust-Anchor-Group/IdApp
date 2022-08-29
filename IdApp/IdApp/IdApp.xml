@@ -2396,6 +2396,11 @@
             A helper property to set/get when the ViewModel is idle.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.BaseViewModel.IsOverlayVisible">
+            <summary>
+            Gets or sets a value which indicates if the protective overlay with a spinner is visible.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.BaseViewModel.SetIsDone(System.Windows.Input.ICommand[])">
             <summary>
             A helper method for synchronously setting this registration step to Done, and also calling
@@ -2519,9 +2524,7 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatPage.UniqueId">
-            <summary>
-            Views unique ID
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatPage.#ctor">
             <summary>
@@ -2540,9 +2543,7 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatPageIos.UniqueId">
-            <summary>
-            Views unique ID
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatPageIos.#ctor">
             <summary>
@@ -3521,6 +3522,12 @@
         <member name="P:IdApp.Pages.ContentBasePage.ViewModel">
             <summary>
             Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ContentBasePage.UniqueId">
+            <summary>
+            Gets or sets a unique identifier, which allows this page to be distinguished from other pages of the same type without using
+            references to the page object itself.
             </summary>
         </member>
         <member name="M:IdApp.Pages.ContentBasePage.OnAppearing">
@@ -7942,11 +7949,6 @@
         </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.OnDispose">
             <inheritdoc />
-        </member>
-        <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.UseShellNavigationService">
-            <summary>
-            A Boolean flag indicating if Shell navigation should be used or a simple <c>PopAsync</c>.
-            </summary>
         </member>
         <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.SwitchModeCommand">
             <summary>
@@ -21873,7 +21875,13 @@
             to do additional processing <em>before</em> the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"/> is navigated away from.
             </summary>
             <param name="CommandName">The localized name of the command to display when scanning.</param>
-            <param name="Action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
+            <param name="Action">
+            The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.
+            <para>
+            <paramref name="Action"/> should not navigate and (!) should not post navigation using BeginInvokeOnMainThread or
+            similar methods. Otherwise, trying to navigate back from the QR code page can actually navigate from the wrong page.
+            </para>
+            </param>
             <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
             <returns>Decoded string</returns>
         </member>

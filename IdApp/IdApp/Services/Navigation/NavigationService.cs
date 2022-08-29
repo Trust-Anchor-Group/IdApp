@@ -6,6 +6,7 @@ using Waher.Events;
 using Waher.Runtime.Inventory;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
+using IdApp.Pages;
 
 namespace IdApp.Services.Navigation
 {
@@ -14,7 +15,6 @@ namespace IdApp.Services.Navigation
 	{
 		private const string defaultGoBackRoute = "..";
 		private readonly Dictionary<string, NavigationArgs> navigationArgsMap;
-		private NavigationArgs currentNavigationArgs;
 		private bool isManuallyNavigatingBack = false;
 
 		public NavigationService()
@@ -25,6 +25,11 @@ namespace IdApp.Services.Navigation
 		// Navigation service uses Shell and its routing system, which are only available after the application reached the main page.
 		// Before that (during on-boarding and the loading page), we need to use the usual Xamarin Forms navigation.
 		private bool CanUseNavigationService => App.IsOnboarded;
+
+
+		private NavigationArgs CurrentNavigationArgs =>
+			Shell.Current?.CurrentPage is ContentBasePage ContentBasePage && this.TryPopArgs(out NavigationArgs NavigationArgs, ContentBasePage.UniqueId)
+			? NavigationArgs : null;
 
 		///<inheritdoc/>
 		public override Task Load(bool isResuming, CancellationToken cancellationToken)
@@ -106,9 +111,9 @@ namespace IdApp.Services.Navigation
 			try
 			{
 				if ((e.Source == ShellNavigationSource.Pop) &&
-					(this.currentNavigationArgs is not null) &&
-					(!string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute) ||
-					this.currentNavigationArgs.ReturnCounter > 1))
+					(this.CurrentNavigationArgs is not null) &&
+					(!string.IsNullOrWhiteSpace(this.CurrentNavigationArgs.ReturnRoute) ||
+					this.CurrentNavigationArgs.ReturnCounter > 1))
 				{
 					if (e.CanCancel && !this.isManuallyNavigatingBack)
 					{
@@ -140,8 +145,6 @@ namespace IdApp.Services.Navigation
 
 		private void PushArgs<TArgs>(string Route, TArgs args) where TArgs : NavigationArgs
 		{
-			this.currentNavigationArgs = args;
-
 			if (this.TryGetPageName(Route, out string PageName))
 			{
 				if (args is not null)
@@ -224,14 +227,14 @@ namespace IdApp.Services.Navigation
 				string ReturnRoute = defaultGoBackRoute;
 				int ReturnCounter = 0;
 
-				if (this.currentNavigationArgs is not null)
+				if (this.CurrentNavigationArgs is not null)
 				{
-					ReturnCounter = this.currentNavigationArgs.ReturnCounter;
+					ReturnCounter = this.CurrentNavigationArgs.ReturnCounter;
 
 					if ((ReturnCounter == 0) &&
-						!string.IsNullOrEmpty(this.currentNavigationArgs.ReturnRoute))
+						!string.IsNullOrEmpty(this.CurrentNavigationArgs.ReturnRoute))
 					{
-						ReturnRoute = this.currentNavigationArgs.ReturnRoute;
+						ReturnRoute = this.CurrentNavigationArgs.ReturnRoute;
 					}
 				}
 

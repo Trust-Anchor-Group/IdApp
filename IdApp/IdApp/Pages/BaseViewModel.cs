@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Extensions;
@@ -16,6 +17,9 @@ namespace IdApp.Pages
 	public abstract class BaseViewModel : ServiceReferences, ILifeCycleView
 	{
 		private readonly List<BaseViewModel> childViewModels;
+
+		private bool isOverlayVisible;
+		private DateTime overlayLastActivationTime;
 
 		/// <summary>
 		/// Create an instance of a <see cref="BaseViewModel"/>.
@@ -167,6 +171,43 @@ namespace IdApp.Pages
 			{
 				this.SetValue(IsIdleProperty, value);
 				this.SetValue(IsBusyProperty, !value);
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets a value which indicates if the protective overlay with a spinner is visible.
+		/// </summary>
+		public bool IsOverlayVisible
+		{
+			get => this.isOverlayVisible;
+			set
+			{
+				if (this.isOverlayVisible == value)
+					return;
+
+				if (value)
+				{
+					this.isOverlayVisible = true;
+					this.overlayLastActivationTime = DateTime.Now;
+					this.OnPropertyChanged();
+				}
+				else
+				{
+					TimeSpan MinimumOverlayTime = TimeSpan.FromMilliseconds(500);
+					TimeSpan EllapsedTime = DateTime.Now.Subtract(this.overlayLastActivationTime);
+
+					if (EllapsedTime >= MinimumOverlayTime)
+					{
+						this.isOverlayVisible = false;
+						this.OnPropertyChanged();
+					}
+					else
+					{
+						// It is important to use the property here, not the field, because last activation time might be updated while we are waiting,
+						// we need to recheck it and possibly reschedule.
+						Task.Delay(MinimumOverlayTime - EllapsedTime).GetAwaiter().OnCompleted(() => this.IsOverlayVisible = false);
+					}
+				}
 			}
 		}
 

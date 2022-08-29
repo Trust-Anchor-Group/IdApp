@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms.Xaml;
@@ -14,6 +15,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ScanQrCodePage
 	{
+		private volatile int scannedQrCodesCount = 0;
 		private bool scannerRendered = false;
 
 		/// <summary>
@@ -85,7 +87,17 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
 			if (!string.IsNullOrWhiteSpace(result.Text))
 			{
-				this.Scanner.IsAnalyzing = false; // Stop analysis until we navigate away so we don't keep reading qr codes
+				// We want to stop analysis after the first recognized frame until we navigate away. However, on modern quick devices
+				// frames are processed so quickly that a second result might arrive before we had enough time to stop analysis here.
+				// P.S.
+				// Do not use this.Scanner.IsAnalyzing property for synchronization, use your own field instead. Locking will not help
+				// because after setting this.Scanner.IsAnalyzing to false, the value of this.Scanner.IsAnalyzing will still be true
+				// for some time, the value is not updated quickly enough (don't know why, I just tried it and it failed).
+				if (Interlocked.CompareExchange(ref this.scannedQrCodesCount, 1, 0) == 1)
+					return;
+
+				this.Scanner.IsAnalyzing = false;
+
 				string Url = result.Text?.Trim();
 
 				if (this.ViewModel is ScanQrCodeViewModel ScanQrCodeViewModel)

@@ -13,19 +13,15 @@ namespace IdApp.Pages.Contacts.Chat
 	/// A page that displays a list of the current user's contacts.
 	/// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	[QueryProperty(nameof(UniqueId), nameof(UniqueId))]
 	public partial class ChatPage
 	{
-		/// <summary>
-		/// Views unique ID
-		/// </summary>
-		public string UniqueId
+		/// <inheritdoc/>
+		public override string UniqueId
 		{
-			set
-			{
-				(this.ViewModel as ChatViewModel).UniqueId = value;
-			}
+			get => (this.ViewModel as ChatViewModel).UniqueId;
+			set => (this.ViewModel as ChatViewModel).UniqueId = value;
 		}
+
 		/// <summary>
 		/// Creates a new instance of the <see cref="ChatPage"/> class.
 		/// </summary>
