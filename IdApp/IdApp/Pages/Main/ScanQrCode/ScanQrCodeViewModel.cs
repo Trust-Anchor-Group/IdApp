@@ -12,6 +12,8 @@ namespace IdApp.Pages.Main.ScanQrCode
     public class ScanQrCodeViewModel : BaseViewModel
     {
 		private ScanQrCodeNavigationArgs navigationArgs;
+
+		// A Boolean flag indicating if Shell navigation should be used or a simple PopAsync.
 		private bool useShellNavigationService;
 
 		/// <summary>
