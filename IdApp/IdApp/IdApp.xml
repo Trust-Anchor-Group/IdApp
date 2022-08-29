@@ -2543,9 +2543,7 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatPageIos.UniqueId">
-            <summary>
-            Views unique ID
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatPageIos.#ctor">
             <summary>
