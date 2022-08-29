@@ -15,7 +15,6 @@ namespace IdApp.Pages.Contacts.Chat
 	/// A page that displays a list of the current user's contacts.
 	/// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	[QueryProperty(nameof(UniqueId), nameof(UniqueId))]
 	public partial class ChatPageIos
 	{
 		/// <inheritdoc/>
