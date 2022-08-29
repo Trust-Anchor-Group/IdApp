@@ -9136,21 +9136,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView"/> class.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse">
-            <summary>
-            For what purpose the app will be used
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.WorkOrPersonal">
-            <summary>
-            For work or personal use
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.EducationalOrExperimental">
-            <summary>
-            For educational or experimental use
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel">
             <summary>
             The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
@@ -22888,6 +22873,21 @@
             </summary>
             <param name="TokenInformation">Token information.</param>
             <returns>If token could be registered.</returns>
+        </member>
+        <member name="T:PurposeUse">
+            <summary>
+            For what purpose the app will be used.
+            </summary>
+        </member>
+        <member name="F:PurposeUse.WorkOrPersonal">
+            <summary>
+            For work or personal use
+            </summary>
+        </member>
+        <member name="F:PurposeUse.EducationalOrExperimental">
+            <summary>
+            For educational or experimental use
+            </summary>
         </member>
     </members>
 </doc>

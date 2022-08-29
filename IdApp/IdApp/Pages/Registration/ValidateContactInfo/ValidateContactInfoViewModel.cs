@@ -12,22 +12,6 @@ using Xamarin.CommunityToolkit.Helpers;
 namespace IdApp.Pages.Registration.ValidateContactInfo
 {
 	/// <summary>
-	/// For what purpose the app will be used
-	/// </summary>
-	public enum PurposeUse
-	{
-		/// <summary>
-		/// For work or personal use
-		/// </summary>
-		WorkOrPersonal = 0,
-
-		/// <summary>
-		/// For educational or experimental use
-		/// </summary>
-		EducationalOrExperimental = 1
-	}
-
-	/// <summary>
 	/// The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
 	/// </summary>
 	public class ValidateContactInfoViewModel : RegistrationStepViewModel
