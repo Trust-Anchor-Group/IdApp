@@ -51,7 +51,13 @@
 						  IsVisible="{Binding Path=ValidationAllowed}">
 						<Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" Style="{StaticResource OnboardingFrame}"/>
 						<Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagValidateEMail}"
-							   VerticalOptions="Start"  HorizontalOptions="Center" FontSize="Body" />
+							   VerticalOptions="Start"  HorizontalOptions="Center" FontSize="Body">
+							<Label.Triggers>
+								<DataTrigger TargetType="Label" Binding="{Binding IsRevalidating}" Value="True">
+									<Setter Property="Text" Value="{x:Static resx:AppResources.RevalidateEMail}" />
+								</DataTrigger>
+							</Label.Triggers>
+						</Label>
 						<Entry Grid.Row="2" x:Name="EMailEntry" Placeholder="{x:Static resx:AppResources.EnterEMail}"
 								   ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
 								   Text="{Binding Path=EMail, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}" />
@@ -88,7 +94,13 @@
 						  IsVisible="{Binding Path=ValidationAllowed}">
 						<Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" Style="{StaticResource OnboardingFrame}"/>
 						<Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagValidatePhoneNr}"
-                           VerticalOptions="Start" HorizontalOptions="Center" FontSize="Body" />
+                           VerticalOptions="Start" HorizontalOptions="Center" FontSize="Body">
+							<Label.Triggers>
+								<DataTrigger TargetType="Label" Binding="{Binding IsRevalidating}" Value="True">
+									<Setter Property="Text" Value="{x:Static resx:AppResources.RevalidatePhoneNr}" />
+								</DataTrigger>
+							</Label.Triggers>
+						</Label>
 						<Entry Grid.Row="2" x:Name="PhoneNumberEntry" Placeholder="{x:Static resx:AppResources.EnterPhoneNumber}"
                                ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
                                Text="{Binding Path=PhoneNumber, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}" />
