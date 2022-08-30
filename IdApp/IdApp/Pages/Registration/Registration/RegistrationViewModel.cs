@@ -198,7 +198,7 @@ namespace IdApp.Pages.Registration.Registration
 						await App.Current.SetAppShellPageAsync();
 						break;
 
-					default: // RegistrationStep.Operator
+					default: // RegistrationStep.ValidateContactInfo
 						await this.SyncTagProfileStep();
 						break;
 				}
