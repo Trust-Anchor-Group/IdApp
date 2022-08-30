@@ -1787,7 +1787,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private void UpdateSubscriptionStatus()
 		{
-			RosterItem Item = this.XmppService.Xmpp[this.BareJid];
+			RosterItem Item = this.XmppService.Xmpp?[this.BareJid];
 
 			this.Subscribed = this.ThirdParty && (Item is not null) && (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.To);
 			this.NotSubscribed = this.ThirdParty && (Item is null || (Item.State != SubscriptionState.Both && Item.State != SubscriptionState.To));
