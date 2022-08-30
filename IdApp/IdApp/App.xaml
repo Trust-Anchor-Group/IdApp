@@ -124,7 +124,7 @@
 			   x:Key="SvgIconButton"
                ApplyToDerivedTypes="True"
 			   CanCascade="True">
-			<Setter Property="BackgroundColor"  Value="{StaticResource HeadingBackground}" />
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
 			<Setter Property="CornerRadius" Value="4" />
 			<Setter Property="HeightRequest" Value="40" />
 			<Setter Property="WidthRequest" Value="40" />
@@ -156,7 +156,13 @@
                CanCascade="True">
 			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
         </Style>
-        <Style TargetType="Label" x:Key="ValueLabel">
+		<Style TargetType="Label"
+			   x:Key="ContractTitleLabel">
+			<Setter Property="LineBreakMode" Value="WordWrap" />
+			<Setter Property="FontSize" Value="24" />
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
+		</Style>
+		<Style TargetType="Label" x:Key="ValueLabel">
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="LineBreakMode" Value="WordWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
