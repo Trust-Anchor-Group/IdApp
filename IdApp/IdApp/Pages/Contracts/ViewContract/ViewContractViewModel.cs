@@ -633,7 +633,20 @@ namespace IdApp.Pages.Contracts.ViewContract
 				List<View> children = new();
 				children.AddRange(humanReadableXaml.Children);
 				foreach (View view in children)
+				{
+					if (view is ContentView)
+					{
+						foreach (Element innView in (view as ContentView).Children)
+						{
+							if (innView is Label)
+							{
+								(innView as Label).TextColor = (Color) (Application.Current.RequestedTheme == OSAppTheme.Dark ?
+								Application.Current.Resources["LabelTextColorDarkTheme"] : Application.Current.Resources["LabelTextColorLightTheme"]);
+							}
+						}
+					}
 					humanReadableTextLayout.Children.Add(view);
+				}
 				this.HumanReadableText = humanReadableTextLayout;
 
 				// Machine readable text

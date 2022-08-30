@@ -156,7 +156,13 @@
                CanCascade="True">
 			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
         </Style>
-        <Style TargetType="Label" x:Key="ValueLabel">
+		<Style TargetType="Label"
+			   x:Key="ContractTitleLabel">
+			<Setter Property="LineBreakMode" Value="WordWrap" />
+			<Setter Property="FontSize" Value="24" />
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
+		</Style>
+		<Style TargetType="Label" x:Key="ValueLabel">
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="LineBreakMode" Value="WordWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
