@@ -805,14 +805,14 @@ namespace IdApp.Services.Tag
 		public void RevokeLegalIdentity(LegalIdentity revokedIdentity)
 		{
 			this.LegalIdentity = revokedIdentity;
-			this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
+			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 		}
 
 		/// <inheritdoc/>
 		public void CompromiseLegalIdentity(LegalIdentity compromisedIdentity)
 		{
 			this.LegalIdentity = compromisedIdentity;
-			this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
+			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 		}
 
 		/// <inheritdoc/>
