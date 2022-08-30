@@ -1890,4 +1890,10 @@
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Variables Updated</value>
   </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Something went wrong when sending a verification code to this phone number.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Changing the phone number to a test one is not allowed.</value>
+  </data>
 </root>

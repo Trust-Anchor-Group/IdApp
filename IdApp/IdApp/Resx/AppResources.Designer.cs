@@ -19,7 +19,7 @@ namespace IdApp.Resx {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppResources {
@@ -4057,6 +4057,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something went wrong when sending a verification code to this phone number..
+        /// </summary>
+        internal static string SomethingWentWrongWhenSendingPhoneCode {
+            get {
+                return ResourceManager.GetString("SomethingWentWrongWhenSendingPhoneCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spam.
         /// </summary>
         internal static string Spam {
@@ -4179,6 +4188,15 @@ namespace IdApp.Resx {
         internal static string SuccessTitle {
             get {
                 return ResourceManager.GetString("SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changing the phone number to a test one is not allowed..
+        /// </summary>
+        internal static string SwitchingToTestPhoneNumberNotAllowed {
+            get {
+                return ResourceManager.GetString("SwitchingToTestPhoneNumberNotAllowed", resourceCulture);
             }
         }
         
