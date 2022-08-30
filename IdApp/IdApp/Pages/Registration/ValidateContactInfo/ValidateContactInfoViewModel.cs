@@ -541,13 +541,24 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					}, new KeyValuePair<string, string>("Accept", "application/json"));
 
 				if (Result is Dictionary<string, object> Response &&
-					Response.TryGetValue("Status", out object Obj) && Obj is bool Status &&
-					Status)
+					Response.TryGetValue("Status", out object Obj) && Obj is bool Status && Status
+					&& Response.TryGetValue("IsTemporary", out Obj) && Obj is bool IsTemporary)
 				{
-					this.StartTimer("phone");
+					if (!this.TagProfile.TestOtpTimestamp.HasValue && IsTemporary)
+					{
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SwitchingToTestPhoneNumberNotAllowed"]);
+					}
+					else
+					{
+						this.StartTimer("phone");
 
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"],
-						LocalizationResourceManager.Current["SendPhoneNumberWarning"]);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"],
+							LocalizationResourceManager.Current["SendPhoneNumberWarning"]);
+					}
+				}
+				else
+				{
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingPhoneCode"]);
 				}
 			}
 			catch (Exception ex)
