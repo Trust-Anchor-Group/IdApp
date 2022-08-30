@@ -1890,6 +1890,9 @@
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Variables Updated</value>
   </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Something went wrong when sending a verification code to this email.</value>
+  </data>
   <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
     <value>Something went wrong when sending a verification code to this phone number.</value>
   </data>

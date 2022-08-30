@@ -4057,6 +4057,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something went wrong when sending a verification code to this email..
+        /// </summary>
+        internal static string SomethingWentWrongWhenSendingEmailCode {
+            get {
+                return ResourceManager.GetString("SomethingWentWrongWhenSendingEmailCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong when sending a verification code to this phone number..
         /// </summary>
         internal static string SomethingWentWrongWhenSendingPhoneCode {

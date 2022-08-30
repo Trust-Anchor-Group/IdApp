@@ -16328,6 +16328,11 @@
               Looks up a localized string similar to Skip.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.SomethingWentWrongWhenSendingEmailCode">
+            <summary>
+              Looks up a localized string similar to Something went wrong when sending a verification code to this email..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.SomethingWentWrongWhenSendingPhoneCode">
             <summary>
               Looks up a localized string similar to Something went wrong when sending a verification code to this phone number..
