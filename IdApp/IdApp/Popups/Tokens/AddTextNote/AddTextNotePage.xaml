@@ -25,7 +25,8 @@
 				<Label Text="{x:Static resx:AppResources.TextNote}" HorizontalOptions="FillAndExpand"/>
 				<Frame Style="{StaticResource BorderFrame}">
 					<Editor Text="{Binding TextNote}" Keyboard="Text" HeightRequest="100" WidthRequest="300"
-							HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand"/>
+						HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand"
+						TextColor="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
 				</Frame>
 				<StackLayout Orientation="Horizontal">
 					<CheckBox IsChecked="{Binding Personal}" VerticalOptions="Center"/>
