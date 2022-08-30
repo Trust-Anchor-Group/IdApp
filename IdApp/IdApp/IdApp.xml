@@ -9157,6 +9157,16 @@
         <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.OnStepCompleted(System.EventArgs)">
             <inheritdoc/>
         </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsRevalidatingProperty">
+            <summary>
+            A BindableProperty for <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsRevalidating"/> property.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsRevalidating">
+            <summary>
+            Gets or sets a value indicating if we are validating contact information for the first time or after revoking an identity.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.Purposes">
             <summary>
             Holds the list of purposes to display.

@@ -39,22 +39,11 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		{
 			await base.OnInitialize();
 
+			this.IsRevalidating = this.TagProfile.LegalIdentity is not null;
+
 			this.Purposes.Clear();
 			this.Purposes.Add(LocalizationResourceManager.Current["PurposeWorkOrPersonal"]);
 			this.Purposes.Add(LocalizationResourceManager.Current["PurposeEducationalOrExperimental"]);
-
-			if (this.TagProfile.LegalIdentity == null)
-			{
-				// A fresh start.
-				this.PurposeRequired = true;
-				this.ValidationAllowed = false;
-			}
-			else
-			{
-				// A post-revoke start.
-				this.PurposeRequired = false;
-				this.ValidationAllowed = true;
-			}
 
 			if (string.IsNullOrEmpty(this.TagProfile.PhoneNumber))
 			{
@@ -122,6 +111,36 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		}
 
 		#region Properties
+
+		/// <summary>
+		/// A BindableProperty for <see cref="IsRevalidating"/> property.
+		/// </summary>
+		public static readonly BindableProperty IsRevalidatingProperty =
+			BindableProperty.Create(nameof(IsRevalidating), typeof(bool), typeof(ValidateContactInfoViewModel), false,
+				propertyChanged: (Bindable, OldValue, NewValue) =>
+				{
+					ValidateContactInfoViewModel ViewModel = (ValidateContactInfoViewModel)Bindable;
+
+					if ((bool)NewValue)
+					{
+						ViewModel.PurposeRequired = false;
+						ViewModel.ValidationAllowed = true;
+					}
+					else
+					{
+						ViewModel.PurposeRequired = true;
+						ViewModel.ValidationAllowed = false;
+					}
+				});
+
+		/// <summary>
+		/// Gets or sets a value indicating if we are validating contact information for the first time or after revoking an identity.
+		/// </summary>
+		public bool IsRevalidating
+		{
+			get => (bool)this.GetValue(IsRevalidatingProperty);
+			set => this.SetValue(IsRevalidatingProperty, value);
+		}
 
 		/// <summary>
 		/// Holds the list of purposes to display.
@@ -618,7 +637,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					this.TagProfile.SetIsTest(IsTest);
 					this.TagProfile.SetTestOtpTimestamp(IsTemporary ? DateTime.Now : null);
 
-					if (this.TagProfile.LegalIdentity == null)
+					if (!this.IsRevalidating)
 					{
 						bool DefaultConnectivity;
 						try
