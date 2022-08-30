@@ -9136,6 +9136,21 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView"/> class.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse">
+            <summary>
+            For what purpose the app will be used
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.WorkOrPersonal">
+            <summary>
+            For work or personal use
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.EducationalOrExperimental">
+            <summary>
+            For educational or experimental use
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel">
             <summary>
             The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
@@ -20745,11 +20760,6 @@
             Returns <c>true</c> if the <see cref="P:IdApp.Services.Tag.ITagProfile.Pin"/> should be used, <c>false</c> otherwise.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Tag.ITagProfile.Purpose">
-            <summary>
-            Returns the selected purpose for using the application.
-            </summary>
-        </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.IsTest">
             <summary>
             Returns <c>true</c> if the user choose the educational or experimental purpose.
@@ -20891,12 +20901,6 @@
             <summary>
             Revert Step 5.
             </summary>
-        </member>
-        <member name="M:IdApp.Services.Tag.ITagProfile.SetPurpose(PurposeUse)">
-            <summary>
-            Sets the purpose for using the application.
-            </summary>
-            <param name="Purpose">The purpose for using the application.</param>
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetIsTest(System.Boolean)">
             <summary>
@@ -21232,9 +21236,6 @@
         <member name="P:IdApp.Services.Tag.TagProfile.UsePin">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.Services.Tag.TagProfile.Purpose">
-            <inheritdoc/>
-        </member>
         <member name="P:IdApp.Services.Tag.TagProfile.IsTest">
             <inheritdoc/>
         </member>
@@ -21293,9 +21294,6 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.ClearPin">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Services.Tag.TagProfile.SetPurpose(PurposeUse)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetIsTest(System.Boolean)">
@@ -21494,14 +21492,6 @@
             <summary>
             Set to true if the PIN should be used.
             </summary>
-        </member>
-        <member name="P:IdApp.Services.TagConfiguration.Purpose">
-            <summary>
-            The purpose for using the application.
-            </summary>
-            <remarks>
-            This property is nullable for backward compatibility with databases saved before this property was introduced.
-            </remarks>
         </member>
         <member name="P:IdApp.Services.TagConfiguration.IsTest">
             <summary>
@@ -22949,21 +22939,6 @@
             </summary>
             <param name="TokenInformation">Token information.</param>
             <returns>If token could be registered.</returns>
-        </member>
-        <member name="T:PurposeUse">
-            <summary>
-            For what purpose the app will be used.
-            </summary>
-        </member>
-        <member name="F:PurposeUse.WorkOrPersonal">
-            <summary>
-            For work or personal use
-            </summary>
-        </member>
-        <member name="F:PurposeUse.EducationalOrExperimental">
-            <summary>
-            For educational or experimental use
-            </summary>
         </member>
     </members>
 </doc>
