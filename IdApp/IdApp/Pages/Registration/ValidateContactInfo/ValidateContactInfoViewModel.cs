@@ -452,6 +452,10 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"],
 						LocalizationResourceManager.Current["SendEmailWarning"]);
 				}
+				else
+				{
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingEmailCode"]);
+				}
 			}
 			catch (Exception ex)
 			{
