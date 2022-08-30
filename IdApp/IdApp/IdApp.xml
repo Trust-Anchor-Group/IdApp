@@ -16098,6 +16098,16 @@
               Looks up a localized string similar to Retype PIN or password.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.RevalidateEMail">
+            <summary>
+              Looks up a localized string similar to We need to revalidate your e-mail address. Please update your e-mail address if necessary and tap &quot;send code&quot; button..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.RevalidatePhoneNr">
+            <summary>
+              Looks up a localized string similar to We need to revalidate your mobile phone number. Please update your mobile phone number if necessary (use international phone number format, without spaces) and tap &quot;send code&quot; button..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ReviewIdentityInformationText">
             <summary>
               Looks up a localized string similar to You have been requested to review the following personal information. If correct, check the corresponding boxes, and press the Approve button at the bottom. You can also press the Reject button if you find anything that is incorrect..

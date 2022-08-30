@@ -3625,6 +3625,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We need to revalidate your e-mail address. Please update your e-mail address if necessary and tap &quot;send code&quot; button..
+        /// </summary>
+        internal static string RevalidateEMail {
+            get {
+                return ResourceManager.GetString("RevalidateEMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We need to revalidate your mobile phone number. Please update your mobile phone number if necessary (use international phone number format, without spaces) and tap &quot;send code&quot; button..
+        /// </summary>
+        internal static string RevalidatePhoneNr {
+            get {
+                return ResourceManager.GetString("RevalidatePhoneNr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You have been requested to review the following personal information. If correct, check the corresponding boxes, and press the Approve button at the bottom. You can also press the Reject button if you find anything that is incorrect..
         /// </summary>
         internal static string ReviewIdentityInformationText {

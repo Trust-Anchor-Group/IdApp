@@ -1890,6 +1890,12 @@
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Variables Updated</value>
   </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>We need to revalidate your e-mail address. Please update your e-mail address if necessary and tap "send code" button.</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>We need to revalidate your mobile phone number. Please update your mobile phone number if necessary (use international phone number format, without spaces) and tap "send code" button.</value>
+  </data>
   <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
     <value>Something went wrong when sending a verification code to this email.</value>
   </data>
