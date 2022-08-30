@@ -585,7 +585,10 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			try
 			{
 				string TrimmedNumber = this.TrimPhoneNumber(this.PhoneNumber);
-				bool IsTest = this.Purpose == (int)PurposeUse.EducationalOrExperimental;
+
+				bool IsTest = this.PurposeRequired
+					? this.Purpose == (int)PurposeUse.EducationalOrExperimental
+					: this.TagProfile.IsTest;
 
 				object Result = await InternetContent.PostAsync(
 					new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
@@ -611,18 +614,22 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					this.TagProfile.SetIsTest(IsTest);
 					this.TagProfile.SetTestOtpTimestamp(IsTemporary ? DateTime.Now : null);
 
-					bool DefaultConnectivity;
-					try
+					if (this.TagProfile.LegalIdentity == null)
 					{
-						(string HostName, int PortNumber, bool IsIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(Domain);
-						DefaultConnectivity = HostName == Domain && PortNumber == Waher.Networking.XMPP.XmppCredentials.DefaultPort;
-					}
-					catch (Exception)
-					{
-						DefaultConnectivity = false;
+						bool DefaultConnectivity;
+						try
+						{
+							(string HostName, int PortNumber, bool IsIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(Domain);
+							DefaultConnectivity = HostName == Domain && PortNumber == Waher.Networking.XMPP.XmppCredentials.DefaultPort;
+						}
+						catch (Exception)
+						{
+							DefaultConnectivity = false;
+						}
+
+						this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 					}
 
-					this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 					this.OnStepCompleted(EventArgs.Empty);
 				}
 				else
