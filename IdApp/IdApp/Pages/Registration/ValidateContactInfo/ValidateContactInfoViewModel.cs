@@ -43,6 +43,19 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			this.Purposes.Add(LocalizationResourceManager.Current["PurposeWorkOrPersonal"]);
 			this.Purposes.Add(LocalizationResourceManager.Current["PurposeEducationalOrExperimental"]);
 
+			if (this.TagProfile.LegalIdentity == null)
+			{
+				// A fresh start.
+				this.PurposeRequired = true;
+				this.ValidationAllowed = false;
+			}
+			else
+			{
+				// A post-revoke start.
+				this.PurposeRequired = false;
+				this.ValidationAllowed = true;
+			}
+
 			if (string.IsNullOrEmpty(this.TagProfile.PhoneNumber))
 			{
 				try
@@ -119,7 +132,12 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		/// See <see cref="Purpose"/>
 		/// </summary>
 		public static readonly BindableProperty PurposeProperty =
-			BindableProperty.Create(nameof(Purpose), typeof(int), typeof(ValidateContactInfoViewModel), -1);
+			BindableProperty.Create(nameof(Purpose), typeof(int), typeof(ValidateContactInfoViewModel), -1,
+				propertyChanged: (Bindable, OldValue, NewValue) =>
+				{
+					if ((int)NewValue > -1)
+						((ValidateContactInfoViewModel)Bindable).ValidationAllowed = true;
+				});
 
 		/// <summary>
 		/// Phone number
@@ -127,17 +145,39 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		public int Purpose
 		{
 			get => (int)this.GetValue(PurposeProperty);
-			set
-			{
-				this.SetValue(PurposeProperty, value);
-				this.OnPropertyChanged(nameof(this.PurposeSelected));
-			}
+			set => this.SetValue(PurposeProperty, value);
 		}
 
 		/// <summary>
-		/// If the purpose was selected
+		/// A BindableProperty for <see cref="PurposeRequired"/> property.
 		/// </summary>
-		public bool PurposeSelected => this.Purpose != -1;
+		public static readonly BindableProperty PurposeRequiredProperty =
+			BindableProperty.Create(nameof(PurposeRequired), typeof(bool), typeof(ValidateContactInfoViewModel), true);
+
+		/// <summary>
+		/// Gets or sets a value indicating if the user needs to provide a purpose.
+		/// </summary>
+		public bool PurposeRequired
+		{
+			get => (bool)this.GetValue(PurposeRequiredProperty);
+			set => this.SetValue(PurposeRequiredProperty, value);
+		}
+
+		/// <summary>
+		/// A BindableProperty for <see cref="ValidationAllowed"/> property.
+		/// </summary>
+		public static readonly BindableProperty ValidationAllowedProperty =
+			BindableProperty.Create(nameof(ValidationAllowed), typeof(bool), typeof(ValidateContactInfoViewModel), false);
+
+		/// <summary>
+		/// Gets or sets a value indicating if the user is allowed to validate their contact information at the moment
+		/// (or needs to provide a purpose first).
+		/// </summary>
+		public bool ValidationAllowed
+		{
+			get => (bool)this.GetValue(ValidationAllowedProperty);
+			set => this.SetValue(ValidationAllowedProperty, value);
+		}
 
 		/// <summary>
 		/// See <see cref="CountEmailSeconds"/>

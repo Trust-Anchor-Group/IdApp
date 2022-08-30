@@ -9172,9 +9172,25 @@
             Phone number
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelected">
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeRequiredProperty">
             <summary>
-            If the purpose was selected
+            A BindableProperty for <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeRequired"/> property.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeRequired">
+            <summary>
+            Gets or sets a value indicating if the user needs to provide a purpose.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.ValidationAllowedProperty">
+            <summary>
+            A BindableProperty for <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.ValidationAllowed"/> property.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.ValidationAllowed">
+            <summary>
+            Gets or sets a value indicating if the user is allowed to validate their contact information at the moment
+            (or needs to provide a purpose first).
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CountEmailSecondsProperty">
