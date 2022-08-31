@@ -631,7 +631,7 @@ namespace IdApp.Services.Tag
 						break;
 
 					case RegistrationStep.RegisterIdentity:
-						this.Step = RegistrationStep.Account;
+						this.Step = this.LegalIdentity is null ? RegistrationStep.Account : RegistrationStep.ValidateContactInfo;
 						break;
 
 					case RegistrationStep.ValidateIdentity:
@@ -654,7 +654,7 @@ namespace IdApp.Services.Tag
 				switch (this.Step)
 				{
 					case RegistrationStep.ValidateContactInfo:
-						this.Step = RegistrationStep.Account;
+						this.Step = this.LegalIdentity is null ? RegistrationStep.Account : RegistrationStep.RegisterIdentity;
 						break;
 
 					case RegistrationStep.Account:
