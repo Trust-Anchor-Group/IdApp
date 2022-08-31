@@ -55,7 +55,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		{
 			await base.OnInitialize();
 
-			this.IsRevalidating = this.TagProfile.LegalIdentity is not null;
+			this.SynchronizeIsRevalidatingWithTagProfile();
+			this.TagProfile.Changed += this.TagProfile_Changed;
 
 			this.Purposes.Clear();
 			this.Purposes.Add(LocalizationResourceManager.Current["PurposeWorkOrPersonal"]);
@@ -91,6 +92,13 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			this.EvaluateAllCommands();
 		}
 
+		/// <inheritdoc/>
+		protected override Task OnDispose()
+		{
+			this.TagProfile.Changed -= this.TagProfile_Changed;
+			return base.OnDispose();
+		}
+
 		/// <inheritdoc />
 		public override Task DoAssignProperties()
 		{
@@ -124,6 +132,17 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			this.EvaluateCommands(
 				this.SendPhoneNrCodeCommand, this.VerifyPhoneNrCodeCommand,
 				this.SendEMailCodeCommand, this.VerifyEMailCodeCommand);
+		}
+
+		private void TagProfile_Changed(object Sender, System.ComponentModel.PropertyChangedEventArgs Args)
+		{
+			if (Args.PropertyName == nameof(this.TagProfile.LegalIdentity))
+				this.SynchronizeIsRevalidatingWithTagProfile();
+		}
+
+		private void SynchronizeIsRevalidatingWithTagProfile()
+		{
+			this.IsRevalidating = this.TagProfile.LegalIdentity is not null;
 		}
 
 		#region Properties
