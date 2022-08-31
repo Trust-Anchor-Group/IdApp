@@ -708,6 +708,13 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
+		public void RevalidateContactInfo()
+		{
+			if (!string.IsNullOrWhiteSpace(this.Domain) && this.Step == RegistrationStep.ValidateContactInfo)
+				this.IncrementConfigurationStep();
+		}
+
+		/// <inheritdoc/>
 		public void SetAccount(string accountName, string clientPasswordHash, string clientPasswordHashMethod)
 		{
 			this.Account = accountName;

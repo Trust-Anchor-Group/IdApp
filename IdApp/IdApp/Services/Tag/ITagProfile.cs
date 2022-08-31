@@ -238,6 +238,11 @@ namespace IdApp.Services.Tag
 		void ClearDomain();
 
 		/// <summary>
+		/// An alternative Step 1, used for accounts with an obsoleted identity, - validate contact info (the same or updated) without changing account data.
+		/// </summary>
+		void RevalidateContactInfo();
+
+		/// <summary>
 		/// Step 2 - set the account name and password for a <em>new</em> account.
 		/// </summary>
 		/// <param name="accountName">The account/user name.</param>
