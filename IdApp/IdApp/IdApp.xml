@@ -20847,6 +20847,16 @@
             Revert Step 1.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Tag.ITagProfile.RevalidateContactInfo">
+            <summary>
+            An alternative Step 1, used for accounts with an obsoleted identity, - validate contact info (the same or updated) without changing account data.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Tag.ITagProfile.InvalidateContactInfo">
+            <summary>
+            Revert an alternative Step 1, used for accounts with an obsoleted identity, - invalidate contact info without erasing the legal identity or otherwise changing the account.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetAccount(System.String,System.String,System.String)">
             <summary>
             Step 2 - set the account name and password for a <em>new</em> account.
@@ -21261,6 +21271,12 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.ClearDomain">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Tag.TagProfile.RevalidateContactInfo">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Tag.TagProfile.InvalidateContactInfo">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetAccount(System.String,System.String,System.String)">
