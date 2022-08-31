@@ -228,8 +228,15 @@ namespace IdApp.Pages.Registration.Registration
 						break;
 
 					case RegistrationStep.RegisterIdentity:
-						this.RegistrationSteps[this.CurrentStep].ClearStepState();
-						this.TagProfile.ClearLegalIdentity();
+						if (this.TagProfile.LegalIdentity is null)
+						{
+							this.RegistrationSteps[this.CurrentStep].ClearStepState();
+							this.TagProfile.ClearLegalIdentity();
+						}
+						else
+						{
+							this.TagProfile.InvalidateContactInfo();
+						}
 						break;
 
 					case RegistrationStep.ValidateIdentity:
