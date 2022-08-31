@@ -9166,6 +9166,9 @@
             Override this method to do view model specific setup when it's parent page/view appears on screen.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.OnDispose">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.DoAssignProperties">
             <inheritdoc />
         </member>
