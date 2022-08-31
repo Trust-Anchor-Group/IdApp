@@ -653,7 +653,11 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					this.TagProfile.SetIsTest(IsTest);
 					this.TagProfile.SetTestOtpTimestamp(IsTemporary ? DateTime.Now : null);
 
-					if (!this.IsRevalidating)
+					if (this.IsRevalidating)
+					{
+						this.TagProfile.RevalidateContactInfo();
+					}
+					else
 					{
 						bool DefaultConnectivity;
 						try
