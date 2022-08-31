@@ -175,9 +175,14 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			this.TagProfile.Changed -= this.TagProfile_Changed;
 			this.XmppService.Contracts.LegalIdentityChanged -= this.SmartContracts_LegalIdentityChanged;
-			this.XmppService.Xmpp.OnRosterItemAdded -= this.CheckRosterItem;
-			this.XmppService.Xmpp.OnRosterItemRemoved -= this.CheckRosterItem;
-			this.XmppService.Xmpp.OnRosterItemUpdated -= this.CheckRosterItem;
+
+			if (this.XmppService.Xmpp is not null)
+			{
+				this.XmppService.Xmpp.OnRosterItemAdded -= this.CheckRosterItem;
+				this.XmppService.Xmpp.OnRosterItemRemoved -= this.CheckRosterItem;
+				this.XmppService.Xmpp.OnRosterItemUpdated -= this.CheckRosterItem;
+			}
+
 			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
 			this.NotificationService.OnNotificationsDeleted -= this.NotificationService_OnNotificationsDeleted;
 
