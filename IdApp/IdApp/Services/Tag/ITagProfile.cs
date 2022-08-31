@@ -243,6 +243,11 @@ namespace IdApp.Services.Tag
 		void RevalidateContactInfo();
 
 		/// <summary>
+		/// Revert an alternative Step 1, used for accounts with an obsoleted identity, - invalidate contact info without erasing the legal identity or otherwise changing the account.
+		/// </summary>
+		void InvalidateContactInfo();
+
+		/// <summary>
 		/// Step 2 - set the account name and password for a <em>new</em> account.
 		/// </summary>
 		/// <param name="accountName">The account/user name.</param>

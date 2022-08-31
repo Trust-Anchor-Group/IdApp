@@ -715,6 +715,12 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
+		public void InvalidateContactInfo()
+		{
+			this.DecrementConfigurationStep();
+		}
+
+		/// <inheritdoc/>
 		public void SetAccount(string accountName, string clientPasswordHash, string clientPasswordHashMethod)
 		{
 			this.Account = accountName;
