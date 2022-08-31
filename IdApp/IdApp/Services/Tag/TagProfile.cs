@@ -773,6 +773,8 @@ namespace IdApp.Services.Tag
 			this.PasswordHashMethod = string.Empty;
 			this.LegalJid = null;
 
+			this.RemovePinWithoutDecrementingStep();
+
 			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo); // prev
 		}
 
@@ -793,6 +795,8 @@ namespace IdApp.Services.Tag
 		{
 			this.LegalIdentity = null;
 			this.LegalJid = null;
+
+			this.RemovePinWithoutDecrementingStep();
 
 			this.DecrementConfigurationStep(RegistrationStep.Account); // prev
 		}
@@ -838,8 +842,7 @@ namespace IdApp.Services.Tag
 		/// <inheritdoc/>
 		public void ClearPin()
 		{
-			this.Pin = string.Empty;
-			this.UsePin = false;
+			this.RemovePinWithoutDecrementingStep();
 
 			if (this.Step == RegistrationStep.Pin)
 				this.DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
@@ -910,6 +913,12 @@ namespace IdApp.Services.Tag
 		public void SetSupportsPushNotification(bool? supportsPushNotification)
 		{
 			this.SupportsPushNotification = supportsPushNotification;
+		}
+
+		private void RemovePinWithoutDecrementingStep()
+		{
+			this.Pin = string.Empty;
+			this.UsePin = false;
 		}
 
 		#endregion
