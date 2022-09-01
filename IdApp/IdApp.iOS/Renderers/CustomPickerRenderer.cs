@@ -36,7 +36,8 @@ namespace IdApp.iOS.Renderers
 				this.Control.BorderStyle = UITextBorderStyle.Line;
 				this.Control.Layer.BorderColor = this.Element is not null ? EntryProperties.GetBorderColor(this.Element).ToCGColor() : UIColor.Clear.CGColor;
 
-				this.Control.LeftView = new UIView(new CGRect(0, 0, 5, 5));
+				System.nfloat Padding = (System.nfloat)(this.Element is not null ? EntryProperties.GetPaddingHorizontal(this.Element) : 5);
+				this.Control.LeftView = new UIView(new CGRect(0, 0, Padding, Padding));
 				this.Control.LeftViewMode = UITextFieldViewMode.Always;
 			}
 		}

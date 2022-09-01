@@ -28,8 +28,9 @@ namespace IdApp.Android.Renderers
 
 				// We should set padding on the Control, not on the ViewGroup.
 				// Otherwise, the ViewGroup's padding will clip the Control's content.
-				int Padding = (int)this.Context.ToPixels(5);
-				this.Control.SetPadding(Padding, Padding, Padding, Padding);
+				double PaddingHorizontalInDip = this.Element is not null ? EntryProperties.GetPaddingHorizontal(this.Element) : 5;
+				int Padding = (int)this.Context.ToPixels(PaddingHorizontalInDip);
+				this.Control.SetPadding(Padding, 0, Padding, 0);
 			}
 
 			this.OverrideBackground();
@@ -47,14 +48,14 @@ namespace IdApp.Android.Renderers
 
 		private void OverrideBackground()
 		{
-			double borderWidthInDip = this.Element is not null ? EntryProperties.GetBorderWidth(this.Element) : 0;
-			double cornerRadiusInDip = this.Element is not null ? EntryProperties.GetCornerRadius(this.Element) : 0;
+			double BorderWidthInDip = this.Element is not null ? EntryProperties.GetBorderWidth(this.Element) : 0;
+			double CornerRadiusInDip = this.Element is not null ? EntryProperties.GetCornerRadius(this.Element) : 0;
 
-			RoundRectShape Shape = new(Enumerable.Repeat(this.Context.ToPixels(cornerRadiusInDip), 8).ToArray(), null, null);
+			RoundRectShape Shape = new(Enumerable.Repeat(this.Context.ToPixels(CornerRadiusInDip), 8).ToArray(), null, null);
 
 			ShapeDrawable Border = new(Shape);
 			Border.Paint.SetStyle(Paint.Style.Stroke);
-			Border.Paint.StrokeWidth = this.Context.ToPixels(borderWidthInDip);
+			Border.Paint.StrokeWidth = this.Context.ToPixels(BorderWidthInDip);
 			Border.Paint.Color = this.Element is not null ? EntryProperties.GetBorderColor(this.Element).ToAndroid() : AndroidColor.Transparent;
 
 			ShapeDrawable Fill = new(Shape);

@@ -29,8 +29,9 @@ namespace IdApp.Android.Renderers
 
 				// We should set padding on the Control, not on the ViewGroup.
 				// Otherwise, the ViewGroup's padding will clip the Control's content.
-				int Padding = (int)this.Context.ToPixels(5);
-				this.Control.SetPadding(Padding, Padding, Padding, Padding);
+				double PaddingHorizontalInDip = this.Element is not null ? EntryProperties.GetPaddingHorizontal(this.Element) : 5;
+				int Padding = (int)this.Context.ToPixels(PaddingHorizontalInDip);
+				this.Control.SetPadding(Padding, 0, Padding, 0);
 			}
 
 			this.OverrideBackground();
