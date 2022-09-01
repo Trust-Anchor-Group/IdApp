@@ -248,7 +248,7 @@ namespace IdApp.Pages.Registration.Registration
 
 					case RegistrationStep.Pin:
 						this.RegistrationSteps[this.CurrentStep].ClearStepState();
-						this.TagProfile.ClearPin();
+						this.TagProfile.RevertPinStep();
 						break;
 
 					default: // RegistrationStep.Operator

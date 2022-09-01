@@ -836,11 +836,8 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public void ClearPin()
+		public void RevertPinStep()
 		{
-			this.Pin = string.Empty;
-			this.UsePin = false;
-
 			if (this.Step == RegistrationStep.Pin)
 				this.DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
 		}

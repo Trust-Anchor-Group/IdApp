@@ -300,7 +300,7 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// Revert Step 5.
 		/// </summary>
-		void ClearPin();
+		void RevertPinStep();
 
 		/// <summary>
 		/// Step 1 - Set if the user choose the educational or experimental purpose.
