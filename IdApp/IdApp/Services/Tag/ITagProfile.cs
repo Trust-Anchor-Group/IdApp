@@ -293,9 +293,9 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		///  Step 5 - Set a pin to use for protecting the account.
 		/// </summary>
-		/// <param name="pin">The pin to use.</param>
-		/// <param name="shouldUsePin"><c>true</c> to use the pin, <c>false</c> otherwise.</param>
-		void SetPin(string pin, bool shouldUsePin);
+		/// <param name="Pin">The pin to use.</param>
+		/// <param name="AddOrUpdatePin">If we set / clear pin or ignore the new value and just complete th step.</param>
+		void CompletePinStep(string Pin, bool AddOrUpdatePin = true);
 
 		/// <summary>
 		/// Revert Step 5.

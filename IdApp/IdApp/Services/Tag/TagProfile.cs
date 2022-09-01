@@ -826,10 +826,13 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public void SetPin(string Pin, bool ShouldUsePin)
+		public void CompletePinStep(string Pin, bool AddOrUpdatePin = true)
 		{
-			this.Pin = Pin;
-			this.UsePin = ShouldUsePin;
+			if (AddOrUpdatePin)
+			{
+				this.Pin = Pin;
+				this.UsePin = !string.IsNullOrEmpty(Pin);
+			}
 
 			if (this.step == RegistrationStep.Pin)
 				this.IncrementConfigurationStep();
