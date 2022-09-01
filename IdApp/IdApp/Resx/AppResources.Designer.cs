@@ -5272,7 +5272,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can protect your wallet and sensitive information by changing an additional PIN number or password..
+        ///   Looks up a localized string similar to You can change the existing PIN if necessary. If you skip this step, the old PIN will be used..
         /// </summary>
         internal static string YouCanProtectYourWalletPinInfoChange {
             get {
