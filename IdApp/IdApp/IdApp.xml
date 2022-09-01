@@ -8492,16 +8492,6 @@
             Gets the value indicating whether the entered <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> is the same as the entered <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.RetypedPin"/>.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.UsePinProperty">
-            <summary>
-            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.UsePin"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.UsePin">
-            <summary>
-            Gets or sets whether a PIn should be used for validation.
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.IsConnectedProperty">
             <summary>
             The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.IsConnected"/>
@@ -8520,6 +8510,11 @@
         <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.ConnectionStateText">
             <summary>
             The user friendly connection state text to display to the user.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.OldPinExists">
+            <summary>
+            Gets a value indicating if the user already has an old pin set up.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.YouCanProtectYourWalletPinInfoProperty">
@@ -17033,7 +17028,7 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.YouCanProtectYourWalletPinInfoChange">
             <summary>
-              Looks up a localized string similar to You can protect your wallet and sensitive information by changing an additional PIN number or password..
+              Looks up a localized string similar to You can change the existing PIN if necessary. If you skip this step, the old PIN will be used..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.YouHaveNowBeenSignedOut">
@@ -20903,14 +20898,14 @@
             Revert Step 4.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Tag.ITagProfile.SetPin(System.String,System.Boolean)">
+        <member name="M:IdApp.Services.Tag.ITagProfile.CompletePinStep(System.String,System.Boolean)">
             <summary>
              Step 5 - Set a pin to use for protecting the account.
             </summary>
-            <param name="pin">The pin to use.</param>
-            <param name="shouldUsePin"><c>true</c> to use the pin, <c>false</c> otherwise.</param>
+            <param name="Pin">The pin to use.</param>
+            <param name="AddOrUpdatePin">If we set / clear pin or ignore the new value and just complete th step.</param>
         </member>
-        <member name="M:IdApp.Services.Tag.ITagProfile.ClearPin">
+        <member name="M:IdApp.Services.Tag.ITagProfile.RevertPinStep">
             <summary>
             Revert Step 5.
             </summary>
@@ -21309,10 +21304,10 @@
         <member name="M:IdApp.Services.Tag.TagProfile.ClearIsValidated">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.Tag.TagProfile.SetPin(System.String,System.Boolean)">
+        <member name="M:IdApp.Services.Tag.TagProfile.CompletePinStep(System.String,System.Boolean)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.Tag.TagProfile.ClearPin">
+        <member name="M:IdApp.Services.Tag.TagProfile.RevertPinStep">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetIsTest(System.Boolean)">
