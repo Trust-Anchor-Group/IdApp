@@ -136,21 +136,6 @@ namespace IdApp.Pages.Registration.DefinePin
 		public bool PinsMatch => string.IsNullOrEmpty(this.Pin) ? string.IsNullOrEmpty(this.RetypedPin) : this.Pin.Equals(this.RetypedPin, StringComparison.Ordinal);
 
 		/// <summary>
-		/// The <see cref="UsePin"/>
-		/// </summary>
-		public static readonly BindableProperty UsePinProperty =
-			BindableProperty.Create(nameof(UsePin), typeof(bool), typeof(DefinePinViewModel), default(bool));
-
-		/// <summary>
-		/// Gets or sets whether a PIn should be used for validation.
-		/// </summary>
-		public bool UsePin
-		{
-			get => (bool)this.GetValue(UsePinProperty);
-			set => this.SetValue(UsePinProperty, value);
-		}
-
-		/// <summary>
 		/// The <see cref="IsConnected"/>
 		/// </summary>
 		public static readonly BindableProperty IsConnectedProperty =
@@ -179,6 +164,11 @@ namespace IdApp.Pages.Registration.DefinePin
 			get => (string)this.GetValue(ConnectionStateTextProperty);
 			set => this.SetValue(ConnectionStateTextProperty, value);
 		}
+
+		/// <summary>
+		/// Gets a value indicating if the user already has an old pin set up.
+		/// </summary>
+		public bool OldPinExists => this.TagProfile.UsePin && !string.IsNullOrEmpty(this.TagProfile.PinHash);
 
 		/// <summary>
 		/// The <see cref="YouCanProtectYourWalletPinInfo"/>
@@ -239,16 +229,13 @@ namespace IdApp.Pages.Registration.DefinePin
 		{
 			this.IsConnected = State == XmppState.Connected;
 			this.ConnectionStateText = State.ToDisplayText();
-			this.YouCanProtectYourWalletPinInfo =
-				(this.TagProfile.UsePin && !string.IsNullOrEmpty(this.TagProfile.PinHash))
+			this.YouCanProtectYourWalletPinInfo = this.OldPinExists
 				? LocalizationResourceManager.Current["YouCanProtectYourWalletPinInfoChange"] : LocalizationResourceManager.Current["YouCanProtectYourWalletPinInfo"];
 		}
 
 		private void Skip()
 		{
-			this.UsePin = false;
-
-			this.Complete();
+			this.Complete(AddOrUpdatePin: false);
 		}
 
 		private bool CanSkip()
@@ -258,8 +245,6 @@ namespace IdApp.Pages.Registration.DefinePin
 
 		private void Continue()
 		{
-			this.UsePin = true;
-
 			string PinToCheck = this.Pin ?? string.Empty;
 
 			if (PinToCheck.Length < Constants.Authentication.MinPinLength)
@@ -273,14 +258,12 @@ namespace IdApp.Pages.Registration.DefinePin
 				return;
 			}
 
-			this.Complete();
+			this.Complete(AddOrUpdatePin: true);
 		}
 
-
-		private void Complete()
+		private void Complete(bool AddOrUpdatePin)
 		{
-
-			this.TagProfile.SetPin(this.Pin, this.UsePin);
+			this.TagProfile.CompletePinStep(this.Pin, AddOrUpdatePin);
 
 			this.OnStepCompleted(EventArgs.Empty);
 

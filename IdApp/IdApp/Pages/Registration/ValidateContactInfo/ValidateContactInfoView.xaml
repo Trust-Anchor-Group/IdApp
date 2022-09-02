@@ -20,7 +20,7 @@
             </Image>
             <noBounce:NoBounceScrollView x:Name="ScrollView" Margin="{StaticResource DefaultLeftRightMargin}">
 				<StackLayout x:Name="Frames" Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
-					<Grid Style="{StaticResource OnboardingGrid}">
+					<Grid Style="{StaticResource OnboardingGrid}" IsVisible="{Binding PurposeRequired}">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
@@ -48,10 +48,16 @@
 					</Grid>
 
 					<Grid Style="{StaticResource OnboardingGrid}" RowDefinitions="auto,auto,auto"
-						  IsVisible="{Binding Path=PurposeSelected}">
+						  IsVisible="{Binding Path=ValidationAllowed}">
 						<Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" Style="{StaticResource OnboardingFrame}"/>
 						<Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagValidateEMail}"
-							   VerticalOptions="Start"  HorizontalOptions="Center" FontSize="Body" />
+							   VerticalOptions="Start"  HorizontalOptions="Center" FontSize="Body">
+							<Label.Triggers>
+								<DataTrigger TargetType="Label" Binding="{Binding IsRevalidating}" Value="True">
+									<Setter Property="Text" Value="{x:Static resx:AppResources.RevalidateEMail}" />
+								</DataTrigger>
+							</Label.Triggers>
+						</Label>
 						<Entry Grid.Row="2" x:Name="EMailEntry" Placeholder="{x:Static resx:AppResources.EnterEMail}"
 								   ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
 								   Text="{Binding Path=EMail, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}" />
@@ -59,14 +65,14 @@
 
 					<Button x:Name="SendEMailCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}"
 							Text="{Binding Path=EmailButtonLabel}" Command="{Binding Path=SendEMailCodeCommand}"
-							IsEnabled="{Binding Path=EmailButtonEnabled}" IsVisible="{Binding Path=PurposeSelected}">
+							IsEnabled="{Binding Path=EmailButtonEnabled}" IsVisible="{Binding Path=ValidationAllowed}">
 						<Button.Behaviors>
 							<behaviors:ScrollToClickedBehavior ScrollTo="VerifyEMailCodeButton"
 															   BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
 						</Button.Behaviors>
 					</Button>
 
-					<Grid IsVisible="{Binding Path=PurposeSelected}" RowDefinitions="auto,auto" Style="{StaticResource OnboardingGrid}">
+					<Grid IsVisible="{Binding Path=ValidationAllowed}" RowDefinitions="auto,auto" Style="{StaticResource OnboardingGrid}">
 						<Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" Style="{StaticResource OnboardingFrame}"/>
 						<Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagEMailCodeSent}" FontSize="Body"
                            VerticalOptions="Start" HorizontalOptions="Center" />
@@ -77,7 +83,7 @@
 
 					<Button x:Name="VerifyEMailCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             Text="{Binding Path=VerifyEmailCodeButtonLabel}" Command="{Binding Path=VerifyEMailCodeCommand}"
-                            IsEnabled="{Binding Path=VerifyEmailCodeButtonEnabled}" IsVisible="{Binding Path=PurposeSelected}">
+                            IsEnabled="{Binding Path=VerifyEmailCodeButtonEnabled}" IsVisible="{Binding Path=ValidationAllowed}">
 						<Button.Behaviors>
 							<behaviors:ScrollToClickedBehavior ScrollTo="SendPhoneNrCodeButton"
                                                             BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
@@ -85,10 +91,16 @@
 					</Button>
 
 					<Grid Style="{StaticResource OnboardingGrid}" RowDefinitions="auto,auto,auto"
-						  IsVisible="{Binding Path=PurposeSelected}">
+						  IsVisible="{Binding Path=ValidationAllowed}">
 						<Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" Style="{StaticResource OnboardingFrame}"/>
 						<Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagValidatePhoneNr}"
-                           VerticalOptions="Start" HorizontalOptions="Center" FontSize="Body" />
+                           VerticalOptions="Start" HorizontalOptions="Center" FontSize="Body">
+							<Label.Triggers>
+								<DataTrigger TargetType="Label" Binding="{Binding IsRevalidating}" Value="True">
+									<Setter Property="Text" Value="{x:Static resx:AppResources.RevalidatePhoneNr}" />
+								</DataTrigger>
+							</Label.Triggers>
+						</Label>
 						<Entry Grid.Row="2" x:Name="PhoneNumberEntry" Placeholder="{x:Static resx:AppResources.EnterPhoneNumber}"
                                ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
                                Text="{Binding Path=PhoneNumber, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}" />
@@ -96,14 +108,14 @@
 
 					<Button x:Name="SendPhoneNrCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             Text="{Binding Path=PhoneButtonLabel}" Command="{Binding Path=SendPhoneNrCodeCommand}"
-                            IsEnabled="{Binding Path=PhoneButtonEnabled}" IsVisible="{Binding Path=PurposeSelected}">
+                            IsEnabled="{Binding Path=PhoneButtonEnabled}" IsVisible="{Binding Path=ValidationAllowed}">
 						<Button.Behaviors>
 							<behaviors:ScrollToClickedBehavior ScrollTo="VerifyPhoneNrCodeButton"
 															   BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
 						</Button.Behaviors>
 					</Button>
 
-					<Grid IsVisible="{Binding Path=PurposeSelected}" RowDefinitions="auto,auto" Style="{StaticResource OnboardingGrid}">
+					<Grid IsVisible="{Binding Path=ValidationAllowed}" RowDefinitions="auto,auto" Style="{StaticResource OnboardingGrid}">
 						<Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" Style="{StaticResource OnboardingFrame}"/>
 						<Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagPhoneNrCodeSent}" FontSize="Body"
                            VerticalOptions="Start" HorizontalOptions="Center" />
@@ -115,7 +127,7 @@
 
 					<Button x:Name="VerifyPhoneNrCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             Text="{Binding Path=VerifyPhoneCodeButtonLabel}" Command="{Binding Path=VerifyPhoneNrCodeCommand}"
-                            IsEnabled="{Binding Path=VerifyPhoneCodeButtonEnabled}" IsVisible="{Binding Path=PurposeSelected}">
+                            IsEnabled="{Binding Path=VerifyPhoneCodeButtonEnabled}" IsVisible="{Binding Path=ValidationAllowed}">
 						<Button.Behaviors>
 							<behaviors:ScrollToClickedBehavior ScrollTo="ActivityIndicator"
 															   BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>

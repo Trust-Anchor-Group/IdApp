@@ -238,6 +238,16 @@ namespace IdApp.Services.Tag
 		void ClearDomain();
 
 		/// <summary>
+		/// An alternative Step 1, used for accounts with an obsoleted identity, - validate contact info (the same or updated) without changing account data.
+		/// </summary>
+		void RevalidateContactInfo();
+
+		/// <summary>
+		/// Revert an alternative Step 1, used for accounts with an obsoleted identity, - invalidate contact info without erasing the legal identity or otherwise changing the account.
+		/// </summary>
+		void InvalidateContactInfo();
+
+		/// <summary>
 		/// Step 2 - set the account name and password for a <em>new</em> account.
 		/// </summary>
 		/// <param name="accountName">The account/user name.</param>
@@ -283,14 +293,16 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		///  Step 5 - Set a pin to use for protecting the account.
 		/// </summary>
-		/// <param name="pin">The pin to use.</param>
-		/// <param name="shouldUsePin"><c>true</c> to use the pin, <c>false</c> otherwise.</param>
-		void SetPin(string pin, bool shouldUsePin);
+		/// <param name="Pin">The pin to use.</param>
+		/// <param name="AddOrUpdatePin">
+		/// If we should use <paramref name="Pin"/> to set or clear pin or we should ignore <paramref name="Pin"/> and just complete th step.
+		/// </param>
+		void CompletePinStep(string Pin, bool AddOrUpdatePin = true);
 
 		/// <summary>
 		/// Revert Step 5.
 		/// </summary>
-		void ClearPin();
+		void RevertPinStep();
 
 		/// <summary>
 		/// Step 1 - Set if the user choose the educational or experimental purpose.

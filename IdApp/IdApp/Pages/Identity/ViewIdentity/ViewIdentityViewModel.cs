@@ -175,9 +175,16 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			this.TagProfile.Changed -= this.TagProfile_Changed;
 			this.XmppService.Contracts.LegalIdentityChanged -= this.SmartContracts_LegalIdentityChanged;
-			this.XmppService.Xmpp.OnRosterItemAdded -= this.CheckRosterItem;
-			this.XmppService.Xmpp.OnRosterItemRemoved -= this.CheckRosterItem;
-			this.XmppService.Xmpp.OnRosterItemUpdated -= this.CheckRosterItem;
+
+			// Pattern matching is used here not just to show off :). Another thread can set XmppService.Xmpp to null in parallel for scenarios like
+			// dismissing a ViewIdentityPage after revoking an identity.
+			if (this.XmppService.Xmpp is XmppClient XmppClient)
+			{
+				XmppClient.OnRosterItemAdded -= this.CheckRosterItem;
+				XmppClient.OnRosterItemRemoved -= this.CheckRosterItem;
+				XmppClient.OnRosterItemUpdated -= this.CheckRosterItem;
+			}
+
 			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
 			this.NotificationService.OnNotificationsDeleted -= this.NotificationService_OnNotificationsDeleted;
 
@@ -1787,7 +1794,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private void UpdateSubscriptionStatus()
 		{
-			RosterItem Item = this.XmppService.Xmpp[this.BareJid];
+			RosterItem Item = this.XmppService.Xmpp?[this.BareJid];
 
 			this.Subscribed = this.ThirdParty && (Item is not null) && (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.To);
 			this.NotSubscribed = this.ThirdParty && (Item is null || (Item.State != SubscriptionState.Both && Item.State != SubscriptionState.To));

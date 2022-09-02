@@ -19,7 +19,7 @@ namespace IdApp.Resx {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppResources {
@@ -3625,6 +3625,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We need to revalidate your e-mail address. Please update your e-mail address if necessary and tap &quot;send code&quot; button..
+        /// </summary>
+        internal static string RevalidateEMail {
+            get {
+                return ResourceManager.GetString("RevalidateEMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We need to revalidate your mobile phone number. Please update your mobile phone number if necessary (use international phone number format, without spaces) and tap &quot;send code&quot; button..
+        /// </summary>
+        internal static string RevalidatePhoneNr {
+            get {
+                return ResourceManager.GetString("RevalidatePhoneNr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You have been requested to review the following personal information. If correct, check the corresponding boxes, and press the Approve button at the bottom. You can also press the Reject button if you find anything that is incorrect..
         /// </summary>
         internal static string ReviewIdentityInformationText {
@@ -4057,6 +4075,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something went wrong when sending a verification code to this email..
+        /// </summary>
+        internal static string SomethingWentWrongWhenSendingEmailCode {
+            get {
+                return ResourceManager.GetString("SomethingWentWrongWhenSendingEmailCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong when sending a verification code to this phone number..
+        /// </summary>
+        internal static string SomethingWentWrongWhenSendingPhoneCode {
+            get {
+                return ResourceManager.GetString("SomethingWentWrongWhenSendingPhoneCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spam.
         /// </summary>
         internal static string Spam {
@@ -4179,6 +4215,15 @@ namespace IdApp.Resx {
         internal static string SuccessTitle {
             get {
                 return ResourceManager.GetString("SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changing the phone number to a test one is not allowed..
+        /// </summary>
+        internal static string SwitchingToTestPhoneNumberNotAllowed {
+            get {
+                return ResourceManager.GetString("SwitchingToTestPhoneNumberNotAllowed", resourceCulture);
             }
         }
         
@@ -5227,7 +5272,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can protect your wallet and sensitive information by changing an additional PIN number or password..
+        ///   Looks up a localized string similar to You can change the existing PIN if necessary. If you skip this step, the old PIN will be used..
         /// </summary>
         internal static string YouCanProtectYourWalletPinInfoChange {
             get {

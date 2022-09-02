@@ -198,7 +198,7 @@ namespace IdApp.Pages.Registration.Registration
 						await App.Current.SetAppShellPageAsync();
 						break;
 
-					default: // RegistrationStep.Operator
+					default: // RegistrationStep.ValidateContactInfo
 						await this.SyncTagProfileStep();
 						break;
 				}
@@ -225,13 +225,18 @@ namespace IdApp.Pages.Registration.Registration
 					case RegistrationStep.Account:
 						this.RegistrationSteps[this.CurrentStep].ClearStepState();
 						this.TagProfile.ClearAccount();
-						this.TagProfile.ClearPin();
 						break;
 
 					case RegistrationStep.RegisterIdentity:
-						this.RegistrationSteps[this.CurrentStep].ClearStepState();
-						this.TagProfile.ClearLegalIdentity();
-						this.TagProfile.ClearPin();
+						if (this.TagProfile.LegalIdentity is null)
+						{
+							this.RegistrationSteps[this.CurrentStep].ClearStepState();
+							this.TagProfile.ClearLegalIdentity();
+						}
+						else
+						{
+							this.TagProfile.InvalidateContactInfo();
+						}
 						break;
 
 					case RegistrationStep.ValidateIdentity:
@@ -243,7 +248,7 @@ namespace IdApp.Pages.Registration.Registration
 
 					case RegistrationStep.Pin:
 						this.RegistrationSteps[this.CurrentStep].ClearStepState();
-						this.TagProfile.ClearPin();
+						this.TagProfile.RevertPinStep();
 						break;
 
 					default: // RegistrationStep.Operator

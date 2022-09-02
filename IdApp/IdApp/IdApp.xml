@@ -8507,16 +8507,6 @@
             Gets the value indicating whether the entered <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.Pin"/> is the same as the entered <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.RetypedPin"/>.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.UsePinProperty">
-            <summary>
-            The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.UsePin"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.UsePin">
-            <summary>
-            Gets or sets whether a PIn should be used for validation.
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.IsConnectedProperty">
             <summary>
             The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.IsConnected"/>
@@ -8535,6 +8525,11 @@
         <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.ConnectionStateText">
             <summary>
             The user friendly connection state text to display to the user.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.OldPinExists">
+            <summary>
+            Gets a value indicating if the user already has an old pin set up.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.YouCanProtectYourWalletPinInfoProperty">
@@ -9181,11 +9176,24 @@
             Override this method to do view model specific setup when it's parent page/view appears on screen.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.OnDispose">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.DoAssignProperties">
             <inheritdoc />
         </member>
         <member name="M:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.OnStepCompleted(System.EventArgs)">
             <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsRevalidatingProperty">
+            <summary>
+            A BindableProperty for <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsRevalidating"/> property.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsRevalidating">
+            <summary>
+            Gets or sets a value indicating if we are validating contact information for the first time or after revoking an identity.
+            </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.Purposes">
             <summary>
@@ -9202,9 +9210,25 @@
             Phone number
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeSelected">
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeRequiredProperty">
             <summary>
-            If the purpose was selected
+            A BindableProperty for <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeRequired"/> property.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeRequired">
+            <summary>
+            Gets or sets a value indicating if the user needs to provide a purpose.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.ValidationAllowedProperty">
+            <summary>
+            A BindableProperty for <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.ValidationAllowed"/> property.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.ValidationAllowed">
+            <summary>
+            Gets or sets a value indicating if the user is allowed to validate their contact information at the moment
+            (or needs to provide a purpose first).
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.CountEmailSecondsProperty">
@@ -16102,6 +16126,16 @@
               Looks up a localized string similar to Retype PIN or password.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.RevalidateEMail">
+            <summary>
+              Looks up a localized string similar to We need to revalidate your e-mail address. Please update your e-mail address if necessary and tap &quot;send code&quot; button..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.RevalidatePhoneNr">
+            <summary>
+              Looks up a localized string similar to We need to revalidate your mobile phone number. Please update your mobile phone number if necessary (use international phone number format, without spaces) and tap &quot;send code&quot; button..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ReviewIdentityInformationText">
             <summary>
               Looks up a localized string similar to You have been requested to review the following personal information. If correct, check the corresponding boxes, and press the Approve button at the bottom. You can also press the Reject button if you find anything that is incorrect..
@@ -16342,6 +16376,16 @@
               Looks up a localized string similar to Skip.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.SomethingWentWrongWhenSendingEmailCode">
+            <summary>
+              Looks up a localized string similar to Something went wrong when sending a verification code to this email..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SomethingWentWrongWhenSendingPhoneCode">
+            <summary>
+              Looks up a localized string similar to Something went wrong when sending a verification code to this phone number..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Spam">
             <summary>
               Looks up a localized string similar to Spam.
@@ -16410,6 +16454,11 @@
         <member name="P:IdApp.Resx.AppResources.SuccessTitle">
             <summary>
               Looks up a localized string similar to Success.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SwitchingToTestPhoneNumberNotAllowed">
+            <summary>
+              Looks up a localized string similar to Changing the phone number to a test one is not allowed..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.TagEngraved">
@@ -16994,7 +17043,7 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.YouCanProtectYourWalletPinInfoChange">
             <summary>
-              Looks up a localized string similar to You can protect your wallet and sensitive information by changing an additional PIN number or password..
+              Looks up a localized string similar to You can change the existing PIN if necessary. If you skip this step, the old PIN will be used..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.YouHaveNowBeenSignedOut">
@@ -20811,6 +20860,16 @@
             Revert Step 1.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Tag.ITagProfile.RevalidateContactInfo">
+            <summary>
+            An alternative Step 1, used for accounts with an obsoleted identity, - validate contact info (the same or updated) without changing account data.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Tag.ITagProfile.InvalidateContactInfo">
+            <summary>
+            Revert an alternative Step 1, used for accounts with an obsoleted identity, - invalidate contact info without erasing the legal identity or otherwise changing the account.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetAccount(System.String,System.String,System.String)">
             <summary>
             Step 2 - set the account name and password for a <em>new</em> account.
@@ -20854,14 +20913,16 @@
             Revert Step 4.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Tag.ITagProfile.SetPin(System.String,System.Boolean)">
+        <member name="M:IdApp.Services.Tag.ITagProfile.CompletePinStep(System.String,System.Boolean)">
             <summary>
              Step 5 - Set a pin to use for protecting the account.
             </summary>
-            <param name="pin">The pin to use.</param>
-            <param name="shouldUsePin"><c>true</c> to use the pin, <c>false</c> otherwise.</param>
+            <param name="Pin">The pin to use.</param>
+            <param name="AddOrUpdatePin">
+            If we should use <paramref name="Pin"/> to set or clear pin or we should ignore <paramref name="Pin"/> and just complete th step.
+            </param>
         </member>
-        <member name="M:IdApp.Services.Tag.ITagProfile.ClearPin">
+        <member name="M:IdApp.Services.Tag.ITagProfile.RevertPinStep">
             <summary>
             Revert Step 5.
             </summary>
@@ -21227,6 +21288,12 @@
         <member name="M:IdApp.Services.Tag.TagProfile.ClearDomain">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Services.Tag.TagProfile.RevalidateContactInfo">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Tag.TagProfile.InvalidateContactInfo">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetAccount(System.String,System.String,System.String)">
             <inheritdoc/>
         </member>
@@ -21254,10 +21321,10 @@
         <member name="M:IdApp.Services.Tag.TagProfile.ClearIsValidated">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.Tag.TagProfile.SetPin(System.String,System.Boolean)">
+        <member name="M:IdApp.Services.Tag.TagProfile.CompletePinStep(System.String,System.Boolean)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.Tag.TagProfile.ClearPin">
+        <member name="M:IdApp.Services.Tag.TagProfile.RevertPinStep">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetIsTest(System.Boolean)">

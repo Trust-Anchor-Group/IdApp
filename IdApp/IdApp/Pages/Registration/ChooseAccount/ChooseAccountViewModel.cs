@@ -501,7 +501,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 							}
 
 							if (!string.IsNullOrEmpty(Pin))
-								this.TagProfile.SetPin(Pin, !string.IsNullOrEmpty(Pin));
+								this.TagProfile.CompletePinStep(Pin);
 
 							foreach (LegalIdentity Identity in Identities)
 							{

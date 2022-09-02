@@ -631,7 +631,7 @@ namespace IdApp.Services.Tag
 						break;
 
 					case RegistrationStep.RegisterIdentity:
-						this.Step = RegistrationStep.Account;
+						this.Step = this.LegalIdentity is null ? RegistrationStep.Account : RegistrationStep.ValidateContactInfo;
 						break;
 
 					case RegistrationStep.ValidateIdentity:
@@ -654,7 +654,7 @@ namespace IdApp.Services.Tag
 				switch (this.Step)
 				{
 					case RegistrationStep.ValidateContactInfo:
-						this.Step = RegistrationStep.Account;
+						this.Step = this.LegalIdentity is null ? RegistrationStep.Account : RegistrationStep.RegisterIdentity;
 						break;
 
 					case RegistrationStep.Account:
@@ -705,6 +705,19 @@ namespace IdApp.Services.Tag
 		{
 			this.Domain = string.Empty;
 			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
+		}
+
+		/// <inheritdoc/>
+		public void RevalidateContactInfo()
+		{
+			if (!string.IsNullOrWhiteSpace(this.Domain) && this.Step == RegistrationStep.ValidateContactInfo)
+				this.IncrementConfigurationStep();
+		}
+
+		/// <inheritdoc/>
+		public void InvalidateContactInfo()
+		{
+			this.DecrementConfigurationStep();
 		}
 
 		/// <inheritdoc/>
@@ -788,14 +801,14 @@ namespace IdApp.Services.Tag
 		public void RevokeLegalIdentity(LegalIdentity revokedIdentity)
 		{
 			this.LegalIdentity = revokedIdentity;
-			this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
+			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 		}
 
 		/// <inheritdoc/>
 		public void CompromiseLegalIdentity(LegalIdentity compromisedIdentity)
 		{
 			this.LegalIdentity = compromisedIdentity;
-			this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
+			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 		}
 
 		/// <inheritdoc/>
@@ -808,26 +821,25 @@ namespace IdApp.Services.Tag
 		/// <inheritdoc/>
 		public void ClearIsValidated()
 		{
-			this.LegalIdentity = null;
 			this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
 		}
 
 		/// <inheritdoc/>
-		public void SetPin(string Pin, bool ShouldUsePin)
+		public void CompletePinStep(string Pin, bool AddOrUpdatePin = true)
 		{
-			this.Pin = Pin;
-			this.UsePin = ShouldUsePin;
+			if (AddOrUpdatePin)
+			{
+				this.Pin = Pin;
+				this.UsePin = !string.IsNullOrEmpty(Pin);
+			}
 
 			if (this.step == RegistrationStep.Pin)
 				this.IncrementConfigurationStep();
 		}
 
 		/// <inheritdoc/>
-		public void ClearPin()
+		public void RevertPinStep()
 		{
-			this.Pin = string.Empty;
-			this.UsePin = false;
-
 			if (this.Step == RegistrationStep.Pin)
 				this.DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
 		}

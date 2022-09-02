@@ -55,6 +55,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		{
 			await base.OnInitialize();
 
+			this.SynchronizeIsRevalidatingWithTagProfile();
+			this.TagProfile.Changed += this.TagProfile_Changed;
+
 			this.Purposes.Clear();
 			this.Purposes.Add(LocalizationResourceManager.Current["PurposeWorkOrPersonal"]);
 			this.Purposes.Add(LocalizationResourceManager.Current["PurposeEducationalOrExperimental"]);
@@ -87,6 +90,13 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			this.EMail = this.TagProfile.EMail;
 
 			this.EvaluateAllCommands();
+		}
+
+		/// <inheritdoc/>
+		protected override Task OnDispose()
+		{
+			this.TagProfile.Changed -= this.TagProfile_Changed;
+			return base.OnDispose();
 		}
 
 		/// <inheritdoc />
@@ -124,7 +134,48 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				this.SendEMailCodeCommand, this.VerifyEMailCodeCommand);
 		}
 
+		private void TagProfile_Changed(object Sender, System.ComponentModel.PropertyChangedEventArgs Args)
+		{
+			if (Args.PropertyName == nameof(this.TagProfile.LegalIdentity))
+				this.SynchronizeIsRevalidatingWithTagProfile();
+		}
+
+		private void SynchronizeIsRevalidatingWithTagProfile()
+		{
+			this.IsRevalidating = this.TagProfile.LegalIdentity is not null;
+		}
+
 		#region Properties
+
+		/// <summary>
+		/// A BindableProperty for <see cref="IsRevalidating"/> property.
+		/// </summary>
+		public static readonly BindableProperty IsRevalidatingProperty =
+			BindableProperty.Create(nameof(IsRevalidating), typeof(bool), typeof(ValidateContactInfoViewModel), false,
+				propertyChanged: (Bindable, OldValue, NewValue) =>
+				{
+					ValidateContactInfoViewModel ViewModel = (ValidateContactInfoViewModel)Bindable;
+
+					if ((bool)NewValue)
+					{
+						ViewModel.PurposeRequired = false;
+						ViewModel.ValidationAllowed = true;
+					}
+					else
+					{
+						ViewModel.PurposeRequired = true;
+						ViewModel.ValidationAllowed = false;
+					}
+				});
+
+		/// <summary>
+		/// Gets or sets a value indicating if we are validating contact information for the first time or after revoking an identity.
+		/// </summary>
+		public bool IsRevalidating
+		{
+			get => (bool)this.GetValue(IsRevalidatingProperty);
+			set => this.SetValue(IsRevalidatingProperty, value);
+		}
 
 		/// <summary>
 		/// Holds the list of purposes to display.
@@ -135,7 +186,12 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		/// See <see cref="Purpose"/>
 		/// </summary>
 		public static readonly BindableProperty PurposeProperty =
-			BindableProperty.Create(nameof(Purpose), typeof(int), typeof(ValidateContactInfoViewModel), -1);
+			BindableProperty.Create(nameof(Purpose), typeof(int), typeof(ValidateContactInfoViewModel), -1,
+				propertyChanged: (Bindable, OldValue, NewValue) =>
+				{
+					if ((int)NewValue > -1)
+						((ValidateContactInfoViewModel)Bindable).ValidationAllowed = true;
+				});
 
 		/// <summary>
 		/// Phone number
@@ -143,17 +199,39 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		public int Purpose
 		{
 			get => (int)this.GetValue(PurposeProperty);
-			set
-			{
-				this.SetValue(PurposeProperty, value);
-				this.OnPropertyChanged(nameof(this.PurposeSelected));
-			}
+			set => this.SetValue(PurposeProperty, value);
 		}
 
 		/// <summary>
-		/// If the purpose was selected
+		/// A BindableProperty for <see cref="PurposeRequired"/> property.
 		/// </summary>
-		public bool PurposeSelected => this.Purpose != -1;
+		public static readonly BindableProperty PurposeRequiredProperty =
+			BindableProperty.Create(nameof(PurposeRequired), typeof(bool), typeof(ValidateContactInfoViewModel), true);
+
+		/// <summary>
+		/// Gets or sets a value indicating if the user needs to provide a purpose.
+		/// </summary>
+		public bool PurposeRequired
+		{
+			get => (bool)this.GetValue(PurposeRequiredProperty);
+			set => this.SetValue(PurposeRequiredProperty, value);
+		}
+
+		/// <summary>
+		/// A BindableProperty for <see cref="ValidationAllowed"/> property.
+		/// </summary>
+		public static readonly BindableProperty ValidationAllowedProperty =
+			BindableProperty.Create(nameof(ValidationAllowed), typeof(bool), typeof(ValidateContactInfoViewModel), false);
+
+		/// <summary>
+		/// Gets or sets a value indicating if the user is allowed to validate their contact information at the moment
+		/// (or needs to provide a purpose first).
+		/// </summary>
+		public bool ValidationAllowed
+		{
+			get => (bool)this.GetValue(ValidationAllowedProperty);
+			set => this.SetValue(ValidationAllowedProperty, value);
+		}
 
 		/// <summary>
 		/// See <see cref="CountEmailSeconds"/>
@@ -428,6 +506,10 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"],
 						LocalizationResourceManager.Current["SendEmailWarning"]);
 				}
+				else
+				{
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingEmailCode"]);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -517,13 +599,24 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					}, new KeyValuePair<string, string>("Accept", "application/json"));
 
 				if (Result is Dictionary<string, object> Response &&
-					Response.TryGetValue("Status", out object Obj) && Obj is bool Status &&
-					Status)
+					Response.TryGetValue("Status", out object Obj) && Obj is bool Status && Status
+					&& Response.TryGetValue("IsTemporary", out Obj) && Obj is bool IsTemporary)
 				{
-					this.StartTimer("phone");
+					if (!this.TagProfile.TestOtpTimestamp.HasValue && IsTemporary)
+					{
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SwitchingToTestPhoneNumberNotAllowed"]);
+					}
+					else
+					{
+						this.StartTimer("phone");
 
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"],
-						LocalizationResourceManager.Current["SendPhoneNumberWarning"]);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"],
+							LocalizationResourceManager.Current["SendPhoneNumberWarning"]);
+					}
+				}
+				else
+				{
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingPhoneCode"]);
 				}
 			}
 			catch (Exception ex)
@@ -550,7 +643,10 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			try
 			{
 				string TrimmedNumber = this.TrimPhoneNumber(this.PhoneNumber);
-				bool IsTest = this.Purpose == (int)PurposeUse.EducationalOrExperimental;
+
+				bool IsTest = this.PurposeRequired
+					? this.Purpose == (int)PurposeUse.EducationalOrExperimental
+					: this.TagProfile.IsTest;
 
 				object Result = await InternetContent.PostAsync(
 					new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
@@ -576,18 +672,26 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					this.TagProfile.SetIsTest(IsTest);
 					this.TagProfile.SetTestOtpTimestamp(IsTemporary ? DateTime.Now : null);
 
-					bool DefaultConnectivity;
-					try
+					if (this.IsRevalidating)
 					{
-						(string HostName, int PortNumber, bool IsIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(Domain);
-						DefaultConnectivity = HostName == Domain && PortNumber == Waher.Networking.XMPP.XmppCredentials.DefaultPort;
+						this.TagProfile.RevalidateContactInfo();
 					}
-					catch (Exception)
+					else
 					{
-						DefaultConnectivity = false;
+						bool DefaultConnectivity;
+						try
+						{
+							(string HostName, int PortNumber, bool IsIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(Domain);
+							DefaultConnectivity = HostName == Domain && PortNumber == Waher.Networking.XMPP.XmppCredentials.DefaultPort;
+						}
+						catch (Exception)
+						{
+							DefaultConnectivity = false;
+						}
+
+						this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 					}
 
-					this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 					this.OnStepCompleted(EventArgs.Empty);
 				}
 				else

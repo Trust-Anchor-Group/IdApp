@@ -1093,7 +1093,7 @@
     <value>You can protect your wallet and sensitive information by adding an additional PIN number or password.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>You can protect your wallet and sensitive information by changing an additional PIN number or password.</value>
+    <value>You can change the existing PIN if necessary. If you skip this step, the old PIN will be used.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>You have now been signed out. To sign in again, use the menu in the top left corner.</value>
@@ -1889,5 +1889,20 @@
   </data>
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Variables Updated</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>We need to revalidate your e-mail address. Please update your e-mail address if necessary and tap "send code" button.</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>We need to revalidate your mobile phone number. Please update your mobile phone number if necessary (use international phone number format, without spaces) and tap "send code" button.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Something went wrong when sending a verification code to this email.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Something went wrong when sending a verification code to this phone number.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Changing the phone number to a test one is not allowed.</value>
   </data>
 </root>
