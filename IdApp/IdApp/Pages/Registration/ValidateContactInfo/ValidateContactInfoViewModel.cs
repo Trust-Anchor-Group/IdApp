@@ -602,7 +602,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					Response.TryGetValue("Status", out object Obj) && Obj is bool Status && Status
 					&& Response.TryGetValue("IsTemporary", out Obj) && Obj is bool IsTemporary)
 				{
-					if (!this.TagProfile.TestOtpTimestamp.HasValue && IsTemporary)
+					if (!string.IsNullOrEmpty(this.TagProfile.PhoneNumber) && !this.TagProfile.TestOtpTimestamp.HasValue && IsTemporary)
 					{
 						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SwitchingToTestPhoneNumberNotAllowed"]);
 					}
