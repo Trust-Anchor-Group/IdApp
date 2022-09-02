@@ -1093,7 +1093,7 @@
     <value>Du kan beskytte lommeboken og sensitiv informasjon ved å legge til et ekstra PIN-nummer eller passord.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Du kan beskytte lommeboken og sensitiv informasjon ved å endre et ekstra PIN-nummer eller passord.</value>
+    <value>Du kan endre den eksisterende PIN-koden om nødvendig. Hvis du hopper over dette trinnet, brukes den gamle PIN-koden.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Du er nå logget av. Hvis du vil logge på igjen, bruker du menyen øverst til venstre.</value>
@@ -1889,5 +1889,20 @@
   </data>
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Variabler oppdatert</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Vi må ombestille e-postadressen din. Oppdater e-postadressen din om nødvendig, og trykk på "send kode" -knappen.</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Vi må slå tilbake mobilnummeret ditt. Oppdater mobiltelefonnummeret ditt om nødvendig (bruk internasjonalt telefonnummerformat, uten mellomrom) og trykk på "send kode" -knappen.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Noe gikk galt når du sendte en bekreftelseskode til denne e-posten.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Noe gikk galt når du sendte en bekreftelseskode til dette telefonnummeret.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Det er ikke tillatt å endre telefonnummeret til en test.</value>
   </data>
 </root>

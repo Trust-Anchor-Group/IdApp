@@ -1093,7 +1093,7 @@
     <value>Você pode proteger sua carteira e informações confidenciais adicionando um número ou senha pin adicional.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Você pode proteger sua carteira e informações confidenciais alterando um número ou senha pin adicional.</value>
+    <value>Você pode alterar o PIN existente, se necessário. Se você pular esta etapa, o PIN antigo será usado.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Você foi agora assinado fora. Para fazer login novamente, use o menu no canto superior esquerdo.</value>
@@ -1889,5 +1889,20 @@
   </data>
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Variáveis Atualizadas</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Precisamos revalidar seu endereço de e-mail. Por favor, atualize seu endereço de e-mail se necessário e toque no botão "enviar código".</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Precisamos revalidar seu número de telefone celular. Atualize seu número de telefone celular se necessário (use o formato de número de telefone internacional, sem espaços) e toque no botão "enviar código".</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Algo deu errado ao enviar um código de verificação para este e-mail.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Algo deu errado ao enviar um código de verificação para este número de telefone.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>A mudança do número de telefone para um teste não é permitida.</value>
   </data>
 </root>

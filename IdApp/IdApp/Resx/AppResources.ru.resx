@@ -1093,7 +1093,7 @@
     <value>Вы можете защитить свой кошелек и конфиденциальную информацию, добавив дополнительный PIN-код или пароль.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Вы можете защитить свой кошелек и конфиденциальную информацию, изменив дополнительный PIN-код или пароль.</value>
+    <value>При необходимости можно изменить существующий PIN-код. Если пропустить этот шаг, будет использован старый PIN-код.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Теперь вы вышли из системы. Чтобы снова войти в систему, используйте меню в левом верхнем углу.</value>
@@ -1889,5 +1889,20 @@
   </data>
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Обновлены переменные</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Нам необходимо повторно подтвердить ваш адрес электронной почты. Пожалуйста, обновите свой адрес электронной почты, если это необходимо, и нажмите кнопку «Отправить код».</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Нам необходимо повторно подтвердить ваш номер мобильного телефона. При необходимости обновите номер мобильного телефона (используйте формат международного номера телефона, без пробелов) и нажмите кнопку "отправить код".</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Что-то пошло не так при отправке кода подтверждения на этот адрес электронной почты.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Что-то пошло не так при отправке проверочного кода на этот номер телефона.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Смена номера телефона на тестовый не допускается.</value>
   </data>
 </root>

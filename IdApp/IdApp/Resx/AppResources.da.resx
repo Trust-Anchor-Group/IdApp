@@ -1093,7 +1093,7 @@
     <value>Du kan beskytte din tegnebog og følsomme oplysninger ved at tilføje en ekstra pinkode eller adgangskode.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Du kan beskytte din tegnebog og følsomme oplysninger ved at ændre en ekstra pinkode eller adgangskode.</value>
+    <value>Du kan ændre den eksisterende pinkode, hvis det er nødvendigt. Hvis du springer dette trin over, bruges den gamle pinkode.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Du er nu logget ud. Hvis du vil logge ind igen, skal du bruge menuen i øverste venstre hjørne.</value>
@@ -1889,5 +1889,20 @@
   </data>
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Variabler opdateret</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Vi er nødt til at forlænge din e-mail-adresse. Opdater din e-mail-adresse, hvis det er nødvendigt, og tryk på knappen "send kode".</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Vi er nødt til at forlænge dit mobiltelefonnummer. Opdater dit mobiltelefonnummer, hvis det er nødvendigt (brug internationalt telefonnummerformat uden mellemrum), og tryk på knappen "send kode".</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Noget gik galt, da du sendte en bekræftelseskode til denne e-mail.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Noget gik galt, da du sendte en bekræftelseskode til dette telefonnummer.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Det er ikke tilladt at ændre telefonnummeret til en test.</value>
   </data>
 </root>

@@ -1093,7 +1093,7 @@
     <value>Novčanik i osetljive informacije možete da zaštitite dodavanjem dodatnog PIN broja ili lozinke.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Novčanik i osetljive informacije možete da zaštitite promenom dodatnog PIN broja ili lozinke.</value>
+    <value>Postojeći PIN možete promeniti ako je potrebno. Ako preskočite ovaj korak, koristiće se stari PIN.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Sada ste odjaљnjeni. Da biste se ponovo prijavili, koristite meni u gornjem levom uglu.</value>
@@ -1889,5 +1889,20 @@
   </data>
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Promenljive su ažurirane</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Moramo da revalidiramo vašu e-mail adresu. Ažurirajte svoju e-adresu ako je potrebno i dodirnite dugme "pošalji kôd".</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Moramo da revalidiramo vaš broj mobilnog telefona. Ažurirajte broj mobilnog telefona ako je potrebno (koristite međunarodni format broja telefona, bez razmaka) i dodirnite dugme "pošalji kôd".</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Nešto je pošlo naopako prilikom slanja verifikacionog koda na ovu e-poruku.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Nešto je pošlo naopako prilikom slanja verifikacionog koda na ovaj broj telefona.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Promena broja telefona u test jedan nije dozvoljena.</value>
   </data>
 </root>

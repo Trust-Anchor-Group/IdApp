@@ -1093,7 +1093,7 @@
     <value>Vous pouvez protéger votre portefeuille et vos informations sensibles en ajoutant un code PIN ou un mot de passe supplémentaire.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Vous pouvez protéger votre portefeuille et vos informations sensibles en modifiant un code PIN ou un mot de passe supplémentaire.</value>
+    <value>Vous pouvez modifier le code PIN existant si nécessaire. Si vous ignorez cette étape, l’ancien code PIN sera utilisé.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Vous êtes maintenant déconnecté. Pour vous reconnecter, utilisez le menu dans le coin supérieur gauche.</value>
@@ -1889,5 +1889,20 @@
   </data>
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Variables mises à jour</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Nous devons revalider votre adresse e-mail. Veuillez mettre à jour votre adresse e-mail si nécessaire et appuyez sur le bouton « envoyer le code ».</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Nous devons revalider votre numéro de téléphone mobile. Veuillez mettre à jour votre numéro de téléphone mobile si nécessaire (utilisez le format de numéro de téléphone international, sans espaces) et appuyez sur le bouton « envoyer le code ».</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Quelque chose s’est mal passé lors de l’envoi d’un code de vérification à cet e-mail.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Quelque chose s’est mal passé lors de l’envoi d’un code de vérification à ce numéro de téléphone.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Il n’est pas permis de remplacer le numéro de téléphone par un numéro de test.</value>
   </data>
 </root>

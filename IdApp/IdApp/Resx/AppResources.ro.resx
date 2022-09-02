@@ -1093,7 +1093,7 @@
     <value>Vă puteți proteja portofelul și informațiile sensibile adăugând un număr PIN sau o parolă suplimentară.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Vă puteți proteja portofelul și informațiile sensibile modificând un număr PIN sau o parolă suplimentară.</value>
+    <value>Puteți modifica codul PIN existent, dacă este necesar. Dacă săriți peste acest pas, se va utiliza codul PIN vechi.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Acum ați fost deconectat. Pentru a vă conecta din nou, utilizați meniul din colțul din stânga sus.</value>
@@ -1889,5 +1889,20 @@
   </data>
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Variabile actualizate</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Trebuie să vă revalidăm adresa de e-mail. Vă rugăm să actualizați adresa de e-mail dacă este necesar și să atingeți butonul "trimiteți cod".</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Trebuie să vă revalidăm numărul de telefon mobil. Vă rugăm să actualizați numărul de telefon mobil, dacă este necesar (utilizați formatul internațional al numărului de telefon, fără spații) și să atingeți butonul "trimiteți cod".</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Ceva nu a mers bine atunci când trimiteți un cod de verificare la acest e-mail.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Ceva nu a mers bine atunci când a trimis un cod de verificare la acest număr de telefon.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Schimbarea numărului de telefon într-unul de test nu este permisă.</value>
   </data>
 </root>

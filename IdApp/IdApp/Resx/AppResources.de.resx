@@ -1093,7 +1093,7 @@
     <value>Sie können Ihre Brieftasche und vertrauliche Informationen schützen, indem Sie eine zusätzliche PIN-Nummer oder ein Passwort hinzufügen.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Sie können Ihre Brieftasche und vertrauliche Informationen schützen, indem Sie eine zusätzliche PIN-Nummer oder ein Passwort ändern.</value>
+    <value>Sie können die vorhandene PIN bei Bedarf ändern. Wenn Sie diesen Schritt überspringen, wird die alte PIN verwendet.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Sie wurden jetzt abgemeldet. Um sich erneut anzumelden, verwenden Sie das Menü in der oberen linken Ecke.</value>
@@ -1889,5 +1889,20 @@
   </data>
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Aktualisierte Variablen</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Wir müssen Ihre E-Mail-Adresse erneut validieren. Bitte aktualisieren Sie ggf. Ihre E-Mail-Adresse und tippen Sie auf den Button "Code senden".</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Wir müssen Ihre Mobiltelefonnummer erneut validieren. Bitte aktualisieren Sie bei Bedarf Ihre Mobiltelefonnummer (verwenden Sie das internationale Telefonnummernformat, ohne Leerzeichen) und tippen Sie auf die Schaltfläche "Code senden".</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Beim Senden eines Bestätigungscodes an diese E-Mail ist etwas schief gelaufen.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Beim Senden eines Bestätigungscodes an diese Telefonnummer ist etwas schief gelaufen.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Das Ändern der Telefonnummer in eine Testnummer ist nicht zulässig.</value>
   </data>
 </root>

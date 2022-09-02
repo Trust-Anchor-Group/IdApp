@@ -1093,7 +1093,7 @@
     <value>Voit suojata lompakkosi ja arkaluontoiset tietosi lisäämällä ylimääräisen PIN-koodin tai salasanan.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Voit suojata lompakkosi ja arkaluontoiset tietosi vaihtamalla ylimääräisen PIN-koodin tai salasanan.</value>
+    <value>Voit tarvittaessa vaihtaa olemassa olevan PIN-koodin. Jos ohitat tämän vaiheen, käytetään vanhaa PIN-koodia.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Teidät on nyt allekirjoitettu ulos. Jos haluat kirjautua uudelleen sisään, käytä vasemmassa yläkulmassa olevaa valikkoa.</value>
@@ -1889,5 +1889,20 @@
   </data>
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Muuttujat päivitetty</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Meidän on valtuutettava sähköpostiosoitteesi uudelleen. Päivitä sähköpostiosoitteesi tarvittaessa ja napauta "lähetä koodi" -painiketta.</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Meidän on valtuutettava matkapuhelinnumerosi uudelleen. Päivitä matkapuhelinnumerosi tarvittaessa (käytä kansainvälistä puhelinnumeromuotoa, ilman välilyöntejä) ja napauta "lähetä koodi" -painiketta.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Jotain meni pieleen, kun lähetät vahvistuskoodin tähän sähköpostiin.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Jotain meni pieleen, kun lähetin vahvistuskoodin tähän puhelinnumeroon.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Puhelinnumeron muuttaminen testinumeroksi ei ole sallittua.</value>
   </data>
 </root>

@@ -1093,7 +1093,7 @@
     <value>Puede proteger su billetera e información confidencial agregando un número PIN o contraseña adicional.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Puede proteger su billetera e información confidencial cambiando un número PIN o contraseña adicional.</value>
+    <value>Puede cambiar el PIN existente si es necesario. Si omite este paso, se utilizará el PIN anterior.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Ya ha sido cerrado. Para volver a iniciar sesión, utilice el menú de la esquina superior izquierda.</value>
@@ -1889,5 +1889,20 @@
   </data>
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Variables actualizadas</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Necesitamos revalidar su dirección de correo electrónico. Actualice su dirección de correo electrónico si es necesario y toque el botón "enviar código".</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Necesitamos revalidar su número de teléfono móvil. Actualice su número de teléfono móvil si es necesario (use el formato de número de teléfono internacional, sin espacios) y toque el botón "enviar código".</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Algo salió mal al enviar un código de verificación a este correo electrónico.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Algo salió mal al enviar un código de verificación a este número de teléfono.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>No se permite cambiar el número de teléfono a uno de prueba.</value>
   </data>
 </root>
