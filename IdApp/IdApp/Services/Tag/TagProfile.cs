@@ -821,7 +821,6 @@ namespace IdApp.Services.Tag
 		/// <inheritdoc/>
 		public void ClearIsValidated()
 		{
-			// Do not set LegalIdentity to null as we are currently using it to signal that an account has been created (erroneously perhaps).
 			this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
 		}
 
