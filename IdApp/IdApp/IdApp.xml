@@ -2111,6 +2111,21 @@
             Sets the corner radius of an <see cref="T:Xamarin.Forms.Entry"/>.
             </summary>
         </member>
+        <member name="F:IdApp.Helpers.EntryProperties.PaddingHorizontalProperty">
+            <summary>
+            Implements the attached property that defines the width of the left/right side padding of an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.GetPaddingHorizontal(Xamarin.Forms.BindableObject)">
+            <summary>
+            Gets the width of the padding of an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.EntryProperties.SetPaddingHorizontal(Xamarin.Forms.BindableObject,System.Double)">
+            <summary>
+            Sets the width of the padding of an <see cref="T:Xamarin.Forms.Entry"/>.
+            </summary>
+        </member>
         <member name="T:IdApp.Helpers.KeyboardAppearEventArgs">
             <summary>
             MessagingCenter event args

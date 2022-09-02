@@ -226,17 +226,21 @@
 			<Setter Property="BackgroundColor" Value="Transparent" />
 			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
 			<Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
+			<Setter Property="HeightRequest" Value="40" />
 			<Setter Property="helpers:EntryProperties.BorderColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColorDarkTheme}}" />
-			<Setter Property="Margin" Value="{OnPlatform Android='4'}" />
+			<Setter Property="helpers:EntryProperties.BorderWidth" Value="1" />
+			<Setter Property="helpers:EntryProperties.CornerRadius" Value="10" />
 		</Style>
         <Style TargetType="Picker"
                ApplyToDerivedTypes="True"
                CanCascade="True">
             <Setter Property="BackgroundColor" Value="Transparent" />
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
-            <Setter Property="TitleColor" Value="{StaticResource HintColor}" /> 
-			<Setter Property="helpers:EntryProperties.BorderColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColorDarkTheme}}" />
+            <Setter Property="TitleColor" Value="{StaticResource HintColor}" />
 			<Setter Property="HeightRequest" Value="40" />
+			<Setter Property="helpers:EntryProperties.BorderColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColorDarkTheme}}" />
+			<Setter Property="helpers:EntryProperties.BorderWidth" Value="1" />
+			<Setter Property="helpers:EntryProperties.CornerRadius" Value="10" />
 		</Style>
 		<Style TargetType="templatedSwitch:TemplatedSwitch" x:Key="PasswordToggler">
 			<Setter Property="ControlTemplate">
