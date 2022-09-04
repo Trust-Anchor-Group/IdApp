@@ -7,7 +7,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Registration.Registration;assembly=IdApp"
                        x:DataType="model:RegistrationViewModel"
                        x:Class="IdApp.Pages.Registration.Registration.RegistrationPage"
-					   Style="{StaticResource BaseBackgroundPage}"
+					   Style="{StaticResource RegistrationPage}"
                        Shell.FlyoutBehavior="Disabled"
                        Shell.NavBarIsVisible="False">
 	<StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
@@ -39,7 +39,7 @@
 		</StackLayout.Resources>
 		<StackLayout Orientation="Vertical">
 			<!-- HEADING -->
-			<Grid BackgroundColor="{StaticResource HeadingBackground}" Padding="{StaticResource DefaultMargin}" >
+			<Grid Style="{StaticResource RegistrationPageHeader}" Padding="{StaticResource DefaultMargin}" >
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="36"/>
 					<ColumnDefinition Width="*"/>

@@ -309,6 +309,19 @@
 			<!-- Always using light theme color because this is what we use in Shell. -->
 			<Setter Property="BarTextColor" Value="{AppThemeBinding Dark={StaticResource HeadingForegroundLightTheme}, Default={StaticResource HeadingForegroundLightTheme}}" />
 		</Style>
+
+		<Style TargetType="ContentPage" ApplyToDerivedTypes="True" x:Key="LoadingPage">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}" />
+		</Style>
+
+		<!--- RegistrationPage background color should be the same as RegistrationPageHeader background color. -->		
+		<Style TargetType="ContentPage" ApplyToDerivedTypes="True" x:Key="RegistrationPage">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}" />
+		</Style>
+		<Style TargetType="VisualElement" ApplyToDerivedTypes="True" x:Key="RegistrationPageHeader">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}" />
+		</Style>
+		
 		<Style TargetType="Editor">
 			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
 			<Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
