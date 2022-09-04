@@ -1884,4 +1884,16 @@
   <data name="VariablesUpdated" xml:space="preserve">
     <value>Variabler uppdaterade</value>
   </data>
+  <data name="ServiceProviders" xml:space="preserve">
+    <value>Tjänsteleverantörer</value>
+  </data>
+  <data name="BuyEDaler" xml:space="preserve">
+    <value>Köpa eDaler.</value>
+  </data>
+  <data name="SelectServiceProviderBuyEDaler" xml:space="preserve">
+    <value>Välj den tjänsteleverantör du vill använda för att köpa eDaler.</value>
+  </data>
+  <data name="FromUser" xml:space="preserve">
+    <value>Från användare</value>
+  </data>
 </root>

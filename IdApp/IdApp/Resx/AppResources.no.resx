@@ -1905,4 +1905,16 @@
   <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
     <value>Det er ikke tillatt å endre telefonnummeret til en test.</value>
   </data>
+  <data name="ServiceProviders" xml:space="preserve">
+    <value>Tjenesteleverandører</value>
+  </data>
+  <data name="BuyEDaler" xml:space="preserve">
+    <value>Kjøp eDaler.</value>
+  </data>
+  <data name="SelectServiceProviderBuyEDaler" xml:space="preserve">
+    <value>Velg tjenesteleverandøren du vil bruke til å kjøpe eDaler.</value>
+  </data>
+  <data name="FromUser" xml:space="preserve">
+    <value>Fra bruker</value>
+  </data>
 </root>

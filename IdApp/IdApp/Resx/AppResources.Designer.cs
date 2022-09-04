@@ -19,7 +19,7 @@ namespace IdApp.Resx {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppResources {
@@ -408,6 +408,15 @@ namespace IdApp.Resx {
         internal static string Building {
             get {
                 return ResourceManager.GetString("Building", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy eDaler..
+        /// </summary>
+        internal static string BuyEDaler {
+            get {
+                return ResourceManager.GetString("BuyEDaler", resourceCulture);
             }
         }
         
@@ -1443,6 +1452,15 @@ namespace IdApp.Resx {
         internal static string From {
             get {
                 return ResourceManager.GetString("From", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From User.
+        /// </summary>
+        internal static string FromUser {
+            get {
+                return ResourceManager.GetString("FromUser", resourceCulture);
             }
         }
         
@@ -3796,6 +3814,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select the Service Provider you want to use to buy eDaler..
+        /// </summary>
+        internal static string SelectServiceProviderBuyEDaler {
+            get {
+                return ResourceManager.GetString("SelectServiceProviderBuyEDaler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select who should have access to this contract..
         /// </summary>
         internal static string SelectWhoShouldHaveAccessToThisContract {
@@ -3954,6 +3981,15 @@ namespace IdApp.Resx {
         internal static string ServerSignaturesInfoText {
             get {
                 return ResourceManager.GetString("ServerSignaturesInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service Providers.
+        /// </summary>
+        internal static string ServiceProviders {
+            get {
+                return ResourceManager.GetString("ServiceProviders", resourceCulture);
             }
         }
         

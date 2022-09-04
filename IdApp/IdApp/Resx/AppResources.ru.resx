@@ -1905,4 +1905,16 @@
   <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
     <value>Смена номера телефона на тестовый не допускается.</value>
   </data>
+  <data name="ServiceProviders" xml:space="preserve">
+    <value>Поставщики услуг</value>
+  </data>
+  <data name="BuyEDaler" xml:space="preserve">
+    <value>Купить eDaler.</value>
+  </data>
+  <data name="SelectServiceProviderBuyEDaler" xml:space="preserve">
+    <value>Выберите поставщика услуг, которого вы хотите использовать для покупки eDaler.</value>
+  </data>
+  <data name="FromUser" xml:space="preserve">
+    <value>От пользователя</value>
+  </data>
 </root>

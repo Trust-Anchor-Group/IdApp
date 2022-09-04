@@ -11,6 +11,8 @@ using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Wallet.MyWallet.ObjectModels;
+using IdApp.Pages.Wallet.RequestPayment;
+using IdApp.Pages.Wallet.ServiceProviders;
 using IdApp.Services;
 using IdApp.Services.Notification;
 using IdApp.Services.Notification.Wallet;
@@ -623,7 +625,40 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private async Task RequestPayment()
 		{
-			await this.NavigationService.GoToAsync(nameof(Wallet.RequestPayment.RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
+			try
+			{
+				IBuyEDalerServiceProvider[] ServiceProviders = await this.XmppService.Wallet.GetServiceProvidersForBuyingEDalerAsync();
+
+				if (ServiceProviders.Length == 0)
+					await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
+				else
+				{
+					ServiceProvidersNavigationArgs e = new(ServiceProviders, LocalizationResourceManager.Current["SelectServiceProviderBuyEDaler"]);
+					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
+
+					IBuyEDalerServiceProvider ServiceProvider = await e.WaitForServiceProviderSelection();
+					if (ServiceProvider is not null)
+					{
+						if (string.IsNullOrEmpty(ServiceProvider.Id))
+							await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
+						else
+						{
+							Dictionary<string, object> Parameters = new();
+
+							if (!string.IsNullOrEmpty(this.Balance?.Currency))
+								Parameters["Currency"] = this.Balance.Currency;
+
+							await this.ContractOrchestratorService.OpenContract(ServiceProvider.TemplateContractId,
+								LocalizationResourceManager.Current["BuyEDaler"], Parameters);
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
 		}
 
 		private async Task MakePayment()

@@ -12529,6 +12529,156 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.SendPayment.SendPaymentPage"/> class.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Wallet.ServiceProviders.EmptyServiceProvider">
+            <summary>
+            Empty service provider. Used to show the caller the user wants to request a service from a user.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel">
+            <summary>
+            Contact Information model, including related notification information.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.#ctor(EDaler.IBuyEDalerServiceProvider)">
+            <summary>
+            Contact Information model, including related notification information.
+            </summary>
+            <param name="ServiceProvider">Contact information.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.ServiceProvider">
+            <summary>
+            Underlying service provider
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.Id">
+            <summary>
+            Service ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.Name">
+            <summary>
+            Displayable name
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.HasIcon">
+            <summary>
+            If service provider has an icon
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.IconUrl">
+            <summary>
+            Icon URL
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.IconWidth">
+            <summary>
+            Icon Width
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.IconHeight">
+            <summary>
+            Icon Height
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel">
+            <summary>
+            The view model to bind to for when displaying a list of service providers.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.OnDispose">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.DescriptionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.Description"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.Description">
+            <summary>
+            Description to show the user.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.ServiceProviders">
+            <summary>
+            Holds a list of service providers
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.SelectedServiceProviderProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.SelectedServiceProvider"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.SelectedServiceProvider">
+            <summary>
+            The currently selected contact, if any.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.BackCommand">
+            <summary>
+            The command to bind to for returning to previous view.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.FromUserCommand">
+            <summary>
+            The command to bind to for generating a code for another user.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to the eDaler wallet.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.#ctor(EDaler.IBuyEDalerServiceProvider[],System.String)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs"/> class.
+            </summary>
+            <param name="ServiceProviders">Service Providers</param>
+            <param name="Description">Descriptive text to show the user.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.ServiceProviders">
+            <summary>
+            Available service providers.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.Description">
+            <summary>
+            Descriptive text to show the user.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.Selected">
+            <summary>
+            Task completion source, waiting for a response from the user.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.WaitForServiceProviderSelection">
+            <summary>
+            Waits for the service provider to be selected; null is returned if the user goes back.
+            </summary>
+            <returns>Selected service provider, or null if user cancels, by going back.</returns>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage">
+            <summary>
+            A page that allows the user to view its tokens.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage"/> class.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenDetails.PartItem">
             <summary>
             Represents a part related to a token.
@@ -14341,6 +14491,11 @@
               Looks up a localized string similar to Building.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.BuyEDaler">
+            <summary>
+              Looks up a localized string similar to Buy eDaler..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.CalculationError">
             <summary>
               Looks up a localized string similar to Unable to perform calculation..
@@ -14914,6 +15069,11 @@
         <member name="P:IdApp.Resx.AppResources.From">
             <summary>
               Looks up a localized string similar to From.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.FromUser">
+            <summary>
+              Looks up a localized string similar to From User.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.FurtherAction">
@@ -16221,6 +16381,11 @@
               Looks up a localized string similar to Select Purpose.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.SelectServiceProviderBuyEDaler">
+            <summary>
+              Looks up a localized string similar to Select the Service Provider you want to use to buy eDaler..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.SelectWhoShouldHaveAccessToThisContract">
             <summary>
               Looks up a localized string similar to Select who should have access to this contract..
@@ -16309,6 +16474,11 @@
         <member name="P:IdApp.Resx.AppResources.ServerSignaturesInfoText">
             <summary>
               Looks up a localized string similar to The integrity of the contract is protected by the server signature shown below..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ServiceProviders">
+            <summary>
+              Looks up a localized string similar to Service Providers.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Share">
@@ -22286,6 +22456,12 @@
             Timepoint of last eDaler event.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.GetServiceProvidersForBuyingEDalerAsync">
+            <summary>
+            Gets available service providers for buying eDaler.
+            </summary>
+            <returns>Available service providers.</returns>
+        </member>
         <member name="P:IdApp.Services.Wallet.INeuroWallet.NeuroFeaturesClient">
             <summary>
             Reference to the Neuro-Features client implementing the Neuro-Features XMPP extension
@@ -22572,6 +22748,12 @@
             <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted in payment.
             But the message will be unencrypted in the incomplete PeyMe URI.</param>
             <returns>Incomplete PayMe-URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.NeuroWallet.GetServiceProvidersForBuyingEDalerAsync">
+            <summary>
+            Gets available service providers for buying eDaler.
+            </summary>
+            <returns>Available service providers.</returns>
         </member>
         <member name="P:IdApp.Services.Wallet.NeuroWallet.NeuroFeaturesClient">
             <summary>

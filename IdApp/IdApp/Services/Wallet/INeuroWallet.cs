@@ -154,6 +154,12 @@ namespace IdApp.Services.Wallet
 		/// </summary>
 		DateTime LastEDalerEvent { get; }
 
+		/// <summary>
+		/// Gets available service providers for buying eDaler.
+		/// </summary>
+		/// <returns>Available service providers.</returns>
+		Task<IBuyEDalerServiceProvider[]> GetServiceProvidersForBuyingEDalerAsync();
+
 		#endregion
 
 		#region Neuro-Features

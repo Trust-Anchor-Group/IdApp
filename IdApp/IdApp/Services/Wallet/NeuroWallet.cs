@@ -262,6 +262,15 @@ namespace IdApp.Services.Wallet
 			return this.EDalerClient.CreateIncompletePayMeUri(To, Amount, AmountExtra, Currency, PrivateMessage);
 		}
 
+		/// <summary>
+		/// Gets available service providers for buying eDaler.
+		/// </summary>
+		/// <returns>Available service providers.</returns>
+		public async Task<IBuyEDalerServiceProvider[]> GetServiceProvidersForBuyingEDalerAsync()
+		{
+			return await this.EDalerClient.GetServiceProvidersForBuyingEDalerAsync();
+		}
+
 		#endregion
 
 		#region Neuro-Features
