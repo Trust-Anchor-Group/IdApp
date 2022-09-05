@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using IdApp.Services.Notification.Identities;
 using IdApp.Services.Notification.Contracts;
 using Xamarin.CommunityToolkit.Helpers;
+using Waher.Persistence;
 
 namespace IdApp.Services.UI.QR
 {
@@ -66,7 +67,7 @@ namespace IdApp.Services.UI.QR
 					case Constants.UriSchemes.UriSchemeIotSc:
 						Services.NotificationService.ExpectEvent<ContractResponseNotificationEvent>(DateTime.Now.AddMinutes(1));
 
-						Dictionary<string, object> Parameters = new();
+						Dictionary<CaseInsensitiveString, object> Parameters = new();
 
 						string contractId = Constants.UriSchemes.RemoveScheme(Url);
 						int i = contractId.IndexOf('?');

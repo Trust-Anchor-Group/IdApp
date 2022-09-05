@@ -33,15 +33,15 @@ namespace IdApp.Pages.Contracts.NewContract
 	{
 		private static readonly string partSettingsPrefix = typeof(NewContractViewModel).FullName + ".Part_";
 
-		private readonly SortedDictionary<string, ParameterInfo> parametersByName = new();
+		private readonly SortedDictionary<CaseInsensitiveString, ParameterInfo> parametersByName = new();
 		private readonly LinkedList<ParameterInfo> parametersInOrder = new();
-		private Dictionary<string, object> presetParameterValues = new();
+		private Dictionary<CaseInsensitiveString, object> presetParameterValues = new();
 		private CaseInsensitiveString[] suppressedProposalIds;
 		private Contract template;
 		private string templateId;
 		private bool saveStateWhileScanning;
 		private Contract stateTemplateWhileScanning;
-		private readonly Dictionary<string, string> partsToAdd;
+		private readonly Dictionary<CaseInsensitiveString, string> partsToAdd;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="NewContractViewModel"/> class.
@@ -51,7 +51,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.ContractVisibilityItems = new ObservableCollection<ContractVisibilityModel>();
 			this.AvailableRoles = new ObservableCollection<string>();
 			this.ProposeCommand = new Command(async _ => await this.Propose(), _ => this.CanPropose());
-			this.partsToAdd = new Dictionary<string, string>();
+			this.partsToAdd = new Dictionary<CaseInsensitiveString, string>();
 		}
 
 		/// <inheritdoc/>
@@ -130,7 +130,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			if (this.HasPartsToAdd)
 			{
-				foreach (KeyValuePair<string, string> part in this.GetPartsToAdd())
+				foreach (KeyValuePair<CaseInsensitiveString, string> part in this.GetPartsToAdd())
 				{
 					string settingsKey = partSettingsPrefix + part.Key;
 					await this.SettingsService.SaveState(settingsKey, part.Value);
@@ -144,13 +144,13 @@ namespace IdApp.Pages.Contracts.NewContract
 
 		private bool HasPartsToAdd => this.partsToAdd.Count > 0;
 
-		private KeyValuePair<string, string>[] GetPartsToAdd()
+		private KeyValuePair<CaseInsensitiveString, string>[] GetPartsToAdd()
 		{
 			int i = 0;
 			int c = this.partsToAdd.Count;
-			KeyValuePair<string, string>[] Result = new KeyValuePair<string, string>[c];
+			KeyValuePair<CaseInsensitiveString, string>[] Result = new KeyValuePair<CaseInsensitiveString, string>[c];
 
-			foreach (KeyValuePair<string, string> Part in this.partsToAdd)
+			foreach (KeyValuePair<CaseInsensitiveString, string> Part in this.partsToAdd)
 				Result[i++] = Part;
 
 			return Result;
@@ -187,7 +187,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 				if (this.HasPartsToAdd)
 				{
-					foreach (KeyValuePair<string, string> part in this.GetPartsToAdd())
+					foreach (KeyValuePair<CaseInsensitiveString, string> part in this.GetPartsToAdd())
 						await this.AddRole(part.Key, part.Value);
 				}
 
@@ -1326,7 +1326,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				Url.Append(':');
 				Url.Append(this.template.ContractId);
 
-				foreach (KeyValuePair<string, ParameterInfo> P in this.parametersByName)
+				foreach (KeyValuePair<CaseInsensitiveString, ParameterInfo> P in this.parametersByName)
 				{
 					if (First)
 					{

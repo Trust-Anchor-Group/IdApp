@@ -4339,20 +4339,20 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(System.Collections.Generic.Dictionary{Waher.Persistence.CaseInsensitiveString,System.Object})">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
             <param name="ParameterValues">Parameter values to set in new contract.</param>
         </member>
-        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Collections.Generic.Dictionary{Waher.Persistence.CaseInsensitiveString,System.Object})">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
             <param name="Template">The contract to use as template.</param>
             <param name="ParameterValues">Parameter values to set in new contract.</param>
         </member>
-        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean,System.Collections.Generic.Dictionary{Waher.Persistence.CaseInsensitiveString,System.Object})">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
@@ -17885,7 +17885,7 @@
             <param name="LegalId">The id of the legal identity to show.</param>
             <param name="Purpose">The purpose to state if the identity can't be downloaded and needs to be petitioned instead.</param>
         </member>
-        <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.OpenContract(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.OpenContract(System.String,System.String,System.Collections.Generic.Dictionary{Waher.Persistence.CaseInsensitiveString,System.Object})">
             <summary>
             Downloads the specified <see cref="T:Waher.Networking.XMPP.Contracts.Contract"/> and opens the corresponding page in the app to show it.
             </summary>

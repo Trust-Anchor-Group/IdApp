@@ -22,6 +22,7 @@ using NeuroFeatures.Tags;
 using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Waher.Persistence;
 using Waher.Security;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
@@ -1181,7 +1182,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TokenConsignmentTemplate);
 				Template.Visibility = ContractVisibility.Public;
 				NewContractNavigationArgs NewContractArgs = new(Template, true,
-					new Dictionary<string, object>()
+					new Dictionary<CaseInsensitiveString, object>()
 					{
 						{ "TokenID", this.TokenId },
 						{ "Category", this.Category },
@@ -1218,7 +1219,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				Dictionary<string, object> Parameters = new();
+				Dictionary<CaseInsensitiveString, object> Parameters = new();
 				string TrustProviderId = null;
 				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
@@ -1310,7 +1311,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				Dictionary<string, object> Parameters = new();
+				Dictionary<CaseInsensitiveString, object> Parameters = new();
 				string TrustProviderId = null;
 				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;

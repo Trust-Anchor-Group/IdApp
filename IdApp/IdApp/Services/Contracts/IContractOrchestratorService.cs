@@ -3,6 +3,7 @@ using NeuroFeatures;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Persistence;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Contracts
@@ -27,7 +28,7 @@ namespace IdApp.Services.Contracts
 		/// <param name="ContractId">The id of the contract to show.</param>
 		/// <param name="Purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
 		/// <param name="ParameterValues">Parameter values to set in new contract.</param>
-		Task OpenContract(string ContractId, string Purpose, Dictionary<string, object> ParameterValues);
+		Task OpenContract(string ContractId, string Purpose, Dictionary<CaseInsensitiveString, object> ParameterValues);
 
         /// <summary>
         /// TAG Signature request scanned.

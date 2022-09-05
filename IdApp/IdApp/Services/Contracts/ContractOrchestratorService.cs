@@ -432,7 +432,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		public async Task OpenContract(string ContractId, string Purpose, Dictionary<string, object> ParameterValues)
+		public async Task OpenContract(string ContractId, string Purpose, Dictionary<CaseInsensitiveString, object> ParameterValues)
 		{
 			try
 			{

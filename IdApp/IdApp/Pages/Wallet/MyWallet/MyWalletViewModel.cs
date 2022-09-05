@@ -648,10 +648,14 @@ namespace IdApp.Pages.Wallet.MyWallet
 						}
 						else
 						{
-							Dictionary<string, object> Parameters = new();
-
-							if (!string.IsNullOrEmpty(this.Balance?.Currency))
-								Parameters["Currency"] = this.Balance.Currency;
+							CreationAttributesEventArgs e2 = await this.XmppService.Wallet.GetCreationAttributes();
+							Dictionary<CaseInsensitiveString, object> Parameters = new()
+							{
+								{ "Visibility", "CreatorAndParts" },
+								{ "Role", "Buyer" },
+								{ "Currency", this.Balance?.Currency ?? e2.Currency },
+								{ "TrustProvider", e2.TrustProviderId }
+							};
 
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.TemplateContractId,
 								LocalizationResourceManager.Current["BuyEDaler"], Parameters);
@@ -894,7 +898,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				// TODO: Let user choose from a list of token templates.
 
-				Dictionary<string, object> Parameters = new();
+				Dictionary<CaseInsensitiveString, object> Parameters = new();
 				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.CreateDemoTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
 
