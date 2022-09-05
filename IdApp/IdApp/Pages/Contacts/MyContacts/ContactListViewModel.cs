@@ -55,8 +55,6 @@ namespace IdApp.Pages.Contacts.MyContacts
 				this.CanScanQrCode = args.CanScanQrCode;
 			}
 
-
-
 			SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted = new();
 			Dictionary<CaseInsensitiveString, bool> Jids = new();
 
@@ -150,6 +148,18 @@ namespace IdApp.Pages.Contacts.MyContacts
 			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
 			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
 			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
+		}
+
+		/// <inheritdoc/>
+		protected override async Task OnAppearing()
+		{
+			await base.OnAppearing();
+
+			if (this.selection is not null && this.selection.Task.IsCompleted)
+			{
+				await this.NavigationService.GoBackAsync();
+				return;
+			}
 		}
 
 		private static void Add(SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted, CaseInsensitiveString Name, ContactInfo Info)

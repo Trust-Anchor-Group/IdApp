@@ -65,6 +65,18 @@ namespace IdApp.Pages.Contracts.MyContracts
 		}
 
 		/// <inheritdoc/>
+		protected override async Task OnAppearing()
+		{
+			await base.OnAppearing();
+
+			if (this.selection is not null && this.selection.Task.IsCompleted)
+			{
+				await this.NavigationService.GoBackAsync();
+				return;
+			}
+		}
+
+		/// <inheritdoc/>
 		protected override async Task OnDispose()
 		{
 			if (this.Action != SelectContractAction.Select)

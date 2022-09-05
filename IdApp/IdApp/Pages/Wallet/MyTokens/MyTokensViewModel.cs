@@ -80,6 +80,18 @@ namespace IdApp.Pages.Wallet.MyTokens
 		}
 
 		/// <inheritdoc/>
+		protected override async Task OnAppearing()
+		{
+			await base.OnAppearing();
+
+			if (this.selected is not null && this.selected.Task.IsCompleted)
+			{
+				await this.NavigationService.GoBackAsync();
+				return;
+			}
+		}
+
+		/// <inheritdoc/>
 		protected override Task OnDispose()
 		{
 			this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;

@@ -41,6 +41,18 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		}
 
 		/// <inheritdoc/>
+		protected override async Task OnAppearing()
+		{
+			await base.OnAppearing();
+
+			if (this.selected is not null && this.selected.Task.IsCompleted)
+			{
+				await this.NavigationService.GoBackAsync();
+				return;
+			}
+		}
+
+		/// <inheritdoc/>
 		protected override Task OnDispose()
 		{
 			this.selected?.TrySetResult(null);

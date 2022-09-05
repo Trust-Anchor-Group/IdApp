@@ -3449,6 +3449,9 @@
         <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.OnInitialize">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.OnAppearing">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.OnDispose">
             <inheritdoc/>
         </member>
@@ -4053,6 +4056,9 @@
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.OnAppearing">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.OnDispose">
@@ -11381,6 +11387,9 @@
         <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.OnInitialize">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.OnAppearing">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.OnDispose">
             <inheritdoc/>
         </member>
@@ -12591,6 +12600,9 @@
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.OnAppearing">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.OnDispose">
