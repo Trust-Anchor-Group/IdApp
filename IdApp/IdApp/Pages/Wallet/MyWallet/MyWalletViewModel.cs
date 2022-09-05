@@ -640,7 +640,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 					if (ServiceProvider is not null)
 					{
 						if (string.IsNullOrEmpty(ServiceProvider.Id))
-							await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
+						{
+							await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance)
+							{
+								ReturnCounter = 2
+							});
+						}
 						else
 						{
 							Dictionary<string, object> Parameters = new();
@@ -650,6 +655,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.TemplateContractId,
 								LocalizationResourceManager.Current["BuyEDaler"], Parameters);
+
+							// TODO: Return counter
 						}
 					}
 				}

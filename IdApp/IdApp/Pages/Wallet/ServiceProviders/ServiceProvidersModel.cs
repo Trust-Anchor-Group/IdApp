@@ -20,7 +20,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 			: base()
 		{
 			this.BackCommand = new Command(async _ => await this.GoBack());
-			this.FromUserCommand = new Command(async _ => await this.FromUser());
+			this.FromUserCommand = new Command(async _ => this.FromUser());
 
 			this.ServiceProviders = new ObservableCollection<ServiceProviderModel>();
 		}
@@ -81,10 +81,9 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 						viewModel.OnSelected(ServiceProvider);
 				});
 
-		private async void OnSelected(ServiceProviderModel ServiceProvider)
+		private void OnSelected(ServiceProviderModel ServiceProvider)
 		{
 			this.selected?.TrySetResult(ServiceProvider.ServiceProvider);
-			await this.NavigationService.GoBackAsync();
 		}
 
 		/// <summary>
@@ -110,14 +109,13 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 
 		private async Task GoBack()
 		{
-			this.selected.TrySetResult(null);
 			await this.NavigationService.GoBackAsync();
+			this.selected.TrySetResult(null);
 		}
 
-		private async Task FromUser()
+		private void FromUser()
 		{
 			this.selected.TrySetResult(new EmptyServiceProvider());
-			await this.NavigationService.GoBackAsync();
 		}
 
 	}
