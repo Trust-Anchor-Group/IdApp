@@ -17893,6 +17893,14 @@
             <param name="Purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
             <param name="ParameterValues">Parameter values to set in new contract.</param>
         </member>
+        <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.OpenContract(System.String,System.String,System.Collections.Generic.Dictionary{Waher.Persistence.CaseInsensitiveString,System.Object},System.Int32)">
+            <summary>
+            Downloads the specified <see cref="T:Waher.Networking.XMPP.Contracts.Contract"/> and opens the corresponding page in the app to show it.
+            </summary>
+            <param name="ContractId">The id of the contract to show.</param>
+            <param name="Purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
+            <param name="ParameterValues">Parameter values to set in new contract.</param>
+        </member>
         <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.TagSignature(System.String)">
             <summary>
             TAG Signature request scanned.

@@ -432,7 +432,12 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		public async Task OpenContract(string ContractId, string Purpose, Dictionary<CaseInsensitiveString, object> ParameterValues)
+		public Task OpenContract(string ContractId, string Purpose, Dictionary<CaseInsensitiveString, object> ParameterValues)
+		{
+			return this.OpenContract(ContractId, Purpose, ParameterValues, 0);
+		}
+
+		public async Task OpenContract(string ContractId, string Purpose, Dictionary<CaseInsensitiveString, object> ParameterValues, int ReturnCounter)
 		{
 			try
 			{
@@ -462,10 +467,20 @@ namespace IdApp.Services.Contracts
 							await Database.Insert(Ref);
 						}
 
-						await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(Contract, ParameterValues));
+						NewContractNavigationArgs e = new(Contract, ParameterValues);
+						if (ReturnCounter > 0)
+							e.ReturnCounter = ReturnCounter;
+
+						await this.NavigationService.GoToAsync(nameof(NewContractPage), e);
 					}
 					else
-						await this.NavigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(Contract, false));
+					{
+						ViewContractNavigationArgs e = new(Contract, false);
+						if (ReturnCounter > 0)
+							e.ReturnCounter = ReturnCounter;
+
+						await this.NavigationService.GoToAsync(nameof(ViewContractPage), e);
+					}
 				});
 			}
 			catch (ForbiddenException)

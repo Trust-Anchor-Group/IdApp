@@ -643,7 +643,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 						{
 							await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance)
 							{
-								ReturnCounter = 2
+								ReturnCounter = 1
 							});
 						}
 						else
@@ -658,9 +658,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 							};
 
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.TemplateContractId,
-								LocalizationResourceManager.Current["BuyEDaler"], Parameters);
-
-							// TODO: Return counter
+								LocalizationResourceManager.Current["BuyEDaler"], Parameters, 1);
 						}
 					}
 				}
