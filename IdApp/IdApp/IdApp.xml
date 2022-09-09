@@ -17912,6 +17912,8 @@
             <param name="ContractId">The id of the contract to show.</param>
             <param name="Purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
             <param name="ParameterValues">Parameter values to set in new contract.</param>
+            <param name="ReturnCounter">Set it to 1 to start a counter of the number of times to pop when going back.
+            It will be incremented on every push using the <see cref="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String)"/> method.</param>
         </member>
         <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.TagSignature(System.String)">
             <summary>

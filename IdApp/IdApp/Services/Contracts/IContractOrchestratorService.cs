@@ -1,4 +1,5 @@
-﻿using IdApp.Services.Tag;
+﻿using IdApp.Services.Navigation;
+using IdApp.Services.Tag;
 using NeuroFeatures;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -36,6 +37,8 @@ namespace IdApp.Services.Contracts
 		/// <param name="ContractId">The id of the contract to show.</param>
 		/// <param name="Purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
 		/// <param name="ParameterValues">Parameter values to set in new contract.</param>
+		/// <param name="ReturnCounter">Set it to 1 to start a counter of the number of times to pop when going back.
+		/// It will be incremented on every push using the <see cref="INavigationService.GoToAsync"/> method.</param>
 		Task OpenContract(string ContractId, string Purpose, Dictionary<CaseInsensitiveString, object> ParameterValues, int ReturnCounter);
 
 		/// <summary>

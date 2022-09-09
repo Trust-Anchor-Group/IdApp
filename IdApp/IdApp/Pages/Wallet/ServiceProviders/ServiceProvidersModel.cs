@@ -20,7 +20,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 			: base()
 		{
 			this.BackCommand = new Command(async _ => await this.GoBack());
-			this.FromUserCommand = new Command(async _ => this.FromUser());
+			this.FromUserCommand = new Command(_ => this.FromUser());
 
 			this.ServiceProviders = new ObservableCollection<ServiceProviderModel>();
 		}
