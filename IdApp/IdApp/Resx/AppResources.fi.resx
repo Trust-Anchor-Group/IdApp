@@ -1917,4 +1917,7 @@
   <data name="FromUser" xml:space="preserve">
     <value>Käyttäjältä</value>
   </data>
+  <data name="ShortId" xml:space="preserve">
+    <value>Lyhyt tunnus</value>
+  </data>
 </root>

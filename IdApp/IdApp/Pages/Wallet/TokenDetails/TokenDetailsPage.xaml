@@ -32,6 +32,7 @@
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 
 					<Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.Name}" Style="{StaticResource KeyLabel}"/>
@@ -47,14 +48,23 @@
                         </Label.GestureRecognizers>
                     </Label>
 
-                    <Label Grid.Column="0" Grid.Row="3" Text="{x:Static resx:AppResources.TokenIdMethod}" Style="{StaticResource KeyLabel}"/>
-                    <Label Grid.Column="1" Grid.Row="3" Text="{Binding TokenIdMethod}" Style="{StaticResource ValueLabel}"/>
+					<Label Grid.Column="0" Grid.Row="3" Text="{x:Static resx:AppResources.ShortId}" Style="{StaticResource KeyLabel}"
+						   IsVisible="{Binding HasShortTokenId}"/>
+					<Label Grid.Column="1" Grid.Row="3" Text="{Binding ShortTokenId}" Style="{StaticResource ClickableValueLabel}"
+						   IsVisible="{Binding HasShortTokenId}">
+						<Label.GestureRecognizers>
+							<TapGestureRecognizer Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding ShortTokenId}" />
+						</Label.GestureRecognizers>
+					</Label>
 
-                    <Label Grid.Column="0" Grid.Row="4" Text="{x:Static resx:AppResources.TokenVisibility}" Style="{StaticResource KeyLabel}"/>
-                    <Label Grid.Column="1" Grid.Row="4" Text="{Binding Visibility}" Style="{StaticResource ValueLabel}"/>
+					<Label Grid.Column="0" Grid.Row="4" Text="{x:Static resx:AppResources.TokenIdMethod}" Style="{StaticResource KeyLabel}"/>
+                    <Label Grid.Column="1" Grid.Row="4" Text="{Binding TokenIdMethod}" Style="{StaticResource ValueLabel}"/>
 
-                    <Label Grid.Column="0" Grid.Row="5" Text="{x:Static resx:AppResources.Ordinal}" Style="{StaticResource KeyLabel}"/>
-                    <Label Grid.Column="1" Grid.Row="5" Style="{StaticResource ValueLabel}">
+                    <Label Grid.Column="0" Grid.Row="5" Text="{x:Static resx:AppResources.TokenVisibility}" Style="{StaticResource KeyLabel}"/>
+                    <Label Grid.Column="1" Grid.Row="5" Text="{Binding Visibility}" Style="{StaticResource ValueLabel}"/>
+
+                    <Label Grid.Column="0" Grid.Row="6" Text="{x:Static resx:AppResources.Ordinal}" Style="{StaticResource KeyLabel}"/>
+                    <Label Grid.Column="1" Grid.Row="6" Style="{StaticResource ValueLabel}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{Binding Ordinal}"/>
@@ -64,8 +74,8 @@
                         </Label.FormattedText>
                     </Label>
 
-                    <Label Grid.Column="0" Grid.Row="6" Text="{x:Static resx:AppResources.Valuation}" Style="{StaticResource KeyLabel}"/>
-                    <Label Grid.Column="1" Grid.Row="6" Style="{StaticResource ValueLabel}">
+                    <Label Grid.Column="0" Grid.Row="7" Text="{x:Static resx:AppResources.Valuation}" Style="{StaticResource KeyLabel}"/>
+                    <Label Grid.Column="1" Grid.Row="7" Style="{StaticResource ValueLabel}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{Binding Value}"/>
@@ -75,14 +85,14 @@
                         </Label.FormattedText>
                     </Label>
 
-                    <Label Grid.Column="0" Grid.Row="7" Text="{x:Static resx:AppResources.Created}" Style="{StaticResource KeyLabel}"/>
-                    <Label Grid.Column="1" Grid.Row="7" Text="{Binding Created, Converter={converters:DateTimeToString}}" Style="{StaticResource ValueLabel}"/>
+                    <Label Grid.Column="0" Grid.Row="8" Text="{x:Static resx:AppResources.Created}" Style="{StaticResource KeyLabel}"/>
+                    <Label Grid.Column="1" Grid.Row="8" Text="{Binding Created, Converter={converters:DateTimeToString}}" Style="{StaticResource ValueLabel}"/>
 
-                    <Label Grid.Column="0" Grid.Row="8" Text="{x:Static resx:AppResources.Updated}" Style="{StaticResource KeyLabel}"/>
-                    <Label Grid.Column="1" Grid.Row="8" Text="{Binding Updated, Converter={converters:DateTimeToString}}" Style="{StaticResource ValueLabel}"/>
+                    <Label Grid.Column="0" Grid.Row="9" Text="{x:Static resx:AppResources.Updated}" Style="{StaticResource KeyLabel}"/>
+                    <Label Grid.Column="1" Grid.Row="9" Text="{Binding Updated, Converter={converters:DateTimeToString}}" Style="{StaticResource ValueLabel}"/>
 
-                    <Label Grid.Column="0" Grid.Row="9" Text="{x:Static resx:AppResources.Expires}" Style="{StaticResource KeyLabel}"/>
-                    <Label Grid.Column="1" Grid.Row="9" Text="{Binding Expires, Converter={converters:DateTimeToString}}" Style="{StaticResource ValueLabel}"/>
+                    <Label Grid.Column="0" Grid.Row="10" Text="{x:Static resx:AppResources.Expires}" Style="{StaticResource KeyLabel}"/>
+                    <Label Grid.Column="1" Grid.Row="10" Text="{Binding Expires, Converter={converters:DateTimeToString}}" Style="{StaticResource ValueLabel}"/>
                 </Grid>
 
                 <Image Source="{Binding Path=GlyphImage}" IsVisible="{Binding Path=HasGlyphImage}"

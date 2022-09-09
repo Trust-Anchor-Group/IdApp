@@ -12063,6 +12063,11 @@
             Token ID
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.ShortTokenId">
+            <summary>
+            ShortToken ID
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Visibility">
             <summary>
             Visibility of token
@@ -13050,6 +13055,26 @@
         <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenId">
             <summary>
             Token ID
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShortTokenIdProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShortTokenId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.ShortTokenId">
+            <summary>
+            ShortToken ID
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HasShortTokenIdProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HasShortTokenId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.HasShortTokenId">
+            <summary>
+            If the token has a Short ID
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.TokenDetails.TokenDetailsViewModel.TokenXmlProperty">
@@ -16501,6 +16526,11 @@
         <member name="P:IdApp.Resx.AppResources.ShareDescription">
             <summary>
               Looks up a localized string similar to Below, you can find additional options for sharing the QR-code..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ShortId">
+            <summary>
+              Looks up a localized string similar to Short ID.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ShowCode">

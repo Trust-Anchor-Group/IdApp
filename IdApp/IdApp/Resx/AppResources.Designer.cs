@@ -4012,6 +4012,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Short ID.
+        /// </summary>
+        internal static string ShortId {
+            get {
+                return ResourceManager.GetString("ShortId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Code.
         /// </summary>
         internal static string ShowCode {

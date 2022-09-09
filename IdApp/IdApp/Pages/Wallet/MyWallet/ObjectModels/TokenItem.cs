@@ -209,6 +209,11 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		public string TokenId => this.token.TokenId;
 
 		/// <summary>
+		/// ShortToken ID
+		/// </summary>
+		public string ShortTokenId => this.token.ShortId;
+
+		/// <summary>
 		/// Visibility of token
 		/// </summary>
 		public ContractVisibility Visibility => this.token.Visibility;

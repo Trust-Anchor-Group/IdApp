@@ -99,6 +99,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.Value = args.Token.Value;
 				this.TokenIdMethod = args.Token.TokenIdMethod;
 				this.TokenId = args.Token.TokenId;
+				this.ShortTokenId = args.Token.ShortTokenId;
 				this.Visibility = args.Token.Visibility;
 				this.Creator = args.Token.Creator;
 				this.CreatorFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Creator, this);
@@ -549,6 +550,40 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			get => (string)this.GetValue(TokenIdProperty);
 			set => this.SetValue(TokenIdProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="ShortTokenId"/>
+		/// </summary>
+		public static readonly BindableProperty ShortTokenIdProperty =
+			BindableProperty.Create(nameof(ShortTokenId), typeof(string), typeof(TokenDetailsViewModel), default);
+
+		/// <summary>
+		/// ShortToken ID
+		/// </summary>
+		public string ShortTokenId
+		{
+			get => (string)this.GetValue(ShortTokenIdProperty);
+			set
+			{
+				this.SetValue(ShortTokenIdProperty, value);
+				this.HasShortTokenId = !string.IsNullOrEmpty(value);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="HasShortTokenId"/>
+		/// </summary>
+		public static readonly BindableProperty HasShortTokenIdProperty =
+			BindableProperty.Create(nameof(HasShortTokenId), typeof(bool), typeof(TokenDetailsViewModel), default);
+
+		/// <summary>
+		/// If the token has a Short ID
+		/// </summary>
+		public bool HasShortTokenId
+		{
+			get => (bool)this.GetValue(HasShortTokenIdProperty);
+			set => this.SetValue(HasShortTokenIdProperty, value);
 		}
 
 		/// <summary>

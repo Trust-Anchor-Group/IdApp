@@ -1917,4 +1917,7 @@
   <data name="FromUser" xml:space="preserve">
     <value>Vom Benutzer</value>
   </data>
+  <data name="ShortId" xml:space="preserve">
+    <value>Kurz-ID</value>
+  </data>
 </root>

@@ -1896,4 +1896,7 @@
   <data name="FromUser" xml:space="preserve">
     <value>Från användare</value>
   </data>
+  <data name="ShortId" xml:space="preserve">
+    <value>Kort ID</value>
+  </data>
 </root>
