@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Pages.Things.ViewThing;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
+using Waher.Persistence;
 using Waher.Runtime.Inventory;
 using Xamarin.CommunityToolkit.Helpers;
 
@@ -112,13 +114,12 @@ namespace IdApp.Services.ThingRegistries
 					throw new InvalidOperationException("Not a direct reference URI.");
 				}
 
-				ContactInfo Info = await ContactInfo.FindByBareJid(Jid, SourceId ?? string.Empty, 
+				Property[] Properties = ViewClaimThingViewModel.ToProperties(Tags);
+				ContactInfo Info = await ContactInfo.FindByBareJid(Jid, SourceId ?? string.Empty,
 					PartitionId ?? string.Empty, NodeId ?? string.Empty);
 
 				if (Info is null)
 				{
-					Property[] Properties = ViewClaimThingViewModel.ToProperties(Tags);
-
 					Info = new ContactInfo()
 					{
 						AllowSubscriptionFrom = false,
@@ -136,6 +137,13 @@ namespace IdApp.Services.ThingRegistries
 						SubcribeTo = null
 					};
 				}
+				else if (!(Info.IsThing ?? false))
+				{
+					Info.MetaData = Merge(Info.MetaData, Properties);
+					Info.IsThing = true;
+
+					await Database.Update(Info);
+				}
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Info)));
@@ -144,6 +152,38 @@ namespace IdApp.Services.ThingRegistries
 			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		private static Property[] Merge(Property[] Stored, Property[] FromUri)
+		{
+			Dictionary<string, Property> Merged = new();
+			bool Changed = false;
+
+			if (Stored is not null)
+			{
+				foreach (Property P in Stored)
+					Merged[P.Name] = P;
+			}
+
+			if (FromUri is not null)
+			{
+				foreach (Property P in FromUri)
+				{
+					if (!Merged.TryGetValue(P.Name, out Property P2) || P2.Value != P.Value)
+					{
+						Merged[P.Name] = P;
+						Changed = true;
+					}
+				}
+			}
+
+			if (!Changed)
+				return Stored;
+
+			Property[] Result = new Property[Merged.Count];
+			Merged.Values.CopyTo(Result, 0);
+
+			return Result;
 		}
 
 	}
