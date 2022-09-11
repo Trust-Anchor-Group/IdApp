@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using IdApp.Extensions;
+using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Things.ViewThing;
 using IdApp.Services;
+using IdApp.Services.Notification;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
@@ -16,14 +19,14 @@ namespace IdApp.Pages.Things.MyThings
 	/// </summary>
 	public class MyThingsViewModel : BaseViewModel
 	{
-		private TaskCompletionSource<ContactInfo> thingToShare;
+		private TaskCompletionSource<ContactInfoModel> selectedThing;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="MyThingsViewModel"/> class.
 		/// </summary>
 		protected internal MyThingsViewModel()
 		{
-			this.Things = new ObservableCollection<ContactInfo>();
+			this.Things = new ObservableCollection<ContactInfoModel>();
 		}
 
 		/// <inheritdoc/>
@@ -32,9 +35,9 @@ namespace IdApp.Pages.Things.MyThings
 			await base.OnInitialize();
 
 			if (this.NavigationService.TryPopArgs(out MyThingsNavigationArgs Args))
-				this.thingToShare = Args.ThingToShare;
+				this.selectedThing = Args.ThingToShare;
 			else
-				this.thingToShare = null;
+				this.selectedThing = null;
 
 			SortedDictionary<string, ContactInfo> SortedByName = new();
 			SortedDictionary<string, ContactInfo> SortedByAddress = new();
@@ -123,11 +126,44 @@ namespace IdApp.Pages.Things.MyThings
 
 			this.Things.Clear();
 			foreach (ContactInfo Info in SortedByName.Values)
-				this.Things.Add(Info);
+			{
+				NotificationEvent[] ContactEvents;
+				NotificationEvent[] ThingEvents;
+				NotificationEvent[] Events;
+
+				if (!string.IsNullOrEmpty(Info.SourceId) ||
+					!string.IsNullOrEmpty(Info.Partition) ||
+					!string.IsNullOrEmpty(Info.NodeId) ||
+					!this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Info.BareJid, out ContactEvents))
+				{
+					ContactEvents = null;
+				}
+
+				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Things, Info.ThingNotificationCategoryKey, out ThingEvents))
+					ThingEvents = null;
+
+				Events = ContactEvents.Join(ThingEvents);
+
+				this.Things.Add(new ContactInfoModel(this, Info, Events));
+			}
 
 			this.ShowThingsMissing = SortedByName.Count == 0;
 		
 			await Database.Provider.Flush();
+		}
+
+		/// <inheritdoc/>
+		protected override async Task OnAppearing()
+		{
+			await base.OnAppearing();
+
+			if (this.selectedThing is not null && this.selectedThing.Task.IsCompleted)
+			{
+				await this.NavigationService.GoBackAsync();
+				return;
+			}
+
+			this.SelectedThing = null;
 		}
 
 		/// <inheritdoc/>
@@ -136,7 +172,7 @@ namespace IdApp.Pages.Things.MyThings
 			this.ShowThingsMissing = false;
 			this.Things.Clear();
 
-			this.thingToShare?.TrySetResult(null);
+			this.selectedThing?.TrySetResult(null);
 
 			await base.OnDispose();
 		}
@@ -186,36 +222,41 @@ namespace IdApp.Pages.Things.MyThings
 		/// <summary>
 		/// Holds the list of contacts to display.
 		/// </summary>
-		public ObservableCollection<ContactInfo> Things { get; }
+		public ObservableCollection<ContactInfoModel> Things { get; }
 
 		/// <summary>
 		/// See <see cref="SelectedThing"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedThingProperty =
-			BindableProperty.Create(nameof(SelectedThing), typeof(ContactInfo), typeof(MyThingsViewModel), default(ContactInfo), propertyChanged: (b, oldValue, newValue) =>
-			{
-				if (b is MyThingsViewModel viewModel && newValue is ContactInfo Thing)
-				{
-					viewModel.UiSerializer.BeginInvokeOnMainThread(async () =>
-					{
-						if (viewModel.thingToShare is null)
-							await viewModel.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Thing));
-						else
-						{
-							viewModel.thingToShare.TrySetResult(Thing);
-							await viewModel.NavigationService.GoBackAsync();
-						}
-					});
-				}
-			});
-
+			BindableProperty.Create(nameof(SelectedThing), typeof(ContactInfoModel), typeof(MyThingsViewModel), default(ContactInfoModel));
+	
 		/// <summary>
 		/// The currently selected contact, if any.
 		/// </summary>
-		public ContactInfo SelectedThing
+		public ContactInfoModel SelectedThing
 		{
-			get => (ContactInfo)this.GetValue(SelectedThingProperty);
-			set => this.SetValue(SelectedThingProperty, value);
+			get => (ContactInfoModel)this.GetValue(SelectedThingProperty);
+			set
+			{
+				this.SetValue(SelectedThingProperty, value);
+
+				if (value is not null)
+					this.OnSelected(value);
+			}
+		}
+
+		private void OnSelected(ContactInfoModel Thing)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				if (this.selectedThing is null)
+					await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Thing.Contact));
+				else
+				{
+					this.selectedThing.TrySetResult(Thing);
+					await this.NavigationService.GoBackAsync();
+				}
+			});
 		}
 
 	}

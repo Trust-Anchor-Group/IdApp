@@ -959,11 +959,11 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedThing()
 		{
-			TaskCompletionSource<ContactInfo> ThingToShare = new();
+			TaskCompletionSource<ContactInfoModel> ThingToShare = new();
 
 			await this.NavigationService.GoToAsync(nameof(MyThingsPage), new MyThingsNavigationArgs(ThingToShare));
 
-			ContactInfo Thing = await ThingToShare.Task;
+			ContactInfoModel Thing = await ThingToShare.Task;
 			if (Thing is null)
 				return;
 

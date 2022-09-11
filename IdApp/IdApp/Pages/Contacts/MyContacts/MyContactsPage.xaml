@@ -24,26 +24,26 @@
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:ContactInfoModel">
-					<Grid ColumnDefinitions="*,30" RowDefinitions="auto" ColumnSpacing="2">
+						<Grid ColumnDefinitions="*,30" RowDefinitions="auto" ColumnSpacing="2">
 
-						<Label Grid.Column="0" Grid.Row="0" Margin="0,10,0,10" 
-							   HorizontalOptions="Start" VerticalTextAlignment="Center" LineBreakMode="CharacterWrap"
-							   TextType="Text" Text="{Binding Path=FriendlyName}" Style="{StaticResource ClickableValueLabel}"/>
+							<Label Grid.Column="0" Grid.Row="0" Margin="0,10,0,10" 
+								   HorizontalOptions="Start" VerticalTextAlignment="Center" LineBreakMode="CharacterWrap"
+								   TextType="Text" Text="{Binding Path=FriendlyName}" Style="{StaticResource ClickableValueLabel}"/>
 
-						<Frame Grid.Row="0" Grid.Column="0" CornerRadius="12" Margin="2" Padding="8,3,8,3" IsVisible="{Binding HasEvents}"
-							   HorizontalOptions="End" VerticalOptions="Center" Style="{StaticResource AlertFrame}">
-							<Label FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Text="{Binding NrEvents}" Padding="1"/>
-						</Frame>
+							<Frame Grid.Row="0" Grid.Column="0" CornerRadius="12" Margin="2" Padding="8,3,8,3" IsVisible="{Binding HasEvents}"
+								   HorizontalOptions="End" VerticalOptions="Center" Style="{StaticResource AlertFrame}">
+								<Label FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Text="{Binding NrEvents}" Padding="1"/>
+							</Frame>
 
-						<Ellipse Grid.Column="1" Grid.Row="0" WidthRequest="25" HeightRequest="25"
-								 Fill="{Binding ConnectionColor}" Stroke="Black" StrokeThickness="2"
-								 HorizontalOptions="Center" VerticalOptions="Center">
-							<Ellipse.GestureRecognizers>
-								<TapGestureRecognizer Command="{Binding ToggleSubscriptionCommand}" />
-							</Ellipse.GestureRecognizers>
-						</Ellipse>
-					</Grid>
-				</DataTemplate>
+							<Ellipse Grid.Column="1" Grid.Row="0" WidthRequest="25" HeightRequest="25"
+									 Fill="{Binding ConnectionColor}" Stroke="Black" StrokeThickness="2"
+									 HorizontalOptions="Center" VerticalOptions="Center">
+								<Ellipse.GestureRecognizers>
+									<TapGestureRecognizer Command="{Binding ToggleSubscriptionCommand}" />
+								</Ellipse.GestureRecognizers>
+							</Ellipse>
+						</Grid>
+					</DataTemplate>
                 </CollectionView.ItemTemplate>
         </noBounce:NoBounceCollectionView>
 

@@ -1790,6 +1790,15 @@
             <param name="attachments">The attachments to iterate.</param>
             <returns>The first image attachment, or <c>null</c>.</returns>
         </member>
+        <member name="M:IdApp.Extensions.ArrayExtensions.Join``1(``0[],``0[])">
+            <summary>
+            Joins two arrays.
+            </summary>
+            <typeparam name="T">Array element type.</typeparam>
+            <param name="Array1">First array.</param>
+            <param name="Array2">Second array</param>
+            <returns>Array containing elements from both arrays.</returns>
+        </member>
         <member name="T:IdApp.Extensions.BooleanExtensions">
             <summary>
             An extension class for the boolean primitive type.
@@ -9769,6 +9778,9 @@
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnInitialize">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnAppearing">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnDispose">
             <inheritdoc/>
         </member>
@@ -9815,7 +9827,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Things.MyThings.MyThingsNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.MyThings.MyThingsNavigationArgs.#ctor(System.Threading.Tasks.TaskCompletionSource{IdApp.Services.ContactInfo})">
+        <member name="M:IdApp.Pages.Things.MyThings.MyThingsNavigationArgs.#ctor(System.Threading.Tasks.TaskCompletionSource{IdApp.Pages.Contacts.MyContacts.ContactInfoModel})">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Things.MyThings.MyThingsNavigationArgs"/> class.
             </summary>
@@ -17829,6 +17841,11 @@
             </summary>
             <param name="PropertyName">Name of property</param>
             <returns>Property value.</returns>
+        </member>
+        <member name="P:IdApp.Services.ContactInfo.ThingNotificationCategoryKey">
+            <summary>
+            Category key used for thing notifications.
+            </summary>
         </member>
         <member name="M:IdApp.Services.Contracts.ContractOrchestratorService.TagSignature(System.String)">
             <summary>

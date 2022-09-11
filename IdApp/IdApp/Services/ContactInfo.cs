@@ -560,5 +560,26 @@ namespace IdApp.Services
 			}
 		}
 
+		/// <summary>
+		/// Category key used for thing notifications.
+		/// </summary>
+		public string ThingNotificationCategoryKey
+		{
+			get
+			{
+				StringBuilder sb = new();
+
+				sb.Append(this.bareJid);
+				sb.Append('|');
+				sb.Append(this.sourceId);
+				sb.Append('|');
+				sb.Append(this.partition);
+				sb.Append('|');
+				sb.Append(this.nodeId);
+
+				return sb.ToString();
+			}
+		}
+
 	}
 }
