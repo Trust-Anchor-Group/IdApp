@@ -10031,6 +10031,46 @@
             Gets or sets whether the thing is in the contact.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.IsSensorProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsSensor"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsSensor">
+            <summary>
+            Gets or sets whether the thing is a sensor
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.IsActuatorProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsActuator"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsActuator">
+            <summary>
+            Gets or sets whether the thing is an actuator
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.IsConcentratorProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsConcentrator"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsConcentrator">
+            <summary>
+            Gets or sets whether the thing is a concentrator
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.SupportsSensorEventsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.SupportsSensorEvents"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.SupportsSensorEvents">
+            <summary>
+            Gets or sets whether the thing is a sensor
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.ClickCommand">
             <summary>
             Command to bind to for detecting when a tag value has been clicked on.
@@ -17789,6 +17829,11 @@
         <member name="P:IdApp.Services.ContactInfo.IsSensor">
             <summary>
             The contact is a sensor
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ContactInfo.SupportsSensorEvents">
+            <summary>
+            The contact supports sensor events
             </summary>
         </member>
         <member name="P:IdApp.Services.ContactInfo.IsActuator">

@@ -39,6 +39,7 @@ namespace IdApp.Services
 		private bool? isSensor = null;
 		private bool? isActuator = null;
 		private bool? isConcentrator = null;
+		private bool? supportsSensorEvents = null;
 		private bool? owner = null;
 
 		/// <summary>
@@ -166,6 +167,15 @@ namespace IdApp.Services
 		{
 			get => this.isSensor;
 			set => this.isSensor = value;
+		}
+
+		/// <summary>
+		/// The contact supports sensor events
+		/// </summary>
+		public bool? SupportsSensorEvents
+		{
+			get => this.supportsSensorEvents;
+			set => this.supportsSensorEvents = value;
 		}
 
 		/// <summary>

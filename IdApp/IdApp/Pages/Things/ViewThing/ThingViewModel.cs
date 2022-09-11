@@ -6,7 +6,10 @@ using System.Windows.Input;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Concentrator;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.Control;
+using Waher.Networking.XMPP.Sensor;
 using Waher.Persistence;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
@@ -49,6 +52,10 @@ namespace IdApp.Pages.Things.ViewThing
 
 				this.InContacts = !string.IsNullOrEmpty(this.thing.ObjectId);
 				this.IsOwner = this.thing.Owner ?? false;
+				this.IsSensor = this.thing.IsSensor ?? false;
+				this.IsActuator = this.thing.IsActuator ?? false;
+				this.IsConcentrator = this.thing.IsConcentrator ?? false;
+				this.SupportsSensorEvents = this.thing.SupportsSensorEvents ?? false;
 			}
 
 			this.AssignProperties();
@@ -59,10 +66,33 @@ namespace IdApp.Pages.Things.ViewThing
 
 			if (this.IsConnected && this.IsThingOnline)
 			{
-				bool ContactInfoChanged = false;
-
-				if (!this.thing.IsSensor.HasValue)
+				if (!this.thing.IsSensor.HasValue ||
+					!this.thing.IsActuator.HasValue ||
+					!this.thing.IsConcentrator.HasValue ||
+					!this.thing.SupportsSensorEvents.HasValue)
 				{
+					string FullJid = this.GetFullJid();
+
+					if (!string.IsNullOrEmpty(FullJid))
+					{
+						this.XmppService.Xmpp.SendServiceDiscoveryRequest(FullJid, async (sender, e) =>
+						{
+							this.thing.IsSensor = e.HasFeature(SensorClient.NamespaceSensorData);
+							this.thing.SupportsSensorEvents = e.HasFeature(SensorClient.NamespaceSensorEvents);
+							this.thing.IsActuator = e.HasFeature(ControlClient.NamespaceControl);
+							this.thing.IsConcentrator = e.HasFeature(ConcentratorServer.NamespaceConcentrator);
+
+							await Database.Update(this.thing);
+
+							this.UiSerializer.BeginInvokeOnMainThread(() =>
+							{
+								this.IsSensor = this.thing.IsSensor ?? false;
+								this.IsActuator = this.thing.IsActuator ?? false;
+								this.IsConcentrator = this.thing.IsConcentrator ?? false;
+								this.SupportsSensorEvents = this.thing.SupportsSensorEvents ?? false;
+							});
+						}, null);
+					}
 				}
 			}
 		}
@@ -84,8 +114,28 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private void CalcThingIsOnline()
 		{
-			RosterItem Item = this.XmppService.Xmpp[this.thing.BareJid];
-			this.IsThingOnline = Item is not null && Item.HasLastPresence && Item.LastPresence.IsOnline;
+			if (this.thing is null)
+				this.IsThingOnline = false;
+			else
+			{
+				RosterItem Item = this.XmppService.Xmpp[this.thing.BareJid];
+				this.IsThingOnline = Item is not null && Item.HasLastPresence && Item.LastPresence.IsOnline;
+			}
+		}
+
+		private string GetFullJid()
+		{
+			if (this.thing is null)
+				return null;
+			else
+			{
+				RosterItem Item = this.XmppService.Xmpp[this.thing.BareJid];
+
+				if (Item is null || !Item.HasLastPresence || !Item.LastPresence.IsOnline)
+					return null;
+				else
+					return Item.LastPresenceFullJid;
+			}
 		}
 
 		private void AssignProperties()
@@ -168,6 +218,66 @@ namespace IdApp.Pages.Things.ViewThing
 		{
 			get => (bool)this.GetValue(IsThingOnlineProperty);
 			set => this.SetValue(IsThingOnlineProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsSensor"/>
+		/// </summary>
+		public static readonly BindableProperty IsSensorProperty =
+			BindableProperty.Create(nameof(IsSensor), typeof(bool), typeof(ThingViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the thing is a sensor
+		/// </summary>
+		public bool IsSensor
+		{
+			get => (bool)this.GetValue(IsSensorProperty);
+			set => this.SetValue(IsSensorProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsActuator"/>
+		/// </summary>
+		public static readonly BindableProperty IsActuatorProperty =
+			BindableProperty.Create(nameof(IsActuator), typeof(bool), typeof(ThingViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the thing is an actuator
+		/// </summary>
+		public bool IsActuator
+		{
+			get => (bool)this.GetValue(IsActuatorProperty);
+			set => this.SetValue(IsActuatorProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsConcentrator"/>
+		/// </summary>
+		public static readonly BindableProperty IsConcentratorProperty =
+			BindableProperty.Create(nameof(IsConcentrator), typeof(bool), typeof(ThingViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the thing is a concentrator
+		/// </summary>
+		public bool IsConcentrator
+		{
+			get => (bool)this.GetValue(IsConcentratorProperty);
+			set => this.SetValue(IsConcentratorProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="SupportsSensorEvents"/>
+		/// </summary>
+		public static readonly BindableProperty SupportsSensorEventsProperty =
+			BindableProperty.Create(nameof(SupportsSensorEvents), typeof(bool), typeof(ThingViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the thing is a sensor
+		/// </summary>
+		public bool SupportsSensorEvents
+		{
+			get => (bool)this.GetValue(SupportsSensorEventsProperty);
+			set => this.SetValue(SupportsSensorEventsProperty, value);
 		}
 
 		/// <summary>
