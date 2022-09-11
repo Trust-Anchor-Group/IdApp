@@ -36,6 +36,9 @@ namespace IdApp.Services
 		private bool? subcribeTo = null;
 		private bool? allowSubscriptionFrom = null;
 		private bool? isThing = null;
+		private bool? isSensor = null;
+		private bool? isActuator = null;
+		private bool? isConcentrator = null;
 		private bool? owner = null;
 
 		/// <summary>
@@ -154,6 +157,33 @@ namespace IdApp.Services
 		{
 			get => this.isThing;
 			set => this.isThing = value;
+		}
+
+		/// <summary>
+		/// The contact is a sensor
+		/// </summary>
+		public bool? IsSensor
+		{
+			get => this.isSensor;
+			set => this.isSensor = value;
+		}
+
+		/// <summary>
+		/// The contact is a actuator
+		/// </summary>
+		public bool? IsActuator
+		{
+			get => this.isActuator;
+			set => this.isActuator = value;
+		}
+
+		/// <summary>
+		/// The contact is a concentrator
+		/// </summary>
+		public bool? IsConcentrator
+		{
+			get => this.isConcentrator;
+			set => this.isConcentrator = value;
 		}
 
 		/// <summary>

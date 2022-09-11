@@ -1920,4 +1920,13 @@
   <data name="ShortId" xml:space="preserve">
     <value>Краткое удостоверение личности</value>
   </data>
+  <data name="ConcentratorServiceNotFound" xml:space="preserve">
+    <value>Служба концентратора не найдена.</value>
+  </data>
+  <data name="ControlServiceNotFound" xml:space="preserve">
+    <value>Служба управления не найдена.</value>
+  </data>
+  <data name="SensorServiceNotFound" xml:space="preserve">
+    <value>Служба датчика не найдена.</value>
+  </data>
 </root>

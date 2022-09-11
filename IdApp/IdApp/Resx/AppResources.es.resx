@@ -1920,4 +1920,13 @@
   <data name="ShortId" xml:space="preserve">
     <value>Identificación corta</value>
   </data>
+  <data name="ConcentratorServiceNotFound" xml:space="preserve">
+    <value>No se encontró ningún servicio de concentrador.</value>
+  </data>
+  <data name="ControlServiceNotFound" xml:space="preserve">
+    <value>No se ha encontrado ningún servicio de control.</value>
+  </data>
+  <data name="SensorServiceNotFound" xml:space="preserve">
+    <value>No se encontró ningún servicio de sensores.</value>
+  </data>
 </root>

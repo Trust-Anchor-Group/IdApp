@@ -1920,4 +1920,13 @@
   <data name="ShortId" xml:space="preserve">
     <value>Kratak ID</value>
   </data>
+  <data name="ConcentratorServiceNotFound" xml:space="preserve">
+    <value>Nije pronađena nijedna usluga koncentratora.</value>
+  </data>
+  <data name="ControlServiceNotFound" xml:space="preserve">
+    <value>Nije pronađena nijedna kontrolna usluga.</value>
+  </data>
+  <data name="SensorServiceNotFound" xml:space="preserve">
+    <value>Nije pronađena usluga senzora.</value>
+  </data>
 </root>

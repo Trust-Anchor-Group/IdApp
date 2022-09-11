@@ -6,11 +6,11 @@ using IdApp.Popups.Xmpp.ReportType;
 using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Popups.Xmpp.SubscriptionRequest;
 using IdApp.Services.Contracts;
+using IdApp.Services.IoT;
 using IdApp.Services.Messages;
 using IdApp.Services.Navigation;
 using IdApp.Services.Notification.Xmpp;
 using IdApp.Services.Push;
-using IdApp.Services.Provisioning;
 using IdApp.Services.Tag;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.UI.Photos;
@@ -74,7 +74,7 @@ namespace IdApp.Services.Xmpp
 		private readonly SmartContracts contracts;
 		private readonly XmppMultiUserChat muc;
 		private readonly XmppThingRegistry thingRegistry;
-		private readonly XmppProvisioningService provisioning;
+		private readonly IoTService iot;
 		private readonly NeuroWallet wallet;
 		private string domainName;
 		private string accountName;
@@ -97,7 +97,7 @@ namespace IdApp.Services.Xmpp
 			this.contracts = new SmartContracts();
 			this.muc = new XmppMultiUserChat();
 			this.thingRegistry = new XmppThingRegistry();
-			this.provisioning = new XmppProvisioningService();
+			this.iot = new IoTService();
 			this.wallet = new NeuroWallet();
 			this.sniffer = new InMemorySniffer(250);
 			this.startupProfiler = StartupProfiler;
@@ -713,7 +713,7 @@ namespace IdApp.Services.Xmpp
 		public ISmartContracts Contracts => this.contracts;
 		public IXmppMultiUserChat MultiUserChat => this.muc;
 		public IXmppThingRegistry ThingRegistry => this.thingRegistry;
-		public IXmppProvisioningService Provisioning => this.provisioning;
+		public IIoTService IoT => this.iot;
 		public INeuroWallet Wallet => this.wallet;
 
 		private enum ConnectOperation

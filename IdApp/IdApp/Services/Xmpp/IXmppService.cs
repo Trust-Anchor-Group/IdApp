@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using IdApp.Services.Contracts;
-using IdApp.Services.Provisioning;
+using IdApp.Services.IoT;
 using IdApp.Services.Push;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
@@ -129,12 +129,12 @@ namespace IdApp.Services.Xmpp
         /// <summary>
         /// Provides access to provisioning and decision support.
         /// </summary>
-        IXmppProvisioningService Provisioning { get; }
+        IIoTService IoT { get; }
 
-        /// <summary>
-        /// Provides access to the eDaler wallet.
-        /// </summary>
-        INeuroWallet Wallet { get; }
+		/// <summary>
+		/// Provides access to the eDaler wallet.
+		/// </summary>
+		INeuroWallet Wallet { get; }
 
         /// <summary>
         /// HTTP File Upload client

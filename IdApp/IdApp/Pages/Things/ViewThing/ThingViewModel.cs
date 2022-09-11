@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Xamarin.CommunityToolkit.Helpers;
@@ -53,19 +54,43 @@ namespace IdApp.Pages.Things.ViewThing
 			this.AssignProperties();
 			this.EvaluateAllCommands();
 
+			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
 			this.TagProfile.Changed += this.TagProfile_Changed;
+
+			if (this.IsConnected && this.IsThingOnline)
+			{
+				bool ContactInfoChanged = false;
+
+				if (!this.thing.IsSensor.HasValue)
+				{
+				}
+			}
 		}
 
 		/// <inheritdoc/>
 		protected override async Task OnDispose()
 		{
+			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
 			this.TagProfile.Changed -= this.TagProfile_Changed;
 
 			await base.OnDispose();
 		}
 
+		private Task Xmpp_OnPresence(object Sender, PresenceEventArgs e)
+		{
+			this.CalcThingIsOnline();
+			return Task.CompletedTask;
+		}
+
+		private void CalcThingIsOnline()
+		{
+			RosterItem Item = this.XmppService.Xmpp[this.thing.BareJid];
+			this.IsThingOnline = Item is not null && Item.HasLastPresence && Item.LastPresence.IsOnline;
+		}
+
 		private void AssignProperties()
 		{
+			this.CalcThingIsOnline();
 		}
 
 		private void EvaluateAllCommands()
@@ -128,6 +153,21 @@ namespace IdApp.Pages.Things.ViewThing
 		{
 			get => (bool)this.GetValue(IsOwnerProperty);
 			set => this.SetValue(IsOwnerProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsThingOnline"/>
+		/// </summary>
+		public static readonly BindableProperty IsThingOnlineProperty =
+			BindableProperty.Create(nameof(IsThingOnline), typeof(bool), typeof(ThingViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the thing is in the contact.
+		/// </summary>
+		public bool IsThingOnline
+		{
+			get => (bool)this.GetValue(IsThingOnlineProperty);
+			set => this.SetValue(IsThingOnlineProperty, value);
 		}
 
 		/// <summary>

@@ -1920,4 +1920,13 @@
   <data name="ShortId" xml:space="preserve">
     <value>Lyhyt tunnus</value>
   </data>
+  <data name="ConcentratorServiceNotFound" xml:space="preserve">
+    <value>Keskitinpalvelua ei löytynyt.</value>
+  </data>
+  <data name="ControlServiceNotFound" xml:space="preserve">
+    <value>Ohjauspalvelua ei löytynyt.</value>
+  </data>
+  <data name="SensorServiceNotFound" xml:space="preserve">
+    <value>Anturipalvelua ei löytynyt.</value>
+  </data>
 </root>

@@ -10021,6 +10021,16 @@
             Gets or sets whether the thing is in the contact.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.IsThingOnlineProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsThingOnline"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsThingOnline">
+            <summary>
+            Gets or sets whether the thing is in the contact.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.ClickCommand">
             <summary>
             Command to bind to for detecting when a tag value has been clicked on.
@@ -14660,6 +14670,11 @@
               Looks up a localized string similar to Code not recognized..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ConcentratorServiceNotFound">
+            <summary>
+              Looks up a localized string similar to No concentrator service found..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Confirm">
             <summary>
               Looks up a localized string similar to Confirm.
@@ -14823,6 +14838,11 @@
         <member name="P:IdApp.Resx.AppResources.ContractVisibilityMustBeSelected">
             <summary>
               Looks up a localized string similar to Select contract visibility first, and then try again..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ControlServiceNotFound">
+            <summary>
+              Looks up a localized string similar to No control service found..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.CopyToClipboard">
@@ -16495,6 +16515,11 @@
               Looks up a localized string similar to Send to Contact.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.SensorServiceNotFound">
+            <summary>
+              Looks up a localized string similar to No sensor service found..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.SerialNumber">
             <summary>
               Looks up a localized string similar to Serial Number.
@@ -17761,6 +17786,21 @@
             The contact is a thing
             </summary>
         </member>
+        <member name="P:IdApp.Services.ContactInfo.IsSensor">
+            <summary>
+            The contact is a sensor
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ContactInfo.IsActuator">
+            <summary>
+            The contact is a actuator
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ContactInfo.IsConcentrator">
+            <summary>
+            The contact is a concentrator
+            </summary>
+        </member>
         <member name="P:IdApp.Services.ContactInfo.Owner">
             <summary>
             If the account is registered as the owner of the thing.
@@ -18662,6 +18702,89 @@
             <summary>
             Fires whenever the loading state of the service changes.
             </summary>
+        </member>
+        <member name="T:IdApp.Services.IoT.IIoTService">
+            <summary>
+            Adds support for XMPP Provisioning
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IoT.IIoTService.ProvisioningClient">
+            <summary>
+            Access to provisioning client, for authorization control
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IoT.IIoTService.SensorClient">
+            <summary>
+            Access to sensor client, for sensor data readout and subscription
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IoT.IIoTService.ControlClient">
+            <summary>
+            Access to control client, for access to actuators
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IoT.IIoTService.ConcentratorClient">
+            <summary>
+            Access to concentrator client, for administrative purposes of concentrators
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IoT.IIoTService.ServiceJid">
+            <summary>
+            JID of provisioning service.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.IoT.IIoTService.GetMyDevices(System.Int32,System.Int32)">
+            <summary>
+            Gets a (partial) list of my devices.
+            </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
+            <returns>Found devices, and if there are more devices available.</returns>
+        </member>
+        <member name="M:IdApp.Services.IoT.IIoTService.GetAllMyDevices">
+            <summary>
+            Gets the full list of my devices.
+            </summary>
+            <returns>Complete list of my devices.</returns>
+        </member>
+        <member name="P:IdApp.Services.IoT.IoTService.ProvisioningClient">
+            <summary>
+            Access to provisioning client, for authorization control
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IoT.IoTService.SensorClient">
+            <summary>
+            Access to sensor client, for sensor data readout and subscription
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IoT.IoTService.ControlClient">
+            <summary>
+            Access to control client, for access to actuators
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IoT.IoTService.ConcentratorClient">
+            <summary>
+            Access to concentrator client, for administrative purposes of concentrators
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IoT.IoTService.ServiceJid">
+            <summary>
+            JID of provisioning service.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.IoT.IoTService.GetMyDevices(System.Int32,System.Int32)">
+            <summary>
+            Gets a (partial) list of my devices.
+            </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
+            <returns>Found devices, and if there are more devices available.</returns>
+        </member>
+        <member name="M:IdApp.Services.IoT.IoTService.GetAllMyDevices">
+            <summary>
+            Gets the full list of my devices.
+            </summary>
+            <returns>Complete list of my devices.</returns>
         </member>
         <member name="T:IdApp.Services.LoadableService">
             <inheritdoc/>
@@ -20368,49 +20491,6 @@
             </summary>
             <param name="Image">Pre-processed image.</param>
             <returns>Any lines of text found.</returns>
-        </member>
-        <member name="T:IdApp.Services.Provisioning.IXmppProvisioningService">
-            <summary>
-            Adds support for XMPP Provisioning
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Provisioning.IXmppProvisioningService.ServiceJid">
-            <summary>
-            JID of provisioning service.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Provisioning.IXmppProvisioningService.GetMyDevices(System.Int32,System.Int32)">
-            <summary>
-            Gets a (partial) list of my devices.
-            </summary>
-            <param name="Offset">Start offset of list</param>
-            <param name="MaxCount">Maximum number of items in response.</param>
-            <returns>Found devices, and if there are more devices available.</returns>
-        </member>
-        <member name="M:IdApp.Services.Provisioning.IXmppProvisioningService.GetAllMyDevices">
-            <summary>
-            Gets the full list of my devices.
-            </summary>
-            <returns>Complete list of my devices.</returns>
-        </member>
-        <member name="P:IdApp.Services.Provisioning.XmppProvisioningService.ServiceJid">
-            <summary>
-            JID of provisioning service.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Provisioning.XmppProvisioningService.GetMyDevices(System.Int32,System.Int32)">
-            <summary>
-            Gets a (partial) list of my devices.
-            </summary>
-            <param name="Offset">Start offset of list</param>
-            <param name="MaxCount">Maximum number of items in response.</param>
-            <returns>Found devices, and if there are more devices available.</returns>
-        </member>
-        <member name="M:IdApp.Services.Provisioning.XmppProvisioningService.GetAllMyDevices">
-            <summary>
-            Gets the full list of my devices.
-            </summary>
-            <returns>Complete list of my devices.</returns>
         </member>
         <member name="T:IdApp.Services.Push.IPushNotificationService">
             <summary>
@@ -23152,7 +23232,7 @@
             Provides access to thing registries.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Xmpp.IXmppService.Provisioning">
+        <member name="P:IdApp.Services.Xmpp.IXmppService.IoT">
             <summary>
             Provides access to provisioning and decision support.
             </summary>

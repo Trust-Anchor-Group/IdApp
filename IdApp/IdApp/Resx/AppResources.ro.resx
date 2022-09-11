@@ -1920,4 +1920,13 @@
   <data name="ShortId" xml:space="preserve">
     <value>Scurt ID-ul</value>
   </data>
+  <data name="ConcentratorServiceNotFound" xml:space="preserve">
+    <value>Nu s-a găsit niciun serviciu de concentrare.</value>
+  </data>
+  <data name="ControlServiceNotFound" xml:space="preserve">
+    <value>Nu a fost găsit niciun serviciu de control.</value>
+  </data>
+  <data name="SensorServiceNotFound" xml:space="preserve">
+    <value>Nu s-a găsit niciun serviciu de senzori.</value>
+  </data>
 </root>

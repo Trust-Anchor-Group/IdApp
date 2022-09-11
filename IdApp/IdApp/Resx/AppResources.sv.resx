@@ -1899,4 +1899,13 @@
   <data name="ShortId" xml:space="preserve">
     <value>Kort ID</value>
   </data>
+  <data name="ConcentratorServiceNotFound" xml:space="preserve">
+    <value>Ingen koncentrator-tjänst hittades.</value>
+  </data>
+  <data name="ControlServiceNotFound" xml:space="preserve">
+    <value>Ingen kontroll-tjänst hittades.</value>
+  </data>
+  <data name="SensorServiceNotFound" xml:space="preserve">
+    <value>Ingen sensor-tjänst hittades.</value>
+  </data>
 </root>

@@ -628,6 +628,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No concentrator service found..
+        /// </summary>
+        internal static string ConcentratorServiceNotFound {
+            get {
+                return ResourceManager.GetString("ConcentratorServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         internal static string Confirm {
@@ -921,6 +930,15 @@ namespace IdApp.Resx {
         internal static string ContractVisibilityMustBeSelected {
             get {
                 return ResourceManager.GetString("ContractVisibilityMustBeSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No control service found..
+        /// </summary>
+        internal static string ControlServiceNotFound {
+            get {
+                return ResourceManager.GetString("ControlServiceNotFound", resourceCulture);
             }
         }
         
@@ -3927,6 +3945,15 @@ namespace IdApp.Resx {
         internal static string SendToContact {
             get {
                 return ResourceManager.GetString("SendToContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No sensor service found..
+        /// </summary>
+        internal static string SensorServiceNotFound {
+            get {
+                return ResourceManager.GetString("SensorServiceNotFound", resourceCulture);
             }
         }
         
