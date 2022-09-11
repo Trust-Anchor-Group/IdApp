@@ -26,7 +26,7 @@ namespace IdApp.Pages.Things.ViewThing
 			: base()
 		{
 			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
-			this.DisownThingCommand = new Command(async _ => await this.DisownThing(), _ => this.CanDisownThing);
+			this.DisownThingCommand = new Command(async _ => await this.DisownThing(), _ => this.IsConnected && this.IsOwner);
 
 			this.Tags = new ObservableCollection<HumanReadableTag>();
 		}
@@ -40,8 +40,14 @@ namespace IdApp.Pages.Things.ViewThing
 			{
 				this.thing = args.Thing;
 
-				foreach (Property Tag in this.thing.MetaData)
-					this.Tags.Add(new HumanReadableTag(Tag));
+				if (this.thing.MetaData is not null)
+				{
+					foreach (Property Tag in this.thing.MetaData)
+						this.Tags.Add(new HumanReadableTag(Tag));
+				}
+
+				this.InContacts = !string.IsNullOrEmpty(this.thing.ObjectId);
+				this.IsOwner = this.thing.Owner ?? false;
 			}
 
 			this.AssignProperties();
@@ -95,38 +101,39 @@ namespace IdApp.Pages.Things.ViewThing
 		public ICommand DisownThingCommand { get; }
 
 		/// <summary>
-		/// See <see cref="CanDisownThing"/>
+		/// See <see cref="InContacts"/>
 		/// </summary>
-		public static readonly BindableProperty CanDisownThingProperty =
-			BindableProperty.Create(nameof(CanDisownThing), typeof(bool), typeof(ThingViewModel), default(bool));
+		public static readonly BindableProperty InContactsProperty =
+			BindableProperty.Create(nameof(InContacts), typeof(bool), typeof(ThingViewModel), default(bool));
 
 		/// <summary>
-		/// Gets or sets whether a user can claim a thing.
+		/// Gets or sets whether the thing is in the contact list.
 		/// </summary>
-		public bool CanDisownThing
+		public bool InContacts
 		{
-			get { return this.IsConnected && (this.thing?.Owner ?? false); }
+			get => (bool)this.GetValue(InContactsProperty);
+			set => this.SetValue(InContactsProperty, value);
 		}
-
-		/// <summary>
-		/// Command to bind to for detecting when a tag value has been clicked on.
-		/// </summary>
-		public ICommand ClickCommand { get; }
 
 		/// <summary>
 		/// See <see cref="IsOwner"/>
 		/// </summary>
 		public static readonly BindableProperty IsOwnerProperty =
-			BindableProperty.Create(nameof(IsOwner), typeof(bool), typeof(ViewClaimThing.ViewClaimThingViewModel), default(bool));
+			BindableProperty.Create(nameof(IsOwner), typeof(bool), typeof(ThingViewModel), default(bool));
 
 		/// <summary>
-		/// If the user is owner of the thing.
+		/// Gets or sets whether the thing is in the contact.
 		/// </summary>
 		public bool IsOwner
 		{
 			get => (bool)this.GetValue(IsOwnerProperty);
 			set => this.SetValue(IsOwnerProperty, value);
 		}
+
+		/// <summary>
+		/// Command to bind to for detecting when a tag value has been clicked on.
+		/// </summary>
+		public ICommand ClickCommand { get; }
 
 		#endregion
 

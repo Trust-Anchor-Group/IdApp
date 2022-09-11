@@ -30,7 +30,8 @@
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
                 <!-- BUTTONS -->
-                <Button Text="{x:Static resx:AppResources.DisownThing}" Command="{Binding Path=DisownThingCommand}" IsEnabled="{Binding Path=CanDisownThing}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <Button Text="{x:Static resx:AppResources.DisownThing}" Command="{Binding Path=DisownThingCommand}" IsEnabled="{Binding Path=IsConnected}"
+						IsVisible="{Binding IsOwner}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>
         </ScrollView>
     </Grid>
