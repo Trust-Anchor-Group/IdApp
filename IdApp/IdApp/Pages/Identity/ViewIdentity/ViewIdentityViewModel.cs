@@ -867,7 +867,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			BindableProperty.Create(nameof(ThirdPartyInContacts), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
-		/// Gets or sets whether the identity is in the contact.
+		/// Gets or sets whether the identity is in the contact list.
 		/// </summary>
 		public bool ThirdPartyInContacts
 		{
