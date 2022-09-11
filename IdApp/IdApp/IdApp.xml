@@ -6676,7 +6676,7 @@
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ThirdPartyInContacts">
             <summary>
-            Gets or sets whether the identity is in the contact.
+            Gets or sets whether the identity is in the contact list.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ThirdPartyNotInContactsProperty">
@@ -9989,19 +9989,14 @@
             The command to bind to for claiming a thing
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.CanDisownThingProperty">
+        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.InContactsProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.CanDisownThing"/>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.InContacts"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.CanDisownThing">
+        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.InContacts">
             <summary>
-            Gets or sets whether a user can claim a thing.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.ClickCommand">
-            <summary>
-            Command to bind to for detecting when a tag value has been clicked on.
+            Gets or sets whether the thing is in the contact list.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.IsOwnerProperty">
@@ -10011,7 +10006,12 @@
         </member>
         <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsOwner">
             <summary>
-            If the user is owner of the thing.
+            Gets or sets whether the thing is in the contact.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.ClickCommand">
+            <summary>
+            Command to bind to for detecting when a tag value has been clicked on.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs">
