@@ -1,5 +1,4 @@
-﻿using IdApp.Services.Navigation;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Things.ViewThing
 {
