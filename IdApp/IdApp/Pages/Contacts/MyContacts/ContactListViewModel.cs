@@ -160,6 +160,8 @@ namespace IdApp.Pages.Contacts.MyContacts
 				await this.NavigationService.GoBackAsync();
 				return;
 			}
+
+			this.SelectedContact = null;
 		}
 
 		private static void Add(SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted, CaseInsensitiveString Name, ContactInfo Info)
@@ -303,12 +305,22 @@ namespace IdApp.Pages.Contacts.MyContacts
 		/// See <see cref="SelectedContact"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedContactProperty =
-			BindableProperty.Create(nameof(SelectedContact), typeof(ContactInfoModel), typeof(ContactListViewModel), default(ContactInfoModel),
-				propertyChanged: (b, oldValue, newValue) =>
-				{
-					if (b is ContactListViewModel viewModel && newValue is ContactInfoModel Contact)
-						viewModel.OnSelected(Contact);
-				});
+			BindableProperty.Create(nameof(SelectedContact), typeof(ContactInfoModel), typeof(ContactListViewModel), default(ContactInfoModel));
+
+		/// <summary>
+		/// The currently selected contact, if any.
+		/// </summary>
+		public ContactInfoModel SelectedContact
+		{
+			get => (ContactInfoModel)this.GetValue(SelectedContactProperty);
+			set
+			{
+				this.SetValue(SelectedContactProperty, value);
+
+				if (value is not null)
+					this.OnSelected(value);
+			}
+		}
 
 		private void OnSelected(ContactInfoModel Contact)
 		{
@@ -350,6 +362,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 							{
 								ReturnRoute = "../.."
 							});
+
 							break;
 
 						case SelectContactAction.ViewIdentity:
@@ -382,15 +395,6 @@ namespace IdApp.Pages.Contacts.MyContacts
 					this.IsOverlayVisible = false;
 				}
 			});
-		}
-
-		/// <summary>
-		/// The currently selected contact, if any.
-		/// </summary>
-		public ContactInfoModel SelectedContact
-		{
-			get => (ContactInfoModel)this.GetValue(SelectedContactProperty);
-			set => this.SetValue(SelectedContactProperty, value);
 		}
 
 		/// <summary>

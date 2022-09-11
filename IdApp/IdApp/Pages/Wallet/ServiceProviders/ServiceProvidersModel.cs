@@ -50,6 +50,8 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 				await this.NavigationService.GoBackAsync();
 				return;
 			}
+
+			this.SelectedServiceProvider = null;
 		}
 
 		/// <inheritdoc/>
