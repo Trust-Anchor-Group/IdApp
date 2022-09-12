@@ -6,6 +6,7 @@ using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Things.ViewThing;
 using IdApp.Services;
 using IdApp.Services.Notification;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
@@ -19,6 +20,7 @@ namespace IdApp.Pages.Things.MyThings
 	/// </summary>
 	public class MyThingsViewModel : BaseViewModel
 	{
+		private readonly Dictionary<CaseInsensitiveString, List<ContactInfoModel>> byBareJid;
 		private TaskCompletionSource<ContactInfoModel> selectedThing;
 
 		/// <summary>
@@ -27,6 +29,7 @@ namespace IdApp.Pages.Things.MyThings
 		protected internal MyThingsViewModel()
 		{
 			this.Things = new ObservableCollection<ContactInfoModel>();
+			this.byBareJid = new();
 		}
 
 		/// <inheritdoc/>
@@ -125,6 +128,8 @@ namespace IdApp.Pages.Things.MyThings
 			}
 
 			this.Things.Clear();
+			this.byBareJid.Clear();
+
 			foreach (ContactInfo Info in SortedByName.Values)
 			{
 				NotificationEvent[] ContactEvents;
@@ -144,12 +149,24 @@ namespace IdApp.Pages.Things.MyThings
 
 				Events = ContactEvents.Join(ThingEvents);
 
-				this.Things.Add(new ContactInfoModel(this, Info, Events));
+
+				ContactInfoModel InfoModel = new(this, Info, Events);
+				this.Things.Add(InfoModel);
+
+				if (!this.byBareJid.TryGetValue(Info.BareJid, out List<ContactInfoModel> Contacts))
+				{
+					Contacts = new List<ContactInfoModel>();
+					this.byBareJid[Info.BareJid] = Contacts;
+				}
+
+				Contacts.Add(InfoModel);
 			}
 
 			this.ShowThingsMissing = SortedByName.Count == 0;
 		
 			await Database.Provider.Flush();
+
+			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
 		}
 
 		/// <inheritdoc/>
@@ -169,6 +186,8 @@ namespace IdApp.Pages.Things.MyThings
 		/// <inheritdoc/>
 		protected override async Task OnDispose()
 		{
+			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
+
 			this.ShowThingsMissing = false;
 			this.Things.Clear();
 
@@ -257,6 +276,17 @@ namespace IdApp.Pages.Things.MyThings
 					await this.NavigationService.GoBackAsync();
 				}
 			});
+		}
+
+		private Task Xmpp_OnPresence(object Sender, PresenceEventArgs e)
+		{
+			if (this.byBareJid.TryGetValue(e.FromBareJID, out List<ContactInfoModel> Contacts))
+			{
+				foreach (ContactInfoModel Contact in Contacts)
+					Contact.PresenceUpdated();
+			}
+
+			return Task.CompletedTask;
 		}
 
 	}
