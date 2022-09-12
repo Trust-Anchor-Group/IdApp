@@ -454,7 +454,7 @@
     <value>Tietoa asiasta</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Seuraavat tiedot ovat saatavilla asiasta. Voit myös nähdä nykyiset anturitiedot, jotka sinulla on oikeus nähdä. Jos asia on toimilaite ja sinulla on oikeudet hallita asiaa, myös ohjausparametrit näytetään.</value>
+    <value>Seuraavat tiedot ovat paikallisesti saatavilla asiasta. Vaihtoehdot olla vuorovaikutuksessa laitteen kanssa on esitetty alla.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Tiedot puuttuvat tai ovat virheellisiä</value>
@@ -1934,5 +1934,32 @@
   </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Lue anturi</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Anturin tiedot</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>Pyyntö on hyväksytty.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Anturidatan lukeminen on peruttu.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Anturitietojen lukeminen on valmis.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Anturitietojen lukeminen on epäonnistunut.</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Anturitietojen vastaanottaminen.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Anturitietoja on pyydetty.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Anturitietojen lukeminen on alkanut.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Alla on käytettävissäsi olevia tietoja ja anturitietoja oikeuksiesi mukaisesti.</value>
   </data>
 </root>

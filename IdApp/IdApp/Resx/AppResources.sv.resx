@@ -631,7 +631,7 @@
     <value>Information om sak</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Följande information har gjorts tillgänglig om saken. Du kan också se aktuell sensor-data du är auktoriserad att se. Om saken kan styras, och du har rätt att styra den, kommer kontrollparametrar också att visas.</value>
+    <value>Följande information har gjorts tillgänglig om saken. Alternativ för interaktion med saker presenteras nedan.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Information saknas eller är ogiltig</value>
@@ -1913,5 +1913,32 @@
   </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Läs Sensor</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Sensordata</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>Förfrågan har accepterats.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Sensordataavläsningen har avbrutits.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Sensordataavläsningen har slutförts.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Sensordataavläsningen har misslyckats.</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Tar emot sensordata.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Sensordata har förfrågats.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Avläsningen av sensordata har påbörjats.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Nedan visas information om sensordata som är tillgänglig för dig, i enlighet med dina åtkomstprivilegier.</value>
   </data>
 </root>

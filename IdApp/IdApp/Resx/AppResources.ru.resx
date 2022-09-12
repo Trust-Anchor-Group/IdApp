@@ -454,7 +454,7 @@
     <value>Информация о вещи</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>О ней доступна следующая информация. Вы также можете видеть текущие данные датчиков, которые вы авторизованы видеть. Если вещь является исполнительным механизмом, и у вас есть права управлять вещью, параметры управления также будут показаны.</value>
+    <value>Следующая информация доступна локально об этой вещи. Варианты взаимодействия с устройством представлены ниже.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Информация отсутствует или недействительна</value>
@@ -1934,5 +1934,32 @@
   </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Датчик считывания</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Данные датчика</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>Запрос принят.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Считывание данных датчика отменено.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Считывание данных датчика завершено.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Считывание данных датчика не удалось.</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Получение данных датчиков.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Запрошены данные датчика.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Началось считывание данных датчика.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Ниже приведена информация и данные датчиков, доступные вам в соответствии с вашими правами доступа.</value>
   </data>
 </root>

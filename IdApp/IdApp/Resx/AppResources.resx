@@ -454,7 +454,7 @@
     <value>Information about thing</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>The following information is made available about the thing. You can also see current sensor-data you are authorized to see. If the thing is an actuator, and you have rights to control the thing, control parameters will be shown also.</value>
+    <value>The following information is locally available about the thing. Options to interact with the device are presented below.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Information is missing or invalid</value>
@@ -1934,5 +1934,32 @@
   </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Read Sensor</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Sensor Data</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>Request has been accepted.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Sensor Data readout has been cancelled.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Sensor Data readout has completed.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Sensor Data readout has failed.</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Receiving Sensor Data.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Sensor Data has been requested.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Sensor Data readout has started.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Below is information and sensor data available to you, in accordance with your access privileges.</value>
   </data>
 </root>

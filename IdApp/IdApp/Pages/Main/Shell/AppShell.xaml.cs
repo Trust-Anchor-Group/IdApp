@@ -17,6 +17,7 @@ using IdApp.Pages.Main.Calculator;
 using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Pages.Main.Security;
 using IdApp.Pages.Things.MyThings;
+using IdApp.Pages.Things.ReadSensor;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Pages.Things.ViewThing;
 using IdApp.Pages.Wallet.AccountEvent;
@@ -134,6 +135,7 @@ namespace IdApp.Pages.Main.Shell
 			Routing.RegisterRoute(nameof(ViewClaimThingPage), typeof(ViewClaimThingPage));
 			Routing.RegisterRoute(nameof(MyThingsPage), typeof(MyThingsPage));
 			Routing.RegisterRoute(nameof(ViewThingPage), typeof(ViewThingPage));
+			Routing.RegisterRoute(nameof(ReadSensorPage), typeof(ReadSensorPage));
 
 			// Wallet
 			Routing.RegisterRoute(nameof(IssueEDalerPage), typeof(IssueEDalerPage));

@@ -454,7 +454,7 @@
     <value>Informații despre lucru</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Următoarele informații sunt puse la dispoziție despre lucru. De asemenea, puteți vedea datele curente ale senzorilor pe care sunteți autorizat să le vedeți. Dacă lucrul este un dispozitiv de acționare și aveți dreptul de a controla lucrul, vor fi afișați și parametrii de control.</value>
+    <value>Următoarele informații sunt disponibile la nivel local despre lucru. Opțiunile de a interacționa cu dispozitivul sunt prezentate mai jos.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Informațiile lipsesc sau nu sunt valide</value>
@@ -1934,5 +1934,32 @@
   </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Senzor de citire</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Datele senzorului</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>Cererea a fost acceptată.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Citirea datelor senzorului a fost anulată.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Citirea datelor senzorului s-a finalizat.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Citirea datelor senzorului nu a reușit.</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Primirea datelor senzorului.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Datele senzorului au fost solicitate.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Citirea datelor senzorului a început.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Mai jos sunt disponibile informații și date despre senzori, în conformitate cu privilegiile de acces.</value>
   </data>
 </root>

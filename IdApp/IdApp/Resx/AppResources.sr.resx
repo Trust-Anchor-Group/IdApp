@@ -454,7 +454,7 @@
     <value>Informacije o stvarima</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Sledeće informacije su dostupne o tome. Takođe možete videti aktuelne senzorske podatke koje ste ovlašćeni da vidite. Ako je stvar aktuator, a vi imate prava da kontrolišete stvar, biće prikazani i parametri kontrole.</value>
+    <value>Sledeće informacije su lokalno dostupne o tome. Dole su predstavljene opcije interakcije sa uređajem.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Informacije nedostaju ili su nevažeće</value>
@@ -1934,5 +1934,32 @@
   </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Senzor za čitanje</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Podaci o senzoru</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>Zahtev je prihvaćen.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Očitavanje podataka senzora je otkazano.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Očitavanje podataka senzora je dovršeno.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Očitavanje podataka senzora nije uspelo.</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Primanje podataka senzora.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Podaci o senzorima su zatraženi.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Očitavanje podataka senzora je počelo.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Ispod su vam dostupne informacije i podaci o senzorima, u skladu sa vašim privilegijama pristupa.</value>
   </data>
 </root>

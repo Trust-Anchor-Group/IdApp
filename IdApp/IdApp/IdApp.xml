@@ -9838,6 +9838,134 @@
             Task completion source where the selected thing is placed.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Things.ReadSensor.Model.HeaderModel">
+            <summary>
+            Represents a header
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.Model.HeaderModel.#ctor(System.String)">
+            <summary>
+            Represents a header
+            </summary>
+            <param name="Label">Header label.</param>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.HeaderModel.Label">
+            <summary>
+            Header label.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Things.ReadSensor.ReadSensorModel">
+            <summary>
+            The view model to bind to when displaying a thing.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.ReadSensorModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Things.ReadSensor.ReadSensorModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.ReadSensorModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.ReadSensorModel.OnDispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.ReadSensorModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.ReadSensorModel.SensorData">
+            <summary>
+            Holds a list of meta-data tags associated with a thing.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.ReadSensor.ReadSensorModel.IsThingOnlineProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ReadSensor.ReadSensorModel.IsThingOnline"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.ReadSensorModel.IsThingOnline">
+            <summary>
+            Gets or sets whether the thing is in the contact.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.ReadSensor.ReadSensorModel.SupportsSensorEventsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ReadSensor.ReadSensorModel.SupportsSensorEvents"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.ReadSensorModel.SupportsSensorEvents">
+            <summary>
+            Gets or sets whether the thing is a sensor
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.ReadSensor.ReadSensorModel.HasStatusProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ReadSensor.ReadSensorModel.HasStatus"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.ReadSensorModel.HasStatus">
+            <summary>
+            Gets or sets whether there's a status message to display
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.ReadSensor.ReadSensorModel.StatusProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ReadSensor.ReadSensorModel.Status"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.ReadSensorModel.Status">
+            <summary>
+            Gets or sets a status message.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.ReadSensorModel.ClickCommand">
+            <summary>
+            Command to bind to for detecting when a tag value has been clicked on.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Things.ReadSensor.ReadSensorPage">
+            <summary>
+            A page that displays sensor data from a sensor.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.ReadSensorPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Things.ReadSensor.ReadSensorPage"/> class.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Things.ReadSensor.SensorDataTemplateSelector">
+            <summary>
+            Data Template Selector, based on Sensor Data.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.SensorDataTemplateSelector.HeaderTemplate">
+            <summary>
+            Template to use for headers
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.SensorDataTemplateSelector.FieldTemplate">
+            <summary>
+            Template to use for fields
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.SensorDataTemplateSelector.GraphTemplate">
+            <summary>
+            Template to use for graphs
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.SensorDataTemplateSelector.TagTemplate">
+            <summary>
+            Template to use for informative tags
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.SensorDataTemplateSelector.DefaultTemplate">
+            <summary>
+            Template to use for other items.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.SensorDataTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingNavigationArgs">
             <summary>
             Holds navigation parameters specific to claiming things.
@@ -15367,7 +15495,7 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.InformationAboutThingText">
             <summary>
-              Looks up a localized string similar to The following information is made available about the thing. You can also see current sensor-data you are authorized to see. If the thing is an actuator, and you have rights to control the thing, control parameters will be shown also..
+              Looks up a localized string similar to The following information is locally available about the thing. Options to interact with the device are presented below..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.InformationIsMissingOrInvalid">
@@ -16573,6 +16701,51 @@
         <member name="P:IdApp.Resx.AppResources.SendToContact">
             <summary>
               Looks up a localized string similar to Send to Contact.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorData">
+            <summary>
+              Looks up a localized string similar to Sensor Data.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataAccepted">
+            <summary>
+              Looks up a localized string similar to Request has been accepted..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataCancelled">
+            <summary>
+              Looks up a localized string similar to Sensor Data readout has been cancelled..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataDone">
+            <summary>
+              Looks up a localized string similar to Sensor Data readout has completed..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataFailure">
+            <summary>
+              Looks up a localized string similar to Sensor Data readout has failed..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataReceiving">
+            <summary>
+              Looks up a localized string similar to Receiving Sensor Data..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataRequested">
+            <summary>
+              Looks up a localized string similar to Sensor Data has been requested..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataStarted">
+            <summary>
+              Looks up a localized string similar to Sensor Data readout has started..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataText">
+            <summary>
+              Looks up a localized string similar to Below is information and sensor data available to you, in accordance with your access privileges..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SensorServiceNotFound">

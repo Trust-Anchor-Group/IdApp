@@ -454,7 +454,7 @@
     <value>Información sobre la cosa</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>La siguiente información está disponible sobre la cosa. También puede ver los datos actuales del sensor que está autorizado a ver. Si la cosa es un actuador, y usted tiene derechos para controlar la cosa, también se mostrarán los parámetros de control.</value>
+    <value>La siguiente información está disponible localmente sobre la cosa. Las opciones para interactuar con el dispositivo se presentan a continuación.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Falta información o no es válida</value>
@@ -1934,5 +1934,32 @@
   </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Sensor de lectura</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Datos del sensor</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>La solicitud ha sido aceptada.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Se ha cancelado la lectura de datos del sensor.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>La lectura de datos del sensor se ha completado.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Error en la lectura de datos del sensor.</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Recepción de datos del sensor.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Se han solicitado datos del sensor.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Se ha iniciado la lectura de datos del sensor.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>A continuación se muestra información y datos de sensores disponibles para usted, de acuerdo con sus privilegios de acceso.</value>
   </data>
 </root>

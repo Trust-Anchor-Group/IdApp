@@ -454,7 +454,7 @@
     <value>Informations sur la chose</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Les informations suivantes sont mises à disposition sur la chose. Vous pouvez également voir les données de capteur actuelles que vous êtes autorisé à voir. Si la chose est un actionneur et que vous avez le droit de contrôler la chose, les paramètres de contrôle seront également affichés.</value>
+    <value>Les informations suivantes sont disponibles localement sur la chose. Les options pour interagir avec l’appareil sont présentées ci-dessous.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Les informations sont manquantes ou non valides</value>
@@ -1934,5 +1934,32 @@
   </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Capteur de lecture</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Données du capteur</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>La demande a été acceptée.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>La lecture des données du capteur a été annulée.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>La lecture des données du capteur est terminée.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>La lecture des données du capteur a échoué.</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Réception des données du capteur.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Les données du capteur ont été demandées.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>La lecture des données du capteur a commencé.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Vous trouverez ci-dessous des informations et des données de capteurs à votre disposition, conformément à vos privilèges d’accès.</value>
   </data>
 </root>

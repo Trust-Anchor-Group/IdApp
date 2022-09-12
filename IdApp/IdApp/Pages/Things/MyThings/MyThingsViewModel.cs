@@ -132,23 +132,18 @@ namespace IdApp.Pages.Things.MyThings
 
 			foreach (ContactInfo Info in SortedByName.Values)
 			{
-				NotificationEvent[] ContactEvents;
-				NotificationEvent[] ThingEvents;
-				NotificationEvent[] Events;
-
 				if (!string.IsNullOrEmpty(Info.SourceId) ||
 					!string.IsNullOrEmpty(Info.Partition) ||
 					!string.IsNullOrEmpty(Info.NodeId) ||
-					!this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Info.BareJid, out ContactEvents))
+					!this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Info.BareJid, out NotificationEvent[] ContactEvents))
 				{
 					ContactEvents = null;
 				}
 
-				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Things, Info.ThingNotificationCategoryKey, out ThingEvents))
+				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Things, Info.ThingNotificationCategoryKey, out NotificationEvent[] ThingEvents))
 					ThingEvents = null;
 
-				Events = ContactEvents.Join(ThingEvents);
-
+				NotificationEvent[] Events = ContactEvents.Join(ThingEvents);
 
 				ContactInfoModel InfoModel = new(this, Info, Events);
 				this.Things.Add(InfoModel);

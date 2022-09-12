@@ -1789,7 +1789,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following information is made available about the thing. You can also see current sensor-data you are authorized to see. If the thing is an actuator, and you have rights to control the thing, control parameters will be shown also..
+        ///   Looks up a localized string similar to The following information is locally available about the thing. Options to interact with the device are presented below..
         /// </summary>
         internal static string InformationAboutThingText {
             get {
@@ -3963,6 +3963,87 @@ namespace IdApp.Resx {
         internal static string SendToContact {
             get {
                 return ResourceManager.GetString("SendToContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Data.
+        /// </summary>
+        internal static string SensorData {
+            get {
+                return ResourceManager.GetString("SensorData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request has been accepted..
+        /// </summary>
+        internal static string SensorDataAccepted {
+            get {
+                return ResourceManager.GetString("SensorDataAccepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Data readout has been cancelled..
+        /// </summary>
+        internal static string SensorDataCancelled {
+            get {
+                return ResourceManager.GetString("SensorDataCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Data readout has completed..
+        /// </summary>
+        internal static string SensorDataDone {
+            get {
+                return ResourceManager.GetString("SensorDataDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Data readout has failed..
+        /// </summary>
+        internal static string SensorDataFailure {
+            get {
+                return ResourceManager.GetString("SensorDataFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receiving Sensor Data..
+        /// </summary>
+        internal static string SensorDataReceiving {
+            get {
+                return ResourceManager.GetString("SensorDataReceiving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Data has been requested..
+        /// </summary>
+        internal static string SensorDataRequested {
+            get {
+                return ResourceManager.GetString("SensorDataRequested", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Data readout has started..
+        /// </summary>
+        internal static string SensorDataStarted {
+            get {
+                return ResourceManager.GetString("SensorDataStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below is information and sensor data available to you, in accordance with your access privileges..
+        /// </summary>
+        internal static string SensorDataText {
+            get {
+                return ResourceManager.GetString("SensorDataText", resourceCulture);
             }
         }
         

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Pages.Things.ReadSensor;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP;
@@ -338,7 +339,7 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private async Task ReadSensor()
 		{
-			// TODO
+			await this.NavigationService.GoToAsync(nameof(ReadSensorPage), new ViewThingNavigationArgs(this.thing));
 		}
 
 		private async Task ControlActuator()

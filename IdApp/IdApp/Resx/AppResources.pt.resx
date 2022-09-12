@@ -454,7 +454,7 @@
     <value>Informações sobre o negócio</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>As seguintes informações são disponibilizadas sobre a coisa. Você também pode ver os dados atuais dos sensores que você está autorizado a ver. Se a coisa é um atuador, e você tem o direito de controlar a coisa, parâmetros de controle também serão mostrados.</value>
+    <value>As seguintes informações estão disponíveis localmente sobre a coisa. As opções para interagir com o dispositivo são apresentadas abaixo.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>As informações estão faltando ou inválidas</value>
@@ -1934,5 +1934,32 @@
   </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Ler sensor</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Dados do sensor</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>O pedido foi aceito.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>A leitura dos dados do sensor foi cancelada.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Leitura de dados do sensor foi concluída.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>A leitura dos dados do sensor falhou.</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Recebendo dados do sensor.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Os dados do sensor foram solicitados.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>A leitura dos dados do sensor começou.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Abaixo estão as informações e dados do sensor disponíveis para você, de acordo com seus privilégios de acesso.</value>
   </data>
 </root>

@@ -454,7 +454,7 @@
     <value>Informasjon om ting</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Følgende informasjon blir gjort tilgjengelig om saken. Du kan også se gjeldende sensordata du er autorisert til å se. Hvis tingen er en aktuator, og du har rettigheter til å kontrollere tingen, vises også kontrollparametere.</value>
+    <value>Følgende informasjon er lokalt tilgjengelig om saken. Alternativer for å samhandle med enheten presenteres nedenfor.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Informasjon mangler eller er ugyldig</value>
@@ -1934,5 +1934,32 @@
   </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Les sensor</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Sensordata</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>Forespørselen er godtatt.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Avlesning av sensordata er avbrutt.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Avlesning av sensordata er fullført.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Avlesning av sensordata mislyktes.</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Mottar sensordata.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Sensordata er forespurt.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Avlesning av sensordata har startet.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Nedenfor finner du informasjon og sensordata som er tilgjengelige for deg, i samsvar med tilgangsrettighetene dine.</value>
   </data>
 </root>

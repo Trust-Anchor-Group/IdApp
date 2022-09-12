@@ -454,7 +454,7 @@
     <value>Oplysninger om ting</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Følgende oplysninger stilles til rådighed om sagen. Du kan også se aktuelle sensordata, du har tilladelse til at se. Hvis sagen er en aktuator, og du har ret til at kontrollere tingen, vises kontrolparametre også.</value>
+    <value>Følgende oplysninger er lokalt tilgængelige om sagen. Indstillinger for at interagere med enheden er præsenteret nedenfor.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Oplysninger mangler eller er ugyldige</value>
@@ -1934,5 +1934,32 @@
   </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Læs sensor</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Sensor Data</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>Anmodningen er blevet accepteret.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Udlæsning af sensordata er blevet annulleret.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Udlæsningen af sensordata er fuldført.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Udlæsning af sensordata mislykkedes.</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Modtagelse af sensordata.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Sensordata er blevet anmodet om.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Udlæsningen af sensordata er startet.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Nedenfor er information og sensordata tilgængelige for dig i overensstemmelse med dine adgangsrettigheder.</value>
   </data>
 </root>

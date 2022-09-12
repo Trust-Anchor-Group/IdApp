@@ -454,7 +454,7 @@
     <value>Informationen über die Sache</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Die folgenden Informationen werden über das Ding zur Verfügung gestellt. Sie können auch aktuelle Sensordaten sehen, zu deren Anzeige Sie berechtigt sind. Wenn es sich bei dem Ding um einen Aktuator handelt und Sie Rechte haben, das Ding zu steuern, werden auch Steuerparameter angezeigt.</value>
+    <value>Die folgenden Informationen sind lokal über das Ding verfügbar. Optionen für die Interaktion mit dem Gerät sind unten aufgeführt.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Informationen fehlen oder sind ungültig</value>
@@ -1934,5 +1934,32 @@
   </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Sensor lesen</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Sensordaten</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>Der Antrag wurde angenommen.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Die Auslesung der Sensordaten wurde abgebrochen.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Die Auslesung der Sensordaten ist abgeschlossen.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Die Auslesung der Sensordaten ist fehlgeschlagen.</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Empfangen von Sensordaten.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Sensordaten wurden angefordert.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Die Auslesung der Sensordaten hat begonnen.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Nachfolgend finden Sie Informationen und Sensordaten, die Ihnen gemäß Ihren Zugriffsrechten zur Verfügung stehen.</value>
   </data>
 </root>
