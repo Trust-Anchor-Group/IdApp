@@ -1950,6 +1950,27 @@
   <data name="SensorDataFailure" xml:space="preserve">
     <value>A leitura dos dados do sensor falhou.</value>
   </data>
+  <data name="SensorDataHeaderComputed" xml:space="preserve">
+    <value>Calculado</value>
+  </data>
+  <data name="SensorDataHeaderHistorical" xml:space="preserve">
+    <value>Histórico</value>
+  </data>
+  <data name="SensorDataHeaderIdentity" xml:space="preserve">
+    <value>Identidade</value>
+  </data>
+  <data name="SensorDataHeaderMomentary" xml:space="preserve">
+    <value>Momentâneo</value>
+  </data>
+  <data name="SensorDataHeaderOther" xml:space="preserve">
+    <value>Outro</value>
+  </data>
+  <data name="SensorDataHeaderPeak" xml:space="preserve">
+    <value>Pico</value>
+  </data>
+  <data name="SensorDataHeaderStatus" xml:space="preserve">
+    <value>Estado</value>
+  </data>
   <data name="SensorDataReceiving" xml:space="preserve">
     <value>Recebendo dados do sensor.</value>
   </data>

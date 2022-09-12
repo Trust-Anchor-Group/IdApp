@@ -1950,6 +1950,27 @@
   <data name="SensorDataFailure" xml:space="preserve">
     <value>Sensor Data readout has failed.</value>
   </data>
+  <data name="SensorDataHeaderComputed" xml:space="preserve">
+    <value>Computed</value>
+  </data>
+  <data name="SensorDataHeaderHistorical" xml:space="preserve">
+    <value>Historical</value>
+  </data>
+  <data name="SensorDataHeaderIdentity" xml:space="preserve">
+    <value>Identity</value>
+  </data>
+  <data name="SensorDataHeaderMomentary" xml:space="preserve">
+    <value>Momentary</value>
+  </data>
+  <data name="SensorDataHeaderOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="SensorDataHeaderPeak" xml:space="preserve">
+    <value>Peak</value>
+  </data>
+  <data name="SensorDataHeaderStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="SensorDataReceiving" xml:space="preserve">
     <value>Receiving Sensor Data.</value>
   </data>

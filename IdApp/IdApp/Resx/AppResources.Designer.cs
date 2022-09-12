@@ -4012,6 +4012,69 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Computed.
+        /// </summary>
+        internal static string SensorDataHeaderComputed {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderComputed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Historical.
+        /// </summary>
+        internal static string SensorDataHeaderHistorical {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderHistorical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identity.
+        /// </summary>
+        internal static string SensorDataHeaderIdentity {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderIdentity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Momentary.
+        /// </summary>
+        internal static string SensorDataHeaderMomentary {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderMomentary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        internal static string SensorDataHeaderOther {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peak.
+        /// </summary>
+        internal static string SensorDataHeaderPeak {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderPeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        internal static string SensorDataHeaderStatus {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Receiving Sensor Data..
         /// </summary>
         internal static string SensorDataReceiving {

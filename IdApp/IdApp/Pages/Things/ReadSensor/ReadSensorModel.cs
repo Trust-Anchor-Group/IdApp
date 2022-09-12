@@ -1,7 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using IdApp.Pages.Things.ReadSensor.Model;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Pages.Things.ViewThing;
@@ -95,17 +95,64 @@ namespace IdApp.Pages.Things.ReadSensor
 			return Task.CompletedTask;
 		}
 
-		private Task Request_OnFieldsReceived(object Sender, System.Collections.Generic.IEnumerable<Field> NewFields)
+		private string GetFieldTypeString(FieldType Type)
+		{
+			if (Type.HasFlag(FieldType.Identity))
+				return LocalizationResourceManager.Current["SensorDataHeaderIdentity"];
+			else if (Type.HasFlag(FieldType.Status))
+				return LocalizationResourceManager.Current["SensorDataHeaderStatus"];
+			else if (Type.HasFlag(FieldType.Momentary))
+				return LocalizationResourceManager.Current["SensorDataHeaderMomentary"];
+			else if (Type.HasFlag(FieldType.Peak))
+				return LocalizationResourceManager.Current["SensorDataHeaderPeak"];
+			else if (Type.HasFlag(FieldType.Computed))
+				return LocalizationResourceManager.Current["SensorDataHeaderComputed"];
+			else if (Type.HasFlag(FieldType.Historical))
+				return LocalizationResourceManager.Current["SensorDataHeaderHistorical"];
+			else
+				return LocalizationResourceManager.Current["SensorDataHeaderOther"];
+		}
+
+		private Task Request_OnFieldsReceived(object Sender, IEnumerable<Field> NewFields)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				// TODO
+				string Category;
+				HeaderModel CategoryHeader = null;
+				int CategoryIndex = 0;
+
+				foreach (Field Field in NewFields)
+				{
+					Category = this.GetFieldTypeString(Field.Type);
+
+					if (CategoryHeader is null || CategoryHeader.Label != Category)
+					{
+						CategoryHeader = null;
+						CategoryIndex = 0;
+
+						foreach (object Item in this.SensorData)
+						{
+							if (Item is HeaderModel Header && Header.Label == Category)
+							{
+								CategoryHeader = Header;
+								break;
+							}
+							else
+								CategoryIndex++;
+						}
+
+						CategoryHeader = new HeaderModel(Category);
+						this.SensorData.Add(CategoryHeader);
+					}
+
+
+				}
 			});
 
 			return Task.CompletedTask;
 		}
 
-		private Task Request_OnErrorsReceived(object Sender, System.Collections.Generic.IEnumerable<ThingError> NewErrors)
+		private Task Request_OnErrorsReceived(object Sender, IEnumerable<ThingError> NewErrors)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{

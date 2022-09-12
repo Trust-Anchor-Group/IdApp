@@ -1950,6 +1950,27 @@
   <data name="SensorDataFailure" xml:space="preserve">
     <value>Citirea datelor senzorului nu a reușit.</value>
   </data>
+  <data name="SensorDataHeaderComputed" xml:space="preserve">
+    <value>Calculat</value>
+  </data>
+  <data name="SensorDataHeaderHistorical" xml:space="preserve">
+    <value>Istoric</value>
+  </data>
+  <data name="SensorDataHeaderIdentity" xml:space="preserve">
+    <value>Identitate</value>
+  </data>
+  <data name="SensorDataHeaderMomentary" xml:space="preserve">
+    <value>Momentan</value>
+  </data>
+  <data name="SensorDataHeaderOther" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="SensorDataHeaderPeak" xml:space="preserve">
+    <value>Vârf</value>
+  </data>
+  <data name="SensorDataHeaderStatus" xml:space="preserve">
+    <value>Stare</value>
+  </data>
   <data name="SensorDataReceiving" xml:space="preserve">
     <value>Primirea datelor senzorului.</value>
   </data>

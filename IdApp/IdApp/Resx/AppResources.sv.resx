@@ -1929,6 +1929,27 @@
   <data name="SensorDataFailure" xml:space="preserve">
     <value>Sensordataavläsningen har misslyckats.</value>
   </data>
+  <data name="SensorDataHeaderComputed" xml:space="preserve">
+    <value>Beräknat</value>
+  </data>
+  <data name="SensorDataHeaderHistorical" xml:space="preserve">
+    <value>Historiskt</value>
+  </data>
+  <data name="SensorDataHeaderIdentity" xml:space="preserve">
+    <value>Identitet</value>
+  </data>
+  <data name="SensorDataHeaderMomentary" xml:space="preserve">
+    <value>Momentant</value>
+  </data>
+  <data name="SensorDataHeaderOther" xml:space="preserve">
+    <value>Övrigt</value>
+  </data>
+  <data name="SensorDataHeaderPeak" xml:space="preserve">
+    <value>Extremt</value>
+  </data>
+  <data name="SensorDataHeaderStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="SensorDataReceiving" xml:space="preserve">
     <value>Tar emot sensordata.</value>
   </data>

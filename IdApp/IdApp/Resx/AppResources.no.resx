@@ -1950,6 +1950,27 @@
   <data name="SensorDataFailure" xml:space="preserve">
     <value>Avlesning av sensordata mislyktes.</value>
   </data>
+  <data name="SensorDataHeaderComputed" xml:space="preserve">
+    <value>Beregnet</value>
+  </data>
+  <data name="SensorDataHeaderHistorical" xml:space="preserve">
+    <value>Historisk</value>
+  </data>
+  <data name="SensorDataHeaderIdentity" xml:space="preserve">
+    <value>Identitet</value>
+  </data>
+  <data name="SensorDataHeaderMomentary" xml:space="preserve">
+    <value>Øyeblikkelig</value>
+  </data>
+  <data name="SensorDataHeaderOther" xml:space="preserve">
+    <value>Annen</value>
+  </data>
+  <data name="SensorDataHeaderPeak" xml:space="preserve">
+    <value>Topp</value>
+  </data>
+  <data name="SensorDataHeaderStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="SensorDataReceiving" xml:space="preserve">
     <value>Mottar sensordata.</value>
   </data>

@@ -1950,6 +1950,27 @@
   <data name="SensorDataFailure" xml:space="preserve">
     <value>Считывание данных датчика не удалось.</value>
   </data>
+  <data name="SensorDataHeaderComputed" xml:space="preserve">
+    <value>Вычисляемый</value>
+  </data>
+  <data name="SensorDataHeaderHistorical" xml:space="preserve">
+    <value>Исторический</value>
+  </data>
+  <data name="SensorDataHeaderIdentity" xml:space="preserve">
+    <value>Тождество</value>
+  </data>
+  <data name="SensorDataHeaderMomentary" xml:space="preserve">
+    <value>Мгновенный</value>
+  </data>
+  <data name="SensorDataHeaderOther" xml:space="preserve">
+    <value>Другой</value>
+  </data>
+  <data name="SensorDataHeaderPeak" xml:space="preserve">
+    <value>Пик</value>
+  </data>
+  <data name="SensorDataHeaderStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
   <data name="SensorDataReceiving" xml:space="preserve">
     <value>Получение данных датчиков.</value>
   </data>

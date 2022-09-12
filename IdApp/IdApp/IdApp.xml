@@ -9838,6 +9838,42 @@
             Task completion source where the selected thing is placed.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Things.ReadSensor.Model.FieldModel">
+            <summary>
+            Represents a sensor-data field.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.Model.FieldModel.#ctor(Waher.Things.SensorData.Field)">
+            <summary>
+            Represents a sensor-data field.
+            </summary>
+            <param name="Field">Sensor-data field.</param>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.FieldModel.Name">
+            <summary>
+            Field Name
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.FieldModel.Writable">
+            <summary>
+            If the field is writable (through the actuator interface)
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.FieldModel.QoS">
+            <summary>
+            Quality of service of data
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.FieldModel.Type">
+            <summary>
+            Field Type
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.FieldModel.Timestamp">
+            <summary>
+            Timestamp of field.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Things.ReadSensor.Model.HeaderModel">
             <summary>
             Represents a header
@@ -16726,6 +16762,41 @@
         <member name="P:IdApp.Resx.AppResources.SensorDataFailure">
             <summary>
               Looks up a localized string similar to Sensor Data readout has failed..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataHeaderComputed">
+            <summary>
+              Looks up a localized string similar to Computed.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataHeaderHistorical">
+            <summary>
+              Looks up a localized string similar to Historical.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataHeaderIdentity">
+            <summary>
+              Looks up a localized string similar to Identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataHeaderMomentary">
+            <summary>
+              Looks up a localized string similar to Momentary.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataHeaderOther">
+            <summary>
+              Looks up a localized string similar to Other.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataHeaderPeak">
+            <summary>
+              Looks up a localized string similar to Peak.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SensorDataHeaderStatus">
+            <summary>
+              Looks up a localized string similar to Status.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SensorDataReceiving">

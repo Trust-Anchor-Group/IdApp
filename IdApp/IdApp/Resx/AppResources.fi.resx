@@ -1950,6 +1950,27 @@
   <data name="SensorDataFailure" xml:space="preserve">
     <value>Anturitietojen lukeminen on epäonnistunut.</value>
   </data>
+  <data name="SensorDataHeaderComputed" xml:space="preserve">
+    <value>Laskettu</value>
+  </data>
+  <data name="SensorDataHeaderHistorical" xml:space="preserve">
+    <value>Historiallinen</value>
+  </data>
+  <data name="SensorDataHeaderIdentity" xml:space="preserve">
+    <value>Identiteetti</value>
+  </data>
+  <data name="SensorDataHeaderMomentary" xml:space="preserve">
+    <value>Hetkellinen</value>
+  </data>
+  <data name="SensorDataHeaderOther" xml:space="preserve">
+    <value>Toinen</value>
+  </data>
+  <data name="SensorDataHeaderPeak" xml:space="preserve">
+    <value>Huippu</value>
+  </data>
+  <data name="SensorDataHeaderStatus" xml:space="preserve">
+    <value>Tila</value>
+  </data>
   <data name="SensorDataReceiving" xml:space="preserve">
     <value>Anturitietojen vastaanottaminen.</value>
   </data>
