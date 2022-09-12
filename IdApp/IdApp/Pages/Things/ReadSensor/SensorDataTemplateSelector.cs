@@ -1,4 +1,5 @@
 ﻿using IdApp.Pages.Things.ReadSensor.Model;
+using Waher.Things;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Things.ReadSensor
@@ -29,6 +30,11 @@ namespace IdApp.Pages.Things.ReadSensor
 		public DataTemplate TagTemplate { get; set; }
 
 		/// <summary>
+		/// Template to use for errors
+		/// </summary>
+		public DataTemplate ErrorTemplate { get; set; }
+
+		/// <summary>
 		/// Template to use for other items.
 		/// </summary>
 		public DataTemplate DefaultTemplate { get; set; }
@@ -44,6 +50,8 @@ namespace IdApp.Pages.Things.ReadSensor
 				return this.GraphTemplate ?? this.DefaultTemplate;
 			else if (item is HumanReadableTag)
 				return this.TagTemplate ?? this.DefaultTemplate;
+			else if (item is ErrorModel)
+				return this.ErrorTemplate ?? this.DefaultTemplate;
 			else
 				return this.DefaultTemplate;
 		}

@@ -196,7 +196,52 @@ namespace IdApp.Pages.Things.ReadSensor
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				// TODO
+				string Errors = LocalizationResourceManager.Current["Errors"];
+				HeaderModel CategoryHeader = null;
+				int CategoryIndex = 0;
+				int i, c;
+
+				foreach (object Item in this.SensorData)
+				{
+					if (Item is HeaderModel Header && Header.Label == Errors)
+					{
+						CategoryHeader = Header;
+						break;
+					}
+					else
+						CategoryIndex++;
+				}
+
+				if (CategoryHeader is null)
+				{
+					CategoryHeader = new HeaderModel(Errors);
+					this.SensorData.Add(CategoryHeader);
+				}
+
+				for (i = CategoryIndex + 1, c = this.SensorData.Count; i < c; i++)
+				{
+					object Obj = this.SensorData[i];
+
+					if (Obj is ErrorModel ErrorModel)
+						continue;
+					else
+					{
+						foreach (ThingError Error in NewErrors)
+						{
+							this.SensorData.Insert(i++, new ErrorModel(Error));
+							c++;
+						}
+
+						break;
+					}
+				}
+
+				if (i >= c)
+				{
+					foreach (ThingError Error in NewErrors)
+						this.SensorData.Add(new ErrorModel(Error));
+				}
+
 			});
 
 			return Task.CompletedTask;
@@ -360,6 +405,8 @@ namespace IdApp.Pages.Things.ReadSensor
 				return ViewClaimThingViewModel.LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.LogService);
 			else if (obj is FieldModel Field)
 				return ViewClaimThingViewModel.LabelClicked(Field.Name, Field.ValueString, Field.ValueString, this.UiSerializer, this.LogService);
+			else if (obj is ErrorModel Error)
+				return ViewClaimThingViewModel.LabelClicked(string.Empty, Error.ErrorMessage, Error.ErrorMessage, this.UiSerializer, this.LogService);
 			else
 				return Task.CompletedTask;
 		}

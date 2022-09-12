@@ -44,6 +44,14 @@
 			</Grid>
 		</DataTemplate>
 
+		<DataTemplate x:Key="ErrorModelTemplate" x:DataType="model:ErrorModel">
+			<Label LineBreakMode="WordWrap" Text="{Binding Path=ErrorMessage}" Style="{StaticResource AlertLabel}">
+				<Label.GestureRecognizers>
+					<TapGestureRecognizer Command="{Binding Path=BindingContext.ClickCommand, Source={x:Reference SensorData}}" CommandParameter="{Binding}" />
+				</Label.GestureRecognizers>
+			</Label>
+		</DataTemplate>
+
 		<DataTemplate x:Key="GraphModelTemplate" x:DataType="model:GraphModel">
 			<Grid />
 		</DataTemplate>
@@ -53,6 +61,7 @@
 											   HeaderTemplate="{StaticResource HeaderModelTemplate}"
 											   FieldTemplate="{StaticResource FieldModelTemplate}"
 											   GraphTemplate="{StaticResource GraphModelTemplate}"
+											   ErrorTemplate="{StaticResource ErrorModelTemplate}"
 											   TagTemplate="{StaticResource TagTemplate}"/>
 	</views:ContentBasePage.Resources>
 

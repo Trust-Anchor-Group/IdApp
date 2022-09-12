@@ -9838,6 +9838,37 @@
             Task completion source where the selected thing is placed.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Things.ReadSensor.Model.ErrorModel">
+            <summary>
+            Represents an error from a thing.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.Model.ErrorModel.#ctor(Waher.Things.ThingError)">
+            <summary>
+            Represents an error from a thing.
+            </summary>
+            <param name="Error">Error information.</param>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.ErrorModel.ErrorMessage">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.ErrorModel.Timestamp">
+            <summary>
+            Timestamp of field.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.ErrorModel.Error">
+            <summary>
+            Underlying field object.
+            </summary>
+        </member>
+        <member name="E:IdApp.Pages.Things.ReadSensor.Model.ErrorModel.PropertyChanged">
+            <summary>
+            Event raise when a property has changed.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Things.ReadSensor.Model.FieldModel">
             <summary>
             Represents a sensor-data field.
@@ -10012,6 +10043,11 @@
         <member name="P:IdApp.Pages.Things.ReadSensor.SensorDataTemplateSelector.TagTemplate">
             <summary>
             Template to use for informative tags
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.SensorDataTemplateSelector.ErrorTemplate">
+            <summary>
+            Template to use for errors
             </summary>
         </member>
         <member name="P:IdApp.Pages.Things.ReadSensor.SensorDataTemplateSelector.DefaultTemplate">
@@ -15297,6 +15333,11 @@
         <member name="P:IdApp.Resx.AppResources.EnterValue">
             <summary>
               Looks up a localized string similar to You need to enter a value first..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Errors">
+            <summary>
+              Looks up a localized string similar to Errors.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ErrorTitle">

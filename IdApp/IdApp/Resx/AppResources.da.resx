@@ -1932,6 +1932,9 @@
   <data name="ControlActuator" xml:space="preserve">
     <value>Betjeningsaktuator</value>
   </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Fejl</value>
+  </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Læs sensor</value>
   </data>

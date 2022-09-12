@@ -1932,6 +1932,9 @@
   <data name="ControlActuator" xml:space="preserve">
     <value>Steuerantrieb</value>
   </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Irrtümer</value>
+  </data>
   <data name="ReadSensor" xml:space="preserve">
     <value>Sensor lesen</value>
   </data>
