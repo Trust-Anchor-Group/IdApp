@@ -274,7 +274,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		}
 
 		/// <summary>
-		/// The command to bind to for claiming a thing
+		/// The command to bind to for Accepting a payment
 		/// </summary>
 		public ICommand AcceptCommand { get; }
 
