@@ -5,7 +5,6 @@
                        xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:things="clr-namespace:IdApp.Pages.Things;assembly=IdApp"
                        xmlns:readsensor="clr-namespace:IdApp.Pages.Things.ReadSensor;assembly=IdApp"
-                       xmlns:noBounce="clr-namespace:IdApp.Controls.NoBounceView;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Things.ReadSensor.Model;assembly=IdApp"
                        x:DataType="readsensor:ReadSensorModel"
                        x:Class="IdApp.Pages.Things.ReadSensor.ReadSensorPage"
@@ -18,7 +17,8 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="HeaderModelTemplate" x:DataType="model:HeaderModel">
-			<Label Text="{Binding Path=Label}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+			<Label Text="{Binding Path=Label}" Style="{StaticResource Heading}" HorizontalOptions="Center"
+				   Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
 		</DataTemplate>
 
 		<DataTemplate x:Key="TagTemplate" x:DataType="things:HumanReadableTag">
@@ -33,7 +33,15 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="FieldModelTemplate" x:DataType="model:FieldModel">
-			<Grid />
+			<Grid ColumnDefinitions="*,*" RowDefinitions="auto">
+				<Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Name}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap"/>
+				<Label Grid.Column="1" Grid.Row="0" LineBreakMode="WordWrap" Text="{Binding Path=ValueString}" Style="{StaticResource ClickableValueLabel}"
+					   HorizontalTextAlignment="{Binding HorizontalAlignment}">
+					<Label.GestureRecognizers>
+						<TapGestureRecognizer Command="{Binding Path=BindingContext.ClickCommand, Source={x:Reference SensorData}}" CommandParameter="{Binding}" />
+					</Label.GestureRecognizers>
+				</Label>
+			</Grid>
 		</DataTemplate>
 
 		<DataTemplate x:Key="GraphModelTemplate" x:DataType="model:GraphModel">
@@ -51,22 +59,13 @@
 	<Grid>
         <ScrollView>
             <StackLayout Margin="{StaticResource DefaultMargin}">
-                <!-- TAGS -->
                 <Label Text="{x:Static resx:AppResources.SensorData}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
                 <Label Text="{x:Static resx:AppResources.SensorDataText}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
 				<Label Text="{Binding Path=Status}" Style="{StaticResource InfoText}" VerticalOptions="Center" IsVisible="{Binding Path=HasStatus}"/>
-				<noBounce:NoBounceCollectionView x:Name="SensorData"
-												 VerticalOptions="StartAndExpand"
-												 ItemSizingStrategy="MeasureAllItems" SelectionMode="Single"
-												 IsVisible="True"
-												 ItemsSource="{Binding Path=SensorData}"
-												 ItemTemplate="{StaticResource ItemStyleSelector}">
-					<CollectionView.ItemsLayout>
-						<GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" />
-					</CollectionView.ItemsLayout>
-				</noBounce:NoBounceCollectionView>
-            </StackLayout>
-			
+				<StackLayout x:Name="SensorData" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand"
+							 BindableLayout.ItemsSource="{Binding SensorData}"
+							 BindableLayout.ItemTemplateSelector="{StaticResource ItemStyleSelector}"/>
+			</StackLayout>
         </ScrollView>
     </Grid>
 </views:ContentBasePage>

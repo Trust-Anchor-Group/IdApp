@@ -119,33 +119,73 @@ namespace IdApp.Pages.Things.ReadSensor
 			{
 				string Category;
 				HeaderModel CategoryHeader = null;
+				string s;
 				int CategoryIndex = 0;
+				int i, j, c;
 
 				foreach (Field Field in NewFields)
 				{
-					Category = this.GetFieldTypeString(Field.Type);
-
-					if (CategoryHeader is null || CategoryHeader.Label != Category)
+					if (Field.Type.HasFlag(FieldType.Historical))
 					{
-						CategoryHeader = null;
-						CategoryIndex = 0;
+						// TODO
+					}
+					else
+					{
+						Category = this.GetFieldTypeString(Field.Type);
+						s = Field.Name;
 
-						foreach (object Item in this.SensorData)
+						if (CategoryHeader is null || CategoryHeader.Label != Category)
 						{
-							if (Item is HeaderModel Header && Header.Label == Category)
+							CategoryHeader = null;
+							CategoryIndex = 0;
+
+							foreach (object Item in this.SensorData)
 							{
-								CategoryHeader = Header;
-								break;
+								if (Item is HeaderModel Header && Header.Label == Category)
+								{
+									CategoryHeader = Header;
+									break;
+								}
+								else
+									CategoryIndex++;
 							}
-							else
-								CategoryIndex++;
+
+							if (CategoryHeader is null)
+							{
+								CategoryHeader = new HeaderModel(Category);
+								this.SensorData.Add(CategoryHeader);
+							}
 						}
 
-						CategoryHeader = new HeaderModel(Category);
-						this.SensorData.Add(CategoryHeader);
+						for (i = CategoryIndex + 1, c = this.SensorData.Count; i < c; i++)
+						{
+							object Obj = this.SensorData[i];
+
+							if (Obj is FieldModel FieldModel)
+							{
+								j = string.Compare(s, FieldModel.Name, true);
+								if (j < 0)
+									continue;
+								else
+								{
+									if (j == 0)
+										FieldModel.Field = Field;
+									else if (j > 0)
+										this.SensorData.Insert(i, new FieldModel(Field));
+
+									break;
+								}
+							}
+							else
+							{
+								this.SensorData.Insert(i, new FieldModel(Field));
+								break;
+							}
+						}
+
+						if (i >= c)
+							this.SensorData.Add(new FieldModel(Field));
 					}
-
-
 				}
 			});
 
@@ -192,7 +232,7 @@ namespace IdApp.Pages.Things.ReadSensor
 				this.IsThingOnline = false;
 			else
 			{
-				RosterItem Item = this.XmppService.Xmpp[this.thing.BareJid];
+				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.thing.BareJid);
 				this.IsThingOnline = Item is not null && Item.HasLastPresence && Item.LastPresence.IsOnline;
 			}
 		}
@@ -203,7 +243,7 @@ namespace IdApp.Pages.Things.ReadSensor
 				return null;
 			else
 			{
-				RosterItem Item = this.XmppService.Xmpp[this.thing.BareJid];
+				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.thing.BareJid);
 
 				if (Item is null || !Item.HasLastPresence || !Item.LastPresence.IsOnline)
 					return null;
@@ -318,6 +358,8 @@ namespace IdApp.Pages.Things.ReadSensor
 		{
 			if (obj is HumanReadableTag Tag)
 				return ViewClaimThingViewModel.LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.LogService);
+			else if (obj is FieldModel Field)
+				return ViewClaimThingViewModel.LabelClicked(Field.Name, Field.ValueString, Field.ValueString, this.UiSerializer, this.LogService);
 			else
 				return Task.CompletedTask;
 		}

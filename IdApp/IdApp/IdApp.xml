@@ -9874,6 +9874,26 @@
             Timestamp of field.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.FieldModel.ValueString">
+            <summary>
+            Value of field, as a string.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.FieldModel.HorizontalAlignment">
+            <summary>
+            Horizontal alignment of value.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.FieldModel.Field">
+            <summary>
+            Underlying field object.
+            </summary>
+        </member>
+        <member name="E:IdApp.Pages.Things.ReadSensor.Model.FieldModel.PropertyChanged">
+            <summary>
+            Event raise when a property has changed.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Things.ReadSensor.Model.HeaderModel">
             <summary>
             Represents a header
