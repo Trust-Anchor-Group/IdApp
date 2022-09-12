@@ -31,6 +31,8 @@ namespace IdApp.Pages.Things.ViewThing
 		{
 			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
 			this.DisownThingCommand = new Command(async _ => await this.DisownThing(), _ => this.IsConnected && this.IsOwner);
+			this.ReadSensorCommand = new Command(async _ => await this.ReadSensor(), _ => this.IsConnected && this.IsSensor);
+			this.ControlActuatorCommand = new Command(async _ => await this.ControlActuator(), _ => this.IsConnected && this.IsActuator);
 
 			this.Tags = new ObservableCollection<HumanReadableTag>();
 		}
@@ -171,9 +173,19 @@ namespace IdApp.Pages.Things.ViewThing
 		public ObservableCollection<HumanReadableTag> Tags { get; }
 
 		/// <summary>
-		/// The command to bind to for claiming a thing
+		/// The command to bind to for disowning a thing
 		/// </summary>
 		public ICommand DisownThingCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for reading a sensor
+		/// </summary>
+		public ICommand ReadSensorCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for controlling an actuator
+		/// </summary>
+		public ICommand ControlActuatorCommand { get; }
 
 		/// <summary>
 		/// See <see cref="InContacts"/>
@@ -322,6 +334,16 @@ namespace IdApp.Pages.Things.ViewThing
 				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		private async Task ReadSensor()
+		{
+			// TODO
+		}
+
+		private async Task ControlActuator()
+		{
+			// TODO
 		}
 
 	}

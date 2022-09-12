@@ -1929,4 +1929,10 @@
   <data name="SensorServiceNotFound" xml:space="preserve">
     <value>Kein Sensordienst gefunden.</value>
   </data>
+  <data name="ControlActuator" xml:space="preserve">
+    <value>Steuerantrieb</value>
+  </data>
+  <data name="ReadSensor" xml:space="preserve">
+    <value>Sensor lesen</value>
+  </data>
 </root>

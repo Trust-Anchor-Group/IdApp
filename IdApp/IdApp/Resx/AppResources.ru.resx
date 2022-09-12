@@ -1929,4 +1929,10 @@
   <data name="SensorServiceNotFound" xml:space="preserve">
     <value>Служба датчика не найдена.</value>
   </data>
+  <data name="ControlActuator" xml:space="preserve">
+    <value>Привод управления</value>
+  </data>
+  <data name="ReadSensor" xml:space="preserve">
+    <value>Датчик считывания</value>
+  </data>
 </root>

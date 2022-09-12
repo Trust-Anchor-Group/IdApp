@@ -30,7 +30,11 @@
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
                 <!-- BUTTONS -->
-                <Button Text="{x:Static resx:AppResources.DisownThing}" Command="{Binding Path=DisownThingCommand}" IsEnabled="{Binding Path=IsConnected}"
+				<Button Text="{x:Static resx:AppResources.ReadSensor}" Command="{Binding Path=ReadSensorCommand}" IsEnabled="{Binding Path=IsConnected}"
+						IsVisible="{Binding IsSensor}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+				<Button Text="{x:Static resx:AppResources.ControlActuator}" Command="{Binding Path=ControlActuatorCommand}" IsEnabled="{Binding Path=IsConnected}"
+						IsVisible="{Binding IsActuator}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+				<Button Text="{x:Static resx:AppResources.DisownThing}" Command="{Binding Path=DisownThingCommand}" IsEnabled="{Binding Path=IsConnected}"
 						IsVisible="{Binding IsOwner}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>
         </ScrollView>

@@ -934,6 +934,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Control Actuator.
+        /// </summary>
+        internal static string ControlActuator {
+            get {
+                return ResourceManager.GetString("ControlActuator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No control service found..
         /// </summary>
         internal static string ControlServiceNotFound {
@@ -3369,6 +3378,15 @@ namespace IdApp.Resx {
         internal static string Question {
             get {
                 return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read Sensor.
+        /// </summary>
+        internal static string ReadSensor {
+            get {
+                return ResourceManager.GetString("ReadSensor", resourceCulture);
             }
         }
         

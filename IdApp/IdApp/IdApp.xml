@@ -9998,7 +9998,17 @@
         </member>
         <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.DisownThingCommand">
             <summary>
-            The command to bind to for claiming a thing
+            The command to bind to for disowning a thing
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.ReadSensorCommand">
+            <summary>
+            The command to bind to for reading a sensor
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.ControlActuatorCommand">
+            <summary>
+            The command to bind to for controlling an actuator
             </summary>
         </member>
         <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.InContactsProperty">
@@ -10514,7 +10524,7 @@
         </member>
         <member name="P:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.AcceptCommand">
             <summary>
-            The command to bind to for claiming a thing
+            The command to bind to for Accepting a payment
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.EDalerFrontGlyphProperty">
@@ -14880,6 +14890,11 @@
               Looks up a localized string similar to Select contract visibility first, and then try again..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ControlActuator">
+            <summary>
+              Looks up a localized string similar to Control Actuator.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ControlServiceNotFound">
             <summary>
               Looks up a localized string similar to No control service found..
@@ -16233,6 +16248,11 @@
         <member name="P:IdApp.Resx.AppResources.Question">
             <summary>
               Looks up a localized string similar to Question.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ReadSensor">
+            <summary>
+              Looks up a localized string similar to Read Sensor.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ReceiveEDaler">
