@@ -178,7 +178,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 			if (string.IsNullOrEmpty(this.contact.BareJid))
 				return;
 
-			RosterItem Item = this.references.XmppService.Xmpp[this.contact.BareJid];
+			RosterItem Item = this.references.XmppService.Xmpp?.GetRosterItem(this.contact.BareJid);
 			bool Subscribed;
 
 			if (Item is null)

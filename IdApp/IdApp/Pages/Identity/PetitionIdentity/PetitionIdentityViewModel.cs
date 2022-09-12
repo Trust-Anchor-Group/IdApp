@@ -612,7 +612,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 string FriendlyName = ContactInfo.GetFriendlyName(this.RequestorIdentity);
                 string BareJid = XmppClient.GetBareJID(this.requestorFullJid);
 
-                RosterItem Item = this.XmppService.Xmpp[BareJid];
+                RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(BareJid);
                 if (Item is null)
                     this.XmppService.Xmpp.AddRosterItem(new RosterItem(BareJid, FriendlyName));
 
@@ -669,7 +669,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                     await Database.Provider.Flush();
                 }
 
-                RosterItem Item = this.XmppService.Xmpp[BareJid];
+                RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(BareJid);
                 if (!(Item is null))
                     this.XmppService.Xmpp.RemoveRosterItem(BareJid);
 

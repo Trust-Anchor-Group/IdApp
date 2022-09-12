@@ -259,7 +259,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 				if (e.Ok)
 				{
 					string FriendlyName = GetFriendlyName(this.Tags);
-					RosterItem Item = this.XmppService.Xmpp[e.JID];
+					RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(e.JID);
 					if (Item is null)
 						this.XmppService.Xmpp.AddRosterItem(new RosterItem(e.JID, FriendlyName));
 

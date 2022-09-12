@@ -1507,7 +1507,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			{
 				string FriendlyName = ContactInfo.GetFriendlyName(this.LegalIdentity);
 
-				RosterItem Item = this.XmppService.Xmpp[this.BareJid];
+				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.BareJid);
 				if (Item is null)
 					this.XmppService.Xmpp.AddRosterItem(new RosterItem(this.BareJid, FriendlyName));
 
@@ -1563,7 +1563,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					await Database.Provider.Flush();
 				}
 
-				RosterItem Item = this.XmppService.Xmpp[this.BareJid];
+				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.BareJid);
 				if (Item is not null)
 					this.XmppService.Xmpp.RemoveRosterItem(this.BareJid);
 
@@ -1755,7 +1755,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			{
 				this.XmppService.Xmpp.RequestPresenceUnsubscription(this.BareJid);
 
-				RosterItem Item = this.XmppService.Xmpp[this.BareJid];
+				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.BareJid);
 				if (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.From)
 				{
 					RemoveSubscriptionPopupPage Page = new(this.BareJid);

@@ -121,7 +121,7 @@ namespace IdApp.Pages.Things.ViewThing
 				this.IsThingOnline = false;
 			else
 			{
-				RosterItem Item = this.XmppService.Xmpp[this.thing.BareJid];
+				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.thing.BareJid);
 				this.IsThingOnline = Item is not null && Item.HasLastPresence && Item.LastPresence.IsOnline;
 			}
 		}
@@ -132,7 +132,7 @@ namespace IdApp.Pages.Things.ViewThing
 				return null;
 			else
 			{
-				RosterItem Item = this.XmppService.Xmpp[this.thing.BareJid];
+				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.thing.BareJid);
 
 				if (Item is null || !Item.HasLastPresence || !Item.LastPresence.IsOnline)
 					return null;
@@ -315,7 +315,7 @@ namespace IdApp.Pages.Things.ViewThing
 				if (!await App.VerifyPin())
 					return;
 
-				(bool Succeeded, bool Done) = await this.NetworkService.TryRequest(() => 
+				(bool Succeeded, bool Done) = await this.NetworkService.TryRequest(() =>
 					this.XmppService.ThingRegistry.Disown(this.thing.RegistryJid, this.thing.BareJid, this.thing.SourceId, this.thing.Partition, this.thing.NodeId));
 
 				if (!Succeeded)
