@@ -1965,4 +1965,7 @@
   <data name="SensorDataText" xml:space="preserve">
     <value>Nedan visas information om sensordata som är tillgänglig för dig, i enlighet med dina åtkomstprivilegier.</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Tid</value>
+  </data>
 </root>

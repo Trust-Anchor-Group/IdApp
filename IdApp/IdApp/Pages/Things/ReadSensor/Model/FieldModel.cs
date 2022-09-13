@@ -50,7 +50,18 @@ namespace IdApp.Pages.Things.ReadSensor.Model
 		/// <summary>
 		/// Value of field, as a string.
 		/// </summary>
-		public string ValueString => this.field.ValueString;
+		public string ValueString
+		{
+			get
+			{
+				if (this.field is DateTimeField DT)
+					return DT.Value.ToShortDateString() + ", " + DT.Value.ToLongTimeString();
+				else if (this.field is DateField D)
+					return D.Value.ToShortDateString();
+				else
+					return this.field.ValueString;
+			}
+		}
 
 		/// <summary>
 		/// Horizontal alignment of value.
@@ -128,7 +139,7 @@ namespace IdApp.Pages.Things.ReadSensor.Model
 		}
 
 		/// <summary>
-		/// Event raise when a property has changed.
+		/// Event raised when a property has changed.
 		/// </summary>
 		public event PropertyChangedEventHandler PropertyChanged;
 	}

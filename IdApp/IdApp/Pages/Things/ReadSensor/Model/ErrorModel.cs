@@ -65,7 +65,7 @@ namespace IdApp.Pages.Things.ReadSensor.Model
 		}
 
 		/// <summary>
-		/// Event raise when a property has changed.
+		/// Event raised when a property has changed.
 		/// </summary>
 		public event PropertyChangedEventHandler PropertyChanged;
 	}

@@ -1986,4 +1986,7 @@
   <data name="SensorDataText" xml:space="preserve">
     <value>Mai jos sunt disponibile informații și date despre senzori, în conformitate cu privilegiile de acces.</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Oră</value>
+  </data>
 </root>

@@ -1986,4 +1986,7 @@
   <data name="SensorDataText" xml:space="preserve">
     <value>Alla on käytettävissäsi olevia tietoja ja anturitietoja oikeuksiesi mukaisesti.</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Aika</value>
+  </data>
 </root>

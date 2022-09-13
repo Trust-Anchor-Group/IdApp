@@ -1986,4 +1986,7 @@
   <data name="SensorDataText" xml:space="preserve">
     <value>Nachfolgend finden Sie Informationen und Sensordaten, die Ihnen gemäß Ihren Zugriffsrechten zur Verfügung stehen.</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Zeit</value>
+  </data>
 </root>

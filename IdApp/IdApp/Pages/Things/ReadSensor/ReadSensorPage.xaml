@@ -53,7 +53,7 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="GraphModelTemplate" x:DataType="model:GraphModel">
-			<Grid />
+			<Image Source="{Binding Image}" IsVisible="{Binding HasImage}"/>
 		</DataTemplate>
 
 		<readsensor:SensorDataTemplateSelector x:Key="ItemStyleSelector"

@@ -119,51 +119,82 @@ namespace IdApp.Pages.Things.ReadSensor
 			{
 				string Category;
 				HeaderModel CategoryHeader = null;
-				string s;
+				string FieldName;
 				int CategoryIndex = 0;
 				int i, j, c;
 
 				foreach (Field Field in NewFields)
 				{
 					if (Field.Type.HasFlag(FieldType.Historical))
-					{
-						// TODO
-					}
+						Category = Field.Name;
 					else
-					{
 						Category = this.GetFieldTypeString(Field.Type);
-						s = Field.Name;
 
-						if (CategoryHeader is null || CategoryHeader.Label != Category)
+					if (CategoryHeader is null || CategoryHeader.Label != Category)
+					{
+						CategoryHeader = null;
+						CategoryIndex = 0;
+
+						foreach (object Item in this.SensorData)
 						{
-							CategoryHeader = null;
-							CategoryIndex = 0;
-
-							foreach (object Item in this.SensorData)
+							if (Item is HeaderModel Header && Header.Label == Category)
 							{
-								if (Item is HeaderModel Header && Header.Label == Category)
+								CategoryHeader = Header;
+								break;
+							}
+							else
+								CategoryIndex++;
+						}
+
+						if (CategoryHeader is null)
+						{
+							CategoryHeader = new HeaderModel(Category);
+							this.SensorData.Add(CategoryHeader);
+						}
+					}
+
+					FieldName = Field.Name;
+
+					if (Field.Type.HasFlag(FieldType.Historical))
+					{
+						for (i = CategoryIndex + 1, c = this.SensorData.Count; i < c; i++)
+						{
+							object Obj = this.SensorData[i];
+
+							if (Obj is GraphModel GraphModel)
+							{
+								j = string.Compare(FieldName, GraphModel.FieldName, true);
+								if (j < 0)
+									continue;
+								else
 								{
-									CategoryHeader = Header;
+									if (j == 0)
+										GraphModel.Add(Field);
+									else if (j > 0)
+										this.SensorData.Insert(i, new GraphModel(Field, this));
+
 									break;
 								}
-								else
-									CategoryIndex++;
 							}
-
-							if (CategoryHeader is null)
+							else
 							{
-								CategoryHeader = new HeaderModel(Category);
-								this.SensorData.Add(CategoryHeader);
+								this.SensorData.Insert(i, new GraphModel(Field, this));
+								break;
 							}
 						}
 
+						if (i >= c)
+							this.SensorData.Add(new GraphModel(Field, this));
+					}
+					else
+					{
 						for (i = CategoryIndex + 1, c = this.SensorData.Count; i < c; i++)
 						{
 							object Obj = this.SensorData[i];
 
 							if (Obj is FieldModel FieldModel)
 							{
-								j = string.Compare(s, FieldModel.Name, true);
+								j = string.Compare(FieldName, FieldModel.Name, true);
 								if (j < 0)
 									continue;
 								else
@@ -241,7 +272,6 @@ namespace IdApp.Pages.Things.ReadSensor
 					foreach (ThingError Error in NewErrors)
 						this.SensorData.Add(new ErrorModel(Error));
 				}
-
 			});
 
 			return Task.CompletedTask;

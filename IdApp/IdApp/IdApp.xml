@@ -9866,7 +9866,7 @@
         </member>
         <member name="E:IdApp.Pages.Things.ReadSensor.Model.ErrorModel.PropertyChanged">
             <summary>
-            Event raise when a property has changed.
+            Event raised when a property has changed.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Things.ReadSensor.Model.FieldModel">
@@ -9922,7 +9922,45 @@
         </member>
         <member name="E:IdApp.Pages.Things.ReadSensor.Model.FieldModel.PropertyChanged">
             <summary>
-            Event raise when a property has changed.
+            Event raised when a property has changed.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Things.ReadSensor.Model.GraphModel">
+            <summary>
+            Represents a set of historical field values.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.Model.GraphModel.#ctor(Waher.Things.SensorData.Field,IdApp.Services.ServiceReferences)">
+            <summary>
+            Represents a set of historical field values.
+            </summary>
+            <param name="Field">Field added</param>
+            <param name="References">Service references</param>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.GraphModel.FieldName">
+            <summary>
+            Field Name
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.GraphModel.Image">
+            <summary>
+            Image Source
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ReadSensor.Model.GraphModel.HasImage">
+            <summary>
+            If graph has an image.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.Model.GraphModel.Add(Waher.Things.SensorData.Field)">
+            <summary>
+            Adds a historical field value.
+            </summary>
+            <param name="Field">Field Value.</param>
+        </member>
+        <member name="E:IdApp.Pages.Things.ReadSensor.Model.GraphModel.PropertyChanged">
+            <summary>
+            Event raised when a property has changed.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Things.ReadSensor.Model.HeaderModel">
@@ -17173,6 +17211,11 @@
         <member name="P:IdApp.Resx.AppResources.ThisCodeCannotBeClaimedAtThisTime">
             <summary>
               Looks up a localized string similar to This code represents a Tag ID invitation, and cannot be claimed at this time..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Time">
+            <summary>
+              Looks up a localized string similar to Time.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Timestamp">
