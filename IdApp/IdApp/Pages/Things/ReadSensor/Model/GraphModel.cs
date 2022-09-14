@@ -95,7 +95,8 @@ namespace IdApp.Pages.Things.ReadSensor.Model
 				StringBuilder sb = new();
 				bool Found = false;
 
-				sb.AppendLine("G:=plot2dcurve(x,y.Value,'Red',5);");
+				sb.AppendLine("y:=y.Value;");
+				sb.AppendLine("G:=scatter2d(x,y,'Blue',7)+plot2dline(x,y,'Red',5);");
 				sb.Append("G.LabelX:='");
 				sb.Append(LocalizationResourceManager.Current["Time"]);
 				sb.AppendLine("';");
