@@ -10,9 +10,12 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Concentrator;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Control;
+using Waher.Networking.XMPP.DataForms;
 using Waher.Networking.XMPP.Sensor;
 using Waher.Persistence;
+using Waher.Things;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Things.ViewThing
@@ -176,17 +179,17 @@ namespace IdApp.Pages.Things.ViewThing
 		/// <summary>
 		/// The command to bind to for disowning a thing
 		/// </summary>
-		public ICommand DisownThingCommand { get; }
+		public System.Windows.Input.ICommand DisownThingCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for reading a sensor
 		/// </summary>
-		public ICommand ReadSensorCommand { get; }
+		public System.Windows.Input.ICommand ReadSensorCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for controlling an actuator
 		/// </summary>
-		public ICommand ControlActuatorCommand { get; }
+		public System.Windows.Input.ICommand ControlActuatorCommand { get; }
 
 		/// <summary>
 		/// See <see cref="InContacts"/>
@@ -296,7 +299,7 @@ namespace IdApp.Pages.Things.ViewThing
 		/// <summary>
 		/// Command to bind to for detecting when a tag value has been clicked on.
 		/// </summary>
-		public ICommand ClickCommand { get; }
+		public System.Windows.Input.ICommand ClickCommand { get; }
 
 		#endregion
 
@@ -344,8 +347,26 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private async Task ControlActuator()
 		{
-			// TODO
+			try
+			{
+				string SelectedLanguage = Preferences.Get("user_selected_language", null);
+
+				if (string.IsNullOrEmpty(this.thing.NodeId) && string.IsNullOrEmpty(this.thing.SourceId) && string.IsNullOrEmpty(this.thing.Partition))
+					this.XmppService.IoT.ControlClient.GetForm(this.GetFullJid(), SelectedLanguage, this.ControlFormCallback, null);
+				else
+				{
+					ThingReference ThingRef = new(this.thing.NodeId, this.thing.SourceId, this.thing.Partition);
+					this.XmppService.IoT.ControlClient.GetForm(this.GetFullJid(), SelectedLanguage, this.ControlFormCallback, null, ThingRef);
+				}
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
 		}
 
+		private async Task ControlFormCallback(object Sender, DataFormEventArgs e)
+		{
+		}
 	}
 }
