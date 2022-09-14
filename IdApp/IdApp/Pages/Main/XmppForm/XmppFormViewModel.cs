@@ -6,6 +6,8 @@ using Xamarin.Forms;
 using Waher.Networking.XMPP.DataForms.FieldTypes;
 using System.Collections.Generic;
 using IdApp.Pages.Main.XmppForm.Model;
+using System.Windows.Input;
+using System;
 
 namespace IdApp.Pages.Main.XmppForm
 {
@@ -24,6 +26,8 @@ namespace IdApp.Pages.Main.XmppForm
 			: base()
 		{
 			this.Pages = new ObservableCollection<PageModel>();
+
+			this.SubmitCommand = new Command(async (_) => await this.ExecuteSubmit());
 		}
 
 		/// <inheritdoc/>
@@ -46,7 +50,7 @@ namespace IdApp.Pages.Main.XmppForm
 					if (this.form.HasPages)
 					{
 						foreach (Layout.Page P in this.form.Pages)
-							this.Pages.Add(new PageModel(P));
+							this.Pages.Add(new PageModel(this, P));
 					}
 					else
 					{
@@ -60,8 +64,10 @@ namespace IdApp.Pages.Main.XmppForm
 							Elements.Add(new Layout.FieldReference(this.form, F.Var));
 						}
 
-						this.Pages.Add(new PageModel(new Layout.Page(this.form, string.Empty, Elements.ToArray())));
+						this.Pages.Add(new PageModel(this, new Layout.Page(this.form, string.Empty, Elements.ToArray())));
 					}
+
+					this.ValidateForm();
 
 					args.ViewInitialized = true;
 				}
@@ -117,9 +123,71 @@ namespace IdApp.Pages.Main.XmppForm
 		/// </summary>
 		public ObservableCollection<PageModel> Pages { get; }
 
+		/// <summary>
+		/// See <see cref="IsFormOk"/>
+		/// </summary>
+		public static readonly BindableProperty IsFormOkProperty =
+			BindableProperty.Create(nameof(IsFormOk), typeof(bool), typeof(XmppFormViewModel), default(bool));
+
+		/// <summary>
+		/// IsFormOk of form
+		/// </summary>
+		public bool IsFormOk
+		{
+			get => (bool)this.GetValue(IsFormOkProperty);
+			set => this.SetValue(IsFormOkProperty, value);
+		}
+
 		#endregion
 
 		#region Commands
+
+		/// <summary>
+		/// Command executed when user wants to submit the form.
+		/// </summary>
+		public ICommand SubmitCommand { get; }
+
+		private async Task ExecuteSubmit()
+		{
+			if (!this.IsFormOk)
+				return;
+
+			try
+			{
+				if (this.form is not null && this.form.CanSubmit && !this.responseSent)
+				{
+					this.form.Submit();
+					this.responseSent = true;
+
+					await this.NavigationService.GoBackAsync();
+				}
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		internal void ValidateForm()
+		{
+			try
+			{
+				foreach (Field F in this.form.Fields)
+				{
+					if (F.HasError)
+					{
+						this.IsFormOk = false;
+						return;
+					}
+				}
+
+				this.IsFormOk = true;
+			}
+			catch (Exception)
+			{
+				this.IsFormOk = false;
+			}
+		}
 
 		#endregion
 	}

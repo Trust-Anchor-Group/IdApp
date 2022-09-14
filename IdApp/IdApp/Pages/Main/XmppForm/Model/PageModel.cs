@@ -3,6 +3,7 @@ using Waher.Networking.XMPP.DataForms.FieldTypes;
 using Layout = Waher.Networking.XMPP.DataForms.Layout;
 using Xamarin.Forms;
 using Waher.Content;
+using System;
 
 namespace IdApp.Pages.Main.XmppForm.Model
 {
@@ -11,17 +12,22 @@ namespace IdApp.Pages.Main.XmppForm.Model
 	/// </summary>
 	public class PageModel
 	{
+		private readonly XmppFormViewModel Model;
+		private readonly DataForm form;
 		private readonly Layout.Page page;
 		private readonly object content;
 
 		/// <summary>
 		/// Page model
 		/// </summary>
+		/// <param name="Model">Parent view model</param>
 		/// <param name="Page">Page object</param>
-		public PageModel(Layout.Page Page)
+		public PageModel(XmppFormViewModel Model, Layout.Page Page)
 		{
+			this.Model = Model;
 			this.page = Page;
-			this.content = BuildContent(Page.Elements);
+			this.form = this.page.Form;
+			this.content = this.BuildContent(Page.Elements);
 		}
 
 		/// <summary>
@@ -39,7 +45,7 @@ namespace IdApp.Pages.Main.XmppForm.Model
 		/// </summary>
 		public object Content => this.content;
 
-		private static StackLayout BuildContent(Layout.LayoutElement[] Elements)
+		private StackLayout BuildContent(Layout.LayoutElement[] Elements)
 		{
 			StackLayout Result = new()
 			{
@@ -50,7 +56,7 @@ namespace IdApp.Pages.Main.XmppForm.Model
 
 			foreach (Layout.LayoutElement Element in Elements)
 			{
-				object Content = BuildContent(Element);
+				object Content = this.BuildContent(Element);
 
 				if (Content is View View)
 					Result.Children.Add(View);
@@ -59,7 +65,7 @@ namespace IdApp.Pages.Main.XmppForm.Model
 			return Result;
 		}
 
-		private static object BuildContent(Layout.LayoutElement Element)
+		private object BuildContent(Layout.LayoutElement Element)
 		{
 			if (Element is Layout.FieldReference FieldRef)
 			{
@@ -80,12 +86,12 @@ namespace IdApp.Pages.Main.XmppForm.Model
 					CheckBox CheckBox = new()
 					{
 						IsChecked = CommonTypes.TryParse(BooleanField.ValueString, out bool b) && b,
-						IsEnabled = Field.ReadOnly,
+						IsEnabled = !Field.ReadOnly,
 						StyleId = Field.Var,
 						VerticalOptions = LayoutOptions.Center
 					};
 
-					CheckBox.CheckedChanged += CheckBox_CheckedChanged;
+					CheckBox.CheckedChanged += this.CheckBox_CheckedChanged;
 
 					Layout.Children.Add(CheckBox);
 					Layout.Children.Add(new Label()
@@ -163,7 +169,7 @@ namespace IdApp.Pages.Main.XmppForm.Model
 
 				foreach (Layout.LayoutElement Element2 in Section.Elements)
 				{
-					object Content = BuildContent(Element2);
+					object Content = this.BuildContent(Element2);
 
 					if (Content is View View)
 						Layout.Children.Add(View);
@@ -192,9 +198,21 @@ namespace IdApp.Pages.Main.XmppForm.Model
 				return null;
 		}
 
-		private static void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+		private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
 		{
-			// TODO
+			if (sender is not CheckBox CheckBox)
+				return;
+
+			string Var = CheckBox.StyleId;
+			Field Field = this.form[Var];
+			if (Field is null)
+				return;
+
+			Field.SetValue(CommonTypes.Encode(e.Value));
+
+			CheckBox.BackgroundColor = Field.HasError ? Color.Salmon : Color.Default;
+
+			this.Model.ValidateForm();
 		}
 	}
 }

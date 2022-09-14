@@ -17,7 +17,7 @@
 				</DataTemplate>
 			</ResourceDictionary>
 		</StackLayout.Resources>
-		<Grid ColumnDefinitions="*" RowDefinitions="auto,*,auto">
+		<Grid ColumnDefinitions="*" RowDefinitions="auto,*,auto,auto">
 			<StackLayout Grid.Column="0" Grid.Row="0" Orientation="Vertical"
 						 BindableLayout.ItemsSource="{Binding Instructions}">
 				<BindableLayout.ItemTemplate>
@@ -51,6 +51,7 @@
 					</OnPlatform>
 				</IndicatorView.Margin>
 			</IndicatorView>
+			<Button Grid.Column="0" Grid.Row="3" Text="{Static resx:AppResources.Submit}" Command="{Binding SubmitCommand}" IsEnabled="{Binding IsFormOk}"/>
 		</Grid>
 	</StackLayout>
 </views:ContentBasePage>
