@@ -7,11 +7,11 @@ namespace IdApp.Android
 {
     public class SecureDisplay : ISecureDisplay
 	{
-		private static Window? mainWindow;
+		private static Window mainWindow;
 		private static bool screenProtected = true;     // App started with screen protected.
 		private static Timer protectionTimer = null;
 
-		internal static void SetMainWindow(Window? MainWindow, bool ScreenProtected)
+		internal static void SetMainWindow(Window MainWindow, bool ScreenProtected)
 		{
 			mainWindow = MainWindow;
 			screenProtected = ScreenProtected;
