@@ -60,6 +60,7 @@ using Waher.Runtime.Settings;
 using Waher.Runtime.Text;
 using Waher.Script;
 using Waher.Script.Content;
+using Waher.Script.Graphs;
 using Waher.Security.LoginMonitor;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
@@ -275,6 +276,7 @@ namespace IdApp
 					typeof(ControlClient).Assembly,             // Serialization of XMPP objects related to actuators
 					typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
 					typeof(Expression).Assembly,                // Indexes basic script functions
+					typeof(Graph).Assembly,						// Indexes graph script functions
 					typeof(GraphEncoder).Assembly,              // Indexes content script functions
 					typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
 					typeof(NeuroFeaturesClient).Assembly,       // Indexes Neuro-Features client framework

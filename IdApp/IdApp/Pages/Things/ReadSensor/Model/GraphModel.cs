@@ -1,4 +1,5 @@
 ﻿using IdApp.Services;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Threading;
 using Waher.Events;
 using Waher.Script;
 using Waher.Script.Graphs;
+using Waher.Script.Objects.VectorSpaces;
 using Waher.Things.SensorData;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
@@ -79,60 +81,74 @@ namespace IdApp.Pages.Things.ReadSensor.Model
 
 				lock (this.fieldValues)
 				{
-					v["x"] = Expression.Encapsulate(this.fieldValues.Keys);
-					v["y"] = Expression.Encapsulate(this.fieldValues.Values);
+					int c = this.fieldValues.Count;
+					DateTime[] Timepoints = new DateTime[c];
+					Field[] Values = new Field[c];
 
-					StringBuilder sb = new();
-					bool Found = false;
+					this.fieldValues.Keys.CopyTo(Timepoints, 0);
+					this.fieldValues.Values.CopyTo(Values, 0);
 
-					sb.AppendLine("G:=plot2dcurve(x,y.Values,'Red');");
-					sb.Append("G.Title:='");
-					sb.Append(this.fieldName.Replace("\\", "\\\\").Replace("\n", "\\n").Replace("\r", "\\r").Replace("\t", "\\t").Replace("'", "\\'"));
-					sb.AppendLine("';");
-					sb.Append("G.LabelX:='");
-					sb.Append(LocalizationResourceManager.Current["Time"]);
-					sb.AppendLine("';");
-					sb.Append("G.LabelY:='");
-
-					foreach (Field F in this.fieldValues.Values)
-					{
-						if (F is QuantityField Q)
-						{
-							sb.Append(Q.Unit);
-							Found = true;
-							break;
-						}
-					}
-
-					if (!Found)
-						sb.Append(LocalizationResourceManager.Current["Value"]);
-
-					sb.AppendLine("';");
-					sb.AppendLine("G");
-
-					Exp = new Expression(sb.ToString());
+					v["x"] = new DateTimeVector(Timepoints);
+					v["y"] = new ObjectVector(Values);
 				}
+
+				StringBuilder sb = new();
+				bool Found = false;
+
+				sb.AppendLine("G:=plot2dcurve(x,y.Value,'Red',5);");
+				sb.Append("G.LabelX:='");
+				sb.Append(LocalizationResourceManager.Current["Time"]);
+				sb.AppendLine("';");
+				sb.Append("G.LabelY:='");
+
+				foreach (Field F in this.fieldValues.Values)
+				{
+					if (F is QuantityField Q)
+					{
+						sb.Append(Q.Unit);
+						Found = true;
+						break;
+					}
+				}
+
+				if (!Found)
+					sb.Append(this.fieldName.Replace("\\", "\\\\").Replace("\n", "\\n").Replace("\r", "\\r").Replace("\t", "\\t").Replace("'", "\\'"));
+
+				sb.AppendLine("';");
+				sb.AppendLine("G");
+
+				Exp = new Expression(sb.ToString());
 
 				Graph Graph = await Exp.EvaluateAsync(v) as Graph;
 
-				GraphSettings Settings = new()
+				if (Graph is not null)
 				{
-					Width = 800,
-					Height = 400
-				};
+					GraphSettings Settings = new()
+					{
+						Width = 1280,
+						Height = 720,
+						AxisColor = SKColors.Black,			// TODO: Light & Dark Theme
+						BackgroundColor = SKColors.White,   // TODO: Light & Dark Theme
+						GridColor = SKColors.LightGray,     // TODO: Light & Dark Theme
+						AxisWidth = 5,
+						FontName = "Arial",                 // TODO: App font
+						LabelFontSize = 40,
+						GridWidth = 3
+					};
 
-				PixelInformation Pixels = Graph.CreatePixels(Settings);
-				byte[] Png = Pixels.EncodeAsPng();
+					PixelInformation Pixels = Graph.CreatePixels(Settings);
+					byte[] Png = Pixels.EncodeAsPng();
 
-				this.references.UiSerializer.BeginInvokeOnMainThread(() =>
-				{
-					bool OldWasNull = this.image is null;
-					this.image = ImageSource.FromStream(() => new MemoryStream(Png));
+					this.references.UiSerializer.BeginInvokeOnMainThread(() =>
+					{
+						bool OldWasNull = this.image is null;
+						this.image = ImageSource.FromStream(() => new MemoryStream(Png));
 
-					this.RaisePropertyChanged(nameof(this.Image));
-					if (OldWasNull)
-						this.RaisePropertyChanged(nameof(this.HasImage));
-				});
+						this.RaisePropertyChanged(nameof(this.Image));
+						if (OldWasNull)
+							this.RaisePropertyChanged(nameof(this.HasImage));
+					});
+				}
 			}
 			catch (Exception ex)
 			{
