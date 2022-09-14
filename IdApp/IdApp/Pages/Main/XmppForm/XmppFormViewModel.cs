@@ -51,6 +51,8 @@ namespace IdApp.Pages.Main.XmppForm
 					{
 						foreach (Layout.Page P in this.form.Pages)
 							this.Pages.Add(new PageModel(this, P));
+
+						this.MultiplePages = this.form.Pages.Length > 1;
 					}
 					else
 					{
@@ -65,6 +67,8 @@ namespace IdApp.Pages.Main.XmppForm
 						}
 
 						this.Pages.Add(new PageModel(this, new Layout.Page(this.form, string.Empty, Elements.ToArray())));
+
+						this.MultiplePages = false;
 					}
 
 					this.ValidateForm();
@@ -136,6 +140,21 @@ namespace IdApp.Pages.Main.XmppForm
 		{
 			get => (bool)this.GetValue(IsFormOkProperty);
 			set => this.SetValue(IsFormOkProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="MultiplePages"/>
+		/// </summary>
+		public static readonly BindableProperty MultiplePagesProperty =
+			BindableProperty.Create(nameof(MultiplePages), typeof(bool), typeof(XmppFormViewModel), default(bool));
+
+		/// <summary>
+		/// MultiplePages of form
+		/// </summary>
+		public bool MultiplePages
+		{
+			get => (bool)this.GetValue(MultiplePagesProperty);
+			set => this.SetValue(MultiplePagesProperty, value);
 		}
 
 		#endregion

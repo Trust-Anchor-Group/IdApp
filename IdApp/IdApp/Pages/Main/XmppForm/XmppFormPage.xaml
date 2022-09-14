@@ -26,7 +26,7 @@
 					</DataTemplate>
 				</BindableLayout.ItemTemplate>
 			</StackLayout>
-			<CarouselView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Pages}" IndicatorView="IndicatorView">
+			<CarouselView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Pages}" IndicatorView="IndicatorView" IsSwipeEnabled="{Binding MultiplePages}">
 				<CarouselView.ItemTemplate>
 					<DataTemplate x:DataType="model2:PageModel">
 						<ScrollView Orientation="Vertical">
@@ -38,7 +38,7 @@
 					</DataTemplate>
 				</CarouselView.ItemTemplate>
 			</CarouselView>
-			<IndicatorView Grid.Column="0" Grid.Row="2"
+			<IndicatorView Grid.Column="0" Grid.Row="2" IsVisible="{Binding MultiplePages}"
 						   x:Name="IndicatorView"
 						   HorizontalOptions="Fill"
 						   IndicatorColor="{StaticResource HeadingForeground}"
@@ -51,7 +51,8 @@
 					</OnPlatform>
 				</IndicatorView.Margin>
 			</IndicatorView>
-			<Button Grid.Column="0" Grid.Row="3" Text="{Static resx:AppResources.Submit}" Command="{Binding SubmitCommand}" IsEnabled="{Binding IsFormOk}"/>
+			<Button Grid.Column="0" Grid.Row="3" Text="{Static resx:AppResources.Submit}"
+					Command="{Binding SubmitCommand}" IsEnabled="{Binding IsFormOk}" Margin="{StaticResource DefaultMargin}"/>
 		</Grid>
 	</StackLayout>
 </views:ContentBasePage>

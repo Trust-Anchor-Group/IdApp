@@ -8335,6 +8335,16 @@
             IsFormOk of form
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Main.XmppForm.XmppFormViewModel.MultiplePagesProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.XmppForm.XmppFormViewModel.MultiplePages"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.XmppForm.XmppFormViewModel.MultiplePages">
+            <summary>
+            MultiplePages of form
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Main.XmppForm.XmppFormViewModel.SubmitCommand">
             <summary>
             Command executed when user wants to submit the form.
