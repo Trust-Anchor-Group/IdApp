@@ -28,13 +28,12 @@
 				<DataTemplate x:Key="DefinePinTemplate">
 					<DefinePinView xmlns="clr-namespace:IdApp.Pages.Registration.DefinePin;assembly=IdApp"/>
 				</DataTemplate>
-				<registration:RegistrationStepDataTemplateSelector
-					x:Key="StepTemplateSelector"
-                    DefinePin="{StaticResource DefinePinTemplate}"
-                    ValidateIdentity="{StaticResource ValidateIdentityTemplate}"
-                    RegisterIdentity="{StaticResource RegisterIdentityTemplate}"
-                    ChooseAccount="{StaticResource ChooseAccountTemplate}"
-                    ValidateContactInfo="{StaticResource ValidateContactInfoTemplate}"/>
+				<registration:RegistrationStepDataTemplateSelector x:Key="StepTemplateSelector"
+																   DefinePin="{StaticResource DefinePinTemplate}"
+																   ValidateIdentity="{StaticResource ValidateIdentityTemplate}"
+																   RegisterIdentity="{StaticResource RegisterIdentityTemplate}"
+																   ChooseAccount="{StaticResource ChooseAccountTemplate}"
+																   ValidateContactInfo="{StaticResource ValidateContactInfoTemplate}"/>
 			</ResourceDictionary>
 		</StackLayout.Resources>
 		<StackLayout Orientation="Vertical">
@@ -44,49 +43,45 @@
 					<ColumnDefinition Width="36"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label
-                    Grid.Column="0"
-                    FontSize="24"
-                    Text="{x:Static resx:FontAwesome.ArrowACircleLeft}"
-					TextColor="{StaticResource TextColorLightTheme}"
-                    FontFamily="{StaticResource FontAwesomeSolid}"
-                    VerticalOptions="Center"
-                    Margin="0,-12,0,-6"
-                    IsVisible="{Binding Path=CanGoBack}">
+				<Label Grid.Column="0"
+					   FontSize="24"
+					   Text="{x:Static resx:FontAwesome.ArrowACircleLeft}"
+					   TextColor="{StaticResource TextColorLightTheme}"
+					   FontFamily="{StaticResource FontAwesomeSolid}"
+					   VerticalOptions="Center"
+					   Margin="0,-12,0,-6"
+					   IsVisible="{Binding Path=CanGoBack}">
 					<Label.GestureRecognizers>
 						<TapGestureRecognizer Command="{Binding Path=GoToPrevCommand}"/>
 					</Label.GestureRecognizers>
 				</Label>
-				<Label
-					Grid.Column="1"
-                    Text="{Binding Path=CurrentStepTitle}"
-                    HorizontalOptions="StartAndExpand"
-                    VerticalOptions="CenterAndExpand"
-					TextColor="{StaticResource TextColorLightTheme}"
-                    FontSize="24"
-                    Margin="0,-8,0,0" />
+				<Label Grid.Column="1"
+					   Text="{Binding Path=CurrentStepTitle}"
+					   HorizontalOptions="StartAndExpand"
+					   VerticalOptions="CenterAndExpand"
+					   TextColor="{StaticResource TextColorLightTheme}"
+					   FontSize="24"
+					   Margin="0,-8,0,0" />
 			</Grid>
 		</StackLayout>
 		<!-- CONTENT -->
-		<CarouselView
-			x:Name="CarouselView"
-            IsSwipeEnabled="False"
-			HorizontalOptions="FillAndExpand"
-            VerticalOptions="FillAndExpand"
-            Margin="0,-6,0,-6"
-			CurrentItemChangedCommand="{Binding Path=CurrentStepChangedCommand}"
-            Position="{Binding Path=CurrentStep, Mode=TwoWay}"
-            ItemsSource="{Binding Path=RegistrationSteps}"
-            ItemTemplate="{StaticResource StepTemplateSelector}"
-            IndicatorView="IndicatorView"/>
+		<CarouselView x:Name="CarouselView"
+					  IsSwipeEnabled="False"
+					  HorizontalOptions="FillAndExpand"
+					  VerticalOptions="FillAndExpand"
+					  Margin="0,-6,0,-6"
+					  CurrentItemChangedCommand="{Binding Path=CurrentStepChangedCommand}"
+					  Position="{Binding Path=CurrentStep, Mode=TwoWay}"
+					  ItemsSource="{Binding Path=RegistrationSteps}"
+					  ItemTemplate="{StaticResource StepTemplateSelector}"
+					  IndicatorView="IndicatorView"/>
 		<!-- WIZARD INDICATOR -->
-		<IndicatorView
-			x:Name="IndicatorView"
-            HorizontalOptions="Fill"
-            IndicatorColor="{StaticResource HeadingForeground}"
-            Padding="0,12,0,0"
-			BackgroundColor="{StaticResource HeadingBackground}"
-            Style="{StaticResource IndicatorViewStyle}">
+		<IndicatorView x:Name="IndicatorView"
+					   HorizontalOptions="Fill"
+					   IndicatorColor="{StaticResource HeadingForeground}"
+					   Padding="0,12,0,0"
+					   BackgroundColor="{StaticResource HeadingBackground}"
+					   Style="{StaticResource IndicatorViewStyle}">
 			<IndicatorView.Margin>
 				<OnPlatform x:TypeArguments="Thickness">
 					<On Platform="iOS" Value="0,-1,0,0"/>

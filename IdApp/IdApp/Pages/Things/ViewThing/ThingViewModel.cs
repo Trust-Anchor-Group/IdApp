@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Pages.Main.XmppForm;
 using IdApp.Pages.Things.ReadSensor;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
@@ -365,8 +366,14 @@ namespace IdApp.Pages.Things.ViewThing
 			}
 		}
 
-		private async Task ControlFormCallback(object Sender, DataFormEventArgs e)
+		private Task ControlFormCallback(object Sender, DataFormEventArgs e)
 		{
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				await this.NavigationService.GoToAsync(nameof(XmppFormPage), new XmppFormNavigationArgs(e.Form));
+			});
+
+			return Task.CompletedTask;
 		}
 	}
 }

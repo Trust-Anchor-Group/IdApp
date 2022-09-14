@@ -8226,6 +8226,104 @@
             Gets or sets whether the application is online, i.e. has network access.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Main.XmppForm.Model.PageModel">
+            <summary>
+            Page model
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.XmppForm.Model.PageModel.#ctor(Waher.Networking.XMPP.DataForms.Layout.Page)">
+            <summary>
+            Page model
+            </summary>
+            <param name="Page">Page object</param>
+        </member>
+        <member name="P:IdApp.Pages.Main.XmppForm.Model.PageModel.Label">
+            <summary>
+            Page label
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.XmppForm.Model.PageModel.HasLabel">
+            <summary>
+            If the page has a label.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.XmppForm.Model.PageModel.Content">
+            <summary>
+            Page content
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.XmppForm.XmppFormNavigationArgs">
+            <summary>
+            Holds navigation parameters for an XMPP Form.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.XmppForm.XmppFormNavigationArgs.#ctor">
+            <summary>
+            Holds navigation parameters for an XMPP Form.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.XmppForm.XmppFormNavigationArgs.#ctor(Waher.Networking.XMPP.DataForms.DataForm)">
+            <summary>
+            Holds navigation parameters for an XMPP Form.
+            </summary>
+            <param name="Form">XMPP Data Form</param>
+        </member>
+        <member name="P:IdApp.Pages.Main.XmppForm.XmppFormNavigationArgs.Form">
+            <summary>
+            XMPP Data Form
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.XmppForm.XmppFormPage">
+            <summary>
+            A page that displays an XMPP Form to the user.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.XmppForm.XmppFormPage.#ctor">
+            <summary>
+            A page that displays an XMPP Form to the user.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.XmppForm.XmppFormViewModel">
+            <summary>
+            The view model to bind to for when displaying the calculator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.XmppForm.XmppFormViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Main.XmppForm.XmppFormViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.XmppForm.XmppFormViewModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Main.XmppForm.XmppFormViewModel.OnDispose">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Main.XmppForm.XmppFormViewModel.TitleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.XmppForm.XmppFormViewModel.Title"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.XmppForm.XmppFormViewModel.Title">
+            <summary>
+            Title of form
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.XmppForm.XmppFormViewModel.InstructionsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.XmppForm.XmppFormViewModel.Instructions"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.XmppForm.XmppFormViewModel.Instructions">
+            <summary>
+            Instructions for form
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.XmppForm.XmppFormViewModel.Pages">
+            <summary>
+            Holds the pages of the form
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.NavigationBasePage">
             <summary>
             A base class for all navigation pages.

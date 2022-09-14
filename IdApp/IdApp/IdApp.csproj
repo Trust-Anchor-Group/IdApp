@@ -160,6 +160,9 @@
     <Compile Update="Pages\Main\Security\SecurityPage.xaml.cs">
       <DependentUpon>SecurityPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\Main\XmppForm\XmppFormPage.xaml.cs">
+      <DependentUpon>XmppFormPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\Things\ReadSensor\ReadSensorPage.xaml.cs">
       <DependentUpon>ReadSensorPage.xaml</DependentUpon>
     </Compile>
