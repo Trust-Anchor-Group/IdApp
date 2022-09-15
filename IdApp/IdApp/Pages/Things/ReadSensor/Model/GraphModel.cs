@@ -22,6 +22,8 @@ namespace IdApp.Pages.Things.ReadSensor.Model
 	public class GraphModel : INotifyPropertyChanged
 	{
 		private readonly SortedDictionary<DateTime, Field> fieldValues = new();
+		private readonly SortedDictionary<DateTime, Field> minFieldValues = new();
+		private readonly SortedDictionary<DateTime, Field> maxFieldValues = new();
 		private readonly ServiceReferences references;
 		private readonly string fieldName;
 		private Timer timer = null;
@@ -66,6 +68,39 @@ namespace IdApp.Pages.Things.ReadSensor.Model
 				this.fieldValues[Field.Timestamp] = Field;
 			}
 
+			this.Invalidate();
+		}
+
+		/// <summary>
+		/// Adds a historical minimum field value.
+		/// </summary>
+		/// <param name="Field">Field Value.</param>
+		public void AddMin(Field Field)
+		{
+			lock (this.fieldValues)
+			{
+				this.minFieldValues[Field.Timestamp] = Field;
+			}
+
+			this.Invalidate();
+		}
+
+		/// <summary>
+		/// Adds a historical maximum field value.
+		/// </summary>
+		/// <param name="Field">Field Value.</param>
+		public void AddMax(Field Field)
+		{
+			lock (this.fieldValues)
+			{
+				this.maxFieldValues[Field.Timestamp] = Field;
+			}
+
+			this.Invalidate();
+		}
+
+		private void Invalidate()
+		{
 			this.timer?.Dispose();
 			this.timer = null;
 
@@ -78,6 +113,8 @@ namespace IdApp.Pages.Things.ReadSensor.Model
 			{
 				Variables v = new();
 				Expression Exp;
+				bool HasMin = false;
+				bool HasMax = false;
 
 				lock (this.fieldValues)
 				{
@@ -90,13 +127,65 @@ namespace IdApp.Pages.Things.ReadSensor.Model
 
 					v["x"] = new DateTimeVector(Timepoints);
 					v["y"] = new ObjectVector(Values);
+
+					if (this.minFieldValues.Count > 0)
+					{
+						c = this.minFieldValues.Count;
+
+						Timepoints = new DateTime[c];
+						Values = new Field[c];
+
+						this.minFieldValues.Keys.CopyTo(Timepoints, 0);
+						this.minFieldValues.Values.CopyTo(Values, 0);
+
+						v["xMin"] = new DateTimeVector(Timepoints);
+						v["yMin"] = new ObjectVector(Values);
+
+						HasMin = true;
+					}
+
+					if (this.maxFieldValues.Count > 0)
+					{
+						c = this.maxFieldValues.Count;
+
+						Timepoints = new DateTime[c];
+						Values = new Field[c];
+
+						this.maxFieldValues.Keys.CopyTo(Timepoints, 0);
+						this.maxFieldValues.Values.CopyTo(Values, 0);
+
+						v["xMax"] = new DateTimeVector(Timepoints);
+						v["yMax"] = new ObjectVector(Values);
+
+						HasMax = true;
+					}
 				}
 
 				StringBuilder sb = new();
 				bool Found = false;
 
 				sb.AppendLine("y:=y.Value;");
-				sb.AppendLine("G:=scatter2d(x,y,'Blue',7)+plot2dline(x,y,'Red',5);");
+				sb.AppendLine("G:=scatter2d(x,y,'Black',7);");
+
+				if (HasMin)
+				{
+					sb.AppendLine("yMin:=yMin.Value;");
+					sb.AppendLine("G+=scatter2d(xMin,yMin,'Black',7);");
+				}
+
+				if (HasMax)
+				{
+					sb.AppendLine("yMax:=yMax.Value;");
+					sb.AppendLine("G+=scatter2d(xMax,yMax,'Black',7);");
+				}
+
+				if (HasMin)
+					sb.AppendLine("G+=plot2dline(xMin,yMin,'Blue',5);");
+
+				if (HasMax)
+					sb.AppendLine("G+=plot2dline(xMax,yMax,'Red',5);");
+
+				sb.AppendLine("G+=plot2dline(x,y,'Green',5);");
 				sb.Append("G.LabelX:='");
 				sb.Append(LocalizationResourceManager.Current["Time"]);
 				sb.AppendLine("';");
@@ -128,7 +217,7 @@ namespace IdApp.Pages.Things.ReadSensor.Model
 					{
 						Width = 1280,
 						Height = 720,
-						AxisColor = SKColors.Black,			// TODO: Light & Dark Theme
+						AxisColor = SKColors.Black,         // TODO: Light & Dark Theme
 						BackgroundColor = SKColors.White,   // TODO: Light & Dark Theme
 						GridColor = SKColors.LightGray,     // TODO: Light & Dark Theme
 						AxisWidth = 5,

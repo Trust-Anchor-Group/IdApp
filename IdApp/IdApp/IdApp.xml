@@ -10082,6 +10082,18 @@
             </summary>
             <param name="Field">Field Value.</param>
         </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.Model.GraphModel.AddMin(Waher.Things.SensorData.Field)">
+            <summary>
+            Adds a historical minimum field value.
+            </summary>
+            <param name="Field">Field Value.</param>
+        </member>
+        <member name="M:IdApp.Pages.Things.ReadSensor.Model.GraphModel.AddMax(Waher.Things.SensorData.Field)">
+            <summary>
+            Adds a historical maximum field value.
+            </summary>
+            <param name="Field">Field Value.</param>
+        </member>
         <member name="E:IdApp.Pages.Things.ReadSensor.Model.GraphModel.PropertyChanged">
             <summary>
             Event raised when a property has changed.

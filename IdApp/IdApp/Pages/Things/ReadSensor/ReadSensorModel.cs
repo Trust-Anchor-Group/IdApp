@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -122,13 +123,36 @@ namespace IdApp.Pages.Things.ReadSensor
 				string FieldName;
 				int CategoryIndex = 0;
 				int i, j, c;
+				bool IsMin;
+				bool IsMax;
 
 				foreach (Field Field in NewFields)
 				{
+					FieldName = Field.Name;
+
 					if (Field.Type.HasFlag(FieldType.Historical))
-						Category = Field.Name;
+					{
+						IsMin = false;
+						IsMax = false;
+
+						if (FieldName.EndsWith(", Min", StringComparison.InvariantCultureIgnoreCase))
+						{
+							FieldName = FieldName[0..^5];
+							IsMin = true;
+						}
+						else if (FieldName.EndsWith(", Max", StringComparison.InvariantCultureIgnoreCase))
+						{
+							FieldName = FieldName[0..^5];
+							IsMax = true;
+						}
+
+						Category = FieldName;
+					}
 					else
+					{
 						Category = this.GetFieldTypeString(Field.Type);
+						IsMin = IsMax = false;
+					}
 
 					if (CategoryHeader is null || CategoryHeader.Label != Category)
 					{
@@ -153,8 +177,6 @@ namespace IdApp.Pages.Things.ReadSensor
 						}
 					}
 
-					FieldName = Field.Name;
-
 					if (Field.Type.HasFlag(FieldType.Historical))
 					{
 						for (i = CategoryIndex + 1, c = this.SensorData.Count; i < c; i++)
@@ -169,8 +191,15 @@ namespace IdApp.Pages.Things.ReadSensor
 								else
 								{
 									if (j == 0)
-										GraphModel.Add(Field);
-									else if (j > 0)
+									{
+										if (IsMin)
+											GraphModel.AddMin(Field);
+										else if (IsMax)
+											GraphModel.AddMax(Field);
+										else
+											GraphModel.Add(Field);
+									}
+									else if (j > 0 && !IsMin && !IsMax)
 										this.SensorData.Insert(i, new GraphModel(Field, this));
 
 									break;
