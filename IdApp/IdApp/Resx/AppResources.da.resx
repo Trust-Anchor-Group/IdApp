@@ -1992,4 +1992,22 @@
   <data name="PepServiceNotFound" xml:space="preserve">
     <value>Ingen personlig begivenhedstjeneste fundet.</value>
   </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Føj til liste</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Slet regler</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Vil du slette alle klargøringsregler for tingen? Ved at gøre det vil tingen igen bede dig om alle nye begivenheder for at lære, hvad den er autoriseret til at gøre.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Vil du fornægte sagen? Dette fjerner tingen fra din liste over ting og tillader en anden at kræve enheden som deres.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Fjern fra listen</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Reglerne om hensættelser er blevet slettet.</value>
+  </data>
 </root>

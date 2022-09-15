@@ -133,9 +133,15 @@ namespace IdApp.Services.ThingRegistries
 						Partition = PartitionId,
 						NodeId = NodeId,
 						Owner = false,
-						RegistryJid = string.Empty,
+						RegistryJid = this.XmppService.IoT.ServiceJid,
 						SubcribeTo = null
 					};
+
+					foreach (MetaDataTag Tag in Tags)
+					{
+						if (Tag.Name.ToUpper() == "R")
+							Info.RegistryJid = Tag.StringValue;
+					}
 				}
 				else if (!(Info.IsThing ?? false))
 				{

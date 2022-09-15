@@ -205,6 +205,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to list.
+        /// </summary>
+        internal static string AddToList {
+            get {
+                return ResourceManager.GetString("AddToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Altitude.
         /// </summary>
         internal static string Altitude {
@@ -1141,6 +1150,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Rules.
+        /// </summary>
+        internal static string DeleteRules {
+            get {
+                return ResourceManager.GetString("DeleteRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete all provisioning rules for the thing? By doing so, the thing will ask you again for all new events to learn what it is authorized to do..
+        /// </summary>
+        internal static string DeleteRulesQuestion {
+            get {
+                return ResourceManager.GetString("DeleteRulesQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         internal static string Description {
@@ -1191,6 +1218,15 @@ namespace IdApp.Resx {
         internal static string DisownThing {
             get {
                 return ResourceManager.GetString("DisownThing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to disown the thing? This will remove the thing from your list of things, and will permit another to claim the device as theirs..
+        /// </summary>
+        internal static string DisownThingQuestion {
+            get {
+                return ResourceManager.GetString("DisownThingQuestion", resourceCulture);
             }
         }
         
@@ -3490,6 +3526,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove from list.
+        /// </summary>
+        internal static string RemoveFromList {
+            get {
+                return ResourceManager.GetString("RemoveFromList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove Subscription?.
         /// </summary>
         internal static string RemoveSubscription {
@@ -3765,6 +3810,15 @@ namespace IdApp.Resx {
         internal static string Room {
             get {
                 return ResourceManager.GetString("Room", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provisioning rules have been deleted..
+        /// </summary>
+        internal static string RulesDeleted {
+            get {
+                return ResourceManager.GetString("RulesDeleted", resourceCulture);
             }
         }
         

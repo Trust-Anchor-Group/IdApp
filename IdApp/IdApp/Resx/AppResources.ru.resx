@@ -1992,4 +1992,22 @@
   <data name="PepServiceNotFound" xml:space="preserve">
     <value>Личный сервис событий не найден.</value>
   </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Добавить в список</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Удалить правила</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Вы хотите удалить все правила подготовки для объекта? Поступая таким образом, вещь снова попросит вас обо всех новых событиях, чтобы узнать, что она уполномочена делать.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Вы хотите отречься от этой вещи? Это удалит вещь из вашего списка вещей и позволит другому заявить об устройстве как о своем.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Удалить из списка</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Правила подготовки были удалены.</value>
+  </data>
 </root>

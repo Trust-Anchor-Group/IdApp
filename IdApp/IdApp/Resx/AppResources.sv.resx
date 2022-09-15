@@ -1968,7 +1968,25 @@
   <data name="Time" xml:space="preserve">
     <value>Tid</value>
   </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Lägg till listan</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Radera regler</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Vill du radera alla provisioneringsregler för saken? Genom att göra så, kommer saken att fråga dig igen för varje ny händelse, för att lära sig vad den är auktoriserad att göra.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Vill du avsäga dig ägarskapeet för saken? Detta kommer att ta bort saken från din lista av saker, och tillåta att en annan hävdar att saken är deras.</value>
+  </data>
   <data name="PepServiceNotFound" xml:space="preserve">
     <value>Ingen tjänst för personliga händelser kunde hittades.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Ta bort från listan</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Provisioneringsreglerna har raderats.</value>
   </data>
 </root>

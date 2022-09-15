@@ -10327,6 +10327,16 @@
             Gets or sets whether a user can claim a thing.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.RegistryJidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.RegistryJid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.RegistryJid">
+            <summary>
+            JID of registry the thing uses.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.LabelClicked(System.String,System.String,System.String,IdApp.Services.UI.IUiSerializer,IdApp.Services.EventLog.ILogService)">
             <summary>
             Processes the click of a localized meta-data label.
@@ -10366,116 +10376,141 @@
             <param name="Tags">Enumerable set of <see cref="T:Waher.Networking.XMPP.Provisioning.MetaDataTag"/></param>
             <returns>Enumerable set of <see cref="T:Waher.Networking.XMPP.Contracts.Property"/></returns>
         </member>
-        <member name="T:IdApp.Pages.Things.ViewThing.ThingViewModel">
+        <member name="T:IdApp.Pages.Things.ViewThing.ViewThingModel">
             <summary>
             The view model to bind to when displaying a thing.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.#ctor">
+        <member name="M:IdApp.Pages.Things.ViewThing.ViewThingModel.#ctor">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Things.ViewThing.ThingViewModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Things.ViewThing.ViewThingModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.OnInitialize">
+        <member name="M:IdApp.Pages.Things.ViewThing.ViewThingModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.OnDispose">
+        <member name="M:IdApp.Pages.Things.ViewThing.ViewThingModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Things.ViewThing.ViewThingModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.Tags">
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.Tags">
             <summary>
             Holds a list of meta-data tags associated with a thing.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.DisownThingCommand">
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.AddToListCommand">
+            <summary>
+            The command to bind to for adding a thing to the list
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.RemoveFromListCommand">
+            <summary>
+            The command to bind to for removing a thing from the list
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.DeleteRulesCommand">
+            <summary>
+            The command to bind to for clearing rules for the thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.DisownThingCommand">
             <summary>
             The command to bind to for disowning a thing
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.ReadSensorCommand">
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.ReadSensorCommand">
             <summary>
             The command to bind to for reading a sensor
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.ControlActuatorCommand">
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.ControlActuatorCommand">
             <summary>
             The command to bind to for controlling an actuator
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.InContactsProperty">
+        <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.InContactsProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.InContacts"/>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.InContacts"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.InContacts">
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.InContacts">
             <summary>
             Gets or sets whether the thing is in the contact list.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.IsOwnerProperty">
+        <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.IsOwnerProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsOwner"/>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsOwner"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsOwner">
-            <summary>
-            Gets or sets whether the thing is in the contact.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.IsThingOnlineProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsThingOnline"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsThingOnline">
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsOwner">
             <summary>
             Gets or sets whether the thing is in the contact.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.IsSensorProperty">
+        <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.InContactsAndNotOwnerProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsSensor"/>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.InContactsAndNotOwner"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsSensor">
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.InContactsAndNotOwner">
+            <summary>
+            Gets or sets whether the thing is in the contact list.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.IsThingOnlineProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsThingOnline"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsThingOnline">
+            <summary>
+            Gets or sets whether the thing is in the contact.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.IsSensorProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsSensor"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsSensor">
             <summary>
             Gets or sets whether the thing is a sensor
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.IsActuatorProperty">
+        <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.IsActuatorProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsActuator"/>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsActuator"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsActuator">
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsActuator">
             <summary>
             Gets or sets whether the thing is an actuator
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.IsConcentratorProperty">
+        <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.IsConcentratorProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsConcentrator"/>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsConcentrator"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.IsConcentrator">
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsConcentrator">
             <summary>
             Gets or sets whether the thing is a concentrator
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.SupportsSensorEventsProperty">
+        <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.SupportsSensorEventsProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.SupportsSensorEvents"/>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.SupportsSensorEvents"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.SupportsSensorEvents">
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.SupportsSensorEvents">
             <summary>
             Gets or sets whether the thing is a sensor
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.ClickCommand">
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.ClickCommand">
             <summary>
             Command to bind to for detecting when a tag value has been clicked on.
             </summary>
@@ -14879,6 +14914,11 @@
               Looks up a localized string similar to Address (row 2).
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.AddToList">
+            <summary>
+              Looks up a localized string similar to Add to list.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Altitude">
             <summary>
               Looks up a localized string similar to Altitude.
@@ -15399,6 +15439,16 @@
               Looks up a localized string similar to Delete contract.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.DeleteRules">
+            <summary>
+              Looks up a localized string similar to Delete Rules.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.DeleteRulesQuestion">
+            <summary>
+              Looks up a localized string similar to Do you want to delete all provisioning rules for the thing? By doing so, the thing will ask you again for all new events to learn what it is authorized to do..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Description">
             <summary>
               Looks up a localized string similar to Description.
@@ -15427,6 +15477,11 @@
         <member name="P:IdApp.Resx.AppResources.DisownThing">
             <summary>
               Looks up a localized string similar to Disown Thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.DisownThingQuestion">
+            <summary>
+              Looks up a localized string similar to Do you want to disown the thing? This will remove the thing from your list of things, and will permit another to claim the device as theirs..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.DomainDoesNotFollowEncryptionPolicy">
@@ -16704,6 +16759,11 @@
               Looks up a localized string similar to Remove Contact.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.RemoveFromList">
+            <summary>
+              Looks up a localized string similar to Remove from list.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.RemoveSubscription">
             <summary>
               Looks up a localized string similar to Remove Subscription?.
@@ -16857,6 +16917,11 @@
         <member name="P:IdApp.Resx.AppResources.Room">
             <summary>
               Looks up a localized string similar to Room.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.RulesDeleted">
+            <summary>
+              Looks up a localized string similar to Provisioning rules have been deleted..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ScanInvitation">
@@ -20683,6 +20748,181 @@
             Number of notifications but button Wallet
             </summary>
         </member>
+        <member name="T:IdApp.Services.Notification.Things.CanControlNotificationEvent">
+            <summary>
+            Contains information about a request to read a thing.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.#ctor">
+            <summary>
+            Contains information about a request to read a thing.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.#ctor(Waher.Networking.XMPP.Provisioning.CanControlEventArgs)">
+            <summary>
+            Contains information about a request to read a thing.
+            </summary>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="P:IdApp.Services.Notification.Things.CanControlNotificationEvent.Parameters">
+            <summary>
+            Fields requested
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service References</param>
+            <returns>Icon</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Things.CanReadNotificationEvent">
+            <summary>
+            Contains information about a request to read a thing.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.#ctor">
+            <summary>
+            Contains information about a request to read a thing.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.#ctor(Waher.Networking.XMPP.Provisioning.CanReadEventArgs)">
+            <summary>
+            Contains information about a request to read a thing.
+            </summary>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="P:IdApp.Services.Notification.Things.CanReadNotificationEvent.Fields">
+            <summary>
+            Fields requested
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Things.CanReadNotificationEvent.FieldTypes">
+            <summary>
+            Field types requested.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service References</param>
+            <returns>Icon</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Things.IsFriendNotificationEvent">
+            <summary>
+            Contains information about a request to become "friends", i.e. subscribe to presence.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.IsFriendNotificationEvent.#ctor">
+            <summary>
+            Contains information about a request to become "friends", i.e. subscribe to presence.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.IsFriendNotificationEvent.#ctor(Waher.Networking.XMPP.Provisioning.IsFriendEventArgs)">
+            <summary>
+            Contains information about a request to become "friends", i.e. subscribe to presence.
+            </summary>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.IsFriendNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets an icon for the category of event.
+            </summary>
+            <param name="ServiceReferences">Service References</param>
+            <returns>Icon</returns>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.IsFriendNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets a descriptive text for the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.IsFriendNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+            <summary>
+            Opens the event.
+            </summary>
+            <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="T:IdApp.Services.Notification.Things.ProvisioningNotificationEvent">
+            <summary>
+            Abstract base class of provisioning notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.ProvisioningNotificationEvent.#ctor">
+            <summary>
+            Abstract base class of provisioning notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.ProvisioningNotificationEvent.#ctor(Waher.Networking.XMPP.Provisioning.QuestionEventArgs)">
+            <summary>
+            Abstract base class of provisioning notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Things.ProvisioningNotificationEvent.RemoteJid">
+            <summary>
+            JID of remote entity wishing to perform a task.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Things.ProvisioningNotificationEvent.Key">
+            <summary>
+            Question Key
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Notification.Things.ThingNotificationEvent">
+            <summary>
+            Abstract base class of thing notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.ThingNotificationEvent.#ctor">
+            <summary>
+            Abstract base class of thing notification events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.ThingNotificationEvent.#ctor(Waher.Networking.XMPP.Provisioning.NodeQuestionEventArgs)">
+            <summary>
+            Abstract base class of thing notification events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Things.ThingNotificationEvent.NodeId">
+            <summary>
+            Node ID of thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Things.ThingNotificationEvent.SourceId">
+            <summary>
+            Source ID of thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Things.ThingNotificationEvent.PartitionId">
+            <summary>
+            Partition ID of thing.
+            </summary>
+        </member>
         <member name="T:IdApp.Services.Notification.Wallet.BalanceNotificationEvent">
             <summary>
             Contains information about an incoming chat message.
@@ -20943,8 +21183,8 @@
             <summary>
             Gets an icon for the category of event.
             </summary>
-            <param name="ServiceReferences"></param>
-            <returns></returns>
+            <param name="ServiceReferences">Service References</param>
+            <returns>Icon</returns>
         </member>
         <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
             <summary>
@@ -22554,6 +22794,75 @@
             <param name="RegistryJid">Registry Service JID</param>
             <param name="Operators">Search operators.</param>
             <returns>Complete list of devices in registry matching the search operators.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.IsIoTDiscoClaimURI(System.String)">
+            <summary>
+            Checks if a URI is a claim URI.
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <returns>If <paramref name="DiscoUri"/> is a claim URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.IsIoTDiscoSearchURI(System.String)">
+            <summary>
+            Checks if a URI is a search URI.
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <returns>If <paramref name="DiscoUri"/> is a search URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.IsIoTDiscoDirectURI(System.String)">
+            <summary>
+            Checks if a URI is a direct reference URI.
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <returns>If <paramref name="DiscoUri"/> is a direct reference URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.TryDecodeIoTDiscoClaimURI(System.String,Waher.Networking.XMPP.Provisioning.MetaDataTag[]@)">
+            <summary>
+            Tries to decode an IoTDisco Claim URI (subset of all possible IoTDisco URIs).
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <param name="Tags">Decoded meta data tags.</param>
+            <returns>If DiscoUri was successfully decoded.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.TryDecodeIoTDiscoSearchURI(System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[]@,System.String@)">
+            <summary>
+            Tries to decode an IoTDisco Search URI (subset of all possible IoTDisco URIs).
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <param name="Operators">Search operators.</param>
+            <param name="RegistryJid">Registry Service JID</param>
+            <returns>If the URI could be parsed.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.TryDecodeIoTDiscoDirectURI(System.String,System.String@,System.String@,System.String@,System.String@,Waher.Networking.XMPP.Provisioning.MetaDataTag[]@)">
+            <summary>
+            Tries to decode an IoTDisco Direct Reference URI (subset of all possible IoTDisco URIs).
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <param name="Jid">JID of device</param>
+            <param name="SourceId">Optional Source ID of device, or null if none.</param>
+            <param name="NodeId">Optional Node ID of device, or null if none.</param>
+            <param name="PartitionId">Optional Partition ID of device, or null if none.</param>
+            <param name="Tags">Decoded meta data tags.</param>
+            <returns>If the URI could be parsed.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.ClaimThing(System.String,System.Boolean)">
+            <summary>
+            Claims a think in accordance with parameters defined in a iotdisco claim URI.
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <param name="MakePublic">If the device should be public in the thing registry.</param>
+            <returns>Information about the thing, or error if unable.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.Disown(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Disowns a thing
+            </summary>
+            <param name="RegistryJid">Registry JID</param>
+            <param name="ThingJid">Thing JID</param>
+            <param name="SourceId">Source ID</param>
+            <param name="Partition">Partition</param>
+            <param name="NodeId">Node ID</param>
+            <returns>If the thing was disowned</returns>
         </member>
         <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.Search(System.Int32,System.Int32,System.String)">
             <summary>

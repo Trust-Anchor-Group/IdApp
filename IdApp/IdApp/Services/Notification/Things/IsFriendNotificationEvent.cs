@@ -1,41 +1,31 @@
 ﻿using IdApp.Pages.Contacts.Chat;
 using IdApp.Resx;
-using System;
 using System.Threading.Tasks;
-using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Provisioning;
 
-namespace IdApp.Services.Notification.Xmpp
+namespace IdApp.Services.Notification.Things
 {
 	/// <summary>
-	/// Contains information about an incoming chat message.
+	/// Contains information about a request to become "friends", i.e. subscribe to presence.
 	/// </summary>
-	public class ChatMessageNotificationEvent : XmppNotificationEvent
+	public class IsFriendNotificationEvent : ProvisioningNotificationEvent
 	{
 		/// <summary>
-		/// Contains information about an incoming chat message.
+		/// Contains information about a request to become "friends", i.e. subscribe to presence.
 		/// </summary>
-		public ChatMessageNotificationEvent()
+		public IsFriendNotificationEvent()
 			: base()
 		{
 		}
 
 		/// <summary>
-		/// Contains information about an incoming chat message.
+		/// Contains information about a request to become "friends", i.e. subscribe to presence.
 		/// </summary>
 		/// <param name="e">Event arguments</param>
-		public ChatMessageNotificationEvent(MessageEventArgs e)
-			: base()
+		public IsFriendNotificationEvent(IsFriendEventArgs e)
+			: base(e)
 		{
-			this.Category = e.FromBareJID;
-			this.BareJid = e.FromBareJID;
-			this.Received = DateTime.UtcNow;
-			this.Button = EventButton.Contacts;
 		}
-
-		/// <summary>
-		/// ID of message object being updated
-		/// </summary>
-		public string ReplaceObjectId { get; set; }
 
 		/// <summary>
 		/// Gets an icon for the category of event.
@@ -44,7 +34,7 @@ namespace IdApp.Services.Notification.Xmpp
 		/// <returns>Icon</returns>
 		public override Task<string> GetCategoryIcon(ServiceReferences ServiceReferences)
 		{
-			return Task.FromResult<string>(FontAwesome.User);
+			return Task.FromResult<string>(FontAwesome.Things);
 		}
 
 		/// <summary>

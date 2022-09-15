@@ -1992,4 +1992,22 @@
   <data name="PepServiceNotFound" xml:space="preserve">
     <value>Henkilökohtaista tapahtumapalvelua ei löytynyt.</value>
   </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Lisää luetteloon</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Sääntöjen poistaminen</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Haluatko poistaa kaikki asian valmistelusäännöt? Näin tekemällä asia pyytää sinulta jälleen kaikkia uusia tapahtumia oppiaksesi, mitä sillä on lupa tehdä.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Haluatko kieltää asian? Tämä poistaa asian asialuettelostasi ja antaa toiselle mahdollisuuden vaatia laitetta omakseen.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Poista luettelosta</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Varaussäännöt on poistettu.</value>
+  </data>
 </root>

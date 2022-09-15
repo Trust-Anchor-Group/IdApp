@@ -1992,4 +1992,22 @@
   <data name="PepServiceNotFound" xml:space="preserve">
     <value>Nu s-a găsit niciun serviciu personal de evenimente.</value>
   </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Adăugarea la listă</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Ștergeți regulile</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Doriți să ștergeți toate regulile de provizionare pentru lucru? Procedând astfel, lucrul vă va cere din nou ca toate evenimentele noi să învețe ce este autorizat să facă.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Vrei să renegi chestia asta? Acest lucru va elimina lucrul din lista de lucruri și va permite altuia să pretindă dispozitivul ca fiind al lor.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Eliminarea din listă</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Regulile de provizionare au fost eliminate.</value>
+  </data>
 </root>

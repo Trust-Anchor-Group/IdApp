@@ -106,6 +106,12 @@ namespace IdApp.Pages.Things.MyThings
 					RegistryJid = this.XmppService.IoT.ServiceJid
 				};
 
+				foreach (MetaDataTag Tag in Thing.Tags)
+				{
+					if (Tag.Name.ToUpper() == "R")
+						Info.RegistryJid = Tag.StringValue;
+				}
+
 				await Database.Insert(Info);
 
 				Name = Info.FriendlyName;
@@ -158,7 +164,7 @@ namespace IdApp.Pages.Things.MyThings
 			}
 
 			this.ShowThingsMissing = SortedByName.Count == 0;
-		
+
 			await Database.Provider.Flush();
 
 			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
@@ -243,7 +249,7 @@ namespace IdApp.Pages.Things.MyThings
 		/// </summary>
 		public static readonly BindableProperty SelectedThingProperty =
 			BindableProperty.Create(nameof(SelectedThing), typeof(ContactInfoModel), typeof(MyThingsViewModel), default(ContactInfoModel));
-	
+
 		/// <summary>
 		/// The currently selected contact, if any.
 		/// </summary>

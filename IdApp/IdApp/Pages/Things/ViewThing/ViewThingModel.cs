@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using IdApp.Pages.Main.XmppForm;
 using IdApp.Pages.Things.ReadSensor;
 using IdApp.Services;
@@ -24,17 +23,20 @@ namespace IdApp.Pages.Things.ViewThing
 	/// <summary>
 	/// The view model to bind to when displaying a thing.
 	/// </summary>
-	public class ThingViewModel : XmppViewModel
+	public class ViewThingModel : XmppViewModel
 	{
 		private ContactInfo thing;
 
 		/// <summary>
-		/// Creates an instance of the <see cref="ThingViewModel"/> class.
+		/// Creates an instance of the <see cref="ViewThingModel"/> class.
 		/// </summary>
-		protected internal ThingViewModel()
+		protected internal ViewThingModel()
 			: base()
 		{
 			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
+			this.AddToListCommand = new Command(async _ => await this.AddToList(), _ => !this.InContacts);
+			this.RemoveFromListCommand = new Command(async _ => await this.RemoveFromList(), _ => this.InContactsAndNotOwner);
+			this.DeleteRulesCommand = new Command(async _ => await this.DeleteRules(), _ => this.IsConnected && this.IsOwner);
 			this.DisownThingCommand = new Command(async _ => await this.DisownThing(), _ => this.IsConnected && this.IsOwner);
 			this.ReadSensorCommand = new Command(async _ => await this.ReadSensor(), _ => this.IsConnected && this.IsSensor);
 			this.ControlActuatorCommand = new Command(async _ => await this.ControlActuator(), _ => this.IsConnected && this.IsActuator);
@@ -89,7 +91,8 @@ namespace IdApp.Pages.Things.ViewThing
 							this.thing.IsActuator = e.HasFeature(ControlClient.NamespaceControl);
 							this.thing.IsConcentrator = e.HasFeature(ConcentratorServer.NamespaceConcentrator);
 
-							await Database.Update(this.thing);
+							if (this.InContacts)
+								await Database.Update(this.thing);
 
 							this.UiSerializer.BeginInvokeOnMainThread(() =>
 							{
@@ -152,7 +155,8 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.DisownThingCommand);
+			this.EvaluateCommands(this.ClickCommand, this.AddToListCommand, this.RemoveFromListCommand, this.DeleteRulesCommand,
+				this.DisownThingCommand, this.ReadSensorCommand, this.ControlActuatorCommand);
 		}
 
 		/// <inheritdoc/>
@@ -178,6 +182,21 @@ namespace IdApp.Pages.Things.ViewThing
 		public ObservableCollection<HumanReadableTag> Tags { get; }
 
 		/// <summary>
+		/// The command to bind to for adding a thing to the list
+		/// </summary>
+		public System.Windows.Input.ICommand AddToListCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for removing a thing from the list
+		/// </summary>
+		public System.Windows.Input.ICommand RemoveFromListCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for clearing rules for the thing.
+		/// </summary>
+		public System.Windows.Input.ICommand DeleteRulesCommand { get; }
+
+		/// <summary>
 		/// The command to bind to for disowning a thing
 		/// </summary>
 		public System.Windows.Input.ICommand DisownThingCommand { get; }
@@ -196,7 +215,7 @@ namespace IdApp.Pages.Things.ViewThing
 		/// See <see cref="InContacts"/>
 		/// </summary>
 		public static readonly BindableProperty InContactsProperty =
-			BindableProperty.Create(nameof(InContacts), typeof(bool), typeof(ThingViewModel), default(bool));
+			BindableProperty.Create(nameof(InContacts), typeof(bool), typeof(ViewThingModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the thing is in the contact list.
@@ -204,14 +223,18 @@ namespace IdApp.Pages.Things.ViewThing
 		public bool InContacts
 		{
 			get => (bool)this.GetValue(InContactsProperty);
-			set => this.SetValue(InContactsProperty, value);
+			set
+			{
+				this.SetValue(InContactsProperty, value);
+				this.InContactsAndNotOwner = this.InContacts && !this.IsOwner;
+			}
 		}
 
 		/// <summary>
 		/// See <see cref="IsOwner"/>
 		/// </summary>
 		public static readonly BindableProperty IsOwnerProperty =
-			BindableProperty.Create(nameof(IsOwner), typeof(bool), typeof(ThingViewModel), default(bool));
+			BindableProperty.Create(nameof(IsOwner), typeof(bool), typeof(ViewThingModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the thing is in the contact.
@@ -219,14 +242,33 @@ namespace IdApp.Pages.Things.ViewThing
 		public bool IsOwner
 		{
 			get => (bool)this.GetValue(IsOwnerProperty);
-			set => this.SetValue(IsOwnerProperty, value);
+			set
+			{
+				this.SetValue(IsOwnerProperty, value);
+				this.InContactsAndNotOwner = this.InContacts && !this.IsOwner;
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="InContactsAndNotOwner"/>
+		/// </summary>
+		public static readonly BindableProperty InContactsAndNotOwnerProperty =
+			BindableProperty.Create(nameof(InContactsAndNotOwner), typeof(bool), typeof(ViewThingModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the thing is in the contact list.
+		/// </summary>
+		public bool InContactsAndNotOwner
+		{
+			get => (bool)this.GetValue(InContactsAndNotOwnerProperty);
+			set => this.SetValue(InContactsAndNotOwnerProperty, value);
 		}
 
 		/// <summary>
 		/// See <see cref="IsThingOnline"/>
 		/// </summary>
 		public static readonly BindableProperty IsThingOnlineProperty =
-			BindableProperty.Create(nameof(IsThingOnline), typeof(bool), typeof(ThingViewModel), default(bool));
+			BindableProperty.Create(nameof(IsThingOnline), typeof(bool), typeof(ViewThingModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the thing is in the contact.
@@ -241,7 +283,7 @@ namespace IdApp.Pages.Things.ViewThing
 		/// See <see cref="IsSensor"/>
 		/// </summary>
 		public static readonly BindableProperty IsSensorProperty =
-			BindableProperty.Create(nameof(IsSensor), typeof(bool), typeof(ThingViewModel), default(bool));
+			BindableProperty.Create(nameof(IsSensor), typeof(bool), typeof(ViewThingModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the thing is a sensor
@@ -256,7 +298,7 @@ namespace IdApp.Pages.Things.ViewThing
 		/// See <see cref="IsActuator"/>
 		/// </summary>
 		public static readonly BindableProperty IsActuatorProperty =
-			BindableProperty.Create(nameof(IsActuator), typeof(bool), typeof(ThingViewModel), default(bool));
+			BindableProperty.Create(nameof(IsActuator), typeof(bool), typeof(ViewThingModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the thing is an actuator
@@ -271,7 +313,7 @@ namespace IdApp.Pages.Things.ViewThing
 		/// See <see cref="IsConcentrator"/>
 		/// </summary>
 		public static readonly BindableProperty IsConcentratorProperty =
-			BindableProperty.Create(nameof(IsConcentrator), typeof(bool), typeof(ThingViewModel), default(bool));
+			BindableProperty.Create(nameof(IsConcentrator), typeof(bool), typeof(ViewThingModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the thing is a concentrator
@@ -286,7 +328,7 @@ namespace IdApp.Pages.Things.ViewThing
 		/// See <see cref="SupportsSensorEvents"/>
 		/// </summary>
 		public static readonly BindableProperty SupportsSensorEventsProperty =
-			BindableProperty.Create(nameof(SupportsSensorEvents), typeof(bool), typeof(ThingViewModel), default(bool));
+			BindableProperty.Create(nameof(SupportsSensorEvents), typeof(bool), typeof(ViewThingModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the thing is a sensor
@@ -312,10 +354,58 @@ namespace IdApp.Pages.Things.ViewThing
 				return Task.CompletedTask;
 		}
 
+		private async Task DeleteRules()
+		{
+			try
+			{
+				if (!await this.UiSerializer.DisplayAlert(
+					LocalizationResourceManager.Current["Question"], LocalizationResourceManager.Current["DeleteRulesQuestion"],
+					LocalizationResourceManager.Current["Yes"], LocalizationResourceManager.Current["Cancel"]))
+				{
+					return;
+				}
+
+				if (!await App.VerifyPin())
+					return;
+
+				TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
+
+				this.XmppService.IoT.ProvisioningClient.DeleteDeviceRules(this.thing.RegistryJid, this.thing.BareJid, this.thing.NodeId,
+					this.thing.SourceId, this.thing.Partition, (sender, e) =>
+				{
+					if (e.Ok)
+						Result.TrySetResult(true);
+					else if (e.StanzaError is not null)
+						Result.TrySetException(e.StanzaError);
+					else
+						Result.TrySetResult(false);
+
+					return Task.CompletedTask;
+				}, null);
+
+				if (!await Result.Task)
+					return;
+
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["RulesDeleted"]);
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
 		private async Task DisownThing()
 		{
 			try
 			{
+				if (!await this.UiSerializer.DisplayAlert(
+					LocalizationResourceManager.Current["Question"], LocalizationResourceManager.Current["DisownThingQuestion"],
+					LocalizationResourceManager.Current["Yes"], LocalizationResourceManager.Current["Cancel"]))
+				{
+					return;
+				}
+
 				if (!await App.VerifyPin())
 					return;
 
@@ -325,14 +415,58 @@ namespace IdApp.Pages.Things.ViewThing
 				if (!Succeeded)
 					return;
 
-				if (!string.IsNullOrEmpty(this.thing.ObjectId))
+				if (this.InContacts)
 				{
 					await Database.Delete(this.thing);
 					await Database.Provider.Flush();
+
+					this.thing.ObjectId = null;
+					this.InContacts = false;
 				}
 
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["ThingDisowned"]);
 				await this.NavigationService.GoBackAsync();
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task AddToList()
+		{
+			try
+			{
+				if (!await App.VerifyPin())
+					return;
+
+				if (!this.InContacts)
+				{
+					await Database.Insert(this.thing);
+					this.InContacts = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task RemoveFromList()
+		{
+			try
+			{
+				if (!await App.VerifyPin())
+					return;
+
+				if (this.InContacts)
+				{
+					await Database.Delete(this.thing);
+					this.thing.ObjectId = null;
+					this.InContacts = false;
+				}
 			}
 			catch (Exception ex)
 			{

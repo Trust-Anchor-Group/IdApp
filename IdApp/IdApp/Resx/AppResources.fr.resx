@@ -1992,4 +1992,22 @@
   <data name="PepServiceNotFound" xml:space="preserve">
     <value>Aucun service d’événementiel personnel trouvé.</value>
   </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Ajouter à la liste</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Supprimer les règles</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Voulez-vous supprimer toutes les règles d’approvisionnement pour la chose ? Ce faisant, la chose vous demandera à nouveau pour tous les nouveaux événements d’apprendre ce qu’elle est autorisée à faire.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Voulez-vous renier la chose? Cela supprimera la chose de votre liste de choses et permettra à un autre de revendiquer l’appareil comme le leur.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Supprimer de la liste</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Les règles d’approvisionnement ont été supprimées.</value>
+  </data>
 </root>

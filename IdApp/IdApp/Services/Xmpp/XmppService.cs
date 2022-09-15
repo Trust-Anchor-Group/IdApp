@@ -9,6 +9,7 @@ using IdApp.Services.Contracts;
 using IdApp.Services.IoT;
 using IdApp.Services.Messages;
 using IdApp.Services.Navigation;
+using IdApp.Services.Notification.Things;
 using IdApp.Services.Notification.Xmpp;
 using IdApp.Services.Push;
 using IdApp.Services.Tag;
@@ -233,6 +234,10 @@ namespace IdApp.Services.Xmpp
 						{
 							ManagePresenceSubscriptionRequests = false
 						};
+
+						this.provisioningClient.CanControlQuestion += this.ProvisioningClient_CanControlQuestion;
+						this.provisioningClient.CanReadQuestion += this.ProvisioningClient_CanReadQuestion;
+						this.provisioningClient.IsFriendQuestion += this.ProvisioningClient_IsFriendQuestion;
 					}
 
 					if (!string.IsNullOrWhiteSpace(this.TagProfile.EDalerJid))
@@ -501,6 +506,10 @@ namespace IdApp.Services.Xmpp
 							{
 								ManagePresenceSubscriptionRequests = false
 							};
+
+							this.provisioningClient.CanControlQuestion += this.ProvisioningClient_CanControlQuestion;
+							this.provisioningClient.CanReadQuestion += this.ProvisioningClient_CanReadQuestion;
+							this.provisioningClient.IsFriendQuestion += this.ProvisioningClient_IsFriendQuestion;
 						}
 
 						if (this.eDalerClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.EDalerJid))
@@ -1506,6 +1515,25 @@ namespace IdApp.Services.Xmpp
 
 				return true;
 			}
+		}
+
+		#endregion
+
+		#region Provisioning
+
+		private async Task ProvisioningClient_IsFriendQuestion(object Sender, IsFriendEventArgs e)
+		{
+			await this.NotificationService.NewEvent(new IsFriendNotificationEvent(e));
+		}
+
+		private async Task ProvisioningClient_CanReadQuestion(object Sender, CanReadEventArgs e)
+		{
+			await this.NotificationService.NewEvent(new CanReadNotificationEvent(e));
+		}
+
+		private async Task ProvisioningClient_CanControlQuestion(object Sender, CanControlEventArgs e)
+		{
+			await this.NotificationService.NewEvent(new CanControlNotificationEvent(e));
 		}
 
 		#endregion

@@ -33,26 +33,54 @@ namespace IdApp.Services.ThingRegistries
 			}
 		}
 
+		/// <summary>
+		/// Checks if a URI is a claim URI.
+		/// </summary>
+		/// <param name="DiscoUri">IoTDisco URI</param>
+		/// <returns>If <paramref name="DiscoUri"/> is a claim URI.</returns>
 		public bool IsIoTDiscoClaimURI(string DiscoUri)
 		{
 			return ThingRegistryClient.IsIoTDiscoClaimURI(DiscoUri);
 		}
 
+		/// <summary>
+		/// Checks if a URI is a search URI.
+		/// </summary>
+		/// <param name="DiscoUri">IoTDisco URI</param>
+		/// <returns>If <paramref name="DiscoUri"/> is a search URI.</returns>
 		public bool IsIoTDiscoSearchURI(string DiscoUri)
 		{
 			return ThingRegistryClient.IsIoTDiscoSearchURI(DiscoUri);
 		}
 
+		/// <summary>
+		/// Checks if a URI is a direct reference URI.
+		/// </summary>
+		/// <param name="DiscoUri">IoTDisco URI</param>
+		/// <returns>If <paramref name="DiscoUri"/> is a direct reference URI.</returns>
 		public bool IsIoTDiscoDirectURI(string DiscoUri)
 		{
 			return ThingRegistryClient.IsIoTDiscoDirectURI(DiscoUri);
 		}
 
+		/// <summary>
+		/// Tries to decode an IoTDisco Claim URI (subset of all possible IoTDisco URIs).
+		/// </summary>
+		/// <param name="DiscoUri">IoTDisco URI</param>
+		/// <param name="Tags">Decoded meta data tags.</param>
+		/// <returns>If DiscoUri was successfully decoded.</returns>
 		public bool TryDecodeIoTDiscoClaimURI(string DiscoUri, out MetaDataTag[] Tags)
 		{
 			return ThingRegistryClient.TryDecodeIoTDiscoClaimURI(DiscoUri, out Tags);
 		}
 
+		/// <summary>
+		/// Tries to decode an IoTDisco Search URI (subset of all possible IoTDisco URIs).
+		/// </summary>
+		/// <param name="DiscoUri">IoTDisco URI</param>
+		/// <param name="Operators">Search operators.</param>
+		/// <param name="RegistryJid">Registry Service JID</param>
+		/// <returns>If the URI could be parsed.</returns>
 		public bool TryDecodeIoTDiscoSearchURI(string DiscoUri, out SearchOperator[] Operators, out string RegistryJid)
 		{
 			RegistryJid = null;
@@ -82,6 +110,16 @@ namespace IdApp.Services.ThingRegistries
 			return true;
 		}
 
+		/// <summary>
+		/// Tries to decode an IoTDisco Direct Reference URI (subset of all possible IoTDisco URIs).
+		/// </summary>
+		/// <param name="DiscoUri">IoTDisco URI</param>
+		/// <param name="Jid">JID of device</param>
+		/// <param name="SourceId">Optional Source ID of device, or null if none.</param>
+		/// <param name="NodeId">Optional Node ID of device, or null if none.</param>
+		/// <param name="PartitionId">Optional Partition ID of device, or null if none.</param>
+		/// <param name="Tags">Decoded meta data tags.</param>
+		/// <returns>If the URI could be parsed.</returns>
 		public bool TryDecodeIoTDiscoDirectURI(string DiscoUri, out string Jid, out string SourceId, out string NodeId, 
 			out string PartitionId, out MetaDataTag[] Tags)
 		{
@@ -138,7 +176,12 @@ namespace IdApp.Services.ThingRegistries
 			return !string.IsNullOrEmpty(Jid);
 		}
 
-
+		/// <summary>
+		/// Claims a think in accordance with parameters defined in a iotdisco claim URI.
+		/// </summary>
+		/// <param name="DiscoUri">IoTDisco URI</param>
+		/// <param name="MakePublic">If the device should be public in the thing registry.</param>
+		/// <returns>Information about the thing, or error if unable.</returns>
 		public Task<NodeResultEventArgs> ClaimThing(string DiscoUri, bool MakePublic)
 		{
 			if (!this.TryDecodeIoTDiscoClaimURI(DiscoUri, out MetaDataTag[] Tags))
@@ -155,6 +198,15 @@ namespace IdApp.Services.ThingRegistries
 			return Result.Task;
 		}
 
+		/// <summary>
+		/// Disowns a thing
+		/// </summary>
+		/// <param name="RegistryJid">Registry JID</param>
+		/// <param name="ThingJid">Thing JID</param>
+		/// <param name="SourceId">Source ID</param>
+		/// <param name="Partition">Partition</param>
+		/// <param name="NodeId">Node ID</param>
+		/// <returns>If the thing was disowned</returns>
 		public Task<bool> Disown(string RegistryJid, string ThingJid, string SourceId, string Partition, string NodeId)
 		{
 			TaskCompletionSource<bool> Result = new();

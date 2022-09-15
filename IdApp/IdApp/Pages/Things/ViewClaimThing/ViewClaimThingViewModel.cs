@@ -47,8 +47,18 @@ namespace IdApp.Pages.Things.ViewClaimThing
 
 				if (this.XmppService.ThingRegistry.TryDecodeIoTDiscoClaimURI(args.Uri, out MetaDataTag[] Tags))
 				{
+					this.RegistryJid = null;
+
 					foreach (MetaDataTag Tag in Tags)
+					{
 						this.Tags.Add(new HumanReadableTag(Tag));
+
+						if (Tag.Name.ToUpper() == "R")
+							this.RegistryJid = Tag.StringValue;
+					}
+
+					if (string.IsNullOrEmpty(this.RegistryJid))
+						this.RegistryJid = this.XmppService.IoT.ServiceJid;
 				}
 			}
 
@@ -149,6 +159,21 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		{
 			get => (bool)this.GetValue(MakePublicProperty);
 			set => this.SetValue(MakePublicProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="RegistryJid"/>
+		/// </summary>
+		public static readonly BindableProperty RegistryJidProperty =
+			BindableProperty.Create(nameof(RegistryJid), typeof(string), typeof(ViewClaimThingViewModel), default(string));
+
+		/// <summary>
+		/// JID of registry the thing uses.
+		/// </summary>
+		public string RegistryJid
+		{
+			get => (string)this.GetValue(RegistryJidProperty);
+			set => this.SetValue(RegistryJidProperty, value);
 		}
 
 		#endregion
@@ -278,7 +303,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 							Partition = e.Node.Partition,
 							NodeId = e.Node.NodeId,
 							MetaData = ToProperties(this.Tags),
-							RegistryJid = e.From
+							RegistryJid = this.RegistryJid
 						};
 
 						await Database.Insert(Info);

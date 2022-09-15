@@ -13,7 +13,7 @@ namespace IdApp.Pages.Things.ViewThing
 		/// </summary>
 		public ViewThingPage()
 		{
-			this.ViewModel = new ThingViewModel();
+			this.ViewModel = new ViewThingModel();
 
 			this.InitializeComponent();
 		}

@@ -1992,4 +1992,22 @@
   <data name="PepServiceNotFound" xml:space="preserve">
     <value>Nije pronađena usluga ličnog događaja.</value>
   </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Dodaj na listu</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Izbriši pravila</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Želite li da izbrišete sva pravila obezbeđivanja za tu stvar? Time će vas stvar ponovo zamoliti za sve nove događaje kako biste saznali šta je ovlašćeno da radi.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Želite li da se odreknete te stvari? Ovo će ukloniti stvar sa vaše liste stvari, i dozvoliti drugome da prisvoji uređaj kao njihov.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Ukloni sa liste</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Pravila obezbeđivanja su izbrisana.</value>
+  </data>
 </root>

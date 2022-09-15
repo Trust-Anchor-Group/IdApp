@@ -1992,4 +1992,22 @@
   <data name="PepServiceNotFound" xml:space="preserve">
     <value>Finner ingen personlig hendelsestjeneste.</value>
   </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Legg til i liste</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Slett regler</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Vil du slette alle klargjøringsregler for saken? Ved å gjøre det, vil tingen be deg igjen om alle nye hendelser for å lære hva det er autorisert til å gjøre.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Vil du fornekte den? Dette vil fjerne tingen fra listen over ting, og vil tillate en annen å kreve enheten som deres.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Fjern fra liste</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Klargjøringsregler er slettet.</value>
+  </data>
 </root>

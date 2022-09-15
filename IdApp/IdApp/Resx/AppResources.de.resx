@@ -1992,4 +1992,22 @@
   <data name="PepServiceNotFound" xml:space="preserve">
     <value>Kein persönlicher Eventing-Service gefunden.</value>
   </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Zur Liste hinzufügen</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Regeln löschen</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Möchten Sie alle Bereitstellungsregeln für das Ding löschen? Auf diese Weise wird das Ding Sie erneut um alle neuen Ereignisse bitten, um zu erfahren, wozu es berechtigt ist.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Willst du das Ding verleugnen? Dies wird das Ding von Ihrer Liste der Dinge entfernen und es einem anderen ermöglichen, das Gerät als ihr eigenes zu beanspruchen.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Aus Liste entfernen</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Bereitstellungsregeln wurden gestrichen.</value>
+  </data>
 </root>

@@ -1,41 +1,44 @@
 ﻿using IdApp.Pages.Contacts.Chat;
 using IdApp.Resx;
-using System;
 using System.Threading.Tasks;
-using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Provisioning;
+using Waher.Things.SensorData;
 
-namespace IdApp.Services.Notification.Xmpp
+namespace IdApp.Services.Notification.Things
 {
 	/// <summary>
-	/// Contains information about an incoming chat message.
+	/// Contains information about a request to read a thing.
 	/// </summary>
-	public class ChatMessageNotificationEvent : XmppNotificationEvent
+	public class CanReadNotificationEvent : ThingNotificationEvent
 	{
 		/// <summary>
-		/// Contains information about an incoming chat message.
+		/// Contains information about a request to read a thing.
 		/// </summary>
-		public ChatMessageNotificationEvent()
+		public CanReadNotificationEvent()
 			: base()
 		{
 		}
 
 		/// <summary>
-		/// Contains information about an incoming chat message.
+		/// Contains information about a request to read a thing.
 		/// </summary>
 		/// <param name="e">Event arguments</param>
-		public ChatMessageNotificationEvent(MessageEventArgs e)
-			: base()
+		public CanReadNotificationEvent(CanReadEventArgs e)
+			: base(e)
 		{
-			this.Category = e.FromBareJID;
-			this.BareJid = e.FromBareJID;
-			this.Received = DateTime.UtcNow;
-			this.Button = EventButton.Contacts;
+			this.Fields = e.Fields;
+			this.FieldTypes = e.FieldTypes;
 		}
 
 		/// <summary>
-		/// ID of message object being updated
+		/// Fields requested
 		/// </summary>
-		public string ReplaceObjectId { get; set; }
+		public string[] Fields { get; set; }
+
+		/// <summary>
+		/// Field types requested.
+		/// </summary>
+		public FieldType FieldTypes { get; set; }
 
 		/// <summary>
 		/// Gets an icon for the category of event.
@@ -44,7 +47,7 @@ namespace IdApp.Services.Notification.Xmpp
 		/// <returns>Icon</returns>
 		public override Task<string> GetCategoryIcon(ServiceReferences ServiceReferences)
 		{
-			return Task.FromResult<string>(FontAwesome.User);
+			return Task.FromResult<string>(FontAwesome.Things);
 		}
 
 		/// <summary>

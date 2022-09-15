@@ -2,10 +2,11 @@
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
+                       xmlns:conv="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Things.ViewThing;assembly=IdApp"
                        xmlns:objectmodel="clr-namespace:IdApp.Pages.Things;assembly=IdApp"
-                       x:DataType="model:ThingViewModel"
+                       x:DataType="model:ViewThingModel"
                        x:Class="IdApp.Pages.Things.ViewThing.ViewThingPage"
                        Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.Thing}">
@@ -34,9 +35,15 @@
 						IsVisible="{Binding IsSensor}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
 				<Button Text="{x:Static resx:AppResources.ControlActuator}" Command="{Binding Path=ControlActuatorCommand}" IsEnabled="{Binding Path=IsConnected}"
 						IsVisible="{Binding IsActuator}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+				<Button Text="{x:Static resx:AppResources.AddToList}" Command="{Binding Path=AddToListCommand}" 
+						IsVisible="{Binding InContacts, Converter={conv:LogicalNot}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+				<Button Text="{x:Static resx:AppResources.RemoveFromList}" Command="{Binding Path=RemoveFromListCommand}" 
+						IsVisible="{Binding InContactsAndNotOwner}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+				<Button Text="{x:Static resx:AppResources.DeleteRules}" Command="{Binding Path=DeleteRulesCommand}" IsEnabled="{Binding Path=IsConnected}"
+						IsVisible="{Binding IsOwner}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
 				<Button Text="{x:Static resx:AppResources.DisownThing}" Command="{Binding Path=DisownThingCommand}" IsEnabled="{Binding Path=IsConnected}"
 						IsVisible="{Binding IsOwner}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-            </StackLayout>
+			</StackLayout>
         </ScrollView>
     </Grid>
 </views:ContentBasePage>

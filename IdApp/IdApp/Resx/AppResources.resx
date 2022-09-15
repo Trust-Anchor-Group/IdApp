@@ -1992,4 +1992,22 @@
   <data name="PepServiceNotFound" xml:space="preserve">
     <value>No personal eventing service found.</value>
   </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Add to list</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Delete Rules</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Do you want to delete all provisioning rules for the thing? By doing so, the thing will ask you again for all new events to learn what it is authorized to do.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Do you want to disown the thing? This will remove the thing from your list of things, and will permit another to claim the device as theirs.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Remove from list</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Provisioning rules have been deleted.</value>
+  </data>
 </root>

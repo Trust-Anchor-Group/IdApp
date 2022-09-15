@@ -1992,4 +1992,22 @@
   <data name="PepServiceNotFound" xml:space="preserve">
     <value>Nenhum serviço de eventos pessoais foi encontrado.</value>
   </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Adicionar à lista</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Excluir regras</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Deseja excluir todas as regras de provisionamento para a coisa? Ao fazer isso, a coisa pedirá novamente para que todos os novos eventos aprendam o que está autorizado a fazer.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Você quer renegar a coisa? Isso removerá a coisa da sua lista de coisas, e permitirá que outro reivindique o dispositivo como deles.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Remover da lista</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>As regras de provisionamento foram suprimidas.</value>
+  </data>
 </root>
