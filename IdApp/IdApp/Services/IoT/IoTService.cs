@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Concentrator;
 using Waher.Networking.XMPP.Control;
+using Waher.Networking.XMPP.PEP;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.Sensor;
 using Waher.Runtime.Inventory;
@@ -18,6 +19,7 @@ namespace IdApp.Services.IoT
 		private SensorClient sensorClient;
 		private ControlClient controlClient;
 		private ConcentratorClient concentratorClient;
+		private PepClient pepClient;
 
 		internal IoTService()
 		{
@@ -92,6 +94,24 @@ namespace IdApp.Services.IoT
 				}
 
 				return this.concentratorClient;
+			}
+		}
+
+		/// <summary>
+		/// Access to the Personal Eventing Protocol (PEP) client
+		/// </summary>
+		public PepClient PepClient
+		{
+			get
+			{
+				if (this.pepClient is null || this.pepClient.Client != this.XmppService.Xmpp)
+				{
+					this.pepClient = (this.XmppService as XmppService)?.Pep;
+					if (this.pepClient is null)
+						throw new InvalidOperationException(LocalizationResourceManager.Current["PepServiceNotFound"]);
+				}
+
+				return this.pepClient;
 			}
 		}
 

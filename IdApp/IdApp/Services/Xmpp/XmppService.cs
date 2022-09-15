@@ -37,6 +37,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Control;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Networking.XMPP.MUC;
+using Waher.Networking.XMPP.PEP;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.PubSub;
 using Waher.Networking.XMPP.Push;
@@ -70,6 +71,7 @@ namespace IdApp.Services.Xmpp
 		private NeuroFeaturesClient neuroFeaturesClient;
 		private PushNotificationClient pushNotificationClient;
 		private AbuseClient abuseClient;
+		private PepClient pepClient;
 		private Timer reconnectTimer;
 		private readonly SmartContracts contracts;
 		private readonly XmppMultiUserChat muc;
@@ -262,6 +264,9 @@ namespace IdApp.Services.Xmpp
 					Thread?.NewState("Concentrator");
 					this.concentratorClient = new ConcentratorClient(this.xmppClient);
 
+					Thread?.NewState("PEP");
+					this.pepClient = new PepClient(this.xmppClient);
+
 					Thread?.NewState("Connect");
 					this.IsLoggedOut = false;
 					this.xmppClient.Connect(IsIpAddress ? string.Empty : this.domainName);
@@ -341,6 +346,9 @@ namespace IdApp.Services.Xmpp
 
 			this.concentratorClient?.Dispose();
 			this.concentratorClient = null;
+
+			this.pepClient?.Dispose();
+			this.pepClient = null;
 
 			this.abuseClient?.Dispose();
 			this.abuseClient = null;
@@ -696,6 +704,7 @@ namespace IdApp.Services.Xmpp
 		public string LatestConnectionError { get; private set; }
 
 		public XmppClient Xmpp => this.xmppClient;
+		public PepClient Pep => this.pepClient;
 		public HttpFileUploadClient FileUploadClient => this.fileUploadClient;
 		public MultiUserChatClient MucClient => this.mucClient;
 		public ThingRegistryClient ThingRegistryClient => this.thingRegistryClient;

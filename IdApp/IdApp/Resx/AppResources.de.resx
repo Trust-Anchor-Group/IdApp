@@ -1989,4 +1989,7 @@
   <data name="Time" xml:space="preserve">
     <value>Zeit</value>
   </data>
+  <data name="PepServiceNotFound" xml:space="preserve">
+    <value>Kein persönlicher Eventing-Service gefunden.</value>
+  </data>
 </root>

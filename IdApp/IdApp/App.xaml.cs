@@ -48,6 +48,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Control;
 using Waher.Networking.XMPP.P2P;
 using Waher.Networking.XMPP.P2P.E2E;
+using Waher.Networking.XMPP.PEP;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.Push;
 using Waher.Networking.XMPP.Sensor;
@@ -275,6 +276,7 @@ namespace IdApp
 					typeof(SensorClient).Assembly,              // Serialization of XMPP objects related to sensors
 					typeof(ControlClient).Assembly,             // Serialization of XMPP objects related to actuators
 					typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
+					typeof(PepClient).Assembly,					// Serialization of XMPP objects related to personal eventing
 					typeof(Expression).Assembly,                // Indexes basic script functions
 					typeof(Graph).Assembly,						// Indexes graph script functions
 					typeof(GraphEncoder).Assembly,              // Indexes content script functions

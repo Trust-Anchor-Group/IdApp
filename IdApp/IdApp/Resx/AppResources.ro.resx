@@ -1989,4 +1989,7 @@
   <data name="Time" xml:space="preserve">
     <value>Oră</value>
   </data>
+  <data name="PepServiceNotFound" xml:space="preserve">
+    <value>Nu s-a găsit niciun serviciu personal de evenimente.</value>
+  </data>
 </root>

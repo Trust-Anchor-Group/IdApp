@@ -2698,6 +2698,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No personal eventing service found..
+        /// </summary>
+        internal static string PepServiceNotFound {
+            get {
+                return ResourceManager.GetString("PepServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permit Screen Capture.
         /// </summary>
         internal static string PermitScreenCapture {

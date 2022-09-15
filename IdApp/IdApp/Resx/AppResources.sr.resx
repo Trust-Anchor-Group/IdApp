@@ -1989,4 +1989,7 @@
   <data name="Time" xml:space="preserve">
     <value>Vreme</value>
   </data>
+  <data name="PepServiceNotFound" xml:space="preserve">
+    <value>Nije pronađena usluga ličnog događaja.</value>
+  </data>
 </root>

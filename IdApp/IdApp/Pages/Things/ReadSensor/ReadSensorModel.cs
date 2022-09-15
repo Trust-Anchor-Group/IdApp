@@ -10,6 +10,7 @@ using IdApp.Services;
 using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.PEP;
 using Waher.Networking.XMPP.Sensor;
 using Waher.Things;
 using Waher.Things.SensorData;
@@ -78,6 +79,7 @@ namespace IdApp.Pages.Things.ReadSensor
 			this.request.OnFieldsReceived += this.Request_OnFieldsReceived;
 			this.request.OnErrorsReceived += this.Request_OnErrorsReceived;
 
+			this.XmppService.Pep.RegisterHandler(typeof(SensorData), this.SensorDataPersonalEventHandler);
 		}
 
 		private Task Request_OnStateChanged(object Sender, SensorDataReadoutState NewState)
@@ -93,6 +95,7 @@ namespace IdApp.Pages.Things.ReadSensor
 				SensorDataReadoutState.Started => LocalizationResourceManager.Current["SensorDataStarted"],
 				_ => string.Empty,
 			};
+
 			return Task.CompletedTask;
 		}
 
@@ -115,6 +118,11 @@ namespace IdApp.Pages.Things.ReadSensor
 		}
 
 		private Task Request_OnFieldsReceived(object Sender, IEnumerable<Field> NewFields)
+		{
+			return this.NewFieldsReported(NewFields);
+		}
+
+		private Task NewFieldsReported(IEnumerable<Field> NewFields)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -254,6 +262,11 @@ namespace IdApp.Pages.Things.ReadSensor
 
 		private Task Request_OnErrorsReceived(object Sender, IEnumerable<ThingError> NewErrors)
 		{
+			return this.NewErrorsReported(NewErrors);
+		}
+
+		private Task NewErrorsReported(IEnumerable<ThingError> NewErrors)
+		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
 				string Errors = LocalizationResourceManager.Current["Errors"];
@@ -306,9 +319,23 @@ namespace IdApp.Pages.Things.ReadSensor
 			return Task.CompletedTask;
 		}
 
+		private async Task SensorDataPersonalEventHandler(object Sender, PersonalEventNotificationEventArgs e)
+		{
+			if (e.PersonalEvent is SensorData SensorData)
+			{
+				if (SensorData.Fields is not null)
+					await this.NewFieldsReported(SensorData.Fields);
+
+				if (SensorData.Errors is not null)
+					await this.NewErrorsReported(SensorData.Errors);
+			}
+		}
+
 		/// <inheritdoc/>
 		protected override async Task OnDispose()
 		{
+			this.XmppService.Pep.UnregisterHandler(typeof(SensorData), this.SensorDataPersonalEventHandler);
+
 			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
 			this.TagProfile.Changed -= this.TagProfile_Changed;
 

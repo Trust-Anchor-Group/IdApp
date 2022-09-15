@@ -1989,4 +1989,7 @@
   <data name="Time" xml:space="preserve">
     <value>Время</value>
   </data>
+  <data name="PepServiceNotFound" xml:space="preserve">
+    <value>Личный сервис событий не найден.</value>
+  </data>
 </root>

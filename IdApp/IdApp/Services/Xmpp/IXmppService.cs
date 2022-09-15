@@ -8,6 +8,7 @@ using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Waher.Networking.XMPP.PEP;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Xmpp
@@ -95,11 +96,16 @@ namespace IdApp.Services.Xmpp
         /// Interface to the XMPP network.
         /// </summary>
         XmppClient Xmpp { get; }
-        
-        /// <summary>
-        /// The Bare Jid of the current connection, or <c>null</c>.
-        /// </summary>
-        string BareJid { get; }
+
+		/// <summary>
+		/// Access to Personal Eventing Protocol (PEP) client
+		/// </summary>
+		PepClient Pep { get; }
+
+		/// <summary>
+		/// The Bare Jid of the current connection, or <c>null</c>.
+		/// </summary>
+		string BareJid { get; }
         
         /// <summary>
         /// The latest generic xmpp error, if any.

@@ -1989,4 +1989,7 @@
   <data name="Time" xml:space="preserve">
     <value>Heure</value>
   </data>
+  <data name="PepServiceNotFound" xml:space="preserve">
+    <value>Aucun service d’événementiel personnel trouvé.</value>
+  </data>
 </root>

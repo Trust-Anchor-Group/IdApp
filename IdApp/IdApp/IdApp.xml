@@ -16264,6 +16264,11 @@
               Looks up a localized string similar to Below you can see information about a payment that has been generated, but has not been fully processed yet..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.PepServiceNotFound">
+            <summary>
+              Looks up a localized string similar to No personal eventing service found..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.PermitScreenCapture">
             <summary>
               Looks up a localized string similar to Permit Screen Capture.
@@ -19314,6 +19319,11 @@
         <member name="P:IdApp.Services.IoT.IoTService.ConcentratorClient">
             <summary>
             Access to concentrator client, for administrative purposes of concentrators
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IoT.IoTService.PepClient">
+            <summary>
+            Access to the Personal Eventing Protocol (PEP) client
             </summary>
         </member>
         <member name="P:IdApp.Services.IoT.IoTService.ServiceJid">
@@ -23749,6 +23759,11 @@
         <member name="P:IdApp.Services.Xmpp.IXmppService.Xmpp">
             <summary>
             Interface to the XMPP network.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.Pep">
+            <summary>
+            Access to Personal Eventing Protocol (PEP) client
             </summary>
         </member>
         <member name="P:IdApp.Services.Xmpp.IXmppService.BareJid">

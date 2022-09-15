@@ -1968,4 +1968,7 @@
   <data name="Time" xml:space="preserve">
     <value>Tid</value>
   </data>
+  <data name="PepServiceNotFound" xml:space="preserve">
+    <value>Ingen tjänst för personliga händelser kunde hittades.</value>
+  </data>
 </root>
