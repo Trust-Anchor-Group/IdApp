@@ -321,7 +321,11 @@ namespace IdApp.Pages.Things.ReadSensor
 
 		private async Task SensorDataPersonalEventHandler(object Sender, PersonalEventNotificationEventArgs e)
 		{
-			if (e.PersonalEvent is SensorData SensorData)
+			if (e.PersonalEvent is SensorData SensorData &&
+				string.Compare(this.thing.BareJid, e.Publisher, true) == 0 &&
+				string.IsNullOrEmpty(this.thing.SourceId) &&
+				string.IsNullOrEmpty(this.thing.NodeId) &&
+				string.IsNullOrEmpty(this.thing.Partition))
 			{
 				if (SensorData.Fields is not null)
 					await this.NewFieldsReported(SensorData.Fields);
