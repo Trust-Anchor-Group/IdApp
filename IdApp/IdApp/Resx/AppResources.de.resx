@@ -2010,4 +2010,13 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Bereitstellungsregeln wurden gestrichen.</value>
   </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>{0} möchte {1} eine Verbindung zu Ihrem Gerät herstellen.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Benachrichtigungen</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>Unten sehen Sie eine Liste von Benachrichtigungen, die sich aus Interaktionen mit dem Ding ergeben. Drücken Sie auf jeden, um weitere Informationen und Optionen anzuzeigen.</value>
+  </data>
 </root>

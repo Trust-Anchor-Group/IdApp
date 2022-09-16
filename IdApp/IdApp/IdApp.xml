@@ -9902,6 +9902,14 @@
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnInitialize">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.GetNotificationEvents(IdApp.Services.ServiceReferences,IdApp.Services.ContactInfo)">
+            <summary>
+            Gets available notification events related to a thing.
+            </summary>
+            <param name="References">Service references.</param>
+            <param name="Thing">Thing reference</param>
+            <returns>Array of events, null if none.</returns>
+        </member>
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnAppearing">
             <inheritdoc/>
         </member>
@@ -10400,6 +10408,16 @@
             Holds a list of meta-data tags associated with a thing.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.Notifications">
+            <summary>
+            Holds a list of notifications.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.ClickCommand">
+            <summary>
+            Command to bind to for detecting when a tag value has been clicked on.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.AddToListCommand">
             <summary>
             The command to bind to for adding a thing to the list
@@ -10510,9 +10528,14 @@
             Gets or sets whether the thing is a sensor
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.ClickCommand">
+        <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.HasNotificationsProperty">
             <summary>
-            Command to bind to for detecting when a tag value has been clicked on.
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.HasNotifications"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.HasNotifications">
+            <summary>
+            Gets or sets whether the thing is a sensor
             </summary>
         </member>
         <member name="T:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs">
@@ -10525,15 +10548,21 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs.#ctor(IdApp.Services.ContactInfo)">
+        <member name="M:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs.#ctor(IdApp.Services.ContactInfo,IdApp.Services.Notification.NotificationEvent[])">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs"/> class.
             </summary>
             <param name="Thing">Thing information.</param>
+            <param name="Events">Notification events.</param>
         </member>
         <member name="P:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs.Thing">
             <summary>
             Thing information.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs.Events">
+            <summary>
+            Notification events.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Things.ViewThing.ViewThingPage">
@@ -14849,6 +14878,11 @@
               Looks up a localized string similar to Accept.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.AccessRequest">
+            <summary>
+              Looks up a localized string similar to {0} wants to connect to your device {1}..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Account">
             <summary>
               Looks up a localized string similar to Account.
@@ -16112,6 +16146,16 @@
         <member name="P:IdApp.Resx.AppResources.NoThingsFound">
             <summary>
               Looks up a localized string similar to No Things Found..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Notifications">
+            <summary>
+              Looks up a localized string similar to Notifications.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.NotificationsText">
+            <summary>
+              Looks up a localized string similar to Below you can see a list of notifications resulting from interactions with the thing. Press on each one to display more information and options available..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ObsoleteContract">

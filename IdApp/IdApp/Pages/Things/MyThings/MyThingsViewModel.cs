@@ -138,18 +138,7 @@ namespace IdApp.Pages.Things.MyThings
 
 			foreach (ContactInfo Info in SortedByName.Values)
 			{
-				if (!string.IsNullOrEmpty(Info.SourceId) ||
-					!string.IsNullOrEmpty(Info.Partition) ||
-					!string.IsNullOrEmpty(Info.NodeId) ||
-					!this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Info.BareJid, out NotificationEvent[] ContactEvents))
-				{
-					ContactEvents = null;
-				}
-
-				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Things, Info.ThingNotificationCategoryKey, out NotificationEvent[] ThingEvents))
-					ThingEvents = null;
-
-				NotificationEvent[] Events = ContactEvents.Join(ThingEvents);
+				NotificationEvent[] Events = GetNotificationEvents(this, Info);
 
 				ContactInfoModel InfoModel = new(this, Info, Events);
 				this.Things.Add(InfoModel);
@@ -168,6 +157,28 @@ namespace IdApp.Pages.Things.MyThings
 			await Database.Provider.Flush();
 
 			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
+		}
+
+		/// <summary>
+		/// Gets available notification events related to a thing.
+		/// </summary>
+		/// <param name="References">Service references.</param>
+		/// <param name="Thing">Thing reference</param>
+		/// <returns>Array of events, null if none.</returns>
+		public static NotificationEvent[] GetNotificationEvents(ServiceReferences References, ContactInfo Thing)
+		{
+			if (!string.IsNullOrEmpty(Thing.SourceId) ||
+				!string.IsNullOrEmpty(Thing.Partition) ||
+				!string.IsNullOrEmpty(Thing.NodeId) ||
+				!References.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Thing.BareJid, out NotificationEvent[] ContactEvents))
+			{
+				ContactEvents = null;
+			}
+
+			if (!References.NotificationService.TryGetNotificationEvents(EventButton.Things, Thing.ThingNotificationCategoryKey, out NotificationEvent[] ThingEvents))
+				ThingEvents = null;
+
+			return ContactEvents.Join(ThingEvents);
 		}
 
 		/// <inheritdoc/>
@@ -270,7 +281,7 @@ namespace IdApp.Pages.Things.MyThings
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				if (this.selectedThing is null)
-					await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Thing.Contact));
+					await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Thing.Contact, Thing.Events));
 				else
 				{
 					this.selectedThing.TrySetResult(Thing);

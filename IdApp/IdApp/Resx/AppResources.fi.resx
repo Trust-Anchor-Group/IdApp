@@ -2010,4 +2010,13 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Varaussäännöt on poistettu.</value>
   </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>{0} haluaa muodostaa yhteyden laitteeseesi {1}.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Ilmoitukset</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>Alla näet luettelon ilmoituksista, jotka johtuvat vuorovaikutuksesta asian kanssa. Paina kutakin näyttääksesi lisätietoja ja käytettävissä olevia vaihtoehtoja.</value>
+  </data>
 </root>

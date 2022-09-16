@@ -1989,4 +1989,13 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Provisioneringsreglerna har raderats.</value>
   </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>{0} vill ansluta till din enhet {1}.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifieringar</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>Nedan kan du se en lista av notifieringar från interaktioner med sasken. Tryck på var och en för att visa mer information och tillgängliga alternativ.</value>
+  </data>
 </root>

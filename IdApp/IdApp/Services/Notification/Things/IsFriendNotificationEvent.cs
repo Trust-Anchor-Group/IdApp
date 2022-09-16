@@ -2,6 +2,7 @@
 using IdApp.Resx;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Provisioning;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Things
 {
@@ -41,9 +42,12 @@ namespace IdApp.Services.Notification.Things
 		/// Gets a descriptive text for the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override Task<string> GetDescription(ServiceReferences ServiceReferences)
+		public override async Task<string> GetDescription(ServiceReferences ServiceReferences)
 		{
-			return ContactInfo.GetFriendlyName(this.BareJid, ServiceReferences);
+			string ThingName = await ContactInfo.GetFriendlyName(this.BareJid, ServiceReferences);
+			string RemoteName = await ContactInfo.GetFriendlyName(this.RemoteJid, ServiceReferences);
+
+			return string.Format(LocalizationResourceManager.Current["AccessRequest"], RemoteName, ThingName);
 		}
 
 		/// <summary>

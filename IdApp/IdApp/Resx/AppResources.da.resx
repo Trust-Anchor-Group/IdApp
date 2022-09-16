@@ -2010,4 +2010,13 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Reglerne om hensættelser er blevet slettet.</value>
   </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>{0} vil oprette forbindelse til din enheds {1}.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Meddelelser</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>Nedenfor kan du se en liste over meddelelser som følge af interaktioner med tingen. Tryk på hver enkelt for at få vist flere tilgængelige oplysninger og muligheder.</value>
+  </data>
 </root>

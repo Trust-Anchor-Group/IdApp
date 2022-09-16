@@ -2010,4 +2010,13 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Klargjøringsregler er slettet.</value>
   </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>{0} vil koble til enheten {1}.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Varslinger</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>Nedenfor kan du se en liste over varsler som følge av interaksjoner med tingen. Trykk på hver av dem for å vise mer informasjon og alternativer som er tilgjengelige.</value>
+  </data>
 </root>

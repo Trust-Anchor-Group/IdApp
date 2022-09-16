@@ -1,4 +1,5 @@
-﻿using Waher.Networking.XMPP.Provisioning;
+﻿using System.Text;
+using Waher.Networking.XMPP.Provisioning;
 
 namespace IdApp.Services.Notification.Things
 {
@@ -24,6 +25,19 @@ namespace IdApp.Services.Notification.Things
 			this.NodeId = e.NodeId;
 			this.PartitionId = e.Partition;
 			this.SourceId = e.SourceId;
+
+			StringBuilder sb = new();
+
+			sb.Append(this.BareJid);
+			sb.Append('|');
+			sb.Append(this.SourceId);
+			sb.Append('|');
+			sb.Append(this.PartitionId);
+			sb.Append('|');
+			sb.Append(this.NodeId);
+
+			this.Category = sb.ToString();
+
 		}
 
 		/// <summary>

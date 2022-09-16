@@ -2010,4 +2010,13 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Pravila obezbeđivanja su izbrisana.</value>
   </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>{0} želi da se poveže sa uređajem {1}.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Obaveštenja</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>U nastavku možete videti listu obaveštenja koja su rezultat interakcije sa tom stvari. Pritisnite svaku od njih da biste prikazali više dostupnih informacija i opcija.</value>
+  </data>
 </root>

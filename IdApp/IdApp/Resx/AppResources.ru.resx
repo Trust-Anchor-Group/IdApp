@@ -2010,4 +2010,13 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Правила подготовки были удалены.</value>
   </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>{0} хотите подключиться к вашему устройству {1}.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Уведомления</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>Ниже вы можете увидеть список уведомлений, полученных в результате взаимодействия с вещью. Нажмите на каждый из них, чтобы отобразить больше информации и доступных опций.</value>
+  </data>
 </root>

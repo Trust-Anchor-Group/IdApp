@@ -2,9 +2,12 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Main.XmppForm;
+using IdApp.Pages.Things.MyThings;
 using IdApp.Pages.Things.ReadSensor;
 using IdApp.Services;
+using IdApp.Services.Notification;
 using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Concentrator;
@@ -33,7 +36,7 @@ namespace IdApp.Pages.Things.ViewThing
 		protected internal ViewThingModel()
 			: base()
 		{
-			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
+			this.ClickCommand = new Command(async x => await this.Clicked(x));
 			this.AddToListCommand = new Command(async _ => await this.AddToList(), _ => !this.InContacts);
 			this.RemoveFromListCommand = new Command(async _ => await this.RemoveFromList(), _ => this.InContactsAndNotOwner);
 			this.DeleteRulesCommand = new Command(async _ => await this.DeleteRules(), _ => this.IsConnected && this.IsOwner);
@@ -42,6 +45,7 @@ namespace IdApp.Pages.Things.ViewThing
 			this.ControlActuatorCommand = new Command(async _ => await this.ControlActuator(), _ => this.IsConnected && this.IsActuator);
 
 			this.Tags = new ObservableCollection<HumanReadableTag>();
+			this.Notifications = new ObservableCollection<EventModel>();
 		}
 
 		/// <inheritdoc/>
@@ -55,8 +59,24 @@ namespace IdApp.Pages.Things.ViewThing
 
 				if (this.thing.MetaData is not null)
 				{
+					this.Tags.Clear();
+
 					foreach (Property Tag in this.thing.MetaData)
 						this.Tags.Add(new HumanReadableTag(Tag));
+				}
+
+				if (args.Events is not null)
+				{
+					this.Notifications.Clear();
+
+					foreach (NotificationEvent Event in args.Events)
+					{
+						this.Notifications.Add(new EventModel(Event.Received,
+							await Event.GetCategoryIcon(this),
+							await Event.GetDescription(this),
+							Event,
+							this));
+					}
 				}
 
 				this.InContacts = !string.IsNullOrEmpty(this.thing.ObjectId);
@@ -65,6 +85,7 @@ namespace IdApp.Pages.Things.ViewThing
 				this.IsActuator = this.thing.IsActuator ?? false;
 				this.IsConcentrator = this.thing.IsConcentrator ?? false;
 				this.SupportsSensorEvents = this.thing.SupportsSensorEvents ?? false;
+				this.HasNotifications = this.Notifications.Count > 0;
 			}
 
 			this.AssignProperties();
@@ -180,6 +201,16 @@ namespace IdApp.Pages.Things.ViewThing
 		/// Holds a list of meta-data tags associated with a thing.
 		/// </summary>
 		public ObservableCollection<HumanReadableTag> Tags { get; }
+
+		/// <summary>
+		/// Holds a list of notifications.
+		/// </summary>
+		public ObservableCollection<EventModel> Notifications { get; }
+
+		/// <summary>
+		/// Command to bind to for detecting when a tag value has been clicked on.
+		/// </summary>
+		public System.Windows.Input.ICommand ClickCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for adding a thing to the list
@@ -340,13 +371,23 @@ namespace IdApp.Pages.Things.ViewThing
 		}
 
 		/// <summary>
-		/// Command to bind to for detecting when a tag value has been clicked on.
+		/// See <see cref="HasNotifications"/>
 		/// </summary>
-		public System.Windows.Input.ICommand ClickCommand { get; }
+		public static readonly BindableProperty HasNotificationsProperty =
+			BindableProperty.Create(nameof(HasNotifications), typeof(bool), typeof(ViewThingModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the thing is a sensor
+		/// </summary>
+		public bool HasNotifications
+		{
+			get => (bool)this.GetValue(HasNotificationsProperty);
+			set => this.SetValue(HasNotificationsProperty, value);
+		}
 
 		#endregion
 
-		private Task LabelClicked(object obj)
+		private Task Clicked(object obj)
 		{
 			if (obj is HumanReadableTag Tag)
 				return ViewClaimThing.ViewClaimThingViewModel.LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.LogService);
@@ -477,7 +518,8 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private async Task ReadSensor()
 		{
-			await this.NavigationService.GoToAsync(nameof(ReadSensorPage), new ViewThingNavigationArgs(this.thing));
+			await this.NavigationService.GoToAsync(nameof(ReadSensorPage), new ViewThingNavigationArgs(this.thing,
+				MyThingsViewModel.GetNotificationEvents(this, this.thing)));
 		}
 
 		private async Task ControlActuator()

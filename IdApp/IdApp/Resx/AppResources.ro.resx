@@ -2010,4 +2010,13 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Regulile de provizionare au fost eliminate.</value>
   </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>{0} dorește să se conecteze la dispozitivul dvs., {1}.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notificări</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>Mai jos puteți vedea o listă de notificări care rezultă din interacțiunile cu lucrul. Apăsați pe fiecare pentru a afișa mai multe informații și opțiuni disponibile.</value>
+  </data>
 </root>

@@ -2010,4 +2010,13 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Provisioning rules have been deleted.</value>
   </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>{0} wants to connect to your device {1}.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>Below you can see a list of notifications resulting from interactions with the thing. Press on each one to display more information and options available.</value>
+  </data>
 </root>

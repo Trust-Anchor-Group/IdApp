@@ -88,6 +88,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} wants to connect to your device {1}..
+        /// </summary>
+        internal static string AccessRequest {
+            get {
+                return ResourceManager.GetString("AccessRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account.
         /// </summary>
         internal static string Account {
@@ -2361,6 +2370,24 @@ namespace IdApp.Resx {
         internal static string NoThingsFound {
             get {
                 return ResourceManager.GetString("NoThingsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notifications.
+        /// </summary>
+        internal static string Notifications {
+            get {
+                return ResourceManager.GetString("Notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below you can see a list of notifications resulting from interactions with the thing. Press on each one to display more information and options available..
+        /// </summary>
+        internal static string NotificationsText {
+            get {
+                return ResourceManager.GetString("NotificationsText", resourceCulture);
             }
         }
         

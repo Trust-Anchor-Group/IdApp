@@ -2010,4 +2010,13 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Les règles d’approvisionnement ont été supprimées.</value>
   </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>{0} souhaite se connecter à votre appareil {1}.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>Ci-dessous, vous pouvez voir une liste de notifications résultant d’interactions avec la chose. Appuyez sur chacun d’eux pour afficher plus d’informations et d’options disponibles.</value>
+  </data>
 </root>

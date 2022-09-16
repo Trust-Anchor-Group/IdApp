@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using IdApp.Pages.Things.MyThings;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Pages.Things.ViewThing;
 using Waher.Networking.XMPP.Contracts;
@@ -89,7 +90,8 @@ namespace IdApp.Services.ThingRegistries
 								};
 							}
 
-							await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(ContactInfo));
+							await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(ContactInfo,
+								MyThingsViewModel.GetNotificationEvents(this, ContactInfo)));
 						});
 						break;
 
@@ -152,7 +154,10 @@ namespace IdApp.Services.ThingRegistries
 				}
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
-					await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Info)));
+				{
+					await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Info,
+						MyThingsViewModel.GetNotificationEvents(this, Info)));
+				});
 			}
 			catch (Exception ex)
 			{

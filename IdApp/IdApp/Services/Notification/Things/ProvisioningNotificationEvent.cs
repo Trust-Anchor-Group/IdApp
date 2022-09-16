@@ -23,7 +23,7 @@ namespace IdApp.Services.Notification.Things
 		public ProvisioningNotificationEvent(QuestionEventArgs e)
 			: base()
 		{
-			this.Category = e.JID;
+			this.Category = e.JID + "|||";
 			this.BareJid = e.JID;
 			this.RemoteJid = e.RemoteJID;
 			this.Key = e.Key;
