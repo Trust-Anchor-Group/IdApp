@@ -1523,18 +1523,23 @@ namespace IdApp.Services.Xmpp
 
 		private async Task ProvisioningClient_IsFriendQuestion(object Sender, IsFriendEventArgs e)
 		{
-			await this.NotificationService.NewEvent(new IsFriendNotificationEvent(e));
+			if (e.From.IndexOfAny(clientChars) < 0)
+				await this.NotificationService.NewEvent(new IsFriendNotificationEvent(e));
 		}
 
 		private async Task ProvisioningClient_CanReadQuestion(object Sender, CanReadEventArgs e)
 		{
-			await this.NotificationService.NewEvent(new CanReadNotificationEvent(e));
+			if (e.From.IndexOfAny(clientChars) < 0)
+				await this.NotificationService.NewEvent(new CanReadNotificationEvent(e));
 		}
 
 		private async Task ProvisioningClient_CanControlQuestion(object Sender, CanControlEventArgs e)
 		{
-			await this.NotificationService.NewEvent(new CanControlNotificationEvent(e));
+			if (e.From.IndexOfAny(clientChars) < 0)
+				await this.NotificationService.NewEvent(new CanControlNotificationEvent(e));
 		}
+
+		private readonly static char[] clientChars = new char[] { '@', '/' };
 
 		#endregion
 	}

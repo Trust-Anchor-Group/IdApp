@@ -74,7 +74,8 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 				{
 					await this.Event.Open(this.references);
 
-					await this.references.NotificationService.DeleteEvents(new NotificationEvent[] { this.Event });
+					if (this.Event.DeleteWhenOpened)
+						await this.references.NotificationService.DeleteEvents(this.Event);
 				}
 				catch (Exception ex)
 				{

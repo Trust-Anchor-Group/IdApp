@@ -492,11 +492,13 @@ namespace IdApp.Pages.Things.ReadSensor
 		private Task LabelClicked(object obj)
 		{
 			if (obj is HumanReadableTag Tag)
-				return ViewClaimThingViewModel.LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.LogService);
+				return ViewClaimThingViewModel.LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this);
 			else if (obj is FieldModel Field)
-				return ViewClaimThingViewModel.LabelClicked(Field.Name, Field.ValueString, Field.ValueString, this.UiSerializer, this.LogService);
+				return ViewClaimThingViewModel.LabelClicked(Field.Name, Field.ValueString, Field.ValueString, this);
 			else if (obj is ErrorModel Error)
-				return ViewClaimThingViewModel.LabelClicked(string.Empty, Error.ErrorMessage, Error.ErrorMessage, this.UiSerializer, this.LogService);
+				return ViewClaimThingViewModel.LabelClicked(string.Empty, Error.ErrorMessage, Error.ErrorMessage, this);
+			else if (obj is string s)
+				return ViewClaimThingViewModel.LabelClicked(string.Empty, s, s, this);
 			else
 				return Task.CompletedTask;
 		}

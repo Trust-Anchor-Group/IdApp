@@ -2010,7 +2010,7 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Provisioning rules have been deleted.</value>
   </data>
-  <data name="AccessRequest" xml:space="preserve">
+  <data name="AccessRequestText" xml:space="preserve">
     <value>{0} wants to connect to your device {1}.</value>
   </data>
   <data name="Notifications" xml:space="preserve">
@@ -2018,5 +2018,41 @@
   </data>
   <data name="NotificationsText" xml:space="preserve">
     <value>Below you can see a list of notifications resulting from interactions with the thing. Press on each one to display more information and options available.</value>
+  </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>Access Request</value>
+  </data>
+  <data name="AccessRequestText2" xml:space="preserve">
+    <value>A caller has requested access to one of your things. Select how you wish the thing should respond to this request.</value>
+  </data>
+  <data name="Caller" xml:space="preserve">
+    <value>Caller</value>
+  </data>
+  <data name="CallerAddress" xml:space="preserve">
+    <value>Caller Address</value>
+  </data>
+  <data name="CallerOnly" xml:space="preserve">
+    <value>Caller Only</value>
+  </data>
+  <data name="EntireDomain" xml:space="preserve">
+    <value>Everyone from {0}</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Everyone</value>
+  </data>
+  <data name="FriendlyName" xml:space="preserve">
+    <value>Friendly Name</value>
+  </data>
+  <data name="InformationAboutCallerText" xml:space="preserve">
+    <value>The following information is availabl about the caller:</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Not Available</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>Range</value>
+  </data>
+  <data name="RangeText" xml:space="preserve">
+    <value>Apply this rule to:</value>
   </data>
 </root>

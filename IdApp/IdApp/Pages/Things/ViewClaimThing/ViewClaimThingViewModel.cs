@@ -17,6 +17,9 @@ using Waher.Persistence;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using System.Text.RegularExpressions;
+using IdApp.Pages.Contacts.Chat;
+using IdApp.Pages.Identity.ViewIdentity;
 
 namespace IdApp.Pages.Things.ViewClaimThing
 {
@@ -181,7 +184,9 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		private Task LabelClicked(object obj)
 		{
 			if (obj is HumanReadableTag Tag)
-				return LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.LogService);
+				return LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this);
+			else if (obj is string s)
+				return LabelClicked(string.Empty, s, s, this);
 			else
 				return Task.CompletedTask;
 		}
@@ -192,9 +197,8 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// <param name="Name">Tag name</param>
 		/// <param name="Value">Tag value</param>
 		/// <param name="LocalizedValue">Localized tag value</param>
-		/// <param name="uiSerializer">UI Dispatcher service</param>
-		/// <param name="logService">Log service</param>
-		public static async Task LabelClicked(string Name, string Value, string LocalizedValue, IUiSerializer uiSerializer, ILogService logService)
+		/// <param name="Services">Service references</param>
+		public static async Task LabelClicked(string Name, string Value, string LocalizedValue, ServiceReferences Services)
 		{ 
 			try
 			{
@@ -229,20 +233,55 @@ namespace IdApp.Pages.Things.ViewClaimThing
 					default:
 						if ((Value.StartsWith("http://", StringComparison.CurrentCultureIgnoreCase) ||
 							Value.StartsWith("https://", StringComparison.CurrentCultureIgnoreCase)) &&
-							System.Uri.TryCreate(Value, UriKind.Absolute, out Uri) && await Launcher.TryOpenAsync(Uri))
+							System.Uri.TryCreate(Value, UriKind.Absolute, out Uri) &&
+							await Launcher.TryOpenAsync(Uri))
 						{
 							return;
+						}
+						else
+						{
+							Match M = XmppClient.BareJidRegEx.Match(Value);
+
+							if (M.Success && M.Index == 0 && M.Length == Value.Length)
+							{
+								ContactInfo Info = await ContactInfo.FindByBareJid(Value);
+								if (Info is not null)
+								{
+									await Services.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Info));
+									return;
+								}
+
+								int i = Value.IndexOf('@');
+								if (i > 0 && Guid.TryParse(Value.Substring(0, i), out _))
+								{
+									if (Services.NavigationService.CurrentPage is not ViewIdentityPage)
+									{
+										Info = await ContactInfo.FindByLegalId(Value);
+										if (Info?.LegalIdentity is not null)
+										{
+											await Services.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(Info.LegalIdentity));
+											return;
+										}
+									}
+								}
+								else
+								{
+									string FriendlyName = await ContactInfo.GetFriendlyName(Value, Services);
+									await Services.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(string.Empty, Value, FriendlyName));
+									return;
+								}
+							}
 						}
 						break;
 				}
 
 				await Clipboard.SetTextAsync(LocalizedValue);
-				await uiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
+				await Services.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
 			}
 			catch (Exception ex)
 			{
-				logService.LogException(ex);
-				await uiSerializer.DisplayAlert(ex);
+				Services.LogService.LogException(ex);
+				await Services.UiSerializer.DisplayAlert(ex);
 			}
 		}
 

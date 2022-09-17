@@ -2010,7 +2010,7 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Regulile de provizionare au fost eliminate.</value>
   </data>
-  <data name="AccessRequest" xml:space="preserve">
+  <data name="AccessRequestText" xml:space="preserve">
     <value>{0} dorește să se conecteze la dispozitivul dvs., {1}.</value>
   </data>
   <data name="Notifications" xml:space="preserve">
@@ -2018,5 +2018,41 @@
   </data>
   <data name="NotificationsText" xml:space="preserve">
     <value>Mai jos puteți vedea o listă de notificări care rezultă din interacțiunile cu lucrul. Apăsați pe fiecare pentru a afișa mai multe informații și opțiuni disponibile.</value>
+  </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>Solicitare de acces</value>
+  </data>
+  <data name="AccessRequestText2" xml:space="preserve">
+    <value>Un apelant a solicitat acces la unul dintre lucrurile tale. Selectați modul în care doriți ca lucrul să răspundă la această solicitare.</value>
+  </data>
+  <data name="Caller" xml:space="preserve">
+    <value>Apelant</value>
+  </data>
+  <data name="CallerAddress" xml:space="preserve">
+    <value>Adresa apelantului</value>
+  </data>
+  <data name="CallerOnly" xml:space="preserve">
+    <value>Numai apelant</value>
+  </data>
+  <data name="EntireDomain" xml:space="preserve">
+    <value>Toată lumea de la {0}</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Oricine</value>
+  </data>
+  <data name="FriendlyName" xml:space="preserve">
+    <value>Nume prietenos</value>
+  </data>
+  <data name="InformationAboutCallerText" xml:space="preserve">
+    <value>Următoarele informații sunt disponibile despre apelant:</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Indisponibil</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>Gama</value>
+  </data>
+  <data name="RangeText" xml:space="preserve">
+    <value>Aplicați această regulă la:</value>
   </data>
 </root>

@@ -9879,6 +9879,244 @@
             String value of tag.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Things.IsFriend.IsFriendModel">
+            <summary>
+            The view model to bind to when displaying a thing.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.IsFriend.IsFriendModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Things.IsFriend.IsFriendModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.IsFriend.IsFriendModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Things.IsFriend.IsFriendModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.Tags">
+            <summary>
+            Holds a list of meta-data tags associated with a thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.CallerTags">
+            <summary>
+            Holds a list of meta-data tags associated with the caller.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.RuleRanges">
+            <summary>
+            Available Rule Ranges
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.ClickCommand">
+            <summary>
+            The command to bind to for processing a user click on a label
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.AddContactCommand">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.RemoveContactCommand">
+            <summary>
+            The command to bind to for reemoving a caller from the contact list.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.AcceptCommand">
+            <summary>
+            The command to bind to for accepting the request
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.RejectCommand">
+            <summary>
+            The command to bind to for rejecting the request
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.IgnoreCommand">
+            <summary>
+            The command to bind to for ignoring the request
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.IsFriend.IsFriendModel.BareJidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.IsFriend.IsFriendModel.BareJid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.BareJid">
+            <summary>
+            The Bare JID of the thing.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.IsFriend.IsFriendModel.FriendlyNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.IsFriend.IsFriendModel.FriendlyName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.FriendlyName">
+            <summary>
+            The Friendly Name of the thing.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.IsFriend.IsFriendModel.RemoteJidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.IsFriend.IsFriendModel.RemoteJid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.RemoteJid">
+            <summary>
+            The Bare JID of the remote entity trying to connect to the thing.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.IsFriend.IsFriendModel.RemoteFriendlyNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.IsFriend.IsFriendModel.RemoteFriendlyName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.RemoteFriendlyName">
+            <summary>
+            The Friendly Name of the remote entity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.IsFriend.IsFriendModel.RemoteFriendlyNameAvailableProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.IsFriend.IsFriendModel.RemoteFriendlyNameAvailable"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.RemoteFriendlyNameAvailable">
+            <summary>
+            If the Friendly Name of the remote entity exists
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.IsFriend.IsFriendModel.KeyProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.IsFriend.IsFriendModel.Key"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.Key">
+            <summary>
+            Provisioning key.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.IsFriend.IsFriendModel.ProvisioningServiceProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.IsFriend.IsFriendModel.ProvisioningService"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.ProvisioningService">
+            <summary>
+            Provisioning key.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.IsFriend.IsFriendModel.CallerInContactsListProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.IsFriend.IsFriendModel.CallerInContactsList"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.CallerInContactsList">
+            <summary>
+            The Friendly Name of the remote entity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.IsFriend.IsFriendModel.SelectedRuleRangeIndexProperty">
+            <summary>
+            See <see cref="T:Waher.Networking.XMPP.Provisioning.RuleRange"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.SelectedRuleRangeIndex">
+            <summary>
+            The selected rule range index
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to displaying the is-friend provisuioning question.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs.#ctor(IdApp.Services.Notification.Things.IsFriendNotificationEvent,System.String,System.String)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs"/> class.
+            </summary>
+            <param name="Event">Notification event object.</param>
+            <param name="FriendlyName">Friendly name of device.</param>
+            <param name="RemoteFriendlyName">Friendly name of remote entity.</param>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs.Event">
+            <summary>
+            Notification event object.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs.BareJid">
+            <summary>
+            Bare JID of device.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs.FriendlyName">
+            <summary>
+            Friendly name of device.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs.RemoteJid">
+            <summary>
+            Bare JID of remote entity trying to connect to device.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs.RemoteFriendlyName">
+            <summary>
+            Friendly name of remote entity.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs.Key">
+            <summary>
+            Provisioning key
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs.ProvisioningService">
+            <summary>
+            Provisioning Service
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Things.IsFriend.IsFriendPage">
+            <summary>
+            A page that asks the user if a remote entity is allowed to connect to a device.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.IsFriend.IsFriendPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Things.IsFriend.IsFriendPage"/> class.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Things.IsFriend.RuleRangeModel">
+            <summary>
+            Rule Range model
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.IsFriend.RuleRangeModel.#ctor(Waher.Networking.XMPP.Provisioning.RuleRange,System.String)">
+            <summary>
+            Rule Range model
+            </summary>
+            <param name="RuleRange">Rule Range</param>
+            <param name="Label">Label</param>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.RuleRangeModel.RuleRange">
+            <summary>
+            Rule Range
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.IsFriend.RuleRangeModel.Label">
+            <summary>
+            Label
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.IsFriend.RuleRangeModel.ToString">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Things.MyThings.MyThingsPage">
             <summary>
             A page that displays a list of the current user's things.
@@ -10345,15 +10583,14 @@
             JID of registry the thing uses.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.LabelClicked(System.String,System.String,System.String,IdApp.Services.UI.IUiSerializer,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.LabelClicked(System.String,System.String,System.String,IdApp.Services.ServiceReferences)">
             <summary>
             Processes the click of a localized meta-data label.
             </summary>
             <param name="Name">Tag name</param>
             <param name="Value">Tag value</param>
             <param name="LocalizedValue">Localized tag value</param>
-            <param name="uiSerializer">UI Dispatcher service</param>
-            <param name="logService">Log service</param>
+            <param name="Services">Service references</param>
         </member>
         <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.GetFriendlyName(System.Collections.Generic.IEnumerable{IdApp.Pages.Things.HumanReadableTag})">
             <summary>
@@ -14915,7 +15152,17 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.AccessRequest">
             <summary>
+              Looks up a localized string similar to Access Request.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.AccessRequestText">
+            <summary>
               Looks up a localized string similar to {0} wants to connect to your device {1}..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.AccessRequestText2">
+            <summary>
+              Looks up a localized string similar to A caller has requested access to one of your things. Select how you wish the thing should respond to this request..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Account">
@@ -15116,6 +15363,21 @@
         <member name="P:IdApp.Resx.AppResources.Calculator">
             <summary>
               Looks up a localized string similar to Calculator.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Caller">
+            <summary>
+              Looks up a localized string similar to Caller.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.CallerAddress">
+            <summary>
+              Looks up a localized string similar to Caller Address.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.CallerOnly">
+            <summary>
+              Looks up a localized string similar to Caller Only.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.CanActAsTemplate">
@@ -15633,6 +15895,11 @@
               Looks up a localized string similar to You need to enter a value first..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.EntireDomain">
+            <summary>
+              Looks up a localized string similar to Everyone from {0}.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Errors">
             <summary>
               Looks up a localized string similar to Errors.
@@ -15641,6 +15908,11 @@
         <member name="P:IdApp.Resx.AppResources.ErrorTitle">
             <summary>
               Looks up a localized string similar to An error has occurred.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Everyone">
+            <summary>
+              Looks up a localized string similar to Everyone.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Exit">
@@ -15711,6 +15983,11 @@
         <member name="P:IdApp.Resx.AppResources.ForInclusionInContract">
             <summary>
               Looks up a localized string similar to For inclusion as part in a contract..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.FriendlyName">
+            <summary>
+              Looks up a localized string similar to Friendly Name.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.From">
@@ -15876,6 +16153,11 @@
         <member name="P:IdApp.Resx.AppResources.Incomplete">
             <summary>
               Looks up a localized string similar to Incomplete.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.InformationAboutCallerText">
+            <summary>
+              Looks up a localized string similar to The following information is availabl about the caller:.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.InformationAboutClaimedThingText">
@@ -16156,6 +16438,11 @@
         <member name="P:IdApp.Resx.AppResources.Notary">
             <summary>
               Looks up a localized string similar to Notary.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.NotAvailable">
+            <summary>
+              Looks up a localized string similar to Not Available.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.NotConnectedToTheOperator">
@@ -16786,6 +17073,16 @@
         <member name="P:IdApp.Resx.AppResources.Question">
             <summary>
               Looks up a localized string similar to Question.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Range">
+            <summary>
+              Looks up a localized string similar to Range.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.RangeText">
+            <summary>
+              Looks up a localized string similar to Apply this rule to:.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ReadSensor">
@@ -20646,6 +20943,11 @@
             Button on which notification should be displayed
             </summary>
         </member>
+        <member name="P:IdApp.Services.Notification.NotificationEvent.DeleteWhenOpened">
+            <summary>
+            If notification event should be deleted when openedd.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Notification.NotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
             <summary>
             Gets an icon for the category of event.
@@ -20970,6 +21272,16 @@
         <member name="P:IdApp.Services.Notification.Things.ProvisioningNotificationEvent.Key">
             <summary>
             Question Key
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Things.ProvisioningNotificationEvent.ProvisioningService">
+            <summary>
+            Provisioning Service sending the question.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Things.ProvisioningNotificationEvent.DeleteWhenOpened">
+            <summary>
+            If notification event should be deleted when openedd.
             </summary>
         </member>
         <member name="T:IdApp.Services.Notification.Things.ThingNotificationEvent">

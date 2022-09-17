@@ -88,11 +88,29 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} wants to connect to your device {1}..
+        ///   Looks up a localized string similar to Access Request.
         /// </summary>
         internal static string AccessRequest {
             get {
                 return ResourceManager.GetString("AccessRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} wants to connect to your device {1}..
+        /// </summary>
+        internal static string AccessRequestText {
+            get {
+                return ResourceManager.GetString("AccessRequestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A caller has requested access to one of your things. Select how you wish the thing should respond to this request..
+        /// </summary>
+        internal static string AccessRequestText2 {
+            get {
+                return ResourceManager.GetString("AccessRequestText2", resourceCulture);
             }
         }
         
@@ -453,6 +471,33 @@ namespace IdApp.Resx {
         internal static string Calculator {
             get {
                 return ResourceManager.GetString("Calculator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caller.
+        /// </summary>
+        internal static string Caller {
+            get {
+                return ResourceManager.GetString("Caller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caller Address.
+        /// </summary>
+        internal static string CallerAddress {
+            get {
+                return ResourceManager.GetString("CallerAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caller Only.
+        /// </summary>
+        internal static string CallerOnly {
+            get {
+                return ResourceManager.GetString("CallerOnly", resourceCulture);
             }
         }
         
@@ -1384,6 +1429,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Everyone from {0}.
+        /// </summary>
+        internal static string EntireDomain {
+            get {
+                return ResourceManager.GetString("EntireDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Errors.
         /// </summary>
         internal static string Errors {
@@ -1398,6 +1452,15 @@ namespace IdApp.Resx {
         internal static string ErrorTitle {
             get {
                 return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Everyone.
+        /// </summary>
+        internal static string Everyone {
+            get {
+                return ResourceManager.GetString("Everyone", resourceCulture);
             }
         }
         
@@ -1524,6 +1587,15 @@ namespace IdApp.Resx {
         internal static string ForInclusionInContract {
             get {
                 return ResourceManager.GetString("ForInclusionInContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Friendly Name.
+        /// </summary>
+        internal static string FriendlyName {
+            get {
+                return ResourceManager.GetString("FriendlyName", resourceCulture);
             }
         }
         
@@ -1821,6 +1893,15 @@ namespace IdApp.Resx {
         internal static string Incomplete {
             get {
                 return ResourceManager.GetString("Incomplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following information is availabl about the caller:.
+        /// </summary>
+        internal static string InformationAboutCallerText {
+            get {
+                return ResourceManager.GetString("InformationAboutCallerText", resourceCulture);
             }
         }
         
@@ -2325,6 +2406,15 @@ namespace IdApp.Resx {
         internal static string Notary {
             get {
                 return ResourceManager.GetString("Notary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Available.
+        /// </summary>
+        internal static string NotAvailable {
+            get {
+                return ResourceManager.GetString("NotAvailable", resourceCulture);
             }
         }
         
@@ -3459,6 +3549,24 @@ namespace IdApp.Resx {
         internal static string Question {
             get {
                 return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Range.
+        /// </summary>
+        internal static string Range {
+            get {
+                return ResourceManager.GetString("Range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply this rule to:.
+        /// </summary>
+        internal static string RangeText {
+            get {
+                return ResourceManager.GetString("RangeText", resourceCulture);
             }
         }
         

@@ -2010,7 +2010,7 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Bereitstellungsregeln wurden gestrichen.</value>
   </data>
-  <data name="AccessRequest" xml:space="preserve">
+  <data name="AccessRequestText" xml:space="preserve">
     <value>{0} möchte {1} eine Verbindung zu Ihrem Gerät herstellen.</value>
   </data>
   <data name="Notifications" xml:space="preserve">
@@ -2018,5 +2018,41 @@
   </data>
   <data name="NotificationsText" xml:space="preserve">
     <value>Unten sehen Sie eine Liste von Benachrichtigungen, die sich aus Interaktionen mit dem Ding ergeben. Drücken Sie auf jeden, um weitere Informationen und Optionen anzuzeigen.</value>
+  </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>Zugangsanfrage</value>
+  </data>
+  <data name="AccessRequestText2" xml:space="preserve">
+    <value>Ein Anrufer hat Zugriff auf eines Ihrer Dinge angefordert. Wählen Sie aus, wie das Ding auf diese Anfrage reagieren soll.</value>
+  </data>
+  <data name="Caller" xml:space="preserve">
+    <value>Anrufer</value>
+  </data>
+  <data name="CallerAddress" xml:space="preserve">
+    <value>Anruferadresse</value>
+  </data>
+  <data name="CallerOnly" xml:space="preserve">
+    <value>Nur Anrufer</value>
+  </data>
+  <data name="EntireDomain" xml:space="preserve">
+    <value>Jeder von {0}</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Jeder</value>
+  </data>
+  <data name="FriendlyName" xml:space="preserve">
+    <value>Freundlicher Name</value>
+  </data>
+  <data name="InformationAboutCallerText" xml:space="preserve">
+    <value>Über den Anrufer stehen folgende Informationen zur Verfügung:</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Nicht verfügbar</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>Bereich</value>
+  </data>
+  <data name="RangeText" xml:space="preserve">
+    <value>Wenden Sie diese Regel an auf:</value>
   </data>
 </root>

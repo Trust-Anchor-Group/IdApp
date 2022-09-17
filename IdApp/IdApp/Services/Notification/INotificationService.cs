@@ -37,7 +37,7 @@ namespace IdApp.Services.Notification
 		/// Deletes a specified set of events.
 		/// </summary>
 		/// <param name="Events">Events to delete.</param>
-		Task DeleteEvents(NotificationEvent[] Events);
+		Task DeleteEvents(params NotificationEvent[] Events);
 
 		/// <summary>
 		/// Gets available categories for a button.

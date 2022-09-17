@@ -1,4 +1,4 @@
-﻿using IdApp.Pages.Contacts.Chat;
+﻿using IdApp.Pages.Things.IsFriend;
 using IdApp.Resx;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Provisioning;
@@ -47,7 +47,7 @@ namespace IdApp.Services.Notification.Things
 			string ThingName = await ContactInfo.GetFriendlyName(this.BareJid, ServiceReferences);
 			string RemoteName = await ContactInfo.GetFriendlyName(this.RemoteJid, ServiceReferences);
 
-			return string.Format(LocalizationResourceManager.Current["AccessRequest"], RemoteName, ThingName);
+			return string.Format(LocalizationResourceManager.Current["AccessRequestText"], RemoteName, ThingName);
 		}
 
 		/// <summary>
@@ -56,15 +56,10 @@ namespace IdApp.Services.Notification.Things
 		/// <param name="ServiceReferences">Service references</param>
 		public override async Task Open(ServiceReferences ServiceReferences)
 		{
-			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(this.BareJid);
-			string LegalId = ContactInfo?.LegalId;
-			string FriendlyName = await this.GetDescription(ServiceReferences);
+			string ThingName = await ContactInfo.GetFriendlyName(this.BareJid, ServiceReferences);
+			string RemoteName = await ContactInfo.GetFriendlyName(this.RemoteJid, ServiceReferences);
 
-			await ServiceReferences.NavigationService.GoToAsync(nameof(ChatPage),
-				new ChatNavigationArgs(LegalId, this.BareJid, FriendlyName)
-				{
-					UniqueId = BareJid
-				});
+			await ServiceReferences.NavigationService.GoToAsync(nameof(IsFriendPage), new IsFriendNavigationArgs(this, ThingName, RemoteName));
 		}
 	}
 }

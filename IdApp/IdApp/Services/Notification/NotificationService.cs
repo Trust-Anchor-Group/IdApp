@@ -235,7 +235,7 @@ namespace IdApp.Services.Notification
 		/// Deletes a specified set of events.
 		/// </summary>
 		/// <param name="Events">Events to delete.</param>
-		public Task DeleteEvents(NotificationEvent[] Events)
+		public Task DeleteEvents(params NotificationEvent[] Events)
 		{
 			foreach (NotificationEvent Event in Events)
 			{

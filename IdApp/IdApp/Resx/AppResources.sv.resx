@@ -1989,7 +1989,7 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Provisioneringsreglerna har raderats.</value>
   </data>
-  <data name="AccessRequest" xml:space="preserve">
+  <data name="AccessRequestText" xml:space="preserve">
     <value>{0} vill ansluta till din enhet {1}.</value>
   </data>
   <data name="Notifications" xml:space="preserve">
@@ -1997,5 +1997,41 @@
   </data>
   <data name="NotificationsText" xml:space="preserve">
     <value>Nedan kan du se en lista av notifieringar från interaktioner med sasken. Tryck på var och en för att visa mer information och tillgängliga alternativ.</value>
+  </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>Åtkomstförfrågan</value>
+  </data>
+  <data name="AccessRequestText2" xml:space="preserve">
+    <value>En förfrågan om att komma åt en av dina saker har mottagits. Välj hur du vill att saken ska svara på denna förfråga.</value>
+  </data>
+  <data name="Caller" xml:space="preserve">
+    <value>Anropare</value>
+  </data>
+  <data name="CallerAddress" xml:space="preserve">
+    <value>Anroparens Address</value>
+  </data>
+  <data name="CallerOnly" xml:space="preserve">
+    <value>Enbart anroparen</value>
+  </data>
+  <data name="EntireDomain" xml:space="preserve">
+    <value>Alla från {0}</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Alla</value>
+  </data>
+  <data name="FriendlyName" xml:space="preserve">
+    <value>Vänligt namn</value>
+  </data>
+  <data name="InformationAboutCallerText" xml:space="preserve">
+    <value>Följande information finns tillgänglig om anroparen:</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Inte Tillgängligt</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>Räckvidd</value>
+  </data>
+  <data name="RangeText" xml:space="preserve">
+    <value>Applicera denna regel på:</value>
   </data>
 </root>

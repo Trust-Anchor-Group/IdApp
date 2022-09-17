@@ -68,6 +68,11 @@ namespace IdApp.Services.Notification
 		public EventButton Button { get; set; }
 
 		/// <summary>
+		/// If notification event should be deleted when openedd.
+		/// </summary>
+		public virtual bool DeleteWhenOpened => true;
+
+		/// <summary>
 		/// Gets an icon for the category of event.
 		/// </summary>
 		/// <param name="ServiceReferences"></param>

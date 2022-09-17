@@ -2010,7 +2010,7 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Les règles d’approvisionnement ont été supprimées.</value>
   </data>
-  <data name="AccessRequest" xml:space="preserve">
+  <data name="AccessRequestText" xml:space="preserve">
     <value>{0} souhaite se connecter à votre appareil {1}.</value>
   </data>
   <data name="Notifications" xml:space="preserve">
@@ -2018,5 +2018,41 @@
   </data>
   <data name="NotificationsText" xml:space="preserve">
     <value>Ci-dessous, vous pouvez voir une liste de notifications résultant d’interactions avec la chose. Appuyez sur chacun d’eux pour afficher plus d’informations et d’options disponibles.</value>
+  </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>Demande d’accès</value>
+  </data>
+  <data name="AccessRequestText2" xml:space="preserve">
+    <value>Un appelant a demandé l’accès à l’une de vos affaires. Sélectionnez la façon dont vous souhaitez que la chose réponde à cette demande.</value>
+  </data>
+  <data name="Caller" xml:space="preserve">
+    <value>Visiteur</value>
+  </data>
+  <data name="CallerAddress" xml:space="preserve">
+    <value>Adresse de l’appelant</value>
+  </data>
+  <data name="CallerOnly" xml:space="preserve">
+    <value>Appelant uniquement</value>
+  </data>
+  <data name="EntireDomain" xml:space="preserve">
+    <value>Tout le monde de {0}</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Tout le monde</value>
+  </data>
+  <data name="FriendlyName" xml:space="preserve">
+    <value>Nom convivial</value>
+  </data>
+  <data name="InformationAboutCallerText" xml:space="preserve">
+    <value>Les informations suivantes sont disponibles sur l’appelant:</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Non disponible</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>Gamme</value>
+  </data>
+  <data name="RangeText" xml:space="preserve">
+    <value>Appliquez cette règle à :</value>
   </data>
 </root>

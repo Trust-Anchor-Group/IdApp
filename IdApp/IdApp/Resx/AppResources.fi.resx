@@ -2010,7 +2010,7 @@
   <data name="RulesDeleted" xml:space="preserve">
     <value>Varaussäännöt on poistettu.</value>
   </data>
-  <data name="AccessRequest" xml:space="preserve">
+  <data name="AccessRequestText" xml:space="preserve">
     <value>{0} haluaa muodostaa yhteyden laitteeseesi {1}.</value>
   </data>
   <data name="Notifications" xml:space="preserve">
@@ -2018,5 +2018,41 @@
   </data>
   <data name="NotificationsText" xml:space="preserve">
     <value>Alla näet luettelon ilmoituksista, jotka johtuvat vuorovaikutuksesta asian kanssa. Paina kutakin näyttääksesi lisätietoja ja käytettävissä olevia vaihtoehtoja.</value>
+  </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>Käyttöoikeuspyyntö</value>
+  </data>
+  <data name="AccessRequestText2" xml:space="preserve">
+    <value>Soittaja on pyytänyt pääsyä johonkin tavaraasi. Valitse, miten haluat asian vastaavan tähän pyyntöön.</value>
+  </data>
+  <data name="Caller" xml:space="preserve">
+    <value>Soittaja</value>
+  </data>
+  <data name="CallerAddress" xml:space="preserve">
+    <value>Soittajan osoite</value>
+  </data>
+  <data name="CallerOnly" xml:space="preserve">
+    <value>Vain soittaja</value>
+  </data>
+  <data name="EntireDomain" xml:space="preserve">
+    <value>Kaikki {0}</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+  <data name="FriendlyName" xml:space="preserve">
+    <value>Ystävällinen nimi</value>
+  </data>
+  <data name="InformationAboutCallerText" xml:space="preserve">
+    <value>Soittajasta on saatavilla seuraavat tiedot:</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Ei saatavilla</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>Etäisyys</value>
+  </data>
+  <data name="RangeText" xml:space="preserve">
+    <value>Sovella tätä sääntöä seuraaviin:</value>
   </data>
 </root>

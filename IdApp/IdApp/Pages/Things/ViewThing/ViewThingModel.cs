@@ -451,7 +451,9 @@ namespace IdApp.Pages.Things.ViewThing
 		private Task Clicked(object obj)
 		{
 			if (obj is HumanReadableTag Tag)
-				return ViewClaimThing.ViewClaimThingViewModel.LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.LogService);
+				return ViewClaimThing.ViewClaimThingViewModel.LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this);
+			else if (obj is string s)
+				return ViewClaimThing.ViewClaimThingViewModel.LabelClicked(string.Empty, s, s, this);
 			else
 				return Task.CompletedTask;
 		}
@@ -470,7 +472,7 @@ namespace IdApp.Pages.Things.ViewThing
 				if (!await App.VerifyPin())
 					return;
 
-				TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
+				TaskCompletionSource<bool> Result = new();
 
 				this.XmppService.IoT.ProvisioningClient.DeleteDeviceRules(this.thing.RegistryJid, this.thing.BareJid, this.thing.NodeId,
 					this.thing.SourceId, this.thing.Partition, (sender, e) =>

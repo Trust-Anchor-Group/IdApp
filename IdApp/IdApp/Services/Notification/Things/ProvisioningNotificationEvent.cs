@@ -27,6 +27,7 @@ namespace IdApp.Services.Notification.Things
 			this.BareJid = e.JID;
 			this.RemoteJid = e.RemoteJID;
 			this.Key = e.Key;
+			this.ProvisioningService = e.From;
 			this.Received = DateTime.UtcNow;
 			this.Button = EventButton.Things;
 		}
@@ -40,5 +41,15 @@ namespace IdApp.Services.Notification.Things
 		/// Question Key
 		/// </summary>
 		public string Key { get; set; }
+
+		/// <summary>
+		/// Provisioning Service sending the question.
+		/// </summary>
+		public string ProvisioningService { get; set; }
+
+		/// <summary>
+		/// If notification event should be deleted when openedd.
+		/// </summary>
+		public override bool DeleteWhenOpened => false;
 	}
 }
