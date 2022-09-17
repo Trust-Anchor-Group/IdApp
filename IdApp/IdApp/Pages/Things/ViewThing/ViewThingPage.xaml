@@ -67,6 +67,15 @@
 						IsVisible="{Binding IsSensor}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
 				<Button Text="{x:Static resx:AppResources.ControlActuator}" Command="{Binding Path=ControlActuatorCommand}" IsEnabled="{Binding Path=IsConnected}"
 						IsVisible="{Binding IsActuator}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+				<Grid ColumnDefinitions="*" RowDefinitions="auto" Padding="0" Margin="0" ColumnSpacing="0" RowSpacing="0">
+					<Button Text="{x:Static resx:AppResources.Chat}" Command="{Binding Path=ChatCommand}" IsEnabled="{Binding Path=IsConnected}"
+						IsVisible="{Binding IsNodeInConcentrator, Converter={conv:LogicalNot}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+					<Frame Grid.Row="0" Grid.Column="0" CornerRadius="12" Padding="8,3,8,3" IsVisible="{Binding HasPendingChatMessages}"
+						   HorizontalOptions="End" VerticalOptions="Center" Margin="{StaticResource DefaultLeftRightAndBottomMargin}"
+						   Style="{StaticResource AlertFrame}">
+						<Label FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Text="{Binding NrPendingChatMessages}" Padding="1"/>
+					</Frame>
+				</Grid>
 				<Button Text="{x:Static resx:AppResources.AddToList}" Command="{Binding Path=AddToListCommand}" 
 						IsVisible="{Binding InContacts, Converter={conv:LogicalNot}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
 				<Button Text="{x:Static resx:AppResources.RemoveFromList}" Command="{Binding Path=RemoveFromListCommand}" 

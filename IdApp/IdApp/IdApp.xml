@@ -10448,6 +10448,11 @@
             The command to bind to for controlling an actuator
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.ChatCommand">
+            <summary>
+            The command to bind to for chatting with a thing
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.InContactsProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.InContacts"/>
@@ -10518,6 +10523,16 @@
             Gets or sets whether the thing is a concentrator
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.IsNodeInConcentratorProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsNodeInConcentrator"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsNodeInConcentrator">
+            <summary>
+            Gets or sets whether the thing is a concentrator
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.SupportsSensorEventsProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.SupportsSensorEvents"/>
@@ -10536,6 +10551,26 @@
         <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.HasNotifications">
             <summary>
             Gets or sets whether the thing is a sensor
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.HasPendingChatMessagesProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.HasPendingChatMessages"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.HasPendingChatMessages">
+            <summary>
+            Gets or sets whether the identity is in the contact.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.ViewThing.ViewThingModel.NrPendingChatMessagesProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.ViewThing.ViewThingModel.NrPendingChatMessages"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.NrPendingChatMessages">
+            <summary>
+            Gets or sets whether the identity is in the contact.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs">

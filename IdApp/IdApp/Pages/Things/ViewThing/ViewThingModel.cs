@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Main.XmppForm;
 using IdApp.Pages.Things.MyThings;
@@ -43,6 +44,7 @@ namespace IdApp.Pages.Things.ViewThing
 			this.DisownThingCommand = new Command(async _ => await this.DisownThing(), _ => this.IsConnected && this.IsOwner);
 			this.ReadSensorCommand = new Command(async _ => await this.ReadSensor(), _ => this.IsConnected && this.IsSensor);
 			this.ControlActuatorCommand = new Command(async _ => await this.ControlActuator(), _ => this.IsConnected && this.IsActuator);
+			this.ChatCommand = new Command(async _ => await this.Chat(), _ => this.IsConnected && !this.IsNodeInConcentrator);
 
 			this.Tags = new ObservableCollection<HumanReadableTag>();
 			this.Notifications = new ObservableCollection<EventModel>();
@@ -69,6 +71,8 @@ namespace IdApp.Pages.Things.ViewThing
 				{
 					this.Notifications.Clear();
 
+					int c = 0;
+
 					foreach (NotificationEvent Event in args.Events)
 					{
 						this.Notifications.Add(new EventModel(Event.Received,
@@ -76,7 +80,13 @@ namespace IdApp.Pages.Things.ViewThing
 							await Event.GetDescription(this),
 							Event,
 							this));
+
+						if (Event.Button == EventButton.Contacts)
+							c++;
 					}
+
+					this.NrPendingChatMessages = c;
+					this.HasPendingChatMessages = c > 0;
 				}
 
 				this.InContacts = !string.IsNullOrEmpty(this.thing.ObjectId);
@@ -84,6 +94,7 @@ namespace IdApp.Pages.Things.ViewThing
 				this.IsSensor = this.thing.IsSensor ?? false;
 				this.IsActuator = this.thing.IsActuator ?? false;
 				this.IsConcentrator = this.thing.IsConcentrator ?? false;
+				this.IsNodeInConcentrator = !string.IsNullOrEmpty(this.thing.NodeId) || !string.IsNullOrEmpty(this.thing.SourceId) || !string.IsNullOrEmpty(this.thing.Partition);
 				this.SupportsSensorEvents = this.thing.SupportsSensorEvents ?? false;
 				this.HasNotifications = this.Notifications.Count > 0;
 			}
@@ -177,7 +188,7 @@ namespace IdApp.Pages.Things.ViewThing
 		private void EvaluateAllCommands()
 		{
 			this.EvaluateCommands(this.ClickCommand, this.AddToListCommand, this.RemoveFromListCommand, this.DeleteRulesCommand,
-				this.DisownThingCommand, this.ReadSensorCommand, this.ControlActuatorCommand);
+				this.DisownThingCommand, this.ReadSensorCommand, this.ControlActuatorCommand, this.ChatCommand);
 		}
 
 		/// <inheritdoc/>
@@ -241,6 +252,11 @@ namespace IdApp.Pages.Things.ViewThing
 		/// The command to bind to for controlling an actuator
 		/// </summary>
 		public System.Windows.Input.ICommand ControlActuatorCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for chatting with a thing
+		/// </summary>
+		public System.Windows.Input.ICommand ChatCommand { get; }
 
 		/// <summary>
 		/// See <see cref="InContacts"/>
@@ -356,6 +372,21 @@ namespace IdApp.Pages.Things.ViewThing
 		}
 
 		/// <summary>
+		/// See <see cref="IsNodeInConcentrator"/>
+		/// </summary>
+		public static readonly BindableProperty IsNodeInConcentratorProperty =
+			BindableProperty.Create(nameof(IsNodeInConcentrator), typeof(bool), typeof(ViewThingModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the thing is a concentrator
+		/// </summary>
+		public bool IsNodeInConcentrator
+		{
+			get => (bool)this.GetValue(IsNodeInConcentratorProperty);
+			set => this.SetValue(IsNodeInConcentratorProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="SupportsSensorEvents"/>
 		/// </summary>
 		public static readonly BindableProperty SupportsSensorEventsProperty =
@@ -383,6 +414,36 @@ namespace IdApp.Pages.Things.ViewThing
 		{
 			get => (bool)this.GetValue(HasNotificationsProperty);
 			set => this.SetValue(HasNotificationsProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasPendingChatMessages"/>
+		/// </summary>
+		public static readonly BindableProperty HasPendingChatMessagesProperty =
+			BindableProperty.Create(nameof(HasPendingChatMessages), typeof(bool), typeof(ViewThingModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the identity is in the contact.
+		/// </summary>
+		public bool HasPendingChatMessages
+		{
+			get => (bool)this.GetValue(HasPendingChatMessagesProperty);
+			set => this.SetValue(HasPendingChatMessagesProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="NrPendingChatMessages"/>
+		/// </summary>
+		public static readonly BindableProperty NrPendingChatMessagesProperty =
+			BindableProperty.Create(nameof(NrPendingChatMessages), typeof(int), typeof(ViewThingModel), default(int));
+
+		/// <summary>
+		/// Gets or sets whether the identity is in the contact.
+		/// </summary>
+		public int NrPendingChatMessages
+		{
+			get => (int)this.GetValue(NrPendingChatMessagesProperty);
+			set => this.SetValue(NrPendingChatMessagesProperty, value);
 		}
 
 		#endregion
@@ -551,5 +612,25 @@ namespace IdApp.Pages.Things.ViewThing
 
 			return Task.CompletedTask;
 		}
+
+		private async Task Chat()
+		{
+			try
+			{
+				string LegalId = this.thing?.LegalId;
+				string FriendlyName = this.thing.FriendlyName;
+
+				await this.NavigationService.GoToAsync(nameof(ChatPage),
+					new ChatNavigationArgs(LegalId, this.thing.BareJid, FriendlyName)
+					{
+						UniqueId = this.thing.BareJid
+					});
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
 	}
 }
