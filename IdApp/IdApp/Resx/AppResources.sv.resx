@@ -2002,7 +2002,7 @@
     <value>Åtkomstförfrågan</value>
   </data>
   <data name="AccessRequestText2" xml:space="preserve">
-    <value>En förfrågan om att komma åt en av dina saker har mottagits. Välj hur du vill att saken ska svara på denna förfråga.</value>
+    <value>En förfrågan om att komma åt en av dina saker har mottagits. Välj hur du vill att saken ska svara på denna typ av förfrågan.</value>
   </data>
   <data name="Caller" xml:space="preserve">
     <value>Anropare</value>
@@ -2033,5 +2033,44 @@
   </data>
   <data name="RangeText" xml:space="preserve">
     <value>Applicera denna regel på:</value>
+  </data>
+  <data name="XInY" xml:space="preserve">
+    <value>{0} i {1}</value>
+  </data>
+  <data name="XOnY" xml:space="preserve">
+    <value>{0} på {1}</value>
+  </data>
+  <data name="ReadoutRequestText" xml:space="preserve">
+    <value>{0} vill läsa data från din enhet {1}.</value>
+  </data>
+  <data name="ControlRequestText" xml:space="preserve">
+    <value>{0} vill kontrollera parametrar på din enhet {1}.</value>
+  </data>
+  <data name="ReadRequest" xml:space="preserve">
+    <value>Förfrågan om avläsning</value>
+  </data>
+  <data name="ReadoutRequestText2" xml:space="preserve">
+    <value>En förfrågan om att läsa sensordata från en av dina saker har mottagits. Välj hur du vill att saken ska svara på denna typ av förfrågan.</value>
+  </data>
+  <data name="UnableToRespond" xml:space="preserve">
+    <value>Kunde inte svara på förfrågan.</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Enhet</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Tjänst</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Användare</value>
+  </data>
+  <data name="ToDevice" xml:space="preserve">
+    <value>Till enheten, oavsett källa</value>
+  </data>
+  <data name="ToService" xml:space="preserve">
+    <value>Till tjänsten, oavsett källa</value>
+  </data>
+  <data name="ToUser" xml:space="preserve">
+    <value>Till användaren, oavsett källa</value>
   </data>
 </root>

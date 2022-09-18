@@ -2023,7 +2023,7 @@
     <value>Anmodning om adgang</value>
   </data>
   <data name="AccessRequestText2" xml:space="preserve">
-    <value>En person, der ringer op, har anmodet om adgang til en af dine ting. Vælg, hvordan du ønsker, at tingen skal svare på denne anmodning.</value>
+    <value>En person, der ringer op, har anmodet om adgang til en af dine ting. Vælg, hvordan du ønsker, at tingen skal svare på denne type anmodning.</value>
   </data>
   <data name="Caller" xml:space="preserve">
     <value>Opkalds</value>
@@ -2033,6 +2033,12 @@
   </data>
   <data name="CallerOnly" xml:space="preserve">
     <value>Kun opkalder</value>
+  </data>
+  <data name="ControlRequestText" xml:space="preserve">
+    <value>{0} ønsker at kontrollere parametre på din enheds {1}.</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Apparat</value>
   </data>
   <data name="EntireDomain" xml:space="preserve">
     <value>Alle fra {0}</value>
@@ -2054,5 +2060,38 @@
   </data>
   <data name="RangeText" xml:space="preserve">
     <value>Anvend denne regel på:</value>
+  </data>
+  <data name="ReadoutRequestText" xml:space="preserve">
+    <value>{0} vil læse data fra din enheds {1}.</value>
+  </data>
+  <data name="ReadoutRequestText2" xml:space="preserve">
+    <value>En opkalder har anmodet om sensordata fra en af dine ting. Vælg, hvordan du ønsker, at tingen skal svare på denne type anmodning.</value>
+  </data>
+  <data name="ReadRequest" xml:space="preserve">
+    <value>Anmodning om oplæsning</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Tjeneste</value>
+  </data>
+  <data name="ToDevice" xml:space="preserve">
+    <value>Til enhed, uanset kilde</value>
+  </data>
+  <data name="ToService" xml:space="preserve">
+    <value>At servicere, uanset kilde</value>
+  </data>
+  <data name="ToUser" xml:space="preserve">
+    <value>Til bruger, uanset kilde</value>
+  </data>
+  <data name="UnableToRespond" xml:space="preserve">
+    <value>Kan ikke svare på anmodningen.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Bruger</value>
+  </data>
+  <data name="XInY" xml:space="preserve">
+    <value>{0} i {1}</value>
+  </data>
+  <data name="XOnY" xml:space="preserve">
+    <value>{0} på {1}</value>
   </data>
 </root>

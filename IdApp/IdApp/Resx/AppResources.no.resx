@@ -2023,7 +2023,7 @@
     <value>Forespørsel om tilgang</value>
   </data>
   <data name="AccessRequestText2" xml:space="preserve">
-    <value>En innringer har bedt om tilgang til en av tingene dine. Velg hvordan du vil at den skal svare på denne forespørselen.</value>
+    <value>En innringer har bedt om tilgang til en av tingene dine. Velg hvordan du vil at tingen skal svare på denne typen forespørsel.</value>
   </data>
   <data name="Caller" xml:space="preserve">
     <value>Ringer</value>
@@ -2033,6 +2033,12 @@
   </data>
   <data name="CallerOnly" xml:space="preserve">
     <value>Bare oppringer</value>
+  </data>
+  <data name="ControlRequestText" xml:space="preserve">
+    <value>{0} vil kontrollere parametere på enheten din {1}.</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Innretning</value>
   </data>
   <data name="EntireDomain" xml:space="preserve">
     <value>Alle fra {0}</value>
@@ -2044,7 +2050,7 @@
     <value>Egendefinert navn</value>
   </data>
   <data name="InformationAboutCallerText" xml:space="preserve">
-    <value>Følgende informasjon er tilgjengelig om den som ringer:</value>
+    <value>Følgende informasjon er tilgjengelig om oppringeren:</value>
   </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>Ikke tilgjengelig</value>
@@ -2054,5 +2060,38 @@
   </data>
   <data name="RangeText" xml:space="preserve">
     <value>Bruk denne regelen på:</value>
+  </data>
+  <data name="ReadoutRequestText" xml:space="preserve">
+    <value>{0} vil lese data fra enheten {1}.</value>
+  </data>
+  <data name="ReadoutRequestText2" xml:space="preserve">
+    <value>En innringer har bedt om sensordata fra en av tingene dine. Velg hvordan du vil at tingen skal svare på denne typen forespørsel.</value>
+  </data>
+  <data name="ReadRequest" xml:space="preserve">
+    <value>Forespørsel om avlesning</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Tjeneste</value>
+  </data>
+  <data name="ToDevice" xml:space="preserve">
+    <value>Til enhet, uavhengig av kilde</value>
+  </data>
+  <data name="ToService" xml:space="preserve">
+    <value>Til service, uavhengig av kilde</value>
+  </data>
+  <data name="ToUser" xml:space="preserve">
+    <value>Til bruker, uavhengig av kilde</value>
+  </data>
+  <data name="UnableToRespond" xml:space="preserve">
+    <value>Kan ikke svare på forespørselen.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Bruker</value>
+  </data>
+  <data name="XInY" xml:space="preserve">
+    <value>{0} i {1}</value>
+  </data>
+  <data name="XOnY" xml:space="preserve">
+    <value>{0} på {1}</value>
   </data>
 </root>

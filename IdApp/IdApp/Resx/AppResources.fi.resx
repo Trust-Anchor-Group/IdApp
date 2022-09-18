@@ -2023,7 +2023,7 @@
     <value>Käyttöoikeuspyyntö</value>
   </data>
   <data name="AccessRequestText2" xml:space="preserve">
-    <value>Soittaja on pyytänyt pääsyä johonkin tavaraasi. Valitse, miten haluat asian vastaavan tähän pyyntöön.</value>
+    <value>Soittaja on pyytänyt pääsyä johonkin tavaraasi. Valitse, miten haluat asian vastaavan tämän tyyppisiin pyyntöihin.</value>
   </data>
   <data name="Caller" xml:space="preserve">
     <value>Soittaja</value>
@@ -2033,6 +2033,12 @@
   </data>
   <data name="CallerOnly" xml:space="preserve">
     <value>Vain soittaja</value>
+  </data>
+  <data name="ControlRequestText" xml:space="preserve">
+    <value>{0} haluaa hallita laitteesi parametreja {1}.</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Laite</value>
   </data>
   <data name="EntireDomain" xml:space="preserve">
     <value>Kaikki {0}</value>
@@ -2054,5 +2060,38 @@
   </data>
   <data name="RangeText" xml:space="preserve">
     <value>Sovella tätä sääntöä seuraaviin:</value>
+  </data>
+  <data name="ReadoutRequestText" xml:space="preserve">
+    <value>{0} haluaa lukea tietoja laitteeltasi {1}.</value>
+  </data>
+  <data name="ReadoutRequestText2" xml:space="preserve">
+    <value>Soittaja on pyytänyt anturitietoja jostakin asiastasi. Valitse, miten haluat asian vastaavan tämän tyyppisiin pyyntöihin.</value>
+  </data>
+  <data name="ReadRequest" xml:space="preserve">
+    <value>Lukupyyntö</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Palvelu</value>
+  </data>
+  <data name="ToDevice" xml:space="preserve">
+    <value>Laitteeseen lähteestä riippumatta</value>
+  </data>
+  <data name="ToService" xml:space="preserve">
+    <value>Huoltoon lähteestä riippumatta</value>
+  </data>
+  <data name="ToUser" xml:space="preserve">
+    <value>Käyttäjälle lähteestä riippumatta</value>
+  </data>
+  <data name="UnableToRespond" xml:space="preserve">
+    <value>Pyyntöön ei voi vastata.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Käyttäjä</value>
+  </data>
+  <data name="XInY" xml:space="preserve">
+    <value>{0} vuonna {1}</value>
+  </data>
+  <data name="XOnY" xml:space="preserve">
+    <value>{0} {1}</value>
   </data>
 </root>

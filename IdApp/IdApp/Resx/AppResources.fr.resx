@@ -2023,7 +2023,7 @@
     <value>Demande d’accès</value>
   </data>
   <data name="AccessRequestText2" xml:space="preserve">
-    <value>Un appelant a demandé l’accès à l’une de vos affaires. Sélectionnez la façon dont vous souhaitez que la chose réponde à cette demande.</value>
+    <value>Un appelant a demandé l’accès à l’une de vos affaires. Sélectionnez la façon dont vous souhaitez que la chose réponde à ce type de demande.</value>
   </data>
   <data name="Caller" xml:space="preserve">
     <value>Visiteur</value>
@@ -2033,6 +2033,12 @@
   </data>
   <data name="CallerOnly" xml:space="preserve">
     <value>Appelant uniquement</value>
+  </data>
+  <data name="ControlRequestText" xml:space="preserve">
+    <value>{0} souhaite contrôler les paramètres de votre appareil {1}.</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Appareil</value>
   </data>
   <data name="EntireDomain" xml:space="preserve">
     <value>Tout le monde de {0}</value>
@@ -2044,7 +2050,7 @@
     <value>Nom convivial</value>
   </data>
   <data name="InformationAboutCallerText" xml:space="preserve">
-    <value>Les informations suivantes sont disponibles sur l’appelant:</value>
+    <value>Les informations suivantes sont disponibles sur l’appelant :</value>
   </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>Non disponible</value>
@@ -2054,5 +2060,38 @@
   </data>
   <data name="RangeText" xml:space="preserve">
     <value>Appliquez cette règle à :</value>
+  </data>
+  <data name="ReadoutRequestText" xml:space="preserve">
+    <value>{0} souhaite lire les données de votre appareil {1}.</value>
+  </data>
+  <data name="ReadoutRequestText2" xml:space="preserve">
+    <value>Un appelant a demandé des données de capteur à l’un de vos objets. Sélectionnez la façon dont vous souhaitez que la chose réponde à ce type de demande.</value>
+  </data>
+  <data name="ReadRequest" xml:space="preserve">
+    <value>Demande de lecture</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="ToDevice" xml:space="preserve">
+    <value>Vers l’appareil, quelle que soit la source</value>
+  </data>
+  <data name="ToService" xml:space="preserve">
+    <value>Pour servir, quelle que soit la source</value>
+  </data>
+  <data name="ToUser" xml:space="preserve">
+    <value>À l’utilisateur, quelle que soit la source</value>
+  </data>
+  <data name="UnableToRespond" xml:space="preserve">
+    <value>Impossible de répondre à la demande.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Utilisateur</value>
+  </data>
+  <data name="XInY" xml:space="preserve">
+    <value>{0} à {1}</value>
+  </data>
+  <data name="XOnY" xml:space="preserve">
+    <value>{0} sur {1}</value>
   </data>
 </root>

@@ -163,6 +163,9 @@
     <Compile Update="Pages\Main\XmppForm\XmppFormPage.xaml.cs">
       <DependentUpon>XmppFormPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\Things\CanRead\CanReadPage.xaml.cs">
+      <DependentUpon>CanReadPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\Things\IsFriend\IsFriendPage.xaml.cs">
       <DependentUpon>IsFriendPage.xaml</DependentUpon>
     </Compile>

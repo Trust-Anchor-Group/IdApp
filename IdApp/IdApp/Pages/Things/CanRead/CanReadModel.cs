@@ -1,30 +1,34 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using IdApp.Pages.Things.IsFriend;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Services;
 using IdApp.Services.Notification;
+using IdApp.Services.Notification.Things;
 using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
+using Waher.Things;
+using Waher.Things.SensorData;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
-namespace IdApp.Pages.Things.IsFriend
+namespace IdApp.Pages.Things.CanRead
 {
 	/// <summary>
 	/// The view model to bind to when displaying a thing.
 	/// </summary>
-	public class IsFriendModel : XmppViewModel
+	public class CanReadModel : XmppViewModel
 	{
 		private NotificationEvent @event;
 
 		/// <summary>
-		/// Creates an instance of the <see cref="IsFriendModel"/> class.
+		/// Creates an instance of the <see cref="CanReadModel"/> class.
 		/// </summary>
-		protected internal IsFriendModel()
+		protected internal CanReadModel()
 			: base()
 		{
 			this.ClickCommand = new Command(async P => await this.LabelClicked(P));
@@ -44,7 +48,7 @@ namespace IdApp.Pages.Things.IsFriend
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out IsFriendNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out CanReadNavigationArgs args))
 			{
 				this.@event = args.Event;
 				this.BareJid = args.BareJid;
@@ -53,6 +57,11 @@ namespace IdApp.Pages.Things.IsFriend
 				this.RemoteFriendlyName = args.RemoteFriendlyName;
 				this.Key = args.Key;
 				this.ProvisioningService = args.ProvisioningService;
+				this.Fields = args.Fields;
+				this.FieldTypes = args.FieldTypes;
+				this.NodeId = args.NodeId;
+				this.SourceId = args.SourceId;
+				this.PartitionId = args.PartitionId;
 
 				if (this.FriendlyName == this.BareJid)
 					this.FriendlyName = LocalizationResourceManager.Current["NotAvailable"];
@@ -79,8 +88,42 @@ namespace IdApp.Pages.Things.IsFriend
 						this.CallerTags.Add(new HumanReadableTag(Tag));
 				}
 
+				if ((args.UserTokens?.Length ?? 0) > 0)
+				{
+					foreach (ProvisioningToken Token in args.UserTokens)
+						this.CallerTags.Add(new HumanReadableTag(new Property(LocalizationResourceManager.Current["User"], Token.FriendlyName ?? Token.Token)));
+
+					this.HasUser = true;
+				}
+
+				if ((args.ServiceTokens?.Length ?? 0) > 0)
+				{
+					foreach (ProvisioningToken Token in args.ServiceTokens)
+						this.CallerTags.Add(new HumanReadableTag(new Property(LocalizationResourceManager.Current["Service"], Token.FriendlyName ?? Token.Token)));
+
+					this.HasService = true;
+				}
+
+				if ((args.DeviceTokens?.Length ?? 0) > 0)
+				{
+					foreach (ProvisioningToken Token in args.DeviceTokens)
+						this.CallerTags.Add(new HumanReadableTag(new Property(LocalizationResourceManager.Current["Device"], Token.FriendlyName ?? Token.Token)));
+
+					this.HasDevice = true;
+				}
+
 				this.RuleRanges.Clear();
 				this.RuleRanges.Add(new RuleRangeModel(RuleRange.Caller, LocalizationResourceManager.Current["CallerOnly"]));
+
+				if (this.HasUser)
+					this.RuleRanges.Add(new RuleRangeModel("User", LocalizationResourceManager.Current["ToUser"]));
+
+				if (this.HasUser)
+					this.RuleRanges.Add(new RuleRangeModel("Service", LocalizationResourceManager.Current["ToService"]));
+
+				if (this.HasUser)
+					this.RuleRanges.Add(new RuleRangeModel("Device", LocalizationResourceManager.Current["ToDevice"]));
+
 				this.RuleRanges.Add(new RuleRangeModel(RuleRange.Domain, string.Format(LocalizationResourceManager.Current["EntireDomain"], XmppClient.GetDomain(this.RemoteJid))));
 				this.RuleRanges.Add(new RuleRangeModel(RuleRange.All, LocalizationResourceManager.Current["Everyone"]));
 
@@ -156,7 +199,7 @@ namespace IdApp.Pages.Things.IsFriend
 		/// See <see cref="BareJid"/>
 		/// </summary>
 		public static readonly BindableProperty BareJidProperty =
-			BindableProperty.Create(nameof(BareJid), typeof(string), typeof(IsFriendModel), default(string));
+			BindableProperty.Create(nameof(BareJid), typeof(string), typeof(CanReadModel), default(string));
 
 		/// <summary>
 		/// The Bare JID of the thing.
@@ -171,7 +214,7 @@ namespace IdApp.Pages.Things.IsFriend
 		/// See <see cref="FriendlyName"/>
 		/// </summary>
 		public static readonly BindableProperty FriendlyNameProperty =
-			BindableProperty.Create(nameof(FriendlyName), typeof(string), typeof(IsFriendModel), default(string));
+			BindableProperty.Create(nameof(FriendlyName), typeof(string), typeof(CanReadModel), default(string));
 
 		/// <summary>
 		/// The Friendly Name of the thing.
@@ -186,7 +229,7 @@ namespace IdApp.Pages.Things.IsFriend
 		/// See <see cref="RemoteJid"/>
 		/// </summary>
 		public static readonly BindableProperty RemoteJidProperty =
-			BindableProperty.Create(nameof(RemoteJid), typeof(string), typeof(IsFriendModel), default(string));
+			BindableProperty.Create(nameof(RemoteJid), typeof(string), typeof(CanReadModel), default(string));
 
 		/// <summary>
 		/// The Bare JID of the remote entity trying to connect to the thing.
@@ -201,7 +244,7 @@ namespace IdApp.Pages.Things.IsFriend
 		/// See <see cref="RemoteFriendlyName"/>
 		/// </summary>
 		public static readonly BindableProperty RemoteFriendlyNameProperty =
-			BindableProperty.Create(nameof(RemoteFriendlyName), typeof(string), typeof(IsFriendModel), default(string));
+			BindableProperty.Create(nameof(RemoteFriendlyName), typeof(string), typeof(CanReadModel), default(string));
 
 		/// <summary>
 		/// The Friendly Name of the remote entity
@@ -216,7 +259,7 @@ namespace IdApp.Pages.Things.IsFriend
 		/// See <see cref="RemoteFriendlyNameAvailable"/>
 		/// </summary>
 		public static readonly BindableProperty RemoteFriendlyNameAvailableProperty =
-			BindableProperty.Create(nameof(RemoteFriendlyNameAvailable), typeof(bool), typeof(IsFriendModel), default(bool));
+			BindableProperty.Create(nameof(RemoteFriendlyNameAvailable), typeof(bool), typeof(CanReadModel), default(bool));
 
 		/// <summary>
 		/// If the Friendly Name of the remote entity exists
@@ -231,7 +274,7 @@ namespace IdApp.Pages.Things.IsFriend
 		/// See <see cref="Key"/>
 		/// </summary>
 		public static readonly BindableProperty KeyProperty =
-			BindableProperty.Create(nameof(Key), typeof(string), typeof(IsFriendModel), default(string));
+			BindableProperty.Create(nameof(Key), typeof(string), typeof(CanReadModel), default(string));
 
 		/// <summary>
 		/// Provisioning key.
@@ -243,10 +286,55 @@ namespace IdApp.Pages.Things.IsFriend
 		}
 
 		/// <summary>
+		/// See <see cref="HasUser"/>
+		/// </summary>
+		public static readonly BindableProperty HasUserProperty =
+			BindableProperty.Create(nameof(HasUser), typeof(bool), typeof(CanReadModel), default(bool));
+
+		/// <summary>
+		/// If request has user information
+		/// </summary>
+		public bool HasUser
+		{
+			get => (bool)this.GetValue(HasUserProperty);
+			set => this.SetValue(HasUserProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasService"/>
+		/// </summary>
+		public static readonly BindableProperty HasServiceProperty =
+			BindableProperty.Create(nameof(HasService), typeof(bool), typeof(CanReadModel), default(bool));
+
+		/// <summary>
+		/// If request has user information
+		/// </summary>
+		public bool HasService
+		{
+			get => (bool)this.GetValue(HasServiceProperty);
+			set => this.SetValue(HasServiceProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasDevice"/>
+		/// </summary>
+		public static readonly BindableProperty HasDeviceProperty =
+			BindableProperty.Create(nameof(HasDevice), typeof(bool), typeof(CanReadModel), default(bool));
+
+		/// <summary>
+		/// If request has user information
+		/// </summary>
+		public bool HasDevice
+		{
+			get => (bool)this.GetValue(HasDeviceProperty);
+			set => this.SetValue(HasDeviceProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="ProvisioningService"/>
 		/// </summary>
 		public static readonly BindableProperty ProvisioningServiceProperty =
-			BindableProperty.Create(nameof(ProvisioningService), typeof(string), typeof(IsFriendModel), default(string));
+			BindableProperty.Create(nameof(ProvisioningService), typeof(string), typeof(CanReadModel), default(string));
 
 		/// <summary>
 		/// Provisioning key.
@@ -261,7 +349,7 @@ namespace IdApp.Pages.Things.IsFriend
 		/// See <see cref="CallerInContactsList"/>
 		/// </summary>
 		public static readonly BindableProperty CallerInContactsListProperty =
-			BindableProperty.Create(nameof(CallerInContactsList), typeof(bool), typeof(IsFriendModel), default(bool));
+			BindableProperty.Create(nameof(CallerInContactsList), typeof(bool), typeof(CanReadModel), default(bool));
 
 		/// <summary>
 		/// The Friendly Name of the remote entity
@@ -276,7 +364,7 @@ namespace IdApp.Pages.Things.IsFriend
 		/// See <see cref="RuleRange"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedRuleRangeIndexProperty =
-			BindableProperty.Create(nameof(SelectedRuleRangeIndex), typeof(int), typeof(IsFriendModel), -1);
+			BindableProperty.Create(nameof(SelectedRuleRangeIndex), typeof(int), typeof(CanReadModel), -1);
 
 		/// <summary>
 		/// The selected rule range index
@@ -285,6 +373,81 @@ namespace IdApp.Pages.Things.IsFriend
 		{
 			get => (int)this.GetValue(SelectedRuleRangeIndexProperty);
 			set => this.SetValue(SelectedRuleRangeIndexProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Fields"/>
+		/// </summary>
+		public static readonly BindableProperty FieldsProperty =
+			BindableProperty.Create(nameof(Fields), typeof(string[]), typeof(CanReadModel), default(string[]));
+
+		/// <summary>
+		/// Sensor-Data Fields
+		/// </summary>
+		public string[] Fields
+		{
+			get => (string[])this.GetValue(FieldsProperty);
+			set => this.SetValue(FieldsProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="FieldTypes"/>
+		/// </summary>
+		public static readonly BindableProperty FieldTypesProperty =
+			BindableProperty.Create(nameof(FieldTypes), typeof(FieldType), typeof(CanReadModel), default(FieldType));
+
+		/// <summary>
+		/// Sensor-Data FieldTypes
+		/// </summary>
+		public FieldType FieldTypes
+		{
+			get => (FieldType)this.GetValue(FieldTypesProperty);
+			set => this.SetValue(FieldTypesProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="NodeId"/>
+		/// </summary>
+		public static readonly BindableProperty NodeIdProperty =
+			BindableProperty.Create(nameof(NodeId), typeof(string), typeof(CanReadModel), default(string));
+
+		/// <summary>
+		/// Node ID
+		/// </summary>
+		public string NodeId
+		{
+			get => (string)this.GetValue(NodeIdProperty);
+			set => this.SetValue(NodeIdProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="SourceId"/>
+		/// </summary>
+		public static readonly BindableProperty SourceIdProperty =
+			BindableProperty.Create(nameof(SourceId), typeof(string), typeof(CanReadModel), default(string));
+
+		/// <summary>
+		/// Source ID
+		/// </summary>
+		public string SourceId
+		{
+			get => (string)this.GetValue(SourceIdProperty);
+			set => this.SetValue(SourceIdProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="PartitionId"/>
+		/// </summary>
+		public static readonly BindableProperty PartitionIdProperty =
+			BindableProperty.Create(nameof(PartitionId), typeof(string), typeof(CanReadModel), default(string));
+
+		/// <summary>
+		/// Partition ID
+		/// </summary>
+		public string PartitionId
+		{
+			get => (string)this.GetValue(PartitionIdProperty);
+			set => this.SetValue(PartitionIdProperty, value);
 		}
 
 		#endregion
@@ -327,16 +490,6 @@ namespace IdApp.Pages.Things.IsFriend
 			}
 		}
 
-		private	RuleRange GetRuleRange()
-		{
-			return this.SelectedRuleRangeIndex switch
-			{
-				1 => RuleRange.Domain,
-				2 => RuleRange.All,
-				_ => RuleRange.Caller,
-			};
-		}
-
 		private void Accept()
 		{
 			this.Respond(true);
@@ -348,9 +501,55 @@ namespace IdApp.Pages.Things.IsFriend
 		}
 
 		private void Respond(bool Accepts)
-		{
-			this.XmppService.IoT.ProvisioningClient.IsFriendResponse(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key, Accepts,
-				this.GetRuleRange(), this.ResponseHandler, null);
+		{ 
+			if (this.SelectedRuleRangeIndex >= 0)
+			{
+				RuleRangeModel Range = this.RuleRanges[this.SelectedRuleRangeIndex];
+				ThingReference Thing = new(this.NodeId, this.SourceId, this.PartitionId);
+
+				if (Range.RuleRange is RuleRange RuleRange)
+				{
+					switch (RuleRange)
+					{
+						case RuleRange.Caller:
+						default:
+							this.XmppService.IoT.ProvisioningClient.CanReadResponseCaller(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+								Accepts, this.FieldTypes, this.Fields, Thing, this.ResponseHandler, null);
+							break;
+
+						case RuleRange.Domain:
+							this.XmppService.IoT.ProvisioningClient.CanReadResponseDomain(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+								Accepts, this.FieldTypes, this.Fields, Thing, this.ResponseHandler, null);
+							break;
+
+						case RuleRange.All:
+							this.XmppService.IoT.ProvisioningClient.CanReadResponseAll(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+								Accepts, this.FieldTypes, this.Fields, Thing, this.ResponseHandler, null);
+							break;
+
+					}
+				}
+				else if (Range.RuleRange is ProvisioningToken Token)
+				{
+					switch (Token.Type)
+					{
+						case TokenType.User:
+							this.XmppService.IoT.ProvisioningClient.CanReadResponseUser(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+								Accepts, this.FieldTypes, this.Fields, Token.Token, Thing, this.ResponseHandler, null);
+							break;
+
+						case TokenType.Service:
+							this.XmppService.IoT.ProvisioningClient.CanReadResponseService(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+								Accepts, this.FieldTypes, this.Fields, Token.Token, Thing, this.ResponseHandler, null);
+							break;
+
+						case TokenType.Device:
+							this.XmppService.IoT.ProvisioningClient.CanReadResponseDevice(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+								Accepts, this.FieldTypes, this.Fields, Token.Token, Thing, this.ResponseHandler, null);
+							break;
+					}
+				}
+			}
 		}
 
 		private async Task ResponseHandler(object Sender, IqResultEventArgs e)

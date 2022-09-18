@@ -2023,7 +2023,7 @@
     <value>Solicitare de acces</value>
   </data>
   <data name="AccessRequestText2" xml:space="preserve">
-    <value>Un apelant a solicitat acces la unul dintre lucrurile tale. Selectați modul în care doriți ca lucrul să răspundă la această solicitare.</value>
+    <value>Un apelant a solicitat acces la unul dintre lucrurile tale. Selectați modul în care doriți ca lucrul să răspundă la acest tip de solicitare.</value>
   </data>
   <data name="Caller" xml:space="preserve">
     <value>Apelant</value>
@@ -2033,6 +2033,12 @@
   </data>
   <data name="CallerOnly" xml:space="preserve">
     <value>Numai apelant</value>
+  </data>
+  <data name="ControlRequestText" xml:space="preserve">
+    <value>{0} dorește să controleze parametrii de pe dispozitiv {1}.</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Dispozitiv</value>
   </data>
   <data name="EntireDomain" xml:space="preserve">
     <value>Toată lumea de la {0}</value>
@@ -2044,7 +2050,7 @@
     <value>Nume prietenos</value>
   </data>
   <data name="InformationAboutCallerText" xml:space="preserve">
-    <value>Următoarele informații sunt disponibile despre apelant:</value>
+    <value>Despre apelant sunt disponibile următoarele informații:</value>
   </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>Indisponibil</value>
@@ -2054,5 +2060,38 @@
   </data>
   <data name="RangeText" xml:space="preserve">
     <value>Aplicați această regulă la:</value>
+  </data>
+  <data name="ReadoutRequestText" xml:space="preserve">
+    <value>{0} dorește să citească date de pe {1} dispozitivului.</value>
+  </data>
+  <data name="ReadoutRequestText2" xml:space="preserve">
+    <value>Un apelant a solicitat date despre senzori de la unul dintre lucrurile tale. Selectați modul în care doriți ca lucrul să răspundă la acest tip de solicitare.</value>
+  </data>
+  <data name="ReadRequest" xml:space="preserve">
+    <value>Cerere de citire</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Serviciu</value>
+  </data>
+  <data name="ToDevice" xml:space="preserve">
+    <value>La dispozitiv, indiferent de sursă</value>
+  </data>
+  <data name="ToService" xml:space="preserve">
+    <value>La service, indiferent de sursă</value>
+  </data>
+  <data name="ToUser" xml:space="preserve">
+    <value>Pentru utilizator, indiferent de sursă</value>
+  </data>
+  <data name="UnableToRespond" xml:space="preserve">
+    <value>Imposibil de răspuns la cerere.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Utilizator</value>
+  </data>
+  <data name="XInY" xml:space="preserve">
+    <value>{0} în {1}</value>
+  </data>
+  <data name="XOnY" xml:space="preserve">
+    <value>{0} pe {1}</value>
   </data>
 </root>

@@ -2023,7 +2023,7 @@
     <value>Solicitud de acceso</value>
   </data>
   <data name="AccessRequestText2" xml:space="preserve">
-    <value>Una persona que llama ha solicitado acceso a una de sus cosas. Seleccione cómo desea que la cosa responda a esta solicitud.</value>
+    <value>Una persona que llama ha solicitado acceso a una de sus cosas. Seleccione cómo desea que la cosa responda a este tipo de solicitud.</value>
   </data>
   <data name="Caller" xml:space="preserve">
     <value>Llamador</value>
@@ -2033,6 +2033,12 @@
   </data>
   <data name="CallerOnly" xml:space="preserve">
     <value>Solo para llamadas</value>
+  </data>
+  <data name="ControlRequestText" xml:space="preserve">
+    <value>{0} desea controlar los parámetros en el {1} de su dispositivo.</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Dispositivo</value>
   </data>
   <data name="EntireDomain" xml:space="preserve">
     <value>Todos desde {0}</value>
@@ -2054,5 +2060,38 @@
   </data>
   <data name="RangeText" xml:space="preserve">
     <value>Aplique esta regla a:</value>
+  </data>
+  <data name="ReadoutRequestText" xml:space="preserve">
+    <value>{0} desea leer los datos de su dispositivo {1}.</value>
+  </data>
+  <data name="ReadoutRequestText2" xml:space="preserve">
+    <value>Una persona que llama ha solicitado datos de sensores de una de sus cosas. Seleccione cómo desea que la cosa responda a este tipo de solicitud.</value>
+  </data>
+  <data name="ReadRequest" xml:space="preserve">
+    <value>Solicitud de lectura</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Servicio</value>
+  </data>
+  <data name="ToDevice" xml:space="preserve">
+    <value>Al dispositivo, independientemente de la fuente</value>
+  </data>
+  <data name="ToService" xml:space="preserve">
+    <value>Al servicio, independientemente de la fuente</value>
+  </data>
+  <data name="ToUser" xml:space="preserve">
+    <value>Al usuario, independientemente de la fuente</value>
+  </data>
+  <data name="UnableToRespond" xml:space="preserve">
+    <value>No se puede responder a la solicitud.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="XInY" xml:space="preserve">
+    <value>{0} en {1}</value>
+  </data>
+  <data name="XOnY" xml:space="preserve">
+    <value>{0} en {1}</value>
   </data>
 </root>

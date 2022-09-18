@@ -106,7 +106,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A caller has requested access to one of your things. Select how you wish the thing should respond to this request..
+        ///   Looks up a localized string similar to A caller has requested access to one of your things. Select how you wish the thing should respond to this type of request..
         /// </summary>
         internal static string AccessRequestText2 {
             get {
@@ -1006,6 +1006,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} wants to control parameters on your device {1}..
+        /// </summary>
+        internal static string ControlRequestText {
+            get {
+                return ResourceManager.GetString("ControlRequestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No control service found..
         /// </summary>
         internal static string ControlServiceNotFound {
@@ -1236,6 +1245,15 @@ namespace IdApp.Resx {
         internal static string Destroyed {
             get {
                 return ResourceManager.GetString("Destroyed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device.
+        /// </summary>
+        internal static string Device {
+            get {
+                return ResourceManager.GetString("Device", resourceCulture);
             }
         }
         
@@ -1897,7 +1915,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following information is availabl about the caller:.
+        ///   Looks up a localized string similar to The following information is available about the caller:.
         /// </summary>
         internal static string InformationAboutCallerText {
             get {
@@ -3571,6 +3589,33 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} wants to read data from your device {1}..
+        /// </summary>
+        internal static string ReadoutRequestText {
+            get {
+                return ResourceManager.GetString("ReadoutRequestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A caller has requested sensor data from one of your things. Select how you wish the thing should respond to this type of request..
+        /// </summary>
+        internal static string ReadoutRequestText2 {
+            get {
+                return ResourceManager.GetString("ReadoutRequestText2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Readout Request.
+        /// </summary>
+        internal static string ReadRequest {
+            get {
+                return ResourceManager.GetString("ReadRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Read Sensor.
         /// </summary>
         internal static string ReadSensor {
@@ -4381,6 +4426,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Service.
+        /// </summary>
+        internal static string Service {
+            get {
+                return ResourceManager.GetString("Service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Service Providers.
         /// </summary>
         internal static string ServiceProviders {
@@ -4894,6 +4948,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To device, regardless of source.
+        /// </summary>
+        internal static string ToDevice {
+            get {
+                return ResourceManager.GetString("ToDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A token has been added to your wallet..
         /// </summary>
         internal static string TokenAdded {
@@ -5007,6 +5070,24 @@ namespace IdApp.Resx {
         internal static string TokenVisibility {
             get {
                 return ResourceManager.GetString("TokenVisibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To service, regardless of source.
+        /// </summary>
+        internal static string ToService {
+            get {
+                return ResourceManager.GetString("ToService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To user, regardless of source.
+        /// </summary>
+        internal static string ToUser {
+            get {
+                return ResourceManager.GetString("ToUser", resourceCulture);
             }
         }
         
@@ -5236,6 +5317,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to respond to request..
+        /// </summary>
+        internal static string UnableToRespond {
+            get {
+                return ResourceManager.GetString("UnableToRespond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to process image with Tesseract OCR Library..
         /// </summary>
         internal static string UnableToTesseractImage {
@@ -5304,6 +5394,15 @@ namespace IdApp.Resx {
         internal static string Updated {
             get {
                 return ResourceManager.GetString("Updated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        internal static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
             }
         }
         
@@ -5560,6 +5659,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} in {1}.
+        /// </summary>
+        internal static string XInY {
+            get {
+                return ResourceManager.GetString("XInY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XML Note.
         /// </summary>
         internal static string XmlNote {
@@ -5691,6 +5799,15 @@ namespace IdApp.Resx {
         internal static string XmppState_StreamOpened {
             get {
                 return ResourceManager.GetString("XmppState_StreamOpened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} on {1}.
+        /// </summary>
+        internal static string XOnY {
+            get {
+                return ResourceManager.GetString("XOnY", resourceCulture);
             }
         }
         

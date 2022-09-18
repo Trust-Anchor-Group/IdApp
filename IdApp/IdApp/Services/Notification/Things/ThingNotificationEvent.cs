@@ -1,5 +1,10 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
 using Waher.Networking.XMPP.Provisioning;
+using Waher.Persistence;
+using Waher.Persistence.Attributes;
 
 namespace IdApp.Services.Notification.Things
 {
@@ -25,6 +30,9 @@ namespace IdApp.Services.Notification.Things
 			this.NodeId = e.NodeId;
 			this.PartitionId = e.Partition;
 			this.SourceId = e.SourceId;
+			this.ServiceTokens = Convert(e.ServiceTokens, TokenType.Service);
+			this.DeviceTokens = Convert(e.DeviceTokens, TokenType.Device);
+			this.UserTokens = Convert(e.UserTokens, TokenType.User);
 
 			StringBuilder sb = new();
 
@@ -37,22 +45,117 @@ namespace IdApp.Services.Notification.Things
 			sb.Append(this.NodeId);
 
 			this.Category = sb.ToString();
+		}
 
+		private static ProvisioningToken[] Convert(string[] Tokens, TokenType Type)
+		{
+			if (Tokens is null)
+				return null;
+
+			int i, c = Tokens.Length;
+			ProvisioningToken[] Result = new ProvisioningToken[c];
+
+			for (i = 0; i < c; i++)
+				Result[i] = new ProvisioningToken(Tokens[i], Type);
+
+			return Result;
 		}
 
 		/// <summary>
 		/// Node ID of thing.
 		/// </summary>
+		[DefaultValueStringEmpty]
 		public string NodeId { get; set; }
 
 		/// <summary>
 		/// Source ID of thing.
 		/// </summary>
+		[DefaultValueStringEmpty]
 		public string SourceId { get; set; }
 
 		/// <summary>
 		/// Partition ID of thing.
 		/// </summary>
+		[DefaultValueStringEmpty]
 		public string PartitionId { get; set; }
+
+		/// <summary>
+		/// User tokens
+		/// </summary>
+		[DefaultValueNull]
+		public ProvisioningToken[] UserTokens { get; set; }
+
+		/// <summary>
+		/// Service tokens
+		/// </summary>
+		[DefaultValueNull]
+		public ProvisioningToken[] ServiceTokens { get; set; }
+
+		/// <summary>
+		/// Device tokens
+		/// </summary>
+		[DefaultValueNull]
+		public ProvisioningToken[] DeviceTokens { get; set; }
+
+		/// <summary>
+		/// Performs perparatory tasks, that will simplify opening the notification.
+		/// </summary>
+		/// <param name="ServiceReferences">Service references.</param>
+		public override async Task Prepare(ServiceReferences ServiceReferences)
+		{
+			await base.Prepare(ServiceReferences);
+
+			await this.Prepare(this.UserTokens, ServiceReferences);
+			await this.Prepare(this.DeviceTokens, ServiceReferences);
+			await this.Prepare(this.ServiceTokens, ServiceReferences);
+		}
+
+		private async Task Prepare(ProvisioningToken[] Tokens, ServiceReferences ServiceReferences)
+		{
+			if (Tokens is null)
+				return;
+
+			bool Updated = false;
+
+			foreach (ProvisioningToken Token in Tokens)
+			{
+				if (!string.IsNullOrEmpty(Token.FriendlyName))
+					continue;
+
+				lock (certificatesyByToken)
+				{
+					if (certificatesyByToken.TryGetValue(Token.Token, out X509Certificate2 Certificate))
+					{
+						Token.FriendlyName = Certificate.FriendlyName;
+						Token.Certificate = Certificate.RawData;
+						Updated = true;
+						continue;
+					}
+				}
+
+				ServiceReferences.XmppService.IoT.ProvisioningClient.GetCertificate(Token.Token, this.CertificateResponse, Token);
+			}
+
+			if (Updated)
+				await Database.Update(this);
+		}
+
+		private static readonly Dictionary<string, X509Certificate2> certificatesyByToken = new();
+
+		private async Task CertificateResponse(object Sender, CertificateEventArgs e)
+		{
+			if (e.Ok && e.State is ProvisioningToken Token)
+			{
+				lock (certificatesyByToken)
+				{
+					certificatesyByToken[Token.Token] = e.Certificate;
+				}
+
+				Token.FriendlyName = e.Certificate.FriendlyName;
+				Token.Certificate = e.Certificate.RawData;
+
+				await Database.Update(this);
+			}
+		}
 	}
 }

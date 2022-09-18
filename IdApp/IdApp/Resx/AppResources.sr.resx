@@ -2023,7 +2023,7 @@
     <value>Zahtev za pristup</value>
   </data>
   <data name="AccessRequestText2" xml:space="preserve">
-    <value>Pozivalac je zahtevao pristup jednoj od vaših stvari. Izaberite način na koji želite da stvar odgovori na ovaj zahtev.</value>
+    <value>Pozivalac je zahtevao pristup jednoj od vaših stvari. Izaberite način na koji želite da stvar odgovori na ovaj tip zahteva.</value>
   </data>
   <data name="Caller" xml:space="preserve">
     <value>Pozivalac</value>
@@ -2033,6 +2033,12 @@
   </data>
   <data name="CallerOnly" xml:space="preserve">
     <value>Samo pozivalac</value>
+  </data>
+  <data name="ControlRequestText" xml:space="preserve">
+    <value>{0} želi da kontroliše parametre na uređaju {1}.</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Uređaj</value>
   </data>
   <data name="EntireDomain" xml:space="preserve">
     <value>Svi iz {0}</value>
@@ -2044,7 +2050,7 @@
     <value>Prepoznatljivo ime</value>
   </data>
   <data name="InformationAboutCallerText" xml:space="preserve">
-    <value>Sledeće informacije su dostupne o pozivaoca:</value>
+    <value>Dostupne su sledeće informacije o pozivaoca:</value>
   </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>Nije dostupno</value>
@@ -2054,5 +2060,38 @@
   </data>
   <data name="RangeText" xml:space="preserve">
     <value>Primeni ovo pravilo na:</value>
+  </data>
+  <data name="ReadoutRequestText" xml:space="preserve">
+    <value>{0} želi da čita podatke sa uređaja {1}.</value>
+  </data>
+  <data name="ReadoutRequestText2" xml:space="preserve">
+    <value>Pozivalac je zahtevao podatke o senzorima iz jedne od vaših stvari. Izaberite način na koji želite da stvar odgovori na ovaj tip zahteva.</value>
+  </data>
+  <data name="ReadRequest" xml:space="preserve">
+    <value>Zahtev za čitanje</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Usluga</value>
+  </data>
+  <data name="ToDevice" xml:space="preserve">
+    <value>Na uređaj, bez obzira na izvor</value>
+  </data>
+  <data name="ToService" xml:space="preserve">
+    <value>Za servis, bez obzira na izvor</value>
+  </data>
+  <data name="ToUser" xml:space="preserve">
+    <value>Korisniku, bez obzira na izvor</value>
+  </data>
+  <data name="UnableToRespond" xml:space="preserve">
+    <value>Nije moguće odgovoriti na zahtev.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Korisnik</value>
+  </data>
+  <data name="XInY" xml:space="preserve">
+    <value>{0} u {1}</value>
+  </data>
+  <data name="XOnY" xml:space="preserve">
+    <value>{0} na {1}</value>
   </data>
 </root>

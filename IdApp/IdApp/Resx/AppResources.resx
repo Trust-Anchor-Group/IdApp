@@ -2023,7 +2023,7 @@
     <value>Access Request</value>
   </data>
   <data name="AccessRequestText2" xml:space="preserve">
-    <value>A caller has requested access to one of your things. Select how you wish the thing should respond to this request.</value>
+    <value>A caller has requested access to one of your things. Select how you wish the thing should respond to this type of request.</value>
   </data>
   <data name="Caller" xml:space="preserve">
     <value>Caller</value>
@@ -2033,6 +2033,12 @@
   </data>
   <data name="CallerOnly" xml:space="preserve">
     <value>Caller Only</value>
+  </data>
+  <data name="ControlRequestText" xml:space="preserve">
+    <value>{0} wants to control parameters on your device {1}.</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Device</value>
   </data>
   <data name="EntireDomain" xml:space="preserve">
     <value>Everyone from {0}</value>
@@ -2044,7 +2050,7 @@
     <value>Friendly Name</value>
   </data>
   <data name="InformationAboutCallerText" xml:space="preserve">
-    <value>The following information is availabl about the caller:</value>
+    <value>The following information is available about the caller:</value>
   </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>Not Available</value>
@@ -2054,5 +2060,38 @@
   </data>
   <data name="RangeText" xml:space="preserve">
     <value>Apply this rule to:</value>
+  </data>
+  <data name="ReadoutRequestText" xml:space="preserve">
+    <value>{0} wants to read data from your device {1}.</value>
+  </data>
+  <data name="ReadoutRequestText2" xml:space="preserve">
+    <value>A caller has requested sensor data from one of your things. Select how you wish the thing should respond to this type of request.</value>
+  </data>
+  <data name="ReadRequest" xml:space="preserve">
+    <value>Readout Request</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="ToDevice" xml:space="preserve">
+    <value>To device, regardless of source</value>
+  </data>
+  <data name="ToService" xml:space="preserve">
+    <value>To service, regardless of source</value>
+  </data>
+  <data name="ToUser" xml:space="preserve">
+    <value>To user, regardless of source</value>
+  </data>
+  <data name="UnableToRespond" xml:space="preserve">
+    <value>Unable to respond to request.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="XInY" xml:space="preserve">
+    <value>{0} in {1}</value>
+  </data>
+  <data name="XOnY" xml:space="preserve">
+    <value>{0} on {1}</value>
   </data>
 </root>

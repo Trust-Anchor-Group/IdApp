@@ -1,8 +1,9 @@
-﻿using IdApp.Pages.Contacts.Chat;
+﻿using IdApp.Pages.Things.CanRead;
 using IdApp.Resx;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Things.SensorData;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Things
 {
@@ -54,9 +55,12 @@ namespace IdApp.Services.Notification.Things
 		/// Gets a descriptive text for the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override Task<string> GetDescription(ServiceReferences ServiceReferences)
+		public override async Task<string> GetDescription(ServiceReferences ServiceReferences)
 		{
-			return ContactInfo.GetFriendlyName(this.BareJid, ServiceReferences);
+			string ThingName = await ContactInfo.GetFriendlyName(this.BareJid, this.SourceId, this.PartitionId, this.NodeId, ServiceReferences);
+			string RemoteName = await ContactInfo.GetFriendlyName(this.RemoteJid, ServiceReferences);
+
+			return string.Format(LocalizationResourceManager.Current["ReadoutRequestText"], RemoteName, ThingName);
 		}
 
 		/// <summary>
@@ -65,15 +69,10 @@ namespace IdApp.Services.Notification.Things
 		/// <param name="ServiceReferences">Service references</param>
 		public override async Task Open(ServiceReferences ServiceReferences)
 		{
-			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(this.BareJid);
-			string LegalId = ContactInfo?.LegalId;
-			string FriendlyName = await this.GetDescription(ServiceReferences);
+			string ThingName = await ContactInfo.GetFriendlyName(this.BareJid, ServiceReferences);
+			string RemoteName = await ContactInfo.GetFriendlyName(this.RemoteJid, ServiceReferences);
 
-			await ServiceReferences.NavigationService.GoToAsync(nameof(ChatPage),
-				new ChatNavigationArgs(LegalId, this.BareJid, FriendlyName)
-				{
-					UniqueId = BareJid
-				});
+			await ServiceReferences.NavigationService.GoToAsync(nameof(CanReadPage), new CanReadNavigationArgs(this, ThingName, RemoteName));
 		}
 	}
 }

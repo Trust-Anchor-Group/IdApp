@@ -1,6 +1,4 @@
-﻿using Waher.Networking.XMPP.Provisioning;
-
-namespace IdApp.Pages.Things.IsFriend
+﻿namespace IdApp.Pages.Things.IsFriend
 {
 	/// <summary>
 	/// Rule Range model
@@ -12,7 +10,7 @@ namespace IdApp.Pages.Things.IsFriend
 		/// </summary>
 		/// <param name="RuleRange">Rule Range</param>
 		/// <param name="Label">Label</param>
-		public RuleRangeModel(RuleRange RuleRange, string Label)
+		public RuleRangeModel(object RuleRange, string Label)
 		{
 			this.RuleRange = RuleRange;
 			this.Label = Label;
@@ -21,7 +19,7 @@ namespace IdApp.Pages.Things.IsFriend
 		/// <summary>
 		/// Rule Range
 		/// </summary>
-		public RuleRange RuleRange { get; }
+		public object RuleRange { get; }
 
 		/// <summary>
 		/// Label

@@ -579,6 +579,46 @@ namespace IdApp.Services
 		}
 
 		/// <summary>
+		/// Gets the friendly name of a thing.
+		/// </summary>
+		/// <param name="BareJid">Bare JID of device</param>
+		/// <param name="SourceId">Source ID of device.</param>
+		/// <param name="PartitionId">Partition of device.</param>
+		/// <param name="NodeId">Node ID of device.</param>
+		/// <param name="Ref">Service References.</param>
+		/// <returns>Friendly name.</returns>
+		public static async Task<string> GetFriendlyName(CaseInsensitiveString BareJid, string SourceId, string PartitionId, string NodeId,
+			ServiceReferences Ref)
+		{
+			if (string.IsNullOrEmpty(NodeId) && string.IsNullOrEmpty(PartitionId) && string.IsNullOrEmpty(SourceId))
+				return await GetFriendlyName(BareJid, Ref);
+
+			ContactInfo Thing = await ContactInfo.FindByBareJid(BareJid, SourceId, PartitionId, NodeId);
+			if (Thing is not null)
+				return Thing.FriendlyName;
+
+			string s = NodeId;
+
+			if (!string.IsNullOrEmpty(PartitionId))
+			{
+				if (string.IsNullOrEmpty(s))
+					s = PartitionId;
+				else
+					s = string.Format(LocalizationResourceManager.Current["XInY"], s, PartitionId);
+			}
+
+			if (!string.IsNullOrEmpty(SourceId))
+			{
+				if (string.IsNullOrEmpty(s))
+					s = SourceId;
+				else
+					s = string.Format(LocalizationResourceManager.Current["XInY"], s, SourceId);
+			}
+
+			return string.Format(LocalizationResourceManager.Current["XOnY"], s, BareJid);
+		}
+
+		/// <summary>
 		/// Access to meta-data properties.
 		/// </summary>
 		/// <param name="PropertyName">Name of property</param>
