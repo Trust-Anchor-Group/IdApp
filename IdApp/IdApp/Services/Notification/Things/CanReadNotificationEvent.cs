@@ -43,7 +43,7 @@ namespace IdApp.Services.Notification.Things
 		public string[] Fields { get; set; }
 
 		/// <summary>
-		/// All Fields available
+		/// All fields available
 		/// </summary>
 		public string[] AllFields { get; set; }
 

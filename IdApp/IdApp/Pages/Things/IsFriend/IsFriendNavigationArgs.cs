@@ -3,7 +3,7 @@
 namespace IdApp.Pages.Things.IsFriend
 {
 	/// <summary>
-	/// Holds navigation parameters specific to displaying the is-friend provisuioning question.
+	/// Holds navigation parameters specific to displaying the is-friend provisioning question.
 	/// </summary>
 	public class IsFriendNavigationArgs : ProvisioningNavigationArgs
 	{

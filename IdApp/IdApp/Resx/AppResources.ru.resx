@@ -2124,10 +2124,19 @@
   <data name="StatusValues" xml:space="preserve">
     <value>Значения состояния</value>
   </data>
+  <data name="ControlRequest" xml:space="preserve">
+    <value>Запрос на управление</value>
+  </data>
+  <data name="ControlRequestText2" xml:space="preserve">
+    <value>Звонящий попросил контролировать одну из ваших вещей. Выберите, как вы хотите, чтобы вещь отвечала на этот тип запроса.</value>
+  </data>
   <data name="Fields" xml:space="preserve">
     <value>Поля</value>
   </data>
   <data name="PermitFieldsText" xml:space="preserve">
     <value>Выберите поля, к которым разрешен доступ, если запрос принят.</value>
+  </data>
+  <data name="PermitParametersText" xml:space="preserve">
+    <value>Выберите параметры, к которым будет разрешен доступ, если запрос принят.</value>
   </data>
 </root>

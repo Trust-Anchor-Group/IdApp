@@ -4,7 +4,7 @@ using Waher.Things.SensorData;
 namespace IdApp.Pages.Things.CanRead
 {
 	/// <summary>
-	/// Holds navigation parameters specific to displaying the is-friend provisuioning question.
+	/// Holds navigation parameters specific to displaying the can-read provisioning question.
 	/// </summary>
 	public class CanReadNavigationArgs : ThingNavigationArgs
 	{

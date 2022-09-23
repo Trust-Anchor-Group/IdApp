@@ -2124,10 +2124,19 @@
   <data name="StatusValues" xml:space="preserve">
     <value>Status Values</value>
   </data>
+  <data name="ControlRequest" xml:space="preserve">
+    <value>Control Request</value>
+  </data>
+  <data name="ControlRequestText2" xml:space="preserve">
+    <value>A caller has requested to control one of your things. Select how you wish the thing should respond to this type of request.</value>
+  </data>
   <data name="Fields" xml:space="preserve">
     <value>Fields</value>
   </data>
   <data name="PermitFieldsText" xml:space="preserve">
     <value>Choose the fields to permit access to, if request is accepted.</value>
+  </data>
+  <data name="PermitParametersText" xml:space="preserve">
+    <value>Choose the parameters to permit access to, if request is accepted.</value>
   </data>
 </root>

@@ -2103,6 +2103,12 @@
   <data name="StatusValues" xml:space="preserve">
     <value>Statusvärden</value>
   </data>
+  <data name="ControlRequest" xml:space="preserve">
+    <value>Förfrågan om styrning</value>
+  </data>
+  <data name="ControlRequestText2" xml:space="preserve">
+    <value>En förfrågan om att styra en av dina saker har mottagits. Välj hur du vill att saken ska svara på denna typ av förfrågan.</value>
+  </data>
   <data name="Fields" xml:space="preserve">
     <value>Fält</value>
   </data>

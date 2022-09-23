@@ -2124,10 +2124,19 @@
   <data name="StatusValues" xml:space="preserve">
     <value>Status Verdier</value>
   </data>
+  <data name="ControlRequest" xml:space="preserve">
+    <value>Forespørsel om kontroll</value>
+  </data>
+  <data name="ControlRequestText2" xml:space="preserve">
+    <value>En innringer har bedt om å få kontrollere en av tingene dine. Velg hvordan du ønsker at tingen skal svare på denne typen forespørsel.</value>
+  </data>
   <data name="Fields" xml:space="preserve">
     <value>Felt</value>
   </data>
   <data name="PermitFieldsText" xml:space="preserve">
     <value>Velg feltene du vil tillate tilgang til, hvis forespørselen godtas.</value>
+  </data>
+  <data name="PermitParametersText" xml:space="preserve">
+    <value>Velg parameterne du vil tillate tilgang til, hvis forespørselen godtas.</value>
   </data>
 </root>

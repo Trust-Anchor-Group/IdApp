@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using IdApp.Pages.Things.CanRead;
 using IdApp.Pages.Things.IsFriend;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Services;
@@ -13,23 +14,22 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
 using Waher.Things;
-using Waher.Things.SensorData;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
-namespace IdApp.Pages.Things.CanRead
+namespace IdApp.Pages.Things.CanControl
 {
 	/// <summary>
 	/// The view model to bind to when displaying a thing.
 	/// </summary>
-	public class CanReadModel : XmppViewModel
+	public class CanControlModel : XmppViewModel
 	{
 		private NotificationEvent @event;
 
 		/// <summary>
-		/// Creates an instance of the <see cref="CanReadModel"/> class.
+		/// Creates an instance of the <see cref="CanControlModel"/> class.
 		/// </summary>
-		protected internal CanReadModel()
+		protected internal CanControlModel()
 			: base()
 		{
 			this.ClickCommand = new Command(async P => await this.LabelClicked(P));
@@ -38,14 +38,12 @@ namespace IdApp.Pages.Things.CanRead
 			this.AcceptCommand = new Command(_ => this.Accept(), _ => this.CanExecuteAccept());
 			this.RejectCommand = new Command(_ => this.Reject(), _ => this.IsConnected);
 			this.IgnoreCommand = new Command(async _ => await this.Ignore());
-			this.AllFieldTypesCommand = new Command(_ => this.AllFieldTypes());
-			this.NoFieldTypesCommand = new Command(_ => this.NoFieldTypes());
-			this.AllFieldsCommand = new Command(_ => this.AllFields());
-			this.NoFieldsCommand = new Command(_ => this.NoFields());
+			this.AllParametersCommand = new Command(_ => this.AllParameters());
+			this.NoParametersCommand = new Command(_ => this.NoParameters());
 
 			this.Tags = new ObservableCollection<HumanReadableTag>();
 			this.CallerTags = new ObservableCollection<HumanReadableTag>();
-			this.Fields = new ObservableCollection<FieldReference>();
+			this.Parameters = new ObservableCollection<FieldReference>();
 			this.RuleRanges = new ObservableCollection<RuleRangeModel>();
 		}
 
@@ -54,7 +52,7 @@ namespace IdApp.Pages.Things.CanRead
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out CanReadNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out CanControlNavigationArgs args))
 			{
 				this.@event = args.Event;
 				this.BareJid = args.BareJid;
@@ -63,17 +61,9 @@ namespace IdApp.Pages.Things.CanRead
 				this.RemoteFriendlyName = args.RemoteFriendlyName;
 				this.Key = args.Key;
 				this.ProvisioningService = args.ProvisioningService;
-				this.FieldTypes = args.FieldTypes;
 				this.NodeId = args.NodeId;
 				this.SourceId = args.SourceId;
 				this.PartitionId = args.PartitionId;
-
-				this.PermitMomentary = args.FieldTypes.HasFlag(FieldType.Momentary);
-				this.PermitIdentity = args.FieldTypes.HasFlag(FieldType.Identity);
-				this.PermitStatus = args.FieldTypes.HasFlag(FieldType.Status);
-				this.PermitComputed = args.FieldTypes.HasFlag(FieldType.Computed);
-				this.PermitPeak = args.FieldTypes.HasFlag(FieldType.Peak);
-				this.PermitHistorical = args.FieldTypes.HasFlag(FieldType.Historical);
 
 				if (this.FriendlyName == this.BareJid)
 					this.FriendlyName = LocalizationResourceManager.Current["NotAvailable"];
@@ -124,42 +114,42 @@ namespace IdApp.Pages.Things.CanRead
 					this.HasDevice = true;
 				}
 
-				this.Fields.Clear();
+				this.Parameters.Clear();
 
-				SortedDictionary<string, bool> PermittedFields = new();
-				string[] AllFields = args.AllFields;
+				SortedDictionary<string, bool> PermittedParameters = new();
+				string[] AllParameters = args.AllParameters;
 
-				if (AllFields is null)
+				if (AllParameters is null)
 				{
-					AllFields = await CanReadNotificationEvent.GetAvailableFieldNames(this.BareJid, new ThingReference(this.NodeId, this.SourceId, this.PartitionId), this);
+					AllParameters = await CanControlNotificationEvent.GetAvailableParameterNames(this.BareJid, new ThingReference(this.NodeId, this.SourceId, this.PartitionId), this);
 
-					if (AllFields is not null)
+					if (AllParameters is not null)
 					{
-						args.Event.AllFields = AllFields;
+						args.Event.AllParameters = AllParameters;
 						await Database.Update(args.Event);
 					}
 				}
 
-				bool AllFieldsPermitted = args.Fields is null;
+				bool AllParametersPermitted = args.Parameters is null;
 
-				if (AllFields is not null)
+				if (AllParameters is not null)
 				{
-					foreach (string Field in AllFields)
-						PermittedFields[Field] = AllFieldsPermitted;
+					foreach (string Parameter in AllParameters)
+						PermittedParameters[Parameter] = AllParametersPermitted;
 				}
 
-				if (!AllFieldsPermitted)
+				if (!AllParametersPermitted)
 				{
-					foreach (string Field in args.Fields)
-						PermittedFields[Field] = true;
+					foreach (string Parameter in args.Parameters)
+						PermittedParameters[Parameter] = true;
 				}
 
-				foreach (KeyValuePair<string, bool> P in PermittedFields)
+				foreach (KeyValuePair<string, bool> P in PermittedParameters)
 				{
-					FieldReference Field = new(this, P.Key, P.Value);
-					this.Fields.Add(Field);
+					FieldReference Parameter = new(this, P.Key, P.Value);
+					this.Parameters.Add(Parameter);
 
-					Field.PropertyChanged += this.Field_PropertyChanged;
+					Parameter.PropertyChanged += this.Parameter_PropertyChanged;
 				}
 
 				this.RuleRanges.Clear();
@@ -183,7 +173,7 @@ namespace IdApp.Pages.Things.CanRead
 			this.EvaluateAllCommands();
 		}
 
-		private void Field_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		private void Parameter_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			this.EvaluateAllCommands();
 		}
@@ -191,7 +181,7 @@ namespace IdApp.Pages.Things.CanRead
 		private void EvaluateAllCommands()
 		{
 			this.EvaluateCommands(this.ClickCommand, this.AddContactCommand, this.RemoveContactCommand, this.AcceptCommand, this.RejectCommand,
-				this.IgnoreCommand, this.AllFieldTypesCommand, this.NoFieldTypesCommand, this.AllFieldsCommand, this.NoFieldsCommand);
+				this.IgnoreCommand, this.AllParametersCommand, this.NoParametersCommand);
 		}
 
 		/// <inheritdoc/>
@@ -217,9 +207,9 @@ namespace IdApp.Pages.Things.CanRead
 		public ObservableCollection<HumanReadableTag> CallerTags { get; }
 
 		/// <summary>
-		/// Holds a list of fields that will be permitted.
+		/// Holds a list of parameters that will be permitted.
 		/// </summary>
-		public ObservableCollection<FieldReference> Fields { get; }
+		public ObservableCollection<FieldReference> Parameters { get; }
 
 		/// <summary>
 		/// Available Rule Ranges
@@ -256,30 +246,20 @@ namespace IdApp.Pages.Things.CanRead
 		public System.Windows.Input.ICommand IgnoreCommand { get; }
 
 		/// <summary>
-		/// The command to bind to for selecting all field types
-		/// </summary>
-		public System.Windows.Input.ICommand AllFieldTypesCommand { get; }
-
-		/// <summary>
-		/// The command to bind to for selecting no field types
-		/// </summary>
-		public System.Windows.Input.ICommand NoFieldTypesCommand { get; }
-
-		/// <summary>
 		/// The command to bind to for selecting all fields
 		/// </summary>
-		public System.Windows.Input.ICommand AllFieldsCommand { get; }
+		public System.Windows.Input.ICommand AllParametersCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for selecting no fields
 		/// </summary>
-		public System.Windows.Input.ICommand NoFieldsCommand { get; }
+		public System.Windows.Input.ICommand NoParametersCommand { get; }
 
 		/// <summary>
 		/// See <see cref="BareJid"/>
 		/// </summary>
 		public static readonly BindableProperty BareJidProperty =
-			BindableProperty.Create(nameof(BareJid), typeof(string), typeof(CanReadModel), default(string));
+			BindableProperty.Create(nameof(BareJid), typeof(string), typeof(CanControlModel), default(string));
 
 		/// <summary>
 		/// The Bare JID of the thing.
@@ -294,7 +274,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="FriendlyName"/>
 		/// </summary>
 		public static readonly BindableProperty FriendlyNameProperty =
-			BindableProperty.Create(nameof(FriendlyName), typeof(string), typeof(CanReadModel), default(string));
+			BindableProperty.Create(nameof(FriendlyName), typeof(string), typeof(CanControlModel), default(string));
 
 		/// <summary>
 		/// The Friendly Name of the thing.
@@ -309,7 +289,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="RemoteJid"/>
 		/// </summary>
 		public static readonly BindableProperty RemoteJidProperty =
-			BindableProperty.Create(nameof(RemoteJid), typeof(string), typeof(CanReadModel), default(string));
+			BindableProperty.Create(nameof(RemoteJid), typeof(string), typeof(CanControlModel), default(string));
 
 		/// <summary>
 		/// The Bare JID of the remote entity trying to connect to the thing.
@@ -324,7 +304,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="RemoteFriendlyName"/>
 		/// </summary>
 		public static readonly BindableProperty RemoteFriendlyNameProperty =
-			BindableProperty.Create(nameof(RemoteFriendlyName), typeof(string), typeof(CanReadModel), default(string));
+			BindableProperty.Create(nameof(RemoteFriendlyName), typeof(string), typeof(CanControlModel), default(string));
 
 		/// <summary>
 		/// The Friendly Name of the remote entity
@@ -339,7 +319,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="RemoteFriendlyNameAvailable"/>
 		/// </summary>
 		public static readonly BindableProperty RemoteFriendlyNameAvailableProperty =
-			BindableProperty.Create(nameof(RemoteFriendlyNameAvailable), typeof(bool), typeof(CanReadModel), default(bool));
+			BindableProperty.Create(nameof(RemoteFriendlyNameAvailable), typeof(bool), typeof(CanControlModel), default(bool));
 
 		/// <summary>
 		/// If the Friendly Name of the remote entity exists
@@ -354,7 +334,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="Key"/>
 		/// </summary>
 		public static readonly BindableProperty KeyProperty =
-			BindableProperty.Create(nameof(Key), typeof(string), typeof(CanReadModel), default(string));
+			BindableProperty.Create(nameof(Key), typeof(string), typeof(CanControlModel), default(string));
 
 		/// <summary>
 		/// Provisioning key.
@@ -369,7 +349,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="HasUser"/>
 		/// </summary>
 		public static readonly BindableProperty HasUserProperty =
-			BindableProperty.Create(nameof(HasUser), typeof(bool), typeof(CanReadModel), default(bool));
+			BindableProperty.Create(nameof(HasUser), typeof(bool), typeof(CanControlModel), default(bool));
 
 		/// <summary>
 		/// If request has user information
@@ -384,7 +364,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="HasService"/>
 		/// </summary>
 		public static readonly BindableProperty HasServiceProperty =
-			BindableProperty.Create(nameof(HasService), typeof(bool), typeof(CanReadModel), default(bool));
+			BindableProperty.Create(nameof(HasService), typeof(bool), typeof(CanControlModel), default(bool));
 
 		/// <summary>
 		/// If request has user information
@@ -399,7 +379,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="HasDevice"/>
 		/// </summary>
 		public static readonly BindableProperty HasDeviceProperty =
-			BindableProperty.Create(nameof(HasDevice), typeof(bool), typeof(CanReadModel), default(bool));
+			BindableProperty.Create(nameof(HasDevice), typeof(bool), typeof(CanControlModel), default(bool));
 
 		/// <summary>
 		/// If request has user information
@@ -414,7 +394,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="ProvisioningService"/>
 		/// </summary>
 		public static readonly BindableProperty ProvisioningServiceProperty =
-			BindableProperty.Create(nameof(ProvisioningService), typeof(string), typeof(CanReadModel), default(string));
+			BindableProperty.Create(nameof(ProvisioningService), typeof(string), typeof(CanControlModel), default(string));
 
 		/// <summary>
 		/// Provisioning key.
@@ -429,7 +409,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="CallerInContactsList"/>
 		/// </summary>
 		public static readonly BindableProperty CallerInContactsListProperty =
-			BindableProperty.Create(nameof(CallerInContactsList), typeof(bool), typeof(CanReadModel), default(bool));
+			BindableProperty.Create(nameof(CallerInContactsList), typeof(bool), typeof(CanControlModel), default(bool));
 
 		/// <summary>
 		/// The Friendly Name of the remote entity
@@ -444,7 +424,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="RuleRange"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedRuleRangeIndexProperty =
-			BindableProperty.Create(nameof(SelectedRuleRangeIndex), typeof(int), typeof(CanReadModel), -1);
+			BindableProperty.Create(nameof(SelectedRuleRangeIndex), typeof(int), typeof(CanControlModel), -1);
 
 		/// <summary>
 		/// The selected rule range index
@@ -456,139 +436,10 @@ namespace IdApp.Pages.Things.CanRead
 		}
 
 		/// <summary>
-		/// See <see cref="FieldTypes"/>
-		/// </summary>
-		public static readonly BindableProperty FieldTypesProperty =
-			BindableProperty.Create(nameof(FieldTypes), typeof(FieldType), typeof(CanReadModel), default(FieldType));
-
-		/// <summary>
-		/// Sensor-Data FieldTypes
-		/// </summary>
-		public FieldType FieldTypes
-		{
-			get => (FieldType)this.GetValue(FieldTypesProperty);
-			set => this.SetValue(FieldTypesProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="PermitMomentary"/>
-		/// </summary>
-		public static readonly BindableProperty PermitMomentaryProperty =
-			BindableProperty.Create(nameof(PermitMomentary), typeof(bool), typeof(CanReadModel), default(bool));
-
-		/// <summary>
-		/// If Momentary values should be permitted.
-		/// </summary>
-		public bool PermitMomentary
-		{
-			get => (bool)this.GetValue(PermitMomentaryProperty);
-			set
-			{
-				this.SetValue(PermitMomentaryProperty, value);
-				this.EvaluateCommands(this.AcceptCommand);
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="PermitIdentity"/>
-		/// </summary>
-		public static readonly BindableProperty PermitIdentityProperty =
-			BindableProperty.Create(nameof(PermitIdentity), typeof(bool), typeof(CanReadModel), default(bool));
-
-		/// <summary>
-		/// If Identity values should be permitted.
-		/// </summary>
-		public bool PermitIdentity
-		{
-			get => (bool)this.GetValue(PermitIdentityProperty);
-			set
-			{
-				this.SetValue(PermitIdentityProperty, value);
-				this.EvaluateCommands(this.AcceptCommand);
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="PermitStatus"/>
-		/// </summary>
-		public static readonly BindableProperty PermitStatusProperty =
-			BindableProperty.Create(nameof(PermitStatus), typeof(bool), typeof(CanReadModel), default(bool));
-
-		/// <summary>
-		/// If Status values should be permitted.
-		/// </summary>
-		public bool PermitStatus
-		{
-			get => (bool)this.GetValue(PermitStatusProperty);
-			set
-			{
-				this.SetValue(PermitStatusProperty, value);
-				this.EvaluateCommands(this.AcceptCommand);
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="PermitComputed"/>
-		/// </summary>
-		public static readonly BindableProperty PermitComputedProperty =
-			BindableProperty.Create(nameof(PermitComputed), typeof(bool), typeof(CanReadModel), default(bool));
-
-		/// <summary>
-		/// If Computed values should be permitted.
-		/// </summary>
-		public bool PermitComputed
-		{
-			get => (bool)this.GetValue(PermitComputedProperty);
-			set
-			{
-				this.SetValue(PermitComputedProperty, value);
-				this.EvaluateCommands(this.AcceptCommand);
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="PermitPeak"/>
-		/// </summary>
-		public static readonly BindableProperty PermitPeakProperty =
-			BindableProperty.Create(nameof(PermitPeak), typeof(bool), typeof(CanReadModel), default(bool));
-
-		/// <summary>
-		/// If Peak values should be permitted.
-		/// </summary>
-		public bool PermitPeak
-		{
-			get => (bool)this.GetValue(PermitPeakProperty);
-			set
-			{
-				this.SetValue(PermitPeakProperty, value);
-				this.EvaluateCommands(this.AcceptCommand);
-			}
-		}
-
-		/// <summary>
-		/// See <see cref="PermitHistorical"/>
-		/// </summary>
-		public static readonly BindableProperty PermitHistoricalProperty =
-			BindableProperty.Create(nameof(PermitHistorical), typeof(bool), typeof(CanReadModel), default(bool));
-
-		/// <summary>
-		/// If Historical values should be permitted.
-		/// </summary>
-		public bool PermitHistorical
-		{
-			get => (bool)this.GetValue(PermitHistoricalProperty);
-			set
-			{
-				this.SetValue(PermitHistoricalProperty, value);
-				this.EvaluateCommands(this.AcceptCommand);
-			}
-		}
-
-		/// <summary>
 		/// See <see cref="NodeId"/>
 		/// </summary>
 		public static readonly BindableProperty NodeIdProperty =
-			BindableProperty.Create(nameof(NodeId), typeof(string), typeof(CanReadModel), default(string));
+			BindableProperty.Create(nameof(NodeId), typeof(string), typeof(CanControlModel), default(string));
 
 		/// <summary>
 		/// Node ID
@@ -603,7 +454,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="SourceId"/>
 		/// </summary>
 		public static readonly BindableProperty SourceIdProperty =
-			BindableProperty.Create(nameof(SourceId), typeof(string), typeof(CanReadModel), default(string));
+			BindableProperty.Create(nameof(SourceId), typeof(string), typeof(CanControlModel), default(string));
 
 		/// <summary>
 		/// Source ID
@@ -618,7 +469,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// See <see cref="PartitionId"/>
 		/// </summary>
 		public static readonly BindableProperty PartitionIdProperty =
-			BindableProperty.Create(nameof(PartitionId), typeof(string), typeof(CanReadModel), default(string));
+			BindableProperty.Create(nameof(PartitionId), typeof(string), typeof(CanControlModel), default(string));
 
 		/// <summary>
 		/// Partition ID
@@ -679,12 +530,9 @@ namespace IdApp.Pages.Things.CanRead
 			if (!this.IsConnected)
 				return false;
 
-			if (this.PermitMomentary || this.PermitIdentity || this.PermitStatus || this.PermitComputed || this.PermitPeak || this.PermitHistorical)
-				return true;
-
-			foreach (FieldReference Field in this.Fields)
+			foreach (FieldReference Parameter in this.Parameters)
 			{
-				if (Field.Permitted)
+				if (Parameter.Permitted)
 					return true;
 			}
 
@@ -702,25 +550,6 @@ namespace IdApp.Pages.Things.CanRead
 			{
 				RuleRangeModel Range = this.RuleRanges[this.SelectedRuleRangeIndex];
 				ThingReference Thing = new(this.NodeId, this.SourceId, this.PartitionId);
-				FieldType FieldTypes = (FieldType)0;
-
-				if (this.PermitMomentary)
-					FieldTypes |= FieldType.Momentary;
-
-				if (this.PermitIdentity)
-					FieldTypes |= FieldType.Identity;
-
-				if (this.PermitStatus)
-					FieldTypes |= FieldType.Status;
-
-				if (this.PermitComputed)
-					FieldTypes |= FieldType.Computed;
-
-				if (this.PermitPeak)
-					FieldTypes |= FieldType.Peak;
-
-				if (this.PermitHistorical)
-					FieldTypes |= FieldType.Historical;
 
 				if (Range.RuleRange is RuleRange RuleRange)
 				{
@@ -728,18 +557,18 @@ namespace IdApp.Pages.Things.CanRead
 					{
 						case RuleRange.Caller:
 						default:
-							this.XmppService.IoT.ProvisioningClient.CanReadResponseCaller(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
-								Accepts, FieldTypes, this.GetFields(), Thing, this.ResponseHandler, null);
+							this.XmppService.IoT.ProvisioningClient.CanControlResponseCaller(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+								Accepts, this.GetParameters(), Thing, this.ResponseHandler, null);
 							break;
 
 						case RuleRange.Domain:
-							this.XmppService.IoT.ProvisioningClient.CanReadResponseDomain(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
-								Accepts, FieldTypes, this.GetFields(), Thing, this.ResponseHandler, null);
+							this.XmppService.IoT.ProvisioningClient.CanControlResponseDomain(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+								Accepts, this.GetParameters(), Thing, this.ResponseHandler, null);
 							break;
 
 						case RuleRange.All:
-							this.XmppService.IoT.ProvisioningClient.CanReadResponseAll(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
-								Accepts, FieldTypes, this.GetFields(), Thing, this.ResponseHandler, null);
+							this.XmppService.IoT.ProvisioningClient.CanControlResponseAll(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+								Accepts, this.GetParameters(), Thing, this.ResponseHandler, null);
 							break;
 
 					}
@@ -749,33 +578,33 @@ namespace IdApp.Pages.Things.CanRead
 					switch (Token.Type)
 					{
 						case TokenType.User:
-							this.XmppService.IoT.ProvisioningClient.CanReadResponseUser(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
-								Accepts, FieldTypes, this.GetFields(), Token.Token, Thing, this.ResponseHandler, null);
+							this.XmppService.IoT.ProvisioningClient.CanControlResponseUser(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+								Accepts, this.GetParameters(), Token.Token, Thing, this.ResponseHandler, null);
 							break;
 
 						case TokenType.Service:
-							this.XmppService.IoT.ProvisioningClient.CanReadResponseService(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
-								Accepts, FieldTypes, this.GetFields(), Token.Token, Thing, this.ResponseHandler, null);
+							this.XmppService.IoT.ProvisioningClient.CanControlResponseService(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+								Accepts, this.GetParameters(), Token.Token, Thing, this.ResponseHandler, null);
 							break;
 
 						case TokenType.Device:
-							this.XmppService.IoT.ProvisioningClient.CanReadResponseDevice(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
-								Accepts, FieldTypes, this.GetFields(), Token.Token, Thing, this.ResponseHandler, null);
+							this.XmppService.IoT.ProvisioningClient.CanControlResponseDevice(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+								Accepts, this.GetParameters(), Token.Token, Thing, this.ResponseHandler, null);
 							break;
 					}
 				}
 			}
 		}
 
-		private string[] GetFields()
+		private string[] GetParameters()
 		{
 			List<string> Result = new();
 			bool AllPermitted = true;
 
-			foreach (FieldReference Field in this.Fields)
+			foreach (FieldReference Parameter in this.Parameters)
 			{
-				if (Field.Permitted)
-					Result.Add(Field.Name);
+				if (Parameter.Permitted)
+					Result.Add(Parameter.Name);
 				else
 					AllPermitted = false;
 			}
@@ -810,36 +639,16 @@ namespace IdApp.Pages.Things.CanRead
 			await this.NavigationService.GoBackAsync();
 		}
 
-		private void AllFieldTypes()
+		private void AllParameters()
 		{
-			this.PermitMomentary = true;
-			this.PermitIdentity = true;
-			this.PermitStatus = true;
-			this.PermitComputed = true;
-			this.PermitPeak = true;
-			this.PermitHistorical = true;
+			foreach (FieldReference Parameter in this.Parameters)
+				Parameter.Permitted = true;
 		}
 
-		private void NoFieldTypes()
+		private void NoParameters()
 		{
-			this.PermitMomentary = false;
-			this.PermitIdentity = false;
-			this.PermitStatus = false;
-			this.PermitComputed = false;
-			this.PermitPeak = false;
-			this.PermitHistorical = false;
-		}
-
-		private void AllFields()
-		{
-			foreach (FieldReference Field in this.Fields)
-				Field.Permitted = true;
-		}
-
-		private void NoFields()
-		{
-			foreach (FieldReference Field in this.Fields)
-				Field.Permitted = false;
+			foreach (FieldReference Parameter in this.Parameters)
+				Parameter.Permitted = false;
 		}
 
 	}

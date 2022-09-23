@@ -1,7 +1,14 @@
 ﻿using IdApp.Pages.Contacts.Chat;
+using IdApp.Pages.Things.CanControl;
 using IdApp.Resx;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.DataForms;
 using Waher.Networking.XMPP.Provisioning;
+using Waher.Persistence;
+using Waher.Things;
 using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Things
@@ -30,9 +37,14 @@ namespace IdApp.Services.Notification.Things
 		}
 
 		/// <summary>
-		/// Fields requested
+		/// Parameters requested
 		/// </summary>
 		public string[] Parameters { get; set; }
+
+		/// <summary>
+		/// All parameters available
+		/// </summary>
+		public string[] AllParameters { get; set; }
 
 		/// <summary>
 		/// Gets an icon for the category of event.
@@ -62,15 +74,85 @@ namespace IdApp.Services.Notification.Things
 		/// <param name="ServiceReferences">Service references</param>
 		public override async Task Open(ServiceReferences ServiceReferences)
 		{
-			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(this.BareJid);
-			string LegalId = ContactInfo?.LegalId;
-			string FriendlyName = await this.GetDescription(ServiceReferences);
+			string ThingName = await ContactInfo.GetFriendlyName(this.BareJid, ServiceReferences);
+			string RemoteName = await ContactInfo.GetFriendlyName(this.RemoteJid, ServiceReferences);
 
-			await ServiceReferences.NavigationService.GoToAsync(nameof(ChatPage),
-				new ChatNavigationArgs(LegalId, this.BareJid, FriendlyName)
-				{
-					UniqueId = BareJid
-				});
+			await ServiceReferences.NavigationService.GoToAsync(nameof(CanControlPage), new CanControlNavigationArgs(this, ThingName, RemoteName));
 		}
+
+		/// <summary>
+		/// Performs perparatory tasks, that will simplify opening the notification.
+		/// </summary>
+		/// <param name="ServiceReferences">Service references.</param>
+		public override async Task Prepare(ServiceReferences ServiceReferences)
+		{
+			await base.Prepare(ServiceReferences);
+
+			string[] Parameters = await GetAvailableParameterNames(this.BareJid, new ThingReference(this.NodeId, this.SourceId, this.PartitionId), ServiceReferences);
+
+			if (Parameters is not null)
+			{
+				this.AllParameters = Parameters;
+				await Database.Update(this);
+			}
+		}
+
+		/// <summary>
+		/// Gets available fields for a thing.
+		/// </summary>
+		/// <param name="BareJid">Bare JID</param>
+		/// <param name="Thing">Thing reference</param>
+		/// <param name="ServiceReferences">Service references</param>
+		/// <returns>Array of available field names, or null if not able.</returns>
+		public static async Task<string[]> GetAvailableParameterNames(string BareJid, ThingReference Thing, ServiceReferences ServiceReferences)
+		{
+			try
+			{
+				RosterItem Item = ServiceReferences.XmppService.Xmpp?.GetRosterItem(BareJid);
+				if (Item is null || !Item.HasLastPresence || !Item.LastPresence.IsOnline)
+					return null;
+
+				TaskCompletionSource<DataForm> FormTask = new();
+
+				ServiceReferences.XmppService.IoT.ControlClient.GetForm(Item.LastPresenceFullJid,
+					System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName,
+					(sender, e) =>
+					{
+						if (e.Ok)
+							FormTask.TrySetResult(e.Form);
+						else
+							FormTask.TrySetResult(null);
+
+						return Task.CompletedTask;
+					}, null, new ThingReference[] { Thing });
+
+				Task _ = Task.Delay(30000).ContinueWith((_) => FormTask.TrySetResult(null));
+
+				DataForm Form = await FormTask.Task;
+
+				if (Form is not null)
+				{
+					SortedDictionary<string, bool> Parameters = new();
+
+					foreach (Field Field in Form.Fields)
+					{
+						if (!Field.ReadOnly && !string.IsNullOrEmpty(Field.Var))
+							Parameters[Field.Var] = true;
+					}
+
+					string[] Parameters2 = new string[Parameters.Count];
+					Parameters.Keys.CopyTo(Parameters2, 0);
+
+					return Parameters2;
+				}
+				else
+					return null;
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+		}
+
 	}
 }

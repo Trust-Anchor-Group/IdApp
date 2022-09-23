@@ -2124,10 +2124,19 @@
   <data name="StatusValues" xml:space="preserve">
     <value>Valori de stare</value>
   </data>
+  <data name="ControlRequest" xml:space="preserve">
+    <value>Solicitare de control</value>
+  </data>
+  <data name="ControlRequestText2" xml:space="preserve">
+    <value>Un apelant a solicitat să controleze unul dintre lucrurile tale. Selectați modul în care doriți ca lucrul să răspundă la acest tip de solicitare.</value>
+  </data>
   <data name="Fields" xml:space="preserve">
     <value>Câmpuri</value>
   </data>
   <data name="PermitFieldsText" xml:space="preserve">
     <value>Alegeți câmpurile la care să permiteți accesul, dacă solicitarea este acceptată.</value>
+  </data>
+  <data name="PermitParametersText" xml:space="preserve">
+    <value>Alegeți parametrii la care să permiteți accesul, dacă cererea este acceptată.</value>
   </data>
 </root>

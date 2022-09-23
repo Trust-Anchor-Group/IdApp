@@ -3,7 +3,7 @@
 namespace IdApp.Pages.Things.CanRead
 {
 	/// <summary>
-	/// A page that asks the user if a remote entity is allowed to connect to a device.
+	/// A page that asks the user if a remote entity is allowed to read the device.
 	/// </summary>
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CanReadPage

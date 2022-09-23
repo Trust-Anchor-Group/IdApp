@@ -9837,6 +9837,274 @@
         <member name="M:IdApp.Pages.ShellBasePage.OnDisappearing">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Pages.Things.CanControl.CanControlModel">
+            <summary>
+            The view model to bind to when displaying a thing.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanControl.CanControlModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Things.CanControl.CanControlModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanControl.CanControlModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanControl.CanControlModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.Tags">
+            <summary>
+            Holds a list of meta-data tags associated with a thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.CallerTags">
+            <summary>
+            Holds a list of meta-data tags associated with the caller.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.Parameters">
+            <summary>
+            Holds a list of parameters that will be permitted.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.RuleRanges">
+            <summary>
+            Available Rule Ranges
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.ClickCommand">
+            <summary>
+            The command to bind to for processing a user click on a label
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.AddContactCommand">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.RemoveContactCommand">
+            <summary>
+            The command to bind to for reemoving a caller from the contact list.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.AcceptCommand">
+            <summary>
+            The command to bind to for accepting the request
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.RejectCommand">
+            <summary>
+            The command to bind to for rejecting the request
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.IgnoreCommand">
+            <summary>
+            The command to bind to for ignoring the request
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.AllParametersCommand">
+            <summary>
+            The command to bind to for selecting all fields
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.NoParametersCommand">
+            <summary>
+            The command to bind to for selecting no fields
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.BareJidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.BareJid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.BareJid">
+            <summary>
+            The Bare JID of the thing.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.FriendlyNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.FriendlyName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.FriendlyName">
+            <summary>
+            The Friendly Name of the thing.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.RemoteJidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.RemoteJid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.RemoteJid">
+            <summary>
+            The Bare JID of the remote entity trying to connect to the thing.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.RemoteFriendlyNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.RemoteFriendlyName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.RemoteFriendlyName">
+            <summary>
+            The Friendly Name of the remote entity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.RemoteFriendlyNameAvailableProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.RemoteFriendlyNameAvailable"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.RemoteFriendlyNameAvailable">
+            <summary>
+            If the Friendly Name of the remote entity exists
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.KeyProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.Key"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.Key">
+            <summary>
+            Provisioning key.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.HasUserProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.HasUser"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.HasUser">
+            <summary>
+            If request has user information
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.HasServiceProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.HasService"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.HasService">
+            <summary>
+            If request has user information
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.HasDeviceProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.HasDevice"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.HasDevice">
+            <summary>
+            If request has user information
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.ProvisioningServiceProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.ProvisioningService"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.ProvisioningService">
+            <summary>
+            Provisioning key.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.CallerInContactsListProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.CallerInContactsList"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.CallerInContactsList">
+            <summary>
+            The Friendly Name of the remote entity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.SelectedRuleRangeIndexProperty">
+            <summary>
+            See <see cref="T:Waher.Networking.XMPP.Provisioning.RuleRange"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.SelectedRuleRangeIndex">
+            <summary>
+            The selected rule range index
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.NodeIdProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.NodeId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.NodeId">
+            <summary>
+            Node ID
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.SourceIdProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.SourceId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.SourceId">
+            <summary>
+            Source ID
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanControl.CanControlModel.PartitionIdProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanControl.CanControlModel.PartitionId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.PartitionId">
+            <summary>
+            Partition ID
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Things.CanControl.CanControlNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to displaying the can-control provisioning question.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanControl.CanControlNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Things.CanControl.CanControlNavigationArgs"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanControl.CanControlNavigationArgs.#ctor(IdApp.Services.Notification.Things.CanControlNotificationEvent,System.String,System.String)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Things.CanControl.CanControlNavigationArgs"/> class.
+            </summary>
+            <param name="Event">Notification event object.</param>
+            <param name="FriendlyName">Friendly name of device.</param>
+            <param name="RemoteFriendlyName">Friendly name of remote entity.</param>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlNavigationArgs.Event">
+            <summary>
+            Notification event objcet.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlNavigationArgs.Parameters">
+            <summary>
+            Parameters
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanControl.CanControlNavigationArgs.AllParameters">
+            <summary>
+            AllParameters
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Things.CanControl.CanControlPage">
+            <summary>
+            A page that asks the user if a remote entity is allowed to control the device.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanControl.CanControlPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Things.CanControl.CanControlPage"/> class.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Things.CanRead.CanReadModel">
             <summary>
             The view model to bind to when displaying a thing.
@@ -10144,7 +10412,7 @@
         </member>
         <member name="T:IdApp.Pages.Things.CanRead.CanReadNavigationArgs">
             <summary>
-            Holds navigation parameters specific to displaying the is-friend provisuioning question.
+            Holds navigation parameters specific to displaying the can-read provisioning question.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Things.CanRead.CanReadNavigationArgs.#ctor">
@@ -10182,7 +10450,7 @@
         </member>
         <member name="T:IdApp.Pages.Things.CanRead.CanReadPage">
             <summary>
-            A page that asks the user if a remote entity is allowed to connect to a device.
+            A page that asks the user if a remote entity is allowed to read the device.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Things.CanRead.CanReadPage.#ctor">
@@ -10466,7 +10734,7 @@
         </member>
         <member name="T:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs">
             <summary>
-            Holds navigation parameters specific to displaying the is-friend provisuioning question.
+            Holds navigation parameters specific to displaying the is-friend provisioning question.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Things.IsFriend.IsFriendNavigationArgs.#ctor">
@@ -16123,9 +16391,19 @@
               Looks up a localized string similar to Control Actuator.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ControlRequest">
+            <summary>
+              Looks up a localized string similar to Control Request.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ControlRequestText">
             <summary>
               Looks up a localized string similar to {0} wants to control parameters on your device {1}..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ControlRequestText2">
+            <summary>
+              Looks up a localized string similar to A caller has requested to control one of your things. Select how you wish the thing should respond to this type of request..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ControlServiceNotFound">
@@ -17206,6 +17484,11 @@
         <member name="P:IdApp.Resx.AppResources.PermitFieldTypesText">
             <summary>
               Looks up a localized string similar to Choose the field types (broad categories) to permit access to, if request is accepted..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PermitParametersText">
+            <summary>
+              Looks up a localized string similar to Choose the parameters to permit access to, if request is accepted..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PermitScreenCapture">
@@ -21736,7 +22019,12 @@
         </member>
         <member name="P:IdApp.Services.Notification.Things.CanControlNotificationEvent.Parameters">
             <summary>
-            Fields requested
+            Parameters requested
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Notification.Things.CanControlNotificationEvent.AllParameters">
+            <summary>
+            All parameters available
             </summary>
         </member>
         <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
@@ -21757,6 +22045,21 @@
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+            <summary>
+            Performs perparatory tasks, that will simplify opening the notification.
+            </summary>
+            <param name="ServiceReferences">Service references.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.GetAvailableParameterNames(System.String,Waher.Things.ThingReference,IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets available fields for a thing.
+            </summary>
+            <param name="BareJid">Bare JID</param>
+            <param name="Thing">Thing reference</param>
+            <param name="ServiceReferences">Service references</param>
+            <returns>Array of available field names, or null if not able.</returns>
         </member>
         <member name="T:IdApp.Services.Notification.Things.CanReadNotificationEvent">
             <summary>
@@ -21781,7 +22084,7 @@
         </member>
         <member name="P:IdApp.Services.Notification.Things.CanReadNotificationEvent.AllFields">
             <summary>
-            All Fields available
+            All fields available
             </summary>
         </member>
         <member name="P:IdApp.Services.Notification.Things.CanReadNotificationEvent.FieldTypes">

@@ -17,6 +17,7 @@ using IdApp.Pages.Main.Calculator;
 using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Pages.Main.Security;
 using IdApp.Pages.Main.XmppForm;
+using IdApp.Pages.Things.CanControl;
 using IdApp.Pages.Things.CanRead;
 using IdApp.Pages.Things.IsFriend;
 using IdApp.Pages.Things.MyThings;
@@ -142,6 +143,7 @@ namespace IdApp.Pages.Main.Shell
 			Routing.RegisterRoute(nameof(ReadSensorPage), typeof(ReadSensorPage));
 			Routing.RegisterRoute(nameof(IsFriendPage), typeof(IsFriendPage));
 			Routing.RegisterRoute(nameof(CanReadPage), typeof(CanReadPage));
+			Routing.RegisterRoute(nameof(CanControlPage), typeof(CanControlPage));
 
 			// Wallet
 			Routing.RegisterRoute(nameof(IssueEDalerPage), typeof(IssueEDalerPage));

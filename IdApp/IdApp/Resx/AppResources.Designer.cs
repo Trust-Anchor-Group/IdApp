@@ -1024,11 +1024,29 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Control Request.
+        /// </summary>
+        internal static string ControlRequest {
+            get {
+                return ResourceManager.GetString("ControlRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} wants to control parameters on your device {1}..
         /// </summary>
         internal static string ControlRequestText {
             get {
                 return ResourceManager.GetString("ControlRequestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A caller has requested to control one of your things. Select how you wish the thing should respond to this type of request..
+        /// </summary>
+        internal static string ControlRequestText2 {
+            get {
+                return ResourceManager.GetString("ControlRequestText2", resourceCulture);
             }
         }
         
@@ -2973,6 +2991,15 @@ namespace IdApp.Resx {
         internal static string PermitFieldTypesText {
             get {
                 return ResourceManager.GetString("PermitFieldTypesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the parameters to permit access to, if request is accepted..
+        /// </summary>
+        internal static string PermitParametersText {
+            get {
+                return ResourceManager.GetString("PermitParametersText", resourceCulture);
             }
         }
         

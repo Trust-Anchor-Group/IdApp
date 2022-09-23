@@ -2124,10 +2124,19 @@
   <data name="StatusValues" xml:space="preserve">
     <value>Valeurs d’état</value>
   </data>
+  <data name="ControlRequest" xml:space="preserve">
+    <value>Demande de contrôle</value>
+  </data>
+  <data name="ControlRequestText2" xml:space="preserve">
+    <value>Un appelant a demandé à contrôler l’une de vos affaires. Sélectionnez la façon dont vous souhaitez que la chose réponde à ce type de demande.</value>
+  </data>
   <data name="Fields" xml:space="preserve">
     <value>Champs</value>
   </data>
   <data name="PermitFieldsText" xml:space="preserve">
     <value>Choisissez les champs auxquels vous souhaitez accéder, si la demande est acceptée.</value>
+  </data>
+  <data name="PermitParametersText" xml:space="preserve">
+    <value>Choisissez les paramètres auxquels autoriser l’accès, si la demande est acceptée.</value>
   </data>
 </root>

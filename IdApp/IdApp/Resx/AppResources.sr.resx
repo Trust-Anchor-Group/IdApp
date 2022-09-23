@@ -2124,10 +2124,19 @@
   <data name="StatusValues" xml:space="preserve">
     <value>Statusne vrednosti</value>
   </data>
+  <data name="ControlRequest" xml:space="preserve">
+    <value>Zahtev za kontrolu</value>
+  </data>
+  <data name="ControlRequestText2" xml:space="preserve">
+    <value>Pozivalac je zahtevao da kontroliše jednu od vaših stvari. Izaberite način na koji želite da stvar odgovori na ovaj tip zahteva.</value>
+  </data>
   <data name="Fields" xml:space="preserve">
     <value>Polja</value>
   </data>
   <data name="PermitFieldsText" xml:space="preserve">
     <value>Odaberite polja kojima ćete dozvoliti pristup ako je zahtev prihvaćen.</value>
+  </data>
+  <data name="PermitParametersText" xml:space="preserve">
+    <value>Odaberite parametre kojima ćete dozvoliti pristup ako je zahtev prihvaćen.</value>
   </data>
 </root>

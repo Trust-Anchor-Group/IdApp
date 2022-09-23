@@ -2124,10 +2124,19 @@
   <data name="StatusValues" xml:space="preserve">
     <value>Tilan arvot</value>
   </data>
+  <data name="ControlRequest" xml:space="preserve">
+    <value>Ohjauspyyntö</value>
+  </data>
+  <data name="ControlRequestText2" xml:space="preserve">
+    <value>Soittaja on pyytänyt hallitsemaan yhtä asioistasi. Valitse, miten haluat asian vastaavan tämän tyyppisiin pyyntöihin.</value>
+  </data>
   <data name="Fields" xml:space="preserve">
     <value>Fields</value>
   </data>
   <data name="PermitFieldsText" xml:space="preserve">
     <value>Valitse kentät, joihin käyttöoikeus sallitaan, jos pyyntö hyväksytään.</value>
+  </data>
+  <data name="PermitParametersText" xml:space="preserve">
+    <value>Valitse parametrit, joihin pääsy sallitaan, jos pyyntö hyväksytään.</value>
   </data>
 </root>
