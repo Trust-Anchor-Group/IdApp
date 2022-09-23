@@ -2094,4 +2094,40 @@
   <data name="XOnY" xml:space="preserve">
     <value>{0} на {1}</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="ComputedValues" xml:space="preserve">
+    <value>Вычисляемые значения</value>
+  </data>
+  <data name="FieldTypes" xml:space="preserve">
+    <value>Типы полей</value>
+  </data>
+  <data name="HistoricalValues" xml:space="preserve">
+    <value>Исторические ценности</value>
+  </data>
+  <data name="IdentityValues" xml:space="preserve">
+    <value>Ценности идентичности</value>
+  </data>
+  <data name="MomentaryValues" xml:space="preserve">
+    <value>Сиюминутные значения</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Никакой</value>
+  </data>
+  <data name="PeakValues" xml:space="preserve">
+    <value>Пиковые значения</value>
+  </data>
+  <data name="PermitFieldTypesText" xml:space="preserve">
+    <value>Выберите типы полей (широкие категории), к которым будет разрешен доступ, если запрос принят.</value>
+  </data>
+  <data name="StatusValues" xml:space="preserve">
+    <value>Значения состояния</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Поля</value>
+  </data>
+  <data name="PermitFieldsText" xml:space="preserve">
+    <value>Выберите поля, к которым разрешен доступ, если запрос принят.</value>
+  </data>
 </root>

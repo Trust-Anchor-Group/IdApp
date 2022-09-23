@@ -2094,4 +2094,40 @@
   <data name="XOnY" xml:space="preserve">
     <value>{0} en {1}</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Todo</value>
+  </data>
+  <data name="ComputedValues" xml:space="preserve">
+    <value>Valores calculados</value>
+  </data>
+  <data name="FieldTypes" xml:space="preserve">
+    <value>Tipos de campo</value>
+  </data>
+  <data name="HistoricalValues" xml:space="preserve">
+    <value>Valores históricos</value>
+  </data>
+  <data name="IdentityValues" xml:space="preserve">
+    <value>Valores de identidad</value>
+  </data>
+  <data name="MomentaryValues" xml:space="preserve">
+    <value>Valores momentáneos</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="PeakValues" xml:space="preserve">
+    <value>Valores máximos</value>
+  </data>
+  <data name="PermitFieldTypesText" xml:space="preserve">
+    <value>Elija los tipos de campo (categorías amplias) a los que se permitirá el acceso, si se acepta la solicitud.</value>
+  </data>
+  <data name="StatusValues" xml:space="preserve">
+    <value>Valores de estado</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Campos</value>
+  </data>
+  <data name="PermitFieldsText" xml:space="preserve">
+    <value>Elija los campos a los que desea permitir el acceso, si se acepta la solicitud.</value>
+  </data>
 </root>

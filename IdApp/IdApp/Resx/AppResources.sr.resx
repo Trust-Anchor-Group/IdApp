@@ -2094,4 +2094,40 @@
   <data name="XOnY" xml:space="preserve">
     <value>{0} na {1}</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Sve</value>
+  </data>
+  <data name="ComputedValues" xml:space="preserve">
+    <value>Izračunate vrednosti</value>
+  </data>
+  <data name="FieldTypes" xml:space="preserve">
+    <value>Vrste polja</value>
+  </data>
+  <data name="HistoricalValues" xml:space="preserve">
+    <value>Istorijske vrednosti</value>
+  </data>
+  <data name="IdentityValues" xml:space="preserve">
+    <value>Vrednosti identiteta</value>
+  </data>
+  <data name="MomentaryValues" xml:space="preserve">
+    <value>Momentalne vrednosti</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Niko</value>
+  </data>
+  <data name="PeakValues" xml:space="preserve">
+    <value>Vrhunac vrednosti</value>
+  </data>
+  <data name="PermitFieldTypesText" xml:space="preserve">
+    <value>Odaberite tipove polja (široke kategorije) kojima ćete dozvoliti pristup ako je zahtev prihvaćen.</value>
+  </data>
+  <data name="StatusValues" xml:space="preserve">
+    <value>Statusne vrednosti</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Polja</value>
+  </data>
+  <data name="PermitFieldsText" xml:space="preserve">
+    <value>Odaberite polja kojima ćete dozvoliti pristup ako je zahtev prihvaćen.</value>
+  </data>
 </root>

@@ -8,6 +8,8 @@ namespace IdApp.Pages.Things.CanRead
 	/// </summary>
 	public class CanReadNavigationArgs : ThingNavigationArgs
 	{
+		private readonly CanReadNotificationEvent @event;
+
 		/// <summary>
 		/// Creates a new instance of the <see cref="CanReadNavigationArgs"/> class.
 		/// </summary>
@@ -22,14 +24,26 @@ namespace IdApp.Pages.Things.CanRead
 		public CanReadNavigationArgs(CanReadNotificationEvent Event, string FriendlyName, string RemoteFriendlyName)
 			: base(Event, FriendlyName, RemoteFriendlyName)
 		{
+			this.@event = Event;
 			this.Fields = Event.Fields;
+			this.AllFields = Event.AllFields;
 			this.FieldTypes = Event.FieldTypes;
 		}
+
+		/// <summary>
+		/// Notification event objcet.
+		/// </summary>
+		public new CanReadNotificationEvent Event => this.@event;
 
 		/// <summary>
 		/// Fields
 		/// </summary>
 		public string[] Fields { get; }
+
+		/// <summary>
+		/// AllFields
+		/// </summary>
+		public string[] AllFields { get; }
 
 		/// <summary>
 		/// Field Types

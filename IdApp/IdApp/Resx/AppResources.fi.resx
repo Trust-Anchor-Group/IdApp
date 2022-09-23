@@ -2094,4 +2094,40 @@
   <data name="XOnY" xml:space="preserve">
     <value>{0} {1}</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+  <data name="ComputedValues" xml:space="preserve">
+    <value>Lasketut arvot</value>
+  </data>
+  <data name="FieldTypes" xml:space="preserve">
+    <value>Kenttien tyypit</value>
+  </data>
+  <data name="HistoricalValues" xml:space="preserve">
+    <value>Historialliset arvot</value>
+  </data>
+  <data name="IdentityValues" xml:space="preserve">
+    <value>Identiteettiarvot</value>
+  </data>
+  <data name="MomentaryValues" xml:space="preserve">
+    <value>Hetkelliset arvot</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ei lainkaan</value>
+  </data>
+  <data name="PeakValues" xml:space="preserve">
+    <value>Huippuarvot</value>
+  </data>
+  <data name="PermitFieldTypesText" xml:space="preserve">
+    <value>Valitse kenttätyypit (laajat luokat), joihin haluat käyttää, jos pyyntö hyväksytään.</value>
+  </data>
+  <data name="StatusValues" xml:space="preserve">
+    <value>Tilan arvot</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Fields</value>
+  </data>
+  <data name="PermitFieldsText" xml:space="preserve">
+    <value>Valitse kentät, joihin käyttöoikeus sallitaan, jos pyyntö hyväksytään.</value>
+  </data>
 </root>

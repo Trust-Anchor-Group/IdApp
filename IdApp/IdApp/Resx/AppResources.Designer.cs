@@ -241,6 +241,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        internal static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Altitude.
         /// </summary>
         internal static string Altitude {
@@ -687,6 +696,15 @@ namespace IdApp.Resx {
         internal static string CodeNotRecognized {
             get {
                 return ResourceManager.GetString("CodeNotRecognized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Computed Values.
+        /// </summary>
+        internal static string ComputedValues {
+            get {
+                return ResourceManager.GetString("ComputedValues", resourceCulture);
             }
         }
         
@@ -1582,6 +1600,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fields.
+        /// </summary>
+        internal static string Fields {
+            get {
+                return ResourceManager.GetString("Fields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Types.
+        /// </summary>
+        internal static string FieldTypes {
+            get {
+                return ResourceManager.GetString("FieldTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No file upload service found on broker..
         /// </summary>
         internal static string FileUploadServiceNotFound {
@@ -1722,6 +1758,15 @@ namespace IdApp.Resx {
         internal static string HashFunction {
             get {
                 return ResourceManager.GetString("HashFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Historical Values.
+        /// </summary>
+        internal static string HistoricalValues {
+            get {
+                return ResourceManager.GetString("HistoricalValues", resourceCulture);
             }
         }
         
@@ -1884,6 +1929,15 @@ namespace IdApp.Resx {
         internal static string IdentityUpdated {
             get {
                 return ResourceManager.GetString("IdentityUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identity Values.
+        /// </summary>
+        internal static string IdentityValues {
+            get {
+                return ResourceManager.GetString("IdentityValues", resourceCulture);
             }
         }
         
@@ -2284,6 +2338,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Momentary Values.
+        /// </summary>
+        internal static string MomentaryValues {
+            get {
+                return ResourceManager.GetString("MomentaryValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Identity.
         /// </summary>
         internal static string MyIdentity {
@@ -2406,6 +2469,15 @@ namespace IdApp.Resx {
         internal static string NoJustIgnore {
             get {
                 return ResourceManager.GetString("NoJustIgnore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
             }
         }
         
@@ -2824,6 +2896,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Peak Values.
+        /// </summary>
+        internal static string PeakValues {
+            get {
+                return ResourceManager.GetString("PeakValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Peer Review.
         /// </summary>
         internal static string PeerReview {
@@ -2874,6 +2955,24 @@ namespace IdApp.Resx {
         internal static string PepServiceNotFound {
             get {
                 return ResourceManager.GetString("PepServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the fields to permit access to, if request is accepted..
+        /// </summary>
+        internal static string PermitFieldsText {
+            get {
+                return ResourceManager.GetString("PermitFieldsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the field types (broad categories) to permit access to, if request is accepted..
+        /// </summary>
+        internal static string PermitFieldTypesText {
+            get {
+                return ResourceManager.GetString("PermitFieldTypesText", resourceCulture);
             }
         }
         
@@ -4629,6 +4728,15 @@ namespace IdApp.Resx {
         internal static string States {
             get {
                 return ResourceManager.GetString("States", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status Values.
+        /// </summary>
+        internal static string StatusValues {
+            get {
+                return ResourceManager.GetString("StatusValues", resourceCulture);
             }
         }
         

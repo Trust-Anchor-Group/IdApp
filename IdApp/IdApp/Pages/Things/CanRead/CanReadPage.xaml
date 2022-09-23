@@ -72,6 +72,54 @@
 						</DataTemplate>
 					</BindableLayout.ItemTemplate>
 				</StackLayout>
+				<!-- Field Types -->
+				<Label Text="{x:Static resx:AppResources.FieldTypes}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+				<Label Text="{x:Static resx:AppResources.PermitFieldTypesText}" LineBreakMode="WordWrap" Style="{StaticResource InfoText}"/>
+				<StackLayout Orientation="Horizontal">
+					<CheckBox IsChecked="{Binding PermitMomentary}" VerticalOptions="Center"/>
+					<Label Text="{x:Static resx:AppResources.MomentaryValues}" VerticalOptions="Center" LineBreakMode="WordWrap"/>
+				</StackLayout>
+				<StackLayout Orientation="Horizontal">
+					<CheckBox IsChecked="{Binding PermitIdentity}" VerticalOptions="Center"/>
+					<Label Text="{x:Static resx:AppResources.IdentityValues}" VerticalOptions="Center" LineBreakMode="WordWrap"/>
+				</StackLayout>
+				<StackLayout Orientation="Horizontal">
+					<CheckBox IsChecked="{Binding PermitStatus}" VerticalOptions="Center"/>
+					<Label Text="{x:Static resx:AppResources.StatusValues}" VerticalOptions="Center" LineBreakMode="WordWrap"/>
+				</StackLayout>
+				<StackLayout Orientation="Horizontal">
+					<CheckBox IsChecked="{Binding PermitComputed}" VerticalOptions="Center"/>
+					<Label Text="{x:Static resx:AppResources.ComputedValues}" VerticalOptions="Center" LineBreakMode="WordWrap"/>
+				</StackLayout>
+				<StackLayout Orientation="Horizontal">
+					<CheckBox IsChecked="{Binding PermitPeak}" VerticalOptions="Center"/>
+					<Label Text="{x:Static resx:AppResources.PeakValues}" VerticalOptions="Center" LineBreakMode="WordWrap"/>
+				</StackLayout>
+				<StackLayout Orientation="Horizontal">
+					<CheckBox IsChecked="{Binding PermitHistorical}" VerticalOptions="Center"/>
+					<Label Text="{x:Static resx:AppResources.HistoricalValues}" VerticalOptions="Center" LineBreakMode="WordWrap"/>
+				</StackLayout>
+				<Button Text="{x:Static resx:AppResources.All}" Command="{Binding Path=AllFieldTypesCommand}"
+						Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
+				<Button Text="{x:Static resx:AppResources.None}" Command="{Binding Path=NoFieldTypesCommand}"
+						Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+				<!-- Field Names -->
+				<Label Text="{x:Static resx:AppResources.Fields}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+				<Label Text="{x:Static resx:AppResources.PermitFieldsText}" LineBreakMode="WordWrap" Style="{StaticResource InfoText}"/>
+				<StackLayout x:Name="FieldLayout" Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=Fields}" VerticalOptions="StartAndExpand">
+					<BindableLayout.ItemTemplate>
+						<DataTemplate x:DataType="model:FieldReference">
+							<Grid ColumnDefinitions="auto,*" RowDefinitions="auto">
+								<CheckBox Grid.Column="0" Grid.Row="0" IsChecked="{Binding Permitted}" VerticalOptions="Center"/>
+								<Label Grid.Column="1" Grid.Row="0" Text="{Binding Name}" VerticalOptions="Center" LineBreakMode="WordWrap"/>
+							</Grid>
+						</DataTemplate>
+					</BindableLayout.ItemTemplate>
+				</StackLayout>
+				<Button Text="{x:Static resx:AppResources.All}" Command="{Binding Path=AllFieldsCommand}"
+						Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
+				<Button Text="{x:Static resx:AppResources.None}" Command="{Binding Path=NoFieldsCommand}"
+						Margin="{StaticResource DefaultBottomOnlyMargin}"/>
 				<!-- Range -->
 				<Label Text="{x:Static resx:AppResources.Range}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}"
 					   VerticalOptions="Start"/>
@@ -83,11 +131,11 @@
 				<!-- BUTTONS -->
 				<Label Text="{x:Static resx:AppResources.Options}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}"
 					   VerticalOptions="Start"/>
-				<Button Text="{x:Static resx:AppResources.Accept}" Command="{Binding Path=AcceptCommand}" IsEnabled="{Binding Path=IsConnected}"
+				<Button Text="{x:Static resx:AppResources.Accept}" Command="{Binding Path=AcceptCommand}"
 						Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-				<Button Text="{x:Static resx:AppResources.Reject}" Command="{Binding Path=RejectCommand}" IsEnabled="{Binding Path=IsConnected}"
+				<Button Text="{x:Static resx:AppResources.Reject}" Command="{Binding Path=RejectCommand}"
 						Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-				<Button Text="{x:Static resx:AppResources.Ignore}" Command="{Binding Path=IgnoreCommand}" IsEnabled="{Binding Path=IsConnected}"
+				<Button Text="{x:Static resx:AppResources.Ignore}" Command="{Binding Path=IgnoreCommand}"
 						Margin="{StaticResource DefaultBottomOnlyMargin}"/>
 			</StackLayout>
         </ScrollView>

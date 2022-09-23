@@ -9863,6 +9863,11 @@
             Holds a list of meta-data tags associated with the caller.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.Fields">
+            <summary>
+            Holds a list of fields that will be permitted.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.RuleRanges">
             <summary>
             Available Rule Ranges
@@ -9895,6 +9900,26 @@
         <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.IgnoreCommand">
             <summary>
             The command to bind to for ignoring the request
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.AllFieldTypesCommand">
+            <summary>
+            The command to bind to for selecting all field types
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.NoFieldTypesCommand">
+            <summary>
+            The command to bind to for selecting no field types
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.AllFieldsCommand">
+            <summary>
+            The command to bind to for selecting all fields
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.NoFieldsCommand">
+            <summary>
+            The command to bind to for selecting no fields
             </summary>
         </member>
         <member name="F:IdApp.Pages.Things.CanRead.CanReadModel.BareJidProperty">
@@ -10017,16 +10042,6 @@
             The selected rule range index
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Things.CanRead.CanReadModel.FieldsProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Things.CanRead.CanReadModel.Fields"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.Fields">
-            <summary>
-            Sensor-Data Fields
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Things.CanRead.CanReadModel.FieldTypesProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Things.CanRead.CanReadModel.FieldTypes"/>
@@ -10035,6 +10050,66 @@
         <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.FieldTypes">
             <summary>
             Sensor-Data FieldTypes
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanRead.CanReadModel.PermitMomentaryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanRead.CanReadModel.PermitMomentary"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.PermitMomentary">
+            <summary>
+            If Momentary values should be permitted.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanRead.CanReadModel.PermitIdentityProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanRead.CanReadModel.PermitIdentity"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.PermitIdentity">
+            <summary>
+            If Identity values should be permitted.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanRead.CanReadModel.PermitStatusProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanRead.CanReadModel.PermitStatus"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.PermitStatus">
+            <summary>
+            If Status values should be permitted.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanRead.CanReadModel.PermitComputedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanRead.CanReadModel.PermitComputed"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.PermitComputed">
+            <summary>
+            If Computed values should be permitted.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanRead.CanReadModel.PermitPeakProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanRead.CanReadModel.PermitPeak"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.PermitPeak">
+            <summary>
+            If Peak values should be permitted.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Things.CanRead.CanReadModel.PermitHistoricalProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Things.CanRead.CanReadModel.PermitHistorical"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.PermitHistorical">
+            <summary>
+            If Historical values should be permitted.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Things.CanRead.CanReadModel.NodeIdProperty">
@@ -10085,9 +10160,19 @@
             <param name="FriendlyName">Friendly name of device.</param>
             <param name="RemoteFriendlyName">Friendly name of remote entity.</param>
         </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadNavigationArgs.Event">
+            <summary>
+            Notification event objcet.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Things.CanRead.CanReadNavigationArgs.Fields">
             <summary>
             Fields
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.CanReadNavigationArgs.AllFields">
+            <summary>
+            AllFields
             </summary>
         </member>
         <member name="P:IdApp.Pages.Things.CanRead.CanReadNavigationArgs.FieldTypes">
@@ -10103,6 +10188,40 @@
         <member name="M:IdApp.Pages.Things.CanRead.CanReadPage.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Things.CanRead.CanReadPage"/> class.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Things.CanRead.FieldReference">
+            <summary>
+            Class used to represent a field name, and if it is permitted or not.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanRead.FieldReference.#ctor(IdApp.Services.ServiceReferences,System.String,System.Boolean)">
+            <summary>
+            Class used to represent a field name, and if it is permitted or not.
+            </summary>
+            <param name="References">Service References</param>
+            <param name="FieldName">Field Name</param>
+            <param name="Permitted">If the field is permitted or not.</param>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.FieldReference.Name">
+            <summary>
+            Tag name.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.CanRead.FieldReference.Permitted">
+            <summary>
+            If the field is permitted or not.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanRead.FieldReference.OnPropertyChanged(System.String)">
+            <summary>
+            Called when a property has changed.
+            </summary>
+            <param name="PropertyName">Name of property</param>
+        </member>
+        <member name="E:IdApp.Pages.Things.CanRead.FieldReference.PropertyChanged">
+            <summary>
+            Occurs when a property value changes.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Things.CanRead.ThingNavigationArgs">
@@ -15569,6 +15688,11 @@
               Looks up a localized string similar to Add to list.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.All">
+            <summary>
+              Looks up a localized string similar to All.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Altitude">
             <summary>
               Looks up a localized string similar to Altitude.
@@ -15817,6 +15941,11 @@
         <member name="P:IdApp.Resx.AppResources.CodeNotRecognized">
             <summary>
               Looks up a localized string similar to Code not recognized..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ComputedValues">
+            <summary>
+              Looks up a localized string similar to Computed Values.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ConcentratorServiceNotFound">
@@ -16314,6 +16443,16 @@
               Looks up a localized string similar to Failed to unbind viewmodel {0} for page {1}.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Fields">
+            <summary>
+              Looks up a localized string similar to Fields.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.FieldTypes">
+            <summary>
+              Looks up a localized string similar to Field Types.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.FileUploadServiceNotFound">
             <summary>
               Looks up a localized string similar to No file upload service found on broker..
@@ -16392,6 +16531,11 @@
         <member name="P:IdApp.Resx.AppResources.HashFunction">
             <summary>
               Looks up a localized string similar to Hash Function.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.HistoricalValues">
+            <summary>
+              Looks up a localized string similar to Historical Values.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.History">
@@ -16482,6 +16626,11 @@
         <member name="P:IdApp.Resx.AppResources.IdentityUpdated">
             <summary>
               Looks up a localized string similar to The digital identity has been updated..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.IdentityValues">
+            <summary>
+              Looks up a localized string similar to Identity Values.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Ignore">
@@ -16704,6 +16853,11 @@
               Looks up a localized string similar to Model.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.MomentaryValues">
+            <summary>
+              Looks up a localized string similar to Momentary Values.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.MyIdentity">
             <summary>
               Looks up a localized string similar to My Identity.
@@ -16772,6 +16926,11 @@
         <member name="P:IdApp.Resx.AppResources.NoJustIgnore">
             <summary>
               Looks up a localized string similar to No, just ignore.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.None">
+            <summary>
+              Looks up a localized string similar to None.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.NotAnInvitationCode">
@@ -17004,6 +17163,11 @@
               Looks up a localized string similar to Pay online.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.PeakValues">
+            <summary>
+              Looks up a localized string similar to Peak Values.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.PeerReview">
             <summary>
               Looks up a localized string similar to Peer Review.
@@ -17032,6 +17196,16 @@
         <member name="P:IdApp.Resx.AppResources.PepServiceNotFound">
             <summary>
               Looks up a localized string similar to No personal eventing service found..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PermitFieldsText">
+            <summary>
+              Looks up a localized string similar to Choose the fields to permit access to, if request is accepted..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PermitFieldTypesText">
+            <summary>
+              Looks up a localized string similar to Choose the field types (broad categories) to permit access to, if request is accepted..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PermitScreenCapture">
@@ -18007,6 +18181,11 @@
         <member name="P:IdApp.Resx.AppResources.States">
             <summary>
               Looks up a localized string similar to States.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.StatusValues">
+            <summary>
+              Looks up a localized string similar to Status Values.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.StreetName">
@@ -21600,6 +21779,11 @@
             Fields requested
             </summary>
         </member>
+        <member name="P:IdApp.Services.Notification.Things.CanReadNotificationEvent.AllFields">
+            <summary>
+            All Fields available
+            </summary>
+        </member>
         <member name="P:IdApp.Services.Notification.Things.CanReadNotificationEvent.FieldTypes">
             <summary>
             Field types requested.
@@ -21623,6 +21807,21 @@
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+            <summary>
+            Performs perparatory tasks, that will simplify opening the notification.
+            </summary>
+            <param name="ServiceReferences">Service references.</param>
+        </member>
+        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.GetAvailableFieldNames(System.String,Waher.Things.ThingReference,IdApp.Services.ServiceReferences)">
+            <summary>
+            Gets available fields for a thing.
+            </summary>
+            <param name="BareJid">Bare JID</param>
+            <param name="Thing">Thing reference</param>
+            <param name="ServiceReferences">Service references</param>
+            <returns>Array of available field names, or null if not able.</returns>
         </member>
         <member name="T:IdApp.Services.Notification.Things.IsFriendNotificationEvent">
             <summary>
