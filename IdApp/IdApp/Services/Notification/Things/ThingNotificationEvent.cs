@@ -33,18 +33,7 @@ namespace IdApp.Services.Notification.Things
 			this.ServiceTokens = Convert(e.ServiceTokens, TokenType.Service);
 			this.DeviceTokens = Convert(e.DeviceTokens, TokenType.Device);
 			this.UserTokens = Convert(e.UserTokens, TokenType.User);
-
-			StringBuilder sb = new();
-
-			sb.Append(this.BareJid);
-			sb.Append('|');
-			sb.Append(this.SourceId);
-			sb.Append('|');
-			sb.Append(this.PartitionId);
-			sb.Append('|');
-			sb.Append(this.NodeId);
-
-			this.Category = sb.ToString();
+			this.Category = ContactInfo.GetThingNotificationCategoryKey(this.BareJid, this.NodeId, this.SourceId, this.PartitionId);
 		}
 
 		private static ProvisioningToken[] Convert(string[] Tokens, TokenType Type)

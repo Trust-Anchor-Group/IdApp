@@ -104,6 +104,8 @@ namespace IdApp.Pages.Things.ViewThing
 
 			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
 			this.TagProfile.Changed += this.TagProfile_Changed;
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
 
 			if (this.IsConnected && this.IsThingOnline)
 			{
@@ -144,6 +146,8 @@ namespace IdApp.Pages.Things.ViewThing
 		{
 			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
 			this.TagProfile.Changed -= this.TagProfile_Changed;
+			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted -= this.NotificationService_OnNotificationsDeleted;
 
 			await base.OnDispose();
 		}
@@ -632,6 +636,104 @@ namespace IdApp.Pages.Things.ViewThing
 			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		private void NotificationService_OnNotificationsDeleted(object Sender, NotificationEventsArgs e)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				bool IsNode = this.IsNodeInConcentrator;
+				string Key = this.thing.ThingNotificationCategoryKey;
+				int NrChatMessagesRemoved = 0;
+
+				foreach (NotificationEvent Event in e.Events)
+				{
+					switch (Event.Button)
+					{
+						case EventButton.Contacts:
+							if (IsNode)
+								continue;
+
+							if (Event.Category != this.thing.BareJid)
+								continue;
+							break;
+
+						case EventButton.Things:
+							if (Event.Category != Key)
+								continue;
+							break;
+
+						default:
+							continue;
+					}
+
+					int i = 0;
+
+					foreach (EventModel Model in this.Notifications)
+					{
+						if (Model.Event.ObjectId == Event.ObjectId)
+						{
+							this.Notifications.RemoveAt(i);
+
+							if (Event.Button == EventButton.Contacts)
+								NrChatMessagesRemoved++;
+
+							break;
+						}
+
+						i++;
+					}
+				}
+
+				this.NrPendingChatMessages -= NrChatMessagesRemoved;
+				this.HasNotifications = this.Notifications.Count > 0;
+				this.HasPendingChatMessages = this.NrPendingChatMessages > 0;
+			});
+		}
+
+		private void NotificationService_OnNewNotification(object Sender, NotificationEventArgs e)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				try
+				{
+					switch (e.Event.Button)
+					{
+						case EventButton.Contacts:
+							if (this.IsNodeInConcentrator)
+								return;
+
+							if (e.Event.Category != this.thing.BareJid)
+								return;
+							break;
+
+						case EventButton.Things:
+							if (e.Event.Category != this.thing.ThingNotificationCategoryKey)
+								return;
+							break;
+
+						default:
+							return;
+					}
+
+					this.Notifications.Add(new EventModel(e.Event.Received,
+						await e.Event.GetCategoryIcon(this),
+						await e.Event.GetDescription(this),
+						e.Event, this));
+
+					this.HasNotifications = true;
+
+					if (e.Event.Button == EventButton.Contacts)
+					{
+						this.NrPendingChatMessages++;
+						this.HasPendingChatMessages = true;
+					}
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			});
 		}
 
 	}

@@ -19754,6 +19754,16 @@
             Category key used for thing notifications.
             </summary>
         </member>
+        <member name="M:IdApp.Services.ContactInfo.GetThingNotificationCategoryKey(System.String,System.String,System.String,System.String)">
+            <summary>
+            Category key used for thing notifications.
+            </summary>
+            <param name="BareJid">Bare JID of device</param>
+            <param name="NodeId">Node ID of device.</param>
+            <param name="SourceId">Source ID of device.</param>
+            <param name="Partition">Partition of device.</param>
+            <returns>Key</returns>
+        </member>
         <member name="M:IdApp.Services.Contracts.ContractOrchestratorService.TagSignature(System.String)">
             <summary>
             TAG Signature request scanned.

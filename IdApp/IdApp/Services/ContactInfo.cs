@@ -647,18 +647,31 @@ namespace IdApp.Services
 		{
 			get
 			{
-				StringBuilder sb = new();
-
-				sb.Append(this.bareJid);
-				sb.Append('|');
-				sb.Append(this.sourceId);
-				sb.Append('|');
-				sb.Append(this.partition);
-				sb.Append('|');
-				sb.Append(this.nodeId);
-
-				return sb.ToString();
+				return GetThingNotificationCategoryKey(this.bareJid, this.nodeId, this.sourceId, this.partition);
 			}
+		}
+
+		/// <summary>
+		/// Category key used for thing notifications.
+		/// </summary>
+		/// <param name="BareJid">Bare JID of device</param>
+		/// <param name="NodeId">Node ID of device.</param>
+		/// <param name="SourceId">Source ID of device.</param>
+		/// <param name="Partition">Partition of device.</param>
+		/// <returns>Key</returns>
+		public static string GetThingNotificationCategoryKey(string BareJid, string NodeId, string SourceId, string Partition)
+		{
+			StringBuilder sb = new();
+
+			sb.Append(BareJid);
+			sb.Append('|');
+			sb.Append(SourceId);
+			sb.Append('|');
+			sb.Append(Partition);
+			sb.Append('|');
+			sb.Append(NodeId);
+
+			return sb.ToString();
 		}
 
 	}
