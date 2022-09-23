@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using IdApp.Extensions;
@@ -157,6 +158,8 @@ namespace IdApp.Pages.Things.MyThings
 			await Database.Provider.Flush();
 
 			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
 		}
 
 		/// <summary>
@@ -199,6 +202,8 @@ namespace IdApp.Pages.Things.MyThings
 		protected override async Task OnDispose()
 		{
 			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
+			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted -= this.NotificationService_OnNotificationsDeleted;
 
 			this.ShowThingsMissing = false;
 			this.Things.Clear();
@@ -299,6 +304,94 @@ namespace IdApp.Pages.Things.MyThings
 			}
 
 			return Task.CompletedTask;
+		}
+
+		private void NotificationService_OnNotificationsDeleted(object Sender, NotificationEventsArgs e)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				foreach (NotificationEvent Event in e.Events)
+				{
+					switch (Event.Button)
+					{
+						case EventButton.Contacts:
+							foreach (ContactInfoModel Thing in this.Things)
+							{
+								if (!string.IsNullOrEmpty(Thing.NodeId) ||
+									!string.IsNullOrEmpty(Thing.SourceId) ||
+									!string.IsNullOrEmpty(Thing.Partition))
+								{
+									continue;
+								}
+
+								if (Event.Category != Thing.BareJid)
+									continue;
+
+								Thing.RemoveEvent(Event);
+							}
+							break;
+
+						case EventButton.Things:
+							foreach (ContactInfoModel Thing in this.Things)
+							{
+								if (Event.Category != ContactInfo.GetThingNotificationCategoryKey(Thing.BareJid, Thing.NodeId, Thing.SourceId, Thing.Partition))
+									continue;
+
+								Thing.RemoveEvent(Event);
+							}
+							break;
+
+						default:
+							return;
+					}
+				}
+			});
+		}
+
+		private void NotificationService_OnNewNotification(object Sender, NotificationEventArgs e)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				try
+				{
+					switch (e.Event.Button)
+					{
+						case EventButton.Contacts:
+							foreach (ContactInfoModel Thing in this.Things)
+							{
+								if (!string.IsNullOrEmpty(Thing.NodeId) ||
+									!string.IsNullOrEmpty(Thing.SourceId) ||
+									!string.IsNullOrEmpty(Thing.Partition))
+								{
+									continue;
+								}
+
+								if (e.Event.Category != Thing.BareJid)
+									continue;
+
+								Thing.AddEvent(e.Event);
+							}
+							break;
+
+						case EventButton.Things:
+							foreach (ContactInfoModel Thing in this.Things)
+							{
+								if (e.Event.Category != ContactInfo.GetThingNotificationCategoryKey(Thing.BareJid, Thing.NodeId, Thing.SourceId, Thing.Partition))
+									continue;
+
+								Thing.AddEvent(e.Event);
+							}
+							break;
+
+						default:
+							return;
+					}
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			});
 		}
 
 	}

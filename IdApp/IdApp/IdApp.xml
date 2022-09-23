@@ -3381,6 +3381,18 @@
             </summary>
             <param name="Events">Updated set of events.</param>
         </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.AddEvent(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            Adds a notification event.
+            </summary>
+            <param name="Event">Notification event.</param>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.RemoveEvent(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            Removes a notification event.
+            </summary>
+            <param name="Event">Notification event.</param>
+        </member>
         <member name="T:IdApp.Pages.Contacts.MyContacts.SelectContactAction">
             <summary>
             Actions to take when a contact has been selected.

@@ -253,7 +253,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 		/// Called when a property has changed.
 		/// </summary>
 		/// <param name="PropertyName">Name of property</param>
-		public void	OnPropertyChanged(string PropertyName)
+		public void OnPropertyChanged(string PropertyName)
 		{
 			try
 			{
@@ -282,6 +282,65 @@ namespace IdApp.Pages.Contacts.MyContacts
 			this.OnPropertyChanged(nameof(this.HasEvents));
 			this.OnPropertyChanged(nameof(this.NrEvents));
 		}
+
+		/// <summary>
+		/// Adds a notification event.
+		/// </summary>
+		/// <param name="Event">Notification event.</param>
+		public void AddEvent(NotificationEvent Event)
+		{
+			if (this.events is null)
+				this.NotificationsUpdated(new NotificationEvent[] { Event });
+			else
+			{
+				foreach (NotificationEvent Event2 in this.events)
+				{
+					if (Event2.ObjectId == Event.ObjectId)
+						return;
+				}
+
+				int c = this.events.Length;
+				NotificationEvent[] NewArray = new NotificationEvent[c + 1];
+				Array.Copy(this.events, 0, NewArray, 0, c);
+				NewArray[c] = Event;
+
+				this.NotificationsUpdated(NewArray);
+			}
+		}
+
+		/// <summary>
+		/// Removes a notification event.
+		/// </summary>
+		/// <param name="Event">Notification event.</param>
+		public void RemoveEvent(NotificationEvent Event)
+		{
+			if (this.events is not null)
+			{
+				int i, c = this.events.Length;
+
+				for (i = 0; i < c; i++)
+				{
+					NotificationEvent Event2 = this.events[i];
+
+					if (Event2.ObjectId == Event.ObjectId)
+					{
+						NotificationEvent[] NewArray = new NotificationEvent[c - 1];
+
+						if (i > 0)
+							Array.Copy(this.events, 0, NewArray, 0, i);
+
+						if (i < c - 1)
+							Array.Copy(this.events, i + 1, NewArray, i, c - i - 1);
+
+						this.NotificationsUpdated(NewArray);
+
+						return;
+					}
+				}
+
+			}
+		}
+
 
 	}
 }
