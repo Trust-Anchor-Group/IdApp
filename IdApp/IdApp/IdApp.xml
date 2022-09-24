@@ -10117,6 +10117,28 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Things.CanControl.CanControlPage"/> class.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Things.CanControl.ControlRequestResolver">
+            <summary>
+            Resolves pending control requests
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanControl.ControlRequestResolver.#ctor(System.String,System.String,Waher.Networking.XMPP.Provisioning.RuleRange)">
+            <summary>
+            Resolves pending control requests
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanControl.ControlRequestResolver.#ctor(System.String,System.String,IdApp.Services.Notification.Things.ProvisioningToken)">
+            <summary>
+            Resolves pending control requests
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanControl.ControlRequestResolver.Resolves(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            If the resolver resolves an event.
+            </summary>
+            <param name="Event">Pending notification event.</param>
+            <returns>If the resolver resolves the event.</returns>
+        </member>
         <member name="T:IdApp.Pages.Things.CanRead.CanReadModel">
             <summary>
             The view model to bind to when displaying a thing.
@@ -10503,6 +10525,28 @@
             <summary>
             Occurs when a property value changes.
             </summary>
+        </member>
+        <member name="T:IdApp.Pages.Things.CanRead.ReadoutRequestResolver">
+            <summary>
+            Resolves pending readout requests
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanRead.ReadoutRequestResolver.#ctor(System.String,System.String,Waher.Networking.XMPP.Provisioning.RuleRange)">
+            <summary>
+            Resolves pending readout requests
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanRead.ReadoutRequestResolver.#ctor(System.String,System.String,IdApp.Services.Notification.Things.ProvisioningToken)">
+            <summary>
+            Resolves pending readout requests
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.CanRead.ReadoutRequestResolver.Resolves(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            If the resolver resolves an event.
+            </summary>
+            <param name="Event">Pending notification event.</param>
+            <returns>If the resolver resolves the event.</returns>
         </member>
         <member name="T:IdApp.Pages.Things.CanRead.ThingNavigationArgs">
             <summary>
