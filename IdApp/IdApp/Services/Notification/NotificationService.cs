@@ -265,7 +265,18 @@ namespace IdApp.Services.Notification
 		{
 			try
 			{
-				await Database.DeleteLazy(Events);
+				foreach (NotificationEvent Event in Events)
+				{
+					try
+					{
+						await Database.Delete(Event);
+					}
+					catch (KeyNotFoundException)
+					{
+						// Ignore, already deleted.
+					}
+				}
+
 				this.OnNotificationsDeleted?.Invoke(this, new NotificationEventsArgs(Events));
 			}
 			catch (Exception ex)
