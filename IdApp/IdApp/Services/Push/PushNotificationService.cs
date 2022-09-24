@@ -408,9 +408,9 @@ namespace IdApp.Services.Push
 						// Push Notification Rule, for friendship requests from things when offline.
 
 						Content.Clear();
-						Content.Append("RemoteJid:=GetAttribute(Stanza,'remoteJid');");
 						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
 						Content.Append("E:=GetElement(Stanza,'isFriend');");
+						Content.Append("RemoteJid:=GetAttribute(E,'remoteJid');");
 						Content.Append("{'myTitle':'");
 						Content.Append(JSON.Encode(LocalizationResourceManager.Current["AccessRequest"]));
 						Content.Append("',");
@@ -430,9 +430,9 @@ namespace IdApp.Services.Push
 						// Push Notification Rule, for readout requests from things when offline.
 
 						Content.Clear();
-						Content.Append("RemoteJid:=GetAttribute(Stanza,'remoteJid');");
 						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
 						Content.Append("E:=GetElement(Stanza,'canRead');");
+						Content.Append("RemoteJid:=GetAttribute(E,'remoteJid');");
 						Content.Append("{'myTitle':'");
 						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ReadRequest"]));
 						Content.Append("',");
@@ -452,9 +452,9 @@ namespace IdApp.Services.Push
 						// Push Notification Rule, for control requests from things when offline.
 
 						Content.Clear();
-						Content.Append("RemoteJid:=GetAttribute(Stanza,'remoteJid');");
 						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
 						Content.Append("E:=GetElement(Stanza,'canControl');");
+						Content.Append("RemoteJid:=GetAttribute(E,'remoteJid');");
 						Content.Append("{'myTitle':'");
 						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ControlRequest"]));
 						Content.Append("',");
@@ -486,7 +486,7 @@ namespace IdApp.Services.Push
 		/// <summary>
 		/// Increment this configuration number by one, each time token configuration changes.
 		/// </summary>
-		private const int currentTokenConfiguration = 11;
+		private const int currentTokenConfiguration = 12;
 
 	}
 }

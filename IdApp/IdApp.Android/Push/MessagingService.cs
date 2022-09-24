@@ -437,6 +437,9 @@ namespace IdApp.Android.Push
 
 				string ThingName = await ContactInfo.GetFriendlyName(Jid, ServiceReferences);
 
+				if (string.IsNullOrWhiteSpace(MessageBody))
+					MessageBody = await ContactInfo.GetFriendlyName(RemoteJid, ServiceReferences);
+
 				MessageBody = Query switch
 				{
 					"canRead" => string.Format(LocalizationResourceManager.Current["ReadoutRequestText"], MessageBody, ThingName),

@@ -330,7 +330,7 @@ namespace IdApp.iOS
 
 		private async Task<string> GetProvisioningNotificationBody(string MessageBody, NSDictionary UserInfo)
 		{
-			//string RemoteJid = UserInfo.ObjectForKey(new NSString("remoteJid"))?.ToString() ?? string.Empty;
+			string RemoteJid = UserInfo.ObjectForKey(new NSString("remoteJid"))?.ToString() ?? string.Empty;
 			string Jid = UserInfo.ObjectForKey(new NSString("jid"))?.ToString() ?? string.Empty;
 			//string Key = UserInfo.ObjectForKey(new NSString("key"))?.ToString() ?? string.Empty;
 			string Query = UserInfo.ObjectForKey(new NSString("q"))?.ToString() ?? string.Empty;
@@ -338,6 +338,9 @@ namespace IdApp.iOS
 			IServiceReferences ServiceReferences = App.Instantiate<IXmppService>();
 
 			string ThingName = await ContactInfo.GetFriendlyName(Jid, ServiceReferences);
+
+			if (string.IsNullOrWhiteSpace(MessageBody))
+				MessageBody = await ContactInfo.GetFriendlyName(RemoteJid, ServiceReferences);
 
 			return Query switch
 			{

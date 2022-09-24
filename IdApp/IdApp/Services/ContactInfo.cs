@@ -299,7 +299,7 @@ namespace IdApp.Services
 			Info = await FindByBareJid(RemoteId);
 			if (Info is not null)
 			{
-				if (!string.IsNullOrEmpty(Info?.FriendlyName))
+				if (!string.IsNullOrEmpty(Info.FriendlyName))
 					return Info.FriendlyName;
 
 				if (Info.LegalIdentity is not null)
