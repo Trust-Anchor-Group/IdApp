@@ -333,11 +333,18 @@ namespace IdApp.iOS
 			//string RemoteJid = UserInfo.ObjectForKey(new NSString("remoteJid"))?.ToString() ?? string.Empty;
 			string Jid = UserInfo.ObjectForKey(new NSString("jid"))?.ToString() ?? string.Empty;
 			//string Key = UserInfo.ObjectForKey(new NSString("key"))?.ToString() ?? string.Empty;
+			string Query = UserInfo.ObjectForKey(new NSString("q"))?.ToString() ?? string.Empty;
 
 			IServiceReferences ServiceReferences = App.Instantiate<IXmppService>();
 
 			string ThingName = await ContactInfo.GetFriendlyName(Jid, ServiceReferences);
-			return string.Format(LocalizationResourceManager.Current["{0} wants to connect to your device {1}."], MessageBody, ThingName);
+
+			return Query switch
+			{
+				"canRead" => string.Format(LocalizationResourceManager.Current["ReadoutRequestText"], MessageBody, ThingName),
+				"canControl" => string.Format(LocalizationResourceManager.Current["ControlRequestText"], MessageBody, ThingName),
+				_ => string.Format(LocalizationResourceManager.Current["AccessRequestText"], MessageBody, ThingName),
+			};
 		}
 
 		[Export("messaging:didReceiveRegistrationToken:")]

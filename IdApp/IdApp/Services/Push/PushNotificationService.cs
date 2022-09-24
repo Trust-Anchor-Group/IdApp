@@ -418,6 +418,7 @@ namespace IdApp.Services.Push
 						Content.Append("'remoteJid':RemoteJid,");
 						Content.Append("'jid':GetAttribute(E,'jid'),");
 						Content.Append("'key':GetAttribute(E,'key'),");
+						Content.Append("'q':'isFriend',");
 						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Provisioning);
 						Content.Append("',");
@@ -431,20 +432,43 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("RemoteJid:=GetAttribute(Stanza,'remoteJid');");
 						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
-						Content.Append("E:=GetElement(Stanza,'isFriend');");
+						Content.Append("E:=GetElement(Stanza,'canRead');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(LocalizationResourceManager.Current["AccessRequest"]));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ReadRequest"]));
 						Content.Append("',");
 						Content.Append("'myBody':RosterName(ToJid,RemoteJid),");
 						Content.Append("'remoteJid':RemoteJid,");
 						Content.Append("'jid':GetAttribute(E,'jid'),");
 						Content.Append("'key':GetAttribute(E,'key'),");
+						Content.Append("'q':'canRead',");
 						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Provisioning);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "isFriend", ProvisioningClient.NamespaceProvisioningOwner,
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "canRead", ProvisioningClient.NamespaceProvisioningOwner,
+							Constants.PushChannels.Provisioning, "Stanza", string.Empty, Content.ToString());
+
+						// Push Notification Rule, for control requests from things when offline.
+
+						Content.Clear();
+						Content.Append("RemoteJid:=GetAttribute(Stanza,'remoteJid');");
+						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
+						Content.Append("E:=GetElement(Stanza,'canControl');");
+						Content.Append("{'myTitle':'");
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ControlRequest"]));
+						Content.Append("',");
+						Content.Append("'myBody':RosterName(ToJid,RemoteJid),");
+						Content.Append("'remoteJid':RemoteJid,");
+						Content.Append("'jid':GetAttribute(E,'jid'),");
+						Content.Append("'key':GetAttribute(E,'key'),");
+						Content.Append("'q':'canControl',");
+						Content.Append("'channelId':'");
+						Content.Append(Constants.PushChannels.Provisioning);
+						Content.Append("',");
+						Content.Append("'content_available':true}");
+
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "canControl", ProvisioningClient.NamespaceProvisioningOwner,
 							Constants.PushChannels.Provisioning, "Stanza", string.Empty, Content.ToString());
 
 						#endregion

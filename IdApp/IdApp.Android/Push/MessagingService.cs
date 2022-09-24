@@ -403,6 +403,7 @@ namespace IdApp.Android.Push
 				string RemoteJid = string.Empty;
 				string Jid = string.Empty;
 				string Key = string.Empty;
+				string Query = string.Empty;
 
 				foreach (KeyValuePair<string, string> P in Data)
 				{
@@ -419,6 +420,10 @@ namespace IdApp.Android.Push
 						case "key":
 							Key = P.Value;
 							break;
+
+						case "q":
+							Query = P.Value;
+							break;
 					}
 				}
 
@@ -431,7 +436,13 @@ namespace IdApp.Android.Push
 				IServiceReferences ServiceReferences = App.Instantiate<IXmppService>();
 
 				string ThingName = await ContactInfo.GetFriendlyName(Jid, ServiceReferences);
-				MessageBody = string.Format(LocalizationResourceManager.Current["{0} wants to connect to your device {1}."], MessageBody, ThingName);
+
+				MessageBody = Query switch
+				{
+					"canRead" => string.Format(LocalizationResourceManager.Current["ReadoutRequestText"], MessageBody, ThingName),
+					"canControl" => string.Format(LocalizationResourceManager.Current["ControlRequestText"], MessageBody, ThingName),
+					_ => string.Format(LocalizationResourceManager.Current["AccessRequestText"], MessageBody, ThingName),
+				};
 
 				PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
 				Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationPetitionIcon);
