@@ -118,7 +118,7 @@ namespace IdApp.Services.Notification.Wallet
 		/// </summary>
 		/// <param name="ServiceReferences"></param>
 		/// <returns></returns>
-		public override Task<string> GetCategoryIcon(ServiceReferences ServiceReferences)
+		public override Task<string> GetCategoryIcon(IServiceReferences ServiceReferences)
 		{
 			return Task.FromResult<string>(FontAwesome.StarOfLife);
 		}
@@ -127,7 +127,7 @@ namespace IdApp.Services.Notification.Wallet
 		/// Gets a descriptive text for the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override Task<string> GetDescription(ServiceReferences ServiceReferences)
+		public override Task<string> GetDescription(IServiceReferences ServiceReferences)
 		{
 			if (!string.IsNullOrEmpty(this.FriendlyName))
 				return Task.FromResult(this.FriendlyName);
@@ -141,7 +141,7 @@ namespace IdApp.Services.Notification.Wallet
 		/// Opens the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task Open(ServiceReferences ServiceReferences)
+		public override async Task Open(IServiceReferences ServiceReferences)
 		{
 			if (this.Token is null)
 				this.Token = await ServiceReferences.XmppService.Wallet.GetToken(this.TokenId);

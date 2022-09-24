@@ -476,7 +476,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <param name="MarkdownInput">Markdown input.</param>
 		/// <param name="BareJid">Bare JID of recipient.</param>
 		/// <param name="ServiceReferences">Service references.</param>
-		public static async Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput, string BareJid, ServiceReferences ServiceReferences)
+		public static async Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput, string BareJid, IServiceReferences ServiceReferences)
 		{
 			try
 			{

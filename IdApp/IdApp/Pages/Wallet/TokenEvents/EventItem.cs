@@ -61,7 +61,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 	public abstract class EventItem
 	{
 		private readonly TokenEvent @event;
-		private ServiceReferences @ref;
+		private IServiceReferences @ref;
 
 		/// <summary>
 		/// Represents a token event.
@@ -178,7 +178,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		/// Binds properties
 		/// </summary>
 		/// <param name="Ref">Service references.</param>
-		public virtual Task DoBind(ServiceReferences Ref)
+		public virtual Task DoBind(IServiceReferences Ref)
 		{
 			this.@ref = Ref;
 			return Task.CompletedTask;

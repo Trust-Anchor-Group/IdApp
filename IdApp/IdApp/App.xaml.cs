@@ -85,7 +85,7 @@ namespace IdApp
 		private static bool displayedPinPopup = false;
 		private readonly LoginAuditor loginAuditor;
 		private Timer autoSaveTimer;
-		private ServiceReferences services;
+		private IServiceReferences services;
 		private Profiler startupProfiler;
 		private readonly Task<bool> initCompleted;
 		private readonly SemaphoreSlim startupWorker = new(1, 1);

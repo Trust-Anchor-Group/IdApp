@@ -9,7 +9,7 @@ namespace IdApp.Pages.Things.CanRead
 	/// </summary>
 	public class FieldReference : INotifyPropertyChanged
 	{
-		private readonly ServiceReferences references;
+		private readonly IServiceReferences references;
 		private readonly string name;
 		private bool permitted;
 
@@ -19,7 +19,7 @@ namespace IdApp.Pages.Things.CanRead
 		/// <param name="References">Service References</param>
 		/// <param name="FieldName">Field Name</param>
 		/// <param name="Permitted">If the field is permitted or not.</param>
-		public FieldReference(ServiceReferences References, string FieldName, bool Permitted)
+		public FieldReference(IServiceReferences References, string FieldName, bool Permitted)
 		{
 			this.references = References;
 			this.name = FieldName;

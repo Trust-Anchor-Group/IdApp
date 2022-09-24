@@ -77,25 +77,25 @@ namespace IdApp.Services.Notification
 		/// </summary>
 		/// <param name="ServiceReferences"></param>
 		/// <returns></returns>
-		public abstract Task<string> GetCategoryIcon(ServiceReferences ServiceReferences);
+		public abstract Task<string> GetCategoryIcon(IServiceReferences ServiceReferences);
 
 		/// <summary>
 		/// Gets a descriptive text for the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public abstract Task<string> GetDescription(ServiceReferences ServiceReferences);
+		public abstract Task<string> GetDescription(IServiceReferences ServiceReferences);
 
 		/// <summary>
 		/// Opens the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public abstract Task Open(ServiceReferences ServiceReferences);
+		public abstract Task Open(IServiceReferences ServiceReferences);
 
 		/// <summary>
 		/// Performs perparatory tasks, that will simplify opening the notification.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references.</param>
-		public virtual Task Prepare(ServiceReferences ServiceReferences)
+		public virtual Task Prepare(IServiceReferences ServiceReferences)
 		{
 			return Task.CompletedTask;
 		}

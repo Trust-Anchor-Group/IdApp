@@ -33,7 +33,7 @@ namespace IdApp.Services.Notification.Things
 		/// </summary>
 		/// <param name="ServiceReferences">Service References</param>
 		/// <returns>Icon</returns>
-		public override Task<string> GetCategoryIcon(ServiceReferences ServiceReferences)
+		public override Task<string> GetCategoryIcon(IServiceReferences ServiceReferences)
 		{
 			return Task.FromResult<string>(FontAwesome.Things);
 		}
@@ -42,7 +42,7 @@ namespace IdApp.Services.Notification.Things
 		/// Gets a descriptive text for the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task<string> GetDescription(ServiceReferences ServiceReferences)
+		public override async Task<string> GetDescription(IServiceReferences ServiceReferences)
 		{
 			string ThingName = await ContactInfo.GetFriendlyName(this.BareJid, ServiceReferences);
 			string RemoteName = await ContactInfo.GetFriendlyName(this.RemoteJid, ServiceReferences);
@@ -54,7 +54,7 @@ namespace IdApp.Services.Notification.Things
 		/// Opens the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task Open(ServiceReferences ServiceReferences)
+		public override async Task Open(IServiceReferences ServiceReferences)
 		{
 			string ThingName = await ContactInfo.GetFriendlyName(this.BareJid, ServiceReferences);
 			string RemoteName = await ContactInfo.GetFriendlyName(this.RemoteJid, ServiceReferences);

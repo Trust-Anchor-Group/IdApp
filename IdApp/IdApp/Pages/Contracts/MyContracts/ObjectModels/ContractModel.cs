@@ -44,7 +44,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
         /// <param name="Contract">Contract</param>
         /// <param name="Ref">Service References</param>
 		/// <param name="Events">Notification events associated with contract.</param>
-        public static async Task<ContractModel> Create(string ContractId, DateTime Timestamp, Contract Contract, ServiceReferences Ref,
+        public static async Task<ContractModel> Create(string ContractId, DateTime Timestamp, Contract Contract, IServiceReferences Ref,
 			NotificationEvent[] Events)
         {
             string Category = await GetCategory(Contract) ?? Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
@@ -59,7 +59,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
         /// <param name="Contract">Contract</param>
         /// <param name="Ref">Service References</param>
         /// <returns>Displayable Name</returns>
-        public static async Task<string> GetName(Contract Contract, ServiceReferences Ref)
+        public static async Task<string> GetName(Contract Contract, IServiceReferences Ref)
 		{
             if (Contract.Parts is null)
                 return null;

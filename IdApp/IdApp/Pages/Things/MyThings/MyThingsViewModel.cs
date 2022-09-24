@@ -168,7 +168,7 @@ namespace IdApp.Pages.Things.MyThings
 		/// <param name="References">Service references.</param>
 		/// <param name="Thing">Thing reference</param>
 		/// <returns>Array of events, null if none.</returns>
-		public static NotificationEvent[] GetNotificationEvents(ServiceReferences References, ContactInfo Thing)
+		public static NotificationEvent[] GetNotificationEvents(IServiceReferences References, ContactInfo Thing)
 		{
 			if (!string.IsNullOrEmpty(Thing.SourceId) ||
 				!string.IsNullOrEmpty(Thing.Partition) ||

@@ -259,7 +259,7 @@ namespace IdApp.Services
 		/// <param name="RemoteId">Remote Identity</param>
 		/// <param name="Ref">Service references</param>
 		/// <returns>Friendly name.</returns>
-		public static Task<string> GetFriendlyName(CaseInsensitiveString RemoteId, ServiceReferences Ref)
+		public static Task<string> GetFriendlyName(CaseInsensitiveString RemoteId, IServiceReferences Ref)
 		{
 			return GetFriendlyName(RemoteId, Ref.XmppService.Xmpp, Ref.TagProfile, Ref.SmartContracts);
 		}
@@ -367,7 +367,7 @@ namespace IdApp.Services
 		/// <param name="RemoteId">Remote Identity</param>
 		/// <param name="Ref">Service references</param>
 		/// <returns>Friendly name.</returns>
-		public static async Task<string[]> GetFriendlyName(string[] RemoteId, ServiceReferences Ref)
+		public static async Task<string[]> GetFriendlyName(string[] RemoteId, IServiceReferences Ref)
 		{
 			if (RemoteId is null)
 				return null;
@@ -588,7 +588,7 @@ namespace IdApp.Services
 		/// <param name="Ref">Service References.</param>
 		/// <returns>Friendly name.</returns>
 		public static async Task<string> GetFriendlyName(CaseInsensitiveString BareJid, string SourceId, string PartitionId, string NodeId,
-			ServiceReferences Ref)
+			IServiceReferences Ref)
 		{
 			if (string.IsNullOrEmpty(NodeId) && string.IsNullOrEmpty(PartitionId) && string.IsNullOrEmpty(SourceId))
 				return await GetFriendlyName(BareJid, Ref);

@@ -21,7 +21,7 @@ namespace IdApp.Services
     /// <summary>
     /// Abstract base class for (bindable) classes that reference services in the app.
     /// </summary>
-    public class ServiceReferences : BindableObject
+    public class ServiceReferences : BindableObject, IServiceReferences
     {
         /// <summary>
         /// Abstract base class for (bindable) classes that reference services in the app.

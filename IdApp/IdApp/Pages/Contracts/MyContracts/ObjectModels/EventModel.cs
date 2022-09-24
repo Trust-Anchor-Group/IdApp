@@ -12,7 +12,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 	/// </summary>
 	public class EventModel : ObservableObject, IItemGroup
 	{
-		private readonly ServiceReferences references;
+		private readonly IServiceReferences references;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="EventModel"/> class.
@@ -22,7 +22,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 		/// <param name="Description">Description of event.</param>
 		/// <param name="Event">Notification event object.</param>
 		/// <param name="References">Service references.</param>
-		public EventModel(DateTime Received, string Icon, string Description, NotificationEvent Event, ServiceReferences References)
+		public EventModel(DateTime Received, string Icon, string Description, NotificationEvent Event, IServiceReferences References)
 		{
 			this.Received = Received;
 			this.Icon = Icon;

@@ -39,7 +39,7 @@ namespace IdApp.Services.Notification.Contracts
 		/// Opens the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task Open(ServiceReferences ServiceReferences)
+		public override async Task Open(IServiceReferences ServiceReferences)
 		{
 			Contract Contract = await this.GetContract();
 
@@ -59,7 +59,7 @@ namespace IdApp.Services.Notification.Contracts
 		/// Gets a descriptive text for the category of event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task<string> GetDescription(ServiceReferences ServiceReferences)
+		public override async Task<string> GetDescription(IServiceReferences ServiceReferences)
 		{
 			Contract Contract = await this.GetContract();
 			StringBuilder Result = new();

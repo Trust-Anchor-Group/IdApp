@@ -2,8 +2,10 @@
 using Firebase.CloudMessaging;
 using Foundation;
 using IdApp.Helpers;
+using IdApp.Services;
 using IdApp.Services.Ocr;
 using IdApp.Services.Push;
+using IdApp.Services.Xmpp;
 using System;
 using System.Threading.Tasks;
 using Tesseract.iOS;
@@ -140,80 +142,92 @@ namespace IdApp.iOS
 		}
 
 		[Export("application:didReceiveRemoteNotification:fetchCompletionHandler:")]
-		public override void DidReceiveRemoteNotification(UIApplication Application, NSDictionary UserInfo, Action<UIBackgroundFetchResult> CompletionHandler)
+		public override async void DidReceiveRemoteNotification(UIApplication Application, NSDictionary UserInfo, Action<UIBackgroundFetchResult> CompletionHandler)
 		{
-			if (!App.IsOnboarded)
-				return;
-
-			string MessageId = UserInfo.ObjectForKey(new NSString("gcm.message_id")).ToString();
-			string ChannelId = UserInfo.ObjectForKey(new NSString("channelId"))?.ToString() ?? string.Empty;
-			string Title = UserInfo.ObjectForKey(new NSString("myTitle"))?.ToString() ?? string.Empty;
-			string Body = UserInfo.ObjectForKey(new NSString("myBody"))?.ToString() ?? string.Empty;
-			string AttachmentIcon = null;
-
-			switch (ChannelId)
+			try
 			{
-				case Constants.PushChannels.Messages:
-					AttachmentIcon = "NotificationChatIcon";
-					Body = this.GetChatNotificationBody(Body, UserInfo);
-					break;
+				if (!App.IsOnboarded)
+					return;
 
-				case Constants.PushChannels.Petitions:
-					AttachmentIcon = "NotificationPetitionIcon";
-					Body = this.GetPetitionNotificationBody(Body, UserInfo);
-					break;
+				string MessageId = UserInfo.ObjectForKey(new NSString("gcm.message_id")).ToString();
+				string ChannelId = UserInfo.ObjectForKey(new NSString("channelId"))?.ToString() ?? string.Empty;
+				string Title = UserInfo.ObjectForKey(new NSString("myTitle"))?.ToString() ?? string.Empty;
+				string Body = UserInfo.ObjectForKey(new NSString("myBody"))?.ToString() ?? string.Empty;
+				string AttachmentIcon = null;
 
-				case Constants.PushChannels.Identities:
-					AttachmentIcon = "NotificationIdentitieIcon";
-					Body = this.GetIdentitieNotificationBody(Body, UserInfo);
-					break;
-
-				case Constants.PushChannels.Contracts:
-					AttachmentIcon = "NotificationContractIcon";
-					Body = this.GetContractNotificationBody(Body, UserInfo);
-					break;
-
-				case Constants.PushChannels.EDaler:
-					AttachmentIcon = "NotificationEDalerIcon";
-					Body = this.GetEDalerNotificationBody(Body, UserInfo);
-					break;
-
-				case Constants.PushChannels.Tokens:
-					AttachmentIcon = "NotificationTokenIcon";
-					Body = this.GetTokenNotificationBody(Body, UserInfo);
-					break;
-
-				default:
-					break;
-			}
-
-			// Create request
-			UNMutableNotificationContent Content = new()
-			{
-				Title = Title,
-				Body = Body,
-			};
-
-			if (AttachmentIcon is not null)
-			{
-				UNNotificationAttachmentOptions Options = new();
-				NSUrl AttachmentUrl = NSBundle.MainBundle.GetUrlForResource(AttachmentIcon, "png");
-
-				if (AttachmentUrl is not null)
+				switch (ChannelId)
 				{
-					UNNotificationAttachment Attachment = UNNotificationAttachment.FromIdentifier("image" + MessageId, AttachmentUrl, Options, out _);
+					case Constants.PushChannels.Messages:
+						AttachmentIcon = "NotificationChatIcon";
+						Body = this.GetChatNotificationBody(Body, UserInfo);
+						break;
 
-					if (Attachment is not null)
+					case Constants.PushChannels.Petitions:
+						AttachmentIcon = "NotificationPetitionIcon";
+						Body = this.GetPetitionNotificationBody(Body, UserInfo);
+						break;
+
+					case Constants.PushChannels.Identities:
+						AttachmentIcon = "NotificationIdentitieIcon";
+						Body = this.GetIdentitieNotificationBody(Body, UserInfo);
+						break;
+
+					case Constants.PushChannels.Contracts:
+						AttachmentIcon = "NotificationContractIcon";
+						Body = this.GetContractNotificationBody(Body, UserInfo);
+						break;
+
+					case Constants.PushChannels.EDaler:
+						AttachmentIcon = "NotificationEDalerIcon";
+						Body = this.GetEDalerNotificationBody(Body, UserInfo);
+						break;
+
+					case Constants.PushChannels.Tokens:
+						AttachmentIcon = "NotificationTokenIcon";
+						Body = this.GetTokenNotificationBody(Body, UserInfo);
+						break;
+
+					case Constants.PushChannels.Provisioning:
+						AttachmentIcon = "NotificationPetitionIcon";
+						Body = await this.GetProvisioningNotificationBody(Body, UserInfo);
+						break;
+
+					default:
+						break;
+				}
+
+				// Create request
+				UNMutableNotificationContent Content = new()
+				{
+					Title = Title,
+					Body = Body,
+				};
+
+				if (AttachmentIcon is not null)
+				{
+					UNNotificationAttachmentOptions Options = new();
+					NSUrl AttachmentUrl = NSBundle.MainBundle.GetUrlForResource(AttachmentIcon, "png");
+
+					if (AttachmentUrl is not null)
 					{
-						Content.Attachments = new UNNotificationAttachment[] { Attachment };
+						UNNotificationAttachment Attachment = UNNotificationAttachment.FromIdentifier("image" + MessageId, AttachmentUrl, Options, out _);
+
+						if (Attachment is not null)
+						{
+							Content.Attachments = new UNNotificationAttachment[] { Attachment };
+						}
 					}
 				}
+
+				UNNotificationRequest Request = UNNotificationRequest.FromIdentifier(MessageId, Content, null);
+				UNUserNotificationCenter.Current.AddNotificationRequest(Request, null);
+
+				CompletionHandler(UIBackgroundFetchResult.NewData);
 			}
-
-			UNNotificationRequest Request = UNNotificationRequest.FromIdentifier(MessageId, Content, null);
-			UNUserNotificationCenter.Current.AddNotificationRequest(Request, null);
-
-			CompletionHandler(UIBackgroundFetchResult.NewData);
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
 		}
 
 		private string GetChatNotificationBody(string MessageBody, NSDictionary UserInfo)
@@ -312,6 +326,18 @@ namespace IdApp.iOS
 			}
 
 			return MessageBody;
+		}
+
+		private async Task<string> GetProvisioningNotificationBody(string MessageBody, NSDictionary UserInfo)
+		{
+			//string RemoteJid = UserInfo.ObjectForKey(new NSString("remoteJid"))?.ToString() ?? string.Empty;
+			string Jid = UserInfo.ObjectForKey(new NSString("jid"))?.ToString() ?? string.Empty;
+			//string Key = UserInfo.ObjectForKey(new NSString("key"))?.ToString() ?? string.Empty;
+
+			IServiceReferences ServiceReferences = App.Instantiate<IXmppService>();
+
+			string ThingName = await ContactInfo.GetFriendlyName(Jid, ServiceReferences);
+			return string.Format(LocalizationResourceManager.Current["{0} wants to connect to your device {1}."], MessageBody, ThingName);
 		}
 
 		[Export("messaging:didReceiveRegistrationToken:")]

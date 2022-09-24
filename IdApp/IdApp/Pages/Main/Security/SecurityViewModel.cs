@@ -105,7 +105,7 @@ namespace IdApp.Pages.Main.Security
 			await ChangePin(this);
 		}
 
-		internal static async Task ChangePin(ServiceReferences References)
+		internal static async Task ChangePin(IServiceReferences References)
 		{
 			try
 			{

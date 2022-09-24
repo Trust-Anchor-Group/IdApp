@@ -38,7 +38,7 @@ namespace IdApp.Services.Notification.Wallet
 		/// </summary>
 		/// <param name="ServiceReferences"></param>
 		/// <returns></returns>
-		public override Task<string> GetCategoryIcon(ServiceReferences ServiceReferences)
+		public override Task<string> GetCategoryIcon(IServiceReferences ServiceReferences)
 		{
 			return Task.FromResult<string>(FontAwesome.MoneyBill);
 		}

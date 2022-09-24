@@ -761,6 +761,11 @@
             Tokens channel
             </summary>
         </member>
+        <member name="F:IdApp.Constants.PushChannels.Provisioning">
+            <summary>
+            Provisioning channel
+            </summary>
+        </member>
         <member name="T:IdApp.Constants.Effects">
             <summary>
             Names of Effects.
@@ -2716,7 +2721,7 @@
             The command to bind to for sending user input
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ExecuteSendMessage(System.String,System.String,System.String,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ExecuteSendMessage(System.String,System.String,System.String,IdApp.Services.IServiceReferences)">
             <summary>
             Sends a Markdown-formatted chat message
             </summary>
@@ -3244,7 +3249,7 @@
             Contact Information model, including related notification information.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.#ctor(IdApp.Services.ServiceReferences,IdApp.Services.ContactInfo,IdApp.Services.Notification.NotificationEvent[])">
+        <member name="M:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.#ctor(IdApp.Services.IServiceReferences,IdApp.Services.ContactInfo,IdApp.Services.Notification.NotificationEvent[])">
             <summary>
             Contact Information model, including related notification information.
             </summary>
@@ -4182,7 +4187,7 @@
             The data model for a contract.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences,IdApp.Services.Notification.NotificationEvent[])">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.IServiceReferences,IdApp.Services.Notification.NotificationEvent[])">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel"/> class.
             </summary>
@@ -4192,7 +4197,7 @@
             <param name="Ref">Service References</param>
             <param name="Events">Notification events associated with contract.</param>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.IServiceReferences)">
             <summary>
             Gets a displayable name for a contract.
             </summary>
@@ -4260,7 +4265,7 @@
             The data model for a notification event that is not associate with a referenced contract.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.#ctor(System.DateTime,System.String,System.String,IdApp.Services.Notification.NotificationEvent,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.#ctor(System.DateTime,System.String,System.String,IdApp.Services.Notification.NotificationEvent,IdApp.Services.IServiceReferences)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel"/> class.
             </summary>
@@ -10497,7 +10502,7 @@
             Class used to represent a field name, and if it is permitted or not.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.CanRead.FieldReference.#ctor(IdApp.Services.ServiceReferences,System.String,System.Boolean)">
+        <member name="M:IdApp.Pages.Things.CanRead.FieldReference.#ctor(IdApp.Services.IServiceReferences,System.String,System.Boolean)">
             <summary>
             Class used to represent a field name, and if it is permitted or not.
             </summary>
@@ -10934,7 +10939,7 @@
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.GetNotificationEvents(IdApp.Services.ServiceReferences,IdApp.Services.ContactInfo)">
+        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.GetNotificationEvents(IdApp.Services.IServiceReferences,IdApp.Services.ContactInfo)">
             <summary>
             Gets available notification events related to a thing.
             </summary>
@@ -11094,7 +11099,7 @@
             Represents a set of historical field values.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ReadSensor.Model.GraphModel.#ctor(Waher.Things.SensorData.Field,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Things.ReadSensor.Model.GraphModel.#ctor(Waher.Things.SensorData.Field,IdApp.Services.IServiceReferences)">
             <summary>
             Represents a set of historical field values.
             </summary>
@@ -11377,7 +11382,7 @@
             JID of registry the thing uses.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.LabelClicked(System.String,System.String,System.String,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.LabelClicked(System.String,System.String,System.String,IdApp.Services.IServiceReferences)">
             <summary>
             Processes the click of a localized meta-data label.
             </summary>
@@ -13359,7 +13364,7 @@
             Encapsulates a <see cref="N:IdApp.Pages.Wallet.AccountEvent"/> object.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.#ctor(EDaler.AccountEvent,IdApp.Pages.Wallet.MyWallet.MyWalletViewModel,System.String,IdApp.Services.Notification.NotificationEvent[],IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.AccountEventItem.#ctor(EDaler.AccountEvent,IdApp.Pages.Wallet.MyWallet.MyWalletViewModel,System.String,IdApp.Services.Notification.NotificationEvent[],IdApp.Services.IServiceReferences)">
             <summary>
             Encapsulates a <see cref="N:IdApp.Pages.Wallet.AccountEvent"/> object.
             </summary>
@@ -13512,7 +13517,7 @@
             Encapsulates a <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Token"/> object.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences,IdApp.Services.Notification.NotificationEvent[])">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.IServiceReferences,IdApp.Services.Notification.NotificationEvent[])">
             <summary>
             Encapsulates a <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Token"/> object.
             </summary>
@@ -13520,7 +13525,7 @@
             <param name="Model">View model</param>
             <param name="NotificationEvents">Notification events.</param>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.ServiceReferences,System.Threading.Tasks.TaskCompletionSource{IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem},IdApp.Services.Notification.NotificationEvent[])">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.#ctor(NeuroFeatures.Token,IdApp.Services.IServiceReferences,System.Threading.Tasks.TaskCompletionSource{IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem},IdApp.Services.Notification.NotificationEvent[])">
             <summary>
             Encapsulates a <see cref="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Token"/> object.
             </summary>
@@ -15121,7 +15126,7 @@
             <param name="Event">Token event.</param>
             <returns>View model of token event.</returns>
         </member>
-        <member name="M:IdApp.Pages.Wallet.TokenEvents.EventItem.DoBind(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.EventItem.DoBind(IdApp.Services.IServiceReferences)">
             <summary>
             Binds properties
             </summary>
@@ -15183,7 +15188,7 @@
             Creator (Friendly Name)
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.CreatedItem.DoBind(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.CreatedItem.DoBind(IdApp.Services.IServiceReferences)">
             <summary>
             Binds properties
             </summary>
@@ -15327,7 +15332,7 @@
             Owner (Friendly Name)
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.OwnershipEventItem.DoBind(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.OwnershipEventItem.DoBind(IdApp.Services.IServiceReferences)">
             <summary>
             Binds properties
             </summary>
@@ -15359,7 +15364,7 @@
             Seller (Friendly Name)
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.TransferredItem.DoBind(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Pages.Wallet.TokenEvents.Events.TransferredItem.DoBind(IdApp.Services.IServiceReferences)">
             <summary>
             Binds properties
             </summary>
@@ -19764,7 +19769,7 @@
             <param name="LegalId">Legal ID</param>
             <returns>Contact information, if found.</returns>
         </member>
-        <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(Waher.Persistence.CaseInsensitiveString,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(Waher.Persistence.CaseInsensitiveString,IdApp.Services.IServiceReferences)">
             <summary>
             Gets the friendly name of a remote identity (Legal ID or Bare JID).
             </summary>
@@ -19782,7 +19787,7 @@
             <param name="SmartContracts">Smart Contracts interface.</param>
             <returns>Friendly name.</returns>
         </member>
-        <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(System.String[],IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(System.String[],IdApp.Services.IServiceReferences)">
             <summary>
             Gets the friendly name of a remote identity (Legal ID or Bare JID).
             </summary>
@@ -19804,7 +19809,7 @@
             <param name="Identity">Legal Identity</param>
             <returns>Friendly name</returns>
         </member>
-        <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(Waher.Persistence.CaseInsensitiveString,System.String,System.String,System.String,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.ContactInfo.GetFriendlyName(Waher.Persistence.CaseInsensitiveString,System.String,System.String,System.String,IdApp.Services.IServiceReferences)">
             <summary>
             Gets the friendly name of a thing.
             </summary>
@@ -19914,7 +19919,7 @@
             </summary>
             <returns>Parsed contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.ContractReference.SetContract(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Contracts.ContractReference.SetContract(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.IServiceReferences)">
             <summary>
             Sets a parsed contract.
             </summary>
@@ -20741,6 +20746,96 @@
             </summary>
             <returns>Complete list of my devices.</returns>
         </member>
+        <member name="T:IdApp.Services.IServiceReferences">
+            <summary>
+            Interface for classes that reference services in the app.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.UiSerializer">
+            <summary>
+            The dispatcher to use for alerts and accessing the main thread.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.XmppService">
+            <summary>
+            The XMPP service for XMPP communication.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.TagProfile">
+            <summary>
+            TAG Profie service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.NavigationService">
+            <summary>
+            Navigation service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.LogService">
+            <summary>
+            Log service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.NetworkService">
+            <summary>
+            Network service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.NeuroWalletOrchestratorService">
+            <summary>
+            Neuro-Wallet orchestrator service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.ContractOrchestratorService">
+            <summary>
+            Contract orchestrator service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.ThingRegistryOrchestratorService">
+            <summary>
+            Thing Registry orchestrator service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.AttachmentCacheService">
+            <summary>
+            AttachmentCache service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.CryptoService">
+            <summary>
+            Crypto service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.SettingsService">
+            <summary>
+            Settings service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.StorageService">
+            <summary>
+            Storage service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.NfcService">
+            <summary>
+            Near-Field Communication (NFC) service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.NotificationService">
+            <summary>
+            Notification Service
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.PushNotificationService">
+            <summary>
+            Push Notification Service
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.IServiceReferences.SmartContracts">
+            <summary>
+            Smart Contracts Interface
+            </summary>
+        </member>
         <member name="T:IdApp.Services.LoadableService">
             <inheritdoc/>
         </member>
@@ -21278,14 +21373,14 @@
             </summary>
             <param name="Contract">Contract</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.GetCategoryIcon(IdApp.Services.IServiceReferences)">
             <summary>
             Gets an icon for the category of event.
             </summary>
             <param name="ServiceReferences"></param>
             <returns></returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -21334,19 +21429,19 @@
             </summary>
             <returns>Parsed identity</returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractPetitionNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractPetitionNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractPetitionNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractPetitionNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractPetitionNotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractPetitionNotificationEvent.Prepare(IdApp.Services.IServiceReferences)">
             <summary>
             Performs perparatory tasks, that will simplify opening the notification.
             </summary>
@@ -21377,13 +21472,13 @@
             Message
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractProposalNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -21410,13 +21505,13 @@
             Response
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractResponseNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractResponseNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractResponseNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractResponseNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -21449,13 +21544,13 @@
             Role being signed
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -21472,7 +21567,7 @@
             </summary>
             <returns>Parsed identity</returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractSignedNotificationEvent.Prepare(IdApp.Services.IServiceReferences)">
             <summary>
             Performs perparatory tasks, that will simplify opening the notification.
             </summary>
@@ -21494,13 +21589,13 @@
             <param name="Contract">Requested contract.</param>
             <param name="e">Event arguments.</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Contracts.ContractUpdatedNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -21576,20 +21671,20 @@
             </summary>
             <returns>Parsed identity</returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.GetCategoryIcon(IdApp.Services.IServiceReferences)">
             <summary>
             Gets an icon for the category of event.
             </summary>
             <param name="ServiceReferences"></param>
             <returns></returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.IdentityNotificationEvent.Prepare(IdApp.Services.IServiceReferences)">
             <summary>
             Performs perparatory tasks, that will simplify opening the notification.
             </summary>
@@ -21615,13 +21710,13 @@
             Response
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.IdentityResponseNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.IdentityResponseNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.IdentityResponseNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.IdentityResponseNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -21643,13 +21738,13 @@
             </summary>
             <param name="e">Event arguments.</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.PeerRequestIdentityReviewNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -21671,13 +21766,13 @@
             </summary>
             <param name="e">Event arguments.</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.RequestIdentityNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.RequestIdentityNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.RequestIdentityNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.RequestIdentityNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -21699,13 +21794,13 @@
             </summary>
             <param name="e">Event arguments.</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.RequestSignatureNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.RequestSignatureNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.RequestSignatureNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.RequestSignatureNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -21732,13 +21827,13 @@
             Response
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Identities.SignatureResponseNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the category of event.
             </summary>
@@ -21921,26 +22016,26 @@
             If notification event should be deleted when openedd.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.NotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.NotificationEvent.GetCategoryIcon(IdApp.Services.IServiceReferences)">
             <summary>
             Gets an icon for the category of event.
             </summary>
             <param name="ServiceReferences"></param>
             <returns></returns>
         </member>
-        <member name="M:IdApp.Services.Notification.NotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.NotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.NotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.NotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.NotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.NotificationEvent.Prepare(IdApp.Services.IServiceReferences)">
             <summary>
             Performs perparatory tasks, that will simplify opening the notification.
             </summary>
@@ -22134,32 +22229,32 @@
             All parameters available
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.GetCategoryIcon(IdApp.Services.IServiceReferences)">
             <summary>
             Gets an icon for the category of event.
             </summary>
             <param name="ServiceReferences">Service References</param>
             <returns>Icon</returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.Prepare(IdApp.Services.IServiceReferences)">
             <summary>
             Performs perparatory tasks, that will simplify opening the notification.
             </summary>
             <param name="ServiceReferences">Service references.</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.GetAvailableParameterNames(System.String,Waher.Things.ThingReference,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.CanControlNotificationEvent.GetAvailableParameterNames(System.String,Waher.Things.ThingReference,IdApp.Services.IServiceReferences)">
             <summary>
             Gets available fields for a thing.
             </summary>
@@ -22199,32 +22294,32 @@
             Field types requested.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.GetCategoryIcon(IdApp.Services.IServiceReferences)">
             <summary>
             Gets an icon for the category of event.
             </summary>
             <param name="ServiceReferences">Service References</param>
             <returns>Icon</returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.Prepare(IdApp.Services.IServiceReferences)">
             <summary>
             Performs perparatory tasks, that will simplify opening the notification.
             </summary>
             <param name="ServiceReferences">Service references.</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.GetAvailableFieldNames(System.String,Waher.Things.ThingReference,IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.CanReadNotificationEvent.GetAvailableFieldNames(System.String,Waher.Things.ThingReference,IdApp.Services.IServiceReferences)">
             <summary>
             Gets available fields for a thing.
             </summary>
@@ -22249,20 +22344,20 @@
             </summary>
             <param name="e">Event arguments</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.IsFriendNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.IsFriendNotificationEvent.GetCategoryIcon(IdApp.Services.IServiceReferences)">
             <summary>
             Gets an icon for the category of event.
             </summary>
             <param name="ServiceReferences">Service References</param>
             <returns>Icon</returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.IsFriendNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.IsFriendNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.IsFriendNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.IsFriendNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
@@ -22405,7 +22500,7 @@
             Device tokens
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Things.ThingNotificationEvent.Prepare(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Things.ThingNotificationEvent.Prepare(IdApp.Services.IServiceReferences)">
             <summary>
             Performs perparatory tasks, that will simplify opening the notification.
             </summary>
@@ -22447,13 +22542,13 @@
             Account event
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Wallet.BalanceNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
@@ -22480,7 +22575,7 @@
             New state of state-machine.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.StateMachineNewStateNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Wallet.StateMachineNewStateNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
@@ -22502,7 +22597,7 @@
             </summary>
             <param name="e">Event arguments.</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.StateMachineVariablesUpdatedNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Wallet.StateMachineVariablesUpdatedNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
@@ -22524,7 +22619,7 @@
             </summary>
             <param name="e">Event arguments.</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.TokenAddedNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Wallet.TokenAddedNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
@@ -22577,20 +22672,20 @@
             Parsed token
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.GetCategoryIcon(IdApp.Services.IServiceReferences)">
             <summary>
             Gets an icon for the category of event.
             </summary>
             <param name="ServiceReferences"></param>
             <returns></returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Wallet.TokenNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>
@@ -22612,7 +22707,7 @@
             </summary>
             <param name="e">Event arguments.</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.TokenRemovedNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Wallet.TokenRemovedNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
@@ -22639,7 +22734,7 @@
             Timestamp
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Wallet.WalletNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Wallet.WalletNotificationEvent.GetCategoryIcon(IdApp.Services.IServiceReferences)">
             <summary>
             Gets an icon for the category of event.
             </summary>
@@ -22667,20 +22762,20 @@
             ID of message object being updated
             </summary>
         </member>
-        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.GetCategoryIcon(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.GetCategoryIcon(IdApp.Services.IServiceReferences)">
             <summary>
             Gets an icon for the category of event.
             </summary>
             <param name="ServiceReferences">Service References</param>
             <returns>Icon</returns>
         </member>
-        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.GetDescription(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.GetDescription(IdApp.Services.IServiceReferences)">
             <summary>
             Gets a descriptive text for the event.
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
-        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.Open(IdApp.Services.ServiceReferences)">
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.Open(IdApp.Services.IServiceReferences)">
             <summary>
             Opens the event.
             </summary>

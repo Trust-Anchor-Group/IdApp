@@ -20,7 +20,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 	public class TokenItem : BindableObject
 	{
 		private readonly Token token;
-		private readonly ServiceReferences model;
+		private readonly IServiceReferences model;
 		private readonly TaskCompletionSource<TokenItem> selected;
 		private bool? @new;
 		private int nrEvents;
@@ -32,7 +32,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// <param name="Token">Token</param>
 		/// <param name="Model">View model</param>
 		/// <param name="NotificationEvents">Notification events.</param>
-		public TokenItem(Token Token, ServiceReferences Model, NotificationEvent[] NotificationEvents)
+		public TokenItem(Token Token, IServiceReferences Model, NotificationEvent[] NotificationEvents)
 			: this(Token, Model, null, NotificationEvents)
 		{
 		}
@@ -44,7 +44,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// <param name="Model">View model</param>
 		/// <param name="Selected">Asynchronous task completion source, waiting for the user to select a token.</param>
 		/// <param name="NotificationEvents">Notification events.</param>
-		public TokenItem(Token Token, ServiceReferences Model, TaskCompletionSource<TokenItem> Selected, NotificationEvent[] NotificationEvents)
+		public TokenItem(Token Token, IServiceReferences Model, TaskCompletionSource<TokenItem> Selected, NotificationEvent[] NotificationEvents)
 		{
 			this.token = Token;
 			this.model = Model;

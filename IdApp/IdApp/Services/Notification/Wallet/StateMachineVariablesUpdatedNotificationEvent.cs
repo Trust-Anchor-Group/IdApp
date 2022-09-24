@@ -31,7 +31,7 @@ namespace IdApp.Services.Notification.Wallet
 		/// Gets a descriptive text for the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task<string> GetDescription(ServiceReferences ServiceReferences)
+		public override async Task<string> GetDescription(IServiceReferences ServiceReferences)
 		{
 			StringBuilder sb = new();
 

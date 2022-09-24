@@ -4,7 +4,9 @@ using Android.Gms.Extensions;
 using Android.Graphics;
 using Firebase.Messaging;
 using IdApp.DeviceSpecific;
+using IdApp.Services;
 using IdApp.Services.Push;
+using IdApp.Services.Xmpp;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -60,6 +62,10 @@ namespace IdApp.Android.Push
 
 					case Constants.PushChannels.Tokens:
 						this.ShowTokenNotification(Title, Body, Message.Data);
+						break;
+
+					case Constants.PushChannels.Provisioning:
+						this.ShowProvisioningNotification(Title, Body, Message.Data);
 						break;
 
 					default:
@@ -388,6 +394,63 @@ namespace IdApp.Android.Push
 
 			NotificationManager NotificationManager = NotificationManager.FromContext(this);
 			NotificationManager.Notify(100, notificationBuilder.Build());
+		}
+
+		public async void ShowProvisioningNotification(string Title, string MessageBody, IDictionary<string, string> Data)
+		{
+			try
+			{
+				string RemoteJid = string.Empty;
+				string Jid = string.Empty;
+				string Key = string.Empty;
+
+				foreach (KeyValuePair<string, string> P in Data)
+				{
+					switch (P.Key)
+					{
+						case "remoteJid":
+							RemoteJid = P.Value;
+							break;
+
+						case "jid":
+							Jid = P.Value;
+							break;
+
+						case "key":
+							Key = P.Value;
+							break;
+					}
+				}
+
+				Intent Intent = new(this, typeof(MainActivity));
+				Intent.AddFlags(ActivityFlags.ClearTop);
+
+				foreach (string Key2 in Data.Keys)
+					Intent.PutExtra(Key2, Data[Key2]);
+
+				IServiceReferences ServiceReferences = App.Instantiate<IXmppService>();
+
+				string ThingName = await ContactInfo.GetFriendlyName(Jid, ServiceReferences);
+				MessageBody = string.Format(LocalizationResourceManager.Current["{0} wants to connect to your device {1}."], MessageBody, ThingName);
+
+				PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
+				Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationPetitionIcon);
+
+				Notification.Builder notificationBuilder = new Notification.Builder(this, Constants.PushChannels.Tokens)
+					.SetSmallIcon(Resource.Drawable.NotificationPetitionIcon)
+					.SetLargeIcon(LargeImage)
+					.SetContentTitle(Title)
+					.SetContentText(MessageBody)
+					.SetAutoCancel(true)
+					.SetContentIntent(PendingIntent);
+
+				NotificationManager NotificationManager = NotificationManager.FromContext(this);
+				NotificationManager.Notify(100, notificationBuilder.Build());
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
 		}
 
 		public override async void OnNewToken(string p0)

@@ -51,7 +51,7 @@ namespace IdApp.Services.Notification.Things
 		/// </summary>
 		/// <param name="ServiceReferences">Service References</param>
 		/// <returns>Icon</returns>
-		public override Task<string> GetCategoryIcon(ServiceReferences ServiceReferences)
+		public override Task<string> GetCategoryIcon(IServiceReferences ServiceReferences)
 		{
 			return Task.FromResult<string>(FontAwesome.Things);
 		}
@@ -60,7 +60,7 @@ namespace IdApp.Services.Notification.Things
 		/// Gets a descriptive text for the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task<string> GetDescription(ServiceReferences ServiceReferences)
+		public override async Task<string> GetDescription(IServiceReferences ServiceReferences)
 		{
 			string ThingName = await ContactInfo.GetFriendlyName(this.BareJid, this.SourceId, this.PartitionId, this.NodeId, ServiceReferences);
 			string RemoteName = await ContactInfo.GetFriendlyName(this.RemoteJid, ServiceReferences);
@@ -72,7 +72,7 @@ namespace IdApp.Services.Notification.Things
 		/// Opens the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task Open(ServiceReferences ServiceReferences)
+		public override async Task Open(IServiceReferences ServiceReferences)
 		{
 			string ThingName = await ContactInfo.GetFriendlyName(this.BareJid, ServiceReferences);
 			string RemoteName = await ContactInfo.GetFriendlyName(this.RemoteJid, ServiceReferences);
@@ -84,7 +84,7 @@ namespace IdApp.Services.Notification.Things
 		/// Performs perparatory tasks, that will simplify opening the notification.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references.</param>
-		public override async Task Prepare(ServiceReferences ServiceReferences)
+		public override async Task Prepare(IServiceReferences ServiceReferences)
 		{
 			await base.Prepare(ServiceReferences);
 
@@ -104,7 +104,7 @@ namespace IdApp.Services.Notification.Things
 		/// <param name="Thing">Thing reference</param>
 		/// <param name="ServiceReferences">Service references</param>
 		/// <returns>Array of available field names, or null if not able.</returns>
-		public static async Task<string[]> GetAvailableParameterNames(string BareJid, ThingReference Thing, ServiceReferences ServiceReferences)
+		public static async Task<string[]> GetAvailableParameterNames(string BareJid, ThingReference Thing, IServiceReferences ServiceReferences)
 		{
 			try
 			{

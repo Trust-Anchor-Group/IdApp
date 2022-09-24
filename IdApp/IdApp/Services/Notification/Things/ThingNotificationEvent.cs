@@ -90,7 +90,7 @@ namespace IdApp.Services.Notification.Things
 		/// Performs perparatory tasks, that will simplify opening the notification.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references.</param>
-		public override async Task Prepare(ServiceReferences ServiceReferences)
+		public override async Task Prepare(IServiceReferences ServiceReferences)
 		{
 			await base.Prepare(ServiceReferences);
 
@@ -99,7 +99,7 @@ namespace IdApp.Services.Notification.Things
 			await this.Prepare(this.ServiceTokens, ServiceReferences);
 		}
 
-		private async Task Prepare(ProvisioningToken[] Tokens, ServiceReferences ServiceReferences)
+		private async Task Prepare(ProvisioningToken[] Tokens, IServiceReferences ServiceReferences)
 		{
 			if (Tokens is null)
 				return;

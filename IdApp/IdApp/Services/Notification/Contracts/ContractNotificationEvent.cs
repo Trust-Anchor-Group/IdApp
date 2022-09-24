@@ -139,7 +139,7 @@ namespace IdApp.Services.Notification.Contracts
 		/// </summary>
 		/// <param name="ServiceReferences"></param>
 		/// <returns></returns>
-		public override Task<string> GetCategoryIcon(ServiceReferences ServiceReferences)
+		public override Task<string> GetCategoryIcon(IServiceReferences ServiceReferences)
 		{
 			return Task.FromResult<string>(FontAwesome.Paragraph);
 		}
@@ -148,7 +148,7 @@ namespace IdApp.Services.Notification.Contracts
 		/// Gets a descriptive text for the category of event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task<string> GetDescription(ServiceReferences ServiceReferences)
+		public override async Task<string> GetDescription(IServiceReferences ServiceReferences)
 		{
 			Contract Contract = await this.GetContract();
 

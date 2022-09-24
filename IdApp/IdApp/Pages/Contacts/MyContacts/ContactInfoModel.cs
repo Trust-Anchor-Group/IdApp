@@ -20,7 +20,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 	/// </summary>
 	public class ContactInfoModel : INotifyPropertyChanged
 	{
-		private readonly ServiceReferences references;
+		private readonly IServiceReferences references;
 		private readonly ContactInfo contact;
 		private NotificationEvent[] events;
 
@@ -32,7 +32,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 		/// <param name="References">Service references.</param>
 		/// <param name="Contact">Contact information.</param>
 		/// <param name="Events">Notification events</param>
-		public ContactInfoModel(ServiceReferences References, ContactInfo Contact, params NotificationEvent[] Events)
+		public ContactInfoModel(IServiceReferences References, ContactInfo Contact, params NotificationEvent[] Events)
 		{
 			this.references = References;
 			this.contact = Contact;

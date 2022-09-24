@@ -17,7 +17,7 @@ namespace IdApp.Services.Xmpp
     /// Represents an abstraction of a connection to an XMPP Server.
     /// </summary>
     [DefaultImplementation(typeof(XmppService))]
-    public interface IXmppService : ILoadableService
+    public interface IXmppService : ILoadableService, IServiceReferences
     {
         /// <summary>
         /// Can be used to <c>await</c> the server's connection state, i.e. skipping all intermediate states but <see cref="XmppState.Connected"/>.

@@ -198,7 +198,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// <param name="Value">Tag value</param>
 		/// <param name="LocalizedValue">Localized tag value</param>
 		/// <param name="Services">Service references</param>
-		public static async Task LabelClicked(string Name, string Value, string LocalizedValue, ServiceReferences Services)
+		public static async Task LabelClicked(string Name, string Value, string LocalizedValue, IServiceReferences Services)
 		{ 
 			try
 			{

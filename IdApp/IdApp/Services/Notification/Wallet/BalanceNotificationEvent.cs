@@ -59,7 +59,7 @@ namespace IdApp.Services.Notification.Wallet
 		/// Gets a descriptive text for the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task<string> GetDescription(ServiceReferences ServiceReferences)
+		public override async Task<string> GetDescription(IServiceReferences ServiceReferences)
 		{
 			if (string.IsNullOrEmpty(this.Event?.Remote))
 				return LocalizationResourceManager.Current["BalanceUpdated"];
@@ -71,7 +71,7 @@ namespace IdApp.Services.Notification.Wallet
 		/// Opens the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task Open(ServiceReferences ServiceReferences)
+		public override async Task Open(IServiceReferences ServiceReferences)
 		{
 			if ((this.Event?.Change ?? 0) > 0)
 			{

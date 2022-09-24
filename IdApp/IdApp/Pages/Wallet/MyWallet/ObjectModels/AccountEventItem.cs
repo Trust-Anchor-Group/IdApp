@@ -13,7 +13,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 	/// </summary>
 	public class AccountEventItem : IItemGroup
 	{
-		private readonly ServiceReferences services;
+		private readonly IServiceReferences services;
 		private readonly EDaler.AccountEvent accountEvent;
 		private readonly MyWalletViewModel viewModel;
 		private readonly string friendlyName;
@@ -29,7 +29,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// <param name="NotificationEvents">Notification events.</param>
 		/// <param name="Services">Service references.</param>
 		public AccountEventItem(EDaler.AccountEvent AccountEvent, MyWalletViewModel ViewModel, string FriendlyName, NotificationEvent[] NotificationEvents,
-			ServiceReferences Services)
+			IServiceReferences Services)
 		{
 			this.accountEvent = AccountEvent;
 			this.viewModel = ViewModel;

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Settings;
@@ -370,8 +371,8 @@ namespace IdApp.Services.Push
 						Content.Append("{'myTitle':'");
 						Content.Append(JSON.Encode(LocalizationResourceManager.Current["TokenAdded"]));
 						Content.Append("',");
-						Content.Append("'myBody':DateTime(GetAttribute(E,'friendlyName')),");
-						Content.Append("'value':Num(GetAttribute(E,'value')),");
+						Content.Append("'myBody':GetAttribute(E2,'friendlyName'),");
+						Content.Append("'value':Num(GetAttribute(E2,'value')),");
 						Content.Append("'currency':GetAttribute(E2,'currency'),");
 						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Tokens);
@@ -389,8 +390,8 @@ namespace IdApp.Services.Push
 						Content.Append("{'myTitle':'");
 						Content.Append(JSON.Encode(LocalizationResourceManager.Current["TokenRemoved"]));
 						Content.Append("',");
-						Content.Append("'myBody':DateTime(GetAttribute(E,'friendlyName')),");
-						Content.Append("'value':Num(GetAttribute(E,'value')),");
+						Content.Append("'myBody':GetAttribute(E2,'friendlyName'),");
+						Content.Append("'value':Num(GetAttribute(E2,'value')),");
 						Content.Append("'currency':GetAttribute(E2,'currency'),");
 						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Tokens);
@@ -399,6 +400,52 @@ namespace IdApp.Services.Push
 
 						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "tokenRemoved", NeuroFeaturesClient.NamespaceNeuroFeatures,
 							Constants.PushChannels.Tokens, "Stanza", string.Empty, Content.ToString());
+
+						#endregion
+
+						#region Provisioning
+
+						// Push Notification Rule, for friendship requests from things when offline.
+
+						Content.Clear();
+						Content.Append("RemoteJid:=GetAttribute(Stanza,'remoteJid');");
+						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
+						Content.Append("E:=GetElement(Stanza,'isFriend');");
+						Content.Append("{'myTitle':'");
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["AccessRequest"]));
+						Content.Append("',");
+						Content.Append("'myBody':RosterName(ToJid,RemoteJid),");
+						Content.Append("'remoteJid':RemoteJid,");
+						Content.Append("'jid':GetAttribute(E,'jid'),");
+						Content.Append("'key':GetAttribute(E,'key'),");
+						Content.Append("'channelId':'");
+						Content.Append(Constants.PushChannels.Provisioning);
+						Content.Append("',");
+						Content.Append("'content_available':true}");
+
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "isFriend", ProvisioningClient.NamespaceProvisioningOwner,
+							Constants.PushChannels.Provisioning, "Stanza", string.Empty, Content.ToString());
+
+						// Push Notification Rule, for readout requests from things when offline.
+
+						Content.Clear();
+						Content.Append("RemoteJid:=GetAttribute(Stanza,'remoteJid');");
+						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
+						Content.Append("E:=GetElement(Stanza,'isFriend');");
+						Content.Append("{'myTitle':'");
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["AccessRequest"]));
+						Content.Append("',");
+						Content.Append("'myBody':RosterName(ToJid,RemoteJid),");
+						Content.Append("'remoteJid':RemoteJid,");
+						Content.Append("'jid':GetAttribute(E,'jid'),");
+						Content.Append("'key':GetAttribute(E,'key'),");
+						Content.Append("'channelId':'");
+						Content.Append(Constants.PushChannels.Provisioning);
+						Content.Append("',");
+						Content.Append("'content_available':true}");
+
+						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "isFriend", ProvisioningClient.NamespaceProvisioningOwner,
+							Constants.PushChannels.Provisioning, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
 
@@ -415,7 +462,7 @@ namespace IdApp.Services.Push
 		/// <summary>
 		/// Increment this configuration number by one, each time token configuration changes.
 		/// </summary>
-		private const int currentTokenConfiguration = 10;
+		private const int currentTokenConfiguration = 11;
 
 	}
 }

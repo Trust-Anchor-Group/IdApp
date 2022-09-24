@@ -458,6 +458,11 @@ namespace IdApp
 			/// Tokens channel
 			/// </summary>
 			public const string Tokens = "Tokens";
+
+			/// <summary>
+			/// Provisioning channel
+			/// </summary>
+			public const string Provisioning = "Provisioning";
 		}
 
 		/// <summary>

@@ -42,7 +42,7 @@ namespace IdApp.Services.Notification.Xmpp
 		/// </summary>
 		/// <param name="ServiceReferences">Service References</param>
 		/// <returns>Icon</returns>
-		public override Task<string> GetCategoryIcon(ServiceReferences ServiceReferences)
+		public override Task<string> GetCategoryIcon(IServiceReferences ServiceReferences)
 		{
 			return Task.FromResult<string>(FontAwesome.User);
 		}
@@ -51,7 +51,7 @@ namespace IdApp.Services.Notification.Xmpp
 		/// Gets a descriptive text for the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override Task<string> GetDescription(ServiceReferences ServiceReferences)
+		public override Task<string> GetDescription(IServiceReferences ServiceReferences)
 		{
 			return ContactInfo.GetFriendlyName(this.BareJid, ServiceReferences);
 		}
@@ -60,7 +60,7 @@ namespace IdApp.Services.Notification.Xmpp
 		/// Opens the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task Open(ServiceReferences ServiceReferences)
+		public override async Task Open(IServiceReferences ServiceReferences)
 		{
 			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(this.BareJid);
 			string LegalId = ContactInfo?.LegalId;

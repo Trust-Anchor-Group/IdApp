@@ -108,7 +108,7 @@ namespace IdApp.Services.Contracts
 		/// </summary>
 		/// <param name="Contract">Contract</param>
 		/// <param name="Services">Service references.</param>
-		public async Task SetContract(Contract Contract, ServiceReferences Services)
+		public async Task SetContract(Contract Contract, IServiceReferences Services)
 		{
 			this.contract = Contract;
 

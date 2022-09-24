@@ -38,7 +38,7 @@ namespace IdApp.Services.Notification.Identities
 		/// Opens the event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override async Task Open(ServiceReferences ServiceReferences)
+		public override async Task Open(IServiceReferences ServiceReferences)
 		{
 			LegalIdentity Identity = this.Identity;
 
@@ -52,7 +52,7 @@ namespace IdApp.Services.Notification.Identities
 		/// Gets a descriptive text for the category of event.
 		/// </summary>
 		/// <param name="ServiceReferences">Service references</param>
-		public override Task<string> GetDescription(ServiceReferences ServiceReferences)
+		public override Task<string> GetDescription(IServiceReferences ServiceReferences)
 		{
 			LegalIdentity Identity = this.Identity;
 			StringBuilder Result = new();

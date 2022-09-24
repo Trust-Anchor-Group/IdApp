@@ -24,7 +24,7 @@ namespace IdApp.Pages.Things.ReadSensor.Model
 		private readonly SortedDictionary<DateTime, Field> fieldValues = new();
 		private readonly SortedDictionary<DateTime, Field> minFieldValues = new();
 		private readonly SortedDictionary<DateTime, Field> maxFieldValues = new();
-		private readonly ServiceReferences references;
+		private readonly IServiceReferences references;
 		private readonly string fieldName;
 		private Timer timer = null;
 		private ImageSource image = null;
@@ -34,7 +34,7 @@ namespace IdApp.Pages.Things.ReadSensor.Model
 		/// </summary>
 		/// <param name="Field">Field added</param>
 		/// <param name="References">Service references</param>
-		public GraphModel(Field Field, ServiceReferences References)
+		public GraphModel(Field Field, IServiceReferences References)
 		{
 			this.fieldName = Field.Name;
 			this.references = References;
