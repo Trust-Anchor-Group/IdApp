@@ -10594,6 +10594,23 @@
             String value of tag.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Things.IsFriend.FriendshipResolver">
+            <summary>
+            Resolves pending friendship requests
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.IsFriend.FriendshipResolver.#ctor(System.String,System.String,Waher.Networking.XMPP.Provisioning.RuleRange)">
+            <summary>
+            Resolves pending friendship requests
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.IsFriend.FriendshipResolver.Resolves(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            If the resolver resolves an event.
+            </summary>
+            <param name="Event">Pending notification event.</param>
+            <returns>If the resolver resolves the event.</returns>
+        </member>
         <member name="T:IdApp.Pages.Things.IsFriend.IsFriendModel">
             <summary>
             The view model to bind to when displaying a thing.
@@ -21683,6 +21700,18 @@
             </summary>
             <param name="ServiceReferences">Service references</param>
         </member>
+        <member name="T:IdApp.Services.Notification.IEventResolver">
+            <summary>
+            Interface for event resolvers. Such can be used to resolve multiple pending notifications at once.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.IEventResolver.Resolves(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            If the resolver resolves an event.
+            </summary>
+            <param name="Event">Pending notification event.</param>
+            <returns>If the resolver resolves the event.</returns>
+        </member>
         <member name="T:IdApp.Services.Notification.INotificationService">
             <summary>
             Interface for push notification services.
@@ -21781,6 +21810,12 @@
             <summary>
             Number of notifications but button Wallet
             </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.INotificationService.DeleteResolvedEvents(IdApp.Services.Notification.IEventResolver)">
+            <summary>
+            Deletes pending events that have already been resolved.
+            </summary>
+            <param name="Resolver">Notification event resolver, determining which events are resolved.</param>
         </member>
         <member name="T:IdApp.Services.Notification.EventButton">
             <summary>
@@ -22022,6 +22057,12 @@
             <summary>
             Number of notifications but button Wallet
             </summary>
+        </member>
+        <member name="M:IdApp.Services.Notification.NotificationService.DeleteResolvedEvents(IdApp.Services.Notification.IEventResolver)">
+            <summary>
+            Deletes pending events that have already been resolved.
+            </summary>
+            <param name="Resolver">Notification event resolver, determining which events are resolved.</param>
         </member>
         <member name="T:IdApp.Services.Notification.Things.CanControlNotificationEvent">
             <summary>

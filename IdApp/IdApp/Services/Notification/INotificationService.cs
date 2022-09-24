@@ -107,5 +107,11 @@ namespace IdApp.Services.Notification
 		/// Number of notifications but button Wallet
 		/// </summary>
 		int NrNotificationsWallet { get; }
+
+		/// <summary>
+		/// Deletes pending events that have already been resolved.
+		/// </summary>
+		/// <param name="Resolver">Notification event resolver, determining which events are resolved.</param>
+		Task DeleteResolvedEvents(IEventResolver Resolver);
 	}
 }

@@ -349,8 +349,11 @@ namespace IdApp.Pages.Things.IsFriend
 
 		private void Respond(bool Accepts)
 		{
-			this.XmppService.IoT.ProvisioningClient.IsFriendResponse(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key, Accepts,
-				this.GetRuleRange(), this.ResponseHandler, null);
+			RuleRange Range = this.GetRuleRange();
+			FriendshipResolver Resolver = new(this.BareJid, this.RemoteJid, Range);
+
+			this.XmppService.IoT.ProvisioningClient.IsFriendResponse(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+				Accepts, Range, this.ResponseHandler, Resolver);
 		}
 
 		private async Task ResponseHandler(object Sender, IqResultEventArgs e)
@@ -358,6 +361,7 @@ namespace IdApp.Pages.Things.IsFriend
 			if (e.Ok)
 			{
 				await this.NotificationService.DeleteEvents(this.@event);
+				await this.NotificationService.DeleteResolvedEvents((IEventResolver)e.State);
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{

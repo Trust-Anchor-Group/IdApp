@@ -458,5 +458,37 @@ namespace IdApp.Services.Notification
 			}
 		}
 
+		/// <summary>
+		/// Deletes pending events that have already been resolved.
+		/// </summary>
+		/// <param name="Resolver">Notification event resolver, determining which events are resolved.</param>
+		public async Task DeleteResolvedEvents(IEventResolver Resolver)
+		{
+			List<NotificationEvent> Resolved = null;
+
+			lock (this.events)
+			{
+				foreach (SortedDictionary<CaseInsensitiveString, List<NotificationEvent>> ByCategory in this.events)
+				{
+					foreach (KeyValuePair<CaseInsensitiveString, List<NotificationEvent>> P in ByCategory)
+					{
+						foreach (NotificationEvent Event in P.Value)
+						{
+							if (Resolver.Resolves(Event))
+							{
+								if (Resolved is null)
+									Resolved = new List<NotificationEvent>();
+
+								Resolved.Add(Event);
+							}
+						}
+					}
+				}
+			}
+
+			if (Resolved is not null)
+				await this.DeleteEvents(Resolved.ToArray());
+		}
+
 	}
 }
