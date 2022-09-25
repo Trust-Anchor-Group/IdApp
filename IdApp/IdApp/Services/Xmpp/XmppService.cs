@@ -299,7 +299,7 @@ namespace IdApp.Services.Xmpp
 
 		private Task XmppClient_OnNormalMessage(object Sender, MessageEventArgs e)
 		{
-			this.LogService.LogWarning("Unhandled message received.", e.To, e.From,
+			Log.Warning("Unhandled message received.", e.To, e.From,
 				new KeyValuePair<string, object>("Stanza", e.Message.OuterXml));
 
 			return Task.CompletedTask;
