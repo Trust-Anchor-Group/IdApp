@@ -743,7 +743,7 @@ namespace IdApp.Services.Tag
 			this.ApiKey = string.Empty;
 			this.ApiSecret = string.Empty;
 
-			if (!string.IsNullOrWhiteSpace(this.Account) && this.Step == RegistrationStep.Account && !(this.LegalIdentity is null))
+			if (!string.IsNullOrWhiteSpace(this.Account) && this.Step == RegistrationStep.Account && this.LegalIdentity is not null)
 			{
 				switch (this.LegalIdentity.State)
 				{
@@ -781,7 +781,7 @@ namespace IdApp.Services.Tag
 		{
 			this.LegalIdentity = Identity;
 
-			if (this.Step == RegistrationStep.RegisterIdentity && !(Identity is null) &&
+			if (this.Step == RegistrationStep.RegisterIdentity && Identity is not null &&
 				(Identity.State == IdentityState.Created || Identity.State == IdentityState.Approved))
 			{
 				this.IncrementConfigurationStep();

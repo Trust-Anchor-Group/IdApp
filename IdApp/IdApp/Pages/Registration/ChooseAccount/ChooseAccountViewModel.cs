@@ -308,7 +308,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					XmlElement LegalIdDefinition = null;
 					string Pin = null;
 
-					while (!(ToProcess.First is null))
+					while (ToProcess.First is not null)
 					{
 						XmlElement E = ToProcess.First.Value;
 						ToProcess.RemoveFirst();
@@ -371,7 +371,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 						}
 					}
 
-					if (!(LegalIdDefinition is null))
+					if (LegalIdDefinition is not null)
 						await this.XmppService.Contracts.ContractsClient.ImportKeys(LegalIdDefinition);
 
 					if (AccountDone)
@@ -448,7 +448,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 						try
 						{
-							if (!(LegalIdDefinition is null))
+							if (LegalIdDefinition is not null)
 								await ContractsClient.ImportKeys(LegalIdDefinition);
 
 							LegalIdentity[] Identities = await ContractsClient.GetLegalIdentitiesAsync();
@@ -482,14 +482,14 @@ namespace IdApp.Pages.Registration.ChooseAccount
 								}
 							}
 
-							if (!(approvedIdentity is null))
+							if (approvedIdentity is not null)
 								this.LegalIdentity = approvedIdentity;
-							else if (!(createdIdentity is null))
+							else if (createdIdentity is not null)
 								this.LegalIdentity = createdIdentity;
 
 							string SelectedId;
 
-							if (!(this.LegalIdentity is null))
+							if (this.LegalIdentity is not null)
 							{
 								this.TagProfile.SetAccountAndLegalIdentity(AccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
 								SelectedId = this.LegalIdentity.Id;

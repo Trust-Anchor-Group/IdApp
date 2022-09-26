@@ -39,7 +39,7 @@ namespace IdApp.Behaviors
         /// <param name="Element">Element to focus on.</param>
         public static void Unfocus(View Element)
 		{
-            if (!(Element is null) && Element.IsVisible)
+            if (Element is not null && Element.IsVisible)
                 Element.Unfocus();
         }
     }

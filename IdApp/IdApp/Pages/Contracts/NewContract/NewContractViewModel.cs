@@ -66,7 +66,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				this.template = args.Template;
 				this.suppressedProposalIds = args.SuppressedProposalLegalIds;
 
-				if (!(args.ParameterValues is null))
+				if (args.ParameterValues is not null)
 					this.presetParameterValues = args.ParameterValues;
 
 				if (args.ViewInitialized)
@@ -79,7 +79,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					args.ViewInitialized = true;
 				}
 			}
-			else if (!(this.stateTemplateWhileScanning is null))
+			else if (this.stateTemplateWhileScanning is not null)
 			{
 				this.template = this.stateTemplateWhileScanning;
 				this.stateTemplateWhileScanning = null;
@@ -118,12 +118,12 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			await base.DoSaveState();
 
-			if (!(this.SelectedContractVisibilityItem is null))
+			if (this.SelectedContractVisibilityItem is not null)
 				await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.SelectedContractVisibilityItem)), this.SelectedContractVisibilityItem.Visibility);
 			else
 				await this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedContractVisibilityItem)));
 
-			if (!(this.SelectedRole is null))
+			if (this.SelectedRole is not null)
 				await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.SelectedRole)), this.SelectedRole);
 			else
 				await this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedRole)));
@@ -162,7 +162,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			if (this.saveStateWhileScanning)
 			{
 				Enum e = await this.SettingsService.RestoreEnumState(this.GetSettingsKey(nameof(this.SelectedContractVisibilityItem)));
-				if (!(e is null))
+				if (e is not null)
 				{
 					ContractVisibility cv = (ContractVisibility)e;
 					this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == cv);
@@ -283,7 +283,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				string oldRole = (string)oldValue;
 				viewModel.RemoveRole(oldRole, viewModel.TagProfile.LegalIdentity.Id);
 				string newRole = (string)newValue;
-				if (!(viewModel.template is null) && !string.IsNullOrWhiteSpace(newRole))
+				if (viewModel.template is not null && !string.IsNullOrWhiteSpace(newRole))
 				{
 					viewModel.AddRole(newRole, viewModel.TagProfile.LegalIdentity.Id).Wait();
 				}
@@ -477,7 +477,7 @@ namespace IdApp.Pages.Contracts.NewContract
 						case 1:
 							if (View is Button Button)
 							{
-								if (!(ToRemove is null))
+								if (ToRemove is not null)
 								{
 									this.Roles.Children.Remove(ToRemove);
 									Button.IsEnabled = true;
@@ -956,7 +956,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 				Created = await this.XmppService.Contracts.SignContract(Created, this.SelectedRole, false);
 
-				if (!(Created.Parts is null))
+				if (Created.Parts is not null)
 				{
 					foreach (Part Part in Created.Parts)
 					{
@@ -1210,7 +1210,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.Parameters = parametersLayout;
 			this.HasParameters = this.Parameters.Children.Count > 0;
 
-			if (!(this.template.Parts is null))
+			if (this.template.Parts is not null)
 			{
 				foreach (Part Part in this.template.Parts)
 				{
@@ -1271,7 +1271,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			StackLayout humanReadableTextLayout = new();
 
-			if (!(this.template is null))
+			if (this.template is not null)
 				Populate(humanReadableTextLayout, await this.template.ToXamarinForms(this.template.DeviceLanguage()));
 
 			this.HumanReadableText = humanReadableTextLayout;
@@ -1280,7 +1280,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 		private bool CanPropose()
 		{
-			return !(this.template is null) && this.ParametersOk;
+			return this.template is not null && this.ParametersOk;
 		}
 
 		private async void CalcButton_Clicked(object Sender, EventArgs e)

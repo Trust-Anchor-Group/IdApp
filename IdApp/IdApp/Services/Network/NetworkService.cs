@@ -73,7 +73,7 @@ namespace IdApp.Services.Network
 			try
 			{
 				SRV endpoint = await DnsResolver.LookupServiceEndpoint(domainName, "xmpp-client", "tcp");
-				if (!(endpoint is null) && !string.IsNullOrWhiteSpace(endpoint.TargetHost) && endpoint.Port > 0)
+				if (endpoint is not null && !string.IsNullOrWhiteSpace(endpoint.TargetHost) && endpoint.Port > 0)
 					return (endpoint.TargetHost, endpoint.Port, false);
 			}
 			catch (Exception)
@@ -137,7 +137,7 @@ namespace IdApp.Services.Network
 					if (displayAlert)
 						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(LocalizationResourceManager.Current["RequestWasCancelled"], memberName));
 				}
-				else if (!(ae.InnerException is null))
+				else if (ae.InnerException is not null)
 				{
 					this.LogService.LogException(ae.InnerException, GetParameter(memberName));
 
@@ -174,7 +174,7 @@ namespace IdApp.Services.Network
 
 				thrownException = e;
 
-				if (e is XmppException xe && !(xe.Stanza is null))
+				if (e is XmppException xe && xe.Stanza is not null)
 					message = xe.Stanza.InnerText;
 				else
 					message = e.Message;

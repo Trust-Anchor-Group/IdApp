@@ -204,7 +204,7 @@ namespace IdApp.Pages.Wallet.MachineReport.Reports
 		/// </summary>
 		public async void Action(object _)
 		{
-			if (!(this.view is null))
+			if (this.view is not null)
 			{
 				try
 				{

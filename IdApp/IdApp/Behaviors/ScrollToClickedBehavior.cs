@@ -40,7 +40,7 @@ namespace IdApp.Behaviors
         public static void MakeVisible(View Element)
 		{
             Element Loop = Element.Parent;
-            while (!(Loop is null) && !(Loop is ScrollView))
+            while (Loop is not null && !(Loop is ScrollView))
                 Loop = Loop.Parent;
 
             (Loop as ScrollView)?.ScrollToAsync(Element, ScrollToPosition.MakeVisible, true);

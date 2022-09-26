@@ -278,7 +278,7 @@ namespace IdApp.Services.Messages
 
 		private Task ExecuteUriClicked(object Parameter, UriScheme Scheme)
 		{
-			if (Parameter is string Uri && !(this.chatView is null))
+			if (Parameter is string Uri && this.chatView is not null)
 				return this.chatView.ExecuteUriClicked(this, Uri, Scheme);
 			else
 				return Task.CompletedTask;

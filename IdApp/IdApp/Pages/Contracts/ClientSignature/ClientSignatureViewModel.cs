@@ -436,7 +436,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
 
         private void AssignProperties()
         {
-            if (!(this.identity is null))
+            if (this.identity is not null)
             {
                 this.Created = this.identity.Created;
                 this.Updated = this.identity.Updated.GetDateOrNullIfMinValue();
@@ -486,7 +486,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
                 this.PhoneNr = Constants.NotAvailableValue;
                 this.EMail = Constants.NotAvailableValue;
 			}
-			if (!(this.signature is null))
+			if (this.signature is not null)
             {
                 this.Role = this.signature.Role;
                 this.Timestamp = this.signature.Timestamp.ToString(CultureInfo.CurrentUICulture);

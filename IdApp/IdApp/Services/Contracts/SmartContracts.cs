@@ -36,7 +36,7 @@ namespace IdApp.Services.Contracts
 			{
 				if (this.contractsClient is null || this.contractsClient.Client != this.XmppService.Xmpp)
 				{
-					if (!(this.contractsClient is null))
+					if (this.contractsClient is not null)
 					{
 						this.contractsClient.IdentityUpdated -= this.ContractsClient_IdentityUpdated;
 						this.contractsClient.PetitionForIdentityReceived -= this.ContractsClient_PetitionForIdentityReceived;
@@ -321,7 +321,7 @@ namespace IdApp.Services.Contracts
 		public async Task<LegalIdentity> GetLegalIdentity(CaseInsensitiveString legalIdentityId)
 		{
 			ContactInfo Info = await ContactInfo.FindByLegalId(legalIdentityId);
-			if (!(Info is null) && !(Info.LegalIdentity is null))
+			if (Info is not null && Info.LegalIdentity is not null)
 				return Info.LegalIdentity;
 
 			return await this.ContractsClient.GetLegalIdentityAsync(legalIdentityId);
@@ -335,7 +335,7 @@ namespace IdApp.Services.Contracts
 		public async Task<bool> IsContact(CaseInsensitiveString legalIdentityId)
 		{
 			ContactInfo Info = await ContactInfo.FindByLegalId(legalIdentityId);
-			return (!(Info is null) && !(Info.LegalIdentity is null));
+			return (Info is not null && Info.LegalIdentity is not null);
 		}
 
 		/// <summary>
@@ -658,7 +658,7 @@ namespace IdApp.Services.Contracts
 
 		#endregion
 
-		public bool IsOnline => !(this.ContractsClient is null) && this.ContractsClient.Client.State == XmppState.Connected;
+		public bool IsOnline => this.ContractsClient is not null && this.ContractsClient.Client.State == XmppState.Connected;
 
 		public bool FileUploadIsSupported
 		{
@@ -666,7 +666,7 @@ namespace IdApp.Services.Contracts
 			{
 				try
 				{
-					return this.TagProfile.FileUploadIsSupported && !(this.FileUploadClient is null) && this.FileUploadClient.HasSupport;
+					return this.TagProfile.FileUploadIsSupported && this.FileUploadClient is not null && this.FileUploadClient.HasSupport;
 				}
 				catch (Exception ex)
 				{

@@ -28,28 +28,28 @@ namespace IdApp.Nfc.Extensions
 			if (M.Success)
 			{
 				Info = AssembleInfo2(M);
-				return !(Info is null);
+				return Info is not null;
 			}
 
 			M = td2_mrz_nr9chars.Match(MRZ);
 			if (M.Success)
 			{
 				Info = AssembleInfo1(M);
-				return !(Info is null);
+				return Info is not null;
 			}
 
 			M = td1_mrz_nr9charsplus.Match(MRZ);
 			if (M.Success)
 			{
 				Info = AssembleInfo2(M);
-				return !(Info is null);
+				return Info is not null;
 			}
 
 			M = td1_mrz_nr9chars.Match(MRZ);
 			if (M.Success)
 			{
 				Info = AssembleInfo1(M);
-				return !(Info is null);
+				return Info is not null;
 			}
 
 			// TODO: Checks
@@ -321,7 +321,7 @@ namespace IdApp.Nfc.Extensions
 						Array.Copy(Data, i, Block, 0, 8);
 						i += 8;
 
-						if (!(H is null))
+						if (H is not null)
 						{
 							for (j = 0; j < 8; j++)
 								Block[j] ^= H[j];

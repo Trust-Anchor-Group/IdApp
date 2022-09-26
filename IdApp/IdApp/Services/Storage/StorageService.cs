@@ -70,7 +70,7 @@ namespace IdApp.Services.Storage
 
 				Thread?.NewState("Register");
 
-				if (!(this.databaseProvider is null))
+				if (this.databaseProvider is not null)
 				{
 					Database.Register(this.databaseProvider, false);
 					this.InitDone(true);
@@ -177,7 +177,7 @@ namespace IdApp.Services.Storage
 
 			try
 			{
-				if (!(this.databaseProvider is null))
+				if (this.databaseProvider is not null)
 				{
 					Database.Register(new NullDatabaseProvider(), false);
 					await this.databaseProvider.Flush();

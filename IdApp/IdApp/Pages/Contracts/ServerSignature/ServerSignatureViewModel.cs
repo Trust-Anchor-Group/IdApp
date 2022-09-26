@@ -82,7 +82,7 @@ namespace IdApp.Pages.Contracts.ServerSignature
 
         private void AssignProperties()
         {
-            if (!(this.contract is null))
+            if (this.contract is not null)
             {
                 this.Provider = this.contract.Provider;
                 this.Timestamp = this.contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture);

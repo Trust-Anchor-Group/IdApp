@@ -100,7 +100,7 @@ namespace IdApp.Services.Contracts
 				else
 				{
 					(bool Succeeded, LegalIdentity LegalId) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.RequestedIdentityId));
-					if (Succeeded && !(LegalId is null))
+					if (Succeeded && LegalId is not null)
 						Identity = LegalId;
 					else
 						return;
@@ -142,7 +142,7 @@ namespace IdApp.Services.Contracts
 				{
 					(bool Succeeded, LegalIdentity LegalId) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.SignatoryIdentityId));
 
-					if (Succeeded && !(LegalId is null))
+					if (Succeeded && LegalId is not null)
 						Identity = LegalId;
 					else
 						return;
@@ -328,7 +328,7 @@ namespace IdApp.Services.Contracts
 		protected async Task DownloadLegalIdentity(string LegalId)
 		{
 			bool isConnected =
-				!(this.XmppService is null) &&
+				this.XmppService is not null &&
 				await this.XmppService.WaitForConnectedState(Constants.Timeouts.XmppConnect) &&
 				this.XmppService.IsOnline;
 

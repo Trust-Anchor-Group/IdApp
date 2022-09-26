@@ -59,7 +59,7 @@ namespace IdApp.Pages.Wallet
 				{
 					this.FriendlyName = args.FriendlyName;
 
-					if (!(args.Uri is null))
+					if (args.Uri is not null)
 					{
 						this.Uri = args.Uri.UriString;
 						this.Id = args.Uri.Id;
@@ -893,7 +893,7 @@ namespace IdApp.Pages.Wallet
 
 						this.EvaluateCommands(this.ShareCommand);
 
-						if (!(this.shareQrCode is null))
+						if (this.shareQrCode is not null)
 							await this.shareQrCode.ShowQrCode();
 					});
 				}
@@ -969,7 +969,7 @@ namespace IdApp.Pages.Wallet
 
 						this.EvaluateCommands(this.ShareCommand);
 
-						if (!(this.shareQrCode is null))
+						if (this.shareQrCode is not null)
 							await this.shareQrCode.ShowQrCode();
 					});
 				}
@@ -983,7 +983,7 @@ namespace IdApp.Pages.Wallet
 
 		private bool CanSendPayment()
 		{
-			return !(this.uriToSend is null) && this.AmountOk && this.AmountExtraOk && this.NotPaid;
+			return this.uriToSend is not null && this.AmountOk && this.AmountExtraOk && this.NotPaid;
 		}
 
 		private async Task SendPayment()

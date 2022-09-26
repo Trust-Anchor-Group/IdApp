@@ -109,7 +109,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			bool ImageShown = false;
 
-			if (!(Identity.Attachments is null))
+			if (Identity.Attachments is not null)
 			{
 				(string FileName, int Width, int Height) = await PhotosLoader.LoadPhotoAsTemporaryFile(Identity.Attachments, 300, 300);
 

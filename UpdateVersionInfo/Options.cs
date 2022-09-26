@@ -245,7 +245,7 @@ namespace UpdateVersionInfo
 			T t = default;
 			try
 			{
-				if (!(value is null))
+				if (value is not null)
 					t = (T)conv.ConvertFromString(value);
 			}
 			catch (Exception e)
@@ -421,7 +421,7 @@ namespace UpdateVersionInfo
 		{
 			if (item is null)
 				throw new ArgumentNullException(nameof(item));
-			if (!(item.Names is null) && item.Names.Length > 0)
+			if (item.Names is not null && item.Names.Length > 0)
 				return item.Names[0];
 			// This should never happen, as it's invalid for Option to be
 			// constructed w/o any names.
@@ -609,22 +609,22 @@ namespace UpdateVersionInfo
 			var def = GetOptionForName ("<>");
 			var unprocessed = 
 				from argument in arguments
-				where ++c.OptionIndex >= 0 && (process || !(def is null))
+				where ++c.OptionIndex >= 0 && (process || def is not null)
 					? process
 						? argument == "--" 
 							? (process = false)
 							: !Parse (argument, c)
-								? !(def is null)
+								? def is not null
 									? Unprocessed (null, def, c, argument) 
 									: true
 								: false
-						: !(def is null)
+						: def is not null
 							? Unprocessed (null, def, c, argument)
 							: true
 					: true
 				select argument;
 			List<string> r = unprocessed.ToList ();
-			if (!(c.Option is null))
+			if (c.Option is not null)
 				c.Option.Invoke (c);
 			return r;
 		}
@@ -652,7 +652,7 @@ namespace UpdateVersionInfo
 				if (!this.Parse(argument, c))
 					Unprocessed(unprocessed, def, c, argument);
 			}
-			if (!(c.Option is null))
+			if (c.Option is not null)
 				c.Option.Invoke(c);
 			return unprocessed;
 		}
@@ -697,7 +697,7 @@ namespace UpdateVersionInfo
 
 		protected virtual bool Parse(string argument, OptionContext c)
 		{
-			if (!(c.Option is null))
+			if (c.Option is not null)
 			{
 				this.ParseValue(argument, c);
 				return true;
@@ -737,8 +737,8 @@ namespace UpdateVersionInfo
 
 		private void ParseValue(string option, OptionContext c)
 		{
-			if (!(option is null))
-				foreach (string o in !(c.Option.ValueSeparators is null)
+			if (option is not null)
+				foreach (string o in c.Option.ValueSeparators is not null
 						? option.Split(c.Option.ValueSeparators, StringSplitOptions.None)
 						: new string[] { option })
 				{
@@ -884,7 +884,7 @@ namespace UpdateVersionInfo
 					Write(o, ref written, this.localizer("["));
 				}
 				Write(o, ref written, this.localizer("=" + GetArgumentName(0, p.MaxValueCount, p.Description)));
-				string sep = !(p.ValueSeparators is null) && p.ValueSeparators.Length > 0
+				string sep = p.ValueSeparators is not null && p.ValueSeparators.Length > 0
 					? p.ValueSeparators[0]
 					: " ";
 				for (int c = 1; c < p.MaxValueCount; ++c)

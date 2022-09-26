@@ -51,7 +51,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 			this.selected = Selected;
 			this.notificationEvents = NotificationEvents;
 
-			if (!(this.Glyph is null) && this.GlyphContentType.StartsWith("image/"))
+			if (this.Glyph is not null && this.GlyphContentType.StartsWith("image/"))
 			{
 				this.GlyphImage = ImageSource.FromStream(() => new MemoryStream(this.Glyph));
 				this.HasGlyphImage = true;

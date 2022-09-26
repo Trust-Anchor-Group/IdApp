@@ -970,7 +970,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (!string.IsNullOrWhiteSpace(s = this.TagProfile?.PhoneNumber?.Trim()))
 			{
-				if (string.IsNullOrWhiteSpace(s) && !(this.TagProfile.LegalIdentity is null))
+				if (string.IsNullOrWhiteSpace(s) && this.TagProfile.LegalIdentity is not null)
 					s = this.TagProfile.LegalIdentity[Constants.XmppProperties.Phone];
 
 				IdentityModel.PhoneNr = s;
@@ -978,7 +978,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (!string.IsNullOrWhiteSpace(s = this.TagProfile?.EMail?.Trim()))
 			{
-				if (string.IsNullOrWhiteSpace(s) && !(this.TagProfile.LegalIdentity is null))
+				if (string.IsNullOrWhiteSpace(s) && this.TagProfile.LegalIdentity is not null)
 					s = this.TagProfile.LegalIdentity[Constants.XmppProperties.EMail];
 
 				IdentityModel.EMail = s;

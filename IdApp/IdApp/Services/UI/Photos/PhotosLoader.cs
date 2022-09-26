@@ -146,7 +146,7 @@ namespace IdApp.Services.UI.Photos
 					if (First is null)
 						First = Photo;
 
-					if (!(Bin is null))
+					if (Bin is not null)
 					{
 						TaskCompletionSource<bool> PhotoAddedTaskSource = new();
 
@@ -176,7 +176,7 @@ namespace IdApp.Services.UI.Photos
 				return (null, string.Empty, 0);
 
 			(byte[] Bin, string ContentType) = await this.AttachmentCacheService.TryGet(Attachment.Url);
-			if (!(Bin is null))
+			if (Bin is not null)
 				return (Bin, ContentType, GetImageRotation(Bin));
 
 			if (!this.NetworkService.IsOnline || !this.XmppService.IsOnline)
@@ -310,7 +310,7 @@ namespace IdApp.Services.UI.Photos
 		{
 			(byte[] Data, string _, int _) = await LoadPhoto(Attachment);
 
-			if (!(Data is null))
+			if (Data is not null)
 			{
 				string FileName = await ImageContent.GetTemporaryFile(Data);
 				int Width;

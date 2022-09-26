@@ -470,7 +470,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			this.From = this.TagProfile.LegalIdentity?.From.GetDateOrNullIfMinValue();
 			this.To = this.TagProfile.LegalIdentity?.To.GetDateOrNullIfMinValue();
 
-			if (!(this.TagProfile.LegalIdentity is null))
+			if (this.TagProfile.LegalIdentity is not null)
 			{
 				this.FirstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
 				this.MiddleNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.MiddleName];

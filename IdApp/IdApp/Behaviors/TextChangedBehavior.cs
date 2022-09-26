@@ -54,7 +54,7 @@ namespace IdApp.Behaviors
 
         void Entry_TextChanged(object Sender, TextChangedEventArgs e)
         {
-            if (!(this.TextChangedCommand is null) && this.TextChangedCommand.CanExecute(null))
+            if (this.TextChangedCommand is not null && this.TextChangedCommand.CanExecute(null))
             {
 				this.TextChangedCommand.Execute(this.TextChangedCommandParameter);
             }

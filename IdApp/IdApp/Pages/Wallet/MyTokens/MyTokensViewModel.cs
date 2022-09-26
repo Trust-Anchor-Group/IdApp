@@ -50,7 +50,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 					{
 						this.Tokens.Clear();
 
-						if (!(e.Tokens is null))
+						if (e.Tokens is not null)
 						{
 							foreach (Token Token in e.Tokens)
 							{
@@ -220,7 +220,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 					{
 						if (e.Ok)
 						{
-							if (!(e.Tokens is null))
+							if (e.Tokens is not null)
 							{
 								foreach (Token Token in e.Tokens)
 								{

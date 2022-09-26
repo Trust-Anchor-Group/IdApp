@@ -39,7 +39,7 @@ namespace IdApp.Services.Ocr
 		/// <summary>
 		/// If API is created
 		/// </summary>
-		public bool Created => !(this.api is null);
+		public bool Created => this.api is not null;
 
 		/// <summary>
 		/// If API is initialized

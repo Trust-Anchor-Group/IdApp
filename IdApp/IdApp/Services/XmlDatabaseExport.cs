@@ -122,14 +122,14 @@ namespace IdApp.Services
 			if (PropertyValue is null)
 			{
 				this.output.WriteStartElement("Null");
-				if (!(PropertyName is null))
+				if (PropertyName is not null)
 					this.output.WriteAttributeString("n", PropertyName);
 				this.output.WriteEndElement();
 			}
 			else if (PropertyValue is Enum)
 			{
 				this.output.WriteStartElement("En");
-				if (!(PropertyName is null))
+				if (PropertyName is not null)
 					this.output.WriteAttributeString("n", PropertyName);
 				this.output.WriteAttributeString("v", string.Empty, PropertyValue.ToString());
 				this.output.WriteEndElement();
@@ -140,7 +140,7 @@ namespace IdApp.Services
 				{
 					case TypeCode.Boolean:
 						this.output.WriteStartElement("Bl");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, CommonTypes.Encode((bool)PropertyValue));
 						this.output.WriteEndElement();
@@ -148,7 +148,7 @@ namespace IdApp.Services
 
 					case TypeCode.Byte:
 						this.output.WriteStartElement("B");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, PropertyValue.ToString());
 						this.output.WriteEndElement();
@@ -156,7 +156,7 @@ namespace IdApp.Services
 
 					case TypeCode.Char:
 						this.output.WriteStartElement("Ch");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, PropertyValue.ToString());
 						this.output.WriteEndElement();
@@ -164,7 +164,7 @@ namespace IdApp.Services
 
 					case TypeCode.DateTime:
 						this.output.WriteStartElement("DT");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, XML.Encode((DateTime)PropertyValue));
 						this.output.WriteEndElement();
@@ -172,7 +172,7 @@ namespace IdApp.Services
 
 					case TypeCode.Decimal:
 						this.output.WriteStartElement("Dc");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, CommonTypes.Encode((decimal)PropertyValue));
 						this.output.WriteEndElement();
@@ -180,7 +180,7 @@ namespace IdApp.Services
 
 					case TypeCode.Double:
 						this.output.WriteStartElement("Db");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, CommonTypes.Encode((double)PropertyValue));
 						this.output.WriteEndElement();
@@ -188,7 +188,7 @@ namespace IdApp.Services
 
 					case TypeCode.Int16:
 						this.output.WriteStartElement("I2");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, PropertyValue.ToString());
 						this.output.WriteEndElement();
@@ -196,7 +196,7 @@ namespace IdApp.Services
 
 					case TypeCode.Int32:
 						this.output.WriteStartElement("I4");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, PropertyValue.ToString());
 						this.output.WriteEndElement();
@@ -204,7 +204,7 @@ namespace IdApp.Services
 
 					case TypeCode.Int64:
 						this.output.WriteStartElement("I8");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, PropertyValue.ToString());
 						this.output.WriteEndElement();
@@ -212,7 +212,7 @@ namespace IdApp.Services
 
 					case TypeCode.SByte:
 						this.output.WriteStartElement("I1");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, PropertyValue.ToString());
 						this.output.WriteEndElement();
@@ -220,7 +220,7 @@ namespace IdApp.Services
 
 					case TypeCode.Single:
 						this.output.WriteStartElement("Fl");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, CommonTypes.Encode((float)PropertyValue));
 						this.output.WriteEndElement();
@@ -232,7 +232,7 @@ namespace IdApp.Services
 						{
 							XmlConvert.VerifyXmlChars(s);
 							this.output.WriteStartElement("S");
-							if (!(PropertyName is null))
+							if (PropertyName is not null)
 								this.output.WriteAttributeString("n", PropertyName);
 							this.output.WriteAttributeString("v", string.Empty, s);
 							this.output.WriteEndElement();
@@ -242,7 +242,7 @@ namespace IdApp.Services
 							byte[] Bin = Encoding.UTF8.GetBytes(s);
 							s = Convert.ToBase64String(Bin);
 							this.output.WriteStartElement("S64");
-							if (!(PropertyName is null))
+							if (PropertyName is not null)
 								this.output.WriteAttributeString("n", PropertyName);
 							this.output.WriteAttributeString("v", string.Empty, s);
 							this.output.WriteEndElement();
@@ -251,7 +251,7 @@ namespace IdApp.Services
 
 					case TypeCode.UInt16:
 						this.output.WriteStartElement("U2");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, PropertyValue.ToString());
 						this.output.WriteEndElement();
@@ -259,7 +259,7 @@ namespace IdApp.Services
 
 					case TypeCode.UInt32:
 						this.output.WriteStartElement("U4");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, PropertyValue.ToString());
 						this.output.WriteEndElement();
@@ -267,7 +267,7 @@ namespace IdApp.Services
 
 					case TypeCode.UInt64:
 						this.output.WriteStartElement("U8");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteAttributeString("v", string.Empty, PropertyValue.ToString());
 						this.output.WriteEndElement();
@@ -276,7 +276,7 @@ namespace IdApp.Services
 					case TypeCode.DBNull:
 					case TypeCode.Empty:
 						this.output.WriteStartElement("Null");
-						if (!(PropertyName is null))
+						if (PropertyName is not null)
 							this.output.WriteAttributeString("n", PropertyName);
 						this.output.WriteEndElement();
 						break;
@@ -285,7 +285,7 @@ namespace IdApp.Services
 						if (PropertyValue is TimeSpan)
 						{
 							this.output.WriteStartElement("TS");
-							if (!(PropertyName is null))
+							if (PropertyName is not null)
 								this.output.WriteAttributeString("n", PropertyName);
 							this.output.WriteAttributeString("v", string.Empty, PropertyValue.ToString());
 							this.output.WriteEndElement();
@@ -293,7 +293,7 @@ namespace IdApp.Services
 						else if (PropertyValue is DateTimeOffset DTO)
 						{
 							this.output.WriteStartElement("DTO");
-							if (!(PropertyName is null))
+							if (PropertyName is not null)
 								this.output.WriteAttributeString("n", PropertyName);
 							this.output.WriteAttributeString("v", string.Empty, XML.Encode(DTO));
 							this.output.WriteEndElement();
@@ -305,7 +305,7 @@ namespace IdApp.Services
 							{
 								XmlConvert.VerifyXmlChars(s);
 								this.output.WriteStartElement("CIS");
-								if (!(PropertyName is null))
+								if (PropertyName is not null)
 									this.output.WriteAttributeString("n", PropertyName);
 								this.output.WriteAttributeString("v", string.Empty, s);
 								this.output.WriteEndElement();
@@ -315,7 +315,7 @@ namespace IdApp.Services
 								byte[] Bin = Encoding.UTF8.GetBytes(s);
 								s = Convert.ToBase64String(Bin);
 								this.output.WriteStartElement("CIS64");
-								if (!(PropertyName is null))
+								if (PropertyName is not null)
 									this.output.WriteAttributeString("n", PropertyName);
 								this.output.WriteAttributeString("v", string.Empty, s);
 								this.output.WriteEndElement();
@@ -324,7 +324,7 @@ namespace IdApp.Services
 						else if (PropertyValue is byte[] Bin)
 						{
 							this.output.WriteStartElement("Bin");
-							if (!(PropertyName is null))
+							if (PropertyName is not null)
 								this.output.WriteAttributeString("n", PropertyName);
 
 							long c = Bin.Length;
@@ -372,7 +372,7 @@ namespace IdApp.Services
 						else if (PropertyValue is Guid)
 						{
 							this.output.WriteStartElement("ID");
-							if (!(PropertyName is null))
+							if (PropertyName is not null)
 								this.output.WriteAttributeString("n", PropertyName);
 							this.output.WriteAttributeString("v", string.Empty, PropertyValue.ToString());
 							this.output.WriteEndElement();
@@ -380,7 +380,7 @@ namespace IdApp.Services
 						else if (PropertyValue is Array A)
 						{
 							this.output.WriteStartElement("Array");
-							if (!(PropertyName is null))
+							if (PropertyName is not null)
 								this.output.WriteAttributeString("n", PropertyName);
 							this.output.WriteAttributeString("elementType", string.Empty, PropertyValue.GetType().GetElementType().FullName);
 
@@ -392,7 +392,7 @@ namespace IdApp.Services
 						else if (PropertyValue is GenericObject Obj)
 						{
 							this.output.WriteStartElement("Obj");
-							if (!(PropertyName is null))
+							if (PropertyName is not null)
 								this.output.WriteAttributeString("n", PropertyName);
 							this.output.WriteAttributeString("type", string.Empty, Obj.TypeName);
 
@@ -437,7 +437,7 @@ namespace IdApp.Services
 				foreach (Exception ex in AggregateException.InnerExceptions)
 					await this.ReportException(ex);
 			}
-			else if (!(Exception.InnerException is null))
+			else if (Exception.InnerException is not null)
 				await this.ReportException(Exception.InnerException);
 
 			this.output.WriteEndElement();

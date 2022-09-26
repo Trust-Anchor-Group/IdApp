@@ -70,7 +70,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			this.XmppService.Contracts.ContractsClient.ContractUpdated += this.ContractsClient_ContractUpdatedOrSigned;
 			this.XmppService.Contracts.ContractsClient.ContractSigned += this.ContractsClient_ContractUpdatedOrSigned;
 
-			if (!(this.Contract is null))
+			if (this.Contract is not null)
 			{
 				DateTime TP = this.XmppService.Contracts.GetTimeOfLastContractEvent(this.Contract.ContractId);
 				if (DateTime.Now.Subtract(TP).TotalSeconds < 5)
@@ -119,7 +119,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 			this.Contract = Contract;
 
-			if (!(this.Contract is null))
+			if (this.Contract is not null)
 				await this.DisplayContract();
 		}
 
@@ -495,7 +495,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				Dictionary<string, int> nrSignatures = new();
 				bool canObsolete = false;
 
-				if (!(this.Contract.ClientSignatures is null))
+				if (this.Contract.ClientSignatures is not null)
 				{
 					foreach (Waher.Networking.XMPP.Contracts.ClientSignature signature in this.Contract.ClientSignatures)
 					{
@@ -509,7 +509,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 						if (string.Compare(signature.BareJid, this.XmppService.BareJid, true) == 0)
 						{
-							if (!(this.Contract.Roles is null))
+							if (this.Contract.Roles is not null)
 							{
 								foreach (Role Role in this.Contract.Roles)
 								{
@@ -549,7 +549,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.GenerateQrCode(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId));
 
 				// Roles
-				if (!(this.Contract.Roles is null))
+				if (this.Contract.Roles is not null)
 				{
 					StackLayout rolesLayout = new();
 					foreach (Role role in this.Contract.Roles)
@@ -586,7 +586,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 				AddKeyValueLabelPair(partsLayout, LocalizationResourceManager.Current["Mode"], this.Contract.PartsMode.ToString());
 
-				if (!(this.Contract.Parts is null))
+				if (this.Contract.Parts is not null)
 				{
 					TapGestureRecognizer openLegalId = new();
 					openLegalId.Tapped += this.Part_Tapped;
@@ -611,7 +611,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.Parts = partsLayout;
 
 				// Parameters
-				if (!(this.Contract.Parameters is null))
+				if (this.Contract.Parameters is not null)
 				{
 					StackLayout parametersLayout = new();
 
@@ -661,7 +661,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.MachineReadableText = machineReadableTextLayout;
 
 				// Client signatures
-				if (!(this.Contract.ClientSignatures is null))
+				if (this.Contract.ClientSignatures is not null)
 				{
 					StackLayout clientSignaturesLayout = new();
 					TapGestureRecognizer openClientSignature = new();
@@ -678,7 +678,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				}
 
 				// Server signature
-				if (!(this.Contract.ServerSignature is null))
+				if (this.Contract.ServerSignature is not null)
 				{
 					StackLayout serverSignaturesLayout = new();
 					TapGestureRecognizer openServerSignature = new();
@@ -700,7 +700,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.HasClientSignatures = this.ClientSignatures?.Children.Count > 0;
 				this.HasServerSignatures = this.ServerSignatures?.Children.Count > 0;
 
-				if (!(this.Contract.Attachments is null) && this.Contract.Attachments.Length > 0)
+				if (this.Contract.Attachments is not null && this.Contract.Attachments.Length > 0)
 				{
 					_ = this.photosLoader.LoadPhotos(this.Contract.Attachments, SignWith.LatestApprovedId, () =>
 						{
@@ -761,7 +761,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				Style = (Style)Application.Current.Resources[isHtml ? "FormattedValueLabel" : tapGestureRecognizer is null ? "ValueLabel" : "ClickableValueLabel"]
 			});
 
-			if (!(tapGestureRecognizer is null))
+			if (tapGestureRecognizer is not null)
 				layout.GestureRecognizers.Add(tapGestureRecognizer);
 		}
 
@@ -811,7 +811,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				{
 					string sign = layout.StyleId;
 					Waher.Networking.XMPP.Contracts.ClientSignature signature = this.Contract.ClientSignatures.FirstOrDefault(x => sign == Convert.ToBase64String(x.DigitalSignature));
-					if (!(signature is null))
+					if (signature is not null)
 					{
 						string legalId = signature.LegalId;
 						LegalIdentity identity = await this.XmppService.Contracts.GetLegalIdentity(legalId);

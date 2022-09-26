@@ -24,7 +24,7 @@ namespace IdApp.Extensions
         /// <param name="command"></param>
         public static void Execute(this ICommand command)
         {
-            if (!(command is null) && command.CanExecute(null))
+            if (command is not null && command.CanExecute(null))
                 command?.Execute(null);
         }
     }

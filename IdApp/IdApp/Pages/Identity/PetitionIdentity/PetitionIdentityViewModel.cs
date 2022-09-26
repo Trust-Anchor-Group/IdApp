@@ -57,7 +57,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
 
                 ContactInfo Info = await ContactInfo.FindByBareJid(BareJid);
 
-                if (!(Info is null) &&
+                if (Info is not null &&
                     (Info.LegalIdentity is null || (
                     Info.LegalId != this.RequestorIdentity.Id &&
                     Info.LegalIdentity is not null &&
@@ -72,7 +72,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                     await Database.Provider.Flush();
                 }
 
-                this.ThirdPartyInContacts = !(Info is null);
+                this.ThirdPartyInContacts = Info is not null;
             }
 
             this.AssignProperties();
@@ -554,7 +554,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
 
         private void AssignProperties()
         {
-            if (!(this.RequestorIdentity is null))
+            if (this.RequestorIdentity is not null)
             {
                 this.Created = this.RequestorIdentity.Created;
                 this.Updated = this.RequestorIdentity.Updated.GetDateOrNullIfMinValue();
@@ -662,7 +662,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 string BareJid = XmppClient.GetBareJID(this.requestorFullJid);
 
                 ContactInfo Info = await ContactInfo.FindByBareJid(BareJid);
-                if (!(Info is null))
+                if (Info is not null)
                 {
                     await Database.Delete(Info);
                     await this.AttachmentCacheService.MakeTemporary(Info.LegalId);
@@ -670,7 +670,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 }
 
                 RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(BareJid);
-                if (!(Item is null))
+                if (Item is not null)
                     this.XmppService.Xmpp.RemoveRosterItem(BareJid);
 
                 this.ThirdPartyInContacts = false;

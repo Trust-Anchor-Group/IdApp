@@ -55,7 +55,7 @@ namespace IdApp.Services.Nfc
 							// §4.3, §D.3, https://www.icao.int/publications/Documents/9303_p11_cons_en.pdf
 
 							byte[] Challenge = await IsoDep.GetChallenge();
-							if (!(Challenge is null))
+							if (Challenge is not null)
 							{
 								byte[] ChallengeResponse = DocInfo.CalcChallengeResponse(Challenge);
 								byte[] Response = await IsoDep.ExternalAuthenticate(ChallengeResponse);

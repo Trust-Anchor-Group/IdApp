@@ -494,7 +494,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
 
 		private void AssignProperties()
 		{
-			if (!(this.RequestorIdentity is null))
+			if (this.RequestorIdentity is not null)
 			{
 				this.Created = this.RequestorIdentity.Created;
 				this.Updated = this.RequestorIdentity.Updated.GetDateOrNullIfMinValue();

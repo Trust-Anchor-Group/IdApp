@@ -39,11 +39,11 @@ namespace IdApp.Behaviors
         /// <param name="Element">Element to focus on.</param>
         public static void FocusOn(View Element)
 		{
-            if (!(Element is null) && Element.IsVisible)
+            if (Element is not null && Element.IsVisible)
             {
                 Element.Focus();
 
-                if (Element is Entry Entry && !(Entry.Text is null))
+                if (Element is Entry Entry && Entry.Text is not null)
                     Entry.CursorPosition = Entry.Text.Length;
             }
         }

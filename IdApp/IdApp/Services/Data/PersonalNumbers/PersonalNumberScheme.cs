@@ -61,7 +61,7 @@ namespace IdApp.Services.Data.PersonalNumbers
 						return Info;
 					}
 
-					if (!(this.check is null))
+					if (this.check is not null)
 					{
 						EvalResult = await this.check.EvaluateAsync(Variables);
 
@@ -72,7 +72,7 @@ namespace IdApp.Services.Data.PersonalNumbers
 						}
 					}
 
-					if (!(this.normalize is null))
+					if (this.normalize is not null)
 					{
 						EvalResult = await this.normalize.EvaluateAsync(Variables);
 

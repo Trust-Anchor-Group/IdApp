@@ -44,7 +44,7 @@ namespace IdApp.Services.Wallet
 		{
 			if (this.eDalerClient is null || this.eDalerClient.Client != this.XmppService.Xmpp)
 			{
-				if (!(this.eDalerClient is null))
+				if (this.eDalerClient is not null)
 					this.eDalerClient.BalanceUpdated -= this.EDalerClient_BalanceUpdated;
 
 				this.eDalerClient = (this.XmppService as XmppService)?.EDalerClient;
@@ -61,7 +61,7 @@ namespace IdApp.Services.Wallet
 			this.lastEDalerEvent = DateTime.Now;
 
 			BalanceEventHandler h = this.BalanceUpdated;
-			if (!(h is null))
+			if (h is not null)
 			{
 				try
 				{
@@ -292,7 +292,7 @@ namespace IdApp.Services.Wallet
 		{
 			if (this.neuroFeaturesClient is null || this.neuroFeaturesClient.Client != this.XmppService.Xmpp)
 			{
-				if (!(this.neuroFeaturesClient is null))
+				if (this.neuroFeaturesClient is not null)
 				{
 					this.neuroFeaturesClient.TokenAdded -= this.NeuroFeaturesClient_TokenAdded;
 					this.neuroFeaturesClient.TokenRemoved -= this.NeuroFeaturesClient_TokenRemoved;
@@ -323,7 +323,7 @@ namespace IdApp.Services.Wallet
 			this.lastTokenEvent = DateTime.Now;
 
 			TokenEventHandler h = this.TokenRemoved;
-			if (!(h is null))
+			if (h is not null)
 			{
 				try
 				{
@@ -346,7 +346,7 @@ namespace IdApp.Services.Wallet
 			this.lastTokenEvent = DateTime.Now;
 
 			TokenEventHandler h = this.TokenAdded;
-			if (!(h is null))
+			if (h is not null)
 			{
 				try
 				{
@@ -367,7 +367,7 @@ namespace IdApp.Services.Wallet
 		private async Task NeuroFeaturesClient_VariablesUpdated(object Sender, VariablesUpdatedEventArgs e)
 		{
 			VariablesUpdatedEventHandler h = this.VariablesUpdated;
-			if (!(h is null))
+			if (h is not null)
 			{
 				try
 				{
@@ -388,7 +388,7 @@ namespace IdApp.Services.Wallet
 		private async Task NeuroFeaturesClient_StateUpdated(object Sender, NewStateEventArgs e)
 		{
 			NewStateEventHandler h = this.StateUpdated;
-			if (!(h is null))
+			if (h is not null)
 			{
 				try
 				{

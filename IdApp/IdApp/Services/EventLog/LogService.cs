@@ -39,7 +39,7 @@ namespace IdApp.Services.EventLog
 
 		public void RemoveListener(IEventSink eventSink)
 		{
-			if (!(eventSink is null))
+			if (eventSink is not null)
 				Log.Unregister(eventSink);
 		}
 
@@ -62,7 +62,7 @@ namespace IdApp.Services.EventLog
 
 			IList<KeyValuePair<string, string>> parameters = this.GetParameters();
 
-			if (!(extraParameters is null) && extraParameters.Length > 0)
+			if (extraParameters is not null && extraParameters.Length > 0)
 			{
 				foreach (KeyValuePair<string, string> extraParameter in extraParameters)
 					parameters.Add(new KeyValuePair<string, string>(extraParameter.Key, extraParameter.Value));

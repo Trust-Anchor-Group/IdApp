@@ -49,7 +49,7 @@ namespace IdApp.Pages
 			{
 				base.OnAppearing();
 
-				if (!(this.ViewModel is null))
+				if (this.ViewModel is not null)
 				{
 					if (!this.ViewModel.IsAppearing)
 						await this.ViewModel.Appearing();
@@ -68,7 +68,7 @@ namespace IdApp.Pages
         {
 			try
 			{
-				if (!(this.ViewModel is null))
+				if (this.ViewModel is not null)
 				{
 					if (this.ViewModel.IsAppearing)
 						await this.ViewModel.SaveState();

@@ -31,7 +31,7 @@ namespace IdApp.Extensions
         public static string GetJid(this LegalIdentity legalIdentity, string defaultValueIfNotFound = "")
         {
             string jid = null;
-            if (!(legalIdentity is null) && legalIdentity.Properties?.Length > 0)
+            if (legalIdentity is not null && legalIdentity.Properties?.Length > 0)
             { 
                 jid = legalIdentity.Properties.FirstOrDefault(x => x.Name == Constants.XmppProperties.Jid)?.Value;
             }

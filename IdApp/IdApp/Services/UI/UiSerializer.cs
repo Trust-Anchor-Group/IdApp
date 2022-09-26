@@ -102,7 +102,7 @@ namespace IdApp.Services.UI
 
             StringBuilder sb = new();
 
-            if (!(exception is null))
+            if (exception is not null)
             {
                 sb.AppendLine(exception.Message);
 
