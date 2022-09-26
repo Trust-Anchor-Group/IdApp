@@ -4187,7 +4187,7 @@
             The data model for a contract.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.IServiceReferences,IdApp.Services.Notification.NotificationEvent[])">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.IServiceReferences,IdApp.Services.Notification.NotificationEvent[],IdApp.Services.IServiceReferences)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel"/> class.
             </summary>
@@ -4196,6 +4196,7 @@
             <param name="Contract">Contract</param>
             <param name="Ref">Service References</param>
             <param name="Events">Notification events associated with contract.</param>
+            <param name="ServiceReferences">Service references.</param>
         </member>
         <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.IServiceReferences)">
             <summary>
@@ -4259,6 +4260,37 @@
             <summary>
             Notification events.
             </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.OnPropertyChanged(System.String)">
+            <summary>
+            Called when a property has changed.
+            </summary>
+            <param name="PropertyName">Name of property</param>
+        </member>
+        <member name="E:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.PropertyChanged">
+            <summary>
+            Occurs when a property value changes.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.NotificationsUpdated(IdApp.Services.Notification.NotificationEvent[])">
+            <summary>
+            Method called when notifications for the item have been updated.
+            </summary>
+            <param name="Events">Updated set of events.</param>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.AddEvent(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            Adds a notification event.
+            </summary>
+            <param name="Event">Notification event.</param>
+            <returns>If event was added (true), or if it was ignored because the event was already in the list of events (false).</returns>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModels.ContractModel.RemoveEvent(IdApp.Services.Notification.NotificationEvent)">
+            <summary>
+            Removes a notification event.
+            </summary>
+            <param name="Event">Notification event.</param>
+            <returns>If the event was found and removed.</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel">
             <summary>

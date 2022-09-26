@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using IdApp.Extensions;
@@ -16,17 +17,19 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
     /// <summary>
     /// The data model for a contract.
     /// </summary>
-    public class ContractModel : IItemGroup
+    public class ContractModel : IItemGroup, INotifyPropertyChanged
 	{
         private readonly string contractId;
         private readonly string category;
         private readonly string name;
         private readonly DateTime timestamp;
         private readonly Contract contract;
-		private readonly NotificationEvent[] events;
+		private readonly IServiceReferences serviceReferences;
+		private NotificationEvent[] events;
 
 
-		private ContractModel(string ContractId, DateTime Timestamp, Contract Contract, string Category, string Name, NotificationEvent[] Events)
+		private ContractModel(string ContractId, DateTime Timestamp, Contract Contract, string Category, string Name, NotificationEvent[] Events,
+			IServiceReferences ServiceReferences)
         {
             this.contract = Contract;
             this.contractId = ContractId;
@@ -34,7 +37,9 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
             this.category = Category;
             this.name = Name;
 			this.events = Events;
-        }
+			this.serviceReferences = ServiceReferences;
+
+		}
 
         /// <summary>
         /// Creates an instance of the <see cref="ContractModel"/> class.
@@ -44,13 +49,14 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
         /// <param name="Contract">Contract</param>
         /// <param name="Ref">Service References</param>
 		/// <param name="Events">Notification events associated with contract.</param>
+		/// <param name="ServiceReferences">Service references.</param>
         public static async Task<ContractModel> Create(string ContractId, DateTime Timestamp, Contract Contract, IServiceReferences Ref,
-			NotificationEvent[] Events)
+			NotificationEvent[] Events, IServiceReferences ServiceReferences)
         {
             string Category = await GetCategory(Contract) ?? Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
             string Name = await GetName(Contract, Ref) ?? Contract.ContractId;
 
-            return new ContractModel(ContractId, Timestamp, Contract, Category, Name, Events);
+            return new ContractModel(ContractId, Timestamp, Contract, Category, Name, Events, ServiceReferences);
         }
 
         /// <summary>
@@ -177,5 +183,102 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 		/// Notification events.
 		/// </summary>
 		public NotificationEvent[] Events => this.events;
+
+		/// <summary>
+		/// Called when a property has changed.
+		/// </summary>
+		/// <param name="PropertyName">Name of property</param>
+		public void OnPropertyChanged(string PropertyName)
+		{
+			try
+			{
+				this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+			}
+			catch (Exception ex)
+			{
+				this.serviceReferences.LogService.LogException(ex);
+			}
+		}
+
+		/// <summary>
+		/// Occurs when a property value changes.
+		/// </summary>
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		/// <summary>
+		/// Method called when notifications for the item have been updated.
+		/// </summary>
+		/// <param name="Events">Updated set of events.</param>
+		public void NotificationsUpdated(NotificationEvent[] Events)
+		{
+			this.events = Events;
+
+			this.OnPropertyChanged(nameof(this.Events));
+			this.OnPropertyChanged(nameof(this.HasEvents));
+			this.OnPropertyChanged(nameof(this.NrEvents));
+		}
+
+		/// <summary>
+		/// Adds a notification event.
+		/// </summary>
+		/// <param name="Event">Notification event.</param>
+		/// <returns>If event was added (true), or if it was ignored because the event was already in the list of events (false).</returns>
+		public bool AddEvent(NotificationEvent Event)
+		{
+			if (this.events is null)
+				this.NotificationsUpdated(new NotificationEvent[] { Event });
+			else
+			{
+				foreach (NotificationEvent Event2 in this.events)
+				{
+					if (Event2.ObjectId == Event.ObjectId)
+						return false;
+				}
+
+				int c = this.events.Length;
+				NotificationEvent[] NewArray = new NotificationEvent[c + 1];
+				Array.Copy(this.events, 0, NewArray, 0, c);
+				NewArray[c] = Event;
+
+				this.NotificationsUpdated(NewArray);
+			}
+
+			return true;
+		}
+
+		/// <summary>
+		/// Removes a notification event.
+		/// </summary>
+		/// <param name="Event">Notification event.</param>
+		/// <returns>If the event was found and removed.</returns>
+		public bool RemoveEvent(NotificationEvent Event)
+		{
+			if (this.events is not null)
+			{
+				int i, c = this.events.Length;
+
+				for (i = 0; i < c; i++)
+				{
+					NotificationEvent Event2 = this.events[i];
+
+					if (Event2.ObjectId == Event.ObjectId)
+					{
+						NotificationEvent[] NewArray = new NotificationEvent[c - 1];
+
+						if (i > 0)
+							Array.Copy(this.events, 0, NewArray, 0, i);
+
+						if (i < c - 1)
+							Array.Copy(this.events, i + 1, NewArray, i, c - i - 1);
+
+						this.NotificationsUpdated(NewArray);
+
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
 	}
 }

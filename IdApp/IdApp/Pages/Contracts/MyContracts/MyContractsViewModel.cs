@@ -62,6 +62,9 @@ namespace IdApp.Pages.Contracts.MyContracts
 			}
 
 			await this.LoadContracts();
+
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
 		}
 
 		/// <inheritdoc/>
@@ -79,6 +82,9 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// <inheritdoc/>
 		protected override async Task OnDispose()
 		{
+			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted -= this.NotificationService_OnNotificationsDeleted;
+
 			if (this.Action != SelectContractAction.Select)
 			{
 				this.ShowContractsMissing = false;
@@ -167,16 +173,12 @@ namespace IdApp.Pages.Contracts.MyContracts
 					int Index = this.Categories.IndexOf(Category);
 
 					foreach (ContractModel Contract in Category.Contracts)
-					{
 						this.Categories.Insert(++Index, Contract);
-					}
 				}
 				else
 				{
 					foreach (ContractModel Contract in Category.Contracts)
-					{
 						this.Categories.Remove(Contract);
-					}
 				}
 			});
 		}
@@ -281,7 +283,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 					else
 						Events = new NotificationEvent[0];
 
-					ContractModel Item = await ContractModel.Create(Ref.ContractId, Ref.Created, Contract, this, Events);
+					ContractModel Item = await ContractModel.Create(Ref.ContractId, Ref.Created, Contract, this, Events, this);
 					string Category = Item.Category;
 
 					if (!ContractsByCategory.TryGetValue(Category, out List<ContractModel> Contracts2))
@@ -335,6 +337,57 @@ namespace IdApp.Pages.Contracts.MyContracts
 		private class DateTimeDesc : IComparer<ContractModel>
 		{
 			public int Compare(ContractModel x, ContractModel y) => y.Timestamp.CompareTo(x.Timestamp);
+		}
+
+		private void NotificationService_OnNotificationsDeleted(object Sender, NotificationEventsArgs e)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				foreach (NotificationEvent Event in e.Events)
+				{
+					if (Event.Button != EventButton.Contracts)
+						continue;
+
+					HeaderModel LastHeader = null;
+
+					foreach (IItemGroup Group in this.Categories)
+					{
+						if (Group is HeaderModel Header)
+							LastHeader = Header;
+						else if (Group is ContractModel Contract && Contract.ContractId == Event.Category)
+						{
+							if (Contract.RemoveEvent(Event) && LastHeader is not null)
+								LastHeader.NrEvents--;
+
+							break;
+						}
+					}
+				}
+			});
+		}
+
+		private void NotificationService_OnNewNotification(object Sender, NotificationEventArgs e)
+		{
+			if (e.Event.Button != EventButton.Contracts)
+				return;
+
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				HeaderModel LastHeader = null;
+
+				foreach (IItemGroup Group in this.Categories)
+				{
+					if (Group is HeaderModel Header)
+						LastHeader = Header;
+					else if (Group is ContractModel Contract && Contract.ContractId == e.Event.Category)
+					{
+						if (Contract.AddEvent(e.Event) && LastHeader is not null)
+							LastHeader.NrEvents++;
+
+						break;
+					}
+				}
+			});
 		}
 
 	}

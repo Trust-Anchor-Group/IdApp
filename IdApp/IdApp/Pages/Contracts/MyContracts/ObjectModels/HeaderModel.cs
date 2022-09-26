@@ -9,6 +9,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 	/// </summary>
 	public class HeaderModel : ObservableObject, IItemGroup
 	{
+		private int nrEvents;
 		private bool expanded;
 
 		/// <summary>
@@ -21,7 +22,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 		{
 			this.Category = Category;
 			this.Contracts = Contracts;
-			this.NrEvents = NrEvents;
+			this.nrEvents = NrEvents;
 		}
 
 		/// <summary>
@@ -35,12 +36,29 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 		/// <summary>
 		/// Number of events.
 		/// </summary>
-		public int NrEvents { get; }
+		public int NrEvents
+		{
+			get => this.nrEvents;
+			set
+			{
+				if (this.nrEvents != value)
+				{
+					bool b1 = this.nrEvents > 0;
+					bool b2 = value > 0;
+
+					this.nrEvents = value;
+					this.OnPropertyChanged(nameof(this.NrEvents));
+
+					if (b1 ^ b2)
+						this.OnPropertyChanged(nameof(this.HasEvents));
+				}
+			}
+		}
 
 		/// <summary>
 		/// If the category contains contracts with events.
 		/// </summary>
-		public bool HasEvents => this.NrEvents > 0;
+		public bool HasEvents => this.nrEvents > 0;
 
 		/// <summary>
 		/// The category's contracts.
