@@ -162,6 +162,8 @@ namespace IdApp.Services.Xmpp
 					else
 						this.xmppClient = new XmppClient(HostName, PortNumber, this.accountName, this.passwordHash, this.passwordHashMethod, Constants.LanguageCodes.Default, this.appAssembly, this.sniffer);
 
+					Types.SetModuleParameter("XMPP", this.xmppClient);		// Makes the XMPP Client the default XMPP client, when resolving HTTP over XMPP requests.
+
 					this.xmppClient.TrustServer = !IsIpAddress;
 					this.xmppClient.AllowCramMD5 = false;
 					this.xmppClient.AllowDigestMD5 = false;

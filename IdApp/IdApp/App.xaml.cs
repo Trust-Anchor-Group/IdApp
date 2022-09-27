@@ -46,6 +46,7 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Concentrator;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Control;
+using Waher.Networking.XMPP.HTTPX;
 using Waher.Networking.XMPP.P2P;
 using Waher.Networking.XMPP.P2P.E2E;
 using Waher.Networking.XMPP.PEP;
@@ -283,7 +284,8 @@ namespace IdApp
 					typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
 					typeof(NeuroFeaturesClient).Assembly,       // Indexes Neuro-Features client framework
 					typeof(PushNotificationClient).Assembly,    // Indexes Push Notification client framework
-					typeof(XmppServerlessMessaging).Assembly);  // Indexes End-to-End encryption mechanisms
+					typeof(XmppServerlessMessaging).Assembly,	// Indexes End-to-End encryption mechanisms
+					typeof(HttpxClient).Assembly);				// Support for HTTP over XMPP (httpx) URI Schme.
 			}
 
 			EndpointSecurity.SetCiphers(new Type[]
