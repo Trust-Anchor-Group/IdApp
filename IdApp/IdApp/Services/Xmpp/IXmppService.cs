@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using IdApp.Services.Contracts;
@@ -194,5 +195,25 @@ namespace IdApp.Services.Xmpp
         /// <param name="TokenInformation">Token Information</param>
         /// <returns>If token could be registered.</returns>
         Task<bool> NewPushNotificationToken(TokenInformation TokenInformation);
-    }
+
+		/// <summary>
+		/// Gets a token for use with APIs that are either distributed or use different
+		/// protocols, when the client needs to authenticate itself using the current
+		/// XMPP connection.
+		/// </summary>
+		/// <param name="Seconds">Number of seconds for which the token should be valid.</param>
+		/// <returns>Token, if able to get a token, or null otherwise.</returns>
+		Task<string> GetApiToken(int Seconds);
+
+		/// <summary>
+		/// Performs an HTTP POST to a protected API on the server, over the current XMPP connection,
+		/// authenticating the client using the credentials alreaedy provided over XMPP.
+		/// </summary>
+		/// <param name="LocalResource">Local Resource on the server to POST to.</param>
+		/// <param name="Data">Data to post. This will be encoded using encoders in the type inventory.</param>
+		/// <param name="Headers">Headers to provide in the POST.</param>
+		/// <returns>Decoded response from the resource.</returns>
+		/// <exception cref="Exception">Any communication error will be handle by raising the corresponding exception.</exception>
+		Task<object> PostToProtectedApi(string LocalResource, object Data, params KeyValuePair<string, string>[] Headers);
+	}
 }

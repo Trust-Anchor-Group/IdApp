@@ -95,6 +95,8 @@ namespace IdApp.Services.Xmpp
 		private string sentTextData;
 		private string historyTextData;
 		private string historyHtml;
+		private string token = null;
+		private DateTime tokenCreated = DateTime.MinValue;
 
 		public XmppService(Assembly AppAssembly, Profiler StartupProfiler)
 		{
@@ -1549,5 +1551,66 @@ namespace IdApp.Services.Xmpp
 		private readonly static char[] clientChars = new char[] { '@', '/' };
 
 		#endregion
+
+		#region Tokens
+
+		/// <summary>
+		/// Gets a token for use with APIs that are either distributed or use different
+		/// protocols, when the client needs to authenticate itself using the current
+		/// XMPP connection.
+		/// </summary>
+		/// <param name="Seconds">Number of seconds for which the token should be valid.</param>
+		/// <returns>Token, if able to get a token, or null otherwise.</returns>
+		public async Task<string> GetApiToken(int Seconds)
+		{
+			DateTime Now = DateTime.UtcNow;
+
+			if (!string.IsNullOrEmpty(this.token) && Now.Subtract(this.tokenCreated).TotalSeconds < Seconds - 10)
+				return this.token;
+
+			if (!this.IsOnline)
+				return this.token;
+
+			this.token = await this.httpxClient.GetJwtTokenAsync(Seconds);
+			this.tokenCreated = Now;
+
+			return this.token;
+		}
+
+		/// <summary>
+		/// Performs an HTTP POST to a protected API on the server, over the current XMPP connection,
+		/// authenticating the client using the credentials alreaedy provided over XMPP.
+		/// </summary>
+		/// <param name="LocalResource">Local Resource on the server to POST to.</param>
+		/// <param name="Data">Data to post. This will be encoded using encoders in the type inventory.</param>
+		/// <param name="Headers">Headers to provide in the POST.</param>
+		/// <returns>Decoded response from the resource.</returns>
+		/// <exception cref="Exception">Any communication error will be handle by raising the corresponding exception.</exception>
+		public async Task<object> PostToProtectedApi(string LocalResource, object Data, params KeyValuePair<string, string>[] Headers)
+		{
+			string Token = await this.GetApiToken(60);
+			StringBuilder Url = new();
+
+			Url.Append("httpx://");
+			Url.Append(this.TagProfile.Domain);
+			Url.Append(LocalResource);
+
+			KeyValuePair<string, string> Authorization = new("Authorization", "Bearer " + Token);
+
+			if (Headers is null)
+				Headers = new KeyValuePair<string, string>[] { Authorization };
+			else
+			{
+				int c = Headers.Length;
+
+				Array.Resize(ref Headers, c + 1);
+				Headers[c] = Authorization;
+			}
+
+			return await InternetContent.PostAsync(new Uri(Url.ToString()), Data, Headers);
+		}
+
+		#endregion
+
 	}
 }
