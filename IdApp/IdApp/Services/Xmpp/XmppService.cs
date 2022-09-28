@@ -37,6 +37,7 @@ using Waher.Networking.XMPP.Concentrator;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Control;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Waher.Networking.XMPP.HTTPX;
 using Waher.Networking.XMPP.MUC;
 using Waher.Networking.XMPP.PEP;
 using Waher.Networking.XMPP.Provisioning;
@@ -73,6 +74,7 @@ namespace IdApp.Services.Xmpp
 		private PushNotificationClient pushNotificationClient;
 		private AbuseClient abuseClient;
 		private PepClient pepClient;
+		private HttpxClient httpxClient;
 		private Timer reconnectTimer;
 		private readonly SmartContracts contracts;
 		private readonly XmppMultiUserChat muc;
@@ -161,8 +163,6 @@ namespace IdApp.Services.Xmpp
 						this.xmppClient = new XmppClient(HostName, PortNumber, this.accountName, this.passwordHash, Constants.LanguageCodes.Default, this.appAssembly, this.sniffer);
 					else
 						this.xmppClient = new XmppClient(HostName, PortNumber, this.accountName, this.passwordHash, this.passwordHashMethod, Constants.LanguageCodes.Default, this.appAssembly, this.sniffer);
-
-					Types.SetModuleParameter("XMPP", this.xmppClient);		// Makes the XMPP Client the default XMPP client, when resolving HTTP over XMPP requests.
 
 					this.xmppClient.TrustServer = !IsIpAddress;
 					this.xmppClient.AllowCramMD5 = false;
@@ -273,6 +273,10 @@ namespace IdApp.Services.Xmpp
 
 					Thread?.NewState("PEP");
 					this.pepClient = new PepClient(this.xmppClient);
+
+					Thread?.NewState("HTTPX");
+					this.httpxClient = new HttpxClient(this.xmppClient, 8192);
+					Types.SetModuleParameter("XMPP", this.xmppClient);      // Makes the XMPP Client the default XMPP client, when resolving HTTP over XMPP requests.
 
 					Thread?.NewState("Connect");
 					this.IsLoggedOut = false;
@@ -727,6 +731,7 @@ namespace IdApp.Services.Xmpp
 		public NeuroFeaturesClient NeuroFeaturesClient => this.neuroFeaturesClient;
 		public PushNotificationClient PushNotificationClient => this.pushNotificationClient;
 		public ContractsClient ContractsClient => this.contractsClient;
+		public HttpxClient HttpX => this.httpxClient;
 
 		#endregion
 
