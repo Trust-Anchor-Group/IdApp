@@ -19,6 +19,7 @@ using IdApp.Services.Wallet;
 using NeuroFeatures;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -1588,24 +1589,31 @@ namespace IdApp.Services.Xmpp
 		/// <exception cref="Exception">Any communication error will be handle by raising the corresponding exception.</exception>
 		public async Task<object> PostToProtectedApi(string LocalResource, object Data, params KeyValuePair<string, string>[] Headers)
 		{
-			string Token = await this.GetApiToken(60);
 			StringBuilder Url = new();
 
-			Url.Append("httpx://");
+			if (this.IsOnline)
+				Url.Append("httpx://");
+			else if (!string.IsNullOrEmpty(this.token))		// Token needs to be retrieved reegularly when connected, if protectedd APIs are to be used when disconnected or during connection.
+			{
+				Url.Append("https://");
+
+				KeyValuePair<string, string> Authorization = new("Authorization", "Bearer " + this.token);
+
+				if (Headers is null)
+					Headers = new KeyValuePair<string, string>[] { Authorization };
+				else
+				{
+					int c = Headers.Length;
+
+					Array.Resize(ref Headers, c + 1);
+					Headers[c] = Authorization;
+				}
+			}
+			else
+				throw new IOException("No connection and no token available for call to protecte API.");
+
 			Url.Append(this.TagProfile.Domain);
 			Url.Append(LocalResource);
-
-			KeyValuePair<string, string> Authorization = new("Authorization", "Bearer " + Token);
-
-			if (Headers is null)
-				Headers = new KeyValuePair<string, string>[] { Authorization };
-			else
-			{
-				int c = Headers.Length;
-
-				Array.Resize(ref Headers, c + 1);
-				Headers[c] = Authorization;
-			}
 
 			return await InternetContent.PostAsync(new Uri(Url.ToString()), Data, Headers);
 		}
