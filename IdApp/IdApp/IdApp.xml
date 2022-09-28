@@ -25690,6 +25690,11 @@
             Access to Personal Eventing Protocol (PEP) client
             </summary>
         </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.HttpX">
+            <summary>
+            Access to HTTP over XMPP client
+            </summary>
+        </member>
         <member name="P:IdApp.Services.Xmpp.IXmppService.BareJid">
             <summary>
             The Bare Jid of the current connection, or <c>null</c>.
