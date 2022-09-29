@@ -146,11 +146,7 @@ namespace IdApp
 			}
 
 			this.InitializeComponent();
-#if DEBUG
 			Current.UserAppTheme = OSAppTheme.Unspecified;
-#else
-			Current.UserAppTheme = OSAppTheme.Light;
-#endif
 
 			// Start page
 			try
