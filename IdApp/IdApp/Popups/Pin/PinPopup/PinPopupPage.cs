@@ -41,10 +41,9 @@ namespace IdApp.Popups.Pin.PinPopup
 
         private async void OnEnter(object Sender, EventArgs e)
         {
-
-            //this.result.TrySetResult(this.Pin.Text);
-            await App.CheckPinAndUnblockUser(this.Pin.Text, App.Instantiate<ITagProfile>());
-            this.Pin.Text = "";
-        }
-    }
+			string Pin = await App.CheckPinAndUnblockUser(this.Pin.Text, App.Instantiate<ITagProfile>());
+			this.Pin.Text = "";
+			this.result.TrySetResult(Pin);
+		}
+	}
 }

@@ -660,7 +660,7 @@ namespace IdApp
 			Page CurrentPage = this.MainPage is Shell Shell ? Shell.CurrentPage : this.MainPage;
 			if (CurrentPage is NavigationPage NavigationPage)
 				CurrentPage = NavigationPage.CurrentPage;
-			
+
 			if (CurrentPage is not Pages.Main.Loading.LoadingPage)
 			{
 				await CurrentPage.Navigation.PushModalAsync(new BetweenMainPage(), animated: false);
@@ -919,7 +919,7 @@ namespace IdApp
 		/// Asks the user to verify with its PIN.
 		/// </summary>
 		/// <returns>If the user has provided the correct PIN</returns>
-		public static async Task<bool> VerifyPin()
+		public static async Task<bool> VerifyPin(bool Force = false)
 		{
 #if DEBUG
 			// Skip the PIN verification during the debug. Set the IsDebug to false to work normal
@@ -935,7 +935,7 @@ namespace IdApp
 
 				bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
 
-				if (!displayedPinPopup && NeedToVerifyPin)
+				if (!displayedPinPopup && (Force || NeedToVerifyPin))
 					return await InputPin(Profile) is not null;
 			}
 			return true;
@@ -1029,8 +1029,11 @@ namespace IdApp
 				Popups.Pin.PinPopup.PinPopupPage Page = new();
 				await PopupNavigation.Instance.PushAsync(Page);
 				await CheckUserBlocking();
-				string Pin = await Page.Result;
-				return await CheckPinAndUnblockUser(Pin, Profile);
+				return await Page.Result;
+			}
+			catch (Exception)
+			{
+				return null;
 			}
 			finally
 			{

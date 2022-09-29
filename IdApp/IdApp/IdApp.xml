@@ -75,7 +75,7 @@
             </summary>
             <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
         </member>
-        <member name="M:IdApp.App.VerifyPin">
+        <member name="M:IdApp.App.VerifyPin(System.Boolean)">
             <summary>
             Asks the user to verify with its PIN.
             </summary>
