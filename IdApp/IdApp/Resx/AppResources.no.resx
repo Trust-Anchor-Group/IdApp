@@ -2139,4 +2139,10 @@
   <data name="PermitParametersText" xml:space="preserve">
     <value>Velg parameterne du vil tillate tilgang til, hvis forespørselen godtas.</value>
   </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Kjøpe</value>
+  </data>
+  <data name="BuyEDalerDescription" xml:space="preserve">
+    <value>Oppgi mengden eDaler du vil kjøpe nedenfor, og trykk på Kjøp-knappen. En nettside vil bli åpnet der du må fylle ut ytterligere informasjon for betalingsprosessoren for å validere requst.</value>
+  </data>
 </root>

@@ -10,12 +10,14 @@ using EDaler.Uris;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract;
+using IdApp.Pages.Wallet.BuyEDaler;
 using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Pages.Wallet.RequestPayment;
 using IdApp.Pages.Wallet.ServiceProviders;
 using IdApp.Services;
 using IdApp.Services.Notification;
 using IdApp.Services.Notification.Wallet;
+using IdApp.Services.Wallet;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using Waher.Networking.XMPP.Contracts;
@@ -646,6 +648,21 @@ namespace IdApp.Pages.Wallet.MyWallet
 								ReturnCounter = 1
 							});
 						}
+						else if (string.IsNullOrEmpty(ServiceProvider.TemplateContractId))
+						{
+							TaskCompletionSource<decimal?> Result = new();
+							await this.NavigationService.GoToAsync(nameof(BuyEDalerPage), new BuyEDalerNavigationArgs(this.Balance.Currency, Result));
+
+							decimal? Amount = await Result.Task;
+
+							if (Amount.HasValue && Amount.Value > 0)
+							{
+								PaymentTransaction Transaction = await this.XmppService.Wallet.InitiatePayment(ServiceProvider.Id, ServiceProvider.Type,
+									Amount.Value, this.Balance.Currency);
+
+								this.WaitForComletion(Transaction);
+							}
+						}
 						else
 						{
 							CreationAttributesEventArgs e2 = await this.XmppService.Wallet.GetCreationAttributes();
@@ -662,6 +679,19 @@ namespace IdApp.Pages.Wallet.MyWallet
 						}
 					}
 				}
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async void WaitForComletion(PaymentTransaction Transaction)
+		{
+			try
+			{
+				await Transaction.Wait();
 			}
 			catch (Exception ex)
 			{

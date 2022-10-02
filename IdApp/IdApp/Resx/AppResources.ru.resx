@@ -2139,4 +2139,10 @@
   <data name="PermitParametersText" xml:space="preserve">
     <value>Выберите параметры, к которым будет разрешен доступ, если запрос принят.</value>
   </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Покупать</value>
+  </data>
+  <data name="BuyEDalerDescription" xml:space="preserve">
+    <value>Укажите сумму eDaler, которую вы хотите купить ниже, и нажмите кнопку «Купить». Откроется веб-страница, на которой вам нужно будет заполнить дополнительную информацию для платежного процессора, чтобы подтвердить вашу заявку.</value>
+  </data>
 </root>

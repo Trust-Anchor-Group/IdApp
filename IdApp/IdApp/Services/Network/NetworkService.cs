@@ -201,17 +201,17 @@ namespace IdApp.Services.Network
 			return message;
 		}
 
-		private static KeyValuePair<string, string>[] GetParameter(string memberName)
+		private static KeyValuePair<string, object>[] GetParameter(string memberName)
 		{
 			if (!string.IsNullOrWhiteSpace(memberName))
 			{
 				return new[]
 				{
-					new KeyValuePair<string, string>("Caller", memberName)
+					new KeyValuePair<string, object>("Caller", memberName)
 				};
 			}
 
-			return new KeyValuePair<string, string>[0];
+			return new KeyValuePair<string, object>[0];
 		}
 	}
 }

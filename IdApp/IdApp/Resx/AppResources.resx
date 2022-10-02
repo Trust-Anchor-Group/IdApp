@@ -2139,4 +2139,10 @@
   <data name="PermitParametersText" xml:space="preserve">
     <value>Choose the parameters to permit access to, if request is accepted.</value>
   </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="BuyEDalerDescription" xml:space="preserve">
+    <value>Provide the amount of eDaler do you want to buy below, and press the Buy button. A web page will be opened where you have to fill in further information for the payment processor to validate your requst.</value>
+  </data>
 </root>

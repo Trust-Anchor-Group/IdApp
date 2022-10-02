@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EDaler;
 using EDaler.Uris;
@@ -14,6 +15,7 @@ namespace IdApp.Services.Wallet
 	[Singleton]
 	internal sealed class NeuroWallet : ServiceReferences, INeuroWallet
 	{
+		private readonly Dictionary<string, PaymentTransaction> currentTransactions = new();
 		private EDalerClient eDalerClient;
 		private NeuroFeaturesClient neuroFeaturesClient;
 		private Balance lastBalance = null;
@@ -269,6 +271,91 @@ namespace IdApp.Services.Wallet
 		public async Task<IBuyEDalerServiceProvider[]> GetServiceProvidersForBuyingEDalerAsync()
 		{
 			return await this.EDalerClient.GetServiceProvidersForBuyingEDalerAsync();
+		}
+
+		/// <summary>
+		/// Initiates payment of eDaler using a service provider that is not based on a smart contract.
+		/// </summary>
+		/// <param name="ServiceId">Service ID</param>
+		/// <param name="ServiceProvider">Service Provider</param>
+		/// <param name="Amount">Amount</param>
+		/// <param name="Currency">Currency</param>
+		/// <returns>Transaction ID</returns>
+		public async Task<PaymentTransaction> InitiatePayment(string ServiceId, string ServiceProvider, decimal Amount, string Currency)
+		{
+			string TransactionId = await this.EDalerClient.InitiatePaymentOfEDalerAsync(ServiceId, ServiceProvider, Amount, Currency);
+			PaymentTransaction Result = new(TransactionId, Currency);
+
+			lock (this.currentTransactions)
+			{
+				this.currentTransactions[TransactionId] = Result;
+			}
+
+			return Result;
+		}
+
+		private async Task NeuroWallet_ClientUrlReceived(object Sender, ClientUrlEventArgs e)
+		{
+			PaymentTransaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(e.TransactionId, out Transaction))
+				{
+					this.LogService.LogWarning("Client URL message ignored. Transaction ID not recognized.",
+						new KeyValuePair<string, object>("TransactionId", e.TransactionId),
+						new KeyValuePair<string, object>("ClientUrl", e.ClientUrl));
+					return;
+				}
+			}
+
+			await Transaction.OpenUrl(e.ClientUrl);
+		}
+
+		private Task NeuroWallet_PaymentError(object Sender, PaymentErrorEventArgs e)
+		{
+			PaymentTransaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(e.TransactionId, out Transaction))
+				{
+					this.LogService.LogWarning("Payment error messsage ignored. Transaction ID not recognized.",
+						new KeyValuePair<string, object>("TransactionId", e.TransactionId));
+
+					return Task.CompletedTask;
+				}
+
+				this.currentTransactions.Remove(e.TransactionId);
+			}
+
+			Transaction.ErrorReported(e.Message);
+
+			return Task.CompletedTask;
+		}
+
+		private Task NeuroWallet_PaymentCompleted(object Sender, PaymentCompletedEventArgs e)
+		{
+			PaymentTransaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(e.TransactionId, out Transaction))
+				{
+					this.LogService.LogWarning("Payment completion messsage ignored. Transaction ID not recognized.",
+						new KeyValuePair<string, object>("TransactionId", e.TransactionId),
+						new KeyValuePair<string, object>("Amount", e.Amount),
+						new KeyValuePair<string, object>("Currency", e.Currency));
+
+					return Task.CompletedTask;
+				}
+
+				this.currentTransactions.Remove(e.TransactionId);
+			}
+
+			Transaction.Completed(e.Amount, e.Currency);
+
+			return Task.CompletedTask;
 		}
 
 		#endregion

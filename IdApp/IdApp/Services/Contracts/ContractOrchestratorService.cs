@@ -108,7 +108,10 @@ namespace IdApp.Services.Contracts
 
 				if (Identity is null)
 				{
-					this.LogService.LogWarning(this.GetType().Name + "." + nameof(Contracts_PetitionForIdentityReceived) + "() - identity is missing or cannot be retrieved, ignore.");
+					this.LogService.LogWarning("Identity is missing or cannot be retrieved, ignore.",
+						new KeyValuePair<string, object>("Type", this.GetType().Name),
+						new KeyValuePair<string, object>("Method", nameof(Contracts_PetitionForIdentityReceived)));
+
 					return;
 				}
 
@@ -150,7 +153,10 @@ namespace IdApp.Services.Contracts
 
 				if (Identity is null)
 				{
-					this.LogService.LogWarning(this.GetType().Name + "." + nameof(Contracts_PetitionForSignatureReceived) + "() - identity is missing or cannot be retrieved, ignore.");
+					this.LogService.LogWarning("Identity is missing or cannot be retrieved, ignore.",
+						new KeyValuePair<string, object>("Type", this.GetType().Name),
+						new KeyValuePair<string, object>("Method", nameof(Contracts_PetitionForSignatureReceived)));
+
 					return;
 				}
 

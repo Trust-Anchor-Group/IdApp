@@ -11923,6 +11923,128 @@
             Command executed when user wants to open link in message.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to buying eDaler.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerNavigationArgs.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerNavigationArgs"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerNavigationArgs.#ctor(System.String,System.Threading.Tasks.TaskCompletionSource{System.Nullable{System.Decimal}})">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerNavigationArgs"/> class.
+            </summary>
+            <param name="Currency">Currency</param>
+            <param name="Result">Result</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerNavigationArgs.Currency">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerNavigationArgs.Result">
+            <summary>
+            Amount, or null if user cancels operation.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerPage">
+            <summary>
+            A page that displays information about eDaler received.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerPage"/> class.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel">
+            <summary>
+            The view model to bind to for buying eDaler.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.OnDispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.AmountProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.Amount"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.Amount">
+            <summary>
+            Amount of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.AmountOkProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.AmountOk"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.AmountOk">
+            <summary>
+            If <see cref="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.Amount"/> is OK.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.AmountColorProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.AmountColor"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.AmountColor">
+            <summary>
+            Color of <see cref="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.Amount"/> field.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.AmountTextProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.AmountText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.AmountText">
+            <summary>
+            <see cref="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.Amount"/> as text.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.CurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.Currency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.Currency">
+            <summary>
+            Currency of <see cref="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.Amount"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.BuyCommand">
+            <summary>
+            The command to bind to for buying eDaler.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.OpenCalculatorCommand">
+            <summary>
+            The command to bind to open the calculator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.OpenCalculator(System.Object)">
+            <summary>
+            Opens the calculator for calculating the value of a numerical property.
+            </summary>
+            <param name="Parameter">Property to calculate</param>
+        </member>
         <member name="T:IdApp.Pages.Wallet.EDalerBalanceNavigationArgs">
             <summary>
             Holds navigation parameters specific to an eDaler balance event.
@@ -16186,9 +16308,19 @@
               Looks up a localized string similar to Building.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Buy">
+            <summary>
+              Looks up a localized string similar to Buy.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.BuyEDaler">
             <summary>
               Looks up a localized string similar to Buy eDaler..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.BuyEDalerDescription">
+            <summary>
+              Looks up a localized string similar to Provide the amount of eDaler do you want to buy below, and press the Buy button. A web page will be opened where you have to fill in further information for the payment processor to validate your requst..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.CalculationError">
@@ -20621,12 +20753,12 @@
             </summary>
             <param name="eventSink">The listener to remove.</param>
         </member>
-        <member name="M:IdApp.Services.EventLog.ILogService.LogWarning(System.String,System.Object[])">
+        <member name="M:IdApp.Services.EventLog.ILogService.LogWarning(System.String,System.Collections.Generic.KeyValuePair{System.String,System.Object}[])">
             <summary>
             Invoke this method to add a warning statement to the log.
             </summary>
-            <param name="format">A composite format string.</param>
-            <param name="args">The objects to format.</param>
+            <param name="Message">Warning message.</param>
+            <param name="Tags">Tags to log together with message.</param>
         </member>
         <member name="M:IdApp.Services.EventLog.ILogService.LogException(System.Exception)">
             <summary>
@@ -20634,7 +20766,7 @@
             </summary>
             <param name="e"></param>
         </member>
-        <member name="M:IdApp.Services.EventLog.ILogService.LogException(System.Exception,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+        <member name="M:IdApp.Services.EventLog.ILogService.LogException(System.Exception,System.Collections.Generic.KeyValuePair{System.String,System.Object}[])">
             <summary>
             Invoke this method to add an <see cref="T:System.Exception"/> entry to the log.
             </summary>
@@ -20659,13 +20791,14 @@
             Removes any exception dump from disc, if it exists.
             </summary>
         </member>
-        <member name="M:IdApp.Services.EventLog.ILogService.GetParameters">
+        <member name="M:IdApp.Services.EventLog.ILogService.GetParameters(System.Collections.Generic.KeyValuePair{System.String,System.Object}[])">
             <summary>
             Gets a list of extra parameters that are useful when logging: Platform, RuntimeVersion, AppVersion.
             </summary>
+            <param name="Tags">Extra tags</param>
             <returns>Parameters</returns>
         </member>
-        <member name="M:IdApp.Services.EventLog.LogService.GetParameters">
+        <member name="M:IdApp.Services.EventLog.LogService.GetParameters(System.Collections.Generic.KeyValuePair{System.String,System.Object}[])">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Services.ILoadableService">
@@ -25094,6 +25227,16 @@
             </summary>
             <returns>Available service providers.</returns>
         </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.InitiatePayment(System.String,System.String,System.Decimal,System.String)">
+            <summary>
+            Initiates payment of eDaler using a service provider that is not based on a smart contract.
+            </summary>
+            <param name="ServiceId">Service ID</param>
+            <param name="ServiceProvider">Service Provider</param>
+            <param name="Amount">Amount</param>
+            <param name="Currency">Currency</param>
+            <returns>Transaction ID</returns>
+        </member>
         <member name="P:IdApp.Services.Wallet.INeuroWallet.NeuroFeaturesClient">
             <summary>
             Reference to the Neuro-Features client implementing the Neuro-Features XMPP extension
@@ -25387,6 +25530,16 @@
             </summary>
             <returns>Available service providers.</returns>
         </member>
+        <member name="M:IdApp.Services.Wallet.NeuroWallet.InitiatePayment(System.String,System.String,System.Decimal,System.String)">
+            <summary>
+            Initiates payment of eDaler using a service provider that is not based on a smart contract.
+            </summary>
+            <param name="ServiceId">Service ID</param>
+            <param name="ServiceProvider">Service Provider</param>
+            <param name="Amount">Amount</param>
+            <param name="Currency">Currency</param>
+            <returns>Transaction ID</returns>
+        </member>
         <member name="P:IdApp.Services.Wallet.NeuroWallet.NeuroFeaturesClient">
             <summary>
             Reference to the Neuro-Features client implementing the Neuro-Features XMPP extension
@@ -25526,6 +25679,47 @@
             Neuro-Feature URI scanned.
             </summary>
             <param name="Uri">Neuro-Feature URI.</param>
+        </member>
+        <member name="T:IdApp.Services.Wallet.PaymentTransaction">
+            <summary>
+            Maintains the status of an ongoing payment transaction to buy eDaler.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Wallet.PaymentTransaction.#ctor(System.String,System.String)">
+            <summary>
+            Maintains the status of an ongoing payment transaction to buy eDaler.
+            </summary>
+            <param name="TransactionId">Transaction ID</param>
+            <param name="Currency">Currency</param>
+        </member>
+        <member name="P:IdApp.Services.Wallet.PaymentTransaction.TransactionId">
+            <summary>
+            Transaction ID
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Wallet.PaymentTransaction.OpenUrl(System.String)">
+            <summary>
+            Method called when a URL needs to be opened by the client.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Wallet.PaymentTransaction.ErrorReported(System.String)">
+            <summary>
+            Called when payment has failed.
+            </summary>
+            <param name="Message">Error message</param>
+        </member>
+        <member name="M:IdApp.Services.Wallet.PaymentTransaction.Completed(System.Decimal,System.String)">
+            <summary>
+            Called when payment has completed.
+            </summary>
+            <param name="Amount">Amount</param>
+            <param name="Currency">Currency</param>
+        </member>
+        <member name="M:IdApp.Services.Wallet.PaymentTransaction.Wait">
+            <summary>
+            Waits for the completion of the payment.
+            </summary>
+            <returns>Amount transferred</returns>
         </member>
         <member name="T:IdApp.Services.XmlDatabaseExport">
             <summary>

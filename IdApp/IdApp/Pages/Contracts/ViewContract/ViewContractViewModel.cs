@@ -713,7 +713,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod())
-					.Append(new KeyValuePair<string, string>("ContractId", this.Contract?.ContractId))
+					.Append(new KeyValuePair<string, object>("ContractId", this.Contract?.ContractId))
 					.ToArray());
 
 				this.ClearContract();

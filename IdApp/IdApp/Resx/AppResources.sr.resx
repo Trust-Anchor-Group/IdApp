@@ -2139,4 +2139,10 @@
   <data name="PermitParametersText" xml:space="preserve">
     <value>Odaberite parametre kojima ćete dozvoliti pristup ako je zahtev prihvaćen.</value>
   </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Kupi</value>
+  </data>
+  <data name="BuyEDalerDescription" xml:space="preserve">
+    <value>Navedite količinu eDalera koju želite da kupite ispod i pritisnite dugme Kupi. Otvoriće se Web stranica na kojoj morate da popunite dodatne informacije da bi procesor plaćanja proverio valjanost ponovnog korišćenja.</value>
+  </data>
 </root>

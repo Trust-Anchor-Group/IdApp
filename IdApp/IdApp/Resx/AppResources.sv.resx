@@ -2115,4 +2115,10 @@
   <data name="PermitFieldsText" xml:space="preserve">
     <value>Välj vilka fält som åtkomst ska beviljas till, om förfrågan accepteras.</value>
   </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Köp</value>
+  </data>
+  <data name="BuyEDalerDescription" xml:space="preserve">
+    <value>Ange det belopp av eDaler du vill köpa nedan, och tryck sedan på Köp-knappen. En webb-sida kommer att öppnas där du behöver fylla in ytterligare information så att betalningsleverantören kan validera din förfrågan.</value>
+  </data>
 </root>

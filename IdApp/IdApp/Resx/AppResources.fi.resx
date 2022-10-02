@@ -2139,4 +2139,10 @@
   <data name="PermitParametersText" xml:space="preserve">
     <value>Valitse parametrit, joihin pääsy sallitaan, jos pyyntö hyväksytään.</value>
   </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Ostaa</value>
+  </data>
+  <data name="BuyEDalerDescription" xml:space="preserve">
+    <value>Anna alla oleva määrä eDaleria, jonka haluat ostaa, ja paina Osta-painiketta. Verkkosivu avataan, jossa sinun on täytettävä lisätietoja maksunkäsittelijälle vahvistaaksesi vastauksesi.</value>
+  </data>
 </root>

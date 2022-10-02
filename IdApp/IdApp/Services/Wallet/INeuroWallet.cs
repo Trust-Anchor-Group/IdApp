@@ -160,6 +160,16 @@ namespace IdApp.Services.Wallet
 		/// <returns>Available service providers.</returns>
 		Task<IBuyEDalerServiceProvider[]> GetServiceProvidersForBuyingEDalerAsync();
 
+		/// <summary>
+		/// Initiates payment of eDaler using a service provider that is not based on a smart contract.
+		/// </summary>
+		/// <param name="ServiceId">Service ID</param>
+		/// <param name="ServiceProvider">Service Provider</param>
+		/// <param name="Amount">Amount</param>
+		/// <param name="Currency">Currency</param>
+		/// <returns>Transaction ID</returns>
+		Task<PaymentTransaction> InitiatePayment(string ServiceId, string ServiceProvider, decimal Amount, string Currency);
+
 		#endregion
 
 		#region Neuro-Features

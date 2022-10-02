@@ -25,6 +25,7 @@ using IdApp.Pages.Things.ReadSensor;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Pages.Things.ViewThing;
 using IdApp.Pages.Wallet.AccountEvent;
+using IdApp.Pages.Wallet.BuyEDaler;
 using IdApp.Pages.Wallet.EDalerReceived;
 using IdApp.Pages.Wallet.IssueEDaler;
 using IdApp.Pages.Wallet.MachineReport;
@@ -161,6 +162,7 @@ namespace IdApp.Pages.Main.Shell
 			Routing.RegisterRoute(nameof(MachineVariablesPage), typeof(MachineVariablesPage));
 			Routing.RegisterRoute(nameof(MachineReportPage), typeof(MachineReportPage));
 			Routing.RegisterRoute(nameof(ServiceProvidersPage), typeof(ServiceProvidersPage));
+			Routing.RegisterRoute(nameof(BuyEDalerPage), typeof(BuyEDalerPage));
 		}
 
 		private async Task GoToPage(string route)

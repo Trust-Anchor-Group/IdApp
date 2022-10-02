@@ -292,10 +292,10 @@ namespace IdApp.Services.Xmpp
 						Thread?.NewState("Wait");
 						if (!await this.WaitForConnectedState(Constants.Timeouts.XmppConnect))
 						{
-							this.LogService.LogWarning("Connect to XMPP server '{0}' failed for account '{1}' with the specified timeout of {2} ms",
-								this.domainName,
-								this.accountName,
-								(int)Constants.Timeouts.XmppConnect.TotalMilliseconds);
+							this.LogService.LogWarning("Connection to XMPP server failed.",
+								new KeyValuePair<string, object>("Domain", this.domainName),
+								new KeyValuePair<string, object>("Account", this.accountName),
+								new KeyValuePair<string, object>("Timeout", Constants.Timeouts.XmppConnect));
 						}
 					}
 				}
@@ -891,7 +891,7 @@ namespace IdApp.Services.Xmpp
 			}
 			catch (Exception ex)
 			{
-				this.LogService.LogException(ex, new KeyValuePair<string, string>(nameof(ConnectOperation), operation.ToString()));
+				this.LogService.LogException(ex, new KeyValuePair<string, object>(nameof(ConnectOperation), operation.ToString()));
 				succeeded = false;
 				errorMessage = string.Format(LocalizationResourceManager.Current["UnableToConnectTo"], domain);
 			}
@@ -946,7 +946,7 @@ namespace IdApp.Services.Xmpp
 			catch (Exception ex)
 			{
 				string commsDump = await this.sniffer.SnifferToText();
-				this.LogService.LogException(ex, new KeyValuePair<string, string>("Sniffer", commsDump));
+				this.LogService.LogException(ex, new KeyValuePair<string, object>("Sniffer", commsDump));
 				return false;
 			}
 
