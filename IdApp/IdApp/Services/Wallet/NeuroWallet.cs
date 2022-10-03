@@ -47,13 +47,21 @@ namespace IdApp.Services.Wallet
 			if (this.eDalerClient is null || this.eDalerClient.Client != this.XmppService.Xmpp)
 			{
 				if (this.eDalerClient is not null)
+				{
 					this.eDalerClient.BalanceUpdated -= this.EDalerClient_BalanceUpdated;
+					this.eDalerClient.ClientUrlReceived -= this.NeuroWallet_ClientUrlReceived;
+					this.eDalerClient.PaymentCompleted -= this.NeuroWallet_PaymentCompleted;
+					this.eDalerClient.PaymentError -= this.NeuroWallet_PaymentError;
+				}
 
 				this.eDalerClient = (this.XmppService as XmppService)?.EDalerClient;
 				if (this.eDalerClient is null)
 					throw new InvalidOperationException(LocalizationResourceManager.Current["EDalerServiceNotFound"]);
 
 				this.eDalerClient.BalanceUpdated += this.EDalerClient_BalanceUpdated;
+				this.eDalerClient.ClientUrlReceived += this.NeuroWallet_ClientUrlReceived;
+				this.eDalerClient.PaymentCompleted += this.NeuroWallet_PaymentCompleted;
+				this.eDalerClient.PaymentError += this.NeuroWallet_PaymentError;
 			}
 		}
 
