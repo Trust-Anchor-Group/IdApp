@@ -15,6 +15,7 @@ namespace IdApp.Pages.Wallet.BuyEDaler
 	public class BuyEDalerViewModel : XmppViewModel
 	{
 		private TaskCompletionSource<decimal?> result;
+		private bool buyButtonPressed = false;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="BuyEDalerViewModel"/> class.
@@ -62,7 +63,8 @@ namespace IdApp.Pages.Wallet.BuyEDaler
 		protected override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
-			this.result?.TrySetResult(null);
+
+			this.result?.TrySetResult(this.buyButtonPressed ? this.Amount : null);
 
 			await base.OnDispose();
 		}
@@ -150,7 +152,7 @@ namespace IdApp.Pages.Wallet.BuyEDaler
 		public string AmountText
 		{
 			get => (string)this.GetValue(AmountTextProperty);
-			set 
+			set
 			{
 				this.SetValue(AmountTextProperty, value);
 
@@ -220,8 +222,8 @@ namespace IdApp.Pages.Wallet.BuyEDaler
 
 		private async Task Buy()
 		{
+			this.buyButtonPressed = true;
 			await this.NavigationService.GoBackAsync();
-			this.result?.TrySetResult(this.Amount);
 		}
 
 	}
