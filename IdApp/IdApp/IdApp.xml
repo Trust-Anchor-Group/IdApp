@@ -414,6 +414,11 @@
             IoT Schemes
             </summary>
         </member>
+        <member name="F:IdApp.Constants.UriSchemes.UriSchemeTagIdApp">
+            <summary>
+            The App's URI Scheme (tagidapp)
+            </summary>
+        </member>
         <member name="F:IdApp.Constants.UriSchemes.UriSchemeIotId">
             <summary>
             The IoT ID URI Scheme (iotid)
@@ -798,12 +803,12 @@
         </member>
         <member name="F:IdApp.Constants.Pin.FirstBlockInDays">
             <summary>
-            First Block in days after 3 attempts 
+            First Block in days after 3 attempts
             </summary>
         </member>
         <member name="F:IdApp.Constants.Pin.SecondBlockInDays">
             <summary>
-            Second Block in days after 3 attempts 
+            Second Block in days after 3 attempts
             </summary>
         </member>
         <member name="F:IdApp.Constants.Pin.CurrentPinAttemptCounter">

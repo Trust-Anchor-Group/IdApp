@@ -59,10 +59,15 @@ namespace IdApp
         /// </summary>
         public static class UriSchemes
         {
-            /// <summary>
-            /// The IoT ID URI Scheme (iotid)
-            /// </summary>
-            public const string UriSchemeIotId = "iotid";
+			/// <summary>
+			/// The App's URI Scheme (tagidapp)
+			/// </summary>
+			public const string UriSchemeTagIdApp = "tagidapp";
+
+			/// <summary>
+			/// The IoT ID URI Scheme (iotid)
+			/// </summary>
+			public const string UriSchemeIotId = "iotid";
 
             /// <summary>
             /// The IoT Discovery URI Scheme (iotdisco)
@@ -124,7 +129,8 @@ namespace IdApp
                     UriSchemeEDaler or
                     UriSchemeNeuroFeature or
                     UriSchemeOnboarding or
-                    UriSchemeXmpp => Url,
+                    UriSchemeXmpp or
+					UriSchemeTagIdApp => Url,
 
 					_ => null,
 				};
@@ -498,12 +504,12 @@ namespace IdApp
 			public const int MaxPinAttempts = 3;
 
             /// <summary>
-			/// First Block in days after 3 attempts 
+			/// First Block in days after 3 attempts
 			/// </summary>
 			public const int FirstBlockInDays = 1;
 
             /// <summary>
-            /// Second Block in days after 3 attempts 
+            /// Second Block in days after 3 attempts
             /// </summary>
             public const int SecondBlockInDays = 7;
 

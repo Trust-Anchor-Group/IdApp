@@ -34,6 +34,7 @@
 				<data android:scheme="nfeat" />
 				<data android:scheme="obinfo" />
 				<data android:scheme="xmpp" />
+				<data android:scheme="tagidapp" />
 			</intent-filter>
 		</activity>
 	</application>

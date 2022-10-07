@@ -121,6 +121,11 @@ namespace IdApp.Services.UI.QR
 					case Constants.UriSchemes.UriSchemeXmpp:
 						return await ChatViewModel.ProcessXmppUri(Url);
 
+					case Constants.UriSchemes.UriSchemeTagIdApp:
+						await Services.UiSerializer.DisplayAlert("!!!", "!!! !!! !!!");
+						return true;
+
+
 					default:
 						if (await Launcher.TryOpenAsync(uri))
 							return true;
