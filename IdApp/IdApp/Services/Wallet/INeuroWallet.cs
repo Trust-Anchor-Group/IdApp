@@ -170,6 +170,21 @@ namespace IdApp.Services.Wallet
 		/// <returns>Transaction ID</returns>
 		Task<PaymentTransaction> InitiatePayment(string ServiceId, string ServiceProvider, decimal Amount, string Currency);
 
+		/// <summary>
+		/// Registers an initiated payment as completed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Amount">Amount</param>
+		/// <param name="Currency">Currency</param>
+		void PaymentCompleted(string TransactionId, decimal Amount, string Currency);
+
+		/// <summary>
+		/// Registers an initiated payment as failed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Message">Error message.</param>
+		void PaymentFailed(string TransactionId, string Message);
+
 		#endregion
 
 		#region Neuro-Features

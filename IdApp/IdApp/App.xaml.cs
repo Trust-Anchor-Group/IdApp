@@ -63,6 +63,8 @@ using Waher.Runtime.Text;
 using Waher.Script;
 using Waher.Script.Content;
 using Waher.Script.Graphs;
+using Waher.Security.JWS;
+using Waher.Security.JWT;
 using Waher.Security.LoginMonitor;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
@@ -210,7 +212,8 @@ namespace IdApp
 			{
 				this.InitInstances(Thread);
 
-				// Get the db started right away to save startup time.
+				Thread?.NewState("JWT");
+				await this.services.CryptoService.InitializeJwtFactory();
 
 				Thread?.NewState("DB");
 				ProfilerThread SubThread = Thread?.CreateSubThread("Database", ProfilerThreadType.Sequential);
@@ -280,8 +283,10 @@ namespace IdApp
 					typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
 					typeof(NeuroFeaturesClient).Assembly,       // Indexes Neuro-Features client framework
 					typeof(PushNotificationClient).Assembly,    // Indexes Push Notification client framework
-					typeof(XmppServerlessMessaging).Assembly,	// Indexes End-to-End encryption mechanisms
-					typeof(HttpxClient).Assembly);				// Support for HTTP over XMPP (httpx) URI Schme.
+					typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
+					typeof(HttpxClient).Assembly,				// Support for HTTP over XMPP (httpx) URI Schme.
+					typeof(JwtFactory).Assembly,				// Generation of JWT tokens.
+					typeof(JwsAlgorithm).Assembly);             // Available JWS algorithms.
 			}
 
 			EndpointSecurity.SetCiphers(new Type[]

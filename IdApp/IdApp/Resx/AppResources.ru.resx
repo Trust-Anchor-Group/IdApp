@@ -2145,4 +2145,10 @@
   <data name="BuyEDalerDescription" xml:space="preserve">
     <value>Укажите сумму eDaler, которую вы хотите купить ниже, и нажмите кнопку «Купить». Откроется веб-страница, на которой вам нужно будет заполнить дополнительную информацию для платежного процессора, чтобы подтвердить вашу заявку.</value>
   </data>
+  <data name="PaymentCancelled" xml:space="preserve">
+    <value>Платеж отменен</value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>Не удалось выполнить платеж</value>
+  </data>
 </root>

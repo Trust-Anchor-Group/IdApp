@@ -15,6 +15,7 @@ using IdApp.Services.Notification.Identities;
 using IdApp.Services.Notification.Contracts;
 using Xamarin.CommunityToolkit.Helpers;
 using Waher.Persistence;
+using Waher.Security.JWT;
 
 namespace IdApp.Services.UI.QR
 {
@@ -122,9 +123,63 @@ namespace IdApp.Services.UI.QR
 						return await ChatViewModel.ProcessXmppUri(Url);
 
 					case Constants.UriSchemes.UriSchemeTagIdApp:
-						await Services.UiSerializer.DisplayAlert("!!!", "!!! !!! !!!");
-						return true;
+						string Token = Constants.UriSchemes.RemoveScheme(Url);
+						JwtToken Parsed = Services.CryptoService.ParseAndValidateJwtToken(Token);
+						if (Parsed is null)
+							return false;
 
+						if (!Parsed.TryGetClaim("cmd", out object Obj) || Obj is not string Command ||
+							!Parsed.TryGetClaim(JwtClaims.ClientId, out Obj) || Obj is not string ClientId ||
+							ClientId != Services.CryptoService.DeviceID ||
+							!Parsed.TryGetClaim(JwtClaims.Issuer, out Obj) || Obj is not string Issuer ||
+							Issuer != Services.CryptoService.DeviceID ||
+							!Parsed.TryGetClaim(JwtClaims.Subject, out Obj) || Obj is not string Subject ||
+							Subject != Services.XmppService.BareJid)
+						{
+							return false;
+						}
+
+						switch (Command)
+						{
+							case "ps":  // Payment Successful
+								if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId ||
+									!Parsed.TryGetClaim("amt", out object Amount) ||
+									!Parsed.TryGetClaim("cur", out Obj) || Obj is not string Currency)
+								{
+									return false;
+								}
+
+								decimal AmountDec;
+
+								try
+								{
+									AmountDec = Convert.ToDecimal(Amount);
+								}
+								catch (Exception)
+								{
+									return false;
+								}
+
+								Services.XmppService.Wallet.PaymentCompleted(TransactionId, AmountDec, Currency);
+								return true;
+
+							case "pf":  // Payment Failed
+								if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId2)
+									return false;
+
+								Services.XmppService.Wallet.PaymentFailed(TransactionId2, LocalizationResourceManager.Current["PaymentFailed"]);
+								return true;
+
+							case "pc":  // Payment Cancelled
+								if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId3)
+									return false;
+
+								Services.XmppService.Wallet.PaymentFailed(TransactionId3, LocalizationResourceManager.Current["PaymentCancelled"]);
+								return true;
+
+							default:
+								return false;
+						}
 
 					default:
 						if (await Launcher.TryOpenAsync(uri))

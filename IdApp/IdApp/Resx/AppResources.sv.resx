@@ -2121,4 +2121,10 @@
   <data name="BuyEDalerDescription" xml:space="preserve">
     <value>Ange det belopp av eDaler du vill köpa nedan, och tryck sedan på Köp-knappen. En webb-sida kommer att öppnas där du behöver fylla in ytterligare information så att betalningsleverantören kan validera din förfrågan.</value>
   </data>
+  <data name="PaymentCancelled" xml:space="preserve">
+    <value>Betalningen avbruten</value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>Betalningen misslyckades</value>
+  </data>
 </root>

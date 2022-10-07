@@ -2145,4 +2145,10 @@
   <data name="BuyEDalerDescription" xml:space="preserve">
     <value>Anna alla oleva määrä eDaleria, jonka haluat ostaa, ja paina Osta-painiketta. Verkkosivu avataan, jossa sinun on täytettävä lisätietoja maksunkäsittelijälle vahvistaaksesi vastauksesi.</value>
   </data>
+  <data name="PaymentCancelled" xml:space="preserve">
+    <value>Maksu peruutettu</value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>Maksu epäonnistui</value>
+  </data>
 </root>

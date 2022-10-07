@@ -95,7 +95,7 @@ namespace IdApp
             public const string UriSchemeNeuroFeature = "nfeat";
 
             /// <summary>
-            /// Tag ID URI Scheme (tagid)
+            /// Onboarding URI Scheme (obinfo)
             /// </summary>
             public const string UriSchemeOnboarding = "obinfo";
 

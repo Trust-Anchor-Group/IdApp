@@ -2145,4 +2145,10 @@
   <data name="BuyEDalerDescription" xml:space="preserve">
     <value>Furnizați cantitatea de eDaler pe care doriți să o cumpărați de mai jos și apăsați butonul Cumpărați. Se va deschide o pagină web unde trebuie să completați informații suplimentare pentru ca procesatorul de plăți să vă valideze requst-ul.</value>
   </data>
+  <data name="PaymentCancelled" xml:space="preserve">
+    <value>Plată anulată</value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>Plata nu a reușit</value>
+  </data>
 </root>

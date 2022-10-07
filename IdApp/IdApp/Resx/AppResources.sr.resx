@@ -2145,4 +2145,10 @@
   <data name="BuyEDalerDescription" xml:space="preserve">
     <value>Navedite količinu eDalera koju želite da kupite ispod i pritisnite dugme Kupi. Otvoriće se Web stranica na kojoj morate da popunite dodatne informacije da bi procesor plaćanja proverio valjanost ponovnog korišćenja.</value>
   </data>
+  <data name="PaymentCancelled" xml:space="preserve">
+    <value>Plaćanje je otkazano</value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>Plaćanje nije uspelo</value>
+  </data>
 </root>

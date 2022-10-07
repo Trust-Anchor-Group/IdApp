@@ -6,8 +6,10 @@ using EDaler.Uris;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using NeuroFeatures.Events;
+using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
+using Waher.Security.JWT;
 using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Wallet
@@ -291,7 +293,32 @@ namespace IdApp.Services.Wallet
 		/// <returns>Transaction ID</returns>
 		public async Task<PaymentTransaction> InitiatePayment(string ServiceId, string ServiceProvider, decimal Amount, string Currency)
 		{
-			string TransactionId = await this.EDalerClient.InitiatePaymentOfEDalerAsync(ServiceId, ServiceProvider, Amount, Currency);
+			string TransactionId = Guid.NewGuid().ToString();
+			string SuccessUrl = this.GenerateTagIdUrl(
+				new KeyValuePair<string, object>("cmd", "ps"),
+				new KeyValuePair<string, object>("tid", TransactionId),
+				new KeyValuePair<string, object>("amt", Amount),
+				new KeyValuePair<string, object>("cur", Currency),
+				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
+				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
+			string FailureUrl = this.GenerateTagIdUrl(
+				new KeyValuePair<string, object>("cmd", "pf"),
+				new KeyValuePair<string, object>("tid", TransactionId),
+				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
+				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
+			string CancelUrl = this.GenerateTagIdUrl(
+				new KeyValuePair<string, object>("cmd", "pc"),
+				new KeyValuePair<string, object>("tid", TransactionId),
+				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
+				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
+
+			TransactionId = await this.EDalerClient.InitiatePaymentOfEDalerAsync(ServiceId, ServiceProvider, Amount, Currency, TransactionId, SuccessUrl, FailureUrl, CancelUrl);
 			PaymentTransaction Result = new(TransactionId, Currency);
 
 			lock (this.currentTransactions)
@@ -300,6 +327,12 @@ namespace IdApp.Services.Wallet
 			}
 
 			return Result;
+		}
+
+		private string GenerateTagIdUrl(params KeyValuePair<string, object>[] Claims)
+		{
+			string Token = this.CryptoService.GenerateJwtToken(Claims);
+			return Constants.UriSchemes.UriSchemeTagIdApp + ":" + Token;
 		}
 
 		private async Task NeuroWallet_ClientUrlReceived(object Sender, ClientUrlEventArgs e)
@@ -322,48 +355,55 @@ namespace IdApp.Services.Wallet
 
 		private Task NeuroWallet_PaymentError(object Sender, PaymentErrorEventArgs e)
 		{
-			PaymentTransaction Transaction;
-
-			lock (this.currentTransactions)
-			{
-				if (!this.currentTransactions.TryGetValue(e.TransactionId, out Transaction))
-				{
-					this.LogService.LogWarning("Payment error messsage ignored. Transaction ID not recognized.",
-						new KeyValuePair<string, object>("TransactionId", e.TransactionId));
-
-					return Task.CompletedTask;
-				}
-
-				this.currentTransactions.Remove(e.TransactionId);
-			}
-
-			Transaction.ErrorReported(e.Message);
-
+			this.PaymentFailed(e.TransactionId, e.Message);
 			return Task.CompletedTask;
 		}
 
-		private Task NeuroWallet_PaymentCompleted(object Sender, PaymentCompletedEventArgs e)
+		/// <summary>
+		/// Registers an initiated payment as failed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Message">Error message.</param>
+		public void PaymentFailed(string TransactionId, string Message)
 		{
 			PaymentTransaction Transaction;
 
 			lock (this.currentTransactions)
 			{
-				if (!this.currentTransactions.TryGetValue(e.TransactionId, out Transaction))
-				{
-					this.LogService.LogWarning("Payment completion messsage ignored. Transaction ID not recognized.",
-						new KeyValuePair<string, object>("TransactionId", e.TransactionId),
-						new KeyValuePair<string, object>("Amount", e.Amount),
-						new KeyValuePair<string, object>("Currency", e.Currency));
+				if (!this.currentTransactions.TryGetValue(TransactionId, out Transaction))
+					return;
 
-					return Task.CompletedTask;
-				}
-
-				this.currentTransactions.Remove(e.TransactionId);
+				this.currentTransactions.Remove(TransactionId);
 			}
 
-			Transaction.Completed(e.Amount, e.Currency);
+			Transaction.ErrorReported(Message);
+		}
 
+		private Task NeuroWallet_PaymentCompleted(object Sender, PaymentCompletedEventArgs e)
+		{
+			this.PaymentCompleted(e.TransactionId, e.Amount, e.Currency);
 			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Registers an initiated payment as completed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Amount">Amount</param>
+		/// <param name="Currency">Currency</param>
+		public void PaymentCompleted(string TransactionId, decimal Amount, string Currency)
+		{
+			PaymentTransaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(TransactionId, out Transaction))
+					return;
+
+				this.currentTransactions.Remove(TransactionId);
+			}
+
+			Transaction.Completed(Amount, Currency);
 		}
 
 		#endregion

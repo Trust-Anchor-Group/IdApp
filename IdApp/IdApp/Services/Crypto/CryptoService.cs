@@ -7,18 +7,31 @@ using System.Threading.Tasks;
 using IdApp.DeviceSpecific;
 using Waher.Runtime.Inventory;
 using Waher.Security;
+using Waher.Security.JWT;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.Services.Crypto
 {
+	/// <summary>
+	/// Cryptographic service that helps create passwords and other security related tasks.
+	/// </summary>
 	[Singleton]
 	internal sealed class CryptoService : ServiceReferences, ICryptoService
 	{
 		private readonly string basePath;
 		private readonly string deviceId;
 		private readonly RandomNumberGenerator rnd;
+		private JwtFactory jwtFactory;
 
+		/// <summary>
+		/// Device ID
+		/// </summary>
+		public string DeviceID => this.deviceId;
+
+		/// <summary>
+		/// Cryptographic service that helps create passwords and other security related tasks.
+		/// </summary>
 		public CryptoService()
 		{
 			IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
@@ -28,6 +41,11 @@ namespace IdApp.Services.Crypto
 			this.rnd = RandomNumberGenerator.Create();
 		}
 
+		/// <summary>
+		/// Returns a cryptographic authorization key for the given filename.
+		/// </summary>
+		/// <param name="fileName">The filename to get a key for.</param>
+		/// <returns>A cryptographic key.</returns>
 		public async Task<KeyValuePair<byte[], byte[]>> GetCustomKey(string fileName)
 		{
 			byte[] key;
@@ -76,6 +94,10 @@ namespace IdApp.Services.Crypto
 			return new KeyValuePair<byte[], byte[]>(key, iv);
 		}
 
+		/// <summary>
+		/// Generates a random password to use.
+		/// </summary>
+		/// <returns>Random password</returns>
 		public string CreateRandomPassword()
 		{
 			return Hashes.BinaryToString(this.GetBytes(32));
@@ -91,6 +113,53 @@ namespace IdApp.Services.Crypto
 			}
 
 			return result;
+		}
+
+		/// <summary>
+		/// Initializes the JWT factory.
+		/// </summary>
+		public async Task InitializeJwtFactory()
+		{
+			KeyValuePair<byte[], byte[]> Keys = await this.GetCustomKey("factory.jwt");
+			this.jwtFactory = new JwtFactory(Keys.Key);
+		}
+
+		/// <summary>
+		/// Generates a JWT token the app can send to third parties. The token and its claims can be parsed and
+		/// validated using <see cref="ParseAndValidateJwtToken"/>.
+		/// </summary>
+		/// <param name="Claims">Set of claims to embed into token.</param>
+		/// <returns>JWT token.</returns>
+		public string GenerateJwtToken(params KeyValuePair<string,object>[] Claims)
+		{
+			if (this.jwtFactory is null)
+				throw new Exception("JWT Factory not initialized.");
+
+			return this.jwtFactory.Create(Claims);
+		}
+
+		/// <summary>
+		/// Vaidates a JWT token, that has been issued by the same app. (Tokens from other apps will not be valid.)
+		/// </summary>
+		/// <param name="Token">String representation of JWT token.</param>
+		/// <returns>Parsed token, if valid, null if not valid.</returns>
+		public JwtToken ParseAndValidateJwtToken(string Token)
+		{
+			if (this.jwtFactory is null)
+				return null;
+
+			try
+			{
+				JwtToken Parsed = new(Token);
+				if (!this.jwtFactory.IsValid(Parsed))
+					return null;
+
+				return Parsed;
+			}
+			catch (Exception)
+			{
+				return null;
+			}
 		}
 	}
 }
