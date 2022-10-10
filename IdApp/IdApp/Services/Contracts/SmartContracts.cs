@@ -289,6 +289,8 @@ namespace IdApp.Services.Contracts
 				identity = await this.ContractsClient.AddLegalIdAttachmentAsync(identity.Id, e2.GetUrl, signature);
 			}
 
+			await this.contractsClient.ReadyForApprovalAsync(identity.Id);
+
 			return identity;
 		}
 
