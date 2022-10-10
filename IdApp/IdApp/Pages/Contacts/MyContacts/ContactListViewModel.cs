@@ -373,12 +373,12 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 							if (!string.IsNullOrEmpty(Contact.LegalId))
 							{
-								sb.Append("ti=");
+								sb.Append(";ti=");
 								sb.Append(Contact.LegalId);
 							}
 							else if (!string.IsNullOrEmpty(Contact.BareJid))
 							{
-								sb.Append("t=");
+								sb.Append(";t=");
 								sb.Append(Contact.BareJid);
 							}
 
