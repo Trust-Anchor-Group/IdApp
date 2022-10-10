@@ -32,6 +32,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 		/// </summary>
 		protected internal ContactListViewModel()
 		{
+			this.AnonymousCommand = new Command(_ => this.SelectAnonymous());
 			this.ScanQrCodeCommand = new Command(async _ => await this.ScanQrCode());
 
 			this.Contacts = new ObservableCollection<ContactInfoModel>();
@@ -53,6 +54,8 @@ namespace IdApp.Pages.Contacts.MyContacts
 				this.Action = args.Action;
 				this.selection = args.Selection;
 				this.CanScanQrCode = args.CanScanQrCode;
+				this.AllowAnonymous = args.AllowAnonymous;
+				this.AnonymousText = string.IsNullOrEmpty(args.AnonymousText) ? LocalizationResourceManager.Current["Anonymous"] : args.AnonymousText;
 			}
 
 			SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted = new();
@@ -282,6 +285,36 @@ namespace IdApp.Pages.Contacts.MyContacts
 		}
 
 		/// <summary>
+		/// <see cref="AllowAnonymous"/>
+		/// </summary>
+		public static readonly BindableProperty AllowAnonymousProperty =
+			BindableProperty.Create(nameof(AllowAnonymous), typeof(bool), typeof(ContactListViewModel), default(bool));
+
+		/// <summary>
+		/// The description to present to the user.
+		/// </summary>
+		public bool AllowAnonymous
+		{
+			get => (bool)this.GetValue(AllowAnonymousProperty);
+			set => this.SetValue(AllowAnonymousProperty, value);
+		}
+
+		/// <summary>
+		/// <see cref="AnonymousText"/>
+		/// </summary>
+		public static readonly BindableProperty AnonymousTextProperty =
+			BindableProperty.Create(nameof(AnonymousText), typeof(string), typeof(ContactListViewModel), default(string));
+
+		/// <summary>
+		/// The description to present to the user.
+		/// </summary>
+		public string AnonymousText
+		{
+			get => (string)this.GetValue(AnonymousTextProperty);
+			set => this.SetValue(AnonymousTextProperty, value);
+		}
+
+		/// <summary>
 		/// <see cref="Action"/>
 		/// </summary>
 		public static readonly BindableProperty ActionProperty =
@@ -335,7 +368,8 @@ namespace IdApp.Pages.Contacts.MyContacts
 						case SelectContactAction.MakePayment:
 							StringBuilder sb = new();
 
-							sb.Append("edaler:");
+							sb.Append("edaler:fi=");
+							sb.Append(this.TagProfile.LegalIdentity.Id);
 
 							if (!string.IsNullOrEmpty(Contact.LegalId))
 							{
@@ -347,8 +381,6 @@ namespace IdApp.Pages.Contacts.MyContacts
 								sb.Append("t=");
 								sb.Append(Contact.BareJid);
 							}
-							else
-								break;
 
 							Balance Balance = await this.XmppService.Wallet.GetBalanceAsync();
 
@@ -402,6 +434,11 @@ namespace IdApp.Pages.Contacts.MyContacts
 		/// </summary>
 		public ICommand ScanQrCodeCommand { get; }
 
+		/// <summary>
+		/// Command executed when the user wants to perform an action with someone anonymous.
+		/// </summary>
+		public ICommand AnonymousCommand { get; }
+
 		private async Task ScanQrCode()
 		{
 			string Code = await QrCode.ScanQrCode(LocalizationResourceManager.Current["ScanQRCode"]);
@@ -415,6 +452,11 @@ namespace IdApp.Pages.Contacts.MyContacts
 			}
 			else if (!string.IsNullOrEmpty(Code))
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
+		}
+
+		private void SelectAnonymous()
+		{
+			this.OnSelected(new ContactInfoModel(this, null, new NotificationEvent[0]));
 		}
 
 		private Task Xmpp_OnPresence(object Sender, PresenceEventArgs e)

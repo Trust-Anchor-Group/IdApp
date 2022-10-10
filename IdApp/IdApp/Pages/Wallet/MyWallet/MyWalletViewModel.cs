@@ -705,7 +705,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
 				new ContactListNavigationArgs(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
 				{
-					CanScanQrCode = true
+					CanScanQrCode = true,
+					AllowAnonymous = true,
+					AnonymousText = LocalizationResourceManager.Current["Open"]
 				});
 		}
 

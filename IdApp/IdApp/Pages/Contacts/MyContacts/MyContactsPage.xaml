@@ -9,7 +9,7 @@
                        x:Class="IdApp.Pages.Contacts.MyContacts.MyContactsPage"
                        Title="{x:Static resx:AppResources.Contacts}"
                        Style="{StaticResource BaseBackgroundPage}">
-    <Grid Margin="{StaticResource DefaultMargin}" ColumnDefinitions="*" RowDefinitions="auto,auto,auto,*,auto" 
+	<Grid Margin="{StaticResource DefaultMargin}" ColumnDefinitions="*" RowDefinitions="auto,auto,auto,*,auto,auto" 
           HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
         <Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.Contacts}" Style="{StaticResource Heading}"/>
         <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=Description}" HorizontalOptions="Center" VerticalOptions="Start"/>
@@ -47,7 +47,9 @@
                 </CollectionView.ItemTemplate>
         </noBounce:NoBounceCollectionView>
 
-        <Button Grid.Column="0" Grid.Row="4" Text="{x:Static resx:AppResources.ScanQRCode}" Command="{Binding ScanQrCodeCommand}"
+		<Button Grid.Column="0" Grid.Row="4" Text="{Binding AnonymousText}" Command="{Binding AnonymousCommand}"
+                IsVisible="{Binding AllowAnonymous}"/>
+		<Button Grid.Column="0" Grid.Row="5" Text="{x:Static resx:AppResources.ScanQRCode}" Command="{Binding ScanQrCodeCommand}"
                 IsVisible="{Binding CanScanQrCode}"/>
     </Grid>
 </views:ContentBasePage>

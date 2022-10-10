@@ -81,5 +81,16 @@ namespace IdApp.Pages.Contacts.MyContacts
 		/// If the user should be able to scane QR Codes.
 		/// </summary>
 		public bool CanScanQrCode { get; set; }
+
+		/// <summary>
+		/// If user is allowed to select an Anonymous option.
+		/// </summary>
+		public bool AllowAnonymous { get; set; }
+
+		/// <summary>
+		/// String to display on the anonymous button
+		/// </summary>
+		public string AnonymousText { get; set; }
+
 	}
 }

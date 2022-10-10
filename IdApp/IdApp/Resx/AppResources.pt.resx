@@ -2151,4 +2151,7 @@
   <data name="PaymentFailed" xml:space="preserve">
     <value>Falha no pagamento</value>
   </data>
+  <data name="Anonymous" xml:space="preserve">
+    <value>Anônimo</value>
+  </data>
 </root>

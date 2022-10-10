@@ -49,67 +49,67 @@ namespace IdApp.Pages.Contacts.MyContacts
 		/// <summary>
 		/// Bare JID of contact.
 		/// </summary>
-		public CaseInsensitiveString BareJid => this.contact.BareJid;
+		public CaseInsensitiveString BareJid => this.contact?.BareJid;
 
 		/// <summary>
 		/// Legal ID of contact.
 		/// </summary>
-		public CaseInsensitiveString LegalId => this.contact.LegalId;
+		public CaseInsensitiveString LegalId => this.contact?.LegalId;
 
 		/// <summary>
 		/// Legal Identity object.
 		/// </summary>
-		public LegalIdentity LegalIdentity => this.contact.LegalIdentity;
+		public LegalIdentity LegalIdentity => this.contact?.LegalIdentity;
 
 		/// <summary>
 		/// Friendly name.
 		/// </summary>
-		public string FriendlyName => this.contact.FriendlyName;
+		public string FriendlyName => this.contact?.FriendlyName;
 
 		/// <summary>
 		/// Source ID
 		/// </summary>
-		public string SourceId => this.contact.SourceId;
+		public string SourceId => this.contact?.SourceId;
 
 		/// <summary>
 		/// Partition
 		/// </summary>
-		public string Partition => this.contact.Partition;
+		public string Partition => this.contact?.Partition;
 
 		/// <summary>
 		/// Node ID
 		/// </summary>
-		public string NodeId => this.contact.NodeId;
+		public string NodeId => this.contact?.NodeId;
 
 		/// <summary>
 		/// Registry JID
 		/// </summary>
-		public CaseInsensitiveString RegistryJid => this.contact.RegistryJid;
+		public CaseInsensitiveString RegistryJid => this.contact?.RegistryJid;
 
 		/// <summary>
 		/// Subscribe to this contact
 		/// </summary>
-		public bool? SubcribeTo => this.contact.SubcribeTo;
+		public bool? SubcribeTo => this.contact?.SubcribeTo;
 
 		/// <summary>
 		/// Allow subscriptions from this contact
 		/// </summary>
-		public bool? AllowSubscriptionFrom => this.contact.AllowSubscriptionFrom;
+		public bool? AllowSubscriptionFrom => this.contact?.AllowSubscriptionFrom;
 
 		/// <summary>
 		/// The contact is a thing
 		/// </summary>
-		public bool? IsThing => this.contact.IsThing;
+		public bool? IsThing => this.contact?.IsThing;
 
 		/// <summary>
 		/// If the account is registered as the owner of the thing.
 		/// </summary>
-		public bool? Owner => this.contact.Owner;
+		public bool? Owner => this.contact?.Owner;
 
 		/// <summary>
 		/// Meta-data related to a thing.
 		/// </summary>
-		public Property[] MetaData => this.contact.MetaData;
+		public Property[] MetaData => this.contact?.MetaData;
 
 		/// <summary>
 		/// Notification events.
@@ -133,10 +133,10 @@ namespace IdApp.Pages.Contacts.MyContacts
 		{
 			get
 			{
-				if (string.IsNullOrEmpty(this.contact.BareJid))
+				if (string.IsNullOrEmpty(this.contact?.BareJid))
 					return Color.Transparent;
 
-				RosterItem Item = this.references.XmppService.Xmpp?.GetRosterItem(this.contact.BareJid);
+				RosterItem Item = this.references.XmppService.Xmpp?.GetRosterItem(this.contact?.BareJid);
 				if (Item is null)
 					return Color.Transparent;
 
@@ -166,7 +166,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 		/// <returns>If command is enabled.</returns>
 		public bool CanToggleSubscription()
 		{
-			return !string.IsNullOrEmpty(this.contact.BareJid);
+			return !string.IsNullOrEmpty(this.contact?.BareJid);
 		}
 
 		/// <summary>
@@ -175,10 +175,10 @@ namespace IdApp.Pages.Contacts.MyContacts
 		/// <returns></returns>
 		public async Task ToggleSubscription()
 		{
-			if (string.IsNullOrEmpty(this.contact.BareJid))
+			if (string.IsNullOrEmpty(this.contact?.BareJid))
 				return;
 
-			RosterItem Item = this.references.XmppService.Xmpp?.GetRosterItem(this.contact.BareJid);
+			RosterItem Item = this.references.XmppService.Xmpp?.GetRosterItem(this.contact?.BareJid);
 			bool Subscribed;
 
 			if (Item is null)
@@ -208,7 +208,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 					{
 						this.references.XmppService.Xmpp.RequestRevokePresenceSubscription(this.BareJid);
 
-						if (this.contact.AllowSubscriptionFrom.HasValue && this.contact.AllowSubscriptionFrom.Value)
+						if ((this.contact?.AllowSubscriptionFrom.HasValue ?? false) && this.contact.AllowSubscriptionFrom.Value)
 						{
 							this.contact.AllowSubscriptionFrom = null;
 							await Database.Update(this.contact);

@@ -3467,6 +3467,16 @@
             If the user should be able to scane QR Codes.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.AllowAnonymous">
+            <summary>
+            If user is allowed to select an Anonymous option.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListNavigationArgs.AnonymousText">
+            <summary>
+            String to display on the anonymous button
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contacts.MyContacts.ContactListViewModel">
             <summary>
             The view model to bind to when displaying the list of contacts.
@@ -3516,6 +3526,26 @@
             The description to present to the user.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.AllowAnonymousProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.AllowAnonymous"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.AllowAnonymous">
+            <summary>
+            The description to present to the user.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.AnonymousTextProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.AnonymousText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.AnonymousText">
+            <summary>
+            The description to present to the user.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ActionProperty">
             <summary>
             <see cref="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.Action"/>
@@ -3544,6 +3574,11 @@
         <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.ScanQrCodeCommand">
             <summary>
             Command executed when the user wants to scan a contact from a QR Code.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactListViewModel.AnonymousCommand">
+            <summary>
+            Command executed when the user wants to perform an action with someone anonymous.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contacts.MyContacts.MyContactsPage">
@@ -16211,6 +16246,11 @@
         <member name="P:IdApp.Resx.AppResources.AmountExtra">
             <summary>
               Looks up a localized string similar to Amount Extra: (optional, suggestion).
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Anonymous">
+            <summary>
+              Looks up a localized string similar to Anonymous.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Apartment">
