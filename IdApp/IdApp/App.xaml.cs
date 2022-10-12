@@ -66,6 +66,7 @@ using Waher.Script.Graphs;
 using Waher.Security.JWS;
 using Waher.Security.JWT;
 using Waher.Security.LoginMonitor;
+using Waher.Things;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -276,17 +277,18 @@ namespace IdApp
 					typeof(SensorClient).Assembly,              // Serialization of XMPP objects related to sensors
 					typeof(ControlClient).Assembly,             // Serialization of XMPP objects related to actuators
 					typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
-					typeof(PepClient).Assembly,					// Serialization of XMPP objects related to personal eventing
+					typeof(PepClient).Assembly,                 // Serialization of XMPP objects related to personal eventing
 					typeof(Expression).Assembly,                // Indexes basic script functions
-					typeof(Graph).Assembly,						// Indexes graph script functions
+					typeof(Graph).Assembly,                     // Indexes graph script functions
 					typeof(GraphEncoder).Assembly,              // Indexes content script functions
 					typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
 					typeof(NeuroFeaturesClient).Assembly,       // Indexes Neuro-Features client framework
 					typeof(PushNotificationClient).Assembly,    // Indexes Push Notification client framework
 					typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
-					typeof(HttpxClient).Assembly,				// Support for HTTP over XMPP (httpx) URI Schme.
-					typeof(JwtFactory).Assembly,				// Generation of JWT tokens.
-					typeof(JwsAlgorithm).Assembly);             // Available JWS algorithms.
+					typeof(HttpxClient).Assembly,               // Support for HTTP over XMPP (httpx) URI Schme.
+					typeof(JwtFactory).Assembly,                // Generation of JWT tokens.
+					typeof(JwsAlgorithm).Assembly,              // Available JWS algorithms.
+					typeof(IThingReference).Assembly);			// Thing & sensor data library.
 			}
 
 			EndpointSecurity.SetCiphers(new Type[]
