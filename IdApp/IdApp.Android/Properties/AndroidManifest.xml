@@ -17,25 +17,9 @@
 	<uses-permission android:name="android.permission.NFC_TRANSACTION_EVENT" />
 	<uses-permission android:name="android.permission.NFC_PREFERRED_PAYMENT_INFO" />
 	<uses-feature android:name="android.hardware.nfc" android:required="false" />
-	<application android:label="TAG ID" android:icon="@mipmap/icon">
+	<application android:label="@string/app_name" android:icon="@mipmap/icon">
 		<provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true" android:requestLegacyExternalStorage="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
 		</provider>
-		<activity android:icon="@mipmap/icon" android:label="TAG ID" android:name="mobile" android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="iotid" />
-				<data android:scheme="iotdisco" />
-				<data android:scheme="iotsc" />
-				<data android:scheme="tagsign" />
-				<data android:scheme="edaler" />
-				<data android:scheme="nfeat" />
-				<data android:scheme="obinfo" />
-				<data android:scheme="xmpp" />
-				<data android:scheme="tagidapp" />
-			</intent-filter>
-		</activity>
 	</application>
 </manifest>
