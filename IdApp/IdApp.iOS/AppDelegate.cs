@@ -98,7 +98,8 @@ namespace IdApp.iOS
 		/// <returns>If URL is handled.</returns>
 		public override bool OpenUrl(UIApplication Application, NSUrl Url, NSDictionary Options)
 		{
-			return App.OpenUrl(Url.AbsoluteString).Result;
+			App.OpenUrlSync(Url.AbsoluteString);
+			return true;
 		}
 
 		private void RegisterKeyBoardObserver()

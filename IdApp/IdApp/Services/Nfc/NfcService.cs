@@ -138,7 +138,7 @@ namespace IdApp.Services.Nfc
 								{
 									if (!string.IsNullOrEmpty(Constants.UriSchemes.GetScheme(UriRecord.Uri)))
 									{
-										if (await App.OpenUrl(UriRecord.Uri))
+										if (await App.OpenUrlAsync(UriRecord.Uri))
 											return;
 									}
 								}

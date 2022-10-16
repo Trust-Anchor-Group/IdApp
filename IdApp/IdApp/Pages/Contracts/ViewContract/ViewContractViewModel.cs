@@ -897,7 +897,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (e.Ok)
 				{
 					await e.PUT(Bin, "text/xml", (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
-					await App.OpenUrl(e.GetUrl);
+					await App.OpenUrlAsync(e.GetUrl);
 				}
 				else
 					await this.UiSerializer.DisplayAlert(e.StanzaError ?? new Exception(e.ErrorText));

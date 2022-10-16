@@ -167,7 +167,7 @@ namespace IdApp.Android
 				{
 					case Intent.ActionView:
 						string Url = Intent?.Data?.ToString();
-						await App.OpenUrl(Url);
+						App.OpenUrlSync(Url);
 						break;
 
 					case NfcAdapter.ActionTagDiscovered:

@@ -900,7 +900,20 @@ namespace IdApp
 		/// </summary>
 		/// <param name="Url">URL</param>
 		/// <returns>If URL is processed or not.</returns>
-		public static Task<bool> OpenUrl(string Url)
+		public static void OpenUrlSync(string Url)
+		{
+			Current.services.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				await QrCode.OpenUrl(Url);
+			});
+		}
+
+		/// <summary>
+		/// Opens an URL in the application.
+		/// </summary>
+		/// <param name="Url">URL</param>
+		/// <returns>If URL is processed or not.</returns>
+		public static Task<bool> OpenUrlAsync(string Url)
 		{
 			return QrCode.OpenUrl(Url);
 		}
