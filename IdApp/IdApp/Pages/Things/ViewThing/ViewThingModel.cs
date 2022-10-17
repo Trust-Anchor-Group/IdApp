@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Text;
 using System.Threading.Tasks;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
@@ -99,44 +100,50 @@ namespace IdApp.Pages.Things.ViewThing
 				this.HasNotifications = this.Notifications.Count > 0;
 			}
 
-			this.AssignProperties();
+			await this.AssignProperties();
 			this.EvaluateAllCommands();
 
 			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
+			this.XmppService.Xmpp.OnRosterItemAdded += this.Xmpp_OnRosterItemAdded;
+			this.XmppService.Xmpp.OnRosterItemUpdated += this.Xmpp_OnRosterItemUpdated;
+			this.XmppService.Xmpp.OnRosterItemRemoved += this.Xmpp_OnRosterItemRemoved;
 			this.TagProfile.Changed += this.TagProfile_Changed;
 			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
 			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
 
 			if (this.IsConnected && this.IsThingOnline)
+				this.CheckCapabilities();
+		}
+
+		private void CheckCapabilities()
+		{
+			if (!this.thing.IsSensor.HasValue ||
+				!this.thing.IsActuator.HasValue ||
+				!this.thing.IsConcentrator.HasValue ||
+				!this.thing.SupportsSensorEvents.HasValue)
 			{
-				if (!this.thing.IsSensor.HasValue ||
-					!this.thing.IsActuator.HasValue ||
-					!this.thing.IsConcentrator.HasValue ||
-					!this.thing.SupportsSensorEvents.HasValue)
+				string FullJid = this.GetFullJid();
+
+				if (!string.IsNullOrEmpty(FullJid))
 				{
-					string FullJid = this.GetFullJid();
-
-					if (!string.IsNullOrEmpty(FullJid))
+					this.XmppService.Xmpp.SendServiceDiscoveryRequest(FullJid, async (sender, e) =>
 					{
-						this.XmppService.Xmpp.SendServiceDiscoveryRequest(FullJid, async (sender, e) =>
+						this.thing.IsSensor = e.HasFeature(SensorClient.NamespaceSensorData);
+						this.thing.SupportsSensorEvents = e.HasFeature(SensorClient.NamespaceSensorEvents);
+						this.thing.IsActuator = e.HasFeature(ControlClient.NamespaceControl);
+						this.thing.IsConcentrator = e.HasFeature(ConcentratorServer.NamespaceConcentrator);
+
+						if (this.InContacts && !string.IsNullOrEmpty(this.thing.ObjectId))
+							await Database.Update(this.thing);
+
+						this.UiSerializer.BeginInvokeOnMainThread(() =>
 						{
-							this.thing.IsSensor = e.HasFeature(SensorClient.NamespaceSensorData);
-							this.thing.SupportsSensorEvents = e.HasFeature(SensorClient.NamespaceSensorEvents);
-							this.thing.IsActuator = e.HasFeature(ControlClient.NamespaceControl);
-							this.thing.IsConcentrator = e.HasFeature(ConcentratorServer.NamespaceConcentrator);
-
-							if (this.InContacts)
-								await Database.Update(this.thing);
-
-							this.UiSerializer.BeginInvokeOnMainThread(() =>
-							{
-								this.IsSensor = this.thing.IsSensor ?? false;
-								this.IsActuator = this.thing.IsActuator ?? false;
-								this.IsConcentrator = this.thing.IsConcentrator ?? false;
-								this.SupportsSensorEvents = this.thing.SupportsSensorEvents ?? false;
-							});
-						}, null);
-					}
+							this.IsSensor = this.thing.IsSensor ?? false;
+							this.IsActuator = this.thing.IsActuator ?? false;
+							this.IsConcentrator = this.thing.IsConcentrator ?? false;
+							this.SupportsSensorEvents = this.thing.SupportsSensorEvents ?? false;
+						});
+					}, null);
 				}
 			}
 		}
@@ -145,6 +152,9 @@ namespace IdApp.Pages.Things.ViewThing
 		protected override async Task OnDispose()
 		{
 			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
+			this.XmppService.Xmpp.OnRosterItemAdded -= this.Xmpp_OnRosterItemAdded;
+			this.XmppService.Xmpp.OnRosterItemUpdated -= this.Xmpp_OnRosterItemUpdated;
+			this.XmppService.Xmpp.OnRosterItemRemoved -= this.Xmpp_OnRosterItemRemoved;
 			this.TagProfile.Changed -= this.TagProfile_Changed;
 			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
 			this.NotificationService.OnNotificationsDeleted -= this.NotificationService_OnNotificationsDeleted;
@@ -154,18 +164,26 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private Task Xmpp_OnPresence(object Sender, PresenceEventArgs e)
 		{
-			this.CalcThingIsOnline();
-			return Task.CompletedTask;
+			return this.CalcThingIsOnline();
 		}
 
-		private void CalcThingIsOnline()
+		private async Task CalcThingIsOnline()
 		{
 			if (this.thing is null)
 				this.IsThingOnline = false;
 			else
 			{
 				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.thing.BareJid);
+				this.InContacts = Item is not null;
 				this.IsThingOnline = Item is not null && Item.HasLastPresence && Item.LastPresence.IsOnline;
+
+				if (this.InContacts && string.IsNullOrEmpty(this.thing.ObjectId))
+					await Database.Insert(this.thing);
+
+				if (this.IsThingOnline)
+					this.CheckCapabilities();
+
+				this.EvaluateAllCommands();
 			}
 		}
 
@@ -184,9 +202,9 @@ namespace IdApp.Pages.Things.ViewThing
 			}
 		}
 
-		private void AssignProperties()
+		private Task AssignProperties()
 		{
-			this.CalcThingIsOnline();
+			return this.CalcThingIsOnline();
 		}
 
 		private void EvaluateAllCommands()
@@ -207,7 +225,7 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
+			this.UiSerializer.BeginInvokeOnMainThread(async () => await this.AssignProperties());
 		}
 
 		#region Properties
@@ -525,8 +543,13 @@ namespace IdApp.Pages.Things.ViewThing
 
 				if (this.InContacts)
 				{
-					await Database.Delete(this.thing);
-					await Database.Provider.Flush();
+					if (!string.IsNullOrEmpty(this.thing.ObjectId))
+					{
+						await Database.Delete(this.thing);
+						await Database.Provider.Flush();
+
+						this.thing.ObjectId = null;
+					}
 
 					this.thing.ObjectId = null;
 					this.InContacts = false;
@@ -551,9 +574,31 @@ namespace IdApp.Pages.Things.ViewThing
 
 				if (!this.InContacts)
 				{
-					await Database.Insert(this.thing);
+					if (string.IsNullOrEmpty(this.thing.ObjectId))
+						await Database.Insert(this.thing);
+
 					this.InContacts = true;
+					this.InContactsAndNotOwner = !this.IsOwner;
 				}
+
+				RosterItem Item = this.XmppService.Xmpp.GetRosterItem(this.thing.BareJid);
+				if (Item is null || Item.State == SubscriptionState.None || Item.State == SubscriptionState.From)
+				{
+					string IdXml;
+
+					if (this.TagProfile.LegalIdentity is null)
+						IdXml = string.Empty;
+					else
+					{
+						StringBuilder Xml = new();
+						this.TagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
+						IdXml = Xml.ToString();
+					}
+
+					this.XmppService.Xmpp.RequestPresenceSubscription(this.thing.BareJid);
+				}
+
+				await this.CalcThingIsOnline();
 			}
 			catch (Exception ex)
 			{
@@ -571,9 +616,18 @@ namespace IdApp.Pages.Things.ViewThing
 
 				if (this.InContacts)
 				{
-					await Database.Delete(this.thing);
+					if (!string.IsNullOrEmpty(this.thing.ObjectId))
+					{
+						await Database.Delete(this.thing);
+						this.thing.ObjectId = null;
+					}
+
+					this.XmppService.Xmpp.RequestPresenceUnsubscription(this.thing.BareJid);
+					this.XmppService.Xmpp.RemoveRosterItem(this.thing.BareJid);
+
 					this.thing.ObjectId = null;
 					this.InContacts = false;
+					this.InContactsAndNotOwner = false;
 				}
 			}
 			catch (Exception ex)
@@ -734,6 +788,21 @@ namespace IdApp.Pages.Things.ViewThing
 					this.LogService.LogException(ex);
 				}
 			});
+		}
+
+		private Task Xmpp_OnRosterItemRemoved(object Sender, RosterItem Item)
+		{
+			return this.CalcThingIsOnline();
+		}
+
+		private Task Xmpp_OnRosterItemUpdated(object Sender, RosterItem Item)
+		{
+			return this.CalcThingIsOnline();
+		}
+
+		private Task Xmpp_OnRosterItemAdded(object Sender, RosterItem Item)
+		{
+			return this.CalcThingIsOnline();
 		}
 
 	}
