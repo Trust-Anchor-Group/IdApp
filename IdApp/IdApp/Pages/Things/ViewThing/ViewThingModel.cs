@@ -29,7 +29,7 @@ namespace IdApp.Pages.Things.ViewThing
 	/// <summary>
 	/// The view model to bind to when displaying a thing.
 	/// </summary>
-	public class ViewThingModel : XmppViewModel
+	public class ViewThingModel : XmppViewModel, ILinkableView
 	{
 		private readonly Dictionary<string, PresenceEventArgs> presences = new(StringComparer.InvariantCultureIgnoreCase);
 		private ContactInfo thing;
@@ -859,5 +859,125 @@ namespace IdApp.Pages.Things.ViewThing
 			return Task.CompletedTask;
 		}
 
+		#region ILinkableView
+
+		/// <summary>
+		/// If the current view is linkable.
+		/// </summary>
+		public bool IsLinkable => true;
+
+		/// <summary>
+		/// Link to the current view
+		/// </summary>
+		public string Link
+		{
+			get
+			{
+				StringBuilder sb = new();
+				bool HasJid = false;
+				bool HasSourceId = false;
+				bool HasPartition = false;
+				bool HasNodeId = false;
+				bool HasRegistry = false;
+
+				sb.Append("iotdisco:");
+
+				if (this.thing.MetaData is not null)
+				{
+					foreach (Property P in this.thing.MetaData)
+					{
+						sb.Append(';');
+
+						switch (P.Name.ToUpper())
+						{
+							case "ALT":
+							case "LAT":
+							case "LON":
+							case "V":
+								sb.Append('#');
+								break;
+
+							case "JID":
+								HasJid = true;
+								break;
+
+							case "SID":
+								HasSourceId = true;
+								break;
+
+							case "PT":
+								HasPartition = true;
+								break;
+
+							case "NID":
+								HasNodeId = true;
+								break;
+
+							case "R":
+								HasRegistry = true;
+								break;
+						}
+
+						sb.Append(Uri.EscapeDataString(P.Name));
+						sb.Append('=');
+						sb.Append(Uri.EscapeDataString(P.Value));
+					}
+				}
+
+				if (!HasJid)
+				{
+					sb.Append("JID=");
+					sb.Append(Uri.EscapeDataString(this.thing.BareJid));
+				}
+
+				if (!HasSourceId && !string.IsNullOrEmpty(this.thing.SourceId))
+				{
+					sb.Append(";SID=");
+					sb.Append(Uri.EscapeDataString(this.thing.SourceId));
+				}
+
+				if (!HasPartition && !string.IsNullOrEmpty(this.thing.Partition))
+				{
+					sb.Append(";PT=");
+					sb.Append(Uri.EscapeDataString(this.thing.Partition));
+				}
+
+				if (!HasNodeId && !string.IsNullOrEmpty(this.thing.NodeId))
+				{
+					sb.Append(";NID=");
+					sb.Append(Uri.EscapeDataString(this.thing.NodeId));
+				}
+
+				if (!HasRegistry && !string.IsNullOrEmpty(this.thing.RegistryJid))
+				{
+					sb.Append(";R=");
+					sb.Append(Uri.EscapeDataString(this.thing.RegistryJid));
+				}
+
+				return sb.ToString();
+			}
+		}
+
+		/// <summary>
+		/// Title of the current view
+		/// </summary>
+		public Task<string> Title => Task.FromResult(this.thing.FriendlyName);
+
+		/// <summary>
+		/// If linkable view has media associated with link.
+		/// </summary>
+		public bool HasMedia => false;
+
+		/// <summary>
+		/// Encoded media, if available.
+		/// </summary>
+		public byte[] Media => null;
+
+		/// <summary>
+		/// Content-Type of associated media.
+		/// </summary>
+		public string MediaContentType => null;
+
+		#endregion
 	}
 }

@@ -2154,4 +2154,10 @@
   <data name="Anonymous" xml:space="preserve">
     <value>Anônimo</value>
   </data>
+  <data name="ConnectToDevice" xml:space="preserve">
+    <value>Conecte-se ao dispositivo</value>
+  </data>
+  <data name="DisconnectFromDevice" xml:space="preserve">
+    <value>Desconectar-se do dispositivo</value>
+  </data>
 </root>

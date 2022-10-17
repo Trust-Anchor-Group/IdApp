@@ -11688,6 +11688,36 @@
             Gets or sets whether the identity is in the contact.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsLinkable">
+            <summary>
+            If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.Link">
+            <summary>
+            Link to the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.HasMedia">
+            <summary>
+            If linkable view has media associated with link.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.Media">
+            <summary>
+            Encoded media, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.MediaContentType">
+            <summary>
+            Content-Type of associated media.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Things.ViewThing.ViewThingNavigationArgs">
             <summary>
             Holds navigation parameters specific to viewing things.
@@ -16535,6 +16565,11 @@
               Looks up a localized string similar to Connection.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ConnectToDevice">
+            <summary>
+              Looks up a localized string similar to Connect to Device.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Contact">
             <summary>
               Looks up a localized string similar to Contact.
@@ -16848,6 +16883,11 @@
         <member name="P:IdApp.Resx.AppResources.DisabledFor">
             <summary>
               Looks up a localized string similar to DISABLED FOR {0} SECONDS.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.DisconnectFromDevice">
+            <summary>
+              Looks up a localized string similar to Disconnect from Device.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.DisownThing">

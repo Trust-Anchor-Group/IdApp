@@ -2154,4 +2154,10 @@
   <data name="Anonymous" xml:space="preserve">
     <value>Anonimni</value>
   </data>
+  <data name="ConnectToDevice" xml:space="preserve">
+    <value>Poveži se sa uređajem</value>
+  </data>
+  <data name="DisconnectFromDevice" xml:space="preserve">
+    <value>Prekini vezu sa uređajem</value>
+  </data>
 </root>

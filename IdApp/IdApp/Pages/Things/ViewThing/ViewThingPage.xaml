@@ -76,9 +76,9 @@
 						<Label FontSize="Caption" TextColor="{StaticResource HeadingForeground}" Text="{Binding NrPendingChatMessages}" Padding="1"/>
 					</Frame>
 				</Grid>
-				<Button Text="{x:Static resx:AppResources.AddToList}" Command="{Binding Path=AddToListCommand}" 
+				<Button Text="{x:Static resx:AppResources.ConnectToDevice}" Command="{Binding Path=AddToListCommand}" 
 						IsVisible="{Binding InContacts, Converter={conv:LogicalNot}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-				<Button Text="{x:Static resx:AppResources.RemoveFromList}" Command="{Binding Path=RemoveFromListCommand}" 
+				<Button Text="{x:Static resx:AppResources.DisconnectFromDevice}" Command="{Binding Path=RemoveFromListCommand}" 
 						IsVisible="{Binding InContactsAndNotOwner}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
 				<Button Text="{x:Static resx:AppResources.DeleteRules}" Command="{Binding Path=DeleteRulesCommand}" IsEnabled="{Binding Path=IsConnected}"
 						IsVisible="{Binding IsOwner}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>

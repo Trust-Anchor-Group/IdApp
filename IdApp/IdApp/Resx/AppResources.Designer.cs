@@ -781,6 +781,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connect to Device.
+        /// </summary>
+        internal static string ConnectToDevice {
+            get {
+                return ResourceManager.GetString("ConnectToDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact.
         /// </summary>
         internal static string Contact {
@@ -1344,6 +1353,15 @@ namespace IdApp.Resx {
         internal static string DisabledFor {
             get {
                 return ResourceManager.GetString("DisabledFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnect from Device.
+        /// </summary>
+        internal static string DisconnectFromDevice {
+            get {
+                return ResourceManager.GetString("DisconnectFromDevice", resourceCulture);
             }
         }
         
