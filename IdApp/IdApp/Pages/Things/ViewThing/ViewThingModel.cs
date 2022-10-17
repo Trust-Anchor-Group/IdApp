@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
@@ -30,6 +31,7 @@ namespace IdApp.Pages.Things.ViewThing
 	/// </summary>
 	public class ViewThingModel : XmppViewModel
 	{
+		private readonly Dictionary<string, PresenceEventArgs> presences = new(StringComparer.InvariantCultureIgnoreCase);
 		private ContactInfo thing;
 
 		/// <summary>
@@ -164,21 +166,23 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private Task Xmpp_OnPresence(object Sender, PresenceEventArgs e)
 		{
-			return this.CalcThingIsOnline();
+			if (e.IsOnline)
+				this.presences.Remove(e.FromBareJID);
+			else
+				this.presences[e.FromBareJID] = e;
+
+			this.CalcThingIsOnline();
+
+			return Task.CompletedTask;
 		}
 
-		private async Task CalcThingIsOnline()
+		private void CalcThingIsOnline()
 		{
 			if (this.thing is null)
 				this.IsThingOnline = false;
 			else
 			{
-				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.thing.BareJid);
-				this.InContacts = Item is not null;
-				this.IsThingOnline = Item is not null && Item.HasLastPresence && Item.LastPresence.IsOnline;
-
-				if (this.InContacts && string.IsNullOrEmpty(this.thing.ObjectId))
-					await Database.Insert(this.thing);
+				this.IsThingOnline = this.IsOnline(this.thing.BareJid);
 
 				if (this.IsThingOnline)
 					this.CheckCapabilities();
@@ -187,12 +191,27 @@ namespace IdApp.Pages.Things.ViewThing
 			}
 		}
 
+		private bool IsOnline(string BareJid)
+		{
+			if (this.presences.TryGetValue(BareJid, out PresenceEventArgs e))
+				return e.IsOnline;
+
+			RosterItem Item = this.XmppService.Xmpp.GetRosterItem(BareJid);
+			if (Item is not null && Item.HasLastPresence)
+				return Item.LastPresence.IsOnline;
+
+			return false;
+		}
+
 		private string GetFullJid()
 		{
 			if (this.thing is null)
 				return null;
 			else
 			{
+				if (this.presences.TryGetValue(this.thing.BareJid, out PresenceEventArgs e))
+					return e.IsOnline ? e.From : null;
+
 				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.thing.BareJid);
 
 				if (Item is null || !Item.HasLastPresence || !Item.LastPresence.IsOnline)
@@ -204,7 +223,8 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private Task AssignProperties()
 		{
-			return this.CalcThingIsOnline();
+			this.CalcThingIsOnline();
+			return Task.CompletedTask;
 		}
 
 		private void EvaluateAllCommands()
@@ -578,7 +598,6 @@ namespace IdApp.Pages.Things.ViewThing
 						await Database.Insert(this.thing);
 
 					this.InContacts = true;
-					this.InContactsAndNotOwner = !this.IsOwner;
 				}
 
 				RosterItem Item = this.XmppService.Xmpp.GetRosterItem(this.thing.BareJid);
@@ -598,7 +617,7 @@ namespace IdApp.Pages.Things.ViewThing
 					this.XmppService.Xmpp.RequestPresenceSubscription(this.thing.BareJid);
 				}
 
-				await this.CalcThingIsOnline();
+				this.CalcThingIsOnline();
 			}
 			catch (Exception ex)
 			{
@@ -623,11 +642,12 @@ namespace IdApp.Pages.Things.ViewThing
 					}
 
 					this.XmppService.Xmpp.RequestPresenceUnsubscription(this.thing.BareJid);
-					this.XmppService.Xmpp.RemoveRosterItem(this.thing.BareJid);
+
+					if (this.XmppService.Xmpp.GetRosterItem(this.thing.BareJid) is not null)
+						this.XmppService.Xmpp.RemoveRosterItem(this.thing.BareJid);
 
 					this.thing.ObjectId = null;
 					this.InContacts = false;
-					this.InContactsAndNotOwner = false;
 				}
 			}
 			catch (Exception ex)
@@ -792,17 +812,21 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private Task Xmpp_OnRosterItemRemoved(object Sender, RosterItem Item)
 		{
-			return this.CalcThingIsOnline();
+			this.presences.Remove(Item.BareJid);
+			this.CalcThingIsOnline();
+			return Task.CompletedTask;
 		}
 
 		private Task Xmpp_OnRosterItemUpdated(object Sender, RosterItem Item)
 		{
-			return this.CalcThingIsOnline();
+			this.CalcThingIsOnline();
+			return Task.CompletedTask;
 		}
 
 		private Task Xmpp_OnRosterItemAdded(object Sender, RosterItem Item)
 		{
-			return this.CalcThingIsOnline();
+			this.CalcThingIsOnline();
+			return Task.CompletedTask;
 		}
 
 	}
