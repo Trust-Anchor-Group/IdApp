@@ -119,7 +119,8 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private void CheckCapabilities()
 		{
-			if (!this.thing.IsSensor.HasValue ||
+			if (this.InContacts &&
+				!this.thing.IsSensor.HasValue ||
 				!this.thing.IsActuator.HasValue ||
 				!this.thing.IsConcentrator.HasValue ||
 				!this.thing.SupportsSensorEvents.HasValue)
@@ -130,6 +131,9 @@ namespace IdApp.Pages.Things.ViewThing
 				{
 					this.XmppService.Xmpp.SendServiceDiscoveryRequest(FullJid, async (sender, e) =>
 					{
+						if (!this.InContacts)
+							return;
+
 						this.thing.IsSensor = e.HasFeature(SensorClient.NamespaceSensorData);
 						this.thing.SupportsSensorEvents = e.HasFeature(SensorClient.NamespaceSensorEvents);
 						this.thing.IsActuator = e.HasFeature(ControlClient.NamespaceControl);
@@ -144,6 +148,8 @@ namespace IdApp.Pages.Things.ViewThing
 							this.IsActuator = this.thing.IsActuator ?? false;
 							this.IsConcentrator = this.thing.IsConcentrator ?? false;
 							this.SupportsSensorEvents = this.thing.SupportsSensorEvents ?? false;
+
+							this.EvaluateAllCommands();
 						});
 					}, null);
 				}
@@ -166,10 +172,16 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private Task Xmpp_OnPresence(object Sender, PresenceEventArgs e)
 		{
-			if (e.IsOnline)
-				this.presences.Remove(e.FromBareJID);
-			else
-				this.presences[e.FromBareJID] = e;
+			switch (e.Type)
+			{
+				case PresenceType.Available:
+					this.presences[e.FromBareJID] = e;
+					break;
+
+				case PresenceType.Unavailable:
+					this.presences.Remove(e.FromBareJID);
+					break;
+			}
 
 			this.CalcThingIsOnline();
 
@@ -186,9 +198,9 @@ namespace IdApp.Pages.Things.ViewThing
 
 				if (this.IsThingOnline)
 					this.CheckCapabilities();
-
-				this.EvaluateAllCommands();
 			}
+
+			this.EvaluateAllCommands();
 		}
 
 		private bool IsOnline(string BareJid)
@@ -196,7 +208,7 @@ namespace IdApp.Pages.Things.ViewThing
 			if (this.presences.TryGetValue(BareJid, out PresenceEventArgs e))
 				return e.IsOnline;
 
-			RosterItem Item = this.XmppService.Xmpp.GetRosterItem(BareJid);
+			RosterItem Item = this.XmppService?.Xmpp?.GetRosterItem(BareJid);
 			if (Item is not null && Item.HasLastPresence)
 				return Item.LastPresence.IsOnline;
 
@@ -646,8 +658,21 @@ namespace IdApp.Pages.Things.ViewThing
 					if (this.XmppService.Xmpp.GetRosterItem(this.thing.BareJid) is not null)
 						this.XmppService.Xmpp.RemoveRosterItem(this.thing.BareJid);
 
-					this.thing.ObjectId = null;
-					this.InContacts = false;
+					this.UiSerializer.BeginInvokeOnMainThread(() =>
+					{
+						this.thing.ObjectId = null;
+						this.thing.IsActuator = null;
+						this.thing.IsSensor = null;
+						this.thing.IsConcentrator = null;
+
+						this.IsConcentrator = false;
+						this.IsSensor = false;
+						this.IsActuator = false;
+
+						this.InContacts = false;
+
+						this.EvaluateAllCommands();
+					});
 				}
 			}
 			catch (Exception ex)
@@ -685,10 +710,15 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private Task ControlFormCallback(object Sender, DataFormEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			if (e.Ok)
 			{
-				await this.NavigationService.GoToAsync(nameof(XmppFormPage), new XmppFormNavigationArgs(e.Form));
-			});
+				this.UiSerializer.BeginInvokeOnMainThread(async () =>
+				{
+					await this.NavigationService.GoToAsync(nameof(XmppFormPage), new XmppFormNavigationArgs(e.Form));
+				});
+			}
+			else
+				this.UiSerializer.DisplayAlert(e.StanzaError ?? new Exception("Unable to get control form."));
 
 			return Task.CompletedTask;
 		}
