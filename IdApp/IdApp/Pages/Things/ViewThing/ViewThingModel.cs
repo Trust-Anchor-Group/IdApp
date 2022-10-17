@@ -170,12 +170,21 @@ namespace IdApp.Pages.Things.ViewThing
 			await base.OnDispose();
 		}
 
-		private Task Xmpp_OnPresence(object Sender, PresenceEventArgs e)
+		private async Task Xmpp_OnPresence(object Sender, PresenceEventArgs e)
 		{
 			switch (e.Type)
 			{
 				case PresenceType.Available:
 					this.presences[e.FromBareJID] = e;
+
+					if (!this.InContacts)
+					{
+						if (string.IsNullOrEmpty(this.thing.ObjectId))
+							await Database.Insert(this.thing);
+
+						this.InContacts = true;
+					}
+
 					break;
 
 				case PresenceType.Unavailable:
@@ -183,9 +192,7 @@ namespace IdApp.Pages.Things.ViewThing
 					break;
 			}
 
-			this.CalcThingIsOnline();
-
-			return Task.CompletedTask;
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.CalcThingIsOnline());
 		}
 
 		private void CalcThingIsOnline()
@@ -604,14 +611,6 @@ namespace IdApp.Pages.Things.ViewThing
 				if (!await App.VerifyPin())
 					return;
 
-				if (!this.InContacts)
-				{
-					if (string.IsNullOrEmpty(this.thing.ObjectId))
-						await Database.Insert(this.thing);
-
-					this.InContacts = true;
-				}
-
 				RosterItem Item = this.XmppService.Xmpp.GetRosterItem(this.thing.BareJid);
 				if (Item is null || Item.State == SubscriptionState.None || Item.State == SubscriptionState.From)
 				{
@@ -628,8 +627,18 @@ namespace IdApp.Pages.Things.ViewThing
 
 					this.XmppService.Xmpp.RequestPresenceSubscription(this.thing.BareJid);
 				}
+				else
+				{
+					if (!this.InContacts)
+					{
+						if (string.IsNullOrEmpty(this.thing.ObjectId))
+							await Database.Insert(this.thing);
 
-				this.CalcThingIsOnline();
+						this.InContacts = true;
+					}
+
+					this.CalcThingIsOnline();
+				}
 			}
 			catch (Exception ex)
 			{
@@ -843,19 +852,19 @@ namespace IdApp.Pages.Things.ViewThing
 		private Task Xmpp_OnRosterItemRemoved(object Sender, RosterItem Item)
 		{
 			this.presences.Remove(Item.BareJid);
-			this.CalcThingIsOnline();
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.CalcThingIsOnline());
 			return Task.CompletedTask;
 		}
 
 		private Task Xmpp_OnRosterItemUpdated(object Sender, RosterItem Item)
 		{
-			this.CalcThingIsOnline();
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.CalcThingIsOnline());
 			return Task.CompletedTask;
 		}
 
 		private Task Xmpp_OnRosterItemAdded(object Sender, RosterItem Item)
 		{
-			this.CalcThingIsOnline();
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.CalcThingIsOnline());
 			return Task.CompletedTask;
 		}
 
