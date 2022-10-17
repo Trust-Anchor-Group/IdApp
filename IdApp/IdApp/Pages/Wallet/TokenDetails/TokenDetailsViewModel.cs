@@ -1134,7 +1134,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 		private Task OpenLink(object Parameter)
 		{
-			return App.OpenUrl(Parameter.ToString());
+			return App.OpenUrlAsync(Parameter.ToString());
 		}
 
 		private async Task ShowM2mInfo()
@@ -1147,7 +1147,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				if (e.Ok)
 				{
 					await e.PUT(Bin, "text/xml", (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
-					await App.OpenUrl(e.GetUrl);
+					await App.OpenUrlAsync(e.GetUrl);
 				}
 				else
 					await this.UiSerializer.DisplayAlert(e.StanzaError ?? new Exception(e.ErrorText));

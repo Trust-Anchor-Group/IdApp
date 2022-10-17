@@ -32,7 +32,7 @@ namespace IdApp.Services.Wallet
 		/// </summary>
 		public async Task OpenUrl(string Url)
 		{
-			await App.OpenUrl(Url);
+			await App.OpenUrlAsync(Url);
 		}
 
 		/// <summary>

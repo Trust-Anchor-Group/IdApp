@@ -289,7 +289,7 @@ namespace IdApp.Services.Messages
 			if (Parameter is not string Url)
 				return;
 
-			await App.OpenUrl(Url);
+			await App.OpenUrlAsync(Url);
 		}
 
 	}

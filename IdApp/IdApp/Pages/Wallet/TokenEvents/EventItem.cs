@@ -226,7 +226,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 				if (e.Ok)
 				{
 					await e.PUT(Bin, "text/xml", (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
-					await App.OpenUrl(e.GetUrl);
+					await App.OpenUrlAsync(e.GetUrl);
 				}
 				else
 					await this.@ref.UiSerializer.DisplayAlert(e.StanzaError ?? new Exception(e.ErrorText));
@@ -271,7 +271,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 					}
 				}
 
-				await App.OpenUrl(Source);
+				await App.OpenUrlAsync(Source);
 			}
 			catch (Exception ex)
 			{

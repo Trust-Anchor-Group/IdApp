@@ -388,7 +388,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 
 		private Task ExecuteOpenMessageLink()
 		{
-			return App.OpenUrl(this.Message);
+			return App.OpenUrlAsync(this.Message);
 		}
 
 		private bool CanExecuteOpenMessageLink()

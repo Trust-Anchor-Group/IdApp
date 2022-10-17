@@ -62,7 +62,14 @@
             <param name="IncludeUnchanged">If unchanged material should be included.</param>
             <param name="SendAsAlert">If an alert is to be sent.</param>
         </member>
-        <member name="M:IdApp.App.OpenUrl(System.String)">
+        <member name="M:IdApp.App.OpenUrlSync(System.String)">
+            <summary>
+            Opens an URL in the application.
+            </summary>
+            <param name="Url">URL</param>
+            <returns>If URL is processed or not.</returns>
+        </member>
+        <member name="M:IdApp.App.OpenUrlAsync(System.String)">
             <summary>
             Opens an URL in the application.
             </summary>

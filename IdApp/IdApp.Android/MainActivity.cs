@@ -22,6 +22,9 @@ namespace IdApp.Android
 		ScreenOrientation = ScreenOrientation.Portrait, LaunchMode = LaunchMode.SingleTop)]
 	[IntentFilter(new string[] { NfcAdapter.ActionNdefDiscovered },
 		Categories = new string[] { Intent.CategoryDefault }, DataMimeType = "*/*")]
+	[IntentFilter(new string[] { Intent.ActionView },
+		Categories = new string[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
+		DataSchemes = new string[] { "iotid", "iotdisco", "iotsc", "tagsign", "edaler", "nfeat", "obinfo", "xmpp", "tagidapp" })]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
 	{
 		private static NfcAdapter nfcAdapter = null;
@@ -129,23 +132,6 @@ namespace IdApp.Android
 			this.LoadApplication(new App());
 		}
 
-		public override async void OnCreate(Bundle SavedInstanceState, PersistableBundle PersistentState)
-		{
-			try
-			{
-				base.OnCreate(SavedInstanceState, PersistentState);
-
-				this.Init(SavedInstanceState);
-
-				string Url = this.Intent?.Data?.EncodedAuthority;
-				await App.OpenUrl(Url);
-			}
-			catch (Exception ex)
-			{
-				Waher.Events.Log.Critical(ex);
-			}
-		}
-
 		public override void OnRequestPermissionsResult(int RequestCode, string[] Permissions, [GeneratedEnum] Permission[] GrantResults)
 		{
 			Xamarin.Essentials.Platform.OnRequestPermissionsResult(RequestCode, Permissions, GrantResults);
@@ -179,6 +165,11 @@ namespace IdApp.Android
 			{
 				switch (Intent.Action)
 				{
+					case Intent.ActionView:
+						string Url = Intent?.Data?.ToString();
+						App.OpenUrlSync(Url);
+						break;
+
 					case NfcAdapter.ActionTagDiscovered:
 					case NfcAdapter.ActionNdefDiscovered:
 					case NfcAdapter.ActionTechDiscovered:
