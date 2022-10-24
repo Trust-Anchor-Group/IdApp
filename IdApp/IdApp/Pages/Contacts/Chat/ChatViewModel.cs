@@ -1192,6 +1192,11 @@ namespace IdApp.Pages.Contacts.Chat
 		public bool IsLinkable => true;
 
 		/// <summary>
+		/// If App links should be encoded with the link.
+		/// </summary>
+		public bool EncodeAppLinks => true;
+
+		/// <summary>
 		/// Link to the current view
 		/// </summary>
 		public string Link => Constants.UriSchemes.UriSchemeXmpp + ":" + this.BareJid;

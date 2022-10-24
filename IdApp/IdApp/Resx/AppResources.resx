@@ -2160,4 +2160,28 @@
   <data name="DisconnectFromDevice" xml:space="preserve">
     <value>Disconnect from Device</value>
   </data>
+  <data name="AndroidApp" xml:space="preserve">
+    <value>Android App</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="IosApp" xml:space="preserve">
+    <value>iOS App</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="LinksText" xml:space="preserve">
+    <value>By opening any of the links below, a programmable link view is opened. You can use this page to encode NFC tags, or use the QR code to transmit the link to others.</value>
+  </data>
+  <data name="LinkText" xml:space="preserve">
+    <value>You can scan the link from another app, or write it into an empty NFC tag, by placing the tag behind the phone until you get the corresponding signal.</value>
+  </data>
+  <data name="TrustAnchorGroup" xml:space="preserve">
+    <value>Trust Anchor Group</value>
+  </data>
 </root>

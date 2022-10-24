@@ -2160,4 +2160,28 @@
   <data name="DisconnectFromDevice" xml:space="preserve">
     <value>Deconectați-vă de la dispozitiv</value>
   </data>
+  <data name="AndroidApp" xml:space="preserve">
+    <value>Aplicația Android</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Obicei</value>
+  </data>
+  <data name="IosApp" xml:space="preserve">
+    <value>Aplicația iOS</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Legătură</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Legături</value>
+  </data>
+  <data name="LinksText" xml:space="preserve">
+    <value>Prin deschiderea oricare dintre link-urile de mai jos, se deschide o vizualizare link programabil. Puteți utiliza această pagină pentru a codifica etichete NFC sau puteți utiliza codul QR pentru a transmite linkul către alte persoane.</value>
+  </data>
+  <data name="LinkText" xml:space="preserve">
+    <value>Puteți scana linkul dintr-o altă aplicație sau îl puteți scrie într-o etichetă NFC goală, plasând eticheta în spatele telefonului până când obțineți semnalul corespunzător.</value>
+  </data>
+  <data name="TrustAnchorGroup" xml:space="preserve">
+    <value>Grupul ancoră de încredere</value>
+  </data>
 </root>

@@ -161,6 +161,12 @@
     <Compile Update="Pages\Main\Calculator\CalculatorPage.xaml.cs">
       <DependentUpon>CalculatorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\Main\Link\LinkPage.xaml.cs">
+      <DependentUpon>LinkPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Main\Links\LinksPage.xaml.cs">
+      <DependentUpon>LinksPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\Main\Security\SecurityPage.xaml.cs">
       <DependentUpon>SecurityPage.xaml</DependentUpon>
     </Compile>

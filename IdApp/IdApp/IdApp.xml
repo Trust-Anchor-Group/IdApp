@@ -2821,6 +2821,11 @@
             If the current view is linkable.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.EncodeAppLinks">
+            <summary>
+            If App links should be encoded with the link.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.Link">
             <summary>
             Link to the current view
@@ -3987,6 +3992,11 @@
             If the current view is linkable.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.EncodeAppLinks">
+            <summary>
+            If App links should be encoded with the link.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.Link">
             <summary>
             Link to the current view
@@ -4667,6 +4677,11 @@
         <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.IsLinkable">
             <summary>
             If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.EncodeAppLinks">
+            <summary>
+            If App links should be encoded with the link.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.Link">
@@ -7146,6 +7161,11 @@
             If the current view is linkable.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.ILinkableView.EncodeAppLinks">
+            <summary>
+            If App links should be encoded with the link.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.ILinkableView.Link">
             <summary>
             Link to the current view
@@ -7588,6 +7608,101 @@
         <member name="F:IdApp.Pages.Main.Calculator.StackItem.StartParenthesis">
             <summary>
             If parenthesis was started
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Links.LinksPage">
+            <summary>
+            A page that allows the user to calculate the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Links.LinksPage.#ctor">
+            <summary>
+            A page that allows the user to calculate the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Links.LinksViewModel">
+            <summary>
+            The view model to bind to for when displaying links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Links.LinksViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Main.Links.LinksViewModel"/> class.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Links.LinksViewModel.OpenLinkCommand">
+            <summary>
+            Command executed when user wants to open a specific link.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Link.LinkNavigationArgs">
+            <summary>
+            Holds navigation parameters for the link view.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Link.LinkNavigationArgs.#ctor">
+            <summary>
+            Holds navigation parameters for the link view.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Link.LinkNavigationArgs.#ctor(System.String,System.String)">
+            <summary>
+            Holds navigation parameters for the link view.
+            </summary>
+            <param name="Url">Url to display.</param>
+            <param name="Title">Title</param>
+        </member>
+        <member name="P:IdApp.Pages.Main.Link.LinkNavigationArgs.Url">
+            <summary>
+            URL to display
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Link.LinkNavigationArgs.Title">
+            <summary>
+            Title to display
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Link.LinkPage">
+            <summary>
+            A page that allows the user to calculate the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Link.LinkPage.#ctor">
+            <summary>
+            A page that allows the user to calculate the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Link.LinkViewModel">
+            <summary>
+            The view model to bind to for when displaying links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Link.LinkViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Main.Link.LinkViewModel"/> class.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Link.LinkViewModel.Title">
+            <summary>
+            Title of the current view
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Link.LinkViewModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Main.Link.LinkViewModel.TitleStringProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Link.LinkViewModel.TitleString"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Link.LinkViewModel.TitleString">
+            <summary>
+            Current entry
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Link.LinkViewModel.EncodeAppLinks">
+            <summary>
+            If App links should be encoded with the link.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Loading.LoadingPage">
@@ -8169,7 +8284,7 @@
         </member>
         <member name="T:IdApp.Pages.Main.Security.SecurityViewModel">
             <summary>
-            The view model to bind to for when displaying the calculator.
+            The view model to bind to for when displaying security options.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Main.Security.SecurityViewModel.#ctor">
@@ -8556,6 +8671,11 @@
         <member name="P:IdApp.Pages.QrXmppViewModel.IsLinkable">
             <summary>
             If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.QrXmppViewModel.EncodeAppLinks">
+            <summary>
+            If App links should be encoded with the link.
             </summary>
         </member>
         <member name="P:IdApp.Pages.QrXmppViewModel.Link">
@@ -11691,6 +11811,11 @@
         <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.IsLinkable">
             <summary>
             If the current view is linkable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.EncodeAppLinks">
+            <summary>
+            If App links should be encoded with the link.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.Link">
@@ -16285,6 +16410,11 @@
               Looks up a localized string similar to Amount Extra: (optional, suggestion).
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.AndroidApp">
+            <summary>
+              Looks up a localized string similar to Android App.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Anonymous">
             <summary>
               Looks up a localized string similar to Anonymous.
@@ -16803,6 +16933,11 @@
         <member name="P:IdApp.Resx.AppResources.CurrentVariables">
             <summary>
               Looks up a localized string similar to Current Variables.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Custom">
+            <summary>
+              Looks up a localized string similar to Custom.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.DatabaseCorruptInfoText">
@@ -17340,6 +17475,11 @@
               Looks up a localized string similar to Invite peer to review.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.IosApp">
+            <summary>
+              Looks up a localized string similar to iOS App.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Key">
             <summary>
               Looks up a localized string similar to Key.
@@ -17363,6 +17503,26 @@
         <member name="P:IdApp.Resx.AppResources.LegalServiceNotFound">
             <summary>
               Looks up a localized string similar to No legal service found on broker..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Link">
+            <summary>
+              Looks up a localized string similar to Link.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Links">
+            <summary>
+              Looks up a localized string similar to Links.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.LinksText">
+            <summary>
+              Looks up a localized string similar to By opening any of the links below, a programmable link view is opened. You can use this page to encode NFC tags, or use the QR code to transmit the link to others..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.LinkText">
+            <summary>
+              Looks up a localized string similar to You can scan the link from another app, or write it into an empty NFC tag, by placing the tag behind the phone until you get the corresponding signal..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Loading">
@@ -19100,6 +19260,11 @@
               Looks up a localized string similar to Transferred.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.TrustAnchorGroup">
+            <summary>
+              Looks up a localized string similar to Trust Anchor Group.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.TrustProvider">
             <summary>
               Looks up a localized string similar to Trust Provider.
@@ -19754,6 +19919,11 @@
         <member name="F:IdApp.Resx.FontAwesome.UserShield">
             <summary>
             user-shield
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.FontAwesome.Link">
+            <summary>
+            link
             </summary>
         </member>
         <member name="T:IdApp.Resx.Pngs">

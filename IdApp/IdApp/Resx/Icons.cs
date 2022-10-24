@@ -186,5 +186,10 @@
 		/// </summary>
 		public const string UserShield = "\uf505";
 
+		/// <summary>
+		/// link
+		/// </summary>
+		public const string Link = "\uf0c1";
+
 	}
 }

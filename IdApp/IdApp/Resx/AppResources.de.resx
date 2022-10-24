@@ -2160,4 +2160,28 @@
   <data name="DisconnectFromDevice" xml:space="preserve">
     <value>Verbindung zum Gerät trennen</value>
   </data>
+  <data name="AndroidApp" xml:space="preserve">
+    <value>Android-App</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Gewohnheit</value>
+  </data>
+  <data name="IosApp" xml:space="preserve">
+    <value>iOS-App</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Verbinden</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Verknüpfungen</value>
+  </data>
+  <data name="LinksText" xml:space="preserve">
+    <value>Durch Öffnen eines der folgenden Links wird eine programmierbare Linkansicht geöffnet. Sie können diese Seite verwenden, um NFC-Tags zu codieren, oder den QR-Code verwenden, um den Link an andere zu übertragen.</value>
+  </data>
+  <data name="LinkText" xml:space="preserve">
+    <value>Sie können den Link von einer anderen App scannen oder in ein leeres NFC-Tag schreiben, indem Sie das Tag hinter dem Telefon platzieren, bis Sie das entsprechende Signal erhalten.</value>
+  </data>
+  <data name="TrustAnchorGroup" xml:space="preserve">
+    <value>Ankergruppe vertrauen</value>
+  </data>
 </root>

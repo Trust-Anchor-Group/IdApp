@@ -81,13 +81,18 @@ namespace IdApp.Services.Nfc
 								string Link = LinkableView.Link;
 								string Title = await LinkableView.Title;
 
-								List<object> Items = new()
+								List<object> Items = new();
+
+								if (LinkableView.EncodeAppLinks)
+									Items.Add(Title);
+
+								Items.Add(new Uri(Link));
+
+								if (LinkableView.EncodeAppLinks)
 								{
-									Title,
-									new Uri(Link),
-									new Uri(Constants.References.AndroidApp),
-									new Uri(Constants.References.IPhoneApp)
-								};
+									Items.Add(new Uri(Constants.References.AndroidApp));
+									Items.Add(new Uri(Constants.References.IPhoneApp));
+								}
 
 								if (LinkableView.HasMedia)
 									Items.Add(new KeyValuePair<byte[], string>(LinkableView.Media, LinkableView.MediaContentType));

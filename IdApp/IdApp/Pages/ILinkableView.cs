@@ -13,6 +13,11 @@ namespace IdApp.Pages
 		bool IsLinkable { get; }
 
 		/// <summary>
+		/// If App links should be encoded with the link.
+		/// </summary>
+		bool EncodeAppLinks { get; }
+
+		/// <summary>
 		/// Link to the current view
 		/// </summary>
 		string Link { get; }

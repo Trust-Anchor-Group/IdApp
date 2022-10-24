@@ -2160,4 +2160,28 @@
   <data name="DisconnectFromDevice" xml:space="preserve">
     <value>Koble fra enheten</value>
   </data>
+  <data name="AndroidApp" xml:space="preserve">
+    <value>Android-appen</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Skikk</value>
+  </data>
+  <data name="IosApp" xml:space="preserve">
+    <value>iOS-appen</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Lenke</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Koblinger</value>
+  </data>
+  <data name="LinksText" xml:space="preserve">
+    <value>Ved å åpne noen av koblingene nedenfor åpnes en programmerbar koblingsvisning. Du kan bruke denne siden til å kode NFC -koder, eller bruke QR-koden til å overføre lenken til andre.</value>
+  </data>
+  <data name="LinkText" xml:space="preserve">
+    <value>Du kan skanne lenken fra en annen app, eller skrive den inn i en tom NFC -tag ved å plassere taggen bak telefonen til du får det tilsvarende signalet.</value>
+  </data>
+  <data name="TrustAnchorGroup" xml:space="preserve">
+    <value>Klarere ankergruppe</value>
+  </data>
 </root>

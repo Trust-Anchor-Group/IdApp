@@ -9,7 +9,7 @@ using Xamarin.Forms;
 namespace IdApp.Pages.Main.Security
 {
 	/// <summary>
-	/// The view model to bind to for when displaying the calculator.
+	/// The view model to bind to for when displaying security options.
 	/// </summary>
 	public class SecurityViewModel : XmppViewModel
 	{

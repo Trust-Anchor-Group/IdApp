@@ -161,6 +161,11 @@ namespace IdApp.Pages
 		public virtual bool IsLinkable => this.HasQrCode;
 
 		/// <summary>
+		/// If App links should be encoded with the link.
+		/// </summary>
+		public virtual bool EncodeAppLinks => true;
+
+		/// <summary>
 		/// Link to the current view
 		/// </summary>
 		public virtual string Link => this.QrCodeUri;
