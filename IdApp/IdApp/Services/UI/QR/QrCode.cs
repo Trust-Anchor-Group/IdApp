@@ -186,7 +186,10 @@ namespace IdApp.Services.UI.QR
 							return true;
 						else
 						{
-							await Services.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["QrCodeNotUnderstood"] + Environment.NewLine + Environment.NewLine + Url);
+							await Services.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"],
+								LocalizationResourceManager.Current["QrCodeNotUnderstood"] + Environment.NewLine +
+								Environment.NewLine + Url);
+
 							return false;
 						}
 				}
