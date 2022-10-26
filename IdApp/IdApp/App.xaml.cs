@@ -1,7 +1,6 @@
 ﻿using EDaler;
 using IdApp.DeviceSpecific;
 using IdApp.Extensions;
-using IdApp.Helpers.Svg;
 using IdApp.Pages;
 using IdApp.Resx;
 using IdApp.Services;
@@ -122,8 +121,6 @@ namespace IdApp
 				this.startupProfiler = new Profiler("App.ctor", ProfilerThreadType.Sequential);  // Comment out to remove startup profiling.
 				this.startupProfiler?.Start();
 				this.startupProfiler?.NewState("Init");
-
-				SvgImageSource.RegisterAssembly();
 
 				AppDomain.CurrentDomain.FirstChanceException += this.CurrentDomain_FirstChanceException;
 				AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;

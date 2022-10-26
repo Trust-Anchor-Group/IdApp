@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
-                       xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
-                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
-                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
-                       xmlns:model="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"
-					   xmlns:svg="clr-namespace:IdApp.Helpers.Svg"
-					   x:DataType="model:RegisterIdentityViewModel"
-                       x:Class="IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityView">
+<views:ContentBaseView
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+	xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
+	xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
+	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+	xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+	xmlns:model="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"
+	xmlns:controls="clr-namespace:Vet20.Controls"
+	x:DataType="model:RegisterIdentityViewModel"
+	x:Class="IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityView">
     <ContentView.Content>
         <ScrollView x:Name="RegistrationLayout" Orientation="Vertical" Margin="{StaticResource DefaultTopOnlyMargin}">
             <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}" Spacing="12">
@@ -34,60 +36,48 @@
                             </Grid>
                         </Frame>
 
-						<ImageButton x:Name="RemovePhotoButton" Grid.Column="1" HorizontalOptions="Center"
-									 Style="{StaticResource SvgIconButton}"
-									 Command="{Binding Path=RemovePhotoCommand}"
-									 IsVisible="{Binding Path=HasPhoto}">
-							<ImageButton.Source>
-								<svg:SvgImageSource Source="{x:Static resx:Svgs.Trash}" Color="White" />
-							</ImageButton.Source>
-						</ImageButton>
 
-						<!--
-						<Button x:Name="RemovePhotoButton" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center"
-                                Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeRegular}"
-                                Text="{x:Static resx:FontAwesome.TrashAlt}" Command="{Binding Path=RemovePhotoCommand}"
-                                IsVisible="{Binding Path=HasPhoto}" />
-						-->
+						<Frame Style="{StaticResource TintedSvgIconButton}"
+							   Grid.Column="1" HorizontalOptions="Center"
+							   IsVisible="{Binding Path=HasPhoto}"
+							   xct:TouchEffect.AnimationDuration="100"
+							   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+							   xct:TouchEffect.PressedOpacity="0.75"
+							   xct:TouchEffect.Command="{Binding Path=RemovePhotoCommand}">
+							<controls:TintedSvgCachedImage
+								Source="{x:Static resx:Svgs.Trash}" TintColor="White" />
+						</Frame>
+
 						<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"
                                      Spacing="4" Grid.Column="1" Grid.Row="1">
-							<ImageButton x:Name="AddPhotoButton"
-										 Style="{StaticResource SvgIconButton}"
-										 Command="{Binding Path=TakePhotoCommand}">
-								<ImageButton.Source>
-									<svg:SvgImageSource Source="{x:Static resx:Svgs.Camera}" Color="White" />
-								</ImageButton.Source>
-							</ImageButton>
 
-							<ImageButton x:Name="PickPhotoButton"
-										 Style="{StaticResource SvgIconButton}"
-										 Command="{Binding Path=PickPhotoCommand}">
-								<ImageButton.Source>
-									<svg:SvgImageSource Source="{x:Static resx:Svgs.Images}" Color="White" />
-								</ImageButton.Source>
-							</ImageButton>
+							<Frame Style="{StaticResource TintedSvgIconButton}"
+								   xct:TouchEffect.AnimationDuration="100"
+								   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+								   xct:TouchEffect.PressedOpacity="0.75"
+								   xct:TouchEffect.Command="{Binding Path=TakePhotoCommand}">
+								<controls:TintedSvgCachedImage
+									Source="{x:Static resx:Svgs.Camera}" TintColor="White" />
+							</Frame>
 
-							<ImageButton x:Name="EPassportButton"
-										 Style="{StaticResource SvgIconButton}"
-										 Command="{Binding Path=EPassportCommand}"
-										 IsVisible="{Binding Path=IsTest}">
-								<ImageButton.Source>
-									<svg:SvgImageSource Source="{x:Static resx:Svgs.Passport}" Color="White" />
-								</ImageButton.Source>
-							</ImageButton>
+							<Frame Style="{StaticResource TintedSvgIconButton}"
+								   xct:TouchEffect.AnimationDuration="100"
+								   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+								   xct:TouchEffect.PressedOpacity="0.75"
+								   xct:TouchEffect.Command="{Binding Path=PickPhotoCommand}">
+								<controls:TintedSvgCachedImage
+									Source="{x:Static resx:Svgs.Images}" TintColor="White" />
+							</Frame>
 
-							<!--
-							<Button x:Name="AddPhotoButton"
-                                Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeSolid}"
-                                Text="{x:Static resx:FontAwesome.Camera}" Command="{Binding Path=TakePhotoCommand}" />
-							<Button x:Name="PickPhotoButton"
-                                Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeRegular}"
-                                Text="{x:Static resx:FontAwesome.Images}" Command="{Binding Path=PickPhotoCommand}" />
-							<Button x:Name="EPassportButton"
-                                    Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeSolid}"
-                                    Text="{x:Static resx:FontAwesome.Passport}" Command="{Binding Path=EPassportCommand}"
-                                    IsVisible="{Binding Path=IsTest}" />
-							-->
+							<Frame Style="{StaticResource TintedSvgIconButton}"
+								   IsVisible="{Binding Path=IsTest}"
+								   xct:TouchEffect.AnimationDuration="100"
+								   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+								   xct:TouchEffect.PressedOpacity="0.75"
+								   xct:TouchEffect.Command="{Binding Path=EPassportCommand}">
+								<controls:TintedSvgCachedImage
+									Source="{x:Static resx:Svgs.Passport}" TintColor="White" />
+							</Frame>
                         </StackLayout>
                     </Grid>
                 </Frame>

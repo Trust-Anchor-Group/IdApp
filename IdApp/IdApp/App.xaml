@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:helpers="clr-namespace:IdApp.Helpers;assembly=IdApp"
-			 xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
-			 xmlns:templatedSwitch="clr-namespace:IdApp.Controls.TemplatedSwitch;assembly=IdApp"
-             x:Class="IdApp.App">
+<Application
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:helpers="clr-namespace:IdApp.Helpers;assembly=IdApp"
+	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+	xmlns:controls="clr-namespace:Vet20.Controls;assembly=IdApp"
+	xmlns:templatedSwitch="clr-namespace:IdApp.Controls.TemplatedSwitch;assembly=IdApp"
+	x:Class="IdApp.App">
     <Application.Resources>
         <OnPlatform x:TypeArguments="x:String"
                     x:Key="FontAwesomeRegular">
@@ -120,15 +122,17 @@
             <Setter Property="HorizontalOptions" Value="FillAndExpand" />
             <Setter Property="VerticalOptions" Value="Start" />
         </Style>
-		<Style TargetType="ImageButton"
-			   x:Key="SvgIconButton"
+		<Style TargetType="Frame"
+			   x:Key="TintedSvgIconButton"
                ApplyToDerivedTypes="True"
 			   CanCascade="True">
 			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
-			<Setter Property="CornerRadius" Value="4" />
 			<Setter Property="HeightRequest" Value="40" />
 			<Setter Property="WidthRequest" Value="40" />
+			<Setter Property="CornerRadius" Value="4" />
 			<Setter Property="Padding" Value="10" />
+			<Setter Property="Margin" Value="0" />
+			<Setter Property="HasShadow" Value="False" />
 			<Setter Property="HorizontalOptions" Value="FillAndExpand" />
 			<Setter Property="VerticalOptions" Value="Start" />
 		</Style>
@@ -314,14 +318,14 @@
 			<Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}" />
 		</Style>
 
-		<!--- RegistrationPage background color should be the same as RegistrationPageHeader background color. -->		
+		<!--- RegistrationPage background color should be the same as RegistrationPageHeader background color. -->
 		<Style TargetType="ContentPage" ApplyToDerivedTypes="True" x:Key="RegistrationPage">
 			<Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}" />
 		</Style>
 		<Style TargetType="VisualElement" ApplyToDerivedTypes="True" x:Key="RegistrationPageHeader">
 			<Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}" />
 		</Style>
-		
+
 		<Style TargetType="Editor">
 			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
 			<Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>

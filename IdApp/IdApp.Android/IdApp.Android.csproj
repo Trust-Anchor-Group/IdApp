@@ -125,8 +125,6 @@
     <Compile Include="SecureDisplay.cs" />
     <Compile Include="CloseApplication.cs" />
     <Compile Include="Effects\PasswordMaskTogglerEffect.cs" />
-    <Compile Include="Helpers\Svg\SvgImage.cs" />
-    <Compile Include="Helpers\Svg\SvgImageSourceHandler.cs" />
     <Compile Include="Nfc\NdefFormatableInterface.cs" />
     <Compile Include="Nfc\NdefInterface.cs" />
     <Compile Include="Nfc\MifareClassicInterface.cs" />
