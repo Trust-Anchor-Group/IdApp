@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+                       xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Main.Link;assembly=IdApp"
+                       x:DataType="model:LinkViewModel"
+                       x:Class="IdApp.Pages.Main.Link.LinkPage"
+					   Style="{StaticResource BaseBackgroundPage}"
+                       Title="{Binding TitleString}">
+	<ScrollView>
+		<StackLayout Margin="{StaticResource DefaultMargin}" VerticalOptions="Start">
+			<Label Text="{x:Static resx:AppResources.Link}" Style="{StaticResource Heading}" />
+			<Label Text="{x:Static resx:AppResources.LinkText}" Style="{StaticResource InfoText}" Margin="{StaticResource DefaultBottomOnlyMargin}" />
+
+			<Image Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="3" x:Name="QrCode" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="CenterAndExpand" Margin="0" />
+		</StackLayout>
+	</ScrollView>
+</views:ContentBasePage>

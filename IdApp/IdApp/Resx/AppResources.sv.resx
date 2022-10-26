@@ -2136,4 +2136,28 @@
   <data name="DisconnectFromDevice" xml:space="preserve">
     <value>Koppla från enhet</value>
   </data>
+  <data name="AndroidApp" xml:space="preserve">
+    <value>Android App</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Valfri</value>
+  </data>
+  <data name="IosApp" xml:space="preserve">
+    <value>iOS App</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Länk</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Länkar</value>
+  </data>
+  <data name="LinksText" xml:space="preserve">
+    <value>Genom att öppna länkarna nedan kommer en programmerbar länkvy att öppnas. Du kan använda denna sida för att programmera NFC-taggar, eller använda QR-koden för att skicka länken till andra.</value>
+  </data>
+  <data name="LinkText" xml:space="preserve">
+    <value>Du kan scanna länken från en annan app, eller skriva den till en tom NFC-tag genom att placera den bakom telefonen till du får motsvarande signal.</value>
+  </data>
+  <data name="TrustAnchorGroup" xml:space="preserve">
+    <value>Trust Anchor Group</value>
+  </data>
 </root>

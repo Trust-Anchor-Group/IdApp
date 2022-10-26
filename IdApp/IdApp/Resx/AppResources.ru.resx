@@ -2160,4 +2160,28 @@
   <data name="DisconnectFromDevice" xml:space="preserve">
     <value>Отключение от устройства</value>
   </data>
+  <data name="AndroidApp" xml:space="preserve">
+    <value>Приложение для Android</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Обычай</value>
+  </data>
+  <data name="IosApp" xml:space="preserve">
+    <value>Приложение для iOS</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Связь</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Дюны</value>
+  </data>
+  <data name="LinksText" xml:space="preserve">
+    <value>Открыв любую из приведенных ниже ссылок, открывается программируемое представление ссылок. Вы можете использовать эту страницу для кодирования NFC-меток или использовать QR-код для передачи ссылки другим.</value>
+  </data>
+  <data name="LinkText" xml:space="preserve">
+    <value>Вы можете отсканировать ссылку из другого приложения или записать ее в пустую метку NFC, поместив метку позади телефона, пока не получите соответствующий сигнал.</value>
+  </data>
+  <data name="TrustAnchorGroup" xml:space="preserve">
+    <value>Группа привязки доверия</value>
+  </data>
 </root>

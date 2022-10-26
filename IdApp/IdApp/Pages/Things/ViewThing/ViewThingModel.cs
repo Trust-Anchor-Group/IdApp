@@ -177,7 +177,7 @@ namespace IdApp.Pages.Things.ViewThing
 				case PresenceType.Available:
 					this.presences[e.FromBareJID] = e;
 
-					if (!this.InContacts)
+					if (!this.InContacts && string.Compare(e.FromBareJID, this.thing.BareJid, true) == 0)
 					{
 						if (string.IsNullOrEmpty(this.thing.ObjectId))
 							await Database.Insert(this.thing);
@@ -874,6 +874,11 @@ namespace IdApp.Pages.Things.ViewThing
 		/// If the current view is linkable.
 		/// </summary>
 		public bool IsLinkable => true;
+
+		/// <summary>
+		/// If App links should be encoded with the link.
+		/// </summary>
+		public bool EncodeAppLinks => true;
 
 		/// <summary>
 		/// Link to the current view

@@ -277,6 +277,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Android App.
+        /// </summary>
+        internal static string AndroidApp {
+            get {
+                return ResourceManager.GetString("AndroidApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anonymous.
         /// </summary>
         internal static string Anonymous {
@@ -1209,6 +1218,15 @@ namespace IdApp.Resx {
         internal static string CurrentVariables {
             get {
                 return ResourceManager.GetString("CurrentVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom.
+        /// </summary>
+        internal static string Custom {
+            get {
+                return ResourceManager.GetString("Custom", resourceCulture);
             }
         }
         
@@ -2176,6 +2194,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to iOS App.
+        /// </summary>
+        internal static string IosApp {
+            get {
+                return ResourceManager.GetString("IosApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Key.
         /// </summary>
         internal static string Key {
@@ -2217,6 +2244,42 @@ namespace IdApp.Resx {
         internal static string LegalServiceNotFound {
             get {
                 return ResourceManager.GetString("LegalServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link.
+        /// </summary>
+        internal static string Link {
+            get {
+                return ResourceManager.GetString("Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Links.
+        /// </summary>
+        internal static string Links {
+            get {
+                return ResourceManager.GetString("Links", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By opening any of the links below, a programmable link view is opened. You can use this page to encode NFC tags, or use the QR code to transmit the link to others..
+        /// </summary>
+        internal static string LinksText {
+            get {
+                return ResourceManager.GetString("LinksText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can scan the link from another app, or write it into an empty NFC tag, by placing the tag behind the phone until you get the corresponding signal..
+        /// </summary>
+        internal static string LinkText {
+            get {
+                return ResourceManager.GetString("LinkText", resourceCulture);
             }
         }
         
@@ -5340,6 +5403,15 @@ namespace IdApp.Resx {
         internal static string Transferred {
             get {
                 return ResourceManager.GetString("Transferred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trust Anchor Group.
+        /// </summary>
+        internal static string TrustAnchorGroup {
+            get {
+                return ResourceManager.GetString("TrustAnchorGroup", resourceCulture);
             }
         }
         

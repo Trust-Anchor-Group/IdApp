@@ -2160,4 +2160,28 @@
   <data name="DisconnectFromDevice" xml:space="preserve">
     <value>Prekini vezu sa uređajem</value>
   </data>
+  <data name="AndroidApp" xml:space="preserve">
+    <value>Android aplikacija</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Prilagođene</value>
+  </data>
+  <data name="IosApp" xml:space="preserve">
+    <value>iOS aplikacija</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Vezu</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Veze</value>
+  </data>
+  <data name="LinksText" xml:space="preserve">
+    <value>Otvaranjem bilo koje od dole navedenih veza otvara se programski prikaz veze. Ovu stranicu možete koristiti za kodiranje NFC oznaka ili za prenos veze sa drugima.</value>
+  </data>
+  <data name="LinkText" xml:space="preserve">
+    <value>Vezu možete skenirati iz druge aplikacije ili je zapisati u praznu NFC oznaku, tako što ćete postaviti oznaku iza telefona dok ne dobijete odgovarajući signal.</value>
+  </data>
+  <data name="TrustAnchorGroup" xml:space="preserve">
+    <value>Grupa sidra poverenja</value>
+  </data>
 </root>

@@ -14,6 +14,8 @@ using IdApp.Pages.Identity.PetitionIdentity;
 using IdApp.Pages.Identity.TransferIdentity;
 using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Pages.Main.Calculator;
+using IdApp.Pages.Main.Link;
+using IdApp.Pages.Main.Links;
 using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Pages.Main.Security;
 using IdApp.Pages.Main.XmppForm;
@@ -118,6 +120,8 @@ namespace IdApp.Pages.Main.Shell
 			Routing.RegisterRoute(nameof(CalculatorPage), typeof(CalculatorPage));
 			Routing.RegisterRoute(nameof(SecurityPage), typeof(SecurityPage));
 			Routing.RegisterRoute(nameof(XmppFormPage), typeof(XmppFormPage));
+			Routing.RegisterRoute(nameof(LinksPage), typeof(LinksPage));
+			Routing.RegisterRoute(nameof(LinkPage), typeof(LinkPage));
 
 			// Identity:
 			Routing.RegisterRoute(nameof(ViewIdentityPage), typeof(ViewIdentityPage));
@@ -225,6 +229,11 @@ namespace IdApp.Pages.Main.Shell
 		private async void Security_Clicked(object Sender, EventArgs e)
 		{
 			await this.GoToPage(nameof(SecurityPage), new NavigationArgs());
+		}
+
+		private async void Links_Clicked(object Sender, EventArgs e)
+		{
+			await this.GoToPage(nameof(LinksPage), new NavigationArgs());
 		}
 
 		private void ExitMenuItem_Clicked(object Sender, EventArgs e)
