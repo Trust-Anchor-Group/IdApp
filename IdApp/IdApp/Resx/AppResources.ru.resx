@@ -409,7 +409,7 @@
     <value>Я одобряю, чтобы моя личная информация была связана с юридическим лицом, которое я просматриваю, в целях прозрачности.</value>
   </data>
   <data name="ID" xml:space="preserve">
-    <value>ИДЕНТИФИКАТОР</value>
+    <value>Идентификатор</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
     <value>Ссылка на идентификатор была скопирована в буфер обмена.</value>
@@ -583,7 +583,7 @@
     <value>Автономный</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>ХОРОШО</value>
+    <value>Хорошо</value>
   </data>
   <data name="Online" xml:space="preserve">
     <value>Онлайн</value>
@@ -1393,7 +1393,7 @@
     <value>Нет, просто игнорируйте</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Другой</value>
+    <value>Другое</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Сообщать</value>
@@ -1711,7 +1711,7 @@
     <value>Показать определение M2M</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Описание</value>
+    <value>Приметы:</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Действия</value>
@@ -1966,7 +1966,7 @@
     <value>Мгновенный</value>
   </data>
   <data name="SensorDataHeaderOther" xml:space="preserve">
-    <value>Другой</value>
+    <value>Другое</value>
   </data>
   <data name="SensorDataHeaderPeak" xml:space="preserve">
     <value>Пик</value>
@@ -2183,5 +2183,44 @@
   </data>
   <data name="TrustAnchorGroup" xml:space="preserve">
     <value>Группа привязки доверия</value>
+  </data>
+  <data name="ClientMessageAuthenticationTimeout" xml:space="preserve">
+    <value>Ответ не возвращается в течение заданного времени.</value>
+  </data>
+  <data name="ClientMessageCountryCodeMismatch" xml:space="preserve">
+    <value>Код страны не совпадает.</value>
+  </data>
+  <data name="ClientMessageCountryCodeNotVerified" xml:space="preserve">
+    <value>Код страны не проверен.</value>
+  </data>
+  <data name="ClientMessageFirstNameNotVerified" xml:space="preserve">
+    <value>Имя не проверено.</value>
+  </data>
+  <data name="ClientMessageLastNameNotVerified" xml:space="preserve">
+    <value>Фамилия не проверена.</value>
+  </data>
+  <data name="ClientMessageNotValid" xml:space="preserve">
+    <value>Недопустимая идентификация.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberMismatch" xml:space="preserve">
+    <value>Личный номер не совпадает.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberNotVerified" xml:space="preserve">
+    <value>Личный номер не верифицирован.</value>
+  </data>
+  <data name="ClientMessageReferenceMismatch" xml:space="preserve">
+    <value>Возвращенная ссылка не соответствует ссылке запроса.</value>
+  </data>
+  <data name="ClientMessageUnexpectedDocumentInformation" xml:space="preserve">
+    <value>Сведения о документе не возвращаются должным образом.</value>
+  </data>
+  <data name="ClientMessageUnexpectedEventResult" xml:space="preserve">
+    <value>Результат события не возвращается должным образом.</value>
+  </data>
+  <data name="ClientMessageUnexpectedResult" xml:space="preserve">
+    <value>Неожиданный ответ вернулся.</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Информация</value>
   </data>
 </root>

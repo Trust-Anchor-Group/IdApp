@@ -133,10 +133,10 @@
     <value>A continuación puede ver información sobre un evento de una sola cuenta.</value>
   </data>
   <data name="AccountNameAlreadyTaken" xml:space="preserve">
-    <value>El nombre de la cuenta ya {0} está tomada. Elige otro.</value>
+    <value>El nombre de cuenta {0} ya está ocupado. Elige otro.</value>
   </data>
   <data name="AccountNameIsInvalid" xml:space="preserve">
-    <value>El nombre de la cuenta no es válido</value>
+    <value>El nombre de cuenta no es válido</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Agregar</value>
@@ -169,10 +169,10 @@
     <value>Se ha aceptado una revisión por pares que solicitó.</value>
   </data>
   <data name="APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError" xml:space="preserve">
-    <value>Una revisión por pares que solicitó ha sido rechazada debido a un error de firma.</value>
+    <value>Una revisión por pares solicitada ha sido rechazada debido a un error de firma.</value>
   </data>
   <data name="APeerYouRequestedToReviewHasRejected" xml:space="preserve">
-    <value>Un compañero que solicitó para revisar su solicitud, ha rechazado aprobarla.</value>
+    <value>Un compañero al que solicitó revisar su solicitud, ha rechazado aprobarla.</value>
   </data>
   <data name="APetitionHasBeenSentToTheContract" xml:space="preserve">
     <value>Se ha enviado una petición a las partes del contrato. Si alguna de las partes acepta la petición, la información del contrato se mostrará en la pantalla.</value>
@@ -202,7 +202,7 @@
     <value>¿Está seguro de que desea denunciar su identidad legal como comprometida, robada o pirateada?</value>
   </data>
   <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
-    <value>¿Está seguro de que desea revocar su identidad legal de la solicitud?</value>
+    <value>¿Está seguro de que desea revocar su identidad legal de la aplicación?</value>
   </data>
   <data name="Balance" xml:space="preserve">
     <value>Equilibrar:</value>
@@ -238,13 +238,13 @@
     <value>Firma del cliente</value>
   </data>
   <data name="ClientSignatureInformationInfoText" xml:space="preserve">
-    <value>La siguiente es información relacionada con una firma de cliente.</value>
+    <value>La siguiente es información relacionada con la firma de un cliente.</value>
   </data>
   <data name="ClientSignatures" xml:space="preserve">
     <value>Firmas de clientes</value>
   </data>
   <data name="ClientSignaturesInfoText" xml:space="preserve">
-    <value>Las firmas criptográficas hechas por diferentes partes se enumeran a continuación.</value>
+    <value>Las firmas criptográficas realizadas por diferentes partes se enumeran a continuación.</value>
   </data>
   <data name="CodeNotRecognized" xml:space="preserve">
     <value>Código no reconocido.</value>
@@ -262,22 +262,22 @@
     <value>Contactos</value>
   </data>
   <data name="ContactsDescription" xml:space="preserve">
-    <value>A continuación se muestran todos los contactos en su libreta de contactos. Haga clic en cualquiera para interactuar con ese contacto.</value>
+    <value>A continuación se muestran todos los contactos de su libreta de contactos. Haga clic en cualquiera para interactuar con ese contacto.</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continuar</value>
   </data>
   <data name="ContractHasBeenDeleted" xml:space="preserve">
-    <value>Se ha suprimido el contrato.</value>
+    <value>Se ha eliminado el contrato.</value>
   </data>
   <data name="ContractHasBeenObsoleted" xml:space="preserve">
     <value>El contrato ha quedado obsoleto.</value>
   </data>
   <data name="ContractId" xml:space="preserve">
-    <value>ID de contrato</value>
+    <value>ID del contrato</value>
   </data>
   <data name="ContractRoleMustBeSelected" xml:space="preserve">
-    <value>Seleccione primero el rol de contrato y, a continuación, inténtelo de nuevo.</value>
+    <value>Seleccione primero el rol de contrato e inténtelo de nuevo.</value>
   </data>
   <data name="Contracts" xml:space="preserve">
     <value>Contratos</value>
@@ -289,16 +289,16 @@
     <value>Plantillas de contrato</value>
   </data>
   <data name="ContractTemplatesInfoText" xml:space="preserve">
-    <value>A continuación se muestra una lista de las plantillas de contrato que ha utilizado. Haga clic en una plantilla para crear un nuevo contrato basado en esa plantilla.</value>
+    <value>A continuación se muestra una lista de plantillas de contrato que ha utilizado. Haga clic en una plantilla para crear un nuevo contrato basado en esa plantilla.</value>
   </data>
   <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
-    <value>Seleccione primero la visibilidad del contrato y, a continuación, inténtelo de nuevo.</value>
+    <value>Seleccione primero la visibilidad del contrato e inténtelo de nuevo.</value>
   </data>
   <data name="ContractVisibility_CreatorAndParts" xml:space="preserve">
-    <value>Creador y partes</value>
+    <value>Creador y piezas</value>
   </data>
   <data name="ContractVisibility_DomainAndParts" xml:space="preserve">
-    <value>Dominio y piezas</value>
+    <value>Dominio y partes</value>
   </data>
   <data name="ContractVisibility_Public" xml:space="preserve">
     <value>Público, no se puede buscar</value>
@@ -337,7 +337,7 @@
     <value>Digerir</value>
   </data>
   <data name="DisownThing" xml:space="preserve">
-    <value>Cosa repudiada</value>
+    <value>Repudiar la cosa</value>
   </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} no sigue la política de cifrado ubicuo</value>
@@ -352,10 +352,10 @@
     <value>Duración</value>
   </data>
   <data name="EDalerNote" xml:space="preserve">
-    <value>Nota de eDaler</value>
+    <value>Nota eDaler</value>
   </data>
   <data name="EDalerNoteDescription" xml:space="preserve">
-    <value>El código representa una nota de eDaler. Puede aceptarlo presionando el botón Aceptar a continuación. Si no ha sido aceptado antes, su billetera recibirá la cantidad de eDaler especificada en la nota.</value>
+    <value>El código representa una nota eDaler. Puede aceptarlo presionando el botón Aceptar a continuación. Si no ha sido aceptado antes, su billetera recibirá la cantidad de eDaler especificada en la nota.</value>
   </data>
   <data name="EncryptMessage" xml:space="preserve">
     <value>Cifrar mensaje</value>
@@ -388,7 +388,7 @@
     <value>General</value>
   </data>
   <data name="GeneralInformation" xml:space="preserve">
-    <value>Información General</value>
+    <value>Información general</value>
   </data>
   <data name="GeneralInformationInfoText" xml:space="preserve">
     <value>A continuación se presenta información general sobre el contrato.</value>
@@ -409,7 +409,7 @@
     <value>Apruebo que mi información personal se asocie con la identidad legal que estoy revisando, con fines de transparencia.</value>
   </data>
   <data name="ID" xml:space="preserve">
-    <value>IDENTIFICACIÓN</value>
+    <value>Identificación</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
     <value>Se copió un enlace al ID en el portapapeles.</value>
@@ -421,13 +421,13 @@
     <value>Información de identidad</value>
   </data>
   <data name="IdentityInformationInfoText" xml:space="preserve">
-    <value>La siguiente es la información personal registrada para la parte que firmó el contrato.</value>
+    <value>La siguiente es información personal registrada para la parte que firmó el contrato.</value>
   </data>
   <data name="IdentityState_Approved" xml:space="preserve">
     <value>Aprobado</value>
   </data>
   <data name="IdentityState_Compromized" xml:space="preserve">
-    <value>Compromizado</value>
+    <value>Comprometido</value>
   </data>
   <data name="IdentityState_Created" xml:space="preserve">
     <value>Creado</value>
@@ -448,7 +448,7 @@
     <value>Incompleto</value>
   </data>
   <data name="InformationAboutClaimedThingText" xml:space="preserve">
-    <value>La siguiente información está disponible sobre la cosa cuyo código escaneó. Elija si desea intentar reclamar esta cosa como suya, y también si desea que se pueda buscar públicamente en el Registro de cosas.</value>
+    <value>La siguiente información está disponible sobre el objeto cuyo código analizó. Elija si desea intentar reclamar esta cosa como suya, y también si desea que se pueda buscar públicamente en el Registro de la cosa.</value>
   </data>
   <data name="InformationAboutThing" xml:space="preserve">
     <value>Información sobre la cosa</value>
@@ -496,7 +496,7 @@
     <value>Longitud</value>
   </data>
   <data name="MachineReadableInfoText" xml:space="preserve">
-    <value>A continuación se muestra una descripción general de los datos legibles por máquina incrustados en el contrato.</value>
+    <value>A continuación se muestra una descripción general de los datos legibles por máquina incorporados en el contrato.</value>
   </data>
   <data name="MachineReadableText" xml:space="preserve">
     <value>Información legible por máquina</value>
@@ -505,7 +505,7 @@
     <value>Mi ID digital</value>
   </data>
   <data name="MakeThingPublic" xml:space="preserve">
-    <value>Hacer que las cosas se hagan públicas</value>
+    <value>Hacer público el asunto</value>
   </data>
   <data name="Manufacturer" xml:space="preserve">
     <value>Fabricante</value>
@@ -520,7 +520,7 @@
     <value>Número de medidor</value>
   </data>
   <data name="MiddleNames" xml:space="preserve">
-    <value>Segundo(s) nombre(s)</value>
+    <value>Segundo nombre(s)</value>
   </data>
   <data name="Mode" xml:space="preserve">
     <value>Modo</value>
@@ -544,10 +544,10 @@
     <value>Red</value>
   </data>
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
-    <value>La red parece faltar. Compruebe su configuración y cobertura e inténtelo de nuevo.</value>
+    <value>La red parece faltar. Compruebe la configuración y la cobertura e inténtelo de nuevo.</value>
   </data>
   <data name="SendEmailWarning" xml:space="preserve">
-    <value>Se ha enviado un código en un mensaje de correo electrónico a los agregadores de correo electrónico. Si no lo recibe, revise también su carpeta de correo no deseado.</value>
+    <value>Se ha enviado un código en un mensaje de correo electrónico a los sumadores de correo electrónico. Si no lo recibe, por favor revise también su carpeta de correo no deseado.</value>
   </data>
   <data name="SendPhoneNumberWarning" xml:space="preserve">
     <value>Se ha enviado un código como mensaje de texto a su teléfono.</value>
@@ -583,7 +583,7 @@
     <value>Sin conexión</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>DE ACUERDO</value>
+    <value>De acuerdo</value>
   </data>
   <data name="Online" xml:space="preserve">
     <value>En línea</value>
@@ -592,10 +592,10 @@
     <value>Abrir</value>
   </data>
   <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
-    <value>El operador no admite identidades legales ni contratos inteligentes</value>
+    <value>El operador no admite identidades legales y contratos inteligentes</value>
   </data>
   <data name="OperatorDoesNotSupportProvisioningAndDecisionSupportForThings" xml:space="preserve">
-    <value>El operador no admite el aprovisionamiento y la compatibilidad con la toma de decisiones para las cosas</value>
+    <value>El operador no admite el aprovisionamiento y el soporte de decisiones para cosas</value>
   </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
     <value>El operador {0} no admite el registro de nuevas cuentas</value>
@@ -637,13 +637,13 @@
     <value>Aceptación de pagos</value>
   </data>
   <data name="PaymentAcceptanceDescription" xml:space="preserve">
-    <value>A continuación puede ver los detalles del pago fuera de línea. Si es aceptable, puede optar por aceptar enviar el pago a Neuron para su procesamiento.</value>
+    <value>A continuación puede ver los detalles del pago fuera de línea. Si es aceptable, puede optar por aceptar enviar el pago a la Neurona para su procesamiento.</value>
   </data>
   <data name="PaymentAlreadySent" xml:space="preserve">
-    <value>Ya se han enviado instrucciones de pago. Puedes reenviar pagos pendientes desde la vista de pagos pendientes.</value>
+    <value>La instrucción de pago ya ha sido enviada. Puede reenviar pagos pendientes desde la vista de pagos pendientes.</value>
   </data>
   <data name="PaymentDescription" xml:space="preserve">
-    <value>Ingrese el monto a pagar al destinatario a continuación. Una vez hecho esto, puede optar por pagar en línea (si está conectado) o fuera de línea, haciendo clic en el botón correspondiente.</value>
+    <value>Ingrese la cantidad a pagar al destinatario a continuación. Una vez hecho esto, puede elegir pagar en línea (si está conectado) o fuera de línea, haciendo clic en el botón correspondiente.</value>
   </data>
   <data name="PaymentSuccess" xml:space="preserve">
     <value>Pago realizado con éxito.</value>
@@ -691,16 +691,16 @@
     <value>Pedir</value>
   </data>
   <data name="PetitionContract" xml:space="preserve">
-    <value>Acceso al Contrato</value>
+    <value>Acceso al contrato</value>
   </data>
   <data name="PetitionContractInformationText" xml:space="preserve">
-    <value>Se ha recibido una petición de los datos personales en uno de sus contratos. Revise la información a continuación y elija cómo desea responder.</value>
+    <value>Se ha recibido una petición para los datos personales en uno de sus contratos. Revise la información a continuación y elija cómo desea responder.</value>
   </data>
   <data name="PetitionIdentity" xml:space="preserve">
     <value>Acceso a la identidad</value>
   </data>
   <data name="PetitionIdentityInformationText" xml:space="preserve">
-    <value>Se ha recibido una petición de los datos personales de su identidad legal. Revise la información a continuación y elija cómo desea responder.</value>
+    <value>Se ha recibido una petición para los datos personales de su identidad legal. Revise la información a continuación y elija cómo desea responder.</value>
   </data>
   <data name="PetitionSent" xml:space="preserve">
     <value>Petición enviada</value>
@@ -709,7 +709,7 @@
     <value>Firma solicitada</value>
   </data>
   <data name="PetitionSignatureInformationText" xml:space="preserve">
-    <value>Se ha recibido una solicitud de firma. Revise el motivo a continuación y la información sobre quién envió la solicitud y, a continuación, elija cómo desea responder.</value>
+    <value>Se ha recibido una solicitud de su firma. Revise el motivo a continuación y la información sobre quién envió la solicitud y, a continuación, elija cómo desea responder.</value>
   </data>
   <data name="PetitionToViewContractWasDenied" xml:space="preserve">
     <value>La petición para ver el contrato fue denegada.</value>
@@ -730,16 +730,16 @@
     <value>El PIN no es válido. Tienes {0} intentos restantes.</value>
   </data>
   <data name="PinIsInvalidAplicationBlockedForever" xml:space="preserve">
-    <value>Se exceden los intentos de PIN que ingresan. Su aplicación ha sido bloqueada para siempre</value>
+    <value>Se superan los intentos de PIN que ingresan. Su aplicación ha sido bloqueada para siempre</value>
   </data>
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
-    <value>Se exceden los intentos de PIN que ingresan. Su aplicación ha sido bloqueada hasta {0}.</value>
+    <value>Se superan los intentos de PIN que ingresan. Su aplicación ha sido bloqueada hasta {0}.</value>
   </data>
   <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
-    <value>Se exceden los intentos de PIN que ingresan. Su solicitud ha sido bloqueada hasta mañana en {0}.</value>
+    <value>Se superan los intentos de PIN que ingresan. Su aplicación ha sido bloqueada hasta mañana a las {0}.</value>
   </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
-    <value>Se exceden los intentos de PIN que ingresan. Su solicitud ha sido bloqueada durante una semana</value>
+    <value>Se superan los intentos de PIN que ingresan. Su aplicación ha sido bloqueada durante una semana</value>
   </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
     <value>El número PIN no debe incluir espacios en blanco iniciales o finales.</value>
@@ -781,10 +781,10 @@
     <value>Código no entendido</value>
   </data>
   <data name="QrEnterManually" xml:space="preserve">
-    <value>Introducir manualmente</value>
+    <value>Entrar manualmente</value>
   </data>
   <data name="QrScanCode" xml:space="preserve">
-    <value>Escanear código</value>
+    <value>Código de escaneo</value>
   </data>
   <data name="QrScanOverlay" xml:space="preserve">
     <value>Alinear el código QR dentro del marco</value>
@@ -808,10 +808,10 @@
     <value>Rechazar información</value>
   </data>
   <data name="RemoteParty" xml:space="preserve">
-    <value>Fiesta remota:</value>
+    <value>Parte remota:</value>
   </data>
   <data name="RemoveContact" xml:space="preserve">
-    <value>Eliminar contacto</value>
+    <value>Quitar contacto</value>
   </data>
   <data name="ReportAsCompromized" xml:space="preserve">
     <value>Informe como comprometido</value>
@@ -829,7 +829,7 @@
     <value>Para solicitar el pago a alguien, complete los detalles sobre el pago a continuación y haga clic en el botón Generar código QR. El código generado puede ser utilizado por la otra parte, para generar un pago a su cuenta.</value>
   </data>
   <data name="RequestPaymentMessage" xml:space="preserve">
-    <value>Solicitar el pago de {0} {1}.</value>
+    <value>Solicitud de pago de {0} {1}.</value>
   </data>
   <data name="RequestTimedOut" xml:space="preserve">
     <value>Se agotó el tiempo de espera de la solicitud</value>
@@ -838,10 +838,10 @@
     <value>La solicitud fue cancelada</value>
   </data>
   <data name="RetypePinOrPassword" xml:space="preserve">
-    <value>Vuelva a escribir pin o contraseña</value>
+    <value>Vuelva a escribir el PIN o la contraseña</value>
   </data>
   <data name="ReviewIdentityInformationText" xml:space="preserve">
-    <value>Se le ha solicitado que revise la siguiente información personal. Si es correcto, marque las casillas correspondientes y presione el botón Aprobar en la parte inferior. También puede presionar el botón Rechazar si encuentra algo que sea incorrecto.</value>
+    <value>Se le ha solicitado que revise la siguiente información personal. Si es correcto, marque las casillas correspondientes y presione el botón Aprobar en la parte inferior. También puede presionar el botón Rechazar si encuentra algo incorrecto.</value>
   </data>
   <data name="RevokeInformation" xml:space="preserve">
     <value>Revocar</value>
@@ -886,10 +886,10 @@
     <value>Firma del servidor</value>
   </data>
   <data name="ServerSignatureInformationInfoText" xml:space="preserve">
-    <value>A continuación se muestra información relacionada con una firma de servidor.</value>
+    <value>La siguiente es información relacionada con una firma de servidor.</value>
   </data>
   <data name="ServerSignatures" xml:space="preserve">
-    <value>Firmas del servidor</value>
+    <value>Firmas de servidor</value>
   </data>
   <data name="ServerSignaturesInfoText" xml:space="preserve">
     <value>La integridad del contrato está protegida por la firma del servidor que se muestra a continuación.</value>
@@ -904,7 +904,7 @@
     <value>Firmar después</value>
   </data>
   <data name="SignAsRole" xml:space="preserve">
-    <value>Firma como {0}</value>
+    <value>Firmar como {0}</value>
   </data>
   <data name="Signature" xml:space="preserve">
     <value>Firma</value>
@@ -937,7 +937,7 @@
     <value>Valor de etiqueta copiado en el portapapeles</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
-    <value>Toma foto</value>
+    <value>Tomar foto</value>
   </data>
   <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
     <value>Tomar una foto no es compatible con este dispositivo</value>
@@ -946,13 +946,13 @@
     <value>ID de plantilla</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
-    <value>El contrato requiere al menos {0} parte (s) de la {1} de rol. Agregue más partes al contrato e inténtelo de nuevo.</value>
+    <value>El contrato requiere al menos {0} parte(s) del rol {1}. Agregue más partes al contrato e inténtelo de nuevo.</value>
   </data>
   <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
-    <value>El contrato requiere como máximo {0} parte (s) de la {1} de rol. Quita algunas de las partes del contrato e inténtalo de nuevo.</value>
+    <value>El contrato requiere como máximo {0} parte(s) del rol {1}. Quite algunas de las piezas del contrato e inténtelo de nuevo.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
-    <value>La contraseña de la conexión es {0}. Esto se ha copiado en el portapapeles.</value>
+    <value>La contraseña para la conexión es {0}. Esto se ha copiado en el portapapeles.</value>
   </data>
   <data name="ThereIsNoNetwork" xml:space="preserve">
     <value>No hay red</value>
@@ -991,7 +991,7 @@
     <value>No se puede autenticar con {0}</value>
   </data>
   <data name="UnableToClaimThing" xml:space="preserve">
-    <value>No se puede reclamar nada</value>
+    <value>Incapaz de reclamar algo</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>No se puede conectar a {0}</value>
@@ -1012,7 +1012,7 @@
     <value>Su información de identidad debe ser validada antes de que pueda ser aprobada. Esto puede ser hecho manualmente por su operador. También puede ser hecho por compañeros.</value>
   </data>
   <data name="ValidateIdentityInfo2Text" xml:space="preserve">
-    <value>Para invitar a un par a revisar su solicitud, debe escanear el código de identificación del par al que desea invitar. Podrán ver y revisar su solicitud. Cuando suficientes pares hayan revisado su información y certificado que es correcta, el operador aprobará automáticamente su solicitud. La información sobre quién revisó su identidad se codificará en la propia identidad revisada.</value>
+    <value>Para invitar a un compañero a revisar su solicitud, debe escanear el código de identificación del par que desea invitar. Ellos podrán ver y revisar su solicitud. Cuando suficientes pares hayan revisado su información y hayan certificado que es correcta, el operador aprobará automáticamente su solicitud. La información sobre quién revisó su identidad se codificará en la propia identidad revisada.</value>
   </data>
   <data name="ValidateIdentityInfo3Text" xml:space="preserve">
     <value>Puede ver el estado actual de la aplicación a continuación.</value>
@@ -1039,7 +1039,7 @@
     <value>¡Bienvenido a la aplicación TAG Digital ID!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
-    <value>Antes de conectarnos a la red TAG ID, debemos seleccionar un proveedor de servicios para usted. Para hacer esto, necesitamos saber el propósito de usar la aplicación. Seleccione la opción más adecuada a continuación.</value>
+    <value>Antes de conectarnos a la red TAG ID, necesitamos seleccionar un proveedor de servicios para usted. Para hacer esto, necesitamos saber el propósito de usar la aplicación. Seleccione la opción más apropiada a continuación.</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
     <value>Autenticación de la identidad de red</value>
@@ -1054,28 +1054,28 @@
     <value>Conectado a {0}</value>
   </data>
   <data name="XmppState_Connecting" xml:space="preserve">
-    <value>Establecimiento de la conexión</value>
+    <value>Establecimiento de conexión</value>
   </data>
   <data name="XmppState_Error" xml:space="preserve">
     <value>Error de conexión</value>
   </data>
   <data name="XmppState_FetchingRoster" xml:space="preserve">
-    <value>Búsqueda de la lista</value>
+    <value>Lista de búsqueda</value>
   </data>
   <data name="XmppState_Offline" xml:space="preserve">
     <value>Desconectado</value>
   </data>
   <data name="XmppState_Registering" xml:space="preserve">
-    <value>Registrarse con el corredor</value>
+    <value>Registro con el corredor</value>
   </data>
   <data name="XmppState_RequestingSession" xml:space="preserve">
     <value>Solicitud de sesión</value>
   </data>
   <data name="XmppState_SettingPresence" xml:space="preserve">
-    <value>Configuración de la presencia</value>
+    <value>Establecer la presencia</value>
   </data>
   <data name="XmppState_StartingEncryption" xml:space="preserve">
-    <value>Cifrado de la conexión</value>
+    <value>Conexión cifrada</value>
   </data>
   <data name="XmppState_StreamNegotiation" xml:space="preserve">
     <value>Corriente de negociación</value>
@@ -1093,10 +1093,10 @@
     <value>Puede proteger su billetera e información confidencial agregando un número PIN o contraseña adicional.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Puede cambiar el PIN existente si es necesario. Si omite este paso, se utilizará el PIN anterior.</value>
+    <value>Puede cambiar el PIN existente si es necesario. Si omite este paso, se utilizará el PIN antiguo.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
-    <value>Ya ha sido cerrado. Para volver a iniciar sesión, utilice el menú de la esquina superior izquierda.</value>
+    <value>Ya se ha cerrado la sesión. Para volver a iniciar sesión, usa el menú de la esquina superior izquierda.</value>
   </data>
   <data name="YouHaveReceivedAProposal" xml:space="preserve">
     <value>Ha recibido una propuesta.</value>
@@ -1108,10 +1108,10 @@
     <value>Debe marcar la casilla que ha revisado cuidadosamente toda la información correspondiente anterior.</value>
   </data>
   <data name="YouNeedToProvideACountry" xml:space="preserve">
-    <value>Debe seleccionar un país</value>
+    <value>Necesitas seleccionar un país</value>
   </data>
   <data name="YouNeedToProvideAFirstName" xml:space="preserve">
-    <value>Debe proporcionar un nombre de pila</value>
+    <value>Debe proporcionar un nombre</value>
   </data>
   <data name="YouNeedToProvideALastName" xml:space="preserve">
     <value>Debe proporcionar al menos un apellido</value>
@@ -1120,7 +1120,7 @@
     <value>Debe proporcionar un número de seguro personal o social</value>
   </data>
   <data name="YouNeedToProvideAPhoto" xml:space="preserve">
-    <value>Necesitas proporcionar una foto</value>
+    <value>Debe proporcionar una foto</value>
   </data>
   <data name="YourContractContainsErrors" xml:space="preserve">
     <value>Su contrato contiene errores. Corrija estos errores e inténtelo de nuevo.</value>
@@ -1129,28 +1129,28 @@
     <value>Su identidad legal</value>
   </data>
   <data name="YourLegalIdentityHasBeenCompromised" xml:space="preserve">
-    <value>Su identidad legal ha sido marcada como comprometida. Por lo tanto, se le ha redirigido para crear una nueva cuenta.</value>
+    <value>Su identidad legal ha sido marcada como comprometida. Por lo tanto, ha sido redirigido para crear una nueva cuenta.</value>
   </data>
   <data name="YourLegalIdentityHasBeenObsoleted" xml:space="preserve">
-    <value>Su identidad legal ha sido marcada como obsoleta. Por lo tanto, se le ha redirigido para crear una nueva cuenta.</value>
+    <value>Su identidad legal ha sido marcada como obsoleta. Por lo tanto, ha sido redirigido para crear una nueva cuenta.</value>
   </data>
   <data name="YourLegalIdentityHasInvalidOrMissingKeys" xml:space="preserve">
-    <value>Las claves de firma de su identidad legal no son válidas. Por lo tanto, se le ha redirigido para crear una nueva cuenta.</value>
+    <value>Las claves de firma de su identidad legal no son válidas. Por lo tanto, ha sido redirigido para crear una nueva cuenta.</value>
   </data>
   <data name="YourRole" xml:space="preserve">
-    <value>Su rol</value>
+    <value>Su función</value>
   </data>
   <data name="ZipCode" xml:space="preserve">
     <value>Código postal</value>
   </data>
   <data name="SelectContactToPay" xml:space="preserve">
-    <value>A continuación se muestran todos los contactos en su libreta de contactos. Seleccione el contacto al que desea realizar el pago.</value>
+    <value>A continuación se muestran todos los contactos de su libreta de contactos. Seleccione el contacto al que desea realizar el pago.</value>
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Enviar código</value>
   </data>
   <data name="DisabledFor" xml:space="preserve">
-    <value>DESHABILITADO DURANTE {0} SEGUNDOS</value>
+    <value>DESACTIVADO DURANTE {0} SEGUNDOS</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>El código no era correcto.</value>
@@ -1171,13 +1171,13 @@
     <value>Uso educativo o experimental.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Esta opción le permite utilizar Tag ID con fines educativos, experimentales o de prueba. No se incurre en costos al usar esta opción. La cuenta puede eliminarse cuando ya no se utilice. No hay garantía de que el proveedor de servicios educativos o experimentales seleccionado continúe operando durante largos períodos de tiempo.</value>
+    <value>Esta opción le permite utilizar el ID de etiqueta con fines educativos, experimentales o de prueba. No se incurre en costos al usar esta opción. La cuenta puede eliminarse cuando ya no se use. No hay garantía de que el proveedor de servicios educativos o experimentales seleccionado continúe operando durante largos períodos de tiempo.</value>
   </data>
   <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Uso laboral o personal.</value>
+    <value>Trabajo o uso personal.</value>
   </data>
   <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Esta opción le permite utilizar Tag ID para fines laborales o personales. Puede usar la aplicación durante tres meses sin costo alguno. Después de este período de tiempo, ciertas operaciones pueden incurrir en costos.</value>
+    <value>Esta opción le permite utilizar el ID de etiqueta para fines laborales o personales. Puede usar la aplicación durante tres meses sin costo alguno. Después de este período de tiempo, ciertas operaciones pueden incurrir en costos.</value>
   </data>
   <data name="SelectPurpose" xml:space="preserve">
     <value>Seleccione Propósito</value>
@@ -1186,7 +1186,7 @@
     <value>Se ha enviado un código al número indicado anteriormente. Cuando lo reciba, ingrese el código de verificación a continuación para continuar.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
-    <value>Reclamar invitación</value>
+    <value>Invitación a reclamar</value>
   </data>
   <data name="Invitation" xml:space="preserve">
     <value>Invitación</value>
@@ -1204,25 +1204,25 @@
     <value>Código de invitación no válido.</value>
   </data>
   <data name="ScanInvitation" xml:space="preserve">
-    <value>Escanear invitación</value>
+    <value>Invitación a escanear</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount1" xml:space="preserve">
     <value>Su proveedor de servicios ha sido seleccionado para ser</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Puede optar por crear una cuenta en este proveedor. Introduzca el nombre de la cuenta que desea crear y pulse el botón Crear nuevo. También puede optar por escanear un código de invitación o transferencia, para usar una cuenta que ya se ha preparado para usted, en otro proveedor de servicios. Haga clic en el botón Analizar invitación para escanear un código de invitación.</value>
+    <value>Puede optar por crear una cuenta en este proveedor. Introduzca el nombre de la cuenta que desea crear y pulse el botón Crear nuevo. También puede optar por escanear una invitación o transferir código, para usar una cuenta que ya ha sido preparada para usted, en otro proveedor de servicios. Haga clic en el botón Escanear invitación para escanear un código de invitación.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
-    <value>Error al enlazar el {0} viewmodel para el {1} de página</value>
+    <value>Error al enlazar el {0} viewmodel para la página {1}</value>
   </data>
   <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
     <value>Error al restaurar el estado de viewmodel {0} para la página {1}</value>
   </data>
   <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
-    <value>Error al guardar el estado de viewmodel {0} para el {1} de página</value>
+    <value>Error al guardar el estado de viewmodel {0} para la página {1}</value>
   </data>
   <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
-    <value>Error al desvincular el {0} viewmodel para la {1} de página</value>
+    <value>Error al desenlazar el {0} del modelo de vista para la página {1}</value>
   </data>
   <data name="ContinueAnyway" xml:space="preserve">
     <value>Continuar de todos modos</value>
@@ -1231,10 +1231,10 @@
     <value>Parece que la base de datos no se ha cerrado correctamente y, por lo tanto, puede estar dañada. Se puede intentar reparar la base de datos borrándola primero. ¿Cómo le gustaría proceder?</value>
   </data>
   <data name="DatabaseIssue" xml:space="preserve">
-    <value>Problema de base de datos</value>
+    <value>Problema con la base de datos</value>
   </data>
   <data name="DatabaseRepairFailedInfoText" xml:space="preserve">
-    <value>Error en la reparación de la base de datos. Ahora estamos sin opciones, así que continúe bajo su propio riesgo.</value>
+    <value>Error en la reparación de la base de datos. Ahora no tenemos opciones, así que continúe bajo su propio riesgo.</value>
   </data>
   <data name="EDalerServiceNotFound" xml:space="preserve">
     <value>No se encontró ningún servicio de eDaler en el corredor.</value>
@@ -1249,13 +1249,13 @@
     <value>No se encontró ningún servicio de carga de archivos en el corredor.</value>
   </data>
   <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
-    <value>No es un URI de reclamación iotdisco válido.</value>
+    <value>No es un URI de notificación de iotdisco válido.</value>
   </data>
   <data name="LegalServiceNotFound" xml:space="preserve">
-    <value>No se encuentra ningún servicio legal en el corredor.</value>
+    <value>No se encontró ningún servicio legal en el corredor.</value>
   </data>
   <data name="ProvisioningServiceNotFound" xml:space="preserve">
-    <value>No se encuentra ningún servicio de aprovisionamiento en el corredor.</value>
+    <value>No se encontró ningún servicio de aprovisionamiento en el agente.</value>
   </data>
   <data name="RepairAndContinue" xml:space="preserve">
     <value>Reparar y continuar</value>
@@ -1270,7 +1270,7 @@
     <value>Teléfono</value>
   </data>
   <data name="UnableToAccessInvitation" xml:space="preserve">
-    <value>No se puede acceder a la información de la invitación.</value>
+    <value>No se puede acceder a la información de invitación.</value>
   </data>
   <data name="InvitationAccepted" xml:space="preserve">
     <value>Invitación aceptada</value>
@@ -1285,10 +1285,10 @@
     <value>ID de transferencia</value>
   </data>
   <data name="TransferIdentityInformationText" xml:space="preserve">
-    <value>Escanee el código de invitación QR a continuación desde un dispositivo que se está inicializando, para transferir la Identidad Digital en este dispositivo al segundo dispositivo. Una vez que se escanea el código y se transfiere la identidad, se eliminará de este dispositivo.</value>
+    <value>Escanee el código de invitación QR a continuación desde un dispositivo que se está inicializando para transferir la identidad digital de este dispositivo al segundo dispositivo. Una vez que se escanea el código y se transfiere la identidad, se eliminará de este dispositivo.</value>
   </data>
   <data name="ConfirmByEnteringYourPin" xml:space="preserve">
-    <value>Confirme ingresando su número PIN.</value>
+    <value>Confirme introduciendo su número PIN.</value>
   </data>
   <data name="UnexpectedResponse" xml:space="preserve">
     <value>Se recibió una respuesta inesperada.</value>
@@ -1339,7 +1339,7 @@
     <value>¿Desea suscribirse a la presencia de:</value>
   </data>
   <data name="SubscribeToPresence2" xml:space="preserve">
-    <value>Al suscribirse a la presencia de alguien, y si acepta, se le notificará de su presencia en línea.</value>
+    <value>Al suscribirse a la presencia de alguien, y si acepta, se le notificará su presencia en línea.</value>
   </data>
   <data name="SubscribeToPresence3" xml:space="preserve">
     <value>¿Qué quieres hacer?</value>
@@ -1360,7 +1360,7 @@
     <value>Se ha enviado una solicitud de suscripción de presencia. Cuando el destinatario acepte la solicitud, se actualizará el estado del contacto.</value>
   </data>
   <data name="PresenceUnsubscriptionRequestSent" xml:space="preserve">
-    <value>Se ha enviado una solicitud para anular la notificación de presencia.</value>
+    <value>Se ha enviado una solicitud para cancelar la suscripción de la notificación de presencia.</value>
   </data>
   <data name="SubscribeTo" xml:space="preserve">
     <value>Suscríbete a</value>
@@ -1375,7 +1375,7 @@
     <value>Bloquear</value>
   </data>
   <data name="FurtherAction" xml:space="preserve">
-    <value>¿Más acciones?</value>
+    <value>¿Más acción?</value>
   </data>
   <data name="FurtherAction1" xml:space="preserve">
     <value>¿Desea tomar alguna otra medida contra:</value>
@@ -1393,7 +1393,7 @@
     <value>No, simplemente ignora</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Otro</value>
+    <value>Otra cosa</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Informe</value>
@@ -1408,10 +1408,10 @@
     <value>Seleccione el tipo de informe que desea presentar:</value>
   </data>
   <data name="RemoveSubscription" xml:space="preserve">
-    <value>¿Eliminar la suscripción?</value>
+    <value>¿Eliminar suscripción?</value>
   </data>
   <data name="RemoveSubscription1" xml:space="preserve">
-    <value>Aún tiene una solicitud de suscripción aprobada de:</value>
+    <value>Aún tienes una solicitud de suscripción aprobada de:</value>
   </data>
   <data name="RemoveSubscription2" xml:space="preserve">
     <value>¿Desea revocar este permiso también?</value>
@@ -1420,10 +1420,10 @@
     <value>El servidor no parece admitir la carga de archivos.</value>
   </data>
   <data name="TesseractNotCreated" xml:space="preserve">
-    <value>Biblioteca de OCR de Tesseract no creada</value>
+    <value>Biblioteca OCR de Tesseract no creada</value>
   </data>
   <data name="UnabletoInitializeTesseract" xml:space="preserve">
-    <value>No se puede inicializar la biblioteca de OCR de Tesseract</value>
+    <value>No se puede inicializar la biblioteca OCR de Tesseract</value>
   </data>
   <data name="UnableToTesseractImage" xml:space="preserve">
     <value>No se puede procesar la imagen con la biblioteca OCR de Tesseract.</value>
@@ -1432,7 +1432,7 @@
     <value>No se puede extraer texto legible por máquina de la imagen.</value>
   </data>
   <data name="TestOtpUsed" xml:space="preserve">
-    <value>Se ha utilizado un código OTP temporal. La aplicación dejará de funcionar en aproximadamente una semana. Tendrás que reinstalar la aplicación para volver a usarla.</value>
+    <value>Se ha utilizado un código OTP temporal. La aplicación dejará de funcionar en aproximadamente una semana. Tendrás que volver a instalar la aplicación para volver a usarla.</value>
   </data>
   <data name="WarningTitle" xml:space="preserve">
     <value>Advertencia</value>
@@ -1444,7 +1444,7 @@
     <value>Mensaje de:</value>
   </data>
   <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
-    <value>No se encuentra ningún servicio de Neuro-Features en el corredor.</value>
+    <value>No se encontró ningún servicio de Neuro-Features en el corredor.</value>
   </data>
   <data name="Expires" xml:space="preserve">
     <value>Expira</value>
@@ -1465,7 +1465,7 @@
     <value>Token ID (método)</value>
   </data>
   <data name="TokenVisibility" xml:space="preserve">
-    <value>Visibilidad del token</value>
+    <value>Visibilidad de tokens</value>
   </data>
   <data name="Valuation" xml:space="preserve">
     <value>Valoración</value>
@@ -1504,10 +1504,10 @@
     <value>Contrato de propiedad</value>
   </data>
   <data name="PurposeReviewContract" xml:space="preserve">
-    <value>Revisión del contrato en el que forma parte.</value>
+    <value>Revisar el contrato del que forma parte.</value>
   </data>
   <data name="PurposeReviewToken" xml:space="preserve">
-    <value>Revisar el token donde eres parte.</value>
+    <value>Revisando el token donde eres parte.</value>
   </data>
   <data name="Assessor" xml:space="preserve">
     <value>Tasador</value>
@@ -1516,7 +1516,7 @@
     <value>Certificador</value>
   </data>
   <data name="CertifierCanDestroy" xml:space="preserve">
-    <value>Certifier puede destruir token</value>
+    <value>El certificador puede destruir el token</value>
   </data>
   <data name="CertifierJid" xml:space="preserve">
     <value>Dirección del certificador</value>
@@ -1528,7 +1528,7 @@
     <value>El propietario puede destruir el lote de tokens</value>
   </data>
   <data name="OwnerCanDestroyIndividual" xml:space="preserve">
-    <value>El propietario puede destruir el token individual</value>
+    <value>El propietario puede destruir token individual</value>
   </data>
   <data name="Privileges" xml:space="preserve">
     <value>Privilegios</value>
@@ -1537,7 +1537,7 @@
     <value>Referencia</value>
   </data>
   <data name="TokenPrivilegesInfoText" xml:space="preserve">
-    <value>A continuación se muestran los privilegios grabados en el token.</value>
+    <value>Los siguientes son privilegios grabados en el token.</value>
   </data>
   <data name="Valuator" xml:space="preserve">
     <value>Tasador</value>
@@ -1555,7 +1555,7 @@
     <value>Resumen del esquema de definición</value>
   </data>
   <data name="InvalidNeuroFeatureToken" xml:space="preserve">
-    <value>Token de neuro-característica no válido.</value>
+    <value>Token de neurocaracterística no válido.</value>
   </data>
   <data name="MachineReadableInfoTextToken" xml:space="preserve">
     <value>A continuación se muestra una descripción general de los datos legibles por máquina incrustados en el token.</value>
@@ -1567,25 +1567,25 @@
     <value>Oferta de compra</value>
   </data>
   <data name="OfferToSell" xml:space="preserve">
-    <value>Oferta para vender</value>
+    <value>Oferta de venta</value>
   </data>
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Abrir enlace de mensaje</value>
   </data>
   <data name="SelectedContactCannotBeAdded" xml:space="preserve">
-    <value>No se puede agregar el contacto seleccionado. No tiene una identificación legal registrada.</value>
+    <value>No se puede agregar el contacto seleccionado. No tiene un DNI registrado.</value>
   </data>
   <data name="SendInformationTo" xml:space="preserve">
     <value>Enviar información a?</value>
   </data>
   <data name="SendToContact" xml:space="preserve">
-    <value>Enviar a Contacto</value>
+    <value>Enviar a contacto</value>
   </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Mostrar detalles</value>
   </data>
   <data name="ViewEvents" xml:space="preserve">
-    <value>Ver eventos</value>
+    <value>Ver Eventos</value>
   </data>
   <data name="TokenEvents" xml:space="preserve">
     <value>Eventos de token</value>
@@ -1606,13 +1606,13 @@
     <value>Destruido</value>
   </data>
   <data name="NoteCopiedToClipboard" xml:space="preserve">
-    <value>Nota copiada en el portapapeles.</value>
+    <value>Nota copiada al portapapeles.</value>
   </data>
   <data name="NoteIsPersonal" xml:space="preserve">
     <value>La nota es personal</value>
   </data>
   <data name="NoteToAdd" xml:space="preserve">
-    <value>Nota para agregar:</value>
+    <value>Nota para añadir:</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Vendedor</value>
@@ -1630,13 +1630,13 @@
     <value>Nota XML</value>
   </data>
   <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
-    <value>La aplicación no pudo obtener acceso a las claves privadas de la identidad. Esto normalmente significa que la identidad se ha cambiado fuera del ámbito de la aplicación. También puede ser el resultado de una corrupción de datos. Puedes probar una de dos cosas. Pulse el botón Continuar, para continuar, sin las teclas privadas. Obtienes acceso a la aplicación, pero no puedes firmar nada. A continuación, puede optar por volver a solicitar una nueva identidad desde el menú principal, con nuevas claves privadas. También puede intentar reparar la base de datos, presionando el botón Reparar. En este último caso, la aplicación se cierra y la próxima vez que se abre, primero se intenta un procedimiento de reparación.</value>
+    <value>La aplicación no pudo obtener acceso a las claves privadas de la identidad. Esto normalmente significa que la identidad se ha cambiado fuera del ámbito de la aplicación. También puede ser el resultado de una corrupción de datos. Puedes probar una de dos cosas. Presione el botón Continuar, para continuar, sin las claves privadas. Tienes acceso a la aplicación, pero no puedes firmar nada. A continuación, puede optar por volver a solicitar una nueva identidad desde el menú principal, con nuevas claves privadas. También puede intentar reparar la base de datos, presionando el botón Reparar. En este último caso, la aplicación se cierra, y la próxima vez que se abre la aplicación, primero se intenta un procedimiento de reparación.</value>
   </data>
   <data name="Repair" xml:space="preserve">
     <value>Reparar</value>
   </data>
   <data name="EnterProposal" xml:space="preserve">
-    <value>Introduzca el texto que desea incluir en la propuesta para {0}, o deje en blanco si no se debe enviar una propuesta.</value>
+    <value>Introduzca el texto que desea incluir en la propuesta a {0}, o déjelo en blanco si no se debe enviar una propuesta.</value>
   </data>
   <data name="BalanceUpdated" xml:space="preserve">
     <value>Saldo actualizado.</value>
@@ -1681,7 +1681,7 @@
     <value>Un PIN no debe contener el número de teléfono de identidad.</value>
   </data>
   <data name="PinWithNotEnoughDigitsLettersSigns" xml:space="preserve">
-    <value>Se deben utilizar al menos {0} letras, dígitos o símbolos.</value>
+    <value>Se deben usar al menos {0} letras, dígitos o símbolos.</value>
   </data>
   <data name="PinWithTooManyIdenticalSymbols" xml:space="preserve">
     <value>Un PIN no debe contener más de {0} símbolos idénticos.</value>
@@ -1711,7 +1711,7 @@
     <value>Mostrar definición M2M</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Descripción</value>
+    <value>Descripción:</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Acciones</value>
@@ -1726,7 +1726,7 @@
     <value>Historia</value>
   </data>
   <data name="MachineHasEnded" xml:space="preserve">
-    <value>State-Machine ha finalizado.</value>
+    <value>State-Machine ha terminado.</value>
   </data>
   <data name="Present" xml:space="preserve">
     <value>Presente</value>
@@ -1747,10 +1747,10 @@
     <value>Publicar en Marketplace</value>
   </data>
   <data name="TagEngraved" xml:space="preserve">
-    <value>Etiqueta Grabada con enlace a {0}.</value>
+    <value>Etiqueta grabada con enlace a {0}.</value>
   </data>
   <data name="TagNotEngraved" xml:space="preserve">
-    <value>No se puede grabar la etiqueta con un enlace a {0}.</value>
+    <value>No se puede grabar la etiqueta con el enlace a {0}.</value>
   </data>
   <data name="PinContainsEMail" xml:space="preserve">
     <value>Un PIN no debe contener la dirección de correo electrónico de identidad.</value>
@@ -1777,16 +1777,16 @@
     <value>No se puede obtener el informe del historial.</value>
   </data>
   <data name="UnableToGetPresent" xml:space="preserve">
-    <value>No se puede obtener el informe presente.</value>
+    <value>No se puede obtener el informe actual.</value>
   </data>
   <data name="UnableToGetProfiling" xml:space="preserve">
-    <value>No se puede obtener el informe de generación de perfiles.</value>
+    <value>No se puede obtener el informe de creación de perfiles.</value>
   </data>
   <data name="UnableToGetStateDiagram" xml:space="preserve">
-    <value>No se puede obtener el informe de diagrama de estado.</value>
+    <value>No se puede obtener el informe del diagrama de estado.</value>
   </data>
   <data name="RepairRestart" xml:space="preserve">
-    <value>Se ha detectado una inconsistencia en la base de datos interna. Esto puede suceder si la aplicación no se cierra correctamente. Por lo tanto, la aplicación se cerrará. La próxima vez que inicie la aplicación, la base de datos se reparará.</value>
+    <value>Se ha detectado una incoherencia en la base de datos interna. Esto puede suceder si la aplicación no se cierra correctamente. Por lo tanto, la aplicación se cerrará. La próxima vez que inicie la aplicación, se reparará la base de datos.</value>
   </data>
   <data name="Calculator" xml:space="preserve">
     <value>Calculadora</value>
@@ -1804,7 +1804,7 @@
     <value>Pregunta</value>
   </data>
   <data name="RemoveSubscriptionFrom" xml:space="preserve">
-    <value>¿Desea eliminar la suscripción de presencia de {0}?</value>
+    <value>¿Desea quitar la suscripción de presencia de {0}?</value>
   </data>
   <data name="SignaturePetitionDenied" xml:space="preserve">
     <value>La petición de firma fue denegada.</value>
@@ -1825,7 +1825,7 @@
     <value>Respuesta a la solicitud de identidad</value>
   </data>
   <data name="IdentityReviewRequest" xml:space="preserve">
-    <value>Solicitud de revisión de identidad</value>
+    <value>Solicitud para revisar la identidad</value>
   </data>
   <data name="IdentityReviewResponse" xml:space="preserve">
     <value>Respuesta a la solicitud de revisión de identidad</value>
@@ -1843,13 +1843,13 @@
     <value>Respuesta a la solicitud de firma</value>
   </data>
   <data name="UserSignedAs" xml:space="preserve">
-    <value>{0} firmó como {1}.</value>
+    <value>{0} firmado como {1}.</value>
   </data>
   <data name="PermitScreenCapture" xml:space="preserve">
     <value>Permitir captura de pantalla</value>
   </data>
   <data name="ProhibitScreenCapture" xml:space="preserve">
-    <value>Prohibir la captura de pantalla</value>
+    <value>Prohibir captura de pantalla</value>
   </data>
   <data name="Security" xml:space="preserve">
     <value>Seguridad</value>
@@ -1858,7 +1858,7 @@
     <value>Configuración de seguridad</value>
   </data>
   <data name="SecuritySettingsInformationText" xml:space="preserve">
-    <value>A continuación, puede modificar la configuración de securit para la aplicación. Al habilitar la captura de pantalla, puede compartir la pantalla con otros, pero solo por un tiempo limitado.</value>
+    <value>A continuación, puede modificar la configuración de seguridad de la aplicación. Al habilitar la captura de pantalla, puede compartir la pantalla con otros, pero solo por un tiempo limitado.</value>
   </data>
   <data name="Contact" xml:space="preserve">
     <value>Contacto</value>
@@ -1873,7 +1873,7 @@
     <value>Otra aplicación</value>
   </data>
   <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
-    <value>Seleccione a quién solicitar el pago.</value>
+    <value>Seleccione a quién desea solicitar el pago.</value>
   </data>
   <data name="ShareDescription" xml:space="preserve">
     <value>A continuación, puede encontrar opciones adicionales para compartir el código QR.</value>
@@ -1882,7 +1882,7 @@
     <value>Estado cambiado a {0}</value>
   </data>
   <data name="TokenAdded2" xml:space="preserve">
-    <value>Token agregado</value>
+    <value>Token añadido</value>
   </data>
   <data name="TokenRemoved2" xml:space="preserve">
     <value>Token eliminado</value>
@@ -1924,7 +1924,7 @@
     <value>No se encontró ningún servicio de concentrador.</value>
   </data>
   <data name="ControlServiceNotFound" xml:space="preserve">
-    <value>No se ha encontrado ningún servicio de control.</value>
+    <value>No se encontró ningún servicio de control.</value>
   </data>
   <data name="SensorServiceNotFound" xml:space="preserve">
     <value>No se encontró ningún servicio de sensores.</value>
@@ -1948,7 +1948,7 @@
     <value>Se ha cancelado la lectura de datos del sensor.</value>
   </data>
   <data name="SensorDataDone" xml:space="preserve">
-    <value>La lectura de datos del sensor se ha completado.</value>
+    <value>Se ha completado la lectura de datos del sensor.</value>
   </data>
   <data name="SensorDataFailure" xml:space="preserve">
     <value>Error en la lectura de datos del sensor.</value>
@@ -1966,7 +1966,7 @@
     <value>Momentáneo</value>
   </data>
   <data name="SensorDataHeaderOther" xml:space="preserve">
-    <value>Otro</value>
+    <value>Otra cosa</value>
   </data>
   <data name="SensorDataHeaderPeak" xml:space="preserve">
     <value>Pico</value>
@@ -1984,7 +1984,7 @@
     <value>Se ha iniciado la lectura de datos del sensor.</value>
   </data>
   <data name="SensorDataText" xml:space="preserve">
-    <value>A continuación se muestra información y datos de sensores disponibles para usted, de acuerdo con sus privilegios de acceso.</value>
+    <value>A continuación se muestra la información y los datos de los sensores disponibles para usted, de acuerdo con sus privilegios de acceso.</value>
   </data>
   <data name="Time" xml:space="preserve">
     <value>Hora</value>
@@ -1999,7 +1999,7 @@
     <value>Eliminar reglas</value>
   </data>
   <data name="DeleteRulesQuestion" xml:space="preserve">
-    <value>¿Desea eliminar todas las reglas de aprovisionamiento de la cosa? Al hacerlo, la cosa le pedirá nuevamente todos los eventos nuevos para aprender lo que está autorizado a hacer.</value>
+    <value>¿Desea eliminar todas las reglas de aprovisionamiento para la cosa? Al hacerlo, la cosa te pedirá nuevamente todos los eventos nuevos para aprender lo que está autorizado a hacer.</value>
   </data>
   <data name="DisownThingQuestion" xml:space="preserve">
     <value>¿Quieres repudiar la cosa? Esto eliminará la cosa de su lista de cosas y permitirá que otro reclame el dispositivo como suyo.</value>
@@ -2023,7 +2023,7 @@
     <value>Solicitud de acceso</value>
   </data>
   <data name="AccessRequestText2" xml:space="preserve">
-    <value>Una persona que llama ha solicitado acceso a una de sus cosas. Seleccione cómo desea que la cosa responda a este tipo de solicitud.</value>
+    <value>Una persona que llama ha solicitado acceso a una de tus cosas. Seleccione cómo desea que la cosa responda a este tipo de solicitud.</value>
   </data>
   <data name="Caller" xml:space="preserve">
     <value>Llamador</value>
@@ -2032,10 +2032,10 @@
     <value>Dirección de la persona que llama</value>
   </data>
   <data name="CallerOnly" xml:space="preserve">
-    <value>Solo para llamadas</value>
+    <value>Solo persona que llama</value>
   </data>
   <data name="ControlRequestText" xml:space="preserve">
-    <value>{0} desea controlar los parámetros en el {1} de su dispositivo.</value>
+    <value>{0} desea controlar los parámetros en su dispositivo {1}.</value>
   </data>
   <data name="Device" xml:space="preserve">
     <value>Dispositivo</value>
@@ -2050,7 +2050,7 @@
     <value>Nombre descriptivo</value>
   </data>
   <data name="InformationAboutCallerText" xml:space="preserve">
-    <value>La siguiente información está disponible sobre la persona que llama:</value>
+    <value>La siguiente información está disponible acerca de la persona que llama:</value>
   </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>No disponible</value>
@@ -2062,10 +2062,10 @@
     <value>Aplique esta regla a:</value>
   </data>
   <data name="ReadoutRequestText" xml:space="preserve">
-    <value>{0} desea leer los datos de su dispositivo {1}.</value>
+    <value>{0} desea leer datos de su dispositivo {1}.</value>
   </data>
   <data name="ReadoutRequestText2" xml:space="preserve">
-    <value>Una persona que llama ha solicitado datos de sensores de una de sus cosas. Seleccione cómo desea que la cosa responda a este tipo de solicitud.</value>
+    <value>Una persona que llama ha solicitado datos del sensor de una de sus cosas. Seleccione cómo desea que la cosa responda a este tipo de solicitud.</value>
   </data>
   <data name="ReadRequest" xml:space="preserve">
     <value>Solicitud de lectura</value>
@@ -2119,7 +2119,7 @@
     <value>Valores máximos</value>
   </data>
   <data name="PermitFieldTypesText" xml:space="preserve">
-    <value>Elija los tipos de campo (categorías amplias) a los que se permitirá el acceso, si se acepta la solicitud.</value>
+    <value>Elija los tipos de campo (categorías amplias) a los que desea permitir el acceso, si se acepta la solicitud.</value>
   </data>
   <data name="StatusValues" xml:space="preserve">
     <value>Valores de estado</value>
@@ -2134,7 +2134,7 @@
     <value>Campos</value>
   </data>
   <data name="PermitFieldsText" xml:space="preserve">
-    <value>Elija los campos a los que desea permitir el acceso, si se acepta la solicitud.</value>
+    <value>Elija los campos a los que permitir el acceso, si se acepta la solicitud.</value>
   </data>
   <data name="PermitParametersText" xml:space="preserve">
     <value>Elija los parámetros a los que desea permitir el acceso, si se acepta la solicitud.</value>
@@ -2183,5 +2183,44 @@
   </data>
   <data name="TrustAnchorGroup" xml:space="preserve">
     <value>Grupo de anclaje de confianza</value>
+  </data>
+  <data name="ClientMessageAuthenticationTimeout" xml:space="preserve">
+    <value>Respuesta no devuelta dentro del tiempo configurado.</value>
+  </data>
+  <data name="ClientMessageCountryCodeMismatch" xml:space="preserve">
+    <value>El código de país no coincide.</value>
+  </data>
+  <data name="ClientMessageCountryCodeNotVerified" xml:space="preserve">
+    <value>Código de país no verificado.</value>
+  </data>
+  <data name="ClientMessageFirstNameNotVerified" xml:space="preserve">
+    <value>Nombre no verificado.</value>
+  </data>
+  <data name="ClientMessageLastNameNotVerified" xml:space="preserve">
+    <value>Apellido no verificado.</value>
+  </data>
+  <data name="ClientMessageNotValid" xml:space="preserve">
+    <value>Identidad no válida.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberMismatch" xml:space="preserve">
+    <value>El número personal no coincide.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberNotVerified" xml:space="preserve">
+    <value>Número personal no verificado.</value>
+  </data>
+  <data name="ClientMessageReferenceMismatch" xml:space="preserve">
+    <value>La referencia devuelta no coincidía con la referencia de solicitud.</value>
+  </data>
+  <data name="ClientMessageUnexpectedDocumentInformation" xml:space="preserve">
+    <value>La información del documento no se devuelve como se esperaba.</value>
+  </data>
+  <data name="ClientMessageUnexpectedEventResult" xml:space="preserve">
+    <value>El resultado del evento no se devuelve como se esperaba.</value>
+  </data>
+  <data name="ClientMessageUnexpectedResult" xml:space="preserve">
+    <value>Respuesta inesperada devuelta.</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Información</value>
   </data>
 </root>

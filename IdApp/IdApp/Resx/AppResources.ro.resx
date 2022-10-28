@@ -409,7 +409,7 @@
     <value>Aprob ca informațiile mele personale să fie asociate cu identitatea juridică pe care o revizuiesc, în scopul transparenței.</value>
   </data>
   <data name="ID" xml:space="preserve">
-    <value>ID</value>
+    <value>Id</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
     <value>Un link către ID-ul a fost copiat în clipboard.</value>
@@ -583,7 +583,7 @@
     <value>Offline</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>OK</value>
+    <value>Ok</value>
   </data>
   <data name="Online" xml:space="preserve">
     <value>Online</value>
@@ -1393,7 +1393,7 @@
     <value>Nu, doar ignora</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Alt</value>
+    <value>Altele</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Raport</value>
@@ -1711,7 +1711,7 @@
     <value>Afișare definiție M2M</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Descriere</value>
+    <value>Descriere:</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Acțiuni</value>
@@ -1966,7 +1966,7 @@
     <value>Momentan</value>
   </data>
   <data name="SensorDataHeaderOther" xml:space="preserve">
-    <value>Alt</value>
+    <value>Altele</value>
   </data>
   <data name="SensorDataHeaderPeak" xml:space="preserve">
     <value>Vârf</value>
@@ -2183,5 +2183,44 @@
   </data>
   <data name="TrustAnchorGroup" xml:space="preserve">
     <value>Grupul ancoră de încredere</value>
+  </data>
+  <data name="ClientMessageAuthenticationTimeout" xml:space="preserve">
+    <value>Răspunsul nu a fost returnat în timpul configurat.</value>
+  </data>
+  <data name="ClientMessageCountryCodeMismatch" xml:space="preserve">
+    <value>Codul țării nu se potrivește.</value>
+  </data>
+  <data name="ClientMessageCountryCodeNotVerified" xml:space="preserve">
+    <value>Codul țării nu a fost verificat.</value>
+  </data>
+  <data name="ClientMessageFirstNameNotVerified" xml:space="preserve">
+    <value>Prenumele nu a fost verificat.</value>
+  </data>
+  <data name="ClientMessageLastNameNotVerified" xml:space="preserve">
+    <value>Numele de familie nu a fost verificat.</value>
+  </data>
+  <data name="ClientMessageNotValid" xml:space="preserve">
+    <value>Identitatea nu este validă.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberMismatch" xml:space="preserve">
+    <value>Numărul personal nu se potrivește.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberNotVerified" xml:space="preserve">
+    <value>Numărul personal nu a fost verificat.</value>
+  </data>
+  <data name="ClientMessageReferenceMismatch" xml:space="preserve">
+    <value>Referința returnată nu corespundea referinței solicitării.</value>
+  </data>
+  <data name="ClientMessageUnexpectedDocumentInformation" xml:space="preserve">
+    <value>Informațiile documentului nu au fost returnate conform așteptărilor.</value>
+  </data>
+  <data name="ClientMessageUnexpectedEventResult" xml:space="preserve">
+    <value>Rezultatul evenimentului nu a fost returnat conform așteptărilor.</value>
+  </data>
+  <data name="ClientMessageUnexpectedResult" xml:space="preserve">
+    <value>Răspuns neașteptat a revenit.</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Informație</value>
   </data>
 </root>

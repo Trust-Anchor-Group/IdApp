@@ -409,7 +409,7 @@
     <value>Aprovo que minhas informações pessoais estejam associadas à identidade jurídica que estou revisando, para fins de transparência.</value>
   </data>
   <data name="ID" xml:space="preserve">
-    <value>ID</value>
+    <value>Id</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
     <value>Um link para a ID foi copiado para a prancheta.</value>
@@ -583,7 +583,7 @@
     <value>Offline</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>OKEY</value>
+    <value>Okey</value>
   </data>
   <data name="Online" xml:space="preserve">
     <value>Online</value>
@@ -1393,7 +1393,7 @@
     <value>Não, apenas ignore</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Outro</value>
+    <value>Outros</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Relatório</value>
@@ -1711,7 +1711,7 @@
     <value>Mostrar definição M2M</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Descrição</value>
+    <value>Descrição:</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Ações</value>
@@ -1966,7 +1966,7 @@
     <value>Momentâneo</value>
   </data>
   <data name="SensorDataHeaderOther" xml:space="preserve">
-    <value>Outro</value>
+    <value>Outros</value>
   </data>
   <data name="SensorDataHeaderPeak" xml:space="preserve">
     <value>Pico</value>
@@ -2183,5 +2183,44 @@
   </data>
   <data name="TrustAnchorGroup" xml:space="preserve">
     <value>Grupo âncora de confiança</value>
+  </data>
+  <data name="ClientMessageAuthenticationTimeout" xml:space="preserve">
+    <value>A resposta não retornada dentro do tempo configurado.</value>
+  </data>
+  <data name="ClientMessageCountryCodeMismatch" xml:space="preserve">
+    <value>O Código do País não bate.</value>
+  </data>
+  <data name="ClientMessageCountryCodeNotVerified" xml:space="preserve">
+    <value>Código de país não verificado.</value>
+  </data>
+  <data name="ClientMessageFirstNameNotVerified" xml:space="preserve">
+    <value>Primeiro nome não verificado.</value>
+  </data>
+  <data name="ClientMessageLastNameNotVerified" xml:space="preserve">
+    <value>Sobrenome não verificado.</value>
+  </data>
+  <data name="ClientMessageNotValid" xml:space="preserve">
+    <value>Identidade não válida.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberMismatch" xml:space="preserve">
+    <value>Número pessoal não corresponde.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberNotVerified" xml:space="preserve">
+    <value>Número pessoal não verificado.</value>
+  </data>
+  <data name="ClientMessageReferenceMismatch" xml:space="preserve">
+    <value>A referência devolvida não correspondeu à referência de solicitação.</value>
+  </data>
+  <data name="ClientMessageUnexpectedDocumentInformation" xml:space="preserve">
+    <value>Informações do documento não retornaram como esperado.</value>
+  </data>
+  <data name="ClientMessageUnexpectedEventResult" xml:space="preserve">
+    <value>O resultado do evento não voltou como esperado.</value>
+  </data>
+  <data name="ClientMessageUnexpectedResult" xml:space="preserve">
+    <value>Resposta inesperada retornou.</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Informação</value>
   </data>
 </root>
