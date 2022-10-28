@@ -16488,6 +16488,66 @@
               Looks up a localized string similar to Class.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ClientMessageAuthenticationTimeout">
+            <summary>
+              Looks up a localized string similar to Response not returned within configured time..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ClientMessageCountryCodeMismatch">
+            <summary>
+              Looks up a localized string similar to Country Code does not match..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ClientMessageCountryCodeNotVerified">
+            <summary>
+              Looks up a localized string similar to Country code not verified..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ClientMessageFirstNameNotVerified">
+            <summary>
+              Looks up a localized string similar to First name not verified..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ClientMessageLastNameNotVerified">
+            <summary>
+              Looks up a localized string similar to Last name not verified..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ClientMessageNotValid">
+            <summary>
+              Looks up a localized string similar to Identity not valid..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ClientMessagePersonalNumberMismatch">
+            <summary>
+              Looks up a localized string similar to Personal Number does not match..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ClientMessagePersonalNumberNotVerified">
+            <summary>
+              Looks up a localized string similar to Personal number not verified..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ClientMessageReferenceMismatch">
+            <summary>
+              Looks up a localized string similar to Returned reference did not match request reference..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ClientMessageUnexpectedDocumentInformation">
+            <summary>
+              Looks up a localized string similar to Document information not returned as expected..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ClientMessageUnexpectedEventResult">
+            <summary>
+              Looks up a localized string similar to Event result not returned as expected..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ClientMessageUnexpectedResult">
+            <summary>
+              Looks up a localized string similar to Unexpected response returned..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ClientSignature">
             <summary>
               Looks up a localized string similar to Client Signature.
@@ -17241,6 +17301,11 @@
         <member name="P:IdApp.Resx.AppResources.Incomplete">
             <summary>
               Looks up a localized string similar to Incomplete.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Information">
+            <summary>
+              Looks up a localized string similar to Information.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.InformationAboutCallerText">

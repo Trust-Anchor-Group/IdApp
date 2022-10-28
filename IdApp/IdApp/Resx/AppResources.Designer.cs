@@ -691,6 +691,114 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Response not returned within configured time..
+        /// </summary>
+        internal static string ClientMessageAuthenticationTimeout {
+            get {
+                return ResourceManager.GetString("ClientMessageAuthenticationTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country Code does not match..
+        /// </summary>
+        internal static string ClientMessageCountryCodeMismatch {
+            get {
+                return ResourceManager.GetString("ClientMessageCountryCodeMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country code not verified..
+        /// </summary>
+        internal static string ClientMessageCountryCodeNotVerified {
+            get {
+                return ResourceManager.GetString("ClientMessageCountryCodeNotVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name not verified..
+        /// </summary>
+        internal static string ClientMessageFirstNameNotVerified {
+            get {
+                return ResourceManager.GetString("ClientMessageFirstNameNotVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name not verified..
+        /// </summary>
+        internal static string ClientMessageLastNameNotVerified {
+            get {
+                return ResourceManager.GetString("ClientMessageLastNameNotVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identity not valid..
+        /// </summary>
+        internal static string ClientMessageNotValid {
+            get {
+                return ResourceManager.GetString("ClientMessageNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal Number does not match..
+        /// </summary>
+        internal static string ClientMessagePersonalNumberMismatch {
+            get {
+                return ResourceManager.GetString("ClientMessagePersonalNumberMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal number not verified..
+        /// </summary>
+        internal static string ClientMessagePersonalNumberNotVerified {
+            get {
+                return ResourceManager.GetString("ClientMessagePersonalNumberNotVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Returned reference did not match request reference..
+        /// </summary>
+        internal static string ClientMessageReferenceMismatch {
+            get {
+                return ResourceManager.GetString("ClientMessageReferenceMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document information not returned as expected..
+        /// </summary>
+        internal static string ClientMessageUnexpectedDocumentInformation {
+            get {
+                return ResourceManager.GetString("ClientMessageUnexpectedDocumentInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event result not returned as expected..
+        /// </summary>
+        internal static string ClientMessageUnexpectedEventResult {
+            get {
+                return ResourceManager.GetString("ClientMessageUnexpectedEventResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected response returned..
+        /// </summary>
+        internal static string ClientMessageUnexpectedResult {
+            get {
+                return ResourceManager.GetString("ClientMessageUnexpectedResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client Signature.
         /// </summary>
         internal static string ClientSignature {
@@ -2046,6 +2154,15 @@ namespace IdApp.Resx {
         internal static string Incomplete {
             get {
                 return ResourceManager.GetString("Incomplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        internal static string Information {
+            get {
+                return ResourceManager.GetString("Information", resourceCulture);
             }
         }
         

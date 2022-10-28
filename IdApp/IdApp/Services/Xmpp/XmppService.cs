@@ -185,6 +185,7 @@ namespace IdApp.Services.Xmpp
 					this.xmppClient.OnPresenceUnsubscribed += this.XmppClient_OnPresenceUnsubscribed;
 
 					this.xmppClient.RegisterMessageHandler("Delivered", ContractsClient.NamespaceOnboarding, this.TransferIdDelivered, true);
+					this.xmppClient.RegisterMessageHandler("clientMessage", ContractsClient.NamespaceLegalIdentities, this.ClientMessage, true);
 
 					Thread?.NewState("Sink");
 					this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.TagProfile.LogJid, false);
@@ -1498,6 +1499,50 @@ namespace IdApp.Services.Xmpp
 			});
 		}
 
+		private Task ClientMessage(object Sender, MessageEventArgs e)
+		{
+			string Code = XML.Attribute(e.Content, "code");
+			string Type = XML.Attribute(e.Content, "type");
+			string Message = e.Body;
+
+			if (!string.IsNullOrEmpty(Code))
+			{
+				try
+				{
+					string LocalizedMessage = LocalizationResourceManager.Current["ClientMessage" + Code];
+
+					if (!string.IsNullOrEmpty(LocalizedMessage))
+						Message = LocalizedMessage;
+				}
+				catch (Exception)
+				{
+					// Ignore
+				}
+			}
+
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				switch (Type.ToUpper())
+				{
+					case "NONE":
+					default:
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Information"], Message,
+							LocalizationResourceManager.Current["Ok"]);
+						break;
+
+					case "CLIENT":
+					case "SERVER":
+					case "SERVICE":
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], Message,
+							LocalizationResourceManager.Current["Ok"]);
+						break;
+
+				}
+			});
+
+			return Task.CompletedTask;
+		}
+
 		#region Push Notification
 
 		/// <summary>
@@ -1593,7 +1638,7 @@ namespace IdApp.Services.Xmpp
 
 			if (this.IsOnline)
 				Url.Append("httpx://");
-			else if (!string.IsNullOrEmpty(this.token))		// Token needs to be retrieved reegularly when connected, if protectedd APIs are to be used when disconnected or during connection.
+			else if (!string.IsNullOrEmpty(this.token))     // Token needs to be retrieved reegularly when connected, if protectedd APIs are to be used when disconnected or during connection.
 			{
 				Url.Append("https://");
 
