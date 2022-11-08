@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <Entries>
 	<Entry country="BA" displayString="DDMMYYYRRBBBK">
-		<Pattern variable="UMCN"><![CDATA[UMCN like "(?'D1'\\d{1})(?'D2'\\d{1})(?'D3'\\d{1})(?'D4'\\d{1})(?'D5'\\d{1})(?'D6'\\d{1})(?'D7'\\d{1})(?'D8'\\d{1})(?'D9'\\d{1})(?'D10'\\d{1})(?'D11'\\d{1})(?'D12'\\d{1})(?'D13'\\d{1})]]></Pattern>
+		<Pattern variable="UMCN"><![CDATA[UMCN like "(?'D1'\\d{1})(?'D2'\\d{1})(?'D3'\\d{1})(?'D4'\\d{1})(?'D5'\\d{1})(?'D6'\\d{1})(?'D7'\\d{1})(?'D8'\\d{1})(?'D9'\\d{1})(?'D10'\\d{1})(?'D11'\\d{1})(?'D12'\\d{1})(?'D13'\\d{1})"]]></Pattern>
 		<Check>
 			<![CDATA[
 			M := 11 - ((7 * (N1 + N7) + 6 * (N2 + N8) + 5 * (N3 + N9) + 4 * (N4 + N10) + 3 * (N5 + N11) + 2 * (N6 + N12) ) mod 11);
@@ -18,7 +18,7 @@
 		<Normalize><![CDATA[N1_STR+"."+N2_STR+"."+N3_STR+"-"+N4_STR]]></Normalize>
 	</Entry>
 	<Entry country="HR" displayString="DDMMYYYRRBBBK">
-		<Pattern variable="UMCN"><![CDATA[UMCN like "(?'D1'\\d{1})(?'D2'\\d{1})(?'D3'\\d{1})(?'D4'\\d{1})(?'D5'\\d{1})(?'D6'\\d{1})(?'D7'\\d{1})(?'D8'\\d{1})(?'D9'\\d{1})(?'D10'\\d{1})(?'D11'\\d{1})(?'D12'\\d{1})(?'D13'\\d{1})]]></Pattern>
+		<Pattern variable="UMCN"><![CDATA[UMCN like "(?'D1'\\d{1})(?'D2'\\d{1})(?'D3'\\d{1})(?'D4'\\d{1})(?'D5'\\d{1})(?'D6'\\d{1})(?'D7'\\d{1})(?'D8'\\d{1})(?'D9'\\d{1})(?'D10'\\d{1})(?'D11'\\d{1})(?'D12'\\d{1})(?'D13'\\d{1})"]]></Pattern>
 		<Check>
 			<![CDATA[
 			M := 11 - ((7 * (N1 + N7) + 6 * (N2 + N8) + 5 * (N3 + N9) + 4 * (N4 + N10) + 3 * (N5 + N11) + 2 * (N6 + N12) ) mod 11);
@@ -71,7 +71,7 @@
 		<Pattern variable="IDNP"><![CDATA[IDNP like "\\d{13}"]]></Pattern>
 	</Entry>
 	<Entry country="ME" displayString="DDMMYYYRRBBBK">
-		<Pattern variable="UMCN"><![CDATA[UMCN like "(?'D1'\\d{1})(?'D2'\\d{1})(?'D3'\\d{1})(?'D4'\\d{1})(?'D5'\\d{1})(?'D6'\\d{1})(?'D7'\\d{1})(?'D8'\\d{1})(?'D9'\\d{1})(?'D10'\\d{1})(?'D11'\\d{1})(?'D12'\\d{1})(?'D13'\\d{1})]]></Pattern>
+		<Pattern variable="UMCN"><![CDATA[UMCN like "(?'D1'\\d{1})(?'D2'\\d{1})(?'D3'\\d{1})(?'D4'\\d{1})(?'D5'\\d{1})(?'D6'\\d{1})(?'D7'\\d{1})(?'D8'\\d{1})(?'D9'\\d{1})(?'D10'\\d{1})(?'D11'\\d{1})(?'D12'\\d{1})(?'D13'\\d{1})"]]></Pattern>
 		<Check>
 			<![CDATA[
 			M := 11 - ((7 * (N1 + N7) + 6 * (N2 + N8) + 5 * (N3 + N9) + 4 * (N4 + N10) + 3 * (N5 + N11) + 2 * (N6 + N12) ) mod 11);
@@ -80,7 +80,7 @@
 		</Check>
 	</Entry>
 	<Entry country="MK" displayString="DDMMYYYRRBBBK">
-		<Pattern variable="UMCN"><![CDATA[UMCN like "(?'D1'\\d{1})(?'D2'\\d{1})(?'D3'\\d{1})(?'D4'\\d{1})(?'D5'\\d{1})(?'D6'\\d{1})(?'D7'\\d{1})(?'D8'\\d{1})(?'D9'\\d{1})(?'D10'\\d{1})(?'D11'\\d{1})(?'D12'\\d{1})(?'D13'\\d{1})]]></Pattern>
+		<Pattern variable="UMCN"><![CDATA[UMCN like "(?'D1'\\d{1})(?'D2'\\d{1})(?'D3'\\d{1})(?'D4'\\d{1})(?'D5'\\d{1})(?'D6'\\d{1})(?'D7'\\d{1})(?'D8'\\d{1})(?'D9'\\d{1})(?'D10'\\d{1})(?'D11'\\d{1})(?'D12'\\d{1})(?'D13'\\d{1})"]]></Pattern>
 		<Check>
 			<![CDATA[
 			M := 11 - ((7 * (N1 + N7) + 6 * (N2 + N8) + 5 * (N3 + N9) + 4 * (N4 + N10) + 3 * (N5 + N11) + 2 * (N6 + N12) ) mod 11);
@@ -89,7 +89,7 @@
 		</Check>
 	</Entry>
 	<Entry country="RS" displayString="DDMMYYYRRBBBK">
-		<Pattern variable="UMCN"><![CDATA[UMCN like "(?'D1'\\d{1})(?'D2'\\d{1})(?'D3'\\d{1})(?'D4'\\d{1})(?'D5'\\d{1})(?'D6'\\d{1})(?'D7'\\d{1})(?'D8'\\d{1})(?'D9'\\d{1})(?'D10'\\d{1})(?'D11'\\d{1})(?'D12'\\d{1})(?'D13'\\d{1})]]></Pattern>
+		<Pattern variable="UMCN"><![CDATA[UMCN like "(?'D1'\\d{1})(?'D2'\\d{1})(?'D3'\\d{1})(?'D4'\\d{1})(?'D5'\\d{1})(?'D6'\\d{1})(?'D7'\\d{1})(?'D8'\\d{1})(?'D9'\\d{1})(?'D10'\\d{1})(?'D11'\\d{1})(?'D12'\\d{1})(?'D13'\\d{1})"]]></Pattern>
 		<Check>
 			<![CDATA[
 			M := 11 - ((7 * (N1 + N7) + 6 * (N2 + N8) + 5 * (N3 + N9) + 4 * (N4 + N10) + 3 * (N5 + N11) + 2 * (N6 + N12) ) mod 11);
@@ -103,7 +103,7 @@
 		<Normalize><![CDATA[(YYYY_STR.Length=4?YYYY_STR:(YYYY<30?"20":"19")+YYYY_STR)+MM_STR+DD_STR+"-"+NNNN_STR]]></Normalize>
 	</Entry>
 	<Entry country="SI" displayString="DDMMYYYRRBBBK">
-		<Pattern variable="UMCN"><![CDATA[UMCN like "(?'D1'\\d{1})(?'D2'\\d{1})(?'D3'\\d{1})(?'D4'\\d{1})(?'D5'\\d{1})(?'D6'\\d{1})(?'D7'\\d{1})(?'D8'\\d{1})(?'D9'\\d{1})(?'D10'\\d{1})(?'D11'\\d{1})(?'D12'\\d{1})(?'D13'\\d{1})]]></Pattern>
+		<Pattern variable="UMCN"><![CDATA[UMCN like "(?'D1'\\d{1})(?'D2'\\d{1})(?'D3'\\d{1})(?'D4'\\d{1})(?'D5'\\d{1})(?'D6'\\d{1})(?'D7'\\d{1})(?'D8'\\d{1})(?'D9'\\d{1})(?'D10'\\d{1})(?'D11'\\d{1})(?'D12'\\d{1})(?'D13'\\d{1})"]]></Pattern>
 		<Check>
 			<![CDATA[
 			M := 11 - ((7 * (N1 + N7) + 6 * (N2 + N8) + 5 * (N3 + N9) + 4 * (N4 + N10) + 3 * (N5 + N11) + 2 * (N6 + N12) ) mod 11);
