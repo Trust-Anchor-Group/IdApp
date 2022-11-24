@@ -23214,11 +23214,13 @@
             Interface for the Optical Character Recognition (OCR) Service.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Ocr.IOcrService.ProcessImage(IdApp.Cv.IMatrix)">
+        <member name="M:IdApp.Services.Ocr.IOcrService.ProcessImage(IdApp.Cv.IMatrix,System.String,System.Nullable{IdApp.Services.Ocr.PageSegmentationMode})">
             <summary>
             Processes an image and tries to extract strings of characters from it.
             </summary>
             <param name="Image">Pre-processed image.</param>
+            <param name="Language">Expected language on text in image.</param>
+            <param name="PageSegmentationMode">Optional page segmentationmode.</param>
             <returns>Any lines of text found.</returns>
         </member>
         <member name="T:IdApp.Services.Ocr.OcrService">
@@ -23231,12 +23233,90 @@
             Optical Character Recognition (OCR) Service.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Ocr.OcrService.ProcessImage(IdApp.Cv.IMatrix)">
+        <member name="M:IdApp.Services.Ocr.OcrService.ProcessImage(IdApp.Cv.IMatrix,System.String,System.Nullable{IdApp.Services.Ocr.PageSegmentationMode})">
             <summary>
             Processes an image and tries to extract strings of characters from it.
             </summary>
             <param name="Image">Pre-processed image.</param>
+            <param name="Language">Expected language on text in image.</param>
+            <param name="PageSegmentationMode">Optional page segmentationmode.</param>
             <returns>Any lines of text found.</returns>
+        </member>
+        <member name="T:IdApp.Services.Ocr.PageSegmentationMode">
+            <summary>
+            Page Segmentation Mode
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.DetectOrientationAndScript">
+            <summary>
+            Orientation and script detection (OSD) only
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.AutomaticPageSegmentationWithOsd">
+            <summary>
+            Automatic page segmentation with OSD.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.AutomaticPageSegmentationNoOsdOrOsr">
+            <summary>
+            Automatic page segmentation, but no OSD, or OCR.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.FullyAutomaticPageSegmentationNoOsd">
+            <summary>
+            Fully automatic page segmentation, but no OSD. (Default)
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.SingleColumnOfText">
+            <summary>
+            Assume a single column of text of variable sizes.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.SingleUniformBlockOfVerticallyAlignedText">
+            <summary>
+            Assume a single uniform block of vertically aligned text.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.SingleUniformBlockOfText">
+            <summary>
+            Assume a single uniform block of text.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.SingleLineOfText">
+            <summary>
+            Treat the image as a single text line.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.SingleWord">
+            <summary>
+            Treat the image as a single word.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.SingleWordInCircle">
+            <summary>
+            Treat the image as a single word in a circle.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.SingleCharacter">
+            <summary>
+            Treat the image as a single character.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.SparseText">
+            <summary>
+            Sparse text. Find as much text as possible in no particular order.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.SparseTextWithOsd">
+            <summary>
+            Sparse text with OSD.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Ocr.PageSegmentationMode.RawLine">
+            <summary>
+            Raw line. Treat the image as a single text line,
+            bypassing hacks that are Tesseract-specific.
+            </summary>
         </member>
         <member name="T:IdApp.Services.Push.IPushNotificationService">
             <summary>
