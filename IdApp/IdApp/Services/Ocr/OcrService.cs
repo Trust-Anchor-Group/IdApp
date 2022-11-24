@@ -65,7 +65,7 @@ namespace IdApp.Services.Ocr
 			if (string.IsNullOrEmpty(Text))
 				return new string[0];
 			else
-				return new string[] { Text };
+				return Text.Split(CommonTypes.CRLF, StringSplitOptions.RemoveEmptyEntries);
 		}
 
 	}
