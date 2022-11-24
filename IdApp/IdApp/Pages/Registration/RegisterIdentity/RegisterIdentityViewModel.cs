@@ -605,7 +605,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 				Mrz.Negate();
 				Mrz.Contrast();
-				string[] Rows = await OcrService.ProcessImage(Mrz);
+				string[] Rows = await OcrService.ProcessImage(Mrz, "mrz", PageSegmentationMode.SingleUniformBlockOfText);
 
 				if (Rows.Length == 0)
 				{
