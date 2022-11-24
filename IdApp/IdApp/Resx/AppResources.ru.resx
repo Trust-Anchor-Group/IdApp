@@ -1393,7 +1393,7 @@
     <value>Нет, просто игнорируйте</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Другое</value>
+    <value>Другое__________</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Сообщать</value>
@@ -1419,14 +1419,8 @@
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>Похоже, что сервер не поддерживает загрузку файлов.</value>
   </data>
-  <data name="TesseractNotCreated" xml:space="preserve">
-    <value>Библиотека Tesseract OCR не создана</value>
-  </data>
-  <data name="UnabletoInitializeTesseract" xml:space="preserve">
-    <value>Не удается инициализировать библиотеку Tesseract OCR</value>
-  </data>
-  <data name="UnableToTesseractImage" xml:space="preserve">
-    <value>Не удается обработать изображение с помощью библиотеки Tesseract OCR.</value>
+  <data name="UnableToOcrImage" xml:space="preserve">
+    <value>Не удается найти текст на изображении.</value>
   </data>
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Не удается извлечь машиночитаемый текст из изображения.</value>
@@ -1711,7 +1705,7 @@
     <value>Показать определение M2M</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Приметы:</value>
+    <value>Приметы:__________</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Действия</value>
@@ -1966,7 +1960,7 @@
     <value>Мгновенный</value>
   </data>
   <data name="SensorDataHeaderOther" xml:space="preserve">
-    <value>Другое</value>
+    <value>Другое__________</value>
   </data>
   <data name="SensorDataHeaderPeak" xml:space="preserve">
     <value>Пик</value>

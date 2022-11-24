@@ -1,7 +1,9 @@
 ﻿using IdApp.Cv;
-using System.Collections.Generic;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System;
 using System.Threading.Tasks;
-using Tesseract;
+using Waher.Content;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Ocr
@@ -12,8 +14,6 @@ namespace IdApp.Services.Ocr
 	[Singleton]
 	public class OcrService : ServiceReferences, IOcrService
 	{
-		private ITesseractApi api;
-
 		/// <summary>
 		/// Optical Character Recognition (OCR) Service.
 		/// </summary>
@@ -23,65 +23,49 @@ namespace IdApp.Services.Ocr
 		}
 
 		/// <summary>
-		/// Method called to register the platform-dependant Tesseract API interface.
-		/// </summary>
-		/// <param name="Api">Tesseract API Reference</param>
-		public void RegisterApi(ITesseractApi Api)
-		{
-			this.api = Api;
-		}
-
-		/// <summary>
-		/// Tesseract API reference.
-		/// </summary>
-		public ITesseractApi Api => this.api;
-
-		/// <summary>
-		/// If API is created
-		/// </summary>
-		public bool Created => this.api is not null;
-
-		/// <summary>
-		/// If API is initialized
-		/// </summary>
-		public bool Initialized => this.api?.Initialized ?? false;
-
-		/// <summary>
-		/// Initializes API
-		/// </summary>
-		/// <returns>If API was successfully initialized.</returns>
-		public async Task<bool> Initialize()
-		{
-			if (!await this.api.Init("eng"))
-				return false;
-
-			this.api.SetPageSegmentationMode(PageSegmentationMode.SingleBlock);
-
-			return true;
-		}
-
-		/// <summary>
 		/// Processes an image and tries to extract strings of characters from it.
 		/// </summary>
 		/// <param name="Image">Pre-processed image.</param>
+		/// <param name="Language">Expected language on text in image.</param>
+		/// <param name="PageSegmentationMode">Optional page segmentationmode.</param>
 		/// <returns>Any lines of text found.</returns>
-		public async Task<string[]> ProcessImage(IMatrix Image)
+		public async Task<string[]> ProcessImage(IMatrix Image, string Language, PageSegmentationMode? PageSegmentationMode)
 		{
 			byte[] Png = Bitmaps.EncodeAsPng(Image);
-			if (!await this.api.SetImage(Png))
-				return new string[0];
+			string Token = await this.XmppService.GetApiToken(60);
 
-			List<string> Result = new();
-			string s;
-
-			foreach (Result R in this.api.Results(PageIteratorLevel.Textline))
+			Uri Uri = new Uri("https://" + this.TagProfile.Domain + "/Tesseract/Api");
+			using HttpClient HttpClient = new();
+			using HttpRequestMessage Request = new()
 			{
-				s = R.Text.Trim();
-				if (!string.IsNullOrEmpty(s))
-					Result.Add(s);
-			}
+				RequestUri = Uri,
+				Method = HttpMethod.Post,
+				Content = new ByteArrayContent(Png)
+			};
 
-			return Result.ToArray();
+			Request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("image/png");
+			Request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+
+			if (!string.IsNullOrEmpty(Language))
+				Request.Headers.Add("X-LANGUAGE", Language);
+
+			if (PageSegmentationMode.HasValue)
+				Request.Headers.Add("X-PSM", PageSegmentationMode.Value.ToString());
+
+			HttpResponseMessage Response = await HttpClient.SendAsync(Request);
+			Response.EnsureSuccessStatusCode();
+
+			byte[] Bin = await Response.Content.ReadAsByteArrayAsync();
+			string ContentType = Response.Content.Headers.ContentType.ToString();
+			object Obj = await InternetContent.DecodeAsync(ContentType, Bin, Uri);
+
+			if (Obj is not string Text)
+				throw new Exception("Unexpected response.");
+
+			if (string.IsNullOrEmpty(Text))
+				return new string[0];
+			else
+				return new string[] { Text };
 		}
 
 	}

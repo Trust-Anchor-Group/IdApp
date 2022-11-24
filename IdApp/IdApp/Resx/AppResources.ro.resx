@@ -1393,7 +1393,7 @@
     <value>Nu, doar ignora</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Altele</value>
+    <value>Altele__________</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Raport</value>
@@ -1419,14 +1419,8 @@
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>Serverul nu pare să accepte încărcarea fișierelor.</value>
   </data>
-  <data name="TesseractNotCreated" xml:space="preserve">
-    <value>Biblioteca OCR Tesseract nu a fost creată</value>
-  </data>
-  <data name="UnabletoInitializeTesseract" xml:space="preserve">
-    <value>Imposibilitatea de a inițializa Biblioteca OCR Tesseract</value>
-  </data>
-  <data name="UnableToTesseractImage" xml:space="preserve">
-    <value>Imposibil de procesat imaginea cu Biblioteca Tesseract OCR.</value>
+  <data name="UnableToOcrImage" xml:space="preserve">
+    <value>Imposibil de găsit nici un text în imagine.</value>
   </data>
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Imposibil de extras text care poate fi citit automat din imagine.</value>
@@ -1711,7 +1705,7 @@
     <value>Afișare definiție M2M</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Descriere:</value>
+    <value>Descriere:__________</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Acțiuni</value>
@@ -1966,7 +1960,7 @@
     <value>Momentan</value>
   </data>
   <data name="SensorDataHeaderOther" xml:space="preserve">
-    <value>Altele</value>
+    <value>Altele__________</value>
   </data>
   <data name="SensorDataHeaderPeak" xml:space="preserve">
     <value>Vârf</value>

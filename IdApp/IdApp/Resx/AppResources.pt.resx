@@ -1393,7 +1393,7 @@
     <value>Não, apenas ignore</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Outros</value>
+    <value>Outros__________</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Relatório</value>
@@ -1419,14 +1419,8 @@
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>O servidor não parece suportar o upload de arquivos.</value>
   </data>
-  <data name="TesseractNotCreated" xml:space="preserve">
-    <value>Biblioteca Tesseract OCR não criada</value>
-  </data>
-  <data name="UnabletoInitializeTesseract" xml:space="preserve">
-    <value>Incapaz de inicializar a Biblioteca Tesseract OCR</value>
-  </data>
-  <data name="UnableToTesseractImage" xml:space="preserve">
-    <value>Não é possível processar a imagem com a Biblioteca Tesseract OCR.</value>
+  <data name="UnableToOcrImage" xml:space="preserve">
+    <value>Não é possível localizar qualquer texto na imagem.</value>
   </data>
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Não é possível extrair texto legível por máquina da imagem.</value>
@@ -1711,7 +1705,7 @@
     <value>Mostrar definição M2M</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Descrição:</value>
+    <value>Descrição: __________</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Ações</value>
@@ -1966,7 +1960,7 @@
     <value>Momentâneo</value>
   </data>
   <data name="SensorDataHeaderOther" xml:space="preserve">
-    <value>Outros</value>
+    <value>Outros__________</value>
   </data>
   <data name="SensorDataHeaderPeak" xml:space="preserve">
     <value>Pico</value>

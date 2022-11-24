@@ -18968,11 +18968,6 @@
               Looks up a localized string similar to Template ID.
             </summary>
         </member>
-        <member name="P:IdApp.Resx.AppResources.TesseractNotCreated">
-            <summary>
-              Looks up a localized string similar to Tesseract OCR Library not created.
-            </summary>
-        </member>
         <member name="P:IdApp.Resx.AppResources.TestOtpUsed">
             <summary>
               Looks up a localized string similar to A temporary OTP code has been used. The application will stop working in about a week. You&apos;ll have to reinstall the application to use it again..
@@ -19263,9 +19258,9 @@
               Looks up a localized string similar to Unable to get state diagram report..
             </summary>
         </member>
-        <member name="P:IdApp.Resx.AppResources.UnabletoInitializeTesseract">
+        <member name="P:IdApp.Resx.AppResources.UnableToOcrImage">
             <summary>
-              Looks up a localized string similar to Unable to initialize Tesseract OCR Library.
+              Looks up a localized string similar to Unable to find any text in the image..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.UnableToProcessEDalerUri">
@@ -19276,11 +19271,6 @@
         <member name="P:IdApp.Resx.AppResources.UnableToRespond">
             <summary>
               Looks up a localized string similar to Unable to respond to request..
-            </summary>
-        </member>
-        <member name="P:IdApp.Resx.AppResources.UnableToTesseractImage">
-            <summary>
-              Looks up a localized string similar to Unable to process image with Tesseract OCR Library..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.UnableToVerifyCode">
@@ -23224,28 +23214,6 @@
             Interface for the Optical Character Recognition (OCR) Service.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Ocr.IOcrService.RegisterApi(Tesseract.ITesseractApi)">
-            <summary>
-            Method called to register the platform-dependant Tesseract API interface.
-            </summary>
-            <param name="Api">Tesseract API Reference</param>
-        </member>
-        <member name="P:IdApp.Services.Ocr.IOcrService.Created">
-            <summary>
-            If API is created
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Ocr.IOcrService.Initialized">
-            <summary>
-            If API is initialized
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Ocr.IOcrService.Initialize">
-            <summary>
-            Initializes API
-            </summary>
-            <returns>If API was successfully initialized.</returns>
-        </member>
         <member name="M:IdApp.Services.Ocr.IOcrService.ProcessImage(IdApp.Cv.IMatrix)">
             <summary>
             Processes an image and tries to extract strings of characters from it.
@@ -23262,33 +23230,6 @@
             <summary>
             Optical Character Recognition (OCR) Service.
             </summary>
-        </member>
-        <member name="M:IdApp.Services.Ocr.OcrService.RegisterApi(Tesseract.ITesseractApi)">
-            <summary>
-            Method called to register the platform-dependant Tesseract API interface.
-            </summary>
-            <param name="Api">Tesseract API Reference</param>
-        </member>
-        <member name="P:IdApp.Services.Ocr.OcrService.Api">
-            <summary>
-            Tesseract API reference.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Ocr.OcrService.Created">
-            <summary>
-            If API is created
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Ocr.OcrService.Initialized">
-            <summary>
-            If API is initialized
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Ocr.OcrService.Initialize">
-            <summary>
-            Initializes API
-            </summary>
-            <returns>If API was successfully initialized.</returns>
         </member>
         <member name="M:IdApp.Services.Ocr.OcrService.ProcessImage(IdApp.Cv.IMatrix)">
             <summary>

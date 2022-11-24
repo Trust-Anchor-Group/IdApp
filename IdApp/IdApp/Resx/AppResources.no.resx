@@ -1393,7 +1393,7 @@
     <value>Nei, bare ignorere</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Annet</value>
+    <value>Annet __________</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Rapport</value>
@@ -1419,14 +1419,8 @@
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>Serveren ser ikke ut til å støtte filopplasting.</value>
   </data>
-  <data name="TesseractNotCreated" xml:space="preserve">
-    <value>Tesseract OCR-bibliotek ikke opprettet</value>
-  </data>
-  <data name="UnabletoInitializeTesseract" xml:space="preserve">
-    <value>Kan ikke initialisere Tesseract OCR-bibliotek</value>
-  </data>
-  <data name="UnableToTesseractImage" xml:space="preserve">
-    <value>Kan ikke behandle bildet med Tesseract OCR Library.</value>
+  <data name="UnableToOcrImage" xml:space="preserve">
+    <value>Finner ingen tekst i bildet.</value>
   </data>
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Kan ikke trekke ut maskinlesbar tekst fra bildet.</value>
@@ -1711,7 +1705,7 @@
     <value>Vis definisjon av M2M</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Beskrivelse:</value>
+    <value>Beskrivelse: __________</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Handlinger</value>
@@ -1966,7 +1960,7 @@
     <value>Øyeblikkelig</value>
   </data>
   <data name="SensorDataHeaderOther" xml:space="preserve">
-    <value>Annet</value>
+    <value>Annet __________</value>
   </data>
   <data name="SensorDataHeaderPeak" xml:space="preserve">
     <value>Topp</value>

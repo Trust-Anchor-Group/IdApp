@@ -1393,7 +1393,7 @@
     <value>Ei, ohita vain</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Muu</value>
+    <value>Muu __________</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Raportti</value>
@@ -1419,14 +1419,8 @@
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>Palvelin ei näytä tukevan tiedostojen lataamista.</value>
   </data>
-  <data name="TesseractNotCreated" xml:space="preserve">
-    <value>Tesseract OCR -kirjastoa ei luotu</value>
-  </data>
-  <data name="UnabletoInitializeTesseract" xml:space="preserve">
-    <value>Tesseract OCR -kirjastoa ei voi alustaa</value>
-  </data>
-  <data name="UnableToTesseractImage" xml:space="preserve">
-    <value>Kuvaa ei voi käsitellä Tesseract OCR -kirjastolla.</value>
+  <data name="UnableToOcrImage" xml:space="preserve">
+    <value>Kuvasta ei löydy tekstiä.</value>
   </data>
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Koneellisesti luettavaa tekstiä ei voi poimia kuvasta.</value>
@@ -1711,7 +1705,7 @@
     <value>Näytä M2M-määritelmä</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Kuvaus:</value>
+    <value>Kuvaus: __________</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Toimet</value>
@@ -1966,7 +1960,7 @@
     <value>Hetkellinen</value>
   </data>
   <data name="SensorDataHeaderOther" xml:space="preserve">
-    <value>Muu</value>
+    <value>Muu __________</value>
   </data>
   <data name="SensorDataHeaderPeak" xml:space="preserve">
     <value>Huippu</value>

@@ -8,7 +8,6 @@ using IdApp.Services.Push;
 using IdApp.Services.Xmpp;
 using System;
 using System.Threading.Tasks;
-using Tesseract.iOS;
 using UIKit;
 using UserNotifications;
 using Waher.Events;
@@ -56,9 +55,6 @@ namespace IdApp.iOS
 			// FFImageLoading.ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Disk);
 
 			this.LoadApplication(new App());
-
-			IOcrService OcrService = Types.InstantiateDefault<IOcrService>(false);
-			OcrService.RegisterApi(new TesseractApi());
 
 			this.RegisterKeyBoardObserver();
 			this.RegisterRemoteNotifications();

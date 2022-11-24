@@ -1398,9 +1398,6 @@
   <data name="TemplateId" xml:space="preserve">
     <value>MallId</value>
   </data>
-  <data name="TesseractNotCreated" xml:space="preserve">
-    <value>Tesseracts OCR-bibliotek inte skapat</value>
-  </data>
   <data name="TestOtpUsed" xml:space="preserve">
     <value>En tillfällig OTP-kod har använts. Applikationen kommer att sluta att fungera om en vecka. Du måste återinstallera applikationen för att kunna använda den igen.</value>
   </data>
@@ -1536,14 +1533,11 @@
   <data name="UnableToGetListOfMyDevices" xml:space="preserve">
     <value>Kunde inte hämta listan över mina enheter.</value>
   </data>
-  <data name="UnabletoInitializeTesseract" xml:space="preserve">
-    <value>Kunde inte initiera Tesseracts OCR-bibliotek</value>
-  </data>
   <data name="UnableToProcessEDalerUri" xml:space="preserve">
     <value>Kunde inte behandla eDaler-koden.</value>
   </data>
-  <data name="UnableToTesseractImage" xml:space="preserve">
-    <value>Kunde inte bearbeta bild med Tesseracts OCR-bibliotek.</value>
+  <data name="UnableToOcrImage" xml:space="preserve">
+    <value>Kunde inte hitta någon text i bilden.</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>Koden var inte korrekt.</value>

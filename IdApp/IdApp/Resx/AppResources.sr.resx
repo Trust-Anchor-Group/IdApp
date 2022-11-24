@@ -1393,7 +1393,7 @@
     <value>Ne, samo ignoriši</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Drugo</value>
+    <value>Drugo __________</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Izveštaj</value>
@@ -1419,14 +1419,8 @@
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>Izgleda da server ne podržava otpremanje datoteka.</value>
   </data>
-  <data name="TesseractNotCreated" xml:space="preserve">
-    <value>OCR biblioteka Tesseract nije kreirana</value>
-  </data>
-  <data name="UnabletoInitializeTesseract" xml:space="preserve">
-    <value>Nije moguće pokrenuti OCR biblioteku Tesseract</value>
-  </data>
-  <data name="UnableToTesseractImage" xml:space="preserve">
-    <value>Nije moguće obraditi sliku pomoću Tesseract OCR biblioteke.</value>
+  <data name="UnableToOcrImage" xml:space="preserve">
+    <value>Nije moguće pronaći tekst na slici.</value>
   </data>
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Nije moguće izdvojiti tekst čitljiv na računaru sa slike.</value>
@@ -1711,7 +1705,7 @@
     <value>Prikaži M2M definiciju</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Opis:</value>
+    <value>Opis: __________</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Radnje</value>
@@ -1966,7 +1960,7 @@
     <value>Trenutna</value>
   </data>
   <data name="SensorDataHeaderOther" xml:space="preserve">
-    <value>Drugo</value>
+    <value>Drugo __________</value>
   </data>
   <data name="SensorDataHeaderPeak" xml:space="preserve">
     <value>Vrhunac</value>

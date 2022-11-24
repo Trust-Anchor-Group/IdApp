@@ -602,29 +602,14 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 					return;
 
 				IOcrService OcrService = App.Instantiate<IOcrService>();
-				if (!OcrService.Created)
-				{
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["TesseractNotCreated"]);
-					return;
-				}
-
-				if (!OcrService.Initialized)
-				{
-					if (!await OcrService.Initialize())
-					{
-						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnabletoInitializeTesseract"]);
-						return;
-					}
-				}
 
 				Mrz.Negate();
 				Mrz.Contrast();
-				string s = Convert.ToBase64String(Bitmaps.EncodeAsPng(Mrz));  // TODO: Remove
 				string[] Rows = await OcrService.ProcessImage(Mrz);
 
 				if (Rows.Length == 0)
 				{
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToTesseractImage"]);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToOcrImage"]);
 					return;
 				}
 

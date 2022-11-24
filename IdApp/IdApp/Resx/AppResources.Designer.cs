@@ -19,7 +19,7 @@ namespace IdApp.Resx {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppResources {
@@ -5155,15 +5155,6 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tesseract OCR Library not created.
-        /// </summary>
-        internal static string TesseractNotCreated {
-            get {
-                return ResourceManager.GetString("TesseractNotCreated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to A temporary OTP code has been used. The application will stop working in about a week. You&apos;ll have to reinstall the application to use it again..
         /// </summary>
         internal static string TestOtpUsed {
@@ -5686,11 +5677,11 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to initialize Tesseract OCR Library.
+        ///   Looks up a localized string similar to Unable to find any text in the image..
         /// </summary>
-        internal static string UnabletoInitializeTesseract {
+        internal static string UnableToOcrImage {
             get {
-                return ResourceManager.GetString("UnabletoInitializeTesseract", resourceCulture);
+                return ResourceManager.GetString("UnableToOcrImage", resourceCulture);
             }
         }
         
@@ -5709,15 +5700,6 @@ namespace IdApp.Resx {
         internal static string UnableToRespond {
             get {
                 return ResourceManager.GetString("UnableToRespond", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to process image with Tesseract OCR Library..
-        /// </summary>
-        internal static string UnableToTesseractImage {
-            get {
-                return ResourceManager.GetString("UnableToTesseractImage", resourceCulture);
             }
         }
         
