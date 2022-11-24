@@ -34,7 +34,7 @@ namespace IdApp.Services.Ocr
 			byte[] Png = Bitmaps.EncodeAsPng(Image);
 			string Token = await this.XmppService.GetApiToken(60);
 
-			Uri Uri = new Uri("https://" + this.TagProfile.Domain + "/Tesseract/Api");
+			Uri Uri = new("https://" + this.TagProfile.Domain + "/Tesseract/Api");
 			using HttpClient HttpClient = new();
 			using HttpRequestMessage Request = new()
 			{

@@ -1615,7 +1615,10 @@ namespace IdApp.Services.Xmpp
 				return this.token;
 
 			if (!this.IsOnline)
-				return this.token;
+			{
+				if (!await this.WaitForConnectedState(TimeSpan.FromSeconds(20)))
+					return this.token;
+			}
 
 			this.token = await this.httpxClient.GetJwtTokenAsync(Seconds);
 			this.tokenCreated = Now;
