@@ -24,9 +24,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		public override Grade Supports(MultimediaItem Item)
 		{
 			if (Item.ContentType?.StartsWith("image/", StringComparison.OrdinalIgnoreCase) == true)
-			{
 				return Grade.Excellent;
-			}
 
 			return this.imageContent.Supports(Item);
 		}
@@ -57,21 +55,15 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 					if (MultimediaItem.Height.HasValue)
 					{
 						if (MultimediaItem.Width >= MultimediaItem.Height && MultimediaItem.Width > Constants.MaxRenderedImageDimensionInPixels)
-						{
 							DownsampleWidth = Constants.MaxRenderedImageDimensionInPixels;
-						}
 
 						if (MultimediaItem.Height >= MultimediaItem.Width && MultimediaItem.Height > Constants.MaxRenderedImageDimensionInPixels)
-						{
 							DownsampleHeight = Constants.MaxRenderedImageDimensionInPixels;
-						}
 					}
 					else
 					{
 						if (MultimediaItem.Width > Constants.MaxRenderedImageDimensionInPixels)
-						{
 							DownsampleWidth = Constants.MaxRenderedImageDimensionInPixels;
-						}
 					}
 				}
 
@@ -79,25 +71,19 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 				Output.WriteAttributeString("Source", MultimediaItem.Url);
 
 				if (DownsampleWidth.HasValue)
-				{
 					Output.WriteAttributeString("DownsampleWidth", DownsampleWidth.Value.ToString());
-				}
 
 				if (DownsampleHeight.HasValue)
-				{
 					Output.WriteAttributeString("DownsampleHeight", DownsampleHeight.Value.ToString());
-				}
 
 				// For some reason, specifying an SVG image source doesn't work, no idea why.
 				Output.WriteAttributeString("LoadingPlaceholder", $"resource://{Resx.Pngs.Image}");
 				Output.WriteAttributeString("ErrorPlaceholder", $"resource://{Resx.Pngs.BrokenImage}");
 
 				Output.WriteEndElement();
-
-				return Task.CompletedTask;
 			}
 
-			throw new NotImplementedException();
+			return Task.CompletedTask;
 		}
 
 		/// <inheritdoc/>
