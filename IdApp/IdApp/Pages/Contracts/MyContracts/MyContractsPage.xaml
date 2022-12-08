@@ -95,7 +95,8 @@
 	<StackLayout Margin="{StaticResource DefaultMargin}">
         <Label Text="{Binding Path=Title}" Style="{StaticResource Heading}"/>
         <Label Text="{Binding Path=Description}" HorizontalOptions="Center" VerticalOptions="Start"/>
-        <Label Style="{StaticResource AlertLabel}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static resx:AppResources.NoContractsFound}" />
+        <Label Style="{StaticResource AlertLabel}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+			   VerticalOptions="Start" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static resx:AppResources.NoContractsFound}" />
         <ActivityIndicator x:Name="Loading" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}"
                            Style="{StaticResource AccentIndicator}"/>
