@@ -53,7 +53,14 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 this.petitionId = args.PetitionId;
                 this.purpose = args.Purpose;
 
-                string BareJid = XmppClient.GetBareJID(this.requestorFullJid);
+				string BareJid;
+
+				if (!string.IsNullOrEmpty(this.requestorFullJid))
+					BareJid = XmppClient.GetBareJID(this.requestorFullJid);
+				else if (args.RequestorIdentity is not null)
+					BareJid = args.RequestorIdentity.GetJid();
+				else
+					BareJid = string.Empty;
 
                 ContactInfo Info = await ContactInfo.FindByBareJid(BareJid);
 
