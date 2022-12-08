@@ -15,7 +15,7 @@
 					   Title="{Binding Path=FriendlyName}"
 					   Style="{StaticResource BaseBackgroundPage}">
 	<views:ContentBasePage.Resources>
-        <ResourceDictionary>
+		<ResourceDictionary>
 			<Style TargetType="ContentView" >
 				<Setter Property="BackgroundColor" Value="Transparent" />
 			</Style>
@@ -61,7 +61,7 @@
 						   Margin="0,5,0,0">
 						<ContentView Content="{Binding Path=ParsedXaml}" />
 					</Frame>
-					<Grid Grid.Column="2" BackgroundColor="Transparent"/>
+					<Grid Grid.Column="1" BackgroundColor="Transparent"/>
 				</Grid>
 			</ViewCell>
 		</DataTemplate>
