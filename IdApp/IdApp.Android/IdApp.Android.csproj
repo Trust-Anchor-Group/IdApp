@@ -153,7 +153,6 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\FontAwesome5Free-Regular-400.otf" />
     <AndroidAsset Include="Assets\FontAwesome5Free-Solid-900.otf" />
-    <AndroidAsset Include="Assets\tessdata\eng.traineddata" />
     <GoogleServicesJson Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

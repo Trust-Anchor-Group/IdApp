@@ -249,7 +249,6 @@
     <BundleResource Include="GoogleService-Info.plist" />
     <BundleResource Include="Resources\FontAwesome5Free-Regular-400.otf" />
     <BundleResource Include="Resources\FontAwesome5Free-Solid-900.otf" />
-    <BundleResource Include="Resources\tessdata\eng.traineddata" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Resx\PListResources.resx" />
