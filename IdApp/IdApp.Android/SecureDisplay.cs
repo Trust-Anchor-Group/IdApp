@@ -1,6 +1,9 @@
 ﻿using Android.Views;
 using IdApp.DeviceSpecific;
+using IdApp.Services.UI;
+using System;
 using System.Threading;
+using Waher.Events;
 
 [assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.SecureDisplay))]
 namespace IdApp.Android
@@ -26,28 +29,35 @@ namespace IdApp.Android
 
 			set
 			{
-				protectionTimer?.Dispose();
-				protectionTimer = null;
-
-				if (mainWindow is not null && screenProtected != value)
+				try
 				{
-					if (value)
-					{
-						mainWindow.AddFlags(WindowManagerFlags.Secure);
-						protectionTimer = new Timer(this.ProtectionTimerElapsed, null, 1000 * 60 * 60, Timeout.Infinite);
-					}
-					else
-						mainWindow.ClearFlags(WindowManagerFlags.Secure);
+					protectionTimer?.Dispose();
+					protectionTimer = null;
 
-					screenProtected = value;
+					if (mainWindow is not null && screenProtected != value)
+					{
+						if (value)
+						{
+							mainWindow.AddFlags(WindowManagerFlags.Secure);
+							protectionTimer = new Timer(this.ProtectionTimerElapsed, null, 1000 * 60 * 60, Timeout.Infinite);
+						}
+						else
+							mainWindow.ClearFlags(WindowManagerFlags.Secure);
+
+						screenProtected = value;
+					}
+				}
+				catch (Exception ex)
+				{
+					Log.Critical(ex);
 				}
 			}
 		}
 
 		private void ProtectionTimerElapsed(object P)
 		{
-			this.ProhibitScreenCapture = false;
+			IUiSerializer UiSerializer = App.Instantiate<IUiSerializer>();
+			UiSerializer.BeginInvokeOnMainThread(() => this.ProhibitScreenCapture = false);
 		}
-
 	}
 }
