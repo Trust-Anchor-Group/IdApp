@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -700,27 +701,81 @@ namespace IdApp.Pages.Contacts.Chat
 				}
 
 				string FileName = Path.GetFileName(FilePath);
+
+				// Encrypting image
+
+				using RandomNumberGenerator Rnd = RandomNumberGenerator.Create();
+				byte[] Key = new byte[16];
+				byte[] IV = new byte[16];
+
+				Rnd.GetBytes(Key);
+				Rnd.GetBytes(IV);
+
+				Aes Aes = Aes.Create();
+				Aes.BlockSize = 128;
+				Aes.KeySize = 256;
+				Aes.Mode = CipherMode.CBC;
+				Aes.Padding = PaddingMode.PKCS7;
+
+				using ICryptoTransform Transform = Aes.CreateEncryptor(Key, IV);
+				Bin = Transform.TransformFinalBlock(Bin, 0, Bin.Length);
+
+				// Preparing File upload service that content uploaded next is encrypted, and can be stored in encrypted storage.
+
+				StringBuilder Xml = new StringBuilder();
+
+				Xml.Append("<prepare xmlns='http://waher.se/Schema/EncryptedStorage.xsd' filename='");
+				Xml.Append(XML.Encode(FileName));
+				Xml.Append("' size='");
+				Xml.Append(Bin.Length.ToString());
+				Xml.Append("' content-type='application/octet-stream'/>");
+
+				await this.XmppService.Xmpp.IqSetAsync(this.XmppService.Contracts.FileUploadClient.FileUploadJid, Xml.ToString());
+				// Empty response expected. Errors cause an exception to be raised.
+
+				// Requesting upload slot
+
 				HttpFileUploadEventArgs Slot = await this.XmppService.Contracts.FileUploadClient.RequestUploadSlotAsync(
-					FileName, ContentType, Bin.Length);
+					FileName, "application/octet-stream", Bin.Length);
 
 				if (!Slot.Ok)
 					throw Slot.StanzaError ?? new Exception(Slot.ErrorText);
 
-				await Slot.PUT(Bin, ContentType, (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
+				// Uploading encrypted image
 
-				StringBuilder MarkdownBuilder = new($"![{MarkdownDocument.Encode(FileName)}]({Slot.GetUrl}");
+				await Slot.PUT(Bin, "application/octet-stream", (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
+
+				// Generating Markdown message to send to recipient
+
+				StringBuilder Markdown = new();
+
+				Markdown.Append("![");
+				Markdown.Append(MarkdownDocument.Encode(FileName));
+				Markdown.Append("](");
+				Markdown.Append(Constants.UriSchemes.Aes256);
+				Markdown.Append(':');
+				Markdown.Append(Convert.ToBase64String(Key));
+				Markdown.Append(':');
+				Markdown.Append(Convert.ToBase64String(IV));
+				Markdown.Append(':');
+				Markdown.Append(ContentType);
+				Markdown.Append(':');
+				Markdown.Append(Slot.GetUrl);
 
 				SKImageInfo ImageInfo = SKBitmap.DecodeBounds(Bin);
 				if (!ImageInfo.IsEmpty)
 				{
-					MarkdownBuilder.Append($" {ImageInfo.Width} {ImageInfo.Height}");
+					Markdown.Append(' ');
+					Markdown.Append(ImageInfo.Width.ToString());
+					Markdown.Append(' ');
+					Markdown.Append(ImageInfo.Height.ToString());
 				}
 
-				MarkdownBuilder.Append(")");
+				Markdown.Append(')');
 
-				await this.ExecuteSendMessage(string.Empty, MarkdownBuilder.ToString());
+				await this.ExecuteSendMessage(string.Empty, Markdown.ToString());
 
-				// TODO: File Transfer instead of HTTP File Upload
+				// TODO: End-to-End encryption, or using Elliptic Curves of recipient together with sender to deduce shared secret.
 
 				if (DeleteFile)
 					File.Delete(FilePath);

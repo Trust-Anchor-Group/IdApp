@@ -442,6 +442,8 @@ namespace IdApp.Pages.Contacts.MyContacts
 		private async Task ScanQrCode()
 		{
 			string Code = await QrCode.ScanQrCode(LocalizationResourceManager.Current["ScanQRCode"]);
+			if (string.IsNullOrEmpty(Code))
+				return;
 
 			if (Constants.UriSchemes.StartsWithIdScheme(Code))
 			{

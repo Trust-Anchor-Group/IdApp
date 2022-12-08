@@ -1,12 +1,15 @@
-﻿using System;
+﻿using FFImageLoading;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Waher.Content;
 using Waher.Content.Markdown;
 using Waher.Content.Markdown.Model;
 using Waher.Content.Markdown.Model.Multimedia;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Temporary;
 
 namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 {
@@ -42,7 +45,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		}
 
 		/// <inheritdoc/>
-		public override Task GenerateXamarinForms(XmlWriter Output, XamarinRenderingState State, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
+		public override async Task GenerateXamarinForms(XmlWriter Output, XamarinRenderingState State, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
 		{
 			if (Items?.Length > 0 && Items[0] is MultimediaItem MultimediaItem)
 			{
@@ -67,8 +70,25 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 					}
 				}
 
+				string Url = MultimediaItem.Url;
+
+				if (Url.StartsWith(Constants.UriSchemes.Aes256))
+				{
+					KeyValuePair<string, TemporaryStream> Content = await InternetContent.GetTempStreamAsync(new Uri(MultimediaItem.Url));
+					StringBuilder sb = new();
+
+					sb.Append("data:");
+					sb.Append(Content.Key);
+					sb.Append(";base64,");
+
+					Content.Value.Position = 0;
+					sb.Append(Convert.ToBase64String(Content.Value.ToByteArray()));
+
+					Url = sb.ToString();
+				}
+
 				Output.WriteStartElement("ffimageloading", "CachedImage", "clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms");
-				Output.WriteAttributeString("Source", MultimediaItem.Url);
+				Output.WriteAttributeString("Source", Url);
 
 				if (DownsampleWidth.HasValue)
 					Output.WriteAttributeString("DownsampleWidth", DownsampleWidth.Value.ToString());
@@ -82,8 +102,6 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 
 				Output.WriteEndElement();
 			}
-
-			return Task.CompletedTask;
 		}
 
 		/// <inheritdoc/>

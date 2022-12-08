@@ -220,6 +220,9 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		private async Task<bool> ScanQrCode()
 		{
 			string URI = await QrCode.ScanQrCode(LocalizationResourceManager.Current["ClaimInvitation"], UseShellNavigationService: false);
+			if (string.IsNullOrEmpty(URI))
+				return false;
+
 			string Scheme = Constants.UriSchemes.GetScheme(URI);
 
 			if (string.Compare(Scheme, Constants.UriSchemes.UriSchemeOnboarding, true) != 0)

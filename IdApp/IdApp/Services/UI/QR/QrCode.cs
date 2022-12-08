@@ -80,7 +80,7 @@ namespace IdApp.Services.UI.QR
 							foreach (string Key in QueryParameters.AllKeys)
 								Parameters[Key] = QueryParameters[Key];
 
-							contractId = contractId.Substring(0, i);
+							contractId = contractId[..i];
 						}
 
 						await Services.ContractOrchestratorService.OpenContract(contractId, LocalizationResourceManager.Current["ScannedQrCode"], Parameters);

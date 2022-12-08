@@ -104,6 +104,11 @@ namespace IdApp
             /// </summary>
             public const string UriSchemeXmpp = "xmpp";
 
+			/// <summary>
+			/// AES-256-encrypted data.
+			/// </summary>
+			public const string Aes256 = "aes256";
+
             /// <summary>
             /// Gets the predefined scheme from an IoT Code
             /// </summary>

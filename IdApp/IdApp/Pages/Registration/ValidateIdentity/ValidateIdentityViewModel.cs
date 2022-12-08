@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using IdApp.Extensions;
+﻿using IdApp.Extensions;
 using IdApp.Services.Contracts;
 using IdApp.Services.Data.Countries;
-using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.UI.QR;
+using IdApp.Services.Xmpp;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
-using Xamarin.Forms;
-using System.Threading;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration.ValidateIdentity
 {
@@ -557,7 +557,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			try
 			{
 				this.photosLoader.CancelLoadPhotos();
-				if (!(this.TagProfile?.LegalIdentity?.Attachments is null))
+				if (this.TagProfile?.LegalIdentity?.Attachments is not null)
 				{
 					// await is important, it prevents the semaphore from being released prematurely.
 					_ = await this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments, SignWith.LatestApprovedIdOrCurrentKeys);
@@ -582,6 +582,8 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 		private async Task InviteReviewer()
 		{
 			string Url = await QrCode.ScanQrCode(LocalizationResourceManager.Current["InvitePeerToReview"], UseShellNavigationService: false);
+			if (string.IsNullOrEmpty(Url))
+				return;
 
 			if (!Constants.UriSchemes.StartsWithIdScheme(Url))
 			{

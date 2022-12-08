@@ -466,6 +466,11 @@
             XMPP URI Scheme (xmpp)
             </summary>
         </member>
+        <member name="F:IdApp.Constants.UriSchemes.Aes256">
+            <summary>
+            AES-256-encrypted data.
+            </summary>
+        </member>
         <member name="M:IdApp.Constants.UriSchemes.GetScheme(System.String)">
             <summary>
             Gets the predefined scheme from an IoT Code
@@ -2935,6 +2940,69 @@
             </summary>
             <param name="Language">Code language</param>
             <returns>Grade of support.</returns>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter">
+            <summary>
+            Gets content previously encrypted using AES-256.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.#ctor">
+            <summary>
+            Gets content previously encrypted using AES-256.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.UriSchemes">
+            <summary>
+            URI Schemes handled.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.CanGet(System.Uri,Waher.Runtime.Inventory.Grade@)">
+            <summary>
+            How well the URI can be managed.
+            </summary>
+            <param name="Uri">URI</param>
+            <param name="Grade">How well the getter can get content specified by the URI.</param>
+            <returns>If an URI can be used to get encrypted content using the getter.</returns>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+            <summary>
+            Gets and decrypts content from the Internet.
+            </summary>
+            <param name="Uri">Full URI</param>
+            <param name="Certificate">Optional client certificate.</param>
+            <param name="Headers">Additional headers</param>
+            <returns>Decrypted and decoded content.</returns>
+            <exception cref="T:System.ArgumentException">If URI cannot be parsed.</exception>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+            <summary>
+            Gets and decrypts content from the Internet.
+            </summary>
+            <param name="Uri">Full URI</param>
+            <param name="Certificate">Optional client certificate.</param>
+            <param name="TimeoutMs">Timeout, in milliseconds.</param>
+            <param name="Headers">Additional headers</param>
+            <returns>Decrypted and decoded content.</returns>
+            <exception cref="T:System.ArgumentException">If URI cannot be parsed.</exception>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetTempStreamAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+            <summary>
+            Gets a (possibly big) resource, using a Uniform Resource Identifier (or Locator).
+            </summary>
+            <param name="Uri">URI</param>
+            <param name="Certificate">Optional client certificate to use in a Mutual TLS session.</param>
+            <param name="Headers">Optional headers. Interpreted in accordance with the corresponding URI scheme.</param>
+            <returns>Content-Type, together with a Temporary file, if resource has been downloaded, or null if resource is data-less.</returns>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetTempStreamAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+            <summary>
+            Gets a (possibly big) resource, using a Uniform Resource Identifier (or Locator).
+            </summary>
+            <param name="Uri">URI</param>
+            <param name="Certificate">Optional client certificate to use in a Mutual TLS session.</param>
+            <param name="TimeoutMs">Timeout, in milliseconds. (Default=60000)</param>
+            <param name="Headers">Optional headers. Interpreted in accordance with the corresponding URI scheme.</param>
+            <returns>Content-Type, together with a Temporary file, if resource has been downloaded, or null if resource is data-less.</returns>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme">
             <summary>
