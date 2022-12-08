@@ -32,7 +32,8 @@
 			<ViewCell Appearing="ViewCell_Appearing">
 				<Grid ColumnDefinitions="auto,*" ColumnSpacing="0">
 					<Frame Grid.Column="0" Rotation="180" BackgroundColor="{StaticResource SendMessageBackground}"
-					   Padding="5" CornerRadius="5" BorderColor="{StaticResource SendMessageBorder}" HasShadow="False" Margin="0,5,0,0">
+						   Padding="5" CornerRadius="5" BorderColor="{StaticResource SendMessageBorder}" HasShadow="False"
+						   Margin="0,5,0,0">
 						<ContentView Content="{Binding Path=ParsedXaml}" />
 					</Frame>
 					<Grid Grid.Column="1" BackgroundColor="Transparent"/>
@@ -44,7 +45,8 @@
 				<Grid ColumnDefinitions="*,auto" ColumnSpacing="0">
 					<Grid Grid.Column="0" BackgroundColor="Transparent"/>
 					<Frame Grid.Column="1" Rotation="180" BackgroundColor="{StaticResource RecivedMessageBackground}"
-					   Padding="5" CornerRadius="5" BorderColor="{StaticResource RecivedMessageBorder}" HasShadow="False" Margin="0,5,0,0">
+						   Padding="5" CornerRadius="5" BorderColor="{StaticResource RecivedMessageBorder}" HasShadow="False"
+						   Margin="0,5,0,0">
 						<ContentView Content="{Binding Path=ParsedXaml}" />
 					</Frame>
 				</Grid>
@@ -55,7 +57,8 @@
 				<Grid ColumnDefinitions="*,auto,*" ColumnSpacing="0">
 					<Grid Grid.Column="0" BackgroundColor="Transparent"/>
 					<Frame Grid.Column="1" Rotation="180" BackgroundColor="{StaticResource OtherMessageBackground}"
-					   Padding="5" CornerRadius="5" BorderColor="{StaticResource OtherMessageBorder}" HasShadow="False" Margin="0,5,0,0">
+						   Padding="5" CornerRadius="5" BorderColor="{StaticResource OtherMessageBorder}" HasShadow="False"
+						   Margin="0,5,0,0">
 						<ContentView Content="{Binding Path=ParsedXaml}" />
 					</Frame>
 					<Grid Grid.Column="2" BackgroundColor="Transparent"/>
@@ -72,12 +75,9 @@
 	<Grid x:Name="ContainerView" Margin="{StaticResource DefaultMargin}">
 		<Grid RowDefinitions="*,auto">
 			<loading:LoadingListView x:Name="CollectionView" SelectionMode="Single" Rotation="180"
-										   VerticalOptions="StartAndExpand" HasUnevenRows="True"
-										   SeparatorVisibility="None"
-										   ItemsSource="{Binding Path=Messages}"
-										   ItemTemplate="{StaticResource MessageStyleSelector}"
-										   ItemSelectedCommand="{Binding Path=MessageSelected}"
-										   LoadMoreCommand="{Binding LoadMoreMessages}">
+									 VerticalOptions="StartAndExpand" HasUnevenRows="True" SeparatorVisibility="None"
+									 ItemsSource="{Binding Path=Messages}" ItemTemplate="{StaticResource MessageStyleSelector}"
+									 ItemSelectedCommand="{Binding Path=MessageSelected}" LoadMoreCommand="{Binding LoadMoreMessages}">
 			</loading:LoadingListView>
 
 			<Grid x:Name="ControlGrid" ColumnDefinitions="*,40" Grid.Row="1" Margin="0,12,0,0">
@@ -109,58 +109,57 @@
 		<Grid HorizontalOptions="End" VerticalOptions="End" Margin="0,0,0,5">
 			<fadeview:FadeView IsFrontView="{Binding Path=IsWriting, Converter={converters:LogicalNot}}">
 				<fadeview:FadeView.FrontView>
-					<xct:Expander Direction="Up" BackgroundColor="Transparent"
-						  AnimationLength="300" AnimationEasing="CubicInOut"
-						  IsExpanded="{Binding IsButtonExpanded}">
+					<xct:Expander Direction="Up" BackgroundColor="Transparent" AnimationLength="300" AnimationEasing="CubicInOut"
+								  IsExpanded="{Binding IsButtonExpanded}">
 						<xct:Expander.Header>
 							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
-							Text="{x:Static resx:FontAwesome.EllipsisH}" TextColor="{StaticResource TextColorLightTheme}"
-							FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
-							Command="{Binding ExpandButtons}" />
+									Text="{x:Static resx:FontAwesome.EllipsisH}" TextColor="{StaticResource TextColorLightTheme}"
+									FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
+									Command="{Binding ExpandButtons}" />
 						</xct:Expander.Header>
-						<StackLayout Orientation="Vertical" Spacing="5" Margin="0,0,0,5">
+						<StackLayout Orientation="Vertical" Spacing="5" Margin="0,0,0,5" BackgroundColor="Transparent">
 							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
-						Text="{x:Static resx:FontAwesome.Camera}" TextColor="{StaticResource TextColorLightTheme}"
-						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
-						Command="{Binding TakePhoto}"/>
+									Text="{x:Static resx:FontAwesome.Camera}" TextColor="{StaticResource TextColorLightTheme}"
+									FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
+									Command="{Binding TakePhoto}"/>
 
 							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
-						Text="{x:Static resx:FontAwesome.PaperClip}" TextColor="{StaticResource TextColorLightTheme}"
-						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
-						Command="{Binding EmbedFile}"/>
+									Text="{x:Static resx:FontAwesome.PaperClip}" TextColor="{StaticResource TextColorLightTheme}"
+									FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
+									Command="{Binding EmbedFile}"/>
 
 							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
-						Text="{x:Static resx:FontAwesome.User}" TextColor="{StaticResource TextColorLightTheme}"
-						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
-						Command="{Binding EmbedId}"/>
+									Text="{x:Static resx:FontAwesome.User}" TextColor="{StaticResource TextColorLightTheme}"
+									FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
+									Command="{Binding EmbedId}"/>
 
 							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
-						Text="{x:Static resx:FontAwesome.Paragraph}" TextColor="{StaticResource TextColorLightTheme}"
-						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
-						Command="{Binding EmbedContract}"/>
+									Text="{x:Static resx:FontAwesome.Paragraph}" TextColor="{StaticResource TextColorLightTheme}"
+									FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
+									Command="{Binding EmbedContract}"/>
 
 							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
-						Text="{x:Static resx:FontAwesome.MoneyBill}" TextColor="{StaticResource TextColorLightTheme}"
-						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
-						Command="{Binding EmbedMoney}"/>
+									Text="{x:Static resx:FontAwesome.MoneyBill}" TextColor="{StaticResource TextColorLightTheme}"
+									FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
+									Command="{Binding EmbedMoney}"/>
 
 							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
-						Text="{x:Static resx:FontAwesome.StarOfLife}" TextColor="{StaticResource TextColorLightTheme}"
-						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
-						Command="{Binding EmbedToken}"/>
+									Text="{x:Static resx:FontAwesome.StarOfLife}" TextColor="{StaticResource TextColorLightTheme}"
+									FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
+									Command="{Binding EmbedToken}"/>
 
 							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
-						Text="{x:Static resx:FontAwesome.Things}" TextColor="{StaticResource TextColorLightTheme}"
-						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
-						Command="{Binding EmbedThing}"/>
+									Text="{x:Static resx:FontAwesome.Things}" TextColor="{StaticResource TextColorLightTheme}"
+									FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
+									Command="{Binding EmbedThing}"/>
 						</StackLayout>
 					</xct:Expander>
 				</fadeview:FadeView.FrontView>
 				<fadeview:FadeView.BackView>
 					<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
-						Text="{x:Static resx:FontAwesome.PaperPlane}" TextColor="{StaticResource TextColorLightTheme}"
-						FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
-						Command="{Binding SendCommand}">
+							Text="{x:Static resx:FontAwesome.PaperPlane}" TextColor="{StaticResource TextColorLightTheme}"
+							FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
+							Command="{Binding SendCommand}">
 						<Button.Behaviors>
 							<behaviors:UnfocusOnClickedBehavior UnfocusControl="EditorControl"/>
 						</Button.Behaviors>
