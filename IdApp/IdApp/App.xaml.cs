@@ -677,19 +677,19 @@ namespace IdApp
 
 		#region Error Handling
 
-		private async void TaskScheduler_UnobservedTaskException(object Sender, UnobservedTaskExceptionEventArgs e)
+		private void TaskScheduler_UnobservedTaskException(object Sender, UnobservedTaskExceptionEventArgs e)
 		{
 			Exception ex = e.Exception;
 			e.SetObserved();
 
 			ex = Waher.Events.Log.UnnestException(ex);
 
-			await this.Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false);
+			this.Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false).Wait();
 		}
 
-		private async void CurrentDomain_UnhandledException(object Sender, UnhandledExceptionEventArgs e)
+		private void CurrentDomain_UnhandledException(object Sender, UnhandledExceptionEventArgs e)
 		{
-			await this.Handle_UnhandledException(e.ExceptionObject as Exception, nameof(CurrentDomain_UnhandledException), true);
+			this.Handle_UnhandledException(e.ExceptionObject as Exception, nameof(CurrentDomain_UnhandledException), true).Wait();
 		}
 
 		private async Task Handle_UnhandledException(Exception ex, string title, bool shutdown)
