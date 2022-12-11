@@ -174,6 +174,7 @@ namespace IdApp.Services.Xmpp
 					this.xmppClient.AllowEncryption = true;
 					this.xmppClient.AllowScramSHA1 = true;
 					this.xmppClient.AllowScramSHA256 = true;
+					this.xmppClient.AllowQuickLogin = true;
 
 					this.xmppClient.RequestRosterOnStartup = true;
 					this.xmppClient.OnStateChanged += this.XmppClient_StateChanged;
@@ -867,6 +868,7 @@ namespace IdApp.Services.Xmpp
 				client.AllowEncryption = true;
 				client.AllowScramSHA1 = true;
 				client.AllowScramSHA256 = true;
+				client.AllowQuickLogin = true;
 
 				client.OnConnectionError += OnConnectionError;
 				client.OnStateChanged += OnStateChanged;
