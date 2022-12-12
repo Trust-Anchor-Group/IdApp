@@ -285,7 +285,7 @@ namespace IdApp
 					typeof(HttpxClient).Assembly,               // Support for HTTP over XMPP (httpx) URI Schme.
 					typeof(JwtFactory).Assembly,                // Generation of JWT tokens.
 					typeof(JwsAlgorithm).Assembly,              // Available JWS algorithms.
-					typeof(IThingReference).Assembly);			// Thing & sensor data library.
+					typeof(IThingReference).Assembly);          // Thing & sensor data library.
 			}
 
 			EndpointSecurity.SetCiphers(new Type[]
@@ -738,12 +738,32 @@ namespace IdApp
 		{
 			if (this.services?.LogService is not null)
 			{
-				string stackTrace = this.services.LogService.LoadExceptionDump();
-				if (!string.IsNullOrWhiteSpace(stackTrace))
+				string StackTrace = this.services.LogService.LoadExceptionDump();
+				if (!string.IsNullOrWhiteSpace(StackTrace))
 				{
+					List<KeyValuePair<string, object>> Tags = new()
+					{
+						new KeyValuePair<string, object>("JID", this.services?.XmppService?.BareJid)
+					};
+
+					KeyValuePair<string, object>[] Tags2 = this.services?.TagProfile?.LegalIdentity?.GetTags();
+					if (Tags2 is not null)
+						Tags.AddRange(Tags2);
+
+					StringBuilder Msg = new();
+
+					Msg.Append("Unhandled exception caused app to crash. ");
+					Msg.AppendLine("Below you can find the stack trace of the corresponding exception.");
+					Msg.AppendLine();
+					Msg.AppendLine("```");
+					Msg.AppendLine(StackTrace);
+					Msg.AppendLine("```");
+
+					Waher.Events.Log.Alert(Msg.ToString(), Tags.ToArray());
+
 					try
 					{
-						await SendAlert(stackTrace, "text/plain");
+						await SendAlert(StackTrace, "text/plain");
 					}
 					finally
 					{
