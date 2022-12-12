@@ -105,10 +105,10 @@ namespace IdApp.Pages.Things.ViewThing
 			await this.AssignProperties();
 			this.EvaluateAllCommands();
 
-			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
-			this.XmppService.Xmpp.OnRosterItemAdded += this.Xmpp_OnRosterItemAdded;
-			this.XmppService.Xmpp.OnRosterItemUpdated += this.Xmpp_OnRosterItemUpdated;
-			this.XmppService.Xmpp.OnRosterItemRemoved += this.Xmpp_OnRosterItemRemoved;
+			this.XmppService.OnPresence += this.Xmpp_OnPresence;
+			this.XmppService.OnRosterItemAdded += this.Xmpp_OnRosterItemAdded;
+			this.XmppService.OnRosterItemUpdated += this.Xmpp_OnRosterItemUpdated;
+			this.XmppService.OnRosterItemRemoved += this.Xmpp_OnRosterItemRemoved;
 			this.TagProfile.Changed += this.TagProfile_Changed;
 			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
 			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
@@ -159,10 +159,10 @@ namespace IdApp.Pages.Things.ViewThing
 		/// <inheritdoc/>
 		protected override async Task OnDispose()
 		{
-			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
-			this.XmppService.Xmpp.OnRosterItemAdded -= this.Xmpp_OnRosterItemAdded;
-			this.XmppService.Xmpp.OnRosterItemUpdated -= this.Xmpp_OnRosterItemUpdated;
-			this.XmppService.Xmpp.OnRosterItemRemoved -= this.Xmpp_OnRosterItemRemoved;
+			this.XmppService.OnPresence -= this.Xmpp_OnPresence;
+			this.XmppService.OnRosterItemAdded -= this.Xmpp_OnRosterItemAdded;
+			this.XmppService.OnRosterItemUpdated -= this.Xmpp_OnRosterItemUpdated;
+			this.XmppService.OnRosterItemRemoved -= this.Xmpp_OnRosterItemRemoved;
 			this.TagProfile.Changed -= this.TagProfile_Changed;
 			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
 			this.NotificationService.OnNotificationsDeleted -= this.NotificationService_OnNotificationsDeleted;

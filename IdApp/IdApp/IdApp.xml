@@ -26373,6 +26373,46 @@
             <returns>Decoded response from the resource.</returns>
             <exception cref="T:System.Exception">Any communication error will be handle by raising the corresponding exception.</exception>
         </member>
+        <member name="E:IdApp.Services.Xmpp.IXmppService.OnPresence">
+            <summary>
+            Event raised when a new presence stanza has been received.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Xmpp.IXmppService.OnRosterItemAdded">
+            <summary>
+            Event raised when a roster item has been added to the roster.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Xmpp.IXmppService.OnRosterItemUpdated">
+            <summary>
+            Event raised when a roster item has been updated in the roster.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Xmpp.IXmppService.OnRosterItemRemoved">
+            <summary>
+            Event raised when a roster item has been removed from the roster.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Xmpp.XmppService.OnPresence">
+            <summary>
+            Event raised when a new presence stanza has been received.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Xmpp.XmppService.OnRosterItemAdded">
+            <summary>
+            Event raised when a roster item has been added to the roster.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Xmpp.XmppService.OnRosterItemUpdated">
+            <summary>
+            Event raised when a roster item has been updated in the roster.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Xmpp.XmppService.OnRosterItemRemoved">
+            <summary>
+            Event raised when a roster item has been removed from the roster.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.AddTransferCode(System.String)">
             <summary>
             Registers a Transfer ID Code

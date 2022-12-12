@@ -67,7 +67,7 @@ namespace IdApp.Pages.Things.ReadSensor
 			this.AssignProperties();
 			this.EvaluateAllCommands();
 
-			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
+			this.XmppService.OnPresence += this.Xmpp_OnPresence;
 			this.TagProfile.Changed += this.TagProfile_Changed;
 
 			if (this.thingRef is null)
@@ -340,7 +340,7 @@ namespace IdApp.Pages.Things.ReadSensor
 		{
 			this.XmppService.Pep.UnregisterHandler(typeof(SensorData), this.SensorDataPersonalEventHandler);
 
-			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
+			this.XmppService.OnPresence -= this.Xmpp_OnPresence;
 			this.TagProfile.Changed -= this.TagProfile_Changed;
 
 			if (this.request is not null &&

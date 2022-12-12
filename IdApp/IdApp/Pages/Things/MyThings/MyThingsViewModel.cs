@@ -157,7 +157,7 @@ namespace IdApp.Pages.Things.MyThings
 
 			await Database.Provider.Flush();
 
-			this.XmppService.Xmpp.OnPresence += this.Xmpp_OnPresence;
+			this.XmppService.OnPresence += this.Xmpp_OnPresence;
 			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
 			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
 		}
@@ -201,7 +201,7 @@ namespace IdApp.Pages.Things.MyThings
 		/// <inheritdoc/>
 		protected override async Task OnDispose()
 		{
-			this.XmppService.Xmpp.OnPresence -= this.Xmpp_OnPresence;
+			this.XmppService.OnPresence -= this.Xmpp_OnPresence;
 			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
 			this.NotificationService.OnNotificationsDeleted -= this.NotificationService_OnNotificationsDeleted;
 

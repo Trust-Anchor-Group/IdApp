@@ -215,5 +215,25 @@ namespace IdApp.Services.Xmpp
 		/// <returns>Decoded response from the resource.</returns>
 		/// <exception cref="Exception">Any communication error will be handle by raising the corresponding exception.</exception>
 		Task<object> PostToProtectedApi(string LocalResource, object Data, params KeyValuePair<string, string>[] Headers);
+
+		/// <summary>
+		/// Event raised when a new presence stanza has been received.
+		/// </summary>
+		event PresenceEventHandlerAsync OnPresence;
+
+		/// <summary>
+		/// Event raised when a roster item has been added to the roster.
+		/// </summary>
+		event RosterItemEventHandlerAsync OnRosterItemAdded;
+
+		/// <summary>
+		/// Event raised when a roster item has been updated in the roster.
+		/// </summary>
+		event RosterItemEventHandlerAsync OnRosterItemUpdated;
+
+		/// <summary>
+		/// Event raised when a roster item has been removed from the roster.
+		/// </summary>
+		event RosterItemEventHandlerAsync OnRosterItemRemoved;
 	}
 }

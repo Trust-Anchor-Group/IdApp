@@ -51,6 +51,7 @@ using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
+using Waher.Script.Constants;
 using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Xmpp
@@ -184,6 +185,10 @@ namespace IdApp.Services.Xmpp
 					this.xmppClient.OnNormalMessage += this.XmppClient_OnNormalMessage;
 					this.xmppClient.OnPresenceSubscribe += this.XmppClient_OnPresenceSubscribe;
 					this.xmppClient.OnPresenceUnsubscribed += this.XmppClient_OnPresenceUnsubscribed;
+					this.xmppClient.OnRosterItemAdded += this.XmppClient_OnRosterItemAdded;
+					this.xmppClient.OnRosterItemUpdated += this.XmppClient_OnRosterItemUpdated;
+					this.xmppClient.OnRosterItemRemoved += this.XmppClient_OnRosterItemRemoved;
+					this.xmppClient.OnPresence += this.XmppClient_OnPresence;
 
 					this.xmppClient.RegisterMessageHandler("Delivered", ContractsClient.NamespaceOnboarding, this.TransferIdDelivered, true);
 					this.xmppClient.RegisterMessageHandler("clientMessage", ContractsClient.NamespaceLegalIdentities, this.ClientMessage, true);
@@ -438,16 +443,10 @@ namespace IdApp.Services.Xmpp
 
 		#endregion
 
-		private async void TagProfile_StepChanged(object Sender, EventArgs e)
-		{
-			if (!this.IsLoaded)
-				return;
+		#region Events
 
-			if (this.ShouldCreateClient())
-				await this.CreateXmppClient(this.TagProfile.Step <= RegistrationStep.RegisterIdentity, null);
-			else if (this.TagProfile.Step <= RegistrationStep.Account)
-				this.DestroyXmppClient();
-		}
+		// Note: By duplicating event handlers on the service, event handlers continue to work, even if app
+		// goes to sleep, and new clients are created when awaken again.
 
 		private Task XmppClient_Error(object Sender, Exception e)
 		{
@@ -560,6 +559,84 @@ namespace IdApp.Services.Xmpp
 
 			this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(newState));
 		}
+
+		private async Task XmppClient_OnPresence(object Sender, PresenceEventArgs e)
+		{
+			try
+			{
+				Task T = this.OnPresence?.Invoke(this, e);
+				if (T is not null)
+					await T;
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+		}
+
+		/// <summary>
+		/// Event raised when a new presence stanza has been received.
+		/// </summary>
+		public event PresenceEventHandlerAsync OnPresence;
+
+		private async Task XmppClient_OnRosterItemAdded(object Sender, RosterItem Item)
+		{
+			try
+			{
+				Task T = this.OnRosterItemAdded?.Invoke(this, Item);
+				if (T is not null)
+					await T;
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+		}
+
+		/// <summary>
+		/// Event raised when a roster item has been added to the roster.
+		/// </summary>
+		public event RosterItemEventHandlerAsync OnRosterItemAdded;
+
+		private async Task XmppClient_OnRosterItemUpdated(object Sender, RosterItem Item)
+		{
+			try
+			{
+				Task T = this.OnRosterItemUpdated?.Invoke(this, Item);
+				if (T is not null)
+					await T;
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+		}
+
+		/// <summary>
+		/// Event raised when a roster item has been updated in the roster.
+		/// </summary>
+		public event RosterItemEventHandlerAsync OnRosterItemUpdated;
+
+		private async Task XmppClient_OnRosterItemRemoved(object Sender, RosterItem Item)
+		{
+			try
+			{
+				Task T = this.OnRosterItemRemoved?.Invoke(this, Item);
+				if (T is not null)
+					await T;
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+		}
+
+		/// <summary>
+		/// Event raised when a roster item has been removed from the roster.
+		/// </summary>
+		public event RosterItemEventHandlerAsync OnRosterItemRemoved;
+
+		#endregion
 
 		#region Lifecycle
 
@@ -695,6 +772,17 @@ namespace IdApp.Services.Xmpp
 
 				this.EndUnload();
 			}
+		}
+
+		private async void TagProfile_StepChanged(object Sender, EventArgs e)
+		{
+			if (!this.IsLoaded)
+				return;
+
+			if (this.ShouldCreateClient())
+				await this.CreateXmppClient(this.TagProfile.Step <= RegistrationStep.RegisterIdentity, null);
+			else if (this.TagProfile.Step <= RegistrationStep.Account)
+				this.DestroyXmppClient();
 		}
 
 		public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
