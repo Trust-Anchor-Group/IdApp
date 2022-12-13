@@ -560,17 +560,17 @@ namespace IdApp.Pages.Things.CanControl
 					{
 						case RuleRange.Caller:
 						default:
-							this.XmppService.IoT.ProvisioningClient.CanControlResponseCaller(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+							this.XmppService.CanControlResponseCaller(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
 								Accepts, this.GetParameters(), Thing, this.ResponseHandler, Resolver);
 							break;
 
 						case RuleRange.Domain:
-							this.XmppService.IoT.ProvisioningClient.CanControlResponseDomain(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+							this.XmppService.CanControlResponseDomain(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
 								Accepts, this.GetParameters(), Thing, this.ResponseHandler, Resolver);
 							break;
 
 						case RuleRange.All:
-							this.XmppService.IoT.ProvisioningClient.CanControlResponseAll(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+							this.XmppService.CanControlResponseAll(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
 								Accepts, this.GetParameters(), Thing, this.ResponseHandler, Resolver);
 							break;
 
@@ -583,17 +583,17 @@ namespace IdApp.Pages.Things.CanControl
 					switch (Token.Type)
 					{
 						case TokenType.User:
-							this.XmppService.IoT.ProvisioningClient.CanControlResponseUser(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+							this.XmppService.CanControlResponseUser(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
 								Accepts, this.GetParameters(), Token.Token, Thing, this.ResponseHandler, Resolver);
 							break;
 
 						case TokenType.Service:
-							this.XmppService.IoT.ProvisioningClient.CanControlResponseService(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+							this.XmppService.CanControlResponseService(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
 								Accepts, this.GetParameters(), Token.Token, Thing, this.ResponseHandler, Resolver);
 							break;
 
 						case TokenType.Device:
-							this.XmppService.IoT.ProvisioningClient.CanControlResponseDevice(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+							this.XmppService.CanControlResponseDevice(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
 								Accepts, this.GetParameters(), Token.Token, Thing, this.ResponseHandler, Resolver);
 							break;
 					}

@@ -17,6 +17,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Control;
 using Waher.Networking.XMPP.DataForms;
 using Waher.Networking.XMPP.Sensor;
+using Waher.Networking.XMPP.ServiceDiscovery;
 using Waher.Persistence;
 using Waher.Things;
 using Xamarin.CommunityToolkit.Helpers;
@@ -113,10 +114,10 @@ namespace IdApp.Pages.Things.ViewThing
 			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
 
 			if (this.IsConnected && this.IsThingOnline)
-				this.CheckCapabilities();
+				await this.CheckCapabilities();
 		}
 
-		private void CheckCapabilities()
+		private async Task CheckCapabilities()
 		{
 			if (this.InContacts &&
 				!this.thing.IsSensor.HasValue ||
@@ -128,29 +129,28 @@ namespace IdApp.Pages.Things.ViewThing
 
 				if (!string.IsNullOrEmpty(FullJid))
 				{
-					this.XmppService.Xmpp.SendServiceDiscoveryRequest(FullJid, async (sender, e) =>
+					ServiceDiscoveryEventArgs e = await this.XmppService.SendServiceDiscoveryRequest(FullJid);
+
+					if (!this.InContacts)
+						return;
+
+					this.thing.IsSensor = e.HasFeature(SensorClient.NamespaceSensorData);
+					this.thing.SupportsSensorEvents = e.HasFeature(SensorClient.NamespaceSensorEvents);
+					this.thing.IsActuator = e.HasFeature(ControlClient.NamespaceControl);
+					this.thing.IsConcentrator = e.HasFeature(ConcentratorServer.NamespaceConcentrator);
+
+					if (this.InContacts && !string.IsNullOrEmpty(this.thing.ObjectId))
+						await Database.Update(this.thing);
+
+					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
-						if (!this.InContacts)
-							return;
+						this.IsSensor = this.thing.IsSensor ?? false;
+						this.IsActuator = this.thing.IsActuator ?? false;
+						this.IsConcentrator = this.thing.IsConcentrator ?? false;
+						this.SupportsSensorEvents = this.thing.SupportsSensorEvents ?? false;
 
-						this.thing.IsSensor = e.HasFeature(SensorClient.NamespaceSensorData);
-						this.thing.SupportsSensorEvents = e.HasFeature(SensorClient.NamespaceSensorEvents);
-						this.thing.IsActuator = e.HasFeature(ControlClient.NamespaceControl);
-						this.thing.IsConcentrator = e.HasFeature(ConcentratorServer.NamespaceConcentrator);
-
-						if (this.InContacts && !string.IsNullOrEmpty(this.thing.ObjectId))
-							await Database.Update(this.thing);
-
-						this.UiSerializer.BeginInvokeOnMainThread(() =>
-						{
-							this.IsSensor = this.thing.IsSensor ?? false;
-							this.IsActuator = this.thing.IsActuator ?? false;
-							this.IsConcentrator = this.thing.IsConcentrator ?? false;
-							this.SupportsSensorEvents = this.thing.SupportsSensorEvents ?? false;
-
-							this.EvaluateAllCommands();
-						});
-					}, null);
+						this.EvaluateAllCommands();
+					});
 				}
 			}
 		}
@@ -191,10 +191,10 @@ namespace IdApp.Pages.Things.ViewThing
 					break;
 			}
 
-			this.UiSerializer.BeginInvokeOnMainThread(() => this.CalcThingIsOnline());
+			this.UiSerializer.BeginInvokeOnMainThread(async () => await this.CalcThingIsOnline());
 		}
 
-		private void CalcThingIsOnline()
+		private async Task CalcThingIsOnline()
 		{
 			if (this.thing is null)
 				this.IsThingOnline = false;
@@ -203,7 +203,7 @@ namespace IdApp.Pages.Things.ViewThing
 				this.IsThingOnline = this.IsOnline(this.thing.BareJid);
 
 				if (this.IsThingOnline)
-					this.CheckCapabilities();
+					await this.CheckCapabilities();
 			}
 
 			this.EvaluateAllCommands();
@@ -214,7 +214,7 @@ namespace IdApp.Pages.Things.ViewThing
 			if (this.presences.TryGetValue(BareJid, out PresenceEventArgs e))
 				return e.IsOnline;
 
-			RosterItem Item = this.XmppService?.Xmpp?.GetRosterItem(BareJid);
+			RosterItem Item = this.XmppService?.GetRosterItem(BareJid);
 			if (Item is not null && Item.HasLastPresence)
 				return Item.LastPresence.IsOnline;
 
@@ -230,7 +230,7 @@ namespace IdApp.Pages.Things.ViewThing
 				if (this.presences.TryGetValue(this.thing.BareJid, out PresenceEventArgs e))
 					return e.IsOnline ? e.From : null;
 
-				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.thing.BareJid);
+				RosterItem Item = this.XmppService.GetRosterItem(this.thing.BareJid);
 
 				if (Item is null || !Item.HasLastPresence || !Item.LastPresence.IsOnline)
 					return null;
@@ -241,8 +241,7 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private Task AssignProperties()
 		{
-			this.CalcThingIsOnline();
-			return Task.CompletedTask;
+			return this.CalcThingIsOnline();
 		}
 
 		private void EvaluateAllCommands()
@@ -536,7 +535,7 @@ namespace IdApp.Pages.Things.ViewThing
 
 				TaskCompletionSource<bool> Result = new();
 
-				this.XmppService.IoT.ProvisioningClient.DeleteDeviceRules(this.thing.RegistryJid, this.thing.BareJid, this.thing.NodeId,
+				this.XmppService.DeleteDeviceRules(this.thing.RegistryJid, this.thing.BareJid, this.thing.NodeId,
 					this.thing.SourceId, this.thing.Partition, (sender, e) =>
 				{
 					if (e.Ok)
@@ -576,7 +575,7 @@ namespace IdApp.Pages.Things.ViewThing
 					return;
 
 				(bool Succeeded, bool Done) = await this.NetworkService.TryRequest(() =>
-					this.XmppService.ThingRegistry.Disown(this.thing.RegistryJid, this.thing.BareJid, this.thing.SourceId, this.thing.Partition, this.thing.NodeId));
+					this.XmppService.Disown(this.thing.RegistryJid, this.thing.BareJid, this.thing.SourceId, this.thing.Partition, this.thing.NodeId));
 
 				if (!Succeeded)
 					return;
@@ -612,7 +611,7 @@ namespace IdApp.Pages.Things.ViewThing
 				if (!await App.VerifyPin())
 					return;
 
-				RosterItem Item = this.XmppService.Xmpp.GetRosterItem(this.thing.BareJid);
+				RosterItem Item = this.XmppService.GetRosterItem(this.thing.BareJid);
 				if (Item is null || Item.State == SubscriptionState.None || Item.State == SubscriptionState.From)
 				{
 					string IdXml;
@@ -626,7 +625,7 @@ namespace IdApp.Pages.Things.ViewThing
 						IdXml = Xml.ToString();
 					}
 
-					this.XmppService.Xmpp.RequestPresenceSubscription(this.thing.BareJid);
+					this.XmppService.RequestPresenceSubscription(this.thing.BareJid);
 				}
 				else
 				{
@@ -638,7 +637,7 @@ namespace IdApp.Pages.Things.ViewThing
 						this.InContacts = true;
 					}
 
-					this.CalcThingIsOnline();
+					await this.CalcThingIsOnline();
 				}
 			}
 			catch (Exception ex)
@@ -663,10 +662,10 @@ namespace IdApp.Pages.Things.ViewThing
 						this.thing.ObjectId = null;
 					}
 
-					this.XmppService.Xmpp.RequestPresenceUnsubscription(this.thing.BareJid);
+					this.XmppService.RequestPresenceUnsubscription(this.thing.BareJid);
 
-					if (this.XmppService.Xmpp.GetRosterItem(this.thing.BareJid) is not null)
-						this.XmppService.Xmpp.RemoveRosterItem(this.thing.BareJid);
+					if (this.XmppService.GetRosterItem(this.thing.BareJid) is not null)
+						this.XmppService.RemoveRosterItem(this.thing.BareJid);
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
@@ -705,11 +704,11 @@ namespace IdApp.Pages.Things.ViewThing
 				string SelectedLanguage = Preferences.Get("user_selected_language", null);
 
 				if (string.IsNullOrEmpty(this.thing.NodeId) && string.IsNullOrEmpty(this.thing.SourceId) && string.IsNullOrEmpty(this.thing.Partition))
-					this.XmppService.IoT.ControlClient.GetForm(this.GetFullJid(), SelectedLanguage, this.ControlFormCallback, null);
+					this.XmppService.GetControlForm(this.GetFullJid(), SelectedLanguage, this.ControlFormCallback, null);
 				else
 				{
 					ThingReference ThingRef = new(this.thing.NodeId, this.thing.SourceId, this.thing.Partition);
-					this.XmppService.IoT.ControlClient.GetForm(this.GetFullJid(), SelectedLanguage, this.ControlFormCallback, null, ThingRef);
+					this.XmppService.GetControlForm(this.GetFullJid(), SelectedLanguage, this.ControlFormCallback, null, ThingRef);
 				}
 			}
 			catch (Exception ex)
@@ -853,19 +852,19 @@ namespace IdApp.Pages.Things.ViewThing
 		private Task Xmpp_OnRosterItemRemoved(object Sender, RosterItem Item)
 		{
 			this.presences.Remove(Item.BareJid);
-			this.UiSerializer.BeginInvokeOnMainThread(() => this.CalcThingIsOnline());
+			this.UiSerializer.BeginInvokeOnMainThread(async () => await this.CalcThingIsOnline());
 			return Task.CompletedTask;
 		}
 
 		private Task Xmpp_OnRosterItemUpdated(object Sender, RosterItem Item)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(() => this.CalcThingIsOnline());
+			this.UiSerializer.BeginInvokeOnMainThread(async () => await this.CalcThingIsOnline());
 			return Task.CompletedTask;
 		}
 
 		private Task Xmpp_OnRosterItemAdded(object Sender, RosterItem Item)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(() => this.CalcThingIsOnline());
+			this.UiSerializer.BeginInvokeOnMainThread(async () => await this.CalcThingIsOnline());
 			return Task.CompletedTask;
 		}
 

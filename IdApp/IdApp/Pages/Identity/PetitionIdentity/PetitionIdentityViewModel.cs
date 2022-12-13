@@ -163,14 +163,14 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             if (!await App.VerifyPin())
                 return;
 
-            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true));
+            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true));
             if (succeeded)
                 await this.NavigationService.GoBackAsync();
         }
 
         private async Task Decline()
         {
-            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false));
+            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false));
             if (succeeded)
                 await this.NavigationService.GoBackAsync();
         }
@@ -619,9 +619,9 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 string FriendlyName = ContactInfo.GetFriendlyName(this.RequestorIdentity);
                 string BareJid = XmppClient.GetBareJID(this.requestorFullJid);
 
-                RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(BareJid);
+                RosterItem Item = this.XmppService.GetRosterItem(BareJid);
                 if (Item is null)
-                    this.XmppService.Xmpp.AddRosterItem(new RosterItem(BareJid, FriendlyName));
+                    this.XmppService.AddRosterItem(new RosterItem(BareJid, FriendlyName));
 
                 ContactInfo Info = await ContactInfo.FindByBareJid(BareJid);
                 if (Info is null)
@@ -676,9 +676,9 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                     await Database.Provider.Flush();
                 }
 
-                RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(BareJid);
+                RosterItem Item = this.XmppService.GetRosterItem(BareJid);
                 if (Item is not null)
-                    this.XmppService.Xmpp.RemoveRosterItem(BareJid);
+                    this.XmppService.RemoveRosterItem(BareJid);
 
                 this.ThirdPartyInContacts = false;
 

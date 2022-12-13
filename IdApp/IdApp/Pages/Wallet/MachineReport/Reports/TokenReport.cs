@@ -1,4 +1,5 @@
 ﻿using IdApp.Extensions;
+using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using System;
 using System.Collections.Generic;
@@ -23,18 +24,18 @@ namespace IdApp.Pages.Wallet.MachineReport.Reports
 		private Timer timer;
 
 		/// <summary>
-		/// Refernce to the Neuro-Features client.
+		/// Refernce to the XMPP Service.
 		/// </summary>
-		protected readonly NeuroFeaturesClient client;
+		protected readonly IXmppService xmppService;
 
 		/// <summary>
 		/// Abstract base class for token reports.
 		/// </summary>
-		/// <param name="Client">Neuro-Features client.</param>
+		/// <param name="XmppService">XMPP Service reference.</param>
 		/// <param name="TokenId">ID of token being viewed.</param>
-		public TokenReport(NeuroFeaturesClient Client, string TokenId)
+		public TokenReport(IXmppService XmppService, string TokenId)
 		{
-			this.client = Client;
+			this.xmppService = XmppService;
 			this.tokenId = TokenId;
 		}
 

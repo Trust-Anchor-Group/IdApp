@@ -102,10 +102,5 @@ namespace IdApp.Services
 		/// </summary>
 		public IPushNotificationService PushNotificationService { get; }
 
-		/// <summary>
-		/// Smart Contracts Interface
-		/// </summary>
-		public ISmartContracts SmartContracts { get; }
-
 	}
 }

@@ -41,7 +41,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 
 			try
 			{
-				TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.BatchSizes.TokenBatchSize);
+				TokensEventArgs e = await this.XmppService.GetNeuroFeatures(0, Constants.BatchSizes.TokenBatchSize);
 				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
 
 				this.UiSerializer.BeginInvokeOnMainThread(() =>
@@ -70,8 +70,8 @@ namespace IdApp.Pages.Wallet.MyTokens
 						this.HasTokens = false;
 				});
 
-				this.XmppService.Wallet.TokenAdded += this.Wallet_TokenAdded;
-				this.XmppService.Wallet.TokenRemoved += this.Wallet_TokenRemoved;
+				this.XmppService.NeuroFeatureAdded += this.Wallet_TokenAdded;
+				this.XmppService.NeuroFeatureRemoved += this.Wallet_TokenRemoved;
 			}
 			catch (Exception ex)
 			{
@@ -94,8 +94,8 @@ namespace IdApp.Pages.Wallet.MyTokens
 		/// <inheritdoc/>
 		protected override Task OnDispose()
 		{
-			this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;
-			this.XmppService.Wallet.TokenRemoved -= this.Wallet_TokenRemoved;
+			this.XmppService.NeuroFeatureAdded -= this.Wallet_TokenAdded;
+			this.XmppService.NeuroFeatureRemoved -= this.Wallet_TokenRemoved;
 
 			this.selected?.TrySetResult(null);
 
@@ -215,7 +215,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 
 				try
 				{
-					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(this.Tokens.Count, Constants.BatchSizes.TokenBatchSize);
+					TokensEventArgs e = await this.XmppService.GetNeuroFeatures(this.Tokens.Count, Constants.BatchSizes.TokenBatchSize);
 					SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>

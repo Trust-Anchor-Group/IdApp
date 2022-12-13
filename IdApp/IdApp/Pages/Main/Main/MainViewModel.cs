@@ -766,7 +766,9 @@ namespace IdApp.Pages.Main.Main
 				{
 					try
 					{
-						(bool Succeeded, LegalIdentity RevokedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.ObsoleteLegalIdentity(this.TagProfile.LegalIdentity.Id));
+						(bool Succeeded, LegalIdentity RevokedIdentity) = await this.NetworkService.TryRequest(() =>
+							this.XmppService.ObsoleteLegalIdentity(this.TagProfile.LegalIdentity.Id));
+
 						if (Succeeded)
 							await this.TagProfile.RevokeLegalIdentity(RevokedIdentity);
 					}

@@ -46,7 +46,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
 			this.TagProfile.Changed += this.TagProfile_Changed;
 			this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
-			this.XmppService.Contracts.LegalIdentityChanged += this.XmppContracts_LegalIdentityChanged;
+			this.XmppService.LegalIdentityChanged += this.XmppContracts_LegalIdentityChanged;
 		}
 
 		/// <inheritdoc />
@@ -55,7 +55,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			this.photosLoader.CancelLoadPhotos();
 			this.TagProfile.Changed -= this.TagProfile_Changed;
 			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
-			this.XmppService.Contracts.LegalIdentityChanged -= this.XmppContracts_LegalIdentityChanged;
+			this.XmppService.LegalIdentityChanged -= this.XmppContracts_LegalIdentityChanged;
 			await base.OnDispose();
 		}
 
@@ -570,7 +570,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			}
 		}
 
-		private void XmppContracts_LegalIdentityChanged(object Sender, LegalIdentityChangedEventArgs e)
+		private Task XmppContracts_LegalIdentityChanged(object Sender, LegalIdentityEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -578,6 +578,8 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 				this.TagProfile.SetLegalIdentity(e.Identity);
 				this.AssignProperties();
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private async Task InviteReviewer()
@@ -594,7 +596,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 				return;
 			}
 
-			bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.PetitionPeerReviewId(
+			bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.PetitionPeerReviewId(
 				Constants.UriSchemes.RemoveScheme(Url), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), LocalizationResourceManager.Current["CouldYouPleaseReviewMyIdentityInformation"]));
 
 			if (succeeded)

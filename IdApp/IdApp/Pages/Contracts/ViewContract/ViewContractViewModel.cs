@@ -67,14 +67,14 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.IsProposal = false;
 			}
 
-			this.XmppService.Contracts.ContractsClient.ContractUpdated += this.ContractsClient_ContractUpdatedOrSigned;
-			this.XmppService.Contracts.ContractsClient.ContractSigned += this.ContractsClient_ContractUpdatedOrSigned;
+			this.XmppService.ContractUpdated += this.ContractsClient_ContractUpdatedOrSigned;
+			this.XmppService.ContractSigned += this.ContractsClient_ContractUpdatedOrSigned;
 
 			if (this.Contract is not null)
 			{
-				DateTime TP = this.XmppService.Contracts.GetTimeOfLastContractEvent(this.Contract.ContractId);
+				DateTime TP = this.XmppService.GetTimeOfLastContractEvent(this.Contract.ContractId);
 				if (DateTime.Now.Subtract(TP).TotalSeconds < 5)
-					this.Contract = await this.XmppService.Contracts.GetContract(this.Contract.ContractId);
+					this.Contract = await this.XmppService.GetContract(this.Contract.ContractId);
 
 				await this.DisplayContract();
 			}
@@ -83,8 +83,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// <inheritdoc/>
 		protected override async Task OnDispose()
 		{
-			this.XmppService.Contracts.ContractsClient.ContractUpdated -= this.ContractsClient_ContractUpdatedOrSigned;
-			this.XmppService.Contracts.ContractsClient.ContractSigned -= this.ContractsClient_ContractUpdatedOrSigned;
+			this.XmppService.ContractUpdated -= this.ContractsClient_ContractUpdatedOrSigned;
+			this.XmppService.ContractSigned -= this.ContractsClient_ContractUpdatedOrSigned;
 
 			this.ClearContract();
 
@@ -103,7 +103,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		{
 			try
 			{
-				Contract Contract = await this.XmppService.Contracts.GetContract(ContractId);
+				Contract Contract = await this.XmppService.GetContract(ContractId);
 				
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await this.ContractUpdated(Contract));
 			}
@@ -776,7 +776,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				{
 					this.skipContractEvent = DateTime.Now;
 
-					Contract contract = await this.XmppService.Contracts.SignContract(this.Contract, button.StyleId, false);
+					Contract contract = await this.XmppService.SignContract(this.Contract, button.StyleId, false);
 					await this.ContractUpdated(contract);
 
 					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["ContractSuccessfullySigned"]);
@@ -814,7 +814,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 					if (signature is not null)
 					{
 						string legalId = signature.LegalId;
-						LegalIdentity identity = await this.XmppService.Contracts.GetLegalIdentity(legalId);
+						LegalIdentity identity = await this.XmppService.GetLegalIdentity(legalId);
 
 						await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ClientSignature.ClientSignaturePage),
 							new ClientSignatureNavigationArgs(signature, identity));
@@ -854,7 +854,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 				this.skipContractEvent = DateTime.Now;
 
-				Contract obsoletedContract = await this.XmppService.Contracts.ObsoleteContract(this.Contract.ContractId);
+				Contract obsoletedContract = await this.XmppService.ObsoleteContract(this.Contract.ContractId);
 				await this.ContractUpdated(obsoletedContract);
 
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["ContractHasBeenObsoleted"]);
@@ -875,7 +875,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 				this.skipContractEvent = DateTime.Now;
 
-				Contract deletedContract = await this.XmppService.Contracts.DeleteContract(this.Contract.ContractId);
+				Contract deletedContract = await this.XmppService.DeleteContract(this.Contract.ContractId);
 				await this.ContractUpdated(deletedContract);
 
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["ContractHasBeenDeleted"]);

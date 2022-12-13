@@ -70,9 +70,9 @@ namespace IdApp.Pages.Things.ReadSensor
 			this.TagProfile.Changed += this.TagProfile_Changed;
 
 			if (this.thingRef is null)
-				this.request = this.XmppService.IoT.SensorClient.RequestReadout(this.GetFullJid(), FieldType.All);
+				this.request = this.XmppService.RequestSensorReadout(this.GetFullJid(), FieldType.All);
 			else
-				this.request = this.XmppService.IoT.SensorClient.RequestReadout(this.GetFullJid(), new ThingReference[] { this.thingRef }, FieldType.All);
+				this.request = this.XmppService.RequestSensorReadout(this.GetFullJid(), new ThingReference[] { this.thingRef }, FieldType.All);
 
 			this.request.OnStateChanged += this.Request_OnStateChanged;
 			this.request.OnFieldsReceived += this.Request_OnFieldsReceived;
@@ -366,7 +366,7 @@ namespace IdApp.Pages.Things.ReadSensor
 				this.IsThingOnline = false;
 			else
 			{
-				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.thing.BareJid);
+				RosterItem Item = this.XmppService.GetRosterItem(this.thing.BareJid);
 				this.IsThingOnline = Item is not null && Item.HasLastPresence && Item.LastPresence.IsOnline;
 			}
 		}
@@ -377,7 +377,7 @@ namespace IdApp.Pages.Things.ReadSensor
 				return null;
 			else
 			{
-				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.thing.BareJid);
+				RosterItem Item = this.XmppService.GetRosterItem(this.thing.BareJid);
 
 				if (Item is null || !Item.HasLastPresence || !Item.LastPresence.IsOnline)
 					return null;

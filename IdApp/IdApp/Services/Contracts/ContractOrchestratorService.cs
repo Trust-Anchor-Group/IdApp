@@ -34,17 +34,17 @@ namespace IdApp.Services.Contracts
 			if (this.BeginLoad(cancellationToken))
 			{
 				this.XmppService.ConnectionStateChanged += this.Contracts_ConnectionStateChanged;
-				this.XmppService.Contracts.PetitionForPeerReviewIdReceived += this.Contracts_PetitionForPeerReviewIdReceived;
-				this.XmppService.Contracts.PetitionForIdentityReceived += this.Contracts_PetitionForIdentityReceived;
-				this.XmppService.Contracts.PetitionForSignatureReceived += this.Contracts_PetitionForSignatureReceived;
-				this.XmppService.Contracts.PetitionedContractResponseReceived += this.Contracts_PetitionedSmartContractResponseReceived;
-				this.XmppService.Contracts.PetitionForContractReceived += this.Contracts_PetitionForSmartContractReceived;
-				this.XmppService.Contracts.PetitionedIdentityResponseReceived += this.Contracts_PetitionedIdentityResponseReceived;
-				this.XmppService.Contracts.PetitionedPeerReviewIdResponseReceived += this.Contracts_PetitionedPeerReviewResponseReceived;
-				this.XmppService.Contracts.SignaturePetitionResponseReceived += this.Contracts_SignaturePetitionResponseReceived;
-				this.XmppService.Contracts.ContractProposalReceived += this.Contracts_ContractProposalReceived;
-				this.XmppService.Contracts.ContractUpdated += this.Contracts_ContractUpdated;
-				this.XmppService.Contracts.ContractSigned += this.Contracts_ContractSigned;
+				this.XmppService.PetitionForPeerReviewIdReceived += this.Contracts_PetitionForPeerReviewIdReceived;
+				this.XmppService.PetitionForIdentityReceived += this.Contracts_PetitionForIdentityReceived;
+				this.XmppService.PetitionForSignatureReceived += this.Contracts_PetitionForSignatureReceived;
+				this.XmppService.PetitionedContractResponseReceived += this.Contracts_PetitionedSmartContractResponseReceived;
+				this.XmppService.PetitionForContractReceived += this.Contracts_PetitionForSmartContractReceived;
+				this.XmppService.PetitionedIdentityResponseReceived += this.Contracts_PetitionedIdentityResponseReceived;
+				this.XmppService.PetitionedPeerReviewIdResponseReceived += this.Contracts_PetitionedPeerReviewResponseReceived;
+				this.XmppService.SignaturePetitionResponseReceived += this.Contracts_SignaturePetitionResponseReceived;
+				this.XmppService.ContractProposalReceived += this.Contracts_ContractProposalReceived;
+				this.XmppService.ContractUpdated += this.Contracts_ContractUpdated;
+				this.XmppService.ContractSigned += this.Contracts_ContractSigned;
 
 				this.EndLoad(true);
 			}
@@ -57,17 +57,17 @@ namespace IdApp.Services.Contracts
 			if (this.BeginUnload())
 			{
 				this.XmppService.ConnectionStateChanged -= this.Contracts_ConnectionStateChanged;
-				this.XmppService.Contracts.PetitionForPeerReviewIdReceived -= this.Contracts_PetitionForPeerReviewIdReceived;
-				this.XmppService.Contracts.PetitionForIdentityReceived -= this.Contracts_PetitionForIdentityReceived;
-				this.XmppService.Contracts.PetitionForSignatureReceived -= this.Contracts_PetitionForSignatureReceived;
-				this.XmppService.Contracts.PetitionedContractResponseReceived -= this.Contracts_PetitionedSmartContractResponseReceived;
-				this.XmppService.Contracts.PetitionForContractReceived -= this.Contracts_PetitionForSmartContractReceived;
-				this.XmppService.Contracts.PetitionedIdentityResponseReceived -= this.Contracts_PetitionedIdentityResponseReceived;
-				this.XmppService.Contracts.PetitionedPeerReviewIdResponseReceived -= this.Contracts_PetitionedPeerReviewResponseReceived;
-				this.XmppService.Contracts.SignaturePetitionResponseReceived -= this.Contracts_SignaturePetitionResponseReceived;
-				this.XmppService.Contracts.ContractProposalReceived -= this.Contracts_ContractProposalReceived;
-				this.XmppService.Contracts.ContractUpdated -= this.Contracts_ContractUpdated;
-				this.XmppService.Contracts.ContractSigned -= this.Contracts_ContractSigned;
+				this.XmppService.PetitionForPeerReviewIdReceived -= this.Contracts_PetitionForPeerReviewIdReceived;
+				this.XmppService.PetitionForIdentityReceived -= this.Contracts_PetitionForIdentityReceived;
+				this.XmppService.PetitionForSignatureReceived -= this.Contracts_PetitionForSignatureReceived;
+				this.XmppService.PetitionedContractResponseReceived -= this.Contracts_PetitionedSmartContractResponseReceived;
+				this.XmppService.PetitionForContractReceived -= this.Contracts_PetitionForSmartContractReceived;
+				this.XmppService.PetitionedIdentityResponseReceived -= this.Contracts_PetitionedIdentityResponseReceived;
+				this.XmppService.PetitionedPeerReviewIdResponseReceived -= this.Contracts_PetitionedPeerReviewResponseReceived;
+				this.XmppService.SignaturePetitionResponseReceived -= this.Contracts_SignaturePetitionResponseReceived;
+				this.XmppService.ContractProposalReceived -= this.Contracts_ContractProposalReceived;
+				this.XmppService.ContractUpdated -= this.Contracts_ContractUpdated;
+				this.XmppService.ContractSigned -= this.Contracts_ContractSigned;
 
 				this.EndUnload();
 			}
@@ -77,7 +77,7 @@ namespace IdApp.Services.Contracts
 
 		#region Event Handlers
 
-		private async void Contracts_PetitionForPeerReviewIdReceived(object Sender, SignaturePetitionEventArgs e)
+		private async Task Contracts_PetitionForPeerReviewIdReceived(object Sender, SignaturePetitionEventArgs e)
 		{
 			try
 			{
@@ -89,7 +89,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async void Contracts_PetitionForIdentityReceived(object Sender, LegalIdentityPetitionEventArgs e)
+		private async Task Contracts_PetitionForIdentityReceived(object Sender, LegalIdentityPetitionEventArgs e)
 		{
 			try
 			{
@@ -99,7 +99,7 @@ namespace IdApp.Services.Contracts
 					Identity = this.TagProfile.LegalIdentity;
 				else
 				{
-					(bool Succeeded, LegalIdentity LegalId) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.RequestedIdentityId));
+					(bool Succeeded, LegalIdentity LegalId) = await this.NetworkService.TryRequest(() => this.XmppService.GetLegalIdentity(e.RequestedIdentityId));
 					if (Succeeded && LegalId is not null)
 						Identity = LegalId;
 					else
@@ -120,7 +120,7 @@ namespace IdApp.Services.Contracts
 				{
 					await this.NetworkService.TryRequest(() =>
 					{
-						return this.XmppService.Contracts.SendPetitionIdentityResponse(
+						return this.XmppService.SendPetitionIdentityResponse(
 							e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
 					});
 				}
@@ -133,7 +133,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async void Contracts_PetitionForSignatureReceived(object Sender, SignaturePetitionEventArgs e)
+		private async Task Contracts_PetitionForSignatureReceived(object Sender, SignaturePetitionEventArgs e)
 		{
 			try
 			{
@@ -143,7 +143,7 @@ namespace IdApp.Services.Contracts
 					Identity = this.TagProfile.LegalIdentity;
 				else
 				{
-					(bool Succeeded, LegalIdentity LegalId) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.SignatoryIdentityId));
+					(bool Succeeded, LegalIdentity LegalId) = await this.NetworkService.TryRequest(() => this.XmppService.GetLegalIdentity(e.SignatoryIdentityId));
 
 					if (Succeeded && LegalId is not null)
 						Identity = LegalId;
@@ -164,7 +164,7 @@ namespace IdApp.Services.Contracts
 				{
 					await this.NetworkService.TryRequest(() =>
 					{
-						return this.XmppService.Contracts.SendPetitionSignatureResponse(e.SignatoryIdentityId, e.ContentToSign,
+						return this.XmppService.SendPetitionSignatureResponse(e.SignatoryIdentityId, e.ContentToSign,
 							new byte[0], e.PetitionId, e.RequestorFullJid, false);
 					});
 				}
@@ -177,7 +177,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async void Contracts_PetitionedSmartContractResponseReceived(object Sender, ContractPetitionResponseEventArgs e)
+		private async Task Contracts_PetitionedSmartContractResponseReceived(object Sender, ContractPetitionResponseEventArgs e)
 		{
 			try
 			{
@@ -189,17 +189,17 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async void Contracts_PetitionForSmartContractReceived(object Sender, ContractPetitionEventArgs e)
+		private async Task Contracts_PetitionForSmartContractReceived(object Sender, ContractPetitionEventArgs e)
 		{
 			try
 			{
-				(bool Succeeded, Contract Contract) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetContract(e.RequestedContractId));
+				(bool Succeeded, Contract Contract) = await this.NetworkService.TryRequest(() => this.XmppService.GetContract(e.RequestedContractId));
 
 				if (!Succeeded)
 					return;
 
 				if (Contract.State == ContractState.Deleted || Contract.State == ContractState.Rejected)
-					await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionContractResponse(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false));
+					await this.NetworkService.TryRequest(() => this.XmppService.SendPetitionContractResponse(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false));
 				else
 					await this.NotificationService.NewEvent(new ContractPetitionNotificationEvent(Contract, e));
 			}
@@ -209,7 +209,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async void Contracts_PetitionedIdentityResponseReceived(object Sender, LegalIdentityPetitionResponseEventArgs e)
+		private async Task Contracts_PetitionedIdentityResponseReceived(object Sender, LegalIdentityPetitionResponseEventArgs e)
 		{
 			try
 			{
@@ -221,7 +221,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async void Contracts_PetitionedPeerReviewResponseReceived(object Sender, SignaturePetitionResponseEventArgs e)
+		private async Task Contracts_PetitionedPeerReviewResponseReceived(object Sender, SignaturePetitionResponseEventArgs e)
 		{
 			try
 			{
@@ -242,7 +242,7 @@ namespace IdApp.Services.Contracts
 
 							try
 							{
-								Result = this.XmppService.Contracts.ValidateSignature(Identity, Data, e.Signature);
+								Result = this.XmppService.ValidateSignature(Identity, Data, e.Signature);
 							}
 							catch (Exception ex)
 							{
@@ -255,7 +255,7 @@ namespace IdApp.Services.Contracts
 							else
 							{
 								(bool Succeeded, LegalIdentity LegalIdentity) = await this.NetworkService.TryRequest(
-									() => this.XmppService.Contracts.AddPeerReviewIdAttachment(
+									() => this.XmppService.AddPeerReviewIdAttachment(
 										this.TagProfile.LegalIdentity, Identity, e.Signature));
 
 								if (Succeeded)
@@ -298,12 +298,12 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async void Contracts_ContractProposalReceived(object Sender, ContractProposalEventArgs e)
+		private async Task Contracts_ContractProposalReceived(object Sender, ContractProposalEventArgs e)
 		{
 			Contract Contract;
 			bool Succeeded;
 
-			(Succeeded, Contract) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetContract(e.ContractId));
+			(Succeeded, Contract) = await this.NetworkService.TryRequest(() => this.XmppService.GetContract(e.ContractId));
 			if (!Succeeded || Contract is null)
 				return;     // Contract not available.
 
@@ -341,7 +341,7 @@ namespace IdApp.Services.Contracts
 			if (!isConnected)
 				return;
 
-			(bool succeeded, LegalIdentity identity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(LegalId), displayAlert: false);
+			(bool succeeded, LegalIdentity identity) = await this.NetworkService.TryRequest(() => this.XmppService.GetLegalIdentity(LegalId), displayAlert: false);
 			if (succeeded)
 			{
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
@@ -361,7 +361,7 @@ namespace IdApp.Services.Contracts
 						await this.TagProfile.RevokeLegalIdentity(identity);
 						gotoRegistrationPage = true;
 					}
-					else if (identity.State == IdentityState.Approved && !await this.XmppService.Contracts.HasPrivateKey(identity.Id))
+					else if (identity.State == IdentityState.Approved && !await this.XmppService.HasPrivateKey(identity.Id))
 					{
 						bool Response = await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["WarningTitle"], LocalizationResourceManager.Current["UnableToGetAccessToYourPrivateKeys"],
 							LocalizationResourceManager.Current["Continue"], LocalizationResourceManager.Current["Repair"]);
@@ -410,7 +410,7 @@ namespace IdApp.Services.Contracts
 		{
 			try
 			{
-				LegalIdentity identity = await this.XmppService.Contracts.GetLegalIdentity(LegalId);
+				LegalIdentity identity = await this.XmppService.GetLegalIdentity(LegalId);
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(identity));
@@ -424,7 +424,7 @@ namespace IdApp.Services.Contracts
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.PetitionIdentity(LegalId, Guid.NewGuid().ToString(), Purpose));
+					bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.PetitionIdentity(LegalId, Guid.NewGuid().ToString(), Purpose));
 					if (succeeded)
 					{
 						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PetitionSent"], LocalizationResourceManager.Current["APetitionHasBeenSentToTheOwner"]);
@@ -447,7 +447,7 @@ namespace IdApp.Services.Contracts
 		{
 			try
 			{
-				Contract Contract = await this.XmppService.Contracts.GetContract(ContractId);
+				Contract Contract = await this.XmppService.GetContract(ContractId);
 
 				ContractReference Ref = await Database.FindFirstDeleteRest<ContractReference>(
 					new FilterFieldEqualTo("ContractId", Contract.ContractId));
@@ -497,7 +497,7 @@ namespace IdApp.Services.Contracts
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.PetitionContract(ContractId, Guid.NewGuid().ToString(), Purpose));
+					bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.PetitionContract(ContractId, Guid.NewGuid().ToString(), Purpose));
 					if (succeeded)
 					{
 						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PetitionSent"], LocalizationResourceManager.Current["APetitionHasBeenSentToTheContract"]);
@@ -544,10 +544,10 @@ namespace IdApp.Services.Contracts
 			if (!this.XmppService.IsOnline)
 				throw new InvalidOperationException("App is not connected to the network.");
 
-			await this.XmppService.Xmpp.IqSetAsync(JID, Xml.ToString());
+			await this.XmppService.IqSetAsync(JID, Xml.ToString());
 		}
 
-		private async void Contracts_SignaturePetitionResponseReceived(object Sender, SignaturePetitionResponseEventArgs e)
+		private async Task Contracts_SignaturePetitionResponseReceived(object Sender, SignaturePetitionResponseEventArgs e)
 		{
 			try
 			{
@@ -559,11 +559,11 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async void Contracts_ContractSigned(object Sender, ContractSignedEventArgs e)
+		private async Task Contracts_ContractSigned(object Sender, ContractSignedEventArgs e)
 		{
 			try
 			{
-				Contract Contract = await this.XmppService.Contracts.GetContract(e.ContractId);
+				Contract Contract = await this.XmppService.GetContract(e.ContractId);
 				ContractReference Ref = await Database.FindFirstDeleteRest<ContractReference>(new FilterFieldEqualTo("ContractId", e.ContractId));
 
 				if (Ref is null)
@@ -587,11 +587,11 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async void Contracts_ContractUpdated(object Sender, ContractReferenceEventArgs e)
+		private async Task Contracts_ContractUpdated(object Sender, ContractReferenceEventArgs e)
 		{
 			try
 			{
-				Contract Contract = await this.XmppService.Contracts.GetContract(e.ContractId);
+				Contract Contract = await this.XmppService.GetContract(e.ContractId);
 				ContractReference Ref = await Database.FindFirstDeleteRest<ContractReference>(new FilterFieldEqualTo("ContractId", e.ContractId));
 
 				if (Ref is null)
@@ -624,8 +624,8 @@ namespace IdApp.Services.Contracts
 				if ((DateTime.UtcNow - TP).Days < 30)
 					return;
 
-				await this.CheckContractReferences(await this.SmartContracts.GetCreatedContractReferences());
-				await this.CheckContractReferences(await this.SmartContracts.GetSignedContractReferences());
+				await this.CheckContractReferences(await this.XmppService.GetCreatedContractReferences());
+				await this.CheckContractReferences(await this.XmppService.GetSignedContractReferences());
 
 				await this.SettingsService.SaveState("ContractReferences.LastCheck", DateTime.UtcNow);
 			}
@@ -652,7 +652,7 @@ namespace IdApp.Services.Contracts
 
 						try
 						{
-							Contract Contract = await this.XmppService.Contracts.GetContract(ContractId);
+							Contract Contract = await this.XmppService.GetContract(ContractId);
 
 							await Ref.SetContract(Contract, this);
 						}

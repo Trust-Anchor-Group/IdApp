@@ -139,7 +139,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.EvaluateAllCommands();
 
 			this.TagProfile.Changed += this.TagProfile_Changed;
-			this.XmppService.Contracts.LegalIdentityChanged += this.SmartContracts_LegalIdentityChanged;
+			this.XmppService.LegalIdentityChanged += this.SmartContracts_LegalIdentityChanged;
 			this.XmppService.OnRosterItemAdded += this.CheckRosterItem;
 			this.XmppService.OnRosterItemRemoved += this.CheckRosterItem;
 			this.XmppService.OnRosterItemUpdated += this.CheckRosterItem;
@@ -173,7 +173,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.photosLoader.CancelLoadPhotos();
 
 			this.TagProfile.Changed -= this.TagProfile_Changed;
-			this.XmppService.Contracts.LegalIdentityChanged -= this.SmartContracts_LegalIdentityChanged;
+			this.XmppService.LegalIdentityChanged -= this.SmartContracts_LegalIdentityChanged;
 
 			this.XmppService.OnRosterItemAdded -= this.CheckRosterItem;
 			this.XmppService.OnRosterItemRemoved -= this.CheckRosterItem;
@@ -432,7 +432,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
 
-		private void SmartContracts_LegalIdentityChanged(object Sender, LegalIdentityChangedEventArgs e)
+		private Task SmartContracts_LegalIdentityChanged(object Sender, LegalIdentityEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -442,6 +442,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					this.AssignProperties();
 				}
 			});
+
+			return Task.CompletedTask;
 		}
 
 		#region Properties
@@ -1392,14 +1394,14 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					return;
 
 				(bool Succeeded1, byte[] Signature) = await this.NetworkService.TryRequest(() =>
-					this.XmppService.Contracts.Sign(this.contentToSign, SignWith.LatestApprovedId));
+					this.XmppService.Sign(this.contentToSign, SignWith.LatestApprovedId));
 
 				if (!Succeeded1)
 					return;
 
 				bool Succeeded2 = await this.NetworkService.TryRequest(() =>
 				{
-					return this.XmppService.Contracts.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign,
+					return this.XmppService.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign,
 						Signature, this.petitionId, this.requestorFullJid, true);
 				});
 
@@ -1422,7 +1424,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			{
 				bool Succeeded = await this.NetworkService.TryRequest(() =>
 				{
-					return this.XmppService.Contracts.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign,
+					return this.XmppService.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign,
 						new byte[0], this.petitionId, this.requestorFullJid, false);
 				});
 
@@ -1446,7 +1448,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (!await this.AreYouSure(LocalizationResourceManager.Current["AreYouSureYouWantToRevokeYourLegalIdentity"]))
 					return;
 
-				(bool succeeded, LegalIdentity revokedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.ObsoleteLegalIdentity(this.LegalIdentity.Id));
+				(bool succeeded, LegalIdentity revokedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.ObsoleteLegalIdentity(this.LegalIdentity.Id));
 				if (succeeded)
 				{
 					this.LegalIdentity = revokedIdentity;
@@ -1480,7 +1482,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (!await this.AreYouSure(LocalizationResourceManager.Current["AreYouSureYouWantToReportYourLegalIdentityAsCompromized"]))
 					return;
 
-				(bool succeeded, LegalIdentity compromisedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.CompromiseLegalIdentity(this.LegalIdentity.Id));
+				(bool succeeded, LegalIdentity compromisedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.CompromiseLegalIdentity(this.LegalIdentity.Id));
 
 				if (succeeded)
 				{
@@ -1503,9 +1505,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			{
 				string FriendlyName = ContactInfo.GetFriendlyName(this.LegalIdentity);
 
-				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.BareJid);
+				RosterItem Item = this.XmppService.GetRosterItem(this.BareJid);
 				if (Item is null)
-					this.XmppService.Xmpp.AddRosterItem(new RosterItem(this.BareJid, FriendlyName));
+					this.XmppService.AddRosterItem(new RosterItem(this.BareJid, FriendlyName));
 
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 				if (Info is null)
@@ -1559,9 +1561,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					await Database.Provider.Flush();
 				}
 
-				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.BareJid);
+				RosterItem Item = this.XmppService.GetRosterItem(this.BareJid);
 				if (Item is not null)
-					this.XmppService.Xmpp.RemoveRosterItem(this.BareJid);
+					this.XmppService.RemoveRosterItem(this.BareJid);
 
 				this.ThirdPartyInContacts = false;
 				this.ThirdPartyNotInContacts = true;
@@ -1578,13 +1580,13 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				Balance Balance = await this.XmppService.Wallet.GetBalanceAsync();
+				Balance Balance = await this.XmppService.GetEDalerBalance();
 				string Uri;
 
 				if (this.LegalIdentity is null)
-					Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.BareJid, null, null, Balance.Currency, string.Empty);
+					Uri = this.XmppService.CreateIncompleteEDalerPayMeUri(this.BareJid, null, null, Balance.Currency, string.Empty);
 				else
-					Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.LegalIdentity, null, null, Balance.Currency, string.Empty);
+					Uri = this.XmppService.CreateIncompleteEDalerPayMeUri(this.LegalIdentity, null, null, Balance.Currency, string.Empty);
 
 				await this.NeuroWalletOrchestratorService.OpenEDalerUri(Uri);
 			}
@@ -1619,7 +1621,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					{
 						Output.WriteStartElement("Transfer", ContractsClient.NamespaceOnboarding);
 
-						await this.XmppService.Contracts.ContractsClient.ExportKeys(Output);
+						await this.XmppService.ExportSigningKeys(Output);
 
 						Output.WriteStartElement("Pin");
 						Output.WriteAttributeString("pin", Pin);
@@ -1665,7 +1667,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 						Output.WriteEndElement();
 					}
 
-					XmlElement Response = await this.XmppService.Xmpp.IqSetAsync(Constants.Domains.OnboardingDomain, Xml.ToString());
+					XmlElement Response = await this.XmppService.IqSetAsync(Constants.Domains.OnboardingDomain, Xml.ToString());
 
 					foreach (XmlNode N in Response.ChildNodes)
 					{
@@ -1736,7 +1738,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					IdXml = Xml.ToString();
 				}
 
-				this.XmppService.Xmpp.RequestPresenceSubscription(this.BareJid, IdXml);
+				this.XmppService.RequestPresenceSubscription(this.BareJid, IdXml);
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["PresenceSubscriptionRequestSent"]);
 			}
 			catch (Exception ex)
@@ -1749,9 +1751,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				this.XmppService.Xmpp.RequestPresenceUnsubscription(this.BareJid);
+				this.XmppService.RequestPresenceUnsubscription(this.BareJid);
 
-				RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(this.BareJid);
+				RosterItem Item = this.XmppService.GetRosterItem(this.BareJid);
 				if (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.From)
 				{
 					RemoveSubscriptionPopupPage Page = new(this.BareJid);
@@ -1761,7 +1763,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 					if (Remove.HasValue && Remove.Value)
 					{
-						this.XmppService.Xmpp.RequestRevokePresenceSubscription(this.BareJid);
+						this.XmppService.RequestRevokePresenceSubscription(this.BareJid);
 
 						ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 						if ((Info is not null) && Info.AllowSubscriptionFrom.HasValue && Info.AllowSubscriptionFrom.Value)
@@ -1790,7 +1792,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private void UpdateSubscriptionStatus()
 		{
-			RosterItem Item = this.XmppService.Xmpp?[this.BareJid];
+			RosterItem Item = this.XmppService.GetRosterItem(this.BareJid);
 
 			this.Subscribed = this.ThirdParty && (Item is not null) && (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.To);
 			this.NotSubscribed = this.ThirdParty && (Item is null || (Item.State != SubscriptionState.Both && Item.State != SubscriptionState.To));

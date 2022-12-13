@@ -56,14 +56,14 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 				StringBuilder Url = new();
 
 				Url.Append("https://");
-				Url.Append(this.XmppService.Xmpp.Host);
+				Url.Append(this.TagProfile.Domain);
 				Url.Append("/Images/eDalerFront200.png");
 
 				this.EDalerFrontGlyph = Url.ToString();
 
 				Url.Clear();
 				Url.Append("https://");
-				Url.Append(this.XmppService.Xmpp.Host);
+				Url.Append(this.TagProfile.Domain);
 				Url.Append("/Images/eDalerBack200.png");
 
 				this.EDalerBackGlyph = Url.ToString();

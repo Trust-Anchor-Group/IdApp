@@ -114,12 +114,12 @@ namespace IdApp.Services.Notification.Things
 		{
 			try
 			{
-				RosterItem Item = ServiceReferences.XmppService.Xmpp?.GetRosterItem(BareJid);
+				RosterItem Item = ServiceReferences.XmppService.GetRosterItem(BareJid);
 				if (Item is null || !Item.HasLastPresence || !Item.LastPresence.IsOnline)
 					return null;
 
 				SortedDictionary<string, bool> Fields = new();
-				SensorDataClientRequest Request = ServiceReferences.XmppService.IoT.SensorClient.RequestReadout(Item.LastPresenceFullJid,
+				SensorDataClientRequest Request = ServiceReferences.XmppService.RequestSensorReadout(Item.LastPresenceFullJid,
 					new ThingReference[] { Thing }, FieldType.All);
 				TaskCompletionSource<bool> Done = new();
 

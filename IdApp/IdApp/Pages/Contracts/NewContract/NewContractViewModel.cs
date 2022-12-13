@@ -949,12 +949,12 @@ namespace IdApp.Pages.Contracts.NewContract
 				if (!await App.VerifyPin())
 					return;
 
-				Created = await this.XmppService.Contracts.CreateContract(this.templateId, Parts.ToArray(), this.template.Parameters,
+				Created = await this.XmppService.CreateContract(this.templateId, Parts.ToArray(), this.template.Parameters,
 					this.template.Visibility, ContractParts.ExplicitlyDefined, this.template.Duration ?? Duration.FromYears(1),
 					this.template.ArchiveRequired ?? Duration.FromYears(1), this.template.ArchiveOptional ?? Duration.FromYears(1),
 					null, null, false);
 
-				Created = await this.XmppService.Contracts.SignContract(Created, this.SelectedRole, false);
+				Created = await this.XmppService.SignContract(Created, this.SelectedRole, false);
 
 				if (Created.Parts is not null)
 				{
@@ -972,7 +972,7 @@ namespace IdApp.Pages.Contracts.NewContract
 							LocalizationResourceManager.Current["Send"], LocalizationResourceManager.Current["Cancel"]);
 
 						if (!string.IsNullOrEmpty(Proposal))
-							this.XmppService.Contracts.ContractsClient.SendContractProposal(Created.ContractId, Part.Role, Info.BareJid, Proposal);
+							this.XmppService.SendContractProposal(Created.ContractId, Part.Role, Info.BareJid, Proposal);
 					}
 				}
 			}
@@ -1238,7 +1238,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					if (this.presetParameterValues.TryGetValue(Role, out Obj) && Obj is string LegalId)
 					{
 						int i = LegalId.IndexOf('@');
-						if (i < 0 || !Guid.TryParse(LegalId.Substring(0, i), out _))
+						if (i < 0 || !Guid.TryParse(LegalId[..i], out _))
 							continue;
 
 						await this.AddRole(Role, LegalId);

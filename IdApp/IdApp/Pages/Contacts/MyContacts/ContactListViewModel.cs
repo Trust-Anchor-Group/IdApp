@@ -74,7 +74,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 				Add(Sorted, Info.FriendlyName, Info);
 			}
 
-			foreach (RosterItem Item in this.XmppService.Xmpp.Roster)
+			foreach (RosterItem Item in this.XmppService.Roster)
 			{
 				if (Jids.ContainsKey(Item.BareJid))
 					continue;
@@ -382,7 +382,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 								sb.Append(Contact.BareJid);
 							}
 
-							Balance Balance = await this.XmppService.Wallet.GetBalanceAsync();
+							Balance Balance = await this.XmppService.GetEDalerBalance();
 
 							sb.Append(";cu=");
 							sb.Append(Balance.Currency);

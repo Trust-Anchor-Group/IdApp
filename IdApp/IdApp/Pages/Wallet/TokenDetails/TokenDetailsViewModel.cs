@@ -1213,8 +1213,8 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
-				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TokenConsignmentTemplate);
+				CreationAttributesEventArgs e = await this.XmppService.GetNeuroFeatureCreationAttributes();
+				Contract Template = await this.XmppService.GetContract(Constants.ContractTemplates.TokenConsignmentTemplate);
 				Template.Visibility = ContractVisibility.Public;
 				NewContractNavigationArgs NewContractArgs = new(Template, true,
 					new Dictionary<CaseInsensitiveString, object>()
@@ -1256,12 +1256,12 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			{
 				Dictionary<CaseInsensitiveString, object> Parameters = new();
 				string TrustProviderId = null;
-				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
+				Contract Template = await this.XmppService.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
 
 				if (Template.ForMachinesLocalName == "Transfer" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
-					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
+					CreationAttributesEventArgs e = await this.XmppService.GetNeuroFeatureCreationAttributes();
 					XmlDocument Doc = new()
 					{
 						PreserveWhitespace = true
@@ -1348,12 +1348,12 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			{
 				Dictionary<CaseInsensitiveString, object> Parameters = new();
 				string TrustProviderId = null;
-				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
+				Contract Template = await this.XmppService.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
 
 				if (Template.ForMachinesLocalName == "Transfer" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
-					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
+					CreationAttributesEventArgs e = await this.XmppService.GetNeuroFeatureCreationAttributes();
 					XmlDocument Doc = new()
 					{
 						PreserveWhitespace = true
@@ -1450,7 +1450,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				TokenEvent[] Events = await this.XmppService.Wallet.NeuroFeaturesClient.GetEventsAsync(this.TokenId);
+				TokenEvent[] Events = await this.XmppService.GetNeuroFeatureEvents(this.TokenId);
 
 				await this.NavigationService.GoToAsync(nameof(TokenEventsPage),
 					new TokenEventsNavigationArgs(this.TokenId, Events) { CancelReturnCounter = true });
@@ -1463,29 +1463,29 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 		private async Task PresentReport()
 		{
-			await this.ShowReport(new TokenPresentReport(this.XmppService.Wallet.NeuroFeaturesClient, this.TokenId));
+			await this.ShowReport(new TokenPresentReport(this.XmppService, this.TokenId));
 		}
 
 		private async Task HistoryReport()
 		{
-			await this.ShowReport(new TokenHistoryReport(this.XmppService.Wallet.NeuroFeaturesClient, this.TokenId));
+			await this.ShowReport(new TokenHistoryReport(this.XmppService, this.TokenId));
 		}
 
 		private async Task StatesReport()
 		{
-			await this.ShowReport(new TokenStateDiagramReport(this.XmppService.Wallet.NeuroFeaturesClient, this.TokenId));
+			await this.ShowReport(new TokenStateDiagramReport(this.XmppService, this.TokenId));
 		}
 
 		private async Task ProfilingReport()
 		{
-			await this.ShowReport(new TokenProfilingReport(this.XmppService.Wallet.NeuroFeaturesClient, this.TokenId));
+			await this.ShowReport(new TokenProfilingReport(this.XmppService, this.TokenId));
 		}
 
 		private async Task VariablesReport()
 		{
 			try
 			{
-				CurrentStateEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GetCurrentStateAsync(this.TokenId);
+				CurrentStateEventArgs e = await this.XmppService.GetNeuroFeatureCurrentState(this.TokenId);
 				if (e.Ok)
 				{
 					await this.NavigationService.GoToAsync(nameof(MachineVariablesPage),

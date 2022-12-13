@@ -72,7 +72,7 @@ namespace IdApp.Pages.Things.MyThings
 				SortedByAddress[Key] = Info;
 			}
 
-			SearchResultThing[] MyDevices = await this.XmppService.IoT.GetAllMyDevices();
+			SearchResultThing[] MyDevices = await this.XmppService.GetAllMyDevices();
 			foreach (SearchResultThing Thing in MyDevices)
 			{
 				Property[] MetaData = ViewClaimThing.ViewClaimThingViewModel.ToProperties(Thing.Tags);
@@ -104,7 +104,7 @@ namespace IdApp.Pages.Things.MyThings
 					NodeId = Thing.Node.NodeId,
 					Owner = true,
 					MetaData = MetaData,
-					RegistryJid = this.XmppService.IoT.ServiceJid
+					RegistryJid = this.XmppService.RegistryServiceJid
 				};
 
 				foreach (MetaDataTag Tag in Thing.Tags)

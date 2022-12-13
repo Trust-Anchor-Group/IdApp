@@ -139,7 +139,7 @@ namespace IdApp.Services.Notification.Contracts
 			{
 				try
 				{
-					this.Identity = await ServiceReferences.SmartContracts.GetLegalIdentity(this.LegalId);
+					this.Identity = await ServiceReferences.XmppService.GetLegalIdentity(this.LegalId);
 				}
 				catch (Exception ex)
 				{

@@ -353,7 +353,7 @@ namespace IdApp.Pages.Things.IsFriend
 			RuleRange Range = this.GetRuleRange();
 			FriendshipResolver Resolver = new(this.BareJid, this.RemoteJid, Range);
 
-			this.XmppService.IoT.ProvisioningClient.IsFriendResponse(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
+			this.XmppService.IsFriendResponse(this.ProvisioningService, this.BareJid, this.RemoteJid, this.Key,
 				Accepts, Range, this.ResponseHandler, Resolver);
 		}
 

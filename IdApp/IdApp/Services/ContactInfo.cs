@@ -1,5 +1,5 @@
-﻿using IdApp.Services.Contracts;
-using IdApp.Services.Tag;
+﻿using IdApp.Services.Tag;
+using IdApp.Services.Xmpp;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -261,19 +261,17 @@ namespace IdApp.Services
 		/// <returns>Friendly name.</returns>
 		public static Task<string> GetFriendlyName(CaseInsensitiveString RemoteId, IServiceReferences Ref)
 		{
-			return GetFriendlyName(RemoteId, Ref.XmppService.Xmpp, Ref.TagProfile, Ref.SmartContracts);
+			return GetFriendlyName(RemoteId, Ref.XmppService, Ref.TagProfile);
 		}
 
 		/// <summary>
 		/// Gets the friendly name of a remote identity (Legal ID or Bare JID).
 		/// </summary>
 		/// <param name="RemoteId">Remote Identity</param>
-		/// <param name="Client">XMPP Client</param>
+		/// <param name="XmppService">XMPP Service</param>
 		/// <param name="TagProfile">TAG Profile</param>
-		/// <param name="SmartContracts">Smart Contracts interface.</param>
 		/// <returns>Friendly name.</returns>
-		public static async Task<string> GetFriendlyName(CaseInsensitiveString RemoteId, XmppClient Client, ITagProfile TagProfile,
-			ISmartContracts SmartContracts)
+		public static async Task<string> GetFriendlyName(CaseInsensitiveString RemoteId, IXmppService XmppService, ITagProfile TagProfile)
 		{
 			int i = RemoteId.IndexOf('@');
 			if (i < 0)
@@ -313,7 +311,7 @@ namespace IdApp.Services
 				}
 			}
 
-			RosterItem Item = Client?.GetRosterItem(RemoteId);
+			RosterItem Item = XmppService.GetRosterItem(RemoteId);
 			if (Item is not null)
 				return Item.NameOrBareJid;
 
@@ -330,30 +328,27 @@ namespace IdApp.Services
 
 			if (AccountIsGuid)
 			{
-				try
+				lock (identityCache)
 				{
-					lock (identityCache)
-					{
-						identityCache[RemoteId] = null;
-					}
+					identityCache[RemoteId] = null;
+				}
 
-					SmartContracts.ContractsClient.GetLegalIdentity(RemoteId, (sender, e) =>
+				Task _ = Task.Run(async () =>
+				{
+					try
 					{
-						if (e.Ok)
+						LegalIdentity Id = await XmppService.GetLegalIdentity(RemoteId);
+
+						lock (identityCache)
 						{
-							lock (identityCache)
-							{
-								identityCache[RemoteId] = e.Identity;
-							}
+							identityCache[RemoteId] = Id;
 						}
-
-						return Task.CompletedTask;
-					}, null);
-				}
-				catch (Exception)
-				{
-					// Ignore
-				}
+					}
+					catch (Exception)
+					{
+						// Ignore
+					}
+				});
 			}
 
 			return RemoteId;

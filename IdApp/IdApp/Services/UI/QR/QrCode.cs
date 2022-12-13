@@ -87,11 +87,11 @@ namespace IdApp.Services.UI.QR
 						return true;
 
 					case Constants.UriSchemes.UriSchemeIotDisco:
-						if (Services.XmppService.ThingRegistry.IsIoTDiscoClaimURI(Url))
+						if (Services.XmppService.IsIoTDiscoClaimURI(Url))
 							await Services.ThingRegistryOrchestratorService.OpenClaimDevice(Url);
-						else if (Services.XmppService.ThingRegistry.IsIoTDiscoSearchURI(Url))
+						else if (Services.XmppService.IsIoTDiscoSearchURI(Url))
 							await Services.ThingRegistryOrchestratorService.OpenSearchDevices(Url);
-						else if (Services.XmppService.ThingRegistry.IsIoTDiscoDirectURI(Url))
+						else if (Services.XmppService.IsIoTDiscoDirectURI(Url))
 							await Services.ThingRegistryOrchestratorService.OpenDeviceReference(Url);
 						else
 						{
@@ -160,21 +160,21 @@ namespace IdApp.Services.UI.QR
 									return false;
 								}
 
-								Services.XmppService.Wallet.PaymentCompleted(TransactionId, AmountDec, Currency);
+								Services.XmppService.EDalerPaymentCompleted(TransactionId, AmountDec, Currency);
 								return true;
 
 							case "pf":  // Payment Failed
 								if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId2)
 									return false;
 
-								Services.XmppService.Wallet.PaymentFailed(TransactionId2, LocalizationResourceManager.Current["PaymentFailed"]);
+								Services.XmppService.EDalerPaymentFailed(TransactionId2, LocalizationResourceManager.Current["PaymentFailed"]);
 								return true;
 
 							case "pc":  // Payment Cancelled
 								if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId3)
 									return false;
 
-								Services.XmppService.Wallet.PaymentFailed(TransactionId3, LocalizationResourceManager.Current["PaymentCancelled"]);
+								Services.XmppService.EDalerPaymentFailed(TransactionId3, LocalizationResourceManager.Current["PaymentCancelled"]);
 								return true;
 
 							default:

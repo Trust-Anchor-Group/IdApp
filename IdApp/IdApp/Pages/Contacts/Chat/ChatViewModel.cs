@@ -565,9 +565,8 @@ namespace IdApp.Pages.Contacts.Chat
 					}
 				}
 
-				ServiceReferences.XmppService.Xmpp.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId,
+				ServiceReferences.XmppService.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId,
 					BareJid, Xml.ToString(), Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty, null, null);
-				// TODO: End-to-End encryption
 			}
 			catch (Exception ex)
 			{
@@ -732,7 +731,7 @@ namespace IdApp.Pages.Contacts.Chat
 				Xml.Append(Bin.Length.ToString());
 				Xml.Append("' content-type='application/octet-stream'/>");
 
-				await this.XmppService.Xmpp.IqSetAsync(this.TagProfile.HttpFileUploadJid, Xml.ToString());
+				await this.XmppService.IqSetAsync(this.TagProfile.HttpFileUploadJid, Xml.ToString());
 				// Empty response expected. Errors cause an exception to be raised.
 
 				// Requesting upload slot
@@ -934,7 +933,7 @@ namespace IdApp.Pages.Contacts.Chat
 			else
 				return;
 
-			Balance CurrentBalance = await this.XmppService.Wallet.GetBalanceAsync();
+			Balance CurrentBalance = await this.XmppService.GetEDalerBalance();
 
 			sb.Append(";cu=");
 			sb.Append(CurrentBalance.Currency);
@@ -1223,7 +1222,7 @@ namespace IdApp.Pages.Contacts.Chat
 							IdXml = Xml.ToString();
 						}
 
-						XmppService.Xmpp.RequestPresenceSubscription(Jid, IdXml);
+						XmppService.RequestPresenceSubscription(Jid, IdXml);
 					}
 					return true;
 
@@ -1232,7 +1231,7 @@ namespace IdApp.Pages.Contacts.Chat
 					return false;
 
 				case "remove":
-					XmppService.Xmpp.GetRosterItem(Jid);
+					XmppService.GetRosterItem(Jid);
 					// TODO
 					return false;
 

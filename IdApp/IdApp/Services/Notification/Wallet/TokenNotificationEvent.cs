@@ -144,7 +144,7 @@ namespace IdApp.Services.Notification.Wallet
 		public override async Task Open(IServiceReferences ServiceReferences)
 		{
 			if (this.Token is null)
-				this.Token = await ServiceReferences.XmppService.Wallet.GetToken(this.TokenId);
+				this.Token = await ServiceReferences.XmppService.GetNeuroFeature(this.TokenId);
 
 			if (!ServiceReferences.NotificationService.TryGetNotificationEvents(EventButton.Wallet, this.TokenId, out NotificationEvent[] Events))
 				Events = new NotificationEvent[0];

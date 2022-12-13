@@ -1,6 +1,5 @@
 ﻿using IdApp.Pages.Wallet.MachineReport.Reports;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -31,15 +30,15 @@ namespace IdApp.Pages.Wallet.MachineReport
 				await this.TokenReport.GenerateReport(this);
 			}
 
-			this.XmppService.Wallet.VariablesUpdated += this.Wallet_VariablesUpdated;
-			this.XmppService.Wallet.StateUpdated += this.Wallet_StateUpdated;
+			this.XmppService.NeuroFeatureVariablesUpdated += this.Wallet_VariablesUpdated;
+			this.XmppService.NeuroFeatureStateUpdated += this.Wallet_StateUpdated;
 		}
 
 		/// <inheritdoc/>
 		protected override Task OnDispose()
 		{
-			this.XmppService.Wallet.VariablesUpdated -= this.Wallet_VariablesUpdated;
-			this.XmppService.Wallet.StateUpdated -= this.Wallet_StateUpdated;
+			this.XmppService.NeuroFeatureVariablesUpdated -= this.Wallet_VariablesUpdated;
+			this.XmppService.NeuroFeatureStateUpdated -= this.Wallet_StateUpdated;
 
 			this.DeleteTemporaryFiles();
 

@@ -70,42 +70,42 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			await base.OnInitialize();
 
-			this.EDalerFrontGlyph = "https://" + this.XmppService.Xmpp.Host + "/Images/eDalerFront200.png";
-			this.EDalerBackGlyph = "https://" + this.XmppService.Xmpp.Host + "/Images/eDalerBack200.png";
+			this.EDalerFrontGlyph = "https://" + this.TagProfile.Domain + "/Images/eDalerFront200.png";
+			this.EDalerBackGlyph = "https://" + this.TagProfile.Domain + "/Images/eDalerBack200.png";
 
 			if (this.Balance is null && this.NavigationService.TryPopArgs(out WalletNavigationArgs args))
 			{
 				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.GetNotificationEvents();
 
 				await this.AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments,
-					args.Events, args.More, this.XmppService.Wallet.LastEDalerEvent, NotificationEvents);
+					args.Events, args.More, this.XmppService.LastEDalerEvent, NotificationEvents);
 			}
-			else if (((this.Balance is not null) && (this.XmppService.Wallet.LastBalance is not null) &&
-				(this.Balance.Amount != this.XmppService.Wallet.LastBalance.Amount ||
-				this.Balance.Currency != this.XmppService.Wallet.LastBalance.Currency ||
-				this.Balance.Timestamp != this.XmppService.Wallet.LastBalance.Timestamp)) ||
-				this.LastEDalerEvent != this.XmppService.Wallet.LastEDalerEvent)
+			else if (((this.Balance is not null) && (this.XmppService.LastEDalerBalance is not null) &&
+				(this.Balance.Amount != this.XmppService.LastEDalerBalance.Amount ||
+				this.Balance.Currency != this.XmppService.LastEDalerBalance.Currency ||
+				this.Balance.Timestamp != this.XmppService.LastEDalerBalance.Timestamp)) ||
+				this.LastEDalerEvent != this.XmppService.LastEDalerEvent)
 			{
-				await this.ReloadEDalerWallet(this.XmppService.Wallet.LastBalance ?? this.Balance ?? this.Balance);
+				await this.ReloadEDalerWallet(this.XmppService.LastEDalerBalance ?? this.Balance ?? this.Balance);
 			}
 
-			if (this.HasTokens && this.LastTokenEvent != this.XmppService.Wallet.LastTokenEvent)
+			if (this.HasTokens && this.LastTokenEvent != this.XmppService.LastNeuroFeatureEvent)
 				await this.LoadTokens(true);
 
 			this.EvaluateAllCommands();
 
-			this.XmppService.Wallet.BalanceUpdated += this.Wallet_BalanceUpdated;
-			this.XmppService.Wallet.TokenAdded += this.Wallet_TokenAdded;
-			this.XmppService.Wallet.TokenRemoved += this.Wallet_TokenRemoved;
+			this.XmppService.EDalerBalanceUpdated += this.Wallet_BalanceUpdated;
+			this.XmppService.NeuroFeatureAdded += this.Wallet_TokenAdded;
+			this.XmppService.NeuroFeatureRemoved += this.Wallet_TokenRemoved;
 			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task OnDispose()
 		{
-			this.XmppService.Wallet.BalanceUpdated -= this.Wallet_BalanceUpdated;
-			this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;
-			this.XmppService.Wallet.TokenRemoved -= this.Wallet_TokenRemoved;
+			this.XmppService.EDalerBalanceUpdated -= this.Wallet_BalanceUpdated;
+			this.XmppService.NeuroFeatureAdded -= this.Wallet_TokenAdded;
+			this.XmppService.NeuroFeatureRemoved -= this.Wallet_TokenRemoved;
 			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
 
 			await base.OnDispose();
@@ -227,12 +227,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			try
 			{
-				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
-				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
+				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.GetPendingEDalerPayments();
+				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize);
 				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.GetNotificationEvents();
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await this.AssignProperties(Balance, PendingAmount, PendingCurrency,
-					PendingPayments, Events, More, this.XmppService.Wallet.LastEDalerEvent, NotificationEvents));
+					PendingPayments, Events, More, this.XmppService.LastEDalerEvent, NotificationEvents));
 			}
 			catch (Exception ex)
 			{
@@ -631,7 +631,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			try
 			{
-				IBuyEDalerServiceProvider[] ServiceProviders = await this.XmppService.Wallet.GetServiceProvidersForBuyingEDalerAsync();
+				IBuyEDalerServiceProvider[] ServiceProviders = await this.XmppService.GetServiceProvidersForBuyingEDalerAsync();
 
 				if (ServiceProviders.Length == 0)
 					await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
@@ -659,7 +659,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 							if (Amount.HasValue && Amount.Value > 0)
 							{
-								PaymentTransaction Transaction = await this.XmppService.Wallet.InitiatePayment(ServiceProvider.Id, ServiceProvider.Type,
+								PaymentTransaction Transaction = await this.XmppService.InitiateEDalerPayment(ServiceProvider.Id, ServiceProvider.Type,
 									Amount.Value, this.Balance.Currency);
 
 								this.WaitForComletion(Transaction);
@@ -667,7 +667,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 						}
 						else
 						{
-							CreationAttributesEventArgs e2 = await this.XmppService.Wallet.GetCreationAttributes();
+							CreationAttributesEventArgs e2 = await this.XmppService.GetNeuroFeatureCreationAttributes();
 							Dictionary<CaseInsensitiveString, object> Parameters = new()
 							{
 								{ "Visibility", "CreatorAndParts" },
@@ -717,7 +717,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			if (Item is PendingPaymentItem PendingItem)
 			{
-				if (!this.XmppService.Wallet.TryParseEDalerUri(PendingItem.Uri, out EDalerUri Uri, out string Reason))
+				if (!this.XmppService.TryParseEDalerUri(PendingItem.Uri, out EDalerUri Uri, out string Reason))
 				{
 					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["InvalidEDalerUri"], Reason));
 					return;
@@ -744,9 +744,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 					int c = this.PaymentItems.Count;
 
 					if (c == 0 || this.PaymentItems[c - 1] is not AccountEventItem LastEvent)
-						(Events, More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
+						(Events, More) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize);
 					else
-						(Events, More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize, LastEvent.Timestamp);
+						(Events, More) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize, LastEvent.Timestamp);
 
 					this.HasMoreEvents = More;
 
@@ -800,13 +800,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private async Task LoadTokens(bool Reload)
 		{
-			this.LastTokenEvent = this.XmppService.Wallet.LastTokenEvent;
+			this.LastTokenEvent = this.XmppService.LastNeuroFeatureEvent;
 
 			if (!this.HasTotals || Reload)
 			{
 				try
 				{
-					TokenTotalsEventArgs e = await this.XmppService.Wallet.GetTotals();
+					TokenTotalsEventArgs e = await this.XmppService.GetNeuroFeatureTotals();
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
@@ -838,7 +838,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 					SortedDictionary<CaseInsensitiveString, TokenNotificationEvent[]> NotificationEvents =
 						this.NotificationService.GetEventsByCategory<TokenNotificationEvent>(EventButton.Wallet);
 
-					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.BatchSizes.TokenBatchSize);
+					TokensEventArgs e = await this.XmppService.GetNeuroFeatures(0, Constants.BatchSizes.TokenBatchSize);
 					SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.GetNotificationEvents();
 
 					this.UiSerializer.BeginInvokeOnMainThread(async () =>
@@ -875,9 +875,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 										}
 										else
 										{
-											if (ToDelete is null)
-												ToDelete = new List<TokenNotificationEvent>();
-
+											ToDelete ??= new List<TokenNotificationEvent>();
 											ToDelete.Add(TokenEvent);
 										}
 									}
@@ -931,12 +929,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 				// TODO: Let user choose from a list of token templates.
 
 				Dictionary<CaseInsensitiveString, object> Parameters = new();
-				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.CreateDemoTokenTemplate);
+				Contract Template = await this.XmppService.GetContract(Constants.ContractTemplates.CreateDemoTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
 
 				if (Template.ForMachinesLocalName == "Create" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
-					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
+					CreationAttributesEventArgs e = await this.XmppService.GetNeuroFeatureCreationAttributes();
 					XmlDocument Doc = new()
 					{
 						PreserveWhitespace = true
@@ -1015,7 +1013,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 				try
 				{
-					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(this.Tokens.Count, Constants.BatchSizes.TokenBatchSize);
+					TokensEventArgs e = await this.XmppService.GetNeuroFeatures(this.Tokens.Count, Constants.BatchSizes.TokenBatchSize);
 					SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.GetNotificationEvents();
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>

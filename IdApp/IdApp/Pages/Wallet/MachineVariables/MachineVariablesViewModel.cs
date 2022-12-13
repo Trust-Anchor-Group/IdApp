@@ -37,15 +37,15 @@ namespace IdApp.Pages.Wallet.MachineVariables
 				}
 			}
 
-			this.XmppService.Wallet.VariablesUpdated += this.Wallet_VariablesUpdated;
-			this.XmppService.Wallet.StateUpdated += this.Wallet_StateUpdated;
+			this.XmppService.NeuroFeatureVariablesUpdated += this.Wallet_VariablesUpdated;
+			this.XmppService.NeuroFeatureStateUpdated += this.Wallet_StateUpdated;
 		}
 
 		/// <inheritdoc/>
 		protected override Task OnDispose()
 		{
-			this.XmppService.Wallet.VariablesUpdated -= this.Wallet_VariablesUpdated;
-			this.XmppService.Wallet.StateUpdated -= this.Wallet_StateUpdated;
+			this.XmppService.NeuroFeatureVariablesUpdated -= this.Wallet_VariablesUpdated;
+			this.XmppService.NeuroFeatureStateUpdated -= this.Wallet_StateUpdated;
 
 			return base.OnDispose();
 		}

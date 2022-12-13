@@ -99,18 +99,18 @@ namespace IdApp.Pages.Wallet
 
 					Url.Clear();
 					Url.Append("https://");
-					Url.Append(this.XmppService.Xmpp.Host);
+					Url.Append(this.TagProfile.Domain);
 					Url.Append("/Images/eDalerBack200.png");
 
 					this.EDalerBackGlyph = Url.ToString();
 
-					if (!(args.Uri?.EncryptedMessage is null))
+					if (args.Uri?.EncryptedMessage is not null)
 					{
 						if (args.Uri.EncryptionPublicKey is null)
 							this.Message = Encoding.UTF8.GetString(args.Uri.EncryptedMessage);
 						else
 						{
-							this.Message = await this.XmppService.Wallet.TryDecryptMessage(args.Uri.EncryptedMessage,
+							this.Message = await this.XmppService.TryDecryptMessage(args.Uri.EncryptedMessage,
 								args.Uri.EncryptionPublicKey, args.Uri.Id, args.Uri.From);
 						}
 
@@ -783,7 +783,7 @@ namespace IdApp.Pages.Wallet
 				if (!await App.VerifyPin())
 					return;
 
-				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.Wallet.SendUri(this.Uri));
+				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.SendEDalerUri(this.Uri));
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
@@ -816,13 +816,13 @@ namespace IdApp.Pages.Wallet
 
 				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
 				{
-					LegalIdentity LegalIdentity = await this.XmppService.Contracts.GetLegalIdentity(this.To);
-					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
+					LegalIdentity LegalIdentity = await this.XmppService.GetLegalIdentity(this.To);
+					Uri = await this.XmppService.CreateFullEDalerPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 				else
 				{
-					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+					Uri = await this.XmppService.CreateFullEDalerPaymentUri(this.To, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 
@@ -832,7 +832,7 @@ namespace IdApp.Pages.Wallet
 				this.NotPaid = false;
 				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
 
-				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.Wallet.SendUri(Uri));
+				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.SendEDalerUri(Uri));
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
@@ -871,13 +871,13 @@ namespace IdApp.Pages.Wallet
 
 				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
 				{
-					LegalIdentity LegalIdentity = await this.XmppService.Contracts.GetLegalIdentity(this.To);
-					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
+					LegalIdentity LegalIdentity = await this.XmppService.GetLegalIdentity(this.To);
+					Uri = await this.XmppService.CreateFullEDalerPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 				else
 				{
-					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+					Uri = await this.XmppService.CreateFullEDalerPaymentUri(this.To, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 
@@ -937,7 +937,7 @@ namespace IdApp.Pages.Wallet
 				if (!await App.VerifyPin())
 					return;
 
-				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.Wallet.SendUri(this.Uri));
+				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.SendEDalerUri(this.Uri));
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
@@ -1004,13 +1004,13 @@ namespace IdApp.Pages.Wallet
 
 				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
 				{
-					LegalIdentity LegalIdentity = await this.XmppService.Contracts.GetLegalIdentity(this.To);
-					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
+					LegalIdentity LegalIdentity = await this.XmppService.GetLegalIdentity(this.To);
+					Uri = await this.XmppService.CreateFullEDalerPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 				else
 				{
-					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+					Uri = await this.XmppService.CreateFullEDalerPaymentUri(this.To, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 

@@ -1,5 +1,4 @@
-﻿using IdApp.Pages.Contacts.Chat;
-using IdApp.Pages.Things.CanControl;
+﻿using IdApp.Pages.Things.CanControl;
 using IdApp.Resx;
 using System;
 using System.Collections.Generic;
@@ -108,13 +107,13 @@ namespace IdApp.Services.Notification.Things
 		{
 			try
 			{
-				RosterItem Item = ServiceReferences.XmppService.Xmpp?.GetRosterItem(BareJid);
+				RosterItem Item = ServiceReferences.XmppService.GetRosterItem(BareJid);
 				if (Item is null || !Item.HasLastPresence || !Item.LastPresence.IsOnline)
 					return null;
 
 				TaskCompletionSource<DataForm> FormTask = new();
 
-				ServiceReferences.XmppService.IoT.ControlClient.GetForm(Item.LastPresenceFullJid,
+				ServiceReferences.XmppService.GetControlForm(Item.LastPresenceFullJid,
 					System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName,
 					(sender, e) =>
 					{

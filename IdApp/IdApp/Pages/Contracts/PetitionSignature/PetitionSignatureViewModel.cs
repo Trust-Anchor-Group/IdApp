@@ -52,7 +52,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
             
             this.AssignProperties();
             
-            if (!(this.RequestorIdentity?.Attachments is null))
+            if (this.RequestorIdentity?.Attachments is not null)
             {
                 _ = this.photosLoader.LoadPhotos(this.RequestorIdentity.Attachments, SignWith.LatestApprovedId);
             }
@@ -98,8 +98,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
 
             bool succeeded = await this.NetworkService.TryRequest(async () =>
             {
-                byte[] signature = await this.XmppService.Contracts.Sign(this.contentToSign, SignWith.LatestApprovedId);
-                await this.XmppService.Contracts.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign, signature,
+                byte[] signature = await this.XmppService.Sign(this.contentToSign, SignWith.LatestApprovedId);
+                await this.XmppService.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign, signature,
                     this.petitionId, this.requestorFullJid, true);
             });
 
@@ -109,7 +109,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
 
         private async Task Decline()
         {
-            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionSignatureResponse(
+            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.SendPetitionSignatureResponse(
                 this.signatoryIdentityId, this.contentToSign, new byte[0], this.petitionId, this.requestorFullJid, false));
 
             if (succeeded)

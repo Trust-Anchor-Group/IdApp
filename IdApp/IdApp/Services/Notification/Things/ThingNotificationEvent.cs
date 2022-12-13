@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
@@ -122,7 +121,7 @@ namespace IdApp.Services.Notification.Things
 					}
 				}
 
-				ServiceReferences.XmppService.IoT.ProvisioningClient.GetCertificate(Token.Token, this.CertificateResponse, Token);
+				ServiceReferences.XmppService.GetCertificate(Token.Token, this.CertificateResponse, Token);
 			}
 
 			if (Updated)

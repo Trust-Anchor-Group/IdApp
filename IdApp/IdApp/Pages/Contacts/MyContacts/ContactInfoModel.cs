@@ -136,7 +136,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 				if (string.IsNullOrEmpty(this.contact?.BareJid))
 					return Color.Transparent;
 
-				RosterItem Item = this.references.XmppService.Xmpp?.GetRosterItem(this.contact?.BareJid);
+				RosterItem Item = this.references.XmppService.GetRosterItem(this.contact?.BareJid);
 				if (Item is null)
 					return Color.Transparent;
 
@@ -178,7 +178,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 			if (string.IsNullOrEmpty(this.contact?.BareJid))
 				return;
 
-			RosterItem Item = this.references.XmppService.Xmpp?.GetRosterItem(this.contact?.BareJid);
+			RosterItem Item = this.references.XmppService.GetRosterItem(this.contact?.BareJid);
 			bool Subscribed;
 
 			if (Item is null)
@@ -195,7 +195,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 					return;
 				}
 
-				this.references.XmppService.Xmpp.RequestPresenceUnsubscription(this.BareJid);
+				this.references.XmppService.RequestPresenceUnsubscription(this.BareJid);
 
 				if (Item.State == SubscriptionState.From || Item.State == SubscriptionState.Both)
 				{
@@ -206,7 +206,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 					if (Remove.HasValue && Remove.Value)
 					{
-						this.references.XmppService.Xmpp.RequestRevokePresenceSubscription(this.BareJid);
+						this.references.XmppService.RequestRevokePresenceSubscription(this.BareJid);
 
 						if ((this.contact?.AllowSubscriptionFrom.HasValue ?? false) && this.contact.AllowSubscriptionFrom.Value)
 						{
@@ -236,7 +236,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 						IdXml = Xml.ToString();
 					}
 
-					this.references.XmppService.Xmpp.RequestPresenceSubscription(this.BareJid, IdXml);
+					this.references.XmppService.RequestPresenceSubscription(this.BareJid, IdXml);
 				}
 			}
 		}

@@ -111,7 +111,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 
 					if (XML.IsValidXml(AddTextNotePage.TextNote))
 					{
-						await this.XmppService.Wallet.AddXmlNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
+						await this.XmppService.AddNeuroFeatureXmlNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
 
 						NewEvent = new NoteXmlItem(new NoteXml()
 						{
@@ -123,7 +123,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 					}
 					else
 					{
-						await this.XmppService.Wallet.AddTextNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
+						await this.XmppService.AddNeuroFeatureTextNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
 
 						NewEvent = new NoteTextItem(new NoteText()
 						{

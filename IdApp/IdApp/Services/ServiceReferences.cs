@@ -46,7 +46,6 @@ namespace IdApp.Services
         private INfcService nfcService;
         private INotificationService notificationService;
         private IPushNotificationService pushNotificationService;
-        private ISmartContracts smartContracts;
 
         /// <summary>
         /// The dispatcher to use for alerts and accessing the main thread.
@@ -269,20 +268,6 @@ namespace IdApp.Services
                     this.pushNotificationService = App.Instantiate<IPushNotificationService>();
 
                 return this.pushNotificationService;
-            }
-        }
-
-        /// <summary>
-        /// Smart Contracts Interface
-        /// </summary>
-        public ISmartContracts SmartContracts
-        {
-            get
-            {
-                if (this.smartContracts is null)
-                    this.smartContracts = App.Instantiate<ISmartContracts>();
-
-                return this.smartContracts;
             }
         }
 

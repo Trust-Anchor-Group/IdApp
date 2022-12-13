@@ -121,16 +121,9 @@ namespace IdApp.Pages.Main.Security
 
 					if (References.TagProfile.ComputePinHash(OldPin) == References.TagProfile.PinHash)
 					{
-						TaskCompletionSource<bool> PasswordChanged = new();
 						string NewPassword = References.CryptoService.CreateRandomPassword();
 
-						References.XmppService.Xmpp.ChangePassword(NewPassword, (sender, e) =>
-						{
-							PasswordChanged.TrySetResult(e.Ok);
-							return Task.CompletedTask;
-						}, null);
-
-						if (!await PasswordChanged.Task)
+						if (!await References.XmppService.ChangePassword(NewPassword))
 						{
 							await References.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToChangePassword"]);
 							return;

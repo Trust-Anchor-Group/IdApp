@@ -54,7 +54,7 @@ namespace IdApp.Services.ThingRegistries
 		{
 			try
 			{
-				(SearchResultThing[] Things, string RegistryJid) = await this.XmppService.ThingRegistry.SearchAll(Uri);
+				(SearchResultThing[] Things, string RegistryJid) = await this.XmppService.SearchAll(Uri);
 
 				switch (Things.Length)
 				{
@@ -70,25 +70,22 @@ namespace IdApp.Services.ThingRegistries
 							Property[] Properties = ViewClaimThingViewModel.ToProperties(Thing.Tags);
 
 							ContactInfo ContactInfo = await ContactInfo.FindByBareJid(Thing.Jid, Thing.Node.SourceId, Thing.Node.Partition, Thing.Node.NodeId);
-							if (ContactInfo is null)
+							ContactInfo ??= new ContactInfo()
 							{
-								ContactInfo = new ContactInfo()
-								{
-									AllowSubscriptionFrom = false,
-									BareJid = Thing.Jid,
-									IsThing = true,
-									LegalId = string.Empty,
-									LegalIdentity = null,
-									FriendlyName = ViewClaimThingViewModel.GetFriendlyName(Properties),
-									MetaData = Properties,
-									SourceId = Thing.Node.SourceId,
-									Partition = Thing.Node.Partition,
-									NodeId = Thing.Node.NodeId,
-									Owner = false,
-									RegistryJid = RegistryJid,
-									SubcribeTo = null
-								};
-							}
+								AllowSubscriptionFrom = false,
+								BareJid = Thing.Jid,
+								IsThing = true,
+								LegalId = string.Empty,
+								LegalIdentity = null,
+								FriendlyName = ViewClaimThingViewModel.GetFriendlyName(Properties),
+								MetaData = Properties,
+								SourceId = Thing.Node.SourceId,
+								Partition = Thing.Node.Partition,
+								NodeId = Thing.Node.NodeId,
+								Owner = false,
+								RegistryJid = RegistryJid,
+								SubcribeTo = null
+							};
 
 							await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(ContactInfo,
 								MyThingsViewModel.GetNotificationEvents(this, ContactInfo)));
@@ -110,7 +107,7 @@ namespace IdApp.Services.ThingRegistries
 		{
 			try
 			{
-				if (!this.XmppService.ThingRegistry.TryDecodeIoTDiscoDirectURI(Uri, out string Jid, out string SourceId,
+				if (!this.XmppService.TryDecodeIoTDiscoDirectURI(Uri, out string Jid, out string SourceId,
 					out string NodeId, out string PartitionId, out MetaDataTag[] Tags))
 				{
 					throw new InvalidOperationException("Not a direct reference URI.");
@@ -135,7 +132,7 @@ namespace IdApp.Services.ThingRegistries
 						Partition = PartitionId,
 						NodeId = NodeId,
 						Owner = false,
-						RegistryJid = this.XmppService.IoT.ServiceJid,
+						RegistryJid = this.XmppService.RegistryServiceJid,
 						SubcribeTo = null
 					};
 

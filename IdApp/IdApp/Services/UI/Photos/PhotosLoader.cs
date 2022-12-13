@@ -143,8 +143,7 @@ namespace IdApp.Services.UI.Photos
 						continue;
 
 					Photo Photo = new(Bin, Rotation);
-					if (First is null)
-						First = Photo;
+					First ??= Photo;
 
 					if (Bin is not null)
 					{
@@ -182,7 +181,7 @@ namespace IdApp.Services.UI.Photos
 			if (!this.NetworkService.IsOnline || !this.XmppService.IsOnline)
 				return (null, string.Empty, 0);
 
-			KeyValuePair<string, TemporaryFile> pair = await this.XmppService.Contracts.GetAttachment(Attachment.Url, SignWith, Constants.Timeouts.DownloadFile);
+			KeyValuePair<string, TemporaryFile> pair = await this.XmppService.GetAttachment(Attachment.Url, SignWith, Constants.Timeouts.DownloadFile);
 
 			using TemporaryFile file = pair.Value;
 			if (this.loadPhotosTimestamp > Now)     // If download has been cancelled any time _during_ download, stop here.
@@ -198,7 +197,7 @@ namespace IdApp.Services.UI.Photos
 			if (file.Length != file.Read(Bin, 0, (int)file.Length))
 				return (null, string.Empty, 0);
 
-			bool IsContact = await this.XmppService.Contracts.IsContact(Attachment.LegalId);
+			bool IsContact = await this.XmppService.IsContact(Attachment.LegalId);
 
 			await this.AttachmentCacheService.Add(Attachment.Url, Attachment.LegalId, IsContact, Bin, ContentType);
 
@@ -289,8 +288,8 @@ namespace IdApp.Services.UI.Photos
 					Photo = Attachment;
 					break;
 				}
-				else if (Photo is null)
-					Photo = Attachment;
+				else
+					Photo ??= Attachment;
 			}
 
 			if (Photo is null)

@@ -375,7 +375,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					}
 
 					if (LegalIdDefinition is not null)
-						await this.XmppService.Contracts.ContractsClient.ImportKeys(LegalIdDefinition);
+						await this.XmppService.ImportSigningKeys(LegalIdDefinition);
 
 					if (AccountDone)
 					{

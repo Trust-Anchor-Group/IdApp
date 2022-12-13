@@ -84,9 +84,10 @@ namespace IdApp.Services.Push
 			try
 			{
 				DateTime Now = DateTime.Now;
-				PushNotificationClient PushNotificationClient = (this.XmppService as XmppService)?.PushNotificationClient;
 
-				if (this.XmppService.IsOnline && (PushNotificationClient is not null) && Now.Subtract(this.lastTokenCheck).TotalHours >= 1)
+				if (this.XmppService.IsOnline &&
+					this.XmppService.SupportsPushNotification &&
+					Now.Subtract(this.lastTokenCheck).TotalHours >= 1)
 				{
 					this.lastTokenCheck = Now;
 
@@ -125,7 +126,7 @@ namespace IdApp.Services.Push
 							ClientType = (ClientType)await RuntimeSettings.GetAsync("PUSH.CLIENT", ClientType.Other);
 						}
 
-						await PushNotificationClient.NewTokenAsync(Token, Service, ClientType);
+						await this.XmppService.ReportNewPushNotificationToken(Token, Service, ClientType);
 						await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
 
 						Reconfig = true;
@@ -135,7 +136,7 @@ namespace IdApp.Services.Push
 					if (ConfigNr != currentTokenConfiguration || Reconfig)
 					{
 						await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", 0);
-						await PushNotificationClient.ClearRulesAsync();
+						await this.XmppService.ClearPushNotificationRules();
 
 						#region Message Rules
 
@@ -160,7 +161,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Chat, string.Empty, string.Empty,
+						await this.XmppService.AddPushNotificationRule(MessageType.Chat, string.Empty, string.Empty,
 							Constants.PushChannels.Messages, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
@@ -185,7 +186,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionIdentityMsg", ContractsClient.NamespaceLegalIdentities,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "petitionIdentityMsg", ContractsClient.NamespaceLegalIdentities,
 							Constants.PushChannels.Petitions, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Petition requests when offline.
@@ -206,7 +207,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionContractMsg", ContractsClient.NamespaceSmartContracts,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "petitionContractMsg", ContractsClient.NamespaceSmartContracts,
 							Constants.PushChannels.Petitions, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Signature Petition requests when offline.
@@ -227,7 +228,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionSignatureMsg", ContractsClient.NamespaceLegalIdentities,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "petitionSignatureMsg", ContractsClient.NamespaceLegalIdentities,
 							Constants.PushChannels.Petitions, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
@@ -247,7 +248,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "identity", ContractsClient.NamespaceLegalIdentities,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "identity", ContractsClient.NamespaceLegalIdentities,
 							Constants.PushChannels.Identities, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
@@ -267,7 +268,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractCreated", ContractsClient.NamespaceSmartContracts,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "contractCreated", ContractsClient.NamespaceSmartContracts,
 							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Signature events when offline.
@@ -284,7 +285,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractSigned", ContractsClient.NamespaceSmartContracts,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "contractSigned", ContractsClient.NamespaceSmartContracts,
 							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Update events when offline.
@@ -300,7 +301,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractUpdated", ContractsClient.NamespaceSmartContracts,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "contractUpdated", ContractsClient.NamespaceSmartContracts,
 							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Deletion events when offline.
@@ -316,7 +317,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractDeleted", ContractsClient.NamespaceSmartContracts,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "contractDeleted", ContractsClient.NamespaceSmartContracts,
 							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Proposal events when offline.
@@ -334,7 +335,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractProposal", ContractsClient.NamespaceSmartContracts,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "contractProposal", ContractsClient.NamespaceSmartContracts,
 							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
@@ -356,7 +357,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "balance", EDalerClient.NamespaceEDaler,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "balance", EDalerClient.NamespaceEDaler,
 							Constants.PushChannels.EDaler, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
@@ -379,7 +380,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "tokenAdded", NeuroFeaturesClient.NamespaceNeuroFeatures,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "tokenAdded", NeuroFeaturesClient.NamespaceNeuroFeatures,
 							Constants.PushChannels.Tokens, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for token removals when offline.
@@ -398,7 +399,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "tokenRemoved", NeuroFeaturesClient.NamespaceNeuroFeatures,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "tokenRemoved", NeuroFeaturesClient.NamespaceNeuroFeatures,
 							Constants.PushChannels.Tokens, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
@@ -424,7 +425,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "isFriend", ProvisioningClient.NamespaceProvisioningOwner,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "isFriend", ProvisioningClient.NamespaceProvisioningOwner,
 							Constants.PushChannels.Provisioning, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for readout requests from things when offline.
@@ -446,7 +447,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "canRead", ProvisioningClient.NamespaceProvisioningOwner,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "canRead", ProvisioningClient.NamespaceProvisioningOwner,
 							Constants.PushChannels.Provisioning, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for control requests from things when offline.
@@ -468,7 +469,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "canControl", ProvisioningClient.NamespaceProvisioningOwner,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "canControl", ProvisioningClient.NamespaceProvisioningOwner,
 							Constants.PushChannels.Provisioning, "Stanza", string.Empty, Content.ToString());
 
 						#endregion

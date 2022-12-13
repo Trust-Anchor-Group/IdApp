@@ -886,7 +886,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				RegisterIdentityModel IdentityModel = this.CreateRegisterModel();
 				LegalIdentityAttachment[] Photos = { this.photo };
 
-				(bool Succeeded, LegalIdentity AddedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.AddLegalIdentity(IdentityModel, Photos));
+				(bool Succeeded, LegalIdentity AddedIdentity) = await this.NetworkService.TryRequest(() =>
+					this.XmppService.AddLegalIdentity(IdentityModel, Photos));
 
 				if (Succeeded)
 				{

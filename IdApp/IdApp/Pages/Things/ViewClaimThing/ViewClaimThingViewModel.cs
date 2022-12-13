@@ -45,7 +45,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 			{
 				this.Uri = args.Uri;
 
-				if (this.XmppService.ThingRegistry.TryDecodeIoTDiscoClaimURI(args.Uri, out MetaDataTag[] Tags))
+				if (this.XmppService.TryDecodeIoTDiscoClaimURI(args.Uri, out MetaDataTag[] Tags))
 				{
 					this.RegistryJid = null;
 
@@ -58,7 +58,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 					}
 
 					if (string.IsNullOrEmpty(this.RegistryJid))
-						this.RegistryJid = this.XmppService.IoT.ServiceJid;
+						this.RegistryJid = this.XmppService.RegistryServiceJid;
 				}
 			}
 
@@ -251,7 +251,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 								}
 
 								int i = Value.IndexOf('@');
-								if (i > 0 && Guid.TryParse(Value.Substring(0, i), out _))
+								if (i > 0 && Guid.TryParse(Value[..i], out _))
 								{
 									if (Services.NavigationService.CurrentPage is not ViewIdentityPage)
 									{
@@ -315,16 +315,16 @@ namespace IdApp.Pages.Things.ViewClaimThing
 				if (!await App.VerifyPin())
 					return;
 
-				(bool Succeeded, NodeResultEventArgs e) = await this.NetworkService.TryRequest(() => this.XmppService.ThingRegistry.ClaimThing(this.Uri, this.MakePublic));
+				(bool Succeeded, NodeResultEventArgs e) = await this.NetworkService.TryRequest(() => this.XmppService.ClaimThing(this.Uri, this.MakePublic));
 				if (!Succeeded)
 					return;
 
 				if (e.Ok)
 				{
 					string FriendlyName = GetFriendlyName(this.Tags);
-					RosterItem Item = this.XmppService.Xmpp?.GetRosterItem(e.JID);
+					RosterItem Item = this.XmppService.GetRosterItem(e.JID);
 					if (Item is null)
-						this.XmppService.Xmpp.AddRosterItem(new RosterItem(e.JID, FriendlyName));
+						this.XmppService.AddRosterItem(new RosterItem(e.JID, FriendlyName));
 
 					ContactInfo Info = await ContactInfo.FindByBareJid(e.JID, e.Node.SourceId, e.Node.Partition, e.Node.NodeId);
 					if (Info is null)

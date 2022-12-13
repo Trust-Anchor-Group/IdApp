@@ -30,11 +30,11 @@ namespace IdApp.Services.Wallet
 		{
 			if (this.BeginLoad(cancellationToken))
 			{
-				this.XmppService.Wallet.BalanceUpdated += this.Wallet_BalanceUpdated;
-				this.XmppService.Wallet.TokenAdded += this.Wallet_TokenAdded;
-				this.XmppService.Wallet.TokenRemoved += this.Wallet_TokenRemoved;
-				this.XmppService.Wallet.StateUpdated += this.Wallet_StateUpdated;
-				this.XmppService.Wallet.VariablesUpdated += this.Wallet_VariablesUpdated;
+				this.XmppService.EDalerBalanceUpdated += this.Wallet_BalanceUpdated;
+				this.XmppService.NeuroFeatureAdded += this.Wallet_TokenAdded;
+				this.XmppService.NeuroFeatureRemoved += this.Wallet_TokenRemoved;
+				this.XmppService.NeuroFeatureStateUpdated += this.Wallet_StateUpdated;
+				this.XmppService.NeuroFeatureVariablesUpdated += this.Wallet_VariablesUpdated;
 
 				this.EndLoad(true);
 			}
@@ -46,11 +46,11 @@ namespace IdApp.Services.Wallet
 		{
 			if (this.BeginUnload())
 			{
-				this.XmppService.Wallet.BalanceUpdated -= this.Wallet_BalanceUpdated;
-				this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;
-				this.XmppService.Wallet.TokenRemoved -= this.Wallet_TokenRemoved;
-				this.XmppService.Wallet.StateUpdated -= this.Wallet_StateUpdated;
-				this.XmppService.Wallet.VariablesUpdated -= this.Wallet_VariablesUpdated;
+				this.XmppService.EDalerBalanceUpdated -= this.Wallet_BalanceUpdated;
+				this.XmppService.NeuroFeatureAdded -= this.Wallet_TokenAdded;
+				this.XmppService.NeuroFeatureRemoved -= this.Wallet_TokenRemoved;
+				this.XmppService.NeuroFeatureStateUpdated -= this.Wallet_StateUpdated;
+				this.XmppService.NeuroFeatureVariablesUpdated -= this.Wallet_VariablesUpdated;
 
 				this.EndUnload();
 			}
@@ -97,9 +97,9 @@ namespace IdApp.Services.Wallet
 		{
 			try
 			{
-				Balance Balance = await this.XmppService.Wallet.GetBalanceAsync();
-				(decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
-				(AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
+				Balance Balance = await this.XmppService.GetEDalerBalance();
+				(decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments) = await this.XmppService.GetPendingEDalerPayments();
+				(AccountEvent[] Events, bool More) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize);
 
 				WalletNavigationArgs e = new(Balance, PendingAmount, PendingCurrency, PendingPayments, Events, More);
 
@@ -117,7 +117,7 @@ namespace IdApp.Services.Wallet
 		/// <param name="Uri">eDaler URI.</param>
 		public async Task OpenEDalerUri(string Uri)
 		{
-			if (!this.XmppService.Wallet.TryParseEDalerUri(Uri, out EDalerUri Parsed, out string Reason))
+			if (!this.XmppService.TryParseEDalerUri(Uri, out EDalerUri Parsed, out string Reason))
 			{
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["InvalidEDalerUri"], Reason));
 				return;
@@ -175,7 +175,7 @@ namespace IdApp.Services.Wallet
 
 			try
 			{
-				Token Token = await this.XmppService.Wallet.NeuroFeaturesClient.GetTokenAsync(TokenId);
+				Token Token = await this.XmppService.GetNeuroFeature(TokenId);
 
 				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, TokenId, out NotificationEvent[] Events))
 					Events = new NotificationEvent[0];

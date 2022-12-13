@@ -341,12 +341,12 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 			if (this.EncryptMessage)
 			{
-				Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.TagProfile.LegalIdentity, this.Amount, this.AmountExtra,
+				Uri = this.XmppService.CreateIncompleteEDalerPayMeUri(this.TagProfile.LegalIdentity, this.Amount, this.AmountExtra,
 					this.Currency, this.Message);
 			}
 			else
 			{
-				Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.XmppService.Xmpp.BareJID, this.Amount, this.AmountExtra,
+				Uri = this.XmppService.CreateIncompleteEDalerPayMeUri(this.XmppService.BareJid, this.Amount, this.AmountExtra,
 					this.Currency, this.Message);
 			}
 
