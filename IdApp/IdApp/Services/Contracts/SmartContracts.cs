@@ -21,7 +21,6 @@ namespace IdApp.Services.Contracts
 	{
 		private readonly Dictionary<CaseInsensitiveString, DateTime> lastContractEvent = new();
 		private ContractsClient contractsClient;
-		private HttpFileUploadClient fileUploadClient;
 
 		internal SmartContracts()
 		{
@@ -71,24 +70,6 @@ namespace IdApp.Services.Contracts
 				}
 
 				return this.contractsClient;
-			}
-		}
-
-		/// <summary>
-		/// HTTP File Upload client
-		/// </summary>
-		public HttpFileUploadClient FileUploadClient
-		{
-			get
-			{
-				if (this.fileUploadClient is null || this.fileUploadClient.Client != this.XmppService.Xmpp)
-				{
-					this.fileUploadClient = this.XmppService?.FileUploadClient;
-					if (this.fileUploadClient is null)
-						throw new InvalidOperationException(LocalizationResourceManager.Current["FileUploadServiceNotFound"]);
-				}
-
-				return this.fileUploadClient;
 			}
 		}
 
@@ -278,7 +259,7 @@ namespace IdApp.Services.Contracts
 
 			foreach (LegalIdentityAttachment a in Attachments)
 			{
-				HttpFileUploadEventArgs e2 = await this.FileUploadClient.RequestUploadSlotAsync(Path.GetFileName(a.Filename), a.ContentType, a.ContentLength);
+				HttpFileUploadEventArgs e2 = await this.XmppService.RequestUploadSlotAsync(Path.GetFileName(a.Filename), a.ContentType, a.ContentLength);
 				if (!e2.Ok)
 					throw e2.StanzaError ?? new Exception(e2.ErrorText);
 
@@ -661,22 +642,6 @@ namespace IdApp.Services.Contracts
 		#endregion
 
 		public bool IsOnline => this.ContractsClient is not null && this.ContractsClient.Client.State == XmppState.Connected;
-
-		public bool FileUploadIsSupported
-		{
-			get
-			{
-				try
-				{
-					return this.TagProfile.FileUploadIsSupported && this.FileUploadClient is not null && this.FileUploadClient.HasSupport;
-				}
-				catch (Exception ex)
-				{
-					this.LogService?.LogException(ex);
-					return false;
-				}
-			}
-		}
 
 		private async Task ContractsClient_ContractUpdated(object Sender, ContractReferenceEventArgs e)
 		{

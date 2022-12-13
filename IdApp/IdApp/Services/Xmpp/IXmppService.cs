@@ -122,11 +122,6 @@ namespace IdApp.Services.Xmpp
 		/// </summary>
 		INeuroWallet Wallet { get; }
 
-		/// <summary>
-		/// HTTP File Upload client
-		/// </summary>
-		HttpFileUploadClient FileUploadClient { get; }
-
 		#endregion
 
 		#region Connections
@@ -237,6 +232,23 @@ namespace IdApp.Services.Xmpp
 		/// <returns>Decoded response from the resource.</returns>
 		/// <exception cref="Exception">Any communication error will be handle by raising the corresponding exception.</exception>
 		Task<object> PostToProtectedApi(string LocalResource, object Data, params KeyValuePair<string, string>[] Headers);
+
+		#endregion
+
+		#region HTTP File Upload
+
+		/// <summary>
+		/// Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
+		/// </summary>
+		bool FileUploadIsSupported { get; }
+
+		/// <summary>
+		/// Uploads a file to the upload component.
+		/// </summary>
+		/// <param name="FileName">Name of file.</param>
+		/// <param name="ContentType">Internet content type.</param>
+		/// <param name="ContentSize">Size of content.</param>
+		Task<HttpFileUploadEventArgs> RequestUploadSlotAsync(string FileName, string ContentType, long ContentSize);
 
 		#endregion
 

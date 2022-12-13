@@ -221,7 +221,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 			try
 			{
 				byte[] Bin = Encoding.UTF8.GetBytes(Xml);
-				HttpFileUploadEventArgs e = await this.@ref.XmppService.FileUploadClient.RequestUploadSlotAsync("Note.xml", "text/xml; charset=utf-8", Bin.Length);
+				HttpFileUploadEventArgs e = await this.@ref.XmppService.RequestUploadSlotAsync("Note.xml", "text/xml; charset=utf-8", Bin.Length);
 
 				if (e.Ok)
 				{
@@ -253,7 +253,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 				}
 				else
 				{
-					string Account = Source.Substring(0, i);
+					string Account = Source[..i];
 
 					if (Guid.TryParse(Account, out _))
 						Source = Constants.UriSchemes.UriSchemeIotId + ":" + Source;

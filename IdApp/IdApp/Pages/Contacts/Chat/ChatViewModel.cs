@@ -610,12 +610,12 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private bool CanExecuteTakePhoto()
 		{
-			return this.IsConnected && !this.IsWriting && this.XmppService.Contracts.FileUploadIsSupported;
+			return this.IsConnected && !this.IsWriting && this.XmppService.FileUploadIsSupported;
 		}
 
 		private async Task ExecuteTakePhoto()
 		{
-			if (!this.XmppService.Contracts.FileUploadIsSupported)
+			if (!this.XmppService.FileUploadIsSupported)
 			{
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["ServerDoesNotSupportFileUpload"]);
 				return;
@@ -724,7 +724,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 				// Preparing File upload service that content uploaded next is encrypted, and can be stored in encrypted storage.
 
-				StringBuilder Xml = new StringBuilder();
+				StringBuilder Xml = new();
 
 				Xml.Append("<prepare xmlns='http://waher.se/Schema/EncryptedStorage.xsd' filename='");
 				Xml.Append(XML.Encode(FileName));
@@ -732,12 +732,12 @@ namespace IdApp.Pages.Contacts.Chat
 				Xml.Append(Bin.Length.ToString());
 				Xml.Append("' content-type='application/octet-stream'/>");
 
-				await this.XmppService.Xmpp.IqSetAsync(this.XmppService.Contracts.FileUploadClient.FileUploadJid, Xml.ToString());
+				await this.XmppService.Xmpp.IqSetAsync(this.TagProfile.HttpFileUploadJid, Xml.ToString());
 				// Empty response expected. Errors cause an exception to be raised.
 
 				// Requesting upload slot
 
-				HttpFileUploadEventArgs Slot = await this.XmppService.Contracts.FileUploadClient.RequestUploadSlotAsync(
+				HttpFileUploadEventArgs Slot = await this.XmppService.RequestUploadSlotAsync(
 					FileName, "application/octet-stream", Bin.Length);
 
 				if (!Slot.Ok)
@@ -797,12 +797,12 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private bool CanExecuteEmbedFile()
 		{
-			return this.IsConnected && !this.IsWriting && this.XmppService.Contracts.FileUploadIsSupported;
+			return this.IsConnected && !this.IsWriting && this.XmppService.FileUploadIsSupported;
 		}
 
 		private async Task ExecuteEmbedFile()
 		{
-			if (!this.XmppService.Contracts.FileUploadIsSupported)
+			if (!this.XmppService.FileUploadIsSupported)
 			{
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PickPhoto"], LocalizationResourceManager.Current["SelectingAPhotoIsNotSupported"]);
 				return;

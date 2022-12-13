@@ -892,7 +892,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			try
 			{
 				byte[] Bin = Encoding.UTF8.GetBytes(this.Contract.ForMachines.OuterXml);
-				HttpFileUploadEventArgs e = await this.XmppService.FileUploadClient.RequestUploadSlotAsync(this.Contract.ContractId + ".xml", "text/xml; charset=utf-8", Bin.Length);
+				HttpFileUploadEventArgs e = await this.XmppService.RequestUploadSlotAsync(this.Contract.ContractId + ".xml", "text/xml; charset=utf-8", Bin.Length);
 
 				if (e.Ok)
 				{

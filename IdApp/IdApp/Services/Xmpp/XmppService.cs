@@ -804,7 +804,6 @@ namespace IdApp.Services.Xmpp
 		public string LatestConnectionError { get; private set; }
 
 		public XmppClient Xmpp => this.xmppClient;
-		public HttpFileUploadClient FileUploadClient => this.fileUploadClient;
 		public MultiUserChatClient MucClient => this.mucClient;
 		public ThingRegistryClient ThingRegistryClient => this.thingRegistryClient;
 		public ProvisioningClient ProvisioningClient => this.provisioningClient;
@@ -1718,6 +1717,46 @@ namespace IdApp.Services.Xmpp
 
 			return await InternetContent.PostAsync(new Uri(Url.ToString()), Data, Headers);
 		}
+
+		#endregion
+
+		#region HTTP File Upload
+
+		/// <summary>
+		/// Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
+		/// </summary>
+		public bool FileUploadIsSupported
+		{
+			get
+			{
+				try
+				{
+					return this.TagProfile.FileUploadIsSupported &&
+						this.fileUploadClient is not null &&
+						this.fileUploadClient.HasSupport;
+				}
+				catch (Exception ex)
+				{
+					this.LogService?.LogException(ex);
+					return false;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads a file to the upload component.
+		/// </summary>
+		/// <param name="FileName">Name of file.</param>
+		/// <param name="ContentType">Internet content type.</param>
+		/// <param name="ContentSize">Size of content.</param>
+		public Task<HttpFileUploadEventArgs> RequestUploadSlotAsync(string FileName, string ContentType, long ContentSize)
+		{
+			if (this.fileUploadClient is null)
+				throw new InvalidOperationException(LocalizationResourceManager.Current["FileUploadServiceNotFound"]);
+
+			return this.fileUploadClient.RequestUploadSlotAsync(FileName, ContentType, ContentSize);
+		}
+
 
 		#endregion
 

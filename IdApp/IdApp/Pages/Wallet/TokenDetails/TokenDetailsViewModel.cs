@@ -1142,7 +1142,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			try
 			{
 				byte[] Bin = Encoding.UTF8.GetBytes(this.Definition);
-				HttpFileUploadEventArgs e = await this.XmppService.FileUploadClient.RequestUploadSlotAsync(this.TokenId + ".xml", "text/xml; charset=utf-8", Bin.Length);
+				HttpFileUploadEventArgs e = await this.XmppService.RequestUploadSlotAsync(this.TokenId + ".xml", "text/xml; charset=utf-8", Bin.Length);
 
 				if (e.Ok)
 				{

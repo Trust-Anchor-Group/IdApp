@@ -446,7 +446,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private async Task TakePhoto()
 		{
-			if (!this.XmppService.Contracts.FileUploadIsSupported)
+			if (!this.XmppService.FileUploadIsSupported)
 			{
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["ServerDoesNotSupportFileUpload"]);
 				return;
@@ -514,7 +514,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private async Task PickPhoto()
 		{
-			if (!this.XmppService.Contracts.FileUploadIsSupported)
+			if (!this.XmppService.FileUploadIsSupported)
 			{
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PickPhoto"], LocalizationResourceManager.Current["SelectingAPhotoIsNotSupported"]);
 				return;

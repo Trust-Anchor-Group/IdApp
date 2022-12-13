@@ -20380,16 +20380,6 @@
             Contracts client
             </summary>
         </member>
-        <member name="P:IdApp.Services.Contracts.ISmartContracts.FileUploadIsSupported">
-            <summary>
-            Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Contracts.ISmartContracts.FileUploadClient">
-            <summary>
-            HTTP File Upload client
-            </summary>
-        </member>
         <member name="M:IdApp.Services.Contracts.ISmartContracts.AddLegalIdentity(IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel,IdApp.Services.LegalIdentityAttachment[])">
             <summary>
             Adds a legal identity.
@@ -20678,11 +20668,6 @@
         <member name="P:IdApp.Services.Contracts.SmartContracts.ContractsClient">
             <summary>
             Contracts client
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Contracts.SmartContracts.FileUploadClient">
-            <summary>
-            HTTP File Upload client
             </summary>
         </member>
         <member name="M:IdApp.Services.Contracts.SmartContracts.PetitionContract(Waher.Persistence.CaseInsensitiveString,System.String,System.String)">
@@ -26254,11 +26239,6 @@
             Provides access to the eDaler wallet.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Xmpp.IXmppService.FileUploadClient">
-            <summary>
-            HTTP File Upload client
-            </summary>
-        </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.TryConnect(System.String,System.Boolean,System.String,System.Int32,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
             <summary>
             To be used during the very first phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server.
@@ -26345,6 +26325,19 @@
             <returns>Decoded response from the resource.</returns>
             <exception cref="T:System.Exception">Any communication error will be handle by raising the corresponding exception.</exception>
         </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.FileUploadIsSupported">
+            <summary>
+            Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.RequestUploadSlotAsync(System.String,System.String,System.Int64)">
+            <summary>
+            Uploads a file to the upload component.
+            </summary>
+            <param name="FileName">Name of file.</param>
+            <param name="ContentType">Internet content type.</param>
+            <param name="ContentSize">Size of content.</param>
+        </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.RegisterPepHandler(System.Type,Waher.Networking.XMPP.PEP.PersonalEventNotificationEventHandler)">
             <summary>
             Registers an event handler of a specific type of personal events.
@@ -26417,6 +26410,19 @@
             <param name="Headers">Headers to provide in the POST.</param>
             <returns>Decoded response from the resource.</returns>
             <exception cref="T:System.Exception">Any communication error will be handle by raising the corresponding exception.</exception>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.XmppService.FileUploadIsSupported">
+            <summary>
+            Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.RequestUploadSlotAsync(System.String,System.String,System.Int64)">
+            <summary>
+            Uploads a file to the upload component.
+            </summary>
+            <param name="FileName">Name of file.</param>
+            <param name="ContentType">Internet content type.</param>
+            <param name="ContentSize">Size of content.</param>
         </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.RegisterPepHandler(System.Type,Waher.Networking.XMPP.PEP.PersonalEventNotificationEventHandler)">
             <summary>
