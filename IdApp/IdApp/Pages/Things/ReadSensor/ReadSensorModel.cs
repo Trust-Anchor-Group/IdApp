@@ -78,7 +78,7 @@ namespace IdApp.Pages.Things.ReadSensor
 			this.request.OnFieldsReceived += this.Request_OnFieldsReceived;
 			this.request.OnErrorsReceived += this.Request_OnErrorsReceived;
 
-			this.XmppService.Pep.RegisterHandler(typeof(SensorData), this.SensorDataPersonalEventHandler);
+			this.XmppService.RegisterPepHandler(typeof(SensorData), this.SensorDataPersonalEventHandler);
 		}
 
 		private Task Request_OnStateChanged(object Sender, SensorDataReadoutState NewState)
@@ -337,7 +337,7 @@ namespace IdApp.Pages.Things.ReadSensor
 		/// <inheritdoc/>
 		protected override async Task OnDispose()
 		{
-			this.XmppService.Pep.UnregisterHandler(typeof(SensorData), this.SensorDataPersonalEventHandler);
+			this.XmppService.UnregisterPepHandler(typeof(SensorData), this.SensorDataPersonalEventHandler);
 
 			this.XmppService.OnPresence -= this.Xmpp_OnPresence;
 			this.TagProfile.Changed -= this.TagProfile_Changed;

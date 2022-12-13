@@ -104,16 +104,6 @@ namespace IdApp.Services.Xmpp
         XmppClient Xmpp { get; }
 
 		/// <summary>
-		/// Access to Personal Eventing Protocol (PEP) client
-		/// </summary>
-		PepClient Pep { get; }
-
-		/// <summary>
-		/// Access to HTTP over XMPP client
-		/// </summary>
-		HttpxClient HttpX { get; }
-
-		/// <summary>
 		/// The Bare Jid of the current connection, or <c>null</c>.
 		/// </summary>
 		string BareJid { get; }
@@ -222,5 +212,25 @@ namespace IdApp.Services.Xmpp
 		/// Event raised when a roster item has been removed from the roster.
 		/// </summary>
 		event RosterItemEventHandlerAsync OnRosterItemRemoved;
+
+		#region Personal Eventing Protocol (PEP)
+
+		/// <summary>
+		/// Registers an event handler of a specific type of personal events.
+		/// </summary>
+		/// <param name="PersonalEventType">Type of personal event.</param>
+		/// <param name="Handler">Event handler.</param>
+		void RegisterPepHandler(Type PersonalEventType, PersonalEventNotificationEventHandler Handler);
+
+		/// <summary>
+		/// Unregisters an event handler of a specific type of personal events.
+		/// </summary>
+		/// <param name="PersonalEventType">Type of personal event.</param>
+		/// <param name="Handler">Event handler.</param>
+		/// <returns>If the event handler was found and removed.</returns>
+		bool UnregisterPepHandler(Type PersonalEventType, PersonalEventNotificationEventHandler Handler);
+
+
+		#endregion
 	}
 }

@@ -21203,11 +21203,6 @@
             Access to concentrator client, for administrative purposes of concentrators
             </summary>
         </member>
-        <member name="P:IdApp.Services.IoT.IoTService.PepClient">
-            <summary>
-            Access to the Personal Eventing Protocol (PEP) client
-            </summary>
-        </member>
         <member name="P:IdApp.Services.IoT.IoTService.ServiceJid">
             <summary>
             JID of provisioning service.
@@ -26240,16 +26235,6 @@
             Interface to the XMPP network.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Xmpp.IXmppService.Pep">
-            <summary>
-            Access to Personal Eventing Protocol (PEP) client
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Xmpp.IXmppService.HttpX">
-            <summary>
-            Access to HTTP over XMPP client
-            </summary>
-        </member>
         <member name="P:IdApp.Services.Xmpp.IXmppService.BareJid">
             <summary>
             The Bare Jid of the current connection, or <c>null</c>.
@@ -26360,6 +26345,21 @@
             Event raised when a roster item has been removed from the roster.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.RegisterPepHandler(System.Type,Waher.Networking.XMPP.PEP.PersonalEventNotificationEventHandler)">
+            <summary>
+            Registers an event handler of a specific type of personal events.
+            </summary>
+            <param name="PersonalEventType">Type of personal event.</param>
+            <param name="Handler">Event handler.</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.UnregisterPepHandler(System.Type,Waher.Networking.XMPP.PEP.PersonalEventNotificationEventHandler)">
+            <summary>
+            Unregisters an event handler of a specific type of personal events.
+            </summary>
+            <param name="PersonalEventType">Type of personal event.</param>
+            <param name="Handler">Event handler.</param>
+            <returns>If the event handler was found and removed.</returns>
+        </member>
         <member name="E:IdApp.Services.Xmpp.XmppService.ConnectionStateChanged">
             <summary>
             An event that triggers whenever the connection state to the XMPP server changes.
@@ -26417,6 +26417,21 @@
             <param name="Headers">Headers to provide in the POST.</param>
             <returns>Decoded response from the resource.</returns>
             <exception cref="T:System.Exception">Any communication error will be handle by raising the corresponding exception.</exception>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.RegisterPepHandler(System.Type,Waher.Networking.XMPP.PEP.PersonalEventNotificationEventHandler)">
+            <summary>
+            Registers an event handler of a specific type of personal events.
+            </summary>
+            <param name="PersonalEventType">Type of personal event.</param>
+            <param name="Handler">Event handler.</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.UnregisterPepHandler(System.Type,Waher.Networking.XMPP.PEP.PersonalEventNotificationEventHandler)">
+            <summary>
+            Unregisters an event handler of a specific type of personal events.
+            </summary>
+            <param name="PersonalEventType">Type of personal event.</param>
+            <param name="Handler">Event handler.</param>
+            <returns>If the event handler was found and removed.</returns>
         </member>
     </members>
 </doc>

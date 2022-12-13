@@ -277,6 +277,7 @@ namespace IdApp.Services.Xmpp
 
 					Thread?.NewState("PEP");
 					this.pepClient = new PepClient(this.xmppClient);
+					this.ReregisterPepEventHandlers(this.pepClient);
 
 					Thread?.NewState("HTTPX");
 					this.httpxClient = new HttpxClient(this.xmppClient, 8192);
@@ -803,7 +804,6 @@ namespace IdApp.Services.Xmpp
 		public string LatestConnectionError { get; private set; }
 
 		public XmppClient Xmpp => this.xmppClient;
-		public PepClient Pep => this.pepClient;
 		public HttpFileUploadClient FileUploadClient => this.fileUploadClient;
 		public MultiUserChatClient MucClient => this.mucClient;
 		public ThingRegistryClient ThingRegistryClient => this.thingRegistryClient;
@@ -815,7 +815,6 @@ namespace IdApp.Services.Xmpp
 		public NeuroFeaturesClient NeuroFeaturesClient => this.neuroFeaturesClient;
 		public PushNotificationClient PushNotificationClient => this.pushNotificationClient;
 		public ContractsClient ContractsClient => this.contractsClient;
-		public HttpxClient HttpX => this.httpxClient;
 		public ISmartContracts Contracts => this.contracts;
 		public IXmppMultiUserChat MultiUserChat => this.muc;
 		public IXmppThingRegistry ThingRegistry => this.thingRegistry;
@@ -1722,5 +1721,63 @@ namespace IdApp.Services.Xmpp
 
 		#endregion
 
+		#region Personal Eventing Protocol (PEP)
+
+		private readonly LinkedList<KeyValuePair<Type, PersonalEventNotificationEventHandler>> pepHandlers = new();
+
+		/// <summary>
+		/// Registers an event handler of a specific type of personal events.
+		/// </summary>
+		/// <param name="PersonalEventType">Type of personal event.</param>
+		/// <param name="Handler">Event handler.</param>
+		public void RegisterPepHandler(Type PersonalEventType, PersonalEventNotificationEventHandler Handler)
+		{
+			lock (this.pepHandlers)
+			{
+				this.pepHandlers.AddLast(new KeyValuePair<Type, PersonalEventNotificationEventHandler>(PersonalEventType, Handler));
+			}
+
+			this.pepClient.RegisterHandler(PersonalEventType, Handler);
+		}
+
+		/// <summary>
+		/// Unregisters an event handler of a specific type of personal events.
+		/// </summary>
+		/// <param name="PersonalEventType">Type of personal event.</param>
+		/// <param name="Handler">Event handler.</param>
+		/// <returns>If the event handler was found and removed.</returns>
+		public bool UnregisterPepHandler(Type PersonalEventType, PersonalEventNotificationEventHandler Handler)
+		{
+			lock (this.pepHandlers)
+			{
+				LinkedListNode<KeyValuePair<Type, PersonalEventNotificationEventHandler>> Node = this.pepHandlers.First;
+
+				while (Node is not null)
+				{
+					if (Node.Value.Key == PersonalEventType &&
+						Node.Value.Value.Target.Equals(Handler.Target) &&
+						Node.Value.Value.Method.Equals(Handler.Method))
+					{
+						this.pepHandlers.Remove(Node);
+						break;
+					}
+
+					Node = Node.Next;
+				}
+			}
+
+			return this.pepClient.UnregisterHandler(PersonalEventType, Handler);
+		}
+
+		private void ReregisterPepEventHandlers(PepClient PepClient)
+		{
+			lock (this.pepHandlers)
+			{
+				foreach (KeyValuePair<Type, PersonalEventNotificationEventHandler> P in this.pepHandlers)
+					PepClient.RegisterHandler(P.Key, P.Value);
+			}
+		}
+
+		#endregion
 	}
 }
