@@ -103,11 +103,6 @@ namespace IdApp.Services.Xmpp
 		ISmartContracts Contracts { get; }
 
 		/// <summary>
-		/// Provides access to chat functionality.
-		/// </summary>
-		IXmppMultiUserChat MultiUserChat { get; }
-
-		/// <summary>
 		/// Provides access to thing registries.
 		/// </summary>
 		IXmppThingRegistry ThingRegistry { get; }

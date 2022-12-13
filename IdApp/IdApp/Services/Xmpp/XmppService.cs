@@ -804,7 +804,6 @@ namespace IdApp.Services.Xmpp
 		public string LatestConnectionError { get; private set; }
 
 		public XmppClient Xmpp => this.xmppClient;
-		public MultiUserChatClient MucClient => this.mucClient;
 		public ThingRegistryClient ThingRegistryClient => this.thingRegistryClient;
 		public ProvisioningClient ProvisioningClient => this.provisioningClient;
 		public ControlClient ControlClient => this.controlClient;

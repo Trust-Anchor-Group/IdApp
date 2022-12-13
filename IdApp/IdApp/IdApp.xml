@@ -26219,11 +26219,6 @@
             Provides access to legal identities and contracts.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Xmpp.IXmppService.MultiUserChat">
-            <summary>
-            Provides access to chat functionality.
-            </summary>
-        </member>
         <member name="P:IdApp.Services.Xmpp.IXmppService.ThingRegistry">
             <summary>
             Provides access to thing registries.
