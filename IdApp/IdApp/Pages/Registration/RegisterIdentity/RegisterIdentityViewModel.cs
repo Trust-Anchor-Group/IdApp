@@ -6,7 +6,6 @@ using IdApp.Cv.Utilities;
 using IdApp.DeviceSpecific;
 using IdApp.Extensions;
 using IdApp.Services.Data.PersonalNumbers;
-using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
@@ -422,13 +421,15 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		#endregion
 
-		private void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		private Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.RegisterCommand.ChangeCanExecute();
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private static void OnPropertyChanged(BindableObject b, object oldValue, object newValue)
@@ -890,7 +891,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				if (Succeeded)
 				{
 					this.LegalIdentity = AddedIdentity;
-					this.TagProfile.SetLegalIdentity(this.LegalIdentity);
+					await this.TagProfile.SetLegalIdentity(this.LegalIdentity);
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
 						this.SetIsDone(this.RegisterCommand, this.TakePhotoCommand, this.PickPhotoCommand, this.EPassportCommand);

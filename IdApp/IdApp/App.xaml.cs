@@ -628,7 +628,7 @@ namespace IdApp
 				}
 			}
 
-			this.services.TagProfile.FromConfiguration(configuration);
+			await this.services.TagProfile.FromConfiguration(configuration);
 		}
 
 		/// <summary>

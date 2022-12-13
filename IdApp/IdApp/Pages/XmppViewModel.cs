@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
-using IdApp.Services.Xmpp;
 using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages
@@ -118,11 +117,12 @@ namespace IdApp.Pages
         /// <summary>
         /// Listens to connection state changes from the XMPP server.
         /// </summary>
-        /// <param name="Sender">The XMPP service instance.</param>
-        /// <param name="e">The event args.</param>
-        protected virtual void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+        /// <param name="_">The XMPP service instance.</param>
+        /// <param name="NewState">New XMPP State.</param>
+        protected virtual Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
         {
-            this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
+            this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(NewState));
+			return Task.CompletedTask;
         }
     }
 }

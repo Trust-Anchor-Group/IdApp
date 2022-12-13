@@ -2466,7 +2466,7 @@
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.UniqueIdProperty">
@@ -6427,7 +6427,7 @@
             Copies Item to clipboard
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CreatedProperty">
@@ -7662,7 +7662,7 @@
             Gets or sets whether the user friendly connection text should be visible on screen or not.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
@@ -7980,7 +7980,7 @@
             Integer overlay of button Right2
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Main.MainViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Main.Main.MainViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc />
         </member>
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
@@ -9982,7 +9982,7 @@
         <member name="M:IdApp.Pages.Things.CanControl.CanControlModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.CanControl.CanControlModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Things.CanControl.CanControlModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Things.CanControl.CanControlModel.Tags">
@@ -10272,7 +10272,7 @@
         <member name="M:IdApp.Pages.Things.CanRead.CanReadModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.CanRead.CanReadModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Things.CanRead.CanReadModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Things.CanRead.CanReadModel.Tags">
@@ -10788,7 +10788,7 @@
         <member name="M:IdApp.Pages.Things.IsFriend.IsFriendModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.IsFriend.IsFriendModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Things.IsFriend.IsFriendModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Things.IsFriend.IsFriendModel.Tags">
@@ -11291,7 +11291,7 @@
         <member name="M:IdApp.Pages.Things.ReadSensor.ReadSensorModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.ReadSensor.ReadSensorModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Things.ReadSensor.ReadSensorModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Things.ReadSensor.ReadSensorModel.SensorData">
@@ -11439,7 +11439,7 @@
         <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.ClickCommand">
@@ -11551,7 +11551,7 @@
         <member name="M:IdApp.Pages.Things.ViewThing.ViewThingModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewThing.ViewThingModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Things.ViewThing.ViewThingModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Things.ViewThing.ViewThingModel.Tags">
@@ -11843,7 +11843,7 @@
         <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.ChangeProperty">
@@ -12094,7 +12094,7 @@
         <member name="M:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.BuyEDaler.BuyEDalerViewModel.AmountProperty">
@@ -12210,7 +12210,7 @@
         <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.AmountProperty">
@@ -12410,7 +12410,7 @@
         <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.UriProperty">
@@ -13266,7 +13266,7 @@
         <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.HasTokensProperty">
@@ -13363,7 +13363,7 @@
         <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.BalanceProperty">
@@ -14262,7 +14262,7 @@
         <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.AmountProperty">
@@ -15846,12 +15846,12 @@
             </summary>
             <param name="state">The current state.</param>
         </member>
-        <member name="M:IdApp.Pages.XmppViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.XmppViewModel.XmppService_ConnectionStateChanged(System.Object,Waher.Networking.XMPP.XmppState)">
             <summary>
             Listens to connection state changes from the XMPP server.
             </summary>
-            <param name="Sender">The XMPP service instance.</param>
-            <param name="e">The event args.</param>
+            <param name="_">The XMPP service instance.</param>
+            <param name="NewState">New XMPP State.</param>
         </member>
         <member name="T:IdApp.Popups.Photos.Image.ImageView">
             <summary>
@@ -26157,22 +26157,6 @@
         <member name="M:IdApp.Services.XmlDatabaseExport.ReportException(System.Exception)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Services.Xmpp.ConnectionStateChangedEventArgs">
-            <summary>
-            Represents an event class holding data related to connection state changes.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Xmpp.ConnectionStateChangedEventArgs.#ctor(Waher.Networking.XMPP.XmppState)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Services.Xmpp.ConnectionStateChangedEventArgs"/> class.
-            </summary>
-            <param name="state">The current state.</param>
-        </member>
-        <member name="P:IdApp.Services.Xmpp.ConnectionStateChangedEventArgs.State">
-            <summary>
-            The current state.
-            </summary>
-        </member>
         <member name="T:IdApp.Services.Xmpp.IXmppMultiUserChat">
             <summary>
             Adds support for Xmpp Multi-User Chat functionality.
@@ -26318,23 +26302,6 @@
             <param name="client">The client to use. Can be <c>null</c>, in which case the default is used.</param>
             <returns>If TAG services were found.</returns>
         </member>
-        <member name="M:IdApp.Services.Xmpp.IXmppService.CommsDumpAsHtml(System.Boolean)">
-            <summary>
-            Creates a dump of the latest Xmpp communication as html.
-            </summary>
-            <returns>The communication dump as a html formatted string.</returns>
-        </member>
-        <member name="M:IdApp.Services.Xmpp.IXmppService.ClearHtmlContent">
-            <summary>
-            saves already sent html to history.
-            </summary>        
-        </member>
-        <member name="M:IdApp.Services.Xmpp.IXmppService.CommsDumpAsText(System.String)">
-            <summary>
-            Creates a dump of the latest Xmpp communication as Text.
-            </summary>
-            <returns>The communication dump as a text formatted string.</returns>
-        </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.UnloadFast">
             <summary>
             Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
@@ -26391,6 +26358,11 @@
         <member name="E:IdApp.Services.Xmpp.IXmppService.OnRosterItemRemoved">
             <summary>
             Event raised when a roster item has been removed from the roster.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Xmpp.XmppService.ConnectionStateChanged">
+            <summary>
+            An event that triggers whenever the connection state to the XMPP server changes.
             </summary>
         </member>
         <member name="E:IdApp.Services.Xmpp.XmppService.OnPresence">

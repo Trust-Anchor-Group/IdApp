@@ -673,9 +673,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					this.TagProfile.SetTestOtpTimestamp(IsTemporary ? DateTime.Now : null);
 
 					if (this.IsRevalidating)
-					{
-						this.TagProfile.RevalidateContactInfo();
-					}
+						await this.TagProfile.RevalidateContactInfo();
 					else
 					{
 						bool DefaultConnectivity;
@@ -689,7 +687,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 							DefaultConnectivity = false;
 						}
 
-						this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
+						await this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 					}
 
 					this.OnStepCompleted(EventArgs.Empty);

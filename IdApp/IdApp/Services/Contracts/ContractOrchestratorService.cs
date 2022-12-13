@@ -4,7 +4,6 @@ using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Services.Notification.Contracts;
 using IdApp.Services.Notification.Identities;
-using IdApp.Services.Xmpp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Waher.Content.Xml;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.StanzaErrors;
 using Waher.Persistence;
@@ -276,7 +276,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private async void Contracts_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		private async Task Contracts_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			try
 			{
@@ -352,13 +352,13 @@ namespace IdApp.Services.Contracts
 					if (identity.State == IdentityState.Compromised)
 					{
 						userMessage = LocalizationResourceManager.Current["YourLegalIdentityHasBeenCompromised"];
-						this.TagProfile.CompromiseLegalIdentity(identity);
+						await this.TagProfile.CompromiseLegalIdentity(identity);
 						gotoRegistrationPage = true;
 					}
 					else if (identity.State == IdentityState.Obsoleted)
 					{
 						userMessage = LocalizationResourceManager.Current["YourLegalIdentityHasBeenObsoleted"];
-						this.TagProfile.RevokeLegalIdentity(identity);
+						await this.TagProfile.RevokeLegalIdentity(identity);
 						gotoRegistrationPage = true;
 					}
 					else if (identity.State == IdentityState.Approved && !await this.XmppService.Contracts.HasPrivateKey(identity.Id))
@@ -367,7 +367,7 @@ namespace IdApp.Services.Contracts
 							LocalizationResourceManager.Current["Continue"], LocalizationResourceManager.Current["Repair"]);
 
 						if (Response)
-							this.TagProfile.SetLegalIdentity(identity);
+							await this.TagProfile.SetLegalIdentity(identity);
 						else
 						{
 							try
@@ -384,7 +384,7 @@ namespace IdApp.Services.Contracts
 						}
 					}
 					else
-						this.TagProfile.SetLegalIdentity(identity);
+						await this.TagProfile.SetLegalIdentity(identity);
 
 					if (gotoRegistrationPage)
 					{
@@ -521,7 +521,7 @@ namespace IdApp.Services.Contracts
 			if (i < 0)
 				throw new InvalidOperationException("Invalid TAG Signature URI.");
 
-			string JID = Request.Substring(0, i);
+			string JID = Request[..i];
 			string Key = Request[(i + 1)..];
 
 			LegalIdentity ID = this.TagProfile?.LegalIdentity;

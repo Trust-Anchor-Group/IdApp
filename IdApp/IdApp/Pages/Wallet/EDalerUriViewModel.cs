@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using EDaler;
 using IdApp.DeviceSpecific;
-using IdApp.Services.Xmpp;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
@@ -152,13 +151,15 @@ namespace IdApp.Pages.Wallet
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.EvaluateAllCommands();
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)

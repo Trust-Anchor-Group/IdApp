@@ -210,12 +210,14 @@ namespace IdApp.Pages.Registration.DefinePin
 			}
 		}
 
-		private void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs Args)
+		private Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.AssignProperties(Args.State);
+				this.AssignProperties(NewState);
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private void AssignProperties(XmppState State)

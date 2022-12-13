@@ -183,7 +183,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					if (this.TagProfile.NeedsUpdating())
 						await this.XmppService.DiscoverServices(client);
 
-					this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
+					await this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
 				}
 
 				(bool succeeded, string errorMessage) = await this.XmppService.TryConnectAndCreateAccount(this.TagProfile.Domain,
@@ -344,7 +344,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 								if (!await this.ConnectToAccount(UserName, Password, PasswordMethod, string.Empty, LegalIdDefinition, Pin))
 								{
-									this.TagProfile.SetDomain(DomainBak, DefaultConnectivityBak, ApiKeyBak, ApiSecretBak);
+									await this.TagProfile.SetDomain(DomainBak, DefaultConnectivityBak, ApiKeyBak, ApiSecretBak);
 									throw new Exception("Invalid account.");
 								}
 
@@ -417,7 +417,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				DefaultConnectivity = false;
 			}
 
-			this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
+			await this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 		}
 
 		private async Task<bool> ConnectToAccount(string AccountName, string Password, string PasswordMethod, string LegalIdentityJid,
@@ -475,8 +475,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 											break;
 										}
 
-										if (createdIdentity is null)
-											createdIdentity = Identity;
+										createdIdentity ??= Identity;
 									}
 								}
 								catch (Exception)
@@ -494,17 +493,17 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 							if (this.LegalIdentity is not null)
 							{
-								this.TagProfile.SetAccountAndLegalIdentity(AccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
+								await this.TagProfile.SetAccountAndLegalIdentity(AccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
 								SelectedId = this.LegalIdentity.Id;
 							}
 							else
 							{
-								this.TagProfile.SetAccount(AccountName, client.PasswordHash, client.PasswordHashMethod);
+								await this.TagProfile.SetAccount(AccountName, client.PasswordHash, client.PasswordHashMethod);
 								SelectedId = string.Empty;
 							}
 
 							if (!string.IsNullOrEmpty(Pin))
-								this.TagProfile.CompletePinStep(Pin);
+								await this.TagProfile.CompletePinStep(Pin);
 
 							foreach (LegalIdentity Identity in Identities)
 							{

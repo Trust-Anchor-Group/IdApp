@@ -11,7 +11,6 @@ using IdApp.Pages.Things.MyThings;
 using IdApp.Pages.Things.ReadSensor;
 using IdApp.Services;
 using IdApp.Services.Notification;
-using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Concentrator;
 using Waher.Networking.XMPP.Contracts;
@@ -253,13 +252,15 @@ namespace IdApp.Pages.Things.ViewThing
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.EvaluateAllCommands();
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)

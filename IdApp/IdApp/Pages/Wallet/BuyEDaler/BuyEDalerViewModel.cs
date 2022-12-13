@@ -3,8 +3,8 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Pages.Main.Calculator;
-using IdApp.Services.Xmpp;
 using Waher.Content;
+using Waher.Networking.XMPP;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.BuyEDaler
@@ -79,13 +79,15 @@ namespace IdApp.Pages.Wallet.BuyEDaler
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.EvaluateAllCommands();
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)

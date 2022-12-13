@@ -137,7 +137,7 @@ namespace IdApp.Pages.Main.Security
 						}
 
 						References.TagProfile.Pin = NewPin;
-						References.TagProfile.SetAccount(References.TagProfile.Account, NewPassword, string.Empty);
+						await References.TagProfile.SetAccount(References.TagProfile.Account, NewPassword, string.Empty);
 
 						await References.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["PinChanged"]);
 						return;

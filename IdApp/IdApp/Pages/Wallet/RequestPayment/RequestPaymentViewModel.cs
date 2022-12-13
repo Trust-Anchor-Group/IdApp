@@ -7,8 +7,8 @@ using IdApp.DeviceSpecific;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Main.Calculator;
-using IdApp.Services.Xmpp;
 using Waher.Content;
+using Waher.Networking.XMPP;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
@@ -90,13 +90,15 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.EvaluateAllCommands();
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)

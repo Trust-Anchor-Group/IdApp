@@ -21,17 +21,21 @@ namespace IdApp.Services.Xmpp
     [DefaultImplementation(typeof(XmppService))]
     public interface IXmppService : ILoadableService, IServiceReferences
     {
-        /// <summary>
-        /// Can be used to <c>await</c> the server's connection state, i.e. skipping all intermediate states but <see cref="XmppState.Connected"/>.
-        /// </summary>
-        /// <param name="timeout">Maximum timeout before giving up.</param>
-        /// <returns>If connected</returns>
-        Task<bool> WaitForConnectedState(TimeSpan timeout);
-        
-        /// <summary>
-        /// An event that triggers whenever the connection state to the XMPP server changes.
-        /// </summary>
-        event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
+		#region Lifecycle
+
+		/// <summary>
+		/// Can be used to <c>await</c> the server's connection state, i.e. skipping all intermediate states but <see cref="XmppState.Connected"/>.
+		/// </summary>
+		/// <param name="timeout">Maximum timeout before giving up.</param>
+		/// <returns>If connected</returns>
+		Task<bool> WaitForConnectedState(TimeSpan timeout);
+
+		#endregion
+
+		/// <summary>
+		/// An event that triggers whenever the connection state to the XMPP server changes.
+		/// </summary>
+		event StateChangedEventHandler ConnectionStateChanged;
         
         /// <summary>
         /// To be used during the very first phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server.
@@ -160,23 +164,6 @@ namespace IdApp.Services.Xmpp
         /// <param name="client">The client to use. Can be <c>null</c>, in which case the default is used.</param>
         /// <returns>If TAG services were found.</returns>
         Task<bool> DiscoverServices(XmppClient client = null);
-
-        /// <summary>
-        /// Creates a dump of the latest Xmpp communication as html.
-        /// </summary>
-        /// <returns>The communication dump as a html formatted string.</returns>
-        Task<string> CommsDumpAsHtml(bool history = false);
-
-        /// <summary>
-        /// saves already sent html to history.
-        /// </summary>        
-        void ClearHtmlContent();
-
-        /// <summary>
-        /// Creates a dump of the latest Xmpp communication as Text.
-        /// </summary>
-        /// <returns>The communication dump as a text formatted string.</returns>
-        Task<string> CommsDumpAsText(string state);
 
         /// <summary>
         /// Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.

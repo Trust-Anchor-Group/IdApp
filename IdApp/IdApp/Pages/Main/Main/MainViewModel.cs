@@ -6,7 +6,6 @@ using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Services.Data.Countries;
 using IdApp.Services.Notification;
 using IdApp.Services.UI.Photos;
-using IdApp.Services.Xmpp;
 using System;
 using System.IO;
 using System.Reflection;
@@ -650,20 +649,24 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		/// <inheritdoc />
-		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 			});
+
+			return Task.CompletedTask;
 		}
 
-		private void Contracts_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		private Task Contracts_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(this.XmppService.State);
+				this.SetConnectionStateAndText(NewState);
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private void NetworkService_ConnectivityChanged(object Sender, ConnectivityChangedEventArgs e)
@@ -765,9 +768,7 @@ namespace IdApp.Pages.Main.Main
 					{
 						(bool Succeeded, LegalIdentity RevokedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.ObsoleteLegalIdentity(this.TagProfile.LegalIdentity.Id));
 						if (Succeeded)
-						{
-							this.TagProfile.RevokeLegalIdentity(RevokedIdentity);
-						}
+							await this.TagProfile.RevokeLegalIdentity(RevokedIdentity);
 					}
 					catch (Exception ex)
 					{

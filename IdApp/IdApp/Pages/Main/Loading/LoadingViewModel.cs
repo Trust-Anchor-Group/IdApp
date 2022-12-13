@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using IdApp.Extensions;
 using IdApp.Services;
 using IdApp.Services.Tag;
-using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
 
@@ -60,9 +59,11 @@ namespace IdApp.Pages.Main.Loading
 		#endregion
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(NewState));
+
+			return Task.CompletedTask;
 		}
 
 		/// <inheritdoc/>

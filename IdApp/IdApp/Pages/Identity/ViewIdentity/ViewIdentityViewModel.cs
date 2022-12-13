@@ -17,7 +17,6 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Pages.Identity.TransferIdentity;
 using IdApp.Services.Contracts;
-using IdApp.Services.Xmpp;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
 using IdApp.Pages.Contacts.Chat;
@@ -385,11 +384,11 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.EvaluateAllCommands();
 				if (this.IsConnected)
 				{
@@ -397,6 +396,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					this.ReloadPhotos();
 				}
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private async void ReloadPhotos()
@@ -1449,7 +1450,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (succeeded)
 				{
 					this.LegalIdentity = revokedIdentity;
-					this.TagProfile.RevokeLegalIdentity(revokedIdentity);
+					await this.TagProfile.RevokeLegalIdentity(revokedIdentity);
 
 					await App.Current.SetRegistrationPageAsync();
 				}
@@ -1484,7 +1485,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (succeeded)
 				{
 					this.LegalIdentity = compromisedIdentity;
-					this.TagProfile.RevokeLegalIdentity(compromisedIdentity);
+					await this.TagProfile.RevokeLegalIdentity(compromisedIdentity);
 
 					await App.Current.SetRegistrationPageAsync();
 				}

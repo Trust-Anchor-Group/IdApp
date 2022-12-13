@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Services.Notification;
-using IdApp.Services.Xmpp;
 using NeuroFeatures;
+using Waher.Networking.XMPP;
 using Waher.Persistence;
 using Xamarin.Forms;
 
@@ -142,12 +142,14 @@ namespace IdApp.Pages.Wallet.MyTokens
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 			});
+
+			return Task.CompletedTask;
 		}
 
 		#region Properties

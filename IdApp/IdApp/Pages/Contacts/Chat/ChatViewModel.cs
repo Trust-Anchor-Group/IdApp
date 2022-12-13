@@ -116,10 +116,12 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
-			base.XmppService_ConnectionStateChanged(Sender, e);
+			base.XmppService_ConnectionStateChanged(Sender, NewState);
 			this.UiSerializer.BeginInvokeOnMainThread(() => this.EvaluateAllCommands());
+
+			return Task.CompletedTask;
 		}
 
 		/// <summary>

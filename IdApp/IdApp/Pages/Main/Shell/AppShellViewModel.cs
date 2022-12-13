@@ -3,7 +3,6 @@ using IdApp.Extensions;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Services.Xmpp;
 using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Main.Shell
@@ -93,13 +92,15 @@ namespace IdApp.Pages.Main.Shell
 
 		#endregion
 
-		private void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		private Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.ConnectionStateText = e.State.ToDisplayText();
-				this.IsConnected = e.State == XmppState.Connected;
+				this.ConnectionStateText = NewState.ToDisplayText();
+				this.IsConnected = NewState == XmppState.Connected;
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private void NetworkService_ConnectivityChanged(object Sender, ConnectivityChangedEventArgs e)

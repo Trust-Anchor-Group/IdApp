@@ -224,35 +224,33 @@ namespace IdApp.Pages.Registration.Registration
 				{
 					case RegistrationStep.Account:
 						this.RegistrationSteps[this.CurrentStep].ClearStepState();
-						this.TagProfile.ClearAccount();
+						await this.TagProfile.ClearAccount();
 						break;
 
 					case RegistrationStep.RegisterIdentity:
 						if (this.TagProfile.LegalIdentity is null)
 						{
 							this.RegistrationSteps[this.CurrentStep].ClearStepState();
-							this.TagProfile.ClearLegalIdentity();
+							await this.TagProfile.ClearLegalIdentity();
 						}
 						else
-						{
-							this.TagProfile.InvalidateContactInfo();
-						}
+							await this.TagProfile.InvalidateContactInfo();
 						break;
 
 					case RegistrationStep.ValidateIdentity:
 						RegisterIdentity.RegisterIdentityViewModel vm = (RegisterIdentity.RegisterIdentityViewModel)this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
 						vm.PopulateFromTagProfile();
 						this.RegistrationSteps[this.CurrentStep].ClearStepState();
-						this.TagProfile.ClearIsValidated();
+						await this.TagProfile.ClearIsValidated();
 						break;
 
 					case RegistrationStep.Pin:
 						this.RegistrationSteps[this.CurrentStep].ClearStepState();
-						this.TagProfile.RevertPinStep();
+						await this.TagProfile.RevertPinStep();
 						break;
 
 					default: // RegistrationStep.Operator
-						this.TagProfile.ClearDomain();
+						await this.TagProfile.ClearDomain();
 						break;
 				}
 

@@ -4,7 +4,6 @@ using IdApp.Services.Data.Countries;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.UI.QR;
-using IdApp.Services.Xmpp;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -529,12 +528,12 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 				this.UiSerializer.BeginInvokeOnMainThread(this.AssignBareJid);
 		}
 
-		private void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs e)
+		private Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				this.AssignBareJid();
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.InviteReviewerCommand.ChangeCanExecute();
 				if (this.IsConnected)
 				{
@@ -542,6 +541,8 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 					this.ReloadPhotos();
 				}
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private void SetConnectionStateAndText(XmppState state)

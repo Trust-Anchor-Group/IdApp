@@ -51,7 +51,6 @@ using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
-using Waher.Script.Constants;
 using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Xmpp
@@ -60,6 +59,11 @@ namespace IdApp.Services.Xmpp
 	internal sealed class XmppService : LoadableService, IXmppService
 	{
 		private readonly Assembly appAssembly;
+		private readonly SmartContracts contracts;
+		private readonly XmppMultiUserChat muc;
+		private readonly XmppThingRegistry thingRegistry;
+		private readonly IoTService iot;
+		private readonly NeuroWallet wallet;
 		private Profiler startupProfiler;
 		private ProfilerThread xmppThread;
 		private XmppClient xmppClient;
@@ -78,11 +82,6 @@ namespace IdApp.Services.Xmpp
 		private PepClient pepClient;
 		private HttpxClient httpxClient;
 		private Timer reconnectTimer;
-		private readonly SmartContracts contracts;
-		private readonly XmppMultiUserChat muc;
-		private readonly XmppThingRegistry thingRegistry;
-		private readonly IoTService iot;
-		private readonly NeuroWallet wallet;
 		private string domainName;
 		private string accountName;
 		private string passwordHash;
@@ -92,27 +91,22 @@ namespace IdApp.Services.Xmpp
 		private readonly InMemorySniffer sniffer;
 		private bool isCreatingClient;
 		private XmppEventSink xmppEventSink;
-		private readonly string cssColoring = "<style type='text/css'>* {word-wrap: break-word } info { color: #ffffff; background-color: #000080; display: block;} warning { background-color: #F8DE7E; display: block;} error {background-color: #FF0000;display: block; } Rx {color: #ffffff; background-color: #008000;display: block;} ping:empty:before { content: 'ping ';} iq:empty:before { content: attr(type) ' ' attr(to);} c:empty:before { content: attr(node);} session:empty:before, stream:empty:before, starttls:empty:before, proceed:empty:before { content: attr(xmlns);}</style>";
-		private string sentHtml;
-		private string sentTextData;
-		private string historyTextData;
-		private string historyHtml;
 		private string token = null;
 		private DateTime tokenCreated = DateTime.MinValue;
+
+		#region Creation / Destruction
 
 		public XmppService(Assembly AppAssembly, Profiler StartupProfiler)
 		{
 			this.appAssembly = AppAssembly;
-			this.contracts = new SmartContracts();
-			this.muc = new XmppMultiUserChat();
-			this.thingRegistry = new XmppThingRegistry();
-			this.iot = new IoTService();
-			this.wallet = new NeuroWallet();
-			this.sniffer = new InMemorySniffer(250);
+			this.contracts = new();
+			this.muc = new();
+			this.thingRegistry = new();
+			this.iot = new();
+			this.wallet = new();
+			this.sniffer = new(250);
 			this.startupProfiler = StartupProfiler;
 		}
-
-		#region Create/Destroy
 
 		private async Task CreateXmppClient(bool CanCreateKeys, ProfilerThread Thread)
 		{
@@ -132,7 +126,7 @@ namespace IdApp.Services.Xmpp
 					if (this.xmppClient is not null)
 					{
 						Thread?.NewState("Destroy");
-						this.DestroyXmppClient();
+						await this.DestroyXmppClient();
 					}
 
 					this.domainName = this.TagProfile.Domain;
@@ -156,7 +150,7 @@ namespace IdApp.Services.Xmpp
 						(HostName, PortNumber, IsIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(this.domainName);
 
 						if (HostName == this.domainName && PortNumber == XmppCredentials.DefaultPort)
-							this.TagProfile.SetDomain(this.domainName, true, this.TagProfile.ApiKey, this.TagProfile.ApiSecret);
+							await this.TagProfile.SetDomain(this.domainName, true, this.TagProfile.ApiKey, this.TagProfile.ApiSecret);
 					}
 
 					this.xmppLastStateChange = DateTime.Now;
@@ -313,20 +307,12 @@ namespace IdApp.Services.Xmpp
 			}
 		}
 
-		private Task XmppClient_OnNormalMessage(object Sender, MessageEventArgs e)
-		{
-			Log.Warning("Unhandled message received.", e.To, e.From,
-				new KeyValuePair<string, object>("Stanza", e.Message.OuterXml));
-
-			return Task.CompletedTask;
-		}
-
-		private void DestroyXmppClient()
+		private async Task DestroyXmppClient()
 		{
 			this.reconnectTimer?.Dispose();
 			this.reconnectTimer = null;
 
-			this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
+			await this.OnConnectionStateChanged(XmppState.Offline);
 
 			if (this.xmppEventSink is not null)
 			{
@@ -440,201 +426,6 @@ namespace IdApp.Services.Xmpp
 			this.reconnectTimer?.Dispose();
 			this.reconnectTimer = new Timer(this.ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
 		}
-
-		#endregion
-
-		#region Events
-
-		// Note: By duplicating event handlers on the service, event handlers continue to work, even if app
-		// goes to sleep, and new clients are created when awaken again.
-
-		private Task XmppClient_Error(object Sender, Exception e)
-		{
-			this.LatestError = e.Message;
-			return Task.CompletedTask;
-		}
-
-		private Task XmppClient_ConnectionError(object Sender, Exception e)
-		{
-			if (e is ObjectDisposedException)
-				this.LatestConnectionError = LocalizationResourceManager.Current["UnableToConnect"];
-			else
-				this.LatestConnectionError = e.Message;
-
-			return Task.CompletedTask;
-		}
-
-		private async Task XmppClient_StateChanged(object Sender, XmppState newState)
-		{
-			this.xmppLastStateChange = DateTime.Now;
-
-			this.xmppThread?.NewState(newState.ToString());
-
-			switch (newState)
-			{
-				case XmppState.Connecting:
-					this.LatestError = string.Empty;
-					this.LatestConnectionError = string.Empty;
-					break;
-
-				case XmppState.Connected:
-					this.LatestError = string.Empty;
-					this.LatestConnectionError = string.Empty;
-
-					this.xmppConnected = true;
-
-					this.RecreateReconnectTimer();
-
-					if (string.IsNullOrEmpty(this.TagProfile.PasswordHashMethod))
-						this.TagProfile.SetAccount(this.TagProfile.Account, this.xmppClient.PasswordHash, this.xmppClient.PasswordHashMethod);
-
-					if (this.TagProfile.NeedsUpdating() && await this.DiscoverServices())
-					{
-						if (this.contractsClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
-						{
-							this.contractsClient = new ContractsClient(this.xmppClient, this.TagProfile.LegalJid);
-
-							if (!await this.contractsClient.LoadKeys(false))
-							{
-								this.contractsClient.Dispose();
-								this.contractsClient = null;
-							}
-						}
-
-						if (this.fileUploadClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.HttpFileUploadJid) && this.TagProfile.HttpFileUploadMaxSize.HasValue)
-							this.fileUploadClient = new HttpFileUploadClient(this.xmppClient, this.TagProfile.HttpFileUploadJid, this.TagProfile.HttpFileUploadMaxSize);
-
-						if (this.mucClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.MucJid))
-							this.mucClient = new MultiUserChatClient(this.xmppClient, this.TagProfile.MucJid);
-
-						if (this.thingRegistryClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.RegistryJid))
-							this.thingRegistryClient = new ThingRegistryClient(this.xmppClient, this.TagProfile.RegistryJid);
-
-						if (this.provisioningClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.RegistryJid))
-						{
-							this.provisioningClient = new ProvisioningClient(this.xmppClient, this.TagProfile.ProvisioningJid)
-							{
-								ManagePresenceSubscriptionRequests = false
-							};
-
-							this.provisioningClient.CanControlQuestion += this.ProvisioningClient_CanControlQuestion;
-							this.provisioningClient.CanReadQuestion += this.ProvisioningClient_CanReadQuestion;
-							this.provisioningClient.IsFriendQuestion += this.ProvisioningClient_IsFriendQuestion;
-						}
-
-						if (this.eDalerClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.EDalerJid))
-							this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.EDalerJid);
-
-						if (this.neuroFeaturesClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.NeuroFeaturesJid))
-							this.neuroFeaturesClient = new NeuroFeaturesClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.NeuroFeaturesJid);
-
-						if (this.pushNotificationClient is null && this.TagProfile.SupportsPushNotification.HasValue && this.TagProfile.SupportsPushNotification.Value)
-							this.pushNotificationClient = new PushNotificationClient(this.xmppClient);
-					}
-
-					this.LogService.AddListener(this.xmppEventSink);
-
-					await this.PushNotificationService.CheckPushNotificationToken();
-
-					this.xmppThread?.Stop();
-					this.xmppThread = null;
-					this.startupProfiler = null;
-					break;
-
-				case XmppState.Offline:
-				case XmppState.Error:
-					if (this.xmppConnected && !this.IsUnloading)
-					{
-						this.xmppConnected = false;
-
-						if (this.xmppClient is not null && !this.xmppClient.Disposed)
-							this.xmppClient.Reconnect();
-					}
-
-					this.xmppThread?.Stop();
-					this.xmppThread = null;
-					this.startupProfiler = null;
-					break;
-			}
-
-			this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(newState));
-		}
-
-		private async Task XmppClient_OnPresence(object Sender, PresenceEventArgs e)
-		{
-			try
-			{
-				Task T = this.OnPresence?.Invoke(this, e);
-				if (T is not null)
-					await T;
-			}
-			catch (Exception ex)
-			{
-				this.LogService.LogException(ex);
-			}
-		}
-
-		/// <summary>
-		/// Event raised when a new presence stanza has been received.
-		/// </summary>
-		public event PresenceEventHandlerAsync OnPresence;
-
-		private async Task XmppClient_OnRosterItemAdded(object Sender, RosterItem Item)
-		{
-			try
-			{
-				Task T = this.OnRosterItemAdded?.Invoke(this, Item);
-				if (T is not null)
-					await T;
-			}
-			catch (Exception ex)
-			{
-				this.LogService.LogException(ex);
-			}
-		}
-
-		/// <summary>
-		/// Event raised when a roster item has been added to the roster.
-		/// </summary>
-		public event RosterItemEventHandlerAsync OnRosterItemAdded;
-
-		private async Task XmppClient_OnRosterItemUpdated(object Sender, RosterItem Item)
-		{
-			try
-			{
-				Task T = this.OnRosterItemUpdated?.Invoke(this, Item);
-				if (T is not null)
-					await T;
-			}
-			catch (Exception ex)
-			{
-				this.LogService.LogException(ex);
-			}
-		}
-
-		/// <summary>
-		/// Event raised when a roster item has been updated in the roster.
-		/// </summary>
-		public event RosterItemEventHandlerAsync OnRosterItemUpdated;
-
-		private async Task XmppClient_OnRosterItemRemoved(object Sender, RosterItem Item)
-		{
-			try
-			{
-				Task T = this.OnRosterItemRemoved?.Invoke(this, Item);
-				if (T is not null)
-					await T;
-			}
-			catch (Exception ex)
-			{
-				this.LogService.LogException(ex);
-			}
-		}
-
-		/// <summary>
-		/// Event raised when a roster item has been removed from the roster.
-		/// </summary>
-		public event RosterItemEventHandlerAsync OnRosterItemRemoved;
 
 		#endregion
 
@@ -763,7 +554,7 @@ namespace IdApp.Services.Xmpp
 						}
 					}
 
-					this.DestroyXmppClient();
+					await this.DestroyXmppClient();
 				}
 				catch (Exception ex)
 				{
@@ -774,7 +565,7 @@ namespace IdApp.Services.Xmpp
 			}
 		}
 
-		private async void TagProfile_StepChanged(object Sender, EventArgs e)
+		private async Task TagProfile_StepChanged(object Sender, EventArgs e)
 		{
 			if (!this.IsLoaded)
 				return;
@@ -782,22 +573,222 @@ namespace IdApp.Services.Xmpp
 			if (this.ShouldCreateClient())
 				await this.CreateXmppClient(this.TagProfile.Step <= RegistrationStep.RegisterIdentity, null);
 			else if (this.TagProfile.Step <= RegistrationStep.Account)
-				this.DestroyXmppClient();
+				await this.DestroyXmppClient();
 		}
 
-		public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
+		#endregion
 
-		private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
+		#region Events
+
+		// Note: By duplicating event handlers on the service, event handlers continue to work, even if app
+		// goes to sleep, and new clients are created when awoken again.
+
+		private Task XmppClient_Error(object Sender, Exception e)
+		{
+			this.LatestError = e.Message;
+			return Task.CompletedTask;
+		}
+
+		private Task XmppClient_ConnectionError(object Sender, Exception e)
+		{
+			if (e is ObjectDisposedException)
+				this.LatestConnectionError = LocalizationResourceManager.Current["UnableToConnect"];
+			else
+				this.LatestConnectionError = e.Message;
+
+			return Task.CompletedTask;
+		}
+
+		private async Task XmppClient_StateChanged(object Sender, XmppState NewState)
+		{
+			this.xmppLastStateChange = DateTime.Now;
+
+			this.xmppThread?.NewState(NewState.ToString());
+
+			switch (NewState)
+			{
+				case XmppState.Connecting:
+					this.LatestError = string.Empty;
+					this.LatestConnectionError = string.Empty;
+					break;
+
+				case XmppState.Connected:
+					this.LatestError = string.Empty;
+					this.LatestConnectionError = string.Empty;
+
+					this.xmppConnected = true;
+
+					this.RecreateReconnectTimer();
+
+					if (string.IsNullOrEmpty(this.TagProfile.PasswordHashMethod))
+						await this.TagProfile.SetAccount(this.TagProfile.Account, this.xmppClient.PasswordHash, this.xmppClient.PasswordHashMethod);
+
+					if (this.TagProfile.NeedsUpdating() && await this.DiscoverServices())
+					{
+						if (this.contractsClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
+						{
+							this.contractsClient = new ContractsClient(this.xmppClient, this.TagProfile.LegalJid);
+
+							if (!await this.contractsClient.LoadKeys(false))
+							{
+								this.contractsClient.Dispose();
+								this.contractsClient = null;
+							}
+						}
+
+						if (this.fileUploadClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.HttpFileUploadJid) && this.TagProfile.HttpFileUploadMaxSize.HasValue)
+							this.fileUploadClient = new HttpFileUploadClient(this.xmppClient, this.TagProfile.HttpFileUploadJid, this.TagProfile.HttpFileUploadMaxSize);
+
+						if (this.mucClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.MucJid))
+							this.mucClient = new MultiUserChatClient(this.xmppClient, this.TagProfile.MucJid);
+
+						if (this.thingRegistryClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.RegistryJid))
+							this.thingRegistryClient = new ThingRegistryClient(this.xmppClient, this.TagProfile.RegistryJid);
+
+						if (this.provisioningClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.RegistryJid))
+						{
+							this.provisioningClient = new ProvisioningClient(this.xmppClient, this.TagProfile.ProvisioningJid)
+							{
+								ManagePresenceSubscriptionRequests = false
+							};
+
+							this.provisioningClient.CanControlQuestion += this.ProvisioningClient_CanControlQuestion;
+							this.provisioningClient.CanReadQuestion += this.ProvisioningClient_CanReadQuestion;
+							this.provisioningClient.IsFriendQuestion += this.ProvisioningClient_IsFriendQuestion;
+						}
+
+						if (this.eDalerClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.EDalerJid))
+							this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.EDalerJid);
+
+						if (this.neuroFeaturesClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.NeuroFeaturesJid))
+							this.neuroFeaturesClient = new NeuroFeaturesClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.NeuroFeaturesJid);
+
+						if (this.pushNotificationClient is null && this.TagProfile.SupportsPushNotification.HasValue && this.TagProfile.SupportsPushNotification.Value)
+							this.pushNotificationClient = new PushNotificationClient(this.xmppClient);
+					}
+
+					this.LogService.AddListener(this.xmppEventSink);
+
+					await this.PushNotificationService.CheckPushNotificationToken();
+
+					this.xmppThread?.Stop();
+					this.xmppThread = null;
+					this.startupProfiler = null;
+					break;
+
+				case XmppState.Offline:
+				case XmppState.Error:
+					if (this.xmppConnected && !this.IsUnloading)
+					{
+						this.xmppConnected = false;
+
+						if (this.xmppClient is not null && !this.xmppClient.Disposed)
+							this.xmppClient.Reconnect();
+					}
+
+					this.xmppThread?.Stop();
+					this.xmppThread = null;
+					this.startupProfiler = null;
+					break;
+			}
+
+			await this.OnConnectionStateChanged(NewState);
+		}
+
+		/// <summary>
+		/// An event that triggers whenever the connection state to the XMPP server changes.
+		/// </summary>
+		public event StateChangedEventHandler ConnectionStateChanged;
+
+		private async Task OnConnectionStateChanged(XmppState NewState)
 		{
 			try
 			{
-				this.ConnectionStateChanged?.Invoke(this, e);
+				Task T = this.ConnectionStateChanged?.Invoke(this, NewState);
+				if (T is not null)
+					await T;
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
 			}
 		}
+
+		private async Task XmppClient_OnPresence(object Sender, PresenceEventArgs e)
+		{
+			try
+			{
+				Task T = this.OnPresence?.Invoke(this, e);
+				if (T is not null)
+					await T;
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+		}
+
+		/// <summary>
+		/// Event raised when a new presence stanza has been received.
+		/// </summary>
+		public event PresenceEventHandlerAsync OnPresence;
+
+		private async Task XmppClient_OnRosterItemAdded(object Sender, RosterItem Item)
+		{
+			try
+			{
+				Task T = this.OnRosterItemAdded?.Invoke(this, Item);
+				if (T is not null)
+					await T;
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+		}
+
+		/// <summary>
+		/// Event raised when a roster item has been added to the roster.
+		/// </summary>
+		public event RosterItemEventHandlerAsync OnRosterItemAdded;
+
+		private async Task XmppClient_OnRosterItemUpdated(object Sender, RosterItem Item)
+		{
+			try
+			{
+				Task T = this.OnRosterItemUpdated?.Invoke(this, Item);
+				if (T is not null)
+					await T;
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+		}
+
+		/// <summary>
+		/// Event raised when a roster item has been updated in the roster.
+		/// </summary>
+		public event RosterItemEventHandlerAsync OnRosterItemUpdated;
+
+		private async Task XmppClient_OnRosterItemRemoved(object Sender, RosterItem Item)
+		{
+			try
+			{
+				Task T = this.OnRosterItemRemoved?.Invoke(this, Item);
+				if (T is not null)
+					await T;
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+		}
+
+		/// <summary>
+		/// Event raised when a roster item has been removed from the roster.
+		/// </summary>
+		public event RosterItemEventHandlerAsync OnRosterItemRemoved;
 
 		#endregion
 
@@ -825,14 +816,15 @@ namespace IdApp.Services.Xmpp
 		public PushNotificationClient PushNotificationClient => this.pushNotificationClient;
 		public ContractsClient ContractsClient => this.contractsClient;
 		public HttpxClient HttpX => this.httpxClient;
-
-		#endregion
-
 		public ISmartContracts Contracts => this.contracts;
 		public IXmppMultiUserChat MultiUserChat => this.muc;
 		public IXmppThingRegistry ThingRegistry => this.thingRegistry;
 		public IIoTService IoT => this.iot;
 		public INeuroWallet Wallet => this.wallet;
+
+		#endregion
+
+		#region Connections
 
 		private enum ConnectOperation
 		{
@@ -1022,6 +1014,27 @@ namespace IdApp.Services.Xmpp
 			return (succeeded, errorMessage);
 		}
 
+		private void ReconnectTimer_Tick(object _)
+		{
+			if (this.xmppClient is null)
+				return;
+
+			if (!this.NetworkService.IsOnline)
+				return;
+
+			if (this.XmppStale())
+			{
+				this.xmppLastStateChange = DateTime.Now;
+
+				if (!this.xmppClient.Disposed)
+					this.xmppClient.Reconnect();
+			}
+		}
+
+		#endregion
+
+		#region Components & Services
+
 		public async Task<bool> DiscoverServices(XmppClient Client = null)
 		{
 			Client ??= this.xmppClient;
@@ -1124,76 +1137,9 @@ namespace IdApp.Services.Xmpp
 			}
 		}
 
-		private void ReconnectTimer_Tick(object _)
-		{
-			if (this.xmppClient is null)
-				return;
+		#endregion
 
-			if (!this.NetworkService.IsOnline)
-				return;
-
-			if (this.XmppStale())
-			{
-				this.xmppLastStateChange = DateTime.Now;
-
-				if (!this.xmppClient.Disposed)
-					this.xmppClient.Reconnect();
-			}
-		}
-
-		public void ClearHtmlContent()
-		{
-			this.historyHtml = this.sentHtml;
-			this.historyTextData = this.sentTextData;
-		}
-
-		public async Task<string> CommsDumpAsText(string state)
-		{
-			string response;
-
-			if (this.historyTextData is null || state != "History")
-				response = await this.sniffer.SnifferToText();
-			else
-				response = (await this.sniffer.SnifferToText()).Replace(this.historyTextData, "");
-
-			return response;
-		}
-
-
-		public async Task<string> CommsDumpAsHtml(bool history = false)
-		{
-			string html = string.Empty;
-
-			try
-			{
-				string xml = await this.sniffer.SnifferToXml();
-
-				this.sentHtml = xml;
-				this.sentTextData = await this.sniffer.SnifferToText();
-
-				if ((this.historyHtml is not null) && !history)
-				{
-					xml = xml.Replace(this.historyHtml, "");
-				}
-
-				xml = "<SnifferOutput>" + xml + "</SnifferOutput>";
-
-				//adding coloring to debug lines
-				html = this.cssColoring + FixTags(xml);
-			}
-			catch (Exception e)
-			{
-				this.LogService.LogException(e);
-			}
-
-			return html;
-		}
-
-		//fixing broken tags
-		private static string FixTags(string xml)
-		{
-			return xml.Replace("&lt;", "<").Replace("&gt;", ">");
-		}
+		#region Transfer
 
 		private async Task TransferIdDelivered(object Sender, MessageEventArgs e)
 		{
@@ -1212,7 +1158,7 @@ namespace IdApp.Services.Xmpp
 			if (Array.IndexOf<string>(Codes, Code) < 0)
 				return;
 
-			this.DestroyXmppClient();
+			await this.DestroyXmppClient();
 
 			this.domainName = string.Empty;
 			this.accountName = string.Empty;
@@ -1243,6 +1189,10 @@ namespace IdApp.Services.Xmpp
 			await RuntimeSettings.SetAsync("TransferId.CodesSent", CodesGenerated);
 			await Database.Provider.Flush();
 		}
+
+		#endregion
+
+		#region Presence Subscriptions
 
 		private async Task XmppClient_OnPresenceSubscribe(object Sender, PresenceEventArgs e)
 		{
@@ -1427,6 +1377,18 @@ namespace IdApp.Services.Xmpp
 			}
 		}
 
+		#endregion
+
+		#region Messages
+
+		private Task XmppClient_OnNormalMessage(object Sender, MessageEventArgs e)
+		{
+			Log.Warning("Unhandled message received.", e.To, e.From,
+				new KeyValuePair<string, object>("Stanza", e.Message.OuterXml));
+
+			return Task.CompletedTask;
+		}
+
 		private async Task XmppClient_OnChatMessage(object Sender, MessageEventArgs e)
 		{
 			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(e.FromBareJID);
@@ -1439,9 +1401,9 @@ namespace IdApp.Services.Xmpp
 				RemoteBareJid = e.FromBareJID,
 				RemoteObjectId = e.Id,
 				MessageType = Messages.MessageType.Received,
-				Html = "",
+				Html = string.Empty,
 				PlainText = e.Body,
-				Markdown = ""
+				Markdown = string.Empty
 			};
 
 			foreach (XmlNode N in e.Message.ChildNodes)
@@ -1632,6 +1594,8 @@ namespace IdApp.Services.Xmpp
 
 			return Task.CompletedTask;
 		}
+
+		#endregion
 
 		#region Push Notification
 
