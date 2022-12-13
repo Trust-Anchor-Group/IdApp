@@ -26169,56 +26169,35 @@
             <param name="timeout">Maximum timeout before giving up.</param>
             <returns>If connected</returns>
         </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.UnloadFast">
+            <summary>
+            Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
+            </summary>
+        </member>
         <member name="E:IdApp.Services.Xmpp.IXmppService.ConnectionStateChanged">
             <summary>
             An event that triggers whenever the connection state to the XMPP server changes.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Xmpp.IXmppService.TryConnect(System.String,System.Boolean,System.String,System.Int32,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+        <member name="E:IdApp.Services.Xmpp.IXmppService.OnPresence">
             <summary>
-            To be used during the very first phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server.
+            Event raised when a new presence stanza has been received.
             </summary>
-            <param name="domain">The server's domain name.</param>
-            <param name="isIpAddress">If the domain is provided as an IP address.</param>
-            <param name="hostName">The server's host name.</param>
-            <param name="portNumber">The xmpp port.</param>
-            <param name="languageCode">Language code to use for communication.</param>
-            <param name="appAssembly">The current app's main assembly.</param>
-            <param name="connectedFunc">A callback to use if and when connected.</param>
-            <returns>If connected. If not, any error message.</returns>
         </member>
-        <member name="M:IdApp.Services.Xmpp.IXmppService.TryConnectAndCreateAccount(System.String,System.Boolean,System.String,System.Int32,System.String,System.String,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+        <member name="E:IdApp.Services.Xmpp.IXmppService.OnRosterItemAdded">
             <summary>
-            To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also creating an account.
+            Event raised when a roster item has been added to the roster.
             </summary>
-            <param name="domain">The server's domain name.</param>
-            <param name="isIpAddress">If the domain is provided as an IP address.</param>
-            <param name="hostName">The server's host name.</param>
-            <param name="portNumber">The xmpp port.</param>
-            <param name="userName">The user name of the account to create.</param>
-            <param name="password">The password to use.</param>
-            <param name="languageCode">Language code to use for communication.</param>
-            <param name="ApiKey">API Key used when creating account.</param>
-            <param name="ApiSecret">API Secret used when creating account.</param>
-            <param name="appAssembly">The current app's main assembly.</param>
-            <param name="connectedFunc">A callback to use if and when connected.</param>
-            <returns>If connected. If not, any error message.</returns>
         </member>
-        <member name="M:IdApp.Services.Xmpp.IXmppService.TryConnectAndConnectToAccount(System.String,System.Boolean,System.String,System.Int32,System.String,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+        <member name="E:IdApp.Services.Xmpp.IXmppService.OnRosterItemUpdated">
             <summary>
-            To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also connecting to an existing account.
+            Event raised when a roster item has been updated in the roster.
             </summary>
-            <param name="domain">The server's domain name.</param>
-            <param name="isIpAddress">If the domain is provided as an IP address.</param>
-            <param name="hostName">The server's host name.</param>
-            <param name="portNumber">The xmpp port.</param>
-            <param name="userName">The user name of the account to create.</param>
-            <param name="password">The password to use.</param>
-            <param name="passwordMethod">The password hash method to use. Empty string signifies an unhashed password.</param>
-            <param name="languageCode">Language code to use for communication.</param>
-            <param name="appAssembly">The current app's main assembly.</param>
-            <param name="connectedFunc">A callback to use if and when connected.</param>
-            <returns>If connected. If not, any error message.</returns>
+        </member>
+        <member name="E:IdApp.Services.Xmpp.IXmppService.OnRosterItemRemoved">
+            <summary>
+            Event raised when a roster item has been removed from the roster.
+            </summary>
         </member>
         <member name="P:IdApp.Services.Xmpp.IXmppService.IsOnline">
             <summary>
@@ -26280,17 +26259,58 @@
             HTTP File Upload client
             </summary>
         </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.TryConnect(System.String,System.Boolean,System.String,System.Int32,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+            <summary>
+            To be used during the very first phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server.
+            </summary>
+            <param name="domain">The server's domain name.</param>
+            <param name="isIpAddress">If the domain is provided as an IP address.</param>
+            <param name="hostName">The server's host name.</param>
+            <param name="portNumber">The xmpp port.</param>
+            <param name="languageCode">Language code to use for communication.</param>
+            <param name="appAssembly">The current app's main assembly.</param>
+            <param name="connectedFunc">A callback to use if and when connected.</param>
+            <returns>If connected. If not, any error message.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.TryConnectAndCreateAccount(System.String,System.Boolean,System.String,System.Int32,System.String,System.String,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+            <summary>
+            To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also creating an account.
+            </summary>
+            <param name="domain">The server's domain name.</param>
+            <param name="isIpAddress">If the domain is provided as an IP address.</param>
+            <param name="hostName">The server's host name.</param>
+            <param name="portNumber">The xmpp port.</param>
+            <param name="userName">The user name of the account to create.</param>
+            <param name="password">The password to use.</param>
+            <param name="languageCode">Language code to use for communication.</param>
+            <param name="ApiKey">API Key used when creating account.</param>
+            <param name="ApiSecret">API Secret used when creating account.</param>
+            <param name="appAssembly">The current app's main assembly.</param>
+            <param name="connectedFunc">A callback to use if and when connected.</param>
+            <returns>If connected. If not, any error message.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.TryConnectAndConnectToAccount(System.String,System.Boolean,System.String,System.Int32,System.String,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+            <summary>
+            To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also connecting to an existing account.
+            </summary>
+            <param name="domain">The server's domain name.</param>
+            <param name="isIpAddress">If the domain is provided as an IP address.</param>
+            <param name="hostName">The server's host name.</param>
+            <param name="portNumber">The xmpp port.</param>
+            <param name="userName">The user name of the account to create.</param>
+            <param name="password">The password to use.</param>
+            <param name="passwordMethod">The password hash method to use. Empty string signifies an unhashed password.</param>
+            <param name="languageCode">Language code to use for communication.</param>
+            <param name="appAssembly">The current app's main assembly.</param>
+            <param name="connectedFunc">A callback to use if and when connected.</param>
+            <returns>If connected. If not, any error message.</returns>
+        </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.DiscoverServices(Waher.Networking.XMPP.XmppClient)">
             <summary>
             Run this method to discover services for any given XMPP server.
             </summary>
             <param name="client">The client to use. Can be <c>null</c>, in which case the default is used.</param>
             <returns>If TAG services were found.</returns>
-        </member>
-        <member name="M:IdApp.Services.Xmpp.IXmppService.UnloadFast">
-            <summary>
-            Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
-            </summary>
         </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.AddTransferCode(System.String)">
             <summary>
@@ -26324,26 +26344,6 @@
             <param name="Headers">Headers to provide in the POST.</param>
             <returns>Decoded response from the resource.</returns>
             <exception cref="T:System.Exception">Any communication error will be handle by raising the corresponding exception.</exception>
-        </member>
-        <member name="E:IdApp.Services.Xmpp.IXmppService.OnPresence">
-            <summary>
-            Event raised when a new presence stanza has been received.
-            </summary>
-        </member>
-        <member name="E:IdApp.Services.Xmpp.IXmppService.OnRosterItemAdded">
-            <summary>
-            Event raised when a roster item has been added to the roster.
-            </summary>
-        </member>
-        <member name="E:IdApp.Services.Xmpp.IXmppService.OnRosterItemUpdated">
-            <summary>
-            Event raised when a roster item has been updated in the roster.
-            </summary>
-        </member>
-        <member name="E:IdApp.Services.Xmpp.IXmppService.OnRosterItemRemoved">
-            <summary>
-            Event raised when a roster item has been removed from the roster.
-            </summary>
         </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.RegisterPepHandler(System.Type,Waher.Networking.XMPP.PEP.PersonalEventNotificationEventHandler)">
             <summary>

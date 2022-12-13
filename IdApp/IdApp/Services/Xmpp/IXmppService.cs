@@ -9,7 +9,6 @@ using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.HttpFileUpload;
-using Waher.Networking.XMPP.HTTPX;
 using Waher.Networking.XMPP.PEP;
 using Waher.Runtime.Inventory;
 
@@ -30,25 +29,120 @@ namespace IdApp.Services.Xmpp
 		/// <returns>If connected</returns>
 		Task<bool> WaitForConnectedState(TimeSpan timeout);
 
+		/// <summary>
+		/// Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
+		/// </summary>
+		Task UnloadFast();
+
 		#endregion
+
+		#region Events
 
 		/// <summary>
 		/// An event that triggers whenever the connection state to the XMPP server changes.
 		/// </summary>
 		event StateChangedEventHandler ConnectionStateChanged;
-        
-        /// <summary>
-        /// To be used during the very first phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server.
-        /// </summary>
-        /// <param name="domain">The server's domain name.</param>
-        /// <param name="isIpAddress">If the domain is provided as an IP address.</param>
-        /// <param name="hostName">The server's host name.</param>
-        /// <param name="portNumber">The xmpp port.</param>
-        /// <param name="languageCode">Language code to use for communication.</param>
-        /// <param name="appAssembly">The current app's main assembly.</param>
-        /// <param name="connectedFunc">A callback to use if and when connected.</param>
-        /// <returns>If connected. If not, any error message.</returns>
-        Task<(bool succeeded, string errorMessage)> TryConnect(string domain, bool isIpAddress, string hostName, int portNumber, 
+
+		/// <summary>
+		/// Event raised when a new presence stanza has been received.
+		/// </summary>
+		event PresenceEventHandlerAsync OnPresence;
+
+		/// <summary>
+		/// Event raised when a roster item has been added to the roster.
+		/// </summary>
+		event RosterItemEventHandlerAsync OnRosterItemAdded;
+
+		/// <summary>
+		/// Event raised when a roster item has been updated in the roster.
+		/// </summary>
+		event RosterItemEventHandlerAsync OnRosterItemUpdated;
+
+		/// <summary>
+		/// Event raised when a roster item has been removed from the roster.
+		/// </summary>
+		event RosterItemEventHandlerAsync OnRosterItemRemoved;
+
+		#endregion
+
+		#region State
+
+		/// <summary>
+		/// Determines whether the connection to the XMPP server is live or not.
+		/// </summary>
+		bool IsOnline { get; }
+
+		/// <summary>
+		/// The current state of the connection to the XMPP server.
+		/// </summary>
+		XmppState State { get; }
+
+		/// <summary>
+		/// Interface to the XMPP network.
+		/// </summary>
+		XmppClient Xmpp { get; }
+
+		/// <summary>
+		/// The Bare Jid of the current connection, or <c>null</c>.
+		/// </summary>
+		string BareJid { get; }
+
+		/// <summary>
+		/// The latest generic xmpp error, if any.
+		/// </summary>
+		string LatestError { get; }
+
+		/// <summary>
+		/// The latest generic xmpp connection error, if any.
+		/// </summary>
+		string LatestConnectionError { get; }
+
+		/// <summary>
+		/// Provides access to legal identities and contracts.
+		/// </summary>
+		ISmartContracts Contracts { get; }
+
+		/// <summary>
+		/// Provides access to chat functionality.
+		/// </summary>
+		IXmppMultiUserChat MultiUserChat { get; }
+
+		/// <summary>
+		/// Provides access to thing registries.
+		/// </summary>
+		IXmppThingRegistry ThingRegistry { get; }
+
+		/// <summary>
+		/// Provides access to provisioning and decision support.
+		/// </summary>
+		IIoTService IoT { get; }
+
+		/// <summary>
+		/// Provides access to the eDaler wallet.
+		/// </summary>
+		INeuroWallet Wallet { get; }
+
+		/// <summary>
+		/// HTTP File Upload client
+		/// </summary>
+		HttpFileUploadClient FileUploadClient { get; }
+
+		#endregion
+
+		#region Connections
+
+		/// <summary>
+		/// To be used during the very first phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server.
+		/// </summary>
+		/// <param name="domain">The server's domain name.</param>
+		/// <param name="isIpAddress">If the domain is provided as an IP address.</param>
+		/// <param name="hostName">The server's host name.</param>
+		/// <param name="portNumber">The xmpp port.</param>
+		/// <param name="languageCode">Language code to use for communication.</param>
+		/// <param name="appAssembly">The current app's main assembly.</param>
+		/// <param name="connectedFunc">A callback to use if and when connected.</param>
+		/// <returns>If connected. If not, any error message.</returns>
+		Task<(bool succeeded, string errorMessage)> TryConnect(string domain, bool isIpAddress, string hostName, int portNumber, 
             string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
 
         /// <summary>
@@ -88,90 +182,41 @@ namespace IdApp.Services.Xmpp
             int portNumber, string userName, string password, string passwordMethod, string languageCode, Assembly appAssembly, 
             Func<XmppClient, Task> connectedFunc);
 
-        /// <summary>
-        /// Determines whether the connection to the XMPP server is live or not.
-        /// </summary>
-        bool IsOnline { get; }
-        
-        /// <summary>
-        /// The current state of the connection to the XMPP server.
-        /// </summary>
-        XmppState State { get; }
+		#endregion
 
-        /// <summary>
-        /// Interface to the XMPP network.
-        /// </summary>
-        XmppClient Xmpp { get; }
+		#region Components & Services
 
 		/// <summary>
-		/// The Bare Jid of the current connection, or <c>null</c>.
+		/// Run this method to discover services for any given XMPP server.
 		/// </summary>
-		string BareJid { get; }
-        
-        /// <summary>
-        /// The latest generic xmpp error, if any.
-        /// </summary>
-        string LatestError { get; }
-        
-        /// <summary>
-        /// The latest generic xmpp connection error, if any.
-        /// </summary>
-        string LatestConnectionError { get; }
-        
-        /// <summary>
-        /// Provides access to legal identities and contracts.
-        /// </summary>
-        ISmartContracts Contracts { get; }
+		/// <param name="client">The client to use. Can be <c>null</c>, in which case the default is used.</param>
+		/// <returns>If TAG services were found.</returns>
+		Task<bool> DiscoverServices(XmppClient client = null);
 
-        /// <summary>
-        /// Provides access to chat functionality.
-        /// </summary>
-        IXmppMultiUserChat MultiUserChat { get; }
+		#endregion
 
-        /// <summary>
-        /// Provides access to thing registries.
-        /// </summary>
-        IXmppThingRegistry ThingRegistry { get; }
-
-        /// <summary>
-        /// Provides access to provisioning and decision support.
-        /// </summary>
-        IIoTService IoT { get; }
+		#region Transfer
 
 		/// <summary>
-		/// Provides access to the eDaler wallet.
+		/// Registers a Transfer ID Code
 		/// </summary>
-		INeuroWallet Wallet { get; }
+		/// <param name="Code">Transfer Code</param>
+		Task AddTransferCode(string Code);
 
-        /// <summary>
-        /// HTTP File Upload client
-        /// </summary>
-        HttpFileUploadClient FileUploadClient { get; }
+		#endregion
 
-        /// <summary>
-        /// Run this method to discover services for any given XMPP server.
-        /// </summary>
-        /// <param name="client">The client to use. Can be <c>null</c>, in which case the default is used.</param>
-        /// <returns>If TAG services were found.</returns>
-        Task<bool> DiscoverServices(XmppClient client = null);
+		#region Push Notification
 
-        /// <summary>
-        /// Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
-        /// </summary>
-        Task UnloadFast();
+		/// <summary>
+		/// Registers a new token with the back-end broker.
+		/// </summary>
+		/// <param name="TokenInformation">Token Information</param>
+		/// <returns>If token could be registered.</returns>
+		Task<bool> NewPushNotificationToken(TokenInformation TokenInformation);
 
-        /// <summary>
-        /// Registers a Transfer ID Code
-        /// </summary>
-        /// <param name="Code">Transfer Code</param>
-        Task AddTransferCode(string Code);
+		#endregion
 
-        /// <summary>
-        /// Registers a new token with the back-end broker.
-        /// </summary>
-        /// <param name="TokenInformation">Token Information</param>
-        /// <returns>If token could be registered.</returns>
-        Task<bool> NewPushNotificationToken(TokenInformation TokenInformation);
+		#region Tokens
 
 		/// <summary>
 		/// Gets a token for use with APIs that are either distributed or use different
@@ -193,25 +238,7 @@ namespace IdApp.Services.Xmpp
 		/// <exception cref="Exception">Any communication error will be handle by raising the corresponding exception.</exception>
 		Task<object> PostToProtectedApi(string LocalResource, object Data, params KeyValuePair<string, string>[] Headers);
 
-		/// <summary>
-		/// Event raised when a new presence stanza has been received.
-		/// </summary>
-		event PresenceEventHandlerAsync OnPresence;
-
-		/// <summary>
-		/// Event raised when a roster item has been added to the roster.
-		/// </summary>
-		event RosterItemEventHandlerAsync OnRosterItemAdded;
-
-		/// <summary>
-		/// Event raised when a roster item has been updated in the roster.
-		/// </summary>
-		event RosterItemEventHandlerAsync OnRosterItemUpdated;
-
-		/// <summary>
-		/// Event raised when a roster item has been removed from the roster.
-		/// </summary>
-		event RosterItemEventHandlerAsync OnRosterItemRemoved;
+		#endregion
 
 		#region Personal Eventing Protocol (PEP)
 
@@ -229,7 +256,6 @@ namespace IdApp.Services.Xmpp
 		/// <param name="Handler">Event handler.</param>
 		/// <returns>If the event handler was found and removed.</returns>
 		bool UnregisterPepHandler(Type PersonalEventType, PersonalEventNotificationEventHandler Handler);
-
 
 		#endregion
 	}
