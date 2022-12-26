@@ -24,10 +24,20 @@ namespace IdApp.Services.Notification.Xmpp
 		/// </summary>
 		/// <param name="e">Event arguments</param>
 		public ChatMessageNotificationEvent(MessageEventArgs e)
+			: this(e, e.FromBareJID)
+		{
+		}
+
+		/// <summary>
+		/// Contains information about an incoming chat message.
+		/// </summary>
+		/// <param name="e">Event arguments</param>
+		/// <param name="RemoteBareJid">Remote Bare JID</param>
+		public ChatMessageNotificationEvent(MessageEventArgs e, string RemoteBareJid)
 			: base()
 		{
-			this.Category = e.FromBareJID;
-			this.BareJid = e.FromBareJID;
+			this.Category = RemoteBareJid;
+			this.BareJid = RemoteBareJid;
 			this.Received = DateTime.UtcNow;
 			this.Button = EventButton.Contacts;
 		}

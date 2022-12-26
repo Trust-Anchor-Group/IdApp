@@ -22667,6 +22667,13 @@
             </summary>
             <param name="e">Event arguments</param>
         </member>
+        <member name="M:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.#ctor(Waher.Networking.XMPP.MessageEventArgs,System.String)">
+            <summary>
+            Contains information about an incoming chat message.
+            </summary>
+            <param name="e">Event arguments</param>
+            <param name="RemoteBareJid">Remote Bare JID</param>
+        </member>
         <member name="P:IdApp.Services.Notification.Xmpp.ChatMessageNotificationEvent.ReplaceObjectId">
             <summary>
             ID of message object being updated
@@ -25283,6 +25290,13 @@
             <param name="Xml">XML Definition of keys.</param>
             <returns>If keys could be loaded into the client.</returns>
         </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.ValidateIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <summary>
+            Validates a legal identity.
+            </summary>
+            <param name="Identity">Legal Identity</param>
+            <returns>The validity of the identity.</returns>
+        </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.GetContract(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Gets the contract with the specified id.
@@ -26498,6 +26512,13 @@
             </summary>
             <param name="Xml">XML Definition of keys.</param>
             <returns>If keys could be loaded into the client.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.ValidateIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <summary>
+            Validates a legal identity.
+            </summary>
+            <param name="Identity">Legal Identity</param>
+            <returns>The validity of the identity.</returns>
         </member>
         <member name="P:IdApp.Services.Xmpp.XmppService.ContractsClient">
             <summary>

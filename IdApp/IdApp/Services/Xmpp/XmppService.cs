@@ -1384,14 +1384,74 @@ namespace IdApp.Services.Xmpp
 
 		private async Task XmppClient_OnChatMessage(object Sender, MessageEventArgs e)
 		{
-			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(e.FromBareJID);
-			string FriendlyName = ContactInfo?.FriendlyName ?? e.FromBareJID;
+			string RemoteBareJid = e.FromBareJID;
+
+			foreach (XmlNode N in e.Message.ChildNodes)
+			{
+				if (N is XmlElement E &&
+					E.LocalName == "qlRef" &&
+					E.NamespaceURI == XmppClient.NamespaceQuickLogin &&
+					RemoteBareJid.IndexOf('@') < 0 &&
+					RemoteBareJid.IndexOf('/') < 0)
+				{
+					LegalIdentity RemoteIdentity = null;
+
+					foreach (XmlNode N2 in E.ChildNodes)
+					{
+						if (N2 is XmlElement E2 &&
+							E2.LocalName == "identity" &&
+							E2.NamespaceURI == ContractsClient.NamespaceLegalIdentities)
+						{
+							RemoteIdentity = LegalIdentity.Parse(E2);
+							break;
+						}
+					}
+
+					if (RemoteIdentity is not null)
+					{
+						IdentityStatus Status = await this.ValidateIdentity(RemoteIdentity);
+						if (Status != IdentityStatus.Valid)
+						{
+							Log.Warning("Message rejected because the embedded legal identity was not valid.",
+								new KeyValuePair<string, object>("Identity", RemoteIdentity.Id),
+								new KeyValuePair<string, object>("From", RemoteBareJid),
+								new KeyValuePair<string, object>("Status", Status));
+							return;
+						}
+
+						string Jid = RemoteIdentity["JID"];
+
+						if (string.IsNullOrEmpty(Jid))
+						{
+							Log.Warning("Message rejected because the embedded legal identity lacked JID.",
+								new KeyValuePair<string, object>("Identity", RemoteIdentity.Id),
+								new KeyValuePair<string, object>("From", RemoteBareJid),
+								new KeyValuePair<string, object>("Status", Status));
+							return;
+						}
+
+						if (string.Compare(XML.Attribute(E, "bareJid", string.Empty), Jid, true) != 0)
+						{
+							Log.Warning("Message rejected because the embedded legal identity had a different JID compared to the JID of the quick-login reference.",
+								new KeyValuePair<string, object>("Identity", RemoteIdentity.Id),
+								new KeyValuePair<string, object>("From", RemoteBareJid),
+								new KeyValuePair<string, object>("Status", Status));
+							return;
+						}
+
+						RemoteBareJid = Jid;
+					}
+				}
+			}
+
+			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(RemoteBareJid);
+			string FriendlyName = ContactInfo?.FriendlyName ?? RemoteBareJid;
 			string ReplaceObjectId = null;
 
 			ChatMessage Message = new()
 			{
 				Created = DateTime.UtcNow,
-				RemoteBareJid = e.FromBareJID,
+				RemoteBareJid = RemoteBareJid,
 				RemoteObjectId = e.Id,
 				MessageType = Messages.MessageType.Received,
 				Html = string.Empty,
@@ -1500,7 +1560,7 @@ namespace IdApp.Services.Xmpp
 			else
 			{
 				ChatMessage Old = await Database.FindFirstIgnoreRest<ChatMessage>(new FilterAnd(
-					new FilterFieldEqualTo("RemoteBareJid", e.FromBareJID),
+					new FilterFieldEqualTo("RemoteBareJid", RemoteBareJid),
 					new FilterFieldEqualTo("RemoteObjectId", ReplaceObjectId)));
 
 				if (Old is null)
@@ -1527,7 +1587,7 @@ namespace IdApp.Services.Xmpp
 
 				if ((NavigationService.CurrentPage is ChatPage || NavigationService.CurrentPage is ChatPageIos) &&
 					NavigationService.CurrentPage.BindingContext is ChatViewModel ChatViewModel &&
-					string.Compare(ChatViewModel.BareJid, e.FromBareJID, true) == 0)
+					string.Compare(ChatViewModel.BareJid, RemoteBareJid, true) == 0)
 				{
 					if (string.IsNullOrEmpty(ReplaceObjectId))
 						await ChatViewModel.MessageAddedAsync(Message);
@@ -1536,9 +1596,11 @@ namespace IdApp.Services.Xmpp
 				}
 				else
 				{
-					await this.NotificationService.NewEvent(new ChatMessageNotificationEvent(e)
+					await this.NotificationService.NewEvent(new ChatMessageNotificationEvent(e, RemoteBareJid)
 					{
-						ReplaceObjectId = ReplaceObjectId
+						ReplaceObjectId = ReplaceObjectId,
+						BareJid = RemoteBareJid,
+						Category = RemoteBareJid
 					});
 				}
 			});
@@ -2521,6 +2583,16 @@ namespace IdApp.Services.Xmpp
 		public Task<bool> ImportSigningKeys(XmlElement Xml)
 		{
 			return this.ContractsClient.ImportKeys(Xml);
+		}
+
+		/// <summary>
+		/// Validates a legal identity.
+		/// </summary>
+		/// <param name="Identity">Legal Identity</param>
+		/// <returns>The validity of the identity.</returns>
+		public Task<IdentityStatus> ValidateIdentity(LegalIdentity Identity)
+		{
+			return this.ContractsClient.ValidateAsync(Identity, true);
 		}
 
 		#endregion

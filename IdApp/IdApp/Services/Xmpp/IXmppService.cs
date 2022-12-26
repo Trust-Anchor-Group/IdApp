@@ -606,6 +606,13 @@ namespace IdApp.Services.Xmpp
 		/// <returns>If keys could be loaded into the client.</returns>
 		Task<bool> ImportSigningKeys(XmlElement Xml);
 
+		/// <summary>
+		/// Validates a legal identity.
+		/// </summary>
+		/// <param name="Identity">Legal Identity</param>
+		/// <returns>The validity of the identity.</returns>
+		Task<IdentityStatus> ValidateIdentity(LegalIdentity Identity);
+
 		#endregion
 
 		#region Smart Contracts
