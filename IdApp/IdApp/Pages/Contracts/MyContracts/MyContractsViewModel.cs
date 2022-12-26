@@ -244,26 +244,15 @@ namespace IdApp.Pages.Contracts.MyContracts
 						return;
 				}
 
+				SortedDictionary<string, List<ContractModel>> ContractsByCategory = new(StringComparer.CurrentCultureIgnoreCase);
+				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCategory = this.NotificationService.GetEventsByCategory(EventButton.Contracts);
+				Contract Contract;
 				bool Found = false;
 
 				foreach (ContractReference Ref in ContractReferences)
 				{
 					Found = true;
-					break;
-				}
 
-				if (!Found)
-				{
-					this.UiSerializer.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
-					return;
-				}
-
-				SortedDictionary<string, List<ContractModel>> ContractsByCategory = new(StringComparer.CurrentCultureIgnoreCase);
-				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCategory = this.NotificationService.GetEventsByCategory(EventButton.Contracts);
-				Contract Contract;
-
-				foreach (ContractReference Ref in ContractReferences)
-				{
 					try
 					{
 						Contract = await Ref.GetContract();
@@ -326,6 +315,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 				{
 					this.Categories.Clear();
 					this.Categories.AddRange(NewCategories);
+					this.ShowContractsMissing = !Found;
 				});
 			}
 			finally
