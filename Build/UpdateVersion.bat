@@ -1,1 +1,1 @@
-UpdateVersionInfo.exe -v=1 -m=3 -b=42 -p=..\IdApp\Version\Version.cs -a=..\IdApp\IdApp.Android\Properties\AndroidManifest.xml -t=..\IdApp\IdApp.iOS\Info.plist 
+UpdateVersionInfo.exe -v=1 -m=4 -b=43 -p=..\IdApp\Version\Version.cs -a=..\IdApp\IdApp.Android\Properties\AndroidManifest.xml -t=..\IdApp\IdApp.iOS\Info.plist 
