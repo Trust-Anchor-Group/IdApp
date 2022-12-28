@@ -533,6 +533,9 @@ namespace IdApp.Services.Contracts
 
 			string IdRef = this.TagProfile?.LegalIdentity?.Id ?? string.Empty;
 
+			if (!await App.VerifyPin())
+				return;
+
 			StringBuilder Xml = new();
 
 			Xml.Append("<ql xmlns='https://tagroot.io/schema/Signature' key='");
@@ -541,8 +544,11 @@ namespace IdApp.Services.Contracts
 			Xml.Append(XML.Encode(IdRef));
 			Xml.Append("'/>");
 
-			if (!this.XmppService.IsOnline)
+			if (!this.XmppService.IsOnline &&
+				!await this.XmppService.WaitForConnectedState(TimeSpan.FromSeconds(10)))
+			{
 				throw new InvalidOperationException(LocalizationResourceManager.Current["AppNotConnected"]);
+			}
 
 			await this.XmppService.IqSetAsync(JID, Xml.ToString());
 		}
