@@ -2217,4 +2217,16 @@
   <data name="Information" xml:space="preserve">
     <value>Информация</value>
   </data>
+  <data name="AppNotConnected" xml:space="preserve">
+    <value>Приложение не подключено к сети.</value>
+  </data>
+  <data name="InvalidTagSignatureId" xml:space="preserve">
+    <value>Недопустимый URI подписи ТЕГА.</value>
+  </data>
+  <data name="LegalIdNotApproved" xml:space="preserve">
+    <value>Удостоверение личности не утверждено.</value>
+  </data>
+  <data name="NoLegalIdSelected" xml:space="preserve">
+    <value>Юридическое удостоверение личности не выбрано.</value>
+  </data>
 </root>

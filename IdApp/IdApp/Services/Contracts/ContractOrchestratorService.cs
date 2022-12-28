@@ -519,17 +519,17 @@ namespace IdApp.Services.Contracts
 		{
 			int i = Request.IndexOf(',');
 			if (i < 0)
-				throw new InvalidOperationException("Invalid TAG Signature URI.");
+				throw new InvalidOperationException(LocalizationResourceManager.Current["InvalidTagSignatureId"]);
 
 			string JID = Request[..i];
 			string Key = Request[(i + 1)..];
 
 			LegalIdentity ID = this.TagProfile?.LegalIdentity;
 			if (ID is null)
-				throw new InvalidOperationException("No Legal ID selected.");
+				throw new InvalidOperationException(LocalizationResourceManager.Current["NoLegalIdSelected"]);
 
 			if (ID.State != IdentityState.Approved)
-				throw new InvalidOperationException("Legal ID not approved.");
+				throw new InvalidOperationException(LocalizationResourceManager.Current["LegalIdNotApproved"]);
 
 			string IdRef = this.TagProfile?.LegalIdentity?.Id ?? string.Empty;
 
@@ -542,7 +542,7 @@ namespace IdApp.Services.Contracts
 			Xml.Append("'/>");
 
 			if (!this.XmppService.IsOnline)
-				throw new InvalidOperationException("App is not connected to the network.");
+				throw new InvalidOperationException(LocalizationResourceManager.Current["AppNotConnected"]);
 
 			await this.XmppService.IqSetAsync(JID, Xml.ToString());
 		}

@@ -2217,4 +2217,16 @@
   <data name="Information" xml:space="preserve">
     <value>Information</value>
   </data>
+  <data name="AppNotConnected" xml:space="preserve">
+    <value>Die App ist nicht mit dem Netzwerk verbunden.</value>
+  </data>
+  <data name="InvalidTagSignatureId" xml:space="preserve">
+    <value>Ungültiger TAG-Signatur-URI.</value>
+  </data>
+  <data name="LegalIdNotApproved" xml:space="preserve">
+    <value>Legale ID nicht genehmigt.</value>
+  </data>
+  <data name="NoLegalIdSelected" xml:space="preserve">
+    <value>Keine legale ID ausgewählt.</value>
+  </data>
 </root>

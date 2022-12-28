@@ -358,6 +358,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to App is not connected to the network..
+        /// </summary>
+        internal static string AppNotConnected {
+            get {
+                return ResourceManager.GetString("AppNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Approve Information.
         /// </summary>
         internal static string ApproveInformation {
@@ -2266,6 +2275,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid TAG Signature URI..
+        /// </summary>
+        internal static string InvalidTagSignatureId {
+            get {
+                return ResourceManager.GetString("InvalidTagSignatureId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid username or password.
         /// </summary>
         internal static string InvalidUsernameOrPassword {
@@ -2352,6 +2370,15 @@ namespace IdApp.Resx {
         internal static string LegalId {
             get {
                 return ResourceManager.GetString("LegalId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legal ID not approved..
+        /// </summary>
+        internal static string LegalIdNotApproved {
+            get {
+                return ResourceManager.GetString("LegalIdNotApproved", resourceCulture);
             }
         }
         
@@ -2712,6 +2739,15 @@ namespace IdApp.Resx {
         internal static string NoJustIgnore {
             get {
                 return ResourceManager.GetString("NoJustIgnore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Legal ID selected..
+        /// </summary>
+        internal static string NoLegalIdSelected {
+            get {
+                return ResourceManager.GetString("NoLegalIdSelected", resourceCulture);
             }
         }
         

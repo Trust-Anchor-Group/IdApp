@@ -2217,4 +2217,16 @@
   <data name="Information" xml:space="preserve">
     <value>Informacija</value>
   </data>
+  <data name="AppNotConnected" xml:space="preserve">
+    <value>Aplikacija nije povezana sa mrežom.</value>
+  </data>
+  <data name="InvalidTagSignatureId" xml:space="preserve">
+    <value>Nevažeći URI potpisa TAG.</value>
+  </data>
+  <data name="LegalIdNotApproved" xml:space="preserve">
+    <value>Pravna ID nije odobrena.</value>
+  </data>
+  <data name="NoLegalIdSelected" xml:space="preserve">
+    <value>Nije izabran pravni ID.</value>
+  </data>
 </root>

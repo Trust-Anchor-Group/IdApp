@@ -2217,4 +2217,16 @@
   <data name="Information" xml:space="preserve">
     <value>Informație</value>
   </data>
+  <data name="AppNotConnected" xml:space="preserve">
+    <value>Aplicația nu este conectată la rețea.</value>
+  </data>
+  <data name="InvalidTagSignatureId" xml:space="preserve">
+    <value>TAG-ul nevalidă semnătura URI.</value>
+  </data>
+  <data name="LegalIdNotApproved" xml:space="preserve">
+    <value>Actul de identitate legal nu a fost aprobat.</value>
+  </data>
+  <data name="NoLegalIdSelected" xml:space="preserve">
+    <value>Nu este selectat niciun act de identitate legal.</value>
+  </data>
 </root>

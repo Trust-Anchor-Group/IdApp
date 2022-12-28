@@ -2217,4 +2217,16 @@
   <data name="Information" xml:space="preserve">
     <value>Information</value>
   </data>
+  <data name="AppNotConnected" xml:space="preserve">
+    <value>Appen har ikke forbindelse til netværket.</value>
+  </data>
+  <data name="InvalidTagSignatureId" xml:space="preserve">
+    <value>Ugyldig TAG-signatur URI.</value>
+  </data>
+  <data name="LegalIdNotApproved" xml:space="preserve">
+    <value>Juridisk ID ikke godkendt.</value>
+  </data>
+  <data name="NoLegalIdSelected" xml:space="preserve">
+    <value>Intet juridisk id er valgt.</value>
+  </data>
 </root>

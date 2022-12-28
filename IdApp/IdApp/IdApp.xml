@@ -16371,6 +16371,11 @@
               Looks up a localized string similar to A petition has been sent to your peer.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.AppNotConnected">
+            <summary>
+              Looks up a localized string similar to App is not connected to the network..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ApproveInformation">
             <summary>
               Looks up a localized string similar to Approve Information.
@@ -17431,6 +17436,11 @@
               Looks up a localized string similar to Invalid Neuro-Feature token..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.InvalidTagSignatureId">
+            <summary>
+              Looks up a localized string similar to Invalid TAG Signature URI..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.InvalidUsernameOrPassword">
             <summary>
               Looks up a localized string similar to Invalid username or password.
@@ -17479,6 +17489,11 @@
         <member name="P:IdApp.Resx.AppResources.LegalId">
             <summary>
               Looks up a localized string similar to Legal Id.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.LegalIdNotApproved">
+            <summary>
+              Looks up a localized string similar to Legal ID not approved..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.LegalServiceNotFound">
@@ -17679,6 +17694,11 @@
         <member name="P:IdApp.Resx.AppResources.NoJustIgnore">
             <summary>
               Looks up a localized string similar to No, just ignore.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.NoLegalIdSelected">
+            <summary>
+              Looks up a localized string similar to No Legal ID selected..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.None">
