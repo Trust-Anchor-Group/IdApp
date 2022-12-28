@@ -16,7 +16,7 @@
                 <Label Text="{x:Static resx:AppResources.EDalerNoteDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
                 <!-- Note -->
                 <Frame HeightRequest="150" BorderColor="{StaticResource ForegroundColor}" CornerRadius="6" HasShadow="True" BackgroundColor="{StaticResource HeadingBackground}">
-                    <Grid HeightRequest="150" WidthRequest="10000">
+                    <Grid HeightRequest="150" WidthRequest="10000" BackgroundColor="Transparent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
