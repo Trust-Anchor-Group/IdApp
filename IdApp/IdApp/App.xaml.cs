@@ -971,6 +971,7 @@ namespace IdApp
 				if (!displayedPinPopup && (Force || NeedToVerifyPin))
 					return await InputPin(Profile) is not null;
 			}
+
 			return true;
 		}
 
