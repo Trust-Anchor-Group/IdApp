@@ -491,7 +491,16 @@ namespace IdApp.Android.Push
 		/// <returns>Token, Service used, and type of client.</returns>
 		public async Task<TokenInformation> GetToken()
 		{
-			Java.Lang.Object Token = await FirebaseMessaging.Instance.GetToken().AsAsync<Java.Lang.Object>();
+			Java.Lang.Object Token = string.Empty;
+
+			try
+			{
+				Token = await FirebaseMessaging.Instance.GetToken().AsAsync<Java.Lang.Object>();
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
 
 			return new TokenInformation()
 			{

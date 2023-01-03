@@ -6,6 +6,7 @@ using Android.Nfc;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Firebase;
 using IdApp.Android.Nfc;
 using IdApp.Nfc;
 using IdApp.Services.Nfc;
@@ -48,6 +49,7 @@ namespace IdApp.Android
 
 			nfcAdapter = NfcAdapter.GetDefaultAdapter(this);
 
+			FirebaseApp.InitializeApp(this);
 			Xamarin.Essentials.Platform.Init(this, SavedInstanceState);
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 			Rg.Plugins.Popup.Popup.Init(this);
