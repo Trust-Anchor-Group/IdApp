@@ -1822,19 +1822,12 @@ namespace IdApp.Services.Xmpp
 		{
 			// TODO: Check if started
 
-			DateTime TP = DateTime.UtcNow;
-
-			await RuntimeSettings.SetAsync("PUSH.TOKEN", TokenInformation.Token);
-			await RuntimeSettings.SetAsync("PUSH.SERVICE", TokenInformation.Service);
-			await RuntimeSettings.SetAsync("PUSH.CLIENT", TokenInformation.ClientType);
-			await RuntimeSettings.SetAsync("PUSH.TP", TP);
-
 			if (this.pushNotificationClient is null || !this.IsOnline)
 				return false;
 			else
 			{
 				await this.ReportNewPushNotificationToken(TokenInformation.Token, TokenInformation.Service, TokenInformation.ClientType);
-				await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
+				await RuntimeSettings.SetAsync("PUSH.TOKEN", TokenInformation.Token);
 
 				return true;
 			}
@@ -4150,7 +4143,7 @@ namespace IdApp.Services.Xmpp
 		/// <param name="TokenId">Token ID</param>
 		/// <param name="TextNote">Text Note</param>
 		/// <param name="Personal">If the text note contains personal information. (default=false).
-		/// 
+		///
 		/// Note: Personal notes are deleted when ownership of token is transferred.</param>
 		public Task AddNeuroFeatureTextNote(string TokenId, string TextNote, bool Personal)
 		{
@@ -4175,7 +4168,7 @@ namespace IdApp.Services.Xmpp
 		/// <param name="TokenId">Token ID</param>
 		/// <param name="XmlNote">Xml Note</param>
 		/// <param name="Personal">If the xml note contains personal information. (default=false).
-		/// 
+		///
 		/// Note: Personal notes are deleted when ownership of token is transferred.</param>
 		public Task AddNeuroFeatureXmlNote(string TokenId, string XmlNote, bool Personal)
 		{

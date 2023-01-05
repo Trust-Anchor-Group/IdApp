@@ -102,23 +102,14 @@ namespace IdApp.Services.Push
 
 					bool Reconfig = false;
 					string OldToken = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
-					DateTime TP = await RuntimeSettings.GetAsync("PUSH.TP", DateTime.MinValue);
-					DateTime LastTP = await RuntimeSettings.GetAsync("PUSH.LAST_TP", DateTime.MinValue);
 
-					if (DateTime.Compare(TP, LastTP) != 0 || NewToken != OldToken)
+					if (NewToken != OldToken)
 					{
 						PushMessagingService Service = TokenInformation.Service;
 						ClientType ClientType = TokenInformation.ClientType;
 
-						await RuntimeSettings.SetAsync("PUSH.TOKEN", NewToken);
-						await RuntimeSettings.SetAsync("PUSH.SERVICE", Service);
-						await RuntimeSettings.SetAsync("PUSH.CLIENT", ClientType);
-
 						await this.XmppService.ReportNewPushNotificationToken(NewToken, Service, ClientType);
-
-						TP = DateTime.UtcNow;
-						await RuntimeSettings.SetAsync("PUSH.TP", TP);
-						await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
+						await RuntimeSettings.SetAsync("PUSH.TOKEN", NewToken);
 
 						Reconfig = true;
 					}
