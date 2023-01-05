@@ -509,6 +509,5 @@ namespace IdApp.Android.Push
 				Service = PushMessagingService.Firebase
 			};
 		}
-
 	}
 }

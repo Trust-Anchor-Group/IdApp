@@ -91,42 +91,33 @@ namespace IdApp.Services.Push
 				{
 					this.lastTokenCheck = Now;
 
+					IGetPushNotificationToken GetToken = DependencyService.Get<IGetPushNotificationToken>();
+					if (GetToken is null)
+						return;
+
+					TokenInformation TokenInformation = await GetToken.GetToken();
+					string NewToken = TokenInformation.Token;
+					if (string.IsNullOrEmpty(NewToken))
+						return;
+
+					bool Reconfig = false;
+					string OldToken = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
 					DateTime TP = await RuntimeSettings.GetAsync("PUSH.TP", DateTime.MinValue);
 					DateTime LastTP = await RuntimeSettings.GetAsync("PUSH.LAST_TP", DateTime.MinValue);
-					bool Reconfig = false;
 
-					if (TP != LastTP || DateTime.UtcNow.Subtract(LastTP).TotalDays >= 7)    // Firebase recommends updating token, while app still works, but not more often than once a week, unless it changes.
+					if (DateTime.Compare(TP, LastTP) != 0 || NewToken != OldToken)
 					{
-						string Token = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
-						PushMessagingService Service;
-						ClientType ClientType;
+						PushMessagingService Service = TokenInformation.Service;
+						ClientType ClientType = TokenInformation.ClientType;
 
-						if (string.IsNullOrEmpty(Token))
-						{
-							IGetPushNotificationToken GetToken = DependencyService.Get<IGetPushNotificationToken>();
-							if (GetToken is null)
-								return;
+						await RuntimeSettings.SetAsync("PUSH.TOKEN", NewToken);
+						await RuntimeSettings.SetAsync("PUSH.SERVICE", Service);
+						await RuntimeSettings.SetAsync("PUSH.CLIENT", ClientType);
 
-							TokenInformation TokenInformation = await GetToken.GetToken();
+						await this.XmppService.ReportNewPushNotificationToken(NewToken, Service, ClientType);
 
-							Token = TokenInformation.Token;
-							if (string.IsNullOrEmpty(Token))
-								return;
-
-							Service = TokenInformation.Service;
-							ClientType = TokenInformation.ClientType;
-
-							await RuntimeSettings.SetAsync("PUSH.TOKEN", Token);
-							await RuntimeSettings.SetAsync("PUSH.SERVICE", Service);
-							await RuntimeSettings.SetAsync("PUSH.CLIENT", ClientType);
-						}
-						else
-						{
-							Service = (PushMessagingService)await RuntimeSettings.GetAsync("PUSH.SERVICE", PushMessagingService.Firebase);
-							ClientType = (ClientType)await RuntimeSettings.GetAsync("PUSH.CLIENT", ClientType.Other);
-						}
-
-						await this.XmppService.ReportNewPushNotificationToken(Token, Service, ClientType);
+						TP = DateTime.UtcNow;
+						await RuntimeSettings.SetAsync("PUSH.TP", TP);
 						await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
 
 						Reconfig = true;
