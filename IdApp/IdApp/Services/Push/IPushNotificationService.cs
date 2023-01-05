@@ -33,6 +33,7 @@ namespace IdApp.Services.Push
 		/// <summary>
 		/// Checks if the Push Notification Token is current and registered properly.
 		/// </summary>
-		Task CheckPushNotificationToken();
+		/// <param name="TokenInformation">Non null if we got it from the OnNewToken</param>
+		Task CheckPushNotificationToken(TokenInformation TokenInformation = null);
 	}
 }

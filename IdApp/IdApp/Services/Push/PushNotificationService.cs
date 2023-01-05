@@ -79,7 +79,8 @@ namespace IdApp.Services.Push
 		/// <summary>
 		/// Checks if the Push Notification Token is current and registered properly.
 		/// </summary>
-		public async Task CheckPushNotificationToken()
+		/// <param name="TokenInformation">Non null if we got it from the OnNewToken</param>
+		public async Task CheckPushNotificationToken(TokenInformation TokenInformation)
 		{
 			try
 			{
@@ -95,21 +96,20 @@ namespace IdApp.Services.Push
 					if (GetToken is null)
 						return;
 
-					TokenInformation TokenInformation = await GetToken.GetToken();
-					string NewToken = TokenInformation.Token;
-					if (string.IsNullOrEmpty(NewToken))
-						return;
+					if (TokenInformation is null)
+					{
+						TokenInformation = await GetToken.GetToken();
+						if (string.IsNullOrEmpty(TokenInformation.Token))
+							return;
+					}
 
 					bool Reconfig = false;
 					string OldToken = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
 
-					if (NewToken != OldToken)
+					if (TokenInformation.Token != OldToken)
 					{
-						PushMessagingService Service = TokenInformation.Service;
-						ClientType ClientType = TokenInformation.ClientType;
-
-						await this.XmppService.ReportNewPushNotificationToken(NewToken, Service, ClientType);
-						await RuntimeSettings.SetAsync("PUSH.TOKEN", NewToken);
+						await this.XmppService.ReportNewPushNotificationToken(TokenInformation.Token, TokenInformation.Service, TokenInformation.ClientType);
+						await RuntimeSettings.SetAsync("PUSH.TOKEN", TokenInformation.Token);
 
 						Reconfig = true;
 					}

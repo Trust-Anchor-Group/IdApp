@@ -467,17 +467,23 @@ namespace IdApp.Android.Push
 			}
 		}
 
-		public override async void OnNewToken(string p0)
+		public override async void OnNewToken(string NewToken)
 		{
 			try
 			{
 				IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
-				await (PushService?.NewToken(new TokenInformation()
+
+				if (PushService is not null)
 				{
-					Service = PushMessagingService.Firebase,
-					Token = p0,
-					ClientType = ClientType.Android
-				}) ?? Task.CompletedTask);
+					TokenInformation TokenInformation = new()
+					{
+						Token = NewToken,
+						ClientType = ClientType.Android,
+						Service = PushMessagingService.Firebase
+					};
+
+					await PushService.CheckPushNotificationToken(TokenInformation);
+				}
 			}
 			catch (Exception ex)
 			{

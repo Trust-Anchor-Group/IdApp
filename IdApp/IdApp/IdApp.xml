@@ -22866,10 +22866,11 @@
             Event raised when a new token is made available.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Push.IPushNotificationService.CheckPushNotificationToken">
+        <member name="M:IdApp.Services.Push.IPushNotificationService.CheckPushNotificationToken(IdApp.Services.Push.TokenInformation)">
             <summary>
             Checks if the Push Notification Token is current and registered properly.
             </summary>
+            <param name="TokenInformation">Non null if we got it from the OnNewToken</param>
         </member>
         <member name="T:IdApp.Services.Push.PushNotificationService">
             <summary>
@@ -22900,10 +22901,11 @@
             <param name="Token">Token, if found.</param>
             <returns>If a token was found for the corresponding source.</returns>
         </member>
-        <member name="M:IdApp.Services.Push.PushNotificationService.CheckPushNotificationToken">
+        <member name="M:IdApp.Services.Push.PushNotificationService.CheckPushNotificationToken(IdApp.Services.Push.TokenInformation)">
             <summary>
             Checks if the Push Notification Token is current and registered properly.
             </summary>
+            <param name="TokenInformation">Non null if we got it from the OnNewToken</param>
         </member>
         <member name="F:IdApp.Services.Push.PushNotificationService.currentTokenConfiguration">
             <summary>
@@ -27291,14 +27293,14 @@
             <param name="TextNote">Text Note</param>
         </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.AddNeuroFeatureTextNote(System.String,System.String,System.Boolean)">
-            <summary>
-            Adds a text note on a token.
-            </summary>
-            <param name="TokenId">Token ID</param>
-            <param name="TextNote">Text Note</param>
-            <param name="Personal">If the text note contains personal information. (default=false).
+             <summary>
+             Adds a text note on a token.
+             </summary>
+             <param name="TokenId">Token ID</param>
+             <param name="TextNote">Text Note</param>
+             <param name="Personal">If the text note contains personal information. (default=false).
             
-            Note: Personal notes are deleted when ownership of token is transferred.</param>
+             Note: Personal notes are deleted when ownership of token is transferred.</param>
         </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.AddNeuroFeatureXmlNote(System.String,System.String)">
             <summary>
@@ -27308,14 +27310,14 @@
             <param name="XmlNote">Xml Note</param>
         </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.AddNeuroFeatureXmlNote(System.String,System.String,System.Boolean)">
-            <summary>
-            Adds a xml note on a token.
-            </summary>
-            <param name="TokenId">Token ID</param>
-            <param name="XmlNote">Xml Note</param>
-            <param name="Personal">If the xml note contains personal information. (default=false).
+             <summary>
+             Adds a xml note on a token.
+             </summary>
+             <param name="TokenId">Token ID</param>
+             <param name="XmlNote">Xml Note</param>
+             <param name="Personal">If the xml note contains personal information. (default=false).
             
-            Note: Personal notes are deleted when ownership of token is transferred.</param>
+             Note: Personal notes are deleted when ownership of token is transferred.</param>
         </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.GetNeuroFeatureCreationAttributes">
             <summary>

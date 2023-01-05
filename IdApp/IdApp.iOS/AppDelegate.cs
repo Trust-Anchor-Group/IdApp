@@ -347,23 +347,28 @@ namespace IdApp.iOS
 		}
 
 		[Export("messaging:didReceiveRegistrationToken:")]
-        public async void DidReceiveRegistrationToken(Messaging _, string FcmToken)
+        public async void DidReceiveRegistrationToken(Messaging _, string NewToken)
         {
-            try
-            {
-                IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
+			try
+			{
+				IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
 
-                await (PushService?.NewToken(new TokenInformation()
-                {
-                    Service = PushMessagingService.Firebase,
-                    Token = FcmToken,
-                    ClientType = ClientType.iOS
-                }) ?? Task.CompletedTask);
-            }
-            catch (Exception ex)
-            {
-                Log.Critical(ex);
-            }
+				if (PushService is not null)
+				{
+					TokenInformation TokenInformation = new()
+					{
+						Token = NewToken,
+						ClientType = ClientType.Android,
+						Service = PushMessagingService.Firebase
+					};
+
+					await PushService.CheckPushNotificationToken(TokenInformation);
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
         }
 
         private void RemoveAllNotifications()

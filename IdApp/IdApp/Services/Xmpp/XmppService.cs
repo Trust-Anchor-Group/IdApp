@@ -1827,7 +1827,6 @@ namespace IdApp.Services.Xmpp
 			else
 			{
 				await this.ReportNewPushNotificationToken(TokenInformation.Token, TokenInformation.Service, TokenInformation.ClientType);
-				await RuntimeSettings.SetAsync("PUSH.TOKEN", TokenInformation.Token);
 
 				return true;
 			}
