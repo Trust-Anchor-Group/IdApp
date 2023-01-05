@@ -105,8 +105,9 @@ namespace IdApp.Services.Push
 
 					bool Reconfig = false;
 					string OldToken = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
+					long ConfigNr = await RuntimeSettings.GetAsync("PUSH.CONFIG_NR", 0);
 
-					if (TokenInformation.Token != OldToken)
+					if ((TokenInformation.Token != OldToken) || (ConfigNr != currentTokenConfiguration))
 					{
 						await this.XmppService.ReportNewPushNotificationToken(TokenInformation.Token, TokenInformation.Service, TokenInformation.ClientType);
 						await RuntimeSettings.SetAsync("PUSH.TOKEN", TokenInformation.Token);
@@ -114,8 +115,7 @@ namespace IdApp.Services.Push
 						Reconfig = true;
 					}
 
-					long ConfigNr = await RuntimeSettings.GetAsync("PUSH.CONFIG_NR", 0);
-					if (ConfigNr != currentTokenConfiguration || Reconfig)
+					if (Reconfig)
 					{
 						await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", 0);
 						await this.XmppService.ClearPushNotificationRules();
@@ -469,7 +469,7 @@ namespace IdApp.Services.Push
 		/// <summary>
 		/// Increment this configuration number by one, each time token configuration changes.
 		/// </summary>
-		private const int currentTokenConfiguration = 12;
+		private const int currentTokenConfiguration = 13;
 
 	}
 }
