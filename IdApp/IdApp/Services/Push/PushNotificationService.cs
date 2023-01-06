@@ -76,6 +76,17 @@ namespace IdApp.Services.Push
 			}
 		}
 
+		private async Task<bool> ForceTokenReport(TokenInformation TokenInformation)
+		{
+			long ConfigNr = await RuntimeSettings.GetAsync("PUSH.CONFIG_NR", 0);
+			string OldToken = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
+			DateTime ReportDate = await RuntimeSettings.GetAsync("PUSH.REPORT_DATE", DateTime.MinValue);
+
+			return (ConfigNr != currentTokenConfiguration)
+				|| (DateTime.UtcNow.Subtract(ReportDate).TotalDays > 7)
+				|| TokenInformation.Token != OldToken;
+		}
+
 		/// <summary>
 		/// Checks if the Push Notification Token is current and registered properly.
 		/// </summary>
@@ -103,20 +114,18 @@ namespace IdApp.Services.Push
 							return;
 					}
 
-					bool Reconfig = false;
-					string OldToken = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
-					long ConfigNr = await RuntimeSettings.GetAsync("PUSH.CONFIG_NR", 0);
+					bool ForceTokenReport = await this.ForceTokenReport(TokenInformation);
 
-					if ((TokenInformation.Token != OldToken) || (ConfigNr != currentTokenConfiguration))
+					if (ForceTokenReport)
 					{
-						await this.XmppService.ReportNewPushNotificationToken(TokenInformation.Token, TokenInformation.Service, TokenInformation.ClientType);
+						string Token = TokenInformation.Token;
+						PushMessagingService Service = TokenInformation.Service;
+						ClientType ClientType = TokenInformation.ClientType;
+						await this.XmppService.ReportNewPushNotificationToken(Token, Service, ClientType);
+
 						await RuntimeSettings.SetAsync("PUSH.TOKEN", TokenInformation.Token);
+						await RuntimeSettings.SetAsync("PUSH.REPORT_DATE", DateTime.UtcNow);
 
-						Reconfig = true;
-					}
-
-					if (Reconfig)
-					{
 						await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", 0);
 						await this.XmppService.ClearPushNotificationRules();
 
