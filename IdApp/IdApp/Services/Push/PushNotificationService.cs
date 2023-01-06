@@ -14,6 +14,7 @@ using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Settings;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.Services.Push
@@ -78,13 +79,10 @@ namespace IdApp.Services.Push
 
 		private async Task<bool> ForceTokenReport(TokenInformation TokenInformation)
 		{
-			long ConfigNr = await RuntimeSettings.GetAsync("PUSH.CONFIG_NR", 0);
 			string OldToken = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
 			DateTime ReportDate = await RuntimeSettings.GetAsync("PUSH.REPORT_DATE", DateTime.MinValue);
 
-			return (ConfigNr != currentTokenConfiguration)
-				|| (DateTime.UtcNow.Subtract(ReportDate).TotalDays > 7)
-				|| TokenInformation.Token != OldToken;
+			return (DateTime.UtcNow.Subtract(ReportDate).TotalDays > 7) || (TokenInformation.Token != OldToken);
 		}
 
 		/// <summary>
@@ -125,8 +123,15 @@ namespace IdApp.Services.Push
 
 						await RuntimeSettings.SetAsync("PUSH.TOKEN", TokenInformation.Token);
 						await RuntimeSettings.SetAsync("PUSH.REPORT_DATE", DateTime.UtcNow);
+					}
 
-						await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", 0);
+					string Version = AppInfo.VersionString + "." + AppInfo.BuildString;
+					string PrevVersion = await RuntimeSettings.GetAsync("PUSH.CONFIG_VERSION", string.Empty);
+
+					if (Version != PrevVersion)
+					{
+						// it will force the rules update if somehing goes wrong.
+						await RuntimeSettings.SetAsync("PUSH.CONFIG_VERSION", string.Empty);
 						await this.XmppService.ClearPushNotificationRules();
 
 						#region Message Rules
@@ -465,7 +470,7 @@ namespace IdApp.Services.Push
 
 						#endregion
 
-						await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", currentTokenConfiguration);
+						await RuntimeSettings.SetAsync("PUSH.CONFIG_VERSION", Version);
 					}
 				}
 			}
@@ -474,11 +479,5 @@ namespace IdApp.Services.Push
 				this.LogService.LogException(ex);
 			}
 		}
-
-		/// <summary>
-		/// Increment this configuration number by one, each time token configuration changes.
-		/// </summary>
-		private const int currentTokenConfiguration = 13;
-
 	}
 }

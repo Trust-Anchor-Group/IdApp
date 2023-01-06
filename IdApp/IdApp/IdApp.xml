@@ -22907,11 +22907,6 @@
             </summary>
             <param name="TokenInformation">Non null if we got it from the OnNewToken</param>
         </member>
-        <member name="F:IdApp.Services.Push.PushNotificationService.currentTokenConfiguration">
-            <summary>
-            Increment this configuration number by one, each time token configuration changes.
-            </summary>
-        </member>
         <member name="T:IdApp.Services.Push.TokenEventHandler">
             <summary>
             Delegate for token event handlers.
