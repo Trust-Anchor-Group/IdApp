@@ -358,7 +358,7 @@ namespace IdApp.iOS
 					TokenInformation TokenInformation = new()
 					{
 						Token = NewToken,
-						ClientType = ClientType.Android,
+						ClientType = ClientType.iOS,
 						Service = PushMessagingService.Firebase
 					};
 
