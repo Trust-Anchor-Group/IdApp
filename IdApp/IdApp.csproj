@@ -1,0 +1,114 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>IdApp</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>IdApp</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.idapp</ApplicationId>
+		<ApplicationIdGuid>d960648e-cc37-4c2e-a3ba-d45f2b4dfece</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="3.1.0" />
+		<PackageReference Include="CommunityToolkit.Maui.Markup" Version="2.1.0" />
+		<PackageReference Include="EDaler" Version="2.1.8" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="NeuroFeatures" Version="1.1.8" />
+		<PackageReference Include="Waher.Content" Version="2.4.8" />
+		<PackageReference Include="Waher.Content.Emoji" Version="2.0.0" />
+		<PackageReference Include="Waher.Content.Images" Version="2.1.2" />
+		<PackageReference Include="Waher.Content.Markdown" Version="2.2.5" />
+		<PackageReference Include="Waher.Content.QR" Version="2.0.0" />
+		<PackageReference Include="Waher.Content.Xml" Version="2.0.5" />
+		<PackageReference Include="Waher.Events.XMPP" Version="1.2.3" />
+		<PackageReference Include="Waher.Networking" Version="2.1.0" />
+		<PackageReference Include="Waher.Networking.DNS" Version="2.0.2" />
+		<PackageReference Include="Waher.Networking.PeerToPeer" Version="2.0.0" />
+		<PackageReference Include="Waher.Networking.UPnP" Version="2.0.0" />
+		<PackageReference Include="Waher.Networking.XMPP" Version="2.1.0" />
+		<PackageReference Include="Waher.Networking.XMPP.Concentrator" Version="2.0.10" />
+		<PackageReference Include="Waher.Networking.XMPP.Contracts" Version="2.3.6" />
+		<PackageReference Include="Waher.Networking.XMPP.Control" Version="2.0.3" />
+		<PackageReference Include="Waher.Networking.XMPP.HTTPX" Version="2.1.0" />
+		<PackageReference Include="Waher.Networking.XMPP.MUC" Version="2.0.2" />
+		<PackageReference Include="Waher.Networking.XMPP.P2P" Version="2.0.2" />
+		<PackageReference Include="Waher.Networking.XMPP.PEP" Version="2.0.4" />
+		<PackageReference Include="Waher.Networking.XMPP.Provisioning" Version="2.0.6" />
+		<PackageReference Include="Waher.Networking.XMPP.PubSub" Version="2.0.4" />
+		<PackageReference Include="Waher.Networking.XMPP.Push" Version="2.0.0" />
+		<PackageReference Include="Waher.Networking.XMPP.Sensor" Version="2.1.1" />
+		<PackageReference Include="Waher.Persistence" Version="1.8.2" />
+		<PackageReference Include="Waher.Persistence.FilesLW" Version="1.9.4" />
+		<PackageReference Include="Waher.Runtime.Inventory" Version="1.1.2" />
+		<PackageReference Include="Waher.Runtime.Language" Version="1.1.1" />
+		<PackageReference Include="Waher.Runtime.Profiling" Version="1.0.5" />
+		<PackageReference Include="Waher.Runtime.Queue" Version="1.0.1" />
+		<PackageReference Include="Waher.Runtime.Settings" Version="1.0.10" />
+		<PackageReference Include="Waher.Runtime.Temporary" Version="1.0.0" />
+		<PackageReference Include="Waher.Runtime.Text" Version="1.0.1" />
+		<PackageReference Include="Waher.Runtime.Timing" Version="1.0.5" />
+		<PackageReference Include="Waher.Script" Version="2.4.10" />
+		<PackageReference Include="Waher.Script.Content" Version="2.0.5" />
+		<PackageReference Include="Waher.Security" Version="1.0.8" />
+		<PackageReference Include="Waher.Security.JWS" Version="1.0.8" />
+		<PackageReference Include="Waher.Security.JWT" Version="1.3.6" />
+		<PackageReference Include="Waher.Things" Version="1.3.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resources\Resx\AppResources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>AppResources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Resx\AppResources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+</Project>
