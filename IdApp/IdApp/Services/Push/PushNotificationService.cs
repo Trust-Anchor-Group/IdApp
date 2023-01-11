@@ -114,7 +114,11 @@ namespace IdApp.Services.Push
 
 					bool ForceTokenReport = await this.ForceTokenReport(TokenInformation);
 
-					if (ForceTokenReport)
+					string Version = AppInfo.VersionString + "." + AppInfo.BuildString;
+					string PrevVersion = await RuntimeSettings.GetAsync("PUSH.CONFIG_VERSION", string.Empty);
+					bool IsVersionChanged = Version != PrevVersion;
+
+					if (IsVersionChanged || ForceTokenReport)
 					{
 						string Token = TokenInformation.Token;
 						PushMessagingService Service = TokenInformation.Service;
@@ -125,10 +129,7 @@ namespace IdApp.Services.Push
 						await RuntimeSettings.SetAsync("PUSH.REPORT_DATE", DateTime.UtcNow);
 					}
 
-					string Version = AppInfo.VersionString + "." + AppInfo.BuildString;
-					string PrevVersion = await RuntimeSettings.GetAsync("PUSH.CONFIG_VERSION", string.Empty);
-
-					if (Version != PrevVersion)
+					if (IsVersionChanged)
 					{
 						// it will force the rules update if somehing goes wrong.
 						await RuntimeSettings.SetAsync("PUSH.CONFIG_VERSION", string.Empty);
