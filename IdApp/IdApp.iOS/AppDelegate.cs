@@ -350,7 +350,6 @@ namespace IdApp.iOS
         {
 			try
 			{
-				Log.Warning("DidReceiveRegistrationToken 1", NewToken);
 				IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
 
 				if (PushService is not null)
@@ -362,7 +361,6 @@ namespace IdApp.iOS
 						Service = PushMessagingService.Firebase
 					};
 
-					Log.Warning("DidReceiveRegistrationToken 2", NewToken);
 					await PushService.CheckPushNotificationToken(TokenInformation);
 				}
 			}

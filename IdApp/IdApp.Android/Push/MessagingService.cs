@@ -31,18 +31,12 @@ namespace IdApp.Android.Push
 		{
 			try
 			{
-				Log.Warning("OnMessageReceived 1", Message.ToString());
 				if (!App.IsOnboarded)
 					return;
 
-				Log.Warning("OnMessageReceived 2");
 				string Body = Message.Data["myBody"];
 				string Title = Message.Data["myTitle"];
 				string ChannelId = Message.Data["channelId"];
-
-				Log.Warning("OnMessageReceived 3", Body);
-				Log.Warning("OnMessageReceived 4", Title);
-				Log.Warning("OnMessageReceived 5", ChannelId);
 
 				switch (ChannelId)
 				{
@@ -80,7 +74,6 @@ namespace IdApp.Android.Push
 			}
 			catch (Exception ex)
 			{
-				Log.Warning("OnMessageReceived 6", ex.ToString());
 				Log.Critical(ex);
 			}
 		}
@@ -108,7 +101,7 @@ namespace IdApp.Android.Push
 			foreach (string Key in Data.Keys)
 				Intent.PutExtra(Key, Data[Key]);
 
-			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
+			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot|PendingIntentFlags.Immutable);
 			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationChatIcon);
 
 			Notification.Builder notificationBuilder = new Notification.Builder(this, Constants.PushChannels.Messages)
@@ -508,13 +501,10 @@ namespace IdApp.Android.Push
 
 			try
 			{
-				Log.Warning("GetToken 1");
 				Token = await FirebaseMessaging.Instance.GetToken().AsAsync<Java.Lang.Object>();
-				Log.Warning("GetToken 2", Token.ToString());
 			}
 			catch (Exception ex)
 			{
-				Log.Warning("GetToken 3", ex.ToString());
 				Log.Critical(ex);
 			}
 

@@ -22,13 +22,10 @@ namespace IdApp.iOS.Push
 
 			try
 			{
-				Log.Warning("GetToken 1");
 				Token = Messaging.SharedInstance.FcmToken ?? string.Empty;
-				Log.Warning("GetToken 2", Token.ToString());
 			}
 			catch (Exception ex)
 			{
-				Log.Warning("GetToken 3", ex.ToString());
 				Log.Critical(ex);
 			}
 
