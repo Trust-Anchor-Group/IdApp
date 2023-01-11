@@ -3,7 +3,6 @@ using Firebase.CloudMessaging;
 using Foundation;
 using IdApp.Helpers;
 using IdApp.Services;
-using IdApp.Services.Ocr;
 using IdApp.Services.Push;
 using IdApp.Services.Xmpp;
 using System;
@@ -24,6 +23,7 @@ namespace IdApp.iOS
 	[Register("AppDelegate")]
 	public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate, IMessagingDelegate
 	{
+		private static Waher.Events.Files.XmlFileEventSink xmlFileEventSink = null;
 		private NSObject onKeyboardShowObserver;
 		private NSObject onKeyboardHideObserver;
 
@@ -36,6 +36,12 @@ namespace IdApp.iOS
 		//
 		public override bool FinishedLaunching(UIApplication Application, NSDictionary Options)
 		{
+			if (xmlFileEventSink is null)
+			{
+				xmlFileEventSink = new Waher.Events.Files.XmlFileEventSink("", "IosMainLog.xml");
+				Waher.Events.Log.Register(xmlFileEventSink);
+			}
+
 			UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
 
 			Firebase.Core.App.Configure();
@@ -351,6 +357,7 @@ namespace IdApp.iOS
         {
 			try
 			{
+				Log.Warning("DidReceiveRegistrationToken 1", NewToken);
 				IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
 
 				if (PushService is not null)
@@ -362,6 +369,7 @@ namespace IdApp.iOS
 						Service = PushMessagingService.Firebase
 					};
 
+					Log.Warning("DidReceiveRegistrationToken 2", NewToken);
 					await PushService.CheckPushNotificationToken(TokenInformation);
 				}
 			}

@@ -31,12 +31,18 @@ namespace IdApp.Android.Push
 		{
 			try
 			{
+				Log.Warning("OnMessageReceived 1", Message.ToString());
 				if (!App.IsOnboarded)
 					return;
 
+				Log.Warning("OnMessageReceived 2");
 				string Body = Message.Data["myBody"];
 				string Title = Message.Data["myTitle"];
 				string ChannelId = Message.Data["channelId"];
+
+				Log.Warning("OnMessageReceived 3", Body);
+				Log.Warning("OnMessageReceived 4", Title);
+				Log.Warning("OnMessageReceived 5", ChannelId);
 
 				switch (ChannelId)
 				{
@@ -72,9 +78,10 @@ namespace IdApp.Android.Push
 						break;
 				}
 			}
-			catch (Exception Exc)
+			catch (Exception ex)
 			{
-				Log.Critical(Exc);
+				Log.Warning("OnMessageReceived 6", ex.ToString());
+				Log.Critical(ex);
 			}
 		}
 
@@ -501,19 +508,24 @@ namespace IdApp.Android.Push
 
 			try
 			{
+				Log.Warning("GetToken 1");
 				Token = await FirebaseMessaging.Instance.GetToken().AsAsync<Java.Lang.Object>();
+				Log.Warning("GetToken 2", Token.ToString());
 			}
 			catch (Exception ex)
 			{
+				Log.Warning("GetToken 3", ex.ToString());
 				Log.Critical(ex);
 			}
 
-			return new TokenInformation()
+			TokenInformation TokenInformation = new()
 			{
 				Token = Token.ToString(),
 				ClientType = ClientType.Android,
 				Service = PushMessagingService.Firebase
 			};
+
+			return TokenInformation;
 		}
 	}
 }

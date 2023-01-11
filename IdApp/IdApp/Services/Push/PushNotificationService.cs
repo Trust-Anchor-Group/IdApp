@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Waher.Content;
+using Waher.Events;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
@@ -93,12 +94,14 @@ namespace IdApp.Services.Push
 		{
 			try
 			{
+				Log.Warning("CheckPushNotificationToken 1");
 				DateTime Now = DateTime.Now;
 
 				if (this.XmppService.IsOnline &&
 					this.XmppService.SupportsPushNotification &&
 					Now.Subtract(this.lastTokenCheck).TotalHours >= 1)
 				{
+					Log.Warning("CheckPushNotificationToken 2");
 					this.lastTokenCheck = Now;
 
 					IGetPushNotificationToken GetToken = DependencyService.Get<IGetPushNotificationToken>();
@@ -107,6 +110,7 @@ namespace IdApp.Services.Push
 
 					if (TokenInformation is null)
 					{
+						Log.Warning("CheckPushNotificationToken 3");
 						TokenInformation = await GetToken.GetToken();
 						if (string.IsNullOrEmpty(TokenInformation.Token))
 							return;
@@ -120,6 +124,7 @@ namespace IdApp.Services.Push
 
 					if (IsVersionChanged || ForceTokenReport)
 					{
+						Log.Warning("CheckPushNotificationToken 4", PrevVersion);
 						string Token = TokenInformation.Token;
 						PushMessagingService Service = TokenInformation.Service;
 						ClientType ClientType = TokenInformation.ClientType;
@@ -127,10 +132,12 @@ namespace IdApp.Services.Push
 
 						await RuntimeSettings.SetAsync("PUSH.TOKEN", TokenInformation.Token);
 						await RuntimeSettings.SetAsync("PUSH.REPORT_DATE", DateTime.UtcNow);
+						Log.Warning("CheckPushNotificationToken 5", Version);
 					}
 
 					if (IsVersionChanged)
 					{
+						Log.Warning("CheckPushNotificationToken 6");
 						// it will force the rules update if somehing goes wrong.
 						await RuntimeSettings.SetAsync("PUSH.CONFIG_VERSION", string.Empty);
 						await this.XmppService.ClearPushNotificationRules();
@@ -472,6 +479,7 @@ namespace IdApp.Services.Push
 						#endregion
 
 						await RuntimeSettings.SetAsync("PUSH.CONFIG_VERSION", Version);
+						Log.Warning("CheckPushNotificationToken 7", Version);
 					}
 				}
 			}

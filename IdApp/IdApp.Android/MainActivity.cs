@@ -5,6 +5,7 @@ using Android.Gms.Common;
 using Android.Nfc;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Firebase;
 using IdApp.Android.Nfc;
@@ -13,6 +14,7 @@ using IdApp.Services.Nfc;
 using IdApp.Services.Ocr;
 using System;
 using System.Collections.Generic;
+using Waher.Events.XMPP;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Android
@@ -28,6 +30,7 @@ namespace IdApp.Android
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
 	{
 		private static NfcAdapter nfcAdapter = null;
+		private static Waher.Events.Files.XmlFileEventSink xmlFileEventSink = null;
 
 		protected override void OnCreate(Bundle SavedInstanceState)
 		{
@@ -41,6 +44,12 @@ namespace IdApp.Android
 
 		private void Init(Bundle SavedInstanceState)
 		{
+			if (xmlFileEventSink is null)
+			{
+				xmlFileEventSink = new Waher.Events.Files.XmlFileEventSink("", "AndroidMainLog.xml");
+				Waher.Events.Log.Register(xmlFileEventSink);
+			}
+
 			SecureDisplay.SetMainWindow(this.Window, true);
 
 			this.Window.SetFlags(
