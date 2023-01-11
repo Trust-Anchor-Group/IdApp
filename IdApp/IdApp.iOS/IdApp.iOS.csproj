@@ -199,9 +199,6 @@
     <PackageReference Include="SkiaSharp">
       <Version>2.88.3</Version>
     </PackageReference>
-    <PackageReference Include="Waher.Events.Files">
-      <Version>1.1.1</Version>
-    </PackageReference>
     <PackageReference Include="Xam.Plugin.Media">
       <Version>5.0.1</Version>
     </PackageReference>

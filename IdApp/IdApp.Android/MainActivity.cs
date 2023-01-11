@@ -14,8 +14,11 @@ using IdApp.Services.Nfc;
 using IdApp.Services.Ocr;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using Waher.Events.Files;
 using Waher.Events.XMPP;
 using Waher.Runtime.Inventory;
+using Environment = System.Environment;
 
 namespace IdApp.Android
 {
@@ -46,7 +49,11 @@ namespace IdApp.Android
 		{
 			if (xmlFileEventSink is null)
 			{
-				xmlFileEventSink = new Waher.Events.Files.XmlFileEventSink("", "AndroidMainLog.xml");
+				string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+				string LogsFolder = Path.Combine(AppDataFolder, "Logs");
+				string FullPath = LogsFolder + Path.DirectorySeparatorChar + "AndroidMainLog %YEAR%-%MONTH%-%DAY%T%HOUR%.xml";
+
+				xmlFileEventSink = new XmlFileEventSink("", FullPath);
 				Waher.Events.Log.Register(xmlFileEventSink);
 			}
 
