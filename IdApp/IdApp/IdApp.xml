@@ -23548,7 +23548,7 @@
             <param name="clientPasswordHashMethod">The hash method used when hashing the password.</param>
             <param name="identity">The new identity.</param>
         </member>
-        <member name="M:IdApp.Services.Tag.ITagProfile.ClearAccount">
+        <member name="M:IdApp.Services.Tag.ITagProfile.ClearAccount(System.Boolean)">
             <summary>
             Revert Step 2.
             </summary>
@@ -23961,7 +23961,7 @@
         <member name="M:IdApp.Services.Tag.TagProfile.SetAccountAndLegalIdentity(System.String,System.String,System.String,Waher.Networking.XMPP.Contracts.LegalIdentity)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.Tag.TagProfile.ClearAccount">
+        <member name="M:IdApp.Services.Tag.TagProfile.ClearAccount(System.Boolean)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
