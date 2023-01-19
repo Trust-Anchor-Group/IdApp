@@ -16,18 +16,18 @@ namespace IdApp.Behaviors
         public View ScrollTo { get; set; }
 
 		/// <summary>
-		/// A BindableProperty for <see cref="Condition"/> property.
+		/// A BindableProperty for <see cref="IsEnabled"/> property.
 		/// </summary>
-		public static readonly BindableProperty ConditionProperty =
-			BindableProperty.Create(nameof(Condition), typeof(bool), typeof(ScrollToClickedBehavior), true);
+		public static readonly BindableProperty IsEnabledProperty =
+			BindableProperty.Create(nameof(IsEnabled), typeof(bool), typeof(ScrollToClickedBehavior), true);
 
 		/// <summary>
-		/// Gets or sets a value indicating if the user needs to provide a purpose.
+		/// Gets or sets a value indicating if behavior is enabled or disabled
 		/// </summary>
-		public bool Condition
+		public bool IsEnabled
 		{
-			get => (bool)this.GetValue(ConditionProperty);
-			set => this.SetValue(ConditionProperty, value);
+			get => (bool)this.GetValue(IsEnabledProperty);
+			set => this.SetValue(IsEnabledProperty, value);
 		}
 
 		/// <inheritdoc/>
@@ -46,12 +46,12 @@ namespace IdApp.Behaviors
 
         private void Button_Clicked(object Sender, EventArgs e)
         {
-			if(this.Condition)
+			if(this.IsEnabled)
 				MakeVisible(this.ScrollTo);
         }
 
         /// <summary>
-        /// Scrolls to make an element visisble.
+        /// Scrolls to make an element visible.
         /// </summary>
         /// <param name="Element">Element to make visible.</param>
         public static void MakeVisible(View Element)

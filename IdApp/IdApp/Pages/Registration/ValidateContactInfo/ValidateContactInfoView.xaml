@@ -129,9 +129,9 @@
                             Text="{Binding Path=VerifyPhoneCodeButtonLabel}" Command="{Binding Path=VerifyPhoneNrCodeCommand}"
                             IsEnabled="{Binding Path=VerifyPhoneCodeButtonEnabled}" IsVisible="{Binding Path=ValidationAllowed}">
 						<Button.Behaviors>
-							<behaviors:ScrollToClickedBehavior ScrollTo="ActivityIndicator" Condition="{Binding Path=EMailValidated}"
+							<behaviors:ScrollToClickedBehavior ScrollTo="ActivityIndicator"
 															   BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
-							<behaviors:ScrollToClickedBehavior ScrollTo="EMailEntryGrid" Condition="{Binding Path=EMailValidated, Converter={converters:LogicalNot}}"
+							<behaviors:ScrollToClickedBehavior ScrollTo="EMailEntryGrid" IsEnabled="{Binding Path=EMailValidated, Converter={converters:LogicalNot}}"
                                                             BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>							
 						</Button.Behaviors>
 					</Button>

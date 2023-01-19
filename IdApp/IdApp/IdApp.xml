@@ -160,14 +160,14 @@
             The view to move focus to.
             </summary>
         </member>
-        <member name="F:IdApp.Behaviors.ScrollToClickedBehavior.ConditionProperty">
+        <member name="F:IdApp.Behaviors.ScrollToClickedBehavior.IsEnabledProperty">
             <summary>
-            A BindableProperty for <see cref="P:IdApp.Behaviors.ScrollToClickedBehavior.Condition"/> property.
+            A BindableProperty for <see cref="P:IdApp.Behaviors.ScrollToClickedBehavior.IsEnabled"/> property.
             </summary>
         </member>
-        <member name="P:IdApp.Behaviors.ScrollToClickedBehavior.Condition">
+        <member name="P:IdApp.Behaviors.ScrollToClickedBehavior.IsEnabled">
             <summary>
-            Gets or sets a value indicating if the user needs to provide a purpose.
+            Gets or sets a value indicating if behavior is enabled or disabled
             </summary>
         </member>
         <member name="M:IdApp.Behaviors.ScrollToClickedBehavior.OnAttachedTo(Xamarin.Forms.Button)">
@@ -178,7 +178,7 @@
         </member>
         <member name="M:IdApp.Behaviors.ScrollToClickedBehavior.MakeVisible(Xamarin.Forms.View)">
             <summary>
-            Scrolls to make an element visisble.
+            Scrolls to make an element visible.
             </summary>
             <param name="Element">Element to make visible.</param>
         </member>
