@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdApp.Pages.Registration.ValidateContactInfo;
+using System;
 using Xamarin.Forms;
 
 namespace IdApp.Behaviors
@@ -14,8 +15,23 @@ namespace IdApp.Behaviors
         [TypeConverter(typeof(ReferenceTypeConverter))]
         public View ScrollTo { get; set; }
 
-        /// <inheritdoc/>
-        protected override void OnAttachedTo(Button Button)
+		/// <summary>
+		/// A BindableProperty for <see cref="Condition"/> property.
+		/// </summary>
+		public static readonly BindableProperty ConditionProperty =
+			BindableProperty.Create(nameof(Condition), typeof(bool), typeof(ScrollToClickedBehavior), true);
+
+		/// <summary>
+		/// Gets or sets a value indicating if the user needs to provide a purpose.
+		/// </summary>
+		public bool Condition
+		{
+			get => (bool)this.GetValue(ConditionProperty);
+			set => this.SetValue(ConditionProperty, value);
+		}
+
+		/// <inheritdoc/>
+		protected override void OnAttachedTo(Button Button)
         {
 			Button.Clicked += this.Button_Clicked;
             base.OnAttachedTo(Button);
@@ -30,7 +46,8 @@ namespace IdApp.Behaviors
 
         private void Button_Clicked(object Sender, EventArgs e)
         {
-            MakeVisible(this.ScrollTo);
+			if(this.Condition)
+				MakeVisible(this.ScrollTo);
         }
 
         /// <summary>

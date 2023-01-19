@@ -160,6 +160,16 @@
             The view to move focus to.
             </summary>
         </member>
+        <member name="F:IdApp.Behaviors.ScrollToClickedBehavior.ConditionProperty">
+            <summary>
+            A BindableProperty for <see cref="P:IdApp.Behaviors.ScrollToClickedBehavior.Condition"/> property.
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.ScrollToClickedBehavior.Condition">
+            <summary>
+            Gets or sets a value indicating if the user needs to provide a purpose.
+            </summary>
+        </member>
         <member name="M:IdApp.Behaviors.ScrollToClickedBehavior.OnAttachedTo(Xamarin.Forms.Button)">
             <inheritdoc/>
         </member>
