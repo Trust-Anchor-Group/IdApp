@@ -74,19 +74,6 @@
 					  Position="{Binding Path=CurrentStep, Mode=TwoWay}"
 					  ItemsSource="{Binding Path=RegistrationSteps}"
 					  ItemTemplate="{StaticResource StepTemplateSelector}"
-					  IndicatorView="IndicatorView"/>
-		<!-- WIZARD INDICATOR -->
-		<IndicatorView x:Name="IndicatorView"
-					   HorizontalOptions="Fill"
-					   IndicatorColor="{StaticResource HeadingForeground}"
-					   Padding="0,12,0,0"
-					   BackgroundColor="{StaticResource HeadingBackground}"
-					   Style="{StaticResource IndicatorViewStyle}">
-			<IndicatorView.Margin>
-				<OnPlatform x:TypeArguments="Thickness">
-					<On Platform="iOS" Value="0,-1,0,0"/>
-				</OnPlatform>
-			</IndicatorView.Margin>
-		</IndicatorView>
+					  />
 	</StackLayout>
 </views:ContentBasePage>

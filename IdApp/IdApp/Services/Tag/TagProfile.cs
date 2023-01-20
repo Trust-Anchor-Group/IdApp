@@ -643,7 +643,7 @@ namespace IdApp.Services.Tag
 						break;
 
 					case RegistrationStep.RegisterIdentity:
-						await this.SetStep(this.LegalIdentity is null ? RegistrationStep.Account : RegistrationStep.ValidateContactInfo);
+						await this.SetStep(RegistrationStep.ValidateContactInfo);
 						break;
 
 					case RegistrationStep.ValidateIdentity:
@@ -778,14 +778,17 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public async Task ClearAccount()
+		public async Task ClearAccount(bool GoToPrevStep = true)
 		{
 			this.Account = string.Empty;
 			this.PasswordHash = string.Empty;
 			this.PasswordHashMethod = string.Empty;
 			this.LegalJid = null;
 
-			await this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo); // prev
+			if (GoToPrevStep)
+			{
+				await this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
+			}
 		}
 
 		/// <inheritdoc/>
@@ -801,12 +804,10 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public async Task ClearLegalIdentity()
+		public void ClearLegalIdentity()
 		{
 			this.LegalIdentity = null;
 			this.LegalJid = null;
-
-			await this.DecrementConfigurationStep(RegistrationStep.Account); // prev
 		}
 
 		/// <inheritdoc/>

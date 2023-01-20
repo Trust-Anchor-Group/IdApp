@@ -47,7 +47,7 @@
                            VerticalOptions="Start" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsOne}}" />
 					</Grid>
 
-					<Grid Style="{StaticResource OnboardingGrid}" RowDefinitions="auto,auto,auto"
+					<Grid x:Name="EMailEntryGrid" Style="{StaticResource OnboardingGrid}" RowDefinitions="auto,auto,auto"
 						  IsVisible="{Binding Path=ValidationAllowed}">
 						<Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" Style="{StaticResource OnboardingFrame}"/>
 						<Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagValidateEMail}"
@@ -131,6 +131,8 @@
 						<Button.Behaviors>
 							<behaviors:ScrollToClickedBehavior ScrollTo="ActivityIndicator"
 															   BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
+							<behaviors:ScrollToClickedBehavior ScrollTo="EMailEntryGrid" IsEnabled="{Binding Path=EMailValidated, Converter={converters:LogicalNot}}"
+                                                            BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>							
 						</Button.Behaviors>
 					</Button>
 

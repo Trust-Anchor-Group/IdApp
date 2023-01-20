@@ -160,6 +160,16 @@
             The view to move focus to.
             </summary>
         </member>
+        <member name="F:IdApp.Behaviors.ScrollToClickedBehavior.IsEnabledProperty">
+            <summary>
+            A BindableProperty for <see cref="P:IdApp.Behaviors.ScrollToClickedBehavior.IsEnabled"/> property.
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.ScrollToClickedBehavior.IsEnabled">
+            <summary>
+            Gets or sets a value indicating if behavior is enabled or disabled
+            </summary>
+        </member>
         <member name="M:IdApp.Behaviors.ScrollToClickedBehavior.OnAttachedTo(Xamarin.Forms.Button)">
             <inheritdoc/>
         </member>
@@ -168,7 +178,7 @@
         </member>
         <member name="M:IdApp.Behaviors.ScrollToClickedBehavior.MakeVisible(Xamarin.Forms.View)">
             <summary>
-            Scrolls to make an element visisble.
+            Scrolls to make an element visible.
             </summary>
             <param name="Element">Element to make visible.</param>
         </member>
@@ -23548,7 +23558,7 @@
             <param name="clientPasswordHashMethod">The hash method used when hashing the password.</param>
             <param name="identity">The new identity.</param>
         </member>
-        <member name="M:IdApp.Services.Tag.ITagProfile.ClearAccount">
+        <member name="M:IdApp.Services.Tag.ITagProfile.ClearAccount(System.Boolean)">
             <summary>
             Revert Step 2.
             </summary>
@@ -23961,7 +23971,7 @@
         <member name="M:IdApp.Services.Tag.TagProfile.SetAccountAndLegalIdentity(System.String,System.String,System.String,Waher.Networking.XMPP.Contracts.LegalIdentity)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.Tag.TagProfile.ClearAccount">
+        <member name="M:IdApp.Services.Tag.TagProfile.ClearAccount(System.Boolean)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">

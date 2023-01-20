@@ -269,7 +269,7 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// Revert Step 2.
 		/// </summary>
-		Task ClearAccount();
+		Task ClearAccount(bool GoToPrevStep = true);
 
 		/// <summary>
 		/// Step 3 - set the legal identity of a newly created account.
@@ -280,7 +280,7 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// Revert Step 3.
 		/// </summary>
-		Task ClearLegalIdentity();
+		void ClearLegalIdentity();
 
 		/// <summary>
 		/// Step 4 - set the current legal identity as validated.
