@@ -804,10 +804,12 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public void ClearLegalIdentity()
+		public Task ClearLegalIdentity()
 		{
 			this.LegalIdentity = null;
 			this.LegalJid = null;
+
+			return Task.CompletedTask;
 		}
 
 		/// <inheritdoc/>

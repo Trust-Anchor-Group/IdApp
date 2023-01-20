@@ -231,7 +231,7 @@ namespace IdApp.Pages.Registration.Registration
 						this.RegistrationSteps[(int)RegistrationStep.Account].ClearStepState();
 						await this.TagProfile.ClearAccount(false);
 						this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity].ClearStepState();
-						this.TagProfile.ClearLegalIdentity();
+						await this.TagProfile.ClearLegalIdentity();
 						await this.TagProfile.InvalidateContactInfo();
 						break;
 

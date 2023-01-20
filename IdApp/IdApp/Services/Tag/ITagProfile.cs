@@ -41,7 +41,7 @@ namespace IdApp.Services.Tag
 		/// API Secret, for creating new account.
 		/// </summary>
 		string ApiSecret { get; }
-		
+
 		/// <summary>
 		/// Verified phone number.
 		/// </summary>
@@ -280,7 +280,7 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// Revert Step 3.
 		/// </summary>
-		void ClearLegalIdentity();
+		Task ClearLegalIdentity();
 
 		/// <summary>
 		/// Step 4 - set the current legal identity as validated.
