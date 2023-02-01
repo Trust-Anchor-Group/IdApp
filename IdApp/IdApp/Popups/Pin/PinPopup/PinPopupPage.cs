@@ -45,5 +45,10 @@ namespace IdApp.Popups.Pin.PinPopup
 			this.Pin.Text = "";
 			this.result.TrySetResult(Pin);
 		}
+
+		private void Pin_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			this.EnterButton.IsEnabled = !string.IsNullOrEmpty(this.Pin.Text);
+		}
 	}
 }
