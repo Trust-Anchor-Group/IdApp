@@ -44,7 +44,7 @@
 
   <ItemGroup>
     <PackageReference Include="EDaler" Version="2.1.8" />
-    <PackageReference Include="NeuroFeatures" Version="1.1.8" />
+    <PackageReference Include="NeuroFeatures" Version="1.1.9" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
     <PackageReference Include="Waher.Content" Version="2.4.8" />

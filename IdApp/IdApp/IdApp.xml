@@ -25984,6 +25984,8 @@
             Gets a section of available tokens
             </summary>
             <returns>Response with tokens.</returns>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
         </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.GetNeuroFeatureReferences">
             <summary>
@@ -25995,12 +25997,46 @@
             <summary>
             Gets references to a section of available tokens
             </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
             <returns>Response with tokens.</returns>
         </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.GetNeuroFeatureTotals">
             <summary>
             Gets the value totals of tokens available in the wallet, grouped and ordered by currency.
             </summary>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.GetNeuroFeaturesForContract(System.String)">
+            <summary>
+            Gets tokens created by a smart contract
+            </summary>
+            <param name="ContractId">Contract ID</param>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.GetNeuroFeaturesForContract(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets tokens created by a smart contract
+            </summary>
+            <param name="ContractId">Contract ID</param>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.GetNeuroFeatureReferencesForContract(System.String)">
+            <summary>
+            Gets token references created by a smart contract
+            </summary>
+            <param name="ContractId">Contract ID</param>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.GetNeuroFeatureReferencesForContract(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets token references created by a smart contract
+            </summary>
+            <param name="ContractId">Contract ID</param>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
             <returns>Response with tokens.</returns>
         </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.GetNeuroFeature(System.String)">
@@ -27247,6 +27283,8 @@
             <summary>
             Gets a section of available tokens
             </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
             <returns>Response with tokens.</returns>
         </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.GetNeuroFeatureReferences">
@@ -27259,12 +27297,46 @@
             <summary>
             Gets references to a section of available tokens
             </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
             <returns>Response with tokens.</returns>
         </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.GetNeuroFeatureTotals">
             <summary>
             Gets the value totals of tokens available in the wallet, grouped and ordered by currency.
             </summary>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.GetNeuroFeaturesForContract(System.String)">
+            <summary>
+            Gets tokens created by a smart contract
+            </summary>
+            <param name="ContractId">Contract ID</param>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.GetNeuroFeaturesForContract(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets tokens created by a smart contract
+            </summary>
+            <param name="ContractId">Contract ID</param>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.GetNeuroFeatureReferencesForContract(System.String)">
+            <summary>
+            Gets token references created by a smart contract
+            </summary>
+            <param name="ContractId">Contract ID</param>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.GetNeuroFeatureReferencesForContract(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets token references created by a smart contract
+            </summary>
+            <param name="ContractId">Contract ID</param>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
             <returns>Response with tokens.</returns>
         </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.GetNeuroFeature(System.String)">

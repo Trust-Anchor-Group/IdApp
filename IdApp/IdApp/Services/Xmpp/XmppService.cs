@@ -4061,6 +4061,8 @@ namespace IdApp.Services.Xmpp
 		/// <summary>
 		/// Gets a section of available tokens
 		/// </summary>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
 		/// <returns>Response with tokens.</returns>
 		public Task<TokensEventArgs> GetNeuroFeatures(int Offset, int MaxCount)
 		{
@@ -4079,6 +4081,8 @@ namespace IdApp.Services.Xmpp
 		/// <summary>
 		/// Gets references to a section of available tokens
 		/// </summary>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
 		/// <returns>Response with tokens.</returns>
 		public Task<string[]> GetNeuroFeatureReferences(int Offset, int MaxCount)
 		{
@@ -4092,6 +4096,50 @@ namespace IdApp.Services.Xmpp
 		public Task<TokenTotalsEventArgs> GetNeuroFeatureTotals()
 		{
 			return this.NeuroFeaturesClient.GetTotalsAsync();
+		}
+
+		/// <summary>
+		/// Gets tokens created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <returns>Response with tokens.</returns>
+		public Task<TokensEventArgs> GetNeuroFeaturesForContract(string ContractId)
+		{
+			return this.neuroFeaturesClient.GetContractTokensAsync(ContractId);
+		}
+
+		/// <summary>
+		/// Gets tokens created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
+		/// <returns>Response with tokens.</returns>
+		public Task<TokensEventArgs> GetNeuroFeaturesForContract(string ContractId, int Offset, int MaxCount)
+		{
+			return this.neuroFeaturesClient.GetContractTokensAsync(ContractId, Offset, MaxCount);
+		}
+
+		/// <summary>
+		/// Gets token references created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <returns>Response with tokens.</returns>
+		public Task<string[]> GetNeuroFeatureReferencesForContract(string ContractId)
+		{
+			return this.neuroFeaturesClient.GetContractTokenReferencesAsync(ContractId);
+		}
+
+		/// <summary>
+		/// Gets token references created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
+		/// <returns>Response with tokens.</returns>
+		public Task<string[]> GetNeuroFeatureReferencesForContract(string ContractId, int Offset, int MaxCount)
+		{
+			return this.neuroFeaturesClient.GetContractTokenReferencesAsync(ContractId, Offset, MaxCount);
 		}
 
 		/// <summary>

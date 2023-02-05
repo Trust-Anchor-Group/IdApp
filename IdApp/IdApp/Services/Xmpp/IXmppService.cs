@@ -1336,6 +1336,8 @@ namespace IdApp.Services.Xmpp
 		/// Gets a section of available tokens
 		/// </summary>
 		/// <returns>Response with tokens.</returns>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
 		Task<TokensEventArgs> GetNeuroFeatures(int Offset, int MaxCount);
 
 		/// <summary>
@@ -1347,6 +1349,8 @@ namespace IdApp.Services.Xmpp
 		/// <summary>
 		/// Gets references to a section of available tokens
 		/// </summary>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
 		/// <returns>Response with tokens.</returns>
 		Task<string[]> GetNeuroFeatureReferences(int Offset, int MaxCount);
 
@@ -1355,6 +1359,38 @@ namespace IdApp.Services.Xmpp
 		/// </summary>
 		/// <returns>Response with tokens.</returns>
 		Task<TokenTotalsEventArgs> GetNeuroFeatureTotals();
+
+		/// <summary>
+		/// Gets tokens created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <returns>Response with tokens.</returns>
+		Task<TokensEventArgs> GetNeuroFeaturesForContract(string ContractId);
+
+		/// <summary>
+		/// Gets tokens created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
+		/// <returns>Response with tokens.</returns>
+		Task<TokensEventArgs> GetNeuroFeaturesForContract(string ContractId, int Offset, int MaxCount);
+
+		/// <summary>
+		/// Gets token references created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <returns>Response with tokens.</returns>
+		Task<string[]> GetNeuroFeatureReferencesForContract(string ContractId);
+
+		/// <summary>
+		/// Gets token references created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
+		/// <returns>Response with tokens.</returns>
+		Task<string[]> GetNeuroFeatureReferencesForContract(string ContractId, int Offset, int MaxCount);
 
 		/// <summary>
 		/// Gets a specific token.
