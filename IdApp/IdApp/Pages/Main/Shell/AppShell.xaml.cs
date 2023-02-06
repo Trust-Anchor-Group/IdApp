@@ -38,6 +38,7 @@ using IdApp.Pages.Wallet.Payment;
 using IdApp.Pages.Wallet.PaymentAcceptance;
 using IdApp.Pages.Wallet.PendingPayment;
 using IdApp.Pages.Wallet.RequestPayment;
+using IdApp.Pages.Wallet.SellEDaler;
 using IdApp.Pages.Wallet.SendPayment;
 using IdApp.Pages.Wallet.ServiceProviders;
 using IdApp.Pages.Wallet.TokenDetails;
@@ -167,6 +168,7 @@ namespace IdApp.Pages.Main.Shell
 			Routing.RegisterRoute(nameof(MachineReportPage), typeof(MachineReportPage));
 			Routing.RegisterRoute(nameof(ServiceProvidersPage), typeof(ServiceProvidersPage));
 			Routing.RegisterRoute(nameof(BuyEDalerPage), typeof(BuyEDalerPage));
+			Routing.RegisterRoute(nameof(SellEDalerPage), typeof(SellEDalerPage));
 		}
 
 		private async Task GoToPage(string route)

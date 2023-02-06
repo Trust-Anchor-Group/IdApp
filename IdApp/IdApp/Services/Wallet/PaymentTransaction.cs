@@ -54,8 +54,7 @@ namespace IdApp.Services.Wallet
 			if (string.Compare(this.currency, Currency, true) == 0)
 				this.result.TrySetResult(Amount);
 			else
-				this.result.TrySetException(new Exception("Payment of " + Amount.ToString() + " " + Currency + " received. Expected " + this.currency + "."));
-
+				this.result.TrySetException(new Exception("Payment of " + Amount.ToString() + " " + Currency + " completed. Expected " + this.currency + "."));
 		}
 
 		/// <summary>

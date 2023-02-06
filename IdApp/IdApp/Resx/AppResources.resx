@@ -2137,7 +2137,7 @@
     <value>Buy</value>
   </data>
   <data name="BuyEDalerDescription" xml:space="preserve">
-    <value>Provide the amount of eDaler do you want to buy below, and press the Buy button. A web page will be opened where you have to fill in further information for the payment processor to validate your requst.</value>
+    <value>Provide the amount of eDaler do you want to buy below, and press the Buy button. A web page may be opened where you have to fill in further information for the payment processor to validate your requst.</value>
   </data>
   <data name="PaymentCancelled" xml:space="preserve">
     <value>Payment Cancelled</value>
@@ -2228,5 +2228,17 @@
   </data>
   <data name="NoLegalIdSelected" xml:space="preserve">
     <value>No Legal ID selected.</value>
+  </data>
+  <data name="SelectServiceProviderSellEDaler" xml:space="preserve">
+    <value>Select the Service Provider you want to use to sell eDaler.</value>
+  </data>
+  <data name="Sell" xml:space="preserve">
+    <value>Sell</value>
+  </data>
+  <data name="SellEDaler" xml:space="preserve">
+    <value>Sell eDaler.</value>
+  </data>
+  <data name="SellEDalerDescription" xml:space="preserve">
+    <value>Provide the amount of eDaler do you want to sell below, and press the Sell button. A web page may be opened where you have to fill in further information for the payment processor to validate your requst.</value>
   </data>
 </root>

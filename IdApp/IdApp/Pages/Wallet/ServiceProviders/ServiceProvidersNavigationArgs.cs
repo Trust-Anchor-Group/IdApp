@@ -9,15 +9,15 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 	/// </summary>
 	public class ServiceProvidersNavigationArgs : NavigationArgs
     {
-		private readonly IBuyEDalerServiceProvider[] serviceProviders;
-		private readonly TaskCompletionSource<IBuyEDalerServiceProvider> selected;
+		private readonly IServiceProvider[] serviceProviders;
+		private readonly TaskCompletionSource<IServiceProvider> selected;
 		private readonly string description;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="ServiceProvidersNavigationArgs"/> class.
 		/// </summary>
 		public ServiceProvidersNavigationArgs()
-			: this(new IBuyEDalerServiceProvider[0], string.Empty)
+			: this(new IServiceProvider[0], string.Empty)
 		{
 		}
 
@@ -26,7 +26,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// </summary>
 		/// <param name="ServiceProviders">Service Providers</param>
 		/// <param name="Description">Descriptive text to show the user.</param>
-		public ServiceProvidersNavigationArgs(IBuyEDalerServiceProvider[] ServiceProviders, string Description)
+		public ServiceProvidersNavigationArgs(IServiceProvider[] ServiceProviders, string Description)
         {
 			this.serviceProviders = ServiceProviders;
 			this.description = Description;
@@ -36,7 +36,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// <summary>
 		/// Available service providers.
 		/// </summary>
-		public IBuyEDalerServiceProvider[] ServiceProviders => this.serviceProviders;
+		public IServiceProvider[] ServiceProviders => this.serviceProviders;
 
 		/// <summary>
 		/// Descriptive text to show the user.
@@ -46,15 +46,15 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// <summary>
 		/// Task completion source, waiting for a response from the user.
 		/// </summary>
-		public TaskCompletionSource<IBuyEDalerServiceProvider> Selected => this.selected;
+		public TaskCompletionSource<IServiceProvider> Selected => this.selected;
 
         /// <summary>
         /// Waits for the service provider to be selected; null is returned if the user goes back.
         /// </summary>
         /// <returns>Selected service provider, or null if user cancels, by going back.</returns>
-        public Task<IBuyEDalerServiceProvider> WaitForServiceProviderSelection()
+        public Task<IServiceProvider> WaitForServiceProviderSelection()
         {
-            return this.selected?.Task ?? Task.FromResult<IBuyEDalerServiceProvider>(null);
+            return this.selected?.Task ?? Task.FromResult<IServiceProvider>(null);
         }
     }
 }

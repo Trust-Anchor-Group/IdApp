@@ -2137,7 +2137,7 @@
     <value>Acheter</value>
   </data>
   <data name="BuyEDalerDescription" xml:space="preserve">
-    <value>Indiquez la quantité d’eDaler que vous souhaitez acheter ci-dessous et appuyez sur le bouton Acheter. Une page Web sera ouverte où vous devrez remplir des informations supplémentaires pour que le processeur de paiement valide votre demande.</value>
+    <value>Indiquez la quantité d’eDaler que vous souhaitez acheter ci-dessous et appuyez sur le bouton Acheter. Une page Web peut être ouverte où vous devez remplir des informations supplémentaires pour que le processeur de paiement valide votre demande.</value>
   </data>
   <data name="PaymentCancelled" xml:space="preserve">
     <value>Paiement annulé</value>
@@ -2228,5 +2228,17 @@
   </data>
   <data name="NoLegalIdSelected" xml:space="preserve">
     <value>Aucun ID légal sélectionné.</value>
+  </data>
+  <data name="SelectServiceProviderSellEDaler" xml:space="preserve">
+    <value>Sélectionnez le fournisseur de services que vous souhaitez utiliser pour vendre eDaler.</value>
+  </data>
+  <data name="Sell" xml:space="preserve">
+    <value>Vendre</value>
+  </data>
+  <data name="SellEDaler" xml:space="preserve">
+    <value>Vendre eDaler.</value>
+  </data>
+  <data name="SellEDalerDescription" xml:space="preserve">
+    <value>Indiquez le montant d’eDaler que vous souhaitez vendre ci-dessous et appuyez sur le bouton Vendre. Une page Web peut être ouverte où vous devez remplir des informations supplémentaires pour que le processeur de paiement valide votre demande.</value>
   </data>
 </root>

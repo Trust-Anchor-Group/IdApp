@@ -502,7 +502,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Provide the amount of eDaler do you want to buy below, and press the Buy button. A web page will be opened where you have to fill in further information for the payment processor to validate your requst..
+        ///   Looks up a localized string similar to Provide the amount of eDaler do you want to buy below, and press the Buy button. A web page may be opened where you have to fill in further information for the payment processor to validate your requst..
         /// </summary>
         internal static string BuyEDalerDescription {
             get {
@@ -4516,6 +4516,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select the Service Provider you want to use to sell eDaler..
+        /// </summary>
+        internal static string SelectServiceProviderSellEDaler {
+            get {
+                return ResourceManager.GetString("SelectServiceProviderSellEDaler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select who should have access to this contract..
         /// </summary>
         internal static string SelectWhoShouldHaveAccessToThisContract {
@@ -4539,6 +4548,33 @@ namespace IdApp.Resx {
         internal static string SelectYourRoleInThisContract {
             get {
                 return ResourceManager.GetString("SelectYourRoleInThisContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sell.
+        /// </summary>
+        internal static string Sell {
+            get {
+                return ResourceManager.GetString("Sell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sell eDaler..
+        /// </summary>
+        internal static string SellEDaler {
+            get {
+                return ResourceManager.GetString("SellEDaler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide the amount of eDaler do you want to sell below, and press the Sell button. A web page may be opened where you have to fill in further information for the payment processor to validate your requst..
+        /// </summary>
+        internal static string SellEDalerDescription {
+            get {
+                return ResourceManager.GetString("SellEDalerDescription", resourceCulture);
             }
         }
         

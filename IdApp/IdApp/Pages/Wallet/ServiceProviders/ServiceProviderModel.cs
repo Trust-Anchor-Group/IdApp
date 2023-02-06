@@ -7,13 +7,13 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 	/// </summary>
 	public class ServiceProviderModel
 	{
-		private readonly IBuyEDalerServiceProvider serviceProvider;
+		private readonly IServiceProvider serviceProvider;
 
 		/// <summary>
 		/// Contact Information model, including related notification information.
 		/// </summary>
 		/// <param name="ServiceProvider">Contact information.</param>
-		public ServiceProviderModel(IBuyEDalerServiceProvider ServiceProvider)
+		public ServiceProviderModel(IServiceProvider ServiceProvider)
 		{
 			this.serviceProvider = ServiceProvider;
 		}
@@ -21,7 +21,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// <summary>
 		/// Underlying service provider
 		/// </summary>
-		public IBuyEDalerServiceProvider ServiceProvider => this.serviceProvider;
+		public IServiceProvider ServiceProvider => this.serviceProvider;
 
 		/// <summary>
 		/// Service ID

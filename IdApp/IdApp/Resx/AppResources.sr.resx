@@ -2137,7 +2137,7 @@
     <value>Kupi</value>
   </data>
   <data name="BuyEDalerDescription" xml:space="preserve">
-    <value>Navedite količinu eDalera koju želite da kupite ispod i pritisnite dugme Kupi. Otvoriće se Web stranica na kojoj morate da popunite dodatne informacije da bi procesor plaćanja proverio valjanost ponovnog korišćenja.</value>
+    <value>Navedite količinu eDalera koju želite da kupite ispod i pritisnite dugme Kupi. Web stranica može biti otvorena tamo gde morate da popunite dodatne informacije za procesor plaćanja da biste proverili valjanost ponovnog korišćenja.</value>
   </data>
   <data name="PaymentCancelled" xml:space="preserve">
     <value>Plaćanje je otkazano</value>
@@ -2228,5 +2228,17 @@
   </data>
   <data name="NoLegalIdSelected" xml:space="preserve">
     <value>Nije izabran pravni ID.</value>
+  </data>
+  <data name="SelectServiceProviderSellEDaler" xml:space="preserve">
+    <value>Izaberite dobavljača usluga kojeg želite da koristite za prodaju eDaler-a.</value>
+  </data>
+  <data name="Sell" xml:space="preserve">
+    <value>Prodati</value>
+  </data>
+  <data name="SellEDaler" xml:space="preserve">
+    <value>Prodaj eDaler.</value>
+  </data>
+  <data name="SellEDalerDescription" xml:space="preserve">
+    <value>Navedite količinu eDalera koju želite da prodate ispod i pritisnite dugme Prodaj. Web stranica može biti otvorena tamo gde morate da popunite dodatne informacije za procesor plaćanja da biste proverili valjanost ponovnog korišćenja.</value>
   </data>
 </root>

@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EDaler" Version="2.1.8" />
+    <PackageReference Include="EDaler" Version="2.2.0" />
     <PackageReference Include="NeuroFeatures" Version="1.1.9" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
@@ -184,6 +184,9 @@
     </Compile>
     <Compile Update="Pages\Things\ReadSensor\ReadSensorPage.xaml.cs">
       <DependentUpon>ReadSensorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Wallet\SellEDaler\SellEDalerPage.xaml.cs">
+      <DependentUpon>SellEDalerPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\Wallet\BuyEDaler\BuyEDalerPage.xaml.cs">
       <DependentUpon>BuyEDalerPage.xaml</DependentUpon>

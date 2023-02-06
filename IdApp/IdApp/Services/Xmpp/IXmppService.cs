@@ -1273,14 +1273,14 @@ namespace IdApp.Services.Xmpp
 		Task<IBuyEDalerServiceProvider[]> GetServiceProvidersForBuyingEDalerAsync();
 
 		/// <summary>
-		/// Initiates payment of eDaler using a service provider that is not based on a smart contract.
+		/// Initiates the buying of eDaler using a service provider that does not use a smart contract.
 		/// </summary>
 		/// <param name="ServiceId">Service ID</param>
 		/// <param name="ServiceProvider">Service Provider</param>
 		/// <param name="Amount">Amount</param>
 		/// <param name="Currency">Currency</param>
 		/// <returns>Transaction ID</returns>
-		Task<PaymentTransaction> InitiateEDalerPayment(string ServiceId, string ServiceProvider, decimal Amount, string Currency);
+		Task<PaymentTransaction> InitiateBuyEDaler(string ServiceId, string ServiceProvider, decimal Amount, string Currency);
 
 		/// <summary>
 		/// Registers an initiated payment as completed.
@@ -1288,14 +1288,45 @@ namespace IdApp.Services.Xmpp
 		/// <param name="TransactionId">Transaction ID</param>
 		/// <param name="Amount">Amount</param>
 		/// <param name="Currency">Currency</param>
-		void EDalerPaymentCompleted(string TransactionId, decimal Amount, string Currency);
+		void BuyEDalerCompleted(string TransactionId, decimal Amount, string Currency);
 
 		/// <summary>
 		/// Registers an initiated payment as failed.
 		/// </summary>
 		/// <param name="TransactionId">Transaction ID</param>
 		/// <param name="Message">Error message.</param>
-		void EDalerPaymentFailed(string TransactionId, string Message);
+		void BuyEDalerFailed(string TransactionId, string Message);
+
+		/// <summary>
+		/// Gets available service providers for selling eDaler.
+		/// </summary>
+		/// <returns>Available service providers.</returns>
+		Task<ISellEDalerServiceProvider[]> GetServiceProvidersForSellingEDalerAsync();
+
+		/// <summary>
+		/// Initiates the selling of eDaler using a service provider that does not use a smart contract.
+		/// </summary>
+		/// <param name="ServiceId">Service ID</param>
+		/// <param name="ServiceProvider">Service Provider</param>
+		/// <param name="Amount">Amount</param>
+		/// <param name="Currency">Currency</param>
+		/// <returns>Transaction ID</returns>
+		Task<PaymentTransaction> InitiateSellEDaler(string ServiceId, string ServiceProvider, decimal Amount, string Currency);
+
+		/// <summary>
+		/// Registers an initiated payment as completed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Amount">Amount</param>
+		/// <param name="Currency">Currency</param>
+		void SellEDalerCompleted(string TransactionId, decimal Amount, string Currency);
+
+		/// <summary>
+		/// Registers an initiated payment as failed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Message">Error message.</param>
+		void SellEDalerFailed(string TransactionId, string Message);
 
 		#endregion
 

@@ -2113,7 +2113,7 @@
     <value>Köp</value>
   </data>
   <data name="BuyEDalerDescription" xml:space="preserve">
-    <value>Ange det belopp av eDaler du vill köpa nedan, och tryck sedan på Köp-knappen. En webb-sida kommer att öppnas där du behöver fylla in ytterligare information så att betalningsleverantören kan validera din förfrågan.</value>
+    <value>Ange det belopp av eDaler du vill köpa nedan, och tryck sedan på Köp-knappen. En webb-sida kan komma att öppnas där du behöver fylla in ytterligare information så att betalningsleverantören kan validera din förfrågan.</value>
   </data>
   <data name="PaymentCancelled" xml:space="preserve">
     <value>Betalningen avbruten</value>
@@ -2204,5 +2204,17 @@
   </data>
   <data name="NoLegalIdSelected" xml:space="preserve">
     <value>Inget juridiskt ID valt.</value>
+  </data>
+  <data name="SelectServiceProviderSellEDaler" xml:space="preserve">
+    <value>Välj den tjänsteleverantör du vill använda för att sälja eDaler.</value>
+  </data>
+  <data name="Sell" xml:space="preserve">
+    <value>Sälj</value>
+  </data>
+  <data name="SellEDaler" xml:space="preserve">
+    <value>Sell eDaler.</value>
+  </data>
+  <data name="SellEDalerDescription" xml:space="preserve">
+    <value>Ange det belopp av eDaler du vill sälja nedan, och tryck sedan på Sälj-knappen. En webb-sida kan komma att öppnas där du behöver fylla in ytterligare information så att betalningsleverantören kan validera din förfrågan.</value>
   </data>
 </root>

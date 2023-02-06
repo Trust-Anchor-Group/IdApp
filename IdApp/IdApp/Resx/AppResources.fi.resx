@@ -2137,7 +2137,7 @@
     <value>Ostaa</value>
   </data>
   <data name="BuyEDalerDescription" xml:space="preserve">
-    <value>Anna alta haluamasi määrä eDaleria ja paina Osta-painiketta. Verkkosivu avataan, jossa sinun on täytettävä lisätietoja maksujen käsittelijälle vahvistaaksesi pyyntösi.</value>
+    <value>Anna alta haluamasi määrä eDaleria ja paina Osta-painiketta. Verkkosivu voidaan avata, jossa sinun on täytettävä lisätietoja maksujen käsittelijälle vahvistaaksesi pyyntösi.</value>
   </data>
   <data name="PaymentCancelled" xml:space="preserve">
     <value>Maksu peruttu</value>
@@ -2228,5 +2228,17 @@
   </data>
   <data name="NoLegalIdSelected" xml:space="preserve">
     <value>Laillista tunnusta ei ole valittu.</value>
+  </data>
+  <data name="SelectServiceProviderSellEDaler" xml:space="preserve">
+    <value>Valitse palveluntarjoaja, jota haluat käyttää eDalerin myymiseen.</value>
+  </data>
+  <data name="Sell" xml:space="preserve">
+    <value>Myydä</value>
+  </data>
+  <data name="SellEDaler" xml:space="preserve">
+    <value>Myy eDaler.</value>
+  </data>
+  <data name="SellEDalerDescription" xml:space="preserve">
+    <value>Anna alla haluamasi määrä eDaleria ja paina Myy-painiketta. Verkkosivu voidaan avata, jossa sinun on täytettävä lisätietoja maksujen käsittelijälle vahvistaaksesi pyyntösi.</value>
   </data>
 </root>
