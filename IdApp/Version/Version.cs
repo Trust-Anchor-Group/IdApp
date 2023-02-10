@@ -10,7 +10,7 @@ using System.Resources;
 
 [assembly: AssemblyCompany("Trust Anchor Group AB")]
 [assembly: AssemblyProduct("IdApp")]
-[assembly: AssemblyCopyright("Copyright © Trust Anchor Group 2019-2022. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © Trust Anchor Group 2019-2023. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyTitle("TAG ID")]
