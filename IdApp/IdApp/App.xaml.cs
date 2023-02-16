@@ -83,7 +83,6 @@ namespace IdApp
 		private static bool configLoaded = false;
 		private static ISecureDisplay secureDisplay;
 		private static bool defaultInstantiated = false;
-		private static App instance;
 		private static DateTime savedStartTime = DateTime.MinValue;
 		private static bool displayedPinPopup = false;
 		private static int startupCounter = 0;
@@ -103,6 +102,11 @@ namespace IdApp
 		private bool onStartResumesApplication = false;
 
 		/// <summary>
+		/// Gets the last application instance.
+		/// </summary>
+		public static App Instance;
+
+		/// <summary>
 		/// Gets the current application, type casted to <see cref="App"/>.
 		/// </summary>
 		public static new App Current => (App)Application.Current;
@@ -115,8 +119,8 @@ namespace IdApp
 		///<inheritdoc/>
 		public App(bool BackgroundStart)
 		{
-			App PreviousInstance = instance;
-			instance = this;
+			App PreviousInstance = Instance;
+			Instance = this;
 
 			this.onStartResumesApplication = PreviousInstance is not null;
 
@@ -397,7 +401,7 @@ namespace IdApp
 
 		private async Task DoResume(bool BackgroundStart)
 		{
-			instance = this;
+			Instance = this;
 			this.startupCancellation = new CancellationTokenSource();
 
 			await this.PerformStartup(true, null, BackgroundStart);
@@ -524,10 +528,10 @@ namespace IdApp
 
 		internal static async Task Stop()
 		{
-			if (instance is not null)
+			if (Instance is not null)
 			{
-				await instance.Shutdown(false, false);
-				instance = null;
+				await Instance.Shutdown(false, false);
+				Instance = null;
 			}
 
 			ICloseApplication closeApp = DependencyService.Get<ICloseApplication>();
@@ -1030,7 +1034,7 @@ namespace IdApp
 		/// </summary>
 		public static async Task CheckUserBlocking()
 		{
-			DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint, Constants.Pin.Protocol);
+			DateTime? DateTimeForLogin = await Instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint, Constants.Pin.Protocol);
 
 			if (DateTimeForLogin.HasValue)
 			{
@@ -1080,13 +1084,13 @@ namespace IdApp
 			{
 				ClearStartInactivityTime();
 				SetCurrentPinCounter(0);
-				await instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
+				await Instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
 				await PopupNavigation.Instance.PopAsync();
 				return Pin;
 			}
 			else
 			{
-				await instance.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
+				await Instance.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
 						Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
 
 				PinAttemptCounter++;
@@ -1156,7 +1160,7 @@ namespace IdApp
 		/// </summary>
 		private static async Task<long> GetCurrentPinCounter()
 		{
-			return await instance.services.SettingsService.RestoreLongState(Constants.Pin.CurrentPinAttemptCounter);
+			return await Instance.services.SettingsService.RestoreLongState(Constants.Pin.CurrentPinAttemptCounter);
 		}
 
 		/// <summary>
@@ -1164,7 +1168,7 @@ namespace IdApp
 		/// </summary>
 		private static async void SetCurrentPinCounter(long CurrentPinAttemptCounter)
 		{
-			await instance.services.SettingsService.SaveState(Constants.Pin.CurrentPinAttemptCounter, CurrentPinAttemptCounter);
+			await Instance.services.SettingsService.SaveState(Constants.Pin.CurrentPinAttemptCounter, CurrentPinAttemptCounter);
 		}
 
 		/// <summary>

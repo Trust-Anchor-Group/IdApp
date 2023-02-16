@@ -9,6 +9,11 @@
             The Application class, representing an instance of the IdApp.
             </summary>
         </member>
+        <member name="F:IdApp.App.Instance">
+            <summary>
+            Gets the last application instance.
+            </summary>
+        </member>
         <member name="P:IdApp.App.Current">
             <summary>
             Gets the current application, type casted to <see cref="T:IdApp.App"/>.
