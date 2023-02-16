@@ -79,13 +79,14 @@ namespace IdApp
 	public partial class App
 	{
 		private static readonly TaskCompletionSource<bool> servicesSetup = new();
-		private static readonly TaskCompletionSource<bool> configLoaded = new();
 		private static readonly TaskCompletionSource<bool> defaultInstantiatedSource = new();
+		private static bool configLoaded = false;
 		private static ISecureDisplay secureDisplay;
 		private static bool defaultInstantiated = false;
 		private static App instance;
 		private static DateTime savedStartTime = DateTime.MinValue;
 		private static bool displayedPinPopup = false;
+		private static int startupCounter = 0;
 		private readonly LoginAuditor loginAuditor;
 		private Timer autoSaveTimer;
 		private IServiceReferences services;
@@ -107,11 +108,17 @@ namespace IdApp
 		public static new App Current => (App)Application.Current;
 
 		///<inheritdoc/>
-		public App()
+		public App() : this(false)
+		{
+		}
+
+		///<inheritdoc/>
+		public App(bool BackgroundStart)
 		{
 			App PreviousInstance = instance;
-			this.onStartResumesApplication = PreviousInstance is not null;
 			instance = this;
+
+			this.onStartResumesApplication = PreviousInstance is not null;
 
 			// If the previous instance is null, create the app state from scratch. If not, just copy the state from the previous instance.
 			if (PreviousInstance is null)
@@ -132,7 +139,7 @@ namespace IdApp
 
 				this.loginAuditor = new LoginAuditor(Constants.Pin.LogAuditorObjectID, LoginIntervals);
 				this.startupCancellation = new CancellationTokenSource();
-				this.initCompleted = this.Init();
+				this.initCompleted = this.Init(BackgroundStart);
 			}
 			else
 			{
@@ -145,19 +152,22 @@ namespace IdApp
 				this.startupCancellation = PreviousInstance.startupCancellation;
 			}
 
-			this.InitializeComponent();
-			Current.UserAppTheme = OSAppTheme.Unspecified;
-
-			// Start page
-			try
+			if (!BackgroundStart)
 			{
-				this.startupProfiler?.NewState("MainPage");
+				this.InitializeComponent();
+				Current.UserAppTheme = OSAppTheme.Unspecified;
 
-				this.MainPage = new Pages.Main.Loading.LoadingPage();
-			}
-			catch (Exception ex)
-			{
-				this.HandleStartupException(ex);
+				// Start page
+				try
+				{
+					this.startupProfiler?.NewState("MainPage");
+
+					this.MainPage = new Pages.Main.Loading.LoadingPage();
+				}
+				catch (Exception ex)
+				{
+					this.HandleStartupException(ex);
+				}
 			}
 
 			this.startupProfiler?.MainThread?.Idle();
@@ -194,17 +204,17 @@ namespace IdApp
 			LocalizationResourceManager.Current.Init(AppResources.ResourceManager, SelectedInfo);
 		}
 
-		private Task<bool> Init()
+		private Task<bool> Init(bool BackgroundStart)
 		{
 			ProfilerThread Thread = this.startupProfiler?.CreateThread("Init", ProfilerThreadType.Sequential);
 			Thread?.Start();
 
 			TaskCompletionSource<bool> Result = new();
-			Task.Run(async () => await this.InitInParallel(Thread, Result));
+			Task.Run(async () => await this.InitInParallel(Thread, Result, BackgroundStart));
 			return Result.Task;
 		}
 
-		private async Task InitInParallel(ProfilerThread Thread, TaskCompletionSource<bool> Result)
+		private async Task InitInParallel(ProfilerThread Thread, TaskCompletionSource<bool> Result, bool BackgroundStart)
 		{
 			try
 			{
@@ -213,25 +223,7 @@ namespace IdApp
 				Thread?.NewState("JWT");
 				await this.services.CryptoService.InitializeJwtFactory();
 
-				Thread?.NewState("DB");
-				ProfilerThread SubThread = Thread?.CreateSubThread("Database", ProfilerThreadType.Sequential);
-
-				await this.startupWorker.WaitAsync();
-
-				try
-				{
-					await this.services.StorageService.Init(SubThread, null);
-
-					Thread?.NewState("Config");
-					await this.CreateOrRestoreConfiguration();
-					configLoaded.TrySetResult(true);
-				}
-				finally
-				{
-					this.startupWorker.Release();
-				}
-
-				await this.PerformStartup(false, Thread);
+				await this.PerformStartup(false, Thread, BackgroundStart);
 
 				Result.TrySetResult(true);
 			}
@@ -362,12 +354,27 @@ namespace IdApp
 			await servicesSetup.Task;
 		}
 
-		internal static async Task WaitForConfigLoaded()
-		{
-			await configLoaded.Task;
-		}
-
 		#region Startup/Shutdown
+
+		/// <summary>
+		/// Awaiting the services start in the background.
+		/// </summary>
+		public async void OnBackgroundStart()
+		{
+			if (this.onStartResumesApplication)
+			{
+				this.onStartResumesApplication = false;
+				await this.DoResume(true);
+				return;
+			}
+
+			if (!this.initCompleted.Wait(60000))
+				throw new Exception("Initialization did not complete in time.");
+
+			this.StartupCompleted("StartupProfile.uml", false);
+
+			await Task.CompletedTask;
+		}
 
 		///<inheritdoc/>
 		protected override async void OnStart()
@@ -388,52 +395,74 @@ namespace IdApp
 				await App.Stop();
 		}
 
-		///<inheritdoc/>
-		protected override async void OnResume()
+		private async Task DoResume(bool BackgroundStart)
 		{
 			instance = this;
 			this.startupCancellation = new CancellationTokenSource();
 
-			await this.PerformStartup(true, null);
+			await this.PerformStartup(true, null, BackgroundStart);
+		}
+
+		///<inheritdoc/>
+		protected override async void OnResume()
+		{
+			await this.DoResume(false);
 
 			if (!await App.VerifyPin())
 				await App.Stop();
 		}
 
-
-		private async Task PerformStartup(bool isResuming, ProfilerThread Thread)
+		private async Task PerformStartup(bool isResuming, ProfilerThread Thread, bool BackgroundStart)
 		{
 			await this.startupWorker.WaitAsync();
 
 			try
 			{
+				// do nothing if the services are already started
+				if (++App.startupCounter > 1)
+				{
+					return;
+				}
+
 				// cancel the startup if the application is closed
 				CancellationToken Token = this.startupCancellation.Token;
 				Token.ThrowIfCancellationRequested();
 
-				Thread?.NewState("Report");
-				await this.SendErrorReportFromPreviousRun();
+				if (!BackgroundStart)
+				{
+					Thread?.NewState("Report");
+					await this.SendErrorReportFromPreviousRun();
 
-				Thread?.NewState("Startup");
-				this.services.UiSerializer.IsRunningInTheBackground = false;
+					Thread?.NewState("Startup");
+					this.services.UiSerializer.IsRunningInTheBackground = false;
 
-				Token.ThrowIfCancellationRequested();
-
-				// Start the db.
-				// This is for soft restarts.
-				// If this is a cold start, this call is made already in the App ctor, and this is then a no-op.
+					Token.ThrowIfCancellationRequested();
+				}
 
 				Thread?.NewState("DB");
-				await this.services.StorageService.Init(Thread, Token);
+				ProfilerThread SubThread = Thread?.CreateSubThread("Database", ProfilerThreadType.Sequential);
 
-				if (!isResuming)
-					await WaitForConfigLoaded();
+				await this.services.StorageService.Init(SubThread, Token);
+
+				if (!App.configLoaded)
+				{
+					Thread?.NewState("Config");
+					await this.CreateOrRestoreConfiguration();
+
+					App.configLoaded = true;
+				}
+
+				Token.ThrowIfCancellationRequested();
 
 				Thread?.NewState("Network");
 				await this.services.NetworkService.Load(isResuming, Token);
 
+				Token.ThrowIfCancellationRequested();
+
 				Thread?.NewState("XMPP");
 				await this.services.XmppService.Load(isResuming, Token);
+
+				Token.ThrowIfCancellationRequested();
 
 				Thread?.NewState("Timer");
 				TimeSpan initialAutoSaveDelay = Constants.Intervals.AutoSave.Multiply(4);
@@ -471,6 +500,14 @@ namespace IdApp
 			}
 		}
 
+		/// <summary>
+		/// Awaiting the services stop in the background.
+		/// </summary>
+		public async void OnBackgroundSleep()
+		{
+			await this.Shutdown(false, true);
+		}
+
 		///<inheritdoc/>
 		protected override async void OnSleep()
 		{
@@ -480,7 +517,7 @@ namespace IdApp
 			if (this.MainPage?.BindingContext is BaseViewModel vm)
 				await vm.Shutdown();
 
-			await this.Shutdown(false);
+			await this.Shutdown(false, false);
 
 			this.SetStartInactivityTime();
 		}
@@ -489,7 +526,7 @@ namespace IdApp
 		{
 			if (instance is not null)
 			{
-				await instance.Shutdown(false);
+				await instance.Shutdown(false, false);
 				instance = null;
 			}
 
@@ -500,7 +537,7 @@ namespace IdApp
 				Environment.Exit(0);
 		}
 
-		private async Task Shutdown(bool inPanic)
+		private async Task Shutdown(bool inPanic, bool BackgroundStart)
 		{
 			// if the PerformStartup is not finished, cancel it first
 			this.startupCancellation.Cancel();
@@ -508,48 +545,61 @@ namespace IdApp
 
 			try
 			{
+				// do nothing if the services are already stopped
+				// or if the startup counter is greater than one
+				if ((App.startupCounter < 1) || (--App.startupCounter > 0))
+				{
+					return;
+				}
+
 				this.StopAutoSaveTimer();
 
-				if (this.services?.UiSerializer is not null)
-					this.services.UiSerializer.IsRunningInTheBackground = !inPanic;
-
-				if (inPanic)
+				if (this.services is not null)
 				{
-					if (this.services?.XmppService is not null)
-						await this.services.XmppService.UnloadFast();
+					if (!BackgroundStart)
+					{
+						if (this.services.UiSerializer is not null)
+							this.services.UiSerializer.IsRunningInTheBackground = !inPanic;
+					}
+
+					if (inPanic)
+					{
+						if (this.services.XmppService is not null)
+							await this.services.XmppService.UnloadFast();
+					}
+					else
+					{
+						if (this.services.NavigationService is not null)
+							await this.services.NavigationService.Unload();
+
+						if (this.services.ContractOrchestratorService is not null)
+							await this.services.ContractOrchestratorService.Unload();
+
+						if (this.services.ThingRegistryOrchestratorService is not null)
+							await this.services.ThingRegistryOrchestratorService.Unload();
+
+						if (this.services.NeuroWalletOrchestratorService is not null)
+							await this.services.NeuroWalletOrchestratorService.Unload();
+
+						if (this.services.XmppService is not null)
+							await this.services.XmppService.Unload();
+
+						if (this.services.NetworkService is not null)
+							await this.services.NetworkService.Unload();
+
+						if (this.services.AttachmentCacheService is not null)
+							await this.services.AttachmentCacheService.Unload();
+
+						if (this.services.NavigationService is not null)
+							await this.services.NavigationService.Unload();
+					}
+
+					foreach (IEventSink Sink in Waher.Events.Log.Sinks)
+						Waher.Events.Log.Unregister(Sink);
+
+					if (this.services.StorageService is not null)
+						await this.services.StorageService.Shutdown();
 				}
-				else
-				{
-					if (this.services?.NavigationService is not null)
-						await this.services.NavigationService.Unload();
-
-					if (this.services.ContractOrchestratorService is not null)
-						await this.services.ContractOrchestratorService.Unload();
-
-					if (this.services.ThingRegistryOrchestratorService is not null)
-						await this.services.ThingRegistryOrchestratorService.Unload();
-
-					if (this.services.NeuroWalletOrchestratorService is not null)
-						await this.services.NeuroWalletOrchestratorService.Unload();
-
-					if (this.services?.XmppService is not null)
-						await this.services.XmppService.Unload();
-
-					if (this.services?.NetworkService is not null)
-						await this.services.NetworkService.Unload();
-
-					if (this.services.AttachmentCacheService is not null)
-						await this.services.AttachmentCacheService.Unload();
-
-					if (this.services.NavigationService is not null)
-						await this.services.NavigationService.Unload();
-				}
-
-				foreach (IEventSink Sink in Waher.Events.Log.Sinks)
-					Waher.Events.Log.Unregister(Sink);
-
-				if (this.services?.StorageService is not null)
-					await this.services.StorageService.Shutdown();
 
 				// Causes list of singleton instances to be cleared.
 				Waher.Events.Log.Terminate();
@@ -701,7 +751,7 @@ namespace IdApp
 			}
 
 			if (shutdown)
-				await this.Shutdown(false);
+				await this.Shutdown(false, false);
 
 #if DEBUG
 			if (!shutdown)

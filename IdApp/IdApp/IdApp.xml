@@ -17,6 +17,9 @@
         <member name="M:IdApp.App.#ctor">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.App.#ctor(System.Boolean)">
+            <inheritdoc/>
+        </member>
         <member name="P:IdApp.App.IsOnboarded">
             <summary>
             Gets a value indicating if the application has completed on-boarding.
@@ -35,11 +38,21 @@
             <typeparam name="T">Type of object to instantiate.</typeparam>
             <returns>Instance</returns>
         </member>
+        <member name="M:IdApp.App.OnBackgroundStart">
+            <summary>
+            Awaiting the services start in the background.
+            </summary>
+        </member>
         <member name="M:IdApp.App.OnStart">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.App.OnResume">
             <inheritdoc/>
+        </member>
+        <member name="M:IdApp.App.OnBackgroundSleep">
+            <summary>
+            Awaiting the services stop in the background.
+            </summary>
         </member>
         <member name="M:IdApp.App.OnSleep">
             <inheritdoc/>
