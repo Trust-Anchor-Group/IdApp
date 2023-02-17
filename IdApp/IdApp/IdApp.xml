@@ -51,6 +51,11 @@
         <member name="M:IdApp.App.OnStart">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.App.DoResume(System.Boolean)">
+            <summary>
+            Resume the services start in the background.
+            </summary>
+        </member>
         <member name="M:IdApp.App.OnResume">
             <inheritdoc/>
         </member>

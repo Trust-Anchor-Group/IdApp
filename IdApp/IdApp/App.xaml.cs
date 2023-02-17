@@ -363,7 +363,7 @@ namespace IdApp
 		/// <summary>
 		/// Awaiting the services start in the background.
 		/// </summary>
-		public async void OnBackgroundStart()
+		public async Task OnBackgroundStart()
 		{
 			if (this.onStartResumesApplication)
 			{
@@ -376,8 +376,6 @@ namespace IdApp
 				throw new Exception("Initialization did not complete in time.");
 
 			this.StartupCompleted("StartupProfile.uml", false);
-
-			await Task.CompletedTask;
 		}
 
 		///<inheritdoc/>
@@ -399,7 +397,10 @@ namespace IdApp
 				await App.Stop();
 		}
 
-		private async Task DoResume(bool BackgroundStart)
+		/// <summary>
+		/// Resume the services start in the background.
+		/// </summary>
+		public async Task DoResume(bool BackgroundStart)
 		{
 			Instance = this;
 			this.startupCancellation = new CancellationTokenSource();
@@ -507,7 +508,7 @@ namespace IdApp
 		/// <summary>
 		/// Awaiting the services stop in the background.
 		/// </summary>
-		public async void OnBackgroundSleep()
+		public async Task OnBackgroundSleep()
 		{
 			await this.Shutdown(false, true);
 		}
