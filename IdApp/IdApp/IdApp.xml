@@ -2800,6 +2800,11 @@
             If generation of HTML is supported
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.HandlesLaTeX">
+            <summary>
+            If generation of LaTeX is supported
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.HandlesPlainText">
             <summary>
             If generation of plain text is supported.
@@ -2818,6 +2823,11 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GenerateHTML(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
             <summary>
             Generates HTML (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GenerateLaTeX(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates LaTeX (not supported)
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GeneratePlainText(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
@@ -2863,6 +2873,11 @@
             If generation of HTML is supported
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.HandlesLaTeX">
+            <summary>
+            If generation of LaTeX is supported
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.HandlesPlainText">
             <summary>
             If generation of plain text is supported.
@@ -2881,6 +2896,11 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GenerateHTML(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
             <summary>
             Generates HTML (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GenerateLaTeX(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates LaTeX (not supported)
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GeneratePlainText(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
@@ -2926,6 +2946,11 @@
             If generation of HTML is supported
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.HandlesLaTeX">
+            <summary>
+            If generation of LaTeX is supported
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.HandlesPlainText">
             <summary>
             If generation of plain text is supported.
@@ -2944,6 +2969,11 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.GenerateHTML(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
             <summary>
             Generates HTML (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.GenerateLaTeX(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates LaTeX (not supported)
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.GeneratePlainText(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
@@ -3056,6 +3086,9 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateLaTeX(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
@@ -3085,6 +3118,9 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent.GenerateLaTeX(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme">
             <summary>
             Implements the iotdisco URI Scheme
@@ -3102,6 +3138,9 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.GenerateLaTeX(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
@@ -3129,6 +3168,9 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.GenerateLaTeX(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
@@ -3152,6 +3194,9 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.GenerateLaTeX(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
@@ -3179,6 +3224,9 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme.GenerateLaTeX(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
@@ -3202,6 +3250,9 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateLaTeX(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">

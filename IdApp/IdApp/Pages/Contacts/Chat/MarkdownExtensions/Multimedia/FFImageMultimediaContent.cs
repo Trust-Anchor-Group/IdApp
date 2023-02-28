@@ -109,5 +109,11 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		{
 			return this.imageContent.GenerateXAML(Output, TextAlignment, Items, ChildNodes, AloneInParagraph, Document);
 		}
+
+		/// <inheritdoc/>
+		public override Task GenerateLaTeX(StringBuilder Output, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
+		{
+			return this.imageContent.GenerateLaTeX(Output, Items, ChildNodes, AloneInParagraph, Document);
+		}
 	}
 }
