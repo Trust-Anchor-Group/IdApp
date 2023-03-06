@@ -3115,6 +3115,11 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent.AttachmentCacheService">
+            <summary>
+            Provides a reference to the attachment cache service.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>

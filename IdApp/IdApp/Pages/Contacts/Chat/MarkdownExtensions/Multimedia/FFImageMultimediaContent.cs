@@ -1,4 +1,5 @@
 ﻿using FFImageLoading;
+using IdApp.Services.AttachmentCache;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -74,15 +75,26 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 
 				if (Url.StartsWith(Constants.UriSchemes.Aes256))
 				{
-					KeyValuePair<string, TemporaryStream> Content = await InternetContent.GetTempStreamAsync(new Uri(MultimediaItem.Url));
+					(byte[] Bin, string ContentType) = await this.AttachmentCacheService.TryGet(Url);
+
+					if (Bin is null)
+					{
+						KeyValuePair<string, TemporaryStream> Content = await InternetContent.GetTempStreamAsync(new Uri(MultimediaItem.Url));
+
+						Content.Value.Position = 0;
+						Bin = Content.Value.ToByteArray();
+						ContentType = Content.Key;
+
+						await this.AttachmentCacheService.Add(Url, string.Empty, false, Bin, ContentType);
+					}
+
 					StringBuilder sb = new();
 
 					sb.Append("data:");
-					sb.Append(Content.Key);
+					sb.Append(ContentType);
 					sb.Append(";base64,");
 
-					Content.Value.Position = 0;
-					sb.Append(Convert.ToBase64String(Content.Value.ToByteArray()));
+					sb.Append(Convert.ToBase64String(Bin));
 
 					Url = sb.ToString();
 				}
@@ -101,6 +113,22 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 				Output.WriteAttributeString("ErrorPlaceholder", $"resource://{Resx.Pngs.BrokenImage}");
 
 				Output.WriteEndElement();
+			}
+		}
+
+		private IAttachmentCacheService attachmentCacheService;
+
+		/// <summary>
+		/// Provides a reference to the attachment cache service.
+		/// </summary>
+		public IAttachmentCacheService AttachmentCacheService
+		{
+			get
+			{
+				if (this.attachmentCacheService is null)
+					this.attachmentCacheService = App.Instantiate<IAttachmentCacheService>();
+
+				return this.attachmentCacheService;
 			}
 		}
 
