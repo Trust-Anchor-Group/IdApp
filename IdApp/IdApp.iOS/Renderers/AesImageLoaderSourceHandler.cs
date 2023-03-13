@@ -27,7 +27,7 @@ namespace IdApp.iOS.Renderers
 		public async Task<UIImage> LoadImageAsync(ImageSource Imagesource, CancellationToken CancelationToken = default(CancellationToken), float Scale = 1f)
 		{
 			UIImage Image = null;
-			UriImageSource ImageLoader = Imagesource as UriImageSource;
+			AesImageSource ImageLoader = Imagesource as AesImageSource;
 			if (ImageLoader?.Uri != null)
 			{
 				using (Stream StreamImage = await ImageLoader.GetStreamAsync(CancelationToken).ConfigureAwait(false))
