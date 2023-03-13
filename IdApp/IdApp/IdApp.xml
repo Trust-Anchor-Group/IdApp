@@ -2125,6 +2125,43 @@
             <param name="State">The state to convert.</param>
             <returns>String representation</returns>
         </member>
+        <member name="T:IdApp.Helpers.AesImageSource">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.AesImageSource.#ctor(System.Uri)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.AesImageSource.#ctor">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:IdApp.Helpers.AesImageSource.AttachmentCacheService">
+            <summary>
+            Provides a reference to the attachment cache service.
+            </summary>
+        </member>
+        <member name="F:IdApp.Helpers.AesImageSource.UriProperty">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:IdApp.Helpers.AesImageSource.IsEmpty">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:IdApp.Helpers.AesImageSource.Uri">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.AesImageSource.GetStreamAsync(System.Threading.CancellationToken)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.AesImageSource.ToString">
+            <summary>
+            </summary>
+        </member>
         <member name="T:IdApp.Helpers.EntryProperties">
             <summary>
             EntryProperties is a class which defines attached bindable properties used by our custom renderers for <see cref="T:Xamarin.Forms.Entry"/>.
@@ -2199,6 +2236,13 @@
             <summary>
             Keyboard height
             </summary>
+        </member>
+        <member name="T:IdApp.Helpers.MyCachedImage">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.MyCachedImage.CoerceImageSource(System.Object)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Helpers.PasswordMask">
             <summary>

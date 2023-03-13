@@ -2,6 +2,7 @@
 using IdApp.Services.AttachmentCache;
 using System;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -75,44 +76,48 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 
 				if (Url.StartsWith(Constants.UriSchemes.Aes256))
 				{
-					(byte[] Bin, string ContentType) = await this.AttachmentCacheService.TryGet(Url);
+					/*
+					Output.WriteStartElement("ImageHelpers", "MyCachedImage", "clr-namespace:IdApp.Helpers;assembly=IdApp");
+					Output.WriteAttributeString("Source", Url);
 
-					if (Bin is null)
-					{
-						KeyValuePair<string, TemporaryStream> Content = await InternetContent.GetTempStreamAsync(new Uri(MultimediaItem.Url));
+					if (DownsampleWidth.HasValue)
+						Output.WriteAttributeString("DownsampleWidth", DownsampleWidth.Value.ToString());
 
-						Content.Value.Position = 0;
-						Bin = Content.Value.ToByteArray();
-						ContentType = Content.Key;
+					if (DownsampleHeight.HasValue)
+						Output.WriteAttributeString("DownsampleHeight", DownsampleHeight.Value.ToString());
 
-						await this.AttachmentCacheService.Add(Url, string.Empty, false, Bin, ContentType);
-					}
+					// For some reason, specifying an SVG image source doesn't work, no idea why.
+					Output.WriteAttributeString("LoadingPlaceholder", $"resource://{Resx.Pngs.Image}");
+					Output.WriteAttributeString("ErrorPlaceholder", $"resource://{Resx.Pngs.BrokenImage}");
 
-					StringBuilder sb = new();
+					Output.WriteEndElement();
+					*/
 
-					sb.Append("data:");
-					sb.Append(ContentType);
-					sb.Append(";base64,");
-
-					sb.Append(Convert.ToBase64String(Bin));
-
-					Url = sb.ToString();
+					Output.WriteStartElement("Image", "http://xamarin.com/schemas/2014/forms");
+					Output.WriteStartElement("Image.Source", "http://xamarin.com/schemas/2014/forms");
+					Output.WriteStartElement("imagehelpers", "AesImageSource", "clr-namespace:IdApp.Helpers;assembly=IdApp");
+					Output.WriteAttributeString("Uri", Url);
+					Output.WriteEndElement();
+					Output.WriteEndElement();
+					Output.WriteEndElement();
 				}
+				else
+				{
+					Output.WriteStartElement("ffimageloading", "CachedImage", "clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms");
+					Output.WriteAttributeString("Source", Url);
 
-				Output.WriteStartElement("ffimageloading", "CachedImage", "clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms");
-				Output.WriteAttributeString("Source", Url);
+					if (DownsampleWidth.HasValue)
+						Output.WriteAttributeString("DownsampleWidth", DownsampleWidth.Value.ToString());
 
-				if (DownsampleWidth.HasValue)
-					Output.WriteAttributeString("DownsampleWidth", DownsampleWidth.Value.ToString());
+					if (DownsampleHeight.HasValue)
+						Output.WriteAttributeString("DownsampleHeight", DownsampleHeight.Value.ToString());
 
-				if (DownsampleHeight.HasValue)
-					Output.WriteAttributeString("DownsampleHeight", DownsampleHeight.Value.ToString());
+					// For some reason, specifying an SVG image source doesn't work, no idea why.
+					Output.WriteAttributeString("LoadingPlaceholder", $"resource://{Resx.Pngs.Image}");
+					Output.WriteAttributeString("ErrorPlaceholder", $"resource://{Resx.Pngs.BrokenImage}");
 
-				// For some reason, specifying an SVG image source doesn't work, no idea why.
-				Output.WriteAttributeString("LoadingPlaceholder", $"resource://{Resx.Pngs.Image}");
-				Output.WriteAttributeString("ErrorPlaceholder", $"resource://{Resx.Pngs.BrokenImage}");
-
-				Output.WriteEndElement();
+					Output.WriteEndElement();
+				}
 			}
 		}
 

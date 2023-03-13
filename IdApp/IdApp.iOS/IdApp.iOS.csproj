@@ -97,6 +97,7 @@
     <Compile Include="ShareContent.cs" />
     <Compile Include="..\Version\Version.cs" />
     <Compile Include="Renderers\ExtendedDatePickeriOSRenderer.cs" />
+    <Compile Include="Renderers\AesImageLoaderSourceHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Renderers\NoBounceCollectionViewRenderer.cs" />
