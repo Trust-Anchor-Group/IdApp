@@ -43,7 +43,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 
 			this.SendPhoneNrCodeCommand = new Command(async () => await this.SendPhoneNrCode(), this.SendPhoneNrCodeCanExecute);
 			this.VerifyPhoneNrCodeCommand = new Command(async () => await this.VerifyPhoneNrCode(), this.VerifyPhoneNrCodeCanExecute);
-			
+
 			this.Title = LocalizationResourceManager.Current["ContactInformation"];
 			this.Purposes = new ObservableCollection<string>();
 		}
@@ -287,7 +287,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			get => (string)this.GetValue(EMailProperty);
 			set
 			{
-				this.SetValue(EMailProperty, value);
+				this.SetValue(EMailProperty, value.Trim());
 				this.OnPropertyChanged(nameof(this.EmailButtonEnabled));
 			}
 		}
