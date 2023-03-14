@@ -120,20 +120,25 @@ namespace IdApp.Helpers
 			return stream;
 		}
 
-		async Task<Stream> GetStreamAsyncUnchecked(string key, Uri uri, CancellationToken cancellationToken)
+		async Task<Stream> GetStreamAsyncUnchecked(string key, Uri uri, CancellationToken CancellationToken)
 		{
+			CancellationToken.ThrowIfCancellationRequested();
+
 			string Url = this.Uri.OriginalString;
-			(byte[] Bin, string ContentType) = await this.AttachmentCacheService.TryGet(Url);
+			(byte[] Bin, _) = await this.AttachmentCacheService.TryGet(Url).ConfigureAwait(false);
+
+			CancellationToken.ThrowIfCancellationRequested();
 
 			if (Bin is null)
 			{
-				KeyValuePair<string, TemporaryStream> Content = await InternetContent.GetTempStreamAsync(this.Uri);
+				KeyValuePair<string, TemporaryStream> Content = await InternetContent.GetTempStreamAsync(this.Uri).ConfigureAwait(false);
+
+				CancellationToken.ThrowIfCancellationRequested();
 
 				Content.Value.Position = 0;
 				Bin = Content.Value.ToByteArray();
-				ContentType = Content.Key;
 
-				await this.AttachmentCacheService.Add(Url, string.Empty, false, Bin, ContentType);
+				await this.AttachmentCacheService.Add(Url, string.Empty, false, Bin, Content.Key).ConfigureAwait(false);
 			}
 
 			if (Bin is not null)

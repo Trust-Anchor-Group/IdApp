@@ -2125,6 +2125,22 @@
             <param name="State">The state to convert.</param>
             <returns>String representation</returns>
         </member>
+        <member name="T:IdApp.Helpers.AesDownloadCache">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.AesDownloadCache.#ctor(FFImageLoading.Config.Configuration)">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:IdApp.Helpers.AesDownloadCache.AttachmentCacheService">
+            <summary>
+            Provides a reference to the attachment cache service.
+            </summary>
+        </member>
+        <member name="M:IdApp.Helpers.AesDownloadCache.DownloadAndCacheIfNeededAsync(System.String,FFImageLoading.Work.TaskParameter,FFImageLoading.Config.Configuration,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Helpers.AesImageSource">
             <summary>
             </summary>

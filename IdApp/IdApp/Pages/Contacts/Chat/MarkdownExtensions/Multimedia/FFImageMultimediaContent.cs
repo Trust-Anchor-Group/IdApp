@@ -76,7 +76,6 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 
 				if (Url.StartsWith(Constants.UriSchemes.Aes256))
 				{
-					/*
 					Output.WriteStartElement("ImageHelpers", "MyCachedImage", "clr-namespace:IdApp.Helpers;assembly=IdApp");
 					Output.WriteAttributeString("Source", Url);
 
@@ -91,8 +90,8 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 					Output.WriteAttributeString("ErrorPlaceholder", $"resource://{Resx.Pngs.BrokenImage}");
 
 					Output.WriteEndElement();
-					*/
 
+					/*
 					Output.WriteStartElement("Image", "http://xamarin.com/schemas/2014/forms");
 					Output.WriteStartElement("Image.Source", "http://xamarin.com/schemas/2014/forms");
 					Output.WriteStartElement("imagehelpers", "AesImageSource", "clr-namespace:IdApp.Helpers;assembly=IdApp");
@@ -100,6 +99,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 					Output.WriteEndElement();
 					Output.WriteEndElement();
 					Output.WriteEndElement();
+					*/
 				}
 				else
 				{

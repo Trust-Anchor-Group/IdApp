@@ -14,7 +14,7 @@ namespace IdApp.Helpers
 			UriImageSource UriImageSource = NewValue as UriImageSource;
 
 			if ((UriImageSource?.Uri?.OriginalString is not null) &&
-				UriImageSource.Uri.Scheme.Equals("aes256", StringComparison.OrdinalIgnoreCase))
+				UriImageSource.Uri.Scheme.Equals(Constants.UriSchemes.Aes256, StringComparison.OrdinalIgnoreCase))
 			{
 				return new AesImageSource(UriImageSource.Uri);
 			}

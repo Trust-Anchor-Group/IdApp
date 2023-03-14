@@ -9,6 +9,7 @@ using Android.Runtime;
 using Android.Views;
 using Firebase;
 using IdApp.Android.Nfc;
+using IdApp.Helpers;
 using IdApp.Nfc;
 using IdApp.Services.Nfc;
 using System;
@@ -131,6 +132,7 @@ namespace IdApp.Android
 
 				FFImageLoading.Config.Configuration Configuration = FFImageLoading.Config.Configuration.Default;
 				Configuration.DiskCacheDuration = TimeSpan.FromDays(1);
+				Configuration.DownloadCache = new AesDownloadCache(Configuration);
 				FFImageLoading.ImageService.Instance.Initialize(Configuration);
 
 				// Uncomment this to debug loading images from neuron (ensures that they are not loaded from cache).
