@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.Gms.Common;
 using Android.Nfc;
 using Android.OS;
@@ -26,6 +27,7 @@ namespace IdApp.Android
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
 	{
 		private static NfcAdapter nfcAdapter = null;
+		private static Context configurationContext = null;
 
 		protected override void OnCreate(Bundle SavedInstanceState)
 		{
@@ -35,6 +37,21 @@ namespace IdApp.Android
 			base.OnCreate(SavedInstanceState);
 
 			this.Init(SavedInstanceState);
+		}
+
+		public override Resources Resources
+		{
+			get
+			{
+				if (configurationContext is null)
+				{
+					Configuration config = new Configuration();
+					config.SetToDefaults();
+					configurationContext = this.CreateConfigurationContext(config);
+				}
+
+				return configurationContext.Resources;
+			}
 		}
 
 		private void Init(Bundle SavedInstanceState)
