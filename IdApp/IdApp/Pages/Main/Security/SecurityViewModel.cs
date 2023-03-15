@@ -119,7 +119,8 @@ namespace IdApp.Pages.Main.Security
 					if (OldPin is null || OldPin == NewPin)
 						return;
 
-					if (References.TagProfile.ComputePinHash(OldPin) == References.TagProfile.PinHash)
+					if (!References.TagProfile.HasPin ||
+						References.TagProfile.ComputePinHash(OldPin) == References.TagProfile.PinHash)
 					{
 						string NewPassword = References.CryptoService.CreateRandomPassword();
 
@@ -131,7 +132,6 @@ namespace IdApp.Pages.Main.Security
 
 						References.TagProfile.Pin = NewPin;
 						await References.TagProfile.SetAccount(References.TagProfile.Account, NewPassword, string.Empty);
-
 						await References.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["PinChanged"]);
 						return;
 					}

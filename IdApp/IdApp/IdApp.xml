@@ -8947,11 +8947,6 @@
             The user friendly connection state text to display to the user.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.OldPinExists">
-            <summary>
-            Gets a value indicating if the user already has an old pin set up.
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.YouCanProtectYourWalletPinInfoProperty">
             <summary>
             The <see cref="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.YouCanProtectYourWalletPinInfo"/>
@@ -23747,11 +23742,6 @@
             This profile's current registration step.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Tag.ITagProfile.PinIsValid">
-            <summary>
-            Returns <c>true</c> if the PIN is valid, <c>false</c> otherwise.
-            </summary>
-        </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.FileUploadIsSupported">
             <summary>
             Returns <c>true</c> if file upload is supported for the specified XMPP server, <c>false</c> otherwise.
@@ -23767,9 +23757,9 @@
             A hashed version of the user's <see cref="P:IdApp.Services.Tag.ITagProfile.Pin"/>.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Tag.ITagProfile.UsePin">
+        <member name="P:IdApp.Services.Tag.ITagProfile.HasPin">
             <summary>
-            Returns <c>true</c> if the <see cref="P:IdApp.Services.Tag.ITagProfile.Pin"/> should be used, <c>false</c> otherwise.
+            Indicates if the user has a <see cref="P:IdApp.Services.Tag.ITagProfile.Pin"/>.
             </summary>
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.IsTest">
@@ -24245,9 +24235,6 @@
         <member name="P:IdApp.Services.Tag.TagProfile.Step">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.Services.Tag.TagProfile.PinIsValid">
-            <inheritdoc/>
-        </member>
         <member name="P:IdApp.Services.Tag.TagProfile.FileUploadIsSupported">
             <inheritdoc/>
         </member>
@@ -24257,7 +24244,7 @@
         <member name="P:IdApp.Services.Tag.TagProfile.PinHash">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.Services.Tag.TagProfile.UsePin">
+        <member name="P:IdApp.Services.Tag.TagProfile.HasPin">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Services.Tag.TagProfile.IsTest">

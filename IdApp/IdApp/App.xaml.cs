@@ -997,7 +997,7 @@ namespace IdApp
 		public static async Task<string> InputPin()
 		{
 			ITagProfile Profile = App.Instantiate<ITagProfile>();
-			if (!Profile.UsePin)
+			if (!Profile.HasPin)
 				return string.Empty;
 
 			return await InputPin(Profile);
@@ -1018,7 +1018,7 @@ namespace IdApp
 			if (!IsDebug)
 			{
 				ITagProfile Profile = App.Instantiate<ITagProfile>();
-				if (!Profile.UsePin)
+				if (!Profile.HasPin)
 					return true;
 
 				bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
@@ -1112,7 +1112,7 @@ namespace IdApp
 
 			try
 			{
-				if (!Profile.UsePin)
+				if (!Profile.HasPin)
 					return string.Empty;
 
 				Popups.Pin.PinPopup.PinPopupPage Page = new();

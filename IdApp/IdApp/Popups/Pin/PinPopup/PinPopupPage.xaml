@@ -6,22 +6,21 @@
                  BackgroundInputTransparent="False"
                  BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"
                  x:Class="IdApp.Popups.Pin.PinPopup.PinPopupPage">
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" >
-            <StackLayout
-                IsClippedToBounds="True"
-                AbsoluteLayout.LayoutBounds="0,0,1,1"
-                AbsoluteLayout.LayoutFlags="All"
-                HorizontalOptions="Center"
-                VerticalOptions="Center">
-                <Entry x:Name="Pin" HorizontalOptions="Center" IsPassword="True" WidthRequest="300"
-                       Margin="{StaticResource DefaultLeftRightAndBottomMargin}"
-					   PropertyChanged="Pin_PropertyChanged"
-					   Placeholder="{x:Static resx:AppResources.EnterPin}" Completed="OnEnter" />
-				<Button x:Name="EnterButton" Margin="10,5" Clicked="OnEnter" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Enter}">
-                    <Button.HeightRequest>
-                        <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
-                    </Button.HeightRequest>
-                </Button>
-            </StackLayout>
-        </AbsoluteLayout>
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" >
+        <StackLayout
+            IsClippedToBounds="True"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+            <Entry x:Name="Pin" HorizontalOptions="Center" IsPassword="True" WidthRequest="300"
+                    Margin="{StaticResource DefaultLeftRightAndBottomMargin}"
+					PropertyChanged="Pin_PropertyChanged"
+					Placeholder="{x:Static resx:AppResources.EnterPin}" Completed="OnEnter" />
+
+			<Button x:Name="EnterButton" Margin="10,5"
+					Clicked="OnEnter" HorizontalOptions="Fill"
+					Text="{x:Static resx:AppResources.Enter}"/>
+		</StackLayout>
+    </AbsoluteLayout>
 </pages:PopupPage>
