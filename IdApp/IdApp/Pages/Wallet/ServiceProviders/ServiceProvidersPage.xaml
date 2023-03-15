@@ -27,8 +27,8 @@
 			<CollectionView.ItemTemplate>
 				<DataTemplate x:DataType="model:ServiceProviderModel">
 					<Grid Padding="5,5">
-						<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="0">
-							<Grid ColumnDefinitions="*" RowDefinitions="auto" Padding="10">
+						<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10">
+							<Grid ColumnDefinitions="*" RowDefinitions="auto" >
 								<Label Grid.Column="0" Grid.Row="0" IsVisible="{Binding HasIcon, Converter={converters:LogicalNot}}"
 									   HorizontalOptions="Center" VerticalOptions="Center" LineBreakMode="CharacterWrap"
 									   TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
