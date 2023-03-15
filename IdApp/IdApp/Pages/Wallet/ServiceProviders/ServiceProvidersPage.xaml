@@ -6,6 +6,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.ServiceProviders;assembly=IdApp"
                        xmlns:noBounce="clr-namespace:IdApp.Controls.NoBounceView;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+                       xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                        x:DataType="model:ServiceProvidersViewModel" x:Name="ThisPage"
                        x:Class="IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage"
                        Style="{StaticResource BaseBackgroundPage}"
@@ -31,9 +32,9 @@
 							   HorizontalOptions="Center" VerticalTextAlignment="Center" LineBreakMode="CharacterWrap"
 							   TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
 
-						<Image Grid.Column="0" Grid.Row="0" Margin="0,10,0,10" IsVisible="{Binding HasIcon}"
-							   HorizontalOptions="Center" VerticalOptions="Center" Source="{Binding IconUrl}"
-							   WidthRequest="{Binding IconWidth}" HeightRequest="{Binding IconHeight}"/>
+						<ffimage:CachedImage Grid.Column="0" Grid.Row="0" Margin="0,10,0,10" IsVisible="{Binding HasIcon}"
+							   HorizontalOptions="Center" VerticalOptions="Center" Source="{Binding IconUrlSource}"
+							   WidthRequest="{Binding IconWidth}" HeightRequest="{Binding IconHeight}" Aspect="AspectFit" />
 					</Grid>
 				</DataTemplate>
 			</CollectionView.ItemTemplate>

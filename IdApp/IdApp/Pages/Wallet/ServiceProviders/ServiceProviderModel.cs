@@ -1,4 +1,7 @@
 ﻿using EDaler;
+using FFImageLoading.Forms;
+using FFImageLoading.Svg.Forms;
+using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.ServiceProviders
 {
@@ -42,6 +45,24 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// Icon URL
 		/// </summary>
 		public string IconUrl => this.serviceProvider.IconUrl;
+
+		/// <summary>
+		/// Icon URL Source
+		/// </summary>
+		public ImageSource IconUrlSource
+		{
+			get
+			{
+				if (this.IconUrl.EndsWith(".svg", System.StringComparison.OrdinalIgnoreCase))
+				{
+					return SvgImageSource.FromUri(new System.Uri(this.IconUrl));
+				}
+				else
+				{
+					return new DataUrlImageSource(this.IconUrl);
+				}
+			}
+		}
 
 		/// <summary>
 		/// Icon Width

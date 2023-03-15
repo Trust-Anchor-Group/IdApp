@@ -14770,6 +14770,11 @@
             Icon URL
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.IconUrlSource">
+            <summary>
+            Icon URL Source
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.IconWidth">
             <summary>
             Icon Width
