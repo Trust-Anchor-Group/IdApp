@@ -26484,6 +26484,39 @@
             <param name="TokenId">Token ID</param>
             <returns>Current state</returns>
         </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.SavePrivateXml(System.String)">
+            <summary>
+            Saves Private XML to the server. Private XML are separated by
+            Local Name and Namespace of the root element. Only one document
+            per fully qualified name. When saving private XML, the XML overwrites
+            any existing XML having the same local name and namespace.
+            </summary>
+            <param name="Xml">XML to save.</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.SavePrivateXml(System.Xml.XmlElement)">
+            <summary>
+            Saves Private XML to the server. Private XML are separated by
+            Local Name and Namespace of the root element. Only one document
+            per fully qualified name. When saving private XML, the XML overwrites
+            any existing XML having the same local name and namespace.
+            </summary>
+            <param name="Xml">XML to save.</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.LoadPrivateXml(System.String,System.String)">
+            <summary>
+            Loads private XML previously stored, given the local name and
+            namespace of the XML.
+            </summary>
+            <param name="LocalName">Local Name</param>
+            <param name="Namespace">Namespace</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.DeletePrivateXml(System.String,System.String)">
+            <summary>
+            Deletes private XML previously saved to the account.
+            </summary>
+            <param name="LocalName">Local Name</param>
+            <param name="Namespace">Namespace</param>
+        </member>
         <member name="T:IdApp.Services.Xmpp.XmppService">
              <summary>
              XMPP Service, maintaining XMPP connections and XMPP Extensions.
@@ -27814,6 +27847,39 @@
             </summary>
             <param name="TokenId">Token ID</param>
             <returns>Current state</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.SavePrivateXml(System.String)">
+            <summary>
+            Saves Private XML to the server. Private XML are separated by
+            Local Name and Namespace of the root element. Only one document
+            per fully qualified name. When saving private XML, the XML overwrites
+            any existing XML having the same local name and namespace.
+            </summary>
+            <param name="Xml">XML to save.</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.SavePrivateXml(System.Xml.XmlElement)">
+            <summary>
+            Saves Private XML to the server. Private XML are separated by
+            Local Name and Namespace of the root element. Only one document
+            per fully qualified name. When saving private XML, the XML overwrites
+            any existing XML having the same local name and namespace.
+            </summary>
+            <param name="Xml">XML to save.</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.LoadPrivateXml(System.String,System.String)">
+            <summary>
+            Loads private XML previously stored, given the local name and
+            namespace of the XML.
+            </summary>
+            <param name="LocalName">Local Name</param>
+            <param name="Namespace">Namespace</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.DeletePrivateXml(System.String,System.String)">
+            <summary>
+            Deletes private XML previously saved to the account.
+            </summary>
+            <param name="LocalName">Local Name</param>
+            <param name="Namespace">Namespace</param>
         </member>
     </members>
 </doc>

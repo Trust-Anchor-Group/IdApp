@@ -4426,5 +4426,61 @@ namespace IdApp.Services.Xmpp
 
 		#endregion
 
+		#region Private XML
+
+		/// <summary>
+		/// Saves Private XML to the server. Private XML are separated by
+		/// Local Name and Namespace of the root element. Only one document
+		/// per fully qualified name. When saving private XML, the XML overwrites
+		/// any existing XML having the same local name and namespace.
+		/// </summary>
+		/// <param name="Xml">XML to save.</param>
+		public Task SavePrivateXml(string Xml)
+		{
+			return this.xmppClient.SetPrivateXmlElementAsync(Xml);
+		}
+
+		/// <summary>
+		/// Saves Private XML to the server. Private XML are separated by
+		/// Local Name and Namespace of the root element. Only one document
+		/// per fully qualified name. When saving private XML, the XML overwrites
+		/// any existing XML having the same local name and namespace.
+		/// </summary>
+		/// <param name="Xml">XML to save.</param>
+		public Task SavePrivateXml(XmlElement Xml)
+		{
+			return this.xmppClient.SetPrivateXmlElementAsync(Xml);
+		}
+
+		/// <summary>
+		/// Loads private XML previously stored, given the local name and
+		/// namespace of the XML.
+		/// </summary>
+		/// <param name="LocalName">Local Name</param>
+		/// <param name="Namespace">Namespace</param>
+		public Task<XmlElement> LoadPrivateXml(string LocalName, string Namespace)
+		{
+			return this.xmppClient.GetPrivateXmlElementAsync(LocalName, Namespace);
+		}
+
+		/// <summary>
+		/// Deletes private XML previously saved to the account.
+		/// </summary>
+		/// <param name="LocalName">Local Name</param>
+		/// <param name="Namespace">Namespace</param>
+		public Task DeletePrivateXml(string LocalName, string Namespace)
+		{
+			StringBuilder Xml = new();
+
+			Xml.Append('<');
+			Xml.Append(XML.Encode(LocalName));
+			Xml.Append(" xmlns='");
+			Xml.Append(XML.Encode(Namespace));
+			Xml.Append("'/>");
+
+			return this.SavePrivateXml(Xml.ToString());
+		}
+
+		#endregion
 	}
 }

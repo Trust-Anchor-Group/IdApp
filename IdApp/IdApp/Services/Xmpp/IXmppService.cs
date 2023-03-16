@@ -26,6 +26,8 @@ using EDaler.Uris;
 using EDaler;
 using NeuroFeatures.Events;
 using NeuroFeatures;
+using System.Text;
+using Waher.Content.Xml;
 
 namespace IdApp.Services.Xmpp
 {
@@ -1519,5 +1521,41 @@ namespace IdApp.Services.Xmpp
 
 		#endregion
 
+		#region Private XML
+
+		/// <summary>
+		/// Saves Private XML to the server. Private XML are separated by
+		/// Local Name and Namespace of the root element. Only one document
+		/// per fully qualified name. When saving private XML, the XML overwrites
+		/// any existing XML having the same local name and namespace.
+		/// </summary>
+		/// <param name="Xml">XML to save.</param>
+		Task SavePrivateXml(string Xml);
+
+		/// <summary>
+		/// Saves Private XML to the server. Private XML are separated by
+		/// Local Name and Namespace of the root element. Only one document
+		/// per fully qualified name. When saving private XML, the XML overwrites
+		/// any existing XML having the same local name and namespace.
+		/// </summary>
+		/// <param name="Xml">XML to save.</param>
+		Task SavePrivateXml(XmlElement Xml);
+
+		/// <summary>
+		/// Loads private XML previously stored, given the local name and
+		/// namespace of the XML.
+		/// </summary>
+		/// <param name="LocalName">Local Name</param>
+		/// <param name="Namespace">Namespace</param>
+		Task<XmlElement> LoadPrivateXml(string LocalName, string Namespace);
+
+		/// <summary>
+		/// Deletes private XML previously saved to the account.
+		/// </summary>
+		/// <param name="LocalName">Local Name</param>
+		/// <param name="Namespace">Namespace</param>
+		Task DeletePrivateXml(string LocalName, string Namespace);
+
+		#endregion
 	}
 }
