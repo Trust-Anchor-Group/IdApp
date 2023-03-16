@@ -47,7 +47,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		}
 
 		/// <inheritdoc/>
-		public override async Task GenerateXamarinForms(XmlWriter Output, XamarinRenderingState State, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
+		public override Task GenerateXamarinForms(XmlWriter Output, XamarinRenderingState State, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
 		{
 			if (Items?.Length > 0 && Items[0] is MultimediaItem MultimediaItem)
 			{
@@ -119,6 +119,8 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 					Output.WriteEndElement();
 				}
 			}
+
+			return Task.CompletedTask;
 		}
 
 		private IAttachmentCacheService attachmentCacheService;
@@ -130,8 +132,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		{
 			get
 			{
-				if (this.attachmentCacheService is null)
-					this.attachmentCacheService = App.Instantiate<IAttachmentCacheService>();
+				this.attachmentCacheService ??= App.Instantiate<IAttachmentCacheService>();
 
 				return this.attachmentCacheService;
 			}
