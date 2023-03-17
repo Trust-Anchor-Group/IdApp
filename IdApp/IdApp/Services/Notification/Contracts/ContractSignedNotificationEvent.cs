@@ -3,6 +3,7 @@ using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Services.UI.Photos;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -143,7 +144,11 @@ namespace IdApp.Services.Notification.Contracts
 				}
 				catch (Exception ex)
 				{
-					ServiceReferences.LogService.LogException(ex);
+					ServiceReferences.LogService.LogException(ex,
+						new KeyValuePair<string, object>("ContractId", this.ContractId),
+						new KeyValuePair<string, object>("LegalId", this.LegalId),
+						new KeyValuePair<string, object>("Role", this.Role),
+						new KeyValuePair<string, object>("JID", ServiceReferences.XmppService.BareJid));
 				}
 			}
 
