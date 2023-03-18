@@ -46,7 +46,7 @@ namespace IdApp.Android
 			{
 				if (configurationContext is null)
 				{
-					Configuration config = new Configuration();
+					Configuration config = new();
 					config.SetToDefaults();
 					configurationContext = this.CreateConfigurationContext(config);
 				}
