@@ -287,7 +287,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			get => (string)this.GetValue(EMailProperty);
 			set
 			{
-				this.SetValue(EMailProperty, value.Trim());
+				this.SetValue(EMailProperty, value?.Trim() ?? string.Empty);
 				this.OnPropertyChanged(nameof(this.EmailButtonEnabled));
 			}
 		}
