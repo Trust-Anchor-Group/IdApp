@@ -54,9 +54,7 @@ namespace IdApp.Services
         { 
             get
 			{
-                if (this.uiSerializer is null)
-                    this.uiSerializer = App.Instantiate<IUiSerializer>();
-
+                this.uiSerializer ??= App.Instantiate<IUiSerializer>();
                 return this.uiSerializer;
 			}
         }
@@ -68,9 +66,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.xmppService is null)
-                    this.xmppService = App.Instantiate<IXmppService>();
-
+                this.xmppService ??= App.Instantiate<IXmppService>();
                 return this.xmppService;
             }
         }
@@ -82,9 +78,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.tagProfile is null)
-                    this.tagProfile = App.Instantiate<ITagProfile>();
-
+                this.tagProfile ??= App.Instantiate<ITagProfile>();
                 return this.tagProfile;
             }
         }
@@ -96,9 +90,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.navigationService is null)
-                    this.navigationService = App.Instantiate<INavigationService>();
-
+                this.navigationService ??= App.Instantiate<INavigationService>();
                 return this.navigationService;
             }
         }
@@ -110,9 +102,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.logService is null)
-                    this.logService = App.Instantiate<ILogService>();
-
+                this.logService ??= App.Instantiate<ILogService>();
                 return this.logService;
             }
         }
@@ -124,9 +114,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.networkService is null)
-                    this.networkService = App.Instantiate<INetworkService>();
-
+                this.networkService ??= App.Instantiate<INetworkService>();
                 return this.networkService;
             }
         }
@@ -138,9 +126,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.neuroWalletOrchestratorService is null)
-                    this.neuroWalletOrchestratorService = App.Instantiate<INeuroWalletOrchestratorService>();
-
+                this.neuroWalletOrchestratorService ??= App.Instantiate<INeuroWalletOrchestratorService>();
                 return this.neuroWalletOrchestratorService;
             }
         }
@@ -152,9 +138,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.contractOrchestratorService is null)
-                    this.contractOrchestratorService = App.Instantiate<IContractOrchestratorService>();
-
+                this.contractOrchestratorService ??= App.Instantiate<IContractOrchestratorService>();
                 return this.contractOrchestratorService;
             }
         }
@@ -166,9 +150,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.thingRegistryOrchestratorService is null)
-                    this.thingRegistryOrchestratorService = App.Instantiate<IThingRegistryOrchestratorService>();
-
+                this.thingRegistryOrchestratorService ??= App.Instantiate<IThingRegistryOrchestratorService>();
                 return this.thingRegistryOrchestratorService;
             }
         }
@@ -180,9 +162,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.attachmentCacheService is null)
-                    this.attachmentCacheService = App.Instantiate<IAttachmentCacheService>();
-
+                this.attachmentCacheService ??= App.Instantiate<IAttachmentCacheService>();
                 return this.attachmentCacheService;
             }
         }
@@ -194,9 +174,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.cryptoService is null)
-                    this.cryptoService = App.Instantiate<ICryptoService>();
-
+                this.cryptoService ??= App.Instantiate<ICryptoService>();
                 return this.cryptoService;
             }
         }
@@ -208,9 +186,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.settingsService is null)
-                    this.settingsService = App.Instantiate<ISettingsService>();
-
+                this.settingsService ??= App.Instantiate<ISettingsService>();
                 return this.settingsService;
             }
         }
@@ -222,9 +198,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.storageService is null)
-                    this.storageService = App.Instantiate<IStorageService>();
-
+                this.storageService ??= App.Instantiate<IStorageService>();
                 return this.storageService;
             }
         }
@@ -236,9 +210,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.nfcService is null)
-                    this.nfcService = App.Instantiate<INfcService>();
-
+                this.nfcService ??= App.Instantiate<INfcService>();
                 return this.nfcService;
             }
         }
@@ -250,9 +222,7 @@ namespace IdApp.Services
 		{
 			get
 			{
-				if (this.notificationService is null)
-					this.notificationService = App.Instantiate<INotificationService>();
-
+				this.notificationService ??= App.Instantiate<INotificationService>();
 				return this.notificationService;
 			}
 		}
@@ -264,9 +234,7 @@ namespace IdApp.Services
         {
             get
             {
-                if (this.pushNotificationService is null)
-                    this.pushNotificationService = App.Instantiate<IPushNotificationService>();
-
+                this.pushNotificationService ??= App.Instantiate<IPushNotificationService>();
                 return this.pushNotificationService;
             }
         }

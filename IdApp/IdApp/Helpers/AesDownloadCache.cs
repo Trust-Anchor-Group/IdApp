@@ -10,9 +10,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Waher.Content;
-using Waher.Networking.XMPP.Concentrator;
 using Waher.Runtime.Temporary;
-using Xamarin.Forms;
 
 namespace IdApp.Helpers
 {
@@ -33,9 +31,7 @@ namespace IdApp.Helpers
 		{
 			get
 			{
-				if (this.attachmentCacheService is null)
-					this.attachmentCacheService = App.Instantiate<IAttachmentCacheService>();
-
+				this.attachmentCacheService ??= App.Instantiate<IAttachmentCacheService>();
 				return this.attachmentCacheService;
 			}
 		}
@@ -44,9 +40,7 @@ namespace IdApp.Helpers
 		public override async Task<CacheStream> DownloadAndCacheIfNeededAsync(string Url, TaskParameter Parameters, Configuration Configuration, CancellationToken Token)
 		{
 			if (!Url.StartsWith(Constants.UriSchemes.Aes256))
-			{
 				return await base.DownloadAndCacheIfNeededAsync(Url, Parameters, Configuration, Token).ConfigureAwait(false);
-			}
 
 			string FileName = this.MD5Helper.MD5(Url);
 			TimeSpan Duration = Parameters.CacheDuration ?? Configuration.DiskCacheDuration;
