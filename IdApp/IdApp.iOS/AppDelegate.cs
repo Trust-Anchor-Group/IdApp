@@ -98,25 +98,19 @@ namespace IdApp.iOS
 
 		private void RegisterKeyBoardObserver()
 		{
-			if (this.onKeyboardShowObserver is null)
+			this.onKeyboardShowObserver ??= UIKeyboard.Notifications.ObserveWillShow((object Sender, UIKeyboardEventArgs args) =>
 			{
-				this.onKeyboardShowObserver = UIKeyboard.Notifications.ObserveWillShow((object Sender, UIKeyboardEventArgs args) =>
-				{
-					NSValue Result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
-					CGSize keyboardSize = Result.RectangleFValue.Size;
+				NSValue Result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
+				CGSize keyboardSize = Result.RectangleFValue.Size;
 
-					MessagingCenter.Send<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears,
-						new KeyboardAppearEventArgs { KeyboardSize = (float)keyboardSize.Height });
-				});
-			}
+				MessagingCenter.Send<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears,
+					new KeyboardAppearEventArgs { KeyboardSize = (float)keyboardSize.Height });
+			});
 
-			if (this.onKeyboardHideObserver is null)
+			this.onKeyboardHideObserver ??= UIKeyboard.Notifications.ObserveWillHide((object Sender, UIKeyboardEventArgs args) =>
 			{
-				this.onKeyboardHideObserver = UIKeyboard.Notifications.ObserveWillHide((object Sender, UIKeyboardEventArgs args) =>
-				{
-					MessagingCenter.Send<object>(this, Constants.MessagingCenter.KeyboardDisappears);
-				});
-			}
+				MessagingCenter.Send<object>(this, Constants.MessagingCenter.KeyboardDisappears);
+			});
 		}
 
 		private void RegisterRemoteNotifications()
