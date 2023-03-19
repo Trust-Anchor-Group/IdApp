@@ -73,7 +73,7 @@ namespace IdApp.Services.Crypto
 
 			if (!string.IsNullOrWhiteSpace(s) && (i = s.IndexOf(',')) > 0)
 			{
-				key = Hashes.StringToBinary(s.Substring(0, i));
+				key = Hashes.StringToBinary(s[..i]);
 				iv = Hashes.StringToBinary(s[(i + 1)..]);
 			}
 			else
