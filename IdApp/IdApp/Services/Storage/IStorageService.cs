@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using Waher.Persistence;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
@@ -76,20 +77,33 @@ namespace IdApp.Services.Storage
 		void FlagForRepair();
 
 		/// <summary>
-		/// Serializes an object to a binary sequence of bytes.
+		/// Serializes an object to an XML string.
 		/// </summary>
-		/// <typeparam name="T">Type of object to serialize.</typeparam>
 		/// <param name="Object">Object to serialize.</param>
-		/// <returns>Serialization.</returns>
-		Task<byte[]> Serialize<T>(T Object);
+		/// <returns>XML Serialization.</returns>
+		Task<string> Serialize(object Object);
 
 		/// <summary>
-		/// Deserializes a serialized object, into an object instance.
+		/// Deserializes an object from XML
 		/// </summary>
-		/// <typeparam name="T">Type of object to deserialize.</typeparam>
-		/// <param name="Data">Binary sequence of data.</param>
-		/// <returns>Object instance.</returns>
-		Task<T> Deserialize<T>(byte[] Data);
-    }
+		/// <param name="Xml">XML String</param>
+		/// <returns>Generic object representation</returns>
+		Task<GenericObject> Deserialize(string Xml);
+
+		/// <summary>
+		/// Deserializes an object from XML
+		/// </summary>
+		/// <param name="Xml">XML String</param>
+		/// <returns>Generic object representation</returns>
+		Task<GenericObject> Deserialize(XmlDocument Xml);
+
+		/// <summary>
+		/// Deserializes an object from XML
+		/// </summary>
+		/// <param name="Xml">XML String</param>
+		/// <returns>Generic object representation</returns>
+		Task<GenericObject> Deserialize(XmlElement Xml);
+
+	}
 
 }

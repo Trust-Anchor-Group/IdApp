@@ -23605,21 +23605,33 @@
             Flags the database for repair, so that the next time the app is opened, the database will be repaired.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Storage.IStorageService.Serialize``1(``0)">
+        <member name="M:IdApp.Services.Storage.IStorageService.Serialize(System.Object)">
             <summary>
-            Serializes an object to a binary sequence of bytes.
+            Serializes an object to an XML string.
             </summary>
-            <typeparam name="T">Type of object to serialize.</typeparam>
             <param name="Object">Object to serialize.</param>
-            <returns>Serialization.</returns>
+            <returns>XML Serialization.</returns>
         </member>
-        <member name="M:IdApp.Services.Storage.IStorageService.Deserialize``1(System.Byte[])">
+        <member name="M:IdApp.Services.Storage.IStorageService.Deserialize(System.String)">
             <summary>
-            Deserializes a serialized object, into an object instance.
+            Deserializes an object from XML
             </summary>
-            <typeparam name="T">Type of object to deserialize.</typeparam>
-            <param name="Data">Binary sequence of data.</param>
-            <returns>Object instance.</returns>
+            <param name="Xml">XML String</param>
+            <returns>Generic object representation</returns>
+        </member>
+        <member name="M:IdApp.Services.Storage.IStorageService.Deserialize(System.Xml.XmlDocument)">
+            <summary>
+            Deserializes an object from XML
+            </summary>
+            <param name="Xml">XML String</param>
+            <returns>Generic object representation</returns>
+        </member>
+        <member name="M:IdApp.Services.Storage.IStorageService.Deserialize(System.Xml.XmlElement)">
+            <summary>
+            Deserializes an object from XML
+            </summary>
+            <param name="Xml">XML String</param>
+            <returns>Generic object representation</returns>
         </member>
         <member name="M:IdApp.Services.Storage.StorageService.#ctor">
             <summary>
@@ -23645,13 +23657,33 @@
             Flags the database for repair, so that the next time the app is opened, the database will be repaired.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Storage.StorageService.Serialize``1(``0)">
+        <member name="M:IdApp.Services.Storage.StorageService.Serialize(System.Object)">
             <summary>
-            Serializes an object to a binary sequence of bytes.
+            Serializes an object to an XML string.
             </summary>
-            <typeparam name="T">Type of object to serialize.</typeparam>
             <param name="Object">Object to serialize.</param>
-            <returns>Serialization.</returns>
+            <returns>XML Serialization.</returns>
+        </member>
+        <member name="M:IdApp.Services.Storage.StorageService.Deserialize(System.String)">
+            <summary>
+            Deserializes an object from XML
+            </summary>
+            <param name="Xml">XML String</param>
+            <returns>Generic object representation</returns>
+        </member>
+        <member name="M:IdApp.Services.Storage.StorageService.Deserialize(System.Xml.XmlDocument)">
+            <summary>
+            Deserializes an object from XML
+            </summary>
+            <param name="Xml">XML String</param>
+            <returns>Generic object representation</returns>
+        </member>
+        <member name="M:IdApp.Services.Storage.StorageService.Deserialize(System.Xml.XmlElement)">
+            <summary>
+            Deserializes an object from XML
+            </summary>
+            <param name="Xml">XML String</param>
+            <returns>Generic object representation</returns>
         </member>
         <member name="M:IdApp.Services.Storage.StorageService.Deserialize``1(System.Byte[])">
             <summary>
