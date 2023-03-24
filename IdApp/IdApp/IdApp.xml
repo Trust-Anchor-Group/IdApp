@@ -23605,6 +23605,22 @@
             Flags the database for repair, so that the next time the app is opened, the database will be repaired.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Storage.IStorageService.Serialize``1(``0)">
+            <summary>
+            Serializes an object to a binary sequence of bytes.
+            </summary>
+            <typeparam name="T">Type of object to serialize.</typeparam>
+            <param name="Object">Object to serialize.</param>
+            <returns>Serialization.</returns>
+        </member>
+        <member name="M:IdApp.Services.Storage.IStorageService.Deserialize``1(System.Byte[])">
+            <summary>
+            Deserializes a serialized object, into an object instance.
+            </summary>
+            <typeparam name="T">Type of object to deserialize.</typeparam>
+            <param name="Data">Binary sequence of data.</param>
+            <returns>Object instance.</returns>
+        </member>
         <member name="M:IdApp.Services.Storage.StorageService.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Services.Storage.StorageService"/> class.
@@ -23628,6 +23644,22 @@
             <summary>
             Flags the database for repair, so that the next time the app is opened, the database will be repaired.
             </summary>
+        </member>
+        <member name="M:IdApp.Services.Storage.StorageService.Serialize``1(``0)">
+            <summary>
+            Serializes an object to a binary sequence of bytes.
+            </summary>
+            <typeparam name="T">Type of object to serialize.</typeparam>
+            <param name="Object">Object to serialize.</param>
+            <returns>Serialization.</returns>
+        </member>
+        <member name="M:IdApp.Services.Storage.StorageService.Deserialize``1(System.Byte[])">
+            <summary>
+            Deserializes a serialized object, into an object instance.
+            </summary>
+            <typeparam name="T">Type of object to deserialize.</typeparam>
+            <param name="Data">Binary sequence of data.</param>
+            <returns>Object instance.</returns>
         </member>
         <member name="T:IdApp.Services.Tag.ITagProfile">
             <summary>

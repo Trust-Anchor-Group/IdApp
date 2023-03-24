@@ -74,6 +74,22 @@ namespace IdApp.Services.Storage
 		/// Flags the database for repair, so that the next time the app is opened, the database will be repaired.
 		/// </summary>
 		void FlagForRepair();
+
+		/// <summary>
+		/// Serializes an object to a binary sequence of bytes.
+		/// </summary>
+		/// <typeparam name="T">Type of object to serialize.</typeparam>
+		/// <param name="Object">Object to serialize.</param>
+		/// <returns>Serialization.</returns>
+		Task<byte[]> Serialize<T>(T Object);
+
+		/// <summary>
+		/// Deserializes a serialized object, into an object instance.
+		/// </summary>
+		/// <typeparam name="T">Type of object to deserialize.</typeparam>
+		/// <param name="Data">Binary sequence of data.</param>
+		/// <returns>Object instance.</returns>
+		Task<T> Deserialize<T>(byte[] Data);
     }
 
 }

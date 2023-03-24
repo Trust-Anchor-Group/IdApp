@@ -252,5 +252,37 @@ namespace IdApp.Services.Storage
 			}
 		}
 
+		/// <summary>
+		/// Serializes an object to a binary sequence of bytes.
+		/// </summary>
+		/// <typeparam name="T">Type of object to serialize.</typeparam>
+		/// <param name="Object">Object to serialize.</param>
+		/// <returns>Serialization.</returns>
+		public async Task<byte[]> Serialize<T>(T Object)
+		{
+			IObjectSerializer Serializer = await this.databaseProvider.GetObjectSerializer(typeof(T));
+			BinarySerializer Output = new(this.databaseProvider.DefaultCollectionName, this.databaseProvider.Encoding);
+
+			await Serializer.Serialize(Output, true, false, Object, null);
+
+			return Output.GetSerialization();
+		}
+
+		/// <summary>
+		/// Deserializes a serialized object, into an object instance.
+		/// </summary>
+		/// <typeparam name="T">Type of object to deserialize.</typeparam>
+		/// <param name="Data">Binary sequence of data.</param>
+		/// <returns>Object instance.</returns>
+		public async Task<T> Deserialize<T>(byte[] Data)
+		{
+			IObjectSerializer Serializer = await this.databaseProvider.GetObjectSerializer(typeof(T));
+			BinaryDeserializer Input = new(this.databaseProvider.DefaultCollectionName, this.databaseProvider.Encoding, Data, 1);
+
+			object Instance = await Serializer.Deserialize(Input, null, false);
+
+			return (T)Instance;
+		}
+
 	}
 }
