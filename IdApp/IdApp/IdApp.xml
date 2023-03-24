@@ -38,10 +38,15 @@
         <member name="M:IdApp.App.Instantiate``1">
             <summary>
             Instantiates an object of type <typeparamref name="T"/>, after assuring default instances have been created first.
-            ASsures singleton classes are only instantiated once, and that the reference to the singleton instance is returned.
+            Assures singleton classes are only instantiated once, and that the reference to the singleton instance is returned.
             </summary>
             <typeparam name="T">Type of object to instantiate.</typeparam>
             <returns>Instance</returns>
+        </member>
+        <member name="P:IdApp.App.IsTest">
+            <summary>
+            If the environment is run from a unit test.
+            </summary>
         </member>
         <member name="M:IdApp.App.OnBackgroundStart">
             <summary>
@@ -23633,6 +23638,30 @@
             <param name="Xml">XML String</param>
             <returns>Generic object representation</returns>
         </member>
+        <member name="M:IdApp.Services.Storage.IStorageService.Deserialize``1(System.String)">
+            <summary>
+            Deserializes a serialized object in XML, into an object instance.
+            </summary>
+            <typeparam name="T">Type of object to deserialize.</typeparam>
+            <param name="Xml">XML String</param>
+            <returns>Object instance.</returns>
+        </member>
+        <member name="M:IdApp.Services.Storage.IStorageService.Deserialize``1(System.Xml.XmlDocument)">
+            <summary>
+            Deserializes a serialized object in XML, into an object instance.
+            </summary>
+            <typeparam name="T">Type of object to deserialize.</typeparam>
+            <param name="Xml">XML</param>
+            <returns>Object instance.</returns>
+        </member>
+        <member name="M:IdApp.Services.Storage.IStorageService.Deserialize``1(System.Xml.XmlElement)">
+            <summary>
+            Deserializes a serialized object in XML, into an object instance.
+            </summary>
+            <typeparam name="T">Type of object to deserialize.</typeparam>
+            <param name="Xml">XML</param>
+            <returns>Object instance.</returns>
+        </member>
         <member name="M:IdApp.Services.Storage.StorageService.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Services.Storage.StorageService"/> class.
@@ -23675,22 +23704,38 @@
             <summary>
             Deserializes an object from XML
             </summary>
-            <param name="Xml">XML String</param>
+            <param name="Xml">XML</param>
             <returns>Generic object representation</returns>
         </member>
         <member name="M:IdApp.Services.Storage.StorageService.Deserialize(System.Xml.XmlElement)">
             <summary>
             Deserializes an object from XML
             </summary>
-            <param name="Xml">XML String</param>
+            <param name="Xml">XML</param>
             <returns>Generic object representation</returns>
         </member>
-        <member name="M:IdApp.Services.Storage.StorageService.Deserialize``1(System.Byte[])">
+        <member name="M:IdApp.Services.Storage.StorageService.Deserialize``1(System.String)">
             <summary>
-            Deserializes a serialized object, into an object instance.
+            Deserializes a serialized object in XML, into an object instance.
             </summary>
             <typeparam name="T">Type of object to deserialize.</typeparam>
-            <param name="Data">Binary sequence of data.</param>
+            <param name="Xml">XML String</param>
+            <returns>Object instance.</returns>
+        </member>
+        <member name="M:IdApp.Services.Storage.StorageService.Deserialize``1(System.Xml.XmlDocument)">
+            <summary>
+            Deserializes a serialized object in XML, into an object instance.
+            </summary>
+            <typeparam name="T">Type of object to deserialize.</typeparam>
+            <param name="Xml">XML</param>
+            <returns>Object instance.</returns>
+        </member>
+        <member name="M:IdApp.Services.Storage.StorageService.Deserialize``1(System.Xml.XmlElement)">
+            <summary>
+            Deserializes a serialized object in XML, into an object instance.
+            </summary>
+            <typeparam name="T">Type of object to deserialize.</typeparam>
+            <param name="Xml">XML</param>
             <returns>Object instance.</returns>
         </member>
         <member name="T:IdApp.Services.Tag.ITagProfile">

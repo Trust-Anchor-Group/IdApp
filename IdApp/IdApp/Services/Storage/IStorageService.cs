@@ -104,6 +104,29 @@ namespace IdApp.Services.Storage
 		/// <returns>Generic object representation</returns>
 		Task<GenericObject> Deserialize(XmlElement Xml);
 
+		/// <summary>
+		/// Deserializes a serialized object in XML, into an object instance.
+		/// </summary>
+		/// <typeparam name="T">Type of object to deserialize.</typeparam>
+		/// <param name="Xml">XML String</param>
+		/// <returns>Object instance.</returns>
+		Task<T> Deserialize<T>(string Xml);
+
+		/// <summary>
+		/// Deserializes a serialized object in XML, into an object instance.
+		/// </summary>
+		/// <typeparam name="T">Type of object to deserialize.</typeparam>
+		/// <param name="Xml">XML</param>
+		/// <returns>Object instance.</returns>
+		Task<T> Deserialize<T>(XmlDocument Xml);
+
+		/// <summary>
+		/// Deserializes a serialized object in XML, into an object instance.
+		/// </summary>
+		/// <typeparam name="T">Type of object to deserialize.</typeparam>
+		/// <param name="Xml">XML</param>
+		/// <returns>Object instance.</returns>
+		Task<T> Deserialize<T>(XmlElement Xml);
 	}
 
 }

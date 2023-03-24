@@ -86,6 +86,7 @@ namespace IdApp
 		private static DateTime savedStartTime = DateTime.MinValue;
 		private static bool displayedPinPopup = false;
 		private static int startupCounter = 0;
+		private static bool? isTest = null;
 		private readonly LoginAuditor loginAuditor;
 		private Timer autoSaveTimer;
 		private IServiceReferences services;
@@ -341,16 +342,40 @@ namespace IdApp
 
 		/// <summary>
 		/// Instantiates an object of type <typeparamref name="T"/>, after assuring default instances have been created first.
-		/// ASsures singleton classes are only instantiated once, and that the reference to the singleton instance is returned.
+		/// Assures singleton classes are only instantiated once, and that the reference to the singleton instance is returned.
 		/// </summary>
 		/// <typeparam name="T">Type of object to instantiate.</typeparam>
 		/// <returns>Instance</returns>
 		public static T Instantiate<T>()
 		{
 			if (!defaultInstantiated)
-				defaultInstantiated = defaultInstantiatedSource.Task.Result;
+			{
+				if (IsTest)
+					defaultInstantiated = true;
+				else
+					defaultInstantiated = defaultInstantiatedSource.Task.Result;
+			}
 
 			return Types.Instantiate<T>(false);
+		}
+
+		/// <summary>
+		/// If the environment is run from a unit test.
+		/// </summary>
+		internal static bool IsTest
+		{
+			get
+			{
+				if (!isTest.HasValue)
+				{
+					string Namespace = typeof(App).Namespace;
+					string[] SubNamespaces = Types.GetSubNamespaces(Namespace);
+
+					isTest = Array.IndexOf(SubNamespaces, Namespace + ".Test") >= 0;
+				}
+
+				return isTest.Value;
+			}
 		}
 
 		internal static async Task WaitForServiceSetup()
@@ -1017,7 +1042,7 @@ namespace IdApp
 #endif
 			if (!IsDebug)
 			{
-				ITagProfile Profile = App.Instantiate<ITagProfile>();
+				ITagProfile Profile = Instantiate<ITagProfile>();
 				if (!Profile.HasPin)
 					return true;
 

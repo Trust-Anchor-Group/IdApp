@@ -507,7 +507,7 @@ namespace IdApp.Services.Storage
 		/// <summary>
 		/// Deserializes an object from XML
 		/// </summary>
-		/// <param name="Xml">XML String</param>
+		/// <param name="Xml">XML</param>
 		/// <returns>Generic object representation</returns>
 		public Task<GenericObject> Deserialize(XmlDocument Xml)
 		{
@@ -517,7 +517,7 @@ namespace IdApp.Services.Storage
 		/// <summary>
 		/// Deserializes an object from XML
 		/// </summary>
-		/// <param name="Xml">XML String</param>
+		/// <param name="Xml">XML</param>
 		/// <returns>Generic object representation</returns>
 		public async Task<GenericObject> Deserialize(XmlElement Xml)
 		{
@@ -649,19 +649,77 @@ namespace IdApp.Services.Storage
 		}
 
 		/// <summary>
-		/// Deserializes a serialized object, into an object instance.
+		/// Deserializes a serialized object in XML, into an object instance.
 		/// </summary>
 		/// <typeparam name="T">Type of object to deserialize.</typeparam>
-		/// <param name="Data">Binary sequence of data.</param>
+		/// <param name="Xml">XML String</param>
 		/// <returns>Object instance.</returns>
-		public async Task<T> Deserialize<T>(byte[] Data)
+		public Task<T> Deserialize<T>(string Xml)
 		{
-			IObjectSerializer Serializer = await this.databaseProvider.GetObjectSerializer(typeof(T));
-			BinaryDeserializer Input = new(this.databaseProvider.DefaultCollectionName, this.databaseProvider.Encoding, Data, 1);
+		}
 
-			object Instance = await Serializer.Deserialize(Input, null, false);
+		/// <summary>
+		/// Deserializes a serialized object in XML, into an object instance.
+		/// </summary>
+		/// <typeparam name="T">Type of object to deserialize.</typeparam>
+		/// <param name="Xml">XML</param>
+		/// <returns>Object instance.</returns>
+		public Task<T> Deserialize<T>(XmlDocument Xml)
+		{
+			return this.Deserialize<T>(Xml.DocumentElement);
+		}
 
-			return (T)Instance;
+		/// <summary>
+		/// Deserializes a serialized object in XML, into an object instance.
+		/// </summary>
+		/// <typeparam name="T">Type of object to deserialize.</typeparam>
+		/// <param name="Xml">XML</param>
+		/// <returns>Object instance.</returns>
+		public async Task<T> Deserialize<T>(XmlElement Xml)
+		{
+			GenericObject Obj = await this.Deserialize(Xml);
+			T Result = (T)this.Ungeneralize(Obj);
+
+			return Result;
+		}
+
+		private object Ungeneralize(GenericObject Obj)
+		{
+			Type T2 = Types.GetType(Obj.TypeName) ?? throw new Exception("Type not found: " + Obj.TypeName);
+			object Result = Types.Instantiate(T2, false);
+
+			this.SetProperties(Result, Obj);
+
+			return Result;
+		}
+
+		private void SetProperties(object Object, GenericObject GenObj)
+		{
+			Type ObjectType = Object.GetType();
+
+			foreach (KeyValuePair<string, object> P in GenObj.Properties)
+			{
+				object Value = P.Value;
+
+				if (Value is GenericObject ChildGenObj)
+					Value = this.Ungeneralize(ChildGenObj);
+
+				PropertyInfo PI = ObjectType.GetRuntimeProperty(P.Key);
+				if (PI is not null)
+				{
+					PI.SetValue(Object, Value);
+					continue;
+				}
+
+				FieldInfo FI = ObjectType.GetRuntimeField(P.Key);
+				if (FI is not null)
+				{
+					FI.SetValue(Object, Value);
+					continue;
+				}
+
+				throw new Exception("Property not found: " + P.Key);
+			}
 		}
 
 	}
