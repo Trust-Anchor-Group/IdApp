@@ -656,6 +656,9 @@ namespace IdApp.Services.Storage
 		/// <returns>Object instance.</returns>
 		public Task<T> Deserialize<T>(string Xml)
 		{
+			XmlDocument Doc = new();
+			Doc.LoadXml(Xml);
+			return this.Deserialize<T>(Doc);
 		}
 
 		/// <summary>
