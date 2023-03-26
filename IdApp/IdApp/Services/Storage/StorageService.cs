@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdApp.Services.UI;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -14,6 +15,7 @@ using Waher.Persistence.Files;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
+using Waher.Script.Objects;
 
 namespace IdApp.Services.Storage
 {
@@ -264,6 +266,7 @@ namespace IdApp.Services.Storage
 		/// <returns>XML Serialization.</returns>
 		public async Task<string> Serialize(object Object)
 		{
+			ObjectSerializer Serializer = await this.databaseProvider.GetObjectSerializerEx(Object.GetType());
 			GenericObject GenObject = await Database.Generalize(Object);
 			StringBuilder Xml = new();
 
@@ -279,7 +282,15 @@ namespace IdApp.Services.Storage
 			Xml.Append("'>");
 
 			foreach (KeyValuePair<string, object> Property in GenObject.Properties)
-				await this.SerializeProperty(Property.Key, Property.Value, Xml);
+			{
+				// Generalized object values have enums converted to strings
+				// and arrays converted to object[]. So we need to get original
+				// types, as we want to preserve these.
+
+				object Value = await Serializer.TryGetFieldValue(Property.Key, Object);
+
+				await this.SerializeProperty(Property.Key, Value, Xml);
+			}
 
 			Xml.Append("</Object>");
 
@@ -454,6 +465,7 @@ namespace IdApp.Services.Storage
 			}
 			else
 			{
+				ObjectSerializer Serializer = await this.databaseProvider.GetObjectSerializerEx(Value.GetType());
 				GenericObject GenObject = await Database.Generalize(Value);
 
 				Xml.Append("<o");
@@ -470,7 +482,15 @@ namespace IdApp.Services.Storage
 				Xml.Append("'>");
 
 				foreach (KeyValuePair<string, object> Property in GenObject.Properties)
-					await this.SerializeProperty(Property.Key, Property.Value, Xml);
+				{
+					// Generalized object values have enums converted to strings
+					// and arrays converted to object[]. So we need to get original
+					// types, as we want to preserve these.
+
+					object Value2 = await Serializer.TryGetFieldValue(Property.Key, Value);
+
+					await this.SerializeProperty(Property.Key, Value2, Xml);
+				}
 
 				Xml.Append("</o>");
 
@@ -625,7 +645,7 @@ namespace IdApp.Services.Storage
 
 					Type ListType = typeof(List<>);
 					Type GenericListType = ListType.MakeGenericType(T);
-					System.Collections.IList List = (System.Collections.IList)Types.Instantiate(ListType);
+					System.Collections.IList List = (System.Collections.IList)Types.Instantiate(GenericListType);
 
 					foreach (XmlNode N in E.ChildNodes)
 					{
@@ -681,22 +701,27 @@ namespace IdApp.Services.Storage
 		public async Task<T> Deserialize<T>(XmlElement Xml)
 		{
 			GenericObject Obj = await this.Deserialize(Xml);
-			T Result = (T)this.Ungeneralize(Obj);
+			T Result = (T)await this.Ungeneralize(Obj);
 
 			return Result;
 		}
 
-		private object Ungeneralize(GenericObject Obj)
+		private async Task<object> Ungeneralize(GenericObject Obj)
 		{
 			Type T2 = Types.GetType(Obj.TypeName) ?? throw new Exception("Type not found: " + Obj.TypeName);
-			object Result = Types.Instantiate(T2, false);
+			object Result = Types.Instantiate(false, T2);
 
-			this.SetProperties(Result, Obj);
+			ObjectSerializer Serializer = await this.databaseProvider.GetObjectSerializerEx(T2);
+
+			if (!string.IsNullOrEmpty(Serializer.ObjectIdMemberName))
+				await Serializer.TrySetObjectId(Result, Obj.ObjectId);
+
+			await this.SetProperties(Result, Obj);
 
 			return Result;
 		}
 
-		private void SetProperties(object Object, GenericObject GenObj)
+		private async Task SetProperties(object Object, GenericObject GenObj)
 		{
 			Type ObjectType = Object.GetType();
 
@@ -705,11 +730,14 @@ namespace IdApp.Services.Storage
 				object Value = P.Value;
 
 				if (Value is GenericObject ChildGenObj)
-					Value = this.Ungeneralize(ChildGenObj);
+					Value = await this.Ungeneralize(ChildGenObj);
 
 				PropertyInfo PI = ObjectType.GetRuntimeProperty(P.Key);
 				if (PI is not null)
 				{
+					if (PI.PropertyType.IsEnum && Value is string s)
+						Value = Enum.Parse(PI.PropertyType, s);
+
 					PI.SetValue(Object, Value);
 					continue;
 				}
@@ -717,6 +745,9 @@ namespace IdApp.Services.Storage
 				FieldInfo FI = ObjectType.GetRuntimeField(P.Key);
 				if (FI is not null)
 				{
+					if (FI.FieldType.IsEnum && Value is string s)
+						Value = Enum.Parse(FI.FieldType, s);
+
 					FI.SetValue(Object, Value);
 					continue;
 				}

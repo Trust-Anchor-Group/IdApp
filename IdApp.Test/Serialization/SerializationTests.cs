@@ -30,6 +30,7 @@ namespace IdApp.Test.Serialization
 				typeof(FilesProvider).Assembly,
 				typeof(RuntimeSettings).Assembly,
 				typeof(Duration).Assembly,
+				typeof(Log).Assembly,
 				typeof(JwtFactory).Assembly);
 
 			await Types.StartAllModules(10000);
@@ -78,7 +79,6 @@ namespace IdApp.Test.Serialization
 		{
 			return new TestClass()
 			{
-				ObjectId = Guid.NewGuid(),
 				UI8 = byte.MaxValue,
 				UI16 = ushort.MaxValue,
 				UI32 = uint.MaxValue,
@@ -105,7 +105,6 @@ namespace IdApp.Test.Serialization
 				A = new string[] { "Kilroy", "was", "here" },
 				Nested = new TestClass()
 				{
-					ObjectId = Guid.NewGuid(),
 					UI8 = byte.MinValue,
 					UI16 = ushort.MinValue,
 					UI32 = uint.MinValue,

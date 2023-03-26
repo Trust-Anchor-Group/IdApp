@@ -1,18 +1,15 @@
 ﻿using System;
 using Waher.Content;
+using Waher.Content.Xml;
 using Waher.Events;
 using Waher.Persistence;
 using Waher.Persistence.Attributes;
-using Xamarin.Forms.Xaml;
 
 namespace IdApp.Test.Serialization
 {
 	[TypeName(TypeNameSerialization.FullName)]
 	public class TestClass
 	{
-		[ObjectId]
-		public Guid ObjectId { get; set; }
-
 		public byte UI8 { get; set; }
 		public ushort UI16 { get; set; }
 		public uint UI32 { get; set; }
@@ -41,33 +38,88 @@ namespace IdApp.Test.Serialization
 
 		public override bool Equals(object obj)
 		{
-			return obj is TestClass Obj &&
-				this.ObjectId == Obj.ObjectId &&
-				this.UI8 == Obj.UI8 &&
-				this.UI16 == Obj.UI16 &&
-				this.UI32 == Obj.UI32 &&
-				this.UI64 == Obj.UI64 &&
-				this.I8 == Obj.I8 &&
-				this.I16 == Obj.I16 &&
-				this.I32 == Obj.I32 &&
-				this.I64 == Obj.I64 &&
-				this.S == Obj.S &&
-				this.Cis == Obj.Cis &&
-				this.Ch == Obj.Ch &&
-				Convert.ToBase64String(this.Bin) == Convert.ToBase64String(Obj.Bin) &&
-				this.Id == Obj.Id &&
-				this.TS == Obj.TS &&
-				this.D == Obj.D &&
-				this.Null == Obj.Null &&
-				this.B == Obj.B &&
-				this.Fl == Obj.Fl &&
-				this.Db == Obj.Db &&
-				this.Dc == Obj.Dc &&
-				this.E == Obj.E &&
-				this.TP == Obj.TP &&
-				this.TPO == Obj.TPO &&
-				this.A.Length == Obj.A.Length &&
-				(this.Nested?.Equals(Obj.Nested) ?? (Obj.Nested is null));
+			if (obj is not TestClass Obj)
+				return false;
+
+			if (this.UI8 != Obj.UI8)
+				return false;
+
+			if (this.UI16 != Obj.UI16)
+				return false;
+
+			if (this.UI32 != Obj.UI32)
+				return false;
+
+			if (this.UI64 != Obj.UI64)
+				return false;
+
+			if (this.I8 != Obj.I8)
+				return false;
+
+			if (this.I16 != Obj.I16)
+				return false;
+
+			if (this.I32 != Obj.I32)
+				return false;
+
+			if (this.I64 != Obj.I64)
+				return false;
+
+			if (this.S != Obj.S)
+				return false;
+
+			if (this.Cis != Obj.Cis)
+				return false;
+
+			if (this.Ch != Obj.Ch)
+				return false;
+
+			if (Convert.ToBase64String(this.Bin) != Convert.ToBase64String(Obj.Bin))
+				return false;
+
+			if (this.Id != Obj.Id)
+				return false;
+
+			if (this.TS != Obj.TS)
+				return false;
+
+			if (this.D != Obj.D)
+				return false;
+
+			if (this.Null != Obj.Null)
+				return false;
+
+			if (this.B != Obj.B)
+				return false;
+
+			if (this.Fl != Obj.Fl)
+				return false;
+
+			if (this.Db != Obj.Db)
+				return false;
+
+			if (this.Dc != Obj.Dc)
+				return false;
+
+			if (this.E != Obj.E)
+				return false;
+
+			if (XML.Encode(this.TP) != XML.Encode(Obj.TP))
+				return false;
+
+			if (XML.Encode(this.TPO) != XML.Encode(Obj.TPO))
+				return false;
+
+			if (!AreEqual(this.A, Obj.A))
+				return false;
+
+			if ((this.Nested is null) ^ (Obj.Nested is null))
+				return false;
+
+			if (this.Nested is null)
+				return true;
+
+			return this.Nested.Equals(Obj.Nested);
 		}
 
 		private static bool AreEqual<T>(T[] A1, T[] A2)
@@ -84,6 +136,11 @@ namespace IdApp.Test.Serialization
 			}
 
 			return true;
+		}
+
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
 		}
 	}
 }
