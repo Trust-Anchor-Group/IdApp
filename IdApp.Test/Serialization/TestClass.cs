@@ -10,7 +10,7 @@ namespace IdApp.Test.Serialization
 	public class TestClass
 	{
 		[ObjectId]
-		public object ObjectId { get; set; }
+		public Guid ObjectId { get; set; }
 
 		public byte UI8 { get; set; }
 		public ushort UI16 { get; set; }
