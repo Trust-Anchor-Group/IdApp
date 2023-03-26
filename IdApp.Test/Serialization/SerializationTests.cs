@@ -29,6 +29,7 @@ namespace IdApp.Test.Serialization
 				typeof(ObjectSerializer).Assembly,
 				typeof(FilesProvider).Assembly,
 				typeof(RuntimeSettings).Assembly,
+				typeof(Duration).Assembly,
 				typeof(JwtFactory).Assembly);
 
 			await Types.StartAllModules(10000);
@@ -61,6 +62,16 @@ namespace IdApp.Test.Serialization
 			string Xml = await this.storageService.Serialize(Obj);
 
 			Console.Out.WriteLine(Xml);
+		}
+
+		[TestMethod]
+		public async Task Test_02_Deserialization()
+		{
+			TestClass Obj = this.CreateTestClass();
+			string Xml = await this.storageService.Serialize(Obj);
+			TestClass Obj2 = await this.storageService.Deserialize<TestClass>(Xml);
+
+			Assert.AreEqual(Obj, Obj2);
 		}
 
 		private TestClass CreateTestClass()

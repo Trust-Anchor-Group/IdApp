@@ -267,7 +267,7 @@ namespace IdApp.Services.Storage
 			GenericObject GenObject = await Database.Generalize(Object);
 			StringBuilder Xml = new();
 
-			Xml.Append("<Object xmlns=");
+			Xml.Append("<Object xmlns='");
 			Xml.Append(objectNamespace);
 
 			Xml.Append("' type='");
@@ -465,7 +465,7 @@ namespace IdApp.Services.Storage
 					Xml.Append('\'');
 				}
 
-				Xml.Append("' type='");
+				Xml.Append(" type='");
 				Xml.Append(XML.Encode(GenObject.TypeName));
 				Xml.Append("'>");
 
