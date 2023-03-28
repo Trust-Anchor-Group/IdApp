@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="60" android:versionName="1.6" package="com.tag.IdApp" android:installLocation="preferExternal">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="61" android:versionName="1.7" package="com.tag.IdApp" android:installLocation="preferExternal">
 	<queries>
 		<intent>
 			<action android:name="android.media.action.IMAGE_CAPTURE" />
