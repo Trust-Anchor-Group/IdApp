@@ -131,7 +131,7 @@ namespace IdApp.Android
 				FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageViewHandler();
 
 				FFImageLoading.Config.Configuration Configuration = FFImageLoading.Config.Configuration.Default;
-				Configuration.DiskCacheDuration = TimeSpan.FromDays(1);
+				Configuration.DiskCacheDuration = TimeSpan.FromDays(7);
 				Configuration.DownloadCache = new AesDownloadCache(Configuration);
 				FFImageLoading.ImageService.Instance.Initialize(Configuration);
 

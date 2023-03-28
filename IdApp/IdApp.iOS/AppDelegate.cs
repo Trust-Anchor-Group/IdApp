@@ -47,7 +47,8 @@ namespace IdApp.iOS
 			FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageSourceHandler();
 
 			FFImageLoading.Config.Configuration Configuration = FFImageLoading.Config.Configuration.Default;
-			Configuration.DiskCacheDuration = TimeSpan.FromDays(1);
+			Configuration.DiskCacheDuration = TimeSpan.FromDays(7);
+			Configuration.DownloadCache = new AesDownloadCache(Configuration);
 			FFImageLoading.ImageService.Instance.Initialize(Configuration);
 
 			// Uncomment this to debug loading images from neuron (ensures that they are not loaded from cache).

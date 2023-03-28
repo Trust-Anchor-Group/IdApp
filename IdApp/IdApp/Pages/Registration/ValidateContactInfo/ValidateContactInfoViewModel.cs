@@ -707,7 +707,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					{
 						this.StartTimer("phone");
 
-						Popups.VerifyCode.VerifyCodePage Page = new(LocalizationResourceManager.Current["SendEmailWarning"]);
+						Popups.VerifyCode.VerifyCodePage Page = new(LocalizationResourceManager.Current["SendPhoneNumberWarning"]);
 						await PopupNavigation.Instance.PushAsync(Page);
 						string Code = await Page.Result;
 
