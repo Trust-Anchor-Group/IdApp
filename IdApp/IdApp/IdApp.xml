@@ -9771,6 +9771,11 @@
             The label of the VerifyPhoneNrCodeButton
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.SendAndVerifyEMailCodeCommand">
+            <summary>
+            The command to bind to for sending and verification a code to the provided e-mail address.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.SendEMailCodeCommand">
             <summary>
             The command to bind to for sending a code to the provided e-mail address.
@@ -9782,6 +9787,11 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.SendPhoneNrCodeCommand">
+            <summary>
+            The command to bind to for sending and verification a code to the provided phone number.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.SendAndVerifyPhoneNrCodeCommand">
             <summary>
             The command to bind to for sending a code to the provided phone number.
             </summary>
@@ -16309,6 +16319,30 @@
             Task waiting for result.
             </summary>
         </member>
+        <member name="T:IdApp.Popups.VerifyCode.VerifyCodePage">
+            <summary>
+            Prompts the user for its PIN
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.VerifyCode.VerifyCodePage.Result">
+            <summary>
+            Task waiting for result. null means dialog was closed without providing a CODE.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.VerifyCode.VerifyCodePage.#ctor(System.String)">
+            <summary>
+            Prompts the user for its CODE
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.VerifyCode.VerifyCodePage.LayoutChildren(System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Popups.VerifyCode.VerifyCodePage.OnAppearing">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Popups.VerifyCode.VerifyCodePage.OnBackgroundClicked">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Popups.Xmpp.RemoveSubscription.RemoveSubscriptionPopupPage">
             <summary>
             Asks the user if it wants to remove an existing presence subscription request as well.
@@ -20298,6 +20332,16 @@
         <member name="F:IdApp.Resx.Svgs.Trash">
             <summary>
             The trash icon
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Svgs.Xmark">
+            <summary>
+            The x-mark icon
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Svgs.Check">
+            <summary>
+            The check icon
             </summary>
         </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">

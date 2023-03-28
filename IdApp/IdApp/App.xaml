@@ -295,13 +295,6 @@
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
         </Style>
 
-
-        <Style x:Key="OnboardingGrid" TargetType="Grid"
-               ApplyToDerivedTypes="True">
-            <Setter Property="BackgroundColor" Value="Transparent"/>
-            <Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}"/>
-        </Style>
-
         <Style x:Key="OnboardingFrame" TargetType="Frame"
                ApplyToDerivedTypes="True">
             <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource FrameLightTheme}, Dark={StaticResource FrameDarkTheme}}"/>

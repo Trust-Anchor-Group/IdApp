@@ -24,9 +24,11 @@
     <None Remove="Resx\Pngs\broken_image.png" />
     <None Remove="Resx\Pngs\image.png" />
     <None Remove="Resx\Svgs\camera.svg" />
+    <None Remove="Resx\Svgs\check.svg" />
     <None Remove="Resx\Svgs\images.svg" />
     <None Remove="Resx\Svgs\passport.svg" />
     <None Remove="Resx\Svgs\trash.svg" />
+    <None Remove="Resx\Svgs\xmark.svg" />
     <None Remove="Services\Data\PersonalNumbers\PersonalNumberSchemes.xml" />
     <None Remove="Helpers\" />
     <None Remove="Controls\Extended\" />
@@ -36,9 +38,11 @@
     <EmbeddedResource Include="Resx\Pngs\broken_image.png" />
     <EmbeddedResource Include="Resx\Pngs\image.png" />
     <EmbeddedResource Include="Resx\Svgs\camera.svg" />
+    <EmbeddedResource Include="Resx\Svgs\check.svg" />
     <EmbeddedResource Include="Resx\Svgs\images.svg" />
     <EmbeddedResource Include="Resx\Svgs\passport.svg" />
     <EmbeddedResource Include="Resx\Svgs\trash.svg" />
+    <EmbeddedResource Include="Resx\Svgs\xmark.svg" />
     <EmbeddedResource Include="Services\Data\PersonalNumbers\PersonalNumberSchemes.xml" />
   </ItemGroup>
 
@@ -330,6 +334,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Popups\VerifyCode\" />
     <Folder Include="Popups\Pin\PinPopup\" />
     <Folder Include="Controls\Extended\" />
   </ItemGroup>

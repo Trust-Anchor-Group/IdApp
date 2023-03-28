@@ -24,5 +24,15 @@
 		/// The trash icon
 		/// </summary>
 		public const string Trash = "resource://IdApp.Resx.Svgs.trash.svg";
+
+		/// <summary>
+		/// The x-mark icon
+		/// </summary>
+		public const string Xmark = "resource://IdApp.Resx.Svgs.xmark.svg";
+
+		/// <summary>
+		/// The check icon
+		/// </summary>
+		public const string Check = "resource://IdApp.Resx.Svgs.check.svg";
 	}
 }
