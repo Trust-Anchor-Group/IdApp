@@ -931,7 +931,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			if (this.IsBusy) // is connecting
 				return false;
 
-			return this.EmailButtonEnabled && this.VerifyEmailCodeButtonEnabled;
+			return this.EmailButtonEnabled;
 
 		}
 
@@ -940,7 +940,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			if (this.IsBusy) // is connecting
 				return false;
 
-			return this.PhoneButtonEnabled && this.VerifyPhoneCodeButtonEnabled;
+			return this.PhoneButtonEnabled;
 
 		}
 

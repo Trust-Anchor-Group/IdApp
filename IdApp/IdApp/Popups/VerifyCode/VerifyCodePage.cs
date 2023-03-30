@@ -24,7 +24,7 @@ namespace IdApp.Popups.VerifyCode
         public VerifyCodePage(string Text)
         {
             this.InitializeComponent();
-            this.CloseWhenBackgroundIsClicked = true;
+            this.CloseWhenBackgroundIsClicked = false;
 			this.TextLabel.Text = Text;
         }
 
@@ -55,13 +55,6 @@ namespace IdApp.Popups.VerifyCode
 		private void OnCloseButtonTapped(object Sender, EventArgs e)
 		{
 			this.Close();
-		}
-
-		/// <inheritdoc/>
-		protected override bool OnBackgroundClicked()
-		{
-			this.Close();
-			return false;
 		}
 
 		private async void Close()

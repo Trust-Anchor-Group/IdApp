@@ -16340,9 +16340,6 @@
         <member name="M:IdApp.Popups.VerifyCode.VerifyCodePage.OnAppearing">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Popups.VerifyCode.VerifyCodePage.OnBackgroundClicked">
-            <inheritdoc/>
-        </member>
         <member name="T:IdApp.Popups.Xmpp.RemoveSubscription.RemoveSubscriptionPopupPage">
             <summary>
             Asks the user if it wants to remove an existing presence subscription request as well.
