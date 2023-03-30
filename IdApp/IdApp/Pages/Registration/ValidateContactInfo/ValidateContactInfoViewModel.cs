@@ -554,7 +554,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				}
 				else
 				{
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingEmailCode"]);
+                    this.EMailValidated = false;
+
+                    await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingEmailCode"]);
 				}
 			}
 			catch (Exception ex)
@@ -761,12 +763,21 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 
 								this.OnStepCompleted(EventArgs.Empty);
 							}
+							else
+							{
+								this.PhoneNrValidated = false;
+
+								await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"],
+									LocalizationResourceManager.Current["UnableToVerifyCode"], LocalizationResourceManager.Current["Ok"]);
+							}
 						}
-					}
-				}
+                    }
+                }
 				else
 				{
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingPhoneCode"]);
+                    this.PhoneNrValidated = false;
+
+                    await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingPhoneCode"]);
 				}
 			}
 			catch (Exception ex)
