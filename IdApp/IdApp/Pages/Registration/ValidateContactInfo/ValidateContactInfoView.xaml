@@ -71,7 +71,7 @@
 
 						<Button x:Name="SendEMailCodeButton"
 								Text="{Binding Path=EmailButtonLabel}" Command="{Binding Path=SendAndVerifyEMailCodeCommand}"
-								IsEnabled="{Binding Path=EmailButtonEnabled}" IsVisible="{Binding Path=ValidationAllowed}">
+								IsEnabled="{Binding Path=EmailButtonEnabled}" >
 							<Button.Behaviors>
 								<behaviors:ScrollToClickedBehavior ScrollTo="ActivityIndicator"
 																   BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
@@ -108,7 +108,7 @@
 
 						<Button x:Name="SendPhoneNrCodeButton"
 								Text="{Binding Path=PhoneButtonLabel}" Command="{Binding Path=SendAndVerifyPhoneNrCodeCommand}"
-								IsEnabled="{Binding Path=PhoneButtonEnabled}" IsVisible="{Binding Path=ValidationAllowed}">
+								IsEnabled="{Binding Path=PhoneButtonEnabled}" >
 							<Button.Behaviors>
 								<behaviors:ScrollToClickedBehavior ScrollTo="ActivityIndicator"
 																   BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
