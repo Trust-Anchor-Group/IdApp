@@ -10,14 +10,19 @@ namespace IdApp.Pages.Contracts.MyContracts
     public enum ContractsListMode
     {
         /// <summary>
-        /// Contracts I have created or signed
+        /// Contracts that has been created or signed by the account
         /// </summary>
         Contracts,
 
         /// <summary>
-        /// Contract templates I have used to create new contracts
+        /// Contract templates that have been used to create new contracts by the account
         /// </summary>
-        ContractTemplates
+        ContractTemplates,
+
+		/// <summary>
+		/// Contract templates for creating new tokens
+		/// </summary>
+		TokenCreationTemplates
     }
 
     /// <summary>

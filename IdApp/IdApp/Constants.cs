@@ -422,12 +422,26 @@ namespace IdApp
             /// <summary>
             /// Contract template for creating a demo token
             /// </summary>
-            public const string CreateDemoTokenTemplate = "2a6d69dc-cae9-bb6e-4015-a272cdb645ec@legal.lab.tagroot.io";
+            public const string CreateDemoTokenTemplate = "2bb9fff1-8716-cb1b-5807-9fdb05b2207b@legal.lab.tagroot.io";
 
-            /// <summary>
-            /// Contract template for transferring a token from a seller to a buyer
-            /// </summary>
-            public const string TransferTokenTemplate = "2a6d6b09-cae9-bb7e-4015-a272cd9cd5b9@legal.lab.tagroot.io";
+			/// <summary>
+			/// Contract template for creating five demo tokens
+			/// </summary>
+			public const string CreateDemoTokens5Template = "2bba00ac-8716-cb3e-5807-9fdb055370c4@legal.lab.tagroot.io";
+
+			/// <summary>
+			/// Array of contract templates for creating tokens.
+			/// </summary>
+			public readonly static string[] TokenCreationTemplates = new string[]
+			{
+				CreateDemoTokenTemplate,
+				CreateDemoTokens5Template
+			};
+
+			/// <summary>
+			/// Contract template for transferring a token from a seller to a buyer
+			/// </summary>
+			public const string TransferTokenTemplate = "2a6d6b09-cae9-bb7e-4015-a272cd9cd5b9@legal.lab.tagroot.io";
 
 			/// <summary>
 			/// Contract template for consigning the token to an auctioneer with the purpose of selling it.

@@ -2241,4 +2241,10 @@
   <data name="SellEDalerDescription" xml:space="preserve">
     <value>Proporcione la cantidad de eDaler que desea vender a continuación y presione el botón Vender. Se puede abrir una página web donde debe completar más información para que el procesador de pagos valide su requisito.</value>
   </data>
+  <data name="TokenCreationTemplates" xml:space="preserve">
+    <value>Plantillas de token</value>
+  </data>
+  <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
+    <value>A continuación se muestra una lista de plantillas de token que ha utilizado o puede usar para crear nuevos tokens. Haga clic en una plantilla para crear un nuevo contrato basado en esa plantilla. Una vez firmado y aprobado el contrato, se creará el token o tokens correspondientes.</value>
+  </data>
 </root>

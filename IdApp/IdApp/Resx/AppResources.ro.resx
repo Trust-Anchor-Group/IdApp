@@ -2241,4 +2241,10 @@
   <data name="SellEDalerDescription" xml:space="preserve">
     <value>Furnizați cantitatea de eDaler pe care doriți să o vindeți mai jos și apăsați butonul Vindeți. Se poate deschide o pagină web unde trebuie să completați informații suplimentare pentru ca procesatorul de plăți să vă valideze requst-ul.</value>
   </data>
+  <data name="TokenCreationTemplates" xml:space="preserve">
+    <value>Șabloane token</value>
+  </data>
+  <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
+    <value>Mai jos este o listă de șabloane de simboluri pe care le-ați utilizat sau le puteți utiliza pentru a crea jetoane noi. Faceți clic pe un șablon pentru a crea un nou contract bazat pe acel șablon. Odată ce contractul a fost semnat și aprobat, token-ul sau jetoanele corespunzătoare vor fi create.</value>
+  </data>
 </root>

@@ -2241,4 +2241,10 @@
   <data name="SellEDalerDescription" xml:space="preserve">
     <value>Navedite količinu eDalera koju želite da prodate ispod i pritisnite dugme Prodaj. Web stranica može biti otvorena tamo gde morate da popunite dodatne informacije za procesor plaćanja da biste proverili valjanost ponovnog korišćenja.</value>
   </data>
+  <data name="TokenCreationTemplates" xml:space="preserve">
+    <value>Predlošci simbola</value>
+  </data>
+  <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
+    <value>Ispod je lista predložaka simbola koje ste koristili ili koje možete da koristite za kreiranje novih tokena. Kliknite na predložak da biste kreirali novi ugovor zasnovan na tom predlošku. Kada ugovor bude potpisan i odobren, biće kreiran odgovarajući simbol ili simboli.</value>
+  </data>
 </root>
