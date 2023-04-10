@@ -23,8 +23,8 @@
             </Image>
             <noBounce:NoBounceScrollView x:Name="ScrollView" Margin="{StaticResource DefaultLeftRightMargin}">
 				<StackLayout x:Name="Frames" Orientation="Vertical"  Spacing="24" >
-					<Frame Style="{StaticResource OnboardingFrame}" CornerRadius="5" Padding="{StaticResource DefaultMargin}" >
-						<Grid IsVisible="{Binding PurposeRequired}" RowDefinitions="auto,auto,auto,auto" RowSpacing="12" BackgroundColor="Transparent">
+					<Frame Style="{StaticResource OnboardingFrame}" CornerRadius="5" Padding="{StaticResource DefaultMargin}" IsVisible="{Binding PurposeRequired}" >
+						<Grid RowDefinitions="auto,auto,auto,auto" RowSpacing="12" BackgroundColor="Transparent">
 							<Label Grid.Row="0" Text="{x:Static resx:AppResources.WelcomeToTagHeading}" Style="{StaticResource Heading}" />
 							<Label Grid.Row="1" Text="{x:Static resx:AppResources.WelcomeToTagSubheading}" FontSize="Body" />
 							<Picker Grid.Row="2" x:Name="PurposePicker" HorizontalOptions="FillAndExpand" Title="{x:Static resx:AppResources.SelectPurpose}"
