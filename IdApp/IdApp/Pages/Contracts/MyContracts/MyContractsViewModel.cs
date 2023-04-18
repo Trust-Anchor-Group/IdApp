@@ -3,6 +3,7 @@ using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Services.Contracts;
 using IdApp.Services.Notification;
+using NeuroFeatures;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		private readonly Dictionary<string, Contract> contractsMap = new();
 		private ContractsListMode contractsListMode;
 		private TaskCompletionSource<Contract> selection;
+		private Contract selectedContract = null;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="MyContractsViewModel"/> class.
@@ -58,6 +60,11 @@ namespace IdApp.Pages.Contracts.MyContracts
 						this.Title = LocalizationResourceManager.Current["ContractTemplates"];
 						this.Description = LocalizationResourceManager.Current["ContractTemplatesInfoText"];
 						break;
+
+					case ContractsListMode.TokenCreationTemplates:
+						this.Title = LocalizationResourceManager.Current["TokenCreationTemplates"];
+						this.Description = LocalizationResourceManager.Current["TokenCreationTemplatesInfoText"];
+						break;
 				}
 			}
 
@@ -91,7 +98,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 				this.contractsMap.Clear();
 			}
 
-			this.selection?.TrySetResult(null);
+			this.selection?.TrySetResult(this.selectedContract);
 
 			await base.OnDispose();
 		}
@@ -194,21 +201,22 @@ namespace IdApp.Pages.Contracts.MyContracts
 					switch (this.Action)
 					{
 						case SelectContractAction.ViewContract:
-							if (this.contractsListMode == ContractsListMode.ContractTemplates)
-							{
-								await this.NavigationService.GoToAsync(
-									nameof(NewContractPage), new NewContractNavigationArgs(Contract, null));
-							}
-							else
+							if (this.contractsListMode == ContractsListMode.Contracts)
 							{
 								await this.NavigationService.GoToAsync(
 									nameof(ViewContractPage), new ViewContractNavigationArgs(Contract, false));
 							}
+							else
+							{
+								await this.NavigationService.GoToAsync(
+									nameof(NewContractPage), new NewContractNavigationArgs(Contract, null));
+							}
 							break;
 
 						case SelectContractAction.Select:
-							this.selection?.TrySetResult(Contract);
+							this.selectedContract = Contract;
 							await this.NavigationService.GoBackAsync();
+							this.selection?.TrySetResult(Contract);
 							break;
 					}
 				}
@@ -221,6 +229,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 			{
 				IEnumerable<ContractReference> ContractReferences;
 				bool ShowAdditionalEvents;
+				Contract Contract;
 
 				switch (this.contractsListMode)
 				{
@@ -240,13 +249,81 @@ namespace IdApp.Pages.Contracts.MyContracts
 						ShowAdditionalEvents = false;
 						break;
 
+					case ContractsListMode.TokenCreationTemplates:
+						ContractReferences = await Database.Find<ContractReference>(new FilterAnd(
+							new FilterFieldEqualTo("IsTemplate", true),
+							new FilterFieldEqualTo("ContractLoaded", true)));
+
+						Dictionary<CaseInsensitiveString, bool> ContractIds = new();
+						LinkedList<ContractReference> TokenCreationTemplates = new();
+
+						foreach (ContractReference Ref in ContractReferences)
+						{
+							if (!Ref.IsTokenCreationTemplate.HasValue)
+							{
+								if (!Ref.IsTemplate)
+									Ref.IsTokenCreationTemplate = false;
+								else
+								{
+									try
+									{
+										Contract = await Ref.GetContract();
+										if (Contract is null)
+											continue;
+									}
+									catch (Exception ex)
+									{
+										this.LogService.LogException(ex);
+										continue;
+									}
+
+									Ref.IsTokenCreationTemplate =
+										Contract.ForMachinesLocalName == "Create" &&
+										Contract.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures;
+								}
+
+								await Database.Update(Ref);
+							}
+
+							if (Ref.IsTokenCreationTemplate.Value)
+							{
+								ContractIds[Ref.ContractId] = true;
+								TokenCreationTemplates.AddLast(Ref);
+							}
+						}
+
+						foreach (string TokenTemplateId in Constants.ContractTemplates.TokenCreationTemplates)
+						{
+							if (!ContractIds.ContainsKey(TokenTemplateId))
+							{
+								Contract = await this.XmppService.GetContract(TokenTemplateId);
+
+								ContractReference Ref = new()
+								{
+									ContractId = Contract.ContractId
+								};
+
+								await Ref.SetContract(Contract, this);
+								await Database.Insert(Ref);
+
+								if (Ref.IsTokenCreationTemplate.Value)
+								{
+									ContractIds[Ref.ContractId] = true;
+									TokenCreationTemplates.AddLast(Ref);
+								}
+							}
+						}
+
+						ContractReferences = TokenCreationTemplates;
+						ShowAdditionalEvents = false;
+						break;
+
 					default:
 						return;
 				}
 
 				SortedDictionary<string, List<ContractModel>> ContractsByCategory = new(StringComparer.CurrentCultureIgnoreCase);
 				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCategory = this.NotificationService.GetEventsByCategory(EventButton.Contracts);
-				Contract Contract;
 				bool Found = false;
 
 				foreach (ContractReference Ref in ContractReferences)

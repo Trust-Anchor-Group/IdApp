@@ -1,10 +1,13 @@
 ﻿using IdApp.Pages.Contracts.MyContracts.ObjectModels;
+using NeuroFeatures;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Persistence;
 using Waher.Persistence.Attributes;
+using Waher.Script.Functions.ComplexNumbers;
 
 namespace IdApp.Services.Contracts
 {
@@ -23,6 +26,7 @@ namespace IdApp.Services.Contracts
 		/// </summary>
 		public ContractReference()
 		{
+			this.IsTokenCreationTemplate = null;
 		}
 
 		/// <summary>
@@ -34,7 +38,7 @@ namespace IdApp.Services.Contracts
 		/// <summary>
 		/// Contract reference
 		/// </summary>
-		public string ContractId { get; set; }
+		public CaseInsensitiveString ContractId { get; set; }
 
 		/// <summary>
 		/// When object was created
@@ -77,6 +81,12 @@ namespace IdApp.Services.Contracts
 		public bool IsTemplate { get; set; }
 
 		/// <summary>
+		/// If the contract represents a token creation template
+		/// </summary>
+		[DefaultValueNull]
+		public bool? IsTokenCreationTemplate { get; set; }
+
+		/// <summary>
 		/// Contract state
 		/// </summary>
 		public ContractState State { get; set; }
@@ -117,6 +127,7 @@ namespace IdApp.Services.Contracts
 				this.ContractXml = null;
 				this.ContractLoaded = false;
 				this.IsTemplate = false;
+				this.IsTokenCreationTemplate = false;
 				this.Name = string.Empty;
 				this.Category = string.Empty;
 				this.State = ContractState.Failed;
@@ -133,6 +144,10 @@ namespace IdApp.Services.Contracts
 				this.Created = Contract.Created;
 				this.Updated = Contract.Updated;
 				this.Loaded = DateTime.UtcNow;
+
+				this.IsTokenCreationTemplate =
+					Contract.ForMachinesLocalName == "Create" &&
+					Contract.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures;
 
 				this.Name = await ContractModel.GetName(Contract, Services);
 				this.Category = await ContractModel.GetCategory(Contract);

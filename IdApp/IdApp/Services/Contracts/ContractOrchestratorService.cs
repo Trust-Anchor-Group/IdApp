@@ -464,7 +464,7 @@ namespace IdApp.Services.Contracts
 					{
 						if (Ref is null)
 						{
-							Ref = new ContractReference()
+							Ref = new()
 							{
 								ContractId = Contract.ContractId
 							};

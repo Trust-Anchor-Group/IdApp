@@ -8,6 +8,7 @@ using System.Xml;
 using EDaler;
 using EDaler.Uris;
 using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Pages.Contracts.MyContracts;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Wallet.BuyEDaler;
@@ -990,15 +991,20 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			try
 			{
-				// TODO: Let user choose from a list of token templates.
+				TaskCompletionSource<Contract> TemplateSelection = new();
+				MyContractsNavigationArgs e = new(ContractsListMode.TokenCreationTemplates, TemplateSelection);
+				await this.NavigationService.GoToAsync(nameof(MyContractsPage), e);
+
+				Contract Template = await TemplateSelection.Task;
+				if (Template is null)
+					return;
 
 				Dictionary<CaseInsensitiveString, object> Parameters = new();
-				Contract Template = await this.XmppService.GetContract(Constants.ContractTemplates.CreateDemoTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
 
 				if (Template.ForMachinesLocalName == "Create" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
-					CreationAttributesEventArgs e = await this.XmppService.GetNeuroFeatureCreationAttributes();
+					CreationAttributesEventArgs e2 = await this.XmppService.GetNeuroFeatureCreationAttributes();
 					XmlDocument Doc = new()
 					{
 						PreserveWhitespace = true
@@ -1031,7 +1037,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 						{
 							Parts.Add(new Part()
 							{
-								LegalId = e.TrustProviderId,
+								LegalId = e2.TrustProviderId,
 								Role = TrustProviderRole
 							});
 						}
@@ -1046,22 +1052,22 @@ namespace IdApp.Pages.Wallet.MyWallet
 							if (Part.Role == CreatorRole || Part.Role == OwnerRole)
 								Part.LegalId = this.TagProfile.LegalIdentity.Id;
 							else if (Part.Role == TrustProviderRole)
-								Part.LegalId = e.TrustProviderId;
+								Part.LegalId = e2.TrustProviderId;
 						}
 					}
 
 					if (!string.IsNullOrEmpty(CurrencyParameter))
-						Parameters[CurrencyParameter] = e.Currency;
+						Parameters[CurrencyParameter] = e2.Currency;
 
 					if (!string.IsNullOrEmpty(CommissionParameter))
-						Parameters[CommissionParameter] = e.Commission;
+						Parameters[CommissionParameter] = e2.Commission;
 				}
 
 				await this.NavigationService.GoToAsync(nameof(NewContractPage),
-					new NewContractNavigationArgs(Template, true, Parameters)
-					{
-						ReturnCounter = 1
-					});
+					new NewContractNavigationArgs(Template, true, Parameters));
+					//{
+					//	ReturnCounter = 1
+					//});
 			}
 			catch (Exception ex)
 			{

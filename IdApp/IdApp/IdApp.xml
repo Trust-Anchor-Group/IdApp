@@ -771,6 +771,16 @@
             Contract template for creating a demo token
             </summary>
         </member>
+        <member name="F:IdApp.Constants.ContractTemplates.CreateDemoTokens5Template">
+            <summary>
+            Contract template for creating five demo tokens
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.ContractTemplates.TokenCreationTemplates">
+            <summary>
+            Array of contract templates for creating tokens.
+            </summary>
+        </member>
         <member name="F:IdApp.Constants.ContractTemplates.TransferTokenTemplate">
             <summary>
             Contract template for transferring a token from a seller to a buyer
@@ -4127,12 +4137,17 @@
         </member>
         <member name="F:IdApp.Pages.Contracts.MyContracts.ContractsListMode.Contracts">
             <summary>
-            Contracts I have created or signed
+            Contracts that has been created or signed by the account
             </summary>
         </member>
         <member name="F:IdApp.Pages.Contracts.MyContracts.ContractsListMode.ContractTemplates">
             <summary>
-            Contract templates I have used to create new contracts
+            Contract templates that have been used to create new contracts by the account
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.MyContracts.ContractsListMode.TokenCreationTemplates">
+            <summary>
+            Contract templates for creating new tokens
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.SelectContractAction">
@@ -19535,6 +19550,16 @@
               Looks up a localized string similar to Token Added.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.TokenCreationTemplates">
+            <summary>
+              Looks up a localized string similar to Token Templates.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.TokenCreationTemplatesInfoText">
+            <summary>
+              Looks up a localized string similar to Below is a list of token templates that you have used or can use to create new tokens. Click on a template to create a new contract based on that template. Once the contract has been signed and approved, the corresponding token or tokens will be created..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.TokenDetails">
             <summary>
               Looks up a localized string similar to Token Details.
@@ -20716,6 +20741,11 @@
         <member name="P:IdApp.Services.Contracts.ContractReference.IsTemplate">
             <summary>
             If the contract can work as a template
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Contracts.ContractReference.IsTokenCreationTemplate">
+            <summary>
+            If the contract represents a token creation template
             </summary>
         </member>
         <member name="P:IdApp.Services.Contracts.ContractReference.State">

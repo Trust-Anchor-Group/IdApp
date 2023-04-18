@@ -26,6 +26,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 	{
 		private readonly Dictionary<CaseInsensitiveString, List<ContactInfoModel>> byBareJid;
 		private TaskCompletionSource<ContactInfoModel> selection;
+		private ContactInfoModel selectedContact = null;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
@@ -234,7 +235,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 				this.Contacts.Clear();
 			}
 
-			this.selection?.TrySetResult(null);
+			this.selection?.TrySetResult(this.selectedContact);
 
 			return base.OnDispose();
 		}
@@ -417,8 +418,9 @@ namespace IdApp.Pages.Contacts.MyContacts
 							break;
 
 						case SelectContactAction.Select:
-							this.selection?.TrySetResult(Contact);
+							this.selectedContact = Contact;
 							await this.NavigationService.GoBackAsync();
+							this.selection?.TrySetResult(Contact);
 							break;
 					}
 				}

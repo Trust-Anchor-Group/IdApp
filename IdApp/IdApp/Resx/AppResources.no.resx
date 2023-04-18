@@ -2241,4 +2241,10 @@
   <data name="SellEDalerDescription" xml:space="preserve">
     <value>Oppgi hvor mye eDaler du vil selge nedenfor, og trykk på Selg-knappen. En nettside kan åpnes der du må fylle ut ytterligere informasjon for betalingsprosessoren for å validere kravet ditt.</value>
   </data>
+  <data name="TokenCreationTemplates" xml:space="preserve">
+    <value>Token maler</value>
+  </data>
+  <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
+    <value>Nedenfor finner du en liste over tokenmaler du har brukt eller kan bruke til å opprette nye tokener. Klikk på en mal for å opprette en ny kontrakt basert på den malen. Når kontrakten er signert og godkjent, opprettes det tilsvarende tokenet eller tokenene.</value>
+  </data>
 </root>

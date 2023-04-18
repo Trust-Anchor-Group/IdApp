@@ -2241,4 +2241,10 @@
   <data name="SellEDalerDescription" xml:space="preserve">
     <value>Anna alla haluamasi määrä eDaleria ja paina Myy-painiketta. Verkkosivu voidaan avata, jossa sinun on täytettävä lisätietoja maksujen käsittelijälle vahvistaaksesi pyyntösi.</value>
   </data>
+  <data name="TokenCreationTemplates" xml:space="preserve">
+    <value>Token-mallit</value>
+  </data>
+  <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
+    <value>Alla on luettelo tunnusmalleista, joita olet käyttänyt tai voit käyttää uusien tunnusten luomiseen. Napsauta mallia luodaksesi uuden sopimuksen kyseisen mallin perusteella. Kun sopimus on allekirjoitettu ja hyväksytty, vastaava tunnus tai tunnukset luodaan.</value>
+  </data>
 </root>
