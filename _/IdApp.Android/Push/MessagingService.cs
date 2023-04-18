@@ -72,9 +72,9 @@ namespace IdApp.Android.Push
 						break;
 				}
 			}
-			catch (Exception Exc)
+			catch (Exception ex)
 			{
-				Log.Critical(Exc);
+				Log.Critical(ex);
 			}
 		}
 
@@ -101,7 +101,7 @@ namespace IdApp.Android.Push
 			foreach (string Key in Data.Keys)
 				Intent.PutExtra(Key, Data[Key]);
 
-			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
+			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot|PendingIntentFlags.Immutable);
 			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationChatIcon);
 
 			Notification.Builder notificationBuilder = new Notification.Builder(this, Constants.PushChannels.Messages)
@@ -508,12 +508,14 @@ namespace IdApp.Android.Push
 				Log.Critical(ex);
 			}
 
-			return new TokenInformation()
+			TokenInformation TokenInformation = new()
 			{
 				Token = Token.ToString(),
 				ClientType = ClientType.Android,
 				Service = PushMessagingService.Firebase
 			};
+
+			return TokenInformation;
 		}
 	}
 }

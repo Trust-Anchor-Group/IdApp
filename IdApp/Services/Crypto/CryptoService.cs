@@ -8,6 +8,7 @@ using IdApp.DeviceSpecific;
 using Waher.Runtime.Inventory;
 using Waher.Security;
 using Waher.Security.JWT;
+using Waher.Security.SHA3;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -34,7 +35,7 @@ namespace IdApp.Services.Crypto
 		/// </summary>
 		public CryptoService()
 		{
-			IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
+			IDeviceInformation deviceInfo = App.IsTest ? null : DependencyService.Get<IDeviceInformation>();
 
 			this.basePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			this.deviceId = deviceInfo?.GetDeviceId() + "_";
@@ -52,6 +53,17 @@ namespace IdApp.Services.Crypto
 			byte[] iv;
 			string s;
 			int i;
+
+			if (App.IsTest)
+			{
+				SHAKE256 H = new(32);
+				key = H.ComputeVariable(Encoding.UTF8.GetBytes(fileName));
+
+				H = new(16);
+				iv = H.ComputeVariable(Encoding.UTF8.GetBytes(fileName));
+
+				return new KeyValuePair<byte[], byte[]>(key, iv);
+			}
 
 			string FileNameHash = this.deviceId + Path.GetRelativePath(this.basePath, fileName);
 
@@ -73,7 +85,7 @@ namespace IdApp.Services.Crypto
 
 			if (!string.IsNullOrWhiteSpace(s) && (i = s.IndexOf(',')) > 0)
 			{
-				key = Hashes.StringToBinary(s.Substring(0, i));
+				key = Hashes.StringToBinary(s[..i]);
 				iv = Hashes.StringToBinary(s[(i + 1)..]);
 			}
 			else

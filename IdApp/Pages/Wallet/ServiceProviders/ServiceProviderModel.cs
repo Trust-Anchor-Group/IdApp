@@ -1,4 +1,7 @@
 ﻿using EDaler;
+using FFImageLoading.Forms;
+using FFImageLoading.Svg.Forms;
+using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.ServiceProviders
 {
@@ -7,13 +10,13 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 	/// </summary>
 	public class ServiceProviderModel
 	{
-		private readonly IBuyEDalerServiceProvider serviceProvider;
+		private readonly IServiceProvider serviceProvider;
 
 		/// <summary>
 		/// Contact Information model, including related notification information.
 		/// </summary>
 		/// <param name="ServiceProvider">Contact information.</param>
-		public ServiceProviderModel(IBuyEDalerServiceProvider ServiceProvider)
+		public ServiceProviderModel(IServiceProvider ServiceProvider)
 		{
 			this.serviceProvider = ServiceProvider;
 		}
@@ -21,7 +24,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// <summary>
 		/// Underlying service provider
 		/// </summary>
-		public IBuyEDalerServiceProvider ServiceProvider => this.serviceProvider;
+		public IServiceProvider ServiceProvider => this.serviceProvider;
 
 		/// <summary>
 		/// Service ID
@@ -42,6 +45,24 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// Icon URL
 		/// </summary>
 		public string IconUrl => this.serviceProvider.IconUrl;
+
+		/// <summary>
+		/// Icon URL Source
+		/// </summary>
+		public ImageSource IconUrlSource
+		{
+			get
+			{
+				if (this.IconUrl.EndsWith(".svg", System.StringComparison.OrdinalIgnoreCase))
+				{
+					return SvgImageSource.FromUri(new System.Uri(this.IconUrl));
+				}
+				else
+				{
+					return new DataUrlImageSource(this.IconUrl);
+				}
+			}
+		}
 
 		/// <summary>
 		/// Icon Width

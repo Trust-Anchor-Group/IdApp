@@ -32,6 +32,11 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		public bool HandlesHTML => false;
 
 		/// <summary>
+		/// If generation of LaTeX is supported
+		/// </summary>
+		public bool HandlesLaTeX => false;
+
+		/// <summary>
 		/// If generation of plain text is supported.
 		/// </summary>
 		public bool HandlesPlainText => false;
@@ -50,6 +55,14 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// Generates HTML (not supported)
 		/// </summary>
 		public Task<bool> GenerateHTML(StringBuilder Output, string[] Rows, string Language, int Indent, MarkdownDocument Document)
+		{
+			return Task.FromResult<bool>(false);
+		}
+
+		/// <summary>
+		/// Generates LaTeX (not supported)
+		/// </summary>
+		public Task<bool> GenerateLaTeX(StringBuilder Output, string[] Rows, string Language, int Indent, MarkdownDocument Document)
 		{
 			return Task.FromResult<bool>(false);
 		}

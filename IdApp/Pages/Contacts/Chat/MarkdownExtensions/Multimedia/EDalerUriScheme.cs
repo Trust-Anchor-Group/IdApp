@@ -1,9 +1,12 @@
-﻿using System.Text;
+﻿using IdApp.Resx;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using Waher.Content.Markdown;
 using Waher.Content.Markdown.Model;
 using Waher.Runtime.Inventory;
-using TextAlignment = Waher.Content.Markdown.Model.TextAlignment;
 
 namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 {
@@ -39,6 +42,13 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		{
 			foreach (MarkdownElement E in ChildNodes)
 				await E.GenerateHTML(Output);
+		}
+
+		/// <inheritdoc/>
+		public override async Task GenerateLaTeX(StringBuilder Output, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
+		{
+			foreach (MarkdownElement E in ChildNodes)
+				await E.GenerateLaTeX(Output);
 		}
 
 		/// <inheritdoc/>

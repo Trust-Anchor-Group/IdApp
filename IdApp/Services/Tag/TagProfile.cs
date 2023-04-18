@@ -84,7 +84,6 @@ namespace IdApp.Services.Tag
 		private string pinHash;
 		private long? httpFileUploadMaxSize;
 		private bool? supportsPushNotification;
-		private bool usePin;
 		private bool isTest;
 		private DateTime? testOtpTimestamp;
 		private RegistrationStep step = RegistrationStep.ValidateContactInfo;
@@ -155,7 +154,6 @@ namespace IdApp.Services.Tag
 				NeuroFeaturesJid = this.NeuroFeaturesJid,
 				SupportsPushNotification = this.SupportsPushNotification,
 				PinHash = this.PinHash,
-				UsePin = this.UsePin,
 				IsTest = this.IsTest,
 				TestOtpTimestamp = this.TestOtpTimestamp,
 				LegalIdentity = this.LegalIdentity,
@@ -196,7 +194,6 @@ namespace IdApp.Services.Tag
 				this.NeuroFeaturesJid = configuration.NeuroFeaturesJid;
 				this.SupportsPushNotification = configuration.SupportsPushNotification;
 				this.PinHash = configuration.PinHash;
-				this.UsePin = configuration.UsePin;
 				this.IsTest = configuration.IsTest;
 				this.TestOtpTimestamp = configuration.TestOtpTimestamp;
 				this.LegalIdentity = configuration.LegalIdentity;
@@ -524,9 +521,6 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public bool PinIsValid => !this.UsePin || !string.IsNullOrEmpty(this.PinHash);
-
-		/// <inheritdoc/>
 		public bool FileUploadIsSupported => !string.IsNullOrWhiteSpace(this.HttpFileUploadJid) && this.HttpFileUploadMaxSize.HasValue;
 
 		/// <inheritdoc/>
@@ -550,17 +544,9 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public bool UsePin
+		public bool HasPin
 		{
-			get => this.usePin;
-			private set
-			{
-				if (this.usePin != value)
-				{
-					this.usePin = value;
-					this.FlagAsDirty(nameof(this.UsePin));
-				}
-			}
+			get => !string.IsNullOrEmpty(this.PinHash);
 		}
 
 		/// <inheritdoc/>
@@ -643,7 +629,7 @@ namespace IdApp.Services.Tag
 						break;
 
 					case RegistrationStep.RegisterIdentity:
-						await this.SetStep(this.LegalIdentity is null ? RegistrationStep.Account : RegistrationStep.ValidateContactInfo);
+						await this.SetStep(RegistrationStep.ValidateContactInfo);
 						break;
 
 					case RegistrationStep.ValidateIdentity:
@@ -764,10 +750,8 @@ namespace IdApp.Services.Tag
 						break;
 
 					case IdentityState.Approved:
-						if (this.usePin && !string.IsNullOrWhiteSpace(this.pinHash))
-							await this.IncrementConfigurationStep(RegistrationStep.Complete);
-						else
-							await this.IncrementConfigurationStep(RegistrationStep.Pin);
+						await this.IncrementConfigurationStep(
+							this.HasPin ? RegistrationStep.Complete : RegistrationStep.Pin);
 						break;
 
 					default:
@@ -778,14 +762,17 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public async Task ClearAccount()
+		public async Task ClearAccount(bool GoToPrevStep = true)
 		{
 			this.Account = string.Empty;
 			this.PasswordHash = string.Empty;
 			this.PasswordHashMethod = string.Empty;
 			this.LegalJid = null;
 
-			await this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo); // prev
+			if (GoToPrevStep)
+			{
+				await this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
+			}
 		}
 
 		/// <inheritdoc/>
@@ -801,12 +788,12 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public async Task ClearLegalIdentity()
+		public Task ClearLegalIdentity()
 		{
 			this.LegalIdentity = null;
 			this.LegalJid = null;
 
-			await this.DecrementConfigurationStep(RegistrationStep.Account); // prev
+			return Task.CompletedTask;
 		}
 
 		/// <inheritdoc/>
@@ -842,7 +829,6 @@ namespace IdApp.Services.Tag
 			if (AddOrUpdatePin)
 			{
 				this.Pin = Pin;
-				this.UsePin = !string.IsNullOrEmpty(Pin);
 			}
 
 			if (this.step == RegistrationStep.Pin)
@@ -975,7 +961,6 @@ namespace IdApp.Services.Tag
 			this.supportsPushNotification = null;
 			this.pinHash = string.Empty;
 			this.httpFileUploadMaxSize = null;
-			this.usePin = false;
 			this.isTest = false;
 			this.TestOtpTimestamp = null;
 			this.step = RegistrationStep.ValidateContactInfo;

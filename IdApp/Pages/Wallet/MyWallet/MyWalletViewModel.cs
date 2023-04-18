@@ -13,6 +13,7 @@ using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Wallet.BuyEDaler;
 using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Pages.Wallet.RequestPayment;
+using IdApp.Pages.Wallet.SellEDaler;
 using IdApp.Pages.Wallet.ServiceProviders;
 using IdApp.Services;
 using IdApp.Services.Notification;
@@ -640,7 +641,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 					ServiceProvidersNavigationArgs e = new(ServiceProviders, LocalizationResourceManager.Current["SelectServiceProviderBuyEDaler"]);
 					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
 
-					IBuyEDalerServiceProvider ServiceProvider = await e.WaitForServiceProviderSelection();
+					IBuyEDalerServiceProvider ServiceProvider = (IBuyEDalerServiceProvider)await e.WaitForServiceProviderSelection();
 					if (ServiceProvider is not null)
 					{
 						if (string.IsNullOrEmpty(ServiceProvider.Id))
@@ -650,7 +651,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 								ReturnCounter = 1
 							});
 						}
-						else if (string.IsNullOrEmpty(ServiceProvider.TemplateContractId))
+						else if (string.IsNullOrEmpty(ServiceProvider.BuyEDalerTemplateContractId))
 						{
 							TaskCompletionSource<decimal?> Result = new();
 							await this.NavigationService.GoToAsync(nameof(BuyEDalerPage), new BuyEDalerNavigationArgs(this.Balance.Currency, Result));
@@ -659,7 +660,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 							if (Amount.HasValue && Amount.Value > 0)
 							{
-								PaymentTransaction Transaction = await this.XmppService.InitiateEDalerPayment(ServiceProvider.Id, ServiceProvider.Type,
+								PaymentTransaction Transaction = await this.XmppService.InitiateBuyEDaler(ServiceProvider.Id, ServiceProvider.Type,
 									Amount.Value, this.Balance.Currency);
 
 								this.WaitForComletion(Transaction);
@@ -676,7 +677,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 								{ "TrustProvider", e2.TrustProviderId }
 							};
 
-							await this.ContractOrchestratorService.OpenContract(ServiceProvider.TemplateContractId,
+							await this.ContractOrchestratorService.OpenContract(ServiceProvider.BuyEDalerTemplateContractId,
 								LocalizationResourceManager.Current["BuyEDaler"], Parameters, 1);
 						}
 					}
@@ -704,13 +705,76 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private async Task MakePayment()
 		{
-			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-				new ContactListNavigationArgs(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
+			try
+			{
+				ISellEDalerServiceProvider[] ServiceProviders = await this.XmppService.GetServiceProvidersForSellingEDalerAsync();
+
+				if (ServiceProviders.Length == 0)
 				{
-					CanScanQrCode = true,
-					AllowAnonymous = true,
-					AnonymousText = LocalizationResourceManager.Current["Open"]
-				});
+					await this.NavigationService.GoToAsync(nameof(MyContactsPage),
+						new ContactListNavigationArgs(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
+						{
+							CanScanQrCode = true,
+							AllowAnonymous = true,
+							AnonymousText = LocalizationResourceManager.Current["Open"]
+						});
+				}
+				else
+				{
+					ServiceProvidersNavigationArgs e = new(ServiceProviders, LocalizationResourceManager.Current["SelectServiceProviderSellEDaler"]);
+					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
+
+					ISellEDalerServiceProvider ServiceProvider = (ISellEDalerServiceProvider)await e.WaitForServiceProviderSelection();
+					if (ServiceProvider is not null)
+					{
+						if (string.IsNullOrEmpty(ServiceProvider.Id))
+						{
+							await this.NavigationService.GoToAsync(nameof(MyContactsPage),
+								new ContactListNavigationArgs(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
+								{
+									CanScanQrCode = true,
+									AllowAnonymous = true,
+									AnonymousText = LocalizationResourceManager.Current["Open"],
+									ReturnCounter = 1
+								});
+						}
+						else if (string.IsNullOrEmpty(ServiceProvider.SellEDalerTemplateContractId))
+						{
+							TaskCompletionSource<decimal?> Result = new();
+							await this.NavigationService.GoToAsync(nameof(SellEDalerPage), new SellEDalerNavigationArgs(this.Balance.Currency, Result));
+
+							decimal? Amount = await Result.Task;
+
+							if (Amount.HasValue && Amount.Value > 0)
+							{
+								PaymentTransaction Transaction = await this.XmppService.InitiateSellEDaler(ServiceProvider.Id, ServiceProvider.Type,
+									Amount.Value, this.Balance.Currency);
+
+								this.WaitForComletion(Transaction);
+							}
+						}
+						else
+						{
+							CreationAttributesEventArgs e2 = await this.XmppService.GetNeuroFeatureCreationAttributes();
+							Dictionary<CaseInsensitiveString, object> Parameters = new()
+							{
+								{ "Visibility", "CreatorAndParts" },
+								{ "Role", "Seller" },
+								{ "Currency", this.Balance?.Currency ?? e2.Currency },
+								{ "TrustProvider", e2.TrustProviderId }
+							};
+
+							await this.ContractOrchestratorService.OpenContract(ServiceProvider.SellEDalerTemplateContractId,
+								LocalizationResourceManager.Current["SellEDaler"], Parameters, 1);
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
 		}
 
 		private async Task ShowPaymentItem(object Item)

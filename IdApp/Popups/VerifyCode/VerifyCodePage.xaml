@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                 xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+                 x:Class="IdApp.Popups.VerifyCode.VerifyCodePage">
+
+	<pages:PopupPage.Animation>
+		<animations:ScaleAnimation
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+	</pages:PopupPage.Animation>
+
+	<AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center">
+		<Frame Style="{StaticResource PopupFrame}" HorizontalOptions="FillAndExpand">
+			<StackLayout Padding="{StaticResource DefaultMargin}" Spacing="12" HorizontalOptions="FillAndExpand">
+				<Label x:Name="TextLabel"/>
+
+				<Entry x:Name="Code" IsPassword="True" PropertyChanged="Code_PropertyChanged"
+				   Placeholder="{x:Static resx:AppResources.VerificationCode}"
+				   ClearButtonVisibility="WhileEditing" Keyboard="Plain" ReturnType="Done"
+				   Completed="OnEnter" />
+
+				<Button x:Name="EnterButton" Clicked="OnEnter"
+					Text="{x:Static resx:AppResources.VerifyCode}"/>
+			</StackLayout>
+		</Frame>
+
+		<Grid Style="{StaticResource PopupGrid}">
+			<Grid.GestureRecognizers>
+				<TapGestureRecognizer Tapped="OnCloseButtonTapped" />
+			</Grid.GestureRecognizers>
+			<Ellipse StrokeThickness="2" WidthRequest="32" HeightRequest="32" HorizontalOptions="Center" VerticalOptions="Center">
+				<Ellipse.Fill>
+					<SolidColorBrush Color="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+				</Ellipse.Fill>
+				<Ellipse.Stroke>
+					<SolidColorBrush Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
+				</Ellipse.Stroke>
+			</Ellipse>
+			<Label Style="{StaticResource PopupCloseButton}"/>
+		</Grid>
+	</AbsoluteLayout>
+</pages:PopupPage>

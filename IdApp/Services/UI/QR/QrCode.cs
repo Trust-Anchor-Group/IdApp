@@ -141,7 +141,7 @@ namespace IdApp.Services.UI.QR
 
 						switch (Command)
 						{
-							case "ps":  // Payment Successful
+							case "bes":  // Buy eDaler Successful
 								if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId ||
 									!Parsed.TryGetClaim("amt", out object Amount) ||
 									!Parsed.TryGetClaim("cur", out Obj) || Obj is not string Currency)
@@ -160,21 +160,55 @@ namespace IdApp.Services.UI.QR
 									return false;
 								}
 
-								Services.XmppService.EDalerPaymentCompleted(TransactionId, AmountDec, Currency);
+								Services.XmppService.BuyEDalerCompleted(TransactionId, AmountDec, Currency);
 								return true;
 
-							case "pf":  // Payment Failed
+							case "bef":  // Buy eDaler Failed
 								if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId2)
 									return false;
 
-								Services.XmppService.EDalerPaymentFailed(TransactionId2, LocalizationResourceManager.Current["PaymentFailed"]);
+								Services.XmppService.BuyEDalerFailed(TransactionId2, LocalizationResourceManager.Current["PaymentFailed"]);
 								return true;
 
-							case "pc":  // Payment Cancelled
+							case "bec":  // Buy eDaler Cancelled
 								if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId3)
 									return false;
 
-								Services.XmppService.EDalerPaymentFailed(TransactionId3, LocalizationResourceManager.Current["PaymentCancelled"]);
+								Services.XmppService.BuyEDalerFailed(TransactionId3, LocalizationResourceManager.Current["PaymentCancelled"]);
+								return true;
+
+							case "ses":  // Sell eDaler Successful
+								if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId4 ||
+									!Parsed.TryGetClaim("amt", out Amount) ||
+									!Parsed.TryGetClaim("cur", out Obj) || Obj is not string Currency4)
+								{
+									return false;
+								}
+
+								try
+								{
+									AmountDec = Convert.ToDecimal(Amount);
+								}
+								catch (Exception)
+								{
+									return false;
+								}
+
+								Services.XmppService.SellEDalerCompleted(TransactionId4, AmountDec, Currency4);
+								return true;
+
+							case "sef":  // Sell eDaler Failed
+								if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId5)
+									return false;
+
+								Services.XmppService.SellEDalerFailed(TransactionId5, LocalizationResourceManager.Current["PaymentFailed"]);
+								return true;
+
+							case "sec":  // Sell eDaler Cancelled
+								if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId6)
+									return false;
+
+								Services.XmppService.SellEDalerFailed(TransactionId6, LocalizationResourceManager.Current["PaymentCancelled"]);
 								return true;
 
 							default:

@@ -11,7 +11,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 	/// </summary>
 	public class ServiceProvidersViewModel : XmppViewModel
 	{
-		private TaskCompletionSource<IBuyEDalerServiceProvider> selected;
+		private TaskCompletionSource<IServiceProvider> selected;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ServiceProvidersViewModel"/> class.
@@ -35,7 +35,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 				this.selected = args.Selected;
 				this.Description = args.Description;
 
-				foreach (IBuyEDalerServiceProvider ServiceProvider in args.ServiceProviders)
+				foreach (IServiceProvider ServiceProvider in args.ServiceProviders)
 					this.ServiceProviders.Add(new ServiceProviderModel(ServiceProvider));
 			}
 		}
@@ -129,7 +129,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 
 		private void FromUser()
 		{
-			this.selected.TrySetResult(new EmptyServiceProvider());
+			this.selected.TrySetResult(new EmptyBuyEDalerServiceProvider());
 		}
 
 	}

@@ -41,7 +41,7 @@ namespace IdApp.Services.Tag
 		/// API Secret, for creating new account.
 		/// </summary>
 		string ApiSecret { get; }
-		
+
 		/// <summary>
 		/// Verified phone number.
 		/// </summary>
@@ -128,11 +128,6 @@ namespace IdApp.Services.Tag
 		RegistrationStep Step { get; }
 
 		/// <summary>
-		/// Returns <c>true</c> if the PIN is valid, <c>false</c> otherwise.
-		/// </summary>
-		bool PinIsValid { get; }
-
-		/// <summary>
 		/// Returns <c>true</c> if file upload is supported for the specified XMPP server, <c>false</c> otherwise.
 		/// </summary>
 		bool FileUploadIsSupported { get; }
@@ -148,9 +143,9 @@ namespace IdApp.Services.Tag
 		string PinHash { get; }
 
 		/// <summary>
-		/// Returns <c>true</c> if the <see cref="Pin"/> should be used, <c>false</c> otherwise.
+		/// Indicates if the user has a <see cref="Pin"/>.
 		/// </summary>
-		bool UsePin { get; }
+		bool HasPin { get; }
 
 		/// <summary>
 		/// Returns <c>true</c> if the user choose the educational or experimental purpose.
@@ -269,7 +264,7 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// Revert Step 2.
 		/// </summary>
-		Task ClearAccount();
+		Task ClearAccount(bool GoToPrevStep = true);
 
 		/// <summary>
 		/// Step 3 - set the legal identity of a newly created account.

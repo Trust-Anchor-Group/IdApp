@@ -26,6 +26,8 @@ using EDaler.Uris;
 using EDaler;
 using NeuroFeatures.Events;
 using NeuroFeatures;
+using System.Text;
+using Waher.Content.Xml;
 
 namespace IdApp.Services.Xmpp
 {
@@ -1273,14 +1275,14 @@ namespace IdApp.Services.Xmpp
 		Task<IBuyEDalerServiceProvider[]> GetServiceProvidersForBuyingEDalerAsync();
 
 		/// <summary>
-		/// Initiates payment of eDaler using a service provider that is not based on a smart contract.
+		/// Initiates the buying of eDaler using a service provider that does not use a smart contract.
 		/// </summary>
 		/// <param name="ServiceId">Service ID</param>
 		/// <param name="ServiceProvider">Service Provider</param>
 		/// <param name="Amount">Amount</param>
 		/// <param name="Currency">Currency</param>
 		/// <returns>Transaction ID</returns>
-		Task<PaymentTransaction> InitiateEDalerPayment(string ServiceId, string ServiceProvider, decimal Amount, string Currency);
+		Task<PaymentTransaction> InitiateBuyEDaler(string ServiceId, string ServiceProvider, decimal Amount, string Currency);
 
 		/// <summary>
 		/// Registers an initiated payment as completed.
@@ -1288,14 +1290,45 @@ namespace IdApp.Services.Xmpp
 		/// <param name="TransactionId">Transaction ID</param>
 		/// <param name="Amount">Amount</param>
 		/// <param name="Currency">Currency</param>
-		void EDalerPaymentCompleted(string TransactionId, decimal Amount, string Currency);
+		void BuyEDalerCompleted(string TransactionId, decimal Amount, string Currency);
 
 		/// <summary>
 		/// Registers an initiated payment as failed.
 		/// </summary>
 		/// <param name="TransactionId">Transaction ID</param>
 		/// <param name="Message">Error message.</param>
-		void EDalerPaymentFailed(string TransactionId, string Message);
+		void BuyEDalerFailed(string TransactionId, string Message);
+
+		/// <summary>
+		/// Gets available service providers for selling eDaler.
+		/// </summary>
+		/// <returns>Available service providers.</returns>
+		Task<ISellEDalerServiceProvider[]> GetServiceProvidersForSellingEDalerAsync();
+
+		/// <summary>
+		/// Initiates the selling of eDaler using a service provider that does not use a smart contract.
+		/// </summary>
+		/// <param name="ServiceId">Service ID</param>
+		/// <param name="ServiceProvider">Service Provider</param>
+		/// <param name="Amount">Amount</param>
+		/// <param name="Currency">Currency</param>
+		/// <returns>Transaction ID</returns>
+		Task<PaymentTransaction> InitiateSellEDaler(string ServiceId, string ServiceProvider, decimal Amount, string Currency);
+
+		/// <summary>
+		/// Registers an initiated payment as completed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Amount">Amount</param>
+		/// <param name="Currency">Currency</param>
+		void SellEDalerCompleted(string TransactionId, decimal Amount, string Currency);
+
+		/// <summary>
+		/// Registers an initiated payment as failed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Message">Error message.</param>
+		void SellEDalerFailed(string TransactionId, string Message);
 
 		#endregion
 
@@ -1336,6 +1369,8 @@ namespace IdApp.Services.Xmpp
 		/// Gets a section of available tokens
 		/// </summary>
 		/// <returns>Response with tokens.</returns>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
 		Task<TokensEventArgs> GetNeuroFeatures(int Offset, int MaxCount);
 
 		/// <summary>
@@ -1347,6 +1382,8 @@ namespace IdApp.Services.Xmpp
 		/// <summary>
 		/// Gets references to a section of available tokens
 		/// </summary>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
 		/// <returns>Response with tokens.</returns>
 		Task<string[]> GetNeuroFeatureReferences(int Offset, int MaxCount);
 
@@ -1355,6 +1392,38 @@ namespace IdApp.Services.Xmpp
 		/// </summary>
 		/// <returns>Response with tokens.</returns>
 		Task<TokenTotalsEventArgs> GetNeuroFeatureTotals();
+
+		/// <summary>
+		/// Gets tokens created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <returns>Response with tokens.</returns>
+		Task<TokensEventArgs> GetNeuroFeaturesForContract(string ContractId);
+
+		/// <summary>
+		/// Gets tokens created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
+		/// <returns>Response with tokens.</returns>
+		Task<TokensEventArgs> GetNeuroFeaturesForContract(string ContractId, int Offset, int MaxCount);
+
+		/// <summary>
+		/// Gets token references created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <returns>Response with tokens.</returns>
+		Task<string[]> GetNeuroFeatureReferencesForContract(string ContractId);
+
+		/// <summary>
+		/// Gets token references created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
+		/// <returns>Response with tokens.</returns>
+		Task<string[]> GetNeuroFeatureReferencesForContract(string ContractId, int Offset, int MaxCount);
 
 		/// <summary>
 		/// Gets a specific token.
@@ -1452,5 +1521,41 @@ namespace IdApp.Services.Xmpp
 
 		#endregion
 
+		#region Private XML
+
+		/// <summary>
+		/// Saves Private XML to the server. Private XML are separated by
+		/// Local Name and Namespace of the root element. Only one document
+		/// per fully qualified name. When saving private XML, the XML overwrites
+		/// any existing XML having the same local name and namespace.
+		/// </summary>
+		/// <param name="Xml">XML to save.</param>
+		Task SavePrivateXml(string Xml);
+
+		/// <summary>
+		/// Saves Private XML to the server. Private XML are separated by
+		/// Local Name and Namespace of the root element. Only one document
+		/// per fully qualified name. When saving private XML, the XML overwrites
+		/// any existing XML having the same local name and namespace.
+		/// </summary>
+		/// <param name="Xml">XML to save.</param>
+		Task SavePrivateXml(XmlElement Xml);
+
+		/// <summary>
+		/// Loads private XML previously stored, given the local name and
+		/// namespace of the XML.
+		/// </summary>
+		/// <param name="LocalName">Local Name</param>
+		/// <param name="Namespace">Namespace</param>
+		Task<XmlElement> LoadPrivateXml(string LocalName, string Namespace);
+
+		/// <summary>
+		/// Deletes private XML previously saved to the account.
+		/// </summary>
+		/// <param name="LocalName">Local Name</param>
+		/// <param name="Namespace">Namespace</param>
+		Task DeletePrivateXml(string LocalName, string Namespace);
+
+		#endregion
 	}
 }

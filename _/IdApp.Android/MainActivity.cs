@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.Gms.Common;
 using Android.Nfc;
 using Android.OS;
@@ -8,12 +9,11 @@ using Android.Runtime;
 using Android.Views;
 using Firebase;
 using IdApp.Android.Nfc;
+using IdApp.Helpers;
 using IdApp.Nfc;
 using IdApp.Services.Nfc;
-using IdApp.Services.Ocr;
 using System;
 using System.Collections.Generic;
-using Waher.Runtime.Inventory;
 
 namespace IdApp.Android
 {
@@ -28,6 +28,7 @@ namespace IdApp.Android
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
 	{
 		private static NfcAdapter nfcAdapter = null;
+		private static Context configurationContext = null;
 
 		protected override void OnCreate(Bundle SavedInstanceState)
 		{
@@ -37,6 +38,21 @@ namespace IdApp.Android
 			base.OnCreate(SavedInstanceState);
 
 			this.Init(SavedInstanceState);
+		}
+
+		public override Resources Resources
+		{
+			get
+			{
+				if (configurationContext is null)
+				{
+					Configuration config = new();
+					config.SetToDefaults();
+					configurationContext = this.CreateConfigurationContext(config);
+				}
+
+				return configurationContext.Resources;
+			}
 		}
 
 		private void Init(Bundle SavedInstanceState)
@@ -115,7 +131,8 @@ namespace IdApp.Android
 				FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageViewHandler();
 
 				FFImageLoading.Config.Configuration Configuration = FFImageLoading.Config.Configuration.Default;
-				Configuration.DiskCacheDuration = TimeSpan.FromDays(1);
+				Configuration.DiskCacheDuration = TimeSpan.FromDays(7);
+				Configuration.DownloadCache = new AesDownloadCache(Configuration);
 				FFImageLoading.ImageService.Instance.Initialize(Configuration);
 
 				// Uncomment this to debug loading images from neuron (ensures that they are not loaded from cache).

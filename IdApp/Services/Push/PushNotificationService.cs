@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Waher.Content;
+using Waher.Events;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
@@ -114,7 +115,11 @@ namespace IdApp.Services.Push
 
 					bool ForceTokenReport = await this.ForceTokenReport(TokenInformation);
 
-					if (ForceTokenReport)
+					string Version = AppInfo.VersionString + "." + AppInfo.BuildString;
+					string PrevVersion = await RuntimeSettings.GetAsync("PUSH.CONFIG_VERSION", string.Empty);
+					bool IsVersionChanged = Version != PrevVersion;
+
+					if (IsVersionChanged || ForceTokenReport)
 					{
 						string Token = TokenInformation.Token;
 						PushMessagingService Service = TokenInformation.Service;
@@ -125,10 +130,7 @@ namespace IdApp.Services.Push
 						await RuntimeSettings.SetAsync("PUSH.REPORT_DATE", DateTime.UtcNow);
 					}
 
-					string Version = AppInfo.VersionString + "." + AppInfo.BuildString;
-					string PrevVersion = await RuntimeSettings.GetAsync("PUSH.CONFIG_VERSION", string.Empty);
-
-					if (Version != PrevVersion)
+					if (IsVersionChanged)
 					{
 						// it will force the rules update if somehing goes wrong.
 						await RuntimeSettings.SetAsync("PUSH.CONFIG_VERSION", string.Empty);

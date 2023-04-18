@@ -3583,9 +3583,12 @@ namespace IdApp.Services.Xmpp
 		private void RegisterEDalerEventHandlers(EDalerClient Client)
 		{
 			Client.BalanceUpdated += this.EDalerClient_BalanceUpdated;
-			Client.ClientUrlReceived += this.NeuroWallet_ClientUrlReceived;
-			Client.PaymentCompleted += this.NeuroWallet_PaymentCompleted;
-			Client.PaymentError += this.NeuroWallet_PaymentError;
+			Client.BuyEDalerClientUrlReceived += this.NeuroWallet_BuyEDalerClientUrlReceived;
+			Client.BuyEDalerCompleted += this.NeuroWallet_BuyEDalerCompleted;
+			Client.BuyEDalerError += this.NeuroWallet_BuyEDalerError;
+			Client.SellEDalerClientUrlReceived += this.NeuroWallet_SellEDalerClientUrlReceived;
+			Client.SellEDalerCompleted += this.NeuroWallet_SellEDalerCompleted;
+			Client.SellEDalerError += this.NeuroWallet_SellEDalerError;
 		}
 
 		private async Task EDalerClient_BalanceUpdated(object Sender, BalanceEventArgs e)
@@ -3805,18 +3808,18 @@ namespace IdApp.Services.Xmpp
 		}
 
 		/// <summary>
-		/// Initiates payment of eDaler using a service provider that is not based on a smart contract.
+		/// Initiates the buying of eDaler using a service provider that does not use a smart contract.
 		/// </summary>
 		/// <param name="ServiceId">Service ID</param>
 		/// <param name="ServiceProvider">Service Provider</param>
 		/// <param name="Amount">Amount</param>
 		/// <param name="Currency">Currency</param>
 		/// <returns>Transaction ID</returns>
-		public async Task<PaymentTransaction> InitiateEDalerPayment(string ServiceId, string ServiceProvider, decimal Amount, string Currency)
+		public async Task<PaymentTransaction> InitiateBuyEDaler(string ServiceId, string ServiceProvider, decimal Amount, string Currency)
 		{
 			string TransactionId = Guid.NewGuid().ToString();
 			string SuccessUrl = this.GenerateTagIdUrl(
-				new KeyValuePair<string, object>("cmd", "ps"),
+				new KeyValuePair<string, object>("cmd", "bes"),
 				new KeyValuePair<string, object>("tid", TransactionId),
 				new KeyValuePair<string, object>("amt", Amount),
 				new KeyValuePair<string, object>("cur", Currency),
@@ -3825,21 +3828,21 @@ namespace IdApp.Services.Xmpp
 				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
 				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
 			string FailureUrl = this.GenerateTagIdUrl(
-				new KeyValuePair<string, object>("cmd", "pf"),
+				new KeyValuePair<string, object>("cmd", "bef"),
 				new KeyValuePair<string, object>("tid", TransactionId),
 				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
 				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
 				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
 				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
 			string CancelUrl = this.GenerateTagIdUrl(
-				new KeyValuePair<string, object>("cmd", "pc"),
+				new KeyValuePair<string, object>("cmd", "bec"),
 				new KeyValuePair<string, object>("tid", TransactionId),
 				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
 				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
 				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
 				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
 
-			TransactionId = await this.EDalerClient.InitiatePaymentOfEDalerAsync(ServiceId, ServiceProvider, Amount, Currency, TransactionId, SuccessUrl, FailureUrl, CancelUrl);
+			TransactionId = await this.EDalerClient.InitiateBuyEDalerAsync(ServiceId, ServiceProvider, Amount, Currency, TransactionId, SuccessUrl, FailureUrl, CancelUrl);
 			PaymentTransaction Result = new(TransactionId, Currency);
 
 			lock (this.currentTransactions)
@@ -3856,7 +3859,133 @@ namespace IdApp.Services.Xmpp
 			return Constants.UriSchemes.UriSchemeTagIdApp + ":" + Token;
 		}
 
-		private async Task NeuroWallet_ClientUrlReceived(object Sender, ClientUrlEventArgs e)
+		private async Task NeuroWallet_BuyEDalerClientUrlReceived(object Sender, BuyEDalerClientUrlEventArgs e)
+		{
+			PaymentTransaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(e.TransactionId, out Transaction))
+				{
+					this.LogService.LogWarning("Client URL message for buying eDaler ignored. Transaction ID not recognized.",
+						new KeyValuePair<string, object>("TransactionId", e.TransactionId),
+						new KeyValuePair<string, object>("ClientUrl", e.ClientUrl));
+					return;
+				}
+			}
+
+			await Transaction.OpenUrl(e.ClientUrl);
+		}
+
+		private Task NeuroWallet_BuyEDalerError(object Sender, PaymentErrorEventArgs e)
+		{
+			this.BuyEDalerFailed(e.TransactionId, e.Message);
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Registers an initiated payment as failed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Message">Error message.</param>
+		public void BuyEDalerFailed(string TransactionId, string Message)
+		{
+			PaymentTransaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(TransactionId, out Transaction))
+					return;
+
+				this.currentTransactions.Remove(TransactionId);
+			}
+
+			Transaction.ErrorReported(Message);
+		}
+
+		private Task NeuroWallet_BuyEDalerCompleted(object Sender, PaymentCompletedEventArgs e)
+		{
+			this.BuyEDalerCompleted(e.TransactionId, e.Amount, e.Currency);
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Registers an initiated payment as completed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Amount">Amount</param>
+		/// <param name="Currency">Currency</param>
+		public void BuyEDalerCompleted(string TransactionId, decimal Amount, string Currency)
+		{
+			PaymentTransaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(TransactionId, out Transaction))
+					return;
+
+				this.currentTransactions.Remove(TransactionId);
+			}
+
+			Transaction.Completed(Amount, Currency);
+		}
+
+		/// <summary>
+		/// Gets available service providers for selling eDaler.
+		/// </summary>
+		/// <returns>Available service providers.</returns>
+		public async Task<ISellEDalerServiceProvider[]> GetServiceProvidersForSellingEDalerAsync()
+		{
+			return await this.EDalerClient.GetServiceProvidersForSellingEDalerAsync();
+		}
+
+		/// <summary>
+		/// Initiates the selling of eDaler using a service provider that does not use a smart contract.
+		/// </summary>
+		/// <param name="ServiceId">Service ID</param>
+		/// <param name="ServiceProvider">Service Provider</param>
+		/// <param name="Amount">Amount</param>
+		/// <param name="Currency">Currency</param>
+		/// <returns>Transaction ID</returns>
+		public async Task<PaymentTransaction> InitiateSellEDaler(string ServiceId, string ServiceProvider, decimal Amount, string Currency)
+		{
+			string TransactionId = Guid.NewGuid().ToString();
+			string SuccessUrl = this.GenerateTagIdUrl(
+				new KeyValuePair<string, object>("cmd", "ses"),
+				new KeyValuePair<string, object>("tid", TransactionId),
+				new KeyValuePair<string, object>("amt", Amount),
+				new KeyValuePair<string, object>("cur", Currency),
+				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
+				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
+			string FailureUrl = this.GenerateTagIdUrl(
+				new KeyValuePair<string, object>("cmd", "sef"),
+				new KeyValuePair<string, object>("tid", TransactionId),
+				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
+				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
+			string CancelUrl = this.GenerateTagIdUrl(
+				new KeyValuePair<string, object>("cmd", "sec"),
+				new KeyValuePair<string, object>("tid", TransactionId),
+				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
+				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
+
+			TransactionId = await this.EDalerClient.InitiateSellEDalerAsync(ServiceId, ServiceProvider, Amount, Currency, TransactionId, SuccessUrl, FailureUrl, CancelUrl);
+			PaymentTransaction Result = new(TransactionId, Currency);
+
+			lock (this.currentTransactions)
+			{
+				this.currentTransactions[TransactionId] = Result;
+			}
+
+			return Result;
+		}
+
+		private async Task NeuroWallet_SellEDalerClientUrlReceived(object Sender, SellEDalerClientUrlEventArgs e)
 		{
 			PaymentTransaction Transaction;
 
@@ -3874,9 +4003,9 @@ namespace IdApp.Services.Xmpp
 			await Transaction.OpenUrl(e.ClientUrl);
 		}
 
-		private Task NeuroWallet_PaymentError(object Sender, PaymentErrorEventArgs e)
+		private Task NeuroWallet_SellEDalerError(object Sender, PaymentErrorEventArgs e)
 		{
-			this.EDalerPaymentFailed(e.TransactionId, e.Message);
+			this.SellEDalerFailed(e.TransactionId, e.Message);
 			return Task.CompletedTask;
 		}
 
@@ -3885,7 +4014,7 @@ namespace IdApp.Services.Xmpp
 		/// </summary>
 		/// <param name="TransactionId">Transaction ID</param>
 		/// <param name="Message">Error message.</param>
-		public void EDalerPaymentFailed(string TransactionId, string Message)
+		public void SellEDalerFailed(string TransactionId, string Message)
 		{
 			PaymentTransaction Transaction;
 
@@ -3900,9 +4029,9 @@ namespace IdApp.Services.Xmpp
 			Transaction.ErrorReported(Message);
 		}
 
-		private Task NeuroWallet_PaymentCompleted(object Sender, PaymentCompletedEventArgs e)
+		private Task NeuroWallet_SellEDalerCompleted(object Sender, PaymentCompletedEventArgs e)
 		{
-			this.EDalerPaymentCompleted(e.TransactionId, e.Amount, e.Currency);
+			this.SellEDalerCompleted(e.TransactionId, e.Amount, e.Currency);
 			return Task.CompletedTask;
 		}
 
@@ -3912,7 +4041,7 @@ namespace IdApp.Services.Xmpp
 		/// <param name="TransactionId">Transaction ID</param>
 		/// <param name="Amount">Amount</param>
 		/// <param name="Currency">Currency</param>
-		public void EDalerPaymentCompleted(string TransactionId, decimal Amount, string Currency)
+		public void SellEDalerCompleted(string TransactionId, decimal Amount, string Currency)
 		{
 			PaymentTransaction Transaction;
 
@@ -4061,6 +4190,8 @@ namespace IdApp.Services.Xmpp
 		/// <summary>
 		/// Gets a section of available tokens
 		/// </summary>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
 		/// <returns>Response with tokens.</returns>
 		public Task<TokensEventArgs> GetNeuroFeatures(int Offset, int MaxCount)
 		{
@@ -4079,6 +4210,8 @@ namespace IdApp.Services.Xmpp
 		/// <summary>
 		/// Gets references to a section of available tokens
 		/// </summary>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
 		/// <returns>Response with tokens.</returns>
 		public Task<string[]> GetNeuroFeatureReferences(int Offset, int MaxCount)
 		{
@@ -4092,6 +4225,50 @@ namespace IdApp.Services.Xmpp
 		public Task<TokenTotalsEventArgs> GetNeuroFeatureTotals()
 		{
 			return this.NeuroFeaturesClient.GetTotalsAsync();
+		}
+
+		/// <summary>
+		/// Gets tokens created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <returns>Response with tokens.</returns>
+		public Task<TokensEventArgs> GetNeuroFeaturesForContract(string ContractId)
+		{
+			return this.neuroFeaturesClient.GetContractTokensAsync(ContractId);
+		}
+
+		/// <summary>
+		/// Gets tokens created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
+		/// <returns>Response with tokens.</returns>
+		public Task<TokensEventArgs> GetNeuroFeaturesForContract(string ContractId, int Offset, int MaxCount)
+		{
+			return this.neuroFeaturesClient.GetContractTokensAsync(ContractId, Offset, MaxCount);
+		}
+
+		/// <summary>
+		/// Gets token references created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <returns>Response with tokens.</returns>
+		public Task<string[]> GetNeuroFeatureReferencesForContract(string ContractId)
+		{
+			return this.neuroFeaturesClient.GetContractTokenReferencesAsync(ContractId);
+		}
+
+		/// <summary>
+		/// Gets token references created by a smart contract
+		/// </summary>
+		/// <param name="ContractId">Contract ID</param>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
+		/// <returns>Response with tokens.</returns>
+		public Task<string[]> GetNeuroFeatureReferencesForContract(string ContractId, int Offset, int MaxCount)
+		{
+			return this.neuroFeaturesClient.GetContractTokenReferencesAsync(ContractId, Offset, MaxCount);
 		}
 
 		/// <summary>
@@ -4249,5 +4426,61 @@ namespace IdApp.Services.Xmpp
 
 		#endregion
 
+		#region Private XML
+
+		/// <summary>
+		/// Saves Private XML to the server. Private XML are separated by
+		/// Local Name and Namespace of the root element. Only one document
+		/// per fully qualified name. When saving private XML, the XML overwrites
+		/// any existing XML having the same local name and namespace.
+		/// </summary>
+		/// <param name="Xml">XML to save.</param>
+		public Task SavePrivateXml(string Xml)
+		{
+			return this.xmppClient.SetPrivateXmlElementAsync(Xml);
+		}
+
+		/// <summary>
+		/// Saves Private XML to the server. Private XML are separated by
+		/// Local Name and Namespace of the root element. Only one document
+		/// per fully qualified name. When saving private XML, the XML overwrites
+		/// any existing XML having the same local name and namespace.
+		/// </summary>
+		/// <param name="Xml">XML to save.</param>
+		public Task SavePrivateXml(XmlElement Xml)
+		{
+			return this.xmppClient.SetPrivateXmlElementAsync(Xml);
+		}
+
+		/// <summary>
+		/// Loads private XML previously stored, given the local name and
+		/// namespace of the XML.
+		/// </summary>
+		/// <param name="LocalName">Local Name</param>
+		/// <param name="Namespace">Namespace</param>
+		public Task<XmlElement> LoadPrivateXml(string LocalName, string Namespace)
+		{
+			return this.xmppClient.GetPrivateXmlElementAsync(LocalName, Namespace);
+		}
+
+		/// <summary>
+		/// Deletes private XML previously saved to the account.
+		/// </summary>
+		/// <param name="LocalName">Local Name</param>
+		/// <param name="Namespace">Namespace</param>
+		public Task DeletePrivateXml(string LocalName, string Namespace)
+		{
+			StringBuilder Xml = new();
+
+			Xml.Append('<');
+			Xml.Append(XML.Encode(LocalName));
+			Xml.Append(" xmlns='");
+			Xml.Append(XML.Encode(Namespace));
+			Xml.Append("'/>");
+
+			return this.SavePrivateXml(Xml.ToString());
+		}
+
+		#endregion
 	}
 }

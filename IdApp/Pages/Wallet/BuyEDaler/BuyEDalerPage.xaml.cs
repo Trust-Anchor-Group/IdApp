@@ -2,10 +2,10 @@
 
 namespace IdApp.Pages.Wallet.BuyEDaler
 {
-    /// <summary>
-    /// A page that displays information about eDaler received.
-    /// </summary>
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+	/// <summary>
+	/// A page that allows the user to buy eDaler.
+	/// </summary>
+	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BuyEDalerPage
     {
         /// <summary>

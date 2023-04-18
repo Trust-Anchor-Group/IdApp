@@ -166,11 +166,6 @@ namespace IdApp.Pages.Registration.DefinePin
 		}
 
 		/// <summary>
-		/// Gets a value indicating if the user already has an old pin set up.
-		/// </summary>
-		public bool OldPinExists => this.TagProfile.UsePin && !string.IsNullOrEmpty(this.TagProfile.PinHash);
-
-		/// <summary>
 		/// The <see cref="YouCanProtectYourWalletPinInfo"/>
 		/// </summary>
 		public static readonly BindableProperty YouCanProtectYourWalletPinInfoProperty =
@@ -231,8 +226,9 @@ namespace IdApp.Pages.Registration.DefinePin
 		{
 			this.IsConnected = State == XmppState.Connected;
 			this.ConnectionStateText = State.ToDisplayText();
-			this.YouCanProtectYourWalletPinInfo = this.OldPinExists
-				? LocalizationResourceManager.Current["YouCanProtectYourWalletPinInfoChange"] : LocalizationResourceManager.Current["YouCanProtectYourWalletPinInfo"];
+			this.YouCanProtectYourWalletPinInfo = this.TagProfile.HasPin
+				? LocalizationResourceManager.Current["YouCanProtectYourWalletPinInfoChange"]
+				: LocalizationResourceManager.Current["YouCanProtectYourWalletPinInfo"];
 		}
 
 		private void Skip()

@@ -8,6 +8,7 @@ using Waher.Content;
 using Xamarin.Forms;
 using IdApp.Services.Tag;
 using Xamarin.CommunityToolkit.Helpers;
+using Rg.Plugins.Popup.Services;
 
 namespace IdApp.Pages.Registration.ValidateContactInfo
 {
@@ -38,12 +39,17 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		public ValidateContactInfoViewModel()
 			: base(RegistrationStep.ValidateContactInfo)
 		{
+			// supersede the send and verify pairs
+			this.SendAndVerifyEMailCodeCommand = new Command(async () => await this.SendAndVerifyEMailCode(), this.SendAndVerifyEMailCodeCanExecute);
+			this.SendAndVerifyPhoneNrCodeCommand = new Command(async () => await this.SendAndVerifyPhoneNrCode(), this.SendAndVerifyPhoneNrCodeCanExecute);
+
+			// are kept for backward compatibility
 			this.SendEMailCodeCommand = new Command(async () => await this.SendEMailCode(), this.SendEMailCodeCanExecute);
 			this.VerifyEMailCodeCommand = new Command(async () => await this.VerifyEMailCode(), this.VerifyEMailCodeCanExecute);
 
 			this.SendPhoneNrCodeCommand = new Command(async () => await this.SendPhoneNrCode(), this.SendPhoneNrCodeCanExecute);
 			this.VerifyPhoneNrCodeCommand = new Command(async () => await this.VerifyPhoneNrCode(), this.VerifyPhoneNrCodeCanExecute);
-			
+
 			this.Title = LocalizationResourceManager.Current["ContactInformation"];
 			this.Purposes = new ObservableCollection<string>();
 		}
@@ -130,6 +136,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		private void EvaluateAllCommands()
 		{
 			this.EvaluateCommands(
+				this.SendAndVerifyEMailCodeCommand, this.SendAndVerifyPhoneNrCodeCommand,
 				this.SendPhoneNrCodeCommand, this.VerifyPhoneNrCodeCommand,
 				this.SendEMailCodeCommand, this.VerifyEMailCodeCommand);
 		}
@@ -287,7 +294,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			get => (string)this.GetValue(EMailProperty);
 			set
 			{
-				this.SetValue(EMailProperty, value);
+				this.SetValue(EMailProperty, value?.Trim() ?? string.Empty);
 				this.OnPropertyChanged(nameof(this.EmailButtonEnabled));
 			}
 		}
@@ -452,6 +459,11 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		public string VerifyPhoneCodeButtonLabel => this.PhoneNrValidated ? LocalizationResourceManager.Current["VerifiedButton"] : LocalizationResourceManager.Current["VerifyCode"];
 
 		/// <summary>
+		/// The command to bind to for sending and verification a code to the provided e-mail address.
+		/// </summary>
+		public ICommand SendAndVerifyEMailCodeCommand { get; }
+
+		/// <summary>
 		/// The command to bind to for sending a code to the provided e-mail address.
 		/// </summary>
 		public ICommand SendEMailCodeCommand { get; }
@@ -462,9 +474,14 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		public ICommand VerifyEMailCodeCommand { get; }
 
 		/// <summary>
-		/// The command to bind to for sending a code to the provided phone number.
+		/// The command to bind to for sending and verification a code to the provided phone number.
 		/// </summary>
 		public ICommand SendPhoneNrCodeCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for sending a code to the provided phone number.
+		/// </summary>
+		public ICommand SendAndVerifyPhoneNrCodeCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for sending a phone message code verification request.
@@ -476,6 +493,84 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		#region Commands
 
 		#region E-Mail
+
+		private async Task SendAndVerifyEMailCode()
+		{
+			if (!this.NetworkService.IsOnline)
+			{
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NetworkSeemsToBeMissing"]);
+				return;
+			}
+
+			this.EMailValidated = false;
+			this.SetIsBusy(this.SendAndVerifyEMailCodeCommand, this.SendEMailCodeCommand, this.VerifyEMailCodeCommand);
+
+			try
+			{
+				object SendResult = await InternetContent.PostAsync(
+					new Uri("https://" + Constants.Domains.IdDomain + "/ID/SendVerificationMessage.ws"),
+					new Dictionary<string, object>()
+					{
+						{ "EMail", this.EMail }
+					}, new KeyValuePair<string, string>("Accept", "application/json"));
+
+				if (SendResult is Dictionary<string, object> SentResponse &&
+					SentResponse.TryGetValue("Status", out object SentObj) && SentObj is bool SentStatus && SentStatus)
+				{
+					this.StartTimer("email");
+
+					Popups.VerifyCode.VerifyCodePage Page = new(LocalizationResourceManager.Current["SendEmailWarning"]);
+					await PopupNavigation.Instance.PushAsync(Page);
+					string Code = await Page.Result;
+
+					if (!string.IsNullOrEmpty(Code))
+					{
+						object VerifyResult = await InternetContent.PostAsync(
+							new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
+							new Dictionary<string, object>()
+							{
+						{ "EMail", this.EMail },
+						{ "Code", int.Parse(Code) }
+							}, new KeyValuePair<string, string>("Accept", "application/json"));
+
+						this.EMailVerificationCode = string.Empty;
+
+						if (VerifyResult is Dictionary<string, object> VerifyResponse &&
+							VerifyResponse.TryGetValue("Status", out object VerifyObj) && VerifyObj is bool VerifyStatus && VerifyStatus)
+						{
+							this.EMailValidated = true;
+
+							this.TagProfile.SetEMail(this.EMail);
+							this.OnStepCompleted(EventArgs.Empty);
+						}
+						else
+						{
+							this.EMailValidated = false;
+
+							await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"],
+								LocalizationResourceManager.Current["UnableToVerifyCode"], LocalizationResourceManager.Current["Ok"]);
+						}
+					}
+				}
+				else
+				{
+                    this.EMailValidated = false;
+
+                    await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingEmailCode"]);
+				}
+			}
+			catch (Exception ex)
+			{
+				this.EMailValidated = false;
+
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
+			}
+			finally
+			{
+				this.BeginInvokeSetIsDone(this.SendAndVerifyEMailCodeCommand, this.SendEMailCodeCommand, this.VerifyEMailCodeCommand);
+			}
+		}
 
 		private async Task SendEMailCode()
 		{
@@ -513,6 +608,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			}
 			catch (Exception ex)
 			{
+				this.EMailValidated = false;
+
 				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
 			}
@@ -562,6 +659,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			}
 			catch (Exception ex)
 			{
+				this.EMailValidated = false;
+
 				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message,
 					LocalizationResourceManager.Current["Ok"]);
@@ -575,6 +674,124 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		#endregion
 
 		#region Phone Numbers
+
+		private async Task SendAndVerifyPhoneNrCode()
+		{
+			if (!this.NetworkService.IsOnline)
+			{
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NetworkSeemsToBeMissing"]);
+				return;
+			}
+
+			this.PhoneNrValidated = false;
+			this.SetIsBusy(this.SendAndVerifyPhoneNrCodeCommand, this.SendPhoneNrCodeCommand, this.VerifyPhoneNrCodeCommand);
+
+			try
+			{
+				string TrimmedNumber = this.TrimPhoneNumber(this.PhoneNumber);
+
+				object SendResult = await InternetContent.PostAsync(
+					new Uri("https://" + Constants.Domains.IdDomain + "/ID/SendVerificationMessage.ws"),
+					new Dictionary<string, object>()
+					{
+						{ "Nr", TrimmedNumber }
+					}, new KeyValuePair<string, string>("Accept", "application/json"));
+
+				if (SendResult is Dictionary<string, object> SendResponse &&
+					SendResponse.TryGetValue("Status", out object SendObj) && SendObj is bool SendStatus && SendStatus
+					&& SendResponse.TryGetValue("IsTemporary", out SendObj) && SendObj is bool SentIsTemporary)
+				{
+					if (!string.IsNullOrEmpty(this.TagProfile.PhoneNumber) && !this.TagProfile.TestOtpTimestamp.HasValue && SentIsTemporary)
+					{
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SwitchingToTestPhoneNumberNotAllowed"]);
+					}
+					else
+					{
+						this.StartTimer("phone");
+
+						Popups.VerifyCode.VerifyCodePage Page = new(LocalizationResourceManager.Current["SendPhoneNumberWarning"]);
+						await PopupNavigation.Instance.PushAsync(Page);
+						string Code = await Page.Result;
+
+						if (!string.IsNullOrEmpty(Code))
+						{
+							bool IsTest = this.PurposeRequired
+								? this.Purpose == (int)PurposeUse.EducationalOrExperimental
+								: this.TagProfile.IsTest;
+
+							object VerifyResult = await InternetContent.PostAsync(
+								new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
+								new Dictionary<string, object>()
+								{
+									{ "Nr", TrimmedNumber },
+									{ "Code", int.Parse(Code) },
+									{ "Test", IsTest }
+								}, new KeyValuePair<string, string>("Accept", "application/json"));
+
+							this.PhoneNrVerificationCode = string.Empty;
+
+							if (VerifyResult is Dictionary<string, object> VerifyResponse &&
+								VerifyResponse.TryGetValue("Status", out object VerifyObj) && VerifyObj is bool VerifyStatus && VerifyStatus &&
+								VerifyResponse.TryGetValue("Domain", out VerifyObj) && VerifyObj is string VerifyDomain &&
+								VerifyResponse.TryGetValue("Key", out VerifyObj) && VerifyObj is string VerifyKey &&
+								VerifyResponse.TryGetValue("Secret", out VerifyObj) && VerifyObj is string VerifySecret &&
+								VerifyResponse.TryGetValue("Temporary", out VerifyObj) && VerifyObj is bool VerifyIsTemporary)
+							{
+								this.PhoneNrValidated = true;
+
+								this.TagProfile.SetPhone(TrimmedNumber);
+								this.TagProfile.SetIsTest(IsTest);
+								this.TagProfile.SetTestOtpTimestamp(VerifyIsTemporary ? DateTime.Now : null);
+
+								if (this.IsRevalidating)
+									await this.TagProfile.RevalidateContactInfo();
+								else
+								{
+									bool DefaultConnectivity;
+									try
+									{
+										(string HostName, int PortNumber, bool IsIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(VerifyDomain);
+										DefaultConnectivity = HostName == VerifyDomain && PortNumber == Waher.Networking.XMPP.XmppCredentials.DefaultPort;
+									}
+									catch (Exception)
+									{
+										DefaultConnectivity = false;
+									}
+
+									await this.TagProfile.SetDomain(VerifyDomain, DefaultConnectivity, VerifyKey, VerifySecret);
+								}
+
+								this.OnStepCompleted(EventArgs.Empty);
+							}
+							else
+							{
+								this.PhoneNrValidated = false;
+
+								await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"],
+									LocalizationResourceManager.Current["UnableToVerifyCode"], LocalizationResourceManager.Current["Ok"]);
+							}
+						}
+                    }
+                }
+				else
+				{
+                    this.PhoneNrValidated = false;
+
+                    await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingPhoneCode"]);
+				}
+			}
+			catch (Exception ex)
+			{
+				this.PhoneNrValidated = false;
+
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
+			}
+			finally
+			{
+				this.BeginInvokeSetIsDone(this.SendAndVerifyPhoneNrCodeCommand, this.SendPhoneNrCodeCommand, this.VerifyPhoneNrCodeCommand);
+			}
+		}
 
 		private async Task SendPhoneNrCode()
 		{
@@ -621,6 +838,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			}
 			catch (Exception ex)
 			{
+				this.PhoneNrValidated = false;
+
 				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
 			}
@@ -701,6 +920,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			}
 			catch (Exception ex)
 			{
+				this.PhoneNrValidated = false;
+
 				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
 			}
@@ -715,6 +936,24 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		#endregion
 
 		#region CanExecute
+
+		private bool SendAndVerifyEMailCodeCanExecute()
+		{
+			if (this.IsBusy) // is connecting
+				return false;
+
+			return this.EmailButtonEnabled;
+
+		}
+
+		private bool SendAndVerifyPhoneNrCodeCanExecute()
+		{
+			if (this.IsBusy) // is connecting
+				return false;
+
+			return this.PhoneButtonEnabled;
+
+		}
 
 		private bool SendEMailCodeCanExecute()
 		{

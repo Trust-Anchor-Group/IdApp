@@ -1,14 +1,385 @@
-﻿<?xml version = "1.0" encoding = "UTF-8" ?>
-<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:IdApp"
-             x:Class="IdApp.App">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:helpers="clr-namespace:IdApp.Helpers;assembly=IdApp"
+	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+	xmlns:controls="clr-namespace:Vet20.Controls;assembly=IdApp"
+	xmlns:templatedSwitch="clr-namespace:IdApp.Controls.TemplatedSwitch;assembly=IdApp"
+	x:Class="IdApp.App">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Application.Resources>
+        <OnPlatform x:TypeArguments="x:String"
+                    x:Key="FontAwesomeRegular">
+            <On Platform="Android"
+                Value="FontAwesome5Free-Regular-400.otf#Regular" />
+            <On Platform="iOS"
+                Value="FontAwesome5Free-Regular" />
+        </OnPlatform>
+        <OnPlatform x:TypeArguments="x:String"
+                    x:Key="FontAwesomeSolid">
+            <On Platform="Android"
+                Value="FontAwesome5Free-Solid-900.otf#Regular" />
+            <On Platform="iOS"
+                Value="FontAwesome5Free-Solid" />
+        </OnPlatform>
+        <Color x:Key="HeadingForeground">White</Color>
+        <Color x:Key="Primary">#202E40</Color>
+        <Color x:Key="HeadingBackground">#202E40</Color>
+        <Color x:Key="HeadingBackgroundLight">#536173</Color>
+        <Color x:Key="HeadingBackgroundTranslucent">#cc202E40</Color>
+        <Color x:Key="AccentColor">#BADA55</Color>
+        <Color x:Key="AccentColorDarkTheme">#FFD60A</Color>
+        <Color x:Key="AlertColor">Red</Color>
+        <Color x:Key="AlertColorDarkTheme">#ff453a</Color>
+        <Color x:Key="PageBackgroundColor">White</Color>
+        <Color x:Key="ForegroundColor">Black</Color>
+        <Color x:Key="PendingColor">Salmon</Color>
+
+        <Color x:Key="PageBackgroundColorLightTheme">White</Color>
+        <Color x:Key="PageBackgroundColorDarkTheme">#282830</Color>
+
+        <Color x:Key="HeadingBackgroundLightTheme">#202E40</Color>
+        <Color x:Key="HeadingBackgroundDarkTheme">#536173</Color>
+
+        <Color x:Key="HeadingBackgroundTranslucentLightTheme">#cc202E40</Color>
+        <Color x:Key="HeadingBackgroundTranslucentDarkTheme">#cc536173</Color>
+
+        <Color x:Key="ForegroundColorLightTheme">Black</Color>
+        <Color x:Key="ForegroundColorDarkTheme">White</Color>
+
+        <Color x:Key="TextColorLightTheme">White</Color>
+        <Color x:Key="TextColorDarkTheme">Black</Color>
+
+        <Color x:Key="LabelTextColorLightTheme">Black</Color>
+        <Color x:Key="LabelTextColorDarkTheme">White</Color>
+
+        <Color x:Key="HeadingForegroundLightTheme">White</Color>
+        <Color x:Key="HeadingForegroundDarkTheme">#282830</Color>
+
+        <Color x:Key="FrameLightTheme">#f0ffffff</Color>
+        <Color x:Key="FrameDarkTheme">#f0282830</Color>
+
+        <Color x:Key="HintColor">#ccc</Color>
+
+        <Color x:Key="SendMessageBackground">LightYellow</Color>
+        <Color x:Key="SendMessageBorder">Yellow</Color>
+
+        <Color x:Key="RecivedMessageBackground">LightBlue</Color>
+        <Color x:Key="RecivedMessageBorder">SkyBlue</Color>
+
+        <Color x:Key="OtherMessageBackground">LightSalmon</Color>
+        <Color x:Key="OtherMessageBorder">Salmon</Color>
+
+        <Color x:Key="DisplayConnectionTextColor">#99ffffff</Color>
+        <Color x:Key="DisabledTextColor">#B4FFFFFF</Color>
+        <Color x:Key="UnselectedTextColor">#95FFFFFF</Color>
+        <Color x:Key="WhiteColor">White</Color>
+        <Color x:Key="BlueColor">Blue</Color>
+        <Color x:Key="BlueColorDarkTheme">#0a84ff</Color>
+        <Color x:Key="GrayColor">Gray</Color>
+        <Color x:Key="GrayColorDarkTheme">#8E8E93</Color>
+        <Color x:Key="LightGrayColor">LightGray</Color>
+
+        <Thickness x:Key="LargeMargin">24</Thickness>
+        <Thickness x:Key="DefaultMargin">12</Thickness>
+        <Thickness x:Key="DefaultLeftOnlyMargin">12,0,0,0</Thickness>
+        <Thickness x:Key="DefaultTopOnlyMargin">0,12,0,0</Thickness>
+        <Thickness x:Key="DefaultTopAndBottomOnlyMargin">0,12,0,12</Thickness>
+        <Thickness x:Key="DefaultRightOnlyMargin">0,0,12,0</Thickness>
+		<Thickness x:Key="DefaultBottomOnlyMargin">0,0,0,12</Thickness>
+		<Thickness x:Key="DefaultLeftRightMargin">12,0,12,0</Thickness>
+        <Thickness x:Key="DefaultLeftRightAndBottomMargin">12,0,12,12</Thickness>
+        <x:Int32 x:Key="DefaultLeftMargin">12</x:Int32>
+        <x:Int32 x:Key="DefaultTopMargin">12</x:Int32>
+        <x:Int32 x:Key="DefaultRightMargin">12</x:Int32>
+        <x:Int32 x:Key="DefaultBottomMargin">12</x:Int32>
+
+        <Style TargetType="Button"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
+            <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Style.Triggers>
+                <Trigger TargetType="Button"
+                         Property="IsEnabled"
+                         Value="False">
+                    <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackgroundLight}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Button"
+               x:Key="IconButton"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
+            <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="WidthRequest" Value="40" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="VerticalOptions" Value="Start" />
+        </Style>
+		<Style TargetType="Frame"
+			   x:Key="TintedSvgIconButton"
+               ApplyToDerivedTypes="True"
+			   CanCascade="True">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
+			<Setter Property="HeightRequest" Value="40" />
+			<Setter Property="WidthRequest" Value="40" />
+			<Setter Property="CornerRadius" Value="4" />
+			<Setter Property="Padding" Value="10" />
+			<Setter Property="Margin" Value="0" />
+			<Setter Property="HasShadow" Value="False" />
+			<Setter Property="HorizontalOptions" Value="FillAndExpand" />
+			<Setter Property="VerticalOptions" Value="Start" />
+		</Style>
+
+		<Style x:Key="Heading" TargetType="Label"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
+            <Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}" />
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+        </Style>
+        <Style x:Key="LeftAlignedHeading" TargetType="Label"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
+            <Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}" />
+            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+        </Style>
+        <Style TargetType="Label"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
+        </Style>
+		<Style TargetType="Label"
+			   x:Key="ContractTitleLabel">
+			<Setter Property="LineBreakMode" Value="WordWrap" />
+			<Setter Property="FontSize" Value="24" />
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
+		</Style>
+		<Style TargetType="Label" x:Key="ValueLabel">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+            <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+        </Style>
+        <Style TargetType="Label" x:Key="ValueLabelWithBackground">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+            <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            <Setter Property="TextColor" Value="{StaticResource ForegroundColorLightTheme}"/>
+        </Style>
+        <Style TargetType="Label" x:Key="ValueLabelForContacrt">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+            <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            <Setter Property="TextColor" Value="Gray"/>
+        </Style>
+        <Style TargetType="Label" x:Key="ClickableValueLabel">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+            <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource BlueColor}, Dark={StaticResource BlueColorDarkTheme}}"/>
+        </Style>
+		<Style TargetType="Span" x:Key="ClickableValueSpan">
+			<Setter Property="FontAttributes" Value="Bold"/>
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource BlueColor}, Dark={StaticResource BlueColorDarkTheme}}"/>
+		</Style>
+		<Style TargetType="Span" x:Key="ValueSpan">
+			<Setter Property="FontAttributes" Value="Bold"/>
+		</Style>
+		<Style TargetType="Label" x:Key="TableHeader">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+            <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource LightGrayColor}"/>
+            <Setter Property="FontSize" Value="Large"/>
+        </Style>
+        <Style TargetType="Label" x:Key="HyperlinkColor">
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource BlueColor}, Dark={StaticResource BlueColorDarkTheme}}"/>
+        </Style>
+        <Style TargetType="Label" x:Key="FormattedValueLabel">
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+            <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+        </Style>
+        <Style TargetType="Label" x:Key="KeyLabel">
+            <Setter Property="MinimumWidthRequest" Value="400"/>
+            <Setter Property="LineBreakMode" Value="NoWrap"/>
+            <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+        </Style>
+        <Style TargetType="Label" x:Key="InfoText">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="Margin" Value="0,5,0,10"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+        </Style>
+        <Style TargetType="Entry" ApplyToDerivedTypes="True" CanCascade="True">
+			<Setter Property="BackgroundColor" Value="Transparent" />
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}" />
+			<Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
+			<Setter Property="HeightRequest" Value="40" />
+			<Setter Property="helpers:EntryProperties.BorderColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColorDarkTheme}}" />
+			<Setter Property="helpers:EntryProperties.BorderWidth" Value="1" />
+			<Setter Property="helpers:EntryProperties.CornerRadius" Value="10" />
+		</Style>
+        <Style TargetType="Picker"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
+            <Setter Property="TitleColor" Value="{StaticResource HintColor}" />
+			<Setter Property="HeightRequest" Value="40" />
+			<Setter Property="helpers:EntryProperties.BorderColor" Value="{AppThemeBinding Light={StaticResource GrayColor}, Dark={StaticResource GrayColorDarkTheme}}" />
+			<Setter Property="helpers:EntryProperties.BorderWidth" Value="1" />
+			<Setter Property="helpers:EntryProperties.CornerRadius" Value="10" />
+		</Style>
+		<Style TargetType="templatedSwitch:TemplatedSwitch" x:Key="PasswordToggler">
+			<Setter Property="ControlTemplate">
+				<ControlTemplate>
+					<Label FontFamily="{StaticResource FontAwesomeSolid}">
+						<Label.Triggers>
+							<DataTrigger TargetType="Label" Binding="{TemplateBinding IsToggled}" Value="True">
+								<Setter Property="Text" Value="{Static resx:FontAwesome.EyeSlash}" />
+							</DataTrigger>
+							<DataTrigger TargetType="Label" Binding="{TemplateBinding IsToggled}" Value="False">
+								<Setter Property="Text" Value="{Static resx:FontAwesome.Eye}" />
+							</DataTrigger>
+						</Label.Triggers>
+					</Label>
+				</ControlTemplate>
+			</Setter>
+			<Setter Property="IsToggled" Value="True" />
+		</Style>
+
+		<Style x:Key="BorderFrame" TargetType="Frame">
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+			<Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+		</Style>
+		<Style x:Key="PopupFrame" TargetType="Frame"
+               ApplyToDerivedTypes="True">
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+        </Style>
+        <Style x:Key="PopupGrid" TargetType="Grid"
+               ApplyToDerivedTypes="True">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="VerticalOptions" Value="Start"/>
+        </Style>
+
+
+       <Style TargetType="Label" x:Key="PopupCloseButton">
+            <Setter Property="FontSize" Value="Large"/>
+            <Setter Property="Margin" Value="1,1,0,0"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Text" Value="{x:Static resx:FontAwesome.Times}"/>
+            <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
+        </Style>
+
+        <Style x:Key="OnboardingFrame" TargetType="Frame"
+               ApplyToDerivedTypes="True">
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource FrameLightTheme}, Dark={StaticResource FrameDarkTheme}}"/>
+        </Style>
+
+		<!-- An explicit navigation page with a visible navigation header is displayed when scanning a QR code during on-boarding (when there is no Shell). -->
+		<Style TargetType="NavigationPage" ApplyToDerivedTypes="True">
+			<Setter Property="BarBackgroundColor" Value="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}" />
+			<!-- Always using light theme color because this is what we use in Shell. -->
+			<Setter Property="BarTextColor" Value="{AppThemeBinding Dark={StaticResource HeadingForegroundLightTheme}, Default={StaticResource HeadingForegroundLightTheme}}" />
+		</Style>
+
+		<Style TargetType="ContentPage" ApplyToDerivedTypes="True" x:Key="LoadingPage">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}" />
+		</Style>
+
+		<!--- RegistrationPage background color should be the same as RegistrationPageHeader background color. -->
+		<Style TargetType="ContentPage" ApplyToDerivedTypes="True" x:Key="RegistrationPage">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}" />
+		</Style>
+		<Style TargetType="VisualElement" ApplyToDerivedTypes="True" x:Key="RegistrationPageHeader">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={StaticResource HeadingBackgroundDarkTheme}, Default={StaticResource HeadingBackgroundLightTheme}}" />
+		</Style>
+
+		<Style TargetType="Editor">
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelTextColorLightTheme}, Dark={StaticResource LabelTextColorDarkTheme}}"/>
+			<Setter Property="PlaceholderColor" Value="{StaticResource HintColor}"/>
+		</Style>
+		<Style TargetType="Frame">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+		</Style>
+        <Style x:Key="BaseBackgroundPage" TargetType="ContentPage">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+		</Style>
+		<Style TargetType="ContentPage">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+		</Style>
+		<Style TargetType="Grid">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+		</Style>
+		<Style TargetType="ContentView">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}"/>
+		</Style>
+        <Style x:Key="MainPageTextGrid" TargetType="Label">
+			<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}"/>
+		</Style>
+        <Style x:Key="MainPageImage" TargetType="Image">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+            <Setter Property="Margin" Value="20"/>
+		</Style>
+        <Style x:Key="ShellFrame" TargetType="Frame">
+            <Setter Property="BorderColor"  Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
+        </Style>
+        <Style x:Key="ShellBoxView" TargetType="BoxView">
+            <Setter Property="BackgroundColor"  Value="{AppThemeBinding Light={StaticResource HeadingBackgroundTranslucentLightTheme}, Dark={StaticResource HeadingBackgroundTranslucentDarkTheme}}" />
+        </Style>
+        <Style x:Key="ShellLabel" TargetType="Label">
+            <Setter Property="TextColor"  Value="{AppThemeBinding Light={StaticResource TextColorLightTheme}, Dark={StaticResource TextColorDarkTheme}}" />
+            <Setter Property="FontSize"  Value="Large" />
+            <Setter Property="FontAttributes"  Value="Bold" />
+        </Style>
+        <Style x:Key="MyWalletView" TargetType="BoxView">
+            <Setter Property="BackgroundColor"  Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}" />
+        </Style>
+        <Style x:Key="MyWalletFrame" TargetType="Frame">
+            <Setter Property="BorderColor"  Value="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
+            <Setter Property="CornerRadius"  Value="6" />
+            <Setter Property="Margin"  Value="5" />
+        </Style>
+        <Style x:Key="AlertLabel" TargetType="Label">
+            <Setter Property="TextColor"  Value="{AppThemeBinding Light={StaticResource AlertColor}, Dark={StaticResource AlertColorDarkTheme}}" />
+        </Style>
+		<Style x:Key="AlertFrame" TargetType="Label">
+			<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource AlertColor}, Dark={StaticResource AlertColorDarkTheme}}" />
+		</Style>
+        <Style x:Key="AccentView" TargetType="BoxView">
+            <Setter Property="Color"  Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColorDarkTheme}}" />
+        </Style>
+		<Style x:Key="IndicatorViewStyle" TargetType="IndicatorView">
+			<Setter Property="SelectedIndicatorColor"  Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColorDarkTheme}}" />
+        </Style>
+		<Style x:Key="AccentIndicator" TargetType="ActivityIndicator">
+			<Setter Property="Color"  Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColorDarkTheme}}" />
+		</Style>
+	</Application.Resources>
 </Application>

@@ -228,13 +228,11 @@ namespace IdApp.Pages.Registration.Registration
 						break;
 
 					case RegistrationStep.RegisterIdentity:
-						if (this.TagProfile.LegalIdentity is null)
-						{
-							this.RegistrationSteps[this.CurrentStep].ClearStepState();
-							await this.TagProfile.ClearLegalIdentity();
-						}
-						else
-							await this.TagProfile.InvalidateContactInfo();
+						this.RegistrationSteps[(int)RegistrationStep.Account].ClearStepState();
+						await this.TagProfile.ClearAccount(false);
+						this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity].ClearStepState();
+						await this.TagProfile.ClearLegalIdentity();
+						await this.TagProfile.InvalidateContactInfo();
 						break;
 
 					case RegistrationStep.ValidateIdentity:

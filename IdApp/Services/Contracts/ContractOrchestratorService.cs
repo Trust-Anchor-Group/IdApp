@@ -524,9 +524,8 @@ namespace IdApp.Services.Contracts
 			string JID = Request[..i];
 			string Key = Request[(i + 1)..];
 
-			LegalIdentity ID = this.TagProfile?.LegalIdentity;
-			if (ID is null)
-				throw new InvalidOperationException(LocalizationResourceManager.Current["NoLegalIdSelected"]);
+			LegalIdentity ID = (this.TagProfile?.LegalIdentity)
+				?? throw new InvalidOperationException(LocalizationResourceManager.Current["NoLegalIdSelected"]);
 
 			if (ID.State != IdentityState.Approved)
 				throw new InvalidOperationException(LocalizationResourceManager.Current["LegalIdNotApproved"]);

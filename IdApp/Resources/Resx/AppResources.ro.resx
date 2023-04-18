@@ -2137,7 +2137,7 @@
     <value>Cumpăra</value>
   </data>
   <data name="BuyEDalerDescription" xml:space="preserve">
-    <value>Furnizați cantitatea de eDaler pe care doriți să o cumpărați de mai jos și apăsați butonul Cumpărați. Se va deschide o pagină web unde trebuie să completați informații suplimentare pentru ca procesatorul de plăți să vă valideze requst-ul.</value>
+    <value>Furnizați cantitatea de eDaler pe care doriți să o cumpărați de mai jos și apăsați butonul Cumpărați. Se poate deschide o pagină web unde trebuie să completați informații suplimentare pentru ca procesatorul de plăți să vă valideze requst-ul.</value>
   </data>
   <data name="PaymentCancelled" xml:space="preserve">
     <value>Plată anulată</value>
@@ -2228,5 +2228,17 @@
   </data>
   <data name="NoLegalIdSelected" xml:space="preserve">
     <value>Nu este selectat niciun act de identitate legal.</value>
+  </data>
+  <data name="SelectServiceProviderSellEDaler" xml:space="preserve">
+    <value>Selectați Furnizorul de servicii pe care doriți să îl utilizați pentru a vinde eDaler.</value>
+  </data>
+  <data name="Sell" xml:space="preserve">
+    <value>Vinde</value>
+  </data>
+  <data name="SellEDaler" xml:space="preserve">
+    <value>Vindem eDaler.</value>
+  </data>
+  <data name="SellEDalerDescription" xml:space="preserve">
+    <value>Furnizați cantitatea de eDaler pe care doriți să o vindeți mai jos și apăsați butonul Vindeți. Se poate deschide o pagină web unde trebuie să completați informații suplimentare pentru ca procesatorul de plăți să vă valideze requst-ul.</value>
   </data>
 </root>

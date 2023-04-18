@@ -6,12 +6,13 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.ServiceProviders;assembly=IdApp"
                        xmlns:noBounce="clr-namespace:IdApp.Controls.NoBounceView;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+                       xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                        x:DataType="model:ServiceProvidersViewModel" x:Name="ThisPage"
                        x:Class="IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage"
                        Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.ServiceProviders}">
 
-	<Grid Margin="{StaticResource DefaultMargin}" ColumnDefinitions="*" RowDefinitions="auto,auto,*,auto" 
+	<Grid Margin="{StaticResource DefaultMargin}" ColumnDefinitions="*" RowDefinitions="auto,auto,*,auto"
           HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
 		<Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.ServiceProviders}" Style="{StaticResource Heading}"/>
 		<Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=Description}" HorizontalOptions="Center" VerticalOptions="Start"/>
@@ -25,15 +26,17 @@
 
 			<CollectionView.ItemTemplate>
 				<DataTemplate x:DataType="model:ServiceProviderModel">
-					<Grid ColumnDefinitions="*" RowDefinitions="auto" ColumnSpacing="2">
-
-						<Label Grid.Column="0" Grid.Row="0" Margin="0,10,0,10" IsVisible="{Binding HasIcon, Converter={converters:LogicalNot}}"
-							   HorizontalOptions="Center" VerticalTextAlignment="Center" LineBreakMode="CharacterWrap"
-							   TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
-
-						<Image Grid.Column="0" Grid.Row="0" Margin="0,10,0,10" IsVisible="{Binding HasIcon}"
-							   HorizontalOptions="Center" VerticalOptions="Center" Source="{Binding IconUrl}"
-							   WidthRequest="{Binding IconWidth}" HeightRequest="{Binding IconHeight}"/>
+					<Grid Padding="5,5">
+						<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10">
+							<Grid ColumnDefinitions="*" RowDefinitions="auto" >
+								<Label Grid.Column="0" Grid.Row="0" IsVisible="{Binding HasIcon, Converter={converters:LogicalNot}}"
+									   HorizontalOptions="Center" VerticalOptions="Center" LineBreakMode="CharacterWrap"
+									   TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
+								<ffimage:CachedImage Grid.Column="0" Grid.Row="0" IsVisible="{Binding HasIcon}" Aspect="AspectFit"
+													 HorizontalOptions="Center" VerticalOptions="Center" Source="{Binding IconUrlSource}"
+													 WidthRequest="{Binding IconWidth}" HeightRequest="{Binding IconHeight}" />
+							</Grid>
+						</Frame>
 					</Grid>
 				</DataTemplate>
 			</CollectionView.ItemTemplate>
