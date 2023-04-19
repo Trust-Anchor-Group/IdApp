@@ -26,23 +26,12 @@
     <!-- Manage TargetFrameworks for distribution (Release Mode) -->
   </PropertyGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
-    <Compile Include="**/*.netstandard.cs" />
-    <Compile Include="**/*.netstandard*.cs" />
-    <!-- Remove obj to prevent stale code from other implementations from being included -->
-    <Compile Remove="obj\**" />
-    <EmbeddedResource Remove="obj\**" />
-    <None Remove="obj\**" />
-  </ItemGroup>
-
   <ItemGroup>
     <Compile Include="**/*.shared.cs" />
-    <Compile Include="**/*.shared.*.cs" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
     <Compile Include="**/*.forms.cs" />
-    <Compile Include="**/*.forms*.cs" />
     <!-- Remove obj to prevent stale code from other implementations from being included -->
 <!--
     <Compile Remove="obj\**" />
@@ -58,5 +47,4 @@
   <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
     <Compile Include="**\*.ios.cs" />
   </ItemGroup>
-
 </Project>
