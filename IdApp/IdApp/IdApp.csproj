@@ -340,6 +340,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\IdApp.AR\IdApp.AR.csproj" />
     <ProjectReference Include="..\..\IdApp.Cv\IdApp.Cv.csproj" />
     <ProjectReference Include="..\..\IdApp.Nfc\IdApp.Nfc.csproj" />
   </ItemGroup>
