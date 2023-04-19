@@ -2241,4 +2241,10 @@
   <data name="SellEDalerDescription" xml:space="preserve">
     <value>Indiquez le montant d’eDaler que vous souhaitez vendre ci-dessous et appuyez sur le bouton Vendre. Une page Web peut être ouverte où vous devez remplir des informations supplémentaires pour que le processeur de paiement valide votre demande.</value>
   </data>
+  <data name="TokenCreationTemplates" xml:space="preserve">
+    <value>Modèles de jetons</value>
+  </data>
+  <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
+    <value>Vous trouverez ci-dessous une liste des modèles de jetons que vous avez utilisés ou pouvez utiliser pour créer de nouveaux jetons. Cliquez sur un modèle pour créer un nouveau contrat basé sur ce modèle. Une fois le contrat signé et approuvé, le ou les jetons correspondants seront créés.</value>
+  </data>
 </root>

@@ -2241,4 +2241,10 @@
   <data name="SellEDalerDescription" xml:space="preserve">
     <value>Angiv mængden af eDaler, du vil sælge nedenfor, og tryk på knappen Sælg. Der kan åbnes en webside, hvor du skal udfylde yderligere oplysninger for betalingsprocessoren for at validere din anmodning.</value>
   </data>
+  <data name="TokenCreationTemplates" xml:space="preserve">
+    <value>Token skabeloner</value>
+  </data>
+  <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
+    <value>Nedenfor er en liste over tokenskabeloner, som du har brugt eller kan bruge til at oprette nye tokens. Klik på en skabelon for at oprette en ny kontrakt baseret på skabelonen. Når kontrakten er underskrevet og godkendt, oprettes det eller de tilsvarende tokens.</value>
+  </data>
 </root>

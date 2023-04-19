@@ -2241,4 +2241,10 @@
   <data name="SellEDalerDescription" xml:space="preserve">
     <value>Provide the amount of eDaler do you want to sell below, and press the Sell button. A web page may be opened where you have to fill in further information for the payment processor to validate your requst.</value>
   </data>
+  <data name="TokenCreationTemplates" xml:space="preserve">
+    <value>Token Templates</value>
+  </data>
+  <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
+    <value>Below is a list of token templates that you have used or can use to create new tokens. Click on a template to create a new contract based on that template. Once the contract has been signed and approved, the corresponding token or tokens will be created.</value>
+  </data>
 </root>

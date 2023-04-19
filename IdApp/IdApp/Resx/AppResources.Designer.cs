@@ -5416,6 +5416,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Token Templates.
+        /// </summary>
+        internal static string TokenCreationTemplates {
+            get {
+                return ResourceManager.GetString("TokenCreationTemplates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below is a list of token templates that you have used or can use to create new tokens. Click on a template to create a new contract based on that template. Once the contract has been signed and approved, the corresponding token or tokens will be created..
+        /// </summary>
+        internal static string TokenCreationTemplatesInfoText {
+            get {
+                return ResourceManager.GetString("TokenCreationTemplatesInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token Details.
         /// </summary>
         internal static string TokenDetails {
