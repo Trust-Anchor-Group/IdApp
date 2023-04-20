@@ -212,6 +212,7 @@
     <AndroidResource Include="Resources\drawable\NotificationIdentitieIcon.png" />
     <AndroidResource Include="Resources\drawable\NotificationPetitionIcon.png" />
     <AndroidResource Include="Resources\drawable\NotificationTokenIcon.png" />
+    <AndroidResource Include="Resources\drawable\splash_screen.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 namespace IdApp.Android
 {
-	[Activity(Label = "@string/app_name", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true,
+	[Activity(Label = "@string/app_name", Icon = "@mipmap/icon", Theme = "@style/LaunchTheme", MainLauncher = true,
 		ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.Locale,
 		ScreenOrientation = ScreenOrientation.Portrait, LaunchMode = LaunchMode.SingleTop)]
 	[IntentFilter(new string[] { NfcAdapter.ActionNdefDiscovered },
@@ -34,6 +34,8 @@ namespace IdApp.Android
 		{
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
+
+			base.SetTheme(Resource.Style.MainTheme);
 
 			base.OnCreate(SavedInstanceState);
 
