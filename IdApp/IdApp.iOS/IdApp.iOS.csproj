@@ -232,6 +232,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\IdApp.AR\IdApp.AR.csproj">
+      <Project>{1EAF1656-8C64-4546-89D7-14918E3F8AEA}</Project>
+      <Name>IdApp.AR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\IdApp.Cv\IdApp.Cv.csproj">
       <Project>{609ac463-43f4-4caf-a778-9e48a46ec7f1}</Project>
       <Name>IdApp.Cv</Name>

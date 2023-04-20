@@ -62,6 +62,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdApp.Nfc", "IdApp.Nfc\IdAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdApp.Cv", "IdApp.Cv\IdApp.Cv.csproj", "{609AC463-43F4-4CAF-A778-9E48A46EC7F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdApp.AR", "IdApp.AR\IdApp.AR.csproj", "{1EAF1656-8C64-4546-89D7-14918E3F8AEA}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{C7DACA32-3C57-4912-A6A4-DDA5C5EBDF28}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{05C0E47A-5D02-4459-B8E4-DF40D3BDD8EE}"
@@ -82,8 +84,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TagDemo Cert", "TagDemo Cer
 		TagDemo Cert\google-services.json = TagDemo Cert\google-services.json
 		TagDemo Cert\GoogleService-Info.plist = TagDemo Cert\GoogleService-Info.plist
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdApp.AR", "IdApp.AR\IdApp.AR.csproj", "{1EAF1656-8C64-4546-89D7-14918E3F8AEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
