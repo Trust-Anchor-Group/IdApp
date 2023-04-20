@@ -119,6 +119,11 @@
 						</xct:Expander.Header>
 						<StackLayout Orientation="Vertical" Spacing="5" Margin="0,0,0,5" BackgroundColor="Transparent">
 							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
+									Text="{x:Static resx:FontAwesome.Microphone}" TextColor="{StaticResource TextColorLightTheme}"
+									FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
+									Command="{Binding RecordAudio}"/>
+
+							<Button CornerRadius="8" WidthRequest="40" HeightRequest="40"
 									Text="{x:Static resx:FontAwesome.Camera}" TextColor="{StaticResource TextColorLightTheme}"
 									FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium"
 									Command="{Binding TakePhoto}"/>

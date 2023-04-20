@@ -2713,6 +2713,11 @@
             The command to bind to for loading more messages.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.RecordAudio">
+            <summary>
+            Command to take and send a audio record
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.TakePhoto">
             <summary>
             Command to take and send a photo
@@ -20144,6 +20149,11 @@
         <member name="F:IdApp.Resx.FontAwesome.ArrowACircleLeft">
             <summary>
             A left arrow with a circle around it
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.FontAwesome.Microphone">
+            <summary>
+            The microphone icon
             </summary>
         </member>
         <member name="F:IdApp.Resx.FontAwesome.Camera">

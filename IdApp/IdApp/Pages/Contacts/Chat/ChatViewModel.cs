@@ -1,5 +1,6 @@
 ﻿using EDaler;
 using EDaler.Uris;
+using IdApp.AR;
 using IdApp.Converters;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts;
@@ -64,6 +65,7 @@ namespace IdApp.Pages.Contacts.Chat
 			this.SendCommand = new Command(async _ => await this.ExecuteSendMessage(), _ => this.CanExecuteSendMessage());
 			this.CancelCommand = new Command(async _ => await this.ExecuteCancelMessage(), _ => this.CanExecuteCancelMessage());
 			this.LoadMoreMessages = new Command(async _ => await this.ExecuteLoadMessagesAsync(), _ => this.CanExecuteLoadMoreMessages());
+			this.RecordAudio = new Command(async _ => await this.ExecuteRecordAudio(), _ => this.CanExecuteRecordAudio());
 			this.TakePhoto = new Command(async _ => await this.ExecuteTakePhoto(), _ => this.CanExecuteTakePhoto());
 			this.EmbedFile = new Command(async _ => await this.ExecuteEmbedFile(), _ => this.CanExecuteEmbedFile());
 			this.EmbedId = new Command(async _ => await this.ExecuteEmbedId(), _ => this.CanExecuteEmbedId());
@@ -111,7 +113,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.SendCommand, this.CancelCommand, this.LoadMoreMessages, this.TakePhoto, this.EmbedFile,
+			this.EvaluateCommands(this.SendCommand, this.CancelCommand, this.LoadMoreMessages, this.RecordAudio, this.TakePhoto, this.EmbedFile,
 				this.EmbedId, this.EmbedContract, this.EmbedMoney, this.EmbedToken, this.EmbedThing);
 		}
 
@@ -603,6 +605,16 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <summary>
+		/// Command to take and send a audio record
+		/// </summary>
+		public ICommand RecordAudio { get; }
+
+		private bool CanExecuteRecordAudio()
+		{
+			return this.IsConnected && !this.IsWriting && this.XmppService.FileUploadIsSupported;
+		}
+
+		/// <summary>
 		/// Command to take and send a photo
 		/// </summary>
 		public ICommand TakePhoto { get; }
@@ -610,6 +622,24 @@ namespace IdApp.Pages.Contacts.Chat
 		private bool CanExecuteTakePhoto()
 		{
 			return this.IsConnected && !this.IsWriting && this.XmppService.FileUploadIsSupported;
+		}
+
+		private async Task ExecuteRecordAudio()
+		{
+			AudioRecorderService recorder = new AudioRecorderService
+			{
+				StopRecordingOnSilence = true, //will stop recording after 2 seconds (default)
+				StopRecordingAfterTimeout = true,  //stop recording after a max timeout (defined below)
+				TotalAudioTimeout = TimeSpan.FromSeconds(15) //audio will stop recording after 15 seconds
+			};
+
+			string name = await await recorder.StartRecording();
+
+			if (!this.XmppService.FileUploadIsSupported)
+			{
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["ServerDoesNotSupportFileUpload"]);
+				return;
+			}
 		}
 
 		private async Task ExecuteTakePhoto()
