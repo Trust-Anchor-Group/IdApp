@@ -14,7 +14,7 @@
 
     <ContentView.Content>
         <Grid Margin="0,0,0,0">
-            <Image Source="tag_bg2.jpg" Aspect="AspectFill">
+            <Image Source="tag_bg.jpg" Aspect="AspectFill">
                 <Image.Margin>
                     <OnPlatform x:TypeArguments="Thickness">
                         <On Platform="iOS" Value="-1,-1,0,0"/>
