@@ -508,12 +508,16 @@ namespace IdApp.Pages.Contacts.Chat
 				try
 				{
 					await audioRecorder.Value.StopRecording();
-					string filePath = await this.audioRecorderTask;
+					string audioPath = await this.audioRecorderTask;
 
-					Log.Debug(filePath);
+					if (audioPath is not null)
+					{
+						await this.EmbedMedia(audioPath, true);
+					}
 				}
 				catch (Exception ex)
 				{
+					this.LogService.LogException(ex);
 				}
 				finally
 				{
@@ -662,6 +666,10 @@ namespace IdApp.Pages.Contacts.Chat
 				{
 					return audioRecorder.Value.StopRecording();
 				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
 				finally
 				{
 					this.IsRecordingAudio = false;
@@ -671,8 +679,9 @@ namespace IdApp.Pages.Contacts.Chat
 			{
 				this.MarkdownInput = string.Empty;
 				this.MessageId = string.Empty;
-				return Task.CompletedTask;
 			}
+
+			return Task.CompletedTask;
 		}
 
 		/// <summary>
@@ -746,7 +755,7 @@ namespace IdApp.Pages.Contacts.Chat
 			}
 			catch (Exception ex)
 			{
-				return;
+				this.LogService.LogException(ex);
 			}
 		}
 
@@ -780,7 +789,7 @@ namespace IdApp.Pages.Contacts.Chat
 				{
 					try
 					{
-						await this.EmbedPhoto(capturedPhoto.Path, true);
+						await this.EmbedMedia(capturedPhoto.Path, true);
 					}
 					catch (Exception ex)
 					{
@@ -808,7 +817,7 @@ namespace IdApp.Pages.Contacts.Chat
 				{
 					try
 					{
-						await this.EmbedPhoto(capturedPhoto.FullPath, true);
+						await this.EmbedMedia(capturedPhoto.FullPath, true);
 					}
 					catch (Exception ex)
 					{
@@ -818,7 +827,7 @@ namespace IdApp.Pages.Contacts.Chat
 			}
 		}
 
-		private async Task EmbedPhoto(string FilePath, bool DeleteFile)
+		private async Task EmbedMedia(string FilePath, bool DeleteFile)
 		{
 			try
 			{
@@ -948,7 +957,7 @@ namespace IdApp.Pages.Contacts.Chat
 			FileResult pickedPhoto = await MediaPicker.PickPhotoAsync();
 
 			if (pickedPhoto is not null)
-				await this.EmbedPhoto(pickedPhoto.FullPath, false);
+				await this.EmbedMedia(pickedPhoto.FullPath, false);
 		}
 
 		/// <summary>

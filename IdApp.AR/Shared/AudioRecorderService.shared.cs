@@ -10,7 +10,6 @@ namespace IdApp.AR
 	/// </summary>
 	public partial class AudioRecorderService
 	{
-		const string DefaultFileName = "ARS_recording.wav";
 		const float NearZero = .00000000001F;
 
 		WaveRecorder recorder;
@@ -298,8 +297,7 @@ namespace IdApp.AR
 		/// <returns>The full filepath to the recorded audio file, or null if no audio was detected during the last record.</returns>
 		public string GetAudioFilePath ()
 		{
-			return FilePath;
-			//!!!return audioDetected ? FilePath : null;
+			return audioDetected ? FilePath : null;
 		}
 	}
 }

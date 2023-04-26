@@ -35,7 +35,8 @@ namespace IdApp.AR
 
 		Task<string> GetDefaultFilePath ()
 		{
-			return Task.FromResult (Path.Combine (Path.GetTempPath (), DefaultFileName));
+			string UtcNow = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+			return Task.FromResult(Path.Combine(Path.GetTempPath(), $"{UtcNow}.wav"));
 		}
 
 		void OnRecordingStarting ()

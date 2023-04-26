@@ -7,7 +7,7 @@ namespace IdApp.AR
 	{
 		Task<string> GetDefaultFilePath ()
 		{
-			return Task.FromResult (Path.Combine (Path.GetTempPath (), DefaultFileName));
+			return Task.FromResult(string.Empty);
 		}
 
 		void OnRecordingStarting ()
