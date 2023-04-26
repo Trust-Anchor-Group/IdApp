@@ -1,11 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using IdApp.Services;
-using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+﻿using IdApp.Services;
 
 namespace IdApp.Pages.Identity.TransferIdentity
 {

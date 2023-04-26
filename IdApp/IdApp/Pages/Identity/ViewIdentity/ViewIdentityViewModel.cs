@@ -1,29 +1,12 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Xml;
-using EDaler;
-using IdApp.Extensions;
+﻿using IdApp.Extensions;
 using IdApp.Services;
-using Waher.Content.Xml;
-using Waher.Networking.XMPP;
-using Waher.Networking.XMPP.Contracts;
-using Waher.Persistence;
-using Xamarin.Essentials;
-using Xamarin.Forms;
 using IdApp.Pages.Identity.TransferIdentity;
-using IdApp.Services.Contracts;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Popups.Xmpp.RemoveSubscription;
 using IdApp.Services.Notification;
 using IdApp.Pages.Main.Security;
-using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
