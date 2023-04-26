@@ -36,6 +36,7 @@ using Waher.Content;
 using Waher.Content.Html;
 using Waher.Content.Markdown;
 using Waher.Content.Xml;
+using Waher.Events;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
@@ -63,6 +64,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			this.ExpandButtons = new Command(_ => this.IsButtonExpanded = !this.IsButtonExpanded);
 			this.SendCommand = new Command(async _ => await this.ExecuteSendMessage(), _ => this.CanExecuteSendMessage());
+			this.PauseResumeCommand = new Command(async _ => await this.ExecutePauseResume(), _ => this.CanExecutePauseResume());
 			this.CancelCommand = new Command(async _ => await this.ExecuteCancelMessage(), _ => this.CanExecuteCancelMessage());
 			this.LoadMoreMessages = new Command(async _ => await this.ExecuteLoadMessagesAsync(), _ => this.CanExecuteLoadMoreMessages());
 			this.RecordAudio = new Command(async _ => await this.ExecuteRecordAudio(), _ => this.CanExecuteRecordAudio());
@@ -113,7 +115,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.SendCommand, this.CancelCommand, this.LoadMoreMessages, this.RecordAudio, this.TakePhoto, this.EmbedFile,
+			this.EvaluateCommands(this.SendCommand, this.CancelCommand, this.LoadMoreMessages, this.PauseResumeCommand, this.RecordAudio, this.TakePhoto, this.EmbedFile,
 				this.EmbedId, this.EmbedContract, this.EmbedMoney, this.EmbedToken, this.EmbedThing);
 		}
 
@@ -264,9 +266,45 @@ namespace IdApp.Pages.Contacts.Chat
 			get => (bool)this.GetValue(IsWritingProperty);
 			set
 			{
-				this.IsButtonExpanded = false;
 				this.SetValue(IsWritingProperty, value);
+				this.IsButtonExpanded = false;
 			}
+		}
+
+		/// <summary>
+		/// <see cref="IsRecordingAudio"/>
+		/// </summary>
+		public static readonly BindableProperty IsRecordingAudioProperty =
+			BindableProperty.Create(nameof(IsRecordingAudio), typeof(bool), typeof(ChatViewModel), default(bool));
+
+		/// <summary>
+		/// If the user is recording an audio message
+		/// </summary>
+		public bool IsRecordingAudio
+		{
+			get => (bool)this.GetValue(IsRecordingAudioProperty);
+			set
+			{
+				this.SetValue(IsRecordingAudioProperty, value);
+				this.IsRecordingPaused = audioRecorder.Value.IsPaused;
+				this.IsWriting = value;
+				this.EvaluateAllCommands();
+			}
+		}
+
+		/// <summary>
+		/// <see cref="IsRecordingPaused"/>
+		/// </summary>
+		public static readonly BindableProperty IsRecordingPausedProperty =
+			BindableProperty.Create(nameof(IsRecordingPaused), typeof(bool), typeof(ChatViewModel), default(bool));
+
+		/// <summary>
+		/// If the audio recording is paused
+		/// </summary>
+		public bool IsRecordingPaused
+		{
+			get => (bool)this.GetValue(IsRecordingPausedProperty);
+			set => this.SetValue(IsRecordingPausedProperty, value);
 		}
 
 		/// <summary>
@@ -460,13 +498,33 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private bool CanExecuteSendMessage()
 		{
-			return this.IsConnected && !string.IsNullOrEmpty(this.MarkdownInput);
+			return this.IsConnected && (!string.IsNullOrEmpty(this.MarkdownInput) || this.IsRecordingAudio);
 		}
 
 		private async Task ExecuteSendMessage()
 		{
-			await this.ExecuteSendMessage(this.MessageId, this.MarkdownInput);
-			await this.ExecuteCancelMessage();
+			if (this.IsRecordingAudio)
+			{
+				try
+				{
+					await audioRecorder.Value.StopRecording();
+					string filePath = await this.audioRecorderTask;
+
+					Log.Debug(filePath);
+				}
+				catch (Exception ex)
+				{
+				}
+				finally
+				{
+					this.IsRecordingAudio = false;
+				}
+			}
+			else
+			{
+				await this.ExecuteSendMessage(this.MessageId, this.MarkdownInput);
+				await this.ExecuteCancelMessage();
+			}
 		}
 
 		private Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput)
@@ -577,21 +635,44 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <summary>
+		/// The command to bind for pausing/resuming the audio recording
+		/// </summary>
+		public ICommand PauseResumeCommand { get; }
+
+		private bool CanExecutePauseResume()
+		{
+			return this.IsRecordingAudio && audioRecorder.Value.IsRecording;
+		}
+
+		/// <summary>
 		/// The command to bind to for sending user input
 		/// </summary>
 		public ICommand CancelCommand { get; }
 
 		private bool CanExecuteCancelMessage()
 		{
-			return this.IsConnected && !string.IsNullOrEmpty(this.MarkdownInput);
+			return this.IsConnected && (!string.IsNullOrEmpty(this.MarkdownInput) || this.IsRecordingAudio);
 		}
 
 		private Task ExecuteCancelMessage()
 		{
-			this.MarkdownInput = string.Empty;
-			this.MessageId = string.Empty;
-
-			return Task.CompletedTask;
+			if (this.IsRecordingAudio)
+			{
+				try
+				{
+					return audioRecorder.Value.StopRecording();
+				}
+				finally
+				{
+					this.IsRecordingAudio = false;
+				}
+			}
+			else
+			{
+				this.MarkdownInput = string.Empty;
+				this.MessageId = string.Empty;
+				return Task.CompletedTask;
+			}
 		}
 
 		/// <summary>
@@ -612,6 +693,8 @@ namespace IdApp.Pages.Contacts.Chat
 				TotalAudioTimeout = TimeSpan.FromSeconds(60)
 			};
 		}, System.Threading.LazyThreadSafetyMode.PublicationOnly);
+
+		private Task<string> audioRecorderTask = null;
 
 		/// <summary>
 		/// Command to take and send a audio record
@@ -634,6 +717,20 @@ namespace IdApp.Pages.Contacts.Chat
 			return this.IsConnected && !this.IsWriting && this.XmppService.FileUploadIsSupported;
 		}
 
+		private async Task ExecutePauseResume()
+		{
+			if (audioRecorder.Value.IsPaused)
+			{
+				await audioRecorder.Value.Resume();
+			}
+			else
+			{
+				await audioRecorder.Value.Pause();
+			}
+
+			this.IsRecordingPaused = audioRecorder.Value.IsPaused;
+		}
+
 		private async Task ExecuteRecordAudio()
 		{
 			if (!this.XmppService.FileUploadIsSupported)
@@ -642,9 +739,15 @@ namespace IdApp.Pages.Contacts.Chat
 				return;
 			}
 
-			string path = await await audioRecorder.Value.StartRecording();
-			AudioPlayer Player = new();
-			Player.Play(path);
+			try
+			{
+				this.audioRecorderTask = await audioRecorder.Value.StartRecording();
+				this.IsRecordingAudio = true;
+			}
+			catch (Exception ex)
+			{
+				return;
+			}
 		}
 
 		private async Task ExecuteTakePhoto()

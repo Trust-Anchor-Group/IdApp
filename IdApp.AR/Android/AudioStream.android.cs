@@ -54,7 +54,7 @@ namespace IdApp.AR
 		/// </summary>
 		/// <value>
 		/// The channel count.
-		/// </value>        
+		/// </value>
 		public int ChannelCount => audioSource.ChannelCount;
 
 		/// <summary>
@@ -67,6 +67,12 @@ namespace IdApp.AR
 		/// Gets a value indicating if the audio stream is active.
 		/// </summary>
 		public bool Active => audioSource?.RecordingState == RecordState.Recording;
+
+		public bool Paused
+		{
+			get;
+			private set;
+		}
 
 		void Init ()
 		{
@@ -135,6 +141,26 @@ namespace IdApp.AR
 			}
 
 			return Task.FromResult (true);
+		}
+
+		/// <summary>
+		/// Pauses the audio stream.
+		/// </summary>
+		public Task Pause()
+		{
+			this.Flush();
+			this.Paused = true;
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Resumes the audio stream.
+		/// </summary>
+		public Task Resume()
+		{
+			this.Flush();
+			this.Paused = false;
+			return Task.CompletedTask;
 		}
 
 		/// <summary>

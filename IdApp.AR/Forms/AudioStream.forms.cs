@@ -14,6 +14,8 @@ namespace IdApp.AR
 
 		public bool Active => throw new NotImplementedException ();
 
+		public bool Paused => throw new NotImplementedException();
+
 		public event EventHandler<byte []> OnBroadcast;
 		public event EventHandler<bool> OnActiveChanged;
 		public event EventHandler<Exception> OnException;
@@ -30,6 +32,16 @@ namespace IdApp.AR
 		public Task Stop ()
 		{
 			throw new NotImplementedException ();
+		}
+
+		public Task Pause()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task Resume()
+		{
+			throw new NotImplementedException();
 		}
 
 		public void Flush ()

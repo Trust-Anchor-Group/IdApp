@@ -47,6 +47,11 @@ namespace IdApp.AR
 		public bool IsRecording => audioStream?.Active ?? false;
 
 		/// <summary>
+		/// Returns a value indicating if the <see cref="AudioRecorderService"/> is currently paused
+		/// </summary>
+		public bool IsPaused => audioStream?.Paused ?? false;
+
+		/// <summary>
 		/// If <see cref="StopRecordingOnSilence"/> is set to <c>true</c>, this <see cref="TimeSpan"/> indicates the amount of 'silent' time is required before recording is stopped.
 		/// </summary>
 		/// <remarks>Defaults to 2 seconds.</remarks>
@@ -121,7 +126,7 @@ namespace IdApp.AR
 			ResetAudioDetection ();
 			OnRecordingStarting ();
 
-			InitializeStream (PreferredSampleRate);
+			await InitializeStream (PreferredSampleRate);
 
 			await recorder.StartRecorder (audioStream, recordStream, WriteHeaders);
 
@@ -246,13 +251,28 @@ namespace IdApp.AR
 			}
 		}
 
-		void InitializeStream (int sampleRate)
+		public Task Pause()
+		{
+			return audioStream?.Pause();
+		}
+
+		public Task Resume()
+		{
+			return audioStream?.Resume();
+		}
+
+		private async Task InitializeStream (int sampleRate)
 		{
 			try
 			{
-				if (audioStream != null)
+				if (audioStream is not null)
 				{
 					audioStream.OnBroadcast -= AudioStream_OnBroadcast;
+
+					if (this.IsPaused)
+					{
+						await audioStream.Resume();
+					}
 				}
 				else
 				{
@@ -278,7 +298,8 @@ namespace IdApp.AR
 		/// <returns>The full filepath to the recorded audio file, or null if no audio was detected during the last record.</returns>
 		public string GetAudioFilePath ()
 		{
-			return audioDetected ? FilePath : null;
+			return FilePath;
+			//!!!return audioDetected ? FilePath : null;
 		}
 	}
 }

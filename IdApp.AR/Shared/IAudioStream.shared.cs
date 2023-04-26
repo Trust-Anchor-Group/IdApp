@@ -47,6 +47,11 @@ namespace IdApp.AR
 		bool Active { get; }
 
 		/// <summary>
+		/// Gets a value indicating if the audio stream is paused.
+		/// </summary>
+		bool Paused { get; }
+
+		/// <summary>
 		/// Starts the audio stream.
 		/// </summary>
 		Task Start ();
@@ -55,6 +60,16 @@ namespace IdApp.AR
 		/// Stops the audio stream.
 		/// </summary>
 		Task Stop ();
+
+		/// <summary>
+		/// Pause the audio stream.
+		/// </summary>
+		Task Pause();
+
+		/// <summary>
+		/// Resume the audio stream.
+		/// </summary>
+		Task Resume();
 
 		/// <summary>
 		/// Flushes any audio bytes in memory but not yet broadcast out to any listeners.

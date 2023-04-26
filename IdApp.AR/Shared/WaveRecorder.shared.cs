@@ -74,9 +74,9 @@ namespace IdApp.AR
 		{
 			try
 			{
-				if (writer != null)
+				if ((sender is IAudioStream Stream) && !Stream.Paused && (writer is not null))
 				{
-					writer.Write (bytes);
+					writer.Write(bytes);
 					byteCount += bytes.Length;
 				}
 			}

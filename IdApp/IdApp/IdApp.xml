@@ -2657,6 +2657,26 @@
             If the user is writing markdown.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.IsRecordingAudioProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.IsRecordingAudio"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.IsRecordingAudio">
+            <summary>
+            If the user is recording an audio message
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.IsRecordingPausedProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.IsRecordingPaused"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.IsRecordingPaused">
+            <summary>
+            If the audio recording is paused
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.Messages">
             <summary>
             Holds the list of chat messages to display.
@@ -2702,6 +2722,11 @@
             <param name="MarkdownInput">Markdown input.</param>
             <param name="BareJid">Bare JID of recipient.</param>
             <param name="ServiceReferences">Service references.</param>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.PauseResumeCommand">
+            <summary>
+            The command to bind for pausing/resuming the audio recording
+            </summary>
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.CancelCommand">
             <summary>

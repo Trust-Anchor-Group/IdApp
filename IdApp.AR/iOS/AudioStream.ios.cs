@@ -59,6 +59,12 @@ namespace IdApp.AR
 		/// </summary>
 		public bool Active => audioQueue?.IsRunning ?? false;
 
+		public bool Paused
+		{
+			get;
+			private set;
+		}
+
 		/// <summary>
 		/// Wrapper function to run success/failure callbacks from an operation that returns an AudioQueueStatus.
 		/// </summary>
@@ -134,6 +140,26 @@ namespace IdApp.AR
 			}
 
 			return Task.FromResult (true);
+		}
+
+		/// <summary>
+		/// Pauses the audio stream.
+		/// </summary>
+		public Task Pause()
+		{
+			this.Flush();
+			this.Paused = true;
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Resumes the audio stream.
+		/// </summary>
+		public Task Resume()
+		{
+			this.Flush();
+			this.Paused = false;
+			return Task.CompletedTask;
 		}
 
 		/// <summary>
