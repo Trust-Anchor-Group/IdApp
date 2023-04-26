@@ -2,6 +2,15 @@
 using IdApp.Services;
 using IdApp.Services.Data.Countries;
 using IdApp.Services.UI.Photos;
+using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Contracts;
+using Waher.Persistence;
+using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Forms;
 
 namespace IdApp.Pages.Identity.PetitionIdentity
 {
@@ -75,7 +84,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
 
             this.AssignProperties();
             this.EvaluateAllCommands();
-            
+
             this.ReloadPhotos();
         }
 

@@ -7,6 +7,22 @@ using IdApp.Pages.Contacts.Chat;
 using IdApp.Popups.Xmpp.RemoveSubscription;
 using IdApp.Services.Notification;
 using IdApp.Pages.Main.Security;
+using System.Threading.Tasks;
+using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP;
+using System.ComponentModel;
+using System;
+using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Forms;
+using Waher.Persistence;
+using Xamarin.Essentials;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using System.Security.Cryptography;
+using System.Text;
+using Waher.Content.Xml;
+using System.Xml;
+using EDaler;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
