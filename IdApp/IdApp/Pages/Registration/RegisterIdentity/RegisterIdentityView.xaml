@@ -45,7 +45,7 @@
 							   xct:TouchEffect.PressedOpacity="0.75"
 							   xct:TouchEffect.Command="{Binding Path=RemovePhotoCommand}">
 							<controls:TintedSvgCachedImage
-								Source="{x:Static resx:Svgs.Trash}" TintColor="White" />
+								Source="{x:Static resx:Svgs.TrashCan}" TintColor="White" />
 						</Frame>
 
 						<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"

@@ -20361,9 +20361,9 @@
             The camera icon
             </summary>
         </member>
-        <member name="F:IdApp.Resx.Svgs.Trash">
+        <member name="F:IdApp.Resx.Svgs.TrashCan">
             <summary>
-            The trash icon
+            The trash-can icon
             </summary>
         </member>
         <member name="F:IdApp.Resx.Svgs.Xmark">
@@ -20374,6 +20374,31 @@
         <member name="F:IdApp.Resx.Svgs.Check">
             <summary>
             The check icon
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Svgs.Trash">
+            <summary>
+            The trash icon
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Svgs.Microphone">
+            <summary>
+            The microphone icon
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Svgs.Pause">
+            <summary>
+            The pause icon
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Svgs.Play">
+            <summary>
+            The play icon
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Svgs.Stop">
+            <summary>
+            The stop icon
             </summary>
         </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">

@@ -1,4 +1,7 @@
-﻿namespace IdApp.Resx
+﻿using static Xamarin.Essentials.Permissions;
+using Waher.Runtime.Profiling.Events;
+
+namespace IdApp.Resx
 {
 	/// <summary>
 	/// A list of svg resources
@@ -21,9 +24,9 @@
 		public const string Camera = "resource://IdApp.Resx.Svgs.camera.svg";
 
 		/// <summary>
-		/// The trash icon
+		/// The trash-can icon
 		/// </summary>
-		public const string Trash = "resource://IdApp.Resx.Svgs.trash.svg";
+		public const string TrashCan = "resource://IdApp.Resx.Svgs.trash-can.svg";
 
 		/// <summary>
 		/// The x-mark icon
@@ -34,5 +37,30 @@
 		/// The check icon
 		/// </summary>
 		public const string Check = "resource://IdApp.Resx.Svgs.check.svg";
+
+		/// <summary>
+		/// The trash icon
+		/// </summary>
+		public const string Trash = "resource://IdApp.Resx.Svgs.trash.svg";
+
+		/// <summary>
+		/// The microphone icon
+		/// </summary>
+		public const string Microphone = "resource://IdApp.Resx.Svgs.microphone.svg";
+
+		/// <summary>
+		/// The pause icon
+		/// </summary>
+		public const string Pause = "resource://IdApp.Resx.Svgs.circle-pause.svg";
+
+		/// <summary>
+		/// The play icon
+		/// </summary>
+		public const string Play = "resource://IdApp.Resx.Svgs.circle-play.svg";
+
+		/// <summary>
+		/// The stop icon
+		/// </summary>
+		public const string Stop = "resource://IdApp.Resx.Svgs.circle-stop.svg";
 	}
 }

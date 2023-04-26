@@ -25,8 +25,13 @@
     <None Remove="Resx\Pngs\image.png" />
     <None Remove="Resx\Svgs\camera.svg" />
     <None Remove="Resx\Svgs\check.svg" />
+    <None Remove="Resx\Svgs\circle-pause.svg" />
+    <None Remove="Resx\Svgs\circle-play.svg" />
+    <None Remove="Resx\Svgs\circle-stop.svg" />
     <None Remove="Resx\Svgs\images.svg" />
+    <None Remove="Resx\Svgs\microphone.svg" />
     <None Remove="Resx\Svgs\passport.svg" />
+    <None Remove="Resx\Svgs\trash-can.svg" />
     <None Remove="Resx\Svgs\trash.svg" />
     <None Remove="Resx\Svgs\xmark.svg" />
     <None Remove="Services\Data\PersonalNumbers\PersonalNumberSchemes.xml" />
@@ -39,8 +44,13 @@
     <EmbeddedResource Include="Resx\Pngs\image.png" />
     <EmbeddedResource Include="Resx\Svgs\camera.svg" />
     <EmbeddedResource Include="Resx\Svgs\check.svg" />
+    <EmbeddedResource Include="Resx\Svgs\circle-pause.svg" />
+    <EmbeddedResource Include="Resx\Svgs\circle-play.svg" />
+    <EmbeddedResource Include="Resx\Svgs\circle-stop.svg" />
     <EmbeddedResource Include="Resx\Svgs\images.svg" />
+    <EmbeddedResource Include="Resx\Svgs\microphone.svg" />
     <EmbeddedResource Include="Resx\Svgs\passport.svg" />
+    <EmbeddedResource Include="Resx\Svgs\trash-can.svg" />
     <EmbeddedResource Include="Resx\Svgs\trash.svg" />
     <EmbeddedResource Include="Resx\Svgs\xmark.svg" />
     <EmbeddedResource Include="Services\Data\PersonalNumbers\PersonalNumberSchemes.xml" />

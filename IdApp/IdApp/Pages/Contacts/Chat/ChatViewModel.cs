@@ -604,6 +604,15 @@ namespace IdApp.Pages.Contacts.Chat
 			return this.ExistsMoreMessages && this.Messages.Count > 0;
 		}
 
+		private static readonly Lazy<AudioRecorderService> audioRecorder = new Lazy<AudioRecorderService>(() => {
+			return new AudioRecorderService()
+			{
+				StopRecordingOnSilence = false,
+				StopRecordingAfterTimeout = false,
+				TotalAudioTimeout = TimeSpan.FromSeconds(60)
+			};
+		}, System.Threading.LazyThreadSafetyMode.PublicationOnly);
+
 		/// <summary>
 		/// Command to take and send a audio record
 		/// </summary>
@@ -619,6 +628,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public ICommand TakePhoto { get; }
 
+
 		private bool CanExecuteTakePhoto()
 		{
 			return this.IsConnected && !this.IsWriting && this.XmppService.FileUploadIsSupported;
@@ -626,20 +636,15 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteRecordAudio()
 		{
-			AudioRecorderService recorder = new AudioRecorderService
-			{
-				StopRecordingOnSilence = true, //will stop recording after 2 seconds (default)
-				StopRecordingAfterTimeout = true,  //stop recording after a max timeout (defined below)
-				TotalAudioTimeout = TimeSpan.FromSeconds(15) //audio will stop recording after 15 seconds
-			};
-
-			string name = await await recorder.StartRecording();
-
 			if (!this.XmppService.FileUploadIsSupported)
 			{
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["ServerDoesNotSupportFileUpload"]);
 				return;
 			}
+
+			string path = await await audioRecorder.Value.StartRecording();
+			AudioPlayer Player = new();
+			Player.Play(path);
 		}
 
 		private async Task ExecuteTakePhoto()
