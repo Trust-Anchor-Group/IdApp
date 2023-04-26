@@ -3132,6 +3132,11 @@
             <param name="Grade">How well the getter can get content specified by the URI.</param>
             <returns>If an URI can be used to get encrypted content using the getter.</returns>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.TryParse(System.Uri,System.Byte[]@,System.Byte[]@,System.String@,System.Uri@)">
+            <summary>
+            Try to parce the AES256 URI
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
             <summary>
             Gets and decrypts content from the Internet.
@@ -3171,6 +3176,37 @@
             <param name="TimeoutMs">Timeout, in milliseconds. (Default=60000)</param>
             <param name="Headers">Optional headers. Interpreted in accordance with the corresponding URI scheme.</param>
             <returns>Content-Type, together with a Temporary file, if resource has been downloaded, or null if resource is data-less.</returns>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent">
+            <summary>
+            A <see cref="T:Waher.Content.Markdown.Model.MultimediaContent"/> implementation which renders markdown images in Xamarin.Forms using FFImageLoading library.
+            </summary>
+            <remarks>
+            Rendering for destinations other than Xamarin.Forms is performed using the default <see cref="T:Waher.Content.Markdown.Model.Multimedia.ImageContent"/>.
+            </remarks>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent.Supports(Waher.Content.Markdown.Model.MultimediaItem)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent.EmbedInlineLink(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent.AttachmentCacheService">
+            <summary>
+            Provides a reference to the attachment cache service.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent.GenerateLaTeX(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme">
             <summary>

@@ -18,38 +18,38 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 	/// <remarks>
 	/// Rendering for destinations other than Xamarin.Forms is performed using the default <see cref="ImageContent"/>.
 	/// </remarks>
-	public class FFImageMultimediaContent : MultimediaContent
+	public class AudioMultimediaContent : MultimediaContent
 	{
-		private readonly ImageContent imageContent = new();
+		private readonly AudioContent audioContent = new();
 
 		/// <inheritdoc/>
 		public override Grade Supports(MultimediaItem Item)
 		{
-			if (Item.ContentType?.StartsWith("image/", StringComparison.OrdinalIgnoreCase) == true)
+			if (Item.ContentType?.StartsWith("audio/", StringComparison.OrdinalIgnoreCase) == true)
 				return Grade.Excellent;
 
 			if (Item.Url?.StartsWith(Constants.UriSchemes.Aes256, StringComparison.OrdinalIgnoreCase) == true)
 			{
 				if (Aes256Getter.TryParse(new Uri(Item.Url), out _, out _, out string ContentType, out Uri EncriptedUri))
 				{
-					if (ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase) == true)
+					if (ContentType.StartsWith("audio/", StringComparison.OrdinalIgnoreCase) == true)
 						return Grade.Excellent;
 				}
 			}
 
-			return this.imageContent.Supports(Item);
+			return this.audioContent.Supports(Item);
 		}
 
 		/// <inheritdoc/>
 		public override bool EmbedInlineLink(string Url)
 		{
-			return this.imageContent.EmbedInlineLink(Url);
+			return this.audioContent.EmbedInlineLink(Url);
 		}
 
 		/// <inheritdoc/>
 		public override Task GenerateHTML(StringBuilder Output, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
 		{
-			return this.imageContent.GenerateHTML(Output, Items, ChildNodes, AloneInParagraph, Document);
+			return this.audioContent.GenerateHTML(Output, Items, ChildNodes, AloneInParagraph, Document);
 		}
 
 		/// <inheritdoc/>
@@ -57,71 +57,18 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		{
 			if (Items?.Length > 0 && Items[0] is MultimediaItem MultimediaItem)
 			{
-				double? DownsampleWidth = null;
-				double? DownsampleHeight = null;
-
-				// FFImageLoading preserves aspect ratio, so we only need to compute which dimension to specify explicitly.
-				if (MultimediaItem.Width.HasValue)
-				{
-					if (MultimediaItem.Height.HasValue)
-					{
-						if (MultimediaItem.Width >= MultimediaItem.Height && MultimediaItem.Width > Constants.MaxRenderedImageDimensionInPixels)
-							DownsampleWidth = Constants.MaxRenderedImageDimensionInPixels;
-
-						if (MultimediaItem.Height >= MultimediaItem.Width && MultimediaItem.Height > Constants.MaxRenderedImageDimensionInPixels)
-							DownsampleHeight = Constants.MaxRenderedImageDimensionInPixels;
-					}
-					else
-					{
-						if (MultimediaItem.Width > Constants.MaxRenderedImageDimensionInPixels)
-							DownsampleWidth = Constants.MaxRenderedImageDimensionInPixels;
-					}
-				}
-
 				string Url = MultimediaItem.Url;
 
 				if (Url.StartsWith(Constants.UriSchemes.Aes256))
 				{
 					Output.WriteStartElement("ImageHelpers", "MyCachedImage", "clr-namespace:IdApp.Helpers;assembly=IdApp");
 					Output.WriteAttributeString("Source", Url);
-
-					if (DownsampleWidth.HasValue)
-						Output.WriteAttributeString("DownsampleWidth", DownsampleWidth.Value.ToString());
-
-					if (DownsampleHeight.HasValue)
-						Output.WriteAttributeString("DownsampleHeight", DownsampleHeight.Value.ToString());
-
-					// For some reason, specifying an SVG image source doesn't work, no idea why.
-					Output.WriteAttributeString("LoadingPlaceholder", $"resource://{Resx.Pngs.Image}");
-					Output.WriteAttributeString("ErrorPlaceholder", $"resource://{Resx.Pngs.BrokenImage}");
-
 					Output.WriteEndElement();
-
-					/*
-					Output.WriteStartElement("Image", "http://xamarin.com/schemas/2014/forms");
-					Output.WriteStartElement("Image.Source", "http://xamarin.com/schemas/2014/forms");
-					Output.WriteStartElement("imagehelpers", "AesImageSource", "clr-namespace:IdApp.Helpers;assembly=IdApp");
-					Output.WriteAttributeString("Uri", Url);
-					Output.WriteEndElement();
-					Output.WriteEndElement();
-					Output.WriteEndElement();
-					*/
 				}
 				else
 				{
 					Output.WriteStartElement("ffimageloading", "CachedImage", "clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms");
 					Output.WriteAttributeString("Source", Url);
-
-					if (DownsampleWidth.HasValue)
-						Output.WriteAttributeString("DownsampleWidth", DownsampleWidth.Value.ToString());
-
-					if (DownsampleHeight.HasValue)
-						Output.WriteAttributeString("DownsampleHeight", DownsampleHeight.Value.ToString());
-
-					// For some reason, specifying an SVG image source doesn't work, no idea why.
-					Output.WriteAttributeString("LoadingPlaceholder", $"resource://{Resx.Pngs.Image}");
-					Output.WriteAttributeString("ErrorPlaceholder", $"resource://{Resx.Pngs.BrokenImage}");
-
 					Output.WriteEndElement();
 				}
 			}
@@ -147,13 +94,13 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		/// <inheritdoc/>
 		public override Task GenerateXAML(XmlWriter Output, TextAlignment TextAlignment, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
 		{
-			return this.imageContent.GenerateXAML(Output, TextAlignment, Items, ChildNodes, AloneInParagraph, Document);
+			return this.audioContent.GenerateXAML(Output, TextAlignment, Items, ChildNodes, AloneInParagraph, Document);
 		}
 
 		/// <inheritdoc/>
 		public override Task GenerateLaTeX(StringBuilder Output, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
 		{
-			return this.imageContent.GenerateLaTeX(Output, Items, ChildNodes, AloneInParagraph, Document);
+			return this.audioContent.GenerateLaTeX(Output, Items, ChildNodes, AloneInParagraph, Document);
 		}
 	}
 }

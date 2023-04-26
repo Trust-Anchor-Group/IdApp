@@ -38,11 +38,14 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content
 			Grade = Grade.NotAtAll;
 
 			return
-				this.TryParse(Uri, out _, out _, out _, out Uri EncryptedUri) &&
+				TryParse(Uri, out _, out _, out _, out Uri EncryptedUri) &&
 				InternetContent.CanGet(EncryptedUri, out Grade, out _);
 		}
 
-		private bool TryParse(Uri Uri, out byte[] Key, out byte[] IV, out string ContentType, out Uri EncryptedUri)
+		/// <summary>
+		/// Try to parce the AES256 URI
+		/// </summary>
+		public static bool TryParse(Uri Uri, out byte[] Key, out byte[] IV, out string ContentType, out Uri EncryptedUri)
 		{
 			Key = null;
 			IV = null;
@@ -120,7 +123,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content
 
 		private async Task<(string, byte[], Uri)> GetAndDecrypt(Uri Uri, X509Certificate Certificate, int TimeoutMs, params KeyValuePair<string, string>[] Headers)
 		{
-			if (!this.TryParse(Uri, out byte[] Key, out byte[] IV, out string ContentType, out Uri EncryptedUri))
+			if (!TryParse(Uri, out byte[] Key, out byte[] IV, out string ContentType, out Uri EncryptedUri))
 				throw new ArgumentException("URI not supported.", nameof(Uri));
 
 			byte[] Bin = await InternetContent.GetAsync(EncryptedUri, Certificate, TimeoutMs, AcceptBinary(Headers)) as byte[];
