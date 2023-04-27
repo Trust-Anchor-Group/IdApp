@@ -2677,6 +2677,11 @@
             If the audio recording is paused
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.RecordingTime">
+            <summary>
+            If the audio recording is paused
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.Messages">
             <summary>
             Holds the list of chat messages to display.

@@ -9,6 +9,7 @@ using Waher.Content.Markdown;
 using Waher.Content.Markdown.Model;
 using Waher.Content.Markdown.Model.Multimedia;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 {
@@ -61,8 +62,14 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 
 				if (Url.StartsWith(Constants.UriSchemes.Aes256))
 				{
-					Output.WriteStartElement("ImageHelpers", "MyCachedImage", "clr-namespace:IdApp.Helpers;assembly=IdApp");
-					Output.WriteAttributeString("Source", Url);
+					Output.WriteStartElement("toolkit", "MediaElement", "http://xamarin.com/schemas/2020/toolkit");
+					Output.WriteAttributeString("Source", "https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav");
+					Output.WriteAttributeString("HorizontalOptions", "FillAndExpand");
+					Output.WriteAttributeString("HeightRequest", "100");
+					Output.WriteAttributeString("WidthRequest", "300");
+					Output.WriteAttributeString("AutoPlay", "False");
+					Output.WriteAttributeString("ShowsPlaybackControls", "True");
+					Output.WriteAttributeString("KeepScreenOn", "True");
 					Output.WriteEndElement();
 				}
 				else

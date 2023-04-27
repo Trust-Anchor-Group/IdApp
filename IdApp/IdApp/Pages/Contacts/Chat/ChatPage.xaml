@@ -120,6 +120,9 @@
 								</Grid>
 							</Frame>
 
+							<Label Grid.Column="1" Style="{StaticResource ValueLabel}" FontSize="Medium"
+								   Text="{Binding RecordingTime}" HorizontalOptions="Center" VerticalOptions="Center"/>
+
 							<Frame Grid.Column="2" CornerRadius="8" VerticalOptions="Center" Padding="5" Margin="0" HasShadow="False"
 							   xct:TouchEffect.AnimationDuration="100"
 							   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"

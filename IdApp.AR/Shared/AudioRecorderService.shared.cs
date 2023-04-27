@@ -10,17 +10,15 @@ namespace IdApp.AR
 	/// </summary>
 	public partial class AudioRecorderService
 	{
-		const float NearZero = .00000000001F;
+		const float nearZero = .00000000001F;
+		private readonly WaveRecorder recorder = new();
 
-		WaveRecorder recorder;
-
-		IAudioStream audioStream;
-
-		bool audioDetected;
-		DateTime? silenceTime;
-		DateTime? startTime;
-		TaskCompletionSource<string> recordTask;
-		FileStream fileStream;
+		private IAudioStream? audioStream;
+		private bool audioDetected;
+		private Stopwatch? silenceTimer;
+		private Stopwatch? startTimer;
+		private TaskCompletionSource<string?> recordTask;
+		private FileStream fileStream;
 
 		/// <summary>
 		/// Gets the details of the underlying audio stream.
@@ -43,24 +41,29 @@ namespace IdApp.AR
 		/// <summary>
 		/// Returns a value indicating if the <see cref="AudioRecorderService"/> is currently recording audio
 		/// </summary>
-		public bool IsRecording => audioStream?.Active ?? false;
+		public bool IsRecording => this.audioStream?.Active ?? false;
 
 		/// <summary>
 		/// Returns a value indicating if the <see cref="AudioRecorderService"/> is currently paused
 		/// </summary>
-		public bool IsPaused => audioStream?.Paused ?? false;
+		public bool IsPaused => this.IsRecording && (this.audioStream?.Paused ?? false);
+
+		/// <summary>
+		/// Returns the total time the audio is recording
+		/// </summary>
+		public TimeSpan RecordingTime => this.startTimer?.Elapsed ?? TimeSpan.Zero;
 
 		/// <summary>
 		/// If <see cref="StopRecordingOnSilence"/> is set to <c>true</c>, this <see cref="TimeSpan"/> indicates the amount of 'silent' time is required before recording is stopped.
 		/// </summary>
 		/// <remarks>Defaults to 2 seconds.</remarks>
-		public TimeSpan AudioSilenceTimeout { get; set; } = TimeSpan.FromSeconds (2);
+		public TimeSpan AudioSilenceTimeout { get; set; } = TimeSpan.FromSeconds(2);
 
 		/// <summary>
 		/// If <see cref="StopRecordingAfterTimeout"/> is set to <c>true</c>, this <see cref="TimeSpan"/> indicates the total amount of time to record audio for before recording is stopped. Defaults to 30 seconds.
 		/// </summary>
 		/// <seealso cref="StopRecordingAfterTimeout"/>
-		public TimeSpan TotalAudioTimeout { get; set; } = TimeSpan.FromSeconds (30);
+		public TimeSpan TotalAudioTimeout { get; set; } = TimeSpan.FromSeconds(30);
 
 		/// <summary>
 		/// Gets/sets a value indicating if the <see cref="AudioRecorderService"/> should stop recording after silence (low audio signal) is detected.
@@ -91,16 +94,16 @@ namespace IdApp.AR
 		/// This event is raised when audio recording is complete and delivers a full filepath to the recorded audio file.
 		/// </summary>
 		/// <remarks>This event will be raised on a background thread to allow for any further processing needed.  The audio file will be <c>null</c> in the case that no audio was recorded.</remarks>
-		public event EventHandler<string> AudioInputReceived;
+		public event EventHandler<string?> AudioInputReceived;
 
-		partial void Init ();
+		partial void Init();
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="AudioRecorderService"/>.
 		/// </summary>
-		public AudioRecorderService ()
+		public AudioRecorderService()
 		{
-			Init ();
+			this.Init();
 		}
 
 		/// <summary>
@@ -110,109 +113,103 @@ namespace IdApp.AR
 		/// <param name="writeHeaders"><c>false</c> (default) Set to true, to write WAV headers to recordStream after recording. Requires a seekable stream.</param>
 		/// <returns>A <see cref="Task"/> that will complete when recording is finished.
 		/// The task result will be the path to the recorded audio file, or null if no audio was recorded.</returns>
-		public async Task<Task<string>> StartRecording (Stream recordStream = null)
+		public async Task<Task<string?>> StartRecording(Stream? recordStream = null)
 		{
-			if (recordStream == null)
+			if(recordStream == null)
 			{
-				if (FilePath == null)
-				{
-					FilePath = await GetDefaultFilePath ();
-				}
-				fileStream = new FileStream (FilePath, FileMode.Create, FileAccess.Write, FileShare.Read);
-				recordStream = fileStream;
+				this.FilePath ??= await this.GetDefaultFilePath();
+				this.fileStream = new FileStream(this.FilePath, FileMode.Create, FileAccess.Write, FileShare.Read);
+				recordStream = this.fileStream;
 			}
 
-			ResetAudioDetection ();
-			OnRecordingStarting ();
+			this.ResetAudioDetection();
+			this.OnRecordingStarting();
+			this.startTimer = Stopwatch.StartNew();
 
-			await InitializeStream (PreferredSampleRate);
+			await this.InitializeStream(this.PreferredSampleRate);
+			await this.recorder.StartRecorder(this.audioStream, recordStream, this.WriteHeaders);
 
-			await recorder.StartRecorder (audioStream, recordStream, WriteHeaders);
-
-			AudioStreamDetails = new AudioStreamDetails
+			this.AudioStreamDetails = new AudioStreamDetails
 			{
-				ChannelCount = audioStream.ChannelCount,
-				SampleRate = audioStream.SampleRate,
-				BitsPerSample = audioStream.BitsPerSample
+				ChannelCount = this.audioStream.ChannelCount,
+				SampleRate = this.audioStream.SampleRate,
+				BitsPerSample = this.audioStream.BitsPerSample
 			};
 
-			startTime = DateTime.Now;
-			recordTask = new TaskCompletionSource<string> ();
+			this.recordTask = new TaskCompletionSource<string?>();
 
-			Debug.WriteLine ("AudioRecorderService.StartRecording() complete.  Audio is being recorded.");
+			Debug.WriteLine("AudioRecorderService.StartRecording() complete.  Audio is being recorded.");
 
-			return recordTask.Task;
+			return this.recordTask.Task;
 		}
 
 		/// <summary>
 		/// Gets a new <see cref="Stream"/> to the recording audio file in readonly mode.
 		/// </summary>
 		/// <returns>A <see cref="Stream"/> object that can be used to read the audio file from the beginning.</returns>
-		public Stream GetAudioFileStream ()
+		public Stream GetAudioFileStream()
 		{
 			//return a new stream to the same audio file, in Read mode
-			return new FileStream (FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+			return new FileStream(this.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 		}
 
-		void ResetAudioDetection ()
+		void ResetAudioDetection()
 		{
-			audioDetected = false;
-			silenceTime = null;
-			startTime = null;
+			this.silenceTimer = null;
+			this.startTimer = null;
+			this.audioDetected = false;
 		}
 
-		void AudioStream_OnBroadcast (object sender, byte [] bytes)
+		void AudioStream_OnBroadcast(object sender, byte [] bytes)
 		{
-			var level = AudioFunctions.CalculateLevel (bytes);
+			float level = AudioFunctions.CalculateLevel(bytes);
 
-			if (level < NearZero && !audioDetected) // discard any initial 0s so we don't jump the gun on timing out
+			if (level < nearZero && !this.audioDetected) // discard any initial 0s so we don't jump the gun on timing out
 			{
-				Debug.WriteLine ("level == {0} && !audioDetected", level);
+				Debug.WriteLine("level == {0} && !audioDetected", level);
 				return;
 			}
 
-			if (level > SilenceThreshold) // did we find a signal?
+			if (level > this.SilenceThreshold) // did we find a signal?
 			{
-				audioDetected = true;
-				silenceTime = null;
+				this.audioDetected = true;
+				this.silenceTimer = null;
 
-				Debug.WriteLine ("AudioStream_OnBroadcast :: {0} :: level > SilenceThreshold :: bytes: {1}; level: {2}", DateTime.Now, bytes.Length, level);
+				Debug.WriteLine("AudioStream_OnBroadcast :: {0} :: level > SilenceThreshold :: bytes: {1}; level: {2}", DateTime.Now, bytes.Length, level);
 			}
 			else // no audio detected
 			{
 				// see if we've detected 'near' silence for more than <audioTimeout>
-				if (StopRecordingOnSilence && silenceTime.HasValue)
+				if (this.StopRecordingOnSilence && (this.silenceTimer is not null))
 				{
-					var currentTime = DateTime.Now;
-
-					if (currentTime.Subtract (silenceTime.Value).TotalMilliseconds > AudioSilenceTimeout.TotalMilliseconds)
+					if (this.silenceTimer.ElapsedMilliseconds > this.AudioSilenceTimeout.TotalMilliseconds)
 					{
-						Timeout ($"AudioStream_OnBroadcast :: {currentTime} :: AudioSilenceTimeout exceeded, stopping recording :: Near-silence detected at: {silenceTime}");
+						this.Timeout($"AudioStream_OnBroadcast :: {DateTime.Now} :: AudioSilenceTimeout exceeded, stopping recording :: Near-silence detected at: {this.silenceTimer}");
 						return;
 					}
 				}
 				else
 				{
-					silenceTime = DateTime.Now;
+					this.silenceTimer = Stopwatch.StartNew();
 
-					Debug.WriteLine ("AudioStream_OnBroadcast :: {0} :: Near-silence detected :: bytes: {1}; level: {2}", silenceTime, bytes.Length, level);
+					Debug.WriteLine("AudioStream_OnBroadcast :: {0} :: Near-silence detected :: bytes: {1}; level: {2}", DateTime.Now, bytes.Length, level);
 				}
 			}
 
-			if (StopRecordingAfterTimeout && DateTime.Now - startTime > TotalAudioTimeout)
+			if (this.StopRecordingAfterTimeout && this.startTimer?.ElapsedMilliseconds >= this.TotalAudioTimeout.TotalMilliseconds)
 			{
-				Timeout ("AudioStream_OnBroadcast(): TotalAudioTimeout exceeded, stopping recording");
+				this.Timeout("AudioStream_OnBroadcast(): TotalAudioTimeout exceeded, stopping recording");
 			}
 		}
 
-		void Timeout (string reason)
+		void Timeout(string reason)
 		{
-			Debug.WriteLine (reason);
-			audioStream.OnBroadcast -= AudioStream_OnBroadcast; // need this to be immediate or we can try to stop more than once
+			Debug.WriteLine(reason);
+			this.audioStream.OnBroadcast -= this.AudioStream_OnBroadcast; // need this to be immediate or we can try to stop more than once
 
 			// since we're in the middle of handling a broadcast event when an audio timeout occurs, we need to break the StopRecording call on another thread
 			//	Otherwise, Bad. Things. Happen.
-			_ = Task.Run (() => StopRecording ());
+			_ = Task.Run(() => this.StopRecording());
 		}
 
 		/// <summary>
@@ -220,74 +217,74 @@ namespace IdApp.AR
 		/// </summary>
 		/// <param name="continueProcessing"><c>true</c> (default) to finish recording and raise the <see cref="AudioInputReceived"/> event.
 		/// Use <c>false</c> here to stop recording but do nothing further (from an error state, etc.).</param>
-		public async Task StopRecording (bool continueProcessing = true)
+		public async Task StopRecording(bool continueProcessing = true)
 		{
-			audioStream.Flush (); // allow the stream to send any remaining data
-			audioStream.OnBroadcast -= AudioStream_OnBroadcast;
-
-			try
+			if (this.audioStream is not null)
 			{
-				await audioStream.Stop ();
-				// WaveRecorder will be stopped as result of stream stopping
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine ("Error in StopRecording: {0}", ex);
+				this.audioStream.Flush(); // allow the stream to send any remaining data
+				this.audioStream.OnBroadcast -= this.AudioStream_OnBroadcast;
+				try
+				{
+					await this.audioStream.Stop();
+					// WaveRecorder will be stopped as result of stream stopping
+				}
+				catch(Exception ex)
+				{
+					Debug.WriteLine("Error in StopRecording: {0}", ex);
+				}
 			}
 
-			fileStream?.Dispose();
-			OnRecordingStopped ();
+			this.fileStream?.Dispose();
+			this.startTimer?.Stop();
+			this.OnRecordingStopped();
 
-			var returnedFilePath = GetAudioFilePath ();
+			string? returnedFilePath = this.GetAudioFilePath();
 			// complete the recording Task for anything waiting on this
-			recordTask.TrySetResult (returnedFilePath);
+			this.recordTask.TrySetResult(returnedFilePath);
 
 			if (continueProcessing)
 			{
-				Debug.WriteLine ($"AudioRecorderService.StopRecording(): Recording stopped, raising AudioInputReceived event; audioDetected == {audioDetected}; filePath == {returnedFilePath}");
+				Debug.WriteLine($"AudioRecorderService.StopRecording(): Recording stopped, raising AudioInputReceived event; audioDetected == {this.audioDetected}; filePath == {returnedFilePath}");
 
-				AudioInputReceived?.Invoke (this, returnedFilePath);
+				AudioInputReceived?.Invoke(this, returnedFilePath);
 			}
 		}
 
 		public Task Pause()
 		{
-			return audioStream?.Pause();
+			this.startTimer?.Stop();
+			return this.audioStream?.Pause() ?? Task.CompletedTask;
 		}
 
 		public Task Resume()
 		{
-			return audioStream?.Resume();
+			this.startTimer?.Start();
+			return this.audioStream?.Resume() ?? Task.CompletedTask;
 		}
 
-		private async Task InitializeStream (int sampleRate)
+		private async Task InitializeStream(int sampleRate)
 		{
 			try
 			{
-				if (audioStream is not null)
+				if (this.audioStream is not null)
 				{
-					audioStream.OnBroadcast -= AudioStream_OnBroadcast;
+					this.audioStream.OnBroadcast -= this.AudioStream_OnBroadcast;
 
-					if (this.IsPaused)
+					if (this.audioStream.Paused)
 					{
-						await audioStream.Resume();
+						await this.audioStream.Resume();
 					}
 				}
 				else
 				{
-					audioStream = new AudioStream (sampleRate);
+					this.audioStream = new AudioStream(sampleRate);
 				}
 
-				audioStream.OnBroadcast += AudioStream_OnBroadcast;
-
-				if (recorder == null)
-				{
-					recorder = new WaveRecorder ();
-				}
+				this.audioStream.OnBroadcast += this.AudioStream_OnBroadcast;
 			}
-			catch (Exception ex)
+			catch(Exception ex)
 			{
-				Debug.WriteLine ("Error: {0}", ex);
+				Debug.WriteLine("Error: {0}", ex);
 			}
 		}
 
@@ -295,9 +292,9 @@ namespace IdApp.AR
 		/// Gets the full filepath to the recorded audio file.
 		/// </summary>
 		/// <returns>The full filepath to the recorded audio file, or null if no audio was detected during the last record.</returns>
-		public string GetAudioFilePath ()
+		public string? GetAudioFilePath()
 		{
-			return audioDetected ? FilePath : null;
+			return this.audioDetected ? this.FilePath : null;
 		}
 	}
 }

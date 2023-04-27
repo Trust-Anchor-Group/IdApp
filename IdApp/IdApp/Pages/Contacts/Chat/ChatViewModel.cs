@@ -30,6 +30,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Input;
 using System.Xml;
 using Waher.Content;
@@ -288,6 +289,17 @@ namespace IdApp.Pages.Contacts.Chat
 				this.SetValue(IsRecordingAudioProperty, value);
 				this.IsRecordingPaused = audioRecorder.Value.IsPaused;
 				this.IsWriting = value;
+
+				if (audioRecorderTimer is null)
+				{
+					audioRecorderTimer = new Timer(100);
+					audioRecorderTimer.Elapsed += this.OnAudioRecorderTimer;
+					audioRecorderTimer.AutoReset = true;
+				}
+
+				audioRecorderTimer.Enabled = value;
+
+				this.OnPropertyChanged(nameof(this.RecordingTime));
 				this.EvaluateAllCommands();
 			}
 		}
@@ -305,6 +317,18 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			get => (bool)this.GetValue(IsRecordingPausedProperty);
 			set => this.SetValue(IsRecordingPausedProperty, value);
+		}
+
+		/// <summary>
+		/// If the audio recording is paused
+		/// </summary>
+		public string RecordingTime
+		{
+			get
+			{
+				double Milliseconds = audioRecorder.Value.TotalAudioTimeout.TotalMilliseconds - audioRecorder.Value.RecordingTime.TotalMilliseconds;
+				return (Milliseconds > 0) ? string.Format("{0:F0}s left", Math.Ceiling(Milliseconds / 1000.0)) : "TIMEOUT";
+			}
 		}
 
 		/// <summary>
@@ -694,11 +718,13 @@ namespace IdApp.Pages.Contacts.Chat
 			return this.ExistsMoreMessages && this.Messages.Count > 0;
 		}
 
+		private static Timer audioRecorderTimer;
+
 		private static readonly Lazy<AudioRecorderService> audioRecorder = new Lazy<AudioRecorderService>(() => {
 			return new AudioRecorderService()
 			{
 				StopRecordingOnSilence = false,
-				StopRecordingAfterTimeout = false,
+				StopRecordingAfterTimeout = true,
 				TotalAudioTimeout = TimeSpan.FromSeconds(60)
 			};
 		}, System.Threading.LazyThreadSafetyMode.PublicationOnly);
@@ -737,6 +763,12 @@ namespace IdApp.Pages.Contacts.Chat
 				await audioRecorder.Value.Pause();
 			}
 
+			this.IsRecordingPaused = audioRecorder.Value.IsPaused;
+		}
+
+		private void OnAudioRecorderTimer(Object source, System.Timers.ElapsedEventArgs e)
+		{
+			this.OnPropertyChanged(nameof(this.RecordingTime));
 			this.IsRecordingPaused = audioRecorder.Value.IsPaused;
 		}
 
