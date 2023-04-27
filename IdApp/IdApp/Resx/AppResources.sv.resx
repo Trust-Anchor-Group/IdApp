@@ -2223,4 +2223,10 @@
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Nedan finns en lista över token-mallar du har använt eller kan använda för att skapa nya tokens. Klicka på en mall för att skapa ett nytt kontrakt baserat på den mallen. När kontraktet har skrivits under och godkänts, kommer motsvarande token eller tokens att skapas.</value>
   </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Välj var begäran om granskning ska skickas.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Fråga en annan användare om de kan granska din ansökan.</value>
+  </data>
 </root>

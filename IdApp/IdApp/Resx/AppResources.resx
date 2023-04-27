@@ -2247,4 +2247,10 @@
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Below is a list of token templates that you have used or can use to create new tokens. Click on a template to create a new contract based on that template. Once the contract has been signed and approved, the corresponding token or tokens will be created.</value>
   </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Select where to send the review request.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Request another user to review your application.</value>
+  </data>
 </root>

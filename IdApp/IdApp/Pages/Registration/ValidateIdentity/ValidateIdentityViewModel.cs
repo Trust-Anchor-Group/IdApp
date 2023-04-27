@@ -1,9 +1,11 @@
 ﻿using IdApp.Extensions;
+using IdApp.Pages.Wallet.ServiceProviders;
 using IdApp.Services.Data.Countries;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.UI.QR;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading;
@@ -48,8 +50,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
 			this.XmppService.LegalIdentityChanged += this.XmppContracts_LegalIdentityChanged;
 
-			if (this.peerReviewServices is null)
-				this.peerReviewServices = await this.XmppService.GetServiceProvidersForPeerReviewAsync();
+			this.peerReviewServices ??= await this.XmppService.GetServiceProvidersForPeerReviewAsync();
 		}
 
 		/// <inheritdoc />
@@ -587,9 +588,45 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
 		private async Task RequestReview()
 		{
-			if ((this.peerReviewServices?.Length ?? 0) > 0)
+			if (this.peerReviewServices is null)
 			{
-				await this.ScanQrCodeForPeerReview();
+				if (!await this.NetworkService.TryRequest(async () =>
+				{
+					this.peerReviewServices = await this.XmppService.GetServiceProvidersForPeerReviewAsync();
+				}))
+				{
+					return;
+				}
+			}
+
+			if (this.peerReviewServices.Length > 0)
+			{
+				List<ServiceProviderWithLegalId> ServiceProviders = new();
+
+				ServiceProviders.AddRange(this.peerReviewServices);
+				ServiceProviders.Add(new RequestFromPeer());
+
+				ServiceProvidersNavigationArgs e = new(ServiceProviders.ToArray(),
+					LocalizationResourceManager.Current["SelectServiceProviderPeerReview"]);
+
+				await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
+
+				ServiceProviderWithLegalId ServiceProvider = (ServiceProviderWithLegalId)await e.WaitForServiceProviderSelection();
+				if (ServiceProvider is not null)
+				{
+					if (string.IsNullOrEmpty(ServiceProvider.LegalId))
+						await this.ScanQrCodeForPeerReview();
+					else
+					{
+						if (!ServiceProvider.External)
+						{
+							if (!await this.NetworkService.TryRequest(async () => await this.XmppService.SelectPeerReviewService(ServiceProvider.Id, ServiceProvider.Type)))
+								return;
+						}
+
+						await this.SendPeerReviewRequest(ServiceProvider.LegalId);
+					}
+				}
 			}
 			else
 				await this.ScanQrCodeForPeerReview();
@@ -612,8 +649,13 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 				return;
 			}
 
+			await this.SendPeerReviewRequest(Constants.UriSchemes.RemoveScheme(Url));
+		}
+
+		private async Task SendPeerReviewRequest(string ToLegalId)
+		{
 			bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.PetitionPeerReviewId(
-				Constants.UriSchemes.RemoveScheme(Url), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), LocalizationResourceManager.Current["CouldYouPleaseReviewMyIdentityInformation"]));
+				ToLegalId, this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), LocalizationResourceManager.Current["CouldYouPleaseReviewMyIdentityInformation"]));
 
 			if (succeeded)
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PetitionSent"], LocalizationResourceManager.Current["APetitionHasBeenSentToYourPeer"]);

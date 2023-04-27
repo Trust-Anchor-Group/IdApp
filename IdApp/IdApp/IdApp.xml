@@ -9886,6 +9886,16 @@
             The command to bind to for sending a phone message code verification request.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Registration.ValidateIdentity.RequestFromPeer">
+            <summary>
+            Represents representing a peer review from a peer, by scanning their QR-code.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidateIdentity.RequestFromPeer.#ctor">
+            <summary>
+            Represents representing a peer review from a peer, by scanning their QR-code.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityView">
             <summary>
             A view to display the 'validate identity' during the registration process.
@@ -19018,6 +19028,11 @@
               Looks up a localized string similar to Request review.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.RequestReviewFromAPeer">
+            <summary>
+              Looks up a localized string similar to Request another user to review your application..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.RequestSignature">
             <summary>
               Looks up a localized string similar to Request signature.
@@ -19156,6 +19171,11 @@
         <member name="P:IdApp.Resx.AppResources.SelectServiceProviderBuyEDaler">
             <summary>
               Looks up a localized string similar to Select the Service Provider you want to use to buy eDaler..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SelectServiceProviderPeerReview">
+            <summary>
+              Looks up a localized string similar to Select where to send the review request..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SelectServiceProviderSellEDaler">

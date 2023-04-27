@@ -4264,6 +4264,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request another user to review your application..
+        /// </summary>
+        internal static string RequestReviewFromAPeer {
+            get {
+                return ResourceManager.GetString("RequestReviewFromAPeer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Request signature.
         /// </summary>
         internal static string RequestSignature {
@@ -4512,6 +4521,15 @@ namespace IdApp.Resx {
         internal static string SelectServiceProviderBuyEDaler {
             get {
                 return ResourceManager.GetString("SelectServiceProviderBuyEDaler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select where to send the review request..
+        /// </summary>
+        internal static string SelectServiceProviderPeerReview {
+            get {
+                return ResourceManager.GetString("SelectServiceProviderPeerReview", resourceCulture);
             }
         }
         
