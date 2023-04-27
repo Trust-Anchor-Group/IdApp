@@ -2253,4 +2253,7 @@
   <data name="RequestReviewFromAPeer" xml:space="preserve">
     <value>Request another user to review your application.</value>
   </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>To User</value>
+  </data>
 </root>

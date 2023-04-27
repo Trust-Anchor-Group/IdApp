@@ -2247,4 +2247,13 @@
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Mai jos este o listă de șabloane de simboluri pe care le-ați utilizat sau le puteți utiliza pentru a crea jetoane noi. Faceți clic pe un șablon pentru a crea un nou contract bazat pe acel șablon. Odată ce contractul a fost semnat și aprobat, token-ul sau jetoanele corespunzătoare vor fi create.</value>
   </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Selectați unde să trimiteți solicitarea de revizuire.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Solicitați unui alt utilizator să vă revizuiască cererea.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Pentru utilizator</value>
+  </data>
 </root>

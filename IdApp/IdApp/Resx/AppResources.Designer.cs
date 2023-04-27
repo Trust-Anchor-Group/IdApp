@@ -5569,6 +5569,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To User.
+        /// </summary>
+        internal static string ToUser2 {
+            get {
+                return ResourceManager.GetString("ToUser2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transaction has been accepted and processed..
         /// </summary>
         internal static string TransactionAccepted {

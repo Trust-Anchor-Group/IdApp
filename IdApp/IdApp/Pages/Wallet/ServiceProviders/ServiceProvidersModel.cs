@@ -11,8 +11,8 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 	/// </summary>
 	public class ServiceProvidersViewModel : XmppViewModel
 	{
+		private readonly ServiceProvidersNavigationArgs presetArgs;
 		private TaskCompletionSource<IServiceProvider> selected;
-		private ServiceProvidersNavigationArgs presetArgs;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ServiceProvidersViewModel"/> class.
@@ -32,7 +32,6 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 			this.presetArgs = e;
 
 			this.BackCommand = new Command(async _ => await this.GoBack());
-			this.FromUserCommand = new Command(_ => this.FromUser());
 
 			this.ServiceProviders = new ObservableCollection<ServiceProviderModel>();
 		}
@@ -130,11 +129,6 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// </summary>
 		public ICommand BackCommand { get; }
 
-		/// <summary>
-		/// The command to bind to for generating a code for another user.
-		/// </summary>
-		public ICommand FromUserCommand { get; }
-
 		#endregion
 
 		private async Task GoBack()
@@ -142,11 +136,5 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 			await this.NavigationService.GoBackAsync();
 			this.selected.TrySetResult(null);
 		}
-
-		private void FromUser()
-		{
-			this.selected.TrySetResult(new EmptyBuyEDalerServiceProvider());
-		}
-
 	}
 }

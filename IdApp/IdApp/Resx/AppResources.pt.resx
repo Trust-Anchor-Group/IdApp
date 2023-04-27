@@ -2247,4 +2247,13 @@
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Abaixo está uma lista de modelos de token que você usou ou pode usar para criar novos tokens. Clique em um modelo para criar um novo contrato com base nesse modelo. Uma vez que o contrato tenha sido assinado e aprovado, o token ou tokens correspondentes serão criados.</value>
   </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Selecione para onde enviar a solicitação de revisão.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Solicite a outro usuário que revise seu aplicativo.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Para o usuário</value>
+  </data>
 </root>

@@ -2247,4 +2247,13 @@
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>A continuación se muestra una lista de plantillas de token que ha utilizado o puede usar para crear nuevos tokens. Haga clic en una plantilla para crear un nuevo contrato basado en esa plantilla. Una vez firmado y aprobado el contrato, se creará el token o tokens correspondientes.</value>
   </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Seleccione dónde enviar la solicitud de revisión.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Solicite a otro usuario que revise su solicitud.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Al usuario</value>
+  </data>
 </root>

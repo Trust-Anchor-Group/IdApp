@@ -14797,90 +14797,10 @@
             Empty service provider. Used to show the caller the user wants to request a service from a user.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.EmptyBuyEDalerServiceProvider.Create(System.String,System.String,System.String)">
-            <summary>
-            Creates a new instance of the service provider.
-            </summary>
-            <param name="Id">ID of service provider.</param>
-            <param name="Type">Type of service provider.</param>
-            <param name="Name">Displayable name of service provider.</param>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.EmptyBuyEDalerServiceProvider.Create(System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
-            <summary>
-            Creates a new instance of the service provider.
-            </summary>
-            <param name="Id">ID of service provider.</param>
-            <param name="Type">Type of service provider.</param>
-            <param name="Name">Displayable name of service provider.</param>
-            <param name="IconUrl">Optional URL to icon of service provider.</param>
-            <param name="IconWidth">Width of icon, if available.</param>
-            <param name="IconHeight">Height of icon, if available.</param>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.EmptyBuyEDalerServiceProvider.Create(System.String,System.String,System.String,System.String)">
-            <summary>
-            Creates a new instance of the service provider.
-            </summary>
-            <param name="Id">ID of service provider.</param>
-            <param name="Type">Type of service provider.</param>
-            <param name="Name">Displayable name of service provider.</param>
-            <param name="TemplateContractId">Contract ID of template.</param>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.EmptyBuyEDalerServiceProvider.Create(System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.String)">
-            <summary>
-            Creates a new instance of the service provider.
-            </summary>
-            <param name="Id">ID of service provider.</param>
-            <param name="Type">Type of service provider.</param>
-            <param name="Name">Displayable name of service provider.</param>
-            <param name="IconUrl">Optional URL to icon of service provider.</param>
-            <param name="IconWidth">Width of icon, if available.</param>
-            <param name="IconHeight">Height of icon, if available.</param>
-            <param name="TemplateContractId">Contract ID of template.</param>
-        </member>
         <member name="T:IdApp.Pages.Wallet.ServiceProviders.EmptySellEDalerServiceProvider">
             <summary>
             Empty service provider. Used to show the caller the user wants to request a service from a user.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.EmptySellEDalerServiceProvider.Create(System.String,System.String,System.String)">
-            <summary>
-            Creates a new instance of the service provider.
-            </summary>
-            <param name="Id">ID of service provider.</param>
-            <param name="Type">Type of service provider.</param>
-            <param name="Name">Displayable name of service provider.</param>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.EmptySellEDalerServiceProvider.Create(System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
-            <summary>
-            Creates a new instance of the service provider.
-            </summary>
-            <param name="Id">ID of service provider.</param>
-            <param name="Type">Type of service provider.</param>
-            <param name="Name">Displayable name of service provider.</param>
-            <param name="IconUrl">Optional URL to icon of service provider.</param>
-            <param name="IconWidth">Width of icon, if available.</param>
-            <param name="IconHeight">Height of icon, if available.</param>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.EmptySellEDalerServiceProvider.Create(System.String,System.String,System.String,System.String)">
-            <summary>
-            Creates a new instance of the service provider.
-            </summary>
-            <param name="Id">ID of service provider.</param>
-            <param name="Type">Type of service provider.</param>
-            <param name="Name">Displayable name of service provider.</param>
-            <param name="TemplateContractId">Contract ID of template.</param>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.EmptySellEDalerServiceProvider.Create(System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.String)">
-            <summary>
-            Creates a new instance of the service provider.
-            </summary>
-            <param name="Id">ID of service provider.</param>
-            <param name="Type">Type of service provider.</param>
-            <param name="Name">Displayable name of service provider.</param>
-            <param name="IconUrl">Optional URL to icon of service provider.</param>
-            <param name="IconWidth">Width of icon, if available.</param>
-            <param name="IconHeight">Height of icon, if available.</param>
-            <param name="TemplateContractId">Contract ID of template.</param>
         </member>
         <member name="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel">
             <summary>
@@ -14986,11 +14906,6 @@
         <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.BackCommand">
             <summary>
             The command to bind to for returning to previous view.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.FromUserCommand">
-            <summary>
-            The command to bind to for generating a code for another user.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs">
@@ -19763,6 +19678,11 @@
         <member name="P:IdApp.Resx.AppResources.ToUser">
             <summary>
               Looks up a localized string similar to To user, regardless of source.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ToUser2">
+            <summary>
+              Looks up a localized string similar to To User.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.TransactionAccepted">

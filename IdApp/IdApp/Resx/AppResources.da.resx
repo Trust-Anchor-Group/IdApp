@@ -2247,4 +2247,13 @@
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Nedenfor er en liste over tokenskabeloner, som du har brugt eller kan bruge til at oprette nye tokens. Klik på en skabelon for at oprette en ny kontrakt baseret på skabelonen. Når kontrakten er underskrevet og godkendt, oprettes det eller de tilsvarende tokens.</value>
   </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Vælg, hvor anmodningen om gennemgang skal sendes hen.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Anmod en anden bruger om at gennemgå din ansøgning.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Til bruger</value>
+  </data>
 </root>

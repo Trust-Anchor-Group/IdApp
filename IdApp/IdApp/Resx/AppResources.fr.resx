@@ -2247,4 +2247,13 @@
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Vous trouverez ci-dessous une liste des modèles de jetons que vous avez utilisés ou pouvez utiliser pour créer de nouveaux jetons. Cliquez sur un modèle pour créer un nouveau contrat basé sur ce modèle. Une fois le contrat signé et approuvé, le ou les jetons correspondants seront créés.</value>
   </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Sélectionnez l’emplacement d’envoi de la demande de révision.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Demandez à un autre utilisateur d’examiner votre demande.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>À l’utilisateur</value>
+  </data>
 </root>

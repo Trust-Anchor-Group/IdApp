@@ -2247,4 +2247,13 @@
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Alla on luettelo tunnusmalleista, joita olet käyttänyt tai voit käyttää uusien tunnusten luomiseen. Napsauta mallia luodaksesi uuden sopimuksen kyseisen mallin perusteella. Kun sopimus on allekirjoitettu ja hyväksytty, vastaava tunnus tai tunnukset luodaan.</value>
   </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Valitse, minne tarkastuspyyntö lähetetään.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Pyydä toista käyttäjää tarkistamaan hakemuksesi.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Käyttäjälle</value>
+  </data>
 </root>

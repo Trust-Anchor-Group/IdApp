@@ -2247,4 +2247,13 @@
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Im Folgenden finden Sie eine Liste der Tokenvorlagen, die Sie verwendet haben oder verwenden können, um neue Token zu erstellen. Klicken Sie auf eine Vorlage, um einen neuen Vertrag basierend auf dieser Vorlage zu erstellen. Sobald der Vertrag unterzeichnet und genehmigt wurde, werden die entsprechenden Token erstellt.</value>
   </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Wählen Sie aus, wohin die Überprüfungsanfrage gesendet werden soll.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Bitten Sie einen anderen Benutzer, Ihre Bewerbung zu überprüfen.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>An den Benutzer</value>
+  </data>
 </root>

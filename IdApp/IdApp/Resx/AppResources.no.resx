@@ -2247,4 +2247,13 @@
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Nedenfor finner du en liste over tokenmaler du har brukt eller kan bruke til å opprette nye tokener. Klikk på en mal for å opprette en ny kontrakt basert på den malen. Når kontrakten er signert og godkjent, opprettes det tilsvarende tokenet eller tokenene.</value>
   </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Velg hvor forespørselen om gjennomgang skal sendes.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Be en annen bruker om å gjennomgå søknaden din.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Til bruker</value>
+  </data>
 </root>

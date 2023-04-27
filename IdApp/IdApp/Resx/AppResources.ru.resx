@@ -2247,4 +2247,13 @@
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Ниже приведен список шаблонов маркеров, которые вы использовали или можете использовать для создания новых маркеров. Щелкните шаблон, чтобы создать новый контракт на основе этого шаблона. После подписания и утверждения контракта будет создан соответствующий токен или токены.</value>
   </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Выберите, куда отправить запрос на проверку.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Попросите другого пользователя проверить вашу заявку.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Пользователю</value>
+  </data>
 </root>

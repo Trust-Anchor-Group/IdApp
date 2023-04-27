@@ -2229,4 +2229,7 @@
   <data name="RequestReviewFromAPeer" xml:space="preserve">
     <value>Fråga en annan användare om de kan granska din ansökan.</value>
   </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Till användare</value>
+  </data>
 </root>
