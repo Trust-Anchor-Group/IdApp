@@ -958,7 +958,7 @@
     <value>Нет сети</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Указанный код не является юридическим лицом</value>
+    <value>Вам необходимо отсканировать другой тип QR-кода, который представляет собой юридическое удостоверение личности.</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Вещь</value>

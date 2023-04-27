@@ -5281,7 +5281,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified code is not a legal identity.
+        ///   Looks up a localized string similar to You need to scan a different type of QR Code, one that represents a legal identity.
         /// </summary>
         internal static string TheSpecifiedCodeIsNotALegalIdentity {
             get {

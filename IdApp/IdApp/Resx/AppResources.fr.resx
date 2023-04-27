@@ -958,7 +958,7 @@
     <value>Il n’y a pas de réseau</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Le code spécifié n’est pas une identité légale</value>
+    <value>Vous devez scanner un autre type de code QR, qui représente une identité légale</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Chose</value>

@@ -1417,7 +1417,7 @@
     <value>Nätverk saknas</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Den angivna koden är inte en giltig identitet</value>
+    <value>Du måste skanna en annan typ av QR-kod, en som representerar en laglig identitet</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Sak</value>

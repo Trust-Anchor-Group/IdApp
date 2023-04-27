@@ -1,5 +1,4 @@
 ﻿using IdApp.Extensions;
-using IdApp.Services.Contracts;
 using IdApp.Services.Data.Countries;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.Photos;
@@ -24,6 +23,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 	{
 		private readonly PhotosLoader photosLoader;
 		private readonly SemaphoreSlim reloadPhotosSemaphore = new(1, 1);
+		private ServiceProviderWithLegalId[] peerReviewServices = null;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="ValidateIdentityViewModel"/> class.
@@ -47,6 +47,9 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			this.TagProfile.Changed += this.TagProfile_Changed;
 			this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
 			this.XmppService.LegalIdentityChanged += this.XmppContracts_LegalIdentityChanged;
+
+			if (this.peerReviewServices is null)
+				this.peerReviewServices = await this.XmppService.GetServiceProvidersForPeerReviewAsync();
 		}
 
 		/// <inheritdoc />
@@ -584,6 +587,16 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
 		private async Task RequestReview()
 		{
+			if ((this.peerReviewServices?.Length ?? 0) > 0)
+			{
+				await this.ScanQrCodeForPeerReview();
+			}
+			else
+				await this.ScanQrCodeForPeerReview();
+		}
+
+		private async Task ScanQrCodeForPeerReview()
+		{
 			string Url = await QrCode.ScanQrCode(LocalizationResourceManager.Current["RequestReview"], UseShellNavigationService: false);
 			if (string.IsNullOrEmpty(Url))
 				return;
@@ -591,7 +604,10 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			if (!Constants.UriSchemes.StartsWithIdScheme(Url))
 			{
 				if (!string.IsNullOrEmpty(Url))
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
+				{
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"],
+						LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
+				}
 
 				return;
 			}

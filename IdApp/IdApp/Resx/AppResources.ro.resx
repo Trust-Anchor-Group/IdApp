@@ -958,7 +958,7 @@
     <value>Nu există rețea</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Codul specificat nu este o identitate legală</value>
+    <value>Trebuie să scanați un alt tip de cod QR, unul care reprezintă o identitate juridică</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Lucru</value>

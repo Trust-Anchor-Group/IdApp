@@ -958,7 +958,7 @@
     <value>Det er ikke noe nettverk</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Den angitte koden er ikke en juridisk identitet</value>
+    <value>Du må skanne en annen type QR-kode, en som representerer en juridisk identitet</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Ting</value>

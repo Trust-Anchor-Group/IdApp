@@ -19585,7 +19585,7 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.TheSpecifiedCodeIsNotALegalIdentity">
             <summary>
-              Looks up a localized string similar to The specified code is not a legal identity.
+              Looks up a localized string similar to You need to scan a different type of QR Code, one that represents a legal identity.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Thing">

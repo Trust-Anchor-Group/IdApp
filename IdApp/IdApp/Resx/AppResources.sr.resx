@@ -958,7 +958,7 @@
     <value>Ne postoji mreža</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Navedeni kôd nije pravni identitet</value>
+    <value>Potrebno je da skenirate drugi tip QR koda, onaj koji predstavlja pravni identitet</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Stvar</value>

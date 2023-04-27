@@ -958,7 +958,7 @@
     <value>Verkkoa ei ole</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Määritetty koodi ei ole laillinen identiteetti</value>
+    <value>Sinun on skannattava erityyppinen QR-koodi, joka edustaa oikeudellista identiteettiä</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Asia</value>
