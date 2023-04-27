@@ -1,33 +1,31 @@
-﻿using System;
+﻿using EDaler;
+using EDaler.Uris;
+using IdApp.Pages.Registration.RegisterIdentity;
+using IdApp.Services.Push;
+using IdApp.Services.Wallet;
+using NeuroFeatures;
+using NeuroFeatures.Events;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml;
-using IdApp.Services.Push;
-using IdApp.Services.Wallet;
+using Waher.Content;
 using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.DataForms;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Networking.XMPP.PEP;
 using Waher.Networking.XMPP.Provisioning.SearchOperators;
 using Waher.Networking.XMPP.Provisioning;
+using Waher.Networking.XMPP.Push;
+using Waher.Networking.XMPP.Sensor;
 using Waher.Networking.XMPP.ServiceDiscovery;
-using Waher.Runtime.Inventory;
-using IdApp.Pages.Registration.RegisterIdentity;
-using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
+using Waher.Runtime.Inventory;
 using Waher.Runtime.Temporary;
-using Waher.Content;
 using Waher.Things;
 using Waher.Things.SensorData;
-using Waher.Networking.XMPP.DataForms;
-using Waher.Networking.XMPP.Sensor;
-using Waher.Networking.XMPP.Push;
-using EDaler.Uris;
-using EDaler;
-using NeuroFeatures.Events;
-using NeuroFeatures;
-using System.Text;
-using Waher.Content.Xml;
 
 namespace IdApp.Services.Xmpp
 {
@@ -791,6 +789,20 @@ namespace IdApp.Services.Xmpp
 		/// An event that fires when a petitioned peer review response is received.
 		/// </summary>
 		event SignaturePetitionResponseEventHandler PetitionedPeerReviewIdResponseReceived;
+
+		/// <summary>
+		/// Gets available service providers for buying eDaler.
+		/// </summary>
+		/// <returns>Available service providers for peer review of identity applications.</returns>
+		Task<ServiceProviderWithLegalId[]> GetServiceProvidersForPeerReviewAsync();
+
+		/// <summary>
+		/// Selects a peer-review service as default, for the account, when sending a peer-review request to the
+		/// Legal Identity of the Trust Provider hosting the account.
+		/// </summary>
+		/// <param name="ServiceId">Service ID</param>
+		/// <param name="ServiceProvider">Service Provider</param>
+		Task SelectPeerReviewService(string ServiceId, string ServiceProvider);
 
 		#endregion
 
