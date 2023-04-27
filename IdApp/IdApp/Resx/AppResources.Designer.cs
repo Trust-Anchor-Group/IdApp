@@ -2320,15 +2320,6 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite peer to review.
-        /// </summary>
-        internal static string InvitePeerToReview {
-            get {
-                return ResourceManager.GetString("InvitePeerToReview", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to iOS App.
         /// </summary>
         internal static string IosApp {
@@ -4264,6 +4255,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request review.
+        /// </summary>
+        internal static string RequestReview {
+            get {
+                return ResourceManager.GetString("RequestReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request another user to review your application..
+        /// </summary>
+        internal static string RequestReviewFromAPeer {
+            get {
+                return ResourceManager.GetString("RequestReviewFromAPeer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Request signature.
         /// </summary>
         internal static string RequestSignature {
@@ -4512,6 +4521,15 @@ namespace IdApp.Resx {
         internal static string SelectServiceProviderBuyEDaler {
             get {
                 return ResourceManager.GetString("SelectServiceProviderBuyEDaler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select where to send the review request..
+        /// </summary>
+        internal static string SelectServiceProviderPeerReview {
+            get {
+                return ResourceManager.GetString("SelectServiceProviderPeerReview", resourceCulture);
             }
         }
         
@@ -5281,7 +5299,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified code is not a legal identity.
+        ///   Looks up a localized string similar to You need to scan a different type of QR Code, one that represents a legal identity.
         /// </summary>
         internal static string TheSpecifiedCodeIsNotALegalIdentity {
             get {
@@ -5547,6 +5565,15 @@ namespace IdApp.Resx {
         internal static string ToUser {
             get {
                 return ResourceManager.GetString("ToUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To User.
+        /// </summary>
+        internal static string ToUser2 {
+            get {
+                return ResourceManager.GetString("ToUser2", resourceCulture);
             }
         }
         

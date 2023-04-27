@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ugyldigt brugernavn eller adgangskode</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Inviter peer til gennemgang</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Anmod om gennemgang</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Nøgle</value>
@@ -958,7 +958,7 @@
     <value>Der er ikke noget netværk</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Den angivne kode er ikke en juridisk identitet</value>
+    <value>Du skal scanne en anden type QR-kode, en der repræsenterer en juridisk identitet</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Ting</value>
@@ -2246,5 +2246,14 @@
   </data>
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Nedenfor er en liste over tokenskabeloner, som du har brugt eller kan bruge til at oprette nye tokens. Klik på en skabelon for at oprette en ny kontrakt baseret på skabelonen. Når kontrakten er underskrevet og godkendt, oprettes det eller de tilsvarende tokens.</value>
+  </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Vælg, hvor anmodningen om gennemgang skal sendes hen.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Anmod en anden bruger om at gennemgå din ansøgning.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Til bruger</value>
   </data>
 </root>

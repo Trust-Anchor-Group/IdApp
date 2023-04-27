@@ -3142,42 +3142,46 @@
             Try to parce the AES256 URI
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,Waher.Content.RemoteCertificateEventHandler,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
             <summary>
             Gets and decrypts content from the Internet.
             </summary>
             <param name="Uri">Full URI</param>
             <param name="Certificate">Optional client certificate.</param>
+            <param name="RemoteCertificateValidator">Optional callback method for validating remote certificates.</param>
             <param name="Headers">Additional headers</param>
             <returns>Decrypted and decoded content.</returns>
             <exception cref="T:System.ArgumentException">If URI cannot be parsed.</exception>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,Waher.Content.RemoteCertificateEventHandler,System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
             <summary>
             Gets and decrypts content from the Internet.
             </summary>
             <param name="Uri">Full URI</param>
             <param name="Certificate">Optional client certificate.</param>
+            <param name="RemoteCertificateValidator">Optional callback method for validating remote certificates.</param>
             <param name="TimeoutMs">Timeout, in milliseconds.</param>
             <param name="Headers">Additional headers</param>
             <returns>Decrypted and decoded content.</returns>
             <exception cref="T:System.ArgumentException">If URI cannot be parsed.</exception>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetTempStreamAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetTempStreamAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,Waher.Content.RemoteCertificateEventHandler,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
             <summary>
             Gets a (possibly big) resource, using a Uniform Resource Identifier (or Locator).
             </summary>
             <param name="Uri">URI</param>
             <param name="Certificate">Optional client certificate to use in a Mutual TLS session.</param>
+            <param name="RemoteCertificateValidator">Optional callback method for validating remote certificates.</param>
             <param name="Headers">Optional headers. Interpreted in accordance with the corresponding URI scheme.</param>
             <returns>Content-Type, together with a Temporary file, if resource has been downloaded, or null if resource is data-less.</returns>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetTempStreamAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content.Aes256Getter.GetTempStreamAsync(System.Uri,System.Security.Cryptography.X509Certificates.X509Certificate,Waher.Content.RemoteCertificateEventHandler,System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
             <summary>
             Gets a (possibly big) resource, using a Uniform Resource Identifier (or Locator).
             </summary>
             <param name="Uri">URI</param>
             <param name="Certificate">Optional client certificate to use in a Mutual TLS session.</param>
+            <param name="RemoteCertificateValidator">Optional callback method for validating remote certificates.</param>
             <param name="TimeoutMs">Timeout, in milliseconds. (Default=60000)</param>
             <param name="Headers">Optional headers. Interpreted in accordance with the corresponding URI scheme.</param>
             <returns>Content-Type, together with a Temporary file, if resource has been downloaded, or null if resource is data-less.</returns>
@@ -9887,6 +9891,16 @@
             The command to bind to for sending a phone message code verification request.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Registration.ValidateIdentity.RequestFromPeer">
+            <summary>
+            Represents representing a peer review from a peer, by scanning their QR-code.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidateIdentity.RequestFromPeer.#ctor">
+            <summary>
+            Represents representing a peer review from a peer, by scanning their QR-code.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityView">
             <summary>
             A view to display the 'validate identity' during the registration process.
@@ -9918,9 +9932,9 @@
             The list of photos associated with this legal identity.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.InviteReviewerCommand">
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.RequestReviewCommand">
             <summary>
-            The command to bind to for inviting a reviewer to approve the user's identity.
+            The command to bind to for requesting a review of the user's identity.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.ContinueCommand">
@@ -14788,59 +14802,17 @@
             Empty service provider. Used to show the caller the user wants to request a service from a user.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.EmptyBuyEDalerServiceProvider.Create(System.String,System.String,System.String,System.String)">
-            <summary>
-            Creates a new instance of the service provider.
-            </summary>
-            <param name="Id">ID of service provider.</param>
-            <param name="Type">Type of service provider.</param>
-            <param name="Name">Displayable name of service provider.</param>
-            <param name="TemplateContractId">Contract ID of template.</param>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.EmptyBuyEDalerServiceProvider.Create(System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.String)">
-            <summary>
-            Creates a new instance of the service provider.
-            </summary>
-            <param name="Id">ID of service provider.</param>
-            <param name="Type">Type of service provider.</param>
-            <param name="Name">Displayable name of service provider.</param>
-            <param name="IconUrl">Optional URL to icon of service provider.</param>
-            <param name="IconWidth">Width of icon, if available.</param>
-            <param name="IconHeight">Height of icon, if available.</param>
-            <param name="TemplateContractId">Contract ID of template.</param>
-        </member>
         <member name="T:IdApp.Pages.Wallet.ServiceProviders.EmptySellEDalerServiceProvider">
             <summary>
             Empty service provider. Used to show the caller the user wants to request a service from a user.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.EmptySellEDalerServiceProvider.Create(System.String,System.String,System.String,System.String)">
-            <summary>
-            Creates a new instance of the service provider.
-            </summary>
-            <param name="Id">ID of service provider.</param>
-            <param name="Type">Type of service provider.</param>
-            <param name="Name">Displayable name of service provider.</param>
-            <param name="TemplateContractId">Contract ID of template.</param>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.EmptySellEDalerServiceProvider.Create(System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.String)">
-            <summary>
-            Creates a new instance of the service provider.
-            </summary>
-            <param name="Id">ID of service provider.</param>
-            <param name="Type">Type of service provider.</param>
-            <param name="Name">Displayable name of service provider.</param>
-            <param name="IconUrl">Optional URL to icon of service provider.</param>
-            <param name="IconWidth">Width of icon, if available.</param>
-            <param name="IconHeight">Height of icon, if available.</param>
-            <param name="TemplateContractId">Contract ID of template.</param>
-        </member>
         <member name="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel">
             <summary>
-            Contact Information model, including related notification information.
+            Service Provider information model, including related notification information.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.#ctor(EDaler.IServiceProvider)">
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.#ctor(Waher.Networking.XMPP.Contracts.IServiceProvider)">
             <summary>
             Contact Information model, including related notification information.
             </summary>
@@ -14896,6 +14868,12 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel"/> class.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.#ctor(IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel"/> class.
+            </summary>
+            <param name="e">Navigation arguments.</param>
+        </member>
         <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.OnInitialize">
             <inheritdoc/>
         </member>
@@ -14935,11 +14913,6 @@
             The command to bind to for returning to previous view.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.FromUserCommand">
-            <summary>
-            The command to bind to for generating a code for another user.
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs">
             <summary>
             Holds navigation parameters specific to the eDaler wallet.
@@ -14950,7 +14923,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.#ctor(EDaler.IServiceProvider[],System.String)">
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.IServiceProvider[],System.String)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs"/> class.
             </summary>
@@ -14987,6 +14960,12 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage"/> class.
             </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage.#ctor(IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage"/> class.
+            </summary>
+            <param name="e">Navigation arguments.</param>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenDetails.PartItem">
             <summary>
@@ -17901,11 +17880,6 @@
               Looks up a localized string similar to You have been invited to create an account on {0}. Press OK, and enter the name of the account you wish to create..
             </summary>
         </member>
-        <member name="P:IdApp.Resx.AppResources.InvitePeerToReview">
-            <summary>
-              Looks up a localized string similar to Invite peer to review.
-            </summary>
-        </member>
         <member name="P:IdApp.Resx.AppResources.IosApp">
             <summary>
               Looks up a localized string similar to iOS App.
@@ -18981,6 +18955,16 @@
               Looks up a localized string similar to Requesting payment of {0} {1}..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.RequestReview">
+            <summary>
+              Looks up a localized string similar to Request review.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.RequestReviewFromAPeer">
+            <summary>
+              Looks up a localized string similar to Request another user to review your application..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.RequestSignature">
             <summary>
               Looks up a localized string similar to Request signature.
@@ -19119,6 +19103,11 @@
         <member name="P:IdApp.Resx.AppResources.SelectServiceProviderBuyEDaler">
             <summary>
               Looks up a localized string similar to Select the Service Provider you want to use to buy eDaler..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.SelectServiceProviderPeerReview">
+            <summary>
+              Looks up a localized string similar to Select where to send the review request..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.SelectServiceProviderSellEDaler">
@@ -19548,7 +19537,7 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.TheSpecifiedCodeIsNotALegalIdentity">
             <summary>
-              Looks up a localized string similar to The specified code is not a legal identity.
+              Looks up a localized string similar to You need to scan a different type of QR Code, one that represents a legal identity.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Thing">
@@ -19694,6 +19683,11 @@
         <member name="P:IdApp.Resx.AppResources.ToUser">
             <summary>
               Looks up a localized string similar to To user, regardless of source.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.ToUser2">
+            <summary>
+              Looks up a localized string similar to To User.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.TransactionAccepted">
@@ -26079,6 +26073,20 @@
             An event that fires when a petitioned peer review response is received.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.GetServiceProvidersForPeerReviewAsync">
+            <summary>
+            Gets available service providers for buying eDaler.
+            </summary>
+            <returns>Available service providers for peer review of identity applications.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.SelectPeerReviewService(System.String,System.String)">
+            <summary>
+            Selects a peer-review service as default, for the account, when sending a peer-review request to the
+            Legal Identity of the Trust Provider hosting the account.
+            </summary>
+            <param name="ServiceId">Service ID</param>
+            <param name="ServiceProvider">Service Provider</param>
+        </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.Sign(System.Byte[],Waher.Networking.XMPP.Contracts.SignWith)">
             <summary>
             Signs binary data with the corresponding private key.
@@ -27407,6 +27415,20 @@
             <summary>
             An event that fires when a petitioned peer review response is received.
             </summary>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.GetServiceProvidersForPeerReviewAsync">
+            <summary>
+            Gets available service providers for buying eDaler.
+            </summary>
+            <returns>Available service providers for peer review of identity applications.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.SelectPeerReviewService(System.String,System.String)">
+            <summary>
+            Selects a peer-review service as default, for the account, when sending a peer-review request to the
+            Legal Identity of the Trust Provider hosting the account.
+            </summary>
+            <param name="ServiceId">Service ID</param>
+            <param name="ServiceProvider">Service Provider</param>
         </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.Sign(System.Byte[],Waher.Networking.XMPP.Contracts.SignWith)">
             <summary>

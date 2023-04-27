@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Nombre de usuario o contraseña no válidos</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Invitar a un compañero a revisar</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Solicitar revisión</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Llave</value>
@@ -958,7 +958,7 @@
     <value>No hay red</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>El código especificado no es una identidad legal</value>
+    <value>Debe escanear un tipo diferente de código QR, uno que represente una identidad legal</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Cosa</value>
@@ -2246,5 +2246,14 @@
   </data>
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>A continuación se muestra una lista de plantillas de token que ha utilizado o puede usar para crear nuevos tokens. Haga clic en una plantilla para crear un nuevo contrato basado en esa plantilla. Una vez firmado y aprobado el contrato, se creará el token o tokens correspondientes.</value>
+  </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Seleccione dónde enviar la solicitud de revisión.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Solicite a otro usuario que revise su solicitud.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Al usuario</value>
   </data>
 </root>

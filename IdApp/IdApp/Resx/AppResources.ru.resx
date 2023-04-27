@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Неверное имя пользователя или пароль</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Пригласить экспертов для рецензирования</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Запросить проверку</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Ключ</value>
@@ -958,7 +958,7 @@
     <value>Нет сети</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Указанный код не является юридическим лицом</value>
+    <value>Вам необходимо отсканировать другой тип QR-кода, который представляет собой юридическое удостоверение личности.</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Вещь</value>
@@ -2246,5 +2246,14 @@
   </data>
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Ниже приведен список шаблонов маркеров, которые вы использовали или можете использовать для создания новых маркеров. Щелкните шаблон, чтобы создать новый контракт на основе этого шаблона. После подписания и утверждения контракта будет создан соответствующий токен или токены.</value>
+  </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Выберите, куда отправить запрос на проверку.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Попросите другого пользователя проверить вашу заявку.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Пользователю</value>
   </data>
 </root>

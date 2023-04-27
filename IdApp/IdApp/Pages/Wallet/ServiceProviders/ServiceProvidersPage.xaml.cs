@@ -12,8 +12,17 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// Creates a new instance of the <see cref="ServiceProvidersPage"/> class.
 		/// </summary>
 		public ServiceProvidersPage()
+			: this(null)
 		{
-			this.ViewModel = new ServiceProvidersViewModel();
+		}
+
+		/// <summary>
+		/// Creates a new instance of the <see cref="ServiceProvidersPage"/> class.
+		/// </summary>
+		/// <param name="e">Navigation arguments.</param>
+		public ServiceProvidersPage(ServiceProvidersNavigationArgs e)
+		{
+			this.ViewModel = new ServiceProvidersViewModel(e);
 
 			this.InitializeComponent();
 		}

@@ -57,7 +57,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content
 			if (i < 0)
 				return false;
 
-			string s2 = s.Substring(0, i);
+			string s2 = s[..i];
 			if (string.Compare(Constants.UriSchemes.Aes256, s2, true) != 0)
 				return false;
 
@@ -82,7 +82,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content
 					return false;
 
 				ContentType = s.Substring(i + 1, j - i - 1);
-				EncryptedUri = new Uri(s.Substring(j + 1));
+				EncryptedUri = new Uri(s[(j + 1)..]);
 
 				return true;
 			}
@@ -97,12 +97,14 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content
 		/// </summary>
 		/// <param name="Uri">Full URI</param>
 		/// <param name="Certificate">Optional client certificate.</param>
+		/// <param name="RemoteCertificateValidator">Optional callback method for validating remote certificates.</param>
 		/// <param name="Headers">Additional headers</param>
 		/// <returns>Decrypted and decoded content.</returns>
 		/// <exception cref="ArgumentException">If URI cannot be parsed.</exception>
-		public Task<object> GetAsync(Uri Uri, X509Certificate Certificate, params KeyValuePair<string, string>[] Headers)
+		public Task<object> GetAsync(Uri Uri, X509Certificate Certificate, RemoteCertificateEventHandler RemoteCertificateValidator,
+			params KeyValuePair<string, string>[] Headers)
 		{
-			return this.GetAsync(Uri, Certificate, 60000, Headers);
+			return this.GetAsync(Uri, Certificate, RemoteCertificateValidator, 60000, Headers);
 		}
 
 		/// <summary>
@@ -110,25 +112,27 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content
 		/// </summary>
 		/// <param name="Uri">Full URI</param>
 		/// <param name="Certificate">Optional client certificate.</param>
+		/// <param name="RemoteCertificateValidator">Optional callback method for validating remote certificates.</param>
 		/// <param name="TimeoutMs">Timeout, in milliseconds.</param>
 		/// <param name="Headers">Additional headers</param>
 		/// <returns>Decrypted and decoded content.</returns>
 		/// <exception cref="ArgumentException">If URI cannot be parsed.</exception>
-		public async Task<object> GetAsync(Uri Uri, X509Certificate Certificate, int TimeoutMs, params KeyValuePair<string, string>[] Headers)
+		public async Task<object> GetAsync(Uri Uri, X509Certificate Certificate, RemoteCertificateEventHandler RemoteCertificateValidator,
+			int TimeoutMs, params KeyValuePair<string, string>[] Headers)
 		{
-			(string ContentType, byte[] Bin, Uri EncryptedUri) = await this.GetAndDecrypt(Uri, Certificate, TimeoutMs, Headers);
+			(string ContentType, byte[] Bin, Uri EncryptedUri) = await this.GetAndDecrypt(Uri, Certificate, RemoteCertificateValidator, TimeoutMs, Headers);
 
 			return await InternetContent.DecodeAsync(ContentType, Bin, EncryptedUri);
 		}
 
-		private async Task<(string, byte[], Uri)> GetAndDecrypt(Uri Uri, X509Certificate Certificate, int TimeoutMs, params KeyValuePair<string, string>[] Headers)
+		private async Task<(string, byte[], Uri)> GetAndDecrypt(Uri Uri, X509Certificate Certificate,
+			RemoteCertificateEventHandler RemoteCertificateValidator, int TimeoutMs, params KeyValuePair<string, string>[] Headers)
 		{
 			if (!TryParse(Uri, out byte[] Key, out byte[] IV, out string ContentType, out Uri EncryptedUri))
 				throw new ArgumentException("URI not supported.", nameof(Uri));
 
-			byte[] Bin = await InternetContent.GetAsync(EncryptedUri, Certificate, TimeoutMs, AcceptBinary(Headers)) as byte[];
-			if (Bin is null)
-				throw new IOException("Expected binary response.");
+			byte[] Bin = await InternetContent.GetAsync(EncryptedUri, Certificate, RemoteCertificateValidator, TimeoutMs, AcceptBinary(Headers)) as byte[]
+				?? throw new IOException("Expected binary response.");
 
 			Aes Aes = Aes.Create();
 			Aes.BlockSize = 128;
@@ -165,11 +169,13 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content
 		/// </summary>
 		/// <param name="Uri">URI</param>
 		/// <param name="Certificate">Optional client certificate to use in a Mutual TLS session.</param>
+		/// <param name="RemoteCertificateValidator">Optional callback method for validating remote certificates.</param>
 		/// <param name="Headers">Optional headers. Interpreted in accordance with the corresponding URI scheme.</param>
 		/// <returns>Content-Type, together with a Temporary file, if resource has been downloaded, or null if resource is data-less.</returns>
-		public Task<KeyValuePair<string, TemporaryStream>> GetTempStreamAsync(Uri Uri, X509Certificate Certificate, params KeyValuePair<string, string>[] Headers)
+		public Task<KeyValuePair<string, TemporaryStream>> GetTempStreamAsync(Uri Uri, X509Certificate Certificate,
+			RemoteCertificateEventHandler RemoteCertificateValidator, params KeyValuePair<string, string>[] Headers)
 		{
-			return this.GetTempStreamAsync(Uri, Certificate, 60000, Headers);
+			return this.GetTempStreamAsync(Uri, Certificate, RemoteCertificateValidator, 60000, Headers);
 		}
 
 		/// <summary>
@@ -177,12 +183,14 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content
 		/// </summary>
 		/// <param name="Uri">URI</param>
 		/// <param name="Certificate">Optional client certificate to use in a Mutual TLS session.</param>
+		/// <param name="RemoteCertificateValidator">Optional callback method for validating remote certificates.</param>
 		/// <param name="TimeoutMs">Timeout, in milliseconds. (Default=60000)</param>
 		/// <param name="Headers">Optional headers. Interpreted in accordance with the corresponding URI scheme.</param>
 		/// <returns>Content-Type, together with a Temporary file, if resource has been downloaded, or null if resource is data-less.</returns>
-		public async Task<KeyValuePair<string, TemporaryStream>> GetTempStreamAsync(Uri Uri, X509Certificate Certificate, int TimeoutMs, params KeyValuePair<string, string>[] Headers)
+		public async Task<KeyValuePair<string, TemporaryStream>> GetTempStreamAsync(Uri Uri, X509Certificate Certificate,
+			RemoteCertificateEventHandler RemoteCertificateValidator, int TimeoutMs, params KeyValuePair<string, string>[] Headers)
 		{
-			(string ContentType, byte[] Bin, _) = await this.GetAndDecrypt(Uri, Certificate, TimeoutMs, Headers);
+			(string ContentType, byte[] Bin, _) = await this.GetAndDecrypt(Uri, Certificate, RemoteCertificateValidator, TimeoutMs, Headers);
 
 			TemporaryStream Result = new();
 			await Result.WriteAsync(Bin, 0, Bin.Length);

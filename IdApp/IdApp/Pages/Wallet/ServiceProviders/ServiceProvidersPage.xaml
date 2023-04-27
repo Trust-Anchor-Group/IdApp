@@ -12,7 +12,7 @@
                        Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.ServiceProviders}">
 
-	<Grid Margin="{StaticResource DefaultMargin}" ColumnDefinitions="*" RowDefinitions="auto,auto,*,auto"
+	<Grid Margin="{StaticResource DefaultMargin}" ColumnDefinitions="*" RowDefinitions="auto,auto,*"
           HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
 		<Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.ServiceProviders}" Style="{StaticResource Heading}"/>
 		<Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=Description}" HorizontalOptions="Center" VerticalOptions="Start"/>
@@ -28,20 +28,18 @@
 				<DataTemplate x:DataType="model:ServiceProviderModel">
 					<Grid Padding="5,5">
 						<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10">
-							<Grid ColumnDefinitions="*" RowDefinitions="auto" >
+							<Grid ColumnDefinitions="*" RowDefinitions="auto">
 								<Label Grid.Column="0" Grid.Row="0" IsVisible="{Binding HasIcon, Converter={converters:LogicalNot}}"
 									   HorizontalOptions="Center" VerticalOptions="Center" LineBreakMode="CharacterWrap"
 									   TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
 								<ffimage:CachedImage Grid.Column="0" Grid.Row="0" IsVisible="{Binding HasIcon}" Aspect="AspectFit"
-													 HorizontalOptions="Center" VerticalOptions="Center" Source="{Binding IconUrlSource}"
-													 WidthRequest="{Binding IconWidth}" HeightRequest="{Binding IconHeight}" />
+													 HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+													 Source="{Binding IconUrlSource}" HeightRequest="150" />
 							</Grid>
 						</Frame>
 					</Grid>
 				</DataTemplate>
 			</CollectionView.ItemTemplate>
 		</noBounce:NoBounceCollectionView>
-
-		<Button Grid.Column="0" Grid.Row="3" Text="{x:Static resx:AppResources.FromUser}" Command="{Binding FromUserCommand}"/>
 	</Grid>
 </views:ContentBasePage>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using EDaler;
+using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.ServiceProviders
@@ -11,16 +11,27 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 	/// </summary>
 	public class ServiceProvidersViewModel : XmppViewModel
 	{
+		private readonly ServiceProvidersNavigationArgs presetArgs;
 		private TaskCompletionSource<IServiceProvider> selected;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ServiceProvidersViewModel"/> class.
 		/// </summary>
 		public ServiceProvidersViewModel()
+			: this(null)
+		{
+		}
+
+		/// <summary>
+		/// Creates an instance of the <see cref="ServiceProvidersViewModel"/> class.
+		/// </summary>
+		/// <param name="e">Navigation arguments.</param>
+		public ServiceProvidersViewModel(ServiceProvidersNavigationArgs e)
 			: base()
 		{
+			this.presetArgs = e;
+
 			this.BackCommand = new Command(async _ => await this.GoBack());
-			this.FromUserCommand = new Command(_ => this.FromUser());
 
 			this.ServiceProviders = new ObservableCollection<ServiceProviderModel>();
 		}
@@ -30,14 +41,18 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ServiceProvidersNavigationArgs args))
+			ServiceProvidersNavigationArgs args = this.presetArgs;
+			if (args is null)
 			{
-				this.selected = args.Selected;
-				this.Description = args.Description;
-
-				foreach (IServiceProvider ServiceProvider in args.ServiceProviders)
-					this.ServiceProviders.Add(new ServiceProviderModel(ServiceProvider));
+				if (!this.NavigationService.TryPopArgs(out args))
+					return;
 			}
+
+			this.selected = args.Selected;
+			this.Description = args.Description;
+
+			foreach (IServiceProvider ServiceProvider in args.ServiceProviders)
+				this.ServiceProviders.Add(new ServiceProviderModel(ServiceProvider));
 		}
 
 		/// <inheritdoc/>
@@ -114,11 +129,6 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// </summary>
 		public ICommand BackCommand { get; }
 
-		/// <summary>
-		/// The command to bind to for generating a code for another user.
-		/// </summary>
-		public ICommand FromUserCommand { get; }
-
 		#endregion
 
 		private async Task GoBack()
@@ -126,11 +136,5 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 			await this.NavigationService.GoBackAsync();
 			this.selected.TrySetResult(null);
 		}
-
-		private void FromUser()
-		{
-			this.selected.TrySetResult(new EmptyBuyEDalerServiceProvider());
-		}
-
 	}
 }

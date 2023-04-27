@@ -1,6 +1,6 @@
-﻿using EDaler;
-using IdApp.Services.Navigation;
+﻿using IdApp.Services.Navigation;
 using System.Threading.Tasks;
+using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Pages.Wallet.ServiceProviders
 {

@@ -666,8 +666,8 @@
   <data name="InvitedToCreateAccountOnDomain" xml:space="preserve">
     <value>Du har blivit inbjuden att skapa ett konto på {0}. Tryck på OK, och ange namnet på kontot du vill skapa.</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Bjud in vän att granska</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Begär granskning</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Nyckel</value>
@@ -1417,7 +1417,7 @@
     <value>Nätverk saknas</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Den angivna koden är inte en giltig identitet</value>
+    <value>Du måste skanna en annan typ av QR-kod, en som representerar en laglig identitet</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Sak</value>
@@ -2222,5 +2222,14 @@
   </data>
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Nedan finns en lista över token-mallar du har använt eller kan använda för att skapa nya tokens. Klicka på en mall för att skapa ett nytt kontrakt baserat på den mallen. När kontraktet har skrivits under och godkänts, kommer motsvarande token eller tokens att skapas.</value>
+  </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Välj var begäran om granskning ska skickas.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Fråga en annan användare om de kan granska din ansökan.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Till användare</value>
   </data>
 </root>

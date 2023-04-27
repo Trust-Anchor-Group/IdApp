@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Virheellinen käyttäjänimi tai salasana</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Vertaisryhmän kutsuminen arvosteluun</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Pyydä tarkistusta</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Avain</value>
@@ -958,7 +958,7 @@
     <value>Verkkoa ei ole</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Määritetty koodi ei ole laillinen identiteetti</value>
+    <value>Sinun on skannattava erityyppinen QR-koodi, joka edustaa oikeudellista identiteettiä</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Asia</value>
@@ -2246,5 +2246,14 @@
   </data>
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Alla on luettelo tunnusmalleista, joita olet käyttänyt tai voit käyttää uusien tunnusten luomiseen. Napsauta mallia luodaksesi uuden sopimuksen kyseisen mallin perusteella. Kun sopimus on allekirjoitettu ja hyväksytty, vastaava tunnus tai tunnukset luodaan.</value>
+  </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Valitse, minne tarkastuspyyntö lähetetään.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Pyydä toista käyttäjää tarkistamaan hakemuksesi.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Käyttäjälle</value>
   </data>
 </root>

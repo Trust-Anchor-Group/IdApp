@@ -3007,6 +3007,26 @@ namespace IdApp.Services.Xmpp
 			}
 		}
 
+		/// <summary>
+		/// Gets available service providers for buying eDaler.
+		/// </summary>
+		/// <returns>Available service providers for peer review of identity applications.</returns>
+		public async Task<ServiceProviderWithLegalId[]> GetServiceProvidersForPeerReviewAsync()
+		{
+			return await this.ContractsClient.GetPeerReviewIdServiceProvidersAsync();
+		}
+
+		/// <summary>
+		/// Selects a peer-review service as default, for the account, when sending a peer-review request to the
+		/// Legal Identity of the Trust Provider hosting the account.
+		/// </summary>
+		/// <param name="ServiceId">Service ID</param>
+		/// <param name="ServiceProvider">Service Provider</param>
+		public async Task SelectPeerReviewService(string ServiceId, string ServiceProvider)
+		{
+			await this.ContractsClient.SelectPeerReviewServiceAsync(ServiceProvider, ServiceId);
+		}
+
 		#endregion
 
 		#region Signatures

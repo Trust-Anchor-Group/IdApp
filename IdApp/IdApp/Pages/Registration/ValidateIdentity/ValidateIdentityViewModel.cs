@@ -1,10 +1,13 @@
 ﻿using IdApp.Extensions;
-using IdApp.Services.Contracts;
+using IdApp.Pages.Main.ScanQrCode;
+using IdApp.Pages.Wallet.ServiceProviders;
 using IdApp.Services.Data.Countries;
+using IdApp.Services.Navigation;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.UI.QR;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading;
@@ -24,6 +27,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 	{
 		private readonly PhotosLoader photosLoader;
 		private readonly SemaphoreSlim reloadPhotosSemaphore = new(1, 1);
+		private ServiceProviderWithLegalId[] peerReviewServices = null;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="ValidateIdentityViewModel"/> class.
@@ -31,7 +35,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 		public ValidateIdentityViewModel()
 			: base(RegistrationStep.ValidateIdentity)
 		{
-			this.InviteReviewerCommand = new Command(async _ => await this.InviteReviewer(), _ => this.State == IdentityState.Created && this.XmppService.IsOnline);
+			this.RequestReviewCommand = new Command(async _ => await this.RequestReview(), _ => this.State == IdentityState.Created && this.XmppService.IsOnline);
 			this.ContinueCommand = new Command(_ => this.Continue(), _ => this.IsApproved);
 			this.Title = LocalizationResourceManager.Current["ValidatingInformation"];
 			this.Photos = new ObservableCollection<Photo>();
@@ -47,6 +51,8 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			this.TagProfile.Changed += this.TagProfile_Changed;
 			this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
 			this.XmppService.LegalIdentityChanged += this.XmppContracts_LegalIdentityChanged;
+
+			this.peerReviewServices ??= await this.XmppService.GetServiceProvidersForPeerReviewAsync();
 		}
 
 		/// <inheritdoc />
@@ -67,9 +73,9 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 		public ObservableCollection<Photo> Photos { get; }
 
 		/// <summary>
-		/// The command to bind to for inviting a reviewer to approve the user's identity.
+		/// The command to bind to for requesting a review of the user's identity.
 		/// </summary>
-		public ICommand InviteReviewerCommand { get; }
+		public ICommand RequestReviewCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for continuing to the next step in the registration process.
@@ -507,7 +513,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			this.IsCreated = this.TagProfile.LegalIdentity?.State == IdentityState.Created;
 
 			this.ContinueCommand.ChangeCanExecute();
-			this.InviteReviewerCommand.ChangeCanExecute();
+			this.RequestReviewCommand.ChangeCanExecute();
 
 			this.SetConnectionStateAndText(this.XmppService.State);
 
@@ -534,7 +540,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			{
 				this.AssignBareJid();
 				this.SetConnectionStateAndText(NewState);
-				this.InviteReviewerCommand.ChangeCanExecute();
+				this.RequestReviewCommand.ChangeCanExecute();
 				if (this.IsConnected)
 				{
 					await Task.Delay(Constants.Timeouts.XmppInit);
@@ -582,22 +588,80 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			return Task.CompletedTask;
 		}
 
-		private async Task InviteReviewer()
+		private async Task RequestReview()
 		{
-			string Url = await QrCode.ScanQrCode(LocalizationResourceManager.Current["InvitePeerToReview"], UseShellNavigationService: false);
+			if (this.peerReviewServices is null)
+			{
+				if (!await this.NetworkService.TryRequest(async () =>
+				{
+					this.peerReviewServices = await this.XmppService.GetServiceProvidersForPeerReviewAsync();
+				}))
+				{
+					return;
+				}
+			}
+
+			if (this.peerReviewServices.Length > 0)
+			{
+				List<ServiceProviderWithLegalId> ServiceProviders = new();
+
+				ServiceProviders.AddRange(this.peerReviewServices);
+				ServiceProviders.Add(new RequestFromPeer());
+
+				ServiceProvidersNavigationArgs e = new(ServiceProviders.ToArray(),
+					LocalizationResourceManager.Current["SelectServiceProviderPeerReview"]);
+
+				_ = App.Current.MainPage.Navigation.PushAsync(new ServiceProvidersPage(e));
+
+				ServiceProviderWithLegalId ServiceProvider = (ServiceProviderWithLegalId)await e.WaitForServiceProviderSelection();
+				if (ServiceProvider is not null)
+				{
+					await App.Current.MainPage.Navigation.PopAsync();
+
+					if (string.IsNullOrEmpty(ServiceProvider.LegalId))
+						await this.ScanQrCodeForPeerReview();
+					else
+					{
+						if (!ServiceProvider.External)
+						{
+							if (!await this.NetworkService.TryRequest(async () => await this.XmppService.SelectPeerReviewService(ServiceProvider.Id, ServiceProvider.Type)))
+								return;
+						}
+
+						await this.SendPeerReviewRequest(ServiceProvider.LegalId);
+					}
+				}
+			}
+			else
+				await this.ScanQrCodeForPeerReview();
+		}
+
+		private async Task<bool> ScanQrCodeForPeerReview()
+		{
+			string Url = await QrCode.ScanQrCode(LocalizationResourceManager.Current["RequestReview"], UseShellNavigationService: false);
 			if (string.IsNullOrEmpty(Url))
-				return;
+				return false;
 
 			if (!Constants.UriSchemes.StartsWithIdScheme(Url))
 			{
 				if (!string.IsNullOrEmpty(Url))
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
+				{
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"],
+						LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
+				}
 
-				return;
+				return false;
 			}
 
+			await this.SendPeerReviewRequest(Constants.UriSchemes.RemoveScheme(Url));
+
+			return true;
+		}
+
+		private async Task SendPeerReviewRequest(string ToLegalId)
+		{
 			bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.PetitionPeerReviewId(
-				Constants.UriSchemes.RemoveScheme(Url), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), LocalizationResourceManager.Current["CouldYouPleaseReviewMyIdentityInformation"]));
+				ToLegalId, this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), LocalizationResourceManager.Current["CouldYouPleaseReviewMyIdentityInformation"]));
 
 			if (succeeded)
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PetitionSent"], LocalizationResourceManager.Current["APetitionHasBeenSentToYourPeer"]);

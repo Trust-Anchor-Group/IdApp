@@ -1,12 +1,12 @@
-﻿using EDaler;
-using FFImageLoading.Forms;
+﻿using FFImageLoading.Forms;
 using FFImageLoading.Svg.Forms;
+using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.ServiceProviders
 {
 	/// <summary>
-	/// Contact Information model, including related notification information.
+	/// Service Provider information model, including related notification information.
 	/// </summary>
 	public class ServiceProviderModel
 	{

@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ungültiger Benutzername oder ungültiges Kennwort</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Peer zur Überprüfung einladen</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Überprüfung anfordern</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Schlüssel</value>
@@ -958,7 +958,7 @@
     <value>Es gibt kein Netzwerk</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Der angegebene Code ist keine rechtliche Identität</value>
+    <value>Sie müssen eine andere Art von QR-Code scannen, der eine rechtliche Identität darstellt</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Ding</value>
@@ -2246,5 +2246,14 @@
   </data>
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Im Folgenden finden Sie eine Liste der Tokenvorlagen, die Sie verwendet haben oder verwenden können, um neue Token zu erstellen. Klicken Sie auf eine Vorlage, um einen neuen Vertrag basierend auf dieser Vorlage zu erstellen. Sobald der Vertrag unterzeichnet und genehmigt wurde, werden die entsprechenden Token erstellt.</value>
+  </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Wählen Sie aus, wohin die Überprüfungsanfrage gesendet werden soll.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Bitten Sie einen anderen Benutzer, Ihre Bewerbung zu überprüfen.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>An den Benutzer</value>
   </data>
 </root>

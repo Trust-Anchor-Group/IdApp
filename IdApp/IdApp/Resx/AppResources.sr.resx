@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Nevažeće korisničko ime ili lozinka</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Pozivanje ravnopravnog uređaja na redigovanje</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Recenzija zahteva</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Ključ</value>
@@ -958,7 +958,7 @@
     <value>Ne postoji mreža</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Navedeni kôd nije pravni identitet</value>
+    <value>Potrebno je da skenirate drugi tip QR koda, onaj koji predstavlja pravni identitet</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Stvar</value>
@@ -2246,5 +2246,14 @@
   </data>
   <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
     <value>Ispod je lista predložaka simbola koje ste koristili ili koje možete da koristite za kreiranje novih tokena. Kliknite na predložak da biste kreirali novi ugovor zasnovan na tom predlošku. Kada ugovor bude potpisan i odobren, biće kreiran odgovarajući simbol ili simboli.</value>
+  </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Izaberite gde želite da pošaljete zahtev za redigovanje.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Zahtevajte od drugog korisnika da pregleda vašu aplikaciju.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Korisniku</value>
   </data>
 </root>
