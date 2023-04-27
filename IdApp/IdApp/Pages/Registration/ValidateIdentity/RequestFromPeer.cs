@@ -13,7 +13,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 		/// </summary>
 		public RequestFromPeer()
 			: base(string.Empty,string.Empty, LocalizationResourceManager.Current["RequestReviewFromAPeer"],
-				  string.Empty, true, "https://upload.wikimedia.org/wikipedia/en/6/62/Kermit_the_Frog.jpg", 282, 353)
+				  string.Empty, true, "https://lab.tagroot.io/Community/Images/2022/12/26/Kermit%20%287%29.png", 920, 845)
 		{
 		}
 	}
