@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Nevažeće korisničko ime ili lozinka</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Pozivanje ravnopravnog uređaja na redigovanje</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Recenzija zahteva</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Ključ</value>

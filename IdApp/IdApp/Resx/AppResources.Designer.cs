@@ -2320,15 +2320,6 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite peer to review.
-        /// </summary>
-        internal static string InvitePeerToReview {
-            get {
-                return ResourceManager.GetString("InvitePeerToReview", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to iOS App.
         /// </summary>
         internal static string IosApp {
@@ -4260,6 +4251,15 @@ namespace IdApp.Resx {
         internal static string RequestPaymentMessage {
             get {
                 return ResourceManager.GetString("RequestPaymentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request review.
+        /// </summary>
+        internal static string RequestReview {
+            get {
+                return ResourceManager.GetString("RequestReview", resourceCulture);
             }
         }
         

@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Nume de utilizator sau parolă nevalidă</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Invitați peer să revizuiască</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Solicitați revizuirea</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Cheie</value>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using EDaler;
+using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.ServiceProviders

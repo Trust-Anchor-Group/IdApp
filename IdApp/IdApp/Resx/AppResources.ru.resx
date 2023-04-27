@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Неверное имя пользователя или пароль</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Пригласить экспертов для рецензирования</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Запросить проверку</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Ключ</value>

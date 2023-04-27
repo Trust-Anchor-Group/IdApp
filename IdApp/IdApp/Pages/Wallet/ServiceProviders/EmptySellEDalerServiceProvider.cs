@@ -1,4 +1,5 @@
 ﻿using EDaler;
+using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Pages.Wallet.ServiceProviders
 {
@@ -21,8 +22,33 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// <param name="Id">ID of service provider.</param>
 		/// <param name="Type">Type of service provider.</param>
 		/// <param name="Name">Displayable name of service provider.</param>
+		public IServiceProvider Create(string Id, string Type, string Name)
+		{
+			return new EmptySellEDalerServiceProvider();
+		}
+
+		/// <summary>
+		/// Creates a new instance of the service provider.
+		/// </summary>
+		/// <param name="Id">ID of service provider.</param>
+		/// <param name="Type">Type of service provider.</param>
+		/// <param name="Name">Displayable name of service provider.</param>
+		/// <param name="IconUrl">Optional URL to icon of service provider.</param>
+		/// <param name="IconWidth">Width of icon, if available.</param>
+		/// <param name="IconHeight">Height of icon, if available.</param>
+		public IServiceProvider Create(string Id, string Type, string Name, string IconUrl, int IconWidth, int IconHeight)
+		{
+			return new EmptySellEDalerServiceProvider();
+		}
+
+		/// <summary>
+		/// Creates a new instance of the service provider.
+		/// </summary>
+		/// <param name="Id">ID of service provider.</param>
+		/// <param name="Type">Type of service provider.</param>
+		/// <param name="Name">Displayable name of service provider.</param>
 		/// <param name="TemplateContractId">Contract ID of template.</param>
-		public IServiceProvider Create(string Id, string Type, string Name, string TemplateContractId)
+		public IServiceProviderWithTemplate Create(string Id, string Type, string Name, string TemplateContractId)
 		{
 			return new EmptySellEDalerServiceProvider();
 		}
@@ -37,7 +63,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// <param name="IconWidth">Width of icon, if available.</param>
 		/// <param name="IconHeight">Height of icon, if available.</param>
 		/// <param name="TemplateContractId">Contract ID of template.</param>
-		public IServiceProvider Create(string Id, string Type, string Name, string IconUrl, int IconWidth, int IconHeight, string TemplateContractId)
+		public IServiceProviderWithTemplate Create(string Id, string Type, string Name, string IconUrl, int IconWidth, int IconHeight, string TemplateContractId)
 		{
 			return new EmptySellEDalerServiceProvider();
 		}

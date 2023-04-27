@@ -113,7 +113,7 @@
                         <!-- - -->
                         <StackLayout Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
                             <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
-                            <Button x:Name="InviteReviewerButton" Text="{x:Static resx:AppResources.InvitePeerToReview}" Command="{Binding Path=InviteReviewerCommand}" IsVisible="{Binding Path=IsCreated}"/>
+							<Button x:Name="RequestReviewButton" Text="{x:Static resx:AppResources.RequestReview}" Command="{Binding Path=RequestReviewCommand}" IsVisible="{Binding Path=IsCreated}"/>
                             <Button x:Name="ContinueButton" Text="{x:Static resx:AppResources.Continue}" Command="{Binding Path=ContinueCommand}"/>
                         </StackLayout>
                     </Grid>

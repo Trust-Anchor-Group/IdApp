@@ -666,8 +666,8 @@
   <data name="InvitedToCreateAccountOnDomain" xml:space="preserve">
     <value>Du har blivit inbjuden att skapa ett konto på {0}. Tryck på OK, och ange namnet på kontot du vill skapa.</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Bjud in vän att granska</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Begär granskning</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Nyckel</value>

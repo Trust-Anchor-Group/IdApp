@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Virheellinen käyttäjänimi tai salasana</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Vertaisryhmän kutsuminen arvosteluun</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Pyydä tarkistusta</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Avain</value>

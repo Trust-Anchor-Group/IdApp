@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Nom d’utilisateur ou mot de passe non valide</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Inviter un pair à évaluer</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Demande d’examen</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Clé</value>

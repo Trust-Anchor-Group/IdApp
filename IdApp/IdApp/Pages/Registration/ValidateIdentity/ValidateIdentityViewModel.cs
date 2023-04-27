@@ -31,7 +31,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 		public ValidateIdentityViewModel()
 			: base(RegistrationStep.ValidateIdentity)
 		{
-			this.InviteReviewerCommand = new Command(async _ => await this.InviteReviewer(), _ => this.State == IdentityState.Created && this.XmppService.IsOnline);
+			this.RequestReviewCommand = new Command(async _ => await this.RequestReview(), _ => this.State == IdentityState.Created && this.XmppService.IsOnline);
 			this.ContinueCommand = new Command(_ => this.Continue(), _ => this.IsApproved);
 			this.Title = LocalizationResourceManager.Current["ValidatingInformation"];
 			this.Photos = new ObservableCollection<Photo>();
@@ -67,9 +67,9 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 		public ObservableCollection<Photo> Photos { get; }
 
 		/// <summary>
-		/// The command to bind to for inviting a reviewer to approve the user's identity.
+		/// The command to bind to for requesting a review of the user's identity.
 		/// </summary>
-		public ICommand InviteReviewerCommand { get; }
+		public ICommand RequestReviewCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for continuing to the next step in the registration process.
@@ -507,7 +507,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			this.IsCreated = this.TagProfile.LegalIdentity?.State == IdentityState.Created;
 
 			this.ContinueCommand.ChangeCanExecute();
-			this.InviteReviewerCommand.ChangeCanExecute();
+			this.RequestReviewCommand.ChangeCanExecute();
 
 			this.SetConnectionStateAndText(this.XmppService.State);
 
@@ -534,7 +534,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			{
 				this.AssignBareJid();
 				this.SetConnectionStateAndText(NewState);
-				this.InviteReviewerCommand.ChangeCanExecute();
+				this.RequestReviewCommand.ChangeCanExecute();
 				if (this.IsConnected)
 				{
 					await Task.Delay(Constants.Timeouts.XmppInit);
@@ -582,9 +582,9 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			return Task.CompletedTask;
 		}
 
-		private async Task InviteReviewer()
+		private async Task RequestReview()
 		{
-			string Url = await QrCode.ScanQrCode(LocalizationResourceManager.Current["InvitePeerToReview"], UseShellNavigationService: false);
+			string Url = await QrCode.ScanQrCode(LocalizationResourceManager.Current["RequestReview"], UseShellNavigationService: false);
 			if (string.IsNullOrEmpty(Url))
 				return;
 

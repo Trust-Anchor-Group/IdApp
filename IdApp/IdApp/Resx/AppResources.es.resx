@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Nombre de usuario o contraseña no válidos</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Invitar a un compañero a revisar</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Solicitar revisión</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Llave</value>

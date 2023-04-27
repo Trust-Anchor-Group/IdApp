@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ugyldigt brugernavn eller adgangskode</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Inviter peer til gennemgang</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Anmod om gennemgang</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Nøgle</value>
