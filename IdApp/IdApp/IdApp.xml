@@ -14943,6 +14943,12 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel"/> class.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.#ctor(IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel"/> class.
+            </summary>
+            <param name="e">Navigation arguments.</param>
+        </member>
         <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.OnInitialize">
             <inheritdoc/>
         </member>
@@ -15034,6 +15040,12 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage"/> class.
             </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage.#ctor(IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage"/> class.
+            </summary>
+            <param name="e">Navigation arguments.</param>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenDetails.PartItem">
             <summary>

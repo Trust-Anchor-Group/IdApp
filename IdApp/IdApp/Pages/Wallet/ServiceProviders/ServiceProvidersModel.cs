@@ -12,13 +12,25 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 	public class ServiceProvidersViewModel : XmppViewModel
 	{
 		private TaskCompletionSource<IServiceProvider> selected;
+		private ServiceProvidersNavigationArgs presetArgs;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ServiceProvidersViewModel"/> class.
 		/// </summary>
 		public ServiceProvidersViewModel()
+			: this(null)
+		{
+		}
+
+		/// <summary>
+		/// Creates an instance of the <see cref="ServiceProvidersViewModel"/> class.
+		/// </summary>
+		/// <param name="e">Navigation arguments.</param>
+		public ServiceProvidersViewModel(ServiceProvidersNavigationArgs e)
 			: base()
 		{
+			this.presetArgs = e;
+
 			this.BackCommand = new Command(async _ => await this.GoBack());
 			this.FromUserCommand = new Command(_ => this.FromUser());
 
@@ -30,14 +42,18 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ServiceProvidersNavigationArgs args))
+			ServiceProvidersNavigationArgs args = this.presetArgs;
+			if (args is null)
 			{
-				this.selected = args.Selected;
-				this.Description = args.Description;
-
-				foreach (IServiceProvider ServiceProvider in args.ServiceProviders)
-					this.ServiceProviders.Add(new ServiceProviderModel(ServiceProvider));
+				if (!this.NavigationService.TryPopArgs(out args))
+					return;
 			}
+
+			this.selected = args.Selected;
+			this.Description = args.Description;
+
+			foreach (IServiceProvider ServiceProvider in args.ServiceProviders)
+				this.ServiceProviders.Add(new ServiceProviderModel(ServiceProvider));
 		}
 
 		/// <inheritdoc/>

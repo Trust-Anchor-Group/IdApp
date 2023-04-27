@@ -1,6 +1,8 @@
 ﻿using IdApp.Extensions;
+using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Pages.Wallet.ServiceProviders;
 using IdApp.Services.Data.Countries;
+using IdApp.Services.Navigation;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.UI.QR;
@@ -609,7 +611,9 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 				ServiceProvidersNavigationArgs e = new(ServiceProviders.ToArray(),
 					LocalizationResourceManager.Current["SelectServiceProviderPeerReview"]);
 
-				await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
+				_ = App.Current.MainPage.Navigation.PushAsync(new ServiceProvidersPage(e));
+
+				//await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
 
 				ServiceProviderWithLegalId ServiceProvider = (ServiceProviderWithLegalId)await e.WaitForServiceProviderSelection();
 				if (ServiceProvider is not null)
