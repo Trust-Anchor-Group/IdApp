@@ -613,11 +613,11 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
 				_ = App.Current.MainPage.Navigation.PushAsync(new ServiceProvidersPage(e));
 
-				//await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
-
 				ServiceProviderWithLegalId ServiceProvider = (ServiceProviderWithLegalId)await e.WaitForServiceProviderSelection();
 				if (ServiceProvider is not null)
 				{
+					await App.Current.MainPage.Navigation.PopAsync();
+
 					if (string.IsNullOrEmpty(ServiceProvider.LegalId))
 						await this.ScanQrCodeForPeerReview();
 					else
@@ -636,11 +636,11 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 				await this.ScanQrCodeForPeerReview();
 		}
 
-		private async Task ScanQrCodeForPeerReview()
+		private async Task<bool> ScanQrCodeForPeerReview()
 		{
 			string Url = await QrCode.ScanQrCode(LocalizationResourceManager.Current["RequestReview"], UseShellNavigationService: false);
 			if (string.IsNullOrEmpty(Url))
-				return;
+				return false;
 
 			if (!Constants.UriSchemes.StartsWithIdScheme(Url))
 			{
@@ -650,10 +650,12 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 						LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
 				}
 
-				return;
+				return false;
 			}
 
 			await this.SendPeerReviewRequest(Constants.UriSchemes.RemoveScheme(Url));
+
+			return true;
 		}
 
 		private async Task SendPeerReviewRequest(string ToLegalId)
