@@ -55,6 +55,7 @@ using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
 using Waher.Runtime.Temporary;
+using Waher.Script.Constants;
 using Waher.Security.JWT;
 using Waher.Things;
 using Waher.Things.SensorData;
@@ -2484,7 +2485,25 @@ namespace IdApp.Services.Xmpp
 		public async Task PetitionIdentity(CaseInsensitiveString LegalId, string PetitionId, string Purpose)
 		{
 			await this.ContractsClient.AuthorizeAccessToIdAsync(this.TagProfile.LegalIdentity.Id, LegalId, true);
+
+			this.StartPetition(PetitionId);
 			await this.ContractsClient.PetitionIdentityAsync(LegalId, PetitionId, Purpose);
+		}
+
+		private void StartPetition(string PetitionId)
+		{
+			lock (this.currentPetitions)
+			{
+				this.currentPetitions[PetitionId] = true;
+			}
+		}
+
+		private bool EndPetition(string PetitionId)
+		{
+			lock (this.currentPetitions)
+			{
+				return this.currentPetitions.Remove(PetitionId);
+			}
 		}
 
 		/// <summary>
@@ -2549,6 +2568,7 @@ namespace IdApp.Services.Xmpp
 		{
 			try
 			{
+				this.EndPetition(e.PetitionId);
 				this.PetitionedIdentityResponseReceived?.Invoke(this, e);
 			}
 			catch (Exception ex)
@@ -2619,6 +2639,7 @@ namespace IdApp.Services.Xmpp
 			this.ContractsClient.PetitionedSignatureResponseReceived += this.ContractsClient_PetitionedSignatureResponseReceived;
 			this.ContractsClient.PetitionForPeerReviewIDReceived += this.ContractsClient_PetitionForPeerReviewIdReceived;
 			this.ContractsClient.PetitionedPeerReviewIDResponseReceived += this.ContractsClient_PetitionedPeerReviewIdResponseReceived;
+			this.ContractsClient.PetitionClientUrlReceived += this.ContractsClient_PetitionClientUrlReceived;
 			this.ContractsClient.ContractProposalReceived += this.ContractsClient_ContractProposalReceived;
 			this.ContractsClient.ContractUpdated += this.ContractsClient_ContractUpdated;
 			this.ContractsClient.ContractSigned += this.ContractsClient_ContractSigned;
@@ -2759,6 +2780,7 @@ namespace IdApp.Services.Xmpp
 		/// <param name="Purpose">The purpose.</param>
 		public Task PetitionContract(CaseInsensitiveString ContractId, string PetitionId, string Purpose)
 		{
+			this.StartPetition(PetitionId);
 			return this.ContractsClient.PetitionContractAsync(ContractId, PetitionId, Purpose);
 		}
 
@@ -2801,6 +2823,7 @@ namespace IdApp.Services.Xmpp
 		{
 			try
 			{
+				this.EndPetition(e.PetitionId);
 				this.PetitionedContractResponseReceived?.Invoke(this, e);
 			}
 			catch (Exception ex)
@@ -2956,6 +2979,8 @@ namespace IdApp.Services.Xmpp
 		public async Task PetitionPeerReviewId(CaseInsensitiveString LegalId, LegalIdentity Identity, string PetitionId, string Purpose)
 		{
 			await this.ContractsClient.AuthorizeAccessToIdAsync(Identity.Id, LegalId, true);
+
+			this.StartPetition(PetitionId);
 			await this.ContractsClient.PetitionPeerReviewIDAsync(LegalId, Identity, PetitionId, Purpose);
 		}
 
@@ -2998,6 +3023,7 @@ namespace IdApp.Services.Xmpp
 		{
 			try
 			{
+				this.EndPetition(e.PetitionId);
 				this.PetitionedPeerReviewIdResponseReceived?.Invoke(this, e);
 			}
 			catch (Exception ex)
@@ -3025,6 +3051,24 @@ namespace IdApp.Services.Xmpp
 		public async Task SelectPeerReviewService(string ServiceId, string ServiceProvider)
 		{
 			await this.ContractsClient.SelectPeerReviewServiceAsync(ServiceProvider, ServiceId);
+		}
+
+		private readonly Dictionary<string, bool> currentPetitions = new();
+
+		private async Task ContractsClient_PetitionClientUrlReceived(object Sender, PetitionClientUrlEventArgs e)
+		{
+			lock (this.currentPetitions)
+			{
+				if (!this.currentPetitions.ContainsKey(e.PetitionId))
+				{
+					this.LogService.LogWarning("Client URL message for a petition is ignored. Petition ID not recognized.",
+						new KeyValuePair<string, object>("PetitionId", e.PetitionId),
+						new KeyValuePair<string, object>("ClientUrl", e.ClientUrl));
+					return;
+				}
+			}
+
+			await App.OpenUrlAsync(e.ClientUrl);
 		}
 
 		#endregion
@@ -3098,6 +3142,7 @@ namespace IdApp.Services.Xmpp
 		{
 			try
 			{
+				this.EndPetition(e.PetitionId);
 				this.SignaturePetitionResponseReceived?.Invoke(this, e);
 			}
 			catch (Exception ex)
