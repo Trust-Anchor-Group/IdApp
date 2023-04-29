@@ -1,6 +1,5 @@
 ﻿using FFImageLoading.Forms;
 using FFImageLoading.Svg.Forms;
-using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
@@ -46,6 +45,16 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// Icon URL
 		/// </summary>
 		public string IconUrl => this.serviceProvider.IconUrl;
+
+		/// <summary>
+		/// If an image should be displayed.
+		/// </summary>
+		public bool ShowImage => this.HasIcon;
+
+		/// <summary>
+		/// If text should be displayed.
+		/// </summary>
+		public bool ShowText => !this.HasIcon || this.serviceProvider.GetType().Assembly == typeof(App).Assembly;
 
 		/// <summary>
 		/// Icon URL Source

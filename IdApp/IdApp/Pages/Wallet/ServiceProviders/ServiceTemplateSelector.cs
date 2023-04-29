@@ -8,14 +8,19 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 	public class ServiceTemplateSelector : DataTemplateSelector
 	{
 		/// <summary>
-		/// Template for services with an internal resource icon.
+		/// Template for services that will only display an image.
 		/// </summary>
-		public DataTemplate InternalTemplate { get; set; }
+		public DataTemplate ImageOnlyTemplate { get; set; }
 
 		/// <summary>
-		/// Template for services with external icons.
+		/// Template for services that will only display text.
 		/// </summary>
-		public DataTemplate ExternalTemplate { get; set; }
+		public DataTemplate TextOnlyTemplate { get; set; }
+
+		/// <summary>
+		/// Template for services that will display both image and texts.
+		/// </summary>
+		public DataTemplate ImageAndTextTemplate { get; set; }
 
 		/// <summary>
 		/// Template to use for other items.
@@ -25,6 +30,19 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// <inheritdoc/>
 		protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
 		{
+			if (item is ServiceProviderModel Service)
+			{
+				bool ShowImage = Service.ShowImage;
+				bool ShowText = Service.ShowText;
+
+				if (ShowImage && ShowText)
+					return this.ImageAndTextTemplate;
+				else if (ShowImage)
+					return this.ImageOnlyTemplate;
+				else if (ShowText)
+					return this.TextOnlyTemplate;
+			}
+
 			return this.DefaultTemplate;
 		}
 	}

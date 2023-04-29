@@ -14843,6 +14843,16 @@
             Icon URL
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.ShowImage">
+            <summary>
+            If an image should be displayed.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.ShowText">
+            <summary>
+            If text should be displayed.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.IconUrlSource">
             <summary>
             Icon URL Source
@@ -14972,14 +14982,19 @@
             Data Template Selector, based on Service information.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.InternalTemplate">
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.ImageOnlyTemplate">
             <summary>
-            Template for services with an internal resource icon.
+            Template for services that will only display an image.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.ExternalTemplate">
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.TextOnlyTemplate">
             <summary>
-            Template for services with external icons.
+            Template for services that will only display text.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.ImageAndTextTemplate">
+            <summary>
+            Template for services that will display both image and texts.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.DefaultTemplate">

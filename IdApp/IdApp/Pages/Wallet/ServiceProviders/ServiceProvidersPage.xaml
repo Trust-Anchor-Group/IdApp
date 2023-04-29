@@ -13,7 +13,52 @@
                        Title="{x:Static resx:AppResources.ServiceProviders}">
 
 	<views:ContentBasePage.Resources>
-		<model:ServiceTemplateSelector x:Key="ServiceStyleSelector"/>
+		<DataTemplate x:Key="ShowImageAndText" x:DataType="model:ServiceProviderModel">
+			<Grid Padding="5,5">
+				<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10">
+					<Grid ColumnDefinitions="auto,*" RowDefinitions="auto">
+						<ffimage:CachedImage Grid.Column="0" Grid.Row="0" Aspect="AspectFit"
+											 HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+											 Source="{Binding IconUrlSource}" HeightRequest="150" />
+						<Label Grid.Column="1" Grid.Row="0"
+							   HorizontalOptions="Center" VerticalOptions="Center" LineBreakMode="CharacterWrap"
+							   TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
+					</Grid>
+				</Frame>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="ShowImage" x:DataType="model:ServiceProviderModel">
+			<Grid Padding="5,5">
+				<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10">
+					<Grid ColumnDefinitions="*" RowDefinitions="auto">
+						<Label Grid.Column="0" Grid.Row="0" IsVisible="{Binding HasIcon, Converter={converters:LogicalNot}}"
+									   HorizontalOptions="Center" VerticalOptions="Center" LineBreakMode="CharacterWrap"
+									   TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
+						<ffimage:CachedImage Grid.Column="0" Grid.Row="0" IsVisible="{Binding HasIcon}" Aspect="AspectFit"
+													 HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+													 Source="{Binding IconUrlSource}" HeightRequest="150" />
+					</Grid>
+				</Frame>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="ShowText" x:DataType="model:ServiceProviderModel">
+			<Grid Padding="5,5">
+				<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10">
+					<Label HorizontalOptions="Center" VerticalOptions="Center" LineBreakMode="CharacterWrap"
+							TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
+				</Frame>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="ShowNothing" x:DataType="model:ServiceProviderModel">
+			<Grid Padding="5,5">
+				<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10"/>
+			</Grid>
+		</DataTemplate>
+		<model:ServiceTemplateSelector x:Key="ServiceStyleSelector"
+									   ImageAndTextTemplate="{StaticResource ShowImageAndText}"
+									   ImageOnlyTemplate="{StaticResource ShowImage}"
+									   TextOnlyTemplate="{StaticResource ShowText}"
+									   DefaultTemplate="{StaticResource ShowNothing}"/>
 	</views:ContentBasePage.Resources>
 	<Grid Margin="{StaticResource DefaultMargin}" ColumnDefinitions="*" RowDefinitions="auto,auto,*"
           HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
@@ -28,23 +73,6 @@
 			<CollectionView.ItemsLayout>
 				<GridItemsLayout Orientation="Vertical" VerticalItemSpacing="0" />
 			</CollectionView.ItemsLayout>
-
-			<CollectionView.ItemTemplate>
-				<DataTemplate x:DataType="model:ServiceProviderModel">
-					<Grid Padding="5,5">
-						<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10">
-							<Grid ColumnDefinitions="*" RowDefinitions="auto">
-								<Label Grid.Column="0" Grid.Row="0" IsVisible="{Binding HasIcon, Converter={converters:LogicalNot}}"
-									   HorizontalOptions="Center" VerticalOptions="Center" LineBreakMode="CharacterWrap"
-									   TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
-								<ffimage:CachedImage Grid.Column="0" Grid.Row="0" IsVisible="{Binding HasIcon}" Aspect="AspectFit"
-													 HorizontalOptions="FillAndExpand" VerticalOptions="Center"
-													 Source="{Binding IconUrlSource}" HeightRequest="150" />
-							</Grid>
-						</Frame>
-					</Grid>
-				</DataTemplate>
-			</CollectionView.ItemTemplate>
 		</noBounce:NoBounceCollectionView>
 	</Grid>
 </views:ContentBasePage>
