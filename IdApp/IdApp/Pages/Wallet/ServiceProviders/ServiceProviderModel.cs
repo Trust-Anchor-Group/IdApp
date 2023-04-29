@@ -56,12 +56,22 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 			{
 				ImageSource Result;
 
-				if (this.IconUrl.StartsWith("resource:"))
-					Result = ImageSource.FromResource(this.IconUrl);
-				else if (this.IconUrl.EndsWith(".svg", System.StringComparison.OrdinalIgnoreCase))
-					Result = SvgImageSource.FromUri(new System.Uri(this.IconUrl));
+				if (this.IconUrl.StartsWith("resource://"))
+				{
+					string Resource = this.IconUrl[11..];
+
+					if (Resource.EndsWith(".svg", System.StringComparison.OrdinalIgnoreCase))
+						Result = SvgImageSource.FromResource(Resource);
+					else
+						Result = ImageSource.FromResource(Resource);
+				}
 				else
-					Result = new DataUrlImageSource(this.IconUrl);
+				{
+					if (this.IconUrl.EndsWith(".svg", System.StringComparison.OrdinalIgnoreCase))
+						Result = SvgImageSource.FromUri(new System.Uri(this.IconUrl));
+					else
+						Result = new DataUrlImageSource(this.IconUrl);
+				}
 
 				return Result;
 			}
