@@ -14967,6 +14967,29 @@
             </summary>
             <param name="e">Navigation arguments.</param>
         </member>
+        <member name="T:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector">
+            <summary>
+            Data Template Selector, based on Service information.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.InternalTemplate">
+            <summary>
+            Template for services with an internal resource icon.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.ExternalTemplate">
+            <summary>
+            Template for services with external icons.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.DefaultTemplate">
+            <summary>
+            Template to use for other items.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenDetails.PartItem">
             <summary>
             Represents a part related to a token.
@@ -20459,6 +20482,11 @@
         <member name="F:IdApp.Resx.Svgs.Stop">
             <summary>
             The stop icon
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Svgs.QrCodePerson">
+            <summary>
+            A QR-Code with a person icon
             </summary>
         </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">

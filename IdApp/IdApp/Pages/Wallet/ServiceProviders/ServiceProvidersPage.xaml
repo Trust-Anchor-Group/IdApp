@@ -12,13 +12,18 @@
                        Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.ServiceProviders}">
 
+	<views:ContentBasePage.Resources>
+		<model:ServiceTemplateSelector x:Key="ServiceStyleSelector"/>
+	</views:ContentBasePage.Resources>
 	<Grid Margin="{StaticResource DefaultMargin}" ColumnDefinitions="*" RowDefinitions="auto,auto,*"
           HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
 		<Label Grid.Column="0" Grid.Row="0" Text="{x:Static resx:AppResources.ServiceProviders}" Style="{StaticResource Heading}"/>
 		<Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=Description}" HorizontalOptions="Center" VerticalOptions="Start"/>
 
 		<noBounce:NoBounceCollectionView Grid.Column="0" Grid.Row="2" x:Name="ServiceProviders" VerticalOptions="StartAndExpand"
-                                         ItemSizingStrategy="MeasureAllItems" SelectionMode="Single" ItemsSource="{Binding Path=ServiceProviders}"
+                                         ItemSizingStrategy="MeasureAllItems" SelectionMode="Single"
+										 ItemsSource="{Binding Path=ServiceProviders}"
+										 ItemTemplate="{StaticResource ServiceStyleSelector}"
                                          SelectedItem="{Binding Path=SelectedServiceProvider, Mode=TwoWay}">
 			<CollectionView.ItemsLayout>
 				<GridItemsLayout Orientation="Vertical" VerticalItemSpacing="0" />

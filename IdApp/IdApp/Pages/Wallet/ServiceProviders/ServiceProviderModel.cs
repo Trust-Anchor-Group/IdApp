@@ -1,5 +1,6 @@
 ﻿using FFImageLoading.Forms;
 using FFImageLoading.Svg.Forms;
+using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
@@ -53,14 +54,16 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		{
 			get
 			{
-				if (this.IconUrl.EndsWith(".svg", System.StringComparison.OrdinalIgnoreCase))
-				{
-					return SvgImageSource.FromUri(new System.Uri(this.IconUrl));
-				}
+				ImageSource Result;
+
+				if (this.IconUrl.StartsWith("resource:"))
+					Result = ImageSource.FromResource(this.IconUrl);
+				else if (this.IconUrl.EndsWith(".svg", System.StringComparison.OrdinalIgnoreCase))
+					Result = SvgImageSource.FromUri(new System.Uri(this.IconUrl));
 				else
-				{
-					return new DataUrlImageSource(this.IconUrl);
-				}
+					Result = new DataUrlImageSource(this.IconUrl);
+
+				return Result;
 			}
 		}
 
