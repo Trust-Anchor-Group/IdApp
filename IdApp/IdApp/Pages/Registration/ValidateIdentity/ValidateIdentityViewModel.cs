@@ -609,6 +609,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 				ServiceProviders.Add(new RequestFromPeer());
 
 				ServiceProvidersNavigationArgs e = new(ServiceProviders.ToArray(),
+					LocalizationResourceManager.Current["RequestReview"],
 					LocalizationResourceManager.Current["SelectServiceProviderPeerReview"]);
 
 				_ = App.Current.MainPage.Navigation.PushAsync(new ServiceProvidersPage(e));

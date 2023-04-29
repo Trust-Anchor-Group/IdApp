@@ -49,6 +49,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 			}
 
 			this.selected = args.Selected;
+			this.Title = args.Title;
 			this.Description = args.Description;
 
 			foreach (IServiceProvider ServiceProvider in args.ServiceProviders)
@@ -78,6 +79,21 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		}
 
 		#region Properties
+
+		/// <summary>
+		/// See <see cref="Title"/>
+		/// </summary>
+		public static readonly BindableProperty TitleProperty =
+			BindableProperty.Create(nameof(Title), typeof(string), typeof(ServiceProvidersViewModel), default(string));
+
+		/// <summary>
+		/// Title to show the user.
+		/// </summary>
+		public string Title
+		{
+			get => (string)this.GetValue(TitleProperty);
+			set => this.SetValue(TitleProperty, value);
+		}
 
 		/// <summary>
 		/// See <see cref="Description"/>

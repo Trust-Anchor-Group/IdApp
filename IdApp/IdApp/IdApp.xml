@@ -14893,6 +14893,16 @@
         <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.OnDispose">
             <inheritdoc/>
         </member>
+        <member name="F:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.TitleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.Title"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.Title">
+            <summary>
+            Title to show the user.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.DescriptionProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.Description"/>
@@ -14933,16 +14943,22 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.IServiceProvider[],System.String)">
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.IServiceProvider[],System.String,System.String)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs"/> class.
             </summary>
             <param name="ServiceProviders">Service Providers</param>
+            <param name="Title">Title to show the user.</param>
             <param name="Description">Descriptive text to show the user.</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.ServiceProviders">
             <summary>
             Available service providers.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.Title">
+            <summary>
+            Title to show the user.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.Description">
