@@ -11,7 +11,7 @@
 	xmlns:loading="clr-namespace:IdApp.Controls.LoadingCollectionView;assembly=IdApp"
 	xmlns:fadeview="clr-namespace:IdApp.Controls.FadeView;assembly=IdApp"
 	xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
-	xmlns:controls="clr-namespace:Vet20.Controls"
+	xmlns:controls="clr-namespace:IdApp.Controls"
 	x:DataType="model:ChatViewModel"
 	x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
 	Title="{Binding Path=FriendlyName}"

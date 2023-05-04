@@ -720,7 +720,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private static Timer audioRecorderTimer;
 
-		private static readonly Lazy<AudioRecorderService> audioRecorder = new Lazy<AudioRecorderService>(() => {
+		private static readonly Lazy<AudioRecorderService> audioRecorder = new(() => {
 			return new AudioRecorderService()
 			{
 				StopRecordingOnSilence = false,

@@ -911,6 +911,52 @@
             Resource where iPhone App can be downloaded.
             </summary>
         </member>
+        <member name="M:IdApp.Controls.AudioPlayerControl.#ctor">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.AudioPlayerControl.AttachmentCacheService">
+            <summary>
+            Provides a reference to the attachment cache service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.AudioPlayerControl.CancellationTokenSource">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.AudioPlayerControl.Cancel">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.AudioPlayerControl.OnSourceChanged">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.AudioPlayerControl.UriProperty">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.AudioPlayerControl.IsEmpty">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.AudioPlayerControl.Uri">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.AudioPlayerControl.PauseResumeCommand">
+            <summary>
+            The command to bind for pausing/resuming the audio
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.AudioPlayerControl.GetStreamAsync(System.Threading.CancellationToken)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.AudioPlayerControl.ToString">
+            <summary>
+            </summary>
+        </member>
         <member name="T:IdApp.Controls.Extended.ExtendedDatePicker">
             <summary>
              Extended DatePicker for nullable values with text placeholder

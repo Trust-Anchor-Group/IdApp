@@ -9,6 +9,7 @@ using Waher.Content.Markdown;
 using Waher.Content.Markdown.Model;
 using Waher.Content.Markdown.Model.Multimedia;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Converters;
 using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
@@ -31,7 +32,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 
 			if (Item.Url?.StartsWith(Constants.UriSchemes.Aes256, StringComparison.OrdinalIgnoreCase) == true)
 			{
-				if (Aes256Getter.TryParse(new Uri(Item.Url), out _, out _, out string ContentType, out Uri EncriptedUri))
+				if (Aes256Getter.TryParse(new Uri(Item.Url), out _, out _, out string ContentType, out _))
 				{
 					if (ContentType.StartsWith("audio/", StringComparison.OrdinalIgnoreCase) == true)
 						return Grade.Excellent;
@@ -62,21 +63,63 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 
 				if (Url.StartsWith(Constants.UriSchemes.Aes256))
 				{
+					Output.WriteStartElement("controls", "AudioPlayerControl", "clr-namespace:IdApp.Controls;assembly=IdApp");
+					Output.WriteAttributeString("HeightRequest", "50");
+					Output.WriteAttributeString("WidthRequest", "300");
+					Output.WriteEndElement();
+
+					/*
+					Output.WriteStartElement("StackLayout.Resources");
+					Output.WriteStartElement("toolkit", "TimeSpanToDoubleConverter", "http://xamarin.com/schemas/2020/toolkit");
+					Output.WriteAttributeString("x", "Key", "http://schemas.microsoft.com/winfx/2009/xaml", "TimeSpanConverter");
+					Output.WriteEndElement();
+					Output.WriteEndElement();
+
 					Output.WriteStartElement("toolkit", "MediaElement", "http://xamarin.com/schemas/2020/toolkit");
+					Output.WriteAttributeString("x", "Name", "http://schemas.microsoft.com/winfx/2009/xaml", "mediaElement");
 					Output.WriteAttributeString("Source", "https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav");
 					Output.WriteAttributeString("HorizontalOptions", "FillAndExpand");
-					Output.WriteAttributeString("HeightRequest", "100");
-					Output.WriteAttributeString("WidthRequest", "300");
-					Output.WriteAttributeString("AutoPlay", "False");
-					Output.WriteAttributeString("ShowsPlaybackControls", "True");
-					Output.WriteAttributeString("KeepScreenOn", "True");
+					//					Output.WriteAttributeString("HeightRequest", "100");
+					//					Output.WriteAttributeString("WidthRequest", "300");
+					Output.WriteAttributeString("AutoPlay", "True");
+					//					Output.WriteAttributeString("ShowsPlaybackControls", "True");
+					//					Output.WriteAttributeString("KeepScreenOn", "True");
 					Output.WriteEndElement();
+
+					Output.WriteStartElement("Slider");
+					Output.WriteAttributeString("HorizontalOptions", "FillAndExpand");
+					Output.WriteAttributeString("WidthRequest", "300");
+					Output.WriteAttributeString("BindingContext", "{x:Reference mediaElement}");
+					Output.WriteAttributeString("Maximum", "{Binding Duration, Converter={StaticResource TimeSpanConverter}}"); 
+					Output.WriteAttributeString("Value", "{Binding Position, Converter={StaticResource TimeSpanConverter}}");
+
+					Output.WriteEndElement();
+					*/
+
+					/*
+		< Slider
+
+			BindingContext = ""
+
+			Maximum = "
+
+			Value =  />
+					*/
+					/*
+										Output.WriteStartElement("toolkit", "MediaElement", "http://xamarin.com/schemas/2020/toolkit");
+										Output.WriteAttributeString("Source", "https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav");
+										Output.WriteAttributeString("HorizontalOptions", "FillAndExpand");
+										Output.WriteAttributeString("HeightRequest", "100");
+										Output.WriteAttributeString("WidthRequest", "300");
+										Output.WriteAttributeString("AutoPlay", "False");
+										Output.WriteAttributeString("ShowsPlaybackControls", "True");
+										Output.WriteAttributeString("KeepScreenOn", "True");
+										Output.WriteEndElement();
+					*/
 				}
 				else
 				{
-					Output.WriteStartElement("ffimageloading", "CachedImage", "clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms");
-					Output.WriteAttributeString("Source", Url);
-					Output.WriteEndElement();
+					// throw new NotImplementedException();
 				}
 			}
 

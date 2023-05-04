@@ -7,7 +7,7 @@
 	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
 	xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
 	xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
-	xmlns:controls="clr-namespace:Vet20.Controls"
+	xmlns:controls="clr-namespace:IdApp.Controls"
 	xmlns:model="clr-namespace:IdApp.Pages.Registration.ValidateContactInfo;assembly=IdApp"
 	x:DataType="model:ValidateContactInfoViewModel"
 	x:Class="IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView">

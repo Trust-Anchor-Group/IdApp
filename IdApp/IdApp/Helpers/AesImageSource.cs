@@ -34,19 +34,17 @@ namespace IdApp.Helpers
 		{
 		}
 
-		private IAttachmentCacheService attachmentCacheService;
+		private static IAttachmentCacheService attachmentCacheService;
 
 		/// <summary>
 		/// Provides a reference to the attachment cache service.
 		/// </summary>
-		public IAttachmentCacheService AttachmentCacheService
+		protected static IAttachmentCacheService AttachmentCacheService
 		{
 			get
 			{
-				if (this.attachmentCacheService is null)
-					this.attachmentCacheService = App.Instantiate<IAttachmentCacheService>();
-
-				return this.attachmentCacheService;
+				attachmentCacheService ??= App.Instantiate<IAttachmentCacheService>();
+				return attachmentCacheService;
 			}
 		}
 
@@ -55,8 +53,8 @@ namespace IdApp.Helpers
 		public static readonly BindableProperty UriProperty = BindableProperty.Create("Uri", typeof(Uri), typeof(AesImageSource), default(Uri),
 			propertyChanged: (bindable, oldvalue, newvalue) => ((AesImageSource)bindable).OnUriChanged(), validateValue: (bindable, value) => value == null || ((Uri)value).IsAbsoluteUri);
 
-		static readonly object syncHandle = new object();
-		static readonly Dictionary<string, LockingSemaphore> semaphores = new Dictionary<string, LockingSemaphore>();
+		static readonly object syncHandle = new();
+		static readonly Dictionary<string, LockingSemaphore> semaphores = new();
 
 		/// <summary>
 		/// </summary>
@@ -111,7 +109,7 @@ namespace IdApp.Helpers
 			return Device.PlatformServices.GetHash(uri.AbsoluteUri);
 		}
 
-		async Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken = default(CancellationToken))
+		async Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken = default)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 
@@ -125,7 +123,7 @@ namespace IdApp.Helpers
 			CancellationToken.ThrowIfCancellationRequested();
 
 			string Url = this.Uri.OriginalString;
-			(byte[] Bin, _) = await this.AttachmentCacheService.TryGet(Url).ConfigureAwait(false);
+			(byte[] Bin, _) = await attachmentCacheService.TryGet(Url).ConfigureAwait(false);
 
 			CancellationToken.ThrowIfCancellationRequested();
 
@@ -138,7 +136,7 @@ namespace IdApp.Helpers
 				Content.Value.Position = 0;
 				Bin = Content.Value.ToByteArray();
 
-				await this.AttachmentCacheService.Add(Url, string.Empty, false, Bin, Content.Key).ConfigureAwait(false);
+				await attachmentCacheService.Add(Url, string.Empty, false, Bin, Content.Key).ConfigureAwait(false);
 			}
 
 			if (Bin is not null)
@@ -199,10 +197,7 @@ namespace IdApp.Helpers
 
 		public StreamWrapper(Stream wrapped, IDisposable additionalDisposable)
 		{
-			if (wrapped == null)
-				throw new ArgumentNullException("wrapped");
-
-			this.wrapped = wrapped;
+			this.wrapped = wrapped ?? throw new ArgumentNullException("wrapped");
 			this.additionalDisposable = additionalDisposable;
 		}
 
@@ -289,7 +284,7 @@ namespace IdApp.Helpers
 	internal class LockingSemaphore
 	{
 		static readonly Task completed = Task.FromResult(true);
-		readonly Queue<TaskCompletionSource<bool>> waiters = new Queue<TaskCompletionSource<bool>>();
+		readonly Queue<TaskCompletionSource<bool>> waiters = new();
 		int currentCount;
 
 		public LockingSemaphore(int initialCount)
@@ -309,8 +304,7 @@ namespace IdApp.Helpers
 				else
 					++this.currentCount;
 			}
-			if (toRelease != null)
-				toRelease.TrySetResult(true);
+			toRelease?.TrySetResult(true);
 		}
 
 		public Task WaitAsync(CancellationToken token)

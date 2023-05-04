@@ -8,7 +8,7 @@
 	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
 	xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
 	xmlns:model="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"
-	xmlns:controls="clr-namespace:Vet20.Controls"
+	xmlns:controls="clr-namespace:IdApp.Controls"
 	x:DataType="model:RegisterIdentityViewModel"
 	x:Class="IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityView">
     <ContentView.Content>

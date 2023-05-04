@@ -2,7 +2,7 @@
 using FFImageLoading.Svg.Forms;
 using Xamarin.Forms;
 
-namespace Vet20.Controls
+namespace IdApp.Controls
 {
     class TintedSvgCachedImage : SvgCachedImage
     {

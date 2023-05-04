@@ -30,7 +30,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 
 			if (Item.Url?.StartsWith(Constants.UriSchemes.Aes256, StringComparison.OrdinalIgnoreCase) == true)
 			{
-				if (Aes256Getter.TryParse(new Uri(Item.Url), out _, out _, out string ContentType, out Uri EncriptedUri))
+				if (Aes256Getter.TryParse(new Uri(Item.Url), out _, out _, out string ContentType, out _))
 				{
 					if (ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase) == true)
 						return Grade.Excellent;
