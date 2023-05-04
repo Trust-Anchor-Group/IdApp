@@ -305,8 +305,24 @@ namespace IdApp.Services.UI.QR
 
 		private static byte[] Generate(string Text, int Width, int Height, SKEncodedImageFormat Format)
 		{
-			QrMatrix M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
-			byte[] Rgba = M.ToRGBA(Width, Height);
+			QrMatrix M;
+			byte[] Rgba;
+
+			if (Text.StartsWith("iotid:", StringComparison.CurrentCultureIgnoreCase))
+			{
+				M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
+				Rgba = M.ToRGBA(Width, Height, userCode.ColorFunction, true);
+			}
+			else if (Text.StartsWith("obinfo:", StringComparison.CurrentCultureIgnoreCase))
+			{
+				M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
+				Rgba = M.ToRGBA(Width, Height, onboardingCode.ColorFunction, true);
+			}
+			else
+			{
+				M = encoder.GenerateMatrix(CorrectionLevel.L, Text);
+				Rgba = M.ToRGBA(Width, Height);
+			}
 
 			using SKData Unencoded = SKData.Create(new MemoryStream(Rgba));
 			using SKImage Bitmap = SKImage.FromPixels(new SKImageInfo(Width, Height, SKColorType.Rgba8888), Unencoded, Width * 4);
@@ -314,5 +330,18 @@ namespace IdApp.Services.UI.QR
 
 			return Encoded.ToArray();
 		}
+
+		private readonly static CustomColoring userCode = new(
+			"M128 21.3335C69.1202 21.3335 21.3335 69.1202 21.3335 128C21.3335 186.88 69.1202 234.667 128 234.667C186.88 234.667 234.667 186.88 234.667 128C234.667 69.1202 186.88 21.3335 128 21.3335ZM128 53.3335C145.707 53.3335 160 67.6268 160 85.3335C160 103.04 145.707 117.333 128 117.333C110.293 117.333 96.0002 103.04 96.0002 85.3335C96.0002 67.6268 110.293 53.3335 128 53.3335ZM128 204.8C101.333 204.8 77.7602 191.147 64.0002 170.453C64.3202 149.227 106.667 137.6 128 137.6C149.227 137.6 191.68 149.227 192 170.453C178.24 191.147 154.667 204.8 128 204.8Z",
+			256, 256, SKColors.Red, SKColors.White, SKColors.Black, SKColors.White,
+			SKColors.DarkRed, SKColors.Red, SKColors.White,
+			SKColors.DarkSlateGray, SKColors.SlateGray, SKColors.White);
+
+		private readonly static CustomColoring onboardingCode = new(
+			"M181.523 136.57H76.6327C68.3914 136.57 61.6484 143.313 61.6484 151.554V181.523C61.6484 189.764 68.3914 196.507 76.6327 196.507H181.523C189.764 196.507 196.507 189.764 196.507 181.523V151.554C196.507 143.313 189.764 136.57 181.523 136.57ZM91.617 181.523C83.3756 181.523 76.6327 174.78 76.6327 166.538C76.6327 158.297 83.3756 151.554 91.617 151.554C99.8583 151.554 106.601 158.297 106.601 166.538C106.601 174.78 99.8583 181.523 91.617 181.523ZM181.523 61.6484H76.6327C68.3914 61.6484 61.6484 68.3914 61.6484 76.6327V106.601C61.6484 114.843 68.3914 121.586 76.6327 121.586H181.523C189.764 121.586 196.507 114.843 196.507 106.601V76.6327C196.507 68.3914 189.764 61.6484 181.523 61.6484ZM91.617 106.601C83.3756 106.601 76.6327 99.8583 76.6327 91.617C76.6327 83.3756 83.3756 76.6327 91.617 76.6327C99.8583 76.6327 106.601 83.3756 106.601 91.617C106.601 99.8583 99.8583 106.601 91.617 106.601Z",
+			256, 256, SKColors.Green, SKColors.White, SKColors.Black, SKColors.White,
+			SKColors.DarkGreen, SKColors.Green, SKColors.White,
+			SKColors.DarkSlateGray, SKColors.SlateGray, SKColors.White);
+
 	}
 }

@@ -25148,6 +25148,41 @@
             <param name="MaxHeight">Maximum height when displaying photo.</param>
             <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
         </member>
+        <member name="T:IdApp.Services.UI.QR.CustomColoring">
+            <summary>
+            Performs custom coloring of QR codes
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.UI.QR.CustomColoring.#ctor(System.String,System.Int32,System.Int32,SkiaSharp.SKColor,SkiaSharp.SKColor,SkiaSharp.SKColor,SkiaSharp.SKColor,SkiaSharp.SKColor,SkiaSharp.SKColor,SkiaSharp.SKColor,SkiaSharp.SKColor,SkiaSharp.SKColor,SkiaSharp.SKColor)">
+            <summary>
+            Performs custom coloring of QR codes
+            </summary>
+            <param name="SvgIconPath">Optional Icon to overlay the QR code. Must be in SVG Path format.</param>
+            <param name="IconWidth">Width of icon.</param>
+            <param name="IconHeight">Height of icon.</param>
+            <param name="IconFg">Icon foreground color.</param>
+            <param name="IconBg">Icon background color.</param>
+            <param name="CodeFg">Code foreground color.</param>
+            <param name="CodeBg">Code background color.</param>
+            <param name="MarkerOuterFg">Outer marker foreground color.</param>
+            <param name="MarkerInnerFg">Inner marker foreground color.</param>
+            <param name="MarkerBg">Marker background color.</param>
+            <param name="AlignmentOuterFg">Outer alignment foreground color.</param>
+            <param name="AlignmentInnerFg">Inner alignment foreground color.</param>
+            <param name="AlignmentBg">Alignment background color.</param>
+        </member>
+        <member name="M:IdApp.Services.UI.QR.CustomColoring.ColorFunction(System.Single,System.Single,System.Single,System.Single,Waher.Content.QR.DotType)">
+            <summary>
+            Color function called from the QR-code image generator.
+            </summary>
+            <param name="CodeX">Normalized [0-1] X-coordinate into QR-code.</param>
+            <param name="CodeY">Normalized [0-1] Y-coordinate into QR-code.</param>
+            <param name="DotX">Normalized [0-1] X-coordinate into current dot.</param>
+            <param name="DotY">Normalized [0-1] Y-coordinate into current dot.</param>
+            <param name="Type">Type of dot currently being drawn.</param>
+            <returns>32-but unsigned integer representing the color of the current pixel, in AABBGGRR format
+            (most significant byte first).</returns>
+        </member>
         <member name="T:IdApp.Services.UI.QR.QrCode">
             <summary>
             Helper class to perform scanning of QR Codes by displaying the UI and handling async results.
