@@ -31,6 +31,7 @@
     <None Remove="Resx\Svgs\images.svg" />
     <None Remove="Resx\Svgs\microphone.svg" />
     <None Remove="Resx\Svgs\passport.svg" />
+    <None Remove="Resx\Svgs\QrPerson.svg" />
     <None Remove="Resx\Svgs\trash-can.svg" />
     <None Remove="Resx\Svgs\trash.svg" />
     <None Remove="Resx\Svgs\xmark.svg" />
@@ -50,6 +51,7 @@
     <EmbeddedResource Include="Resx\Svgs\images.svg" />
     <EmbeddedResource Include="Resx\Svgs\microphone.svg" />
     <EmbeddedResource Include="Resx\Svgs\passport.svg" />
+    <EmbeddedResource Include="Resx\Svgs\QrPerson.svg" />
     <EmbeddedResource Include="Resx\Svgs\trash-can.svg" />
     <EmbeddedResource Include="Resx\Svgs\trash.svg" />
     <EmbeddedResource Include="Resx\Svgs\xmark.svg" />
@@ -74,7 +76,7 @@
     <PackageReference Include="Waher.Networking.UPnP" Version="2.0.0" />
     <PackageReference Include="Waher.Networking.XMPP" Version="2.1.2" />
     <PackageReference Include="Waher.Networking.XMPP.Concentrator" Version="2.1.1" />
-    <PackageReference Include="Waher.Networking.XMPP.Contracts" Version="2.4.1" />
+    <PackageReference Include="Waher.Networking.XMPP.Contracts" Version="2.5.0" />
     <PackageReference Include="Waher.Networking.XMPP.Control" Version="2.0.3" />
     <PackageReference Include="Waher.Networking.XMPP.HTTPX" Version="2.2.0" />
     <PackageReference Include="Waher.Networking.XMPP.MUC" Version="2.0.4" />

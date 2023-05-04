@@ -14889,6 +14889,16 @@
             Icon URL
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.ShowImage">
+            <summary>
+            If an image should be displayed.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.ShowText">
+            <summary>
+            If text should be displayed.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.IconUrlSource">
             <summary>
             Icon URL Source
@@ -14928,6 +14938,16 @@
         </member>
         <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.OnDispose">
             <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.TitleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.Title"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.Title">
+            <summary>
+            Title to show the user.
+            </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.DescriptionProperty">
             <summary>
@@ -14969,16 +14989,22 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.IServiceProvider[],System.String)">
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.IServiceProvider[],System.String,System.String)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs"/> class.
             </summary>
             <param name="ServiceProviders">Service Providers</param>
+            <param name="Title">Title to show the user.</param>
             <param name="Description">Descriptive text to show the user.</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.ServiceProviders">
             <summary>
             Available service providers.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.Title">
+            <summary>
+            Title to show the user.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.Description">
@@ -15012,6 +15038,34 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage"/> class.
             </summary>
             <param name="e">Navigation arguments.</param>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector">
+            <summary>
+            Data Template Selector, based on Service information.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.ImageOnlyTemplate">
+            <summary>
+            Template for services that will only display an image.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.TextOnlyTemplate">
+            <summary>
+            Template for services that will only display text.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.ImageAndTextTemplate">
+            <summary>
+            Template for services that will display both image and texts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.DefaultTemplate">
+            <summary>
+            Template to use for other items.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenDetails.PartItem">
             <summary>
@@ -20505,6 +20559,11 @@
         <member name="F:IdApp.Resx.Svgs.Stop">
             <summary>
             The stop icon
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Svgs.QrCodePerson">
+            <summary>
+            A QR-Code with a person icon
             </summary>
         </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">

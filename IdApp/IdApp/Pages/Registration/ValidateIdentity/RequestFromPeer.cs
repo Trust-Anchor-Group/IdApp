@@ -1,4 +1,5 @@
-﻿using Waher.Networking.XMPP.Contracts;
+﻿using IdApp.Resx;
+using Waher.Networking.XMPP.Contracts;
 using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Registration.ValidateIdentity
@@ -13,7 +14,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 		/// </summary>
 		public RequestFromPeer()
 			: base(string.Empty,string.Empty, LocalizationResourceManager.Current["RequestReviewFromAPeer"],
-				  string.Empty, true, "https://lab.tagroot.io/Community/Images/2022/12/26/Kermit%20%287%29.png", 920, 845)
+				  string.Empty, true, Svgs.QrCodePerson, 230, 230)
 		{
 		}
 	}

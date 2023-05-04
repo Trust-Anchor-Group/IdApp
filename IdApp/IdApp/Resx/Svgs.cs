@@ -62,5 +62,10 @@ namespace IdApp.Resx
 		/// The stop icon
 		/// </summary>
 		public const string Stop = "resource://IdApp.Resx.Svgs.circle-stop.svg";
+
+		/// <summary>
+		/// A QR-Code with a person icon
+		/// </summary>
+		public const string QrCodePerson = "resource://IdApp.Resx.Svgs.QrPerson.svg";
 	}
 }

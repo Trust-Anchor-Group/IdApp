@@ -47,20 +47,42 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		public string IconUrl => this.serviceProvider.IconUrl;
 
 		/// <summary>
+		/// If an image should be displayed.
+		/// </summary>
+		public bool ShowImage => this.HasIcon;
+
+		/// <summary>
+		/// If text should be displayed.
+		/// </summary>
+		public bool ShowText => !this.HasIcon || this.serviceProvider.GetType().Assembly == typeof(App).Assembly;
+
+		/// <summary>
 		/// Icon URL Source
 		/// </summary>
 		public ImageSource IconUrlSource
 		{
 			get
 			{
-				if (this.IconUrl.EndsWith(".svg", System.StringComparison.OrdinalIgnoreCase))
+				ImageSource Result;
+
+				if (this.IconUrl.StartsWith("resource://"))
 				{
-					return SvgImageSource.FromUri(new System.Uri(this.IconUrl));
+					string Resource = this.IconUrl[11..];
+
+					if (Resource.EndsWith(".svg", System.StringComparison.OrdinalIgnoreCase))
+						Result = SvgImageSource.FromResource(Resource);
+					else
+						Result = ImageSource.FromResource(Resource);
 				}
 				else
 				{
-					return new DataUrlImageSource(this.IconUrl);
+					if (this.IconUrl.EndsWith(".svg", System.StringComparison.OrdinalIgnoreCase))
+						Result = SvgImageSource.FromUri(new System.Uri(this.IconUrl));
+					else
+						Result = new DataUrlImageSource(this.IconUrl);
 				}
+
+				return Result;
 			}
 		}
 
