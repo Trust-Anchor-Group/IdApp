@@ -51,8 +51,6 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			this.TagProfile.Changed += this.TagProfile_Changed;
 			this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
 			this.XmppService.LegalIdentityChanged += this.XmppContracts_LegalIdentityChanged;
-
-			this.peerReviewServices ??= await this.XmppService.GetServiceProvidersForPeerReviewAsync();
 		}
 
 		/// <inheritdoc />
@@ -63,6 +61,15 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
 			this.XmppService.LegalIdentityChanged -= this.XmppContracts_LegalIdentityChanged;
 			await base.OnDispose();
+		}
+
+		/// <inheritdoc />
+		/// <inheritdoc />
+		public override async Task DoAssignProperties()
+		{
+			this.peerReviewServices ??= await this.XmppService.GetServiceProvidersForPeerReviewAsync();
+
+			await base.DoAssignProperties();
 		}
 
 		#region Properties

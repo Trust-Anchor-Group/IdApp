@@ -9973,6 +9973,10 @@
         <member name="M:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OnDispose">
             <inheritdoc />
         </member>
+        <member name="M:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.DoAssignProperties">
+            <inheritdoc />
+            <inheritdoc />
+        </member>
         <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.Photos">
             <summary>
             The list of photos associated with this legal identity.
