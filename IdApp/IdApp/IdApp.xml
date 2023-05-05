@@ -7816,31 +7816,6 @@
             If parenthesis was started
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Main.Links.LinksPage">
-            <summary>
-            A page that allows the user to calculate the value of a numerical input field.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.Links.LinksPage.#ctor">
-            <summary>
-            A page that allows the user to calculate the value of a numerical input field.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Main.Links.LinksViewModel">
-            <summary>
-            The view model to bind to for when displaying links.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.Links.LinksViewModel.#ctor">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Main.Links.LinksViewModel"/> class.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Links.LinksViewModel.OpenLinkCommand">
-            <summary>
-            Command executed when user wants to open a specific link.
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Main.Link.LinkNavigationArgs">
             <summary>
             Holds navigation parameters for the link view.
@@ -7909,6 +7884,31 @@
         <member name="P:IdApp.Pages.Main.Link.LinkViewModel.EncodeAppLinks">
             <summary>
             If App links should be encoded with the link.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Links.LinksPage">
+            <summary>
+            A page that allows the user to calculate the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Links.LinksPage.#ctor">
+            <summary>
+            A page that allows the user to calculate the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Links.LinksViewModel">
+            <summary>
+            The view model to bind to for when displaying links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Links.LinksViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Main.Links.LinksViewModel"/> class.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Links.LinksViewModel.OpenLinkCommand">
+            <summary>
+            Command executed when user wants to open a specific link.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Loading.LoadingPage">
@@ -9465,119 +9465,6 @@
             Copies values from the existing TAG Profile's Legal identity.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector">
-            <summary>
-            A data template selector for displaying various types of registration steps.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ValidateContactInfo">
-            <summary>
-            The template for validating contact information.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ChooseAccount">
-            <summary>
-            The choose account template.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.RegisterIdentity">
-            <summary>
-            The register identity template.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ValidateIdentity">
-            <summary>
-            The validate identity template.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.DefinePin">
-            <summary>
-            The define pin template.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
-            <summary>
-            Chooses the best matching data template based on the type of registration step.
-            </summary>
-            <param name="item">The step to display.</param>
-            <param name="container"></param>
-            <returns>Selected template</returns>
-        </member>
-        <member name="T:IdApp.Pages.Registration.RegistrationStepView">
-            <summary>
-            A base class view for all registration steps views. Inherit from this to get access to the <see cref="P:IdApp.Pages.Registration.RegistrationStepView.StepCompletedCommand"/>.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.RegistrationStepView.StepCompletedCommandProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.RegistrationStepView.StepCompletedCommand"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepView.StepCompletedCommand">
-            <summary>
-            The command to bind to for signaling to listeners that this step has completed.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Registration.RegistrationStepViewModel">
-            <summary>
-            A base class for all view models that handle any part of the registration flow.
-            </summary>
-        </member>
-        <member name="E:IdApp.Pages.Registration.RegistrationStepViewModel.StepCompleted">
-            <summary>
-            An event that fires whenever the <see cref="P:IdApp.Pages.Registration.RegistrationStepViewModel.Step"/> property changes.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.#ctor(IdApp.Services.Tag.RegistrationStep)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel"/> class.
-            </summary>
-            <param name="step">The current step for this instance.</param>
-        </member>
-        <member name="F:IdApp.Pages.Registration.RegistrationStepViewModel.TitleProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.RegistrationStepViewModel.Title"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.Title">
-            <summary>
-            The title to display on the page or view rendering this view model.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.Step">
-            <summary>
-            The current step for this view model instance.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.OnAppearing">
-            <summary>
-            Method called when view is appearing on the screen.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.OnStepCompleted(System.EventArgs)">
-            <summary>
-            Call this method to fire the <see cref="E:IdApp.Pages.Registration.RegistrationStepViewModel.StepCompleted"/> event.
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.ClearStepState">
-            <summary>
-            Invoked whenever a registration step needs to be reverted, therefore wiping all persisted UI state.
-            Override this to clear any settings for the specific step view model.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.DoAssignProperties">
-            <summary>
-            Override this method to do view model specific of setting the default properties values.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.BeginInvokeSetIsDone(System.Windows.Input.ICommand[])">
-            <summary>
-            A helper method for asynchronously setting this registration step to Done, and also calling
-            <see cref="M:Xamarin.Forms.Command.ChangeCanExecute"/> on the list of commands passed in.
-            </summary>
-            <param name="commands">The commands to re-evaluate.</param>
-        </member>
         <member name="T:IdApp.Pages.Registration.Registration.RegistrationPage">
             <summary>
             A page for guiding the user through the registration process for setting up a digital identity.
@@ -9691,6 +9578,119 @@
             </summary>
             <param name="Sender">The event sender.</param>
             <param name="e">The default event args.</param>
+        </member>
+        <member name="T:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector">
+            <summary>
+            A data template selector for displaying various types of registration steps.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ValidateContactInfo">
+            <summary>
+            The template for validating contact information.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ChooseAccount">
+            <summary>
+            The choose account template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.RegisterIdentity">
+            <summary>
+            The register identity template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ValidateIdentity">
+            <summary>
+            The validate identity template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.DefinePin">
+            <summary>
+            The define pin template.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <summary>
+            Chooses the best matching data template based on the type of registration step.
+            </summary>
+            <param name="item">The step to display.</param>
+            <param name="container"></param>
+            <returns>Selected template</returns>
+        </member>
+        <member name="T:IdApp.Pages.Registration.RegistrationStepView">
+            <summary>
+            A base class view for all registration steps views. Inherit from this to get access to the <see cref="P:IdApp.Pages.Registration.RegistrationStepView.StepCompletedCommand"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.RegistrationStepView.StepCompletedCommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.RegistrationStepView.StepCompletedCommand"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegistrationStepView.StepCompletedCommand">
+            <summary>
+            The command to bind to for signaling to listeners that this step has completed.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Registration.RegistrationStepViewModel">
+            <summary>
+            A base class for all view models that handle any part of the registration flow.
+            </summary>
+        </member>
+        <member name="E:IdApp.Pages.Registration.RegistrationStepViewModel.StepCompleted">
+            <summary>
+            An event that fires whenever the <see cref="P:IdApp.Pages.Registration.RegistrationStepViewModel.Step"/> property changes.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.#ctor(IdApp.Services.Tag.RegistrationStep)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel"/> class.
+            </summary>
+            <param name="step">The current step for this instance.</param>
+        </member>
+        <member name="F:IdApp.Pages.Registration.RegistrationStepViewModel.TitleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.RegistrationStepViewModel.Title"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.Title">
+            <summary>
+            The title to display on the page or view rendering this view model.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.Step">
+            <summary>
+            The current step for this view model instance.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.OnAppearing">
+            <summary>
+            Method called when view is appearing on the screen.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.OnStepCompleted(System.EventArgs)">
+            <summary>
+            Call this method to fire the <see cref="E:IdApp.Pages.Registration.RegistrationStepViewModel.StepCompleted"/> event.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.ClearStepState">
+            <summary>
+            Invoked whenever a registration step needs to be reverted, therefore wiping all persisted UI state.
+            Override this to clear any settings for the specific step view model.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.DoAssignProperties">
+            <summary>
+            Override this method to do view model specific of setting the default properties values.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.BeginInvokeSetIsDone(System.Windows.Input.ICommand[])">
+            <summary>
+            A helper method for asynchronously setting this registration step to Done, and also calling
+            <see cref="M:Xamarin.Forms.Command.ChangeCanExecute"/> on the list of commands passed in.
+            </summary>
+            <param name="commands">The commands to re-evaluate.</param>
         </member>
         <member name="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoView">
             <summary>
@@ -14500,16 +14500,6 @@
             If more events are available.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Wallet.PaymentAcceptance.PaymentAcceptancePage">
-            <summary>
-            A page that allows the user to accept an offline payment.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.PaymentAcceptance.PaymentAcceptancePage.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.PaymentAcceptance.PaymentAcceptancePage"/> class.
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Wallet.Payment.PaymentPage">
             <summary>
             A page that allows the user to realize payments.
@@ -14523,6 +14513,16 @@
         <member name="M:IdApp.Pages.Wallet.Payment.PaymentPage.ShowQrCode">
             <summary>
             Scrolls to display the QR-code.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.PaymentAcceptance.PaymentAcceptancePage">
+            <summary>
+            A page that allows the user to accept an offline payment.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.PaymentAcceptance.PaymentAcceptancePage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.PaymentAcceptance.PaymentAcceptancePage"/> class.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.PendingPayment.PendingPaymentPage">
