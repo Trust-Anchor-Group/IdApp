@@ -52,7 +52,9 @@ namespace IdApp.Services.UI.QR
 			}
 			else
 			{
-				this.icon = SvgPath.SvgPathToBitmap(SvgIconPath, IconWidth, IconHeight, IconFg, IconBg);
+				this.icon = SvgPath.SvgPathToBitmap(SvgIconPath, 256, 256, IconFg, IconBg,
+					0, 0, 256f / IconWidth, 256f / IconHeight);
+
 				this.hasIcon = true;
 			}
 
