@@ -2710,6 +2710,19 @@ namespace IdApp.Services.Xmpp
 		/// <returns>Smart Contract</returns>
 		public async Task<Contract> SignContract(Contract Contract, string Role, bool Transferable)
 		{
+			if (Contract.ForMachinesNamespace == Constants.ContractMachineNames.PaymentInstructionsNamespace && (
+				Contract.ForMachinesLocalName == Constants.ContractMachineNames.BuyEDaler ||
+				Contract.ForMachinesLocalName == Constants.ContractMachineNames.SellEDaler))
+			{
+				lock (this.currentTransactions)
+				{
+					string TransactionId = Contract.ContractId;
+					string Currency = Contract["Currency"]?.ToString() ?? string.Empty;
+
+					this.currentTransactions[Contract.ContractId] = new PaymentTransaction(TransactionId, Currency);
+				}
+			}
+
 			Contract Result = await this.ContractsClient.SignContractAsync(Contract, Role, Transferable);
 			await this.UpdateContractReference(Result);
 			return Result;

@@ -414,10 +414,31 @@ namespace IdApp
             public const int DeviceBatchSize = 100;
 		}
 
-        /// <summary>
-        /// Contract templates
-        /// </summary>
-        public static class ContractTemplates
+		/// <summary>
+		/// Machine-readable names in contracts.
+		/// </summary>
+		public static class ContractMachineNames
+		{
+			/// <summary>
+			/// Namespace for payment instructions
+			/// </summary>
+			public const string PaymentInstructionsNamespace = "https://paiwise.tagroot.io/Schema/PaymentInstructions.xsd";
+
+			/// <summary>
+			/// Local name for contracts for buying eDaler.
+			/// </summary>
+			public const string BuyEDaler = "BuyEDaler";
+
+			/// <summary>
+			/// Local name for contracts for selling eDaler.
+			/// </summary>
+			public const string SellEDaler = "SellEDaler";
+		}
+
+		/// <summary>
+		/// Contract templates
+		/// </summary>
+		public static class ContractTemplates
         {
             /// <summary>
             /// Contract template for creating a demo token
