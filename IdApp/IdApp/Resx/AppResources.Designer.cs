@@ -5803,6 +5803,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to open link:.
+        /// </summary>
+        internal static string UnableToOpenLink {
+            get {
+                return ResourceManager.GetString("UnableToOpenLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to process eDaler code..
         /// </summary>
         internal static string UnableToProcessEDalerUri {

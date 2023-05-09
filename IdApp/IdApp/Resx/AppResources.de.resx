@@ -2256,4 +2256,7 @@
   <data name="ToUser2" xml:space="preserve">
     <value>An den Benutzer</value>
   </data>
+  <data name="UnableToOpenLink" xml:space="preserve">
+    <value>Link kann nicht geöffnet werden:</value>
+  </data>
 </root>

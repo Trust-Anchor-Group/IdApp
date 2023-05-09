@@ -2362,6 +2362,258 @@
             Sets the value indicating if the password associated with <paramref name="bindable"/> must be masked.
             </summary>
         </member>
+        <member name="T:IdApp.Links.DefaultLink">
+            <summary>
+            Default link opener.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.DefaultLink.#ctor">
+            <summary>
+            Default link opener.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.DefaultLink.Supports(System.Uri)">
+            <summary>
+            How well the link opener supports a given link
+            </summary>
+            <param name="Link">Link that will be opened.</param>
+            <returns>Support grade of opener for the given link.</returns>
+        </member>
+        <member name="M:IdApp.Links.DefaultLink.TryOpenLink(System.Uri)">
+            <summary>
+            Tries to open a link
+            </summary>
+            <param name="Link">Link to open</param>
+            <returns>If the link was opened.</returns>
+        </member>
+        <member name="T:IdApp.Links.EDalerLink">
+            <summary>
+            Opens eDaler links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.EDalerLink.#ctor">
+            <summary>
+            Opens eDaler links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.EDalerLink.Supports(System.Uri)">
+            <summary>
+            How well the link opener supports a given link
+            </summary>
+            <param name="Link">Link that will be opened.</param>
+            <returns>Support grade of opener for the given link.</returns>
+        </member>
+        <member name="M:IdApp.Links.EDalerLink.TryOpenLink(System.Uri)">
+            <summary>
+            Tries to open a link
+            </summary>
+            <param name="Link">Link to open</param>
+            <returns>If the link was opened.</returns>
+        </member>
+        <member name="T:IdApp.Links.IdAppLink">
+            <summary>
+            Opens ID App links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.IdAppLink.#ctor">
+            <summary>
+            Opens ID App links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.IdAppLink.Supports(System.Uri)">
+            <summary>
+            How well the link opener supports a given link
+            </summary>
+            <param name="Link">Link that will be opened.</param>
+            <returns>Support grade of opener for the given link.</returns>
+        </member>
+        <member name="M:IdApp.Links.IdAppLink.TryOpenLink(System.Uri)">
+            <summary>
+            Tries to open a link
+            </summary>
+            <param name="Link">Link to open</param>
+            <returns>If the link was opened.</returns>
+        </member>
+        <member name="T:IdApp.Links.ILinkOpener">
+            <summary>
+            Interface for classes that can open links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.ILinkOpener.TryOpenLink(System.Uri)">
+            <summary>
+            Tries to open a link
+            </summary>
+            <param name="Link">Link to open</param>
+            <returns>If the link was opened.</returns>
+        </member>
+        <member name="T:IdApp.Links.LegalIdentityLink">
+            <summary>
+            Opens Legal Identity links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.LegalIdentityLink.#ctor">
+            <summary>
+            Opens Legal Identity links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.LegalIdentityLink.Supports(System.Uri)">
+            <summary>
+            How well the link opener supports a given link
+            </summary>
+            <param name="Link">Link that will be opened.</param>
+            <returns>Support grade of opener for the given link.</returns>
+        </member>
+        <member name="M:IdApp.Links.LegalIdentityLink.TryOpenLink(System.Uri)">
+            <summary>
+            Tries to open a link
+            </summary>
+            <param name="Link">Link to open</param>
+            <returns>If the link was opened.</returns>
+        </member>
+        <member name="T:IdApp.Links.NeuroFeatureLink">
+            <summary>
+            Opens Neuro-Feature links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.NeuroFeatureLink.#ctor">
+            <summary>
+            Opens Neuro-Feature links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.NeuroFeatureLink.Supports(System.Uri)">
+            <summary>
+            How well the link opener supports a given link
+            </summary>
+            <param name="Link">Link that will be opened.</param>
+            <returns>Support grade of opener for the given link.</returns>
+        </member>
+        <member name="M:IdApp.Links.NeuroFeatureLink.TryOpenLink(System.Uri)">
+            <summary>
+            Tries to open a link
+            </summary>
+            <param name="Link">Link to open</param>
+            <returns>If the link was opened.</returns>
+        </member>
+        <member name="T:IdApp.Links.OnboardingLink">
+            <summary>
+            Opens onboarding links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.OnboardingLink.#ctor">
+            <summary>
+            Opens onboarding links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.OnboardingLink.Supports(System.Uri)">
+            <summary>
+            How well the link opener supports a given link
+            </summary>
+            <param name="Link">Link that will be opened.</param>
+            <returns>Support grade of opener for the given link.</returns>
+        </member>
+        <member name="M:IdApp.Links.OnboardingLink.TryOpenLink(System.Uri)">
+            <summary>
+            Tries to open a link
+            </summary>
+            <param name="Link">Link to open</param>
+            <returns>If the link was opened.</returns>
+        </member>
+        <member name="T:IdApp.Links.SmartContractLink">
+            <summary>
+            Opens Smart Contract links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.SmartContractLink.#ctor">
+            <summary>
+            Opens Smart Contract links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.SmartContractLink.Supports(System.Uri)">
+            <summary>
+            How well the link opener supports a given link
+            </summary>
+            <param name="Link">Link that will be opened.</param>
+            <returns>Support grade of opener for the given link.</returns>
+        </member>
+        <member name="M:IdApp.Links.SmartContractLink.TryOpenLink(System.Uri)">
+            <summary>
+            Tries to open a link
+            </summary>
+            <param name="Link">Link to open</param>
+            <returns>If the link was opened.</returns>
+        </member>
+        <member name="T:IdApp.Links.TagSignatureLink">
+            <summary>
+            Opens TAG signature links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.TagSignatureLink.#ctor">
+            <summary>
+            Opens TAG signature links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.TagSignatureLink.Supports(System.Uri)">
+            <summary>
+            How well the link opener supports a given link
+            </summary>
+            <param name="Link">Link that will be opened.</param>
+            <returns>Support grade of opener for the given link.</returns>
+        </member>
+        <member name="M:IdApp.Links.TagSignatureLink.TryOpenLink(System.Uri)">
+            <summary>
+            Tries to open a link
+            </summary>
+            <param name="Link">Link to open</param>
+            <returns>If the link was opened.</returns>
+        </member>
+        <member name="T:IdApp.Links.ThingsDiscoveryLink">
+            <summary>
+            Opens Things Discovery links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.ThingsDiscoveryLink.#ctor">
+            <summary>
+            Opens Things Discovery links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.ThingsDiscoveryLink.Supports(System.Uri)">
+            <summary>
+            How well the link opener supports a given link
+            </summary>
+            <param name="Link">Link that will be opened.</param>
+            <returns>Support grade of opener for the given link.</returns>
+        </member>
+        <member name="M:IdApp.Links.ThingsDiscoveryLink.TryOpenLink(System.Uri)">
+            <summary>
+            Tries to open a link
+            </summary>
+            <param name="Link">Link to open</param>
+            <returns>If the link was opened.</returns>
+        </member>
+        <member name="T:IdApp.Links.XmppLink">
+            <summary>
+            Opens XMPP links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.XmppLink.#ctor">
+            <summary>
+            Opens XMPP links.
+            </summary>
+        </member>
+        <member name="M:IdApp.Links.XmppLink.Supports(System.Uri)">
+            <summary>
+            How well the link opener supports a given link
+            </summary>
+            <param name="Link">Link that will be opened.</param>
+            <returns>Support grade of opener for the given link.</returns>
+        </member>
+        <member name="M:IdApp.Links.XmppLink.TryOpenLink(System.Uri)">
+            <summary>
+            Tries to open a link
+            </summary>
+            <param name="Link">Link to open</param>
+            <returns>If the link was opened.</returns>
+        </member>
         <member name="T:IdApp.Pages.BaseViewModel">
             <summary>
             A base class for all view models, inheriting from the <see cref="T:Xamarin.Forms.BindableObject"/>.
@@ -19937,6 +20189,11 @@
         <member name="P:IdApp.Resx.AppResources.UnableToOcrImage">
             <summary>
               Looks up a localized string similar to Unable to find any text in the image..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.UnableToOpenLink">
+            <summary>
+              Looks up a localized string similar to Unable to open link:.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.UnableToProcessEDalerUri">
