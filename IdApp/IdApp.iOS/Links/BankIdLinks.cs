@@ -1,7 +1,7 @@
-﻿using IdApp.Links;
+﻿using Foundation;
+using IdApp.Links;
 using System.Threading.Tasks;
 using UIKit;
-using Waher.Content.Html.Elements;
 using Waher.Events;
 using Waher.Runtime.Inventory;
 
@@ -39,13 +39,9 @@ namespace IdApp.iOS.Links
 		{
 			try
 			{
-				// https://www.bankid.com/utvecklare/guider/teknisk-integrationsguide/programstart
-
-				let url = URL(string: Link.OriginalString)
-					UIApplication.shared.open(url!, options: [.universalLinksOnly: true])
-					{
-					(success) in / handle success / failure
-				  }
+				NSUrl Url = new(Link.OriginalString);
+				UIApplicationOpenUrlOptions options = new() { UniversalLinksOnly = true };
+				UIApplication.SharedApplication.OpenUrl(Url, options, null);
 
 				return Task.FromResult(true);
 			}
