@@ -1,7 +1,6 @@
 ﻿using IdApp.Links;
 using System.Threading.Tasks;
 using UIKit;
-using Waher.Content.Html.Elements;
 using Waher.Events;
 using Waher.Runtime.Inventory;
 
