@@ -85,6 +85,7 @@
     <Compile Include="CloseApplication.cs" />
     <Compile Include="Deviceinformation.cs" />
     <Compile Include="Effects\PasswordMaskTogglerEffect.cs" />
+    <Compile Include="Links\BankIdLinks.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Push\MessagingService.cs" />
