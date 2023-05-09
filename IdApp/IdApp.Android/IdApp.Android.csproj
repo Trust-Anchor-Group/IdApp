@@ -120,6 +120,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Links\BankIdLinks.cs" />
     <Compile Include="SecureDisplay.cs" />
     <Compile Include="CloseApplication.cs" />
     <Compile Include="Effects\PasswordMaskTogglerEffect.cs" />
