@@ -146,7 +146,7 @@ namespace IdApp.Controls
 			this.OnSourceChanged();
 		}
 
-		bool IsPlaying
+		public bool IsPlaying
 		{
 			get { return false; }
 		}

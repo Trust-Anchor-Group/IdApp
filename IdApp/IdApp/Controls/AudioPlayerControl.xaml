@@ -18,9 +18,9 @@
 
 		<Grid WidthRequest="35" HeightRequest="35" BackgroundColor="Transparent">
 			<controls:TintedSvgCachedImage TintColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"
-										Source="{x:Static resx:Svgs.Pause}" IsVisible="{Binding IsPlaying, Converter={converters:LogicalNot}, Source={x:Reference ThisPage}}" />
+										Source="{x:Static resx:Svgs.Pause}" IsVisible="{Binding IsPlaying, Source={x:Reference ThisPage}}" />
 			<controls:TintedSvgCachedImage TintColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"
-										Source="{x:Static resx:Svgs.Play}" IsVisible="{Binding IsPlaying, Source={x:Reference ThisPage}}" />
+										Source="{x:Static resx:Svgs.Play}" IsVisible="{Binding IsPlaying, Source={x:Reference ThisPage}, Converter={converters:LogicalNot}}" />
 		</Grid>
 	</Frame>
 
