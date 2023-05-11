@@ -145,7 +145,7 @@ namespace IdApp.Android
 				// TODO
 			}
 
-			this.LoadApplication(new App());
+			this.LoadApplication(new App(this.GetType().Assembly));
 		}
 
 		public override void OnRequestPermissionsResult(int RequestCode, string[] Permissions, [GeneratedEnum] Permission[] GrantResults)

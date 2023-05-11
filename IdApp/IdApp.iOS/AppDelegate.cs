@@ -54,7 +54,7 @@ namespace IdApp.iOS
 			// Uncomment this to debug loading images from neuron (ensures that they are not loaded from cache).
 			// FFImageLoading.ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Disk);
 
-			this.LoadApplication(new App());
+			this.LoadApplication(new App(this.GetType().Assembly));
 
 			this.RegisterKeyBoardObserver();
 			this.RegisterRemoteNotifications();

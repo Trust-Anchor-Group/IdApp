@@ -19,10 +19,10 @@
             Gets the current application, type casted to <see cref="T:IdApp.App"/>.
             </summary>
         </member>
-        <member name="M:IdApp.App.#ctor">
+        <member name="M:IdApp.App.#ctor(System.Reflection.Assembly)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.App.#ctor(System.Boolean)">
+        <member name="M:IdApp.App.#ctor(System.Boolean,System.Reflection.Assembly)">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.App.IsOnboarded">
