@@ -54,7 +54,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// <summary>
 		/// If text should be displayed.
 		/// </summary>
-		public bool ShowText => !this.HasIcon || this.serviceProvider.GetType().Assembly == typeof(App).Assembly;
+		public bool ShowText => !this.HasIcon || this.IconWidth <= 250 || this.serviceProvider.GetType().Assembly == typeof(App).Assembly;
 
 		/// <summary>
 		/// Icon URL Source
