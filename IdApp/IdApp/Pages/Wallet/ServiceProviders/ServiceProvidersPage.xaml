@@ -17,8 +17,9 @@
 				<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10">
 					<Grid ColumnDefinitions="auto,*" RowDefinitions="auto">
 						<ffimage:CachedImage Grid.Column="0" Grid.Row="0" Aspect="AspectFit"
+											 WidthRequest="150" MinimumWidthRequest="150"
 											 HorizontalOptions="FillAndExpand" VerticalOptions="Center"
-											 Source="{Binding IconUrlSource}" HeightRequest="150" />
+											 Source="{Binding IconUrlSource}" HeightRequest="150" MinimumHeightRequest="150" />
 						<Label Grid.Column="1" Grid.Row="0"
 							   HorizontalOptions="Center" VerticalOptions="Center" LineBreakMode="CharacterWrap"
 							   TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
@@ -34,8 +35,9 @@
 									   HorizontalOptions="Center" VerticalOptions="Center" LineBreakMode="CharacterWrap"
 									   TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
 						<ffimage:CachedImage Grid.Column="0" Grid.Row="0" IsVisible="{Binding HasIcon}" Aspect="AspectFit"
-													 HorizontalOptions="FillAndExpand" VerticalOptions="Center"
-													 Source="{Binding IconUrlSource}" HeightRequest="150" />
+											 WidthRequest="150" MinimumWidthRequest="150"
+											 HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+											 Source="{Binding IconUrlSource}" HeightRequest="150" MinimumHeightRequest="150" />
 					</Grid>
 				</Frame>
 			</Grid>
