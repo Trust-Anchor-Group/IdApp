@@ -1167,18 +1167,6 @@
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Takođe moramo da potvrdimo vaš broj mobilnog telefona. Unesite dole navedeni broj mobilnog telefona koristeći međunarodni format broja telefona, bez prostora.</value>
   </data>
-  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Edukativna ili eksperimentalna upotreba.</value>
-  </data>
-  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Ova opcija vam omogućava da koristite ID oznake u edukativne, eksperimentalne ili probne svrhe. Prilikom korišćenja ove opcije nema nastalih troškova. Nalog se može ukloniti kada se više ne koristi. Ne postoji garancija da će izabrani obrazovni ili eksperimentalni pružalac usluga nastaviti sa radom duži vremenski period.</value>
-  </data>
-  <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Posao ili lična upotreba.</value>
-  </data>
-  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Ova opcija vam omogućava da koristite ID oznake u radne ili lične svrhe. Aplikaciju možete koristiti tri meseca bez troškova. Nakon ovog vremenskog perioda, određene operacije mogu naneti troškove.</value>
-  </data>
   <data name="SelectPurpose" xml:space="preserve">
     <value>Izaberi svrhu</value>
   </data>
@@ -2258,5 +2246,29 @@
   </data>
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Nije moguće otvoriti vezu:</value>
+  </data>
+  <data name="PurposeEducational" xml:space="preserve">
+    <value>Obrazovna upotreba.</value>
+  </data>
+  <data name="PurposeEducationalDescription" xml:space="preserve">
+    <value>Ova opcija vam omogućava da koristite ID oznake u edukativne svrhe. Aplikaciju možete da koristite za potpisivanje ili pristup resursima kao privatno lice, bilo kao edukator ili kao student. Nalog je možda ograničen na vreme. Nalog se takođe može ukloniti kada se više ne koristi. Za više informacija obratite se dobavljaču usluga.</value>
+  </data>
+  <data name="PurposeExperimental" xml:space="preserve">
+    <value>Eksperimentalna upotreba.</value>
+  </data>
+  <data name="PurposeExperimentalDescription" xml:space="preserve">
+    <value>Ova opcija vam omogućava da koristite ID oznake u eksperimentalne svrhe. Aplikaciju možete da koristite za potpisivanje ili pristup resursima kao privatno lice, sa ciljem da naučite tehnologiju i u koje svrhe može da se koristi. Nalog je možda ograničen na vreme. Nalog se takođe može ukloniti kada se više ne koristi. Za više informacija obratite se dobavljaču usluga.</value>
+  </data>
+  <data name="PurposePersonal" xml:space="preserve">
+    <value>Lična upotreba.</value>
+  </data>
+  <data name="PurposePersonalDescription" xml:space="preserve">
+    <value>Ova opcija vam omogućava da koristite ID oznake u lične svrhe. Aplikaciju možete da koristite za potpisivanje ili pristup resursima kao privatno lice. Određene operacije mogu naneti troškove, u zavisnosti od dobavljača usluga kojeg odaberete. Za više informacija obratite se dobavljaču usluga.</value>
+  </data>
+  <data name="PurposeWork" xml:space="preserve">
+    <value>Upotreba na poslu.</value>
+  </data>
+  <data name="PurposeWorkDescription" xml:space="preserve">
+    <value>Ova opcija vam omogućava da koristite ID oznake u radne svrhe. To uključuje rad ne za profit u organizacijama. Aplikaciju možete da koristite za potpisivanje ili pristup resursima kao predstavnik organizacije. Određene operacije mogu naneti troškove, u zavisnosti od dobavljača usluga kojeg odaberete. Za više informacija obratite se dobavljaču usluga.</value>
   </data>
 </root>

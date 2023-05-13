@@ -1107,23 +1107,11 @@
   <data name="Purpose" xml:space="preserve">
     <value>Syfte</value>
   </data>
-  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Utbildning eller experimentell användning.</value>
-  </data>
   <data name="PurposeReviewContract" xml:space="preserve">
     <value>För granskning av ett kontrakt där du är part.</value>
   </data>
   <data name="PurposeReviewToken" xml:space="preserve">
     <value>För granskning av en token där du är part.</value>
-  </data>
-  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Detta val tillåter dig att använda Tag ID för utbildnings eller experimentella syften. När man använder detta val medförs inga kostnader. Kontot kan tas bort när det inte längre används. Det finns heller ingen garanti att den utvalda tjänsteleverantören kommer att fortsätta driften under en längre tid.</value>
-  </data>
-  <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Arbete eller personlig användning.</value>
-  </data>
-  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Detta val tillåter dig att använda Tag ID för arbete eller personligt bruk. Du kan använda appen i tre månader utan kostnad. Efter denna tidsperiod kan vissa funktioner medföra kostnader.</value>
   </data>
   <data name="Qrcode" xml:space="preserve">
     <value>QR-kod</value>
@@ -2234,5 +2222,29 @@
   </data>
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Unable to open link:</value>
+  </data>
+  <data name="PurposeEducational" xml:space="preserve">
+    <value>Anvädning inom utbildning.</value>
+  </data>
+  <data name="PurposeEducationalDescription" xml:space="preserve">
+    <value>Detta val låter dig använda Tag ID för utbildningsändamål. Du kan använda appen för att signera eller komma åt resurser som en privatperson, antingen som en lärare eller student. Konton kan vara begränsat i tiden. Kontot kan också tas bort när den inte längre används. Kontrollera med tjänsteleverantören för mer information.</value>
+  </data>
+  <data name="PurposeExperimental" xml:space="preserve">
+    <value>Experimentell användning.</value>
+  </data>
+  <data name="PurposeExperimentalDescription" xml:space="preserve">
+    <value>Detta val låter dig använda Tag ID för experimentella ändamål. Du kan använda appen för att signera eller komma åt resurser som en privatperson, med målet att lära dig om teknologin och för vilka ändamål den kan användas. The account may be limited in time. Konton kan vara begränsat i tiden. Kontot kan också tas bort när den inte längre används. Kontrollera med tjänsteleverantören för mer information.</value>
+  </data>
+  <data name="PurposePersonal" xml:space="preserve">
+    <value>Personlig användning.</value>
+  </data>
+  <data name="PurposePersonalDescription" xml:space="preserve">
+    <value>Detta val låter dig använda Tag ID för personligt bruk. Du kan använda appen för att signera eller komma åt resurser som en privatperson. Vissa funktioner kan medföra kostnader, beroende på vilken tjänsteleverantör du väljer. Kontrollera med tjänsteleverantören för mer information.</value>
+  </data>
+  <data name="PurposeWork" xml:space="preserve">
+    <value>Användning inom arbete.</value>
+  </data>
+  <data name="PurposeWorkDescription" xml:space="preserve">
+    <value>Detta val låter dig använda Tag ID för användning inom arbete. Detta inkluderar arbete för icke vinstdrivande organisationer. Du kan använda appen för att signera eller komma åt resurser som en representant för en organisation. Vissa funktioner kan medföra kostnader, beroende på vilken tjänsteleverantör du väljer. Kontrollera med tjänsteleverantören för mer information.</value>
   </data>
 </root>

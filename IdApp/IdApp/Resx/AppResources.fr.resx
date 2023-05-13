@@ -1167,18 +1167,6 @@
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Nous devons également valider votre numéro de téléphone mobile. Veuillez entrer votre numéro de téléphone mobile ci-dessous, en utilisant le format de numéro de téléphone international, sans espaces.</value>
   </data>
-  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Utilisation éducative ou expérimentale.</value>
-  </data>
-  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Cette option vous permet d’utiliser Tag ID à des fins éducatives, expérimentales ou de test. Il n’y a pas de frais encourus lors de l’utilisation de cette option. Le compte peut être supprimé lorsqu’il n’est plus utilisé. Il n’y a aucune garantie que le fournisseur de services éducatifs ou expérimentaux sélectionné poursuivra ses activités pendant de longues périodes.</value>
-  </data>
-  <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Travail ou usage personnel.</value>
-  </data>
-  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Cette option vous permet d’utiliser l’ID de balise à des fins professionnelles ou personnelles. Vous pouvez utiliser l’application pendant trois mois sans frais. Passé ce délai, certaines opérations peuvent entraîner des frais.</value>
-  </data>
   <data name="SelectPurpose" xml:space="preserve">
     <value>Sélectionnez Objectif</value>
   </data>
@@ -2258,5 +2246,29 @@
   </data>
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Impossible d’ouvrir le lien :</value>
+  </data>
+  <data name="PurposeEducational" xml:space="preserve">
+    <value>Utilisation éducative.</value>
+  </data>
+  <data name="PurposeEducationalDescription" xml:space="preserve">
+    <value>Cette option vous permet d’utiliser Tag ID à des fins éducatives. Vous pouvez utiliser l’application pour signer ou accéder à des ressources en tant que personne privée, soit en tant qu’éducateur, soit en tant qu’étudiant. Le compte peut être limité dans le temps. Le compte peut également être supprimé lorsqu’il n’est plus utilisé. Vérifiez auprès du fournisseur de services pour plus d’informations.</value>
+  </data>
+  <data name="PurposeExperimental" xml:space="preserve">
+    <value>Utilisation expérimentale.</value>
+  </data>
+  <data name="PurposeExperimentalDescription" xml:space="preserve">
+    <value>Cette option vous permet d’utiliser Tag ID à des fins expérimentales. Vous pouvez utiliser l’application pour signer ou accéder à des ressources en tant que personne privée, dans le but d’apprendre la technologie et à quelles fins elle peut être utilisée. Le compte peut être limité dans le temps. Le compte peut également être supprimé lorsqu’il n’est plus utilisé. Vérifiez auprès du fournisseur de services pour plus d’informations.</value>
+  </data>
+  <data name="PurposePersonal" xml:space="preserve">
+    <value>Usage personnel.</value>
+  </data>
+  <data name="PurposePersonalDescription" xml:space="preserve">
+    <value>Cette option vous permet d’utiliser Tag ID à des fins personnelles. Vous pouvez utiliser l’application pour signer ou accéder à des ressources en tant que personne privée. Certaines opérations peuvent entraîner des coûts, selon le fournisseur de services que vous choisissez. Vérifiez auprès du fournisseur de services pour plus d’informations.</value>
+  </data>
+  <data name="PurposeWork" xml:space="preserve">
+    <value>Utilisation professionnelle.</value>
+  </data>
+  <data name="PurposeWorkDescription" xml:space="preserve">
+    <value>Cette option vous permet d’utiliser l’ID de balise à des fins professionnelles. Cela comprend le travail à but non lucratif dans les organisations. Vous pouvez utiliser l’application pour signer ou accéder à des ressources en tant que représentant d’une organisation. Certaines opérations peuvent entraîner des coûts, selon le fournisseur de services que vous choisissez. Vérifiez auprès du fournisseur de services pour plus d’informations.</value>
   </data>
 </root>

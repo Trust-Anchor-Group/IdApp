@@ -1167,18 +1167,6 @@
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Vi skal også validere dit mobiltelefonnummer. Indtast dit mobiltelefonnummer nedenfor ved hjælp af internationalt telefonnummerformat uden mellemrum.</value>
   </data>
-  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Uddannelsesmæssig eller eksperimentel brug.</value>
-  </data>
-  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Denne mulighed giver dig mulighed for at bruge Tag ID til uddannelsesmæssige, eksperimentelle eller testformål. Der er ingen omkostninger ved brug af denne mulighed. Kontoen kan fjernes, når den ikke længere bruges. Der er ingen garanti for, at den valgte uddannelses- eller eksperimentelle tjenesteudbyder fortsætter driften i længere perioder.</value>
-  </data>
-  <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Arbejde eller personlig brug.</value>
-  </data>
-  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Denne mulighed giver dig mulighed for at bruge Tag ID til arbejde eller personlige formål. Du kan bruge appen i tre måneder uden omkostninger. Efter denne periode kan visse operationer medføre omkostninger.</value>
-  </data>
   <data name="SelectPurpose" xml:space="preserve">
     <value>Vælg formål</value>
   </data>
@@ -2258,5 +2246,29 @@
   </data>
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Link kan ikke åbnes:</value>
+  </data>
+  <data name="PurposeEducational" xml:space="preserve">
+    <value>Uddannelsesmæssig brug.</value>
+  </data>
+  <data name="PurposeEducationalDescription" xml:space="preserve">
+    <value>Denne mulighed giver dig mulighed for at bruge tag-id til uddannelsesmæssige formål. Du kan bruge appen til at underskrive eller få adgang til ressourcer som privatperson, enten som underviser eller som studerende. Kontoen kan være tidsbegrænset. Kontoen kan også blive fjernet, når den ikke længere bruges. Kontakt tjenesteudbyderen for at få flere oplysninger.</value>
+  </data>
+  <data name="PurposeExperimental" xml:space="preserve">
+    <value>Eksperimentel brug.</value>
+  </data>
+  <data name="PurposeExperimentalDescription" xml:space="preserve">
+    <value>Denne mulighed giver dig mulighed for at bruge tag-id til eksperimentelle formål. Du kan bruge appen til at underskrive eller få adgang til ressourcer som privatperson med det formål at lære teknologien og til hvilke formål den kan bruges. Kontoen kan være tidsbegrænset. Kontoen kan også blive fjernet, når den ikke længere bruges. Kontakt tjenesteudbyderen for at få flere oplysninger.</value>
+  </data>
+  <data name="PurposePersonal" xml:space="preserve">
+    <value>Personlig brug.</value>
+  </data>
+  <data name="PurposePersonalDescription" xml:space="preserve">
+    <value>Denne mulighed giver dig mulighed for at bruge tag-id til personlige formål. Du kan bruge appen til at underskrive eller få adgang til ressourcer som privatperson. Visse operationer kan medføre omkostninger, afhængigt af den tjenesteudbyder, du vælger. Kontakt tjenesteudbyderen for at få flere oplysninger.</value>
+  </data>
+  <data name="PurposeWork" xml:space="preserve">
+    <value>Brug af arbejde.</value>
+  </data>
+  <data name="PurposeWorkDescription" xml:space="preserve">
+    <value>Denne mulighed giver dig mulighed for at bruge tag-id til arbejdsformål. Dette omfatter arbejde ikke for profit i organisationer. Du kan bruge appen til at signere eller få adgang til ressourcer som repræsentant for en organisation. Visse operationer kan medføre omkostninger, afhængigt af den tjenesteudbyder, du vælger. Kontakt tjenesteudbyderen for at få flere oplysninger.</value>
   </data>
 </root>

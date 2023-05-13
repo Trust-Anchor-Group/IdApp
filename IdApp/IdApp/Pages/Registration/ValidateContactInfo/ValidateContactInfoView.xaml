@@ -28,16 +28,20 @@
 							<Label Grid.Row="0" Text="{x:Static resx:AppResources.WelcomeToTagHeading}" Style="{StaticResource Heading}" />
 							<Label Grid.Row="1" Text="{x:Static resx:AppResources.WelcomeToTagSubheading}" FontSize="Body" />
 							<Picker Grid.Row="2" x:Name="PurposePicker" HorizontalOptions="FillAndExpand" Title="{x:Static resx:AppResources.SelectPurpose}"
-									ItemsSource="{Binding Path=Purposes}" SelectedIndex="{Binding Path=Purpose, Mode=TwoWay}" >
+									ItemsSource="{Binding Path=Purposes}" SelectedIndex="{Binding Path=PurposeNr, Mode=TwoWay}" >
 								<Picker.Behaviors>
 									<behaviors:ScrollToSelectedBehavior ScrollTo="PhoneEntryGrid"
 																		BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
 								</Picker.Behaviors>
 							</Picker>
-							<Label Grid.Row="3" Text="{x:Static resx:AppResources.PurposeWorkOrPersonalDescription}" FontSize="Body"
-								   IsVisible="{Binding Path=Purpose, Converter={converters:EqualsZero}}" />
-							<Label Grid.Row="3" Text="{x:Static resx:AppResources.PurposeWorkEducationalOrExperimental}" FontSize="Body"
-								   IsVisible="{Binding Path=Purpose, Converter={converters:EqualsOne}}" />
+							<Label Grid.Row="3" Text="{x:Static resx:AppResources.PurposePersonalDescription}" FontSize="Body"
+								   IsVisible="{Binding Path=IsPersonalPurpose}" />
+							<Label Grid.Row="3" Text="{x:Static resx:AppResources.PurposeWorkDescription}" FontSize="Body"
+								   IsVisible="{Binding Path=IsWorkPurpose}" />
+							<Label Grid.Row="3" Text="{x:Static resx:AppResources.PurposeEducationalDescription}" FontSize="Body"
+								   IsVisible="{Binding Path=IsEducationalPurpose}" />
+							<Label Grid.Row="3" Text="{x:Static resx:AppResources.PurposeExperimentalDescription}" FontSize="Body"
+								   IsVisible="{Binding Path=IsExperimentalPurpose}" />
 						</Grid>
 					</Frame>
 

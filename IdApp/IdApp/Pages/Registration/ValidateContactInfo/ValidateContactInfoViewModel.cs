@@ -18,14 +18,24 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 	public enum PurposeUse
 	{
 		/// <summary>
-		/// For work or personal use
+		/// For personal use
 		/// </summary>
-		WorkOrPersonal = 0,
+		Personal = 0,
 
 		/// <summary>
-		/// For educational or experimental use
+		/// For use at work
 		/// </summary>
-		EducationalOrExperimental = 1
+		Work = 1,
+
+		/// <summary>
+		/// For educational use
+		/// </summary>
+		Educational = 2,
+
+		/// <summary>
+		/// For experimental use
+		/// </summary>
+		Experimental = 3
 	}
 
 	/// <summary>
@@ -65,8 +75,10 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			this.TagProfile.Changed += this.TagProfile_Changed;
 
 			this.Purposes.Clear();
-			this.Purposes.Add(LocalizationResourceManager.Current["PurposeWorkOrPersonal"]);
-			this.Purposes.Add(LocalizationResourceManager.Current["PurposeEducationalOrExperimental"]);
+			this.Purposes.Add(LocalizationResourceManager.Current["PurposePersonal"]);
+			this.Purposes.Add(LocalizationResourceManager.Current["PurposeWork"]);
+			this.Purposes.Add(LocalizationResourceManager.Current["PurposeEducational"]);
+			this.Purposes.Add(LocalizationResourceManager.Current["PurposeExperimental"]);
 
 			if (string.IsNullOrEmpty(this.TagProfile.PhoneNumber))
 			{
@@ -190,10 +202,10 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		public ObservableCollection<string> Purposes { get; }
 
 		/// <summary>
-		/// See <see cref="Purpose"/>
+		/// See <see cref="PurposeNr"/>
 		/// </summary>
-		public static readonly BindableProperty PurposeProperty =
-			BindableProperty.Create(nameof(Purpose), typeof(int), typeof(ValidateContactInfoViewModel), -1,
+		public static readonly BindableProperty PurposeNrProperty =
+			BindableProperty.Create(nameof(PurposeNr), typeof(int), typeof(ValidateContactInfoViewModel), -1,
 				propertyChanged: (Bindable, OldValue, NewValue) =>
 				{
 					if ((int)NewValue > -1)
@@ -201,12 +213,79 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				});
 
 		/// <summary>
-		/// Phone number
+		/// Purpose number (zero-based)
 		/// </summary>
-		public int Purpose
+		public int PurposeNr
 		{
-			get => (int)this.GetValue(PurposeProperty);
-			set => this.SetValue(PurposeProperty, value);
+			get => (int)this.GetValue(PurposeNrProperty);
+			set
+			{
+				this.SetValue(PurposeNrProperty, value);
+				this.IsPersonalPurpose = value == (int)PurposeUse.Personal;
+				this.IsWorkPurpose = value == (int)PurposeUse.Work;
+				this.IsEducationalPurpose = value == (int)PurposeUse.Educational;
+				this.IsExperimentalPurpose = value == (int)PurposeUse.Experimental;
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="IsPersonalPurpose"/>
+		/// </summary>
+		public static readonly BindableProperty IsPersonalPurposeProperty =
+			BindableProperty.Create(nameof(IsPersonalPurpose), typeof(bool), typeof(ValidateContactInfoViewModel), false);
+
+		/// <summary>
+		/// If purpose is personal use.
+		/// </summary>
+		public bool IsPersonalPurpose
+		{
+			get => (bool)this.GetValue(IsPersonalPurposeProperty);
+			set => this.SetValue(IsPersonalPurposeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsWorkPurpose"/>
+		/// </summary>
+		public static readonly BindableProperty IsWorkPurposeProperty =
+			BindableProperty.Create(nameof(IsWorkPurpose), typeof(bool), typeof(ValidateContactInfoViewModel), false);
+
+		/// <summary>
+		/// If purpose is personal use.
+		/// </summary>
+		public bool IsWorkPurpose
+		{
+			get => (bool)this.GetValue(IsWorkPurposeProperty);
+			set => this.SetValue(IsWorkPurposeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsEducationalPurpose"/>
+		/// </summary>
+		public static readonly BindableProperty IsEducationalPurposeProperty =
+			BindableProperty.Create(nameof(IsEducationalPurpose), typeof(bool), typeof(ValidateContactInfoViewModel), false);
+
+		/// <summary>
+		/// If purpose is personal use.
+		/// </summary>
+		public bool IsEducationalPurpose
+		{
+			get => (bool)this.GetValue(IsEducationalPurposeProperty);
+			set => this.SetValue(IsEducationalPurposeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsExperimentalPurpose"/>
+		/// </summary>
+		public static readonly BindableProperty IsExperimentalPurposeProperty =
+			BindableProperty.Create(nameof(IsExperimentalPurpose), typeof(bool), typeof(ValidateContactInfoViewModel), false);
+
+		/// <summary>
+		/// If purpose is personal use.
+		/// </summary>
+		public bool IsExperimentalPurpose
+		{
+			get => (bool)this.GetValue(IsExperimentalPurposeProperty);
+			set => this.SetValue(IsExperimentalPurposeProperty, value);
 		}
 
 		/// <summary>
@@ -325,7 +404,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			BindableProperty.Create(nameof(EMailValidated), typeof(bool), typeof(ValidateContactInfoViewModel), default(bool));
 
 		/// <summary>
-		/// If Phone number is valid or not
+		/// If e-Mail is valid or not
 		/// </summary>
 		public bool EMailValidated
 		{
@@ -365,7 +444,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			BindableProperty.Create(nameof(EMailVerificationCode), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
 
 		/// <summary>
-		/// Phone number
+		/// E-mail verification code
 		/// </summary>
 		public string EMailVerificationCode
 		{
@@ -384,7 +463,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			BindableProperty.Create(nameof(PhoneNrVerificationCode), typeof(string), typeof(ValidateContactInfoViewModel), default(string));
 
 		/// <summary>
-		/// Phone number
+		/// Phone number verification code
 		/// </summary>
 		public string PhoneNrVerificationCode
 		{
@@ -439,12 +518,12 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		}
 
 		/// <summary>
-		/// If Phone number is valid or not
+		/// If verify e-mail code button is enabled.
 		/// </summary>
 		public bool VerifyEmailCodeButtonEnabled => !this.EMailValidated && this.IsVerificationCode(this.EMailVerificationCode);
 
 		/// <summary>
-		/// If Phone number is valid or not
+		/// If verify phone number code button is enabled.
 		/// </summary>
 		public bool VerifyPhoneCodeButtonEnabled => !this.PhoneNrValidated && this.IsVerificationCode(this.PhoneNrVerificationCode);
 
@@ -554,9 +633,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 				}
 				else
 				{
-                    this.EMailValidated = false;
+					this.EMailValidated = false;
 
-                    await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingEmailCode"]);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingEmailCode"]);
 				}
 			}
 			catch (Exception ex)
@@ -715,9 +794,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 
 						if (!string.IsNullOrEmpty(Code))
 						{
-							bool IsTest = this.PurposeRequired
-								? this.Purpose == (int)PurposeUse.EducationalOrExperimental
-								: this.TagProfile.IsTest;
+							bool IsTest = this.PurposeRequired ?
+								this.IsEducationalPurpose || this.IsExperimentalPurpose :
+								this.TagProfile.IsTest;
 
 							object VerifyResult = await InternetContent.PostAsync(
 								new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
@@ -771,13 +850,13 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 									LocalizationResourceManager.Current["UnableToVerifyCode"], LocalizationResourceManager.Current["Ok"]);
 							}
 						}
-                    }
-                }
+					}
+				}
 				else
 				{
-                    this.PhoneNrValidated = false;
+					this.PhoneNrValidated = false;
 
-                    await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingPhoneCode"]);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["SomethingWentWrongWhenSendingPhoneCode"]);
 				}
 			}
 			catch (Exception ex)
@@ -863,9 +942,9 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			{
 				string TrimmedNumber = this.TrimPhoneNumber(this.PhoneNumber);
 
-				bool IsTest = this.PurposeRequired
-					? this.Purpose == (int)PurposeUse.EducationalOrExperimental
-					: this.TagProfile.IsTest;
+				bool IsTest = this.PurposeRequired ?
+					this.IsEducationalPurpose || this.IsExperimentalPurpose :
+					this.TagProfile.IsTest;
 
 				object Result = await InternetContent.PostAsync(
 					new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
@@ -1025,7 +1104,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			{
 				this.CountEmailSeconds = 30;
 
-				Device.StartTimer(TimeSpan.FromSeconds(1), () => {
+				Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+				{
 					if (this.CountEmailSeconds > 0)
 					{
 						this.CountEmailSeconds--;
@@ -1041,7 +1121,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			{
 				this.CountPhoneSeconds = 30;
 
-				Device.StartTimer(TimeSpan.FromSeconds(1), () => {
+				Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+				{
 					if (this.CountPhoneSeconds > 0)
 					{
 						this.CountPhoneSeconds--;

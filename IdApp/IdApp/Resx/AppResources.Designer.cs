@@ -3850,11 +3850,56 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Educational or experimental use..
+        ///   Looks up a localized string similar to Educational use..
         /// </summary>
-        internal static string PurposeEducationalOrExperimental {
+        internal static string PurposeEducational {
             get {
-                return ResourceManager.GetString("PurposeEducationalOrExperimental", resourceCulture);
+                return ResourceManager.GetString("PurposeEducational", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option allows you to use Tag ID for educational purposes. You can use the app to sign or access resources as a private person, either as an educator, or as a student. The account may be limited in time. The account may also be removed when no longer used. Check with the service provider for more information..
+        /// </summary>
+        internal static string PurposeEducationalDescription {
+            get {
+                return ResourceManager.GetString("PurposeEducationalDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Experimental use..
+        /// </summary>
+        internal static string PurposeExperimental {
+            get {
+                return ResourceManager.GetString("PurposeExperimental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option allows you to use Tag ID for experimental purposes. You can use the app to sign or access resources as a private person, with the goal of learning the technology and for what purposes it can be used. The account may be limited in time. The account may also be removed when no longer used. Check with the service provider for more information..
+        /// </summary>
+        internal static string PurposeExperimentalDescription {
+            get {
+                return ResourceManager.GetString("PurposeExperimentalDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal use..
+        /// </summary>
+        internal static string PurposePersonal {
+            get {
+                return ResourceManager.GetString("PurposePersonal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option allows you to use Tag ID for personal purposes. You can use the app to sign or access resources as a private person. Certain operations may incur costs, depending on the service provider you choose. Check with the service provider for more information..
+        /// </summary>
+        internal static string PurposePersonalDescription {
+            get {
+                return ResourceManager.GetString("PurposePersonalDescription", resourceCulture);
             }
         }
         
@@ -3877,29 +3922,20 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This option allows you to use Tag ID for educational, experimental or test purposes. There are no costs incurred when using this option. The account may be removed when no longer used. There is no guarantee the educational or experimental service provider selected will continue operation for extended periods of time..
+        ///   Looks up a localized string similar to Work use..
         /// </summary>
-        internal static string PurposeWorkEducationalOrExperimental {
+        internal static string PurposeWork {
             get {
-                return ResourceManager.GetString("PurposeWorkEducationalOrExperimental", resourceCulture);
+                return ResourceManager.GetString("PurposeWork", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Work or personal use..
+        ///   Looks up a localized string similar to This option allows you to use Tag ID for work purposes. This includes work not for profit in organizations. You can use the app to sign or access resources as a representative of an organization. Certain operations may incur costs, depending on the service provider you choose. Check with the service provider for more information..
         /// </summary>
-        internal static string PurposeWorkOrPersonal {
+        internal static string PurposeWorkDescription {
             get {
-                return ResourceManager.GetString("PurposeWorkOrPersonal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This option allows you to use Tag ID for work or personal purposes. You can use the app for three months at no cost. After this time period, certain operations may incur costs..
-        /// </summary>
-        internal static string PurposeWorkOrPersonalDescription {
-            get {
-                return ResourceManager.GetString("PurposeWorkOrPersonalDescription", resourceCulture);
+                return ResourceManager.GetString("PurposeWorkDescription", resourceCulture);
             }
         }
         

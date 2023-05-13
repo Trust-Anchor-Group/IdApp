@@ -1167,18 +1167,6 @@
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>También necesitamos validar su número de teléfono móvil. Introduzca su número de teléfono móvil a continuación, utilizando el formato de número de teléfono internacional, sin espacios.</value>
   </data>
-  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Uso educativo o experimental.</value>
-  </data>
-  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Esta opción le permite utilizar el ID de etiqueta con fines educativos, experimentales o de prueba. No se incurre en costos al usar esta opción. La cuenta puede eliminarse cuando ya no se use. No hay garantía de que el proveedor de servicios educativos o experimentales seleccionado continúe operando durante largos períodos de tiempo.</value>
-  </data>
-  <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Trabajo o uso personal.</value>
-  </data>
-  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Esta opción le permite utilizar el ID de etiqueta para fines laborales o personales. Puede usar la aplicación durante tres meses sin costo alguno. Después de este período de tiempo, ciertas operaciones pueden incurrir en costos.</value>
-  </data>
   <data name="SelectPurpose" xml:space="preserve">
     <value>Seleccione Propósito</value>
   </data>
@@ -2258,5 +2246,29 @@
   </data>
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>No se puede abrir el enlace:</value>
+  </data>
+  <data name="PurposeEducational" xml:space="preserve">
+    <value>Uso educativo.</value>
+  </data>
+  <data name="PurposeEducationalDescription" xml:space="preserve">
+    <value>Esta opción le permite utilizar el ID de etiqueta con fines educativos. Puede usar la aplicación para firmar o acceder a recursos como persona privada, ya sea como educador o como estudiante. La cuenta puede estar limitada en el tiempo. La cuenta también se puede eliminar cuando ya no se use. Consulte con el proveedor de servicios para obtener más información.</value>
+  </data>
+  <data name="PurposeExperimental" xml:space="preserve">
+    <value>Uso experimental.</value>
+  </data>
+  <data name="PurposeExperimentalDescription" xml:space="preserve">
+    <value>Esta opción le permite utilizar el ID de etiqueta con fines experimentales. Puede usar la aplicación para firmar o acceder a recursos como persona privada, con el objetivo de aprender la tecnología y para qué fines se puede usar. La cuenta puede estar limitada en el tiempo. La cuenta también se puede eliminar cuando ya no se use. Consulte con el proveedor de servicios para obtener más información.</value>
+  </data>
+  <data name="PurposePersonal" xml:space="preserve">
+    <value>Uso personal.</value>
+  </data>
+  <data name="PurposePersonalDescription" xml:space="preserve">
+    <value>Esta opción le permite utilizar el ID de etiqueta para fines personales. Puede usar la aplicación para firmar o acceder a recursos como persona privada. Ciertas operaciones pueden incurrir en costos, dependiendo del proveedor de servicios que elija. Consulte con el proveedor de servicios para obtener más información.</value>
+  </data>
+  <data name="PurposeWork" xml:space="preserve">
+    <value>Uso del trabajo.</value>
+  </data>
+  <data name="PurposeWorkDescription" xml:space="preserve">
+    <value>Esta opción le permite utilizar el ID de etiqueta para fines laborales. Esto incluye el trabajo sin fines de lucro en las organizaciones. Puede usar la aplicación para firmar o acceder a recursos como representante de una organización. Ciertas operaciones pueden incurrir en costos, dependiendo del proveedor de servicios que elija. Consulte con el proveedor de servicios para obtener más información.</value>
   </data>
 </root>

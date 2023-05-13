@@ -1167,18 +1167,6 @@
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>De asemenea, trebuie să vă validăm numărul de telefon mobil. Vă rugăm să introduceți numărul de telefon mobil de mai jos, folosind formatul internațional al numărului de telefon, fără spații.</value>
   </data>
-  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Utilizare educațională sau experimentală.</value>
-  </data>
-  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Această opțiune vă permite să utilizați Tag ID în scopuri educaționale, experimentale sau de testare. Nu există costuri suportate atunci când se utilizează această opțiune. Contul poate fi eliminat atunci când nu mai este utilizat. Nu există nicio garanție că furnizorul de servicii educaționale sau experimentale selectat va continua să funcționeze pentru perioade lungi de timp.</value>
-  </data>
-  <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Locul de muncă sau uzul personal.</value>
-  </data>
-  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Această opțiune vă permite să utilizați Tag ID în scopuri profesionale sau personale. Puteți utiliza aplicația timp de trei luni fără costuri. După această perioadă de timp, anumite operațiuni pot implica costuri.</value>
-  </data>
   <data name="SelectPurpose" xml:space="preserve">
     <value>Selectați Scop</value>
   </data>
@@ -2258,5 +2246,29 @@
   </data>
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Imposibil de deschis link-ul:</value>
+  </data>
+  <data name="PurposeEducational" xml:space="preserve">
+    <value>Utilizarea educațională.</value>
+  </data>
+  <data name="PurposeEducationalDescription" xml:space="preserve">
+    <value>Această opțiune vă permite să utilizați Tag ID în scopuri educaționale. Puteți utiliza aplicația pentru a semna sau a accesa resurse ca persoană privată, fie ca educator, fie ca student. Contul poate fi limitat în timp. Contul poate fi, de asemenea, eliminat atunci când nu mai este utilizat. Consultați furnizorul de servicii pentru mai multe informații.</value>
+  </data>
+  <data name="PurposeExperimental" xml:space="preserve">
+    <value>Utilizare experimentală.</value>
+  </data>
+  <data name="PurposeExperimentalDescription" xml:space="preserve">
+    <value>Această opțiune vă permite să utilizați Tag ID în scopuri experimentale. Puteți utiliza aplicația pentru a semna sau accesa resurse ca persoană privată, cu scopul de a învăța tehnologia și în ce scopuri poate fi utilizată. Contul poate fi limitat în timp. Contul poate fi, de asemenea, eliminat atunci când nu mai este utilizat. Consultați furnizorul de servicii pentru mai multe informații.</value>
+  </data>
+  <data name="PurposePersonal" xml:space="preserve">
+    <value>Uz personal.</value>
+  </data>
+  <data name="PurposePersonalDescription" xml:space="preserve">
+    <value>Această opțiune vă permite să utilizați Tag ID în scopuri personale. Puteți utiliza aplicația pentru a semna sau a accesa resurse ca persoană privată. Anumite operațiuni pot implica costuri, în funcție de furnizorul de servicii pe care îl alegeți. Consultați furnizorul de servicii pentru mai multe informații.</value>
+  </data>
+  <data name="PurposeWork" xml:space="preserve">
+    <value>Utilizarea la locul de muncă.</value>
+  </data>
+  <data name="PurposeWorkDescription" xml:space="preserve">
+    <value>Această opțiune vă permite să utilizați Tag ID în scopuri de lucru. Aceasta include munca nu pentru profit în organizații. Puteți utiliza aplicația pentru a semna sau accesa resurse ca reprezentant al unei organizații. Anumite operațiuni pot implica costuri, în funcție de furnizorul de servicii pe care îl alegeți. Consultați furnizorul de servicii pentru mai multe informații.</value>
   </data>
 </root>

@@ -1167,18 +1167,6 @@
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Vi må også validere mobilnummeret ditt. Vennligst skriv inn mobilnummeret ditt nedenfor, ved hjelp av internasjonalt telefonnummerformat, uten mellomrom.</value>
   </data>
-  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Pedagogisk eller eksperimentell bruk.</value>
-  </data>
-  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Med dette alternativet kan du bruke Tag-ID til utdannings-, eksperiment- eller testformål. Det påløper ingen kostnader ved bruk av dette alternativet. Kontoen kan fjernes når den ikke lenger brukes. Det er ingen garanti for at den valgte pedagogiske eller eksperimentelle tjenesteleverandøren vil fortsette driften i lengre perioder.</value>
-  </data>
-  <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Arbeid eller personlig bruk.</value>
-  </data>
-  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Med dette alternativet kan du bruke Tagg-ID til jobbrelaterte eller personlige formål. Du kan bruke appen i tre måneder uten kostnad. Etter denne tidsperioden kan visse operasjoner medføre kostnader.</value>
-  </data>
   <data name="SelectPurpose" xml:space="preserve">
     <value>Velg formål</value>
   </data>
@@ -2258,5 +2246,29 @@
   </data>
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Kan ikke åpne lenke:</value>
+  </data>
+  <data name="PurposeEducational" xml:space="preserve">
+    <value>Pedagogisk bruk.</value>
+  </data>
+  <data name="PurposeEducationalDescription" xml:space="preserve">
+    <value>Med dette alternativet kan du bruke tagg-ID til utdanningsformål. Du kan bruke appen til å signere eller få tilgang til ressurser som privatperson, enten som lærer eller som student. Kontoen kan være tidsbegrenset. Kontoen kan også fjernes når den ikke lenger brukes. Ta kontakt med tjenesteleverandøren hvis du vil ha mer informasjon.</value>
+  </data>
+  <data name="PurposeExperimental" xml:space="preserve">
+    <value>Eksperimentell bruk.</value>
+  </data>
+  <data name="PurposeExperimentalDescription" xml:space="preserve">
+    <value>Med dette alternativet kan du bruke tagg-ID til eksperimentelle formål. Du kan bruke appen til å signere eller få tilgang til ressurser som privatperson, med mål om å lære teknologien og til hvilke formål den kan brukes. Kontoen kan være tidsbegrenset. Kontoen kan også fjernes når den ikke lenger brukes. Ta kontakt med tjenesteleverandøren hvis du vil ha mer informasjon.</value>
+  </data>
+  <data name="PurposePersonal" xml:space="preserve">
+    <value>Personlig bruk.</value>
+  </data>
+  <data name="PurposePersonalDescription" xml:space="preserve">
+    <value>Med dette alternativet kan du bruke tagg-ID til personlige formål. Du kan bruke appen til å signere eller få tilgang til ressurser som privatperson. Enkelte operasjoner kan medføre kostnader, avhengig av tjenesteleverandøren du velger. Ta kontakt med tjenesteleverandøren hvis du vil ha mer informasjon.</value>
+  </data>
+  <data name="PurposeWork" xml:space="preserve">
+    <value>Arbeidsbruk.</value>
+  </data>
+  <data name="PurposeWorkDescription" xml:space="preserve">
+    <value>Med dette alternativet kan du bruke tagg-ID til jobbformål. Dette inkluderer arbeid som ikke er for profitt i organisasjoner. Du kan bruke appen til å signere eller få tilgang til ressurser som representant for en organisasjon. Enkelte operasjoner kan medføre kostnader, avhengig av tjenesteleverandøren du velger. Ta kontakt med tjenesteleverandøren hvis du vil ha mer informasjon.</value>
   </data>
 </root>

@@ -1167,18 +1167,6 @@
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Wir müssen auch Ihre Mobiltelefonnummer validieren. Bitte geben Sie unten Ihre Mobiltelefonnummer im internationalen Rufnummernformat ohne Leerzeichen ein.</value>
   </data>
-  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Pädagogische oder experimentelle Nutzung.</value>
-  </data>
-  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Mit dieser Option können Sie die Tag-ID für Bildungs-, Versuchs- oder Testzwecke verwenden. Bei der Nutzung dieser Option fallen keine Kosten an. Das Konto kann entfernt werden, wenn es nicht mehr verwendet wird. Es gibt keine Garantie, dass der ausgewählte Bildungs- oder Experimentaldienstleister den Betrieb über längere Zeiträume fortsetzt.</value>
-  </data>
-  <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Arbeit oder persönlicher Gebrauch.</value>
-  </data>
-  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Mit dieser Option können Sie die Tag-ID für geschäftliche oder private Zwecke verwenden. Sie können die App drei Monate lang kostenlos nutzen. Nach diesem Zeitraum können für bestimmte Vorgänge Kosten anfallen.</value>
-  </data>
   <data name="SelectPurpose" xml:space="preserve">
     <value>Zweck auswählen</value>
   </data>
@@ -2258,5 +2246,29 @@
   </data>
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Link kann nicht geöffnet werden:</value>
+  </data>
+  <data name="PurposeEducational" xml:space="preserve">
+    <value>Pädagogische Nutzung.</value>
+  </data>
+  <data name="PurposeEducationalDescription" xml:space="preserve">
+    <value>Mit dieser Option können Sie die Tag-ID für Bildungszwecke verwenden. Sie können die App verwenden, um als Privatperson zu signieren oder auf Ressourcen zuzugreifen, entweder als Lehrkraft oder als Student. Das Konto kann zeitlich begrenzt sein. Das Konto kann auch entfernt werden, wenn es nicht mehr verwendet wird. Wenden Sie sich an den Dienstanbieter, um weitere Informationen zu erhalten.</value>
+  </data>
+  <data name="PurposeExperimental" xml:space="preserve">
+    <value>Experimentelle Verwendung.</value>
+  </data>
+  <data name="PurposeExperimentalDescription" xml:space="preserve">
+    <value>Mit dieser Option können Sie die Tag-ID für experimentelle Zwecke verwenden. Sie können die App verwenden, um als Privatperson zu signieren oder auf Ressourcen zuzugreifen, mit dem Ziel, die Technologie zu erlernen und für welche Zwecke sie verwendet werden kann. Das Konto kann zeitlich begrenzt sein. Das Konto kann auch entfernt werden, wenn es nicht mehr verwendet wird. Wenden Sie sich an den Dienstanbieter, um weitere Informationen zu erhalten.</value>
+  </data>
+  <data name="PurposePersonal" xml:space="preserve">
+    <value>Persönlicher Gebrauch.</value>
+  </data>
+  <data name="PurposePersonalDescription" xml:space="preserve">
+    <value>Mit dieser Option können Sie die Tag-ID für persönliche Zwecke verwenden. Sie können die App verwenden, um als Privatperson zu signieren oder auf Ressourcen zuzugreifen. Bestimmte Vorgänge können je nach gewähltem Dienstanbieter mit Kosten verbunden sein. Wenden Sie sich an den Dienstanbieter, um weitere Informationen zu erhalten.</value>
+  </data>
+  <data name="PurposeWork" xml:space="preserve">
+    <value>Nutzung am Arbeitsplatz.</value>
+  </data>
+  <data name="PurposeWorkDescription" xml:space="preserve">
+    <value>Mit dieser Option können Sie die Tag-ID für Arbeitszwecke verwenden. Dazu gehört auch die gemeinnützige Arbeit in Organisationen. Sie können die App verwenden, um Ressourcen als Vertreter einer Organisation zu signieren oder darauf zuzugreifen. Bestimmte Vorgänge können je nach gewähltem Dienstanbieter mit Kosten verbunden sein. Wenden Sie sich an den Dienstanbieter, um weitere Informationen zu erhalten.</value>
   </data>
 </root>

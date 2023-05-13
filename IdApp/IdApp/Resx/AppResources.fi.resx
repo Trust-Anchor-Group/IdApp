@@ -1167,18 +1167,6 @@
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Meidän on myös vahvistettava matkapuhelinnumerosi. Kirjoita matkapuhelinnumerosi alle käyttäen kansainvälistä puhelinnumeromuotoa, ilman välilyöntejä.</value>
   </data>
-  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Opetus- tai kokeellinen käyttö.</value>
-  </data>
-  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Tämän vaihtoehdon avulla voit käyttää Tag ID:tä koulutus-, kokeilu- tai testitarkoituksiin. Tämän vaihtoehdon käytöstä ei aiheudu kustannuksia. Tili voidaan poistaa, kun sitä ei enää käytetä. Ei ole mitään takeita siitä, että valittu koulutus- tai kokeilupalvelujen tarjoaja jatkaa toimintaansa pitkiä aikoja.</value>
-  </data>
-  <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Työ- tai henkilökohtainen käyttö.</value>
-  </data>
-  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Tämän vaihtoehdon avulla voit käyttää Tag ID:tä työ- tai henkilökohtaisiin tarkoituksiin. Voit käyttää sovellusta kolmen kuukauden ajan ilmaiseksi. Tämän ajanjakson jälkeen tietyistä toiminnoista voi aiheutua kustannuksia.</value>
-  </data>
   <data name="SelectPurpose" xml:space="preserve">
     <value>Valitse tarkoitus</value>
   </data>
@@ -2258,5 +2246,29 @@
   </data>
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Linkkiä ei voi avata:</value>
+  </data>
+  <data name="PurposeEducational" xml:space="preserve">
+    <value>Opetuskäyttö.</value>
+  </data>
+  <data name="PurposeEducationalDescription" xml:space="preserve">
+    <value>Tämän vaihtoehdon avulla voit käyttää Tag ID:tä opetustarkoituksiin. Sovelluksen avulla voit allekirjoittaa tai käyttää resursseja yksityishenkilönä joko opettajana tai opiskelijana. Tilin kesto voi olla rajoitettu. Tili voidaan myös poistaa, kun sitä ei enää käytetä. Pyydä lisätietoja palveluntarjoajalta.</value>
+  </data>
+  <data name="PurposeExperimental" xml:space="preserve">
+    <value>Kokeellinen käyttö.</value>
+  </data>
+  <data name="PurposeExperimentalDescription" xml:space="preserve">
+    <value>Tämän vaihtoehdon avulla voit käyttää Tag ID:tä kokeellisiin tarkoituksiin. Voit käyttää sovellusta resurssien allekirjoittamiseen tai käyttämiseen yksityishenkilönä tavoitteenasi oppia tekniikka ja mihin tarkoituksiin sitä voidaan käyttää. Tilin kesto voi olla rajoitettu. Tili voidaan myös poistaa, kun sitä ei enää käytetä. Pyydä lisätietoja palveluntarjoajalta.</value>
+  </data>
+  <data name="PurposePersonal" xml:space="preserve">
+    <value>Henkilökohtainen käyttö.</value>
+  </data>
+  <data name="PurposePersonalDescription" xml:space="preserve">
+    <value>Tämän vaihtoehdon avulla voit käyttää Tag ID:tä henkilökohtaisiin tarkoituksiin. Voit käyttää sovellusta resurssien allekirjoittamiseen tai käyttämiseen yksityishenkilönä. Tietyistä toiminnoista voi aiheutua kustannuksia valitsemastasi palveluntarjoajasta riippuen. Pyydä lisätietoja palveluntarjoajalta.</value>
+  </data>
+  <data name="PurposeWork" xml:space="preserve">
+    <value>Työkäyttö.</value>
+  </data>
+  <data name="PurposeWorkDescription" xml:space="preserve">
+    <value>Tämän vaihtoehdon avulla voit käyttää Tag ID:tä työtarkoituksiin. Tähän sisältyy työ, joka ei ole voittoa tavoitteleva organisaatioissa. Sovelluksen avulla voit allekirjoittaa tai käyttää resursseja organisaation edustajana. Tietyistä toiminnoista voi aiheutua kustannuksia valitsemastasi palveluntarjoajasta riippuen. Pyydä lisätietoja palveluntarjoajalta.</value>
   </data>
 </root>

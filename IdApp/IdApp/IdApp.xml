@@ -1650,20 +1650,6 @@
         <member name="M:IdApp.Converters.DateToString.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.EqualsOne">
-            <summary>
-            Is true if an integer property is equal to one.
-            </summary>
-        </member>
-        <member name="M:IdApp.Converters.EqualsOne.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Converters.EqualsOne.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Converters.EqualsOne.ProvideValue(System.IServiceProvider)">
-            <inheritdoc/>
-        </member>
         <member name="T:IdApp.Converters.EqualsParameter">
             <summary>
             EqualsParameter is an <see cref="T:Xamarin.Forms.IValueConverter"/> which converts a given value to a boolean indicating if the value
@@ -1689,20 +1675,6 @@
             <summary>
             Returns an instance of <see cref="T:IdApp.Converters.EqualsParameter"/> class.
             </summary>
-        </member>
-        <member name="T:IdApp.Converters.EqualsZero">
-            <summary>
-            Is true if an integer property is equal to zero.
-            </summary>
-        </member>
-        <member name="M:IdApp.Converters.EqualsZero.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Converters.EqualsZero.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Converters.EqualsZero.ProvideValue(System.IServiceProvider)">
-            <inheritdoc/>
         </member>
         <member name="T:IdApp.Converters.GreaterThanZero">
             <summary>
@@ -9979,14 +9951,24 @@
             For what purpose the app will be used
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.WorkOrPersonal">
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.Personal">
             <summary>
-            For work or personal use
+            For personal use
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.EducationalOrExperimental">
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.Work">
             <summary>
-            For educational or experimental use
+            For use at work
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.Educational">
+            <summary>
+            For educational use
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.PurposeUse.Experimental">
+            <summary>
+            For experimental use
             </summary>
         </member>
         <member name="T:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel">
@@ -10028,14 +10010,54 @@
             Holds the list of purposes to display.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeProperty">
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeNrProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.Purpose"/>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeNr"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.Purpose">
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeNr">
             <summary>
-            Phone number
+            Purpose number (zero-based)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsPersonalPurposeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsPersonalPurpose"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsPersonalPurpose">
+            <summary>
+            If purpose is personal use.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsWorkPurposeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsWorkPurpose"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsWorkPurpose">
+            <summary>
+            If purpose is personal use.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsEducationalPurposeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsEducationalPurpose"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsEducationalPurpose">
+            <summary>
+            If purpose is personal use.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsExperimentalPurposeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsExperimentalPurpose"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.IsExperimentalPurpose">
+            <summary>
+            If purpose is personal use.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PurposeRequiredProperty">
@@ -10106,7 +10128,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailValidated">
             <summary>
-            If Phone number is valid or not
+            If e-Mail is valid or not
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrValidatedProperty">
@@ -10126,7 +10148,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EMailVerificationCode">
             <summary>
-            Phone number
+            E-mail verification code
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCodeProperty">
@@ -10136,7 +10158,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.PhoneNrVerificationCode">
             <summary>
-            Phone number
+            Phone number verification code
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.EmailButtonEnabled">
@@ -10161,12 +10183,12 @@
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyEmailCodeButtonEnabled">
             <summary>
-            If Phone number is valid or not
+            If verify e-mail code button is enabled.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyPhoneCodeButtonEnabled">
             <summary>
-            If Phone number is valid or not
+            If verify phone number code button is enabled.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateContactInfo.ValidateContactInfoViewModel.VerifyEmailCodeButtonLabel">
@@ -19106,9 +19128,34 @@
               Looks up a localized string similar to Purpose.
             </summary>
         </member>
-        <member name="P:IdApp.Resx.AppResources.PurposeEducationalOrExperimental">
+        <member name="P:IdApp.Resx.AppResources.PurposeEducational">
             <summary>
-              Looks up a localized string similar to Educational or experimental use..
+              Looks up a localized string similar to Educational use..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PurposeEducationalDescription">
+            <summary>
+              Looks up a localized string similar to This option allows you to use Tag ID for educational purposes. You can use the app to sign or access resources as a private person, either as an educator, or as a student. The account may be limited in time. The account may also be removed when no longer used. Check with the service provider for more information..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PurposeExperimental">
+            <summary>
+              Looks up a localized string similar to Experimental use..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PurposeExperimentalDescription">
+            <summary>
+              Looks up a localized string similar to This option allows you to use Tag ID for experimental purposes. You can use the app to sign or access resources as a private person, with the goal of learning the technology and for what purposes it can be used. The account may be limited in time. The account may also be removed when no longer used. Check with the service provider for more information..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PurposePersonal">
+            <summary>
+              Looks up a localized string similar to Personal use..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PurposePersonalDescription">
+            <summary>
+              Looks up a localized string similar to This option allows you to use Tag ID for personal purposes. You can use the app to sign or access resources as a private person. Certain operations may incur costs, depending on the service provider you choose. Check with the service provider for more information..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PurposeReviewContract">
@@ -19121,19 +19168,14 @@
               Looks up a localized string similar to Reviewing token where you are part..
             </summary>
         </member>
-        <member name="P:IdApp.Resx.AppResources.PurposeWorkEducationalOrExperimental">
+        <member name="P:IdApp.Resx.AppResources.PurposeWork">
             <summary>
-              Looks up a localized string similar to This option allows you to use Tag ID for educational, experimental or test purposes. There are no costs incurred when using this option. The account may be removed when no longer used. There is no guarantee the educational or experimental service provider selected will continue operation for extended periods of time..
+              Looks up a localized string similar to Work use..
             </summary>
         </member>
-        <member name="P:IdApp.Resx.AppResources.PurposeWorkOrPersonal">
+        <member name="P:IdApp.Resx.AppResources.PurposeWorkDescription">
             <summary>
-              Looks up a localized string similar to Work or personal use..
-            </summary>
-        </member>
-        <member name="P:IdApp.Resx.AppResources.PurposeWorkOrPersonalDescription">
-            <summary>
-              Looks up a localized string similar to This option allows you to use Tag ID for work or personal purposes. You can use the app for three months at no cost. After this time period, certain operations may incur costs..
+              Looks up a localized string similar to This option allows you to use Tag ID for work purposes. This includes work not for profit in organizations. You can use the app to sign or access resources as a representative of an organization. Certain operations may incur costs, depending on the service provider you choose. Check with the service provider for more information..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Qrcode">
