@@ -250,7 +250,7 @@ namespace IdApp
             public const string LastName = "LAST";
 
             /// <summary>
-            /// /Personal number
+            /// Personal number
             /// </summary>
             public const string PersonalNumber = "PNR";
 
@@ -280,7 +280,7 @@ namespace IdApp
             public const string ZipCode = "ZIP";
 
             /// <summary>
-            ///  Region
+            /// Region
             /// </summary>
             public const string Region = "REGION";
 
@@ -289,10 +289,55 @@ namespace IdApp
             /// </summary>
             public const string Country = "COUNTRY";
 
-            /// <summary>
-            /// Device ID
-            /// </summary>
-            public const string DeviceId = "DEVICE_ID";
+			/// <summary>
+			/// Organization name
+			/// </summary>
+			public const string OrgName = "ORGNAME";
+
+			/// <summary>
+			/// Organization number
+			/// </summary>
+			public const string OrgNumber = "ORGNR";
+
+			/// <summary>
+			/// Organization Address line 1
+			/// </summary>
+			public const string OrgAddress = "ORGADDR";
+
+			/// <summary>
+			/// Organization Address line 2
+			/// </summary>
+			public const string OrgAddress2 = "ORGADDR2";
+
+			/// <summary>
+			/// Organization Area
+			/// </summary>
+			public const string OrgArea = "ORGAREA";
+
+			/// <summary>
+			/// Organization City
+			/// </summary>
+			public const string OrgCity = "ORGCITY";
+
+			/// <summary>
+			/// Organization Zip Code
+			/// </summary>
+			public const string OrgZipCode = "ORGZIP";
+
+			/// <summary>
+			/// Organization Region
+			/// </summary>
+			public const string OrgRegion = "ORGREGION";
+
+			/// <summary>
+			/// Organization Country
+			/// </summary>
+			public const string OrgCountry = "ORGCOUNTRY";
+
+			/// <summary>
+			/// Device ID
+			/// </summary>
+			public const string DeviceId = "DEVICE_ID";
 
             /// <summary>
             /// Jabber ID

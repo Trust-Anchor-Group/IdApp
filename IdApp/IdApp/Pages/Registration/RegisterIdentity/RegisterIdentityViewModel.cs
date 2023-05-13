@@ -366,7 +366,16 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string Address
 		{
 			get => (string)this.GetValue(AddressProperty);
-			set => this.SetValue(AddressProperty, value);
+			set
+			{
+				string Prev = this.Address;
+				if (Prev != value)
+				{
+					this.SetValue(AddressProperty, value);
+					if (Prev == this.OrgAddress)
+						this.OrgAddress = value;
+				}
+			}
 		}
 
 		/// <summary>
@@ -381,7 +390,16 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string Address2
 		{
 			get => (string)this.GetValue(Address2Property);
-			set => this.SetValue(Address2Property, value);
+			set
+			{
+				string Prev = this.Address2;
+				if (Prev != value)
+				{
+					this.SetValue(Address2Property, value);
+					if (Prev == this.OrgAddress2)
+						this.OrgAddress2 = value;
+				}
+			}
 		}
 
 		/// <summary>
@@ -426,7 +444,16 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string ZipCode
 		{
 			get => (string)this.GetValue(ZipCodeProperty);
-			set => this.SetValue(ZipCodeProperty, value);
+			set
+			{
+				string Prev = this.ZipCode;
+				if (Prev != value)
+				{
+					this.SetValue(ZipCodeProperty, value);
+					if (Prev == this.OrgZipCode)
+						this.OrgZipCode = value;
+				}
+			}
 		}
 
 		/// <summary>
@@ -456,7 +483,16 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string Area
 		{
 			get => (string)this.GetValue(AreaProperty);
-			set => this.SetValue(AreaProperty, value);
+			set
+			{
+				string Prev = this.Area;
+				if (Prev != value)
+				{
+					this.SetValue(AreaProperty, value);
+					if (Prev == this.OrgArea)
+						this.OrgArea = value;
+				}
+			}
 		}
 
 		/// <summary>
@@ -486,7 +522,16 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string City
 		{
 			get => (string)this.GetValue(CityProperty);
-			set => this.SetValue(CityProperty, value);
+			set
+			{
+				string Prev = this.City;
+				if (Prev != value)
+				{
+					this.SetValue(CityProperty, value);
+					if (Prev == this.OrgCity)
+						this.OrgCity = value;
+				}
+			}
 		}
 
 		/// <summary>
@@ -516,7 +561,16 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string Region
 		{
 			get => (string)this.GetValue(RegionProperty);
-			set => this.SetValue(RegionProperty, value);
+			set
+			{
+				string Prev = this.Region;
+				if (Prev != value)
+				{
+					this.SetValue(RegionProperty, value);
+					if (Prev == this.OrgRegion)
+						this.OrgRegion = value;
+				}
+			}
 		}
 
 		/// <summary>
@@ -1119,6 +1173,36 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (!string.IsNullOrWhiteSpace(s = this.SelectedCountry?.Trim()))
 				IdentityModel.Country = s;
+
+			if (this.ShowOrganization)
+			{
+				if (!string.IsNullOrWhiteSpace(s = this.OrgName?.Trim()))
+					IdentityModel.OrgName = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgNumber?.Trim()))
+					IdentityModel.OrgNumber = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgAddress?.Trim()))
+					IdentityModel.OrgAddress = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgAddress2?.Trim()))
+					IdentityModel.OrgAddress2 = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgZipCode?.Trim()))
+					IdentityModel.OrgZipCode = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgArea?.Trim()))
+					IdentityModel.OrgArea = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgCity?.Trim()))
+					IdentityModel.OrgCity = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgRegion?.Trim()))
+					IdentityModel.OrgRegion = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.SelectedOrgCountry?.Trim()))
+					IdentityModel.OrgCountry = s;
+			}
 
 			if (!string.IsNullOrWhiteSpace(s = this.TagProfile?.PhoneNumber?.Trim()))
 			{

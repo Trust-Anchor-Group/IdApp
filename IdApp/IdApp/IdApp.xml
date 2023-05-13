@@ -603,7 +603,7 @@
         </member>
         <member name="F:IdApp.Constants.XmppProperties.PersonalNumber">
             <summary>
-            /Personal number
+            Personal number
             </summary>
         </member>
         <member name="F:IdApp.Constants.XmppProperties.Address">
@@ -633,12 +633,57 @@
         </member>
         <member name="F:IdApp.Constants.XmppProperties.Region">
             <summary>
-             Region
+            Region
             </summary>
         </member>
         <member name="F:IdApp.Constants.XmppProperties.Country">
             <summary>
             Country
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.OrgName">
+            <summary>
+            Organization name
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.OrgNumber">
+            <summary>
+            Organization number
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.OrgAddress">
+            <summary>
+            Organization Address line 1
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.OrgAddress2">
+            <summary>
+            Organization Address line 2
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.OrgArea">
+            <summary>
+            Organization Area
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.OrgCity">
+            <summary>
+            Organization City
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.OrgZipCode">
+            <summary>
+            Organization Zip Code
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.OrgRegion">
+            <summary>
+            Organization Region
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.OrgCountry">
+            <summary>
+            Organization Country
             </summary>
         </member>
         <member name="F:IdApp.Constants.XmppProperties.DeviceId">
@@ -9403,6 +9448,51 @@
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.Country">
             <summary>
             Country
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.OrgName">
+            <summary>
+            Organization name
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.OrgNumber">
+            <summary>
+            Organization number
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.OrgAddress">
+            <summary>
+            Organization Address, line 1
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.OrgAddress2">
+            <summary>
+            Organization Address, line 2
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.OrgZipCode">
+            <summary>
+            Organization Zip code (postal code)
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.OrgArea">
+            <summary>
+            Organization Area
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.OrgCity">
+            <summary>
+            Organization City
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.OrgRegion">
+            <summary>
+            Organization Region
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.OrgCountry">
+            <summary>
+            Organization Country
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.PhoneNr">

@@ -66,6 +66,51 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string Country { get; set; }
 
 		/// <summary>
+		/// Organization name
+		/// </summary>
+		public string OrgName { get; set; }
+
+		/// <summary>
+		/// Organization number
+		/// </summary>
+		public string OrgNumber { get; set; }
+
+		/// <summary>
+		/// Organization Address, line 1
+		/// </summary>
+		public string OrgAddress { get; set; }
+
+		/// <summary>
+		/// Organization Address, line 2
+		/// </summary>
+		public string OrgAddress2 { get; set; }
+
+		/// <summary>
+		/// Organization Zip code (postal code)
+		/// </summary>
+		public string OrgZipCode { get; set; }
+
+		/// <summary>
+		/// Organization Area
+		/// </summary>
+		public string OrgArea { get; set; }
+
+		/// <summary>
+		/// Organization City
+		/// </summary>
+		public string OrgCity { get; set; }
+
+		/// <summary>
+		/// Organization Region
+		/// </summary>
+		public string OrgRegion { get; set; }
+
+		/// <summary>
+		/// Organization Country
+		/// </summary>
+		public string OrgCountry { get; set; }
+
+		/// <summary>
 		/// Phone Number
 		/// </summary>
 		public string PhoneNr { get; set; }
@@ -128,6 +173,33 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (!string.IsNullOrWhiteSpace(s = this.Country?.Trim()))
 				properties.Add(new Property(Constants.XmppProperties.Country, ISO_3166_1.ToCode(s)));
 
+			if (!string.IsNullOrWhiteSpace(s = this.OrgName?.Trim()))
+				properties.Add(new Property(Constants.XmppProperties.OrgName, s));
+
+			if (!string.IsNullOrWhiteSpace(s = this.OrgNumber?.Trim()))
+				properties.Add(new Property(Constants.XmppProperties.OrgNumber, s));
+
+			if (!string.IsNullOrWhiteSpace(s = this.OrgAddress?.Trim()))
+				properties.Add(new Property(Constants.XmppProperties.OrgAddress, s));
+
+			if (!string.IsNullOrWhiteSpace(s = this.OrgAddress2?.Trim()))
+				properties.Add(new Property(Constants.XmppProperties.OrgAddress2, s));
+
+			if (!string.IsNullOrWhiteSpace(s = this.OrgZipCode?.Trim()))
+				properties.Add(new Property(Constants.XmppProperties.OrgZipCode, s));
+
+			if (!string.IsNullOrWhiteSpace(s = this.OrgArea?.Trim()))
+				properties.Add(new Property(Constants.XmppProperties.OrgArea, s));
+
+			if (!string.IsNullOrWhiteSpace(s = this.OrgCity?.Trim()))
+				properties.Add(new Property(Constants.XmppProperties.OrgCity, s));
+
+			if (!string.IsNullOrWhiteSpace(s = this.OrgRegion?.Trim()))
+				properties.Add(new Property(Constants.XmppProperties.OrgRegion, s));
+
+			if (!string.IsNullOrWhiteSpace(s = this.OrgCountry?.Trim()))
+				properties.Add(new Property(Constants.XmppProperties.OrgCountry, ISO_3166_1.ToCode(s)));
+
 			if (!string.IsNullOrWhiteSpace(s = this.PhoneNr?.Trim()))
 				properties.Add(new Property(Constants.XmppProperties.Phone, s));
 
@@ -140,7 +212,6 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			properties.Add(new Property(Constants.XmppProperties.Jid, XmppService.BareJid));
 
 			return properties.ToArray();
-
 		}
 	}
 }
