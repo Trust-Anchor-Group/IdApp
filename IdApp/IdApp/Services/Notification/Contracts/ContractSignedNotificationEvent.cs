@@ -148,7 +148,7 @@ namespace IdApp.Services.Notification.Contracts
 						new KeyValuePair<string, object>("ContractId", this.ContractId),
 						new KeyValuePair<string, object>("LegalId", this.LegalId),
 						new KeyValuePair<string, object>("Role", this.Role),
-						new KeyValuePair<string, object>("JID", ServiceReferences.XmppService.BareJid));
+						new KeyValuePair<string, object>(Constants.XmppProperties.Jid, ServiceReferences.XmppService.BareJid));
 				}
 			}
 

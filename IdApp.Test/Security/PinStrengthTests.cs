@@ -46,16 +46,16 @@ namespace IdApp.Test.Security
 
 				Properties = new Property[]
 				{
-					new Property("FIRST", firstName),
-					new Property("MIDDLE", middleName1 + " "+ middleName2 + " " + middleName3 + " " + middleName4 + " " + middleName5),
-					new Property("LAST", lastName),
-					new Property("PNR", pnr),
-					new Property("ADDR", addressPart1 + " " + addressPart2 + " " + addressPart3 + " " + addressPart4),
-					new Property("ZIP", "220000"),
-					new Property("CITY", "Minsk"),
-					new Property("COUNTRY", "BY"),
-					new Property("PHONE", phoneNumber),
-					new Property("JID", "Anton.Sakovich@lab.tagroot.io"),
+					new Property(Constants.XmppProperties.FirstName, firstName),
+					new Property(Constants.XmppProperties.MiddleName, middleName1 + " "+ middleName2 + " " + middleName3 + " " + middleName4 + " " + middleName5),
+					new Property(Constants.XmppProperties.LastName, lastName),
+					new Property(Constants.XmppProperties.PersonalNumber, pnr),
+					new Property(Constants.XmppProperties.Address, addressPart1 + " " + addressPart2 + " " + addressPart3 + " " + addressPart4),
+					new Property(Constants.XmppProperties.ZipCode, "220000"),
+					new Property(Constants.XmppProperties.City, "Minsk"),
+					new Property(Constants.XmppProperties.Country, "BY"),
+					new Property(Constants.XmppProperties.Phone, phoneNumber),
+					new Property(Constants.XmppProperties.Jid, "Anton.Sakovich@lab.tagroot.io"),
 				}
 			};
 

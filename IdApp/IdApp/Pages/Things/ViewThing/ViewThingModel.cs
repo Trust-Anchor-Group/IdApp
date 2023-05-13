@@ -904,30 +904,30 @@ namespace IdApp.Pages.Things.ViewThing
 
 						switch (P.Name.ToUpper())
 						{
-							case "ALT":
-							case "LAT":
-							case "LON":
-							case "V":
+							case Constants.XmppProperties.Altitude:
+							case Constants.XmppProperties.Latitude:
+							case Constants.XmppProperties.Longitude:
+							case Constants.XmppProperties.Version:
 								sb.Append('#');
 								break;
 
-							case "JID":
+							case Constants.XmppProperties.Jid:
 								HasJid = true;
 								break;
 
-							case "SID":
+							case Constants.XmppProperties.SourceId:
 								HasSourceId = true;
 								break;
 
-							case "PT":
+							case Constants.XmppProperties.Partition:
 								HasPartition = true;
 								break;
 
-							case "NID":
+							case Constants.XmppProperties.NodeId:
 								HasNodeId = true;
 								break;
 
-							case "R":
+							case Constants.XmppProperties.Registry:
 								HasRegistry = true;
 								break;
 						}

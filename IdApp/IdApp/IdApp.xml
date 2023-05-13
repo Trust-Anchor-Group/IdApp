@@ -706,6 +706,116 @@
             e-Mail address
             </summary>
         </member>
+        <member name="F:IdApp.Constants.XmppProperties.Apartment">
+            <summary>
+            Apartment
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Room">
+            <summary>
+            Room
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Building">
+            <summary>
+            Building
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Altitude">
+            <summary>
+            Altitude
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Longitude">
+            <summary>
+            Longitude
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Latitude">
+            <summary>
+            Latitude
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Class">
+            <summary>
+            Class
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Key">
+            <summary>
+            Key
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Manufacturer">
+            <summary>
+            Manufacturer
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.MeterLocation">
+            <summary>
+            Meter Location
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.MeterNumber">
+            <summary>
+            MeterNumber
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Model">
+            <summary>
+            Model
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.ProductInformation">
+            <summary>
+            Product Information
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Registry">
+            <summary>
+            Registry
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.SerialNumber">
+            <summary>
+            Serial Number
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.StreetName">
+            <summary>
+            Street Name
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.StreetNumber">
+            <summary>
+            Street Number
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Version">
+            <summary>
+            Version
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.SourceId">
+            <summary>
+            Source ID
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Partition">
+            <summary>
+            Partition
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.NodeId">
+            <summary>
+            Node ID
+            </summary>
+        </member>
         <member name="T:IdApp.Constants.Intervals">
             <summary>
             Timer Intervals

@@ -353,6 +353,116 @@ namespace IdApp
 			/// e-Mail address
 			/// </summary>
 			public const string EMail = "EMAIL";
+
+			/// <summary>
+			/// Apartment
+			/// </summary>
+			public const string Apartment = "APT";
+
+			/// <summary>
+			/// Room
+			/// </summary>
+			public const string Room = "ROOM";
+
+			/// <summary>
+			/// Building
+			/// </summary>
+			public const string Building = "BLD";
+
+			/// <summary>
+			/// Altitude
+			/// </summary>
+			public const string Altitude = "ALT";
+
+			/// <summary>
+			/// Longitude
+			/// </summary>
+			public const string Longitude = "LON";
+
+			/// <summary>
+			/// Latitude
+			/// </summary>
+			public const string Latitude = "LAT";
+
+			/// <summary>
+			/// Class
+			/// </summary>
+			public const string Class = "CLASS";
+
+			/// <summary>
+			/// Key
+			/// </summary>
+			public const string Key = "KEY";
+
+			/// <summary>
+			/// Manufacturer
+			/// </summary>
+			public const string Manufacturer = "MAN";
+
+			/// <summary>
+			/// Meter Location
+			/// </summary>
+			public const string MeterLocation = "MLOC";
+
+			/// <summary>
+			/// MeterNumber
+			/// </summary>
+			public const string MeterNumber = "MNR";
+
+			/// <summary>
+			/// Model
+			/// </summary>
+			public const string Model = "MODEL";
+
+			/// <summary>
+			/// Name
+			/// </summary>
+			public const string Name = "NAME";
+
+			/// <summary>
+			/// Product Information
+			/// </summary>
+			public const string ProductInformation = "PURL";
+
+			/// <summary>
+			/// Registry
+			/// </summary>
+			public const string Registry = "R";
+
+			/// <summary>
+			/// Serial Number
+			/// </summary>
+			public const string SerialNumber = "SN";
+
+			/// <summary>
+			/// Street Name
+			/// </summary>
+			public const string StreetName = "STREET";
+
+			/// <summary>
+			/// Street Number
+			/// </summary>
+			public const string StreetNumber = "STREETNR";
+
+			/// <summary>
+			/// Version
+			/// </summary>
+			public const string Version = "V";
+
+			/// <summary>
+			/// Source ID
+			/// </summary>
+			public const string SourceId = "SID";
+
+			/// <summary>
+			/// Partition
+			/// </summary>
+			public const string Partition = "PT";
+
+			/// <summary>
+			/// Node ID
+			/// </summary>
+			public const string NodeId = "NID";
 		}
 
 		/// <summary>

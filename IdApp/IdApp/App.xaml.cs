@@ -825,7 +825,7 @@ namespace IdApp
 				{
 					List<KeyValuePair<string, object>> Tags = new()
 					{
-						new KeyValuePair<string, object>("JID", this.services?.XmppService?.BareJid)
+						new KeyValuePair<string, object>(Constants.XmppProperties.Jid, this.services?.XmppService?.BareJid)
 					};
 
 					KeyValuePair<string, object>[] Tags2 = this.services?.TagProfile?.LegalIdentity?.GetTags();

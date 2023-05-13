@@ -406,75 +406,75 @@ namespace IdApp.Services
 			{
 				switch (P.Name.ToUpper())
 				{
-					case "APT":
+					case Constants.XmppProperties.Apartment:
 						Apartment = P.Value;
 						break;
 
-					case "AREA":
+					case Constants.XmppProperties.Area:
 						Area = P.Value;
 						break;
 
-					case "BLD":
+					case Constants.XmppProperties.Building:
 						Building = P.Value;
 						break;
 
-					case "CITY":
+					case Constants.XmppProperties.City:
 						City = P.Value;
 						break;
 
-					case "COUNTRY":
+					case Constants.XmppProperties.Country:
 						Country = P.Value;
 						break;
 
-					case "REGION":
+					case Constants.XmppProperties.Region:
 						Region = P.Value;
 						break;
 
-					case "ROOM":
+					case Constants.XmppProperties.Room:
 						Room = P.Value;
 						break;
 
-					case "STREET":
+					case Constants.XmppProperties.StreetName:
 						Street = P.Value;
 						break;
 
-					case "STREETNR":
+					case Constants.XmppProperties.StreetNumber:
 						StreetNumber = P.Value;
 						break;
 
-					case "CLASS":
+					case Constants.XmppProperties.Class:
 						Class = P.Value;
 						break;
 
-					case "MAN":
+					case Constants.XmppProperties.Manufacturer:
 						Manufacturer = P.Value;
 						break;
 
-					case "MLOC":
+					case Constants.XmppProperties.MeterLocation:
 						MeterLocation = P.Value;
 						break;
 
-					case "MNR":
+					case Constants.XmppProperties.MeterNumber:
 						MeterNumber = P.Value;
 						break;
 
-					case "MODEL":
+					case Constants.XmppProperties.Model:
 						Model = P.Value;
 						break;
 
-					case "NAME":
+					case Constants.XmppProperties.Name:
 						Name = P.Value;
 						break;
 
-					case "SN":
+					case Constants.XmppProperties.SerialNumber:
 						SerialNumber = P.Value;
 						break;
 
-					case "V":
+					case Constants.XmppProperties.Version:
 						Version = P.Value;
 						break;
 
-					case "PHONE":
+					case Constants.XmppProperties.Phone:
 						Phone = P.Value;
 						break;
 				}

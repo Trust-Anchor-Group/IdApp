@@ -2198,19 +2198,19 @@ namespace IdApp.Services.Xmpp
 				{
 					switch (S.Name.ToUpper())
 					{
-						case "JID":
+						case Constants.XmppProperties.Jid:
 							Jid = S.Value;
 							break;
 
-						case "SID":
+						case Constants.XmppProperties.SourceId:
 							SourceId = S.Value;
 							break;
 
-						case "NID":
+						case Constants.XmppProperties.NodeId:
 							NodeId = S.Value;
 							break;
 
-						case "PT":
+						case Constants.XmppProperties.Partition:
 							PartitionId = S.Value;
 							break;
 
