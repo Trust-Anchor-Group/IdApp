@@ -11671,6 +11671,136 @@
             Gets or sets the user's country.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgName">
+            <summary>
+            The legal identity's organization name property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgNumber">
+            <summary>
+            The legal identity's organization number property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgDepartmentProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgDepartment"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgDepartment">
+            <summary>
+            The legal identity's organization department property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgRoleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgRole"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgRole">
+            <summary>
+            The legal identity's organization role property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgAddressProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgAddress"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgAddress">
+            <summary>
+            The legal identity's organization address property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgAddress2Property">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgAddress2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgAddress2">
+            <summary>
+            The legal identity's organization address line 2 property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgZipCode">
+            <summary>
+            The legal identity's organization zip code property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgAreaProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgArea"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgArea">
+            <summary>
+            The legal identity's organization area property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgCityProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgCity"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgCity">
+            <summary>
+            The legal identity's organization city property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgRegionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgRegion"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgRegion">
+            <summary>
+            The legal identity's organization region property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgCountryCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgCountryCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgCountryCode">
+            <summary>
+            The legal identity's organization country code property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgCountryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgCountry"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgCountry">
+            <summary>
+            The legal identity's organization country property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.HasOrgProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.HasOrg"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.HasOrg">
+            <summary>
+            If organization information is available.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.PhoneNrProperty">
             <summary>
             The <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.PhoneNr"/>

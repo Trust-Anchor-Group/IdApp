@@ -34,9 +34,20 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -84,14 +95,47 @@
                         <!-- - -->
                         <Label Grid.Row="13" Grid.Column="0" Text="{x:Static resx:AppResources.Country}" />
                         <Label Grid.Row="13" Grid.Column="1" Text="{Binding Path=Country}" Style="{StaticResource ValueLabel}"/>
+						<!-- -->
+						<Label Grid.Row="14" Grid.Column="0" Text="{x:Static resx:AppResources.OrgName}" Style="{StaticResource KeyLabel}" IsVisible="{Binding HasOrg}"/>
+						<Label Grid.Row="14" Grid.Column="1" Text="{Binding Path=OrgName}" Style="{StaticResource ValueLabel}" IsVisible="{Binding HasOrg}"/>
+						<!-- -->
+						<Label Grid.Row="15" Grid.Column="0" Text="{x:Static resx:AppResources.OrgNumber}" Style="{StaticResource KeyLabel}"  IsVisible="{Binding HasOrg}"/>
+						<Label Grid.Row="15" Grid.Column="1" Text="{Binding Path=OrgNumber}" Style="{StaticResource ValueLabel}" IsVisible="{Binding HasOrg}"/>
+						<!-- -->
+						<Label Grid.Row="16" Grid.Column="0" Text="{x:Static resx:AppResources.OrgRole}" Style="{StaticResource KeyLabel}"  IsVisible="{Binding HasOrg}"/>
+						<Label Grid.Row="16" Grid.Column="1" Text="{Binding Path=OrgRole}" Style="{StaticResource ValueLabel}" IsVisible="{Binding HasOrg}"/>
+						<!-- -->
+						<Label Grid.Row="17" Grid.Column="0" Text="{x:Static resx:AppResources.OrgDepartment}" Style="{StaticResource KeyLabel}"  IsVisible="{Binding HasOrg}"/>
+						<Label Grid.Row="17" Grid.Column="1" Text="{Binding Path=OrgDepartment}" Style="{StaticResource ValueLabel}" IsVisible="{Binding HasOrg}"/>
+						<!-- -->
+						<Label Grid.Row="18" Grid.Column="0" Text="{x:Static resx:AppResources.OrgAddress}" Style="{StaticResource KeyLabel}"  IsVisible="{Binding HasOrg}"/>
+						<Label Grid.Row="18" Grid.Column="1" Text="{Binding Path=OrgAddress}" Style="{StaticResource ValueLabel}" IsVisible="{Binding HasOrg}"/>
+						<!-- -->
+						<Label Grid.Row="19" Grid.Column="0" Text="{x:Static resx:AppResources.OrgAddress2}" Style="{StaticResource KeyLabel}"  IsVisible="{Binding HasOrg}"/>
+						<Label Grid.Row="19" Grid.Column="1" Text="{Binding Path=OrgAddress2}" Style="{StaticResource ValueLabel}" IsVisible="{Binding HasOrg}"/>
+						<!-- -->
+						<Label Grid.Row="20" Grid.Column="0" Text="{x:Static resx:AppResources.OrgZipCode}" Style="{StaticResource KeyLabel}"  IsVisible="{Binding HasOrg}"/>
+						<Label Grid.Row="20" Grid.Column="1" Text="{Binding Path=OrgZipCode}" Style="{StaticResource ValueLabel}" IsVisible="{Binding HasOrg}"/>
+						<!-- -->
+						<Label Grid.Row="21" Grid.Column="0" Text="{x:Static resx:AppResources.OrgArea}" Style="{StaticResource KeyLabel}"  IsVisible="{Binding HasOrg}"/>
+						<Label Grid.Row="21" Grid.Column="1" Text="{Binding Path=OrgArea}" FontAttributes="Bold" IsVisible="{Binding HasOrg}"/>
+						<!-- -->
+						<Label Grid.Row="22" Grid.Column="0" Text="{x:Static resx:AppResources.OrgCity}" Style="{StaticResource KeyLabel}"  IsVisible="{Binding HasOrg}"/>
+						<Label Grid.Row="22" Grid.Column="1" Text="{Binding Path=OrgCity}" Style="{StaticResource ValueLabel}" IsVisible="{Binding HasOrg}"/>
+						<!-- -->
+						<Label Grid.Row="23" Grid.Column="0" Text="{x:Static resx:AppResources.OrgRegion}" Style="{StaticResource KeyLabel}"  IsVisible="{Binding HasOrg}"/>
+						<Label Grid.Row="23" Grid.Column="1" Text="{Binding Path=OrgRegion}" Style="{StaticResource ValueLabel}" IsVisible="{Binding HasOrg}"/>
+						<!-- -->
+						<Label Grid.Row="24" Grid.Column="0" Text="{x:Static resx:AppResources.OrgCountry}" Style="{StaticResource KeyLabel}"  IsVisible="{Binding HasOrg}"/>
+						<Label Grid.Row="24" Grid.Column="1" Text="{Binding Path=OrgCountry}" Style="{StaticResource ValueLabel}" IsVisible="{Binding HasOrg}"/>
+						<!-- - -->
+                        <Label Grid.Row="25" Grid.Column="0" Text="{x:Static resx:AppResources.ID}" />
+                        <Label Grid.Row="25" Grid.Column="1" Text="{Binding Path=LegalId}" Style="{StaticResource ValueLabel}"/>
                         <!-- - -->
-                        <Label Grid.Row="14" Grid.Column="0" Text="{x:Static resx:AppResources.ID}" />
-                        <Label Grid.Row="14" Grid.Column="1" Text="{Binding Path=LegalId}" Style="{StaticResource ValueLabel}"/>
+                        <Label Grid.Row="26" Grid.Column="0" Text="{x:Static resx:AppResources.Network}" />
+                        <Label Grid.Row="26" Grid.Column="1" Text="{Binding Path=BareJid}" Style="{StaticResource ValueLabel}"/>
                         <!-- - -->
-                        <Label Grid.Row="15" Grid.Column="0" Text="{x:Static resx:AppResources.Network}" />
-                        <Label Grid.Row="15" Grid.Column="1" Text="{Binding Path=BareJid}" Style="{StaticResource ValueLabel}"/>
-                        <!-- - -->
-                        <Label Grid.Row="16" Grid.Column="0" Text="{x:Static resx:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
+                        <Label Grid.Row="27" Grid.Column="0" Text="{x:Static resx:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
                         <ScrollView Grid.Row="16" Grid.Column="1" Orientation="Horizontal" HeightRequest="68">
                             <FlexLayout x:Name="PhotosLayout"
                                     AlignContent="Center"
@@ -111,7 +155,7 @@
                             </FlexLayout>
                         </ScrollView>
                         <!-- - -->
-                        <StackLayout Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
+                        <StackLayout Grid.Row="28" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
                             <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
 							<Button x:Name="RequestReviewButton" Text="{x:Static resx:AppResources.RequestReview}" Command="{Binding Path=RequestReviewCommand}" IsVisible="{Binding Path=IsCreated}"/>
                             <Button x:Name="ContinueButton" Text="{x:Static resx:AppResources.Continue}" Command="{Binding Path=ContinueCommand}"/>

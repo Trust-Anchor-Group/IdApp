@@ -1,8 +1,6 @@
 ﻿using IdApp.Extensions;
-using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Pages.Wallet.ServiceProviders;
 using IdApp.Services.Data.Countries;
-using IdApp.Services.Navigation;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.UI.QR;
@@ -380,6 +378,201 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 		}
 
 		/// <summary>
+		/// See <see cref="OrgName"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNameProperty =
+			BindableProperty.Create(nameof(OrgName), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization name property
+		/// </summary>
+		public string OrgName
+		{
+			get => (string)this.GetValue(OrgNameProperty);
+			set => this.SetValue(OrgNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgNumber"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNumberProperty =
+			BindableProperty.Create(nameof(OrgNumber), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization number property
+		/// </summary>
+		public string OrgNumber
+		{
+			get => (string)this.GetValue(OrgNumberProperty);
+			set => this.SetValue(OrgNumberProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgDepartment"/>
+		/// </summary>
+		public static readonly BindableProperty OrgDepartmentProperty =
+			BindableProperty.Create(nameof(OrgDepartment), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization department property
+		/// </summary>
+		public string OrgDepartment
+		{
+			get => (string)this.GetValue(OrgDepartmentProperty);
+			set => this.SetValue(OrgDepartmentProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRole"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRoleProperty =
+			BindableProperty.Create(nameof(OrgRole), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization role property
+		/// </summary>
+		public string OrgRole
+		{
+			get => (string)this.GetValue(OrgRoleProperty);
+			set => this.SetValue(OrgRoleProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddress"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddressProperty =
+			BindableProperty.Create(nameof(OrgAddress), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization address property
+		/// </summary>
+		public string OrgAddress
+		{
+			get => (string)this.GetValue(OrgAddressProperty);
+			set => this.SetValue(OrgAddressProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddress2"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddress2Property =
+			BindableProperty.Create(nameof(OrgAddress2), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization address line 2 property
+		/// </summary>
+		public string OrgAddress2
+		{
+			get => (string)this.GetValue(OrgAddress2Property);
+			set => this.SetValue(OrgAddress2Property, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgZipCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgZipCodeProperty =
+			BindableProperty.Create(nameof(OrgZipCode), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization zip code property
+		/// </summary>
+		public string OrgZipCode
+		{
+			get => (string)this.GetValue(OrgZipCodeProperty);
+			set => this.SetValue(OrgZipCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgArea"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAreaProperty =
+			BindableProperty.Create(nameof(OrgArea), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization area property
+		/// </summary>
+		public string OrgArea
+		{
+			get => (string)this.GetValue(OrgAreaProperty);
+			set => this.SetValue(OrgAreaProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCity"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCityProperty =
+			BindableProperty.Create(nameof(OrgCity), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization city property
+		/// </summary>
+		public string OrgCity
+		{
+			get => (string)this.GetValue(OrgCityProperty);
+			set => this.SetValue(OrgCityProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRegion"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRegionProperty =
+			BindableProperty.Create(nameof(OrgRegion), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization region property
+		/// </summary>
+		public string OrgRegion
+		{
+			get => (string)this.GetValue(OrgRegionProperty);
+			set => this.SetValue(OrgRegionProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountryCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryCodeProperty =
+			BindableProperty.Create(nameof(OrgCountryCode), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization country code property
+		/// </summary>
+		public string OrgCountryCode
+		{
+			get => (string)this.GetValue(OrgCountryCodeProperty);
+			set => this.SetValue(OrgCountryCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountry"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryProperty =
+			BindableProperty.Create(nameof(OrgCountry), typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization country property
+		/// </summary>
+		public string OrgCountry
+		{
+			get => (string)this.GetValue(OrgCountryProperty);
+			set => this.SetValue(OrgCountryProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasOrg"/>
+		/// </summary>
+		public static readonly BindableProperty HasOrgProperty =
+			BindableProperty.Create(nameof(HasOrg), typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// If organization information is available.
+		/// </summary>
+		public bool HasOrg
+		{
+			get => (bool)this.GetValue(HasOrgProperty);
+			set => this.SetValue(HasOrgProperty, value);
+		}
+
+		/// <summary>
 		/// The <see cref="PhoneNr"/>
 		/// </summary>
 		public static readonly BindableProperty PhoneNrProperty =
@@ -495,6 +688,31 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 				this.City = this.TagProfile.LegalIdentity[Constants.XmppProperties.City];
 				this.Region = this.TagProfile.LegalIdentity[Constants.XmppProperties.Region];
 				this.CountryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.Country];
+				this.OrgName = this.TagProfile.LegalIdentity[Constants.XmppProperties.OrgName];
+				this.OrgNumber = this.TagProfile.LegalIdentity[Constants.XmppProperties.OrgNumber];
+				this.OrgDepartment = this.TagProfile.LegalIdentity[Constants.XmppProperties.OrgDepartment];
+				this.OrgRole = this.TagProfile.LegalIdentity[Constants.XmppProperties.OrgRole];
+				this.OrgAddress = this.TagProfile.LegalIdentity[Constants.XmppProperties.OrgAddress];
+				this.OrgAddress2 = this.TagProfile.LegalIdentity[Constants.XmppProperties.OrgAddress2];
+				this.OrgZipCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.OrgZipCode];
+				this.OrgArea = this.TagProfile.LegalIdentity[Constants.XmppProperties.OrgArea];
+				this.OrgCity = this.TagProfile.LegalIdentity[Constants.XmppProperties.OrgCity];
+				this.OrgRegion = this.TagProfile.LegalIdentity[Constants.XmppProperties.OrgRegion];
+				this.OrgCountryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.OrgCountry];
+				this.OrgCountry = ISO_3166_1.ToName(this.OrgCountryCode);
+				this.HasOrg =
+					!string.IsNullOrEmpty(this.OrgName) ||
+					!string.IsNullOrEmpty(this.OrgNumber) ||
+					!string.IsNullOrEmpty(this.OrgDepartment) ||
+					!string.IsNullOrEmpty(this.OrgRole) ||
+					!string.IsNullOrEmpty(this.OrgAddress) ||
+					!string.IsNullOrEmpty(this.OrgAddress2) ||
+					!string.IsNullOrEmpty(this.OrgZipCode) ||
+					!string.IsNullOrEmpty(this.OrgArea) ||
+					!string.IsNullOrEmpty(this.OrgCity) ||
+					!string.IsNullOrEmpty(this.OrgRegion) ||
+					!string.IsNullOrEmpty(this.OrgCountryCode) ||
+					!string.IsNullOrEmpty(this.OrgCountry);
 				this.PhoneNr = this.TagProfile.LegalIdentity[Constants.XmppProperties.Phone];
 				this.EMail = this.TagProfile.LegalIdentity[Constants.XmppProperties.EMail];
 			}
@@ -511,6 +729,19 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 				this.City = string.Empty;
 				this.Region = string.Empty;
 				this.CountryCode = string.Empty;
+				this.OrgName = Constants.NotAvailableValue;
+				this.OrgNumber = Constants.NotAvailableValue;
+				this.OrgDepartment = Constants.NotAvailableValue;
+				this.OrgRole = Constants.NotAvailableValue;
+				this.OrgAddress = Constants.NotAvailableValue;
+				this.OrgAddress2 = Constants.NotAvailableValue;
+				this.OrgZipCode = Constants.NotAvailableValue;
+				this.OrgArea = Constants.NotAvailableValue;
+				this.OrgCity = Constants.NotAvailableValue;
+				this.OrgRegion = Constants.NotAvailableValue;
+				this.OrgCountryCode = Constants.NotAvailableValue;
+				this.OrgCountry = Constants.NotAvailableValue;
+				this.HasOrg = false;
 				this.PhoneNr = string.Empty;
 				this.EMail = string.Empty;
 			}
