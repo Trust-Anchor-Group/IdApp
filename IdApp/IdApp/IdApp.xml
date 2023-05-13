@@ -5788,6 +5788,136 @@
             Country of the contract
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgName">
+            <summary>
+            The legal identity's organization name property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgNumber">
+            <summary>
+            The legal identity's organization number property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgDepartmentProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgDepartment"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgDepartment">
+            <summary>
+            The legal identity's organization department property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgRoleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgRole"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgRole">
+            <summary>
+            The legal identity's organization role property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgAddressProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgAddress"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgAddress">
+            <summary>
+            The legal identity's organization address property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgAddress2Property">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgAddress2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgAddress2">
+            <summary>
+            The legal identity's organization address line 2 property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgZipCode">
+            <summary>
+            The legal identity's organization zip code property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgAreaProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgArea"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgArea">
+            <summary>
+            The legal identity's organization area property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgCityProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgCity"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgCity">
+            <summary>
+            The legal identity's organization city property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgRegionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgRegion"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgRegion">
+            <summary>
+            The legal identity's organization region property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgCountryCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgCountryCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgCountryCode">
+            <summary>
+            The legal identity's organization country code property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgCountryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgCountry"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgCountry">
+            <summary>
+            The legal identity's organization country property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.HasOrgProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.HasOrg"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.HasOrg">
+            <summary>
+            If organization information is available.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.PhoneNrProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.PhoneNr"/>
