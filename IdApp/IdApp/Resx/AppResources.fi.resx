@@ -2247,6 +2247,33 @@
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Linkkiä ei voi avata:</value>
   </data>
+  <data name="OrgAddress" xml:space="preserve">
+    <value>Organisaation osoite</value>
+  </data>
+  <data name="OrgAddress2" xml:space="preserve">
+    <value>Organisaation osoite (rivi 2)</value>
+  </data>
+  <data name="OrgArea" xml:space="preserve">
+    <value>Organisaation alue</value>
+  </data>
+  <data name="OrgCity" xml:space="preserve">
+    <value>Organisaation kaupunki</value>
+  </data>
+  <data name="OrgCountry" xml:space="preserve">
+    <value>Organisaation maa</value>
+  </data>
+  <data name="OrgName" xml:space="preserve">
+    <value>Organisaation nimi</value>
+  </data>
+  <data name="OrgNumber" xml:space="preserve">
+    <value>Organisaation numero</value>
+  </data>
+  <data name="OrgRegion" xml:space="preserve">
+    <value>Organisaation alue</value>
+  </data>
+  <data name="OrgZipCode" xml:space="preserve">
+    <value>Organisaation postinumero</value>
+  </data>
   <data name="PurposeEducational" xml:space="preserve">
     <value>Opetuskäyttö.</value>
   </data>

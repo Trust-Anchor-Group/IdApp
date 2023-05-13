@@ -2247,6 +2247,33 @@
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Imposibil de deschis link-ul:</value>
   </data>
+  <data name="OrgAddress" xml:space="preserve">
+    <value>Adresa organizației</value>
+  </data>
+  <data name="OrgAddress2" xml:space="preserve">
+    <value>Adresa organizației (rândul 2)</value>
+  </data>
+  <data name="OrgArea" xml:space="preserve">
+    <value>Zona de organizare</value>
+  </data>
+  <data name="OrgCity" xml:space="preserve">
+    <value>Organizare Oraș</value>
+  </data>
+  <data name="OrgCountry" xml:space="preserve">
+    <value>Țara organizației</value>
+  </data>
+  <data name="OrgName" xml:space="preserve">
+    <value>Numele organizației</value>
+  </data>
+  <data name="OrgNumber" xml:space="preserve">
+    <value>Numărul organizației</value>
+  </data>
+  <data name="OrgRegion" xml:space="preserve">
+    <value>Regiunea organizației</value>
+  </data>
+  <data name="OrgZipCode" xml:space="preserve">
+    <value>Codul poștal sau poștal al organizației</value>
+  </data>
   <data name="PurposeEducational" xml:space="preserve">
     <value>Utilizarea educațională.</value>
   </data>

@@ -19,7 +19,15 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private void RegionEntry_Focused(object Sender, FocusEventArgs e)
 		{
-            this.RegistrationLayout.ScrollToAsync(this.RegisterButton, ScrollToPosition.MakeVisible, true);
-        }
+			if (this.ViewModel is RegisterIdentityViewModel Model && Model.ShowOrganization)
+				this.RegistrationLayout.ScrollToAsync(this.OrgCountryPicker, ScrollToPosition.MakeVisible, true);
+			else
+	            this.RegistrationLayout.ScrollToAsync(this.RegisterButton, ScrollToPosition.MakeVisible, true);
+		}
+
+		private void OrgRegionEntry_Focused(object Sender, FocusEventArgs e)
+		{
+			this.RegistrationLayout.ScrollToAsync(this.RegisterButton, ScrollToPosition.MakeVisible, true);
+		}
 	}
 }

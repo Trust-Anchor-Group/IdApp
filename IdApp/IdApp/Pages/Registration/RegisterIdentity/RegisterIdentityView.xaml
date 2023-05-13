@@ -200,7 +200,102 @@
                         </Entry>
                         <Label Text="*" TextColor="Transparent" VerticalOptions="Center"/>
                     </StackLayout>
-                    <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Style="{StaticResource AccentIndicator}"/>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Picker x:Name="OrgCountryPicker" HorizontalOptions="FillAndExpand" Title="{x:Static resx:AppResources.OrgCountry}"
+                                ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedOrgCountry}"
+                                IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgNameEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgName}" Text="{Binding Path=OrgName}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgNumberEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgNumberEntry" HorizontalOptions="FillAndExpand"
+                               Keyboard="Plain" ReturnType="Next"
+							   Placeholder="{x:Static resx:AppResources.OrgNumber}" 
+                               Text="{Binding Path=OrgNumber}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgAddressEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgAddressEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgAddress}" Text="{Binding Path=OrgAddress}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgAddress2Entry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgAddress2Entry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgAddress2}" Text="{Binding Path=OrgAddress2}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgZipCodeEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" TextColor="Transparent" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgZipCodeEntry" HorizontalOptions="FillAndExpand"
+                               Keyboard="Plain" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgZipCode}" Text="{Binding Path=OrgZipCode}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgAreaEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgAreaEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgArea}" Text="{Binding Path=OrgArea}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgCityEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" TextColor="Transparent" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgCityEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgCity}" Text="{Binding Path=OrgCity}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgRegionEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgRegionEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Done"
+                               Placeholder="{x:Static resx:AppResources.OrgRegion}" Text="{Binding Path=OrgRegion}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" Focused="OrgRegionEntry_Focused">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegisterButton" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" TextColor="Transparent" VerticalOptions="Center"/>
+					</StackLayout>
+					<ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Style="{StaticResource AccentIndicator}"/>
                     <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
                     <Button x:Name="RegisterButton" Text="{x:Static resx:AppResources.Register}" Command="{Binding Path=RegisterCommand}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
                 </StackLayout>

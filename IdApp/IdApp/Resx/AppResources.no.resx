@@ -2247,6 +2247,33 @@
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Kan ikke åpne lenke:</value>
   </data>
+  <data name="OrgAddress" xml:space="preserve">
+    <value>Organisasjonens adresse</value>
+  </data>
+  <data name="OrgAddress2" xml:space="preserve">
+    <value>Organisasjonsadresse (rad 2)</value>
+  </data>
+  <data name="OrgArea" xml:space="preserve">
+    <value>Organisasjonsområde</value>
+  </data>
+  <data name="OrgCity" xml:space="preserve">
+    <value>Organisasjon City</value>
+  </data>
+  <data name="OrgCountry" xml:space="preserve">
+    <value>Organisasjonsland</value>
+  </data>
+  <data name="OrgName" xml:space="preserve">
+    <value>Organisasjonens navn</value>
+  </data>
+  <data name="OrgNumber" xml:space="preserve">
+    <value>Organisasjonsnummer</value>
+  </data>
+  <data name="OrgRegion" xml:space="preserve">
+    <value>Organisasjon Region</value>
+  </data>
+  <data name="OrgZipCode" xml:space="preserve">
+    <value>Organisasjonens postnummer</value>
+  </data>
   <data name="PurposeEducational" xml:space="preserve">
     <value>Pedagogisk bruk.</value>
   </data>

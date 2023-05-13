@@ -2977,6 +2977,87 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Organization Address.
+        /// </summary>
+        internal static string OrgAddress {
+            get {
+                return ResourceManager.GetString("OrgAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Address (row 2).
+        /// </summary>
+        internal static string OrgAddress2 {
+            get {
+                return ResourceManager.GetString("OrgAddress2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Area.
+        /// </summary>
+        internal static string OrgArea {
+            get {
+                return ResourceManager.GetString("OrgArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization City.
+        /// </summary>
+        internal static string OrgCity {
+            get {
+                return ResourceManager.GetString("OrgCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Country.
+        /// </summary>
+        internal static string OrgCountry {
+            get {
+                return ResourceManager.GetString("OrgCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Name.
+        /// </summary>
+        internal static string OrgName {
+            get {
+                return ResourceManager.GetString("OrgName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Number.
+        /// </summary>
+        internal static string OrgNumber {
+            get {
+                return ResourceManager.GetString("OrgNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Region.
+        /// </summary>
+        internal static string OrgRegion {
+            get {
+                return ResourceManager.GetString("OrgRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Zip or Postal Code.
+        /// </summary>
+        internal static string OrgZipCode {
+            get {
+                return ResourceManager.GetString("OrgZipCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other.
         /// </summary>
         internal static string Other {

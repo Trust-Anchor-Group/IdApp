@@ -2223,6 +2223,33 @@
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Unable to open link:</value>
   </data>
+  <data name="OrgAddress" xml:space="preserve">
+    <value>Organisationens adress</value>
+  </data>
+  <data name="OrgAddress2" xml:space="preserve">
+    <value>Organisationens adress (rad 2)</value>
+  </data>
+  <data name="OrgArea" xml:space="preserve">
+    <value>Organisationens Område</value>
+  </data>
+  <data name="OrgCity" xml:space="preserve">
+    <value>Organisationens Stad</value>
+  </data>
+  <data name="OrgCountry" xml:space="preserve">
+    <value>Organisationens Land</value>
+  </data>
+  <data name="OrgName" xml:space="preserve">
+    <value>Organisationens Namn</value>
+  </data>
+  <data name="OrgNumber" xml:space="preserve">
+    <value>Organisationsnummer</value>
+  </data>
+  <data name="OrgRegion" xml:space="preserve">
+    <value>Organisationens Region eller stat</value>
+  </data>
+  <data name="OrgZipCode" xml:space="preserve">
+    <value>Organisationens postkod</value>
+  </data>
   <data name="PurposeEducational" xml:space="preserve">
     <value>Anvädning inom utbildning.</value>
   </data>

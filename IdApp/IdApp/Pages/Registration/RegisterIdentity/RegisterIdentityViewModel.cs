@@ -64,6 +64,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			this.Title = LocalizationResourceManager.Current["PersonalLegalInformation"];
 			this.PersonalNumberPlaceholder = LocalizationResourceManager.Current["PersonalNumber"];
+			this.ShowOrganization = this.TagProfile.Purpose == PurposeUse.Work;
 
 			this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), profilePhotoFileName);
 			this.photosLoader = new PhotosLoader();
@@ -125,6 +126,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public ICommand RemovePhotoCommand { get; }
 
 		/// <summary>
+		/// The <see cref="ShowOrganization"/>
+		/// </summary>
+		public static readonly BindableProperty ShowOrganizationProperty =
+			BindableProperty.Create(nameof(ShowOrganization), typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the user has selected a photo for their account or not.
+		/// </summary>
+		public bool ShowOrganization
+		{
+			get => (bool)this.GetValue(ShowOrganizationProperty);
+			set => this.SetValue(ShowOrganizationProperty, value);
+		}
+
+		/// <summary>
 		/// The <see cref="HasPhoto"/>
 		/// </summary>
 		public static readonly BindableProperty HasPhotoProperty =
@@ -179,7 +195,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public ObservableCollection<string> Countries { get; }
 
 		/// <summary>
-		/// The <see cref="HasPhoto"/>
+		/// The <see cref="SelectedCountry"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedCountryProperty =
 			BindableProperty.Create(nameof(SelectedCountry), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
@@ -206,7 +222,31 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string SelectedCountry
 		{
 			get => (string)this.GetValue(SelectedCountryProperty);
-			set => this.SetValue(SelectedCountryProperty, value);
+			set
+			{
+				string Prev = this.SelectedCountry;
+				if (Prev != value)
+				{
+					this.SetValue(SelectedCountryProperty, value);
+					if (Prev == this.SelectedOrgCountry)
+						this.SelectedOrgCountry = value;
+				}
+			}
+		}
+
+		/// <summary>
+		/// The <see cref="SelectedOrgCountry"/>
+		/// </summary>
+		public static readonly BindableProperty SelectedOrgCountryProperty =
+			BindableProperty.Create(nameof(SelectedOrgCountry), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The user selected organization country from the list of <see cref="Countries"/>.
+		/// </summary>
+		public string SelectedOrgCountry
+		{
+			get => (string)this.GetValue(SelectedOrgCountryProperty);
+			set => this.SetValue(SelectedOrgCountryProperty, value);
 		}
 
 		/// <summary>
@@ -255,6 +295,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		}
 
 		/// <summary>
+		/// The <see cref="OrgName"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNameProperty =
+			BindableProperty.Create(nameof(OrgName), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The organization name
+		/// </summary>
+		public string OrgName
+		{
+			get => (string)this.GetValue(OrgNameProperty);
+			set => this.SetValue(OrgNameProperty, value);
+		}
+
+		/// <summary>
 		/// The <see cref="PersonalNumber"/>
 		/// </summary>
 		public static readonly BindableProperty PersonalNumberProperty =
@@ -282,6 +337,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		{
 			get => (string)this.GetValue(PersonalNumberPlaceholderProperty);
 			set => this.SetValue(PersonalNumberPlaceholderProperty, value);
+		}
+
+		/// <summary>
+		/// The <see cref="OrgNumber"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNumberProperty =
+			BindableProperty.Create(nameof(OrgNumber), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The organization number
+		/// </summary>
+		public string OrgNumber
+		{
+			get => (string)this.GetValue(OrgNumberProperty);
+			set => this.SetValue(OrgNumberProperty, value);
 		}
 
 		/// <summary>
@@ -315,6 +385,36 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		}
 
 		/// <summary>
+		/// The <see cref="OrgAddress"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddressProperty =
+			BindableProperty.Create(nameof(OrgAddress), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The organization address, line 1.
+		/// </summary>
+		public string OrgAddress
+		{
+			get => (string)this.GetValue(OrgAddressProperty);
+			set => this.SetValue(OrgAddressProperty, value);
+		}
+
+		/// <summary>
+		/// The <see cref="OrgAddress2"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddress2Property =
+			BindableProperty.Create(nameof(OrgAddress2), typeof(string), typeof(RegisterIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The organization address, line 2.
+		/// </summary>
+		public string OrgAddress2
+		{
+			get => (string)this.GetValue(OrgAddress2Property);
+			set => this.SetValue(OrgAddress2Property, value);
+		}
+
+		/// <summary>
 		/// The <see cref="ZipCode"/>
 		/// </summary>
 		public static readonly BindableProperty ZipCodeProperty =
@@ -327,6 +427,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		{
 			get => (string)this.GetValue(ZipCodeProperty);
 			set => this.SetValue(ZipCodeProperty, value);
+		}
+
+		/// <summary>
+		/// The <see cref="OrgZipCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgZipCodeProperty =
+			BindableProperty.Create(nameof(OrgZipCode), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The organization zip code
+		/// </summary>
+		public string OrgZipCode
+		{
+			get => (string)this.GetValue(OrgZipCodeProperty);
+			set => this.SetValue(OrgZipCodeProperty, value);
 		}
 
 		/// <summary>
@@ -345,6 +460,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		}
 
 		/// <summary>
+		/// The <see cref="OrgArea"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAreaProperty =
+			BindableProperty.Create(nameof(OrgArea), typeof(string), typeof(RegisterIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The user's area
+		/// </summary>
+		public string OrgArea
+		{
+			get => (string)this.GetValue(OrgAreaProperty);
+			set => this.SetValue(OrgAreaProperty, value);
+		}
+
+		/// <summary>
 		/// The <see cref="City"/>
 		/// </summary>
 		public static readonly BindableProperty CityProperty =
@@ -360,6 +490,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		}
 
 		/// <summary>
+		/// The <see cref="OrgCity"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCityProperty =
+			BindableProperty.Create(nameof(OrgCity), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The user's city
+		/// </summary>
+		public string OrgCity
+		{
+			get => (string)this.GetValue(OrgCityProperty);
+			set => this.SetValue(OrgCityProperty, value);
+		}
+
+		/// <summary>
 		/// The <see cref="Region"/>
 		/// </summary>
 		public static readonly BindableProperty RegionProperty =
@@ -372,6 +517,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		{
 			get => (string)this.GetValue(RegionProperty);
 			set => this.SetValue(RegionProperty, value);
+		}
+
+		/// <summary>
+		/// The <see cref="OrgRegion"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRegionProperty =
+			BindableProperty.Create(nameof(OrgRegion), typeof(string), typeof(RegisterIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The user's region
+		/// </summary>
+		public string OrgRegion
+		{
+			get => (string)this.GetValue(OrgRegionProperty);
+			set => this.SetValue(OrgRegionProperty, value);
 		}
 
 		/// <summary>

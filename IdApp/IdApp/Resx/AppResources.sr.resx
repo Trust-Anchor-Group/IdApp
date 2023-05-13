@@ -2247,6 +2247,33 @@
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>Nije moguće otvoriti vezu:</value>
   </data>
+  <data name="OrgAddress" xml:space="preserve">
+    <value>Adresa organizacije</value>
+  </data>
+  <data name="OrgAddress2" xml:space="preserve">
+    <value>Adresa organizacije (red 2)</value>
+  </data>
+  <data name="OrgArea" xml:space="preserve">
+    <value>Oblast organizacije</value>
+  </data>
+  <data name="OrgCity" xml:space="preserve">
+    <value>Grad organizacije</value>
+  </data>
+  <data name="OrgCountry" xml:space="preserve">
+    <value>Zemlja organizacije</value>
+  </data>
+  <data name="OrgName" xml:space="preserve">
+    <value>Ime organizacije</value>
+  </data>
+  <data name="OrgNumber" xml:space="preserve">
+    <value>Broj organizacije</value>
+  </data>
+  <data name="OrgRegion" xml:space="preserve">
+    <value>Region organizacije</value>
+  </data>
+  <data name="OrgZipCode" xml:space="preserve">
+    <value>Poštanski broj organizacije</value>
+  </data>
   <data name="PurposeEducational" xml:space="preserve">
     <value>Obrazovna upotreba.</value>
   </data>

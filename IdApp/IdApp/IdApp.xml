@@ -9493,6 +9493,16 @@
             The command to bind to for removing the currently selected photo.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.ShowOrganizationProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.ShowOrganization"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.ShowOrganization">
+            <summary>
+            Gets or sets whether the user has selected a photo for their account or not.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.HasPhotoProperty">
             <summary>
             The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.HasPhoto"/>
@@ -9530,12 +9540,22 @@
         </member>
         <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.SelectedCountryProperty">
             <summary>
-            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.HasPhoto"/>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.SelectedCountry"/>
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.SelectedCountry">
             <summary>
             The user selected country from the list of <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.Countries"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.SelectedOrgCountryProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.SelectedOrgCountry"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.SelectedOrgCountry">
+            <summary>
+            The user selected organization country from the list of <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.Countries"/>.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.FirstNameProperty">
@@ -9568,6 +9588,16 @@
             The user's last name(s)
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgNameProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgName">
+            <summary>
+            The organization name
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.PersonalNumberProperty">
             <summary>
             The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.PersonalNumber"/>
@@ -9586,6 +9616,16 @@
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.PersonalNumberPlaceholder">
             <summary>
             The personal number placeholder, used as a guide to the user to enter the correct format, which depends on the <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.SelectedCountry"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgNumberProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgNumber">
+            <summary>
+            The organization number
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.AddressProperty">
@@ -9608,6 +9648,26 @@
             The user's address, line 2.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgAddressProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgAddress"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgAddress">
+            <summary>
+            The organization address, line 1.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgAddress2Property">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgAddress2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgAddress2">
+            <summary>
+            The organization address, line 2.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.ZipCodeProperty">
             <summary>
             The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.ZipCode"/>
@@ -9618,12 +9678,32 @@
             The user's zip code
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgZipCodeProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgZipCode">
+            <summary>
+            The organization zip code
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.AreaProperty">
             <summary>
             The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.Area"/>
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.Area">
+            <summary>
+            The user's area
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgAreaProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgArea"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgArea">
             <summary>
             The user's area
             </summary>
@@ -9638,12 +9718,32 @@
             The user's city
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgCityProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgCity"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgCity">
+            <summary>
+            The user's city
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.RegionProperty">
             <summary>
             The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.Region"/>
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.Region">
+            <summary>
+            The user's region
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgRegionProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgRegion"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgRegion">
             <summary>
             The user's region
             </summary>
@@ -18621,6 +18721,51 @@
         <member name="P:IdApp.Resx.AppResources.Ordinal">
             <summary>
               Looks up a localized string similar to Ordinal.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OrgAddress">
+            <summary>
+              Looks up a localized string similar to Organization Address.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OrgAddress2">
+            <summary>
+              Looks up a localized string similar to Organization Address (row 2).
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OrgArea">
+            <summary>
+              Looks up a localized string similar to Organization Area.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OrgCity">
+            <summary>
+              Looks up a localized string similar to Organization City.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OrgCountry">
+            <summary>
+              Looks up a localized string similar to Organization Country.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OrgName">
+            <summary>
+              Looks up a localized string similar to Organization Name.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OrgNumber">
+            <summary>
+              Looks up a localized string similar to Organization Number.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OrgRegion">
+            <summary>
+              Looks up a localized string similar to Organization Region.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OrgZipCode">
+            <summary>
+              Looks up a localized string similar to Organization Zip or Postal Code.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Other">

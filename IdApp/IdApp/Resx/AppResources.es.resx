@@ -2247,6 +2247,33 @@
   <data name="UnableToOpenLink" xml:space="preserve">
     <value>No se puede abrir el enlace:</value>
   </data>
+  <data name="OrgAddress" xml:space="preserve">
+    <value>Dirección de la organización</value>
+  </data>
+  <data name="OrgAddress2" xml:space="preserve">
+    <value>Dirección de la organización (fila 2)</value>
+  </data>
+  <data name="OrgArea" xml:space="preserve">
+    <value>Área de Organización</value>
+  </data>
+  <data name="OrgCity" xml:space="preserve">
+    <value>Ciudad de la Organización</value>
+  </data>
+  <data name="OrgCountry" xml:space="preserve">
+    <value>País de la organización</value>
+  </data>
+  <data name="OrgName" xml:space="preserve">
+    <value>Nombre de la organización</value>
+  </data>
+  <data name="OrgNumber" xml:space="preserve">
+    <value>Número de organización</value>
+  </data>
+  <data name="OrgRegion" xml:space="preserve">
+    <value>Región de la organización</value>
+  </data>
+  <data name="OrgZipCode" xml:space="preserve">
+    <value>Código postal de la organización</value>
+  </data>
   <data name="PurposeEducational" xml:space="preserve">
     <value>Uso educativo.</value>
   </data>
