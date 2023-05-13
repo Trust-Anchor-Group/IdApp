@@ -2280,4 +2280,19 @@
   <data name="PurposeWorkDescription" xml:space="preserve">
     <value>Detta val låter dig använda Tag ID för användning inom arbete. Detta inkluderar arbete för icke vinstdrivande organisationer. Du kan använda appen för att signera eller komma åt resurser som en representant för en organisation. Vissa funktioner kan medföra kostnader, beroende på vilken tjänsteleverantör du väljer. Kontrollera med tjänsteleverantören för mer information.</value>
   </data>
+  <data name="YouNeedToProvideAnOrgCountry" xml:space="preserve">
+    <value>Du behöver ange ett organisationsland</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgDepartment" xml:space="preserve">
+    <value>Du behöver ange en avdelning</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgName" xml:space="preserve">
+    <value>Du behöver ange ett organisationsnamn</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgNumber" xml:space="preserve">
+    <value>Du behöver ange ett organisationsnummer</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
+    <value>Du behöver ange en roll</value>
+  </data>
 </root>

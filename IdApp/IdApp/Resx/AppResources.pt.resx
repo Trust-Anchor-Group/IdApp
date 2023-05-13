@@ -2304,4 +2304,19 @@
   <data name="PurposeWorkDescription" xml:space="preserve">
     <value>Essa opção permite que você use o ID da tag para fins de trabalho. Isso inclui o trabalho sem fins lucrativos nas organizações. Você pode usar o aplicativo para assinar ou acessar recursos como representante de uma organização. Certas operações podem incorrer em custos, dependendo do provedor de serviços escolhido. Consulte o provedor de serviços para obter mais informações.</value>
   </data>
+  <data name="YouNeedToProvideAnOrgCountry" xml:space="preserve">
+    <value>Você precisa fornecer um país da organização</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgDepartment" xml:space="preserve">
+    <value>Você precisa fornecer um departamento</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgName" xml:space="preserve">
+    <value>Você precisa fornecer um nome de organização</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgNumber" xml:space="preserve">
+    <value>Você precisa fornecer um número de organização</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
+    <value>Você precisa fornecer uma função</value>
+  </data>
 </root>

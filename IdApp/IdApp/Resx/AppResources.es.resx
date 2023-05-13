@@ -2304,4 +2304,19 @@
   <data name="PurposeWorkDescription" xml:space="preserve">
     <value>Esta opción le permite utilizar el ID de etiqueta para fines laborales. Esto incluye el trabajo sin fines de lucro en las organizaciones. Puede usar la aplicación para firmar o acceder a recursos como representante de una organización. Ciertas operaciones pueden incurrir en costos, dependiendo del proveedor de servicios que elija. Consulte con el proveedor de servicios para obtener más información.</value>
   </data>
+  <data name="YouNeedToProvideAnOrgCountry" xml:space="preserve">
+    <value>Debe proporcionar un país de la organización</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgDepartment" xml:space="preserve">
+    <value>Necesitas proporcionar un departamento</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgName" xml:space="preserve">
+    <value>Debe proporcionar un nombre de organización</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgNumber" xml:space="preserve">
+    <value>Debe proporcionar un número de organización</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
+    <value>Debe proporcionar un rol</value>
+  </data>
 </root>

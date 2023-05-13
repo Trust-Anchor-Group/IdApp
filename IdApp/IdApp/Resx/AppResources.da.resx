@@ -2304,4 +2304,19 @@
   <data name="PurposeWorkDescription" xml:space="preserve">
     <value>Denne mulighed giver dig mulighed for at bruge tag-id til arbejdsformål. Dette omfatter arbejde ikke for profit i organisationer. Du kan bruge appen til at signere eller få adgang til ressourcer som repræsentant for en organisation. Visse operationer kan medføre omkostninger, afhængigt af den tjenesteudbyder, du vælger. Kontakt tjenesteudbyderen for at få flere oplysninger.</value>
   </data>
+  <data name="YouNeedToProvideAnOrgCountry" xml:space="preserve">
+    <value>Du skal angive et organisationsland</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgDepartment" xml:space="preserve">
+    <value>Du skal give en afdeling</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgName" xml:space="preserve">
+    <value>Du skal angive et organisationsnavn</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgNumber" xml:space="preserve">
+    <value>Du skal angive et organisationsnummer</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
+    <value>Du skal angive en rolle</value>
+  </data>
 </root>

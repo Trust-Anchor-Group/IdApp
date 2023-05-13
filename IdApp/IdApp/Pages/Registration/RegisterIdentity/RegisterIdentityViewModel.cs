@@ -1264,7 +1264,10 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (string.IsNullOrWhiteSpace(this.FirstName?.Trim()))
 			{
 				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"], LocalizationResourceManager.Current["YouNeedToProvideAFirstName"]);
+				{
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAFirstName"]);
+				}
 
 				return false;
 			}
@@ -1272,7 +1275,10 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (string.IsNullOrWhiteSpace(this.LastNames?.Trim()))
 			{
 				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"], LocalizationResourceManager.Current["YouNeedToProvideALastName"]);
+				{
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideALastName"]);
+				}
 
 				return false;
 			}
@@ -1280,7 +1286,10 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (string.IsNullOrWhiteSpace(this.PersonalNumber?.Trim()))
 			{
 				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"], LocalizationResourceManager.Current["YouNeedToProvideAPersonalNumber"]);
+				{
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAPersonalNumber"]);
+				}
 
 				return false;
 			}
@@ -1288,7 +1297,10 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (string.IsNullOrWhiteSpace(this.SelectedCountry))
 			{
 				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"], LocalizationResourceManager.Current["YouNeedToProvideACountry"]);
+				{
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideACountry"]);
+				}
 
 				return false;
 			}
@@ -1296,9 +1308,70 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (this.photo is null)
 			{
 				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"], LocalizationResourceManager.Current["YouNeedToProvideAPhoto"]);
+				{
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAPhoto"]);
+				}
 
 				return false;
+			}
+
+			if (this.Purpose == PurposeUse.Work)
+			{
+				if (string.IsNullOrWhiteSpace(this.OrgName?.Trim()))
+				{
+					if (AlertUser)
+					{
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+							LocalizationResourceManager.Current["YouNeedToProvideAnOrgName"]);
+					}
+
+					return false;
+				}
+
+				if (string.IsNullOrWhiteSpace(this.OrgNumber?.Trim()))
+				{
+					if (AlertUser)
+					{
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+							LocalizationResourceManager.Current["YouNeedToProvideAnOrgNumber"]);
+					}
+
+					return false;
+				}
+
+				if (string.IsNullOrWhiteSpace(this.OrgDepartment?.Trim()))
+				{
+					if (AlertUser)
+					{
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+							LocalizationResourceManager.Current["YouNeedToProvideAnOrgDepartment"]);
+					}
+
+					return false;
+				}
+
+				if (string.IsNullOrWhiteSpace(this.OrgRole?.Trim()))
+				{
+					if (AlertUser)
+					{
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+							LocalizationResourceManager.Current["YouNeedToProvideAnOrgRole"]);
+					}
+
+					return false;
+				}
+
+				if (string.IsNullOrWhiteSpace(this.SelectedOrgCountry))
+				{
+					if (AlertUser)
+					{
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+							LocalizationResourceManager.Current["YouNeedToProvideAnOrgCountry"]);
+					}
+
+					return false;
+				}
 			}
 
 			return true;
@@ -1308,6 +1381,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		protected override async Task DoSaveState()
 		{
 			await base.DoSaveState();
+
 			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.SelectedCountry)), this.SelectedCountry);
 			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.FirstName)), this.FirstName);
 			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.MiddleNames)), this.MiddleNames);
@@ -1319,6 +1393,18 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.City)), this.City);
 			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.ZipCode)), this.ZipCode);
 			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.Region)), this.Region);
+
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.SelectedOrgCountry)), this.SelectedOrgCountry);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgName)), this.OrgName);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgDepartment)), this.OrgDepartment);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgRole)), this.OrgRole);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgNumber)), this.OrgNumber);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgAddress)), this.OrgAddress);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgAddress2)), this.OrgAddress2);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgArea)), this.OrgArea);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgCity)), this.OrgCity);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgZipCode)), this.OrgZipCode);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgRegion)), this.OrgRegion);
 		}
 
 		/// <inheritdoc />
@@ -1335,6 +1421,18 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			this.City = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.City)));
 			this.ZipCode = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.ZipCode)));
 			this.Region = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.Region)));
+
+			this.SelectedOrgCountry = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.SelectedOrgCountry)));
+			this.OrgName = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgName)));
+			this.OrgNumber = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgNumber)));
+			this.OrgDepartment = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgDepartment)));
+			this.OrgRole = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgRole)));
+			this.OrgAddress = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgAddress)));
+			this.OrgAddress2 = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgAddress2)));
+			this.OrgArea = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgArea)));
+			this.OrgCity = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgCity)));
+			this.OrgZipCode = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgZipCode)));
+			this.OrgRegion = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgRegion)));
 
 			try
 			{
@@ -1366,6 +1464,18 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			this.ZipCode = string.Empty;
 			this.Region = string.Empty;
 
+			this.SelectedOrgCountry = null;
+			this.OrgName = string.Empty;
+			this.OrgNumber = string.Empty;
+			this.OrgDepartment = string.Empty;
+			this.OrgRole = string.Empty;
+			this.OrgAddress = string.Empty;
+			this.OrgAddress2 = string.Empty;
+			this.OrgArea = string.Empty;
+			this.OrgCity = string.Empty;
+			this.OrgZipCode = string.Empty;
+			this.OrgRegion = string.Empty;
+
 			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedCountry)));
 			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.FirstName)));
 			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.MiddleNames)));
@@ -1377,6 +1487,18 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.City)));
 			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.ZipCode)));
 			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.Region)));
+
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedOrgCountry)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgName)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgNumber)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgDepartment)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgRole)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgAddress)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgAddress2)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgArea)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgCity)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgZipCode)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgRegion)));
 		}
 
 		/// <summary>
@@ -1402,6 +1524,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 				if (!string.IsNullOrWhiteSpace(CountryCode) && ISO_3166_1.TryGetCountry(CountryCode, out string Country))
 					this.SelectedCountry = Country;
+
+				this.OrgName = Identity[Constants.XmppProperties.OrgName];
+				this.OrgNumber = Identity[Constants.XmppProperties.OrgNumber];
+				this.OrgDepartment = Identity[Constants.XmppProperties.OrgDepartment];
+				this.OrgRole = Identity[Constants.XmppProperties.OrgRole];
+				this.OrgAddress = Identity[Constants.XmppProperties.OrgAddress];
+				this.OrgAddress2 = Identity[Constants.XmppProperties.OrgAddress2];
+				this.OrgZipCode = Identity[Constants.XmppProperties.OrgZipCode];
+				this.OrgArea = Identity[Constants.XmppProperties.OrgArea];
+				this.OrgCity = Identity[Constants.XmppProperties.OrgCity];
+				this.OrgRegion = Identity[Constants.XmppProperties.OrgRegion];
+				string OrgCountryCode = Identity[Constants.XmppProperties.OrgCountry];
+
+				if (!string.IsNullOrWhiteSpace(OrgCountryCode) && ISO_3166_1.TryGetCountry(OrgCountryCode, out string OrgCountry))
+					this.SelectedOrgCountry = OrgCountry;
 
 				Attachment FirstAttachment = Identity.Attachments?.GetFirstImageAttachment();
 				if (FirstAttachment is not null)

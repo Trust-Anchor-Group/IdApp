@@ -2304,4 +2304,19 @@
   <data name="PurposeWorkDescription" xml:space="preserve">
     <value>Этот параметр позволяет использовать идентификатор тега в рабочих целях. Это включает в себя некоммерческую работу в организациях. Вы можете использовать приложение для подписи или доступа к ресурсам в качестве представителя организации. Некоторые операции могут повлечь за собой расходы, в зависимости от выбранного вами поставщика услуг. Для получения дополнительной информации обратитесь к поставщику услуг.</value>
   </data>
+  <data name="YouNeedToProvideAnOrgCountry" xml:space="preserve">
+    <value>Вам необходимо указать страну организации</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgDepartment" xml:space="preserve">
+    <value>Вам необходимо предоставить отдел</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgName" xml:space="preserve">
+    <value>Вам необходимо указать название организации</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgNumber" xml:space="preserve">
+    <value>Вам необходимо указать номер организации</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
+    <value>Вам нужно предоставить роль</value>
+  </data>
 </root>

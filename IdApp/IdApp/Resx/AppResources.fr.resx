@@ -2304,4 +2304,19 @@
   <data name="PurposeWorkDescription" xml:space="preserve">
     <value>Cette option vous permet d’utiliser l’ID de balise à des fins professionnelles. Cela comprend le travail à but non lucratif dans les organisations. Vous pouvez utiliser l’application pour signer ou accéder à des ressources en tant que représentant d’une organisation. Certaines opérations peuvent entraîner des coûts, selon le fournisseur de services que vous choisissez. Vérifiez auprès du fournisseur de services pour plus d’informations.</value>
   </data>
+  <data name="YouNeedToProvideAnOrgCountry" xml:space="preserve">
+    <value>Vous devez fournir un pays d’organisation</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgDepartment" xml:space="preserve">
+    <value>Vous devez fournir un département</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgName" xml:space="preserve">
+    <value>Vous devez fournir un nom d’organisation</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgNumber" xml:space="preserve">
+    <value>Vous devez fournir un numéro d’organisation</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
+    <value>Vous devez fournir un rôle</value>
+  </data>
 </root>

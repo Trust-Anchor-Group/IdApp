@@ -6541,6 +6541,51 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You need to provide an organization country.
+        /// </summary>
+        internal static string YouNeedToProvideAnOrgCountry {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAnOrgCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide a department.
+        /// </summary>
+        internal static string YouNeedToProvideAnOrgDepartment {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAnOrgDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide an organization name.
+        /// </summary>
+        internal static string YouNeedToProvideAnOrgName {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAnOrgName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide an organization number.
+        /// </summary>
+        internal static string YouNeedToProvideAnOrgNumber {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAnOrgNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide a role.
+        /// </summary>
+        internal static string YouNeedToProvideAnOrgRole {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAnOrgRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You need to provide a personal or social security number.
         /// </summary>
         internal static string YouNeedToProvideAPersonalNumber {

@@ -21813,6 +21813,31 @@
               Looks up a localized string similar to You need to provide at least one last name.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.YouNeedToProvideAnOrgCountry">
+            <summary>
+              Looks up a localized string similar to You need to provide an organization country.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.YouNeedToProvideAnOrgDepartment">
+            <summary>
+              Looks up a localized string similar to You need to provide a department.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.YouNeedToProvideAnOrgName">
+            <summary>
+              Looks up a localized string similar to You need to provide an organization name.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.YouNeedToProvideAnOrgNumber">
+            <summary>
+              Looks up a localized string similar to You need to provide an organization number.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.YouNeedToProvideAnOrgRole">
+            <summary>
+              Looks up a localized string similar to You need to provide a role.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.YouNeedToProvideAPersonalNumber">
             <summary>
               Looks up a localized string similar to You need to provide a personal or social security number.

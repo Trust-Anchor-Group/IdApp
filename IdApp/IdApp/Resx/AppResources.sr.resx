@@ -2304,4 +2304,19 @@
   <data name="PurposeWorkDescription" xml:space="preserve">
     <value>Ova opcija vam omogućava da koristite ID oznake u radne svrhe. To uključuje rad ne za profit u organizacijama. Aplikaciju možete da koristite za potpisivanje ili pristup resursima kao predstavnik organizacije. Određene operacije mogu naneti troškove, u zavisnosti od dobavljača usluga kojeg odaberete. Za više informacija obratite se dobavljaču usluga.</value>
   </data>
+  <data name="YouNeedToProvideAnOrgCountry" xml:space="preserve">
+    <value>Moraš da obezbediš zemlju organizacije</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgDepartment" xml:space="preserve">
+    <value>Moraš da obezbediš odeljenje</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgName" xml:space="preserve">
+    <value>Potrebno je da navedete ime organizacije</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgNumber" xml:space="preserve">
+    <value>Potrebno je da navedete broj organizacije</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
+    <value>Moraš da obezbediš ulogu</value>
+  </data>
 </root>

@@ -2304,4 +2304,19 @@
   <data name="PurposeWorkDescription" xml:space="preserve">
     <value>Această opțiune vă permite să utilizați Tag ID în scopuri de lucru. Aceasta include munca nu pentru profit în organizații. Puteți utiliza aplicația pentru a semna sau accesa resurse ca reprezentant al unei organizații. Anumite operațiuni pot implica costuri, în funcție de furnizorul de servicii pe care îl alegeți. Consultați furnizorul de servicii pentru mai multe informații.</value>
   </data>
+  <data name="YouNeedToProvideAnOrgCountry" xml:space="preserve">
+    <value>Trebuie să furnizați o țară de organizație</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgDepartment" xml:space="preserve">
+    <value>Trebuie să furnizați un departament</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgName" xml:space="preserve">
+    <value>Trebuie să furnizați un nume de organizație</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgNumber" xml:space="preserve">
+    <value>Trebuie să furnizați un număr de organizație</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
+    <value>Trebuie să oferiți un rol</value>
+  </data>
 </root>

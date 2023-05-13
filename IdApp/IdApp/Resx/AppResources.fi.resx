@@ -2304,4 +2304,19 @@
   <data name="PurposeWorkDescription" xml:space="preserve">
     <value>Tämän vaihtoehdon avulla voit käyttää Tag ID:tä työtarkoituksiin. Tähän sisältyy työ, joka ei ole voittoa tavoitteleva organisaatioissa. Sovelluksen avulla voit allekirjoittaa tai käyttää resursseja organisaation edustajana. Tietyistä toiminnoista voi aiheutua kustannuksia valitsemastasi palveluntarjoajasta riippuen. Pyydä lisätietoja palveluntarjoajalta.</value>
   </data>
+  <data name="YouNeedToProvideAnOrgCountry" xml:space="preserve">
+    <value>Sinun on annettava organisaation maa</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgDepartment" xml:space="preserve">
+    <value>Sinun on tarjottava osasto</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgName" xml:space="preserve">
+    <value>Sinun on annettava organisaation nimi</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgNumber" xml:space="preserve">
+    <value>Sinun on annettava organisaationumero</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
+    <value>Sinun on annettava rooli</value>
+  </data>
 </root>
