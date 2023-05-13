@@ -3,6 +3,7 @@ using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Services.Contracts;
 using IdApp.Services.Notification;
+using IdApp.Services.Notification.Contracts;
 using NeuroFeatures;
 using System;
 using System.Collections.Generic;
@@ -345,7 +346,28 @@ namespace IdApp.Pages.Contracts.MyContracts
 					this.contractsMap[Ref.ContractId] = Contract;
 
 					if (EventsByCategory.TryGetValue(Ref.ContractId, out NotificationEvent[] Events))
+					{
 						EventsByCategory.Remove(Ref.ContractId);
+
+						List<NotificationEvent> Events2 = new();
+						List<NotificationEvent> Petitions = null;
+
+						foreach (NotificationEvent Event in Events)
+						{
+							if (Event is ContractPetitionNotificationEvent Petition)
+							{
+								Petitions ??= new List<NotificationEvent>();
+								Petitions.Add(Petition);
+							}
+							else
+								Events2.Add(Event);
+						}
+
+						if (Petitions is not null)
+							EventsByCategory[Ref.ContractId] = Petitions.ToArray();
+
+						Events = Events2.ToArray();
+					}
 					else
 						Events = new NotificationEvent[0];
 
