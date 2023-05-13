@@ -7213,6 +7213,136 @@
             Country of the identity
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgName">
+            <summary>
+            The legal identity's organization name property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgNumber">
+            <summary>
+            The legal identity's organization number property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgDepartmentProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgDepartment"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgDepartment">
+            <summary>
+            The legal identity's organization department property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRoleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRole"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRole">
+            <summary>
+            The legal identity's organization role property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAddressProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAddress"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAddress">
+            <summary>
+            The legal identity's organization address property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAddress2Property">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAddress2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAddress2">
+            <summary>
+            The legal identity's organization address line 2 property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgZipCode">
+            <summary>
+            The legal identity's organization zip code property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAreaProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgArea"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgArea">
+            <summary>
+            The legal identity's organization area property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCityProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCity"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCity">
+            <summary>
+            The legal identity's organization city property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRegionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRegion"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRegion">
+            <summary>
+            The legal identity's organization region property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCountryCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCountryCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCountryCode">
+            <summary>
+            The legal identity's organization country code property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCountryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCountry"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCountry">
+            <summary>
+            The legal identity's organization country property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.HasOrgProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.HasOrg"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.HasOrg">
+            <summary>
+            If organization information is available.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PhoneNrProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PhoneNr"/>
@@ -7724,6 +7854,136 @@
             Country code of the identity
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgName">
+            <summary>
+            The legal identity's organization name property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgNumber">
+            <summary>
+            The legal identity's organization number property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgDepartmentProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgDepartment"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgDepartment">
+            <summary>
+            The legal identity's organization department property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRoleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRole"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRole">
+            <summary>
+            The legal identity's organization role property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddressProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddress"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddress">
+            <summary>
+            The legal identity's organization address property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddress2Property">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddress2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddress2">
+            <summary>
+            The legal identity's organization address line 2 property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgZipCode">
+            <summary>
+            The legal identity's organization zip code property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAreaProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgArea"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgArea">
+            <summary>
+            The legal identity's organization area property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCityProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCity"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCity">
+            <summary>
+            The legal identity's organization city property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRegionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRegion"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRegion">
+            <summary>
+            The legal identity's organization region property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCountryCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCountryCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCountryCode">
+            <summary>
+            The legal identity's organization country code property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCountryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCountry"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCountry">
+            <summary>
+            The legal identity's organization country property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.HasOrgProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.HasOrg"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.HasOrg">
+            <summary>
+            If organization information is available.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.PhoneNrProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.PhoneNr"/>
@@ -7954,6 +8214,116 @@
             Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CountryCode"/> property is checked (when being reviewed)
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgNameIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgNameIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgNameIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgName"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgDepartmentIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgDepartmentIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgDepartmentIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgDepartment"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRoleIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRoleIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRoleIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRole"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgNumberIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgNumberIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgNumberIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgNumber"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddressIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddressIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddressIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddress"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddress2IsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddressIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddress2IsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddress2"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgZipCodeIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgZipCodeIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgZipCodeIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgZipCode"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAreaIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAreaIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAreaIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgArea"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCityIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCityIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCityIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCity"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRegionIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRegionIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRegionIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRegion"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCountryCodeIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCountryCodeIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCountryCodeIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCountryCode"/> property is checked (when being reviewed)
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CarefulReviewIsCheckedProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CarefulReviewIsChecked"/>
@@ -8082,6 +8452,116 @@
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewCountry">
             <summary>
             Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Country"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgName">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgName"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgDepartmentProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgDepartment"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgDepartment">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgDepartment"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgRoleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgRole"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgRole">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRole"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgNumber">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgNumber"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgAddressProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgAddress"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgAddress">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddress"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgAddress2Property">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgAddress2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgAddress2">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgAddress2"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgCityProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgCity"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgCity">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCity"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgZipCode">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgZipCode"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgAreaProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgArea"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgArea">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgArea"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgRegionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgRegion"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgRegion">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRegion"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgCountryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgCountry"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewOrgCountry">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgCountry"/> property is for review.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstPhotoSourceProperty">

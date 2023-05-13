@@ -295,6 +295,32 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.City = this.LegalIdentity[Constants.XmppProperties.City];
 				this.Region = this.LegalIdentity[Constants.XmppProperties.Region];
 				this.CountryCode = this.LegalIdentity[Constants.XmppProperties.Country];
+				this.Country = ISO_3166_1.ToName(this.CountryCode);
+				this.OrgName = this.LegalIdentity[Constants.XmppProperties.OrgName];
+				this.OrgNumber = this.LegalIdentity[Constants.XmppProperties.OrgNumber];
+				this.OrgDepartment = this.LegalIdentity[Constants.XmppProperties.OrgDepartment];
+				this.OrgRole = this.LegalIdentity[Constants.XmppProperties.OrgRole];
+				this.OrgAddress = this.LegalIdentity[Constants.XmppProperties.OrgAddress];
+				this.OrgAddress2 = this.LegalIdentity[Constants.XmppProperties.OrgAddress2];
+				this.OrgZipCode = this.LegalIdentity[Constants.XmppProperties.OrgZipCode];
+				this.OrgArea = this.LegalIdentity[Constants.XmppProperties.OrgArea];
+				this.OrgCity = this.LegalIdentity[Constants.XmppProperties.OrgCity];
+				this.OrgRegion = this.LegalIdentity[Constants.XmppProperties.OrgRegion];
+				this.OrgCountryCode = this.LegalIdentity[Constants.XmppProperties.OrgCountry];
+				this.OrgCountry = ISO_3166_1.ToName(this.OrgCountryCode);
+				this.HasOrg =
+					!string.IsNullOrEmpty(this.OrgName) ||
+					!string.IsNullOrEmpty(this.OrgNumber) ||
+					!string.IsNullOrEmpty(this.OrgDepartment) ||
+					!string.IsNullOrEmpty(this.OrgRole) ||
+					!string.IsNullOrEmpty(this.OrgAddress) ||
+					!string.IsNullOrEmpty(this.OrgAddress2) ||
+					!string.IsNullOrEmpty(this.OrgZipCode) ||
+					!string.IsNullOrEmpty(this.OrgArea) ||
+					!string.IsNullOrEmpty(this.OrgCity) ||
+					!string.IsNullOrEmpty(this.OrgRegion) ||
+					!string.IsNullOrEmpty(this.OrgCountryCode) ||
+					!string.IsNullOrEmpty(this.OrgCountry);
 				this.PhoneNr = this.LegalIdentity[Constants.XmppProperties.Phone];
 				this.EMail = this.LegalIdentity[Constants.XmppProperties.EMail];
 			}
@@ -311,11 +337,24 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.City = string.Empty;
 				this.Region = string.Empty;
 				this.CountryCode = string.Empty;
+				this.Country = string.Empty;
+				this.OrgName = Constants.NotAvailableValue;
+				this.OrgNumber = Constants.NotAvailableValue;
+				this.OrgDepartment = Constants.NotAvailableValue;
+				this.OrgRole = Constants.NotAvailableValue;
+				this.OrgAddress = Constants.NotAvailableValue;
+				this.OrgAddress2 = Constants.NotAvailableValue;
+				this.OrgZipCode = Constants.NotAvailableValue;
+				this.OrgArea = Constants.NotAvailableValue;
+				this.OrgCity = Constants.NotAvailableValue;
+				this.OrgRegion = Constants.NotAvailableValue;
+				this.OrgCountryCode = Constants.NotAvailableValue;
+				this.OrgCountry = Constants.NotAvailableValue;
+				this.HasOrg = false;
 				this.PhoneNr = string.Empty;
 				this.EMail = string.Empty;
 			}
 
-			this.Country = ISO_3166_1.ToName(this.CountryCode);
 			this.IsApproved = this.LegalIdentity?.State == IdentityState.Approved;
 			this.IsCreated = this.LegalIdentity?.State == IdentityState.Created;
 
@@ -336,6 +375,18 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.IsForReviewArea = !string.IsNullOrWhiteSpace(this.Area) && this.IsForReview;
 			this.IsForReviewRegion = !string.IsNullOrWhiteSpace(this.Region) && this.IsForReview;
 			this.IsForReviewCountry = !string.IsNullOrWhiteSpace(this.Country) && this.IsForReview;
+
+			this.IsForReviewOrgName = !string.IsNullOrWhiteSpace(this.OrgName) && this.IsForReview;
+			this.IsForReviewOrgNumber = !string.IsNullOrWhiteSpace(this.OrgNumber) && this.IsForReview;
+			this.IsForReviewOrgDepartment = !string.IsNullOrWhiteSpace(this.OrgDepartment) && this.IsForReview;
+			this.IsForReviewOrgRole = !string.IsNullOrWhiteSpace(this.OrgRole) && this.IsForReview;
+			this.IsForReviewOrgAddress = !string.IsNullOrWhiteSpace(this.OrgAddress) && this.IsForReview;
+			this.IsForReviewOrgAddress2 = !string.IsNullOrWhiteSpace(this.OrgAddress2) && this.IsForReview;
+			this.IsForReviewOrgCity = !string.IsNullOrWhiteSpace(this.OrgCity) && this.IsForReview;
+			this.IsForReviewOrgZipCode = !string.IsNullOrWhiteSpace(this.OrgZipCode) && this.IsForReview;
+			this.IsForReviewOrgArea = !string.IsNullOrWhiteSpace(this.OrgArea) && this.IsForReview;
+			this.IsForReviewOrgRegion = !string.IsNullOrWhiteSpace(this.OrgRegion) && this.IsForReview;
+			this.IsForReviewOrgCountry = !string.IsNullOrWhiteSpace(this.OrgCountry) && this.IsForReview;
 
 			// QR
 			if (this.LegalIdentity is null)
@@ -753,6 +804,201 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <summary>
+		/// See <see cref="OrgName"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNameProperty =
+			BindableProperty.Create(nameof(OrgName), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization name property
+		/// </summary>
+		public string OrgName
+		{
+			get => (string)this.GetValue(OrgNameProperty);
+			set => this.SetValue(OrgNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgNumber"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNumberProperty =
+			BindableProperty.Create(nameof(OrgNumber), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization number property
+		/// </summary>
+		public string OrgNumber
+		{
+			get => (string)this.GetValue(OrgNumberProperty);
+			set => this.SetValue(OrgNumberProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgDepartment"/>
+		/// </summary>
+		public static readonly BindableProperty OrgDepartmentProperty =
+			BindableProperty.Create(nameof(OrgDepartment), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization department property
+		/// </summary>
+		public string OrgDepartment
+		{
+			get => (string)this.GetValue(OrgDepartmentProperty);
+			set => this.SetValue(OrgDepartmentProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRole"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRoleProperty =
+			BindableProperty.Create(nameof(OrgRole), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization role property
+		/// </summary>
+		public string OrgRole
+		{
+			get => (string)this.GetValue(OrgRoleProperty);
+			set => this.SetValue(OrgRoleProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddress"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddressProperty =
+			BindableProperty.Create(nameof(OrgAddress), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization address property
+		/// </summary>
+		public string OrgAddress
+		{
+			get => (string)this.GetValue(OrgAddressProperty);
+			set => this.SetValue(OrgAddressProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddress2"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddress2Property =
+			BindableProperty.Create(nameof(OrgAddress2), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization address line 2 property
+		/// </summary>
+		public string OrgAddress2
+		{
+			get => (string)this.GetValue(OrgAddress2Property);
+			set => this.SetValue(OrgAddress2Property, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgZipCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgZipCodeProperty =
+			BindableProperty.Create(nameof(OrgZipCode), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization zip code property
+		/// </summary>
+		public string OrgZipCode
+		{
+			get => (string)this.GetValue(OrgZipCodeProperty);
+			set => this.SetValue(OrgZipCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgArea"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAreaProperty =
+			BindableProperty.Create(nameof(OrgArea), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization area property
+		/// </summary>
+		public string OrgArea
+		{
+			get => (string)this.GetValue(OrgAreaProperty);
+			set => this.SetValue(OrgAreaProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCity"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCityProperty =
+			BindableProperty.Create(nameof(OrgCity), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization city property
+		/// </summary>
+		public string OrgCity
+		{
+			get => (string)this.GetValue(OrgCityProperty);
+			set => this.SetValue(OrgCityProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRegion"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRegionProperty =
+			BindableProperty.Create(nameof(OrgRegion), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization region property
+		/// </summary>
+		public string OrgRegion
+		{
+			get => (string)this.GetValue(OrgRegionProperty);
+			set => this.SetValue(OrgRegionProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountryCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryCodeProperty =
+			BindableProperty.Create(nameof(OrgCountryCode), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization country code property
+		/// </summary>
+		public string OrgCountryCode
+		{
+			get => (string)this.GetValue(OrgCountryCodeProperty);
+			set => this.SetValue(OrgCountryCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountry"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryProperty =
+			BindableProperty.Create(nameof(OrgCountry), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization country property
+		/// </summary>
+		public string OrgCountry
+		{
+			get => (string)this.GetValue(OrgCountryProperty);
+			set => this.SetValue(OrgCountryProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasOrg"/>
+		/// </summary>
+		public static readonly BindableProperty HasOrgProperty =
+			BindableProperty.Create(nameof(HasOrg), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// If organization information is available.
+		/// </summary>
+		public bool HasOrg
+		{
+			get => (bool)this.GetValue(HasOrgProperty);
+			set => this.SetValue(HasOrgProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="PhoneNr"/>
 		/// </summary>
 		public static readonly BindableProperty PhoneNrProperty =
@@ -1098,6 +1344,171 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <summary>
+		/// See <see cref="OrgNameIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNameIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgNameIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgName"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgNameIsChecked
+		{
+			get => (bool)this.GetValue(OrgNameIsCheckedProperty);
+			set => this.SetValue(OrgNameIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgDepartmentIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgDepartmentIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgDepartmentIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgDepartment"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgDepartmentIsChecked
+		{
+			get => (bool)this.GetValue(OrgDepartmentIsCheckedProperty);
+			set => this.SetValue(OrgDepartmentIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRoleIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRoleIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgRoleIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgRole"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgRoleIsChecked
+		{
+			get => (bool)this.GetValue(OrgRoleIsCheckedProperty);
+			set => this.SetValue(OrgRoleIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgNumberIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNumberIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgNumberIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgNumber"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgNumberIsChecked
+		{
+			get => (bool)this.GetValue(OrgNumberIsCheckedProperty);
+			set => this.SetValue(OrgNumberIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddressIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddressIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgAddressIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgAddress"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgAddressIsChecked
+		{
+			get => (bool)this.GetValue(OrgAddressIsCheckedProperty);
+			set => this.SetValue(OrgAddressIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddressIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddress2IsCheckedProperty =
+			BindableProperty.Create(nameof(OrgAddress2IsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgAddress2"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgAddress2IsChecked
+		{
+			get => (bool)this.GetValue(OrgAddress2IsCheckedProperty);
+			set => this.SetValue(OrgAddress2IsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgZipCodeIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgZipCodeIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgZipCodeIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgZipCode"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgZipCodeIsChecked
+		{
+			get => (bool)this.GetValue(OrgZipCodeIsCheckedProperty);
+			set => this.SetValue(OrgZipCodeIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAreaIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAreaIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgAreaIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgArea"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgAreaIsChecked
+		{
+			get => (bool)this.GetValue(OrgAreaIsCheckedProperty);
+			set => this.SetValue(OrgAreaIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCityIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCityIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgCityIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgCity"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgCityIsChecked
+		{
+			get => (bool)this.GetValue(OrgCityIsCheckedProperty);
+			set => this.SetValue(OrgCityIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRegionIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRegionIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgRegionIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgRegion"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgRegionIsChecked
+		{
+			get => (bool)this.GetValue(OrgRegionIsCheckedProperty);
+			set => this.SetValue(OrgRegionIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountryCodeIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryCodeIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgCountryCodeIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgCountryCode"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgCountryCodeIsChecked
+		{
+			get => (bool)this.GetValue(OrgCountryCodeIsCheckedProperty);
+			set => this.SetValue(OrgCountryCodeIsCheckedProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="CarefulReviewIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty CarefulReviewIsCheckedProperty =
@@ -1293,6 +1704,171 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <summary>
+		/// See <see cref="IsForReviewOrgName"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgNameProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgName), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgName"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgName
+		{
+			get => (bool)this.GetValue(IsForReviewOrgNameProperty);
+			set => this.SetValue(IsForReviewOrgNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgDepartment"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgDepartmentProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgDepartment), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgDepartment"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgDepartment
+		{
+			get => (bool)this.GetValue(IsForReviewOrgDepartmentProperty);
+			set => this.SetValue(IsForReviewOrgDepartmentProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgRole"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgRoleProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgRole), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgRole"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgRole
+		{
+			get => (bool)this.GetValue(IsForReviewOrgRoleProperty);
+			set => this.SetValue(IsForReviewOrgRoleProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgNumber"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgNumberProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgNumber), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgNumber"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgNumber
+		{
+			get => (bool)this.GetValue(IsForReviewOrgNumberProperty);
+			set => this.SetValue(IsForReviewOrgNumberProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgAddress"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgAddressProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgAddress), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgAddress"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgAddress
+		{
+			get => (bool)this.GetValue(IsForReviewOrgAddressProperty);
+			set => this.SetValue(IsForReviewOrgAddressProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgAddress2"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgAddress2Property =
+			BindableProperty.Create(nameof(IsForReviewOrgAddress2), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgAddress2"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgAddress2
+		{
+			get => (bool)this.GetValue(IsForReviewOrgAddress2Property);
+			set => this.SetValue(IsForReviewOrgAddress2Property, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgCity"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgCityProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgCity), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgCity"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgCity
+		{
+			get => (bool)this.GetValue(IsForReviewOrgCityProperty);
+			set => this.SetValue(IsForReviewOrgCityProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgZipCode"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgZipCodeProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgZipCode), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgZipCode"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgZipCode
+		{
+			get => (bool)this.GetValue(IsForReviewOrgZipCodeProperty);
+			set => this.SetValue(IsForReviewOrgZipCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgArea"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgAreaProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgArea), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgArea"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgArea
+		{
+			get => (bool)this.GetValue(IsForReviewOrgAreaProperty);
+			set => this.SetValue(IsForReviewOrgAreaProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgRegion"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgRegionProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgRegion), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgRegion"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgRegion
+		{
+			get => (bool)this.GetValue(IsForReviewOrgRegionProperty);
+			set => this.SetValue(IsForReviewOrgRegionProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgCountry"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgCountryProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgCountry), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgCountry"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgCountry
+		{
+			get => (bool)this.GetValue(IsForReviewOrgCountryProperty);
+			set => this.SetValue(IsForReviewOrgCountryProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="FirstPhotoSource"/>
 		/// </summary>
 		public static readonly BindableProperty FirstPhotoSourceProperty =
@@ -1371,7 +1947,18 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					(!string.IsNullOrEmpty(this.Area) && !this.AreaIsChecked) ||
 					(!string.IsNullOrEmpty(this.City) && !this.CityIsChecked) ||
 					(!string.IsNullOrEmpty(this.Region) && !this.RegionIsChecked) ||
-					(!string.IsNullOrEmpty(this.CountryCode) && !this.CountryCodeIsChecked))
+					(!string.IsNullOrEmpty(this.CountryCode) && !this.CountryCodeIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgName) && !this.OrgNameIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgDepartment) && !this.OrgDepartmentIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgRole) && !this.OrgRoleIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgNumber) && !this.OrgNumberIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgAddress) && !this.OrgAddressIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgAddress2) && !this.OrgAddress2IsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgZipCode) && !this.OrgZipCodeIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgArea) && !this.OrgAreaIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgCity) && !this.OrgCityIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgRegion) && !this.OrgRegionIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgCountryCode) && !this.OrgCountryCodeIsChecked))
 				{
 					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Incomplete"], LocalizationResourceManager.Current["PleaseReviewAndCheckAllCheckboxes"]);
 					return;
