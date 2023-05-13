@@ -153,6 +153,11 @@ namespace IdApp.Services.Tag
 		bool IsTest { get; }
 
 		/// <summary>
+		/// Purpose for using the app.
+		/// </summary>
+		PurposeUse Purpose { get; }
+
+		/// <summary>
 		/// Returns a timestamp if the user used a Test OTP Code.
 		/// </summary>
 		DateTime? TestOtpTimestamp { get; }
@@ -304,7 +309,9 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// Step 1 - Set if the user choose the educational or experimental purpose.
 		/// </summary>
-		void SetIsTest(bool isTest);
+		/// <param name="IsTest">If app is in test mode.</param>
+		/// <param name="Purpose">Purpose for using the app</param>
+		void SetPurpose(bool IsTest, PurposeUse Purpose);
 
 		/// <summary>
 		/// Step 1 - Set if the user used a Test OTP Code.

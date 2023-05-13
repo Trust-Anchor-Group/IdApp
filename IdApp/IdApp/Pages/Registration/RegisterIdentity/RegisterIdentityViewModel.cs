@@ -95,6 +95,11 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public bool IsTest => this.TagProfile.IsTest;
 
 		/// <summary>
+		/// Purpose for using the app.
+		/// </summary>
+		public PurposeUse Purpose => this.TagProfile.Purpose;
+
+		/// <summary>
 		/// The command to bind to for performing the 'register' action.
 		/// </summary>
 		public ICommand RegisterCommand { get; }

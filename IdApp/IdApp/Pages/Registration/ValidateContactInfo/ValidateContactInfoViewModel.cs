@@ -13,32 +13,6 @@ using Rg.Plugins.Popup.Services;
 namespace IdApp.Pages.Registration.ValidateContactInfo
 {
 	/// <summary>
-	/// For what purpose the app will be used
-	/// </summary>
-	public enum PurposeUse
-	{
-		/// <summary>
-		/// For personal use
-		/// </summary>
-		Personal = 0,
-
-		/// <summary>
-		/// For use at work
-		/// </summary>
-		Work = 1,
-
-		/// <summary>
-		/// For educational use
-		/// </summary>
-		Educational = 2,
-
-		/// <summary>
-		/// For experimental use
-		/// </summary>
-		Experimental = 3
-	}
-
-	/// <summary>
 	/// The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
 	/// </summary>
 	public class ValidateContactInfoViewModel : RegistrationStepViewModel
@@ -794,9 +768,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 
 						if (!string.IsNullOrEmpty(Code))
 						{
-							bool IsTest = this.PurposeRequired ?
-								this.IsEducationalPurpose || this.IsExperimentalPurpose :
-								this.TagProfile.IsTest;
+							bool IsTest = this.PurposeRequired ? this.IsEducationalPurpose || this.IsExperimentalPurpose : this.TagProfile.IsTest;
+							PurposeUse Purpose = this.PurposeRequired ? (PurposeUse)this.PurposeNr : this.TagProfile.Purpose;
 
 							object VerifyResult = await InternetContent.PostAsync(
 								new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
@@ -819,7 +792,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 								this.PhoneNrValidated = true;
 
 								this.TagProfile.SetPhone(TrimmedNumber);
-								this.TagProfile.SetIsTest(IsTest);
+								this.TagProfile.SetPurpose(IsTest, Purpose);
 								this.TagProfile.SetTestOtpTimestamp(VerifyIsTemporary ? DateTime.Now : null);
 
 								if (this.IsRevalidating)
@@ -942,9 +915,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			{
 				string TrimmedNumber = this.TrimPhoneNumber(this.PhoneNumber);
 
-				bool IsTest = this.PurposeRequired ?
-					this.IsEducationalPurpose || this.IsExperimentalPurpose :
-					this.TagProfile.IsTest;
+				bool IsTest = this.PurposeRequired ? this.IsEducationalPurpose || this.IsExperimentalPurpose : this.TagProfile.IsTest;
+				PurposeUse Purpose = this.PurposeRequired ? (PurposeUse)this.PurposeNr : this.TagProfile.Purpose;
 
 				object Result = await InternetContent.PostAsync(
 					new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
@@ -967,7 +939,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 					this.PhoneNrValidated = true;
 
 					this.TagProfile.SetPhone(TrimmedNumber);
-					this.TagProfile.SetIsTest(IsTest);
+					this.TagProfile.SetPurpose(IsTest, Purpose);
 					this.TagProfile.SetTestOtpTimestamp(IsTemporary ? DateTime.Now : null);
 
 					if (this.IsRevalidating)
