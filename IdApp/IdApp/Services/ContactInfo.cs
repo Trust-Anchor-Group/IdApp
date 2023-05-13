@@ -515,44 +515,70 @@ namespace IdApp.Services
 			string MiddleName = null;
 			string LastName = null;
 			string PersonalNumber = null;
+			string OrgDepartment = null;
+			string OrgRole = null;
+			string OrgName = null;
 			bool HasName = false;
+			bool HasOrg = false;
 
 			foreach (Property P in Identity.Properties)
 			{
 				switch (P.Name.ToUpper())
 				{
-					case "FIRST":
+					case Constants.XmppProperties.FirstName:
 						FirstName = P.Value;
 						HasName = true;
 						break;
 
-					case "MIDDLE":
+					case Constants.XmppProperties.MiddleName:
 						MiddleName = P.Value;
 						HasName = true;
 						break;
 
-					case "LAST":
+					case Constants.XmppProperties.LastName:
 						LastName = P.Value;
 						HasName = true;
 						break;
 
-					case "PNR":
+					case Constants.XmppProperties.PersonalNumber:
 						PersonalNumber = P.Value;
+						break;
+
+					case Constants.XmppProperties.OrgName:
+						OrgName = P.Value;
+						HasOrg = true;
+						break;
+
+					case Constants.XmppProperties.OrgDepartment:
+						OrgDepartment = P.Value;
+						HasOrg = true;
+						break;
+
+					case Constants.XmppProperties.OrgRole:
+						OrgRole = P.Value;
+						HasOrg = true;
 						break;
 				}
 			}
 
+			StringBuilder sb = null;
+
 			if (HasName)
 			{
-				StringBuilder sb = null;
-
 				AppendName(ref sb, FirstName);
 				AppendName(ref sb, MiddleName);
 				AppendName(ref sb, LastName);
-
-				if (sb is not null)
-					return sb.ToString();
 			}
+
+			if (HasOrg)
+			{
+				AppendName(ref sb, OrgRole);
+				AppendName(ref sb, OrgDepartment);
+				AppendName(ref sb, OrgName);
+			}
+
+			if (sb is not null)
+				return sb.ToString();
 
 			if (!string.IsNullOrEmpty(PersonalNumber))
 				return PersonalNumber;

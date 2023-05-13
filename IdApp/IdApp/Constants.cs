@@ -335,6 +335,16 @@ namespace IdApp
 			public const string OrgCountry = "ORGCOUNTRY";
 
 			/// <summary>
+			/// Organization Department
+			/// </summary>
+			public const string OrgDepartment = "ORGDEPT";
+
+			/// <summary>
+			/// Organization Role
+			/// </summary>
+			public const string OrgRole = "ORGROLE";
+
+			/// <summary>
 			/// Device ID
 			/// </summary>
 			public const string DeviceId = "DEVICE_ID";

@@ -224,6 +224,28 @@
                                Text="{Binding Path=OrgNumber}"
                                IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
 							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgDepartmentEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgDepartmentEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgDepartment}" Text="{Binding Path=OrgDepartment}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgRoleEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgRoleEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgRole}" Text="{Binding Path=OrgRole}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
 								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgAddressEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
 							</Entry.Behaviors>
 						</Entry>

@@ -2262,6 +2262,9 @@
   <data name="OrgCountry" xml:space="preserve">
     <value>Zemlja organizacije</value>
   </data>
+  <data name="OrgDepartment" xml:space="preserve">
+    <value>Odeljenje</value>
+  </data>
   <data name="OrgName" xml:space="preserve">
     <value>Ime organizacije</value>
   </data>
@@ -2270,6 +2273,9 @@
   </data>
   <data name="OrgRegion" xml:space="preserve">
     <value>Region organizacije</value>
+  </data>
+  <data name="OrgRole" xml:space="preserve">
+    <value>Ulogu</value>
   </data>
   <data name="OrgZipCode" xml:space="preserve">
     <value>Poštanski broj organizacije</value>

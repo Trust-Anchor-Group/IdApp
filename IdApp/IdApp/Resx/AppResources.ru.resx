@@ -2262,6 +2262,9 @@
   <data name="OrgCountry" xml:space="preserve">
     <value>Страна организации</value>
   </data>
+  <data name="OrgDepartment" xml:space="preserve">
+    <value>Отдел</value>
+  </data>
   <data name="OrgName" xml:space="preserve">
     <value>Название организации</value>
   </data>
@@ -2270,6 +2273,9 @@
   </data>
   <data name="OrgRegion" xml:space="preserve">
     <value>Регион организации</value>
+  </data>
+  <data name="OrgRole" xml:space="preserve">
+    <value>Роль</value>
   </data>
   <data name="OrgZipCode" xml:space="preserve">
     <value>Почтовый индекс организации</value>

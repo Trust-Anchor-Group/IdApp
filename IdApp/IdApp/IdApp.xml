@@ -686,6 +686,16 @@
             Organization Country
             </summary>
         </member>
+        <member name="F:IdApp.Constants.XmppProperties.OrgDepartment">
+            <summary>
+            Organization Department
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.OrgRole">
+            <summary>
+            Organization Role
+            </summary>
+        </member>
         <member name="F:IdApp.Constants.XmppProperties.DeviceId">
             <summary>
             Device ID
@@ -9605,6 +9615,16 @@
             Organization Country
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.OrgDepartment">
+            <summary>
+            Organization Department
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.OrgRole">
+            <summary>
+            Organization Role
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.PhoneNr">
             <summary>
             Phone Number
@@ -9905,7 +9925,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgArea">
             <summary>
-            The user's area
+            The organization area
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.CityProperty">
@@ -9925,7 +9945,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgCity">
             <summary>
-            The user's city
+            The organization city
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.RegionProperty">
@@ -9945,7 +9965,27 @@
         </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgRegion">
             <summary>
-            The user's region
+            The organization region
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgDepartmentProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgDepartment"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgDepartment">
+            <summary>
+            The organization department
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgRoleProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgRole"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OrgRole">
+            <summary>
+            The organization role
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.DeviceIdProperty">
@@ -18948,6 +18988,11 @@
               Looks up a localized string similar to Organization Country.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.OrgDepartment">
+            <summary>
+              Looks up a localized string similar to Department.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.OrgName">
             <summary>
               Looks up a localized string similar to Organization Name.
@@ -18961,6 +19006,11 @@
         <member name="P:IdApp.Resx.AppResources.OrgRegion">
             <summary>
               Looks up a localized string similar to Organization Region.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.OrgRole">
+            <summary>
+              Looks up a localized string similar to Role.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.OrgZipCode">

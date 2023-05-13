@@ -3022,6 +3022,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Department.
+        /// </summary>
+        internal static string OrgDepartment {
+            get {
+                return ResourceManager.GetString("OrgDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Organization Name.
         /// </summary>
         internal static string OrgName {
@@ -3045,6 +3054,15 @@ namespace IdApp.Resx {
         internal static string OrgRegion {
             get {
                 return ResourceManager.GetString("OrgRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        internal static string OrgRole {
+            get {
+                return ResourceManager.GetString("OrgRole", resourceCulture);
             }
         }
         

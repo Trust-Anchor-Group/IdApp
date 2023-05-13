@@ -502,7 +502,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			BindableProperty.Create(nameof(OrgArea), typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
 		/// <summary>
-		/// The user's area
+		/// The organization area
 		/// </summary>
 		public string OrgArea
 		{
@@ -541,7 +541,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			BindableProperty.Create(nameof(OrgCity), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
 		/// <summary>
-		/// The user's city
+		/// The organization city
 		/// </summary>
 		public string OrgCity
 		{
@@ -580,12 +580,42 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			BindableProperty.Create(nameof(OrgRegion), typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
 		/// <summary>
-		/// The user's region
+		/// The organization region
 		/// </summary>
 		public string OrgRegion
 		{
 			get => (string)this.GetValue(OrgRegionProperty);
 			set => this.SetValue(OrgRegionProperty, value);
+		}
+
+		/// <summary>
+		/// The <see cref="OrgDepartment"/>
+		/// </summary>
+		public static readonly BindableProperty OrgDepartmentProperty =
+			BindableProperty.Create(nameof(OrgDepartment), typeof(string), typeof(RegisterIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The organization department
+		/// </summary>
+		public string OrgDepartment
+		{
+			get => (string)this.GetValue(OrgDepartmentProperty);
+			set => this.SetValue(OrgDepartmentProperty, value);
+		}
+
+		/// <summary>
+		/// The <see cref="OrgRole"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRoleProperty =
+			BindableProperty.Create(nameof(OrgRole), typeof(string), typeof(RegisterIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The organization role
+		/// </summary>
+		public string OrgRole
+		{
+			get => (string)this.GetValue(OrgRoleProperty);
+			set => this.SetValue(OrgRoleProperty, value);
 		}
 
 		/// <summary>
@@ -1181,6 +1211,12 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 				if (!string.IsNullOrWhiteSpace(s = this.OrgNumber?.Trim()))
 					IdentityModel.OrgNumber = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgDepartment?.Trim()))
+					IdentityModel.OrgDepartment = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgRole?.Trim()))
+					IdentityModel.OrgRole = s;
 
 				if (!string.IsNullOrWhiteSpace(s = this.OrgAddress?.Trim()))
 					IdentityModel.OrgAddress = s;

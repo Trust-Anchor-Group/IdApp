@@ -111,6 +111,16 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string OrgCountry { get; set; }
 
 		/// <summary>
+		/// Organization Department
+		/// </summary>
+		public string OrgDepartment { get; set; }
+
+		/// <summary>
+		/// Organization Role
+		/// </summary>
+		public string OrgRole { get; set; }
+
+		/// <summary>
 		/// Phone Number
 		/// </summary>
 		public string PhoneNr { get; set; }
@@ -178,6 +188,12 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (!string.IsNullOrWhiteSpace(s = this.OrgNumber?.Trim()))
 				properties.Add(new Property(Constants.XmppProperties.OrgNumber, s));
+
+			if (!string.IsNullOrWhiteSpace(s = this.OrgDepartment?.Trim()))
+				properties.Add(new Property(Constants.XmppProperties.OrgDepartment, s));
+
+			if (!string.IsNullOrWhiteSpace(s = this.OrgRole?.Trim()))
+				properties.Add(new Property(Constants.XmppProperties.OrgRole, s));
 
 			if (!string.IsNullOrWhiteSpace(s = this.OrgAddress?.Trim()))
 				properties.Add(new Property(Constants.XmppProperties.OrgAddress, s));

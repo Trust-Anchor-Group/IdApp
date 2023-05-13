@@ -2238,6 +2238,9 @@
   <data name="OrgCountry" xml:space="preserve">
     <value>Organisationens Land</value>
   </data>
+  <data name="OrgDepartment" xml:space="preserve">
+    <value>Avdelning</value>
+  </data>
   <data name="OrgName" xml:space="preserve">
     <value>Organisationens Namn</value>
   </data>
@@ -2246,6 +2249,9 @@
   </data>
   <data name="OrgRegion" xml:space="preserve">
     <value>Organisationens Region eller stat</value>
+  </data>
+  <data name="OrgRole" xml:space="preserve">
+    <value>Roll</value>
   </data>
   <data name="OrgZipCode" xml:space="preserve">
     <value>Organisationens postkod</value>
