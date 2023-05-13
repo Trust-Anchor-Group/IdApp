@@ -325,7 +325,18 @@ namespace IdApp
 				if (Types.GetType(type.FullName) is null)
 					return null;    // Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
 
-				return Types.Instantiate(true, type);
+				if (type.Assembly == DeviceAssembly && Types.GetDefaultConstructor(type) is null)
+					return null;
+
+				try
+				{
+					return Types.Instantiate(true, type);
+				}
+				catch (Exception ex)
+				{
+					this.services.LogService.LogException(ex);
+					return null;
+				}
 			});
 
 			secureDisplay = DependencyService.Get<ISecureDisplay>();
