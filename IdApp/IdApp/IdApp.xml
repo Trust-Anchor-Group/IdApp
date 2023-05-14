@@ -6393,6 +6393,16 @@
             If organization information is available.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.OrgRowHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.OrgRowHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.OrgRowHeight">
+            <summary>
+            If organization information is available.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.PhoneNrProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.PhoneNr"/>
