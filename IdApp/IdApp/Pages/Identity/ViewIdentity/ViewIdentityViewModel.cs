@@ -23,6 +23,7 @@ using System.Text;
 using Waher.Content.Xml;
 using System.Xml;
 using EDaler;
+using IdApp.Pages.Contracts.PetitionSignature;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
@@ -995,7 +996,26 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		public bool HasOrg
 		{
 			get => (bool)this.GetValue(HasOrgProperty);
-			set => this.SetValue(HasOrgProperty, value);
+			set
+			{
+				this.SetValue(HasOrgProperty, value);
+				this.OrgRowHeight = value ? GridLength.Auto : new GridLength(0, GridUnitType.Absolute);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRowHeight"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRowHeightProperty =
+			BindableProperty.Create(nameof(OrgRowHeight), typeof(GridLength), typeof(PetitionSignatureViewModel), default(GridLength));
+
+		/// <summary>
+		/// If organization information is available.
+		/// </summary>
+		public GridLength OrgRowHeight
+		{
+			get => (GridLength)this.GetValue(OrgRowHeightProperty);
+			set => this.SetValue(OrgRowHeightProperty, value);
 		}
 
 		/// <summary>

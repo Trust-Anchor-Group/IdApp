@@ -4647,6 +4647,16 @@
             If organization information is available.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.OrgRowHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.OrgRowHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.OrgRowHeight">
+            <summary>
+            If organization information is available.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.IsApprovedProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.IsApproved"/>
@@ -5914,6 +5924,16 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.HasOrg">
+            <summary>
+            If organization information is available.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgRowHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgRowHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.OrgRowHeight">
             <summary>
             If organization information is available.
             </summary>
@@ -7353,6 +7373,16 @@
             If organization information is available.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRowHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRowHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRowHeight">
+            <summary>
+            If organization information is available.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PhoneNrProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PhoneNr"/>
@@ -7990,6 +8020,16 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.HasOrg">
+            <summary>
+            If organization information is available.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRowHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRowHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.OrgRowHeight">
             <summary>
             If organization information is available.
             </summary>
@@ -11807,6 +11847,16 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.HasOrg">
+            <summary>
+            If organization information is available.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgRowHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgRowHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.OrgRowHeight">
             <summary>
             If organization information is available.
             </summary>
