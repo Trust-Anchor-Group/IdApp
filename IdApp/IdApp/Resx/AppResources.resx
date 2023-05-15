@@ -2319,4 +2319,10 @@
   <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
     <value>You need to provide a role</value>
   </data>
+  <data name="APetitionHasBeenSentForEncryption" xml:space="preserve">
+    <value>Encryption can only be performed, if you have access to the recipients identity. A petition for this identity has therefore been sent to the indended recipient. If the recipient accepts the petition, you will receive the identity and be able to send the payment with an encrypted message when you try again. You can also choose to send an unencrypted message with the payment.</value>
+  </data>
+  <data name="EncryptedPayment" xml:space="preserve">
+    <value>Encrypted Payment</value>
+  </data>
 </root>

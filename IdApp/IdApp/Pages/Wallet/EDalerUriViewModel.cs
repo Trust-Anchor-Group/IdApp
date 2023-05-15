@@ -13,6 +13,7 @@ using Xamarin.Forms;
 using IdApp.Converters;
 using IdApp.Pages.Main.Calculator;
 using Xamarin.CommunityToolkit.Helpers;
+using Waher.Networking.XMPP.StanzaErrors;
 
 namespace IdApp.Pages.Wallet
 {
@@ -816,9 +817,35 @@ namespace IdApp.Pages.Wallet
 
 				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
 				{
-					LegalIdentity LegalIdentity = await this.XmppService.GetLegalIdentity(this.To);
-					Uri = await this.XmppService.CreateFullEDalerPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
-						this.Currency, 3, this.Message);
+					try
+					{
+						LegalIdentity LegalIdentity = await this.XmppService.GetLegalIdentity(this.To);
+						Uri = await this.XmppService.CreateFullEDalerPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
+							this.Currency, 3, this.Message);
+					}
+					catch (ForbiddenException)
+					{
+						// This happens if you try to view someone else's legal identity.
+						// When this happens, try to send a petition to view it instead.
+						// Normal operation. Should not be logged.
+
+						this.NotPaid = true;
+						this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
+
+						this.UiSerializer.BeginInvokeOnMainThread(async () =>
+						{
+							bool Succeeded = await this.NetworkService.TryRequest(() => this.XmppService.PetitionIdentity(
+								this.To, Guid.NewGuid().ToString(), LocalizationResourceManager.Current["EncryptedPayment"]));
+
+							if (Succeeded)
+							{
+								await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PetitionSent"],
+									LocalizationResourceManager.Current["APetitionHasBeenSentForEncryption"]);
+							}
+						});
+
+						return;
+					}
 				}
 				else
 				{

@@ -331,6 +331,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encryption can only be performed, if you have access to the recipients identity. A petition for this identity has therefore been sent to the indended recipient. If the recipient accepts the petition, you will receive the identity and be able to send the payment with an encrypted message when you try again. You can also choose to send an unencrypted message with the payment..
+        /// </summary>
+        internal static string APetitionHasBeenSentForEncryption {
+            get {
+                return ResourceManager.GetString("APetitionHasBeenSentForEncryption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A petition has been sent to the parts of the contract. If any of the parts accepts the petition, the contract information will be displayed on the screen..
         /// </summary>
         internal static string APetitionHasBeenSentToTheContract {
@@ -1578,6 +1587,15 @@ namespace IdApp.Resx {
         internal static string EDalerServiceNotFound {
             get {
                 return ResourceManager.GetString("EDalerServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypted Payment.
+        /// </summary>
+        internal static string EncryptedPayment {
+            get {
+                return ResourceManager.GetString("EncryptedPayment", resourceCulture);
             }
         }
         

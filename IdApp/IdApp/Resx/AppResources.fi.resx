@@ -2319,4 +2319,10 @@
   <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
     <value>Sinun on annettava rooli</value>
   </data>
+  <data name="APetitionHasBeenSentForEncryption" xml:space="preserve">
+    <value>Salaus voidaan suorittaa vain, jos sinulla on pääsy vastaanottajien tunnistetietoihin. Tätä henkilöllisyyttä koskeva vetoomus on siksi lähetetty vastaanottajalle. Jos vastaanottaja hyväksyy vetoomuksen, saat henkilöllisyyden ja voit lähettää maksun salatulla viestillä, kun yrität uudelleen. Voit myös lähettää salaamattoman viestin maksun mukana.</value>
+  </data>
+  <data name="EncryptedPayment" xml:space="preserve">
+    <value>Salattu maksu</value>
+  </data>
 </root>

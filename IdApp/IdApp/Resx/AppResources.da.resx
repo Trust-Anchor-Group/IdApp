@@ -2319,4 +2319,10 @@
   <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
     <value>Du skal angive en rolle</value>
   </data>
+  <data name="APetitionHasBeenSentForEncryption" xml:space="preserve">
+    <value>Kryptering kan kun udføres, hvis du har adgang til modtagerens identitet. Der er derfor sendt et andragende om denne identitet til den indstillede modtager. Hvis modtageren accepterer andragendet, modtager du identiteten og kan sende betalingen med en krypteret besked, når du prøver igen. Du kan også vælge at sende en ukrypteret besked med betalingen.</value>
+  </data>
+  <data name="EncryptedPayment" xml:space="preserve">
+    <value>Krypteret betaling</value>
+  </data>
 </root>

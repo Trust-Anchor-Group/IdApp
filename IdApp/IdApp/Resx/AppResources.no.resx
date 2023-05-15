@@ -2319,4 +2319,10 @@
   <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
     <value>Du må gi en rolle</value>
   </data>
+  <data name="APetitionHasBeenSentForEncryption" xml:space="preserve">
+    <value>Kryptering kan bare utføres hvis du har tilgang til mottakerens identitet. Det er derfor sendt en begjæring om denne identiteten til den indendte mottakeren. Hvis mottakeren godtar begjæringen, vil du motta identiteten og kunne sende betalingen med en kryptert melding når du prøver igjen. Du kan også velge å sende en ukryptert melding med betalingen.</value>
+  </data>
+  <data name="EncryptedPayment" xml:space="preserve">
+    <value>Kryptert betaling</value>
+  </data>
 </root>

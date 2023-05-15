@@ -2319,4 +2319,10 @@
   <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
     <value>Trebuie să oferiți un rol</value>
   </data>
+  <data name="APetitionHasBeenSentForEncryption" xml:space="preserve">
+    <value>Criptarea poate fi efectuată numai dacă aveți acces la identitatea destinatarilor. Prin urmare, o petiție pentru această identitate a fost trimisă destinatarului încărcat. Dacă destinatarul acceptă petiția, veți primi identitatea și veți putea trimite plata cu un mesaj criptat atunci când încercați din nou. De asemenea, puteți alege să trimiteți un mesaj necriptat cu plata.</value>
+  </data>
+  <data name="EncryptedPayment" xml:space="preserve">
+    <value>Plată criptată</value>
+  </data>
 </root>

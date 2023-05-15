@@ -2319,4 +2319,10 @@
   <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
     <value>Debe proporcionar un rol</value>
   </data>
+  <data name="APetitionHasBeenSentForEncryption" xml:space="preserve">
+    <value>El cifrado solo se puede realizar si tiene acceso a la identidad de los destinatarios. Por lo tanto, se ha enviado una petición para esta identidad al destinatario indefinido. Si el destinatario acepta la petición, recibirá la identidad y podrá enviar el pago con un mensaje cifrado cuando vuelva a intentarlo. También puede optar por enviar un mensaje sin cifrar con el pago.</value>
+  </data>
+  <data name="EncryptedPayment" xml:space="preserve">
+    <value>Pago cifrado</value>
+  </data>
 </root>

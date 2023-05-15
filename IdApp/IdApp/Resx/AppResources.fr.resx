@@ -2319,4 +2319,10 @@
   <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
     <value>Vous devez fournir un rôle</value>
   </data>
+  <data name="APetitionHasBeenSentForEncryption" xml:space="preserve">
+    <value>Le chiffrement ne peut être effectué que si vous avez accès à l’identité des destinataires. Une demande d’identité a donc été adressée au destinataire concerné. Si le destinataire accepte la demande, vous recevrez l’identité et pourrez envoyer le paiement avec un message crypté lorsque vous réessayerez. Vous pouvez également choisir d’envoyer un message non chiffré avec le paiement.</value>
+  </data>
+  <data name="EncryptedPayment" xml:space="preserve">
+    <value>Paiement crypté</value>
+  </data>
 </root>

@@ -2295,4 +2295,13 @@
   <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
     <value>Du behöver ange en roll</value>
   </data>
+  <data name="APetitionHasBeenSentForEncryption" xml:space="preserve">
+    <value>Kryptering kan bara genomföras om du har tillgång till mottagarens identitet. En förfrågan om denna identitet har därför skickats till den tänkta mottagaren. Om mottagaren acceptera förfrågan kommer du att få tillgång till identiteten och kunna skicka betalningen med ett krypterat meddelande när du försöker igen. Du kan också välja att skicka ett okrypterat meddelande med betalningen.</value>
+  </data>
+  <data name="EncryptedPayment" xml:space="preserve">
+    <value>Krypterad betalning</value>
+  </data>
+  <data name="PaymentOf" xml:space="preserve">
+    <value>Betalning av:</value>
+  </data>
 </root>
