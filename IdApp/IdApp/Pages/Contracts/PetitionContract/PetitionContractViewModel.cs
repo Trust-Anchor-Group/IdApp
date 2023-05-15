@@ -604,7 +604,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
 		/// See <see cref="OrgRowHeight"/>
 		/// </summary>
 		public static readonly BindableProperty OrgRowHeightProperty =
-			BindableProperty.Create(nameof(OrgRowHeight), typeof(GridLength), typeof(PetitionSignatureViewModel), default(GridLength));
+			BindableProperty.Create(nameof(OrgRowHeight), typeof(GridLength), typeof(PetitionContractViewModel), default(GridLength));
 
 		/// <summary>
 		/// If organization information is available.
