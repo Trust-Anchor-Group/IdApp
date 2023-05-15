@@ -9,17 +9,14 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Waher.Content;
-using Waher.Content.Html.Elements;
 using Waher.Runtime.Temporary;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using IOPath = System.IO.Path;
 
 namespace IdApp.Helpers
 {
 	/// <summary>
 	/// </summary>
-	public sealed class AesImageSource : DataUrlImageSource
+	public class AesImageSource : DataUrlImageSource
 	{
 		/// <summary>
 		/// </summary>
@@ -34,6 +31,8 @@ namespace IdApp.Helpers
 		{
 		}
 
+		private static readonly object syncHandle = new();
+		private static readonly Dictionary<string, LockingSemaphore> semaphores = new();
 		private static IAttachmentCacheService attachmentCacheService;
 
 		/// <summary>
@@ -52,9 +51,6 @@ namespace IdApp.Helpers
 		/// </summary>
 		public static readonly BindableProperty UriProperty = BindableProperty.Create("Uri", typeof(Uri), typeof(AesImageSource), default(Uri),
 			propertyChanged: (bindable, oldvalue, newvalue) => ((AesImageSource)bindable).OnUriChanged(), validateValue: (bindable, value) => value == null || ((Uri)value).IsAbsoluteUri);
-
-		static readonly object syncHandle = new();
-		static readonly Dictionary<string, LockingSemaphore> semaphores = new();
 
 		/// <summary>
 		/// </summary>
@@ -123,7 +119,7 @@ namespace IdApp.Helpers
 			CancellationToken.ThrowIfCancellationRequested();
 
 			string Url = this.Uri.OriginalString;
-			(byte[] Bin, _) = await attachmentCacheService.TryGet(Url).ConfigureAwait(false);
+			(byte[] Bin, _) = await AttachmentCacheService.TryGet(Url).ConfigureAwait(false);
 
 			CancellationToken.ThrowIfCancellationRequested();
 
@@ -136,7 +132,7 @@ namespace IdApp.Helpers
 				Content.Value.Position = 0;
 				Bin = Content.Value.ToByteArray();
 
-				await attachmentCacheService.Add(Url, string.Empty, false, Bin, Content.Key).ConfigureAwait(false);
+				await AttachmentCacheService.Add(Url, string.Empty, false, Bin, Content.Key).ConfigureAwait(false);
 			}
 
 			if (Bin is not null)

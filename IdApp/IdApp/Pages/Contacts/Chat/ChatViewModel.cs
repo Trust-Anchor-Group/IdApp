@@ -1,6 +1,7 @@
 ﻿using EDaler;
 using EDaler.Uris;
 using IdApp.AR;
+using IdApp.Controls;
 using IdApp.Converters;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts;
@@ -1243,6 +1244,15 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			if (Parameter is ChatMessage Message)
 			{
+				if (Message.ParsedXaml is View View)
+				{
+					AudioPlayerControl AudioPlayer = View.Descendants().OfType<AudioPlayerControl>().FirstOrDefault();
+					if (AudioPlayer is not null)
+					{
+						return Task.CompletedTask;
+					}
+				}
+
 				switch (Message.MessageType)
 				{
 					case Services.Messages.MessageType.Sent:

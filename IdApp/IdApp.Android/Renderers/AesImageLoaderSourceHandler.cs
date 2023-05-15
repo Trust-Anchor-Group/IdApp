@@ -12,7 +12,7 @@ using Xamarin.Forms.Platform.Android;
 [assembly: ExportImageSourceHandler(typeof(AesImageSource), typeof(AesImageLoaderSourceHandler))]
 namespace IdApp.Android.Renderers
 {
-	public sealed class AesImageLoaderSourceHandler : IAnimationSourceHandler, IImageSourceHandler
+	public class AesImageLoaderSourceHandler : IAnimationSourceHandler, IImageSourceHandler
 	{
 		public async Task<Bitmap> LoadImageAsync(ImageSource ImageSource, Context Context, CancellationToken CancelationToken = default(CancellationToken))
 		{

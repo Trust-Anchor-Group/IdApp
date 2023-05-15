@@ -11,10 +11,11 @@
 	RowDefinitions="auto" ColumnDefinitions="auto,*" ColumnSpacing="5">
 
 	<Frame Grid.Column="0" CornerRadius="8" VerticalOptions="Center" Padding="5" Margin="0" HasShadow="False"
-							   xct:TouchEffect.AnimationDuration="100"
-							   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
-							   xct:TouchEffect.PressedOpacity="0.75"
-							   xct:TouchEffect.Command="{Binding Path=PauseResumeCommand}">
+		   IsEnabled="{Binding IsLoaded, Source={x:Reference ThisPage}}"
+		   xct:TouchEffect.AnimationDuration="100"
+		   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+		   xct:TouchEffect.PressedOpacity="0.75"
+		   xct:TouchEffect.Command="{Binding Path=PauseResumeCommand, Source={x:Reference ThisPage}}">
 
 		<Grid WidthRequest="35" HeightRequest="35" BackgroundColor="Transparent">
 			<controls:TintedSvgCachedImage TintColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"

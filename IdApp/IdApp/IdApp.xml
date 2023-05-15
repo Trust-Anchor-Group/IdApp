@@ -1129,6 +1129,14 @@
             <summary>
             </summary>
         </member>
+        <member name="P:IdApp.Controls.AudioPlayerControl.FilePath">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.AudioPlayerControl.IsLoaded">
+            <summary>
+            </summary>
+        </member>
         <member name="P:IdApp.Controls.AudioPlayerControl.PauseResumeCommand">
             <summary>
             The command to bind for pausing/resuming the audio
@@ -3660,11 +3668,6 @@
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
-        </member>
-        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent.AttachmentCacheService">
-            <summary>
-            Provides a reference to the attachment cache service.
-            </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>

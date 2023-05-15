@@ -12,6 +12,7 @@ using Waher.Content;
 using Waher.Runtime.Temporary;
 using FFImageLoading;
 using System.Windows.Input;
+using IdApp.AR;
 
 namespace IdApp.Controls
 {
@@ -26,11 +27,16 @@ namespace IdApp.Controls
 		public AudioPlayerControl()
 		{
 			this.InitializeComponent();
+
+			this.PauseResumeCommand = new Command(async _ => await this.ExecutePauseResume(), _ => this.CanExecutePauseResume());
 		}
 
-		static readonly object syncHandle = new();
-		static readonly Dictionary<string, LockingSemaphore> semaphores = new();
+		private static readonly Lazy<AudioPlayer> audioPlayer = new(() => {
+			return new AudioPlayer();
+		}, LazyThreadSafetyMode.PublicationOnly);
 
+		private static readonly object syncHandle = new();
+		private static readonly Dictionary<string, LockingSemaphore> semaphores = new();
 		private static IAttachmentCacheService attachmentCacheService;
 
 		/// <summary>
@@ -48,6 +54,7 @@ namespace IdApp.Controls
 		private CancellationTokenSource cancellationTokenSource;
 		private TaskCompletionSource<bool> completionSource;
 		private readonly WeakEventManager weakEventManager = new();
+		private string filePath = null;
 
 		/// <summary>
 		/// </summary>
@@ -124,7 +131,7 @@ namespace IdApp.Controls
 
 		/// <summary>
 		/// </summary>
-		public static readonly BindableProperty UriProperty = BindableProperty.Create("Uri", typeof(Uri), typeof(AudioPlayerControl), default(Uri),
+		public static readonly BindableProperty UriProperty = BindableProperty.Create(nameof(Uri), typeof(Uri), typeof(AudioPlayerControl), default(Uri),
 			propertyChanged: (bindable, oldvalue, newvalue) => ((AudioPlayerControl)bindable).OnUriChanged(), validateValue: (bindable, value) => value == null || ((Uri)value).IsAbsoluteUri);
 
 		/// <summary>
@@ -140,10 +147,63 @@ namespace IdApp.Controls
 			set { this.SetValue(UriProperty, value); }
 		}
 
+		/// <summary>
+		/// </summary>
+		public string FilePath
+		{
+			get => this.filePath;
+			private set
+			{
+				this.filePath = value;
+				this.OnPropertyChanged(nameof(this.IsLoaded));
+			}
+		}
+
+		/// <summary>
+		/// </summary>
+		public bool IsLoaded
+		{
+			get => !string.IsNullOrEmpty(this.FilePath);
+		}
+
 		void OnUriChanged()
 		{
 			this.CancellationTokenSource?.Cancel();
 			this.OnSourceChanged();
+			this.FilePath = null;
+
+			Task.Run(async () => {
+				try
+				{
+					string CacheName = GetCacheKey(this.Uri) + ".wav";
+					string FullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), CacheName);
+
+					if (File.Exists(FullPath))
+					{
+						this.FilePath = FullPath;
+					}
+					else
+					{
+						using Stream Stream = await this.GetStreamAsync().ConfigureAwait(false);
+
+						if (Stream is not null)
+						{
+							using FileStream FileStream = File.Create(FullPath);
+							await Stream.CopyToAsync(FileStream);
+							FileStream.Close();
+
+							this.FilePath = FullPath;
+						}
+					}
+				}
+				catch (OperationCanceledException)
+				{
+				}
+				catch (Exception ex)
+				{
+					Xamarin.Forms.Internals.Log.Warning("Image Loading", $"Error getting stream for {this.Uri}: {ex}");
+				}
+			});
 		}
 
 		public bool IsPlaying
@@ -159,6 +219,11 @@ namespace IdApp.Controls
 		private bool CanExecutePauseResume()
 		{
 			return true; //  this.IsRecordingAudio && audioRecorder.Value.IsRecording;
+		}
+
+		private async Task ExecutePauseResume()
+		{
+			await Task.CompletedTask;
 		}
 
 		/// <summary>
@@ -215,7 +280,7 @@ namespace IdApp.Controls
 			CancellationToken.ThrowIfCancellationRequested();
 
 			string Url = this.Uri.OriginalString;
-			(byte[] Bin, _) = await attachmentCacheService.TryGet(Url).ConfigureAwait(false);
+			(byte[] Bin, _) = await AttachmentCacheService.TryGet(Url).ConfigureAwait(false);
 
 			CancellationToken.ThrowIfCancellationRequested();
 
@@ -228,7 +293,7 @@ namespace IdApp.Controls
 				Content.Value.Position = 0;
 				Bin = Content.Value.ToByteArray();
 
-				await attachmentCacheService.Add(Url, string.Empty, false, Bin, Content.Key).ConfigureAwait(false);
+				await AttachmentCacheService.Add(Url, string.Empty, false, Bin, Content.Key).ConfigureAwait(false);
 			}
 
 			if (Bin is not null)
