@@ -14669,6 +14669,16 @@
             If <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.Message"/> should be encrypted in payment.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.CanEncryptMessageProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.CanEncryptMessage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.CanEncryptMessage">
+            <summary>
+            If <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.Message"/> should be encrypted in payment.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.HasMessageProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.HasMessage"/>

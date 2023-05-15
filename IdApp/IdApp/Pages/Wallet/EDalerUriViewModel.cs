@@ -119,7 +119,8 @@ namespace IdApp.Pages.Wallet
 					}
 
 					this.MessagePreset = !string.IsNullOrEmpty(this.Message);
-					this.EncryptMessage = args.Uri?.ToType == EntityType.LegalId;
+					this.CanEncryptMessage = args.Uri?.ToType == EntityType.LegalId;
+					this.EncryptMessage = this.CanEncryptMessage;
 
 					args.ViewInitialized = true;
 				}
@@ -613,6 +614,21 @@ namespace IdApp.Pages.Wallet
 		{
 			get => (bool)this.GetValue(EncryptMessageProperty);
 			set => this.SetValue(EncryptMessageProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="CanEncryptMessage"/>
+		/// </summary>
+		public static readonly BindableProperty CanEncryptMessageProperty =
+			BindableProperty.Create(nameof(CanEncryptMessage), typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If <see cref="Message"/> should be encrypted in payment.
+		/// </summary>
+		public bool CanEncryptMessage
+		{
+			get => (bool)this.GetValue(CanEncryptMessageProperty);
+			set => this.SetValue(CanEncryptMessageProperty, value);
 		}
 
 		/// <summary>
