@@ -37,7 +37,7 @@
                 <Label Text="{x:Static resx:AppResources.Message}"/>
                 <Entry Text="{Binding Path=Message}" IsReadOnly="{Binding Path=MessagePreset}"/>
                 <StackLayout Orientation="Horizontal" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
-                    <CheckBox IsChecked="{Binding Path=EncryptMessage, Mode=TwoWay}" VerticalOptions="Center" IsEnabled="False"/>
+                    <CheckBox IsChecked="{Binding Path=EncryptMessage, Mode=TwoWay}" VerticalOptions="Center"/>
                     <Label Text="{x:Static resx:AppResources.EncryptMessage}" VerticalOptions="Center" />
                 </StackLayout>
                 <!-- BUTTONS -->

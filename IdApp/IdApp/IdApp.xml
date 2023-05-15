@@ -18556,6 +18556,11 @@
               Looks up a localized string similar to A peer you requested to review your application, has rejected to approve it..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.APetitionHasBeenSentForEncryption">
+            <summary>
+              Looks up a localized string similar to Encryption can only be performed, if you have access to the recipients identity. A petition for this identity has therefore been sent to the indended recipient. If the recipient accepts the petition, you will receive the identity and be able to send the payment with an encrypted message when you try again. You can also choose to send an unencrypted message with the payment..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.APetitionHasBeenSentToTheContract">
             <summary>
               Looks up a localized string similar to A petition has been sent to the parts of the contract. If any of the parts accepts the petition, the contract information will be displayed on the screen..
@@ -19249,6 +19254,11 @@
         <member name="P:IdApp.Resx.AppResources.EDalerServiceNotFound">
             <summary>
               Looks up a localized string similar to No eDaler service found on broker..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.EncryptedPayment">
+            <summary>
+              Looks up a localized string similar to Encrypted Payment.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.EncryptMessage">
