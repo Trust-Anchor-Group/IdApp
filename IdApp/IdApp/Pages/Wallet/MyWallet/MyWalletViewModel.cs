@@ -637,7 +637,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 				IBuyEDalerServiceProvider[] ServiceProviders = await this.XmppService.GetServiceProvidersForBuyingEDalerAsync();
 
 				if (ServiceProviders.Length == 0)
-					await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
+				{
+					await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance)
+					{
+						ReturnCounter = 1
+					});
+				}
 				else
 				{
 					List<IBuyEDalerServiceProvider> ServiceProviders2 = new();
@@ -648,6 +653,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 					ServiceProvidersNavigationArgs e = new(ServiceProviders2.ToArray(),
 						LocalizationResourceManager.Current["BuyEDaler"],
 						LocalizationResourceManager.Current["SelectServiceProviderBuyEDaler"]);
+
 					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
 
 					IBuyEDalerServiceProvider ServiceProvider = (IBuyEDalerServiceProvider)await e.WaitForServiceProviderSelection();
@@ -663,7 +669,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 						else if (string.IsNullOrEmpty(ServiceProvider.BuyEDalerTemplateContractId))
 						{
 							TaskCompletionSource<decimal?> Result = new();
-							await this.NavigationService.GoToAsync(nameof(BuyEDalerPage), new BuyEDalerNavigationArgs(this.Balance.Currency, Result));
+							await this.NavigationService.GoToAsync(nameof(BuyEDalerPage), new BuyEDalerNavigationArgs(this.Balance.Currency, Result)
+							{
+								CancelReturnCounter = true
+							});
 
 							decimal? Amount = await Result.Task;
 

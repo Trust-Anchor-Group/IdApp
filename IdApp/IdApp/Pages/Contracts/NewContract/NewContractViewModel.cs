@@ -1296,7 +1296,10 @@ namespace IdApp.Pages.Contracts.NewContract
 				if (ParameterInfo.Control is not Entry Entry)
 					return;
 
-				await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(Entry));
+				await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(Entry)
+				{
+					CancelReturnCounter = true
+				});
 			}
 			catch (Exception ex)
 			{
