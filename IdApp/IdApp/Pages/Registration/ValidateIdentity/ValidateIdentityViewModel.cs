@@ -871,12 +871,10 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 					LocalizationResourceManager.Current["SelectServiceProviderPeerReview"]);
 
 				_ = App.Current.MainPage.Navigation.PushAsync(new ServiceProvidersPage(e));
+				ServiceProviderWithLegalId ServiceProvider = (ServiceProviderWithLegalId)await e.ServiceProvider.Task;
 
-				ServiceProviderWithLegalId ServiceProvider = (ServiceProviderWithLegalId)await e.WaitForServiceProviderSelection();
 				if (ServiceProvider is not null)
 				{
-					await App.Current.MainPage.Navigation.PopAsync();
-
 					if (string.IsNullOrEmpty(ServiceProvider.LegalId))
 						await this.ScanQrCodeForPeerReview();
 					else

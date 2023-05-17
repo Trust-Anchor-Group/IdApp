@@ -1,8 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using IServiceProvider = Waher.Networking.XMPP.Contracts.IServiceProvider;
 
 namespace IdApp.Pages.Wallet.ServiceProviders
 {
@@ -11,8 +12,8 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 	/// </summary>
 	public class ServiceProvidersViewModel : XmppViewModel
 	{
-		private readonly ServiceProvidersNavigationArgs presetArgs;
-		private TaskCompletionSource<IServiceProvider> selected;
+		private bool useShellNavigationService;
+		private ServiceProvidersNavigationArgs navigationArgs;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ServiceProvidersViewModel"/> class.
@@ -25,14 +26,13 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		/// <summary>
 		/// Creates an instance of the <see cref="ServiceProvidersViewModel"/> class.
 		/// </summary>
-		/// <param name="e">Navigation arguments.</param>
-		public ServiceProvidersViewModel(ServiceProvidersNavigationArgs e)
+		/// <param name="NavigationArgs">Navigation arguments.</param>
+		public ServiceProvidersViewModel(ServiceProvidersNavigationArgs NavigationArgs)
 			: base()
 		{
-			this.presetArgs = e;
-
-			this.BackCommand = new Command(async _ => await this.GoBack());
-
+			this.useShellNavigationService = NavigationArgs is null;
+			this.navigationArgs = NavigationArgs;
+			this.BackCommand = new Command(_ => this.GoBack());
 			this.ServiceProviders = new ObservableCollection<ServiceProviderModel>();
 		}
 
@@ -41,41 +41,27 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		{
 			await base.OnInitialize();
 
-			ServiceProvidersNavigationArgs args = this.presetArgs;
-			if (args is null)
+			if (this.navigationArgs is null && this.NavigationService.TryPopArgs(out ServiceProvidersNavigationArgs Args))
 			{
-				if (!this.NavigationService.TryPopArgs(out args))
-					return;
+				this.navigationArgs = Args;
 			}
 
-			this.selected = args.Selected;
-			this.Title = args.Title;
-			this.Description = args.Description;
+			this.Title = this.navigationArgs?.Title;
+			this.Description = this.navigationArgs?.Description;
 
-			foreach (IServiceProvider ServiceProvider in args.ServiceProviders)
+			foreach (IServiceProvider ServiceProvider in this.navigationArgs?.ServiceProviders)
 				this.ServiceProviders.Add(new ServiceProviderModel(ServiceProvider));
 		}
 
-		/// <inheritdoc/>
-		protected override async Task OnAppearing()
+		/// <inheritdoc />
+		protected override async Task OnDispose()
 		{
-			await base.OnAppearing();
-
-			if (this.selected is not null && this.selected.Task.IsCompleted)
+			if (this.navigationArgs?.ServiceProvider is TaskCompletionSource<IServiceProvider> TaskSource)
 			{
-				await this.NavigationService.GoBackAsync();
-				return;
+				TaskSource.TrySetResult(null);
 			}
 
-			this.SelectedServiceProvider = null;
-		}
-
-		/// <inheritdoc/>
-		protected override Task OnDispose()
-		{
-			this.selected?.TrySetResult(null);
-
-			return base.OnDispose();
+			await base.OnDispose();
 		}
 
 		#region Properties
@@ -128,7 +114,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 
 		private void OnSelected(ServiceProviderModel ServiceProvider)
 		{
-			this.selected?.TrySetResult(ServiceProvider.ServiceProvider);
+			this.TrySetResultAndClosePage(ServiceProvider.ServiceProvider);
 		}
 
 		/// <summary>
@@ -147,10 +133,35 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 
 		#endregion
 
-		private async Task GoBack()
+		private void GoBack()
 		{
-			await this.NavigationService.GoBackAsync();
-			this.selected.TrySetResult(null);
+			this.TrySetResultAndClosePage(null);
+		}
+
+		private void TrySetResultAndClosePage(IServiceProvider ServiceProvider)
+		{
+			TaskCompletionSource<IServiceProvider> TaskSource = this.navigationArgs.ServiceProvider;
+			this.navigationArgs.ServiceProvider = null;
+
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				try
+				{
+					if (this.useShellNavigationService)
+						await this.NavigationService.GoBackAsync();
+					else
+						await App.Current.MainPage.Navigation.PopAsync();
+
+					if (TaskSource is not null)
+					{
+						TaskSource.TrySetResult(ServiceProvider);
+					}
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			});
 		}
 	}
 }

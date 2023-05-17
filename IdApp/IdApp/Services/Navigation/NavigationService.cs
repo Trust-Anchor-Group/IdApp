@@ -27,9 +27,23 @@ namespace IdApp.Services.Navigation
 		private bool CanUseNavigationService => App.IsOnboarded;
 
 
-		private NavigationArgs CurrentNavigationArgs =>
-			Shell.Current?.CurrentPage is ContentBasePage ContentBasePage && this.TryPopArgs(out NavigationArgs NavigationArgs, ContentBasePage.UniqueId)
-			? NavigationArgs : null;
+		private NavigationArgs CurrentNavigationArgs
+		{
+			get
+			{
+				Page CurrentPage = Shell.Current?.CurrentPage;
+
+				if (CurrentPage is ContentBasePage ContentBasePage)
+				{
+					if (this.TryPopArgs(out NavigationArgs NavigationArgs, ContentBasePage.UniqueId))
+					{
+						return NavigationArgs;
+					}
+				}
+
+				return null;
+			}
+		}
 
 		///<inheritdoc/>
 		public override Task Load(bool isResuming, CancellationToken cancellationToken)
@@ -110,10 +124,12 @@ namespace IdApp.Services.Navigation
 		{
 			try
 			{
+				NavigationArgs CurrentNavigationArgs = this.CurrentNavigationArgs;
+
 				if ((e.Source == ShellNavigationSource.Pop) &&
-					(this.CurrentNavigationArgs is not null) &&
-					(!string.IsNullOrWhiteSpace(this.CurrentNavigationArgs.ReturnRoute) ||
-					this.CurrentNavigationArgs.ReturnCounter > 1))
+					(CurrentNavigationArgs is not null) &&
+					(!string.IsNullOrWhiteSpace(CurrentNavigationArgs.ReturnRoute) ||
+					CurrentNavigationArgs.ReturnCounter > 1))
 				{
 					if (e.CanCancel && !this.isManuallyNavigatingBack)
 					{
@@ -224,17 +240,17 @@ namespace IdApp.Services.Navigation
 
 			try
 			{
+				NavigationArgs CurrentNavigationArgs = this.CurrentNavigationArgs;
 				string ReturnRoute = defaultGoBackRoute;
 				int ReturnCounter = 0;
 
-				if (this.CurrentNavigationArgs is not null)
+				if (CurrentNavigationArgs is not null)
 				{
-					ReturnCounter = this.CurrentNavigationArgs.ReturnCounter;
+					ReturnCounter = CurrentNavigationArgs.ReturnCounter;
 
-					if ((ReturnCounter == 0) &&
-						!string.IsNullOrEmpty(this.CurrentNavigationArgs.ReturnRoute))
+					if ((ReturnCounter == 0) && !string.IsNullOrEmpty(CurrentNavigationArgs.ReturnRoute))
 					{
-						ReturnRoute = this.CurrentNavigationArgs.ReturnRoute;
+						ReturnRoute = CurrentNavigationArgs.ReturnRoute;
 					}
 				}
 

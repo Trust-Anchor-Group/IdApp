@@ -1081,11 +1081,17 @@ namespace IdApp.Pages.Wallet
 				switch (Parameter?.ToString())
 				{
 					case "AmountText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty));
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty)
+						{
+							CancelReturnCounter = true
+						});
 						break;
 
 					case "AmountExtraText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountExtraTextProperty));
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountExtraTextProperty)
+						{
+							CancelReturnCounter = true
+						});
 						break;
 				}
 			}

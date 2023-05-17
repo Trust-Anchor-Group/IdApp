@@ -655,8 +655,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 						LocalizationResourceManager.Current["SelectServiceProviderBuyEDaler"]);
 
 					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
+					IBuyEDalerServiceProvider ServiceProvider = (IBuyEDalerServiceProvider)await e.ServiceProvider.Task;
 
-					IBuyEDalerServiceProvider ServiceProvider = (IBuyEDalerServiceProvider)await e.WaitForServiceProviderSelection();
 					if (ServiceProvider is not null)
 					{
 						if (string.IsNullOrEmpty(ServiceProvider.Id))
@@ -747,9 +747,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 					ServiceProvidersNavigationArgs e = new(ServiceProviders2.ToArray(),
 						LocalizationResourceManager.Current["SellEDaler"],
 						LocalizationResourceManager.Current["SelectServiceProviderSellEDaler"]);
-					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
 
-					ISellEDalerServiceProvider ServiceProvider = (ISellEDalerServiceProvider)await e.WaitForServiceProviderSelection();
+					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
+					ISellEDalerServiceProvider ServiceProvider = (ISellEDalerServiceProvider)await e.ServiceProvider.Task;
+
 					if (ServiceProvider is not null)
 					{
 						if (string.IsNullOrEmpty(ServiceProvider.Id))

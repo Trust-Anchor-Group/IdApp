@@ -11,10 +11,8 @@ namespace IdApp.Pages.Main.ScanQrCode
     /// </summary>
     public class ScanQrCodeViewModel : BaseViewModel
     {
-		private ScanQrCodeNavigationArgs navigationArgs;
-
-		// A Boolean flag indicating if Shell navigation should be used or a simple PopAsync.
 		private bool useShellNavigationService;
+		private ScanQrCodeNavigationArgs navigationArgs;
 
 		/// <summary>
 		/// An event that is fired when the scanning mode changes from automatic scan to manual entry.
@@ -72,7 +70,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 			else
 			{
 				Func<string, Task> Action = this.navigationArgs.Action;
-				TaskCompletionSource<string> QrCodeScanned = this.navigationArgs.QrCodeScanned;
+				TaskCompletionSource<string> TaskSource = this.navigationArgs.QrCodeScanned;
 
 				this.navigationArgs.Action = null;
 				this.navigationArgs.QrCodeScanned = null;
@@ -100,8 +98,10 @@ namespace IdApp.Pages.Main.ScanQrCode
 						else
 							await App.Current.MainPage.Navigation.PopAsync();
 
-						if (QrCodeScanned is not null)
-							QrCodeScanned?.TrySetResult(Url);
+						if (TaskSource is not null)
+						{
+							TaskSource?.TrySetResult(Url);
+						}
 					}
 					catch (Exception ex)
 					{
@@ -115,7 +115,9 @@ namespace IdApp.Pages.Main.ScanQrCode
 		protected override async Task OnDispose()
 		{
 			if (this.navigationArgs?.QrCodeScanned is TaskCompletionSource<string> TaskSource)
+			{
 				TaskSource.TrySetResult(string.Empty);
+			}
 
 			await base.OnDispose();
 		}

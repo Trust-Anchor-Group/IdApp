@@ -15222,16 +15222,10 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.MyTokens.MyTokensNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensNavigationArgs.Selected">
+        <member name="P:IdApp.Pages.Wallet.MyTokens.MyTokensNavigationArgs.TokenItemProvider">
             <summary>
-            Task completion source, waiting for a response from the user.
+            Task completion source; can be used to wait for a result.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensNavigationArgs.WaitForTokenSelection">
-            <summary>
-            Waits for the token to be selected; null is returned if the user goes back.
-            </summary>
-            <returns>Selected token, or null if user cancels, by going back.</returns>
         </member>
         <member name="T:IdApp.Pages.Wallet.MyTokens.MyTokensPage">
             <summary>
@@ -15254,9 +15248,6 @@
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.OnInitialize">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.OnAppearing">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensViewModel.OnDispose">
@@ -16619,16 +16610,13 @@
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel"/> class.
             </summary>
-            <param name="e">Navigation arguments.</param>
+            <param name="NavigationArgs">Navigation arguments.</param>
         </member>
         <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.OnInitialize">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.OnAppearing">
-            <inheritdoc/>
-        </member>
         <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.OnDispose">
-            <inheritdoc/>
+            <inheritdoc />
         </member>
         <member name="F:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersViewModel.TitleProperty">
             <summary>
@@ -16703,16 +16691,10 @@
             Descriptive text to show the user.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.Selected">
+        <member name="P:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.ServiceProvider">
             <summary>
-            Task completion source, waiting for a response from the user.
+            Task completion source; can be used to wait for a result.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.WaitForServiceProviderSelection">
-            <summary>
-            Waits for the service provider to be selected; null is returned if the user goes back.
-            </summary>
-            <returns>Selected service provider, or null if user cancels, by going back.</returns>
         </member>
         <member name="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage">
             <summary>

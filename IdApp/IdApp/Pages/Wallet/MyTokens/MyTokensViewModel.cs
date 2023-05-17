@@ -17,7 +17,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 	/// </summary>
 	public class MyTokensViewModel : XmppViewModel
 	{
-		private TaskCompletionSource<TokenItem> selected;
+		private MyTokensNavigationArgs navigationArgs;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="MyTokensViewModel"/> class.
@@ -36,8 +36,10 @@ namespace IdApp.Pages.Wallet.MyTokens
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out MyTokensNavigationArgs args))
-				this.selected = args.Selected;
+			if (this.NavigationService.TryPopArgs(out MyTokensNavigationArgs Args))
+			{
+				this.navigationArgs = Args;
+			}
 
 			try
 			{
@@ -57,7 +59,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 								if (!EventsByCateogy.TryGetValue(Token.TokenId, out NotificationEvent[] Events))
 									Events = new NotificationEvent[0];
 
-								this.Tokens.Add(new TokenItem(Token, this, this.selected, Events));
+								this.Tokens.Add(new TokenItem(Token, this, this.navigationArgs.TokenItemProvider, Events));
 							}
 
 							this.HasTokens = true;
@@ -80,24 +82,15 @@ namespace IdApp.Pages.Wallet.MyTokens
 		}
 
 		/// <inheritdoc/>
-		protected override async Task OnAppearing()
-		{
-			await base.OnAppearing();
-
-			if (this.selected is not null && this.selected.Task.IsCompleted)
-			{
-				await this.NavigationService.GoBackAsync();
-				return;
-			}
-		}
-
-		/// <inheritdoc/>
 		protected override Task OnDispose()
 		{
 			this.XmppService.NeuroFeatureAdded -= this.Wallet_TokenAdded;
 			this.XmppService.NeuroFeatureRemoved -= this.Wallet_TokenRemoved;
 
-			this.selected?.TrySetResult(null);
+			if (this.navigationArgs?.TokenItemProvider is TaskCompletionSource<TokenItem> TaskSource)
+			{
+				TaskSource.TrySetResult(null);
+			}
 
 			return base.OnDispose();
 		}
@@ -109,7 +102,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				TokenItem Item = new(e.Token, this, this.selected, Events);
+				TokenItem Item = new(e.Token, this, this.navigationArgs.TokenItemProvider, Events);
 
 				if (this.Tokens.Count == 0)
 					this.Tokens.Add(Item);
@@ -203,7 +196,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 
 		private async Task GoBack()
 		{
-			this.selected.TrySetResult(null);
+			this.navigationArgs.TokenItemProvider.TrySetResult(null);
 			await this.NavigationService.GoBackAsync();
 		}
 

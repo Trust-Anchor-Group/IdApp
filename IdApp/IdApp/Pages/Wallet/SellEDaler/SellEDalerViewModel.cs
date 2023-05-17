@@ -212,7 +212,10 @@ namespace IdApp.Pages.Wallet.SellEDaler
 				switch (Parameter?.ToString())
 				{
 					case "AmountText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty));
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty)
+						{
+							CancelReturnCounter = true
+						});
 						break;
 				}
 			}

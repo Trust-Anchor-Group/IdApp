@@ -1161,13 +1161,12 @@ namespace IdApp.Pages.Contacts.Chat
 		private async Task ExecuteEmbedToken()
 		{
 			MyTokensNavigationArgs Args = new();
-			await this.NavigationService.GoToAsync(nameof(MyTokensPage), Args);
 
-			TokenItem Selected = await Args.WaitForTokenSelection();
+			await this.NavigationService.GoToAsync(nameof(MyTokensPage), Args);
+			TokenItem Selected = await Args.TokenItemProvider.Task;
+
 			if (Selected is null)
 				return;
-
-			await this.NavigationService.GoBackAsync();
 
 			StringBuilder Markdown = new();
 

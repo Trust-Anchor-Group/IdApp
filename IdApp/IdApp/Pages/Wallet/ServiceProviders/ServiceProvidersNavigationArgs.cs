@@ -10,7 +10,6 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 	public class ServiceProvidersNavigationArgs : NavigationArgs
 	{
 		private readonly IServiceProvider[] serviceProviders;
-		private readonly TaskCompletionSource<IServiceProvider> selected;
 		private readonly string title;
 		private readonly string description;
 
@@ -33,7 +32,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 			this.serviceProviders = ServiceProviders;
 			this.title = Title;
 			this.description = Description;
-			this.selected = new();
+			this.ServiceProvider = new();
 		}
 
 		/// <summary>
@@ -52,17 +51,8 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		public string Description => this.description;
 
 		/// <summary>
-		/// Task completion source, waiting for a response from the user.
+		/// Task completion source; can be used to wait for a result.
 		/// </summary>
-		public TaskCompletionSource<IServiceProvider> Selected => this.selected;
-
-		/// <summary>
-		/// Waits for the service provider to be selected; null is returned if the user goes back.
-		/// </summary>
-		/// <returns>Selected service provider, or null if user cancels, by going back.</returns>
-		public Task<IServiceProvider> WaitForServiceProviderSelection()
-		{
-			return this.selected?.Task ?? Task.FromResult<IServiceProvider>(null);
-		}
+		public TaskCompletionSource<IServiceProvider> ServiceProvider { get; internal set; }
 	}
 }

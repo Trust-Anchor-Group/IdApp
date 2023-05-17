@@ -41,6 +41,5 @@ namespace IdApp.Pages.Main.ScanQrCode
 		/// Task completion source; can be used to wait for a result.
 		/// </summary>
 		public TaskCompletionSource<string> QrCodeScanned { get; internal set; }
-
 	}
 }
