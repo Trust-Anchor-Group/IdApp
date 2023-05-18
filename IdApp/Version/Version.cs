@@ -16,5 +16,5 @@ using System.Resources;
 [assembly: AssemblyTitle("TAG ID")]
 [assembly: AssemblyDescription("TAG ID App")]
 [assembly: NeutralResourcesLanguage("en")]
-[assembly: System.Reflection.AssemblyVersion("1.8.70.0")]
-[assembly: System.Reflection.AssemblyFileVersion("1.8.70.0")]
+[assembly: System.Reflection.AssemblyVersion("1.8.71.0")]
+[assembly: System.Reflection.AssemblyFileVersion("1.8.71.0")]
