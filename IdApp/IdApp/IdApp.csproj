@@ -59,7 +59,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EDaler" Version="2.3.0" />
+    <PackageReference Include="EDaler" Version="2.5.0" />
     <PackageReference Include="NeuroFeatures" Version="1.1.9" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
