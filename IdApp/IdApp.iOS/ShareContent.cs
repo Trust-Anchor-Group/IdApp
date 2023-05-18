@@ -18,9 +18,11 @@ namespace IdApp.iOS
         /// <param name="FileName">Filename of image file.</param>
         public void ShareImage(byte[] PngFile, string Message, string Title, string FileName)
         {
-            ImageSource Image = ImageSource.FromStream(() => new MemoryStream(PngFile));
-            NSObject ImageObject = NSObject.FromObject(Image);
-            NSObject MessageObject = NSObject.FromObject(Message);
+			UIImage ImageObject = UIImage.LoadFromData(NSData.FromArray(PngFile));
+			NSString MessageObject = new NSString(Message);
+            //ImageSource Image = ImageSource.FromStream(() => new MemoryStream(PngFile));
+            //NSObject ImageObject = NSObject.FromObject(Image);
+            //NSObject MessageObject = NSObject.FromObject(Message);
             NSObject[] Items = new NSObject[] { MessageObject, ImageObject };
             UIActivityViewController activityController = new(Items, null);
             UIViewController topController = UIApplication.SharedApplication.KeyWindow.RootViewController;
