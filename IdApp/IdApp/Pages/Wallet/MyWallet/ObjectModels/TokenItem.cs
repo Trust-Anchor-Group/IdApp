@@ -425,7 +425,10 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 					new TokenDetailsNavigationArgs(this) { ReturnCounter = 1 });
 			}
 			else
+			{
 				this.selected.TrySetResult(this);
+				await this.model.NavigationService.GoBackAsync();
+			}
 		}
 	}
 }
