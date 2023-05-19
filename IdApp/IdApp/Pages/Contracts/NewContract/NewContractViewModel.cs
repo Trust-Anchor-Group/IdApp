@@ -1307,7 +1307,6 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 		}
 
-
 		#region ILinkableView
 
 		/// <summary>
@@ -1385,6 +1384,20 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// Content-Type of associated media.
 		/// </summary>
 		public string MediaContentType => null;
+
+		#endregion
+
+		#region Contract Options
+
+		/// <summary>
+		/// Method called (from main thread) when contract options are made available.
+		/// </summary>
+		/// <param name="Page">Page currently being viewed</param>
+		/// <param name="Options">Available options, as dictionaries with contract parameters.</param>
+		public void ShowContractOptions(NewContractPage Page, IDictionary<CaseInsensitiveString, object>[] Options)
+		{
+			// TODO
+		}
 
 		#endregion
 	}

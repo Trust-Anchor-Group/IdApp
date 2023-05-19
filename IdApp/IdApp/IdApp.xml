@@ -5484,6 +5484,13 @@
             Content-Type of associated media.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractViewModel.ShowContractOptions(IdApp.Pages.Contracts.NewContract.NewContractPage,System.Collections.Generic.IDictionary{Waher.Persistence.CaseInsensitiveString,System.Object}[])">
+            <summary>
+            Method called (from main thread) when contract options are made available.
+            </summary>
+            <param name="Page">Page currently being viewed</param>
+            <param name="Options">Available options, as dictionaries with contract parameters.</param>
+        </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractVisibilityModel">
             <summary>
             The data model for contract visibility.

@@ -32,7 +32,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// <param name="Options">Available options, as dictionaries with contract parameters.</param>
 		public void ShowContractOptions(IDictionary<CaseInsensitiveString, object>[] Options)
 		{
-			// TODO
+			if (this.ViewModel is NewContractViewModel ViewModel)
+				ViewModel.ShowContractOptions(this, Options);
 		}
 
 	}
