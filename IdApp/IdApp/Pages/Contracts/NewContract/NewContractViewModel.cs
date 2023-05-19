@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using IdApp.Controls.Extended;
+﻿using IdApp.Controls.Extended;
 using IdApp.Extensions;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
@@ -15,6 +8,13 @@ using IdApp.Pages.Main.Calculator;
 using IdApp.Pages.Main.Main;
 using IdApp.Resx;
 using IdApp.Services;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Waher.Content;
 using Waher.Content.Xml;
 using Waher.Networking.XMPP.Contracts;
@@ -490,7 +490,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					}
 				}
 			}
-		} 
+		}
 
 		private async Task AddRole(string Role, string LegalId)
 		{
@@ -1396,9 +1396,75 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// <param name="Options">Available options, as dictionaries with contract parameters.</param>
 		public void ShowContractOptions(NewContractPage Page, IDictionary<CaseInsensitiveString, object>[] Options)
 		{
-			// TODO
+			if (Options.Length == 0)
+				return;
+
+			if (Options.Length == 1)
+			{
+				foreach (KeyValuePair<CaseInsensitiveString, object> Parameter in Options[0])
+				{
+					if (!this.parametersByName.TryGetValue(Parameter.Key, out ParameterInfo Info))
+						continue;
+
+					try
+					{
+						Info.Parameter.SetValue(Parameter.Value);
+
+						if (Info.Control is Entry Entry)
+							Entry.Text = Parameter.Value?.ToString() ?? string.Empty;
+						else if (Info.Control is CheckBox CheckBox)
+						{
+							if (Parameter.Value is bool b)
+								CheckBox.IsChecked = b;
+							else if (Parameter.Value is int i)
+								CheckBox.IsChecked = i != 0;
+							else if (Parameter.Value is double d)
+								CheckBox.IsChecked = d != 0;
+							else if (Parameter.Value is decimal d2)
+								CheckBox.IsChecked = d2 != 0;
+							else if (Parameter.Value is string s && CommonTypes.TryParse(s, out b))
+								CheckBox.IsChecked = b;
+							else
+							{
+								this.LogService.LogWarning("Invalid option value.",
+									new KeyValuePair<string, object>("Parameter", Parameter.Key),
+									new KeyValuePair<string, object>("Value", Parameter.Value),
+									new KeyValuePair<string, object>("Type", Parameter.Value?.GetType().FullName ?? string.Empty));
+							}
+						}
+						else if (Info.Control is ExtendedDatePicker Picker)
+						{
+							if (Parameter.Value is DateTime TP)
+								Picker.NullableDate = TP;
+							else if (Parameter.Value is string s && (DateTime.TryParse(s, out TP) || XML.TryParse(s, out TP)))
+								Picker.NullableDate = TP;
+							else
+							{
+								this.LogService.LogWarning("Invalid option value.",
+									new KeyValuePair<string, object>("Parameter", Parameter.Key),
+									new KeyValuePair<string, object>("Value", Parameter.Value),
+									new KeyValuePair<string, object>("Type", Parameter.Value?.GetType().FullName ?? string.Empty));
+							}
+						}
+					}
+					catch (Exception ex)
+					{
+						this.LogService.LogWarning("Invalid option value. Exception: " + ex.Message,
+							new KeyValuePair<string, object>("Parameter", Parameter.Key),
+							new KeyValuePair<string, object>("Value", Parameter.Value),
+							new KeyValuePair<string, object>("Type", Parameter.Value?.GetType().FullName ?? string.Empty));
+
+						continue;
+					}
+				}
+			}
+			else
+			{
+				// TODO: 
+			}
 		}
 
 		#endregion
+
 	}
 }
