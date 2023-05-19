@@ -4775,6 +4775,17 @@
             Content-Type of associated media.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Contracts.IContractOptionsPage">
+            <summary>
+            Interface for pages that can receive contract options from an asynchronous process.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.IContractOptionsPage.ShowContractOptions(System.Collections.Generic.IDictionary{Waher.Persistence.CaseInsensitiveString,System.Object}[])">
+            <summary>
+            Method called (from main thread) when contract options are made available.
+            </summary>
+            <param name="Options">Available options, as dictionaries with contract parameters.</param>
+        </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ItemTypeTemplateSelector">
             <summary>
             Data Template Selector, based on Item Type.
@@ -5274,6 +5285,12 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractPage"/> class.
             </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractPage.ShowContractOptions(System.Collections.Generic.IDictionary{Waher.Persistence.CaseInsensitiveString,System.Object}[])">
+            <summary>
+            Method called (from main thread) when contract options are made available.
+            </summary>
+            <param name="Options">Available options, as dictionaries with contract parameters.</param>
         </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.NewContractViewModel">
             <summary>

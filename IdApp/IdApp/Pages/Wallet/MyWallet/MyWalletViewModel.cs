@@ -8,6 +8,7 @@ using System.Xml;
 using EDaler;
 using EDaler.Uris;
 using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Pages.Contracts;
 using IdApp.Pages.Contracts.MyContracts;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract;
@@ -701,7 +702,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 							OptionsTransaction OptionsTransaction = await this.XmppService.InitiateBuyEDalerGetOptions(ServiceProvider.Id, ServiceProvider.Type);
 							IDictionary<CaseInsensitiveString, object>[] Options = await OptionsTransaction.Wait();
 
-							// TODO: Show options
+							if (this.NavigationService.CurrentPage is IContractOptionsPage ContractOptionsPage)
+								this.UiSerializer.BeginInvokeOnMainThread(() => ContractOptionsPage.ShowContractOptions(Options));
 						}
 					}
 				}
@@ -801,7 +803,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 							OptionsTransaction OptionsTransaction = await this.XmppService.InitiateSellEDalerGetOptions(ServiceProvider.Id, ServiceProvider.Type);
 							IDictionary<CaseInsensitiveString, object>[] Options = await OptionsTransaction.Wait();
 
-							// TODO: Show options
+							if (this.NavigationService.CurrentPage is IContractOptionsPage ContractOptionsPage)
+								this.UiSerializer.BeginInvokeOnMainThread(() => ContractOptionsPage.ShowContractOptions(Options));
 						}
 					}
 				}
