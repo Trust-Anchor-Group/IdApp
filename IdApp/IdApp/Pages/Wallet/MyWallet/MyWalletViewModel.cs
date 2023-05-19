@@ -697,6 +697,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.BuyEDalerTemplateContractId,
 								LocalizationResourceManager.Current["BuyEDaler"], Parameters, 1);
+
+							OptionsTransaction OptionsTransaction = await this.XmppService.InitiateBuyEDalerGetOptions(ServiceProvider.Id, ServiceProvider.Type);
+							IDictionary<CaseInsensitiveString, object>[] Options = await OptionsTransaction.Wait();
+
+							// TODO: Show options
 						}
 					}
 				}
@@ -792,6 +797,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.SellEDalerTemplateContractId,
 								LocalizationResourceManager.Current["SellEDaler"], Parameters, 1);
+
+							OptionsTransaction OptionsTransaction = await this.XmppService.InitiateSellEDalerGetOptions(ServiceProvider.Id, ServiceProvider.Type);
+							IDictionary<CaseInsensitiveString, object>[] Options = await OptionsTransaction.Wait();
+
+							// TODO: Show options
 						}
 					}
 				}
@@ -1090,9 +1100,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 				await this.NavigationService.GoToAsync(nameof(NewContractPage),
 					new NewContractNavigationArgs(Template, true, Parameters));
-					//{
-					//	ReturnCounter = 1
-					//});
+				//{
+				//	ReturnCounter = 1
+				//});
 			}
 			catch (Exception ex)
 			{
