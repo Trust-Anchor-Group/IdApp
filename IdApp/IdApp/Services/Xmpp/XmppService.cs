@@ -55,7 +55,6 @@ using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
 using Waher.Runtime.Temporary;
-using Waher.Script.Constants;
 using Waher.Security.JWT;
 using Waher.Things;
 using Waher.Things.SensorData;
@@ -3639,7 +3638,7 @@ namespace IdApp.Services.Xmpp
 
 		#region e-Daler
 
-		private readonly Dictionary<string, PaymentTransaction> currentTransactions = new();
+		private readonly Dictionary<string, Wallet.Transaction> currentTransactions = new();
 		private Balance lastBalance = null;
 		private DateTime lastEDalerEvent = DateTime.MinValue;
 
@@ -3661,9 +3660,15 @@ namespace IdApp.Services.Xmpp
 		private void RegisterEDalerEventHandlers(EDalerClient Client)
 		{
 			Client.BalanceUpdated += this.EDalerClient_BalanceUpdated;
+			Client.BuyEDalerOptionsClientUrlReceived += this.NeuroWallet_BuyEDalerOptionsClientUrlReceived;
+			Client.BuyEDalerOptionsCompleted += this.NeuroWallet_BuyEDalerOptionsCompleted;
+			Client.BuyEDalerOptionsError += this.NeuroWallet_BuyEDalerOptionsError;
 			Client.BuyEDalerClientUrlReceived += this.NeuroWallet_BuyEDalerClientUrlReceived;
 			Client.BuyEDalerCompleted += this.NeuroWallet_BuyEDalerCompleted;
 			Client.BuyEDalerError += this.NeuroWallet_BuyEDalerError;
+			Client.SellEDalerOptionsClientUrlReceived += this.NeuroWallet_SellEDalerOptionsClientUrlReceived;
+			Client.SellEDalerOptionsCompleted += this.NeuroWallet_SellEDalerOptionsCompleted;
+			Client.SellEDalerOptionsError += this.NeuroWallet_SellEDalerOptionsError;
 			Client.SellEDalerClientUrlReceived += this.NeuroWallet_SellEDalerClientUrlReceived;
 			Client.SellEDalerCompleted += this.NeuroWallet_SellEDalerCompleted;
 			Client.SellEDalerError += this.NeuroWallet_SellEDalerError;
@@ -3741,7 +3746,7 @@ namespace IdApp.Services.Xmpp
 		/// </summary>
 		/// <param name="Uri">eDaler URI</param>
 		/// <returns>Transaction object containing information about the processed URI.</returns>
-		public Task<Transaction> SendEDalerUri(string Uri)
+		public Task<EDaler.Transaction> SendEDalerUri(string Uri)
 		{
 			return this.EDalerClient.SendEDalerUriAsync(Uri);
 		}
@@ -3886,6 +3891,120 @@ namespace IdApp.Services.Xmpp
 		}
 
 		/// <summary>
+		/// Initiates the process of getting available options for buying of eDaler using a service provider that
+		/// uses a smart contract.
+		/// </summary>
+		/// <param name="ServiceId">Service ID</param>
+		/// <param name="ServiceProvider">Service Provider</param>
+		/// <returns>Transaction ID</returns>
+		public async Task<OptionsTransaction> InitiateBuyEDalerGetOptions(string ServiceId, string ServiceProvider)
+		{
+			string TransactionId = Guid.NewGuid().ToString();
+			string SuccessUrl = this.GenerateTagIdUrl(
+				new KeyValuePair<string, object>("cmd", "beos"),
+				new KeyValuePair<string, object>("tid", TransactionId),
+				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
+				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
+			string FailureUrl = this.GenerateTagIdUrl(
+				new KeyValuePair<string, object>("cmd", "beof"),
+				new KeyValuePair<string, object>("tid", TransactionId),
+				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
+				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
+			string CancelUrl = this.GenerateTagIdUrl(
+				new KeyValuePair<string, object>("cmd", "beoc"),
+				new KeyValuePair<string, object>("tid", TransactionId),
+				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
+				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
+
+			TransactionId = await this.EDalerClient.InitiateGetOptionsBuyEDalerAsync(ServiceId, ServiceProvider, TransactionId, SuccessUrl, FailureUrl, CancelUrl);
+			OptionsTransaction Result = new(TransactionId);
+
+			lock (this.currentTransactions)
+			{
+				this.currentTransactions[TransactionId] = Result;
+			}
+
+			return Result;
+		}
+
+		private async Task NeuroWallet_BuyEDalerOptionsClientUrlReceived(object Sender, BuyEDalerClientUrlEventArgs e)
+		{
+			Wallet.Transaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(e.TransactionId, out Transaction))
+				{
+					this.LogService.LogWarning("Client URL message for getting options for buying eDaler ignored. Transaction ID not recognized.",
+						new KeyValuePair<string, object>("TransactionId", e.TransactionId),
+						new KeyValuePair<string, object>("ClientUrl", e.ClientUrl));
+					return;
+				}
+			}
+
+			await Transaction.OpenUrl(e.ClientUrl);
+		}
+
+		private Task NeuroWallet_BuyEDalerOptionsCompleted(object Sender, PaymentOptionsEventArgs e)
+		{
+			this.BuyEDalerGetOptionsCompleted(e.TransactionId, e.Options);
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Registers an initiated getting of payment options for buying eDaler as completed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Options">Available options.</param>
+		public void BuyEDalerGetOptionsCompleted(string TransactionId, IDictionary<CaseInsensitiveString, object>[] Options)
+		{
+			Wallet.Transaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(TransactionId, out Transaction))
+					return;
+
+				this.currentTransactions.Remove(TransactionId);
+			}
+
+			if (Transaction is OptionsTransaction OptionsTransaction)
+				OptionsTransaction.Completed(Options);
+		}
+
+		private Task NeuroWallet_BuyEDalerOptionsError(object Sender, PaymentErrorEventArgs e)
+		{
+			this.BuyEDalerGetOptionsFailed(e.TransactionId, e.Message);
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Registers an initiated getting of payment options for buying eDaler as failed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Message">Error message.</param>
+		public void BuyEDalerGetOptionsFailed(string TransactionId, string Message)
+		{
+			Wallet.Transaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(TransactionId, out Transaction))
+					return;
+
+				this.currentTransactions.Remove(TransactionId);
+			}
+
+			Transaction.ErrorReported(Message);
+		}
+
+		/// <summary>
 		/// Initiates the buying of eDaler using a service provider that does not use a smart contract.
 		/// </summary>
 		/// <param name="ServiceId">Service ID</param>
@@ -3939,7 +4058,7 @@ namespace IdApp.Services.Xmpp
 
 		private async Task NeuroWallet_BuyEDalerClientUrlReceived(object Sender, BuyEDalerClientUrlEventArgs e)
 		{
-			PaymentTransaction Transaction;
+			Wallet.Transaction Transaction;
 
 			lock (this.currentTransactions)
 			{
@@ -3953,32 +4072,6 @@ namespace IdApp.Services.Xmpp
 			}
 
 			await Transaction.OpenUrl(e.ClientUrl);
-		}
-
-		private Task NeuroWallet_BuyEDalerError(object Sender, PaymentErrorEventArgs e)
-		{
-			this.BuyEDalerFailed(e.TransactionId, e.Message);
-			return Task.CompletedTask;
-		}
-
-		/// <summary>
-		/// Registers an initiated payment as failed.
-		/// </summary>
-		/// <param name="TransactionId">Transaction ID</param>
-		/// <param name="Message">Error message.</param>
-		public void BuyEDalerFailed(string TransactionId, string Message)
-		{
-			PaymentTransaction Transaction;
-
-			lock (this.currentTransactions)
-			{
-				if (!this.currentTransactions.TryGetValue(TransactionId, out Transaction))
-					return;
-
-				this.currentTransactions.Remove(TransactionId);
-			}
-
-			Transaction.ErrorReported(Message);
 		}
 
 		private Task NeuroWallet_BuyEDalerCompleted(object Sender, PaymentCompletedEventArgs e)
@@ -3995,7 +4088,7 @@ namespace IdApp.Services.Xmpp
 		/// <param name="Currency">Currency</param>
 		public void BuyEDalerCompleted(string TransactionId, decimal Amount, string Currency)
 		{
-			PaymentTransaction Transaction;
+			Wallet.Transaction Transaction;
 
 			lock (this.currentTransactions)
 			{
@@ -4005,7 +4098,34 @@ namespace IdApp.Services.Xmpp
 				this.currentTransactions.Remove(TransactionId);
 			}
 
-			Transaction.Completed(Amount, Currency);
+			if (Transaction is PaymentTransaction PaymentTransaction)
+				PaymentTransaction.Completed(Amount, Currency);
+		}
+
+		private Task NeuroWallet_BuyEDalerError(object Sender, PaymentErrorEventArgs e)
+		{
+			this.BuyEDalerFailed(e.TransactionId, e.Message);
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Registers an initiated payment as failed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Message">Error message.</param>
+		public void BuyEDalerFailed(string TransactionId, string Message)
+		{
+			Wallet.Transaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(TransactionId, out Transaction))
+					return;
+
+				this.currentTransactions.Remove(TransactionId);
+			}
+
+			Transaction.ErrorReported(Message);
 		}
 
 		/// <summary>
@@ -4015,6 +4135,120 @@ namespace IdApp.Services.Xmpp
 		public async Task<ISellEDalerServiceProvider[]> GetServiceProvidersForSellingEDalerAsync()
 		{
 			return await this.EDalerClient.GetServiceProvidersForSellingEDalerAsync();
+		}
+
+		/// <summary>
+		/// Initiates the process of getting available options for selling of eDaler using a service provider that
+		/// uses a smart contract.
+		/// </summary>
+		/// <param name="ServiceId">Service ID</param>
+		/// <param name="ServiceProvider">Service Provider</param>
+		/// <returns>Transaction ID</returns>
+		public async Task<OptionsTransaction> InitiateSellEDalerGetOptions(string ServiceId, string ServiceProvider)
+		{
+			string TransactionId = Guid.NewGuid().ToString();
+			string SuccessUrl = this.GenerateTagIdUrl(
+				new KeyValuePair<string, object>("cmd", "seos"),
+				new KeyValuePair<string, object>("tid", TransactionId),
+				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
+				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
+			string FailureUrl = this.GenerateTagIdUrl(
+				new KeyValuePair<string, object>("cmd", "seof"),
+				new KeyValuePair<string, object>("tid", TransactionId),
+				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
+				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
+			string CancelUrl = this.GenerateTagIdUrl(
+				new KeyValuePair<string, object>("cmd", "seoc"),
+				new KeyValuePair<string, object>("tid", TransactionId),
+				new KeyValuePair<string, object>(JwtClaims.ClientId, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Issuer, this.CryptoService.DeviceID),
+				new KeyValuePair<string, object>(JwtClaims.Subject, this.XmppService.BareJid),
+				new KeyValuePair<string, object>(JwtClaims.ExpirationTime, (int)DateTime.UtcNow.AddHours(1).Subtract(JSON.UnixEpoch).TotalSeconds));
+
+			TransactionId = await this.EDalerClient.InitiateGetOptionsSellEDalerAsync(ServiceId, ServiceProvider, TransactionId, SuccessUrl, FailureUrl, CancelUrl);
+			OptionsTransaction Result = new(TransactionId);
+
+			lock (this.currentTransactions)
+			{
+				this.currentTransactions[TransactionId] = Result;
+			}
+
+			return Result;
+		}
+
+		private async Task NeuroWallet_SellEDalerOptionsClientUrlReceived(object Sender, SellEDalerClientUrlEventArgs e)
+		{
+			Wallet.Transaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(e.TransactionId, out Transaction))
+				{
+					this.LogService.LogWarning("Client URL message for getting options for selling eDaler ignored. Transaction ID not recognized.",
+						new KeyValuePair<string, object>("TransactionId", e.TransactionId),
+						new KeyValuePair<string, object>("ClientUrl", e.ClientUrl));
+					return;
+				}
+			}
+
+			await Transaction.OpenUrl(e.ClientUrl);
+		}
+
+		private Task NeuroWallet_SellEDalerOptionsCompleted(object Sender, PaymentOptionsEventArgs e)
+		{
+			this.SellEDalerGetOptionsCompleted(e.TransactionId, e.Options);
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Registers an initiated getting of payment options for selling eDaler as completed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Options">Available options.</param>
+		public void SellEDalerGetOptionsCompleted(string TransactionId, IDictionary<CaseInsensitiveString, object>[] Options)
+		{
+			Wallet.Transaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(TransactionId, out Transaction))
+					return;
+
+				this.currentTransactions.Remove(TransactionId);
+			}
+
+			if (Transaction is OptionsTransaction OptionsTransaction)
+				OptionsTransaction.Completed(Options);
+		}
+
+		private Task NeuroWallet_SellEDalerOptionsError(object Sender, PaymentErrorEventArgs e)
+		{
+			this.SellEDalerGetOptionsFailed(e.TransactionId, e.Message);
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Registers an initiated getting of payment options for selling eDaler as failed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Message">Error message.</param>
+		public void SellEDalerGetOptionsFailed(string TransactionId, string Message)
+		{
+			Wallet.Transaction Transaction;
+
+			lock (this.currentTransactions)
+			{
+				if (!this.currentTransactions.TryGetValue(TransactionId, out Transaction))
+					return;
+
+				this.currentTransactions.Remove(TransactionId);
+			}
+
+			Transaction.ErrorReported(Message);
 		}
 
 		/// <summary>
@@ -4065,7 +4299,7 @@ namespace IdApp.Services.Xmpp
 
 		private async Task NeuroWallet_SellEDalerClientUrlReceived(object Sender, SellEDalerClientUrlEventArgs e)
 		{
-			PaymentTransaction Transaction;
+			Wallet.Transaction Transaction;
 
 			lock (this.currentTransactions)
 			{
@@ -4094,7 +4328,7 @@ namespace IdApp.Services.Xmpp
 		/// <param name="Message">Error message.</param>
 		public void SellEDalerFailed(string TransactionId, string Message)
 		{
-			PaymentTransaction Transaction;
+			Wallet.Transaction Transaction;
 
 			lock (this.currentTransactions)
 			{
@@ -4121,7 +4355,7 @@ namespace IdApp.Services.Xmpp
 		/// <param name="Currency">Currency</param>
 		public void SellEDalerCompleted(string TransactionId, decimal Amount, string Currency)
 		{
-			PaymentTransaction Transaction;
+			Wallet.Transaction Transaction;
 
 			lock (this.currentTransactions)
 			{
@@ -4131,7 +4365,8 @@ namespace IdApp.Services.Xmpp
 				this.currentTransactions.Remove(TransactionId);
 			}
 
-			Transaction.Completed(Amount, Currency);
+			if (Transaction is PaymentTransaction PaymentTransaction)
+				PaymentTransaction.Completed(Amount, Currency);
 		}
 
 		#endregion

@@ -27277,27 +27277,46 @@
             </summary>
             <param name="Uri">Neuro-Feature URI.</param>
         </member>
+        <member name="T:IdApp.Services.Wallet.OptionsTransaction">
+            <summary>
+            Maintains the status of an ongoing retrieval of payment options.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Wallet.OptionsTransaction.#ctor(System.String)">
+            <summary>
+            Maintains the status of an ongoing retrieval of payment options.
+            </summary>
+            <param name="TransactionId">Transaction ID</param>
+        </member>
+        <member name="M:IdApp.Services.Wallet.OptionsTransaction.ErrorReported(System.String)">
+            <summary>
+            Called when procedure has failed.
+            </summary>
+            <param name="Message">Error message</param>
+        </member>
+        <member name="M:IdApp.Services.Wallet.OptionsTransaction.Completed(System.Collections.Generic.IDictionary{Waher.Persistence.CaseInsensitiveString,System.Object}[])">
+            <summary>
+            Called when procedure has completed.
+            </summary>
+            <param name="Options">Available options.</param>
+        </member>
+        <member name="M:IdApp.Services.Wallet.OptionsTransaction.Wait">
+            <summary>
+            Waits for the completion of the procedure.
+            </summary>
+            <returns>Available options</returns>
+        </member>
         <member name="T:IdApp.Services.Wallet.PaymentTransaction">
             <summary>
-            Maintains the status of an ongoing payment transaction to buy eDaler.
+            Maintains the status of an ongoing payment transaction.
             </summary>
         </member>
         <member name="M:IdApp.Services.Wallet.PaymentTransaction.#ctor(System.String,System.String)">
             <summary>
-            Maintains the status of an ongoing payment transaction to buy eDaler.
+            Maintains the status of an ongoing payment transaction.
             </summary>
             <param name="TransactionId">Transaction ID</param>
             <param name="Currency">Currency</param>
-        </member>
-        <member name="P:IdApp.Services.Wallet.PaymentTransaction.TransactionId">
-            <summary>
-            Transaction ID
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Wallet.PaymentTransaction.OpenUrl(System.String)">
-            <summary>
-            Method called when a URL needs to be opened by the client.
-            </summary>
         </member>
         <member name="M:IdApp.Services.Wallet.PaymentTransaction.ErrorReported(System.String)">
             <summary>
@@ -27317,6 +27336,33 @@
             Waits for the completion of the payment.
             </summary>
             <returns>Amount transferred</returns>
+        </member>
+        <member name="T:IdApp.Services.Wallet.Transaction">
+            <summary>
+            Abstract base class for transactions.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Wallet.Transaction.#ctor(System.String)">
+            <summary>
+            Abstract base class for transactions.
+            </summary>
+            <param name="TransactionId">Transaction ID</param>
+        </member>
+        <member name="P:IdApp.Services.Wallet.Transaction.TransactionId">
+            <summary>
+            Transaction ID
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Wallet.Transaction.OpenUrl(System.String)">
+            <summary>
+            Method called when a URL needs to be opened by the client.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Wallet.Transaction.ErrorReported(System.String)">
+            <summary>
+            Called when payment has failed.
+            </summary>
+            <param name="Message">Error message</param>
         </member>
         <member name="T:IdApp.Services.XmlDatabaseExport">
             <summary>
@@ -28502,6 +28548,29 @@
             </summary>
             <returns>Available service providers.</returns>
         </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.InitiateBuyEDalerGetOptions(System.String,System.String)">
+            <summary>
+            Initiates the process of getting available options for buying of eDaler using a service provider that
+            uses a smart contract.
+            </summary>
+            <param name="ServiceId">Service ID</param>
+            <param name="ServiceProvider">Service Provider</param>
+            <returns>Transaction ID</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.BuyEDalerGetOptionsCompleted(System.String,System.Collections.Generic.IDictionary{Waher.Persistence.CaseInsensitiveString,System.Object}[])">
+            <summary>
+            Registers an initiated getting of payment options for buying eDaler as completed.
+            </summary>
+            <param name="TransactionId">Transaction ID</param>
+            <param name="Options">Available options.</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.BuyEDalerGetOptionsFailed(System.String,System.String)">
+            <summary>
+            Registers an initiated getting of payment options for buying eDaler as failed.
+            </summary>
+            <param name="TransactionId">Transaction ID</param>
+            <param name="Message">Error message.</param>
+        </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.InitiateBuyEDaler(System.String,System.String,System.Decimal,System.String)">
             <summary>
             Initiates the buying of eDaler using a service provider that does not use a smart contract.
@@ -28511,6 +28580,29 @@
             <param name="Amount">Amount</param>
             <param name="Currency">Currency</param>
             <returns>Transaction ID</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.InitiateSellEDalerGetOptions(System.String,System.String)">
+            <summary>
+            Initiates the process of getting available options for selling of eDaler using a service provider that
+            uses a smart contract.
+            </summary>
+            <param name="ServiceId">Service ID</param>
+            <param name="ServiceProvider">Service Provider</param>
+            <returns>Transaction ID</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.SellEDalerGetOptionsCompleted(System.String,System.Collections.Generic.IDictionary{Waher.Persistence.CaseInsensitiveString,System.Object}[])">
+            <summary>
+            Registers an initiated getting of payment options for selling eDaler as completed.
+            </summary>
+            <param name="TransactionId">Transaction ID</param>
+            <param name="Options">Available options.</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.SellEDalerGetOptionsFailed(System.String,System.String)">
+            <summary>
+            Registers an initiated getting of payment options for selling eDaler as failed.
+            </summary>
+            <param name="TransactionId">Transaction ID</param>
+            <param name="Message">Error message.</param>
         </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.BuyEDalerCompleted(System.String,System.Decimal,System.String)">
             <summary>
@@ -29875,6 +29967,29 @@
             </summary>
             <returns>Available service providers.</returns>
         </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.InitiateBuyEDalerGetOptions(System.String,System.String)">
+            <summary>
+            Initiates the process of getting available options for buying of eDaler using a service provider that
+            uses a smart contract.
+            </summary>
+            <param name="ServiceId">Service ID</param>
+            <param name="ServiceProvider">Service Provider</param>
+            <returns>Transaction ID</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.BuyEDalerGetOptionsCompleted(System.String,System.Collections.Generic.IDictionary{Waher.Persistence.CaseInsensitiveString,System.Object}[])">
+            <summary>
+            Registers an initiated getting of payment options for buying eDaler as completed.
+            </summary>
+            <param name="TransactionId">Transaction ID</param>
+            <param name="Options">Available options.</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.BuyEDalerGetOptionsFailed(System.String,System.String)">
+            <summary>
+            Registers an initiated getting of payment options for buying eDaler as failed.
+            </summary>
+            <param name="TransactionId">Transaction ID</param>
+            <param name="Message">Error message.</param>
+        </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.InitiateBuyEDaler(System.String,System.String,System.Decimal,System.String)">
             <summary>
             Initiates the buying of eDaler using a service provider that does not use a smart contract.
@@ -29885,13 +30000,6 @@
             <param name="Currency">Currency</param>
             <returns>Transaction ID</returns>
         </member>
-        <member name="M:IdApp.Services.Xmpp.XmppService.BuyEDalerFailed(System.String,System.String)">
-            <summary>
-            Registers an initiated payment as failed.
-            </summary>
-            <param name="TransactionId">Transaction ID</param>
-            <param name="Message">Error message.</param>
-        </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.BuyEDalerCompleted(System.String,System.Decimal,System.String)">
             <summary>
             Registers an initiated payment as completed.
@@ -29900,11 +30008,41 @@
             <param name="Amount">Amount</param>
             <param name="Currency">Currency</param>
         </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.BuyEDalerFailed(System.String,System.String)">
+            <summary>
+            Registers an initiated payment as failed.
+            </summary>
+            <param name="TransactionId">Transaction ID</param>
+            <param name="Message">Error message.</param>
+        </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.GetServiceProvidersForSellingEDalerAsync">
             <summary>
             Gets available service providers for selling eDaler.
             </summary>
             <returns>Available service providers.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.InitiateSellEDalerGetOptions(System.String,System.String)">
+            <summary>
+            Initiates the process of getting available options for selling of eDaler using a service provider that
+            uses a smart contract.
+            </summary>
+            <param name="ServiceId">Service ID</param>
+            <param name="ServiceProvider">Service Provider</param>
+            <returns>Transaction ID</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.SellEDalerGetOptionsCompleted(System.String,System.Collections.Generic.IDictionary{Waher.Persistence.CaseInsensitiveString,System.Object}[])">
+            <summary>
+            Registers an initiated getting of payment options for selling eDaler as completed.
+            </summary>
+            <param name="TransactionId">Transaction ID</param>
+            <param name="Options">Available options.</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.SellEDalerGetOptionsFailed(System.String,System.String)">
+            <summary>
+            Registers an initiated getting of payment options for selling eDaler as failed.
+            </summary>
+            <param name="TransactionId">Transaction ID</param>
+            <param name="Message">Error message.</param>
         </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.InitiateSellEDaler(System.String,System.String,System.Decimal,System.String)">
             <summary>

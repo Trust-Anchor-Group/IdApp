@@ -1167,7 +1167,7 @@ namespace IdApp.Services.Xmpp
 		/// </summary>
 		/// <param name="Uri">eDaler URI</param>
 		/// <returns>Transaction object containing information about the processed URI.</returns>
-		Task<Transaction> SendEDalerUri(string Uri);
+		Task<EDaler.Transaction> SendEDalerUri(string Uri);
 
 		/// <summary>
 		/// Event raised when balance has been updated.
@@ -1287,6 +1287,29 @@ namespace IdApp.Services.Xmpp
 		Task<IBuyEDalerServiceProvider[]> GetServiceProvidersForBuyingEDalerAsync();
 
 		/// <summary>
+		/// Initiates the process of getting available options for buying of eDaler using a service provider that
+		/// uses a smart contract.
+		/// </summary>
+		/// <param name="ServiceId">Service ID</param>
+		/// <param name="ServiceProvider">Service Provider</param>
+		/// <returns>Transaction ID</returns>
+		Task<OptionsTransaction> InitiateBuyEDalerGetOptions(string ServiceId, string ServiceProvider);
+
+		/// <summary>
+		/// Registers an initiated getting of payment options for buying eDaler as completed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Options">Available options.</param>
+		void BuyEDalerGetOptionsCompleted(string TransactionId, IDictionary<CaseInsensitiveString, object>[] Options);
+
+		/// <summary>
+		/// Registers an initiated getting of payment options for buying eDaler as failed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Message">Error message.</param>
+		void BuyEDalerGetOptionsFailed(string TransactionId, string Message);
+
+		/// <summary>
 		/// Initiates the buying of eDaler using a service provider that does not use a smart contract.
 		/// </summary>
 		/// <param name="ServiceId">Service ID</param>
@@ -1295,6 +1318,29 @@ namespace IdApp.Services.Xmpp
 		/// <param name="Currency">Currency</param>
 		/// <returns>Transaction ID</returns>
 		Task<PaymentTransaction> InitiateBuyEDaler(string ServiceId, string ServiceProvider, decimal Amount, string Currency);
+
+		/// <summary>
+		/// Initiates the process of getting available options for selling of eDaler using a service provider that
+		/// uses a smart contract.
+		/// </summary>
+		/// <param name="ServiceId">Service ID</param>
+		/// <param name="ServiceProvider">Service Provider</param>
+		/// <returns>Transaction ID</returns>
+		Task<OptionsTransaction> InitiateSellEDalerGetOptions(string ServiceId, string ServiceProvider);
+
+		/// <summary>
+		/// Registers an initiated getting of payment options for selling eDaler as completed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Options">Available options.</param>
+		void SellEDalerGetOptionsCompleted(string TransactionId, IDictionary<CaseInsensitiveString, object>[] Options);
+
+		/// <summary>
+		/// Registers an initiated getting of payment options for selling eDaler as failed.
+		/// </summary>
+		/// <param name="TransactionId">Transaction ID</param>
+		/// <param name="Message">Error message.</param>
+		void SellEDalerGetOptionsFailed(string TransactionId, string Message);
 
 		/// <summary>
 		/// Registers an initiated payment as completed.
