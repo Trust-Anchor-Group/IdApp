@@ -2325,4 +2325,10 @@
   <data name="EncryptedPayment" xml:space="preserve">
     <value>Šifrovano plaćanje</value>
   </data>
+  <data name="GettingOptionsCancelled" xml:space="preserve">
+    <value>Dobijanje dostupnih opcija je otkazano.</value>
+  </data>
+  <data name="UnableToGetOptions" xml:space="preserve">
+    <value>Nije moguće dobiti dostupne opcije.</value>
+  </data>
 </root>

@@ -1,6 +1,8 @@
 ﻿using IdApp.Services;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Waher.Persistence;
 using Waher.Runtime.Inventory;
 using Waher.Security.JWT;
 using Xamarin.CommunityToolkit.Helpers;
@@ -123,6 +125,48 @@ namespace IdApp.Links
 						return Task.FromResult(false);
 
 					Services.XmppService.SellEDalerFailed(TransactionId6, LocalizationResourceManager.Current["PaymentCancelled"]);
+					return Task.FromResult(true);
+
+				case "beos":  // Buy eDaler Get Options Successful
+					if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId7)
+						return Task.FromResult(false);
+
+					Services.XmppService.BuyEDalerGetOptionsCompleted(TransactionId7, new IDictionary<CaseInsensitiveString, object>[0]);
+					return Task.FromResult(true);
+
+				case "beof":  // Buy eDaler Get Options Failed
+					if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId8)
+						return Task.FromResult(false);
+
+					Services.XmppService.BuyEDalerGetOptionsFailed(TransactionId8, LocalizationResourceManager.Current["UnableToGetOptions"]);
+					return Task.FromResult(true);
+
+				case "beoc":  // Buy eDaler Get Options Cancelled
+					if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId9)
+						return Task.FromResult(false);
+
+					Services.XmppService.BuyEDalerGetOptionsFailed(TransactionId9, LocalizationResourceManager.Current["GettingOptionsCancelled"]);
+					return Task.FromResult(true);
+
+				case "seos":  // Sell eDaler Get Options Successful
+					if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId10)
+						return Task.FromResult(false);
+
+					Services.XmppService.SellEDalerGetOptionsCompleted(TransactionId10, new IDictionary<CaseInsensitiveString, object>[0]);
+					return Task.FromResult(true);
+
+				case "seof":  // Sell eDaler Get Options Failed
+					if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId11)
+						return Task.FromResult(false);
+
+					Services.XmppService.SellEDalerGetOptionsFailed(TransactionId11, LocalizationResourceManager.Current["UnableToGetOptions"]);
+					return Task.FromResult(true);
+
+				case "seoc":  // Sell eDaler Get Options Cancelled
+					if (!Parsed.TryGetClaim("tid", out Obj) || Obj is not string TransactionId12)
+						return Task.FromResult(false);
+
+					Services.XmppService.SellEDalerGetOptionsFailed(TransactionId12, LocalizationResourceManager.Current["GettingOptionsCancelled"]);
 					return Task.FromResult(true);
 
 				default:

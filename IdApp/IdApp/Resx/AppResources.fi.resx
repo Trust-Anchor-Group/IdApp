@@ -2325,4 +2325,10 @@
   <data name="EncryptedPayment" xml:space="preserve">
     <value>Salattu maksu</value>
   </data>
+  <data name="GettingOptionsCancelled" xml:space="preserve">
+    <value>Käytettävissä olevien vaihtoehtojen saaminen peruutettiin.</value>
+  </data>
+  <data name="UnableToGetOptions" xml:space="preserve">
+    <value>Käytettävissä olevia vaihtoehtoja ei voi saada.</value>
+  </data>
 </root>

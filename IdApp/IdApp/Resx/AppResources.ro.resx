@@ -2325,4 +2325,10 @@
   <data name="EncryptedPayment" xml:space="preserve">
     <value>Plată criptată</value>
   </data>
+  <data name="GettingOptionsCancelled" xml:space="preserve">
+    <value>Obținerea opțiunilor disponibile a fost anulată.</value>
+  </data>
+  <data name="UnableToGetOptions" xml:space="preserve">
+    <value>Imposibil de obținut opțiuni disponibile.</value>
+  </data>
 </root>

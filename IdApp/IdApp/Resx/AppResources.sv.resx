@@ -2304,4 +2304,10 @@
   <data name="PaymentOf" xml:space="preserve">
     <value>Betalning av:</value>
   </data>
+  <data name="GettingOptionsCancelled" xml:space="preserve">
+    <value>Hämtningen av tillgängliga alternativ avbröts.</value>
+  </data>
+  <data name="UnableToGetOptions" xml:space="preserve">
+    <value>Kunde inte hämta tillgängliga alternativ.</value>
+  </data>
 </root>

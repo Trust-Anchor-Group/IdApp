@@ -2325,4 +2325,10 @@
   <data name="EncryptedPayment" xml:space="preserve">
     <value>Kryptert betaling</value>
   </data>
+  <data name="GettingOptionsCancelled" xml:space="preserve">
+    <value>Tilgjengelige alternativer ble kansellert.</value>
+  </data>
+  <data name="UnableToGetOptions" xml:space="preserve">
+    <value>Kan ikke få tilgjengelige alternativer.</value>
+  </data>
 </root>

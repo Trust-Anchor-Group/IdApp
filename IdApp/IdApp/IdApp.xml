@@ -19458,6 +19458,11 @@
               Looks up a localized string similar to Generate QR Code.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.GettingOptionsCancelled">
+            <summary>
+              Looks up a localized string similar to Getting available options was cancelled..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.HashFunction">
             <summary>
               Looks up a localized string similar to Hash Function.
@@ -21651,6 +21656,11 @@
         <member name="P:IdApp.Resx.AppResources.UnableToGetListOfMyDevices">
             <summary>
               Looks up a localized string similar to Unable to get list of my devices..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.UnableToGetOptions">
+            <summary>
+              Looks up a localized string similar to Unable to get available options..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.UnableToGetPresent">

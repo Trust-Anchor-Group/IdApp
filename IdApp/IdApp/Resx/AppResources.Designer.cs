@@ -1969,6 +1969,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Getting available options was cancelled..
+        /// </summary>
+        internal static string GettingOptionsCancelled {
+            get {
+                return ResourceManager.GetString("GettingOptionsCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hash Function.
         /// </summary>
         internal static string HashFunction {
@@ -5916,6 +5925,15 @@ namespace IdApp.Resx {
         internal static string UnableToGetListOfMyDevices {
             get {
                 return ResourceManager.GetString("UnableToGetListOfMyDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to get available options..
+        /// </summary>
+        internal static string UnableToGetOptions {
+            get {
+                return ResourceManager.GetString("UnableToGetOptions", resourceCulture);
             }
         }
         

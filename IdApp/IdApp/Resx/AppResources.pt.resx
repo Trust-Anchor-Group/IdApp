@@ -2325,4 +2325,10 @@
   <data name="EncryptedPayment" xml:space="preserve">
     <value>Pagamento criptografado</value>
   </data>
+  <data name="GettingOptionsCancelled" xml:space="preserve">
+    <value>A disponibilização de opções foi cancelada.</value>
+  </data>
+  <data name="UnableToGetOptions" xml:space="preserve">
+    <value>Não é possível obter opções disponíveis.</value>
+  </data>
 </root>
