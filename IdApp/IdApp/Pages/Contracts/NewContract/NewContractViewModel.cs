@@ -50,6 +50,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			this.ContractVisibilityItems = new ObservableCollection<ContractVisibilityModel>();
 			this.AvailableRoles = new ObservableCollection<string>();
+			this.ParameterOptions = new ObservableCollection<ContractOption>();
 			this.ProposeCommand = new Command(async _ => await this.Propose(), _ => this.CanPropose());
 			this.partsToAdd = new Dictionary<CaseInsensitiveString, string>();
 		}
@@ -272,6 +273,11 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// The different roles available to choose from when creating a contract.
 		/// </summary>
 		public ObservableCollection<string> AvailableRoles { get; }
+
+		/// <summary>
+		/// The different parameter options available to choose from when creating a contract.
+		/// </summary>
+		public ObservableCollection<ContractOption> ParameterOptions { get; }
 
 		/// <summary>
 		/// See <see cref="SelectedRole"/>
@@ -692,7 +698,10 @@ namespace IdApp.Pages.Contracts.NewContract
 					return;
 
 				if (ParameterInfo.Parameter is StringParameter SP)
+				{
 					SP.Value = e.NewTextValue;
+					Entry.BackgroundColor = Color.Default;
+				}
 				else if (ParameterInfo.Parameter is NumericalParameter NP)
 				{
 					if (decimal.TryParse(e.NewTextValue, out decimal d))
@@ -708,7 +717,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				}
 				else if (ParameterInfo.Parameter is BooleanParameter BP)
 				{
-					if (bool.TryParse(e.NewTextValue, out bool b))
+					if (CommonTypes.TryParse(e.NewTextValue, out bool b))
 					{
 						BP.Value = b;
 						Entry.BackgroundColor = Color.Default;
@@ -1043,10 +1052,10 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 			this.Roles = rolesLayout;
 
-			StackLayout parametersLayout = new();
+			StackLayout ParametersLayout = new();
 			if (this.template.Parameters.Length > 0)
 			{
-				parametersLayout.Children.Add(new Label
+				ParametersLayout.Children.Add(new Label
 				{
 					Text = LocalizationResourceManager.Current["Parameters"],
 					Style = (Style)Application.Current.Resources["LeftAlignedHeading"]
@@ -1074,7 +1083,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					Layout.Children.Add(CheckBox);
 					Populate(Layout, await Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
-					parametersLayout.Children.Add(Layout);
+					ParametersLayout.Children.Add(Layout);
 
 					CheckBox.CheckedChanged += this.Parameter_CheckedChanged;
 
@@ -1100,7 +1109,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				}
 				else if (Parameter is DateParameter DP)
 				{
-					Populate(parametersLayout, await Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
+					Populate(ParametersLayout, await Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
 
 					ExtendedDatePicker Picker = new()
 					{
@@ -1110,7 +1119,7 @@ namespace IdApp.Pages.Contracts.NewContract
 						HorizontalOptions = LayoutOptions.FillAndExpand,
 					};
 
-					parametersLayout.Children.Add(Picker);
+					ParametersLayout.Children.Add(Picker);
 
 					Picker.NullableDateSelected += this.Parameter_DateChanged;
 
@@ -1128,7 +1137,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				}
 				else
 				{
-					Populate(parametersLayout, await Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
+					Populate(ParametersLayout, await Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
 
 					Entry Entry = new()
 					{
@@ -1188,10 +1197,10 @@ namespace IdApp.Pages.Contracts.NewContract
 						Grid.SetRow(CalcButton, 0);
 						Grid.Children.Add(CalcButton);
 
-						parametersLayout.Children.Add(Grid);
+						ParametersLayout.Children.Add(Grid);
 					}
 					else
-						parametersLayout.Children.Add(Entry);
+						ParametersLayout.Children.Add(Entry);
 
 					Entry.TextChanged += this.Parameter_TextChanged;
 
@@ -1207,7 +1216,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				}
 			}
 
-			this.Parameters = parametersLayout;
+			this.Parameters = ParametersLayout;
 			this.HasParameters = this.Parameters.Children.Count > 0;
 
 			if (this.template.Parts is not null)
@@ -1460,8 +1469,241 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 			else
 			{
-				// TODO: 
+				CaseInsensitiveString PrimaryKey = this.GetPrimaryKey(Options);
+
+				if (CaseInsensitiveString.IsNullOrEmpty(PrimaryKey))
+				{
+					this.LogService.LogWarning("Options not displayed. No primary key could be established.");
+					return;
+				}
+
+				if (!this.parametersByName.TryGetValue(PrimaryKey, out ParameterInfo Info))
+				{
+					this.LogService.LogWarning("Options not displayed. Primary key not available in contract.");
+					return;
+				}
+
+				if (Info.Control is not Entry Entry)
+				{
+					this.LogService.LogWarning("Options not displayed. Parameter control not of a type that allows a selection control to be created.");
+					return;
+				}
+
+				int EntryIndex = this.Parameters.Children.IndexOf(Entry);
+				if (EntryIndex < 0)
+				{
+					this.LogService.LogWarning("Options not displayed. Primary Key Entry not found.");
+					return;
+				}
+
+				this.ParameterOptions.Clear();
+
+				ContractOption SelectedOption = null;
+
+				foreach (IDictionary<CaseInsensitiveString, object> Option in Options)
+				{
+					string Name = Option[PrimaryKey]?.ToString() ?? string.Empty;
+					ContractOption ContractOption = new(Name, Option);
+
+					this.ParameterOptions.Add(ContractOption);
+
+					if (Name == Entry.Text)
+						SelectedOption = ContractOption;
+				}
+
+				Picker Picker = new()
+				{
+					StyleId = Info.Parameter.Name,
+					ItemsSource = this.ParameterOptions,
+					Title = Info.Parameter.Guide,
+					HorizontalOptions = LayoutOptions.FillAndExpand
+				};
+
+				this.Parameters.Children.RemoveAt(EntryIndex);
+				this.Parameters.Children.Insert(EntryIndex, Picker);
+
+				Picker.SelectedIndexChanged += this.Parameter_OptionSelectionChanged;
+				Info.Control = Picker;
+
+				if (SelectedOption is not null)
+					Picker.SelectedItem = SelectedOption;
 			}
+		}
+
+		private async void Parameter_OptionSelectionChanged(object Sender, EventArgs e)
+		{
+			if (Sender is not Picker Picker)
+				return;
+
+			if (Picker.SelectedItem is not ContractOption Option)
+				return;
+
+			try
+			{
+				foreach (KeyValuePair<CaseInsensitiveString, object> P in Option.Option)
+				{
+					try
+					{
+						if (!this.parametersByName.TryGetValue(P.Key, out ParameterInfo ParameterInfo))
+							continue;
+
+						Entry Entry = ParameterInfo.Control as Entry;
+
+						if (ParameterInfo.Parameter is StringParameter SP)
+						{
+							string s = P.Value?.ToString() ?? string.Empty;
+
+							SP.Value = s;
+
+							if (Entry is not null)
+							{
+								Entry.Text = s;
+								Entry.BackgroundColor = Color.Default;
+							}
+						}
+						else if (ParameterInfo.Parameter is NumericalParameter NP)
+						{
+							try
+							{
+								NP.Value = Expression.ToDecimal(P.Value);
+
+								if (Entry is not null)
+									Entry.BackgroundColor = Color.Default;
+							}
+							catch (Exception)
+							{
+								if (Entry is not null)
+									Entry.BackgroundColor = Color.Salmon;
+							}
+						}
+						else if (ParameterInfo.Parameter is BooleanParameter BP)
+						{
+							CheckBox CheckBox = ParameterInfo.Control as CheckBox;
+
+							try
+							{
+								if (P.Value is bool b2)
+									BP.Value = b2;
+								else if (P.Value is string s && CommonTypes.TryParse(s, out b2))
+									BP.Value = b2;
+								else
+								{
+									if (CheckBox is not null)
+										CheckBox.BackgroundColor = Color.Salmon;
+
+									continue;
+								}
+
+								if (CheckBox is not null)
+									CheckBox.BackgroundColor = Color.Default;
+							}
+							catch (Exception)
+							{
+								if (CheckBox is not null)
+									CheckBox.BackgroundColor = Color.Salmon;
+							}
+						}
+						else if (ParameterInfo.Parameter is DateTimeParameter DTP)
+						{
+							Picker Picker2 = ParameterInfo.Control as Picker;
+
+							if (P.Value is DateTime TP ||
+								(P.Value is string s && (DateTime.TryParse(s, out TP) || XML.TryParse(s, out TP))))
+							{
+								DTP.Value = TP;
+
+								if (Picker2 is not null)
+									Picker2.BackgroundColor = Color.Default;
+							}
+							else
+							{
+								if (Picker2 is not null)
+									Picker2.BackgroundColor = Color.Salmon;
+							}
+						}
+						else if (ParameterInfo.Parameter is TimeParameter TSP)
+						{
+							if (P.Value is TimeSpan TS ||
+								(P.Value is string s && TimeSpan.TryParse(s, out TS)))
+							{
+								TSP.Value = TS;
+
+								if (Entry is not null)
+									Entry.BackgroundColor = Color.Default;
+							}
+							else
+							{
+								if (Entry is not null)
+									Entry.BackgroundColor = Color.Salmon;
+							}
+						}
+						else if (ParameterInfo.Parameter is DurationParameter DP)
+						{
+							if (P.Value is Duration D ||
+								(P.Value is string s && Duration.TryParse(s, out D)))
+							{
+								DP.Value = D;
+
+								if (Entry is not null)
+									Entry.BackgroundColor = Color.Default;
+							}
+							else
+							{
+								if (Entry is not null)
+									Entry.BackgroundColor = Color.Salmon;
+
+								return;
+							}
+						}
+					}
+					catch (Exception ex)
+					{
+						this.LogService.LogException(ex);
+					}
+				}
+
+				await this.ValidateParameters();
+				await this.PopulateHumanReadableText();
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+		}
+
+		private CaseInsensitiveString GetPrimaryKey(IDictionary<CaseInsensitiveString, object>[] Options)
+		{
+			Dictionary<CaseInsensitiveString, Dictionary<string, bool>> ByKeyAndValue = new();
+			LinkedList<CaseInsensitiveString> Keys = new();
+			int c = Options.Length;
+
+			foreach (IDictionary<CaseInsensitiveString, object> Option in Options)
+			{
+				foreach (KeyValuePair<CaseInsensitiveString, object> P in Option)
+				{
+					if (!ByKeyAndValue.TryGetValue(P.Key, out Dictionary<string, bool> Values))
+					{
+						Values = new Dictionary<string, bool>();
+						ByKeyAndValue[P.Key] = Values;
+						Keys.AddLast(P.Key);
+					}
+
+					if (P.Value is string s)
+						Values[s] = true;
+				}
+			}
+
+			foreach (CaseInsensitiveString Key in Keys)
+			{
+				if (ByKeyAndValue[Key].Count == c &&
+					this.parametersByName.TryGetValue(Key, out ParameterInfo Info) &&
+					Info.Parameter is StringParameter)
+				{
+					return Key;
+				}
+			}
+
+			return CaseInsensitiveString.Empty;
 		}
 
 		#endregion

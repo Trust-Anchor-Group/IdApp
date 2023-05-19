@@ -1,27 +1,28 @@
-﻿using Waher.Networking.XMPP.Contracts;
+﻿using System.Collections.Generic;
+using Waher.Persistence;
 
 namespace IdApp.Pages.Contracts.NewContract.ObjectModel
 {
     /// <summary>
     /// The data model for contract visibility.
     /// </summary>
-    public class ContractVisibilityModel
-    {
+    public class ContractOption
+	{
         /// <summary>
         /// Create an instance of the <see cref="ContractVisibilityModel"/> class.
         /// </summary>
-        /// <param name="Visibility">The contract visibility.</param>
         /// <param name="Name">The contract name.</param>
-        public ContractVisibilityModel(ContractVisibility Visibility, string Name)
+		/// <param name="Option">Parameter dictionary of option.</param>
+        public ContractOption(string Name, IDictionary<CaseInsensitiveString, object> Option)
         {
-            this.Visibility = Visibility;
             this.Name = Name;
+			this.Option = Option;
         }
 
         /// <summary>
         /// The contract visibility.
         /// </summary>
-        public ContractVisibility Visibility { get; }
+        public IDictionary<CaseInsensitiveString, object> Option { get; }
 
         /// <summary>
         /// The contract name.
@@ -29,7 +30,7 @@ namespace IdApp.Pages.Contracts.NewContract.ObjectModel
         public string Name { get; }
 
         /// <summary>
-        /// Returns the string representation, i.e. name, of this <see cref="ContractVisibilityModel"/>.
+        /// Returns the string representation, i.e. name, of this contract option.
         /// </summary>
         /// <returns>String representation</returns>
         public override string ToString()

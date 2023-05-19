@@ -5359,6 +5359,11 @@
             The different roles available to choose from when creating a contract.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.ParameterOptions">
+            <summary>
+            The different parameter options available to choose from when creating a contract.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.NewContract.NewContractViewModel.SelectedRoleProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.SelectedRole"/>
@@ -5491,6 +5496,34 @@
             <param name="Page">Page currently being viewed</param>
             <param name="Options">Available options, as dictionaries with contract parameters.</param>
         </member>
+        <member name="T:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractOption">
+            <summary>
+            The data model for contract visibility.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractOption.#ctor(System.String,System.Collections.Generic.IDictionary{Waher.Persistence.CaseInsensitiveString,System.Object})">
+            <summary>
+            Create an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractVisibilityModel"/> class.
+            </summary>
+            <param name="Name">The contract name.</param>
+            <param name="Option">Parameter dictionary of option.</param>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractOption.Option">
+            <summary>
+            The contract visibility.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractOption.Name">
+            <summary>
+            The contract name.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractOption.ToString">
+            <summary>
+            Returns the string representation, i.e. name, of this contract option.
+            </summary>
+            <returns>String representation</returns>
+        </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractVisibilityModel">
             <summary>
             The data model for contract visibility.
@@ -5500,8 +5533,8 @@
             <summary>
             Create an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractVisibilityModel"/> class.
             </summary>
-            <param name="visibility">The contract visibility.</param>
-            <param name="name">The contract name.</param>
+            <param name="Visibility">The contract visibility.</param>
+            <param name="Name">The contract name.</param>
         </member>
         <member name="P:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractVisibilityModel.Visibility">
             <summary>
