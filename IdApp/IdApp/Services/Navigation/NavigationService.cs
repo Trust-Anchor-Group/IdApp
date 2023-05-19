@@ -36,9 +36,7 @@ namespace IdApp.Services.Navigation
 				if (CurrentPage is ContentBasePage ContentBasePage)
 				{
 					if (this.TryPopArgs(out NavigationArgs NavigationArgs, ContentBasePage.UniqueId))
-					{
 						return NavigationArgs;
-					}
 				}
 
 				return null;
@@ -95,17 +93,13 @@ namespace IdApp.Services.Navigation
 		private void OnApplicationPropertyChanged(object Sender, System.ComponentModel.PropertyChangedEventArgs Args)
 		{
 			if (Args.PropertyName == nameof(Application.MainPage))
-			{
 				this.SubscribeToShellNavigatingIfNecessary((Application)Sender);
-			}
 		}
 
 		private void OnApplicationPropertyChanging(object Sender, PropertyChangingEventArgs Args)
 		{
 			if (Args.PropertyName == nameof(Application.MainPage))
-			{
 				this.UnsubscribeFromShellNavigatingIfNecessary((Application)Sender);
-			}
 		}
 
 		private void SubscribeToShellNavigatingIfNecessary(Application Application)
@@ -166,9 +160,7 @@ namespace IdApp.Services.Navigation
 				if (args is not null)
 				{
 					if (!string.IsNullOrEmpty(args.UniqueId))
-					{
 						PageName += args.UniqueId;
-					}
 
 					this.navigationArgsMap[PageName] = args;
 				}
@@ -201,8 +193,8 @@ namespace IdApp.Services.Navigation
 				return false;
 			}
 
-			return this.TryPopArgs(CurrentPage.GetType().Name, out Args, UniqueId)
-				|| this.TryPopArgs(Routing.GetRoute(CurrentPage), out Args, UniqueId);
+			return this.TryPopArgs(CurrentPage.GetType().Name, out Args, UniqueId) ||
+				this.TryPopArgs(Routing.GetRoute(CurrentPage), out Args, UniqueId);
 		}
 
 		private bool TryPopArgs<TArgs>(string PageName, out TArgs args, string UniqueId = null) where TArgs : NavigationArgs
@@ -210,9 +202,7 @@ namespace IdApp.Services.Navigation
 			args = default;
 
 			if (!string.IsNullOrEmpty(UniqueId))
-			{
 				PageName += UniqueId;
-			}
 
 			if (this.TryGetPageName(PageName, out string pageName) &&
 				this.navigationArgsMap.TryGetValue(pageName, out NavigationArgs navArgs) &&
@@ -249,17 +239,13 @@ namespace IdApp.Services.Navigation
 					ReturnCounter = CurrentNavigationArgs.ReturnCounter;
 
 					if ((ReturnCounter == 0) && !string.IsNullOrEmpty(CurrentNavigationArgs.ReturnRoute))
-					{
 						ReturnRoute = CurrentNavigationArgs.ReturnRoute;
-					}
 				}
 
 				if (ReturnCounter > 1)
 				{
 					for (int i = 1; i < ReturnCounter; i++)
-					{
 						ReturnRoute += "/" + defaultGoBackRoute;
-					}
 				}
 
 				return Shell.Current.GoToAsync(ReturnRoute, Animate);
@@ -300,11 +286,7 @@ namespace IdApp.Services.Navigation
 
 			if ((NavigationArgs is not null) && (NavigationArgs.ReturnCounter > 0))
 			{
-				if (args is null)
-				{
-					args = new TArgs();
-				}
-
+				args ??= new TArgs();
 				args.ReturnCounter = NavigationArgs.ReturnCounter + 1;
 			}
 
@@ -313,9 +295,7 @@ namespace IdApp.Services.Navigation
 			try
 			{
 				if ((args is not null) && !string.IsNullOrEmpty(args.UniqueId))
-				{
 					Route += "?UniqueId=" + args.UniqueId;
-				}
 
 				return Shell.Current.GoToAsync(Route, true);
 			}
