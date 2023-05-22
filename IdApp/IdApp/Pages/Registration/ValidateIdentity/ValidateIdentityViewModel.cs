@@ -9,9 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Waher.Events;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.CommunityToolkit.Helpers;
@@ -66,7 +68,17 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 		/// <inheritdoc />
 		public override async Task DoAssignProperties()
 		{
-			this.peerReviewServices ??= await this.XmppService.GetServiceProvidersForPeerReviewAsync();
+			try
+			{
+				this.peerReviewServices ??= await this.XmppService.GetServiceProvidersForPeerReviewAsync().ConfigureAwait(false);
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
+
+			this.ContinueCommand.ChangeCanExecute();
+			this.RequestReviewCommand.ChangeCanExecute();
 
 			await base.DoAssignProperties();
 		}
