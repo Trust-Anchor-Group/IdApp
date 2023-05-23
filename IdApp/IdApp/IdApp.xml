@@ -5319,6 +5319,16 @@
             The Propose action which creates a new contract.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contracts.NewContract.NewContractViewModel.IsProposingProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.IsProposing"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.IsProposing">
+            <summary>
+            Gets or sets whether the user is proposing the contract at the current time.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.NewContract.NewContractViewModel.IsTemplateProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.IsTemplate"/>
