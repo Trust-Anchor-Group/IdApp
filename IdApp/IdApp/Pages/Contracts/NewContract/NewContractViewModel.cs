@@ -214,6 +214,25 @@ namespace IdApp.Pages.Contracts.NewContract
 		public ICommand ProposeCommand { get; }
 
 		/// <summary>
+		/// See <see cref="IsProposing"/>
+		/// </summary>
+		public static readonly BindableProperty IsProposingProperty =
+			BindableProperty.Create(nameof(IsProposing), typeof(bool), typeof(NewContractViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the user is proposing the contract at the current time.
+		/// </summary>
+		public bool IsProposing
+		{
+			get => (bool)this.GetValue(IsProposingProperty);
+			set
+			{
+				this.SetValue(IsProposingProperty, value);
+				this.EvaluateCommands(this.ProposeCommand);
+			}
+		}
+
+		/// <summary>
 		/// See <see cref="IsTemplate"/>
 		/// </summary>
 		public static readonly BindableProperty IsTemplateProperty =
@@ -851,6 +870,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			int Min = 0;
 			int Max = 0;
 
+			this.IsProposing = true;
 			try
 			{
 				if (this.Roles is not null)
@@ -992,6 +1012,8 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 			finally
 			{
+				this.IsProposing = false;
+
 				if (Created is not null)
 				{
 					await this.NavigationService.GoToAsync(nameof(ViewContractPage),
@@ -1289,7 +1311,10 @@ namespace IdApp.Pages.Contracts.NewContract
 
 		private bool CanPropose()
 		{
-			return this.template is not null && this.ParametersOk;
+			return
+				this.template is not null &&
+				this.ParametersOk &&
+				!this.IsProposing;
 		}
 
 		private async void CalcButton_Clicked(object Sender, EventArgs e)
