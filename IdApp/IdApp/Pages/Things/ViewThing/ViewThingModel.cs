@@ -701,7 +701,7 @@ namespace IdApp.Pages.Things.ViewThing
 		{
 			try
 			{
-				string SelectedLanguage = Preferences.Get("user_selected_language", null);
+				string SelectedLanguage = App.SelectedLanguage;
 
 				if (string.IsNullOrEmpty(this.thing.NodeId) && string.IsNullOrEmpty(this.thing.SourceId) && string.IsNullOrEmpty(this.thing.Partition))
 					this.XmppService.GetControlForm(this.GetFullJid(), SelectedLanguage, this.ControlFormCallback, null);

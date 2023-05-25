@@ -1198,7 +1198,7 @@
     <value>Dobavljač usluga je izabran da bude</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Možete odabrati da kreirate nalog kod ovog dobavljača. Unesite ime naloga koji želite da kreirate i pritisnite dugme Kreiraj novi. Takođe možete odabrati da skenirate pozivnicu ili šifru za prenos da biste koristili nalog koji je već pripremljen za vas, kod drugog dobavljača usluga. Kliknite na dugme "Skeniraj pozivnicu" da biste skenirali kôd pozivnice.</value>
+    <value>Možete odabrati da kreirate nalog kod ovog dobavljača. Unesite ime naloga koji želite da kreirate i pritisnite dugme Kreiraj novi. Takođe možete odabrati da skenirate pozivni kôd da biste izabrali drugog dobavljača usluga za svoj akumulatis. Ako skenirate šifru prenosa, možete koristiti nalog koji je već pripremljen za vas. Kliknite na dugme "Skeniraj pozivnicu" da biste skenirali poziv ili šifru prenosa.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
     <value>Povezivanje viewmodel {0} za {1}</value>
@@ -2330,5 +2330,8 @@
   </data>
   <data name="UnableToGetOptions" xml:space="preserve">
     <value>Nije moguće dobiti dostupne opcije.</value>
+  </data>
+  <data name="ServerDescription" xml:space="preserve">
+    <value>Opis dobavljača usluga</value>
   </data>
 </root>

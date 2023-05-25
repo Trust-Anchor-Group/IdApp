@@ -1198,7 +1198,7 @@
     <value>Votre fournisseur de services a été sélectionné pour être</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Vous pouvez choisir de créer un compte sur ce fournisseur. Entrez le nom du compte que vous souhaitez créer, puis appuyez sur le bouton Créer nouveau. Vous pouvez également choisir de scanner une invitation ou un code de transfert, d’utiliser un compte qui a déjà été préparé pour vous, sur un autre fournisseur de services. Cliquez sur le bouton Analyser l’invitation pour scanner un code d’invitation.</value>
+    <value>Vous pouvez choisir de créer un compte sur ce fournisseur. Entrez le nom du compte que vous souhaitez créer, puis appuyez sur le bouton Créer nouveau. Vous pouvez également choisir de scanner un code d’invitation pour sélectionner un autre fournisseur de services pour votre compte. Si vous scannez un code de transfert, vous pouvez utiliser un compte qui a déjà été préparé pour vous. Cliquez sur le bouton Analyser l’invitation pour scanner une invitation ou un code de transfert.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
     <value>Impossible de lier le {0} viewmodel pour la page {1}</value>
@@ -2330,5 +2330,8 @@
   </data>
   <data name="UnableToGetOptions" xml:space="preserve">
     <value>Impossible d’obtenir les options disponibles.</value>
+  </data>
+  <data name="ServerDescription" xml:space="preserve">
+    <value>Description par fournisseur de services</value>
   </data>
 </root>

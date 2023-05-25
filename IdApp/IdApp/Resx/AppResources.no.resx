@@ -1198,7 +1198,7 @@
     <value>Tjenesteleverandøren din er valgt til å være</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Du kan velge å opprette en konto hos denne leverandøren. Skriv inn navnet på kontoen du vil opprette, og trykk på Opprett ny-knappen. Du kan også velge å skanne en invitasjon eller overføringskode, for å bruke en konto som allerede er klargjort for deg, hos en annen tjenesteleverandør. Klikk på Skann invitasjon-knappen for å skanne en invitasjonskode.</value>
+    <value>Du kan velge å opprette en konto hos denne leverandøren. Skriv inn navnet på kontoen du vil opprette, og trykk på Opprett ny-knappen. Du kan også velge å skanne en invitasjonskode for å velge en annen tjenesteleverandør for din accout. Hvis du skanner en overføringskode, kan du bruke en konto som allerede er klargjort for deg. Klikk på Skann invitasjon-knappen for å skanne en invitasjon eller overføringskode.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
     <value>Kan ikke binde visningsmodell {0} for side{1}</value>
@@ -2330,5 +2330,8 @@
   </data>
   <data name="UnableToGetOptions" xml:space="preserve">
     <value>Kan ikke få tilgjengelige alternativer.</value>
+  </data>
+  <data name="ServerDescription" xml:space="preserve">
+    <value>Beskrivelse av tjenesteleverandør</value>
   </data>
 </root>

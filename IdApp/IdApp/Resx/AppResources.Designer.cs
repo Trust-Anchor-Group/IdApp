@@ -5002,6 +5002,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description by Service Provider.
+        /// </summary>
+        internal static string ServerDescription {
+            get {
+                return ResourceManager.GetString("ServerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The server does not seem to support File Uploading..
         /// </summary>
         internal static string ServerDoesNotSupportFileUpload {
@@ -5560,7 +5569,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Scan Invitation button to scan an invitation code..
+        ///   Looks up a localized string similar to You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation code, to select another service provider for your accout. If you scan a transfer code, you can use an account that has already been prepared for you. Click the Scan Invitation button to scan an invitation or transfer code..
         /// </summary>
         internal static string ToConnectToDomainYouNeedAnAccount2 {
             get {

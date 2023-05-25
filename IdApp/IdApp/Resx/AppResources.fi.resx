@@ -1198,7 +1198,7 @@
     <value>Palveluntarjoajasi on valittu</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Voit halutessasi luoda tilin tälle palveluntarjoajalle. Kirjoita sen tilin nimi, jonka haluat luoda, ja paina Luo uusi -painiketta. Voit myös skannata kutsun tai siirtokoodin käyttääksesi tiliä, joka on jo valmisteltu sinulle, toisella palveluntarjoajalla. Napsauta Skannauskutsu-painiketta skannataksesi kutsukoodin.</value>
+    <value>Voit halutessasi luoda tilin tälle palveluntarjoajalle. Kirjoita luotavan tilin nimi ja paina Luo uusi -painiketta. Voit myös skannata kutsukoodin valitaksesi toisen palveluntarjoajan tilillesi. Jos skannaat siirtokoodin, voit käyttää tiliä, joka on jo valmisteltu sinulle. Napsauta Skannaa kutsu -painiketta skannataksesi kutsun tai siirtääksesi koodin.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
     <value>Viewmodel-{0} sitominen sivulle {1} epäonnistui</value>
@@ -2330,5 +2330,8 @@
   </data>
   <data name="UnableToGetOptions" xml:space="preserve">
     <value>Käytettävissä olevia vaihtoehtoja ei voi saada.</value>
+  </data>
+  <data name="ServerDescription" xml:space="preserve">
+    <value>Kuvaus palveluntarjoajan mukaan</value>
   </data>
 </root>

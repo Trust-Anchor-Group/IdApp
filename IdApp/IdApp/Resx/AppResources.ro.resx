@@ -1198,7 +1198,7 @@
     <value>Furnizorul dumneavoastră de servicii a fost selectat pentru a fi</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Puteți alege să creați un cont pe acest furnizor. Introduceți numele contului pe care doriți să îl creați și apăsați butonul Creare nou. De asemenea, puteți alege să scanați o invitație sau un cod de transfer, pentru a utiliza un cont care a fost deja pregătit pentru dvs., pe un alt furnizor de servicii. Faceți clic pe butonul Scanare invitație pentru a scana un cod de invitație.</value>
+    <value>Puteți alege să creați un cont pe acest furnizor. Introduceți numele contului pe care doriți să îl creați și apăsați butonul Creare nou. De asemenea, puteți alege să scanați un cod de invitație, pentru a selecta un alt furnizor de servicii pentru accout-ul dvs. Dacă scanați un cod de transfer, puteți utiliza un cont care a fost deja pregătit pentru dvs. Faceți clic pe butonul Scanare invitație pentru a scana o invitație sau un cod de transfer.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
     <value>Nu a reușit să se lege {0} viewmodel pentru {1} de pagină</value>
@@ -2330,5 +2330,8 @@
   </data>
   <data name="UnableToGetOptions" xml:space="preserve">
     <value>Imposibil de obținut opțiuni disponibile.</value>
+  </data>
+  <data name="ServerDescription" xml:space="preserve">
+    <value>Descrierea de către furnizorul de servicii</value>
   </data>
 </root>

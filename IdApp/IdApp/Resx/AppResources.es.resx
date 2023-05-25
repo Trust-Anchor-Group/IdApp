@@ -1198,7 +1198,7 @@
     <value>Su proveedor de servicios ha sido seleccionado para ser</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Puede optar por crear una cuenta en este proveedor. Introduzca el nombre de la cuenta que desea crear y pulse el botón Crear nuevo. También puede optar por escanear una invitación o transferir código, para usar una cuenta que ya ha sido preparada para usted, en otro proveedor de servicios. Haga clic en el botón Escanear invitación para escanear un código de invitación.</value>
+    <value>Puede optar por crear una cuenta en este proveedor. Introduzca el nombre de la cuenta que desea crear y pulse el botón Crear nuevo. También puede optar por escanear un código de invitación, para seleccionar otro proveedor de servicios para su cuenta. Si escanea un código de transferencia, puede usar una cuenta que ya haya sido preparada para usted. Haga clic en el botón Escanear invitación para escanear una invitación o transferir código.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
     <value>Error al enlazar el {0} viewmodel para la página {1}</value>
@@ -2330,5 +2330,8 @@
   </data>
   <data name="UnableToGetOptions" xml:space="preserve">
     <value>No se pueden obtener las opciones disponibles.</value>
+  </data>
+  <data name="ServerDescription" xml:space="preserve">
+    <value>Descripción por proveedor de servicios</value>
   </data>
 </root>

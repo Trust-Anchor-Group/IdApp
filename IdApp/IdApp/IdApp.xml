@@ -35,6 +35,11 @@
             and when its internal systems are ready. For example, the loading stage of the app must complete.
             </remarks>
         </member>
+        <member name="P:IdApp.App.SelectedLanguage">
+            <summary>
+            Selected language.
+            </summary>
+        </member>
         <member name="M:IdApp.App.Instantiate``1">
             <summary>
             Instantiates an object of type <typeparamref name="T"/>, after assuring default instances have been created first.
@@ -10348,6 +10353,46 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DomainName">
+            <summary>
+            The localized intro text to display to the user for explaining what 'choose account' is for.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.LocalizedNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.LocalizedName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.LocalizedName">
+            <summary>
+            The localized intro text to display to the user for explaining what 'choose account' is for.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.LocalizedDescriptionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.LocalizedDescription"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.LocalizedDescription">
+            <summary>
+            The localized intro text to display to the user for explaining what 'choose account' is for.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.HasLocalizedNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.HasLocalizedName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.HasLocalizedName">
+            <summary>
+            The localized intro text to display to the user for explaining what 'choose account' is for.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.HasLocalizedDescriptionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.HasLocalizedDescription"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.HasLocalizedDescription">
             <summary>
             The localized intro text to display to the user for explaining what 'choose account' is for.
             </summary>
@@ -21218,6 +21263,11 @@
               Looks up a localized string similar to Serial Number.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ServerDescription">
+            <summary>
+              Looks up a localized string similar to Description by Service Provider.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ServerDoesNotSupportFileUpload">
             <summary>
               Looks up a localized string similar to The server does not seem to support File Uploading..
@@ -21530,7 +21580,7 @@
         </member>
         <member name="P:IdApp.Resx.AppResources.ToConnectToDomainYouNeedAnAccount2">
             <summary>
-              Looks up a localized string similar to You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Scan Invitation button to scan an invitation code..
+              Looks up a localized string similar to You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation code, to select another service provider for your accout. If you scan a transfer code, you can use an account that has already been prepared for you. Click the Scan Invitation button to scan an invitation or transfer code..
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.ToDevice">

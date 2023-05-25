@@ -5,39 +5,61 @@
                                    xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
                                    xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                                    xmlns:model="clr-namespace:IdApp.Pages.Registration.ChooseAccount;assembly=IdApp"
+                                   xmlns:conv="clr-namespace:IdApp.Converters;assembly=IdApp"
                                    x:DataType="model:ChooseAccountViewModel"
                                    x:Class="IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
 	<noBounce:NoBounceScrollView>
-		<Grid RowSpacing="12" RowDefinitions="*,auto,auto,auto,auto"
+		<Grid RowSpacing="12" RowDefinitions="auto,auto,auto,auto,auto,auto,auto"
               Margin="{StaticResource DefaultMargin}">
 
-			<Label FontSize="Body" Grid.Row="0">
+			<Label FontSize="Body" Grid.Row="0" IsVisible="{Binding HasLocalizedName}">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="{x:Static resx:AppResources.ToConnectToDomainYouNeedAnAccount1}"/>
-                        <Span Text=" "/>
-                        <Span Text="{Binding Path=DomainName}" FontAttributes="Bold"/>
-                        <Span Text=". "/>
+						<Span Text=" "/>
+						<Span Text="{Binding Path=LocalizedName}" FontAttributes="Bold"/>
+						<Span Text=" ("/>
+						<Span Text="{Binding Path=DomainName}"/>
+						<Span Text=")"/>
+						<Span Text=". "/>
                         <Span Text="{x:Static resx:AppResources.ToConnectToDomainYouNeedAnAccount2}"/>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
 
-            <ActivityIndicator Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center"
+			<Label FontSize="Body" Grid.Row="0" IsVisible="{Binding HasLocalizedName, Converter={conv:LogicalNot}}">
+				<Label.FormattedText>
+					<FormattedString>
+						<Span Text="{x:Static resx:AppResources.ToConnectToDomainYouNeedAnAccount1}"/>
+						<Span Text=" "/>
+						<Span Text="{Binding Path=DomainName}" FontAttributes="Bold"/>
+						<Span Text=". "/>
+						<Span Text="{x:Static resx:AppResources.ToConnectToDomainYouNeedAnAccount2}"/>
+					</FormattedString>
+				</Label.FormattedText>
+			</Label>
+
+			<Label FontSize="Large" Grid.Row="1" IsVisible="{Binding HasLocalizedDescription}"
+				   Text="{x:Static resx:AppResources.ServerDescription}"/>
+
+			<Label FontSize="Body" Grid.Row="2" IsVisible="{Binding HasLocalizedDescription}"
+				   Text="{Binding LocalizedDescription}"/>
+
+			<ActivityIndicator Grid.Row="3" VerticalOptions="Center" HorizontalOptions="Center"
                                IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}"
                                Style="{StaticResource AccentIndicator}"/>
 
-            <StackLayout Grid.Row="2">
+            <StackLayout Grid.Row="4">
                 <Label Text="{x:Static resx:AppResources.Account}" FontSize="Body"/>
                 <Entry Text="{Binding Path=AccountName}" Keyboard="Email" ReturnType="Done"
                        TextChanged="AccountNameTextChanged"/>
             </StackLayout>
 
-            <Button Grid.Row="3"
+            <Button Grid.Row="5"
                     Text="{x:Static resx:AppResources.CreateAccount}"
                     Command="{Binding Path=CreateNewCommand}" />
 
-            <Button Grid.Row="4"
+            <Button Grid.Row="6"
                     Text="{x:Static resx:AppResources.ScanInvitation}"
                     Command="{Binding Path=ScanQrCodeCommand}" />
         </Grid>

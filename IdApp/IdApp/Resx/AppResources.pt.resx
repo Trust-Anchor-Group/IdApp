@@ -1198,7 +1198,7 @@
     <value>Seu provedor de serviços foi selecionado para ser</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Você pode optar por criar uma conta neste provedor. Digite o nome da conta que deseja criar e pressione o botão Criar novo. Você também pode optar por digitalizar um convite ou código de transferência, para usar uma conta que já foi preparada para você, em outro provedor de serviços. Clique no botão 'Procurar' para digitalizar um código de convite.</value>
+    <value>Você pode optar por criar uma conta nesse provedor. Digite o nome da conta que você deseja criar e pressione o botão Criar Novo. Você também pode optar por digitalizar um código de convite para selecionar outro provedor de serviços para sua acessibilidade. Se você digitalizar um código de transferência, poderá usar uma conta que já tenha sido preparada para você. Clique no botão Digitalizar convite para digitalizar um convite ou código de transferência.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
     <value>Falha ao vincular {0} de modelo de exibição para {1} de página</value>
@@ -2330,5 +2330,8 @@
   </data>
   <data name="UnableToGetOptions" xml:space="preserve">
     <value>Não é possível obter opções disponíveis.</value>
+  </data>
+  <data name="ServerDescription" xml:space="preserve">
+    <value>Descrição por provedor de serviços</value>
   </data>
 </root>

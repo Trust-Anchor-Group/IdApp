@@ -39,8 +39,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		protected override async Task OnInitialize()
 		{
 			await base.OnInitialize();
+			await this.SetDomainName();
 
-			this.DomainName = this.TagProfile.Domain;
 			this.TagProfile.Changed += this.TagProfile_Changed;
 		}
 
@@ -54,10 +54,61 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			if (this.DomainName != this.TagProfile.Domain)
 			{
-				this.DomainName = this.TagProfile.Domain;
-			});
+				this.UiSerializer.BeginInvokeOnMainThread(async () =>
+				{
+					try
+					{
+						await this.SetDomainName();
+					}
+					catch (Exception ex)
+					{
+						this.LogService.LogException(ex);
+					}
+				});
+			}
+		}
+
+		private async Task SetDomainName()
+		{
+			this.DomainName = this.TagProfile.Domain;
+
+			try
+			{
+				Uri DomainInfo = new("https://" + this.DomainName + "/Agent/Account/DomainInfo");
+
+				string AcceptLanguage = App.SelectedLanguage;
+				if (AcceptLanguage != "en")
+					AcceptLanguage += ";q=1,en;q=0.9";
+
+				object Obj = await InternetContent.GetAsync(DomainInfo,
+					new KeyValuePair<string, string>("Accept", "application/json"),
+					new KeyValuePair<string, string>("Accept-Language", AcceptLanguage));
+
+				if (Obj is Dictionary<string, object> Response)
+				{
+					if (Response.TryGetValue("humanReadableName", out Obj) && Obj is string LocalizedName)
+						this.LocalizedName = LocalizedName;
+					else
+						this.LocalizedName = string.Empty;
+
+					if (Response.TryGetValue("humanReadableDescription", out Obj) && Obj is string LocalizedDescription)
+						this.LocalizedDescription = LocalizedDescription;
+					else
+						this.LocalizedDescription = string.Empty;
+				}
+				else
+				{
+					this.LocalizedName = string.Empty;
+					this.LocalizedDescription = string.Empty;
+				}
+			}
+			catch (Exception)
+			{
+				this.LocalizedName = string.Empty;
+				this.LocalizedDescription = string.Empty;
+			}
 		}
 
 		#region Properties
@@ -75,6 +126,74 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		{
 			get => (string)this.GetValue(DomainNameProperty);
 			set => this.SetValue(DomainNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="LocalizedName"/>
+		/// </summary>
+		public static readonly BindableProperty LocalizedNameProperty =
+			BindableProperty.Create(nameof(LocalizedName), typeof(string), typeof(ChooseAccountViewModel), default(string));
+
+		/// <summary>
+		/// The localized intro text to display to the user for explaining what 'choose account' is for.
+		/// </summary>
+		public string LocalizedName
+		{
+			get => (string)this.GetValue(LocalizedNameProperty);
+			set
+			{
+				this.SetValue(LocalizedNameProperty, value);
+				this.HasLocalizedName = !string.IsNullOrEmpty(value);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="LocalizedDescription"/>
+		/// </summary>
+		public static readonly BindableProperty LocalizedDescriptionProperty =
+			BindableProperty.Create(nameof(LocalizedDescription), typeof(string), typeof(ChooseAccountViewModel), default(string));
+
+		/// <summary>
+		/// The localized intro text to display to the user for explaining what 'choose account' is for.
+		/// </summary>
+		public string LocalizedDescription
+		{
+			get => (string)this.GetValue(LocalizedDescriptionProperty);
+			set
+			{
+				this.SetValue(LocalizedDescriptionProperty, value);
+				this.HasLocalizedDescription = !string.IsNullOrEmpty(value);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="HasLocalizedName"/>
+		/// </summary>
+		public static readonly BindableProperty HasLocalizedNameProperty =
+			BindableProperty.Create(nameof(HasLocalizedName), typeof(bool), typeof(ChooseAccountViewModel), default(bool));
+
+		/// <summary>
+		/// The localized intro text to display to the user for explaining what 'choose account' is for.
+		/// </summary>
+		public bool HasLocalizedName
+		{
+			get => (bool)this.GetValue(HasLocalizedNameProperty);
+			set => this.SetValue(HasLocalizedNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasLocalizedDescription"/>
+		/// </summary>
+		public static readonly BindableProperty HasLocalizedDescriptionProperty =
+			BindableProperty.Create(nameof(HasLocalizedDescription), typeof(bool), typeof(ChooseAccountViewModel), default(bool));
+
+		/// <summary>
+		/// The localized intro text to display to the user for explaining what 'choose account' is for.
+		/// </summary>
+		public bool HasLocalizedDescription
+		{
+			get => (bool)this.GetValue(HasLocalizedDescriptionProperty);
+			set => this.SetValue(HasLocalizedDescriptionProperty, value);
 		}
 
 		/// <summary>

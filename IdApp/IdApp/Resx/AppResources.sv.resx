@@ -1435,7 +1435,7 @@
     <value>Den tjänsteleverantör som har valts åt dig är</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Du kan välja att skapa ett konto hos denna leverantör. Skriv in namnet på kontot du skulle vilja använda, och tryck på Skapa Nytt-knappen. Du kan också välja att skanna en inbjudan eller överföringskod, för att använda ett konto som har förberetts åt dig, hos en annan tjänsteleverantör. Klicka på knappen för att skanna inbjudan, för att scanna en inbjudnings- eller överföringskod.</value>
+    <value>Du kan välja att skapa ett konto hos denna leverantör. Skriv in namnet på kontot du skulle vilja använda, och tryck på Skapa Nytt-knappen. Du kan också välja att skanna en inbjudningskod, för att välja en annan tjänsteleverantör för ditt konto. Om du skannar en överföringskod kan du använda ett konto som har förberetts åt dig. Klicka på knappen för att skanna inbjudan, för att scanna en inbjudnings- eller överföringskod.</value>
   </data>
   <data name="TokenAdded" xml:space="preserve">
     <value>En token har lagts till din plånbok.</value>
@@ -2309,5 +2309,8 @@
   </data>
   <data name="UnableToGetOptions" xml:space="preserve">
     <value>Kunde inte hämta tillgängliga alternativ.</value>
+  </data>
+  <data name="ServerDescription" xml:space="preserve">
+    <value>Tjänsteleverantörens beskrivning</value>
   </data>
 </root>

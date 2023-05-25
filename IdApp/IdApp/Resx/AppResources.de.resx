@@ -1198,7 +1198,7 @@
     <value>Ihr Dienstanbieter wurde als</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Sie können ein Konto bei diesem Anbieter erstellen. Geben Sie den Namen des Kontos ein, das Sie erstellen möchten, und klicken Sie auf die Schaltfläche Neu erstellen. Sie können auch einen Einladungs- oder Überweisungscode scannen, um ein Konto zu verwenden, das bereits für Sie bei einem anderen Dienstanbieter erstellt wurde. Klicken Sie auf die Schaltfläche Einladung scannen, um einen Einladungscode zu scannen.</value>
+    <value>Sie können ein Konto bei diesem Anbieter erstellen. Geben Sie den Namen des Kontos ein, das Sie erstellen möchten, und klicken Sie auf die Schaltfläche Neu erstellen. Sie können auch einen Einladungscode scannen, um einen anderen Dienstanbieter für Ihr Konto auszuwählen. Wenn Sie einen Überweisungscode scannen, können Sie ein Konto verwenden, das bereits für Sie vorbereitet wurde. Klicken Sie auf die Schaltfläche Einladung scannen, um eine Einladung oder einen Überweisungscode zu scannen.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
     <value>Viewmodel-{0} für Seite {1} konnte nicht gebunden werden</value>
@@ -2330,5 +2330,8 @@
   </data>
   <data name="UnableToGetOptions" xml:space="preserve">
     <value>Verfügbare Optionen können nicht abgerufen werden.</value>
+  </data>
+  <data name="ServerDescription" xml:space="preserve">
+    <value>Beschreibung des Dienstleisters</value>
   </data>
 </root>
