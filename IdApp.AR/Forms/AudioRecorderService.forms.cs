@@ -5,17 +5,19 @@ namespace IdApp.AR
 {
 	public partial class AudioRecorderService
 	{
-		Task<string> GetDefaultFilePath ()
+		Task<string> GetDefaultFilePath()
 		{
-			return Task.FromResult(string.Empty);
+			throw new NotImplementedException();
 		}
 
 		void OnRecordingStarting ()
 		{
+			throw new NotImplementedException();
 		}
 
 		void OnRecordingStopped ()
 		{
+			 throw new NotImplementedException();
 		}
 	}
 }

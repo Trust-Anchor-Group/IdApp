@@ -1096,6 +1096,10 @@
             Resource where iPhone App can be downloaded.
             </summary>
         </member>
+        <member name="T:IdApp.Controls.AudioPlayerControl">
+            <summary>
+            </summary>
+        </member>
         <member name="M:IdApp.Controls.AudioPlayerControl.#ctor">
             <summary>
             </summary>
@@ -1129,11 +1133,15 @@
             <summary>
             </summary>
         </member>
-        <member name="P:IdApp.Controls.AudioPlayerControl.FilePath">
+        <member name="P:IdApp.Controls.AudioPlayerControl.AudioItem">
             <summary>
             </summary>
         </member>
         <member name="P:IdApp.Controls.AudioPlayerControl.IsLoaded">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.AudioPlayerControl.IsPlaying">
             <summary>
             </summary>
         </member>

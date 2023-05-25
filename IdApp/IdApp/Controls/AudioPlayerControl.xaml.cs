@@ -13,22 +13,23 @@ using Waher.Runtime.Temporary;
 using FFImageLoading;
 using System.Windows.Input;
 using IdApp.AR;
+using System.Diagnostics;
+using Xamarin.CommunityToolkit.Effects;
 
 namespace IdApp.Controls
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-
 	/// <summary>
 	/// </summary>
+	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AudioPlayerControl
 	{
 		/// <summary>
 		/// </summary>
 		public AudioPlayerControl()
 		{
-			this.InitializeComponent();
+			this.PauseResumeCommand = new Command(async _ => await this.ExecutePauseResume());
 
-			this.PauseResumeCommand = new Command(async _ => await this.ExecutePauseResume(), _ => this.CanExecutePauseResume());
+			this.InitializeComponent();
 		}
 
 		private static readonly Lazy<AudioPlayer> audioPlayer = new(() => {
@@ -54,7 +55,7 @@ namespace IdApp.Controls
 		private CancellationTokenSource cancellationTokenSource;
 		private TaskCompletionSource<bool> completionSource;
 		private readonly WeakEventManager weakEventManager = new();
-		private string filePath = null;
+		private AudioItem audioItem = null;
 
 		/// <summary>
 		/// </summary>
@@ -149,13 +150,14 @@ namespace IdApp.Controls
 
 		/// <summary>
 		/// </summary>
-		public string FilePath
+		public AudioItem AudioItem
 		{
-			get => this.filePath;
+			get => this.audioItem;
 			private set
 			{
-				this.filePath = value;
+				this.audioItem = value;
 				this.OnPropertyChanged(nameof(this.IsLoaded));
+				this.OnPropertyChanged(nameof(this.IsPlaying));
 			}
 		}
 
@@ -163,14 +165,14 @@ namespace IdApp.Controls
 		/// </summary>
 		public bool IsLoaded
 		{
-			get => !string.IsNullOrEmpty(this.FilePath);
+			get => this.AudioItem is not null;
 		}
 
 		void OnUriChanged()
 		{
 			this.CancellationTokenSource?.Cancel();
 			this.OnSourceChanged();
-			this.FilePath = null;
+			this.AudioItem = null;
 
 			Task.Run(async () => {
 				try
@@ -180,7 +182,7 @@ namespace IdApp.Controls
 
 					if (File.Exists(FullPath))
 					{
-						this.FilePath = FullPath;
+						this.AudioItem = new(FullPath);
 					}
 					else
 					{
@@ -192,7 +194,7 @@ namespace IdApp.Controls
 							await Stream.CopyToAsync(FileStream);
 							FileStream.Close();
 
-							this.FilePath = FullPath;
+							this.AudioItem = new(FullPath);
 						}
 					}
 				}
@@ -206,9 +208,14 @@ namespace IdApp.Controls
 			});
 		}
 
+		/// <summary>
+		/// </summary>
 		public bool IsPlaying
 		{
-			get { return false; }
+			get
+			{
+				return !this.IsLoaded;
+			}
 		}
 
 		/// <summary>
@@ -216,13 +223,10 @@ namespace IdApp.Controls
 		/// </summary>
 		public ICommand PauseResumeCommand { get; }
 
-		private bool CanExecutePauseResume()
-		{
-			return true; //  this.IsRecordingAudio && audioRecorder.Value.IsRecording;
-		}
-
 		private async Task ExecutePauseResume()
 		{
+			Debug.Write("Command: Running");
+			int i = 0;
 			await Task.CompletedTask;
 		}
 
@@ -334,6 +338,11 @@ namespace IdApp.Controls
 				sem.Release();
 				throw;
 			}
+		}
+
+		private void ImageButton_Clicked(object sender, EventArgs e)
+		{
+			int i = 0;
 		}
 	}
 }
