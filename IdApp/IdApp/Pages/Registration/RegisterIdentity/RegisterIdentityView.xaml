@@ -84,7 +84,9 @@
                 <!-- END HEADER -->
 
                 <StackLayout Orientation="Vertical">
-                    <StackLayout Orientation="Horizontal">
+					<Label Text="{x:Static resx:AppResources.PersonalInformation}"
+						   IsVisible="{Binding ShowOrganization}" FontSize="Large"/>
+					<StackLayout Orientation="Horizontal">
                         <Picker x:Name="CountryPicker" HorizontalOptions="FillAndExpand" Title="{x:Static resx:AppResources.Country}"
                                 ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry}"
                                 IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
@@ -200,6 +202,8 @@
                         </Entry>
                         <Label Text="*" TextColor="Transparent" VerticalOptions="Center"/>
                     </StackLayout>
+					<Label Text="{x:Static resx:AppResources.OrganizationInformation}"
+						   IsVisible="{Binding ShowOrganization}" FontSize="Large"/>
 					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
 						<Picker x:Name="OrgCountryPicker" HorizontalOptions="FillAndExpand" Title="{x:Static resx:AppResources.OrgCountry}"
                                 ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedOrgCountry}"

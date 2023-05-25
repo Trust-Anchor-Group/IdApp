@@ -20163,6 +20163,11 @@
               Looks up a localized string similar to Organization Address (row 2).
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.OrganizationInformation">
+            <summary>
+              Looks up a localized string similar to Organization Information.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.OrgArea">
             <summary>
               Looks up a localized string similar to Organization Area.
@@ -20376,6 +20381,11 @@
         <member name="P:IdApp.Resx.AppResources.PermitScreenCapture">
             <summary>
               Looks up a localized string similar to Permit Screen Capture.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PersonalInformation">
+            <summary>
+              Looks up a localized string similar to Personal Information.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PersonalLegalInformation">
