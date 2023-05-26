@@ -7,15 +7,7 @@ namespace IdApp.AR
 		public AudioItem(string path)
 		{
 			this.FilePath = path;
-
-			if (File.Exists(path))
-			{
-				Task.Run(() =>
-				{
-					this.ExtractMetadata();
-					MetadataRetrieved?.Invoke(this, EventArgs.Empty);
-				});
-			}
+			Task.Run(this.ExtractMetadata);
 		}
 
 		void ExtractMetadata()
@@ -33,6 +25,8 @@ namespace IdApp.AR
 			{
 				this.Duration = null;
 			}
+
+			MetadataRetrieved?.Invoke(this, EventArgs.Empty);
 		}
 
 		public event EventHandler? MetadataRetrieved;

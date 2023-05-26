@@ -1,4 +1,5 @@
 using AVFoundation;
+using Foundation;
 
 namespace IdApp.AR
 {
@@ -7,42 +8,35 @@ namespace IdApp.AR
 		public AudioItem(string path)
 		{
 			this.FilePath = path;
-
-			if (File.Exists(path))
-			{
-				Task.Run(() =>
-				{
-					this.ExtractMetadata();
-					MetadataRetrieved?.Invoke(this, EventArgs.Empty);
-				});
-			}
+			Task.Run(this.ExtractMetadata);
 		}
 
 		void ExtractMetadata()
 		{
-			/*
-			var asset = AVAsset.FromUrl(this.FilePath);
-			await asset.LoadValuesTaskAsync(assetsToLoad.ToArray()).ConfigureAwait(false);
-
-			var metadataDict = asset.CommonMetadata.ToDictionary(t => t.CommonKey, t => t);
-
-			if (string.IsNullOrEmpty(mediaItem.Album))
-				mediaItem.Album = metadataDict.GetValueOrDefault(AVMetadata.CommonKeyAlbumName)?.Value.ToString();
-
-			MediaMetadataRetriever Retriever = new();
-			Retriever.SetDataSource(this.FilePath);
-
-			string DurationString = Retriever.ExtractMetadata(MetadataKey.Duration) ?? "";
-
-			if (!string.IsNullOrEmpty(DurationString) && long.TryParse(DurationString, out long durationMS))
+			try
 			{
-				this.Duration = TimeSpan.FromMilliseconds(durationMS);
+				AVAsset Asset = AVAsset.FromUrl(new NSUrl(this.FilePath ?? string.Empty));
+				this.Duration = TimeSpan.FromSeconds(Asset.Duration.Seconds);
+
+				AVAssetReader AssetReader = new(Asset, out NSError Error);
+				var Duration = AssetReader.Asset.Duration.Value;
+				var Timescale = AssetReader.Asset.Duration.TimeScale;
+				var TotalDuration = Duration / Timescale;
+
+				/*
+				await asset.LoadValuesTaskAsync(assetsToLoad.ToArray()).ConfigureAwait(false);
+
+				Dictionary<string?, AVMetadataItem> metadataDict = asset.CommonMetadata.ToDictionary(t => t.CommonKey, t => t);
+
+				if (string.IsNullOrEmpty(mediaItem.Album))
+					mediaItem.Album = metadataDict.GetValueOrDefault(AVMetadata.CommonKeyAlbumName)?.Value.ToString();
+				*/
+
+				MetadataRetrieved?.Invoke(this, EventArgs.Empty);
 			}
-			else
+			catch (Exception ex)
 			{
-				this.Duration = null;
 			}
-			*/
 		}
 
 		public event EventHandler? MetadataRetrieved;

@@ -14,7 +14,6 @@ using FFImageLoading;
 using System.Windows.Input;
 using IdApp.AR;
 using System.Diagnostics;
-using Xamarin.CommunityToolkit.Effects;
 
 namespace IdApp.Controls
 {
