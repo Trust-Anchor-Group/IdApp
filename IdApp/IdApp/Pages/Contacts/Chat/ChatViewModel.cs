@@ -1029,7 +1029,7 @@ namespace IdApp.Pages.Contacts.Chat
 				StringBuilder Markdown = new();
 
 				Markdown.Append("```");
-				Markdown.AppendLine(Constants.UriSchemes.UriSchemeIotId);
+				Markdown.AppendLine(Constants.UriSchemes.IotId);
 
 				Contact.LegalIdentity.Serialize(Markdown, true, true, true, true, true, true, true);
 
@@ -1079,7 +1079,7 @@ namespace IdApp.Pages.Contacts.Chat
 			StringBuilder Markdown = new();
 
 			Markdown.Append("```");
-			Markdown.AppendLine(Constants.UriSchemes.UriSchemeIotSc);
+			Markdown.AppendLine(Constants.UriSchemes.IotSc);
 
 			Contract.Serialize(Markdown, true, true, true, true, true, true, true);
 
@@ -1448,7 +1448,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <summary>
 		/// Link to the current view
 		/// </summary>
-		public string Link => Constants.UriSchemes.UriSchemeXmpp + ":" + this.BareJid;
+		public string Link => Constants.UriSchemes.Xmpp + ":" + this.BareJid;
 
 		/// <summary>
 		/// Title of the current view

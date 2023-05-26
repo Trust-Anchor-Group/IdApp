@@ -150,17 +150,17 @@ namespace IdApp.Services.UI.QR
 
 			switch (UriScheme)
 			{
-				case Constants.UriSchemes.UriSchemeTagSign:
+				case Constants.UriSchemes.TagSign:
 					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
 					Rgba = M.ToRGBA(Width, Height, signatureCode.ColorFunction, true);
 					break;
 
-				case Constants.UriSchemes.UriSchemeIotId:
+				case Constants.UriSchemes.IotId:
 					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
 					Rgba = M.ToRGBA(Width, Height, userCode.ColorFunction, true);
 					break;
 
-				case Constants.UriSchemes.UriSchemeIotSc:
+				case Constants.UriSchemes.IotSc:
 					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
 					Rgba = M.ToRGBA(Width, Height, contractCode.ColorFunction, true);
 					break;
@@ -170,7 +170,7 @@ namespace IdApp.Services.UI.QR
 				//	Rgba = M.ToRGBA(Width, Height, thingsCode.ColorFunction, true);
 				//	break;
 
-				case Constants.UriSchemes.UriSchemeEDaler:
+				case Constants.UriSchemes.EDaler:
 					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
 					Rgba = M.ToRGBA(Width, Height, eDalerCode.ColorFunction, true);
 					break;
@@ -180,7 +180,7 @@ namespace IdApp.Services.UI.QR
 				//	Rgba = M.ToRGBA(Width, Height, tokenCode.ColorFunction, true);
 				//	break;
 
-				case Constants.UriSchemes.UriSchemeOnboarding:
+				case Constants.UriSchemes.Onboarding:
 					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
 					Rgba = M.ToRGBA(Width, Height, onboardingCode.ColorFunction, true);
 					break;

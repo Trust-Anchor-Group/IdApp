@@ -344,7 +344,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 			string Scheme = Constants.UriSchemes.GetScheme(URI);
 
-			if (string.Compare(Scheme, Constants.UriSchemes.UriSchemeOnboarding, true) != 0)
+			if (string.Compare(Scheme, Constants.UriSchemes.Onboarding, true) != 0)
 			{
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NotAnInvitationCode"], LocalizationResourceManager.Current["Ok"]);
 				return false;

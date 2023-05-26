@@ -138,7 +138,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			Output.WriteStartElement("TapGestureRecognizer");
 			Output.WriteAttributeString("Command", "{Binding Path=NeuroFeatureUriClicked}");
-			Output.WriteAttributeString("CommandParameter", Constants.UriSchemes.UriSchemeNeuroFeature + ":" + Token.ToXml());
+			Output.WriteAttributeString("CommandParameter", Constants.UriSchemes.NeuroFeature + ":" + Token.ToXml());
 			Output.WriteEndElement();
 
 			Output.WriteEndElement();
@@ -163,7 +163,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// <returns>Grade of support.</returns>
 		public Grade Supports(string Language)
 		{
-			return string.Compare(Language, Constants.UriSchemes.UriSchemeNeuroFeature, true) == 0 ? Grade.Excellent : Grade.NotAtAll;
+			return string.Compare(Language, Constants.UriSchemes.NeuroFeature, true) == 0 ? Grade.Excellent : Grade.NotAtAll;
 		}
 	}
 }

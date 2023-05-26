@@ -410,7 +410,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				{
 					if (Label == this.LegalId)
 					{
-						await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeIotId + ":" + this.LegalId);
+						await Clipboard.SetTextAsync(Constants.UriSchemes.IotId + ":" + this.LegalId);
 						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["IdCopiedSuccessfully"]);
 					}
 					else

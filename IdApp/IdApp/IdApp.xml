@@ -464,47 +464,47 @@
             IoT Schemes
             </summary>
         </member>
-        <member name="F:IdApp.Constants.UriSchemes.UriSchemeTagIdApp">
+        <member name="F:IdApp.Constants.UriSchemes.TagIdApp">
             <summary>
             The App's URI Scheme (tagidapp)
             </summary>
         </member>
-        <member name="F:IdApp.Constants.UriSchemes.UriSchemeIotId">
+        <member name="F:IdApp.Constants.UriSchemes.IotId">
             <summary>
             The IoT ID URI Scheme (iotid)
             </summary>
         </member>
-        <member name="F:IdApp.Constants.UriSchemes.UriSchemeIotDisco">
+        <member name="F:IdApp.Constants.UriSchemes.IotDisco">
             <summary>
             The IoT Discovery URI Scheme (iotdisco)
             </summary>
         </member>
-        <member name="F:IdApp.Constants.UriSchemes.UriSchemeIotSc">
+        <member name="F:IdApp.Constants.UriSchemes.IotSc">
             <summary>
             The IoT Smart Contract URI Scheme (iotsc)
             </summary>
         </member>
-        <member name="F:IdApp.Constants.UriSchemes.UriSchemeTagSign">
+        <member name="F:IdApp.Constants.UriSchemes.TagSign">
             <summary>
             TAG Signature (Quick-Login) URI Scheme (tagsign)
             </summary>
         </member>
-        <member name="F:IdApp.Constants.UriSchemes.UriSchemeEDaler">
+        <member name="F:IdApp.Constants.UriSchemes.EDaler">
             <summary>
             eDaler URI Scheme (edaler)
             </summary>
         </member>
-        <member name="F:IdApp.Constants.UriSchemes.UriSchemeNeuroFeature">
+        <member name="F:IdApp.Constants.UriSchemes.NeuroFeature">
             <summary>
             eDaler URI Scheme (edaler)
             </summary>
         </member>
-        <member name="F:IdApp.Constants.UriSchemes.UriSchemeOnboarding">
+        <member name="F:IdApp.Constants.UriSchemes.Onboarding">
             <summary>
             Onboarding URI Scheme (obinfo)
             </summary>
         </member>
-        <member name="F:IdApp.Constants.UriSchemes.UriSchemeXmpp">
+        <member name="F:IdApp.Constants.UriSchemes.Xmpp">
             <summary>
             XMPP URI Scheme (xmpp)
             </summary>

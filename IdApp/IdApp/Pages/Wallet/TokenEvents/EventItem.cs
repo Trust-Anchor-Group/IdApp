@@ -256,7 +256,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 					string Account = Source[..i];
 
 					if (Guid.TryParse(Account, out _))
-						Source = Constants.UriSchemes.UriSchemeIotId + ":" + Source;
+						Source = Constants.UriSchemes.IotId + ":" + Source;
 					else
 					{
 						ContactInfo Contact = await ContactInfo.FindByBareJid(Source);
