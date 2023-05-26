@@ -146,7 +146,7 @@ namespace IdApp.Services.UI.QR
 			byte[] Rgba;
 
 			int i = Text.IndexOf(':');
-			string UriScheme = i < 0 ? string.Empty : Text.Substring(0, i).ToLower();
+			string UriScheme = i < 0 ? string.Empty : Text[..i].ToLower();
 
 			switch (UriScheme)
 			{
