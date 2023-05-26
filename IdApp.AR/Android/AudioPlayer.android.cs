@@ -1,5 +1,6 @@
 using Android.Media;
 using System;
+using System.Diagnostics;
 
 namespace IdApp.AR
 {
@@ -57,7 +58,9 @@ namespace IdApp.AR
 
 				if (AudioItem is not null)
 				{
-					AudioItem.Position = AudioPlayer.GetPosition();
+					int Position = AudioPlayer.GetPosition();
+					Debug.Write("Position: " + Position);
+					AudioItem.Position = Position;
 				}
 			}
 		}
@@ -74,12 +77,18 @@ namespace IdApp.AR
 
 		public void Stop()
 		{
-			this.updateTimer = null;
+			if (this.updateTimer is not null)
+			{
+				this.updateTimer.Dispose();
+				this.updateTimer = null;
+			}
 
 			if (this.currentAudioItem is not null)
 			{
 				this.mediaPlayer?.Stop();
+				this.currentAudioItem.Position = this.GetPosition();
 				this.currentAudioItem.IsPlaying = false;
+				this.currentAudioItem = null;
 			}
 		}
 
@@ -88,6 +97,7 @@ namespace IdApp.AR
 			if (this.currentAudioItem is not null)
 			{
 				this.mediaPlayer?.Pause();
+				this.currentAudioItem.Position = this.GetPosition();
 				this.currentAudioItem.IsPlaying = false;
 			}
 		}
