@@ -1363,7 +1363,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				StringBuilder Url = new();
 				bool First = true;
 
-				Url.Append(Constants.UriSchemes.UriSchemeIotSc);
+				Url.Append(Constants.UriSchemes.IotSc);
 				Url.Append(':');
 				Url.Append(this.template.ContractId);
 

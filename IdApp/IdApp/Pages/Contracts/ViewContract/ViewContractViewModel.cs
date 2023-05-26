@@ -17,6 +17,7 @@ using IdApp.Services.UI.Photos;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -104,7 +105,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			try
 			{
 				Contract Contract = await this.XmppService.GetContract(ContractId);
-				
+
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await this.ContractUpdated(Contract));
 			}
 			catch (Exception ex)
@@ -487,25 +488,25 @@ namespace IdApp.Pages.Contracts.ViewContract
 		{
 			try
 			{
-				bool hasSigned = false;
-				bool acceptsSignatures =
+				bool HasSigned = false;
+				bool AcceptsSignatures =
 					(this.Contract.State == ContractState.Approved || this.Contract.State == ContractState.BeingSigned) &&
 					(!this.Contract.SignAfter.HasValue || this.Contract.SignAfter.Value < DateTime.Now) &&
 					(!this.Contract.SignBefore.HasValue || this.Contract.SignBefore.Value > DateTime.Now);
-				Dictionary<string, int> nrSignatures = new();
-				bool canObsolete = false;
+				Dictionary<string, int> NrSignatures = new();
+				bool CanObsolete = false;
 
 				if (this.Contract.ClientSignatures is not null)
 				{
 					foreach (Waher.Networking.XMPP.Contracts.ClientSignature signature in this.Contract.ClientSignatures)
 					{
 						if (signature.LegalId == this.TagProfile.LegalIdentity.Id)
-							hasSigned = true;
+							HasSigned = true;
 
-						if (!nrSignatures.TryGetValue(signature.Role, out int count))
+						if (!NrSignatures.TryGetValue(signature.Role, out int count))
 							count = 0;
 
-						nrSignatures[signature.Role] = count + 1;
+						NrSignatures[signature.Role] = count + 1;
 
 						if (string.Compare(signature.BareJid, this.XmppService.BareJid, true) == 0)
 						{
@@ -517,7 +518,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 									{
 										if (Role.CanRevoke)
 										{
-											canObsolete =
+											CanObsolete =
 												this.Contract.State == ContractState.Approved ||
 												this.Contract.State == ContractState.BeingSigned ||
 												this.Contract.State == ContractState.Signed;
@@ -532,6 +533,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				}
 
 				// General Information
+
 				this.GeneralInformation.Add(new PartModel(LocalizationResourceManager.Current["Created"], this.Contract.Created.ToString(CultureInfo.CurrentUICulture)));
 
 				if (this.Contract.Updated > DateTime.MinValue)
@@ -549,116 +551,146 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.GenerateQrCode(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId));
 
 				// Roles
+
 				if (this.Contract.Roles is not null)
 				{
-					StackLayout rolesLayout = new();
-					foreach (Role role in this.Contract.Roles)
+					StackLayout RolesLayout = new();
+
+					foreach (Role Role in this.Contract.Roles)
 					{
-						string html = await role.ToHTML(this.Contract.DeviceLanguage(), this.Contract);
-						html = Waher.Content.Html.HtmlDocument.GetBody(html);
+						string Html = await Role.ToHTML(this.Contract.DeviceLanguage(), this.Contract);
+						Html = Waher.Content.Html.HtmlDocument.GetBody(Html);
 
-						AddKeyValueLabelPair(rolesLayout, role.Name, html + GenerateMinMaxCountString(role.MinCount, role.MaxCount), true, string.Empty, null);
+						AddKeyValueLabelPair(RolesLayout, Role.Name, Html + GenerateMinMaxCountString(Role.MinCount, Role.MaxCount), true, string.Empty, null);
 
-						if (!this.isReadOnly && acceptsSignatures && !hasSigned && this.Contract.PartsMode == ContractParts.Open &&
-							(!nrSignatures.TryGetValue(role.Name, out int count) || count < role.MaxCount) &&
-							(!this.IsProposal || role.Name == this.Role))
+						if (!this.isReadOnly && AcceptsSignatures && !HasSigned && this.Contract.PartsMode == ContractParts.Open &&
+							(!NrSignatures.TryGetValue(Role.Name, out int count) || count < Role.MaxCount) &&
+							(!this.IsProposal || Role.Name == this.Role))
 						{
 							Button button = new()
 							{
-								Text = string.Format(LocalizationResourceManager.Current["SignAsRole"], role.Name),
-								StyleId = role.Name
+								Text = string.Format(LocalizationResourceManager.Current["SignAsRole"], Role.Name),
+								StyleId = Role.Name
 							};
 
 							button.Clicked += this.SignButton_Clicked;
-							rolesLayout.Children.Add(button);
+							RolesLayout.Children.Add(button);
 						}
 					}
-					this.Roles = rolesLayout;
+
+					this.Roles = RolesLayout;
 				}
 
 				// Parts
-				StackLayout partsLayout = new();
+
+				StackLayout PartsLayout = new();
+
 				if (this.Contract.SignAfter.HasValue)
-					AddKeyValueLabelPair(partsLayout, LocalizationResourceManager.Current["SignAfter"], this.Contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture));
+					AddKeyValueLabelPair(PartsLayout, LocalizationResourceManager.Current["SignAfter"], this.Contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture));
 
 				if (this.Contract.SignBefore.HasValue)
-					AddKeyValueLabelPair(partsLayout, LocalizationResourceManager.Current["SignBefore"], this.Contract.SignBefore.Value.ToString(CultureInfo.CurrentUICulture));
+					AddKeyValueLabelPair(PartsLayout, LocalizationResourceManager.Current["SignBefore"], this.Contract.SignBefore.Value.ToString(CultureInfo.CurrentUICulture));
 
-				AddKeyValueLabelPair(partsLayout, LocalizationResourceManager.Current["Mode"], this.Contract.PartsMode.ToString());
+				AddKeyValueLabelPair(PartsLayout, LocalizationResourceManager.Current["Mode"], this.Contract.PartsMode.ToString());
 
 				if (this.Contract.Parts is not null)
 				{
-					TapGestureRecognizer openLegalId = new();
-					openLegalId.Tapped += this.Part_Tapped;
+					TapGestureRecognizer OpenLegalId = new();
+					OpenLegalId.Tapped += this.Part_Tapped;
 
-					foreach (Part part in this.Contract.Parts)
+					foreach (Part Part in this.Contract.Parts)
 					{
-						AddKeyValueLabelPair(partsLayout, part.Role, part.LegalId, false, part.LegalId, openLegalId);
+						AddKeyValueLabelPair(PartsLayout, Part.Role, Part.LegalId, false, OpenLegalId);
 
-						if (!this.isReadOnly && acceptsSignatures && !hasSigned && part.LegalId == this.TagProfile.LegalIdentity.Id)
+						if (!this.isReadOnly && AcceptsSignatures && !HasSigned && Part.LegalId == this.TagProfile.LegalIdentity.Id)
 						{
-							Button button = new()
+							Button Button = new()
 							{
-								Text = string.Format(LocalizationResourceManager.Current["SignAsRole"], part.Role),
-								StyleId = part.Role
+								Text = string.Format(LocalizationResourceManager.Current["SignAsRole"], Part.Role),
+								StyleId = Part.Role
 							};
 
-							button.Clicked += this.SignButton_Clicked;
-							partsLayout.Children.Add(button);
+							Button.Clicked += this.SignButton_Clicked;
+							PartsLayout.Children.Add(Button);
 						}
 					}
 				}
-				this.Parts = partsLayout;
+
+				this.Parts = PartsLayout;
 
 				// Parameters
+
 				if (this.Contract.Parameters is not null)
 				{
-					StackLayout parametersLayout = new();
+					StackLayout ParametersLayout = new();
 
-					foreach (Parameter parameter in this.Contract.Parameters)
+					foreach (Parameter Parameter in this.Contract.Parameters)
 					{
-						if (parameter.ObjectValue is bool b)
-							AddKeyValueLabelPair(parametersLayout, parameter.Name, b ? "✔" : "✗");
+						if (Parameter.ObjectValue is bool b)
+							AddKeyValueLabelPair(ParametersLayout, Parameter.Name, b ? "✔" : "✗");
 						else
-							AddKeyValueLabelPair(parametersLayout, parameter.Name, parameter.ObjectValue?.ToString());
+							AddKeyValueLabelPair(ParametersLayout, Parameter.Name, Parameter.ObjectValue?.ToString());
 					}
 
-					this.Parameters = parametersLayout;
+					this.Parameters = ParametersLayout;
 				}
 
 				// Human readable text
-				StackLayout humanReadableTextLayout = new();
-				string xaml = await this.Contract.ToXamarinForms(this.Contract.DeviceLanguage());
-				StackLayout humanReadableXaml = new StackLayout().LoadFromXaml(xaml);
-				List<View> children = new();
-				children.AddRange(humanReadableXaml.Children);
-				foreach (View view in children)
+
+				StackLayout HumanReadableTextLayout = new();
+				string Xaml = await this.Contract.ToXamarinForms(this.Contract.DeviceLanguage());
+				StackLayout HumanReadableXaml = new StackLayout().LoadFromXaml(Xaml);
+
+				List<View> Children = new();
+				Children.AddRange(HumanReadableXaml.Children);
+
+				foreach (View View in Children)
 				{
-					if (view is ContentView)
+					if (View is ContentView)
 					{
-						foreach (Element innView in (view as ContentView).Children)
+						foreach (Element InnView in (View as ContentView).Children)
 						{
-							if (innView is Label)
+							if (InnView is Label)
 							{
-								(innView as Label).TextColor = (Color) (Application.Current.RequestedTheme == OSAppTheme.Dark ?
+								(InnView as Label).TextColor = (Color)(Application.Current.RequestedTheme == OSAppTheme.Dark ?
 								Application.Current.Resources["LabelTextColorDarkTheme"] : Application.Current.Resources["LabelTextColorLightTheme"]);
 							}
 						}
 					}
-					humanReadableTextLayout.Children.Add(view);
+
+					HumanReadableTextLayout.Children.Add(View);
 				}
-				this.HumanReadableText = humanReadableTextLayout;
+
+				this.HumanReadableText = HumanReadableTextLayout;
 
 				// Machine readable text
-				StackLayout machineReadableTextLayout = new();
-				AddKeyValueLabelPair(machineReadableTextLayout, LocalizationResourceManager.Current["ContractId"], this.Contract.ContractId);
+
+				TapGestureRecognizer OpenContractId = new();
+				OpenContractId.Tapped += this.ContractId_Tapped;
+
+				TapGestureRecognizer OpenLink = new();
+				OpenLink.Tapped += this.Link_Tapped;
+
+				TapGestureRecognizer CopyToClipboard = new();
+				CopyToClipboard.Tapped += this.CopyToClipboard_Tapped;
+
+				StackLayout MachineReadableTextLayout = new();
+				AddKeyValueLabelPair(MachineReadableTextLayout, LocalizationResourceManager.Current["ContractId"],
+					this.Contract.ContractId, false, Constants.UriSchemes.IotSc + ":" + this.Contract.ContractId,
+					CopyToClipboard);
+
 				if (!string.IsNullOrEmpty(this.Contract.TemplateId))
-					AddKeyValueLabelPair(machineReadableTextLayout, LocalizationResourceManager.Current["TemplateId"], this.Contract.TemplateId);
-				AddKeyValueLabelPair(machineReadableTextLayout, LocalizationResourceManager.Current["Digest"], Convert.ToBase64String(this.Contract.ContentSchemaDigest));
-				AddKeyValueLabelPair(machineReadableTextLayout, LocalizationResourceManager.Current["HashFunction"], this.Contract.ContentSchemaHashFunction.ToString());
-				AddKeyValueLabelPair(machineReadableTextLayout, LocalizationResourceManager.Current["LocalName"], this.Contract.ForMachinesLocalName);
-				AddKeyValueLabelPair(machineReadableTextLayout, LocalizationResourceManager.Current["Namespace"], this.Contract.ForMachinesNamespace);
-				this.MachineReadableText = machineReadableTextLayout;
+				{
+					AddKeyValueLabelPair(MachineReadableTextLayout, LocalizationResourceManager.Current["TemplateId"],
+						this.Contract.TemplateId, false, OpenContractId);
+				}
+
+				AddKeyValueLabelPair(MachineReadableTextLayout, LocalizationResourceManager.Current["Digest"], Convert.ToBase64String(this.Contract.ContentSchemaDigest), false, CopyToClipboard);
+				AddKeyValueLabelPair(MachineReadableTextLayout, LocalizationResourceManager.Current["HashFunction"], this.Contract.ContentSchemaHashFunction.ToString(), false, CopyToClipboard);
+				AddKeyValueLabelPair(MachineReadableTextLayout, LocalizationResourceManager.Current["LocalName"], this.Contract.ForMachinesLocalName, false, CopyToClipboard);
+				AddKeyValueLabelPair(MachineReadableTextLayout, LocalizationResourceManager.Current["Namespace"], this.Contract.ForMachinesNamespace, false, OpenLink);
+
+				this.MachineReadableText = MachineReadableTextLayout;
 
 				// Client signatures
 				if (this.Contract.ClientSignatures is not null)
@@ -669,9 +701,17 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 					foreach (Waher.Networking.XMPP.Contracts.ClientSignature signature in this.Contract.ClientSignatures)
 					{
-						string sign = Convert.ToBase64String(signature.DigitalSignature);
-						AddKeyValueLabelPair(clientSignaturesLayout, signature.Role, signature.LegalId + ", " + signature.BareJid + ", " +
-							signature.Timestamp.ToString(CultureInfo.CurrentUICulture) + ", " + sign, false, sign, openClientSignature);
+						string Sign = Convert.ToBase64String(signature.DigitalSignature);
+						StringBuilder sb = new();
+						sb.Append(signature.LegalId);
+						sb.Append(", ");
+						sb.Append(signature.BareJid);
+						sb.Append(", ");
+						sb.Append(signature.Timestamp.ToString(CultureInfo.CurrentUICulture));
+						sb.Append(", ");
+						sb.Append(Sign);
+
+						AddKeyValueLabelPair(clientSignaturesLayout, signature.Role, sb.ToString(), false, Sign, openClientSignature);
 					}
 
 					this.ClientSignatures = clientSignaturesLayout;
@@ -681,16 +721,21 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (this.Contract.ServerSignature is not null)
 				{
 					StackLayout serverSignaturesLayout = new();
+
 					TapGestureRecognizer openServerSignature = new();
 					openServerSignature.Tapped += this.ServerSignature_Tapped;
 
-					AddKeyValueLabelPair(serverSignaturesLayout, this.Contract.Provider, this.Contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture) + ", " +
-						Convert.ToBase64String(this.Contract.ServerSignature.DigitalSignature), false, this.Contract.ContractId, openServerSignature);
+					StringBuilder sb = new();
+					sb.Append(this.Contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture));
+					sb.Append(", ");
+					sb.Append(Convert.ToBase64String(this.Contract.ServerSignature.DigitalSignature));
+
+					AddKeyValueLabelPair(serverSignaturesLayout, this.Contract.Provider, sb.ToString(), false, this.Contract.ContractId, openServerSignature);
 					this.ServerSignatures = serverSignaturesLayout;
 				}
 
 				this.CanDeleteContract = !this.isReadOnly && !this.Contract.IsLegallyBinding(true);
-				this.CanObsoleteContract = this.CanDeleteContract || canObsolete;
+				this.CanObsoleteContract = this.CanDeleteContract || CanObsolete;
 
 				this.HasRoles = this.Roles?.Children.Count > 0;
 				this.HasParts = this.Parts?.Children.Count > 0;
@@ -727,42 +772,51 @@ namespace IdApp.Pages.Contracts.ViewContract
 			{
 				if (max == 1)
 					return string.Empty;
+
 				return " (" + max.ToString() + ")";
 			}
 
 			return " (" + min.ToString() + " - " + max.ToString() + ")";
 		}
 
-		private static void AddKeyValueLabelPair(StackLayout container, string key, string value)
+		private static void AddKeyValueLabelPair(StackLayout Container, string Key,
+			string Value)
 		{
-			AddKeyValueLabelPair(container, key, value, false, string.Empty, null);
+			AddKeyValueLabelPair(Container, Key, Value, false, string.Empty, null);
 		}
 
-		private static void AddKeyValueLabelPair(StackLayout container, string key, string value, bool isHtml, string styleId, TapGestureRecognizer tapGestureRecognizer)
+		private static void AddKeyValueLabelPair(StackLayout Container, string Key,
+			string Value, bool IsHtml, TapGestureRecognizer TapGestureRecognizer)
+		{
+			AddKeyValueLabelPair(Container, Key, Value, IsHtml, Value, TapGestureRecognizer);
+		}
+
+		private static void AddKeyValueLabelPair(StackLayout Container, string Key,
+			string Value, bool IsHtml, string StyleId, TapGestureRecognizer TapGestureRecognizer)
 		{
 			StackLayout layout = new()
 			{
 				Orientation = StackOrientation.Horizontal,
-				StyleId = styleId
+				StyleId = StyleId
 			};
 
-			container.Children.Add(layout);
+			Container.Children.Add(layout);
 
 			layout.Children.Add(new Label
 			{
-				Text = key + ":",
+				Text = Key + ":",
 				Style = (Style)Application.Current.Resources["KeyLabel"]
 			});
 
 			layout.Children.Add(new Label
 			{
-				Text = value,
-				TextType = isHtml ? TextType.Html : TextType.Text,
-				Style = (Style)Application.Current.Resources[isHtml ? "FormattedValueLabel" : tapGestureRecognizer is null ? "ValueLabel" : "ClickableValueLabel"]
+				Text = Value,
+				TextType = IsHtml ? TextType.Html : TextType.Text,
+				Style = (Style)Application.Current.Resources[IsHtml ? "FormattedValueLabel" : TapGestureRecognizer is null ? "ValueLabel" : "ClickableValueLabel"]
 			});
 
-			if (tapGestureRecognizer is not null)
-				layout.GestureRecognizers.Add(tapGestureRecognizer);
+			if (TapGestureRecognizer is not null)
+				layout.GestureRecognizers.Add(TapGestureRecognizer);
 		}
 
 		private async void SignButton_Clicked(object Sender, EventArgs e)
@@ -795,6 +849,51 @@ namespace IdApp.Pages.Contracts.ViewContract
 			{
 				if (Sender is StackLayout Layout && !string.IsNullOrEmpty(Layout.StyleId))
 					await this.ContractOrchestratorService.OpenLegalIdentity(Layout.StyleId, LocalizationResourceManager.Current["PurposeReviewContract"]);
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async void ContractId_Tapped(object Sender, EventArgs e)
+		{
+			try
+			{
+				if (Sender is StackLayout Layout && !string.IsNullOrEmpty(Layout.StyleId))
+					await this.ContractOrchestratorService.OpenContract(Layout.StyleId, LocalizationResourceManager.Current["PurposeReviewContract"], null);
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async void Link_Tapped(object Sender, EventArgs e)
+		{
+			try
+			{
+				if (Sender is StackLayout Layout && !string.IsNullOrEmpty(Layout.StyleId))
+					await App.OpenUrlAsync(Layout.StyleId);
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async void CopyToClipboard_Tapped(object Sender, EventArgs e)
+		{
+			try
+			{
+				if (Sender is StackLayout Layout && !string.IsNullOrEmpty(Layout.StyleId))
+				{
+					await Clipboard.SetTextAsync(Layout.StyleId);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
+				}
 			}
 			catch (Exception ex)
 			{

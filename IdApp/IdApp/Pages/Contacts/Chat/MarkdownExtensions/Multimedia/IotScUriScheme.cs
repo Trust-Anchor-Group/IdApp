@@ -26,7 +26,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		/// <inheritdoc/>
 		public override Grade Supports(MultimediaItem Item)
 		{
-			if (Item.Url.StartsWith(Constants.UriSchemes.UriSchemeIotSc + ":", StringComparison.OrdinalIgnoreCase))
+			if (Item.Url.StartsWith(Constants.UriSchemes.IotSc + ":", StringComparison.OrdinalIgnoreCase))
 				return Grade.Excellent;
 			else
 				return Grade.NotAtAll;

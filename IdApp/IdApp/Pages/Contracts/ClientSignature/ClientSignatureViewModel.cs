@@ -771,7 +771,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
 		/// <summary>
 		/// Link to the current view
 		/// </summary>
-		public string Link => Constants.UriSchemes.UriSchemeIotId + ":" + this.LegalId;
+		public string Link => Constants.UriSchemes.IotId + ":" + this.LegalId;
 
 		/// <summary>
 		/// Title of the current view

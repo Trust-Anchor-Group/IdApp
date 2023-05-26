@@ -62,47 +62,47 @@ namespace IdApp
 			/// <summary>
 			/// The App's URI Scheme (tagidapp)
 			/// </summary>
-			public const string UriSchemeTagIdApp = "tagidapp";
+			public const string TagIdApp = "tagidapp";
 
 			/// <summary>
 			/// The IoT ID URI Scheme (iotid)
 			/// </summary>
-			public const string UriSchemeIotId = "iotid";
+			public const string IotId = "iotid";
 
             /// <summary>
             /// The IoT Discovery URI Scheme (iotdisco)
             /// </summary>
-            public const string UriSchemeIotDisco = "iotdisco";
+            public const string IotDisco = "iotdisco";
 
             /// <summary>
             /// The IoT Smart Contract URI Scheme (iotsc)
             /// </summary>
-            public const string UriSchemeIotSc = "iotsc";
+            public const string IotSc = "iotsc";
 
             /// <summary>
             /// TAG Signature (Quick-Login) URI Scheme (tagsign)
             /// </summary>
-            public const string UriSchemeTagSign = "tagsign";
+            public const string TagSign = "tagsign";
 
             /// <summary>
             /// eDaler URI Scheme (edaler)
             /// </summary>
-            public const string UriSchemeEDaler = "edaler";
+            public const string EDaler = "edaler";
 
             /// <summary>
             /// eDaler URI Scheme (edaler)
             /// </summary>
-            public const string UriSchemeNeuroFeature = "nfeat";
+            public const string NeuroFeature = "nfeat";
 
             /// <summary>
             /// Onboarding URI Scheme (obinfo)
             /// </summary>
-            public const string UriSchemeOnboarding = "obinfo";
+            public const string Onboarding = "obinfo";
 
             /// <summary>
             /// XMPP URI Scheme (xmpp)
             /// </summary>
-            public const string UriSchemeXmpp = "xmpp";
+            public const string Xmpp = "xmpp";
 
 			/// <summary>
 			/// AES-256-encrypted data.
@@ -127,15 +127,15 @@ namespace IdApp
 
 				return Url switch
 				{
-					UriSchemeIotId or
-                    UriSchemeIotDisco or
-                    UriSchemeIotSc or
-                    UriSchemeTagSign or
-                    UriSchemeEDaler or
-                    UriSchemeNeuroFeature or
-                    UriSchemeOnboarding or
-                    UriSchemeXmpp or
-					UriSchemeTagIdApp => Url,
+					IotId or
+                    IotDisco or
+                    IotSc or
+                    TagSign or
+                    EDaler or
+                    NeuroFeature or
+                    Onboarding or
+                    Xmpp or
+					TagIdApp => Url,
 
 					_ => null,
 				};
@@ -149,7 +149,7 @@ namespace IdApp
             public static bool StartsWithIdScheme(string Url)
             {
                 return !string.IsNullOrWhiteSpace(Url) &&
-                       Url.StartsWith(UriSchemeIotId + ":", StringComparison.InvariantCultureIgnoreCase);
+                       Url.StartsWith(IotId + ":", StringComparison.InvariantCultureIgnoreCase);
             }
 
             /// <summary>
@@ -159,7 +159,7 @@ namespace IdApp
             /// <returns>Smart Contract URI</returns>
             public static string CreateSmartContractUri(string id)
             {
-                return UriSchemeIotSc + ":" + id;
+                return IotSc + ":" + id;
             }
 
             /// <summary>
@@ -169,7 +169,7 @@ namespace IdApp
             /// <returns>Identity URI</returns>
             public static string CreateIdUri(string id)
             {
-                return UriSchemeIotId + ":" + id;
+                return IotId + ":" + id;
             }
 
             /// <summary>
@@ -179,7 +179,7 @@ namespace IdApp
             /// <returns>Neuro-Feature URI</returns>
             public static string CreateTokenUri(string id)
             {
-                return UriSchemeNeuroFeature + ":" + id;
+                return NeuroFeature + ":" + id;
             }
 
             /// <summary>

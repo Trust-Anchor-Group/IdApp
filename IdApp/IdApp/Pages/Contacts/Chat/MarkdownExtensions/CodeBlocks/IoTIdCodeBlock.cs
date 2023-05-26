@@ -162,7 +162,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			Output.WriteStartElement("TapGestureRecognizer");
 			Output.WriteAttributeString("Command", "{Binding Path=IotIdUriClicked}");
-			Output.WriteAttributeString("CommandParameter", Constants.UriSchemes.UriSchemeIotId + ":" + Xml.ToString());
+			Output.WriteAttributeString("CommandParameter", Constants.UriSchemes.IotId + ":" + Xml.ToString());
 			Output.WriteEndElement();
 
 			Output.WriteEndElement();
@@ -187,7 +187,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// <returns>Grade of support.</returns>
 		public Grade Supports(string Language)
 		{
-			return string.Compare(Language, Constants.UriSchemes.UriSchemeIotId, true) == 0 ? Grade.Excellent : Grade.NotAtAll;
+			return string.Compare(Language, Constants.UriSchemes.IotId, true) == 0 ? Grade.Excellent : Grade.NotAtAll;
 		}
 	}
 }

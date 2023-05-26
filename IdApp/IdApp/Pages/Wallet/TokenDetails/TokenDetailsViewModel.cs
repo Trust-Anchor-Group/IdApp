@@ -1044,7 +1044,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 				if (i > 0 && Guid.TryParse(s[..i], out _))
 				{
-					await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeNeuroFeature + ":" + s);
+					await Clipboard.SetTextAsync(Constants.UriSchemes.NeuroFeature + ":" + s);
 					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["IdCopiedSuccessfully"]);
 				}
 				else
@@ -1176,7 +1176,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			StringBuilder Markdown = new();
 
 			Markdown.Append("```");
-			Markdown.AppendLine(Constants.UriSchemes.UriSchemeNeuroFeature);
+			Markdown.AppendLine(Constants.UriSchemes.NeuroFeature);
 			Markdown.AppendLine(this.TokenXml);
 			Markdown.AppendLine("```");
 

@@ -4053,7 +4053,7 @@ namespace IdApp.Services.Xmpp
 		private string GenerateTagIdUrl(params KeyValuePair<string, object>[] Claims)
 		{
 			string Token = this.CryptoService.GenerateJwtToken(Claims);
-			return Constants.UriSchemes.UriSchemeTagIdApp + ":" + Token;
+			return Constants.UriSchemes.TagIdApp + ":" + Token;
 		}
 
 		private async Task NeuroWallet_BuyEDalerClientUrlReceived(object Sender, BuyEDalerClientUrlEventArgs e)
