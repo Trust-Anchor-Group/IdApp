@@ -2,7 +2,9 @@ namespace IdApp.AR
 {
 	interface IAudioItem
 	{
-		event EventHandler? MetadataRetrieved;
+		void Initialise(string FilePath);
+
+		event EventHandler? ChangeUpdate;
 
 		bool IsPlaying { get; }
 		string FilePath { get; }

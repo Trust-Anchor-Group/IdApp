@@ -1146,10 +1146,6 @@
             <summary>
             </summary>
         </member>
-        <member name="P:IdApp.Controls.AudioPlayerControl.IsPlaying">
-            <summary>
-            </summary>
-        </member>
         <member name="P:IdApp.Controls.AudioPlayerControl.PauseResumeCommand">
             <summary>
             The command to bind for pausing/resuming the audio

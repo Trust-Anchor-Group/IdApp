@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using System.Text;
 
 namespace IdApp.AR
@@ -9,10 +7,10 @@ namespace IdApp.AR
 	/// </summary>
 	public static class AudioFunctions
 	{
-		static readonly float MAX_8_BITS_SIGNED = byte.MaxValue;
-		static readonly float MAX_8_BITS_UNSIGNED = 0xff;
-		static readonly float MAX_16_BITS_SIGNED = short.MaxValue;
-		static readonly float MAX_16_BITS_UNSIGNED = 0xffff;
+		static readonly float max8BitsSigned = byte.MaxValue;
+		static readonly float max8BitsUnsigned = 0xff;
+		static readonly float max16BitsSigned = short.MaxValue;
+		static readonly float max16BitsUnsigned = 0xffff;
 
 		/// <summary>
 		/// Writes a WAV file header using the specified details.
@@ -24,16 +22,14 @@ namespace IdApp.AR
 		/// <param name="audioLength">The length/byte count of the recorded audio, or -1 if recording is still in progress.</param>
 		public static void WriteWavHeader (Stream stream, int channelCount, int sampleRate, int bitsPerSample, int audioLength = -1)
 		{
-			using (var writer = new BinaryWriter (stream, Encoding.UTF8))
-			{
-				WriteWavHeader (writer, channelCount, sampleRate, bitsPerSample, audioLength);
-			}
+			using BinaryWriter writer = new(stream, Encoding.UTF8);
+			WriteWavHeader(writer, channelCount, sampleRate, bitsPerSample, audioLength);
 		}
 
 		internal static void WriteWavHeader (BinaryWriter writer, int channelCount, int sampleRate, int bitsPerSample, int audioLength = -1)
 		{
-			var blockAlign = (short) (channelCount * (bitsPerSample / 8));
-			var averageBytesPerSecond = sampleRate * blockAlign;
+			short blockAlign = (short) (channelCount * (bitsPerSample / 8));
+			int averageBytesPerSecond = sampleRate * blockAlign;
 
 			if (writer.BaseStream.CanSeek)
 			{
@@ -87,7 +83,8 @@ namespace IdApp.AR
 			{
 				for (int i = readPoint; i < buffer.Length - leftOver; i += 2)
 				{
-					int value = 0;
+					int value;
+
 					// deal with endianness
 					int hiByte = (bigEndian ? buffer [i] : buffer [i + 1]);
 					int loByte = (bigEndian ? buffer [i + 1] : buffer [i]);
@@ -110,7 +107,7 @@ namespace IdApp.AR
 				// 8 bit - no endianness issues, just sign
 				for (int i = readPoint; i < buffer.Length - leftOver; i++)
 				{
-					int value = 0;
+					int value;
 
 					if (signed)
 					{
@@ -132,11 +129,11 @@ namespace IdApp.AR
 			  // of 8 or 16 bits (signed or unsigned)
 			if (signed)
 			{
-				if (use16Bit) { level = (float) max / MAX_16_BITS_SIGNED; } else { level = (float) max / MAX_8_BITS_SIGNED; }
+				if (use16Bit) { level = (float) max / max16BitsSigned; } else { level = (float) max / max8BitsSigned; }
 			}
 			else
 			{
-				if (use16Bit) { level = (float) max / MAX_16_BITS_UNSIGNED; } else { level = (float) max / MAX_8_BITS_UNSIGNED; }
+				if (use16Bit) { level = (float) max / max16BitsUnsigned; } else { level = (float) max / max8BitsUnsigned; }
 			}
 
 			return level;

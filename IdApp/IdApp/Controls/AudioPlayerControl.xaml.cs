@@ -13,8 +13,6 @@ using Waher.Runtime.Temporary;
 using FFImageLoading;
 using System.Windows.Input;
 using IdApp.AR;
-using System.Diagnostics;
-using System.Runtime.ExceptionServices;
 
 namespace IdApp.Controls
 {
@@ -28,6 +26,7 @@ namespace IdApp.Controls
 		public AudioPlayerControl()
 		{
 			this.PauseResumeCommand = new Command(async _ => await this.ExecutePauseResume());
+			this.AudioItem.ChangeUpdate += this.AudioItem_ChangeUpdate;
 
 			this.InitializeComponent();
 		}
@@ -55,7 +54,7 @@ namespace IdApp.Controls
 		private CancellationTokenSource cancellationTokenSource;
 		private TaskCompletionSource<bool> completionSource;
 		private readonly WeakEventManager weakEventManager = new();
-		private AudioItem audioItem = null;
+		private readonly AudioItem audioItem = new();
 
 		/// <summary>
 		/// </summary>
@@ -153,28 +152,16 @@ namespace IdApp.Controls
 		public AudioItem AudioItem
 		{
 			get => this.audioItem;
-			private set
-			{
-				this.audioItem = value;
-				this.OnPropertyChanged(nameof(this.IsLoaded));
-			}
 		}
 
 		/// <summary>
 		/// </summary>
 		public bool IsLoaded
 		{
-			get => this.AudioItem?.Duration is not null;
+			get => this.AudioItem.Duration is not null;
 		}
 
-		/// <summary>
-		/// </summary>
-		public bool IsPlaying
-		{
-			get => this.AudioItem?.IsPlaying ?? false;
-		}
-
-		private void MetadataRetrieved(object Sender, EventArgs e)
+		private void AudioItem_ChangeUpdate(object Sender, EventArgs e)
 		{
 			this.OnPropertyChanged(nameof(this.IsLoaded));
 		}
@@ -183,7 +170,8 @@ namespace IdApp.Controls
 		{
 			this.CancellationTokenSource?.Cancel();
 			this.OnSourceChanged();
-			this.AudioItem = null;
+
+			this.AudioItem.Initialise(string.Empty);
 
 			Task.Run(async () => {
 				try
@@ -193,7 +181,7 @@ namespace IdApp.Controls
 
 					if (File.Exists(FullPath))
 					{
-						this.AudioItem = new(FullPath);
+						this.AudioItem.Initialise(FullPath);
 					}
 					else
 					{
@@ -205,13 +193,8 @@ namespace IdApp.Controls
 							await Stream.CopyToAsync(FileStream);
 							FileStream.Close();
 
-							this.AudioItem = new(FullPath);
+							this.AudioItem.Initialise(FullPath);
 						}
-					}
-
-					if (this.AudioItem is not null)
-					{
-						this.AudioItem.MetadataRetrieved += this.MetadataRetrieved;
 					}
 				}
 				catch (OperationCanceledException)

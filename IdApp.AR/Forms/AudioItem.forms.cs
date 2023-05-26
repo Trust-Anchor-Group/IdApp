@@ -1,22 +1,10 @@
-using Xamarin.CommunityToolkit.ObjectModel;
-
 namespace IdApp.AR
 {
-	public class AudioItem : ObservableObject, IAudioItem
+	public partial class AudioItem
 	{
-		public AudioItem(string path)
+		private void ExtractMetadata()
 		{
 			throw new NotImplementedException();
 		}
-
-		public event EventHandler? MetadataRetrieved;
-
-		public bool IsPlaying => throw new NotImplementedException();
-
-		public string FilePath => throw new NotImplementedException();
-
-		public TimeSpan? Duration => throw new NotImplementedException();
-
-		public int Position => throw new NotImplementedException();
 	}
 }

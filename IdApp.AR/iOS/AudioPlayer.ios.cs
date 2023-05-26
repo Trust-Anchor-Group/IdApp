@@ -7,10 +7,10 @@ namespace IdApp.AR
 {
 	public partial class AudioPlayer
 	{
-		AVAudioPlayer audioPlayer = null;
-		NSString currentAVAudioSessionCategory;
+		private AVAudioPlayer? audioPlayer = null;
+		private NSString? currentAVAudioSessionCategory;
 
-		static AVAudioSessionCategory? requestedAVAudioSessionCategory;
+		private static AVAudioSessionCategory? requestedAVAudioSessionCategory;
 
 		/// <summary>
 		/// If <see cref="RequestAVAudioSessionCategory"/> is used to request an AVAudioSession category, this Action will also be run to configure the <see cref="AVAudioSession"/> before playing audio.
@@ -22,7 +22,7 @@ namespace IdApp.AR
 		/// </summary>
 		public static Action<AVAudioSession> OnResetAudioSession;
 
-		public AudioPlayer ()
+		public AudioPlayer()
 		{
 		}
 
@@ -32,12 +32,12 @@ namespace IdApp.AR
 		/// <see cref="OnPrepareAudioSession"/> and <see cref="OnResetAudioSession"/> will also be called before and after each playback operation to allow for further session configuration.
 		/// Note that some categories do not support playback.
 		/// </summary>
-		public static void RequestAVAudioSessionCategory (AVAudioSessionCategory category)
+		public static void RequestAVAudioSessionCategory(AVAudioSessionCategory category)
 		{
 			requestedAVAudioSessionCategory = category;
 		}
 
-		public void Play (AudioItem AudioItem)
+		public void Play(AudioItem AudioItem)
 		{
 			/*
 			// Check if _audioPlayer is currently playing
@@ -80,24 +80,24 @@ namespace IdApp.AR
 			*/
 		}
 
-		void Player_FinishedPlaying (object sender, AVStatusEventArgs e)
+		void Player_FinishedPlaying(object sender, AVStatusEventArgs e)
 		{
-			if (currentAVAudioSessionCategory != null)
+			if (this.currentAVAudioSessionCategory is not null)
 			{
-				var audioSession = AVAudioSession.SharedInstance ();
+				AVAudioSession AudioSession = AVAudioSession.SharedInstance();
 
-				if (audioSession.SetCategory (currentAVAudioSessionCategory, out NSError err))
+				if (AudioSession.SetCategory (this.currentAVAudioSessionCategory, out NSError err))
 				{
-					currentAVAudioSessionCategory = null; //reset this if success, otherwise hang onto it to possibly try again
+					this.currentAVAudioSessionCategory = null; //reset this if success, otherwise hang onto it to possibly try again
 				}
 				else
 				{
 					// we won't error out here as this likely won't prevent us from stopping properly... but we will log an issue
-					Debug.WriteLine ($"Error attempting to set the AVAudioSession category back to {currentAVAudioSessionCategory} :: {err}");
+					Debug.WriteLine ($"Error attempting to set the AVAudioSession category back to {this.currentAVAudioSessionCategory} :: {err}");
 				}
 
 				// allow for additional audio session reset/config
-				OnResetAudioSession?.Invoke (audioSession);
+				OnResetAudioSession?.Invoke(AudioSession);
 			}
 
 			FinishedPlaying?.Invoke (this, EventArgs.Empty);
@@ -105,12 +105,12 @@ namespace IdApp.AR
 
 		public void Pause ()
 		{
-			audioPlayer?.Pause ();
+			this.audioPlayer?.Pause();
 		}
 
-		public void Play ()
+		public void Play()
 		{
-			audioPlayer?.Play ();
+			this.audioPlayer?.Play();
 		}
 	}
 }

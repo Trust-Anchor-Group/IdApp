@@ -1,16 +1,9 @@
 using Android.Media;
-using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace IdApp.AR
 {
-	public class AudioItem : ObservableObject, IAudioItem
+	public partial class AudioItem
 	{
-		public AudioItem(string path)
-		{
-			this.FilePath = path;
-			Task.Run(this.ExtractMetadata);
-		}
-
 		void ExtractMetadata()
 		{
 			try
@@ -29,21 +22,11 @@ namespace IdApp.AR
 					this.Duration = null;
 				}
 
-				MetadataRetrieved?.Invoke(this, EventArgs.Empty);
+				ChangeUpdate?.Invoke(this, EventArgs.Empty);
 			}
 			catch (Exception ex)
 			{
 			}
 		}
-
-		public event EventHandler? MetadataRetrieved;
-
-		public bool IsPlaying { get; set; }
-
-		public string FilePath { get; private set; }
-
-		public TimeSpan? Duration { get; private set; }
-
-		public int Position { get; set; }
 	}
 }
