@@ -2313,4 +2313,10 @@
   <data name="ServerDescription" xml:space="preserve">
     <value>Tjänsteleverantörens beskrivning</value>
   </data>
+  <data name="OrganizationInformation" xml:space="preserve">
+    <value>Organisationsinformation</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>Personlig information</value>
+  </data>
 </root>

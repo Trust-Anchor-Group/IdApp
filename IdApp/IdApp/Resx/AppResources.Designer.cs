@@ -3022,6 +3022,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Organization Information.
+        /// </summary>
+        internal static string OrganizationInformation {
+            get {
+                return ResourceManager.GetString("OrganizationInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Organization Area.
         /// </summary>
         internal static string OrgArea {
@@ -3405,6 +3414,15 @@ namespace IdApp.Resx {
         internal static string PermitScreenCapture {
             get {
                 return ResourceManager.GetString("PermitScreenCapture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal Information.
+        /// </summary>
+        internal static string PersonalInformation {
+            get {
+                return ResourceManager.GetString("PersonalInformation", resourceCulture);
             }
         }
         

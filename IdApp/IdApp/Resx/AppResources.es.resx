@@ -2334,4 +2334,10 @@
   <data name="ServerDescription" xml:space="preserve">
     <value>Descripción por proveedor de servicios</value>
   </data>
+  <data name="OrganizationInformation" xml:space="preserve">
+    <value>Información de la organización</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>Información personal</value>
+  </data>
 </root>
