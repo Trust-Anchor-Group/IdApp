@@ -1,8 +1,9 @@
 using Android.Media;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace IdApp.AR
 {
-	public class AudioItem : IAudioItem
+	public class AudioItem : ObservableObject, IAudioItem
 	{
 		public AudioItem(string path)
 		{
@@ -36,8 +37,8 @@ namespace IdApp.AR
 		}
 
 		public event EventHandler? MetadataRetrieved;
-		public string? FilePath { get; private set; }
+		public string FilePath { get; private set; }
 		public TimeSpan? Duration { get; private set; }
-		public TimeSpan? Position { get; private set; }
+		public TimeSpan Position { get; private set; }
 	}
 }

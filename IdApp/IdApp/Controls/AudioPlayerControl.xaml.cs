@@ -14,6 +14,7 @@ using FFImageLoading;
 using System.Windows.Input;
 using IdApp.AR;
 using System.Diagnostics;
+using System.Runtime.ExceptionServices;
 
 namespace IdApp.Controls
 {
@@ -164,7 +165,12 @@ namespace IdApp.Controls
 		/// </summary>
 		public bool IsLoaded
 		{
-			get => this.AudioItem is not null;
+			get => this.AudioItem?.Duration is not null;
+		}
+
+		private void MetadataRetrieved(object Sender, EventArgs e)
+		{
+			this.OnPropertyChanged(nameof(this.IsLoaded));
 		}
 
 		void OnUriChanged()
@@ -195,6 +201,11 @@ namespace IdApp.Controls
 
 							this.AudioItem = new(FullPath);
 						}
+					}
+
+					if (this.AudioItem is not null)
+					{
+						this.AudioItem.MetadataRetrieved += this.MetadataRetrieved;
 					}
 				}
 				catch (OperationCanceledException)

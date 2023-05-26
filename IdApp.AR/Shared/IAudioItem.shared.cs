@@ -4,8 +4,8 @@ namespace IdApp.AR
 	{
 		event EventHandler? MetadataRetrieved;
 
-		string? FilePath { get; }
+		string FilePath { get; }
 		TimeSpan? Duration { get; }
-		TimeSpan? Position { get; }
+		TimeSpan Position { get; }
 	}
 }

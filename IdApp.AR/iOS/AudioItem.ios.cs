@@ -1,10 +1,10 @@
 using AudioToolbox;
-using AVFoundation;
 using Foundation;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace IdApp.AR
 {
-	public class AudioItem : IAudioItem
+	public class AudioItem : ObservableObject, IAudioItem
 	{
 		public AudioItem(string path)
 		{
@@ -16,31 +16,16 @@ namespace IdApp.AR
 		{
 			try
 			{
-				AudioFile? AudioFile = AudioFile.Open(new NSUrl(this.FilePath ?? string.Empty), AudioFilePermission.Read);
+				AudioFile? AudioFile = AudioFile.Open(new NSUrl(this.FilePath), AudioFilePermission.Read);
 
 				if (AudioFile is not null)
 				{
 					this.Duration = TimeSpan.FromSeconds(AudioFile.EstimatedDuration);
 				}
-
-				/*
-				AVAsset Asset = AVAsset.FromUrl(new NSUrl(this.FilePath ?? string.Empty));
-				this.Duration = TimeSpan.FromSeconds(Asset.Duration.Seconds);
-
-				AVAssetReader AssetReader = new(Asset, out NSError Error);
-				var Duration = AssetReader.Asset.Duration.Value;
-				var Timescale = AssetReader.Asset.Duration.TimeScale;
-				var TotalDuration = Duration / Timescale;
-				*/
-
-				/*
-				await asset.LoadValuesTaskAsync(assetsToLoad.ToArray()).ConfigureAwait(false);
-
-				Dictionary<string?, AVMetadataItem> metadataDict = asset.CommonMetadata.ToDictionary(t => t.CommonKey, t => t);
-
-				if (string.IsNullOrEmpty(mediaItem.Album))
-					mediaItem.Album = metadataDict.GetValueOrDefault(AVMetadata.CommonKeyAlbumName)?.Value.ToString();
-				*/
+				else
+				{
+					this.Duration = null;
+				}
 
 				MetadataRetrieved?.Invoke(this, EventArgs.Empty);
 			}
@@ -50,8 +35,8 @@ namespace IdApp.AR
 		}
 
 		public event EventHandler? MetadataRetrieved;
-		public string? FilePath { get; private set; }
+		public string FilePath { get; private set; }
 		public TimeSpan? Duration { get; private set; }
-		public TimeSpan? Position { get; private set; }
+		public TimeSpan Position { get; private set; }
 	}
 }
