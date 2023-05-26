@@ -1,21 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Services.Navigation;
 using SkiaSharp;
 using Waher.Content.QR;
 using Waher.Content.QR.Encoding;
-using Xamarin.Essentials;
-using System.Collections.Generic;
-using System.Web;
-using System.Collections.Specialized;
-using IdApp.Services.Notification.Identities;
-using IdApp.Services.Notification.Contracts;
 using Xamarin.CommunityToolkit.Helpers;
-using Waher.Persistence;
-using Waher.Security.JWT;
 using Waher.Runtime.Inventory;
 using IdApp.Links;
 
@@ -154,50 +145,55 @@ namespace IdApp.Services.UI.QR
 			QrMatrix M;
 			byte[] Rgba;
 
-			if (Text.StartsWith("tagsign:", StringComparison.CurrentCultureIgnoreCase))
+			int i = Text.IndexOf(':');
+			string UriScheme = i < 0 ? string.Empty : Text.Substring(0, i).ToLower();
+
+			switch (UriScheme)
 			{
-				M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
-				Rgba = M.ToRGBA(Width, Height, signatureCode.ColorFunction, true);
-			}
-			else if (Text.StartsWith("iotid:", StringComparison.CurrentCultureIgnoreCase))
-			{
-				M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
-				Rgba = M.ToRGBA(Width, Height, userCode.ColorFunction, true);
-			}
-			else if (Text.StartsWith("iotsc:", StringComparison.CurrentCultureIgnoreCase))
-			{
-				M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
-				Rgba = M.ToRGBA(Width, Height, contractCode.ColorFunction, true);
-			}
-			//else if (Text.StartsWith("iotdisco:", StringComparison.CurrentCultureIgnoreCase))
-			//{
-			//	M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
-			//	Rgba = M.ToRGBA(Width, Height, thingsCode.ColorFunction, true);
-			//}
-			else if (Text.StartsWith("edaler:", StringComparison.CurrentCultureIgnoreCase))
-			{
-				M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
-				Rgba = M.ToRGBA(Width, Height, eDalerCode.ColorFunction, true);
-			}
-			//else if (Text.StartsWith("nfeat:", StringComparison.CurrentCultureIgnoreCase))
-			//{
-			//	M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
-			//	Rgba = M.ToRGBA(Width, Height, tokenCode.ColorFunction, true);
-			//}
-			else if (Text.StartsWith("obinfo:", StringComparison.CurrentCultureIgnoreCase))
-			{
-				M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
-				Rgba = M.ToRGBA(Width, Height, onboardingCode.ColorFunction, true);
-			}
-			else if (Text.StartsWith("aes256:", StringComparison.CurrentCultureIgnoreCase))
-			{
-				M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
-				Rgba = M.ToRGBA(Width, Height, aes256Code.ColorFunction, true);
-			}
-			else
-			{
-				M = encoder.GenerateMatrix(CorrectionLevel.L, Text);
-				Rgba = M.ToRGBA(Width, Height);
+				case Constants.UriSchemes.UriSchemeTagSign:
+					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
+					Rgba = M.ToRGBA(Width, Height, signatureCode.ColorFunction, true);
+					break;
+
+				case Constants.UriSchemes.UriSchemeIotId:
+					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
+					Rgba = M.ToRGBA(Width, Height, userCode.ColorFunction, true);
+					break;
+
+				case Constants.UriSchemes.UriSchemeIotSc:
+					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
+					Rgba = M.ToRGBA(Width, Height, contractCode.ColorFunction, true);
+					break;
+
+				//case Constants.UriSchemes.UriSchemeIotDisco:
+				//	M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
+				//	Rgba = M.ToRGBA(Width, Height, thingsCode.ColorFunction, true);
+				//	break;
+
+				case Constants.UriSchemes.UriSchemeEDaler:
+					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
+					Rgba = M.ToRGBA(Width, Height, eDalerCode.ColorFunction, true);
+					break;
+
+				//case Constants.UriSchemes.UriSchemeNeuroFeature:
+				//	M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
+				//	Rgba = M.ToRGBA(Width, Height, tokenCode.ColorFunction, true);
+				//	break;
+
+				case Constants.UriSchemes.UriSchemeOnboarding:
+					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
+					Rgba = M.ToRGBA(Width, Height, onboardingCode.ColorFunction, true);
+					break;
+
+				case Constants.UriSchemes.Aes256:
+					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
+					Rgba = M.ToRGBA(Width, Height, aes256Code.ColorFunction, true);
+					break;
+
+				default:
+					M = encoder.GenerateMatrix(CorrectionLevel.L, Text);
+					Rgba = M.ToRGBA(Width, Height);
+					break;
 			}
 
 			using SKData Unencoded = SKData.Create(new MemoryStream(Rgba));
