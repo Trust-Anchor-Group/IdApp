@@ -1,3 +1,4 @@
+using AudioToolbox;
 using AVFoundation;
 using Foundation;
 
@@ -15,6 +16,14 @@ namespace IdApp.AR
 		{
 			try
 			{
+				AudioFile? AudioFile = AudioFile.Open(new NSUrl(this.FilePath ?? string.Empty), AudioFilePermission.Read);
+
+				if (AudioFile is not null)
+				{
+					this.Duration = TimeSpan.FromSeconds(AudioFile.EstimatedDuration);
+				}
+
+				/*
 				AVAsset Asset = AVAsset.FromUrl(new NSUrl(this.FilePath ?? string.Empty));
 				this.Duration = TimeSpan.FromSeconds(Asset.Duration.Seconds);
 
@@ -22,6 +31,7 @@ namespace IdApp.AR
 				var Duration = AssetReader.Asset.Duration.Value;
 				var Timescale = AssetReader.Asset.Duration.TimeScale;
 				var TotalDuration = Duration / Timescale;
+				*/
 
 				/*
 				await asset.LoadValuesTaskAsync(assetsToLoad.ToArray()).ConfigureAwait(false);
