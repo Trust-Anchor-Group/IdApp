@@ -158,7 +158,7 @@ namespace IdApp.Controls
 		/// </summary>
 		public bool IsLoaded
 		{
-			get => this.AudioItem.Duration is not null;
+			get => this.AudioItem.Duration > 0.5;
 		}
 
 		private void AudioItem_ChangeUpdate(object Sender, EventArgs e)

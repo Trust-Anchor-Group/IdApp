@@ -27,5 +27,7 @@
 		</Grid>
 	</Frame>
 
-	<Slider Grid.Column="1" x:Name="InnerSlider" />
+	<Slider Grid.Column="1" x:Name="InnerSlider"
+			Value="{Binding AudioItem.Position, Source={x:Reference ThisPage}}"
+			Maximum="{Binding AudioItem.Duration, Source={x:Reference ThisPage}}" />
 </Grid>

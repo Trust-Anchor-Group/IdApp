@@ -45,7 +45,7 @@ namespace IdApp.AR
 			this.mediaPlayer.PrepareAsync();
 		}
 
-		private int GetPosition()
+		private double GetPosition()
 		{
 			return this.mediaPlayer?.CurrentPosition ?? 0;
 		}
@@ -58,9 +58,7 @@ namespace IdApp.AR
 
 				if (AudioItem is not null)
 				{
-					int Position = AudioPlayer.GetPosition();
-					Debug.Write("Position: " + Position);
-					AudioItem.Position = Position;
+					AudioItem.Position = AudioPlayer.GetPosition();
 				}
 			}
 		}

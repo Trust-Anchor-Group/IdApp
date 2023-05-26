@@ -13,13 +13,13 @@ namespace IdApp.AR
 
 				string DurationString = Retriever.ExtractMetadata(MetadataKey.Duration) ?? "" ;
 
-				if (!string.IsNullOrEmpty(DurationString) && long.TryParse(DurationString, out long durationMS))
+				if (!string.IsNullOrEmpty(DurationString) && double.TryParse(DurationString, out double Duration))
 				{
-					this.Duration = TimeSpan.FromMilliseconds(durationMS);
+					this.Duration = Duration;
 				}
 				else
 				{
-					this.Duration = null;
+					this.Duration = 0.5;
 				}
 
 				ChangeUpdate?.Invoke(this, EventArgs.Empty);

@@ -10,9 +10,9 @@ namespace IdApp.AR
 
 		public string FilePath { get; private set; }
 
-		public TimeSpan? Duration { get; private set; }
+		public double Duration { get; private set; }
 
-		public int Position { get; set; }
+		public double Position { get; set; }
 
 		public AudioItem()
 		{
@@ -35,7 +35,7 @@ namespace IdApp.AR
 		private void Init(string FilePath)
 		{
 			this.IsPlaying = false;
-			this.Duration = null;
+			this.Duration = 0.5;
 			this.Position = 0;
 			this.FilePath = FilePath;
 		}

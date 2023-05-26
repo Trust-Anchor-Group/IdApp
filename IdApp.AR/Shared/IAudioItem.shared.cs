@@ -8,7 +8,7 @@ namespace IdApp.AR
 
 		bool IsPlaying { get; }
 		string FilePath { get; }
-		TimeSpan? Duration { get; }
-		int Position { get; }
+		double Duration { get; }
+		double Position { get; }
 	}
 }

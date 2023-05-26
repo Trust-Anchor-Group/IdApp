@@ -13,11 +13,11 @@ namespace IdApp.AR
 
 				if (AudioFile is not null)
 				{
-					this.Duration = TimeSpan.FromSeconds(AudioFile.EstimatedDuration);
+					this.Duration = AudioFile.EstimatedDuration * 1000;
 				}
 				else
 				{
-					this.Duration = null;
+					this.Duration = 0.5;
 				}
 
 				ChangeUpdate?.Invoke(this, EventArgs.Empty);
