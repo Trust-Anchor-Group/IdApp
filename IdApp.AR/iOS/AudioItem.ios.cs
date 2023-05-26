@@ -35,8 +35,13 @@ namespace IdApp.AR
 		}
 
 		public event EventHandler? MetadataRetrieved;
+
+		public bool IsPlaying { get; set; }
+
 		public string FilePath { get; private set; }
+
 		public TimeSpan? Duration { get; private set; }
-		public TimeSpan Position { get; private set; }
+
+		public int Position { get; set; }
 	}
 }

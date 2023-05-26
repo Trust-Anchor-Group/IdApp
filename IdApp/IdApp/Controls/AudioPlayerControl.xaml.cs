@@ -157,7 +157,6 @@ namespace IdApp.Controls
 			{
 				this.audioItem = value;
 				this.OnPropertyChanged(nameof(this.IsLoaded));
-				this.OnPropertyChanged(nameof(this.IsPlaying));
 			}
 		}
 
@@ -166,6 +165,13 @@ namespace IdApp.Controls
 		public bool IsLoaded
 		{
 			get => this.AudioItem?.Duration is not null;
+		}
+
+		/// <summary>
+		/// </summary>
+		public bool IsPlaying
+		{
+			get => this.AudioItem?.IsPlaying ?? false;
 		}
 
 		private void MetadataRetrieved(object Sender, EventArgs e)
@@ -219,24 +225,21 @@ namespace IdApp.Controls
 		}
 
 		/// <summary>
-		/// </summary>
-		public bool IsPlaying
-		{
-			get
-			{
-				return !this.IsLoaded;
-			}
-		}
-
-		/// <summary>
 		/// The command to bind for pausing/resuming the audio
 		/// </summary>
 		public ICommand PauseResumeCommand { get; }
 
 		private async Task ExecutePauseResume()
 		{
-			Debug.Write("Command: Running");
-			int i = 0;
+			if (this.AudioItem.IsPlaying)
+			{
+				audioPlayer.Value.Pause();
+			}
+			else
+			{
+				audioPlayer.Value.Play(this.AudioItem);
+			}
+
 			await Task.CompletedTask;
 		}
 
