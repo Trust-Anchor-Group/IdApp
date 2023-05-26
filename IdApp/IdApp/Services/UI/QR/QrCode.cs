@@ -1,14 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using IdApp.Links;
 using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Services.Navigation;
 using SkiaSharp;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 using Waher.Content.QR;
 using Waher.Content.QR.Encoding;
-using Xamarin.CommunityToolkit.Helpers;
 using Waher.Runtime.Inventory;
-using IdApp.Links;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.UI.QR
 {
