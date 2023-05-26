@@ -1,58 +1,116 @@
 using Android.Media;
 using System;
+using System.Diagnostics;
 
 namespace IdApp.AR
 {
 	public partial class AudioPlayer
 	{
-		private MediaPlayer mediaPlayer;
+		private MediaPlayer? mediaPlayer;
+		private AudioItem? currentAudioItem;
+		private Timer? updateTimer;
 
-		public AudioPlayer ()
+		public AudioPlayer()
 		{
 		}
 
-		public void Play (string pathToAudioFile)
+		public void Play(AudioItem AudioItem)
 		{
-			if (mediaPlayer != null)
+			if (this.currentAudioItem != null)
 			{
-				mediaPlayer.Completion -= MediaPlayer_Completion;
-				mediaPlayer.Stop ();
-			}
-
-			if (pathToAudioFile != null)
-			{
-				if (mediaPlayer == null)
+				if (this.currentAudioItem == AudioItem)
 				{
-					mediaPlayer = new MediaPlayer ();
-
-					mediaPlayer.Prepared += (sender, args) =>
-					{
-						mediaPlayer.Start ();
-						mediaPlayer.Completion += MediaPlayer_Completion;
-					};
+					this.Play();
+					return;
 				}
+				else
+				{
+					this.Pause();
+				}
+			}
 
-				mediaPlayer.Reset ();
-				//_mediaPlayer.SetVolume (1.0f, 1.0f);
+			if (this.mediaPlayer == null)
+			{
+				this.mediaPlayer = new MediaPlayer();
+				this.mediaPlayer.Prepared += this.MediaPlayer_Prepared;
+				this.mediaPlayer.Completion += this.MediaPlayer_Completion;
+			}
 
-				mediaPlayer.SetDataSource (pathToAudioFile);
-				mediaPlayer.PrepareAsync ();
+			this.currentAudioItem = AudioItem;
+
+			this.mediaPlayer.Reset();
+			//_mediaPlayer.SetVolume(1.0f, 1.0f);
+
+			this.mediaPlayer.SetDataSource(AudioItem.FilePath);
+			this.mediaPlayer.PrepareAsync();
+		}
+
+		private int GetPosition()
+		{
+			return this.mediaPlayer?.CurrentPosition ?? 0;
+		}
+
+		private void UpdateCallback(object P)
+		{
+			if (P is AudioPlayer AudioPlayer)
+			{
+				AudioItem? AudioItem = AudioPlayer.currentAudioItem;
+
+				if (AudioItem is not null)
+				{
+					int Position = AudioPlayer.GetPosition();
+					Debug.Write("Position: " + Position);
+					AudioItem.Position = Position;
+				}
 			}
 		}
 
-		void MediaPlayer_Completion (object sender, EventArgs e)
+		private void MediaPlayer_Prepared(object sender, EventArgs e)
 		{
-			FinishedPlaying?.Invoke (this, EventArgs.Empty);
+			this.Play();
 		}
 
-		public void Pause ()
+		private void MediaPlayer_Completion(object sender, EventArgs e)
 		{
-			mediaPlayer?.Pause ();
+			this.Stop();
 		}
 
-		public void Play ()
+		public void Stop()
 		{
-			mediaPlayer?.Start ();
+			if (this.updateTimer is not null)
+			{
+				this.updateTimer.Dispose();
+				this.updateTimer = null;
+			}
+
+			if (this.currentAudioItem is not null)
+			{
+				this.mediaPlayer?.Stop();
+				this.currentAudioItem.Position = this.GetPosition();
+				this.currentAudioItem.IsPlaying = false;
+				this.currentAudioItem = null;
+			}
+		}
+
+		public void Pause()
+		{
+			if (this.currentAudioItem is not null)
+			{
+				this.mediaPlayer?.Pause();
+				this.currentAudioItem.Position = this.GetPosition();
+				this.currentAudioItem.IsPlaying = false;
+			}
+		}
+
+		public void Play()
+		{
+			if (this.currentAudioItem is not null)
+			{
+				this.updateTimer ??= new Timer(this.UpdateCallback, this, 100, 100);
+
+				this.mediaPlayer?.Start();
+				this.currentAudioItem.IsPlaying = true;
+			}
 		}
 	}
 }

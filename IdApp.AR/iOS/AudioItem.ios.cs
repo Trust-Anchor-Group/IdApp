@@ -1,53 +1,47 @@
-using AVFoundation;
+using AudioToolbox;
+using Foundation;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace IdApp.AR
 {
-	public class AudioItem : IAudioItem
+	public class AudioItem : ObservableObject, IAudioItem
 	{
 		public AudioItem(string path)
 		{
 			this.FilePath = path;
-
-			if (File.Exists(path))
-			{
-				Task.Run(() =>
-				{
-					this.ExtractMetadata();
-					MetadataRetrieved?.Invoke(this, EventArgs.Empty);
-				});
-			}
+			Task.Run(this.ExtractMetadata);
 		}
 
 		void ExtractMetadata()
 		{
-			/*
-			var asset = AVAsset.FromUrl(this.FilePath);
-			await asset.LoadValuesTaskAsync(assetsToLoad.ToArray()).ConfigureAwait(false);
-
-			var metadataDict = asset.CommonMetadata.ToDictionary(t => t.CommonKey, t => t);
-
-			if (string.IsNullOrEmpty(mediaItem.Album))
-				mediaItem.Album = metadataDict.GetValueOrDefault(AVMetadata.CommonKeyAlbumName)?.Value.ToString();
-
-			MediaMetadataRetriever Retriever = new();
-			Retriever.SetDataSource(this.FilePath);
-
-			string DurationString = Retriever.ExtractMetadata(MetadataKey.Duration) ?? "";
-
-			if (!string.IsNullOrEmpty(DurationString) && long.TryParse(DurationString, out long durationMS))
+			try
 			{
-				this.Duration = TimeSpan.FromMilliseconds(durationMS);
+				AudioFile? AudioFile = AudioFile.Open(new NSUrl(this.FilePath), AudioFilePermission.Read);
+
+				if (AudioFile is not null)
+				{
+					this.Duration = TimeSpan.FromSeconds(AudioFile.EstimatedDuration);
+				}
+				else
+				{
+					this.Duration = null;
+				}
+
+				MetadataRetrieved?.Invoke(this, EventArgs.Empty);
 			}
-			else
+			catch (Exception ex)
 			{
-				this.Duration = null;
 			}
-			*/
 		}
 
 		public event EventHandler? MetadataRetrieved;
-		public string? FilePath { get; private set; }
+
+		public bool IsPlaying { get; set; }
+
+		public string FilePath { get; private set; }
+
 		public TimeSpan? Duration { get; private set; }
-		public TimeSpan? Position { get; private set; }
+
+		public int Position { get; set; }
 	}
 }

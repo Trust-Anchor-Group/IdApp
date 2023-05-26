@@ -14,7 +14,7 @@ using FFImageLoading;
 using System.Windows.Input;
 using IdApp.AR;
 using System.Diagnostics;
-using Xamarin.CommunityToolkit.Effects;
+using System.Runtime.ExceptionServices;
 
 namespace IdApp.Controls
 {
@@ -157,7 +157,6 @@ namespace IdApp.Controls
 			{
 				this.audioItem = value;
 				this.OnPropertyChanged(nameof(this.IsLoaded));
-				this.OnPropertyChanged(nameof(this.IsPlaying));
 			}
 		}
 
@@ -165,7 +164,19 @@ namespace IdApp.Controls
 		/// </summary>
 		public bool IsLoaded
 		{
-			get => this.AudioItem is not null;
+			get => this.AudioItem?.Duration is not null;
+		}
+
+		/// <summary>
+		/// </summary>
+		public bool IsPlaying
+		{
+			get => this.AudioItem?.IsPlaying ?? false;
+		}
+
+		private void MetadataRetrieved(object Sender, EventArgs e)
+		{
+			this.OnPropertyChanged(nameof(this.IsLoaded));
 		}
 
 		void OnUriChanged()
@@ -197,6 +208,11 @@ namespace IdApp.Controls
 							this.AudioItem = new(FullPath);
 						}
 					}
+
+					if (this.AudioItem is not null)
+					{
+						this.AudioItem.MetadataRetrieved += this.MetadataRetrieved;
+					}
 				}
 				catch (OperationCanceledException)
 				{
@@ -209,24 +225,21 @@ namespace IdApp.Controls
 		}
 
 		/// <summary>
-		/// </summary>
-		public bool IsPlaying
-		{
-			get
-			{
-				return !this.IsLoaded;
-			}
-		}
-
-		/// <summary>
 		/// The command to bind for pausing/resuming the audio
 		/// </summary>
 		public ICommand PauseResumeCommand { get; }
 
 		private async Task ExecutePauseResume()
 		{
-			Debug.Write("Command: Running");
-			int i = 0;
+			if (this.AudioItem.IsPlaying)
+			{
+				audioPlayer.Value.Pause();
+			}
+			else
+			{
+				audioPlayer.Value.Play(this.AudioItem);
+			}
+
 			await Task.CompletedTask;
 		}
 

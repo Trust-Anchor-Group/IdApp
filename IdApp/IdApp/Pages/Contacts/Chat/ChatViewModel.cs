@@ -783,8 +783,13 @@ namespace IdApp.Pages.Contacts.Chat
 
 			try
 			{
-				this.audioRecorderTask = await audioRecorder.Value.StartRecording();
-				this.IsRecordingAudio = true;
+				PermissionStatus Status = await Permissions.RequestAsync<Permissions.Microphone>();
+
+				if (Status == PermissionStatus.Granted)
+				{
+					this.audioRecorderTask = await audioRecorder.Value.StartRecording();
+					this.IsRecordingAudio = true;
+				}
 			}
 			catch (Exception ex)
 			{

@@ -27,9 +27,9 @@ namespace IdApp.AR
 		}
 
 		/// <summary>
-		/// Call this method in your iOS project if you'd like the <see cref="AudioPlayer"/> to set the shared <see cref="AVAudioSession"/> 
-		/// category to the requested <paramref name="category"/> before playing audio and return it to its previous value after playback is complete.  
-		/// <see cref="OnPrepareAudioSession"/> and <see cref="OnResetAudioSession"/> will also be called before and after each playback operation to allow for further session configuration.  
+		/// Call this method in your iOS project if you'd like the <see cref="AudioPlayer"/> to set the shared <see cref="AVAudioSession"/>
+		/// category to the requested <paramref name="category"/> before playing audio and return it to its previous value after playback is complete.
+		/// <see cref="OnPrepareAudioSession"/> and <see cref="OnResetAudioSession"/> will also be called before and after each playback operation to allow for further session configuration.
 		/// Note that some categories do not support playback.
 		/// </summary>
 		public static void RequestAVAudioSessionCategory (AVAudioSessionCategory category)
@@ -37,8 +37,9 @@ namespace IdApp.AR
 			requestedAVAudioSessionCategory = category;
 		}
 
-		public void Play (string pathToAudioFile)
+		public void Play (AudioItem AudioItem)
 		{
+			/*
 			// Check if _audioPlayer is currently playing
 			if (audioPlayer != null)
 			{
@@ -76,6 +77,7 @@ namespace IdApp.AR
 			audioPlayer = AVAudioPlayer.FromUrl (NSUrl.FromFilename (localUrl));
 			audioPlayer.FinishedPlaying += Player_FinishedPlaying;
 			audioPlayer.Play ();
+			*/
 		}
 
 		void Player_FinishedPlaying (object sender, AVStatusEventArgs e)

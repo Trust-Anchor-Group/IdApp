@@ -1,43 +1,49 @@
 using Android.Media;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace IdApp.AR
 {
-	public class AudioItem : IAudioItem
+	public class AudioItem : ObservableObject, IAudioItem
 	{
 		public AudioItem(string path)
 		{
 			this.FilePath = path;
-
-			if (File.Exists(path))
-			{
-				Task.Run(() =>
-				{
-					this.ExtractMetadata();
-					MetadataRetrieved?.Invoke(this, EventArgs.Empty);
-				});
-			}
+			Task.Run(this.ExtractMetadata);
 		}
 
 		void ExtractMetadata()
 		{
-			MediaMetadataRetriever Retriever = new();
-			Retriever.SetDataSource(this.FilePath);
-
-			string DurationString = Retriever.ExtractMetadata(MetadataKey.Duration) ?? "" ;
-
-			if (!string.IsNullOrEmpty(DurationString) && long.TryParse(DurationString, out long durationMS))
+			try
 			{
-				this.Duration = TimeSpan.FromMilliseconds(durationMS);
+				MediaMetadataRetriever Retriever = new();
+				Retriever.SetDataSource(this.FilePath);
+
+				string DurationString = Retriever.ExtractMetadata(MetadataKey.Duration) ?? "" ;
+
+				if (!string.IsNullOrEmpty(DurationString) && long.TryParse(DurationString, out long durationMS))
+				{
+					this.Duration = TimeSpan.FromMilliseconds(durationMS);
+				}
+				else
+				{
+					this.Duration = null;
+				}
+
+				MetadataRetrieved?.Invoke(this, EventArgs.Empty);
 			}
-			else
+			catch (Exception ex)
 			{
-				this.Duration = null;
 			}
 		}
 
 		public event EventHandler? MetadataRetrieved;
-		public string? FilePath { get; private set; }
+
+		public bool IsPlaying { get; set; }
+
+		public string FilePath { get; private set; }
+
 		public TimeSpan? Duration { get; private set; }
-		public TimeSpan? Position { get; private set; }
+
+		public int Position { get; set; }
 	}
 }
