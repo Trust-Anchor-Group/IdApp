@@ -165,7 +165,7 @@ namespace IdApp.Services.UI.QR
 					Rgba = M.ToRGBA(Width, Height, contractCode.ColorFunction, true);
 					break;
 
-				case Constants.UriSchemes.UriSchemeIotDisco:
+				case Constants.UriSchemes.IotDisco:
 					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
 					Rgba = M.ToRGBA(Width, Height, thingsCode.ColorFunction, true);
 					break;
