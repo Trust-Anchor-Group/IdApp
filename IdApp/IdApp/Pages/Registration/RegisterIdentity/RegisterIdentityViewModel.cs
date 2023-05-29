@@ -594,7 +594,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="OrgDepartment"/>
 		/// </summary>
 		public static readonly BindableProperty OrgDepartmentProperty =
-			BindableProperty.Create(nameof(OrgDepartment), typeof(string), typeof(RegisterIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(OrgDepartment), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
 		/// <summary>
 		/// The organization department
@@ -609,7 +609,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="OrgRole"/>
 		/// </summary>
 		public static readonly BindableProperty OrgRoleProperty =
-			BindableProperty.Create(nameof(OrgRole), typeof(string), typeof(RegisterIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(OrgRole), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
 		/// <summary>
 		/// The organization role
