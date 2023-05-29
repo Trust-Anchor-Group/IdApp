@@ -14,8 +14,29 @@ namespace IdApp.Behaviors
         [TypeConverter(typeof(ReferenceTypeConverter))]
         public View SetFocusTo { get; set; }
 
-        /// <inheritdoc/>
-        protected override void OnAttachedTo(Entry entry)
+		/// <summary>
+		/// Alternative view to move focus to.
+		/// </summary>
+		[TypeConverter(typeof(ReferenceTypeConverter))]
+		public View SetFocusToAlternative { get; set; }
+
+		/// <summary>
+		/// Makes <see cref="UseAlternative"/> bindable.
+		/// </summary>
+		public static readonly BindableProperty UseAlternativeProperty =
+			BindableProperty.Create(nameof(UseAlternative), typeof(bool), typeof(SetFocusOnCompletedBehavior), default);
+
+		/// <summary>
+		/// If alternative control should be used.
+		/// </summary>
+		public bool UseAlternative
+		{
+			get => (bool)this.GetValue(UseAlternativeProperty);
+			set => this.SetValue(UseAlternativeProperty, value);
+		}
+
+		/// <inheritdoc/>
+		protected override void OnAttachedTo(Entry entry)
         {
             entry.Completed += this.Entry_Completed;
             base.OnAttachedTo(entry);
@@ -30,7 +51,10 @@ namespace IdApp.Behaviors
 
         private void Entry_Completed(object Sender, EventArgs e)
         {
-            SetFocusOnClickedBehavior.FocusOn(this.SetFocusTo);
-        }
-    }
+			if (this.UseAlternative && this.SetFocusToAlternative is not null)
+				SetFocusOnClickedBehavior.FocusOn(this.SetFocusToAlternative);
+            else
+				SetFocusOnClickedBehavior.FocusOn(this.SetFocusTo);
+		}
+	}
 }

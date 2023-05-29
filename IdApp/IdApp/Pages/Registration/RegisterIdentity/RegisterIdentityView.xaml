@@ -197,7 +197,10 @@
                                Placeholder="{x:Static resx:AppResources.Region}" Text="{Binding Path=Region}"
                                IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" Focused="RegionEntry_Focused">
                             <Entry.Behaviors>
-                                <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegisterButton" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                                <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegisterButton"
+																	   SetFocusToAlternative="OrgNameEntry"
+																	   UseAlternative="{Binding ShowOrganization}"
+																	   BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
                         <Label Text="*" TextColor="Transparent" VerticalOptions="Center"/>

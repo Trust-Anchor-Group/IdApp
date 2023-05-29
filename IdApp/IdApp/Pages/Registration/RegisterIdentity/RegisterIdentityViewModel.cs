@@ -161,8 +161,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public static readonly BindableProperty ImageProperty =
 			BindableProperty.Create(nameof(Image), typeof(ImageSource), typeof(RegisterIdentityViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
 			{
-				RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
-				viewModel.HasPhoto = (newValue is not null);
+				if (b is RegisterIdentityViewModel ViewModel)
+					ViewModel.HasPhoto = (newValue is not null);
 			});
 
 		/// <summary>
@@ -200,20 +200,22 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public static readonly BindableProperty SelectedCountryProperty =
 			BindableProperty.Create(nameof(SelectedCountry), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
 			{
-				RegisterIdentityViewModel ViewModel = (RegisterIdentityViewModel)b;
-				ViewModel.RegisterCommand.ChangeCanExecute();
-
-				if (!string.IsNullOrWhiteSpace(ViewModel.SelectedCountry) &&
-					ISO_3166_1.TryGetCode(ViewModel.SelectedCountry, out string CountryCode))
+				if (b is RegisterIdentityViewModel ViewModel)
 				{
-					string format = PersonalNumberSchemes.DisplayStringForCountry(CountryCode);
-					if (!string.IsNullOrWhiteSpace(format))
-						ViewModel.PersonalNumberPlaceholder = string.Format(LocalizationResourceManager.Current["PersonalNumberPlaceholder"], format);
+					ViewModel.RegisterCommand.ChangeCanExecute();
+
+					if (!string.IsNullOrWhiteSpace(ViewModel.SelectedCountry) &&
+						ISO_3166_1.TryGetCode(ViewModel.SelectedCountry, out string CountryCode))
+					{
+						string format = PersonalNumberSchemes.DisplayStringForCountry(CountryCode);
+						if (!string.IsNullOrWhiteSpace(format))
+							ViewModel.PersonalNumberPlaceholder = string.Format(LocalizationResourceManager.Current["PersonalNumberPlaceholder"], format);
+						else
+							ViewModel.PersonalNumberPlaceholder = LocalizationResourceManager.Current["PersonalNumber"];
+					}
 					else
 						ViewModel.PersonalNumberPlaceholder = LocalizationResourceManager.Current["PersonalNumber"];
 				}
-				else
-					ViewModel.PersonalNumberPlaceholder = LocalizationResourceManager.Current["PersonalNumber"];
 			});
 
 		/// <summary>
@@ -683,8 +685,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private static void OnPropertyChanged(BindableObject b, object oldValue, object newValue)
 		{
-			RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
-			viewModel.RegisterCommand.ChangeCanExecute();
+			if (b is RegisterIdentityViewModel ViewModel)
+				ViewModel.RegisterCommand.ChangeCanExecute();
 		}
 
 		private void SetConnectionStateAndText(XmppState state)

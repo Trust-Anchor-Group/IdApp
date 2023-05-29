@@ -279,6 +279,21 @@
             The view to move focus to.
             </summary>
         </member>
+        <member name="P:IdApp.Behaviors.SetFocusOnCompletedBehavior.SetFocusToAlternative">
+            <summary>
+            Alternative view to move focus to.
+            </summary>
+        </member>
+        <member name="F:IdApp.Behaviors.SetFocusOnCompletedBehavior.UseAlternativeProperty">
+            <summary>
+            Makes <see cref="P:IdApp.Behaviors.SetFocusOnCompletedBehavior.UseAlternative"/> bindable.
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.SetFocusOnCompletedBehavior.UseAlternative">
+            <summary>
+            If alternative control should be used.
+            </summary>
+        </member>
         <member name="M:IdApp.Behaviors.SetFocusOnCompletedBehavior.OnAttachedTo(Xamarin.Forms.Entry)">
             <inheritdoc/>
         </member>
@@ -363,7 +378,7 @@
         </member>
         <member name="F:IdApp.Behaviors.TextChangedBehavior.TextChangedCommandProperty">
             <summary>
-            
+            Makes <see cref="P:IdApp.Behaviors.TextChangedBehavior.TextChangedCommand"/> bindable.
             </summary>
         </member>
         <member name="P:IdApp.Behaviors.TextChangedBehavior.TextChangedCommand">
@@ -373,7 +388,7 @@
         </member>
         <member name="F:IdApp.Behaviors.TextChangedBehavior.TextChangedCommandParameterProperty">
             <summary>
-            
+            Makes <see cref="P:IdApp.Behaviors.TextChangedBehavior.TextChangedCommandParameter"/> bindable.
             </summary>
         </member>
         <member name="P:IdApp.Behaviors.TextChangedBehavior.TextChangedCommandParameter">
