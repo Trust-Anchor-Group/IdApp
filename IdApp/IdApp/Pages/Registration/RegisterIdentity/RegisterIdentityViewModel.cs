@@ -1086,7 +1086,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private async Task Register()
 		{
-			if (!(await this.ValidateInput(true)))
+			if (!(await this.ValidateInputUI()))
 				return;
 
 			string CountryCode = ISO_3166_1.ToCode(this.SelectedCountry);
@@ -1164,8 +1164,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private bool CanRegister()
 		{
-			// Ok to 'wait' on, since we're not actually waiting on anything.
-			return this.ValidateInput(false).GetAwaiter().GetResult() && this.XmppService.IsOnline;
+			return this.XmppService.IsOnline && this.ValidateInput().Valid;
 		}
 
 		private RegisterIdentityModel CreateRegisterModel()
@@ -1261,122 +1260,109 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			return IdentityModel;
 		}
 
-		private async Task<bool> ValidateInput(bool AlertUser)
+		private class InfoValidation
+		{
+			public bool Valid { get; set; }
+			public string Title { get; set; }
+			public string Message { get; set; }
+
+			public static InfoValidation Ok()
+			{
+				return new InfoValidation()
+				{
+					Valid = true,
+					Title = null,
+					Message = null
+				};
+			}
+
+			public static InfoValidation Error(string Title, string Message)
+			{
+				return new InfoValidation()
+				{
+					Valid = false,
+					Title = Title,
+					Message = Message
+				};
+			}
+		}
+
+		private async Task<bool> ValidateInputUI()
+		{
+			InfoValidation Result = this.ValidateInput();
+
+			if (!Result.Valid)
+				await this.UiSerializer.DisplayAlert(Result.Title, Result.Message);
+
+			return Result.Valid;
+		}
+
+		private InfoValidation ValidateInput()
 		{
 			if (string.IsNullOrWhiteSpace(this.FirstName?.Trim()))
 			{
-				if (AlertUser)
-				{
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
-						LocalizationResourceManager.Current["YouNeedToProvideAFirstName"]);
-				}
-
-				return false;
+				return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+					LocalizationResourceManager.Current["YouNeedToProvideAFirstName"]);
 			}
 
 			if (string.IsNullOrWhiteSpace(this.LastNames?.Trim()))
 			{
-				if (AlertUser)
-				{
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
-						LocalizationResourceManager.Current["YouNeedToProvideALastName"]);
-				}
-
-				return false;
+				return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+					LocalizationResourceManager.Current["YouNeedToProvideALastName"]);
 			}
 
 			if (string.IsNullOrWhiteSpace(this.PersonalNumber?.Trim()))
 			{
-				if (AlertUser)
-				{
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
-						LocalizationResourceManager.Current["YouNeedToProvideAPersonalNumber"]);
-				}
-
-				return false;
+				return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+					LocalizationResourceManager.Current["YouNeedToProvideAPersonalNumber"]);
 			}
 
 			if (string.IsNullOrWhiteSpace(this.SelectedCountry))
 			{
-				if (AlertUser)
-				{
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
-						LocalizationResourceManager.Current["YouNeedToProvideACountry"]);
-				}
-
-				return false;
+				return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+					LocalizationResourceManager.Current["YouNeedToProvideACountry"]);
 			}
 
 			if (this.photo is null)
 			{
-				if (AlertUser)
-				{
-					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
-						LocalizationResourceManager.Current["YouNeedToProvideAPhoto"]);
-				}
-
-				return false;
+				return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+					LocalizationResourceManager.Current["YouNeedToProvideAPhoto"]);
 			}
 
 			if (this.Purpose == PurposeUse.Work)
 			{
 				if (string.IsNullOrWhiteSpace(this.OrgName?.Trim()))
 				{
-					if (AlertUser)
-					{
-						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
-							LocalizationResourceManager.Current["YouNeedToProvideAnOrgName"]);
-					}
-
-					return false;
+					return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAnOrgName"]);
 				}
 
 				if (string.IsNullOrWhiteSpace(this.OrgNumber?.Trim()))
 				{
-					if (AlertUser)
-					{
-						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
-							LocalizationResourceManager.Current["YouNeedToProvideAnOrgNumber"]);
-					}
-
-					return false;
+					return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAnOrgNumber"]);
 				}
 
 				if (string.IsNullOrWhiteSpace(this.OrgDepartment?.Trim()))
 				{
-					if (AlertUser)
-					{
-						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
-							LocalizationResourceManager.Current["YouNeedToProvideAnOrgDepartment"]);
-					}
-
-					return false;
+					return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAnOrgDepartment"]);
 				}
 
 				if (string.IsNullOrWhiteSpace(this.OrgRole?.Trim()))
 				{
-					if (AlertUser)
-					{
-						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
-							LocalizationResourceManager.Current["YouNeedToProvideAnOrgRole"]);
-					}
-
-					return false;
+					return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAnOrgRole"]);
 				}
 
 				if (string.IsNullOrWhiteSpace(this.SelectedOrgCountry))
 				{
-					if (AlertUser)
-					{
-						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
-							LocalizationResourceManager.Current["YouNeedToProvideAnOrgCountry"]);
-					}
-
-					return false;
+					return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAnOrgCountry"]);
 				}
 			}
 
-			return true;
+			return InfoValidation.Ok();
 		}
 
 		/// <inheritdoc />
