@@ -175,7 +175,7 @@ namespace IdApp.Services.UI.QR
 					Rgba = M.ToRGBA(Width, Height, eDalerCode.ColorFunction, true);
 					break;
 
-				case Constants.UriSchemes.UriSchemeNeuroFeature:
+				case Constants.UriSchemes.NeuroFeature:
 					M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
 					Rgba = M.ToRGBA(Width, Height, tokenCode.ColorFunction, true);
 					break;
