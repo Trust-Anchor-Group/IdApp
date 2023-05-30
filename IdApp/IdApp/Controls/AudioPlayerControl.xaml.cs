@@ -335,10 +335,5 @@ namespace IdApp.Controls
 				throw;
 			}
 		}
-
-		private void ImageButton_Clicked(object sender, EventArgs e)
-		{
-			int i = 0;
-		}
 	}
 }

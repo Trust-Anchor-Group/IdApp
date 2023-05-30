@@ -1,13 +1,12 @@
 using AVFoundation;
 using Foundation;
-using System;
 using System.Diagnostics;
 
 namespace IdApp.AR
 {
 	public partial class AudioPlayer
 	{
-		private AVAudioPlayer? audioPlayer = null;
+		private AVAudioPlayer? mediaPlayer = null;
 		private NSString? currentAVAudioSessionCategory;
 
 		private static AVAudioSessionCategory? requestedAVAudioSessionCategory;
@@ -99,18 +98,49 @@ namespace IdApp.AR
 				// allow for additional audio session reset/config
 				OnResetAudioSession?.Invoke(AudioSession);
 			}
-
-			FinishedPlaying?.Invoke (this, EventArgs.Empty);
 		}
 
-		public void Pause ()
+		private double GetPosition()
 		{
-			this.audioPlayer?.Pause();
+			return (this.mediaPlayer?.CurrentTime ?? 0) * 1000;
+		}
+
+		public void Stop()
+		{
+			if (this.updateTimer is not null)
+			{
+				this.updateTimer.Dispose();
+				this.updateTimer = null;
+			}
+
+			if (this.currentAudioItem is not null)
+			{
+				this.mediaPlayer?.Stop();
+				this.currentAudioItem.Position = this.GetPosition();
+				this.currentAudioItem.IsPlaying = false;
+				this.currentAudioItem = null;
+			}
+		}
+
+		public void Pause()
+		{
+			if (this.currentAudioItem is not null)
+			{
+				this.mediaPlayer?.Pause();
+				this.currentAudioItem.Position = this.GetPosition();
+				this.currentAudioItem.IsPlaying = false;
+			}
 		}
 
 		public void Play()
 		{
-			this.audioPlayer?.Play();
+			if (this.currentAudioItem is not null)
+			{
+				this.updateTimer ??= new Timer(this.UpdateCallback, this, 100, 100);
+
+				this.mediaPlayer?.Play();
+				this.currentAudioItem.IsPlaying = true;
+			}
 		}
 	}
 }

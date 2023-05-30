@@ -1,14 +1,10 @@
 using Android.Media;
-using System;
-using System.Diagnostics;
 
 namespace IdApp.AR
 {
 	public partial class AudioPlayer
 	{
 		private MediaPlayer? mediaPlayer;
-		private AudioItem? currentAudioItem;
-		private Timer? updateTimer;
 
 		public AudioPlayer()
 		{
@@ -25,7 +21,7 @@ namespace IdApp.AR
 				}
 				else
 				{
-					this.Pause();
+					this.Stop();
 				}
 			}
 
@@ -48,19 +44,6 @@ namespace IdApp.AR
 		private double GetPosition()
 		{
 			return this.mediaPlayer?.CurrentPosition ?? 0;
-		}
-
-		private void UpdateCallback(object P)
-		{
-			if (P is AudioPlayer AudioPlayer)
-			{
-				AudioItem? AudioItem = AudioPlayer.currentAudioItem;
-
-				if (AudioItem is not null)
-				{
-					AudioItem.Position = AudioPlayer.GetPosition();
-				}
-			}
 		}
 
 		private void MediaPlayer_Prepared(object sender, EventArgs e)

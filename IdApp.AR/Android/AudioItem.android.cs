@@ -11,7 +11,7 @@ namespace IdApp.AR
 				MediaMetadataRetriever Retriever = new();
 				Retriever.SetDataSource(this.FilePath);
 
-				string DurationString = Retriever.ExtractMetadata(MetadataKey.Duration) ?? "" ;
+				string DurationString = Retriever.ExtractMetadata(MetadataKey.Duration) ?? string.Empty;
 
 				if (!string.IsNullOrEmpty(DurationString) && double.TryParse(DurationString, out double Duration))
 				{
