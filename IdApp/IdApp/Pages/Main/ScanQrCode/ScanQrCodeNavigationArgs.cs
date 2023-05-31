@@ -19,11 +19,9 @@ namespace IdApp.Pages.Main.ScanQrCode
 		/// Creates an instance of the <see cref="ScanQrCodeNavigationArgs"/> class.
 		/// </summary>
 		/// <param name="CommandName">The command name (localized) to display.</param>
-		/// <param name="Action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
-		public ScanQrCodeNavigationArgs(string CommandName, Func<string, Task> Action)
+		public ScanQrCodeNavigationArgs(string CommandName)
         {
             this.CommandName = CommandName;
-			this.Action = Action;
 			this.QrCodeScanned = new TaskCompletionSource<string>();
 		}
 
@@ -31,11 +29,6 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// The command name (localized) to display.
         /// </summary>
         public string CommandName { get; }
-
-		/// <summary>
-		/// The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.
-		/// </summary>
-		public Func<string, Task> Action { get; internal set; }
 
 		/// <summary>
 		/// Task completion source; can be used to wait for a result.

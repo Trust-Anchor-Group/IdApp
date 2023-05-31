@@ -20,12 +20,12 @@ namespace IdApp.Services.UI.QR
 		private static readonly QrEncoder encoder = new();
 
 		/// <summary>
-		/// Scans a QR Code, and depending on the actual result, takes different actions. 
+		/// Scans a QR Code, and depending on the actual result, takes different actions.
 		/// This typically means navigating to an appropriate page.
 		/// </summary>
 		public static async Task ScanQrCodeAndHandleResult(bool UseShellNavigationService = true)
 		{
-			string Url = await QrCode.ScanQrCode(LocalizationResourceManager.Current["Open"], Action: null, UseShellNavigationService: UseShellNavigationService);
+			string Url = await QrCode.ScanQrCode(LocalizationResourceManager.Current["Open"], UseShellNavigationService: UseShellNavigationService);
 			if (string.IsNullOrWhiteSpace(Url))
 				return;
 
@@ -33,7 +33,7 @@ namespace IdApp.Services.UI.QR
 		}
 
 		/// <summary>
-		/// Scans a QR Code, and depending on the actual result, takes different actions. 
+		/// Scans a QR Code, and depending on the actual result, takes different actions.
 		/// This typically means navigating to an appropriate page.
 		/// </summary>
 		/// <param name="Url">URL to open.</param>
@@ -87,22 +87,13 @@ namespace IdApp.Services.UI.QR
 		/// <description>Navigate back to the calling page.</description>
 		/// </item>
 		/// </list>
-		/// In order to handle processing in the correct order, you may need to use the <c>action</c> parameter. It is provided
-		/// to do additional processing <em>before</em> the <see cref="ScanQrCodePage"/> is navigated away from.
 		/// </summary>
 		/// <param name="CommandName">The localized name of the command to display when scanning.</param>
-		/// <param name="Action">
-		/// The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.
-		/// <para>
-		/// <paramref name="Action"/> should not navigate and (!) should not post navigation using BeginInvokeOnMainThread or
-		/// similar methods. Otherwise, trying to navigate back from the QR code page can actually navigate from the wrong page.
-		/// </para>
-		/// </param>
 		/// <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
 		/// <returns>Decoded string</returns>
-		public static Task<string> ScanQrCode(string CommandName, Func<string, Task> Action = null, bool UseShellNavigationService = true)
+		public static Task<string> ScanQrCode(string CommandName, bool UseShellNavigationService = true)
 		{
-			ScanQrCodeNavigationArgs NavigationArgs = new(CommandName, Action);
+			ScanQrCodeNavigationArgs NavigationArgs = new(CommandName);
 			if (UseShellNavigationService)
 			{
 				INavigationService NavigationService = App.Instantiate<INavigationService>();
