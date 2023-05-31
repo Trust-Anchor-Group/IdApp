@@ -10,5 +10,15 @@ namespace IdApp.iOS.Renderers
 		{
 			return new IdAppShellFlyoutContentRenderer(this);
 		}
+
+		protected override IShellSectionRenderer CreateShellSectionRenderer(ShellSection ShellSection)
+		{
+			return new IdAppShellSectionRenderer(this);
+		}
+
+		protected override IShellPageRendererTracker CreatePageRendererTracker()
+		{
+			return new IdAppShellPageRendererTracker(this);
+		}
 	}
 }
