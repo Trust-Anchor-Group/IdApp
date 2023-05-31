@@ -4292,6 +4292,17 @@
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
         </member>
+        <member name="M:IdApp.Pages.ContentBasePage.OnToolbarBackButtonPressed">
+            <summary>
+            A method which is called when the user presses the back button in the application toolbar at the top of a page.
+            <para>
+            If you want to cancel or handle the navigation yourself, you can do so in this method and then return <c>true</c>.
+            </para>
+            </summary>
+            <returns>
+            Whether or not the back navigation was handled by the override.
+            </returns>
+        </member>
         <member name="M:IdApp.Pages.ContentBasePage.OnParentSet">
             <summary>
             Called when the <see cref="T:Xamarin.Forms.Page"/>'s <see cref="P:Xamarin.Forms.Element.Parent"/> property has changed.
@@ -9740,21 +9751,15 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs.#ctor(System.String,System.Func{System.String,System.Threading.Tasks.Task})">
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs.#ctor(System.String)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs"/> class.
             </summary>
             <param name="CommandName">The command name (localized) to display.</param>
-            <param name="Action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
         </member>
         <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs.CommandName">
             <summary>
             The command name (localized) to display.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs.Action">
-            <summary>
-            The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs.QrCodeScanned">
@@ -27176,19 +27181,19 @@
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCodeAndHandleResult(System.Boolean)">
             <summary>
-            Scans a QR Code, and depending on the actual result, takes different actions. 
+            Scans a QR Code, and depending on the actual result, takes different actions.
             This typically means navigating to an appropriate page.
             </summary>
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.OpenUrl(System.String)">
             <summary>
-            Scans a QR Code, and depending on the actual result, takes different actions. 
+            Scans a QR Code, and depending on the actual result, takes different actions.
             This typically means navigating to an appropriate page.
             </summary>
             <param name="Url">URL to open.</param>
             <returns>If URL was handled.</returns>
         </member>
-        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCode(System.String,System.Func{System.String,System.Threading.Tasks.Task},System.Boolean)">
+        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCode(System.String,System.Boolean)">
             <summary>
             Navigates to the Scan QR Code Page, waits for scan to complete, and returns the result.
             This is seemingly simple, but performs several operations, namely:
@@ -27203,17 +27208,8 @@
             <description>Navigate back to the calling page.</description>
             </item>
             </list>
-            In order to handle processing in the correct order, you may need to use the <c>action</c> parameter. It is provided
-            to do additional processing <em>before</em> the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"/> is navigated away from.
             </summary>
             <param name="CommandName">The localized name of the command to display when scanning.</param>
-            <param name="Action">
-            The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.
-            <para>
-            <paramref name="Action"/> should not navigate and (!) should not post navigation using BeginInvokeOnMainThread or
-            similar methods. Otherwise, trying to navigate back from the QR code page can actually navigate from the wrong page.
-            </para>
-            </param>
             <param name="UseShellNavigationService">A Boolean flag indicating if Shell navigation should be used or a simple <c>PushAsync</c>.</param>
             <returns>Decoded string</returns>
         </member>

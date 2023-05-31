@@ -221,10 +221,6 @@ namespace IdApp.Services.Navigation
 
 		public Task GoBackAsync(bool Animate)
 		{
-#if DEBUG
-			NavigationLogger.Log("GoBackAsync.");
-#endif
-
 			if (!this.CanUseNavigationService)
 				return Task.CompletedTask;
 
@@ -259,6 +255,9 @@ namespace IdApp.Services.Navigation
 
 		public Task GoToAsync(string Route)
 		{
+			if (!this.CanUseNavigationService)
+				return Task.CompletedTask;
+
 			return this.GoToAsync(Route, (NavigationArgs)null, (NavigationArgs)null);
 		}
 

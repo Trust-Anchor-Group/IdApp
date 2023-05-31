@@ -144,6 +144,7 @@
     <Compile Include="Renderers\CustomEditorRenderer.cs" />
     <Compile Include="Renderers\CustomEntryRenderer.cs" />
     <Compile Include="Renderers\CustomPickerRenderer.cs" />
+    <Compile Include="Renderers\IdAppNavigationPageRenderer.cs" />
     <Compile Include="ShareContent.cs" />
     <Compile Include="DeviceInformation.cs" />
     <Compile Include="MainActivity.cs" />

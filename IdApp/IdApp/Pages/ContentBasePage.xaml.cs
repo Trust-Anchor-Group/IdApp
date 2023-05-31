@@ -19,6 +19,10 @@ namespace IdApp.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ContentBasePage : ContentPage
 	{
+		// Navigation service uses Shell and its routing system, which are only available after the application reached the main page.
+		// Before that (during on-boarding and the loading page), we need to use the usual Xamarin Forms navigation.
+		private bool CanUseNavigationService => App.IsOnboarded;
+
 		/// <summary>
 		/// Creates an instance of the <see cref="ContentBasePage"/> class.
 		/// </summary>
@@ -210,13 +214,31 @@ namespace IdApp.Pages
 				else
 					return base.OnBackButtonPressed();
 			}
-			else
+			else if (this.CanUseNavigationService)
 			{
 				if (this.ViewModel is not null)
 					this.ViewModel.NavigationService.GoBackAsync();
 
 				return true;
 			}
+			else
+			{
+				return base.OnBackButtonPressed();
+			}
+		}
+
+		/// <summary>
+		/// A method which is called when the user presses the back button in the application toolbar at the top of a page.
+		/// <para>
+		/// If you want to cancel or handle the navigation yourself, you can do so in this method and then return <c>true</c>.
+		/// </para>
+		/// </summary>
+		/// <returns>
+		/// Whether or not the back navigation was handled by the override.
+		/// </returns>
+		public virtual bool OnToolbarBackButtonPressed()
+		{
+			return this.OnBackButtonPressed();
 		}
 
 		/// <summary>
