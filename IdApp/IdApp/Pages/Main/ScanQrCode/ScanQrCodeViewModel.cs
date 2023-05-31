@@ -69,10 +69,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 			}
 			else
 			{
-				Func<string, Task> Action = this.navigationArgs.Action;
 				TaskCompletionSource<string> TaskSource = this.navigationArgs.QrCodeScanned;
-
-				this.navigationArgs.Action = null;
 				this.navigationArgs.QrCodeScanned = null;
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
@@ -80,18 +77,6 @@ namespace IdApp.Pages.Main.ScanQrCode
 					try
 					{
 						Url = Url?.Trim();
-
-						if (Action is not null)
-						{
-							try
-							{
-								await Action(Url);
-							}
-							catch (Exception ex)
-							{
-								this.LogService.LogException(ex);
-							}
-						}
 
 						if (this.useShellNavigationService)
 							await this.NavigationService.GoBackAsync();
