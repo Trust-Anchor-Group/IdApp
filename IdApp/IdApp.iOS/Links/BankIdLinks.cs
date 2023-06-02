@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using IdApp.Links;
+using IdApp.Services;
 using System.Threading.Tasks;
 using UIKit;
 using Waher.Events;
@@ -39,9 +40,15 @@ namespace IdApp.iOS.Links
 		{
 			try
 			{
+				// https://www.bankid.com/utvecklare/guider/teknisk-integrationsguide/programstart
+
 				NSUrl Url = new(Link.OriginalString);
 				UIApplicationOpenUrlOptions options = new() { UniversalLinksOnly = true };
-				UIApplication.SharedApplication.OpenUrl(Url, options, null);
+
+				new ServiceReferences().UiSerializer.BeginInvokeOnMainThread(() =>
+				{
+					UIApplication.SharedApplication.OpenUrl(Url, options, null);
+				});
 
 				return Task.FromResult(true);
 			}
