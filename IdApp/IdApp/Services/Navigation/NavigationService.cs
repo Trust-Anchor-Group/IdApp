@@ -7,11 +7,12 @@ using Waher.Runtime.Inventory;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using IdApp.Pages;
+using Waher.Script.Functions.ComplexNumbers;
 
 namespace IdApp.Services.Navigation
 {
 	[Singleton]
-	internal sealed class NavigationService : LoadableService, INavigationService
+	internal sealed partial class NavigationService : LoadableService, INavigationService
 	{
 		private const string defaultGoBackRoute = "..";
 		private readonly Dictionary<string, NavigationArgs> navigationArgsMap;
@@ -25,23 +26,6 @@ namespace IdApp.Services.Navigation
 		// Navigation service uses Shell and its routing system, which are only available after the application reached the main page.
 		// Before that (during on-boarding and the loading page), we need to use the usual Xamarin Forms navigation.
 		private bool CanUseNavigationService => App.IsOnboarded;
-
-
-		private NavigationArgs CurrentNavigationArgs
-		{
-			get
-			{
-				Page CurrentPage = Shell.Current?.CurrentPage;
-
-				if (CurrentPage is ContentBasePage ContentBasePage)
-				{
-					if (this.TryPopArgs(out NavigationArgs NavigationArgs, ContentBasePage.UniqueId))
-						return NavigationArgs;
-				}
-
-				return null;
-			}
-		}
 
 		///<inheritdoc/>
 		public override Task Load(bool isResuming, CancellationToken cancellationToken)
@@ -118,12 +102,12 @@ namespace IdApp.Services.Navigation
 		{
 			try
 			{
-				NavigationArgs CurrentNavigationArgs = this.CurrentNavigationArgs;
+				NavigationArgs NavigationArgs = this.TryGetArgs<NavigationArgs>();
 
 				if ((e.Source == ShellNavigationSource.Pop) &&
-					(CurrentNavigationArgs is not null) &&
-					(!string.IsNullOrWhiteSpace(CurrentNavigationArgs.ReturnRoute) ||
-					CurrentNavigationArgs.ReturnCounter > 1))
+					(NavigationArgs is not null) &&
+					(!string.IsNullOrWhiteSpace(NavigationArgs.ReturnRoute) ||
+					NavigationArgs.ReturnCounter > 1))
 				{
 					if (e.CanCancel && !this.isManuallyNavigatingBack)
 					{
@@ -169,73 +153,55 @@ namespace IdApp.Services.Navigation
 			}
 		}
 
-		public bool TryPopArgs<TArgs>(out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs
+		public TArgs TryGetArgs<TArgs>(string UniqueId = null) where TArgs : NavigationArgs
 		{
 			if (!this.CanUseNavigationService)
+				return null;
+
+			TArgs Args = null;
+
+			if (this.CurrentPage is Page Page)
 			{
-				Args = default;
-				return false;
+				Args = this.TryGetArgs<TArgs>(Page.GetType().Name, UniqueId);
+				Args ??= this.TryGetArgs<TArgs>(Routing.GetRoute(Page), UniqueId);
 			}
 
-			return this.TryPopArgs(Shell.Current.CurrentPage, out Args, UniqueId);
+			return Args;
 		}
 
-		public TArgs GetPopArgs<TArgs>(string UniqueId = null) where TArgs : NavigationArgs
+		private TArgs TryGetArgs<TArgs>(string PageName, string UniqueId = null) where TArgs : NavigationArgs
 		{
-			return (this.CanUseNavigationService && this.TryPopArgs(Shell.Current.CurrentPage, out TArgs Args, UniqueId)) ? Args : null;
-		}
-
-		private bool TryPopArgs<TArgs>(Page CurrentPage, out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs
-		{
-			if (CurrentPage is null)
-			{
-				Args = default;
-				return false;
-			}
-
-			return this.TryPopArgs(CurrentPage.GetType().Name, out Args, UniqueId) ||
-				this.TryPopArgs(Routing.GetRoute(CurrentPage), out Args, UniqueId);
-		}
-
-		private bool TryPopArgs<TArgs>(string PageName, out TArgs args, string UniqueId = null) where TArgs : NavigationArgs
-		{
-			args = default;
-
 			if (!string.IsNullOrEmpty(UniqueId))
 				PageName += UniqueId;
 
 			if (this.TryGetPageName(PageName, out string pageName) &&
-				this.navigationArgsMap.TryGetValue(pageName, out NavigationArgs navArgs) &&
-				(navArgs is not null))
+				this.navigationArgsMap.TryGetValue(pageName, out NavigationArgs NavigationArgs) &&
+				(NavigationArgs is not null))
 			{
-				args = navArgs as TArgs;
+				TArgs Args = NavigationArgs as TArgs;
+				return Args;
 			}
 
-			return args is not null;
+			return null;
 		}
 
-		public Task GoBackAsync()
-		{
-			return this.GoBackAsync(true);
-		}
-
-		public Task GoBackAsync(bool Animate)
+		public Task GoBackAsync(bool Animate = true)
 		{
 			if (!this.CanUseNavigationService)
 				return Task.CompletedTask;
 
 			try
 			{
-				NavigationArgs CurrentNavigationArgs = this.CurrentNavigationArgs;
+				NavigationArgs NavigationArgs = this.TryGetArgs<NavigationArgs>();
 				string ReturnRoute = defaultGoBackRoute;
 				int ReturnCounter = 0;
 
-				if (CurrentNavigationArgs is not null)
+				if (NavigationArgs is not null)
 				{
-					ReturnCounter = CurrentNavigationArgs.ReturnCounter;
+					ReturnCounter = NavigationArgs.ReturnCounter;
 
-					if ((ReturnCounter == 0) && !string.IsNullOrEmpty(CurrentNavigationArgs.ReturnRoute))
-						ReturnRoute = CurrentNavigationArgs.ReturnRoute;
+					if ((ReturnCounter == 0) && !string.IsNullOrEmpty(NavigationArgs.ReturnRoute))
+						ReturnRoute = NavigationArgs.ReturnRoute;
 				}
 
 				if (ReturnCounter > 1)
@@ -253,48 +219,32 @@ namespace IdApp.Services.Navigation
 			}
 		}
 
-		public Task GoToAsync(string Route)
+		public Task GoToAsync<TArgs>(string Route, TArgs Args = null, BackMethod BackMethod = BackMethod.Inherited, string UniqueId = null) where TArgs : NavigationArgs, new()
 		{
 			if (!this.CanUseNavigationService)
 				return Task.CompletedTask;
 
-			return this.GoToAsync(Route, (NavigationArgs)null, (NavigationArgs)null);
-		}
+			// Get the parent's navigation arguments
+			NavigationArgs ParentArgs = this.TryGetArgs<NavigationArgs>();
 
-		public Task GoToAsync<TArgs>(string Route, TArgs args) where TArgs : NavigationArgs, new()
-		{
-			if (!this.CanUseNavigationService)
-				return Task.CompletedTask;
-
-			NavigationArgs NavigationArgs = this.GetPopArgs<NavigationArgs>();
-
-			if ((args is not null) && args.CancelReturnCounter)
+			if ((Args is not null) && Args.CancelReturnCounter)
 			{
 				// ignore the previous args if the return counter was canceled
-				NavigationArgs = null;
+				ParentArgs = null;
 			}
 
-			return this.GoToAsync(Route, args, NavigationArgs);
-		}
-
-		private Task GoToAsync<TArgs>(string Route, TArgs args, NavigationArgs NavigationArgs) where TArgs : NavigationArgs, new()
-		{
-#if DEBUG
-			NavigationLogger.Log("Navigating to " + (Route ?? "(null)") + " with args=" + (args?.GetType().Name ?? "(null)") + " and navigation args=" + (NavigationArgs?.GetType().Name ?? "(null)"));
-#endif
-
-			if ((NavigationArgs is not null) && (NavigationArgs.ReturnCounter > 0))
+			if ((ParentArgs is not null) && (ParentArgs.ReturnCounter > 0))
 			{
-				args ??= new TArgs();
-				args.ReturnCounter = NavigationArgs.ReturnCounter + 1;
+				Args ??= new TArgs();
+				Args.ReturnCounter = ParentArgs.ReturnCounter + 1;
 			}
 
-			this.PushArgs(Route, args);
+			this.PushArgs(Route, Args);
 
 			try
 			{
-				if ((args is not null) && !string.IsNullOrEmpty(args.UniqueId))
-					Route += "?UniqueId=" + args.UniqueId;
+				if ((Args is not null) && !string.IsNullOrEmpty(Args.UniqueId))
+					Route += "?UniqueId=" + Args.UniqueId;
 
 				return Shell.Current.GoToAsync(Route, true);
 			}

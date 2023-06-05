@@ -10,6 +10,7 @@ using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.Payment;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using IdApp.Services.UI.QR;
 using Waher.Networking.XMPP;
@@ -391,10 +392,8 @@ namespace IdApp.Pages.Contacts.MyContacts
 							if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
 								break;
 
-							await this.NavigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed)
-							{
-								ReturnRoute = "../.."
-							});
+							//!!!!!! ReturnRoute = "../.."
+							await this.NavigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed), BackMethod.ToParentPage);
 
 							break;
 

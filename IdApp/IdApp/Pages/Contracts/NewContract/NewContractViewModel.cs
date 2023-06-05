@@ -8,6 +8,7 @@ using IdApp.Pages.Main.Calculator;
 using IdApp.Pages.Main.Main;
 using IdApp.Resx;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -653,10 +654,10 @@ namespace IdApp.Pages.Contracts.NewContract
 					ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["AddContactToContract"], Selected)
 					{
 						CanScanQrCode = true,
-						CancelReturnCounter = true
 					};
 
-					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
+					//!!!!!! CancelReturnCounter = true
+					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.Pop);
 
 					ContactInfoModel Contact = await Selected.Task;
 					if (Contact is null)
@@ -1016,8 +1017,10 @@ namespace IdApp.Pages.Contracts.NewContract
 
 				if (Created is not null)
 				{
-					await this.NavigationService.GoToAsync(nameof(ViewContractPage),
-						new ViewContractNavigationArgs(Created, false) { ReturnRoute = "///" + nameof(MainPage) });
+					ViewContractNavigationArgs Args = new(Created, false);
+
+					//!!!!!! { ReturnRoute = "///" + nameof(MainPage) }
+					await this.NavigationService.GoToAsync(nameof(ViewContractPage), Args, BackMethod.ToMainPage);
 				}
 			}
 		}
@@ -1330,10 +1333,10 @@ namespace IdApp.Pages.Contracts.NewContract
 				if (ParameterInfo.Control is not Entry Entry)
 					return;
 
-				await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(Entry)
-				{
-					CancelReturnCounter = true
-				});
+				CalculatorNavigationArgs Args = new(Entry);
+
+				//!!!!!! CancelReturnCounter = true
+				await this.NavigationService.GoToAsync(nameof(CalculatorPage), Args, BackMethod.Pop);
 			}
 			catch (Exception ex)
 			{
