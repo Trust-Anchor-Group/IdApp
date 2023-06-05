@@ -10737,6 +10737,9 @@
         <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.OnDispose">
             <inheritdoc />
         </member>
+        <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.DoAssignProperties">
+            <inheritdoc />
+        </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.IsTest">
             <summary>
             True if the user choose the educational or experimental purpose.
