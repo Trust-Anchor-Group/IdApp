@@ -17,6 +17,12 @@ namespace IdApp.Services.Navigation
 		/// Navigates the AppShell to the specified route, with page arguments to match.
 		/// </summary>
 		/// <param name="Route">The route whose matching page to navigate to.</param>
+		Task GoToAsync(string Route);
+
+		/// <summary>
+		/// Navigates the AppShell to the specified route, with page arguments to match.
+		/// </summary>
+		/// <param name="Route">The route whose matching page to navigate to.</param>
 		/// <param name="Args">The specific args to pass to the page.</param>
 		/// <param name="BackMethod">How to handle the back button.</param>
 		/// <param name="UniqueId">Views unique ID.</param>
