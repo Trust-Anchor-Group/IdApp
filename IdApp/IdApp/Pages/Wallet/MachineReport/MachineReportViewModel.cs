@@ -23,7 +23,7 @@ namespace IdApp.Pages.Wallet.MachineReport
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out MachineReportNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out MachineReportNavigationArgs args))
 			{
 				this.TokenReport = args.Report;
 				this.Title = await this.TokenReport.GetTitle();

@@ -21,6 +21,7 @@ using Waher.Content.Xml;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Waher.Script;
+using Waher.Script.Functions.ComplexNumbers;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -63,7 +64,9 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			ContractVisibility? Visibility = null;
 
-			if (this.NavigationService.TryPopArgs(out NewContractNavigationArgs args))
+			//!!!!!!
+			/*
+			if (this.NavigationService.TryGetArgs(out NewContractNavigationArgs args))
 			{
 				this.template = args.Template;
 				this.suppressedProposalIds = args.SuppressedProposalLegalIds;
@@ -79,6 +82,28 @@ namespace IdApp.Pages.Contracts.NewContract
 						Visibility = args.Template.Visibility;
 
 					args.ViewInitialized = true;
+				}
+			}
+			else if (this.stateTemplateWhileScanning is not null)
+			{
+				this.template = this.stateTemplateWhileScanning;
+				this.stateTemplateWhileScanning = null;
+			}
+			*/
+
+			if (this.NavigationService.TryGetArgs(out NewContractNavigationArgs Args))
+			{
+				this.template = Args.Template;
+				this.suppressedProposalIds = Args.SuppressedProposalLegalIds;
+
+				if (Args.ParameterValues is not null)
+				{
+					this.presetParameterValues = Args.ParameterValues;
+				}
+
+				if (Args.SetVisibility)
+				{
+					Visibility = Args.Template.Visibility;
 				}
 			}
 			else if (this.stateTemplateWhileScanning is not null)

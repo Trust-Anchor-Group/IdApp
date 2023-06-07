@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Script;
 using Waher.Script.Abstraction.Elements;
+using Waher.Script.Functions.ComplexNumbers;
 using Waher.Script.Operators.Vectors;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
@@ -38,7 +39,9 @@ namespace IdApp.Pages.Main.Calculator
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out CalculatorNavigationArgs args))
+			//!!!!!!
+			/*
+			if (this.NavigationService.TryGetArgs(out CalculatorNavigationArgs args))
 			{
 				if (!args.ViewInitialized)
 				{
@@ -55,6 +58,22 @@ namespace IdApp.Pages.Main.Calculator
 
 					args.ViewInitialized = true;
 				}
+			}
+			*/
+
+			if (this.NavigationService.TryGetArgs(out CalculatorNavigationArgs Args))
+			{
+				this.Entry = Args.Entry;
+				this.ViewModel = Args.ViewModel;
+				this.Property = Args.Property;
+
+				if (this.Entry is not null)
+					this.Value = this.Entry.Text;
+				else if (this.ViewModel is not null && this.Property is not null)
+					this.Value = (string)this.ViewModel.GetValue(this.Property);
+				else
+					this.Value = string.Empty;
+
 			}
 
 			this.DecimalSeparator = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;

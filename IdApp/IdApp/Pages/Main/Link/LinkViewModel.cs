@@ -27,7 +27,7 @@ namespace IdApp.Pages.Main.Link
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out LinkNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out LinkNavigationArgs args))
 			{
 				if (string.IsNullOrEmpty(args.Url))
 				{

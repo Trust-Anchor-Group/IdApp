@@ -51,7 +51,7 @@ namespace IdApp.Pages.Things.CanControl
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out CanControlNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out CanControlNavigationArgs args))
 			{
 				this.@event = args.Event;
 				this.BareJid = args.BareJid;

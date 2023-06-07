@@ -14,6 +14,7 @@ using IdApp.Converters;
 using IdApp.Pages.Main.Calculator;
 using Xamarin.CommunityToolkit.Helpers;
 using Waher.Networking.XMPP.StanzaErrors;
+using Waher.Script.Functions.ComplexNumbers;
 
 namespace IdApp.Pages.Wallet
 {
@@ -51,7 +52,9 @@ namespace IdApp.Pages.Wallet
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out EDalerUriNavigationArgs args))
+			//!!!!!!
+			/*
+			if (this.NavigationService.TryGetArgs(out EDalerUriNavigationArgs args))
 			{
 				this.uriToSend = args.UriToSend;
 
@@ -124,6 +127,74 @@ namespace IdApp.Pages.Wallet
 
 					args.ViewInitialized = true;
 				}
+			}
+			*/
+
+			if (this.NavigationService.TryGetArgs(out EDalerUriNavigationArgs Args))
+			{
+				this.uriToSend = Args.UriToSend;
+				this.FriendlyName = Args.FriendlyName;
+
+				if (Args.Uri is not null)
+				{
+					this.Uri = Args.Uri.UriString;
+					this.Id = Args.Uri.Id;
+					this.Amount = Args.Uri.Amount;
+					this.AmountExtra = Args.Uri.AmountExtra;
+					this.Currency = Args.Uri.Currency;
+					this.Created = Args.Uri.Created;
+					this.Expires = Args.Uri.Expires;
+					this.ExpiresStr = this.Expires.ToShortDateString();
+					this.From = Args.Uri.From;
+					this.FromType = Args.Uri.FromType;
+					this.To = Args.Uri.To;
+					this.ToType = Args.Uri.ToType;
+					this.ToPreset = !string.IsNullOrEmpty(Args.Uri.To);
+					this.Complete = Args.Uri.Complete;
+				}
+
+				this.RemoveQrCode();
+				this.NotPaid = true;
+
+				this.AmountText = this.Amount <= 0 ? string.Empty : MoneyToString.ToString(this.Amount);
+				this.AmountOk = CommonTypes.TryParse(this.AmountText, out decimal d) && d > 0;
+				this.AmountPreset = !string.IsNullOrEmpty(this.AmountText) && this.AmountOk;
+				this.AmountAndCurrency = this.AmountText + " " + this.Currency;
+
+				this.AmountExtraText = this.AmountExtra.HasValue ? MoneyToString.ToString(this.AmountExtra.Value) : string.Empty;
+				this.AmountExtraOk = !this.AmountExtra.HasValue || this.AmountExtra.Value >= 0;
+				this.AmountExtraPreset = this.AmountExtra.HasValue;
+				this.AmountExtraAndCurrency = this.AmountExtraText + " " + this.Currency;
+
+				StringBuilder Url = new();
+
+				Url.Append("https://");
+				Url.Append(this.From);
+				Url.Append("/Images/eDalerFront200.png");
+
+				this.EDalerFrontGlyph = Url.ToString();
+
+				Url.Clear();
+				Url.Append("https://");
+				Url.Append(this.TagProfile.Domain);
+				Url.Append("/Images/eDalerBack200.png");
+				this.EDalerBackGlyph = Url.ToString();
+
+				if (Args.Uri?.EncryptedMessage is not null)
+				{
+					if (Args.Uri.EncryptionPublicKey is null)
+						this.Message = Encoding.UTF8.GetString(Args.Uri.EncryptedMessage);
+					else
+					{
+						this.Message = await this.XmppService.TryDecryptMessage(args.Uri.EncryptedMessage,
+						Args.Uri.EncryptionPublicKey, Args.Uri.Id, Args.Uri.From);
+					}
+					this.HasMessage = !string.IsNullOrEmpty(this.Message);
+				}
+
+				this.MessagePreset = !string.IsNullOrEmpty(this.Message);
+				this.CanEncryptMessage = Args.Uri?.ToType == EntityType.LegalId;
+				this.EncryptMessage = this.CanEncryptMessage;
 			}
 
 			this.AssignProperties();

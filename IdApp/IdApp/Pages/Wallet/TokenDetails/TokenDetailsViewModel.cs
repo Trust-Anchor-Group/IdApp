@@ -76,7 +76,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out TokenDetailsNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out TokenDetailsNavigationArgs args))
 			{
 				this.Created = args.Token.Created;
 				this.Updated = args.Token.Updated;

@@ -77,7 +77,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.EDalerFrontGlyph = "https://" + this.TagProfile.Domain + "/Images/eDalerFront200.png";
 			this.EDalerBackGlyph = "https://" + this.TagProfile.Domain + "/Images/eDalerBack200.png";
 
-			if (this.Balance is null && this.NavigationService.TryPopArgs(out WalletNavigationArgs args))
+			if (this.Balance is null && this.NavigationService.TryGetArgs(out WalletNavigationArgs args))
 			{
 				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.GetNotificationEvents();
 

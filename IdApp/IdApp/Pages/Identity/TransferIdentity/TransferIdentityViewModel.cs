@@ -30,7 +30,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out TransferIdentityNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out TransferIdentityNavigationArgs args))
 				this.Uri = args.Uri;
 
 			this.QrCodeWidth = 400;

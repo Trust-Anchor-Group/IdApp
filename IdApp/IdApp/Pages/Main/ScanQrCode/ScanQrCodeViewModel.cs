@@ -36,7 +36,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         {
             await base.OnInitialize();
 
-			if (this.navigationArgs is null && this.NavigationService.TryPopArgs(out ScanQrCodeNavigationArgs Args))
+			if (this.navigationArgs is null && this.NavigationService.TryGetArgs(out ScanQrCodeNavigationArgs Args))
 			{
 				this.navigationArgs = Args;
 				this.useShellNavigationService = Args is not null;

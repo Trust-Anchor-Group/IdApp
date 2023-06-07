@@ -53,7 +53,7 @@ namespace IdApp.Pages.Things.CanRead
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out CanReadNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out CanReadNavigationArgs args))
 			{
 				this.@event = args.Event;
 				this.BareJid = args.BareJid;

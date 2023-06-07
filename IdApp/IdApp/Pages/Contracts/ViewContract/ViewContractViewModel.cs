@@ -52,7 +52,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ViewContractNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out ViewContractNavigationArgs args))
 			{
 				this.Contract = args.Contract;
 				this.isReadOnly = args.IsReadOnly;

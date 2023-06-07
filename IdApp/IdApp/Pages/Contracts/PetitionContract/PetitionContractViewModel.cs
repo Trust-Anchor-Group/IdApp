@@ -39,7 +39,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out PetitionContractNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out PetitionContractNavigationArgs args))
 			{
 				this.RequestorIdentity = args.RequestorIdentity;
 				this.requestorFullJid = args.RequestorFullJid;

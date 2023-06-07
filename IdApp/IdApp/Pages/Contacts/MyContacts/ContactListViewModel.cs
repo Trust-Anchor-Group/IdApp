@@ -50,7 +50,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ContactListNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out ContactListNavigationArgs args))
 			{
 				this.Description = args.Description;
 				this.Action = args.Action;

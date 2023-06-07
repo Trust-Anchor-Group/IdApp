@@ -31,8 +31,9 @@ namespace IdApp.Services.Navigation
 		/// <summary>
 		/// Returns the page's arguments from the (one-level) deep navigation stack.
 		/// </summary>
-		/// <param name="UniqueId">Views unique ID.</param>
-		TArgs TryGetArgs<TArgs>(string UniqueId = null) where TArgs : NavigationArgs;
+		/// <param name="Args">View's navigation arguments.</param>
+		/// <param name="UniqueId">View's unique ID.</param>
+		bool TryGetArgs<TArgs>(out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs;
 
         /// <summary>
         /// Current page

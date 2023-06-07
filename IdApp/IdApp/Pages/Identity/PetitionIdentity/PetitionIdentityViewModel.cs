@@ -46,7 +46,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         {
             await base.OnInitialize();
 
-            if (this.NavigationService.TryPopArgs(out PetitionIdentityNavigationArgs args))
+            if (this.NavigationService.TryGetArgs(out PetitionIdentityNavigationArgs args))
             {
                 this.RequestorIdentity = args.RequestorIdentity;
                 this.requestorFullJid = args.RequestorFullJid;

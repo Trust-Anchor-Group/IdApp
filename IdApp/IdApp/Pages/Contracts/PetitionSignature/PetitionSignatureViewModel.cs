@@ -40,7 +40,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out PetitionSignatureNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out PetitionSignatureNavigationArgs args))
 			{
 				this.RequestorIdentity = args.RequestorIdentity;
 				this.requestorFullJid = args.RequestorFullJid;

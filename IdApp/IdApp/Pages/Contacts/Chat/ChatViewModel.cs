@@ -86,7 +86,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ChatNavigationArgs args, this.UniqueId))
+			if (this.NavigationService.TryGetArgs(out ChatNavigationArgs args, this.UniqueId))
 			{
 				this.LegalId = args.LegalId;
 				this.BareJid = args.BareJid;

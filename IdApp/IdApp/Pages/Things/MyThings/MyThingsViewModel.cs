@@ -38,7 +38,7 @@ namespace IdApp.Pages.Things.MyThings
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out MyThingsNavigationArgs Args))
+			if (this.NavigationService.TryGetArgs(out MyThingsNavigationArgs Args))
 				this.selectedThing = Args.ThingToShare;
 			else
 				this.selectedThing = null;

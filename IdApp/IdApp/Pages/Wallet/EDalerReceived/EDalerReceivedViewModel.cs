@@ -27,7 +27,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out EDalerBalanceNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out EDalerBalanceNavigationArgs args))
 			{
 				this.Amount = args.Balance.Amount;
 				this.Currency = args.Balance.Currency;

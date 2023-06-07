@@ -69,7 +69,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ViewIdentityNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out ViewIdentityNavigationArgs args))
 			{
 				this.LegalIdentity = args.Identity ?? this.TagProfile.LegalIdentity;
 				this.requestorIdentity = args.RequestorIdentity;

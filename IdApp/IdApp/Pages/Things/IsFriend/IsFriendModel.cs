@@ -43,7 +43,7 @@ namespace IdApp.Pages.Things.IsFriend
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out IsFriendNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out IsFriendNavigationArgs args))
 			{
 				this.@event = args.Event;
 				this.BareJid = args.BareJid;

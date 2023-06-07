@@ -44,7 +44,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 			this.IsBusy = true;
 			this.ShowContractsMissing = false;
 
-			if (this.NavigationService.TryPopArgs(out MyContractsNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out MyContractsNavigationArgs args))
 			{
 				this.contractsListMode = args.Mode;
 				this.Action = args.Action;

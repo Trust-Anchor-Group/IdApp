@@ -37,7 +37,7 @@ namespace IdApp.Pages.Wallet.SellEDaler
 			/*
 			bool SkipInitialization = false;
 
-			if (this.NavigationService.TryPopArgs(out SellEDalerNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out SellEDalerNavigationArgs args))
 			{
 				SkipInitialization = args.ViewInitialized;
 				if (!SkipInitialization)
@@ -57,9 +57,7 @@ namespace IdApp.Pages.Wallet.SellEDaler
 			}
 			*/
 
-			SellEDalerNavigationArgs Args = this.NavigationService.TryGetArgs<SellEDalerNavigationArgs>();
-
-			if (Args is not null)
+			if (this.NavigationService.TryGetArgs(out SellEDalerNavigationArgs Args))
 			{
 				this.Currency = Args.Currency;
 				this.result = Args.Result;

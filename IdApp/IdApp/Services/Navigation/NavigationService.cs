@@ -81,7 +81,7 @@ namespace IdApp.Services.Navigation
 				return Task.CompletedTask;
 
 			// Get the parent's navigation arguments
-			NavigationArgs ParentArgs = this.TryGetArgs<NavigationArgs>();
+			NavigationArgs ParentArgs = this.GetCurrentNavigationArgs();
 
 			// Create a default navigation arguments if Args are null
 			NavigationArgs NavigationArgs = Args ?? new();
@@ -115,7 +115,7 @@ namespace IdApp.Services.Navigation
 
 			try
 			{
-				NavigationArgs NavigationArgs = this.TryGetArgs<NavigationArgs>();
+				NavigationArgs NavigationArgs = this.GetCurrentNavigationArgs();
 				string BackRoute = "..";
 				int BackCounter = 0;
 
@@ -138,21 +138,26 @@ namespace IdApp.Services.Navigation
 		}
 
 		///<inheritdoc/>
-		public TArgs TryGetArgs<TArgs>(string UniqueId = null) where TArgs : NavigationArgs
+		public bool TryGetArgs<TArgs>(out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs
 		{
-			if (!this.CanUseNavigationService)
-				return null;
-
 			NavigationArgs NavigationArgs = null;
 
-			if (this.CurrentPage is Page Page)
+			if (this.CanUseNavigationService && (this.CurrentPage is Page Page))
 			{
 				NavigationArgs = this.TryGetArgs(Page.GetType().Name, UniqueId);
 				string Route = Routing.GetRoute(Page);
 				NavigationArgs ??= this.TryGetArgs(Route, UniqueId);
 			}
 
-			return NavigationArgs as TArgs;
+			Args = NavigationArgs as TArgs;
+
+			return (Args is not null);
+		}
+
+		private NavigationArgs GetCurrentNavigationArgs()
+		{
+			this.TryGetArgs(out NavigationArgs Args);
+			return Args;
 		}
 
 		private void OnApplicationPropertyChanged(object Sender, System.ComponentModel.PropertyChangedEventArgs Args)
@@ -183,7 +188,7 @@ namespace IdApp.Services.Navigation
 		{
 			try
 			{
-				NavigationArgs NavigationArgs = this.TryGetArgs<NavigationArgs>();
+				NavigationArgs NavigationArgs = this.GetCurrentNavigationArgs();
 
 				if ((e.Source == ShellNavigationSource.Pop) &&
 					(NavigationArgs is not null) &&

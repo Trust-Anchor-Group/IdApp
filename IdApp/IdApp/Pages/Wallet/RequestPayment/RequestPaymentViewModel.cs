@@ -45,7 +45,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 			/*
 			bool SkipInitialization = false;
 
-			if (this.NavigationService.TryPopArgs(out EDalerBalanceNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out EDalerBalanceNavigationArgs args))
 			{
 				SkipInitialization = args.ViewInitialized;
 				if (!SkipInitialization)
@@ -67,9 +67,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 			}
 			*/
 
-			EDalerBalanceNavigationArgs Args = this.NavigationService.TryGetArgs<EDalerBalanceNavigationArgs>();
-
-			if (Args is not null)
+			if (this.NavigationService.TryGetArgs(out EDalerBalanceNavigationArgs Args))
 			{
 				this.Currency = Args.Balance.Currency;
 			}
