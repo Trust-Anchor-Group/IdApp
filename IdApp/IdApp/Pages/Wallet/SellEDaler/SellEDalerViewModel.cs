@@ -5,6 +5,7 @@ using System.Windows.Input;
 using IdApp.Pages.Main.Calculator;
 using Waher.Content;
 using Waher.Networking.XMPP;
+using Waher.Script.Functions.ComplexNumbers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.SellEDaler
@@ -32,6 +33,8 @@ namespace IdApp.Pages.Wallet.SellEDaler
 		{
 			await base.OnInitialize();
 
+			//!!!!!!
+			/*
 			bool SkipInitialization = false;
 
 			if (this.NavigationService.TryPopArgs(out SellEDalerNavigationArgs args))
@@ -52,6 +55,19 @@ namespace IdApp.Pages.Wallet.SellEDaler
 				this.AmountText = string.Empty;
 				this.AmountOk = false;
 			}
+			*/
+
+			SellEDalerNavigationArgs Args = this.NavigationService.TryGetArgs<SellEDalerNavigationArgs>();
+
+			if (Args is not null)
+			{
+				this.Currency = Args.Currency;
+				this.result = Args.Result;
+			}
+
+			this.Amount = 0;
+			this.AmountText = string.Empty;
+			this.AmountOk = false;
 
 			this.AssignProperties();
 			this.EvaluateAllCommands();

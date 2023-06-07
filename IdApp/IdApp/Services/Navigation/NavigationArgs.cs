@@ -51,17 +51,19 @@ namespace IdApp.Services.Navigation
 		/// <summary>
 		/// Sets the reference to the main parent's <see cref="NavigationArgs"/>.
 		/// </summary>
-		public void SetBackArguments(BackMethod BackMethod, NavigationArgs ParentArgs)
+		public void SetBackArguments(BackMethod BackMethod, NavigationArgs ParentArgs, string UniqueId)
 		{
 			this.backMethod = BackMethod;
 			this.parentArgs = ParentArgs;
+			this.uniqueId = UniqueId;
 		}
 
+		/*
 		/// <summary>
 		/// If view has been initialized by the arguments.
 		/// </summary>
 		public bool ViewInitialized { get; set; }
-
+		*/
 
 		/// <summary>
 		/// Sets how do we have to go back

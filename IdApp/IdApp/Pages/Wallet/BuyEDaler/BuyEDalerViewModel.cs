@@ -33,6 +33,8 @@ namespace IdApp.Pages.Wallet.BuyEDaler
 		{
 			await base.OnInitialize();
 
+			//!!!!!!
+			/*
 			bool SkipInitialization = false;
 
 			if (this.NavigationService.TryPopArgs(out BuyEDalerNavigationArgs args))
@@ -53,6 +55,19 @@ namespace IdApp.Pages.Wallet.BuyEDaler
 				this.AmountText = string.Empty;
 				this.AmountOk = false;
 			}
+			*/
+
+			BuyEDalerNavigationArgs Args = this.NavigationService.TryGetArgs<BuyEDalerNavigationArgs>();
+
+			if (Args != null)
+			{
+				this.Currency = Args.Currency;
+				this.result = Args.Result;
+			}
+
+			this.Amount = 0;
+			this.AmountText = string.Empty;
+			this.AmountOk = false;
 
 			this.AssignProperties();
 			this.EvaluateAllCommands();

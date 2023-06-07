@@ -9,6 +9,7 @@ using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Main.Calculator;
 using Waher.Content;
 using Waher.Networking.XMPP;
+using Waher.Script.Functions.ComplexNumbers;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
@@ -40,6 +41,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		{
 			await base.OnInitialize();
 
+			//!!!!!!
+			/*
 			bool SkipInitialization = false;
 
 			if (this.NavigationService.TryPopArgs(out EDalerBalanceNavigationArgs args))
@@ -62,9 +65,24 @@ namespace IdApp.Pages.Wallet.RequestPayment
 				this.AmountExtraText = string.Empty;
 				this.AmountExtraOk = false;
 			}
+			*/
+
+			EDalerBalanceNavigationArgs Args = this.NavigationService.TryGetArgs<EDalerBalanceNavigationArgs>();
+
+			if (Args is not null)
+			{
+				this.Currency = Args.Balance.Currency;
+			}
+
+			this.Amount = 0;
+			this.AmountText = string.Empty;
+			this.AmountOk = false;
+
+			this.AmountExtra = 0;
+			this.AmountExtraText = string.Empty;
+			this.AmountExtraOk = false;
 
 			this.RemoveQrCode();
-
 			this.AssignProperties();
 			this.EvaluateAllCommands();
 
@@ -165,7 +183,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		public string AmountText
 		{
 			get => (string)this.GetValue(AmountTextProperty);
-			set 
+			set
 			{
 				this.SetValue(AmountTextProperty, value);
 
@@ -427,7 +445,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 				if (string.IsNullOrEmpty(Message))
 					Message = LocalizationResourceManager.Current["RequestPaymentMessage"];
 
-				shareContent.ShareImage(this.QrCodeBin, string.Format(Message, this.Amount, this.Currency), 
+				shareContent.ShareImage(this.QrCodeBin, string.Format(Message, this.Amount, this.Currency),
 					LocalizationResourceManager.Current["Share"], "RequestPayment.png");
 			}
 			catch (Exception ex)
