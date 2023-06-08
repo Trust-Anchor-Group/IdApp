@@ -123,17 +123,7 @@ namespace IdApp.Services.Navigation
 			try
 			{
 				NavigationArgs NavigationArgs = this.GetCurrentNavigationArgs();
-				string BackRoute = "..";
-				int BackCounter = 0;
-
-				if (NavigationArgs is not null)
-				{
-					BackCounter = NavigationArgs.GetBackCounter();
-
-					// if BackCounter >= 2
-					for (int i = 2; i <= BackCounter; i++)
-						BackRoute += "/" + "..";
-				}
+				string BackRoute = NavigationArgs.GetBackRoute();
 
 				return Shell.Current.GoToAsync(BackRoute, Animate);
 			}
@@ -199,7 +189,7 @@ namespace IdApp.Services.Navigation
 
 				if ((e.Source == ShellNavigationSource.Pop) &&
 					(NavigationArgs is not null) &&
-					NavigationArgs.GetBackCounter() > 1)
+					NavigationArgs.IsCompoundBackRoute())
 				{
 					if (e.CanCancel && !this.isManuallyNavigatingBack)
 					{

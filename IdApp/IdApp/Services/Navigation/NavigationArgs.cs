@@ -1,4 +1,6 @@
-﻿using IdApp.Services.Navigation;
+﻿using IdApp.Pages.Main.Main;
+using IdApp.Services.Navigation;
+using System;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo(nameof(NavigationService))]
@@ -21,14 +23,12 @@ namespace IdApp.Services.Navigation
 		Pop = 1,
 
 		/// <summary>
-		/// Sets the <see cref="NavigationArgs.backCounter"/> to 1
-		/// All pages with inherited method will increment the backCounter
+		/// Pop until this page is reached
 		/// </summary>
 		ToThisPage = 2,
 
 		/// <summary>
-		/// Sets the <see cref="NavigationArgs.backCounter"/> to 2
-		/// All pages with inherited method will increment the backCounter
+		/// Pop until this page's parent is reached
 		/// </summary>
 		ToParentPage = 3,
 
@@ -45,7 +45,6 @@ namespace IdApp.Services.Navigation
     {
 		private NavigationArgs parentArgs = null;
 		private BackMethod backMethod = BackMethod.Inherited;
-		private int backCounter = 0;
 		private string uniqueId = null;
 
 		/// <summary>
@@ -66,15 +65,86 @@ namespace IdApp.Services.Navigation
 		*/
 
 		/// <summary>
-		/// Sets how do we have to go back
+		/// Get the route used for the <see cref="INavigationService.GoBackAsync"/> method.
 		/// </summary>
-		public BackMethod GetBackMethod() => this.backMethod;
+		public string GetBackRoute()
+		{
+			BackMethod BackMethod = this.backMethod;
+
+			if (BackMethod == BackMethod.Inherited)
+			{
+				string BackRoute = null;
+				NavigationArgs ParentArgs = this.parentArgs;
+
+				while ((ParentArgs is not null) && (ParentArgs.backMethod == BackMethod.Inherited))
+				{
+					ParentArgs = ParentArgs.parentArgs;
+
+					if (BackRoute is null)
+					{
+						BackRoute = "..";
+					}
+					else
+					{
+						BackRoute += "/..";
+					}
+				}
+
+				if (ParentArgs is null)
+				{
+					return ".."; // Pop is inherited by default
+				}
+
+				BackMethod ParentBackMethod = ParentArgs.backMethod;
+
+				if (ParentBackMethod == BackMethod.Pop)
+				{
+					return "..";
+				}
+				else if (ParentBackMethod == BackMethod.ToThisPage)
+				{
+					return BackRoute;
+				}
+				else if (ParentBackMethod == BackMethod.ToParentPage)
+				{
+					return BackRoute + "/..";
+				}
+				else if (ParentBackMethod == BackMethod.ToMainPage)
+				{
+					return "///" + nameof(MainPage);
+				}
+			}
+			else
+			{
+				if (BackMethod == BackMethod.Pop)
+				{
+					return "..";
+				}
+				else if (BackMethod == BackMethod.ToThisPage)
+				{
+					return "..";
+				}
+				else if (BackMethod == BackMethod.ToParentPage)
+				{
+					return "../..";
+				}
+				if (this.backMethod == BackMethod.ToMainPage)
+				{
+					return "///" + nameof(MainPage);
+				}
+			}
+
+			// all variants should be returned by now
+			throw new NotImplementedException();
+		}
 
 		/// <summary>
-		/// Set it to 1 to start a counter of the number of times to pop when going back.
-		/// It will be incremented on every push using the <see cref="INavigationService.GoToAsync"/> method.
+		/// Get the route used for the <see cref="INavigationService.GoBackAsync"/> method.
 		/// </summary>
-		public int GetBackCounter() => this.backCounter;
+		public bool IsCompoundBackRoute()
+		{
+			return this.GetBackRoute() != "..";
+		}
 
 		/// <summary>
 		/// An untique view identificator used to search the args of similar view types.

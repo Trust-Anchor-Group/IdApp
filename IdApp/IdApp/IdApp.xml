@@ -23623,14 +23623,12 @@
         </member>
         <member name="F:IdApp.Services.Navigation.BackMethod.ToThisPage">
             <summary>
-            Sets the <see cref="F:IdApp.Services.Navigation.NavigationArgs.backCounter"/> to 1
-            All pages with inherited method will increment the backCounter
+            Pop until this page is reached
             </summary>
         </member>
         <member name="F:IdApp.Services.Navigation.BackMethod.ToParentPage">
             <summary>
-            Sets the <see cref="F:IdApp.Services.Navigation.NavigationArgs.backCounter"/> to 2
-            All pages with inherited method will increment the backCounter
+            Pop until this page's parent is reached
             </summary>
         </member>
         <member name="F:IdApp.Services.Navigation.BackMethod.ToMainPage">
@@ -23648,15 +23646,14 @@
             Sets the reference to the main parent's <see cref="T:IdApp.Services.Navigation.NavigationArgs"/>.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Navigation.NavigationArgs.GetBackMethod">
+        <member name="M:IdApp.Services.Navigation.NavigationArgs.GetBackRoute">
             <summary>
-            Sets how do we have to go back
+            Get the route used for the <see cref="M:IdApp.Services.Navigation.INavigationService.GoBackAsync(System.Boolean)"/> method.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Navigation.NavigationArgs.GetBackCounter">
+        <member name="M:IdApp.Services.Navigation.NavigationArgs.IsCompoundBackRoute">
             <summary>
-            Set it to 1 to start a counter of the number of times to pop when going back.
-            It will be incremented on every push using the <see cref="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String,IdApp.Services.Navigation.BackMethod,System.String)"/> method.
+            Get the route used for the <see cref="M:IdApp.Services.Navigation.INavigationService.GoBackAsync(System.Boolean)"/> method.
             </summary>
         </member>
         <member name="M:IdApp.Services.Navigation.NavigationArgs.GetUniqueId">
