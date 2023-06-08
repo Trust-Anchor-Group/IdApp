@@ -1,13 +1,10 @@
 ﻿using IdApp.Pages.Main.Main;
-using IdApp.Services.Navigation;
 using System;
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo(nameof(NavigationService))]
 
 namespace IdApp.Services.Navigation
 {
 	/// <summary>
+	/// Navigation Back Method
 	/// </summary>
 	public enum BackMethod
 	{
@@ -57,6 +54,7 @@ namespace IdApp.Services.Navigation
 			this.uniqueId = UniqueId;
 		}
 
+		//!!!!!!
 		/*
 		/// <summary>
 		/// If view has been initialized by the arguments.

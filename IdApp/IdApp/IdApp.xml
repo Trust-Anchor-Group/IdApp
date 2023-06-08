@@ -23608,6 +23608,7 @@
         </member>
         <member name="T:IdApp.Services.Navigation.BackMethod">
             <summary>
+            Navigation Back Method
             </summary>
         </member>
         <member name="F:IdApp.Services.Navigation.BackMethod.Inherited">
