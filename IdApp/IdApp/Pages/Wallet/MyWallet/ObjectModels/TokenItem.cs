@@ -1,5 +1,6 @@
 ﻿using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using NeuroFeatures;
 using NeuroFeatures.Tags;
@@ -421,8 +422,10 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		{
 			if (this.selected is null)
 			{
-				await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage),
-					new TokenDetailsNavigationArgs(this) { ReturnCounter = 1 });
+				//!!!!!! ReturnCounter = 1
+				TokenDetailsNavigationArgs Args = new(this);
+
+				await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.ToThisPage);
 			}
 			else
 			{

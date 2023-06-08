@@ -19,6 +19,7 @@ using IdApp.Pages.Wallet.RequestPayment;
 using IdApp.Pages.Wallet.SellEDaler;
 using IdApp.Pages.Wallet.ServiceProviders;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using IdApp.Services.Notification.Wallet;
 using IdApp.Services.Wallet;
@@ -639,10 +640,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 				if (ServiceProviders.Length == 0)
 				{
-					await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance)
-					{
-						ReturnCounter = 1
-					});
+					//!!!!!! ReturnCounter = 1
+					EDalerBalanceNavigationArgs Args = new(this.Balance);
+
+					await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), Args, BackMethod.ToThisPage);
 				}
 				else
 				{
@@ -662,18 +663,18 @@ namespace IdApp.Pages.Wallet.MyWallet
 					{
 						if (string.IsNullOrEmpty(ServiceProvider.Id))
 						{
-							await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance)
-							{
-								ReturnCounter = 1
-							});
+							//!!!!!! ReturnCounter = 1
+							EDalerBalanceNavigationArgs Args = new(this.Balance);
+
+							await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), Args, BackMethod.ToThisPage);
 						}
 						else if (string.IsNullOrEmpty(ServiceProvider.BuyEDalerTemplateContractId))
 						{
+							//!!!!!! CancelReturnCounter = true
 							TaskCompletionSource<decimal?> Result = new();
-							await this.NavigationService.GoToAsync(nameof(BuyEDalerPage), new BuyEDalerNavigationArgs(this.Balance.Currency, Result)
-							{
-								CancelReturnCounter = true
-							});
+							BuyEDalerNavigationArgs Args = new(this.Balance.Currency, Result);
+
+							await this.NavigationService.GoToAsync(nameof(BuyEDalerPage), Args, BackMethod.Pop);
 
 							decimal? Amount = await Result.Task;
 
@@ -696,8 +697,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 								{ "TrustProvider", e2.TrustProviderId }
 							};
 
+							//!!!!!! ReturnCounter = 1
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.BuyEDalerTemplateContractId,
-								LocalizationResourceManager.Current["BuyEDaler"], Parameters, 1);
+								LocalizationResourceManager.Current["BuyEDaler"], Parameters, BackMethod.ToThisPage);
 
 							OptionsTransaction OptionsTransaction = await this.XmppService.InitiateBuyEDalerGetOptions(ServiceProvider.Id, ServiceProvider.Type);
 							IDictionary<CaseInsensitiveString, object>[] Options = await OptionsTransaction.Wait();
@@ -762,14 +764,15 @@ namespace IdApp.Pages.Wallet.MyWallet
 					{
 						if (string.IsNullOrEmpty(ServiceProvider.Id))
 						{
-							await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-								new ContactListNavigationArgs(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
-								{
-									CanScanQrCode = true,
-									AllowAnonymous = true,
-									AnonymousText = LocalizationResourceManager.Current["Open"],
-									ReturnCounter = 1
-								});
+							//!!!!!! ReturnCounter = 1
+							ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
+							{
+								CanScanQrCode = true,
+								AllowAnonymous = true,
+								AnonymousText = LocalizationResourceManager.Current["Open"],
+							};
+
+							await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.ToThisPage);
 						}
 						else if (string.IsNullOrEmpty(ServiceProvider.SellEDalerTemplateContractId))
 						{
@@ -797,8 +800,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 								{ "TrustProvider", e2.TrustProviderId }
 							};
 
+							//!!!!!! ReturnCounter = 1
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.SellEDalerTemplateContractId,
-								LocalizationResourceManager.Current["SellEDaler"], Parameters, 1);
+								LocalizationResourceManager.Current["SellEDaler"], Parameters, BackMethod.ToThisPage);
 
 							OptionsTransaction OptionsTransaction = await this.XmppService.InitiateSellEDalerGetOptions(ServiceProvider.Id, ServiceProvider.Type);
 							IDictionary<CaseInsensitiveString, object>[] Options = await OptionsTransaction.Wait();
@@ -1101,11 +1105,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 						Parameters[CommissionParameter] = e2.Commission;
 				}
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage),
-					new NewContractNavigationArgs(Template, true, Parameters));
-				//{
-				//	ReturnCounter = 1
-				//});
+				//!!!!!!?????? ReturnCounter = 1
+				NewContractNavigationArgs Args = new(Template, true, Parameters);
+
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), Args, BackMethod.ToThisPage);
 			}
 			catch (Exception ex)
 			{

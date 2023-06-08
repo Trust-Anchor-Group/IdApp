@@ -75,14 +75,14 @@ namespace IdApp.Services.Navigation
 
 
 		/// <inheritdoc/>
-		public Task GoToAsync(string Route)
+		public Task GoToAsync(string Route, BackMethod BackMethod = BackMethod.Inherited, string UniqueId = null)
 		{
-			// default no args navifation
-			return this.GoToAsync<NavigationArgs>(Route);
+			// No args navigation will create a defaul navigation arguments
+			return this.GoToAsync<NavigationArgs>(Route, null, BackMethod, UniqueId);
 		}
 
 		/// <inheritdoc/>
-		public Task GoToAsync<TArgs>(string Route, TArgs Args = null, BackMethod BackMethod = BackMethod.Inherited, string UniqueId = null) where TArgs : NavigationArgs, new()
+		public Task GoToAsync<TArgs>(string Route, TArgs Args, BackMethod BackMethod = BackMethod.Inherited, string UniqueId = null) where TArgs : NavigationArgs, new()
 		{
 			if (!this.CanUseNavigationService)
 				return Task.CompletedTask;

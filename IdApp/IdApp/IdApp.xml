@@ -22936,15 +22936,14 @@
             <param name="Purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
             <param name="ParameterValues">Parameter values to set in new contract.</param>
         </member>
-        <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.OpenContract(System.String,System.String,System.Collections.Generic.Dictionary{Waher.Persistence.CaseInsensitiveString,System.Object},System.Int32)">
+        <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.OpenContract(System.String,System.String,System.Collections.Generic.Dictionary{Waher.Persistence.CaseInsensitiveString,System.Object},IdApp.Services.Navigation.BackMethod)">
             <summary>
             Downloads the specified <see cref="T:Waher.Networking.XMPP.Contracts.Contract"/> and opens the corresponding page in the app to show it.
             </summary>
             <param name="ContractId">The id of the contract to show.</param>
             <param name="Purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
             <param name="ParameterValues">Parameter values to set in new contract.</param>
-            <param name="ReturnCounter">Set it to 1 to start a counter of the number of times to pop when going back.
-            It will be incremented on every push using the <see cref="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String)"/> method.</param>
+            <param name="BackMethod">How to pop when going back.</param>
         </member>
         <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.TagSignature(System.String)">
             <summary>
@@ -23572,23 +23571,22 @@
             Allows for easy mocking when unit testing.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String)">
-            <summary>
-            Navigates the AppShell to the specified route.
-            </summary>
-            <param name="route">The route whose matching page to navigate to.</param>
-        </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.GoToAsync``1(System.String,``0)">
+        <member name="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String,IdApp.Services.Navigation.BackMethod,System.String)">
             <summary>
             Navigates the AppShell to the specified route, with page arguments to match.
             </summary>
-            <param name="route">The route whose matching page to navigate to.</param>
-            <param name="args">The specific args to pass to the page.</param>
+            <param name="Route">The route whose matching page to navigate to.</param>
+            <param name="BackMethod">How to handle the back button.</param>
+            <param name="UniqueId">Views unique ID.</param>
         </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.GoBackAsync">
+        <member name="M:IdApp.Services.Navigation.INavigationService.GoToAsync``1(System.String,``0,IdApp.Services.Navigation.BackMethod,System.String)">
             <summary>
-            Returns to the previous page/route.
+            Navigates the AppShell to the specified route, with page arguments to match.
             </summary>
+            <param name="Route">The route whose matching page to navigate to.</param>
+            <param name="Args">The specific args to pass to the page.</param>
+            <param name="BackMethod">How to handle the back button.</param>
+            <param name="UniqueId">Views unique ID.</param>
         </member>
         <member name="M:IdApp.Services.Navigation.INavigationService.GoBackAsync(System.Boolean)">
             <summary>
@@ -23596,23 +23594,48 @@
             </summary>
             <param name="Animate">If animation should be used.</param>
         </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.TryPopArgs``1(``0@,System.String)">
+        <member name="M:IdApp.Services.Navigation.INavigationService.TryGetArgs``1(``0@,System.String)">
             <summary>
-            Tries to pop/read page arguments from the (one-level) deep navigation stack.
+            Returns the page's arguments from the (one-level) deep navigation stack.
             </summary>
-            <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="T:IdApp.Services.Navigation.NavigationArgs"/>.</typeparam>
-            <param name="args">The actual args.</param>
-            <param name="UniqueId">Views unique ID.</param>
-        </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.GetPopArgs``1(System.String)">
-            <summary>
-            Returns the pages arguments from the (one-level) deep navigation stack.
-            </summary>
-            <param name="UniqueId">Views unique ID.</param>
+            <param name="Args">View's navigation arguments.</param>
+            <param name="UniqueId">View's unique ID.</param>
         </member>
         <member name="P:IdApp.Services.Navigation.INavigationService.CurrentPage">
             <summary>
             Current page
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Navigation.BackMethod">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Navigation.BackMethod.Inherited">
+            <summary>
+            Takes in consideration the parent's navigation arguments
+            By fedault it will be considered a <see cref="F:IdApp.Services.Navigation.BackMethod.Pop"/>
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Navigation.BackMethod.Pop">
+            <summary>
+            Goes back just one navigation level - the route ".."
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Navigation.BackMethod.ToThisPage">
+            <summary>
+            Sets the <see cref="F:IdApp.Services.Navigation.NavigationArgs.backCounter"/> to 1
+            All pages with inherited method will increment the backCounter
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Navigation.BackMethod.ToParentPage">
+            <summary>
+            Sets the <see cref="F:IdApp.Services.Navigation.NavigationArgs.backCounter"/> to 2
+            All pages with inherited method will increment the backCounter
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Navigation.BackMethod.ToMainPage">
+            <summary>
+            Goes back to the main page - the route "///" + nameof(MainPage)
             </summary>
         </member>
         <member name="T:IdApp.Services.Navigation.NavigationArgs">
@@ -23620,38 +23643,29 @@
             An base class holding page specific navigation parameters.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Navigation.NavigationArgs.#ctor">
+        <member name="M:IdApp.Services.Navigation.NavigationArgs.SetBackArguments(IdApp.Services.Navigation.BackMethod,IdApp.Services.Navigation.NavigationArgs,System.String)">
             <summary>
-            Creates a new instance of the <see cref="T:IdApp.Services.Navigation.NavigationArgs"/> class.
+            Sets the reference to the main parent's <see cref="T:IdApp.Services.Navigation.NavigationArgs"/>.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute">
+        <member name="M:IdApp.Services.Navigation.NavigationArgs.GetBackMethod">
             <summary>
-            The route to use when going back, if any.
+            Sets how do we have to go back
             </summary>
         </member>
-        <member name="P:IdApp.Services.Navigation.NavigationArgs.ReturnCounter">
+        <member name="M:IdApp.Services.Navigation.NavigationArgs.GetBackCounter">
             <summary>
             Set it to 1 to start a counter of the number of times to pop when going back.
-            It will be incremented on every push using the <see cref="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String)"/> method.
-            If this parameter exist, it supercedes the <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute"/>
+            It will be incremented on every push using the <see cref="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String,IdApp.Services.Navigation.BackMethod,System.String)"/> method.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Navigation.NavigationArgs.CancelReturnCounter">
-            <summary>
-            Set it to true to start a new <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnCounter"/> session.
-            If the ReturnCounter is zero, it will stop the further counting.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Navigation.NavigationArgs.UniqueId">
+        <member name="M:IdApp.Services.Navigation.NavigationArgs.GetUniqueId">
             <summary>
             An untique view identificator used to search the args of similar view types.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Navigation.NavigationArgs.ViewInitialized">
-            <summary>
-            If view has been initialized by the arguments.
-            </summary>
+        <member name="P:IdApp.Services.Navigation.NavigationService.CurrentPage">
+            <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Navigation.NavigationService.Load(System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc/>
@@ -23659,10 +23673,17 @@
         <member name="M:IdApp.Services.Navigation.NavigationService.Unload">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.Services.Navigation.NavigationService.CurrentPage">
-            <summary>
-            Current page
-            </summary>
+        <member name="M:IdApp.Services.Navigation.NavigationService.GoToAsync(System.String,IdApp.Services.Navigation.BackMethod,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Navigation.NavigationService.GoToAsync``1(System.String,``0,IdApp.Services.Navigation.BackMethod,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Navigation.NavigationService.GoBackAsync(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Navigation.NavigationService.TryGetArgs``1(``0@,System.String)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Services.Network.INetworkService">
             <summary>

@@ -1,5 +1,6 @@
 ﻿using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.ViewContract;
+using IdApp.Services.Navigation;
 using System.Text;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
@@ -51,8 +52,10 @@ namespace IdApp.Services.Notification.Contracts
 
 			if (Contract is not null)
 			{
-				await ServiceReferences.NavigationService.GoToAsync(nameof(ViewContractPage),
-					new ViewContractNavigationArgs(Contract, false, this.Role, this.Message) { ReturnCounter = 1 });
+				//!!!!!! ReturnCounter = 1
+				ViewContractNavigationArgs Args = new(Contract, false, this.Role, this.Message);
+
+				await ServiceReferences.NavigationService.GoToAsync(nameof(ViewContractPage), Args, BackMethod.ToThisPage);
 			}
 		}
 

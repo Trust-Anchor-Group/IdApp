@@ -408,10 +408,10 @@ namespace IdApp.Pages.Contacts.MyContacts
 								await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId, LocalizationResourceManager.Current["ScannedQrCode"]);
 							else if (!string.IsNullOrEmpty(Contact.BareJid))
 							{
-								await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact.Contact)
-								{
-									UniqueId = Contact.BareJid
-								});
+								//!!!!!! UniqueId = Contact.BareJid
+								ChatNavigationArgs Args = new(Contact.Contact);
+
+								await this.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, Contact.BareJid);
 							}
 
 							break;

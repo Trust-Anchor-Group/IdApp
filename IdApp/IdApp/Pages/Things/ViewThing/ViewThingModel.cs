@@ -10,6 +10,7 @@ using IdApp.Pages.Main.XmppForm;
 using IdApp.Pages.Things.MyThings;
 using IdApp.Pages.Things.ReadSensor;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Concentrator;
@@ -739,11 +740,10 @@ namespace IdApp.Pages.Things.ViewThing
 				string LegalId = this.thing?.LegalId;
 				string FriendlyName = this.thing.FriendlyName;
 
-				await this.NavigationService.GoToAsync(nameof(ChatPage),
-					new ChatNavigationArgs(LegalId, this.thing.BareJid, FriendlyName)
-					{
-						UniqueId = this.thing.BareJid
-					});
+				//!!!!!! UniqueId = this.thing.BareJid
+				ChatNavigationArgs Args = new(LegalId, this.thing.BareJid, FriendlyName);
+
+				await this.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, this.thing.BareJid);
 			}
 			catch (Exception ex)
 			{

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Pages.Main.Calculator;
+using IdApp.Services.Navigation;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Script.Functions.ComplexNumbers;
@@ -226,10 +227,10 @@ namespace IdApp.Pages.Wallet.SellEDaler
 				switch (Parameter?.ToString())
 				{
 					case "AmountText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty)
-						{
-							CancelReturnCounter = true
-						});
+						//!!!!!! CancelReturnCounter = true
+						CalculatorNavigationArgs Args = new(this, AmountTextProperty);
+
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), Args, BackMethod.Pop);
 						break;
 				}
 			}

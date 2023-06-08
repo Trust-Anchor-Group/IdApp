@@ -15,6 +15,7 @@ using IdApp.Pages.Main.Calculator;
 using Xamarin.CommunityToolkit.Helpers;
 using Waher.Networking.XMPP.StanzaErrors;
 using Waher.Script.Functions.ComplexNumbers;
+using IdApp.Services.Navigation;
 
 namespace IdApp.Pages.Wallet
 {
@@ -186,7 +187,7 @@ namespace IdApp.Pages.Wallet
 						this.Message = Encoding.UTF8.GetString(Args.Uri.EncryptedMessage);
 					else
 					{
-						this.Message = await this.XmppService.TryDecryptMessage(args.Uri.EncryptedMessage,
+						this.Message = await this.XmppService.TryDecryptMessage(Args.Uri.EncryptedMessage,
 						Args.Uri.EncryptionPublicKey, Args.Uri.Id, Args.Uri.From);
 					}
 					this.HasMessage = !string.IsNullOrEmpty(this.Message);
@@ -1152,17 +1153,17 @@ namespace IdApp.Pages.Wallet
 				switch (Parameter?.ToString())
 				{
 					case "AmountText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty)
-						{
-							CancelReturnCounter = true
-						});
+						//!!!!!! CancelReturnCounter = true
+						CalculatorNavigationArgs AmountArgs = new(this, AmountTextProperty);
+
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), AmountArgs, BackMethod.Pop);
 						break;
 
 					case "AmountExtraText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountExtraTextProperty)
-						{
-							CancelReturnCounter = true
-						});
+						//!!!!!! CancelReturnCounter = true
+						CalculatorNavigationArgs ExtraArgs = new(this, AmountExtraTextProperty);
+
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), ExtraArgs, BackMethod.Pop);
 						break;
 				}
 			}

@@ -16,6 +16,7 @@ using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Services;
 using IdApp.Services.Messages;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.QR;
@@ -1338,8 +1339,10 @@ namespace IdApp.Pages.Contacts.Chat
 								if (!this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, ParsedToken.TokenId, out NotificationEvent[] Events))
 									Events = new NotificationEvent[0];
 
-								await this.NavigationService.GoToAsync(nameof(TokenDetailsPage),
-									new TokenDetailsNavigationArgs(new TokenItem(ParsedToken, this, Events)) { ReturnCounter = 1 });
+								//!!!!!! ReturnCounter = 1
+								TokenDetailsNavigationArgs Args = new(new TokenItem(ParsedToken, this, Events));
+
+								await this.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.ToThisPage);
 								break;
 
 							default:

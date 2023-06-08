@@ -675,13 +675,13 @@ namespace IdApp.Pages.Contracts.NewContract
 					this.saveStateWhileScanning = true;
 					this.stateTemplateWhileScanning = this.template;
 
+					//!!!!!! CancelReturnCounter = true
 					TaskCompletionSource<ContactInfoModel> Selected = new();
 					ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["AddContactToContract"], Selected)
 					{
-						CanScanQrCode = true,
+						CanScanQrCode = true
 					};
 
-					//!!!!!! CancelReturnCounter = true
 					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.Pop);
 
 					ContactInfoModel Contact = await Selected.Task;

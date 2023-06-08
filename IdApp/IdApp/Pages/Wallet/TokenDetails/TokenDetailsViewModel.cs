@@ -16,6 +16,7 @@ using IdApp.Pages.Wallet.MachineReport.Reports;
 using IdApp.Pages.Wallet.MachineVariables;
 using IdApp.Pages.Wallet.TokenEvents;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using NeuroFeatures;
 using NeuroFeatures.Events;
 using NeuroFeatures.Tags;
@@ -1124,7 +1125,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			try
 			{
-				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName) { UniqueId = BareJid });
+				//!!!!!! UniqueId = BareJid
+				ChatNavigationArgs Args = new(LegalId, BareJid, FriendlyName);
+
+				await this.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, BareJid);
 			}
 			catch (Exception ex)
 			{
@@ -1160,16 +1164,16 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 		private async Task SendToContact()
 		{
+			//!!!!!! CancelReturnCounter = true
 			TaskCompletionSource<ContactInfoModel> Selected = new();
-			ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["SendInformationTo"], Selected)
+			ContactListNavigationArgs ContactListArgs = new(LocalizationResourceManager.Current["SendInformationTo"], Selected)
 			{
 				CanScanQrCode = true,
-				CancelReturnCounter = true
 			};
 
-			await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage), ContactListArgs, BackMethod.Pop);
 
-			ContactInfoModel Contact = await Args.Selection.Task;
+			ContactInfoModel Contact = await ContactListArgs.Selection.Task;
 			if (Contact is null)
 				return;
 
@@ -1181,13 +1185,12 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			Markdown.AppendLine("```");
 
 			await ChatViewModel.ExecuteSendMessage(string.Empty, Markdown.ToString(), Contact.BareJid, this);
-
 			await Task.Delay(100);  // Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
 
-			await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact.Contact)
-			{
-				UniqueId = Contact.BareJid
-			});
+			//!!!!!! UniqueId = Contact.BareJid
+			ChatNavigationArgs ChatArgs = new(Contact.Contact);
+
+			await this.NavigationService.GoToAsync(nameof(ChatPage), ChatArgs, BackMethod.Inherited, Contact.BareJid);
 		}
 
 		private async Task Share()
@@ -1450,10 +1453,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
+				//!!!!!! CancelReturnCounter = true
 				TokenEvent[] Events = await this.XmppService.GetNeuroFeatureEvents(this.TokenId);
+				TokenEventsNavigationArgs Args = new(this.TokenId, Events);
 
-				await this.NavigationService.GoToAsync(nameof(TokenEventsPage),
-					new TokenEventsNavigationArgs(this.TokenId, Events) { CancelReturnCounter = true });
+				await this.NavigationService.GoToAsync(nameof(TokenEventsPage), Args, BackMethod.Pop);
 			}
 			catch (Exception ex)
 			{
@@ -1488,8 +1492,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				CurrentStateEventArgs e = await this.XmppService.GetNeuroFeatureCurrentState(this.TokenId);
 				if (e.Ok)
 				{
-					await this.NavigationService.GoToAsync(nameof(MachineVariablesPage),
-						new MachineVariablesNavigationArgs(e.Running, e.Ended, e.CurrentState, e.Variables) { CancelReturnCounter = true });
+					//!!!!!! CancelReturnCounter = true
+					MachineVariablesNavigationArgs Args = new(e.Running, e.Ended, e.CurrentState, e.Variables);
+
+					await this.NavigationService.GoToAsync(nameof(MachineVariablesPage), Args, BackMethod.Pop);
 				}
 				else
 					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], e.ErrorText);
@@ -1504,8 +1510,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				await this.NavigationService.GoToAsync(nameof(MachineReportPage),
-					new MachineReportNavigationArgs(Report) { CancelReturnCounter = true });
+				//!!!!!! CancelReturnCounter = true
+				MachineReportNavigationArgs Args = new(Report);
+
+				await this.NavigationService.GoToAsync(nameof(MachineReportPage), Args, BackMethod.Pop);
 			}
 			catch (Exception ex)
 			{
