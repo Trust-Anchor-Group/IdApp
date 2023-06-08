@@ -1108,7 +1108,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				//!!!!!!?????? ReturnCounter = 1
 				NewContractNavigationArgs Args = new(Template, true, Parameters);
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage), Args, BackMethod.ToThisPage);
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), Args);
 			}
 			catch (Exception ex)
 			{
