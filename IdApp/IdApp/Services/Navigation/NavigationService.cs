@@ -188,16 +188,13 @@ namespace IdApp.Services.Navigation
 				NavigationArgs NavigationArgs = this.GetCurrentNavigationArgs();
 
 				if ((e.Source == ShellNavigationSource.Pop) &&
-					(NavigationArgs is not null) &&
-					NavigationArgs.IsCompoundBackRoute())
+					e.CanCancel &&
+					!this.isManuallyNavigatingBack)
 				{
-					if (e.CanCancel && !this.isManuallyNavigatingBack)
-					{
-						this.isManuallyNavigatingBack = true;
-						e.Cancel();
-						await this.GoBackAsync();
-						this.isManuallyNavigatingBack = false;
-					}
+					this.isManuallyNavigatingBack = true;
+					e.Cancel();
+					await this.GoBackAsync();
+					this.isManuallyNavigatingBack = false;
 				}
 			}
 			catch (Exception ex)

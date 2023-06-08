@@ -71,21 +71,13 @@ namespace IdApp.Services.Navigation
 
 			if (BackMethod == BackMethod.Inherited)
 			{
-				string BackRoute = null;
+				string BackRoute = "..";
 				NavigationArgs ParentArgs = this.parentArgs;
 
 				while ((ParentArgs is not null) && (ParentArgs.backMethod == BackMethod.Inherited))
 				{
 					ParentArgs = ParentArgs.parentArgs;
-
-					if (BackRoute is null)
-					{
-						BackRoute = "..";
-					}
-					else
-					{
-						BackRoute += "/..";
-					}
+					BackRoute += "/..";
 				}
 
 				if (ParentArgs is null)
