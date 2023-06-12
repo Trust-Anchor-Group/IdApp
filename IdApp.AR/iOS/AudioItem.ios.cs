@@ -1,5 +1,6 @@
 using AudioToolbox;
 using Foundation;
+using System.Diagnostics;
 
 namespace IdApp.AR
 {
@@ -22,8 +23,9 @@ namespace IdApp.AR
 
 				ChangeUpdate?.Invoke(this, EventArgs.Empty);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				Debug.WriteLine("Error getting audio durration : {0}", ex);
 			}
 		}
 	}
