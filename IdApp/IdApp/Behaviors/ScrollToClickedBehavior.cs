@@ -46,8 +46,10 @@ namespace IdApp.Behaviors
 
         private void Button_Clicked(object Sender, EventArgs e)
         {
-			if(this.IsEnabled)
+			if (this.IsEnabled)
+			{
 				MakeVisible(this.ScrollTo);
+			}
         }
 
         /// <summary>

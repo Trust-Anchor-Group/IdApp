@@ -23652,11 +23652,6 @@
             Get the route used for the <see cref="M:IdApp.Services.Navigation.INavigationService.GoBackAsync(System.Boolean)"/> method.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Navigation.NavigationArgs.IsCompoundBackRoute">
-            <summary>
-            Get the route used for the <see cref="M:IdApp.Services.Navigation.INavigationService.GoBackAsync(System.Boolean)"/> method.
-            </summary>
-        </member>
         <member name="M:IdApp.Services.Navigation.NavigationArgs.GetUniqueId">
             <summary>
             An untique view identificator used to search the args of similar view types.

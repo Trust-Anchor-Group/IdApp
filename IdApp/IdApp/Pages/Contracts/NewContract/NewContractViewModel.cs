@@ -1360,7 +1360,6 @@ namespace IdApp.Pages.Contracts.NewContract
 
 				CalculatorNavigationArgs Args = new(Entry);
 
-				//!!!!!! CancelReturnCounter = true
 				await this.NavigationService.GoToAsync(nameof(CalculatorPage), Args, BackMethod.Pop);
 			}
 			catch (Exception ex)

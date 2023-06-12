@@ -227,7 +227,6 @@ namespace IdApp.Pages.Wallet.SellEDaler
 				switch (Parameter?.ToString())
 				{
 					case "AmountText":
-						//!!!!!! CancelReturnCounter = true
 						CalculatorNavigationArgs Args = new(this, AmountTextProperty);
 
 						await this.NavigationService.GoToAsync(nameof(CalculatorPage), Args, BackMethod.Pop);

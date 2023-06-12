@@ -1,18 +1,16 @@
 using AudioToolbox;
-using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 
 namespace IdApp.AR
 {
 	internal class AudioStream : IAudioStream
 	{
-		const int CountAudioBuffers = 3;
-		const int MaxBufferSize = 0x50000; // 320 KB
-		const float TargetMeasurementTime = 100F; // milliseconds
+		private const int countAudioBuffers = 3;
+		private const int maxBufferSize = 0x50000; // 320 KB
+		private const float targetMeasurementTime = 100F; // milliseconds
 
-		InputAudioQueue audioQueue;
+		private InputAudioQueue audioQueue;
 
 		/// <summary>
 		/// Occurs when new audio has been streamed.
@@ -57,7 +55,7 @@ namespace IdApp.AR
 		/// <summary>
 		/// Gets a value indicating if the audio stream is active.
 		/// </summary>
-		public bool Active => audioQueue?.IsRunning ?? false;
+		public bool Active => this.audioQueue?.IsRunning ?? false;
 
 		public bool Paused
 		{
@@ -71,23 +69,23 @@ namespace IdApp.AR
 		/// <param name="bufferFn">The function that returns AudioQueueStatus.</param>
 		/// <param name="successAction">The Action to run if the result is AudioQueueStatus.Ok.</param>
 		/// <param name="failAction">The Action to run if the result is anything other than AudioQueueStatus.Ok.</param>
-		void BufferOperation (Func<AudioQueueStatus> bufferFn, Action successAction = null, Action<AudioQueueStatus> failAction = null)
+		void BufferOperation(Func<AudioQueueStatus> bufferFn, Action successAction = null, Action<AudioQueueStatus> failAction = null)
 		{
-			var status = bufferFn ();
+			AudioQueueStatus status = bufferFn();
 
 			if (status == AudioQueueStatus.Ok)
 			{
-				successAction?.Invoke ();
+				successAction?.Invoke();
 			}
 			else
 			{
 				if (failAction != null)
 				{
-					failAction (status);
+					failAction(status);
 				}
 				else
 				{
-					throw new Exception ($"AudioStream buffer error :: buffer operation returned non - Ok status:: {status}");
+					throw new Exception($"AudioStream buffer error :: buffer operation returned non - Ok status:: {status}");
 				}
 			}
 		}
@@ -95,26 +93,26 @@ namespace IdApp.AR
 		/// <summary>
 		/// Starts the audio stream.
 		/// </summary>
-		public Task Start ()
+		public Task Start()
 		{
 			try
 			{
-				if (!Active)
+				if (!this.Active)
 				{
-					InitAudioQueue ();
+					this.InitAudioQueue();
 
-					BufferOperation (() => audioQueue.Start (),
-						() => OnActiveChanged?.Invoke (this, true),
-						status => throw new Exception ($"audioQueue.Start() returned non-OK status: {status}"));
+					this.BufferOperation(this.audioQueue.Start,
+						() => OnActiveChanged?.Invoke(this, true),
+						status => throw new Exception($"audioQueue.Start() returned non-OK status: {status}"));
 				}
 
-				return Task.FromResult (true);
+				return Task.FromResult(true);
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine ("Error in AudioStream.Start(): {0}", ex.Message);
+				Debug.WriteLine("Error in AudioStream.Start(): {0}", ex.Message);
 
-				Stop ();
+				this.Stop();
 				throw;
 			}
 		}
@@ -122,24 +120,24 @@ namespace IdApp.AR
 		/// <summary>
 		/// Stops the audio stream.
 		/// </summary>
-		public Task Stop ()
+		public Task Stop()
 		{
-			if (audioQueue != null)
+			if (this.audioQueue != null)
 			{
-				audioQueue.InputCompleted -= QueueInputCompleted;
+				this.audioQueue.InputCompleted -= this.QueueInputCompleted;
 
-				if (audioQueue.IsRunning)
+				if (this.audioQueue.IsRunning)
 				{
-					BufferOperation (() => audioQueue.Stop (true),
+					this.BufferOperation (() => this.audioQueue.Stop(true),
 						() => OnActiveChanged?.Invoke (this, false),
 						status => Debug.WriteLine ("AudioStream.Stop() :: audioQueue.Stop returned non OK result: {0}", status));
 				}
 
-				audioQueue.Dispose ();
-				audioQueue = null;
+				this.audioQueue.Dispose();
+				this.audioQueue = null;
 			}
 
-			return Task.FromResult (true);
+			return Task.FromResult(true);
 		}
 
 		/// <summary>
@@ -168,29 +166,29 @@ namespace IdApp.AR
 		/// <param name="sampleRate">Sample rate.</param>
 		public AudioStream (int sampleRate)
 		{
-			SampleRate = sampleRate;
+			this.SampleRate = sampleRate;
 		}
 
 		void InitAudioQueue ()
 		{
 			// create our audio queue & configure buffers
-			var audioFormat = AudioStreamBasicDescription.CreateLinearPCM (SampleRate, (uint) ChannelCount, (uint) BitsPerSample);
+			AudioStreamBasicDescription AudioFormat = AudioStreamBasicDescription.CreateLinearPCM(this.SampleRate, (uint)this.ChannelCount, (uint)this.BitsPerSample);
 
-			audioQueue = new InputAudioQueue (audioFormat);
-			audioQueue.InputCompleted += QueueInputCompleted;
+			this.audioQueue = new InputAudioQueue(AudioFormat);
+			this.audioQueue.InputCompleted += this.QueueInputCompleted;
 
 			// calculate our buffer size and make sure it's not too big
-			var bufferByteSize = (int) (TargetMeasurementTime / 1000F/*ms to sec*/ * SampleRate * audioFormat.BytesPerPacket);
-			bufferByteSize = bufferByteSize < MaxBufferSize ? bufferByteSize : MaxBufferSize;
+			int BufferByteSize = (int)(targetMeasurementTime / 1000F/*ms to sec*/ * this.SampleRate * AudioFormat.BytesPerPacket);
+			BufferByteSize = BufferByteSize < maxBufferSize ? BufferByteSize : maxBufferSize;
 
-			for (var index = 0; index < CountAudioBuffers; index++)
+			for (int index = 0; index < countAudioBuffers; index++)
 			{
-				var bufferPtr = IntPtr.Zero;
+				IntPtr BufferPtr = IntPtr.Zero;
 
-				BufferOperation (() => audioQueue.AllocateBuffer (bufferByteSize, out bufferPtr), () =>
-				 {
-					 BufferOperation (() => audioQueue.EnqueueBuffer (bufferPtr, bufferByteSize, null), () => Debug.WriteLine ("AudioQueue buffer enqueued :: {0} of {1}", index + 1, CountAudioBuffers));
-				 });
+				this.BufferOperation (() => this.audioQueue.AllocateBuffer (BufferByteSize, out BufferPtr), () =>
+				{
+					this.BufferOperation (() => this.audioQueue.EnqueueBuffer (BufferPtr, BufferByteSize, null), () => Debug.WriteLine ("AudioQueue buffer enqueued :: {0} of {1}", index + 1, countAudioBuffers));
+				});
 			}
 		}
 
@@ -204,7 +202,7 @@ namespace IdApp.AR
 			try
 			{
 				// we'll only broadcast if we're actively monitoring audio packets
-				if (!Active)
+				if (!this.Active)
 				{
 					return;
 				}
@@ -218,9 +216,9 @@ namespace IdApp.AR
 					OnBroadcast?.Invoke (this, audioBytes);
 
 					// check if active again, because the auto stop logic may stop the audio queue from within this handler!
-					if (Active)
+					if (this.Active)
 					{
-						BufferOperation (() => audioQueue.EnqueueBuffer (e.IntPtrBuffer, null), null, status =>
+						this.BufferOperation (() => this.audioQueue.EnqueueBuffer (e.IntPtrBuffer, null), null, status =>
 						 {
 							 Debug.WriteLine ("AudioStream.QueueInputCompleted() :: audioQueue.EnqueueBuffer returned non-Ok status :: {0}", status);
 							 OnException?.Invoke (this, new Exception ($"audioQueue.EnqueueBuffer returned non-Ok status :: {status}"));

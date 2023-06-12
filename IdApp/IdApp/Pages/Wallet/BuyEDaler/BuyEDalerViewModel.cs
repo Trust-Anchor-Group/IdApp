@@ -228,6 +228,7 @@ namespace IdApp.Pages.Wallet.BuyEDaler
 				{
 					case "AmountText":
 						CalculatorNavigationArgs Args = new(this, AmountTextProperty);
+
 						await this.NavigationService.GoToAsync(nameof(CalculatorPage), Args, BackMethod.Pop);
 						break;
 				}

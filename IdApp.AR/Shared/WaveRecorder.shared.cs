@@ -1,8 +1,5 @@
-using System;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace IdApp.AR
 {
@@ -31,33 +28,33 @@ namespace IdApp.AR
 				throw new ArgumentNullException (nameof (recordStream));
 			}
 
-			writeHeadersToStream = writeHeaders;
+			this.writeHeadersToStream = writeHeaders;
 
 			try
 			{
 				//if we're restarting, let's see if we have an existing stream configured that can be stopped
-				if (audioStream != null)
+				if (this.audioStream != null)
 				{
-					await audioStream.Stop ();
+					await this.audioStream.Stop ();
 				}
 
-				audioStream = stream;
-				writer = new BinaryWriter (recordStream, Encoding.UTF8, true);
+				this.audioStream = stream;
+				this.writer = new BinaryWriter (recordStream, Encoding.UTF8, true);
 
-				byteCount = 0;
-				audioStream.OnBroadcast += OnStreamBroadcast;
-				audioStream.OnActiveChanged += StreamActiveChanged;
+				this.byteCount = 0;
+				this.audioStream.OnBroadcast += this.OnStreamBroadcast;
+				this.audioStream.OnActiveChanged += this.StreamActiveChanged;
 
-				if (!audioStream.Active)
+				if (!this.audioStream.Active)
 				{
-					await audioStream.Start ();
+					await this.audioStream.Start ();
 				}
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine ("Error in WaveRecorder.StartRecorder(): {0}", ex.Message);
 
-				StopRecorder ();
+				this.StopRecorder();
 				throw;
 			}
 		}
@@ -66,25 +63,25 @@ namespace IdApp.AR
 		{
 			if (!active)
 			{
-				StopRecorder ();
+				this.StopRecorder();
 			}
 		}
 
-		void OnStreamBroadcast (object sender, byte [] bytes)
+		void OnStreamBroadcast(object sender, byte [] bytes)
 		{
 			try
 			{
-				if ((sender is IAudioStream Stream) && !Stream.Paused && (writer is not null))
+				if ((sender is IAudioStream Stream) && !Stream.Paused && (this.writer is not null))
 				{
-					writer.Write(bytes);
-					byteCount += bytes.Length;
+					this.writer.Write(bytes);
+					this.byteCount += bytes.Length;
 				}
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine ("Error in WaveRecorder.OnStreamBroadcast(): {0}", ex.Message);
 
-				StopRecorder ();
+				this.StopRecorder();
 			}
 		}
 
@@ -95,26 +92,26 @@ namespace IdApp.AR
 		{
 			try
 			{
-				if (audioStream != null)
+				if (this.audioStream != null)
 				{
-					audioStream.OnBroadcast -= OnStreamBroadcast;
-					audioStream.OnActiveChanged -= StreamActiveChanged;
+					this.audioStream.OnBroadcast -= this.OnStreamBroadcast;
+					this.audioStream.OnActiveChanged -= this.StreamActiveChanged;
 				}
 
-				if (writer != null)
+				if (this.writer != null)
 				{
-					if (writeHeadersToStream && writer.BaseStream.CanWrite && writer.BaseStream.CanSeek)
+					if (this.writeHeadersToStream && this.writer.BaseStream.CanWrite && this.writer.BaseStream.CanSeek)
 					{
 						//now that audio is finished recording, write a WAV/RIFF header at the beginning of the file
-						writer.Seek (0, SeekOrigin.Begin);
-						AudioFunctions.WriteWavHeader (writer, audioStream.ChannelCount, audioStream.SampleRate, audioStream.BitsPerSample, byteCount);
+						this.writer.Seek (0, SeekOrigin.Begin);
+						AudioFunctions.WriteWavHeader(this.writer, this.audioStream.ChannelCount, this.audioStream.SampleRate, this.audioStream.BitsPerSample, this.byteCount);
 					}
 
-					writer.Dispose (); //this should properly close/dispose the underlying stream as well
-					writer = null;
+					this.writer.Dispose (); //this should properly close/dispose the underlying stream as well
+					this.writer = null;
 				}
 
-				audioStream = null;
+				this.audioStream = null;
 			}
 			catch (Exception ex)
 			{
@@ -125,7 +122,7 @@ namespace IdApp.AR
 
 		public void Dispose ()
 		{
-			StopRecorder ();
+			this.StopRecorder();
 		}
 	}
 }

@@ -54,14 +54,6 @@ namespace IdApp.Services.Navigation
 			this.uniqueId = UniqueId;
 		}
 
-		//!!!!!!
-		/*
-		/// <summary>
-		/// If view has been initialized by the arguments.
-		/// </summary>
-		public bool ViewInitialized { get; set; }
-		*/
-
 		/// <summary>
 		/// Get the route used for the <see cref="INavigationService.GoBackAsync"/> method.
 		/// </summary>
@@ -126,14 +118,6 @@ namespace IdApp.Services.Navigation
 
 			// all variants should be returned by now
 			throw new NotImplementedException();
-		}
-
-		/// <summary>
-		/// Get the route used for the <see cref="INavigationService.GoBackAsync"/> method.
-		/// </summary>
-		public bool IsCompoundBackRoute()
-		{
-			return this.GetBackRoute() != "..";
 		}
 
 		/// <summary>

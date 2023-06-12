@@ -79,7 +79,7 @@ namespace IdApp.Services.Notification.Xmpp
 			string FriendlyName = await this.GetDescription(ServiceReferences);
 			ChatNavigationArgs Args = new(LegalId, this.BareJid, FriendlyName);
 
-			await ServiceReferences.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, BareJid);
+			await ServiceReferences.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, this.BareJid);
 		}
 	}
 }

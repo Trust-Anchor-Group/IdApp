@@ -1,7 +1,4 @@
-using System;
 using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace IdApp.AR
 {
@@ -115,7 +112,7 @@ namespace IdApp.AR
 		/// The task result will be the path to the recorded audio file, or null if no audio was recorded.</returns>
 		public async Task<Task<string?>> StartRecording(Stream? recordStream = null)
 		{
-			if(recordStream == null)
+			if (recordStream is null)
 			{
 				this.FilePath ??= await this.GetDefaultFilePath();
 				this.fileStream = new FileStream(this.FilePath, FileMode.Create, FileAccess.Write, FileShare.Read);
@@ -205,7 +202,11 @@ namespace IdApp.AR
 		void Timeout(string reason)
 		{
 			Debug.WriteLine(reason);
-			this.audioStream.OnBroadcast -= this.AudioStream_OnBroadcast; // need this to be immediate or we can try to stop more than once
+
+			if (this.audioStream is not null)
+			{
+				this.audioStream.OnBroadcast -= this.AudioStream_OnBroadcast; // need this to be immediate or we can try to stop more than once
+			}
 
 			// since we're in the middle of handling a broadcast event when an audio timeout occurs, we need to break the StopRecording call on another thread
 			//	Otherwise, Bad. Things. Happen.
@@ -228,7 +229,7 @@ namespace IdApp.AR
 					await this.audioStream.Stop();
 					// WaveRecorder will be stopped as result of stream stopping
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					Debug.WriteLine("Error in StopRecording: {0}", ex);
 				}
@@ -282,7 +283,7 @@ namespace IdApp.AR
 
 				this.audioStream.OnBroadcast += this.AudioStream_OnBroadcast;
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				Debug.WriteLine("Error: {0}", ex);
 			}

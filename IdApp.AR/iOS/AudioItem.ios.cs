@@ -22,7 +22,7 @@ namespace IdApp.AR
 
 				ChangeUpdate?.Invoke(this, EventArgs.Empty);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 			}
 		}

@@ -465,14 +465,12 @@ namespace IdApp.Pages.Wallet.RequestPayment
 				switch (Parameter?.ToString())
 				{
 					case "AmountText":
-						//!!!!!! CancelReturnCounter = true
 						CalculatorNavigationArgs AmountArgs = new(this, AmountTextProperty);
 
 						await this.NavigationService.GoToAsync(nameof(CalculatorPage), AmountArgs, BackMethod.Pop);
 						break;
 
 					case "AmountExtraText":
-						//!!!!!! CancelReturnCounter = true
 						CalculatorNavigationArgs ExtraArgs = new CalculatorNavigationArgs(this, AmountExtraTextProperty);
 
 						await this.NavigationService.GoToAsync(nameof(CalculatorPage), ExtraArgs, BackMethod.Pop);
