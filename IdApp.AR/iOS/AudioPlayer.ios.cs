@@ -14,12 +14,12 @@ namespace IdApp.AR
 		/// <summary>
 		/// If <see cref="RequestAVAudioSessionCategory"/> is used to request an AVAudioSession category, this Action will also be run to configure the <see cref="AVAudioSession"/> before playing audio.
 		/// </summary>
-		public static Action<AVAudioSession> OnPrepareAudioSession;
+		public static Action<AVAudioSession>? OnPrepareAudioSession;
 
 		/// <summary>
 		/// If <see cref="RequestAVAudioSessionCategory"/> is used to request an AVAudioSession category, this Action will also be run to reset or re-configure the <see cref="AVAudioSession"/> after audio playback is complete.
 		/// </summary>
-		public static Action<AVAudioSession> OnResetAudioSession;
+		public static Action<AVAudioSession>? OnResetAudioSession;
 
 		public AudioPlayer()
 		{
