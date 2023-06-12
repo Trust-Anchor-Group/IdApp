@@ -9,11 +9,11 @@ namespace UpdateVersionInfo
 {
 	class Program
 	{
-		private static readonly string AssemblyVersionExpression = @"^\s*\[assembly:\s*(?<attribute>(?:System\.)?(?:Reflection\.)?AssemblyVersion(?:Attribute)?\s*\(\s*""(?<version>[^""]+)""\s*\)\s*)\s*\]\s*$";
-		private static readonly string AssemblyFileVersionExpression = @"^\s*\[assembly:\s*(?<attribute>(?:System\.)?(?:Reflection\.)?AssemblyFileVersion(?:Attribute)?\s*\(\s*""(?<version>[^""]+)""\s*\)\s*)\s*\]\s*$";
+		private static readonly string assemblyVersionExpression = @"^\s*\[assembly:\s*(?<attribute>(?:System\.)?(?:Reflection\.)?AssemblyVersion(?:Attribute)?\s*\(\s*""(?<version>[^""]+)""\s*\)\s*)\s*\]\s*$";
+		private static readonly string assemblyFileVersionExpression = @"^\s*\[assembly:\s*(?<attribute>(?:System\.)?(?:Reflection\.)?AssemblyFileVersion(?:Attribute)?\s*\(\s*""(?<version>[^""]+)""\s*\)\s*)\s*\]\s*$";
 
-		private static readonly Regex assemblyVersionRegEx = new(AssemblyVersionExpression, RegexOptions.Multiline | RegexOptions.Compiled);
-		private static readonly Regex assemblyFileVersionRegEx = new(AssemblyFileVersionExpression, RegexOptions.Multiline | RegexOptions.Compiled);
+		private static readonly Regex assemblyVersionRegEx = new(assemblyVersionExpression, RegexOptions.Multiline | RegexOptions.Compiled);
+		private static readonly Regex assemblyFileVersionRegEx = new(assemblyFileVersionExpression, RegexOptions.Multiline | RegexOptions.Compiled);
 
 		static void Main(string[] args)
 		{
@@ -29,7 +29,7 @@ namespace UpdateVersionInfo
 						commandLine.Minor,
 						commandLine.Build.Value,
 						/*!!!
-                        commandLine.Revision.HasValue ? commandLine.Revision.Value : 
+                        commandLine.Revision.HasValue ? commandLine.Revision.Value :
                         */
 						0);
 
