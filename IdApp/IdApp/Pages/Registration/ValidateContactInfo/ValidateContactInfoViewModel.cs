@@ -54,7 +54,7 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 			this.Purposes.Add(LocalizationResourceManager.Current["PurposeEducational"]);
 			this.Purposes.Add(LocalizationResourceManager.Current["PurposeExperimental"]);
 
-			if (true)
+			if (string.IsNullOrEmpty(this.TagProfile.PhoneNumber))
 			{
 				try
 				{
