@@ -39,28 +39,6 @@ namespace IdApp.Pages.Main.Calculator
 		{
 			await base.OnInitialize();
 
-			//!!!!!!
-			/*
-			if (this.NavigationService.TryGetArgs(out CalculatorNavigationArgs args))
-			{
-				if (!args.ViewInitialized)
-				{
-					this.Entry = args.Entry;
-					this.ViewModel = args.ViewModel;
-					this.Property = args.Property;
-
-					if (this.Entry is not null)
-						this.Value = this.Entry.Text;
-					else if (this.ViewModel is not null && this.Property is not null)
-						this.Value = (string)this.ViewModel.GetValue(this.Property);
-					else
-						this.Value = string.Empty;
-
-					args.ViewInitialized = true;
-				}
-			}
-			*/
-
 			if (this.NavigationService.TryGetArgs(out CalculatorNavigationArgs Args))
 			{
 				this.Entry = Args.Entry;

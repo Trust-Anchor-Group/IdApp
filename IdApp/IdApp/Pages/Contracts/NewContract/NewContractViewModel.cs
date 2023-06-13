@@ -64,33 +64,6 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			ContractVisibility? Visibility = null;
 
-			//!!!!!!
-			/*
-			if (this.NavigationService.TryGetArgs(out NewContractNavigationArgs args))
-			{
-				this.template = args.Template;
-				this.suppressedProposalIds = args.SuppressedProposalLegalIds;
-
-				if (args.ParameterValues is not null)
-					this.presetParameterValues = args.ParameterValues;
-
-				if (args.ViewInitialized)
-					Visibility = this.template?.Visibility;
-				else
-				{
-					if (args.SetVisibility)
-						Visibility = args.Template.Visibility;
-
-					args.ViewInitialized = true;
-				}
-			}
-			else if (this.stateTemplateWhileScanning is not null)
-			{
-				this.template = this.stateTemplateWhileScanning;
-				this.stateTemplateWhileScanning = null;
-			}
-			*/
-
 			if (this.NavigationService.TryGetArgs(out NewContractNavigationArgs Args))
 			{
 				this.template = Args.Template;
