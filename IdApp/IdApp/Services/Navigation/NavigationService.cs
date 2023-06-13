@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdApp.Pages;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -148,6 +149,12 @@ namespace IdApp.Services.Navigation
 				NavigationArgs = this.TryGetArgs(Page.GetType().Name, UniqueId);
 				string Route = Routing.GetRoute(Page);
 				NavigationArgs ??= this.TryGetArgs(Route, UniqueId);
+
+				if ((NavigationArgs is null) && (UniqueId is null) &&
+					(Page is ContentBasePage BasePage) && (BasePage.UniqueId is not null))
+				{
+					return this.TryGetArgs(out Args, BasePage.UniqueId);
+				}
 			}
 
 			Args = NavigationArgs as TArgs;
@@ -185,7 +192,7 @@ namespace IdApp.Services.Navigation
 				Shell.Navigating -= this.Shell_Navigating;
 		}
 
-		private async void Shell_Navigating(object Sender, ShellNavigatingEventArgs e)
+		private void Shell_Navigating(object Sender, ShellNavigatingEventArgs e)
 		{
 			try
 			{
@@ -195,7 +202,11 @@ namespace IdApp.Services.Navigation
 					e.CanCancel && !this.isNavigating)
 				{
 					e.Cancel();
-					await this.GoBackAsync();
+
+					this.UiSerializer.BeginInvokeOnMainThread(async () =>
+					{
+						await this.GoBackAsync();
+					});
 				}
 			}
 			catch (Exception ex)
