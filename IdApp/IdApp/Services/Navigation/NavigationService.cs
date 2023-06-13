@@ -12,7 +12,7 @@ namespace IdApp.Services.Navigation
 	[Singleton]
 	internal sealed partial class NavigationService : LoadableService, INavigationService
 	{
-		private bool isManuallyNavigatingBack = false;
+		private bool isNavigating = false;
 		private readonly Dictionary<string, NavigationArgs> navigationArgsMap = new();
 
 		public NavigationService()
@@ -82,10 +82,10 @@ namespace IdApp.Services.Navigation
 		}
 
 		/// <inheritdoc/>
-		public Task GoToAsync<TArgs>(string Route, TArgs Args, BackMethod BackMethod = BackMethod.Inherited, string UniqueId = null) where TArgs : NavigationArgs, new()
+		public async Task GoToAsync<TArgs>(string Route, TArgs Args, BackMethod BackMethod = BackMethod.Inherited, string UniqueId = null) where TArgs : NavigationArgs, new()
 		{
 			if (!this.CanUseNavigationService)
-				return Task.CompletedTask;
+				return;
 
 			// Get the parent's navigation arguments
 			NavigationArgs ParentArgs = this.GetCurrentNavigationArgs();
@@ -103,34 +103,38 @@ namespace IdApp.Services.Navigation
 					Route += "?UniqueId=" + UniqueId;
 				}
 
-				return Shell.Current.GoToAsync(Route, true);
+				this.isNavigating = true;
+				await Shell.Current.GoToAsync(Route, true);
+				this.isNavigating = false;
 			}
 			catch (Exception e)
 			{
 				e = Log.UnnestException(e);
 				this.LogService.LogException(e);
 				string ExtraInfo = Environment.NewLine + e.Message;
-				return this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["FailedToNavigateToPage"], Route, ExtraInfo));
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["FailedToNavigateToPage"], Route, ExtraInfo));
 			}
 		}
 
 		///<inheritdoc/>
-		public Task GoBackAsync(bool Animate = true)
+		public async Task GoBackAsync(bool Animate = true)
 		{
 			if (!this.CanUseNavigationService)
-				return Task.CompletedTask;
+				return;
 
 			try
 			{
 				NavigationArgs NavigationArgs = this.GetCurrentNavigationArgs();
 				string BackRoute = NavigationArgs.GetBackRoute();
 
-				return Shell.Current.GoToAsync(BackRoute, Animate);
+				this.isNavigating = true;
+				await Shell.Current.GoToAsync(BackRoute, Animate);
+				this.isNavigating = false;
 			}
 			catch (Exception e)
 			{
 				this.LogService.LogException(e);
-				return this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["FailedToClosePage"]);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["FailedToClosePage"]);
 			}
 		}
 
@@ -188,13 +192,10 @@ namespace IdApp.Services.Navigation
 				NavigationArgs NavigationArgs = this.GetCurrentNavigationArgs();
 
 				if ((e.Source == ShellNavigationSource.Pop) &&
-					e.CanCancel &&
-					!this.isManuallyNavigatingBack)
+					e.CanCancel && !this.isNavigating)
 				{
-					this.isManuallyNavigatingBack = true;
 					e.Cancel();
 					await this.GoBackAsync();
-					this.isManuallyNavigatingBack = false;
 				}
 			}
 			catch (Exception ex)
