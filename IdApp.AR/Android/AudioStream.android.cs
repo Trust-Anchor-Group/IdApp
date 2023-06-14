@@ -1,5 +1,5 @@
 using Android.Media;
-using System.Diagnostics;
+using Waher.Events;
 
 namespace IdApp.AR
 {
@@ -103,7 +103,7 @@ namespace IdApp.AR
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine("Error in AudioStream.Start(): {0}", ex.Message);
+				Log.Critical(ex, "Error in AudioStream.Start");
 
 				this.Stop();
 				throw;
@@ -179,8 +179,6 @@ namespace IdApp.AR
 			int readFailureCount = 0;
 			int readResult = 0;
 
-			Debug.WriteLine("AudioStream.Record(): Starting background loop to read audio stream");
-
 			while (this.Active)
 			{
 				try
@@ -188,7 +186,6 @@ namespace IdApp.AR
 					// not sure if this is even a good idea, but we'll try to allow a single bad read, and past that shut it down
 					if (readFailureCount > 1)
 					{
-						Debug.WriteLine("AudioStream.Record(): Multiple read failures detected, stopping stream");
 						await this.Stop();
 						break;
 					}
@@ -208,23 +205,20 @@ namespace IdApp.AR
 							case (int)TrackStatus.ErrorInvalidOperation:
 							case (int)TrackStatus.ErrorBadValue:
 							case (int)TrackStatus.ErrorDeadObject:
-								Debug.WriteLine("AudioStream.Record(): readResult returned error code: {0}", readResult);
 								await this.Stop();
 								break;
 							//case (int)TrackStatus.Error:
 							default:
 								readFailureCount++;
-								Debug.WriteLine("AudioStream.Record(): readResult returned error code: {0}", readResult);
 								break;
 						}
 					}
 				}
 				catch (Exception ex)
 				{
+					Log.Critical(ex, "Error in Android AudioStream.Record");
+
 					readFailureCount++;
-
-					Debug.WriteLine ("Error in Android AudioStream.Record(): {0}", ex.Message);
-
 					OnException?.Invoke (this, ex);
 				}
 			}

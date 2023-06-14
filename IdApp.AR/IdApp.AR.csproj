@@ -27,6 +27,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Waher.Events" Version="1.1.2" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.5" />
     <Compile Include="**/*.shared.cs" />
   </ItemGroup>

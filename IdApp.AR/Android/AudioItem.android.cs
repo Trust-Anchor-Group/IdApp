@@ -1,5 +1,5 @@
 using Android.Media;
-using System.Diagnostics;
+using Waher.Events;
 
 namespace IdApp.AR
 {
@@ -27,7 +27,7 @@ namespace IdApp.AR
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine("Error getting audio durration : {0}", ex);
+				Log.Critical(ex, "Error getting audio durration");
 			}
 		}
 	}

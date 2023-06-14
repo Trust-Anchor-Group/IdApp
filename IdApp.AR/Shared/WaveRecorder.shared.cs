@@ -1,5 +1,5 @@
-using System.Diagnostics;
 using System.Text;
+using Waher.Events;
 
 namespace IdApp.AR
 {
@@ -52,7 +52,7 @@ namespace IdApp.AR
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine ("Error in WaveRecorder.StartRecorder(): {0}", ex.Message);
+				Log.Critical(ex, "Error in WaveRecorder.StartRecorder");
 
 				this.StopRecorder();
 				throw;
@@ -79,7 +79,7 @@ namespace IdApp.AR
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine("Error in WaveRecorder.OnStreamBroadcast(): {0}", ex.Message);
+				Log.Critical(ex, "Error in WaveRecorder.OnStreamBroadcast");
 
 				this.StopRecorder();
 			}
@@ -115,7 +115,7 @@ namespace IdApp.AR
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine("Error during StopRecorder: {0}", ex.Message);
+				Log.Critical(ex, "Error during StopRecorder");
 				throw;
 			}
 		}

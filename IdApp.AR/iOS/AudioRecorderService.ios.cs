@@ -1,6 +1,5 @@
 using AVFoundation;
 using Foundation;
-using System.Diagnostics;
 
 namespace IdApp.AR
 {
@@ -75,8 +74,7 @@ namespace IdApp.AR
 				}
 				else
 				{
-					// we won't error out here as this likely won't prevent us from stopping properly... but we will log an issue
-					Debug.WriteLine ($"Error attempting to set the AVAudioSession category back to {this.currentAVAudioSessionCategory} :: {Error}");
+					// we won't error out here as this likely won't prevent us from stopping properly...
 				}
 
 				// allow for additional audio session reset/config

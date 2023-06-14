@@ -1,6 +1,6 @@
 using AudioToolbox;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Waher.Events;
 
 namespace IdApp.AR
 {
@@ -110,7 +110,7 @@ namespace IdApp.AR
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine("Error in AudioStream.Start(): {0}", ex.Message);
+				Log.Critical(ex, "Error in AudioStream.Start");
 
 				this.Stop();
 				throw;
@@ -129,8 +129,7 @@ namespace IdApp.AR
 				if (this.audioQueue.IsRunning)
 				{
 					this.BufferOperation(() => this.audioQueue.Stop(true),
-						() => OnActiveChanged?.Invoke(this, false),
-						Status => Debug.WriteLine("AudioStream.Stop() :: audioQueue.Stop returned non OK result: {0}", Status));
+						() => OnActiveChanged?.Invoke(this, false));
 				}
 
 				this.audioQueue.Dispose();
@@ -188,7 +187,7 @@ namespace IdApp.AR
 				this.BufferOperation(() => this.audioQueue.AllocateBuffer(BufferByteSize, out BufferPtr), () =>
 				{
 					AudioStreamPacketDescription[] Description = { };
-					this.BufferOperation(() => this.audioQueue.EnqueueBuffer(BufferPtr, BufferByteSize, Description), () => Debug.WriteLine("AudioQueue buffer enqueued :: {0} of {1}", index + 1, countAudioBuffers));
+					this.BufferOperation(() => this.audioQueue.EnqueueBuffer(BufferPtr, BufferByteSize, Description));
 				});
 			}
 		}
@@ -223,7 +222,6 @@ namespace IdApp.AR
 
 						this.BufferOperation(() => this.audioQueue.EnqueueBuffer(InputCompletedArgs.IntPtrBuffer, Description), null,
 							Status => {
-								Debug.WriteLine("AudioStream.QueueInputCompleted() :: audioQueue.EnqueueBuffer returned non-Ok status :: {0}", Status);
 								OnException?.Invoke(this, new Exception($"audioQueue.EnqueueBuffer returned non-Ok status :: {Status}"));
 							});
 					}
@@ -231,8 +229,7 @@ namespace IdApp.AR
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine("AudioStream.QueueInputCompleted() :: Error: {0}", ex.Message);
-
+				Log.Critical(ex, "AudioStream.QueueInputCompleted");
 				OnException?.Invoke(this, new Exception($"AudioStream.QueueInputCompleted() :: Error: {ex.Message}"));
 			}
 		}

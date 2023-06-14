@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Waher.Events;
 
 namespace IdApp.AR
 {
@@ -120,8 +121,6 @@ namespace IdApp.AR
 
 				await this.InitializeStream(this.PreferredSampleRate);
 				await this.recorder.StartRecorder(this.audioStream, RecordStream, this.WriteHeaders);
-
-				Debug.WriteLine("AudioRecorderService.StartRecording() complete.  Audio is being recorded.");
 			}
 
 			this.recordTask = new TaskCompletionSource<string?>();
@@ -151,7 +150,6 @@ namespace IdApp.AR
 
 			if (level < nearZero && !this.audioDetected) // discard any initial 0s so we don't jump the gun on timing out
 			{
-				Debug.WriteLine("level == {0} && !audioDetected", level);
 				return;
 			}
 
@@ -159,8 +157,6 @@ namespace IdApp.AR
 			{
 				this.audioDetected = true;
 				this.silenceTimer = null;
-
-				Debug.WriteLine("AudioStream_OnBroadcast :: {0} :: level > SilenceThreshold :: bytes: {1}; level: {2}", DateTime.Now, Bytes.Length, level);
 			}
 			else // no audio detected
 			{
@@ -176,8 +172,6 @@ namespace IdApp.AR
 				else
 				{
 					this.silenceTimer = Stopwatch.StartNew();
-
-					Debug.WriteLine("AudioStream_OnBroadcast :: {0} :: Near-silence detected :: bytes: {1}; level: {2}", DateTime.Now, Bytes.Length, level);
 				}
 			}
 
@@ -189,8 +183,6 @@ namespace IdApp.AR
 
 		void Timeout(string reason)
 		{
-			Debug.WriteLine(reason);
-
 			if (this.audioStream is not null)
 			{
 				this.audioStream.OnBroadcast -= this.AudioStream_OnBroadcast; // need this to be immediate or we can try to stop more than once
@@ -219,7 +211,7 @@ namespace IdApp.AR
 				}
 				catch (Exception ex)
 				{
-					Debug.WriteLine("Error in StopRecording: {0}", ex);
+					Log.Critical(ex, "Error in StopRecording");
 				}
 			}
 
@@ -233,8 +225,6 @@ namespace IdApp.AR
 
 			if (ContinueProcessing)
 			{
-				Debug.WriteLine($"AudioRecorderService.StopRecording(): Recording stopped, raising AudioInputReceived event; audioDetected == {this.audioDetected}; filePath == {ReturnedFilePath}");
-
 				AudioInputReceived?.Invoke(this, ReturnedFilePath);
 			}
 		}
@@ -273,7 +263,7 @@ namespace IdApp.AR
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine("Error: {0}", ex);
+				Log.Critical(ex, "Error in InitializeStream");
 			}
 		}
 
