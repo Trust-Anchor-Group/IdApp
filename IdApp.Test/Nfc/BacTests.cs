@@ -1,6 +1,7 @@
 using IdApp.Nfc.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Globalization;
 using Waher.Security;
 
 namespace IdApp.Test.Nfc
@@ -61,15 +62,15 @@ namespace IdApp.Test.Nfc
 
 			string KSeed = Hashes.BinaryToString(Info.KSeed());
 			Console.Out.WriteLine("KSeed: " + KSeed);
-			Assert.AreEqual("239AB9CB282DAF66231DC5A4DF6BFBAE", KSeed.ToUpper());
+			Assert.AreEqual("239AB9CB282DAF66231DC5A4DF6BFBAE", KSeed.ToUpper(CultureInfo.InvariantCulture));
 
 			string KEnc = Hashes.BinaryToString(Info.KEnc());
 			Console.Out.WriteLine("KEnc: " + KEnc);
-			Assert.AreEqual("AB94FDECF2674FDFB9B391F85D7F76F2", KEnc.ToUpper());
+			Assert.AreEqual("AB94FDECF2674FDFB9B391F85D7F76F2", KEnc.ToUpper(CultureInfo.InvariantCulture));
 
 			string KMac = Hashes.BinaryToString(Info.KMac());
 			Console.Out.WriteLine("KMac: " + KMac);
-			Assert.AreEqual("7962D9ECE03D1ACD4C76089DCE131543", KMac.ToUpper());
+			Assert.AreEqual("7962D9ECE03D1ACD4C76089DCE131543", KMac.ToUpper(CultureInfo.InvariantCulture));
 		}
 
 		[TestMethod]
@@ -122,15 +123,15 @@ namespace IdApp.Test.Nfc
 
 			string KSeed = Hashes.BinaryToString(Info.KSeed());
 			Console.Out.WriteLine("KSeed: " + KSeed);
-			Assert.AreEqual("239AB9CB282DAF66231DC5A4DF6BFBAE", KSeed.ToUpper());
+			Assert.AreEqual("239AB9CB282DAF66231DC5A4DF6BFBAE", KSeed.ToUpper(CultureInfo.InvariantCulture));
 
 			string KEnc = Hashes.BinaryToString(Info.KEnc());
 			Console.Out.WriteLine("KEnc: " + KEnc);
-			Assert.AreEqual("AB94FDECF2674FDFB9B391F85D7F76F2", KEnc.ToUpper());
+			Assert.AreEqual("AB94FDECF2674FDFB9B391F85D7F76F2", KEnc.ToUpper(CultureInfo.InvariantCulture));
 
 			string KMac = Hashes.BinaryToString(Info.KMac());
 			Console.Out.WriteLine("KMac: " + KMac);
-			Assert.AreEqual("7962D9ECE03D1ACD4C76089DCE131543", KMac.ToUpper());
+			Assert.AreEqual("7962D9ECE03D1ACD4C76089DCE131543", KMac.ToUpper(CultureInfo.InvariantCulture));
 		}
 
 		[TestMethod]
@@ -172,7 +173,7 @@ namespace IdApp.Test.Nfc
 			byte[] Response = BasicAccessControl.CalcChallengeResponse(Challenge, Rnd1, Rnd2, KEnc, KMac);
 
 			Assert.AreEqual("72C29C2371CC9BDB65B779B8E8D37B29ECC154AA56A8799FAE2F498F76ED92F25F1448EEA8AD90A7",
-				Hashes.BinaryToString(Response).ToUpper());
+				Hashes.BinaryToString(Response).ToUpper(CultureInfo.InvariantCulture));
 		}
 
 		[TestMethod]
@@ -186,10 +187,10 @@ namespace IdApp.Test.Nfc
 			};
 
 			byte[] KEnc = Info.KEnc();
-			Assert.AreEqual("BA43433BF47AAEF875234FDF3208206D", Hashes.BinaryToString(KEnc).ToUpper());
+			Assert.AreEqual("BA43433BF47AAEF875234FDF3208206D", Hashes.BinaryToString(KEnc).ToUpper(CultureInfo.InvariantCulture));
 
 			byte[] KMac = Info.KMac();
-			Assert.AreEqual("EA6445CD622CEAECBF7C9B7CB020B95D", Hashes.BinaryToString(KMac).ToUpper());
+			Assert.AreEqual("EA6445CD622CEAECBF7C9B7CB020B95D", Hashes.BinaryToString(KMac).ToUpper(CultureInfo.InvariantCulture));
 
 			byte[] Challenge = Hashes.StringToBinary("8EAF826F89F1E525");
 			byte[] Rnd1 = Hashes.StringToBinary("23E85A993A9AC5B4");
@@ -198,7 +199,7 @@ namespace IdApp.Test.Nfc
 			byte[] Response = BasicAccessControl.CalcChallengeResponse(Challenge, Rnd1, Rnd2, KEnc, KMac);
 
 			Assert.AreEqual("4782B1700DD4F60373DA6632FCD1AB1E500D46FA11DEBDF9B88C39FCA7FDF8DBBE51F41D52D4B879",
-				Hashes.BinaryToString(Response).ToUpper());
+				Hashes.BinaryToString(Response).ToUpper(CultureInfo.InvariantCulture));
 		}
 	}
 }
