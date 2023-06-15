@@ -439,12 +439,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		public Task OpenContract(string ContractId, string Purpose, Dictionary<CaseInsensitiveString, object> ParameterValues)
-		{
-			return this.OpenContract(ContractId, Purpose, ParameterValues, 0);
-		}
-
-		public async Task OpenContract(string ContractId, string Purpose, Dictionary<CaseInsensitiveString, object> ParameterValues, BackMethod BackMethod)
+		public async Task OpenContract(string ContractId, string Purpose, Dictionary<CaseInsensitiveString, object> ParameterValues)
 		{
 			try
 			{
@@ -474,15 +469,17 @@ namespace IdApp.Services.Contracts
 							await Database.Insert(Ref);
 						}
 
+						//!!!!!!
 						NewContractNavigationArgs e = new(Contract, ParameterValues);
 
-						await this.NavigationService.GoToAsync(nameof(NewContractPage), e, BackMethod);
+						await this.NavigationService.GoToAsync(nameof(NewContractPage), e, BackMethod.ToThisPage);
 					}
 					else
 					{
+						//!!!!!!
 						ViewContractNavigationArgs e = new(Contract, false);
 
-						await this.NavigationService.GoToAsync(nameof(ViewContractPage), e, BackMethod);
+						await this.NavigationService.GoToAsync(nameof(ViewContractPage), e, BackMethod.Pop);
 					}
 				});
 			}

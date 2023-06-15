@@ -1243,9 +1243,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					}
 				};
 
+				//!!!!!!
 				NewContractArgs.SuppressProposal(e.TrustProviderId);
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs);
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs, BackMethod.ToThisPage);
 			}
 			catch (Exception ex)
 			{
@@ -1332,12 +1333,13 @@ namespace IdApp.Pages.Wallet.TokenDetails
 						Parameters[OwnershipContractParameter] = this.OwnershipContract;
 				}
 
+				//!!!!!!
 				NewContractNavigationArgs NewContractArgs = new(Template, true, Parameters);
 
 				if (!string.IsNullOrEmpty(TrustProviderId))
 					NewContractArgs.SuppressProposal(TrustProviderId);
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs);
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs, BackMethod.ToThisPage);
 			}
 			catch (Exception ex)
 			{
@@ -1436,12 +1438,13 @@ namespace IdApp.Pages.Wallet.TokenDetails
 						Parameters[OwnershipContractParameter] = this.OwnershipContract;
 				}
 
+				//!!!!!!
 				NewContractNavigationArgs NewContractArgs = new(Template, true, Parameters);
 
 				if (!string.IsNullOrEmpty(TrustProviderId))
 					NewContractArgs.SuppressProposal(TrustProviderId);
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs);
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs, BackMethod.ToThisPage);
 			}
 			catch (Exception ex)
 			{

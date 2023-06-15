@@ -1015,10 +1015,10 @@ namespace IdApp.Pages.Contracts.NewContract
 
 				if (Created is not null)
 				{
+					//!!!!!!?????? { ReturnRoute = "///" + nameof(MainPage) }
 					ViewContractNavigationArgs Args = new(Created, false);
 
-					//!!!!!! { ReturnRoute = "///" + nameof(MainPage) }
-					await this.NavigationService.GoToAsync(nameof(ViewContractPage), Args, BackMethod.ToMainPage);
+					await this.NavigationService.GoToAsync(nameof(ViewContractPage), Args/*, BackMethod.ToMainPage*/);
 				}
 			}
 		}

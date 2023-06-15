@@ -1068,8 +1068,10 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			TaskCompletionSource<Contract> SelectedContract = new();
 
-			await this.NavigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(
-				ContractsListMode.Contracts, SelectedContract));
+			//!!!!!!
+			MyContractsNavigationArgs Args = new(ContractsListMode.Contracts, SelectedContract);
+
+			await this.NavigationService.GoToAsync(nameof(MyContractsPage), Args, BackMethod.Pop);
 
 			Contract Contract = await SelectedContract.Task;
 			if (Contract is null)

@@ -2,6 +2,7 @@
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Services.Contracts;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using IdApp.Services.Notification.Contracts;
 using NeuroFeatures;
@@ -204,13 +205,17 @@ namespace IdApp.Pages.Contracts.MyContracts
 						case SelectContractAction.ViewContract:
 							if (this.contractsListMode == ContractsListMode.Contracts)
 							{
-								await this.NavigationService.GoToAsync(
-									nameof(ViewContractPage), new ViewContractNavigationArgs(Contract, false));
+								//!!!!!!
+								ViewContractNavigationArgs Args = new(Contract, false);
+
+								await this.NavigationService.GoToAsync(nameof(ViewContractPage), Args, BackMethod.Pop);
 							}
 							else
 							{
-								await this.NavigationService.GoToAsync(
-									nameof(NewContractPage), new NewContractNavigationArgs(Contract, null));
+								//!!!!!!
+								NewContractNavigationArgs Args = new(Contract, null);
+
+								await this.NavigationService.GoToAsync(nameof(NewContractPage), Args, BackMethod.ToThisPage);
 							}
 							break;
 

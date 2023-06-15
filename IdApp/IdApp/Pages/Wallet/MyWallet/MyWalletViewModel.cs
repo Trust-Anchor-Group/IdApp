@@ -699,7 +699,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 							//!!!!!! ReturnCounter = 1
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.BuyEDalerTemplateContractId,
-								LocalizationResourceManager.Current["BuyEDaler"], Parameters, BackMethod.ToThisPage);
+								LocalizationResourceManager.Current["BuyEDaler"], Parameters);
 
 							OptionsTransaction OptionsTransaction = await this.XmppService.InitiateBuyEDalerGetOptions(ServiceProvider.Id, ServiceProvider.Type);
 							IDictionary<CaseInsensitiveString, object>[] Options = await OptionsTransaction.Wait();
@@ -802,7 +802,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 							//!!!!!! ReturnCounter = 1
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.SellEDalerTemplateContractId,
-								LocalizationResourceManager.Current["SellEDaler"], Parameters, BackMethod.ToThisPage);
+								LocalizationResourceManager.Current["SellEDaler"], Parameters);
 
 							OptionsTransaction OptionsTransaction = await this.XmppService.InitiateSellEDalerGetOptions(ServiceProvider.Id, ServiceProvider.Type);
 							IDictionary<CaseInsensitiveString, object>[] Options = await OptionsTransaction.Wait();
@@ -1034,8 +1034,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 			try
 			{
 				TaskCompletionSource<Contract> TemplateSelection = new();
-				MyContractsNavigationArgs e = new(ContractsListMode.TokenCreationTemplates, TemplateSelection);
-				await this.NavigationService.GoToAsync(nameof(MyContractsPage), e);
+				//!!!!!!
+				MyContractsNavigationArgs Args = new(ContractsListMode.TokenCreationTemplates, TemplateSelection);
+
+				await this.NavigationService.GoToAsync(nameof(MyContractsPage), Args, BackMethod.Pop);
 
 				Contract Template = await TemplateSelection.Task;
 				if (Template is null)
@@ -1106,9 +1108,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 				}
 
 				//!!!!!!?????? ReturnCounter = 1
-				NewContractNavigationArgs Args = new(Template, true, Parameters);
+				NewContractNavigationArgs NewContractArgs = new(Template, true, Parameters);
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage), Args);
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs, BackMethod.ToThisPage);
 			}
 			catch (Exception ex)
 			{
