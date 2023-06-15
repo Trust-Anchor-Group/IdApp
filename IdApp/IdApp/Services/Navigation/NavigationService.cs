@@ -106,7 +106,6 @@ namespace IdApp.Services.Navigation
 
 				this.isNavigating = true;
 				await Shell.Current.GoToAsync(Route, true);
-				this.isNavigating = false;
 			}
 			catch (Exception e)
 			{
@@ -114,6 +113,10 @@ namespace IdApp.Services.Navigation
 				this.LogService.LogException(e);
 				string ExtraInfo = Environment.NewLine + e.Message;
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["FailedToNavigateToPage"], Route, ExtraInfo));
+			}
+			finally
+			{
+				this.isNavigating = false;
 			}
 		}
 
@@ -130,12 +133,15 @@ namespace IdApp.Services.Navigation
 
 				this.isNavigating = true;
 				await Shell.Current.GoToAsync(BackRoute, Animate);
-				this.isNavigating = false;
 			}
 			catch (Exception e)
 			{
 				this.LogService.LogException(e);
 				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["FailedToClosePage"]);
+			}
+			finally
+			{
+				this.isNavigating = false;
 			}
 		}
 
@@ -196,8 +202,6 @@ namespace IdApp.Services.Navigation
 		{
 			try
 			{
-				NavigationArgs NavigationArgs = this.GetCurrentNavigationArgs();
-
 				if ((e.Source == ShellNavigationSource.Pop) &&
 					e.CanCancel && !this.isNavigating)
 				{
