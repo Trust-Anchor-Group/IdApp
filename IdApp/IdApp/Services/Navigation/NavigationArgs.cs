@@ -24,6 +24,7 @@ namespace IdApp.Services.Navigation
 		/// </summary>
 		ToThisPage = 2,
 
+		/*
 		/// <summary>
 		/// Pop until this page's parent is reached
 		/// </summary>
@@ -33,6 +34,7 @@ namespace IdApp.Services.Navigation
 		/// Goes back to the main page - the route "///" + nameof(MainPage)
 		/// </summary>
 		ToMainPage = 4,
+		*/
 	}
 
 	/// <summary>
@@ -87,6 +89,7 @@ namespace IdApp.Services.Navigation
 				{
 					return BackRoute + "/..";
 				}
+				/*
 				else if (ParentBackMethod == BackMethod.ToParentPage)
 				{
 					return BackRoute + "/../..";
@@ -95,6 +98,7 @@ namespace IdApp.Services.Navigation
 				{
 					return "///" + nameof(MainPage);
 				}
+				*/
 			}
 			else
 			{
@@ -106,6 +110,7 @@ namespace IdApp.Services.Navigation
 				{
 					return "..";
 				}
+				/*
 				else if (BackMethod == BackMethod.ToParentPage)
 				{
 					return "../..";
@@ -114,6 +119,7 @@ namespace IdApp.Services.Navigation
 				{
 					return "///" + nameof(MainPage);
 				}
+				*/
 			}
 
 			// all variants should be returned by now

@@ -392,8 +392,8 @@ namespace IdApp.Pages.Contacts.MyContacts
 							if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
 								break;
 
-							//!!!!!! ReturnRoute = "../.."
-							await this.NavigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed), BackMethod.ToParentPage);
+							//!!!!!!?????? ReturnRoute = "../.."
+							await this.NavigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed)/*, BackMethod.ToParentPage*/);
 
 							break;
 

@@ -1012,12 +1012,12 @@ namespace IdApp.Pages.Contacts.Chat
 		private async Task ExecuteEmbedId()
 		{
 			TaskCompletionSource<ContactInfoModel> SelectedContact = new();
+			ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["SelectContactToPay"], SelectedContact)
+			{
+				CanScanQrCode = true
+			};
 
-			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-				new ContactListNavigationArgs(LocalizationResourceManager.Current["SelectContactToPay"], SelectedContact)
-				{
-					CanScanQrCode = true
-				});
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.Pop);
 
 			ContactInfoModel Contact = await SelectedContact.Task;
 			if (Contact is null)
@@ -1067,8 +1067,6 @@ namespace IdApp.Pages.Contacts.Chat
 		private async Task ExecuteEmbedContract()
 		{
 			TaskCompletionSource<Contract> SelectedContract = new();
-
-			//!!!!!!
 			MyContractsNavigationArgs Args = new(ContractsListMode.Contracts, SelectedContract);
 
 			await this.NavigationService.GoToAsync(nameof(MyContractsPage), Args, BackMethod.Pop);
@@ -1130,9 +1128,8 @@ namespace IdApp.Pages.Contacts.Chat
 				return;
 
 			TaskCompletionSource<string> UriToSend = new();
-
-			await this.NavigationService.GoToAsync(nameof(SendPaymentPage), new EDalerUriNavigationArgs(Parsed,
-				this.FriendlyName, UriToSend));
+			EDalerUriNavigationArgs Args = new(Parsed, this.FriendlyName, UriToSend);
+			await this.NavigationService.GoToAsync(nameof(SendPaymentPage), Args, BackMethod.Pop);
 
 			string Uri = await UriToSend.Task;
 			if (string.IsNullOrEmpty(Uri) || !EDalerUri.TryParse(Uri, out Parsed))
@@ -1170,7 +1167,8 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			MyTokensNavigationArgs Args = new();
 
-			await this.NavigationService.GoToAsync(nameof(MyTokensPage), Args);
+			await this.NavigationService.GoToAsync(nameof(MyTokensPage), Args, BackMethod.Pop);
+
 			TokenItem Selected = await Args.TokenItemProvider.Task;
 
 			if (Selected is null)
@@ -1203,8 +1201,9 @@ namespace IdApp.Pages.Contacts.Chat
 		private async Task ExecuteEmbedThing()
 		{
 			TaskCompletionSource<ContactInfoModel> ThingToShare = new();
+			MyThingsNavigationArgs Args = new(ThingToShare);
 
-			await this.NavigationService.GoToAsync(nameof(MyThingsPage), new MyThingsNavigationArgs(ThingToShare));
+			await this.NavigationService.GoToAsync(nameof(MyThingsPage), Args, BackMethod.Pop);
 
 			ContactInfoModel Thing = await ThingToShare.Task;
 			if (Thing is null)
@@ -1326,12 +1325,16 @@ namespace IdApp.Pages.Contacts.Chat
 						{
 							case UriScheme.IotId:
 								LegalIdentity Id = LegalIdentity.Parse(Doc.DocumentElement);
-								await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(Id));
+								ViewIdentityNavigationArgs ViewIdentityArgs = new(Id);
+
+								await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), ViewIdentityArgs, BackMethod.Pop);
 								break;
 
 							case UriScheme.IotSc:
 								ParsedContract ParsedContract = await Contract.Parse(Doc.DocumentElement);
-								await this.NavigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(ParsedContract.Contract, false));
+								ViewContractNavigationArgs ViewContractArgs = new(ParsedContract.Contract, false);
+
+								await this.NavigationService.GoToAsync(nameof(ViewContractPage), ViewContractArgs, BackMethod.Pop);
 								break;
 
 							case UriScheme.NeuroFeature:

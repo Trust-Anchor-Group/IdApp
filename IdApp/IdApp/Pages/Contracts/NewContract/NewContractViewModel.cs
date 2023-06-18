@@ -1015,10 +1015,10 @@ namespace IdApp.Pages.Contracts.NewContract
 
 				if (Created is not null)
 				{
-					//!!!!!!?????? { ReturnRoute = "///" + nameof(MainPage) }
 					ViewContractNavigationArgs Args = new(Created, false);
 
-					await this.NavigationService.GoToAsync(nameof(ViewContractPage), Args/*, BackMethod.ToMainPage*/);
+					// Inherit the back method here. It will vary if created or viewed.
+					await this.NavigationService.GoToAsync(nameof(ViewContractPage), Args, BackMethod.Inherited);
 				}
 			}
 		}

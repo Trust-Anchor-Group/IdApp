@@ -23618,16 +23618,6 @@
             Pop until this page is reached
             </summary>
         </member>
-        <member name="F:IdApp.Services.Navigation.BackMethod.ToParentPage">
-            <summary>
-            Pop until this page's parent is reached
-            </summary>
-        </member>
-        <member name="F:IdApp.Services.Navigation.BackMethod.ToMainPage">
-            <summary>
-            Goes back to the main page - the route "///" + nameof(MainPage)
-            </summary>
-        </member>
         <member name="T:IdApp.Services.Navigation.NavigationArgs">
             <summary>
             An base class holding page specific navigation parameters.
