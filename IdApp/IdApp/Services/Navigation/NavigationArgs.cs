@@ -85,11 +85,11 @@ namespace IdApp.Services.Navigation
 				}
 				else if (ParentBackMethod == BackMethod.ToThisPage)
 				{
-					return BackRoute;
+					return BackRoute + "/..";
 				}
 				else if (ParentBackMethod == BackMethod.ToParentPage)
 				{
-					return BackRoute + "/..";
+					return BackRoute + "/../..";
 				}
 				else if (ParentBackMethod == BackMethod.ToMainPage)
 				{
