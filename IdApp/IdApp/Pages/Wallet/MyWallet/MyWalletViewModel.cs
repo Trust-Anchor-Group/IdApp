@@ -640,10 +640,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 				if (ServiceProviders.Length == 0)
 				{
-					//!!!!!! ReturnCounter = 1
 					EDalerBalanceNavigationArgs Args = new(this.Balance);
 
-					await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), Args, BackMethod.ToThisPage);
+					await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), Args, BackMethod.Pop);
 				}
 				else
 				{
@@ -656,21 +655,20 @@ namespace IdApp.Pages.Wallet.MyWallet
 						LocalizationResourceManager.Current["BuyEDaler"],
 						LocalizationResourceManager.Current["SelectServiceProviderBuyEDaler"]);
 
-					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
+					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e, BackMethod.Pop);
+
 					IBuyEDalerServiceProvider ServiceProvider = (IBuyEDalerServiceProvider)await e.ServiceProvider.Task;
 
 					if (ServiceProvider is not null)
 					{
 						if (string.IsNullOrEmpty(ServiceProvider.Id))
 						{
-							//!!!!!! ReturnCounter = 1
 							EDalerBalanceNavigationArgs Args = new(this.Balance);
 
-							await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), Args, BackMethod.ToThisPage);
+							await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), Args, BackMethod.Pop);
 						}
 						else if (string.IsNullOrEmpty(ServiceProvider.BuyEDalerTemplateContractId))
 						{
-							//!!!!!! CancelReturnCounter = true
 							TaskCompletionSource<decimal?> Result = new();
 							BuyEDalerNavigationArgs Args = new(this.Balance.Currency, Result);
 
@@ -738,13 +736,14 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 				if (ServiceProviders.Length == 0)
 				{
-					await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-						new ContactListNavigationArgs(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
-						{
-							CanScanQrCode = true,
-							AllowAnonymous = true,
-							AnonymousText = LocalizationResourceManager.Current["Open"]
-						});
+					ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
+					{
+						CanScanQrCode = true,
+						AllowAnonymous = true,
+						AnonymousText = LocalizationResourceManager.Current["Open"]
+					};
+
+					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.Pop);
 				}
 				else
 				{
@@ -757,14 +756,14 @@ namespace IdApp.Pages.Wallet.MyWallet
 						LocalizationResourceManager.Current["SellEDaler"],
 						LocalizationResourceManager.Current["SelectServiceProviderSellEDaler"]);
 
-					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
+					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e, BackMethod.Pop);
+
 					ISellEDalerServiceProvider ServiceProvider = (ISellEDalerServiceProvider)await e.ServiceProvider.Task;
 
 					if (ServiceProvider is not null)
 					{
 						if (string.IsNullOrEmpty(ServiceProvider.Id))
 						{
-							//!!!!!! ReturnCounter = 1
 							ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
 							{
 								CanScanQrCode = true,
@@ -772,7 +771,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 								AnonymousText = LocalizationResourceManager.Current["Open"],
 							};
 
-							await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.ToThisPage);
+							await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.Pop);
 						}
 						else if (string.IsNullOrEmpty(ServiceProvider.SellEDalerTemplateContractId))
 						{
@@ -800,7 +799,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 								{ "TrustProvider", e2.TrustProviderId }
 							};
 
-							//!!!!!! ReturnCounter = 1
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.SellEDalerTemplateContractId,
 								LocalizationResourceManager.Current["SellEDaler"], Parameters);
 

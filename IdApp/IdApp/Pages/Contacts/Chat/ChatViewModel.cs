@@ -1129,6 +1129,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			TaskCompletionSource<string> UriToSend = new();
 			EDalerUriNavigationArgs Args = new(Parsed, this.FriendlyName, UriToSend);
+
 			await this.NavigationService.GoToAsync(nameof(SendPaymentPage), Args, BackMethod.Pop);
 
 			string Uri = await UriToSend.Task;
@@ -1344,10 +1345,9 @@ namespace IdApp.Pages.Contacts.Chat
 								if (!this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, ParsedToken.TokenId, out NotificationEvent[] Events))
 									Events = new NotificationEvent[0];
 
-								//!!!!!! ReturnCounter = 1
 								TokenDetailsNavigationArgs Args = new(new TokenItem(ParsedToken, this, Events));
 
-								await this.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.ToThisPage);
+								await this.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.Pop);
 								break;
 
 							default:

@@ -422,10 +422,9 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		{
 			if (this.selected is null)
 			{
-				//!!!!!! ReturnCounter = 1
 				TokenDetailsNavigationArgs Args = new(this);
 
-				await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.ToThisPage);
+				await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.Pop);
 			}
 			else
 			{

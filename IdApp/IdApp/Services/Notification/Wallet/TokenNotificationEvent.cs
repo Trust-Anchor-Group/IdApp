@@ -149,10 +149,9 @@ namespace IdApp.Services.Notification.Wallet
 			if (!ServiceReferences.NotificationService.TryGetNotificationEvents(EventButton.Wallet, this.TokenId, out NotificationEvent[] Events))
 				Events = new NotificationEvent[0];
 
-			//!!!!!! ReturnCounter = 1
 			TokenDetailsNavigationArgs Args = new(new TokenItem(this.Token, ServiceReferences, Events));
 
-			await ServiceReferences.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.ToThisPage);
+			await ServiceReferences.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.Pop);
 		}
 	}
 }

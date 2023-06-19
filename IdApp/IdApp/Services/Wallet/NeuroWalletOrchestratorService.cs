@@ -181,10 +181,9 @@ namespace IdApp.Services.Wallet
 				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, TokenId, out NotificationEvent[] Events))
 					Events = new NotificationEvent[0];
 
-				//!!!!!! ReturnCounter = 1
 				TokenDetailsNavigationArgs Args = new(new TokenItem(Token, this, Events));
 
-				await this.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.ToThisPage);
+				await this.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.Pop);
 			}
 			catch (Exception ex)
 			{
