@@ -75,7 +75,7 @@ namespace IdApp.Pages.Wallet.MachineReport.Reports
 
 				if (M.Success)
 				{
-					sb.Append(Xaml.Substring(i, M.Index));
+					sb.Append(Xaml.Substring(i, M.Index - i));
 					i = M.Index + M.Length;
 
 					// TODO: Border width
@@ -103,7 +103,7 @@ namespace IdApp.Pages.Wallet.MachineReport.Reports
 					M = embeddedDynamicImage.Match(Xaml, i);
 					if (M.Success)
 					{
-						sb.Append(Xaml.Substring(i, M.Index));
+						sb.Append(Xaml.Substring(i, M.Index - i));
 						i = M.Index + M.Length;
 
 						sb.Append("<img");
@@ -167,7 +167,7 @@ namespace IdApp.Pages.Wallet.MachineReport.Reports
 			return sb.ToString().ParseXaml();
 		}
 
-		private static readonly Regex standaloneDynamicImage = new("<Label LineBreakMode=\"WordWrap\" TextType=\"Html\"><!\\[CDATA\\[<img(\\s+((border=[\"'](?'Border'\\d+)[\"'])|(width=[\"'](?'Width'\\d+)[\"'])|(height=[\"'](?'Height'\\d+)[\"'])|(alt=[\"'](?'Alt'[^\"']*)[\"'])|(src=[\"']data:(?'ContentType'\\w+\\/\\w+);base64,(?'Base64'[A-Za-z0-9+-\\/_=]+)[\"'])))*\\s*\\/>]]><\\/Label>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
+		private static readonly Regex standaloneDynamicImage = new("<Label LineBreakMode=\"WordWrap\"( HorizontalTextAlignment=\"Start\")? TextType=\"Html\"><!\\[CDATA\\[<img(\\s+((border=[\"'](?'Border'\\d+)[\"'])|(width=[\"'](?'Width'\\d+)[\"'])|(height=[\"'](?'Height'\\d+)[\"'])|(alt=[\"'](?'Alt'[^\"']*)[\"'])|(src=[\"']data:(?'ContentType'\\w+\\/\\w+);base64,(?'Base64'[A-Za-z0-9+-\\/_=]+)[\"'])))*\\s*\\/>]]><\\/Label>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
 		private static readonly Regex embeddedDynamicImage = new("<img(\\s+((border=[\"'](?'Border'\\d+)[\"'])|(width=[\"'](?'Width'\\d+)[\"'])|(height=[\"'](?'Height'\\d+)[\"'])|(alt=[\"'](?'Alt'[^\"']*)[\"'])|(src=[\"']data:(?'ContentType'\\w+\\/\\w+);base64,(?'Base64'[A-Za-z0-9+-\\/_=]+)[\"'])))*\\s*\\/>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
 
 		private static readonly Regex dynamicImage = new("<!--<img(\\s+((border=[\"'](?'Border'\\d+)[\"'])|(width=[\"'](?'Width'\\d+)[\"'])|(height=[\"'](?'Height'\\d+)[\"'])|(alt=[\"'](?'Alt'[^\"']*)[\"'])|(src=[\"']data:(?'ContentType'\\w+\\/\\w+);base64,(?'Base64'[A-Za-z0-9+-\\/_=]+)[\"'])))*\\s*\\/>-->", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
@@ -230,13 +230,20 @@ namespace IdApp.Pages.Wallet.MachineReport.Reports
 
 			this.view.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
-				List<string> TempFiles = new();
-
-				this.view.Report = await this.ParseReport(Xaml, TempFiles);
-
-				lock (this.temporaryFiles)
+				try
 				{
-					this.temporaryFiles.AddRange(TempFiles);
+					List<string> TempFiles = new();
+
+					this.view.Report = await this.ParseReport(Xaml, TempFiles);
+
+					lock (this.temporaryFiles)
+					{
+						this.temporaryFiles.AddRange(TempFiles);
+					}
+				}
+				catch (Exception ex)
+				{
+					await ReportView.UiSerializer.DisplayAlert(ex);
 				}
 			});
 		}

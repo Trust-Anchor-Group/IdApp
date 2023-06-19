@@ -64,7 +64,6 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			this.Title = LocalizationResourceManager.Current["PersonalLegalInformation"];
 			this.PersonalNumberPlaceholder = LocalizationResourceManager.Current["PersonalNumber"];
-			this.ShowOrganization = this.TagProfile.Purpose == PurposeUse.Work;
 
 			this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), profilePhotoFileName);
 			this.photosLoader = new PhotosLoader();
@@ -86,6 +85,14 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
 
 			await base.OnDispose();
+		}
+
+		/// <inheritdoc />
+		public override Task DoAssignProperties()
+		{
+			this.ShowOrganization = this.TagProfile.Purpose == PurposeUse.Work;
+
+			return base.DoAssignProperties();
 		}
 
 		#region Properties
