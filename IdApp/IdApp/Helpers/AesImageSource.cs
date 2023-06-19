@@ -50,11 +50,11 @@ namespace IdApp.Helpers
 		/// <summary>
 		/// </summary>
 		public static readonly BindableProperty UriProperty = BindableProperty.Create("Uri", typeof(Uri), typeof(AesImageSource), default(Uri),
-			propertyChanged: (bindable, oldvalue, newvalue) => ((AesImageSource)bindable).OnUriChanged(), validateValue: (bindable, value) => value == null || ((Uri)value).IsAbsoluteUri);
+			propertyChanged: (bindable, oldvalue, newvalue) => ((AesImageSource)bindable).OnUriChanged(), validateValue: (bindable, value) => value is null || ((Uri)value).IsAbsoluteUri);
 
 		/// <summary>
 		/// </summary>
-		public override bool IsEmpty => this.Uri == null;
+		public override bool IsEmpty => this.Uri is null;
 
 		/// <summary>
 		/// </summary>
@@ -100,32 +100,32 @@ namespace IdApp.Helpers
 			return $"Uri: {this.Uri}";
 		}
 
-		static string GetCacheKey(Uri uri)
+		static string GetCacheKey(Uri Uri)
 		{
-			return Device.PlatformServices.GetHash(uri.AbsoluteUri);
+			return Device.PlatformServices.GetHash(Uri.AbsoluteUri);
 		}
 
-		async Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken = default)
-		{
-			cancellationToken.ThrowIfCancellationRequested();
-
-			Stream stream = await this.GetStreamFromCacheAsync(uri, cancellationToken).ConfigureAwait(false);
-
-			return stream;
-		}
-
-		async Task<Stream> GetStreamAsyncUnchecked(string key, Uri uri, CancellationToken CancellationToken)
+		async Task<Stream> GetStreamAsync(Uri Uri, CancellationToken CancellationToken = default)
 		{
 			CancellationToken.ThrowIfCancellationRequested();
 
-			string Url = this.Uri.OriginalString;
+			Stream Stream = await this.GetStreamFromCacheAsync(Uri, CancellationToken).ConfigureAwait(false);
+
+			return Stream;
+		}
+
+		async Task<Stream> GetStreamAsyncUnchecked(Uri Uri, CancellationToken CancellationToken)
+		{
+			CancellationToken.ThrowIfCancellationRequested();
+
+			string Url = Uri.OriginalString;
 			(byte[] Bin, _) = await AttachmentCacheService.TryGet(Url).ConfigureAwait(false);
 
 			CancellationToken.ThrowIfCancellationRequested();
 
 			if (Bin is null)
 			{
-				KeyValuePair<string, TemporaryStream> Content = await InternetContent.GetTempStreamAsync(this.Uri).ConfigureAwait(false);
+				KeyValuePair<string, TemporaryStream> Content = await InternetContent.GetTempStreamAsync(Uri).ConfigureAwait(false);
 
 				CancellationToken.ThrowIfCancellationRequested();
 
@@ -143,34 +143,37 @@ namespace IdApp.Helpers
 			return null;
 		}
 
-		async Task<Stream> GetStreamFromCacheAsync(Uri uri, CancellationToken cancellationToken)
+		async Task<Stream> GetStreamFromCacheAsync(Uri Uri, CancellationToken CancellationToken)
 		{
-			string key = GetCacheKey(uri);
-			LockingSemaphore sem;
+			string Key = GetCacheKey(Uri);
+			LockingSemaphore Sem;
+
 			lock (syncHandle)
 			{
-				if (semaphores.ContainsKey(key))
-					sem = semaphores[key];
+				if (semaphores.ContainsKey(Key))
+					Sem = semaphores[Key];
 				else
-					semaphores.Add(key, sem = new LockingSemaphore(1));
+					semaphores.Add(Key, Sem = new LockingSemaphore(1));
 			}
 
 			try
 			{
-				await sem.WaitAsync(cancellationToken);
-				Stream stream = await this.GetStreamAsyncUnchecked(key, uri, cancellationToken);
-				if (stream == null || stream.Length == 0 || !stream.CanRead)
+				await Sem.WaitAsync(CancellationToken);
+				Stream Stream = await this.GetStreamAsyncUnchecked(Uri, CancellationToken);
+
+				if (Stream is null || Stream.Length == 0 || !Stream.CanRead)
 				{
-					sem.Release();
+					Sem.Release();
 					return null;
 				}
-				StreamWrapper wrapped = new(stream);
-				wrapped.Disposed += (o, e) => sem.Release();
-				return wrapped;
+
+				StreamWrapper Wrapped = new(Stream);
+				Wrapped.Disposed += (o, e) => Sem.Release();
+				return Wrapped;
 			}
 			catch (OperationCanceledException)
 			{
-				sem.Release();
+				Sem.Release();
 				throw;
 			}
 		}

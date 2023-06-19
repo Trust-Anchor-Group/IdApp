@@ -471,7 +471,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 						break;
 
 					case "AmountExtraText":
-						CalculatorNavigationArgs ExtraArgs = new CalculatorNavigationArgs(this, AmountExtraTextProperty);
+						CalculatorNavigationArgs ExtraArgs = new(this, AmountExtraTextProperty);
 
 						await this.NavigationService.GoToAsync(nameof(CalculatorPage), ExtraArgs, BackMethod.Pop);
 						break;

@@ -122,7 +122,7 @@ namespace IdApp.AR
 		/// </summary>
 		public Task Stop()
 		{
-			if (this.audioQueue != null)
+			if (this.audioQueue is not null)
 			{
 				this.audioQueue.InputCompleted -= this.QueueInputCompleted;
 
