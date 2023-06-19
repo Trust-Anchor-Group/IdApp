@@ -205,14 +205,12 @@ namespace IdApp.Pages.Contracts.MyContracts
 						case SelectContractAction.ViewContract:
 							if (this.contractsListMode == ContractsListMode.Contracts)
 							{
-								//!!!!!!
 								ViewContractNavigationArgs Args = new(Contract, false);
 
 								await this.NavigationService.GoToAsync(nameof(ViewContractPage), Args, BackMethod.Pop);
 							}
 							else
 							{
-								//!!!!!!
 								NewContractNavigationArgs Args = new(Contract, null);
 
 								await this.NavigationService.GoToAsync(nameof(NewContractPage), Args, BackMethod.ToThisPage);

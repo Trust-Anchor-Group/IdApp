@@ -215,7 +215,6 @@ namespace IdApp.Pages.Main.Shell
 
 		private async void ContractsMenuItem_Clicked(object Sender, EventArgs e)
 		{
-			//!!!!!!
 			MyContractsNavigationArgs Args = new(ContractsListMode.Contracts);
 
 			await this.GoToPage(nameof(MyContractsPage), Args, BackMethod.Pop);
@@ -223,7 +222,6 @@ namespace IdApp.Pages.Main.Shell
 
 		private async void NewContractMenuItem_Clicked(object Sender, EventArgs e)
 		{
-			//!!!!!!
 			MyContractsNavigationArgs Args = new(ContractsListMode.ContractTemplates);
 
 			await this.GoToPage(nameof(MyContractsPage), Args, BackMethod.Pop);

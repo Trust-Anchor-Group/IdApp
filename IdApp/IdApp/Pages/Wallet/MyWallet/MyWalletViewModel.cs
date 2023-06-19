@@ -695,7 +695,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 								{ "TrustProvider", e2.TrustProviderId }
 							};
 
-							//!!!!!! ReturnCounter = 1
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.BuyEDalerTemplateContractId,
 								LocalizationResourceManager.Current["BuyEDaler"], Parameters);
 
@@ -1032,7 +1031,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 			try
 			{
 				TaskCompletionSource<Contract> TemplateSelection = new();
-				//!!!!!!
 				MyContractsNavigationArgs Args = new(ContractsListMode.TokenCreationTemplates, TemplateSelection);
 
 				await this.NavigationService.GoToAsync(nameof(MyContractsPage), Args, BackMethod.Pop);

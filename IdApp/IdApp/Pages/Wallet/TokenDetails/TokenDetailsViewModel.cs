@@ -1163,7 +1163,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 		private async Task SendToContact()
 		{
-			//!!!!!! CancelReturnCounter = true
 			TaskCompletionSource<ContactInfoModel> Selected = new();
 			ContactListNavigationArgs ContactListArgs = new(LocalizationResourceManager.Current["SendInformationTo"], Selected)
 			{
@@ -1451,7 +1450,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				//!!!!!! CancelReturnCounter = true
 				TokenEvent[] Events = await this.XmppService.GetNeuroFeatureEvents(this.TokenId);
 				TokenEventsNavigationArgs Args = new(this.TokenId, Events);
 
@@ -1490,7 +1488,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				CurrentStateEventArgs e = await this.XmppService.GetNeuroFeatureCurrentState(this.TokenId);
 				if (e.Ok)
 				{
-					//!!!!!! CancelReturnCounter = true
 					MachineVariablesNavigationArgs Args = new(e.Running, e.Ended, e.CurrentState, e.Variables);
 
 					await this.NavigationService.GoToAsync(nameof(MachineVariablesPage), Args, BackMethod.Pop);
@@ -1508,7 +1505,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				//!!!!!! CancelReturnCounter = true
 				MachineReportNavigationArgs Args = new(Report);
 
 				await this.NavigationService.GoToAsync(nameof(MachineReportPage), Args, BackMethod.Pop);

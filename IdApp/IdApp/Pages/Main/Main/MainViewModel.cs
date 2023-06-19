@@ -626,7 +626,6 @@ namespace IdApp.Pages.Main.Main
 
 		private async Task ViewContracts()
 		{
-			//!!!!!!
 			MyContractsNavigationArgs Args = new(ContractsListMode.Contracts);
 
 			await this.NavigationService.GoToAsync(nameof(MyContractsPage), Args, BackMethod.Pop);

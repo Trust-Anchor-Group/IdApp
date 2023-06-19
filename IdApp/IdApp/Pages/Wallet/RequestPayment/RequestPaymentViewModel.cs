@@ -365,7 +365,6 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		{
 			try
 			{
-				//!!!!!! CancelReturnCounter = true
 				TaskCompletionSource<ContactInfoModel> Selected = new();
 				ContactListNavigationArgs ContactListArgs = new(LocalizationResourceManager.Current["SelectFromWhomToRequestPayment"], Selected)
 				{
