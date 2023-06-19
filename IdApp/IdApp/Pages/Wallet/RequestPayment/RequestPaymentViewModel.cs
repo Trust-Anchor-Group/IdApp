@@ -42,32 +42,6 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		{
 			await base.OnInitialize();
 
-			//!!!!!!
-			/*
-			bool SkipInitialization = false;
-
-			if (this.NavigationService.TryGetArgs(out EDalerBalanceNavigationArgs args))
-			{
-				SkipInitialization = args.ViewInitialized;
-				if (!SkipInitialization)
-				{
-					this.Currency = args.Balance.Currency;
-					args.ViewInitialized = true;
-				}
-			}
-
-			if (!SkipInitialization)
-			{
-				this.Amount = 0;
-				this.AmountText = string.Empty;
-				this.AmountOk = false;
-
-				this.AmountExtra = 0;
-				this.AmountExtraText = string.Empty;
-				this.AmountExtraOk = false;
-			}
-			*/
-
 			if (this.NavigationService.TryGetArgs(out EDalerBalanceNavigationArgs Args))
 			{
 				this.Currency = Args.Balance.Currency;
@@ -422,7 +396,6 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 				await Task.Delay(100);  // Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
 
-				//!!!!!! UniqueId = Contact.BareJid
 				ChatNavigationArgs ChatArgs = new(Contact.Contact);
 
 				await this.NavigationService.GoToAsync(nameof(ChatPage), ChatArgs, BackMethod.Inherited, Contact.BareJid);

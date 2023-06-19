@@ -1125,7 +1125,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			try
 			{
-				//!!!!!! UniqueId = BareJid
 				ChatNavigationArgs Args = new(LegalId, BareJid, FriendlyName);
 
 				await this.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, BareJid);
@@ -1187,7 +1186,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			await ChatViewModel.ExecuteSendMessage(string.Empty, Markdown.ToString(), Contact.BareJid, this);
 			await Task.Delay(100);  // Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
 
-			//!!!!!! UniqueId = Contact.BareJid
 			ChatNavigationArgs ChatArgs = new(Contact.Contact);
 
 			await this.NavigationService.GoToAsync(nameof(ChatPage), ChatArgs, BackMethod.Inherited, Contact.BareJid);
@@ -1243,7 +1241,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 					}
 				};
 
-				//!!!!!!
 				NewContractArgs.SuppressProposal(e.TrustProviderId);
 
 				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs, BackMethod.ToThisPage);
@@ -1333,7 +1330,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 						Parameters[OwnershipContractParameter] = this.OwnershipContract;
 				}
 
-				//!!!!!!
 				NewContractNavigationArgs NewContractArgs = new(Template, true, Parameters);
 
 				if (!string.IsNullOrEmpty(TrustProviderId))
@@ -1438,7 +1434,6 @@ namespace IdApp.Pages.Wallet.TokenDetails
 						Parameters[OwnershipContractParameter] = this.OwnershipContract;
 				}
 
-				//!!!!!!
 				NewContractNavigationArgs NewContractArgs = new(Template, true, Parameters);
 
 				if (!string.IsNullOrEmpty(TrustProviderId))

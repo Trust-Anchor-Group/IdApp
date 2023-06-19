@@ -1107,7 +1107,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 						Parameters[CommissionParameter] = e2.Commission;
 				}
 
-				//!!!!!!?????? ReturnCounter = 1
 				NewContractNavigationArgs NewContractArgs = new(Template, true, Parameters);
 
 				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs, BackMethod.ToThisPage);

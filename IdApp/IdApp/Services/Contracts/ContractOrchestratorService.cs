@@ -469,14 +469,12 @@ namespace IdApp.Services.Contracts
 							await Database.Insert(Ref);
 						}
 
-						//!!!!!!
 						NewContractNavigationArgs e = new(Contract, ParameterValues);
 
 						await this.NavigationService.GoToAsync(nameof(NewContractPage), e, BackMethod.ToThisPage);
 					}
 					else
 					{
-						//!!!!!!
 						ViewContractNavigationArgs e = new(Contract, false);
 
 						await this.NavigationService.GoToAsync(nameof(ViewContractPage), e, BackMethod.Pop);

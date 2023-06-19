@@ -73,7 +73,6 @@ namespace IdApp.Services.Notification.Xmpp
 		/// <param name="ServiceReferences">Service references</param>
 		public override async Task Open(IServiceReferences ServiceReferences)
 		{
-			//!!!!!! UniqueId = BareJid
 			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(this.BareJid);
 			string LegalId = ContactInfo?.LegalId;
 			string FriendlyName = await this.GetDescription(ServiceReferences);

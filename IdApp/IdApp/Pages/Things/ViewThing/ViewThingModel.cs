@@ -739,8 +739,6 @@ namespace IdApp.Pages.Things.ViewThing
 			{
 				string LegalId = this.thing?.LegalId;
 				string FriendlyName = this.thing.FriendlyName;
-
-				//!!!!!! UniqueId = this.thing.BareJid
 				ChatNavigationArgs Args = new(LegalId, this.thing.BareJid, FriendlyName);
 
 				await this.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, this.thing.BareJid);

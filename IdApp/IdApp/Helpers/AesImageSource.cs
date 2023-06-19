@@ -68,15 +68,15 @@ namespace IdApp.Helpers
 		/// <summary>
 		/// </summary>
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public async Task<Stream> GetStreamAsync(CancellationToken userToken = default)
+		public async Task<Stream> GetStreamAsync(CancellationToken UserToken = default)
 		{
 			this.OnLoadingStarted();
-			userToken.Register(this.CancellationTokenSource.Cancel);
-			Stream stream;
+			UserToken.Register(this.CancellationTokenSource.Cancel);
+			Stream Stream;
 
 			try
 			{
-				stream = await this.GetStreamAsync(this.Uri, this.CancellationTokenSource.Token);
+				Stream = await this.GetStreamAsync(this.Uri, this.CancellationTokenSource.Token);
 				this.OnLoadingCompleted(false);
 			}
 			catch (OperationCanceledException)
@@ -90,7 +90,7 @@ namespace IdApp.Helpers
 				throw;
 			}
 
-			return stream;
+			return Stream;
 		}
 
 		/// <summary>

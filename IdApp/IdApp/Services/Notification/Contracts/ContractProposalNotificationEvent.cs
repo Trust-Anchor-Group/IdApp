@@ -52,10 +52,9 @@ namespace IdApp.Services.Notification.Contracts
 
 			if (Contract is not null)
 			{
-				//!!!!!! ReturnCounter = 1
 				ViewContractNavigationArgs Args = new(Contract, false, this.Role, this.Message);
 
-				await ServiceReferences.NavigationService.GoToAsync(nameof(ViewContractPage), Args, BackMethod.ToThisPage);
+				await ServiceReferences.NavigationService.GoToAsync(nameof(ViewContractPage), Args, BackMethod.Pop);
 			}
 		}
 

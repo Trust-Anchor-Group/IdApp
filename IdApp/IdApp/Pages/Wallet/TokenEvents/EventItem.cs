@@ -260,7 +260,6 @@ namespace IdApp.Pages.Wallet.TokenEvents
 						Source = Constants.UriSchemes.IotId + ":" + Source;
 					else
 					{
-						//!!!!!! UniqueId = Contact?.BareJid ?? Source
 						ContactInfo Contact = await ContactInfo.FindByBareJid(Source);
 						ChatNavigationArgs Args = new(Contact?.LegalId, Contact?.BareJid ?? Source, Contact?.FriendlyName ?? Source);
 

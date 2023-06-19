@@ -2317,7 +2317,6 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				//!!!!!! UniqueId = this.BareJid 
 				ChatNavigationArgs Args = new(this.LegalId, this.BareJid, ContactInfo.GetFriendlyName(this.LegalIdentity));
 
 				await this.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, this.BareJid);

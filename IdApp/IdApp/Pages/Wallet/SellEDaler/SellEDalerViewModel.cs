@@ -34,30 +34,6 @@ namespace IdApp.Pages.Wallet.SellEDaler
 		{
 			await base.OnInitialize();
 
-			//!!!!!!
-			/*
-			bool SkipInitialization = false;
-
-			if (this.NavigationService.TryGetArgs(out SellEDalerNavigationArgs args))
-			{
-				SkipInitialization = args.ViewInitialized;
-				if (!SkipInitialization)
-				{
-					this.Currency = args.Currency;
-					this.result = args.Result;
-
-					args.ViewInitialized = true;
-				}
-			}
-
-			if (!SkipInitialization)
-			{
-				this.Amount = 0;
-				this.AmountText = string.Empty;
-				this.AmountOk = false;
-			}
-			*/
-
 			if (this.NavigationService.TryGetArgs(out SellEDalerNavigationArgs Args))
 			{
 				this.Currency = Args.Currency;
