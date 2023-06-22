@@ -379,9 +379,7 @@ namespace IdApp.Services.Notification
 					{
 						if (Event is T TypedItem)
 						{
-							if (Items is null)
-								Items = new List<T>();
-
+							Items ??= new List<T>();
 							Items.Add(TypedItem);
 						}
 					}
@@ -487,9 +485,7 @@ namespace IdApp.Services.Notification
 						{
 							if (Resolver.Resolves(Event))
 							{
-								if (Resolved is null)
-									Resolved = new List<NotificationEvent>();
-
+								Resolved ??= new List<NotificationEvent>();
 								Resolved.Add(Event);
 							}
 						}

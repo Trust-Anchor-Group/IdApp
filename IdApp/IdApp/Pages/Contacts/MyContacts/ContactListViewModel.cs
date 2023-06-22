@@ -60,6 +60,29 @@ namespace IdApp.Pages.Contacts.MyContacts
 				this.AnonymousText = string.IsNullOrEmpty(args.AnonymousText) ? LocalizationResourceManager.Current["Anonymous"] : args.AnonymousText;
 			}
 
+			await this.UpdateContactList();
+
+			this.XmppService.OnPresence += this.Xmpp_OnPresence;
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
+		}
+
+		/// <inheritdoc/>
+		protected override async Task OnAppearing()
+		{
+			await base.OnAppearing();
+
+			if (this.selection is not null && this.selection.Task.IsCompleted)
+			{
+				await this.NavigationService.GoBackAsync();
+				return;
+			}
+
+			this.SelectedContact = null;
+		}
+
+		private async Task UpdateContactList()
+		{
 			SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted = new();
 			Dictionary<CaseInsensitiveString, bool> Jids = new();
 
@@ -149,24 +172,6 @@ namespace IdApp.Pages.Contacts.MyContacts
 			}
 
 			this.ShowContactsMissing = Sorted.Count == 0;
-
-			this.XmppService.OnPresence += this.Xmpp_OnPresence;
-			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
-			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
-		}
-
-		/// <inheritdoc/>
-		protected override async Task OnAppearing()
-		{
-			await base.OnAppearing();
-
-			if (this.selection is not null && this.selection.Task.IsCompleted)
-			{
-				await this.NavigationService.GoBackAsync();
-				return;
-			}
-
-			this.SelectedContact = null;
 		}
 
 		private static void Add(SortedDictionary<CaseInsensitiveString, ContactInfo> Sorted, CaseInsensitiveString Name, ContactInfo Info)
@@ -405,7 +410,10 @@ namespace IdApp.Pages.Contacts.MyContacts
 									new ViewIdentityNavigationArgs(Contact.LegalIdentity));
 							}
 							else if (!string.IsNullOrEmpty(Contact.LegalId))
-								await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId, LocalizationResourceManager.Current["ScannedQrCode"]);
+							{
+								await this.ContractOrchestratorService.OpenLegalIdentity(Contact.LegalId,
+									LocalizationResourceManager.Current["ScannedQrCode"]);
+							}
 							else if (!string.IsNullOrEmpty(Contact.BareJid))
 							{
 								ChatNavigationArgs Args = new(Contact.Contact);
@@ -442,8 +450,11 @@ namespace IdApp.Pages.Contacts.MyContacts
 		private async Task ScanQrCode()
 		{
 			string Code = await QrCode.ScanQrCode(LocalizationResourceManager.Current["ScanQRCode"]);
+
 			if (string.IsNullOrEmpty(Code))
+			{
 				return;
+			}
 
 			if (Constants.UriSchemes.StartsWithIdScheme(Code))
 			{
@@ -453,7 +464,10 @@ namespace IdApp.Pages.Contacts.MyContacts
 				}, new NotificationEvent[0]));
 			}
 			else if (!string.IsNullOrEmpty(Code))
-				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
+			{
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"],
+					LocalizationResourceManager.Current["TheSpecifiedCodeIsNotALegalIdentity"]);
+			}
 		}
 
 		private void SelectAnonymous()
@@ -466,7 +480,9 @@ namespace IdApp.Pages.Contacts.MyContacts
 			if (this.byBareJid.TryGetValue(e.FromBareJID, out List<ContactInfoModel> Contacts))
 			{
 				foreach (ContactInfoModel Contact in Contacts)
+				{
 					Contact.PresenceUpdated();
+				}
 			}
 
 			return Task.CompletedTask;
@@ -475,29 +491,48 @@ namespace IdApp.Pages.Contacts.MyContacts
 		private void NotificationService_OnNewNotification(object Sender, NotificationEventArgs e)
 		{
 			if (e.Event.Button == EventButton.Contacts)
+			{
 				this.UpdateNotifications(e.Event.Category);
+			}
 		}
 
 		private void UpdateNotifications()
 		{
 			foreach (CaseInsensitiveString Category in this.NotificationService.GetCategories(EventButton.Contacts))
+			{
 				this.UpdateNotifications(Category);
+			}
 		}
 
 		private void UpdateNotifications(CaseInsensitiveString Category)
 		{
-			if (this.byBareJid.TryGetValue(Category, out List<ContactInfoModel> Contacts) &&
-				this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Category, out NotificationEvent[] Events))
+			if (this.byBareJid.TryGetValue(Category, out List<ContactInfoModel> Contacts))
 			{
+				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, Category, out NotificationEvent[] Events))
+				{
+					Events = new NotificationEvent[0];
+				}
+
 				foreach (ContactInfoModel Contact in Contacts)
+				{
 					Contact.NotificationsUpdated(Events);
+				}
 			}
 		}
 
 		private void NotificationService_OnNotificationsDeleted(object Sender, NotificationEventsArgs e)
 		{
-			this.UpdateNotifications();
-		}
+			Dictionary<CaseInsensitiveString, bool> Categories = new();
 
+			foreach (NotificationEvent Event in e.Events)
+			{
+				Categories[Event.Category] = true;
+			}
+
+			foreach (CaseInsensitiveString Category in Categories.Keys)
+			{
+				this.UpdateNotifications(Category);
+			}
+		}
 	}
 }
