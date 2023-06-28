@@ -642,7 +642,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				{
 					EDalerBalanceNavigationArgs Args = new(this.Balance);
 
-					await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), Args, BackMethod.Pop);
+					await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), Args, BackMethod.ToThisPage);
 				}
 				else
 				{
@@ -665,14 +665,14 @@ namespace IdApp.Pages.Wallet.MyWallet
 						{
 							EDalerBalanceNavigationArgs Args = new(this.Balance);
 
-							await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), Args, BackMethod.Pop);
+							await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), Args, BackMethod.ToThisPage);
 						}
 						else if (string.IsNullOrEmpty(ServiceProvider.BuyEDalerTemplateContractId))
 						{
 							TaskCompletionSource<decimal?> Result = new();
 							BuyEDalerNavigationArgs Args = new(this.Balance.Currency, Result);
 
-							await this.NavigationService.GoToAsync(nameof(BuyEDalerPage), Args, BackMethod.Pop);
+							await this.NavigationService.GoToAsync(nameof(BuyEDalerPage), Args, BackMethod.ToThisPage);
 
 							decimal? Amount = await Result.Task;
 
@@ -742,7 +742,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 						AnonymousText = LocalizationResourceManager.Current["Open"]
 					};
 
-					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.Pop);
+					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.ToThisPage);
 				}
 				else
 				{
@@ -770,12 +770,14 @@ namespace IdApp.Pages.Wallet.MyWallet
 								AnonymousText = LocalizationResourceManager.Current["Open"],
 							};
 
-							await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.Pop);
+							await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.ToThisPage);
 						}
 						else if (string.IsNullOrEmpty(ServiceProvider.SellEDalerTemplateContractId))
 						{
 							TaskCompletionSource<decimal?> Result = new();
-							await this.NavigationService.GoToAsync(nameof(SellEDalerPage), new SellEDalerNavigationArgs(this.Balance.Currency, Result));
+							SellEDalerNavigationArgs Args = new(this.Balance.Currency, Result);
+
+							await this.NavigationService.GoToAsync(nameof(SellEDalerPage), Args, BackMethod.ToThisPage);
 
 							decimal? Amount = await Result.Task;
 

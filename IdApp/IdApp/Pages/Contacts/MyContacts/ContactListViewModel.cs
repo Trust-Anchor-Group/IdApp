@@ -397,8 +397,8 @@ namespace IdApp.Pages.Contacts.MyContacts
 							if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
 								break;
 
-							//!!!!!!?????? ReturnRoute = "../.."
-							await this.NavigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed)/*, BackMethod.ToParentPage*/);
+							// Inherit the back method here from the parrent
+							await this.NavigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed), BackMethod.Inherited);
 
 							break;
 
@@ -406,8 +406,9 @@ namespace IdApp.Pages.Contacts.MyContacts
 						default:
 							if (Contact.LegalIdentity is not null)
 							{
-								await this.NavigationService.GoToAsync(nameof(ViewIdentityPage),
-									new ViewIdentityNavigationArgs(Contact.LegalIdentity));
+								ViewIdentityNavigationArgs Args = new(Contact.LegalIdentity);
+
+								await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), Args);
 							}
 							else if (!string.IsNullOrEmpty(Contact.LegalId))
 							{
