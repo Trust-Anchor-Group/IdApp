@@ -78,14 +78,28 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.EDalerFrontGlyph = "https://" + this.TagProfile.Domain + "/Images/eDalerFront200.png";
 			this.EDalerBackGlyph = "https://" + this.TagProfile.Domain + "/Images/eDalerBack200.png";
 
-			if (this.Balance is null && this.NavigationService.TryGetArgs(out WalletNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out WalletNavigationArgs args))
 			{
 				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.GetNotificationEvents();
 
-				await this.AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments,
-					args.Events, args.More, this.XmppService.LastEDalerEvent, NotificationEvents);
+				await this.AssignProperties(args.Balance,
+					args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events, args.More,
+					this.XmppService.LastEDalerEvent, NotificationEvents);
 			}
-			else if (((this.Balance is not null) && (this.XmppService.LastEDalerBalance is not null) &&
+
+			this.XmppService.EDalerBalanceUpdated += this.Wallet_BalanceUpdated;
+			this.XmppService.NeuroFeatureAdded += this.Wallet_TokenAdded;
+			this.XmppService.NeuroFeatureRemoved += this.Wallet_TokenRemoved;
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
+		}
+
+		/// <inheritdoc/>
+		protected override async Task OnAppearing()
+		{
+			await base.OnAppearing();
+
+			if (((this.Balance is not null) && (this.XmppService.LastEDalerBalance is not null) &&
 				(this.Balance.Amount != this.XmppService.LastEDalerBalance.Amount ||
 				this.Balance.Currency != this.XmppService.LastEDalerBalance.Currency ||
 				this.Balance.Timestamp != this.XmppService.LastEDalerBalance.Timestamp)) ||
@@ -95,14 +109,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 			}
 
 			if (this.HasTokens && this.LastTokenEvent != this.XmppService.LastNeuroFeatureEvent)
+			{
 				await this.LoadTokens(true);
+			}
 
 			this.EvaluateAllCommands();
-
-			this.XmppService.EDalerBalanceUpdated += this.Wallet_BalanceUpdated;
-			this.XmppService.NeuroFeatureAdded += this.Wallet_TokenAdded;
-			this.XmppService.NeuroFeatureRemoved += this.Wallet_TokenRemoved;
-			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
 		}
 
 		/// <inheritdoc/>
