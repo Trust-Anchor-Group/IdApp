@@ -2343,4 +2343,10 @@
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="AccountEventItem" xml:space="preserve">
+    <value>Account Events</value>
+  </data>
+  <data name="PendingPaymentItem" xml:space="preserve">
+    <value>Pending Payments</value>
+  </data>
 </root>

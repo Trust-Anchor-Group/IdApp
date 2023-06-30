@@ -8841,12 +8841,20 @@
             Unique name used to compare items.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.IUniqueItem.LocalisedName">
+            <summary>
+            Get the groups's localised name
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.ObservableItemGroup`1">
             <summary>
             Encapsulates a grouped item collection.
             </summary>
         </member>
         <member name="P:IdApp.Pages.ObservableItemGroup`1.UniqueName">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.ObservableItemGroup`1.LocalisedName">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.ObservableItemGroup`1.#ctor(System.String,System.Collections.Generic.List{`0})">
@@ -18585,6 +18593,11 @@
               Looks up a localized string similar to Below you can see information about a single account event..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.AccountEventItem">
+            <summary>
+              Looks up a localized string similar to Account Events.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.AccountNameAlreadyTaken">
             <summary>
               Looks up a localized string similar to Account name {0} is already taken. Choose another..
@@ -18758,6 +18771,11 @@
         <member name="P:IdApp.Resx.AppResources.Assessor">
             <summary>
               Looks up a localized string similar to Assessor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Back">
+            <summary>
+              Looks up a localized string similar to Back.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Balance">
@@ -20378,6 +20396,11 @@
         <member name="P:IdApp.Resx.AppResources.PendingPaymentDescription">
             <summary>
               Looks up a localized string similar to Below you can see information about a payment that has been generated, but has not been fully processed yet..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PendingPaymentItem">
+            <summary>
+              Looks up a localized string similar to Pending Payments.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PepServiceNotFound">

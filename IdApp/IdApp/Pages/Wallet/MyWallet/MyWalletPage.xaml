@@ -193,6 +193,15 @@
 												   ItemsSource="{Binding Path=PaymentItems}"
                                                    ItemTemplate="{StaticResource AccountItemStyleSelector}"
                                                    LoadMoreCommand="{Binding LoadMoreAccountEventsCommand}">
+						<CollectionView.GroupHeaderTemplate>
+							<DataTemplate x:DataType="views:IUniqueItem">
+								<Frame BackgroundColor="{StaticResource LightGrayColor}" CornerRadius="8" Padding="5" Margin="0" HasShadow="False">
+								<Label Text="{Binding LocalisedName}" Style="{StaticResource KeyLabel}"
+									   HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
+									   LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18" />
+								</Frame>
+							</DataTemplate>
+						</CollectionView.GroupHeaderTemplate>
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
                         </CollectionView.ItemsLayout>

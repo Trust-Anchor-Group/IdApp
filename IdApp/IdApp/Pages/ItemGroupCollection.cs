@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace IdApp.Pages
@@ -14,6 +13,11 @@ namespace IdApp.Pages
 		/// Unique name used to compare items.
 		/// </summary>
 		public string UniqueName { get; }
+
+		/// <summary>
+		/// Get the groups's localised name
+		/// </summary>
+		public string LocalisedName => this.UniqueName;
 	}
 
 	/// <summary>
@@ -23,6 +27,15 @@ namespace IdApp.Pages
 	{
 		/// <inheritdoc/>
 		public string UniqueName { get; }
+
+		/// <inheritdoc/>
+		public string LocalisedName
+		{
+			get
+			{
+				return LocalizationResourceManager.Current[this.UniqueName] ?? this.UniqueName;
+			}
+		}
 
 		/// <summary>
 		/// Encapsulates a grouped item collection.

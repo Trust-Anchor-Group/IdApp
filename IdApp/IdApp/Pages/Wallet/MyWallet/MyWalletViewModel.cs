@@ -205,7 +205,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 					NewAccountEvents.Add(new AccountEventItem(Event, this, FriendlyName, CategoryEvents, this));
 				}
 
-				if (NewPendingPayments.Count > 0)
+				if (NewAccountEvents.Count > 0)
 				{
 					NewPaymentItems.Add(new ObservableItemGroup<IUniqueItem>(nameof(AccountEventItem), NewAccountEvents));
 				}
@@ -216,7 +216,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 				if (Changed)
 				{
-					this.page.ScrollToBeginPaymentItems();
+					// this.page.ScrollToBeginPaymentItems();
 				}
 			});
 		}
@@ -260,7 +260,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 						if (OldIndex == -1)
 						{
 							// The item isn't found in the old collection
-							OldCollection.Insert(OldIndex, NewItem);
+							OldCollection.Insert(i, NewItem);
 							Chnaged = true;
 						}
 						else
