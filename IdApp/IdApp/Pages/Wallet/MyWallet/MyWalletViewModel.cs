@@ -91,9 +91,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 				this.Balance.Currency != this.XmppService.LastEDalerBalance.Currency ||
 				this.Balance.Timestamp != this.XmppService.LastEDalerBalance.Timestamp)) ||
 				this.LastEDalerEvent != this.XmppService.LastEDalerEvent)
-				/*
-			if (this.Balance is not null)
-				*/
 			{
 				await this.ReloadEDalerWallet(this.XmppService.LastEDalerBalance ?? this.Balance);
 			}
@@ -308,6 +305,57 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.GetPendingEDalerPayments();
 				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize);
+				IUniqueItem OldItems = this.PaymentItems.FirstOrDefault(el => el.UniqueName.Equals(nameof(AccountEventItem)));
+
+				// Reload also items which were loaded earlier by the LoadMoreAccountEvents
+				if (More && OldItems is not null)
+				{
+					ObservableItemGroup<IUniqueItem> OldAccountEvents = (ObservableItemGroup<IUniqueItem>)OldItems;
+
+					if (OldAccountEvents.LastOrDefault() is AccountEventItem OldLastEvent)
+					{
+						List<EDaler.AccountEvent> AllEvents = new(Events);
+						EDaler.AccountEvent[] Events2;
+						bool More2 = true;
+
+						while (More2)
+						{
+							EDaler.AccountEvent LastEvent = AllEvents.Last();
+
+							if (OldLastEvent.Timestamp.Equals(LastEvent.Timestamp))
+							{
+								break;
+							}
+
+							(Events2, More2) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize, LastEvent.Timestamp);
+
+							if (More2)
+							{
+								More = true;
+
+								for (int i = 0; i < Events2.Count(); i++)
+								{
+									EDaler.AccountEvent Event = Events2[i];
+									AllEvents.Add(Event);
+
+									if (OldLastEvent.Timestamp.Equals(Event.Timestamp))
+									{
+										More2 = false;
+										break;
+									}
+								}
+							}
+							else
+							{
+								More = false;
+								AllEvents.AddRange(Events2);
+							}
+						}
+
+						Events = AllEvents.ToArray();
+					}
+				}
+
 				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.GetNotificationEvents();
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await this.AssignProperties(Balance, PendingAmount, PendingCurrency,
@@ -966,6 +1014,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 							else
 							{
 								this.PaymentItems.Add(new ObservableItemGroup<IUniqueItem>(nameof(AccountEventItem), NewAccountEvents));
+								this.HasMoreEvents = More;
 							}
 						});
 					}
@@ -973,10 +1022,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 				catch (Exception ex)
 				{
 					this.LogService.LogException(ex);
-				}
-				finally
-				{
-					this.HasMoreEvents = More;
 				}
 			}
 		}
