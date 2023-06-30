@@ -15476,11 +15476,6 @@
             Asynchronous OnAppearing-method.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletPage.ScrollToBeginPaymentItems">
-            <summary>
-            Reset the payment items position
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel">
             <summary>
             The view model to bind to for when displaying the wallet.

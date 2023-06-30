@@ -78,7 +78,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.XmppService.NeuroFeatureAdded += this.Wallet_TokenAdded;
 			this.XmppService.NeuroFeatureRemoved += this.Wallet_TokenRemoved;
 			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
-			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
 		}
 
 		/// <inheritdoc/>
@@ -208,21 +207,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 				}
 			}
 
-			Device.BeginInvokeOnMainThread(() => {
-				bool Changed = this.UpdatePaymentItems(this.PaymentItems, NewPaymentItems);
-
-				if (Changed)
-				{
-					// this.page.ScrollToBeginPaymentItems();
-				}
-			});
+			Device.BeginInvokeOnMainThread(() => this.UpdatePaymentItems(this.PaymentItems, NewPaymentItems));
 		}
 
-		private bool UpdatePaymentItems(ObservableItemGroup<IUniqueItem> OldCollection, ObservableItemGroup<IUniqueItem> NewCollection)
+		private void UpdatePaymentItems(ObservableItemGroup<IUniqueItem> OldCollection, ObservableItemGroup<IUniqueItem> NewCollection)
 		{
 			// First, remove items which are no longer in the new collection
 			List<IUniqueItem> RemoveItems = OldCollection.Where(oel => NewCollection.All(nel => !nel.UniqueName.Equals(oel.UniqueName))).ToList();
-			bool Chnaged = RemoveItems.Count > 0;
 
 			OldCollection.RemoveRange(RemoveItems);
 
@@ -236,7 +227,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 				{
 					// appended to the end
 					OldCollection.Add(NewItem);
-					Chnaged = true;
 				}
 				else
 				{
@@ -258,18 +248,16 @@ namespace IdApp.Pages.Wallet.MyWallet
 						{
 							// The item isn't found in the old collection
 							OldCollection.Insert(i, NewItem);
-							Chnaged = true;
 						}
 						else
 						{
 							// Move the item to it's new position
 							OldCollection.Move(OldIndex, i);
-							Chnaged = true;
 
 							// If it's a collection, do it recursivelly
 							if (NewItem is ObservableItemGroup<IUniqueItem>)
 							{
-								Chnaged |= this.UpdatePaymentItems(OldCollection[i] as ObservableItemGroup<IUniqueItem>, NewItem as ObservableItemGroup<IUniqueItem>);
+								this.UpdatePaymentItems(OldCollection[i] as ObservableItemGroup<IUniqueItem>, NewItem as ObservableItemGroup<IUniqueItem>);
 							}
 						}
 					}
@@ -279,13 +267,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 						// If it's a collection, do it recursivelly
 						if (NewItem is ObservableItemGroup<IUniqueItem>)
 						{
-							Chnaged |= this.UpdatePaymentItems(OldCollection[i] as ObservableItemGroup<IUniqueItem>, NewItem as ObservableItemGroup<IUniqueItem>);
+							this.UpdatePaymentItems(OldCollection[i] as ObservableItemGroup<IUniqueItem>, NewItem as ObservableItemGroup<IUniqueItem>);
 						}
 					}
 				}
 			}
-
-			return Chnaged;
 		}
 
 		private void EvaluateAllCommands()
@@ -308,52 +294,45 @@ namespace IdApp.Pages.Wallet.MyWallet
 				IUniqueItem OldItems = this.PaymentItems.FirstOrDefault(el => el.UniqueName.Equals(nameof(AccountEventItem)));
 
 				// Reload also items which were loaded earlier by the LoadMoreAccountEvents
-				if (More && OldItems is not null)
+				if (More &&
+					(OldItems is ObservableItemGroup<IUniqueItem> OldAccountEvents) &&
+					(OldAccountEvents.LastOrDefault() is AccountEventItem OldLastEvent) &&
+					(Events.LastOrDefault() is EDaler.AccountEvent NewLastEvent) &&
+					(OldLastEvent.Timestamp < NewLastEvent.Timestamp))
 				{
-					ObservableItemGroup<IUniqueItem> OldAccountEvents = (ObservableItemGroup<IUniqueItem>)OldItems;
+					List<EDaler.AccountEvent> AllEvents = new(Events);
+					EDaler.AccountEvent[] Events2;
+					bool More2 = true;
 
-					if (OldAccountEvents.LastOrDefault() is AccountEventItem OldLastEvent)
+					while (More2)
 					{
-						List<EDaler.AccountEvent> AllEvents = new(Events);
-						EDaler.AccountEvent[] Events2;
-						bool More2 = true;
+						EDaler.AccountEvent LastEvent = AllEvents.Last();
+						(Events2, More2) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize, LastEvent.Timestamp);
 
-						while (More2)
+						if (More2)
 						{
-							EDaler.AccountEvent LastEvent = AllEvents.Last();
+							More = true;
 
-							if (OldLastEvent.Timestamp.Equals(LastEvent.Timestamp))
+							for (int i = 0; i < Events2.Count(); i++)
 							{
-								break;
-							}
+								EDaler.AccountEvent Event = Events2[i];
+								AllEvents.Add(Event);
 
-							(Events2, More2) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize, LastEvent.Timestamp);
-
-							if (More2)
-							{
-								More = true;
-
-								for (int i = 0; i < Events2.Count(); i++)
+								if (OldLastEvent.Timestamp.Equals(Event.Timestamp))
 								{
-									EDaler.AccountEvent Event = Events2[i];
-									AllEvents.Add(Event);
-
-									if (OldLastEvent.Timestamp.Equals(Event.Timestamp))
-									{
-										More2 = false;
-										break;
-									}
+									More2 = false;
+									break;
 								}
 							}
-							else
-							{
-								More = false;
-								AllEvents.AddRange(Events2);
-							}
 						}
-
-						Events = AllEvents.ToArray();
+						else
+						{
+							More = false;
+							AllEvents.AddRange(Events2);
+						}
 					}
+
+					Events = AllEvents.ToArray();
 				}
 
 				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.GetNotificationEvents();
