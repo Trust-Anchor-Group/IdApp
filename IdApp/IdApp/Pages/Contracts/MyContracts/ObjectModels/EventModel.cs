@@ -10,7 +10,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 	/// <summary>
 	/// The data model for a notification event that is not associate with a referenced contract.
 	/// </summary>
-	public class EventModel : ObservableObject, IItemGroup
+	public class EventModel : ObservableObject, IUniqueItem
 	{
 		private readonly IServiceReferences references;
 

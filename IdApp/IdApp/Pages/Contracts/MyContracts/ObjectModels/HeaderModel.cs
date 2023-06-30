@@ -7,7 +7,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 	/// <summary>
 	/// The data model for a contract category header containing a collection of contracts of the same category.
 	/// </summary>
-	public class HeaderModel : ObservableObject, IItemGroup
+	public class HeaderModel : ObservableObject, IUniqueItem
 	{
 		private int nrEvents;
 		private bool expanded;

@@ -41,7 +41,7 @@ namespace IdApp.Services.Messages
 	[TypeName(TypeNameSerialization.None)]
 	[Index("RemoteBareJid", "Created")]
 	[Index("RemoteBareJid", "RemoteObjectId")]
-	public class ChatMessage : IItemGroup
+	public class ChatMessage : IUniqueItem
 	{
 		/// <summary>
 		/// A chat message which is always the latest one and is of type <see cref="MessageType.Empty"/>.

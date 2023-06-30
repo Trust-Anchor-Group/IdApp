@@ -57,5 +57,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 			if (this.ViewModel is MyWalletViewModel Model && Sender is FlipView FlipView)
 				Model.ViewsFlipped(FlipView.IsFrontViewShowing);
 		}
+
+		/// <summary>
+		/// Reset the payment items position
+		/// </summary>
+		public void ScrollToBeginPaymentItems()
+		{
+			this.PaymentItemsCollection.ScrollTo(0, 0);
+		}
 	}
 }

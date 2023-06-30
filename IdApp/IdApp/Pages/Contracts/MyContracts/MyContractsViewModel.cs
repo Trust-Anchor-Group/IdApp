@@ -168,7 +168,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// <summary>
 		/// Holds the list of contracts to display, ordered by category.
 		/// </summary>
-		public ObservableRangeCollection<IItemGroup> Categories { get; } = new();
+		public ObservableRangeCollection<IUniqueItem> Categories { get; } = new();
 
 		/// <summary>
 		/// Add or remove the contracts from the collection
@@ -386,7 +386,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 					Contracts2.Add(Item);
 				}
 
-				List<IItemGroup> NewCategories = new();
+				List<IUniqueItem> NewCategories = new();
 
 				if (ShowAdditionalEvents)
 				{
@@ -442,7 +442,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 					HeaderModel LastHeader = null;
 
-					foreach (IItemGroup Group in this.Categories)
+					foreach (IUniqueItem Group in this.Categories)
 					{
 						if (Group is HeaderModel Header)
 							LastHeader = Header;
@@ -467,7 +467,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 			{
 				HeaderModel LastHeader = null;
 
-				foreach (IItemGroup Group in this.Categories)
+				foreach (IUniqueItem Group in this.Categories)
 				{
 					if (Group is HeaderModel Header)
 						LastHeader = Header;

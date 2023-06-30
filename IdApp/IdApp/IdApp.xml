@@ -8831,40 +8831,35 @@
             Content-Type of associated media.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.IItemGroup">
+        <member name="T:IdApp.Pages.IUniqueItem">
             <summary>
             Grouped item interface.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.IItemGroup.UniqueName">
+        <member name="P:IdApp.Pages.IUniqueItem.UniqueName">
             <summary>
             Unique name used to compare items.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.IItemGroupCollection">
-            <summary>
-            Grouped item collection interface.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.IItemGroupCollection.UniqueName">
-            <summary>
-            Unique name used to compare items.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.ItemGroupCollection`1">
+        <member name="T:IdApp.Pages.ObservableItemGroup`1">
             <summary>
             Encapsulates a grouped item collection.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.ItemGroupCollection`1.UniqueName">
+        <member name="P:IdApp.Pages.ObservableItemGroup`1.UniqueName">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.ItemGroupCollection`1.#ctor(System.String,System.Collections.ObjectModel.ObservableCollection{`0})">
+        <member name="M:IdApp.Pages.ObservableItemGroup`1.#ctor(System.String,System.Collections.Generic.List{`0})">
             <summary>
             Encapsulates a grouped item collection.
             </summary>
             <param name="Name">Group's unique name.</param>
             <param name="Items">Group's item collection.</param>
+        </member>
+        <member name="M:IdApp.Pages.ObservableItemGroup`1.ToString">
+            <summary>
+            Get the groups's name (potentially used for display)
+            </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs">
             <summary>
@@ -15473,6 +15468,11 @@
             Asynchronous OnAppearing-method.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletPage.ScrollToBeginPaymentItems">
+            <summary>
+            Reset the payment items position
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel">
             <summary>
             The view model to bind to for when displaying the wallet.
@@ -15484,6 +15484,9 @@
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.OnAppearing">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.OnDispose">
@@ -15694,7 +15697,7 @@
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PaymentItems">
             <summary>
-            Holds a list of pending payments and account events
+            Holds pending payments and account events. Both are also observable collections.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Totals">
