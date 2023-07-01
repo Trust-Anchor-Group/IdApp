@@ -162,10 +162,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 			string FriendlyName;
 
 			ObservableItemGroup<IUniqueItem> NewPaymentItems = new(nameof(this.PaymentItems), new());
-			List<IUniqueItem> NewPendingPayments = new();
 
 			if (PendingPayments is not null)
 			{
+				List<IUniqueItem> NewPendingPayments = new(PendingPayments.Length);
+
 				foreach (EDaler.PendingPayment Payment in PendingPayments)
 				{
 					if (!FriendlyNames.TryGetValue(Payment.To, out FriendlyName))
@@ -183,10 +184,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 				}
 			}
 
-			List<IUniqueItem> NewAccountEvents = new();
-
 			if (Events is not null)
 			{
+				List<IUniqueItem> NewAccountEvents = new(Events.Length);
+
 				foreach (EDaler.AccountEvent Event in Events)
 				{
 					if (!FriendlyNames.TryGetValue(Event.Remote, out FriendlyName))
@@ -218,7 +219,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			OldCollection.RemoveRange(RemoveItems);
 
 			// Then recursivelly update every item.
-			// On old item might move or a new item might be inserted in the middle or appended to the end.
+			// An old item might move or a new item might be inserted in the middle or appended to the end.
 			for (int i = 0; i < NewCollection.Count; i++)
 			{
 				IUniqueItem NewItem = NewCollection[i];
@@ -254,7 +255,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 							// Move the item to it's new position
 							OldCollection.Move(OldIndex, i);
 
-							// If it's a collection, do it recursivelly
+							// If it's a collection, do the update recursivelly
 							if (NewItem is ObservableItemGroup<IUniqueItem>)
 							{
 								this.UpdatePaymentItems(OldCollection[i] as ObservableItemGroup<IUniqueItem>, NewItem as ObservableItemGroup<IUniqueItem>);
@@ -264,7 +265,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 					else
 					{
 						// The item is in it's right place.
-						// If it's a collection, do it recursivelly
+						// If it's a collection, do the update recursivelly
 						if (NewItem is ObservableItemGroup<IUniqueItem>)
 						{
 							this.UpdatePaymentItems(OldCollection[i] as ObservableItemGroup<IUniqueItem>, NewItem as ObservableItemGroup<IUniqueItem>);
@@ -313,7 +314,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 						{
 							More = true;
 
-							for (int i = 0; i < Events2.Count(); i++)
+							for (int i = 0; i < Events2.Length; i++)
 							{
 								EDaler.AccountEvent Event = Events2[i];
 								AllEvents.Add(Event);
