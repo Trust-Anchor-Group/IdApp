@@ -15588,16 +15588,6 @@
             When code was created.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEDalerEventProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEDalerEvent"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEDalerEvent">
-            <summary>
-            When last eDaler event was received.
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerFrontGlyphProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerFrontGlyph"/>
@@ -15636,46 +15626,6 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreEvents">
             <summary>
             If there are more account events available.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTotalsProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTotals"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTotals">
-            <summary>
-            HasTotals of eDaler to process
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokensProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens">
-            <summary>
-            HasTokens of eDaler to process
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokensProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokens"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokens">
-            <summary>
-            HasMoreTokens of eDaler to process
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastTokenEventProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastTokenEvent"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastTokenEvent">
-            <summary>
-            When last eDaler event was received.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.NrBalanceNotificationsProperty">

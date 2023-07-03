@@ -37,6 +37,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 	public class MyWalletViewModel : XmppViewModel
 	{
 		private readonly MyWalletPage page;
+		private DateTime lastEDalerEvent;
+		private DateTime lastTokenEvent;
+		private bool hasMoreTokens;
+		private bool hasTotals;
+		private bool hasTokens;
+
 
 		/// <summary>
 		/// Creates an instance of the <see cref="MyWalletViewModel"/> class.
@@ -89,13 +95,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 				(this.Balance.Amount != this.XmppService.LastEDalerBalance.Amount ||
 				this.Balance.Currency != this.XmppService.LastEDalerBalance.Currency ||
 				this.Balance.Timestamp != this.XmppService.LastEDalerBalance.Timestamp)) ||
-				this.LastEDalerEvent != this.XmppService.LastEDalerEvent)
+				this.lastEDalerEvent != this.XmppService.LastEDalerEvent)
 			{
 				await this.ReloadEDalerWallet(this.XmppService.LastEDalerBalance ?? this.Balance);
 			}
 
 
-			if (this.HasTokens && this.LastTokenEvent != this.XmppService.LastNeuroFeatureEvent)
+			if (this.hasTokens && this.lastTokenEvent != this.XmppService.LastNeuroFeatureEvent)
 			{
 				await this.LoadTokens(true);
 			}
@@ -150,7 +156,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				this.Timestamp = Balance.Timestamp;
 			}
 
-			this.LastEDalerEvent = LastEvent;
+			this.lastEDalerEvent = LastEvent;
 
 			this.PendingAmount = PendingAmount;
 			this.PendingCurrency = PendingCurrency;
@@ -497,21 +503,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
-		/// See <see cref="LastEDalerEvent"/>
-		/// </summary>
-		public static readonly BindableProperty LastEDalerEventProperty =
-			BindableProperty.Create(nameof(LastEDalerEvent), typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
-
-		/// <summary>
-		/// When last eDaler event was received.
-		/// </summary>
-		public DateTime LastEDalerEvent
-		{
-			get => (DateTime)this.GetValue(LastEDalerEventProperty);
-			set => this.SetValue(LastEDalerEventProperty, value);
-		}
-
-		/// <summary>
 		/// See <see cref="EDalerFrontGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerFrontGlyphProperty =
@@ -569,66 +560,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			get => (bool)this.GetValue(HasMoreEventsProperty);
 			set => this.SetValue(HasMoreEventsProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="HasTotals"/>
-		/// </summary>
-		public static readonly BindableProperty HasTotalsProperty =
-			BindableProperty.Create(nameof(HasTotals), typeof(bool), typeof(MyWalletViewModel), default(bool));
-
-		/// <summary>
-		/// HasTotals of eDaler to process
-		/// </summary>
-		public bool HasTotals
-		{
-			get => (bool)this.GetValue(HasTotalsProperty);
-			set => this.SetValue(HasTotalsProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="HasTokens"/>
-		/// </summary>
-		public static readonly BindableProperty HasTokensProperty =
-			BindableProperty.Create(nameof(HasTokens), typeof(bool), typeof(MyWalletViewModel), default(bool));
-
-		/// <summary>
-		/// HasTokens of eDaler to process
-		/// </summary>
-		public bool HasTokens
-		{
-			get => (bool)this.GetValue(HasTokensProperty);
-			set => this.SetValue(HasTokensProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="HasMoreTokens"/>
-		/// </summary>
-		public static readonly BindableProperty HasMoreTokensProperty =
-			BindableProperty.Create(nameof(HasMoreTokens), typeof(bool), typeof(MyWalletViewModel), default(bool));
-
-		/// <summary>
-		/// HasMoreTokens of eDaler to process
-		/// </summary>
-		public bool HasMoreTokens
-		{
-			get => (bool)this.GetValue(HasMoreTokensProperty);
-			set => this.SetValue(HasMoreTokensProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="LastTokenEvent"/>
-		/// </summary>
-		public static readonly BindableProperty LastTokenEventProperty =
-			BindableProperty.Create(nameof(LastTokenEvent), typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
-
-		/// <summary>
-		/// When last eDaler event was received.
-		/// </summary>
-		public DateTime LastTokenEvent
-		{
-			get => (DateTime)this.GetValue(LastTokenEventProperty);
-			set => this.SetValue(LastTokenEventProperty, value);
 		}
 
 		/// <summary>
@@ -1029,9 +960,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private async Task LoadTokens(bool Reload)
 		{
-			this.LastTokenEvent = this.XmppService.LastNeuroFeatureEvent;
+			this.lastTokenEvent = this.XmppService.LastNeuroFeatureEvent;
 
-			if (!this.HasTotals || Reload)
+			if (!this.hasTotals || Reload)
 			{
 				try
 				{
@@ -1039,19 +970,18 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
+						this.hasTotals = false;
 						this.Totals.Clear();
 
 						if (e.Ok && e.Totals is not null)
 						{
-							this.Totals.Clear();
+							this.hasTotals = true;
 
 							foreach (TokenTotal Total in e.Totals)
+							{
 								this.Totals.Add(new TokenTotalItem(Total));
-
-							this.HasTotals = true;
+							}
 						}
-						else
-							this.HasTotals = false;
 					});
 				}
 				catch (Exception ex)
@@ -1060,7 +990,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				}
 			}
 
-			if (!this.HasTokens || Reload)
+			if (!this.hasTokens || Reload)
 			{
 				try
 				{
@@ -1127,11 +1057,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 									this.Tokens.Add(new TokenItem(Token, this, Events));
 								}
 
-								this.HasTokens = true;
-								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
+								this.hasTokens = true;
+								this.hasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
 							}
 							else
-								this.HasTokens = false;
+								this.hasTokens = false;
 						}
 						catch (Exception ex)
 						{
@@ -1240,9 +1170,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private async Task LoadMoreTokens()
 		{
-			if (this.HasMoreTokens)
+			if (this.hasMoreTokens)
 			{
-				this.HasMoreTokens = false; // So multiple requests are not made while scrolling.
+				this.hasMoreTokens = false; // So multiple requests are not made while scrolling.
 
 				try
 				{
@@ -1263,7 +1193,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 									this.Tokens.Add(new TokenItem(Token, this, Events));
 								}
 
-								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
+								this.hasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
 							}
 						}
 					});
