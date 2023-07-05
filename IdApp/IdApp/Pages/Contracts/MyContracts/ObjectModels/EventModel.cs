@@ -53,9 +53,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 		/// </summary>
 		public NotificationEvent Event { get; }
 
-		/// <summary>
-		/// Unique name used to compare items.
-		/// </summary>
+		/// <inheritdoc/>
 		public string UniqueName => this.Event.ObjectId;
 
 		/// <summary>

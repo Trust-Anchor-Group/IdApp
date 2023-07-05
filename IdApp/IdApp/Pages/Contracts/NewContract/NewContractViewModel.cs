@@ -667,6 +667,9 @@ namespace IdApp.Pages.Contracts.NewContract
 						this.partsToAdd[button.StyleId] = Contact.LegalId;
 						string settingsKey = partSettingsPrefix + button.StyleId;
 						await this.SettingsService.SaveState(settingsKey, Contact.LegalId);
+
+						foreach (KeyValuePair<CaseInsensitiveString, string> part in this.GetPartsToAdd())
+							await this.AddRole(part.Key, part.Value);
 					}
 				}
 			}

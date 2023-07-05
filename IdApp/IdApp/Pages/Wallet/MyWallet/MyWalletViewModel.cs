@@ -595,7 +595,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// <summary>
 		/// Holds pending payments and account events. Both are also observable collections.
 		/// </summary>
-		public ObservableItemGroup<IUniqueItem> PaymentItems { get; set; } = new(nameof(PaymentItems), new());
+		public ObservableItemGroup<IUniqueItem> PaymentItems { get; } = new(nameof(PaymentItems), new());
 
 		/// <summary>
 		/// Holds a list of token totals
