@@ -5189,9 +5189,7 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.UniqueName">
-            <summary>
-            Unique name used to compare items.
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.ClickedCommand">
             <summary>
@@ -15653,14 +15651,14 @@
             Holds pending payments and account events. Both are also observable collections.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Totals">
-            <summary>
-            Holds a list of token totals
-            </summary>
-        </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Tokens">
             <summary>
             Holds a list of tokens
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Totals">
+            <summary>
+            Holds a list of token totals
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.BackCommand">
@@ -15892,6 +15890,9 @@
             <summary>
             Token object.
             </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.UniqueName">
+            <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Created">
             <summary>
@@ -16183,6 +16184,9 @@
             Encapsulates a <see cref="T:NeuroFeatures.TokenTotal"/> object.
             </summary>
             <param name="Total">Token Total.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenTotalItem.UniqueName">
+            <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenTotalItem.Currency">
             <summary>

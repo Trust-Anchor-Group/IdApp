@@ -18,7 +18,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 	/// <summary>
 	/// Encapsulates a <see cref="Token"/> object.
 	/// </summary>
-	public class TokenItem : BindableObject
+	public class TokenItem : BindableObject, IUniqueItem
 	{
 		private readonly Token token;
 		private readonly IServiceReferences model;
@@ -83,6 +83,10 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// Token object.
 		/// </summary>
 		public Token Token => this.token;
+
+		/// <inheritdoc/>
+		public string UniqueName => this.token.TokenId;
+
 
 		/// <summary>
 		/// When token was created.

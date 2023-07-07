@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -598,14 +597,14 @@ namespace IdApp.Pages.Wallet.MyWallet
 		public ObservableItemGroup<IUniqueItem> PaymentItems { get; } = new(nameof(PaymentItems), new());
 
 		/// <summary>
-		/// Holds a list of token totals
-		/// </summary>
-		public ObservableCollection<TokenTotalItem> Totals { get; } = new();
-
-		/// <summary>
 		/// Holds a list of tokens
 		/// </summary>
-		public ObservableCollection<object> Tokens { get; } = new();
+		public ObservableItemGroup<IUniqueItem> Tokens { get; } = new(nameof(Tokens), new());
+
+		/// <summary>
+		/// Holds a list of token totals
+		/// </summary>
+		public ObservableItemGroup<IUniqueItem> Totals { get; } = new(nameof(Totals), new());
 
 		/// <summary>
 		/// The command to bind to for returning to previous view.
@@ -964,113 +963,116 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 			if (!this.hasTotals || Reload)
 			{
+				this.hasTotals = true; // prevent fast reentering
+
 				try
 				{
-					TokenTotalsEventArgs e = await this.XmppService.GetNeuroFeatureTotals();
+					TokenTotalsEventArgs tteArgs = await this.XmppService.GetNeuroFeatureTotals();
 
-					this.UiSerializer.BeginInvokeOnMainThread(() =>
+					if (tteArgs.Ok)
 					{
-						this.hasTotals = false;
-						this.Totals.Clear();
+						ObservableItemGroup<IUniqueItem> NewTotals = new(nameof(this.Totals), new());
 
-						if (e.Ok && e.Totals is not null)
+						if (tteArgs.Totals is not null)
 						{
-							this.hasTotals = true;
-
-							foreach (TokenTotal Total in e.Totals)
+							foreach (TokenTotal Total in tteArgs.Totals)
 							{
-								this.Totals.Add(new TokenTotalItem(Total));
+								NewTotals.Add(new TokenTotalItem(Total));
 							}
 						}
-					});
+
+						Device.BeginInvokeOnMainThread(() => this.UpdatePaymentItems(this.Totals, NewTotals));
+					}
+
+					this.hasTotals = tteArgs.Ok;
 				}
 				catch (Exception ex)
 				{
+					this.hasTotals = false;
 					this.LogService.LogException(ex);
 				}
 			}
 
 			if (!this.hasTokens || Reload)
 			{
+				this.hasTokens = true; // prevent fast reentering
+
 				try
 				{
 					SortedDictionary<CaseInsensitiveString, TokenNotificationEvent[]> NotificationEvents =
 						this.NotificationService.GetEventsByCategory<TokenNotificationEvent>(EventButton.Wallet);
 
-					TokensEventArgs e = await this.XmppService.GetNeuroFeatures(0, Constants.BatchSizes.TokenBatchSize);
+					TokensEventArgs teArgs = await this.XmppService.GetNeuroFeatures(0, Constants.BatchSizes.TokenBatchSize);
 					SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.GetNotificationEvents();
 
-					this.UiSerializer.BeginInvokeOnMainThread(async () =>
+					ObservableItemGroup<IUniqueItem> NewTokens = new(nameof(this.Tokens), new());
+					List<TokenNotificationEvent> ToDelete = new();
+
+					foreach (KeyValuePair<CaseInsensitiveString, TokenNotificationEvent[]> P in NotificationEvents)
 					{
-						try
+						Token Token = null;
+
+						foreach (TokenNotificationEvent TokenEvent in P.Value)
 						{
-							this.Tokens.Clear();
+							Token = TokenEvent.Token;
+							if (Token is not null)
+								break;
+						}
 
-							foreach (KeyValuePair<CaseInsensitiveString, TokenNotificationEvent[]> P in NotificationEvents)
+						if (Token is not null)
+						{
+							NewTokens.Add(new TokenItem(Token, this, P.Value));
+						}
+						else
+						{
+							foreach (TokenNotificationEvent TokenEvent in P.Value)
 							{
-								Token Token = null;
-
-								foreach (TokenNotificationEvent TokenEvent in P.Value)
+								if (TokenEvent is TokenRemovedNotificationEvent)
 								{
-									Token = TokenEvent.Token;
-									if (Token is not null)
-										break;
-								}
+									string Icon = await TokenEvent.GetCategoryIcon(this);
+									string Description = await TokenEvent.GetDescription(this);
 
-								if (Token is not null)
-									this.Tokens.Add(new TokenItem(Token, this, P.Value));
+									NewTokens.Add(new EventModel(TokenEvent.Received, Icon, Description, TokenEvent, this));
+								}
 								else
 								{
-									List<TokenNotificationEvent> ToDelete = null;
-
-									foreach (TokenNotificationEvent TokenEvent in P.Value)
-									{
-										if (TokenEvent is TokenRemovedNotificationEvent)
-										{
-											string Icon = await TokenEvent.GetCategoryIcon(this);
-											string Description = await TokenEvent.GetDescription(this);
-
-											this.Tokens.Add(new EventModel(TokenEvent.Received, Icon, Description, TokenEvent, this));
-										}
-										else
-										{
-											ToDelete ??= new List<TokenNotificationEvent>();
-											ToDelete.Add(TokenEvent);
-										}
-									}
-
-									if (ToDelete is not null)
-										await this.NotificationService.DeleteEvents(ToDelete.ToArray());
+									ToDelete.Add(TokenEvent);
 								}
 							}
-
-							if (e.Ok && e.Tokens is not null)
-							{
-								foreach (Token Token in e.Tokens)
-								{
-									if (NotificationEvents.ContainsKey(Token.TokenId))
-										continue;
-
-									if (!EventsByCateogy.TryGetValue(Token.TokenId, out NotificationEvent[] Events))
-										Events = new NotificationEvent[0];
-
-									this.Tokens.Add(new TokenItem(Token, this, Events));
-								}
-
-								this.hasTokens = true;
-								this.hasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
-							}
-							else
-								this.hasTokens = false;
 						}
-						catch (Exception ex)
+					}
+
+					if (ToDelete.Count > 0)
+					{
+						await this.NotificationService.DeleteEvents(ToDelete.ToArray());
+					}
+
+					if (teArgs.Ok)
+					{
+						if (teArgs.Tokens is not null)
 						{
-							this.LogService.LogException(ex);
+							foreach (Token Token in teArgs.Tokens)
+							{
+								if (NotificationEvents.ContainsKey(Token.TokenId))
+									continue;
+
+								if (!EventsByCateogy.TryGetValue(Token.TokenId, out NotificationEvent[] Events))
+									Events = new NotificationEvent[0];
+
+								NewTokens.Add(new TokenItem(Token, this, Events));
+							}
 						}
-					});
+
+						this.hasMoreTokens = teArgs.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
+
+						Device.BeginInvokeOnMainThread(() => this.UpdatePaymentItems(this.Tokens, NewTokens));
+					}
+
+					this.hasTokens = teArgs.Ok;
 				}
 				catch (Exception ex)
 				{
+					this.hasTokens = false;
 					this.LogService.LogException(ex);
 				}
 			}
