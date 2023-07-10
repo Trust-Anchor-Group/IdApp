@@ -2364,6 +2364,15 @@ namespace IdApp.Services.Xmpp
 		#region Legal Identities
 
 		/// <summary>
+		/// Gets important attributes for a successful ID Application.
+		/// </summary>
+		/// <returns>ID Application attributes.</returns>
+		public async Task<IdApplicationAttributesEventArgs> GetIdApplicationAttributes()
+		{
+			return await this.ContractsClient.GetIdApplicationAttributesAsync();
+		}
+
+		/// <summary>
 		/// Adds a legal identity.
 		/// </summary>
 		/// <param name="Model">The model holding all the values needed.</param>

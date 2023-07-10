@@ -27987,6 +27987,12 @@
             <param name="Operators">Search operators.</param>
             <returns>Complete list of devices in registry matching the search operators.</returns>
         </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.GetIdApplicationAttributes">
+            <summary>
+            Gets important attributes for a successful ID Application.
+            </summary>
+            <returns>ID Application attributes.</returns>
+        </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.AddLegalIdentity(IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel,IdApp.Services.LegalIdentityAttachment[])">
             <summary>
             Adds a legal identity.
@@ -29369,6 +29375,12 @@
             <param name="RegistryJid">Registry Service JID</param>
             <param name="Operators">Search operators.</param>
             <returns>Complete list of devices in registry matching the search operators.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.GetIdApplicationAttributes">
+            <summary>
+            Gets important attributes for a successful ID Application.
+            </summary>
+            <returns>ID Application attributes.</returns>
         </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.AddLegalIdentity(IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel,IdApp.Services.LegalIdentityAttachment[])">
             <summary>

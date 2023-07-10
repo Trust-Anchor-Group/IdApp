@@ -511,6 +511,12 @@ namespace IdApp.Services.Xmpp
 		#region Legal Identities
 
 		/// <summary>
+		/// Gets important attributes for a successful ID Application.
+		/// </summary>
+		/// <returns>ID Application attributes.</returns>
+		Task<IdApplicationAttributesEventArgs> GetIdApplicationAttributes();
+
+		/// <summary>
 		/// Adds a legal identity.
 		/// </summary>
 		/// <param name="Model">The model holding all the values needed.</param>
