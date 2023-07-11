@@ -21,7 +21,7 @@ namespace IdApp.Pages.Things.MyThings
 	/// </summary>
 	public class MyThingsViewModel : BaseViewModel
 	{
-		private readonly Dictionary<CaseInsensitiveString, List<ContactInfoModel>> byBareJid;
+		private readonly Dictionary<CaseInsensitiveString, List<ContactInfoModel>> byBareJid = new();
 		private TaskCompletionSource<ContactInfoModel> selectedThing;
 
 		/// <summary>
@@ -29,8 +29,6 @@ namespace IdApp.Pages.Things.MyThings
 		/// </summary>
 		protected internal MyThingsViewModel()
 		{
-			this.Things = new ObservableCollection<ContactInfoModel>();
-			this.byBareJid = new();
 		}
 
 		/// <inheritdoc/>
@@ -258,7 +256,7 @@ namespace IdApp.Pages.Things.MyThings
 		/// <summary>
 		/// Holds the list of contacts to display.
 		/// </summary>
-		public ObservableCollection<ContactInfoModel> Things { get; }
+		public ObservableItemGroup<IUniqueItem> Things { get; } = new(nameof(Things), new());
 
 		/// <summary>
 		/// See <see cref="SelectedThing"/>

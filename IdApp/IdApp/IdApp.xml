@@ -3911,6 +3911,9 @@
             <param name="Contact">Contact information.</param>
             <param name="Events">Notification events</param>
         </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.UniqueName">
+            <inheritdoc/>
+        </member>
         <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.Contact">
             <summary>
             Contact Information object in database.
