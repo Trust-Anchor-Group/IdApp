@@ -8870,6 +8870,11 @@
             Get the groups's name (potentially used for display)
             </summary>
         </member>
+        <member name="M:IdApp.Pages.ObservableItemGroup`1.UpdateGroupsItems(IdApp.Pages.ObservableItemGroup{IdApp.Pages.IUniqueItem},IdApp.Pages.ObservableItemGroup{IdApp.Pages.IUniqueItem})">
+            <summary>
+            Update the current collection items using a new collection
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs">
             <summary>
             Holds navigation parameters for the calculator.
@@ -13183,6 +13188,9 @@
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnInitialize">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnAppearing">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.GetNotificationEvents(IdApp.Services.IServiceReferences,IdApp.Services.ContactInfo)">
             <summary>
             Gets available notification events related to a thing.
@@ -13190,9 +13198,6 @@
             <param name="References">Service references.</param>
             <param name="Thing">Thing reference</param>
             <returns>Array of events, null if none.</returns>
-        </member>
-        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnAppearing">
-            <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnDispose">
             <inheritdoc/>

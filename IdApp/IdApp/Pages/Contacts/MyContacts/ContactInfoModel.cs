@@ -42,7 +42,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 		}
 
 		/// <inheritdoc/>
-		public string UniqueName => this.SourceId + this.Partition + this.NodeId;
+		public string UniqueName => this.contact.ThingNotificationCategoryKey;
 
 		/// <summary>
 		/// Contact Information object in database.

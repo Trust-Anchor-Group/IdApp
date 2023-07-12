@@ -41,6 +41,31 @@ namespace IdApp.Pages.Things.MyThings
 			else
 				this.selectedThing = null;
 
+			this.XmppService.OnPresence += this.Xmpp_OnPresence;
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
+		}
+
+		/// <inheritdoc/>
+		protected override async Task OnAppearing()
+		{
+			await base.OnAppearing();
+
+			if (this.selectedThing is not null && this.selectedThing.Task.IsCompleted)
+			{
+				await this.NavigationService.GoBackAsync();
+			}
+			else
+			{
+				this.SelectedThing = null;
+
+				await this.LoadThings();
+			}
+		}
+
+
+		private async Task LoadThings()
+		{
 			SortedDictionary<string, ContactInfo> SortedByName = new();
 			SortedDictionary<string, ContactInfo> SortedByAddress = new();
 			string Name;
@@ -132,15 +157,18 @@ namespace IdApp.Pages.Things.MyThings
 				SortedByAddress[Key] = Info;
 			}
 
-			this.Things.Clear();
+			await Database.Provider.Flush();
+
 			this.byBareJid.Clear();
+
+			ObservableItemGroup<IUniqueItem> NewThings = new(nameof(this.Things), new());
 
 			foreach (ContactInfo Info in SortedByName.Values)
 			{
 				NotificationEvent[] Events = GetNotificationEvents(this, Info);
 
 				ContactInfoModel InfoModel = new(this, Info, Events);
-				this.Things.Add(InfoModel);
+				NewThings.Add(InfoModel);
 
 				if (!this.byBareJid.TryGetValue(Info.BareJid, out List<ContactInfoModel> Contacts))
 				{
@@ -153,12 +181,9 @@ namespace IdApp.Pages.Things.MyThings
 
 			this.ShowThingsMissing = SortedByName.Count == 0;
 
-			await Database.Provider.Flush();
-
-			this.XmppService.OnPresence += this.Xmpp_OnPresence;
-			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
-			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
+			Device.BeginInvokeOnMainThread(() => ObservableItemGroup<IUniqueItem>.UpdateGroupsItems(this.Things, NewThings));
 		}
+
 
 		/// <summary>
 		/// Gets available notification events related to a thing.
@@ -180,20 +205,6 @@ namespace IdApp.Pages.Things.MyThings
 				ThingEvents = null;
 
 			return ContactEvents.Join(ThingEvents);
-		}
-
-		/// <inheritdoc/>
-		protected override async Task OnAppearing()
-		{
-			await base.OnAppearing();
-
-			if (this.selectedThing is not null && this.selectedThing.Task.IsCompleted)
-			{
-				await this.NavigationService.GoBackAsync();
-				return;
-			}
-
-			this.SelectedThing = null;
 		}
 
 		/// <inheritdoc/>
