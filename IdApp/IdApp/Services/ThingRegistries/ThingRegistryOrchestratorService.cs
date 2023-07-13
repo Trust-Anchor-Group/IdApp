@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using IdApp.Pages.Things.MyThings;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Pages.Things.ViewThing;
+using IdApp.Services.Navigation;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
@@ -150,11 +151,9 @@ namespace IdApp.Services.ThingRegistries
 					await Database.Update(Info);
 				}
 
-				this.UiSerializer.BeginInvokeOnMainThread(async () =>
-				{
-					await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Info,
-						MyThingsViewModel.GetNotificationEvents(this, Info)));
-				});
+				ViewThingNavigationArgs Args = new(Info, MyThingsViewModel.GetNotificationEvents(this, Info));
+
+				await this.NavigationService.GoToAsync(nameof(ViewThingPage), Args, BackMethod.ToThisPage);
 			}
 			catch (Exception ex)
 			{

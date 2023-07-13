@@ -397,8 +397,9 @@ namespace IdApp.Pages.Contacts.MyContacts
 							if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
 								break;
 
+							EDalerUriNavigationArgs Args = new(Parsed);
 							// Inherit the back method here from the parrent
-							await this.NavigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed), BackMethod.Inherited);
+							await this.NavigationService.GoToAsync(nameof(PaymentPage), Args, BackMethod.Inherited);
 
 							break;
 
@@ -406,9 +407,9 @@ namespace IdApp.Pages.Contacts.MyContacts
 						default:
 							if (Contact.LegalIdentity is not null)
 							{
-								ViewIdentityNavigationArgs Args = new(Contact.LegalIdentity);
+								ViewIdentityNavigationArgs ViewIdentityArgs = new(Contact.LegalIdentity);
 
-								await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), Args);
+								await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), ViewIdentityArgs);
 							}
 							else if (!string.IsNullOrEmpty(Contact.LegalId))
 							{
@@ -417,9 +418,9 @@ namespace IdApp.Pages.Contacts.MyContacts
 							}
 							else if (!string.IsNullOrEmpty(Contact.BareJid))
 							{
-								ChatNavigationArgs Args = new(Contact.Contact);
+								ChatNavigationArgs ChatArgs = new(Contact.Contact);
 
-								await this.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, Contact.BareJid);
+								await this.NavigationService.GoToAsync(nameof(ChatPage), ChatArgs, BackMethod.Inherited, Contact.BareJid);
 							}
 
 							break;

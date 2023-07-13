@@ -6,6 +6,7 @@ using IdApp.Extensions;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Things.ViewThing;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
@@ -295,7 +296,11 @@ namespace IdApp.Pages.Things.MyThings
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				if (this.selectedThing is null)
-					await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Thing.Contact, Thing.Events));
+				{
+					ViewThingNavigationArgs Args = new(Thing.Contact, Thing.Events);
+					// Inherit the back method here from the parrent
+					await this.NavigationService.GoToAsync(nameof(ViewThingPage), Args, BackMethod.Inherited);
+				}
 				else
 				{
 					this.selectedThing.TrySetResult(Thing);
