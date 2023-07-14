@@ -694,8 +694,9 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private async Task ReadSensor()
 		{
-			await this.NavigationService.GoToAsync(nameof(ReadSensorPage), new ViewThingNavigationArgs(this.thing,
-				MyThingsViewModel.GetNotificationEvents(this, this.thing)));
+			ViewThingNavigationArgs Args = new(this.thing, MyThingsViewModel.GetNotificationEvents(this, this.thing));
+
+			await this.NavigationService.GoToAsync(nameof(ReadSensorPage), Args, BackMethod.Pop);
 		}
 
 		private async Task ControlActuator()
