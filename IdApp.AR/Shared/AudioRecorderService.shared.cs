@@ -165,7 +165,8 @@ namespace IdApp.AR
 				{
 					if (this.silenceTimer.ElapsedMilliseconds > this.AudioSilenceTimeout.TotalMilliseconds)
 					{
-						this.Timeout($"AudioStream_OnBroadcast :: {DateTime.Now} :: AudioSilenceTimeout exceeded, stopping recording :: Near-silence detected at: {this.silenceTimer}");
+						// AudioSilenceTimeout exceeded, stopping recording :: Near-silence detected
+						this.Timeout();
 						return;
 					}
 				}
@@ -177,11 +178,12 @@ namespace IdApp.AR
 
 			if (this.StopRecordingAfterTimeout && this.startTimer?.ElapsedMilliseconds >= this.TotalAudioTimeout.TotalMilliseconds)
 			{
-				this.Timeout("AudioStream_OnBroadcast(): TotalAudioTimeout exceeded, stopping recording");
+				// TotalAudioTimeout exceeded, stopping recording
+				this.Timeout();
 			}
 		}
 
-		void Timeout(string reason)
+		void Timeout()
 		{
 			if (this.audioStream is not null)
 			{

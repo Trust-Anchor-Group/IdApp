@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using IdApp.Extensions;
 using IdApp.Pages.Contacts.MyContacts;
@@ -329,29 +328,37 @@ namespace IdApp.Pages.Things.MyThings
 					switch (Event.Button)
 					{
 						case EventButton.Contacts:
-							foreach (ContactInfoModel Thing in this.Things)
+							foreach (IUniqueItem Item in this.Things)
 							{
-								if (!string.IsNullOrEmpty(Thing.NodeId) ||
-									!string.IsNullOrEmpty(Thing.SourceId) ||
-									!string.IsNullOrEmpty(Thing.Partition))
+								if (Item is ContactInfoModel Thing)
 								{
-									continue;
+
+									if (!string.IsNullOrEmpty(Thing.NodeId) ||
+										!string.IsNullOrEmpty(Thing.SourceId) ||
+										!string.IsNullOrEmpty(Thing.Partition))
+									{
+										continue;
+									}
+
+									if (Event.Category != Thing.BareJid)
+										continue;
+
+									Thing.RemoveEvent(Event);
 								}
-
-								if (Event.Category != Thing.BareJid)
-									continue;
-
-								Thing.RemoveEvent(Event);
 							}
 							break;
 
 						case EventButton.Things:
-							foreach (ContactInfoModel Thing in this.Things)
+							foreach (IUniqueItem Item in this.Things)
 							{
-								if (Event.Category != ContactInfo.GetThingNotificationCategoryKey(Thing.BareJid, Thing.NodeId, Thing.SourceId, Thing.Partition))
-									continue;
+								if (Item is ContactInfoModel Thing)
+								{
 
-								Thing.RemoveEvent(Event);
+									if (Event.Category != ContactInfo.GetThingNotificationCategoryKey(Thing.BareJid, Thing.NodeId, Thing.SourceId, Thing.Partition))
+										continue;
+
+									Thing.RemoveEvent(Event);
+								}
 							}
 							break;
 
@@ -371,29 +378,35 @@ namespace IdApp.Pages.Things.MyThings
 					switch (e.Event.Button)
 					{
 						case EventButton.Contacts:
-							foreach (ContactInfoModel Thing in this.Things)
+							foreach (IUniqueItem Item in this.Things)
 							{
-								if (!string.IsNullOrEmpty(Thing.NodeId) ||
+								if (Item is ContactInfoModel Thing)
+								{
+									if (!string.IsNullOrEmpty(Thing.NodeId) ||
 									!string.IsNullOrEmpty(Thing.SourceId) ||
 									!string.IsNullOrEmpty(Thing.Partition))
-								{
-									continue;
+									{
+										continue;
+									}
+
+									if (e.Event.Category != Thing.BareJid)
+										continue;
+
+									Thing.AddEvent(e.Event);
 								}
-
-								if (e.Event.Category != Thing.BareJid)
-									continue;
-
-								Thing.AddEvent(e.Event);
 							}
 							break;
 
 						case EventButton.Things:
-							foreach (ContactInfoModel Thing in this.Things)
+							foreach (IUniqueItem Item in this.Things)
 							{
-								if (e.Event.Category != ContactInfo.GetThingNotificationCategoryKey(Thing.BareJid, Thing.NodeId, Thing.SourceId, Thing.Partition))
-									continue;
+								if (Item is ContactInfoModel Thing)
+								{
+									if (e.Event.Category != ContactInfo.GetThingNotificationCategoryKey(Thing.BareJid, Thing.NodeId, Thing.SourceId, Thing.Partition))
+										continue;
 
-								Thing.AddEvent(e.Event);
+									Thing.AddEvent(e.Event);
+								}
 							}
 							break;
 

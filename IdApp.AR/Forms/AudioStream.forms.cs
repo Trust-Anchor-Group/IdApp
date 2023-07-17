@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-
 namespace IdApp.AR
 {
 	// Dummy implementation - Bait & Switch will be used to force apps to use platform specific dlls.
@@ -16,9 +13,11 @@ namespace IdApp.AR
 
 		public bool Paused => throw new NotImplementedException();
 
+#pragma warning disable CS0067
 		public event EventHandler<byte[]>? OnBroadcast;
 		public event EventHandler<bool>? OnActiveChanged;
 		public event EventHandler<Exception>? OnException;
+#pragma warning restore CS0067
 
 		public AudioStream(int _)
 		{
