@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using IdApp.Pages.Main.XmppForm.Model;
 using System.Windows.Input;
 using System;
+using Waher.Script.Functions.ComplexNumbers;
 
 namespace IdApp.Pages.Main.XmppForm
 {
@@ -35,46 +36,41 @@ namespace IdApp.Pages.Main.XmppForm
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out XmppFormNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out XmppFormNavigationArgs Args))
 			{
-				if (!args.ViewInitialized)
+				this.form = Args.Form;
+				this.responseSent = false;
+
+				// TODO: Post-back fields.
+
+				this.Title = this.form.Title;
+				this.Instructions = this.form.Instructions;
+
+				if (this.form.HasPages)
 				{
-					this.form = args.Form;
-					this.responseSent = false;
+					foreach (Layout.Page P in this.form.Pages)
+						this.Pages.Add(new PageModel(this, P));
 
-					// TODO: Post-back fields.
-
-					this.Title = this.form.Title;
-					this.Instructions = this.form.Instructions;
-
-					if (this.form.HasPages)
-					{
-						foreach (Layout.Page P in this.form.Pages)
-							this.Pages.Add(new PageModel(this, P));
-
-						this.MultiplePages = this.form.Pages.Length > 1;
-					}
-					else
-					{
-						List<Layout.LayoutElement> Elements = new();
-
-						foreach (Field F in this.form.Fields)
-						{
-							if (F is HiddenField)
-								continue;
-
-							Elements.Add(new Layout.FieldReference(this.form, F.Var));
-						}
-
-						this.Pages.Add(new PageModel(this, new Layout.Page(this.form, string.Empty, Elements.ToArray())));
-
-						this.MultiplePages = false;
-					}
-
-					this.ValidateForm();
-
-					args.ViewInitialized = true;
+					this.MultiplePages = this.form.Pages.Length > 1;
 				}
+				else
+				{
+					List<Layout.LayoutElement> Elements = new();
+
+					foreach (Field F in this.form.Fields)
+					{
+						if (F is HiddenField)
+							continue;
+
+						Elements.Add(new Layout.FieldReference(this.form, F.Var));
+					}
+
+					this.Pages.Add(new PageModel(this, new Layout.Page(this.form, string.Empty, Elements.ToArray())));
+
+					this.MultiplePages = false;
+				}
+
+				this.ValidateForm();
 			}
 		}
 

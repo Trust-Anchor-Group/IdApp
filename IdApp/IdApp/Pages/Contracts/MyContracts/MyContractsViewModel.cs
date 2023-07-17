@@ -2,6 +2,7 @@
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Services.Contracts;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using IdApp.Services.Notification.Contracts;
 using NeuroFeatures;
@@ -44,7 +45,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 			this.IsBusy = true;
 			this.ShowContractsMissing = false;
 
-			if (this.NavigationService.TryPopArgs(out MyContractsNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out MyContractsNavigationArgs args))
 			{
 				this.contractsListMode = args.Mode;
 				this.Action = args.Action;
@@ -167,7 +168,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// <summary>
 		/// Holds the list of contracts to display, ordered by category.
 		/// </summary>
-		public ObservableRangeCollection<IItemGroup> Categories { get; } = new();
+		public ObservableRangeCollection<IUniqueItem> Categories { get; } = new();
 
 		/// <summary>
 		/// Add or remove the contracts from the collection
@@ -204,13 +205,15 @@ namespace IdApp.Pages.Contracts.MyContracts
 						case SelectContractAction.ViewContract:
 							if (this.contractsListMode == ContractsListMode.Contracts)
 							{
-								await this.NavigationService.GoToAsync(
-									nameof(ViewContractPage), new ViewContractNavigationArgs(Contract, false));
+								ViewContractNavigationArgs Args = new(Contract, false);
+
+								await this.NavigationService.GoToAsync(nameof(ViewContractPage), Args, BackMethod.Pop);
 							}
 							else
 							{
-								await this.NavigationService.GoToAsync(
-									nameof(NewContractPage), new NewContractNavigationArgs(Contract, null));
+								NewContractNavigationArgs Args = new(Contract, null);
+
+								await this.NavigationService.GoToAsync(nameof(NewContractPage), Args, BackMethod.ToThisPage);
 							}
 							break;
 
@@ -383,7 +386,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 					Contracts2.Add(Item);
 				}
 
-				List<IItemGroup> NewCategories = new();
+				List<IUniqueItem> NewCategories = new();
 
 				if (ShowAdditionalEvents)
 				{
@@ -439,7 +442,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 					HeaderModel LastHeader = null;
 
-					foreach (IItemGroup Group in this.Categories)
+					foreach (IUniqueItem Group in this.Categories)
 					{
 						if (Group is HeaderModel Header)
 							LastHeader = Header;
@@ -464,7 +467,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 			{
 				HeaderModel LastHeader = null;
 
-				foreach (IItemGroup Group in this.Categories)
+				foreach (IUniqueItem Group in this.Categories)
 				{
 					if (Group is HeaderModel Header)
 						LastHeader = Header;

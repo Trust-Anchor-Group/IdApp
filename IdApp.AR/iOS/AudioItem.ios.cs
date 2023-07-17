@@ -1,5 +1,6 @@
 using AudioToolbox;
 using Foundation;
+using Waher.Events;
 
 namespace IdApp.AR
 {
@@ -24,6 +25,7 @@ namespace IdApp.AR
 			}
 			catch (Exception ex)
 			{
+				Log.Critical(ex, "Error getting audio durration");
 			}
 		}
 	}

@@ -43,7 +43,7 @@ namespace IdApp.Pages.Things.ReadSensor
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ViewThingNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out ViewThingNavigationArgs args))
 			{
 				this.thing = args.Thing;
 

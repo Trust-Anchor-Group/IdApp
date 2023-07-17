@@ -18,7 +18,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 	/// <summary>
 	/// Contact Information model, including related notification information.
 	/// </summary>
-	public class ContactInfoModel : INotifyPropertyChanged
+	public class ContactInfoModel : INotifyPropertyChanged, IUniqueItem
 	{
 		private readonly IServiceReferences references;
 		private readonly ContactInfo contact;
@@ -40,6 +40,9 @@ namespace IdApp.Pages.Contacts.MyContacts
 
 			this.toggleSubscriptionCommand = new Command(async () => await this.ToggleSubscription(), () => this.CanToggleSubscription());
 		}
+
+		/// <inheritdoc/>
+		public string UniqueName => this.contact.ThingNotificationCategoryKey;
 
 		/// <summary>
 		/// Contact Information object in database.

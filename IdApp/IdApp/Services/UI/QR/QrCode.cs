@@ -97,7 +97,7 @@ namespace IdApp.Services.UI.QR
 			if (UseShellNavigationService)
 			{
 				INavigationService NavigationService = App.Instantiate<INavigationService>();
-				_ = NavigationService.GoToAsync(nameof(ScanQrCodePage), NavigationArgs);
+				_ = NavigationService.GoToAsync(nameof(ScanQrCodePage), NavigationArgs, BackMethod.Pop);
 			}
 			else
 			{

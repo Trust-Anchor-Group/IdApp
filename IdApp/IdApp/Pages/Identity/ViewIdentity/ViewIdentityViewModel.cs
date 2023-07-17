@@ -24,6 +24,7 @@ using Waher.Content.Xml;
 using System.Xml;
 using EDaler;
 using IdApp.Pages.Contracts.PetitionSignature;
+using IdApp.Services.Navigation;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
@@ -69,7 +70,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ViewIdentityNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out ViewIdentityNavigationArgs args))
 			{
 				this.LegalIdentity = args.Identity ?? this.TagProfile.LegalIdentity;
 				this.requestorIdentity = args.RequestorIdentity;
@@ -2316,9 +2317,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(this.LegalId, this.BareJid,
-					ContactInfo.GetFriendlyName(this.LegalIdentity))
-				{ UniqueId = this.BareJid });
+				ChatNavigationArgs Args = new(this.LegalId, this.BareJid, ContactInfo.GetFriendlyName(this.LegalIdentity));
+
+				await this.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, this.BareJid);
 			}
 			catch (Exception ex)
 			{

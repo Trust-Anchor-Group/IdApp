@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Security.Permissions;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -89,7 +89,7 @@ namespace UpdateVersionInfo
 
 			if (this.c.Option.OptionValueType == OptionValueType.Required && index >= this.values.Count)
 			{
-				throw new OptionException(string.Format(
+				throw new OptionException(string.Format(CultureInfo.CurrentCulture,
 							this.c.OptionSet.MessageLocalizer("Missing required value for option '{0}'."), this.c.OptionName),
 						this.c.OptionName);
 			}
@@ -207,11 +207,11 @@ namespace UpdateVersionInfo
 
 			if (this.count == 0 && this.type != OptionValueType.None)
 				throw new ArgumentException(
-						"Cannot provide maxValueCount of 0 for OptionValueType.Required or OptionValueType.Optional.",
+						"Cannot provide maxValueCount of 0 for OptionValueType. Required or OptionValueType.Optional.",
 						nameof(maxValueCount));
 			if (this.type == OptionValueType.None && maxValueCount > 1)
 				throw new ArgumentException(
-						string.Format("Cannot provide maxValueCount of {0} for OptionValueType.None.", maxValueCount),
+						string.Format(CultureInfo.CurrentCulture, "Cannot provide maxValueCount of {0} for OptionValueType.None.", maxValueCount),
 						nameof(maxValueCount));
 			if (Array.IndexOf(this.names, "<>") >= 0 &&
 					((this.names.Length == 1 && this.type != OptionValueType.None) ||
@@ -251,9 +251,9 @@ namespace UpdateVersionInfo
 			catch (Exception e)
 			{
 				throw new OptionException(
-						string.Format(
-							c.OptionSet.MessageLocalizer("Could not convert string `{0}' to type {1} for option `{2}'."),
-							value, typeof(T).Name, c.OptionName),
+						string.Format(CultureInfo.CurrentCulture,
+						c.OptionSet.MessageLocalizer("Could not convert string `{0}' to type {1} for option `{2}'."),
+						value, typeof(T).Name, c.OptionName),
 						c.OptionName, e);
 			}
 			return t;
@@ -268,6 +268,7 @@ namespace UpdateVersionInfo
 		{
 			char type = '\0';
 			List<string> seps = new();
+
 			for (int i = 0; i < this.names.Length; ++i)
 			{
 				string name = this.names[i];
@@ -277,12 +278,14 @@ namespace UpdateVersionInfo
 				int end = name.IndexOfAny(nameTerminator);
 				if (end == -1)
 					continue;
-				this.names[i] = name.Substring(0, end);
+
+				this.names[i] = name[..end];
+
 				if (type == '\0' || type == name[end])
 					type = name[end];
 				else
 					throw new ArgumentException(
-							string.Format("Conflicting option types: '{0}' vs. '{1}'.", type, name[end]),
+							string.Format(CultureInfo.CurrentCulture, "Conflicting option types: '{0}' vs. '{1}'.", type, name[end]),
 							"prototype");
 				AddSeparators(name, end, seps);
 			}
@@ -292,7 +295,7 @@ namespace UpdateVersionInfo
 
 			if (this.count <= 1 && seps.Count != 0)
 				throw new ArgumentException(
-						string.Format("Cannot provide key/value separators for Options taking {0} value(s).", this.count),
+						string.Format(CultureInfo.CurrentCulture, "Cannot provide key/value separators for Options taking {0} value(s).", this.count),
 						"prototype");
 			if (this.count > 1)
 			{
@@ -317,14 +320,14 @@ namespace UpdateVersionInfo
 					case '{':
 						if (start != -1)
 							throw new ArgumentException(
-									string.Format("Ill-formed name/value separator found in \"{0}\".", name),
+									string.Format(CultureInfo.CurrentCulture, "Ill-formed name/value separator found in \"{0}\".", name),
 									nameof(name));
 						start = i + 1;
 						break;
 					case '}':
 						if (start == -1)
 							throw new ArgumentException(
-									string.Format("Ill-formed name/value separator found in \"{0}\".", name),
+									string.Format(CultureInfo.CurrentCulture, "Ill-formed name/value separator found in \"{0}\".", name),
 									nameof(name));
 						seps.Add(name[start..i]);
 						start = -1;
@@ -337,7 +340,7 @@ namespace UpdateVersionInfo
 			}
 			if (start != -1)
 				throw new ArgumentException(
-						string.Format("Ill-formed name/value separator found in \"{0}\".", name),
+						string.Format(CultureInfo.CurrentCulture, "Ill-formed name/value separator found in \"{0}\".", name),
 						nameof(name));
 		}
 
@@ -607,15 +610,15 @@ namespace UpdateVersionInfo
 			OptionContext c = CreateOptionContext ();
 			c.OptionIndex = -1;
 			var def = GetOptionForName ("<>");
-			var unprocessed = 
+			var unprocessed =
 				from argument in arguments
 				where ++c.OptionIndex >= 0 && (process || def is not null)
 					? process
-						? argument == "--" 
+						? argument == "--"
 							? (process = false)
 							: !Parse (argument, c)
 								? def is not null
-									? Unprocessed (null, def, c, argument) 
+									? Unprocessed (null, def, c, argument)
 									: true
 								: false
 						: def is not null
@@ -652,8 +655,9 @@ namespace UpdateVersionInfo
 				if (!this.Parse(argument, c))
 					Unprocessed(unprocessed, def, c, argument);
 			}
-			if (c.Option is not null)
-				c.Option.Invoke(c);
+
+			c.Option?.Invoke(c);
+
 			return unprocessed;
 		}
 #endif
@@ -749,10 +753,10 @@ namespace UpdateVersionInfo
 				c.Option.Invoke(c);
 			else if (c.OptionValues.Count > c.Option.MaxValueCount)
 			{
-				throw new OptionException(this.localizer(string.Format(
-								"Error: Found {0} option values when expecting {1}.",
-								c.OptionValues.Count, c.Option.MaxValueCount)),
-						c.OptionName);
+				throw new OptionException(this.localizer(string.Format(CultureInfo.CurrentCulture,
+					"Error: Found {0} option values when expecting {1}.",
+					c.OptionValues.Count, c.Option.MaxValueCount)),
+					c.OptionName);
 			}
 		}
 
@@ -787,8 +791,8 @@ namespace UpdateVersionInfo
 				{
 					if (i == 0)
 						return false;
-					throw new OptionException(string.Format(this.localizer(
-									"Cannot bundle unregistered option '{0}'."), opt), opt);
+					throw new OptionException(string.Format(CultureInfo.CurrentCulture,
+						this.localizer("Cannot bundle unregistered option '{0}'."), opt), opt);
 				}
 				p = this[rn];
 				switch (p.OptionValueType)

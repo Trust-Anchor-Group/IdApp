@@ -17,7 +17,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
     /// <summary>
     /// The data model for a contract.
     /// </summary>
-    public class ContractModel : IItemGroup, INotifyPropertyChanged
+    public class ContractModel : IUniqueItem, INotifyPropertyChanged
 	{
         private readonly string contractId;
         private readonly string category;

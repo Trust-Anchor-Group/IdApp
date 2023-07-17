@@ -24,7 +24,7 @@ namespace IdApp.Pages.Wallet.MachineVariables
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out MachineVariablesNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out MachineVariablesNavigationArgs args))
 			{
 				this.Running = args.Running;
 				this.Ended = args.Ended;

@@ -25,7 +25,7 @@ namespace IdApp.Pages.Contracts.ServerSignature
         {
             await base.OnInitialize();
             
-            if (this.NavigationService.TryPopArgs(out ServerSignatureNavigationArgs args))
+            if (this.NavigationService.TryGetArgs(out ServerSignatureNavigationArgs args))
                 this.contract = args.Contract;
 
 			this.AssignProperties();

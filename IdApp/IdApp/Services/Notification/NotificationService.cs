@@ -265,16 +265,25 @@ namespace IdApp.Services.Notification
 		{
 			try
 			{
-				foreach (NotificationEvent Event in Events)
+				await Database.StartBulk();
+
+				try
 				{
-					try
+					foreach (NotificationEvent Event in Events)
 					{
-						await Database.Delete(Event);
+						try
+						{
+							await Database.Delete(Event);
+						}
+						catch (KeyNotFoundException)
+						{
+							// Ignore, already deleted.
+						}
 					}
-					catch (KeyNotFoundException)
-					{
-						// Ignore, already deleted.
-					}
+				}
+				finally
+				{
+					await Database.EndBulk();
 				}
 
 				this.OnNotificationsDeleted?.Invoke(this, new NotificationEventsArgs(Events));
@@ -379,9 +388,7 @@ namespace IdApp.Services.Notification
 					{
 						if (Event is T TypedItem)
 						{
-							if (Items is null)
-								Items = new List<T>();
-
+							Items ??= new List<T>();
 							Items.Add(TypedItem);
 						}
 					}
@@ -487,9 +494,7 @@ namespace IdApp.Services.Notification
 						{
 							if (Resolver.Resolves(Event))
 							{
-								if (Resolved is null)
-									Resolved = new List<NotificationEvent>();
-
+								Resolved ??= new List<NotificationEvent>();
 								Resolved.Add(Event);
 							}
 						}

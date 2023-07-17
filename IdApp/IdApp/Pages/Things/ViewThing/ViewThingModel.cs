@@ -10,6 +10,7 @@ using IdApp.Pages.Main.XmppForm;
 using IdApp.Pages.Things.MyThings;
 using IdApp.Pages.Things.ReadSensor;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Concentrator;
@@ -58,7 +59,7 @@ namespace IdApp.Pages.Things.ViewThing
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ViewThingNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out ViewThingNavigationArgs args))
 			{
 				this.thing = args.Thing;
 
@@ -693,8 +694,9 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private async Task ReadSensor()
 		{
-			await this.NavigationService.GoToAsync(nameof(ReadSensorPage), new ViewThingNavigationArgs(this.thing,
-				MyThingsViewModel.GetNotificationEvents(this, this.thing)));
+			ViewThingNavigationArgs Args = new(this.thing, MyThingsViewModel.GetNotificationEvents(this, this.thing));
+
+			await this.NavigationService.GoToAsync(nameof(ReadSensorPage), Args, BackMethod.Pop);
 		}
 
 		private async Task ControlActuator()
@@ -738,12 +740,9 @@ namespace IdApp.Pages.Things.ViewThing
 			{
 				string LegalId = this.thing?.LegalId;
 				string FriendlyName = this.thing.FriendlyName;
+				ChatNavigationArgs Args = new(LegalId, this.thing.BareJid, FriendlyName);
 
-				await this.NavigationService.GoToAsync(nameof(ChatPage),
-					new ChatNavigationArgs(LegalId, this.thing.BareJid, FriendlyName)
-					{
-						UniqueId = this.thing.BareJid
-					});
+				await this.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, this.thing.BareJid);
 			}
 			catch (Exception ex)
 			{

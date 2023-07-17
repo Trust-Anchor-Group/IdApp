@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,13 +11,13 @@ using IdApp.Pages.Contracts;
 using IdApp.Pages.Contracts.MyContracts;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract;
-using IdApp.Pages.Registration.ValidateIdentity;
 using IdApp.Pages.Wallet.BuyEDaler;
 using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Pages.Wallet.RequestPayment;
 using IdApp.Pages.Wallet.SellEDaler;
 using IdApp.Pages.Wallet.ServiceProviders;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using IdApp.Services.Notification.Wallet;
 using IdApp.Services.Wallet;
@@ -37,6 +36,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 	public class MyWalletViewModel : XmppViewModel
 	{
 		private readonly MyWalletPage page;
+		private DateTime lastEDalerEvent;
+		private DateTime lastTokenEvent;
+		private bool hasMoreTokens;
+		private bool hasTotals;
+		private bool hasTokens;
+
 
 		/// <summary>
 		/// Creates an instance of the <see cref="MyWalletViewModel"/> class.
@@ -55,18 +60,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.FlipCommand = new Command(async _ => await this.FlipWallet());
 			this.CreateTokenCommand = new Command(async _ => await this.CreateToken());
 			this.LoadMoreTokensCommand = new Command(async _ => await this.LoadMoreTokens());
-
-			this.PaymentItems = new ObservableCollection<IItemGroup>();
-			/* The grouped collection is bugged on Android
-			this.PaymentItems = new ObservableCollection<IItemGroupCollection>()
-			{
-				new ItemGroupCollection<PendingPaymentItem>("PendingPayment", new()),
-				new ItemGroupCollection<AccountEventItem>("AccountEvent", new())
-			};
-			*/
-
-			this.Totals = new ObservableCollection<TokenTotalItem>();
-			this.Tokens = new ObservableCollection<object>();
 		}
 
 		/// <inheritdoc/>
@@ -77,31 +70,42 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.EDalerFrontGlyph = "https://" + this.TagProfile.Domain + "/Images/eDalerFront200.png";
 			this.EDalerBackGlyph = "https://" + this.TagProfile.Domain + "/Images/eDalerBack200.png";
 
-			if (this.Balance is null && this.NavigationService.TryPopArgs(out WalletNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out WalletNavigationArgs args))
 			{
 				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.GetNotificationEvents();
 
-				await this.AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments,
-					args.Events, args.More, this.XmppService.LastEDalerEvent, NotificationEvents);
+				await this.AssignProperties(args.Balance,
+					args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events, args.More,
+					this.XmppService.LastEDalerEvent, NotificationEvents);
 			}
-			else if (((this.Balance is not null) && (this.XmppService.LastEDalerBalance is not null) &&
-				(this.Balance.Amount != this.XmppService.LastEDalerBalance.Amount ||
-				this.Balance.Currency != this.XmppService.LastEDalerBalance.Currency ||
-				this.Balance.Timestamp != this.XmppService.LastEDalerBalance.Timestamp)) ||
-				this.LastEDalerEvent != this.XmppService.LastEDalerEvent)
-			{
-				await this.ReloadEDalerWallet(this.XmppService.LastEDalerBalance ?? this.Balance ?? this.Balance);
-			}
-
-			if (this.HasTokens && this.LastTokenEvent != this.XmppService.LastNeuroFeatureEvent)
-				await this.LoadTokens(true);
-
-			this.EvaluateAllCommands();
 
 			this.XmppService.EDalerBalanceUpdated += this.Wallet_BalanceUpdated;
 			this.XmppService.NeuroFeatureAdded += this.Wallet_TokenAdded;
 			this.XmppService.NeuroFeatureRemoved += this.Wallet_TokenRemoved;
 			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
+		}
+
+		/// <inheritdoc/>
+		protected override async Task OnAppearing()
+		{
+			await base.OnAppearing();
+
+			if (((this.Balance is not null) && (this.XmppService.LastEDalerBalance is not null) &&
+				(this.Balance.Amount != this.XmppService.LastEDalerBalance.Amount ||
+				this.Balance.Currency != this.XmppService.LastEDalerBalance.Currency ||
+				this.Balance.Timestamp != this.XmppService.LastEDalerBalance.Timestamp)) ||
+				this.lastEDalerEvent != this.XmppService.LastEDalerEvent)
+			{
+				await this.ReloadEDalerWallet(this.XmppService.LastEDalerBalance ?? this.Balance);
+			}
+
+
+			if (this.hasTokens && this.lastTokenEvent != this.XmppService.LastNeuroFeatureEvent)
+			{
+				await this.LoadTokens(true);
+			}
+
+			this.EvaluateAllCommands();
 		}
 
 		/// <inheritdoc/>
@@ -151,7 +155,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				this.Timestamp = Balance.Timestamp;
 			}
 
-			this.LastEDalerEvent = LastEvent;
+			this.lastEDalerEvent = LastEvent;
 
 			this.PendingAmount = PendingAmount;
 			this.PendingCurrency = PendingCurrency;
@@ -162,10 +166,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 			Dictionary<string, string> FriendlyNames = new();
 			string FriendlyName;
 
-			ObservableCollection<IItemGroup> NewPaymentItems = new();
+			ObservableItemGroup<IUniqueItem> NewPaymentItems = new(nameof(this.PaymentItems), new());
 
 			if (PendingPayments is not null)
 			{
+				List<IUniqueItem> NewPendingPayments = new(PendingPayments.Length);
+
 				foreach (EDaler.PendingPayment Payment in PendingPayments)
 				{
 					if (!FriendlyNames.TryGetValue(Payment.To, out FriendlyName))
@@ -174,12 +180,19 @@ namespace IdApp.Pages.Wallet.MyWallet
 						FriendlyNames[Payment.To] = FriendlyName;
 					}
 
-					NewPaymentItems.Add(new PendingPaymentItem(Payment, FriendlyName));
+					NewPendingPayments.Add(new PendingPaymentItem(Payment, FriendlyName));
+				}
+
+				if (NewPendingPayments.Count > 0)
+				{
+					NewPaymentItems.Add(new ObservableItemGroup<IUniqueItem>(nameof(PendingPaymentItem), NewPendingPayments));
 				}
 			}
 
 			if (Events is not null)
 			{
+				List<IUniqueItem> NewAccountEvents = new(Events.Length);
+
 				foreach (EDaler.AccountEvent Event in Events)
 				{
 					if (!FriendlyNames.TryGetValue(Event.Remote, out FriendlyName))
@@ -191,29 +204,16 @@ namespace IdApp.Pages.Wallet.MyWallet
 					if (!NotificationEvents.TryGetValue(Event.TransactionId.ToString(), out NotificationEvent[] CategoryEvents))
 						CategoryEvents = new NotificationEvent[0];
 
-					NewPaymentItems.Add(new AccountEventItem(Event, this, FriendlyName, CategoryEvents, this));
+					NewAccountEvents.Add(new AccountEventItem(Event, this, FriendlyName, CategoryEvents, this));
+				}
+
+				if (NewAccountEvents.Count > 0)
+				{
+					NewPaymentItems.Add(new ObservableItemGroup<IUniqueItem>(nameof(AccountEventItem), NewAccountEvents));
 				}
 			}
 
-			this.MergeObservableCollections(this.PaymentItems, NewPaymentItems);
-		}
-
-		private void MergeObservableCollections(ObservableCollection<IItemGroup> OldCollection, ObservableCollection<IItemGroup> NewCollection)
-		{
-			List<IItemGroup> RemoveItems = OldCollection.Where(oel => NewCollection.All(nel => nel.UniqueName != oel.UniqueName)).ToList();
-
-			foreach (IItemGroup Item in RemoveItems)
-				OldCollection.Remove(Item);
-
-			for (int i = 0; i < NewCollection.Count; i++)
-			{
-				IItemGroup Item = NewCollection[i];
-
-				if (i >= OldCollection.Count)
-					OldCollection.Add(Item);
-				else if (OldCollection[i].UniqueName != Item.UniqueName)
-					OldCollection.Insert(i, Item);
-			}
+			Device.BeginInvokeOnMainThread(() => ObservableItemGroup<IUniqueItem>.UpdateGroupsItems(this.PaymentItems, NewPaymentItems));
 		}
 
 		private void EvaluateAllCommands()
@@ -233,6 +233,50 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.GetPendingEDalerPayments();
 				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize);
+				IUniqueItem OldItems = this.PaymentItems.FirstOrDefault(el => el.UniqueName.Equals(nameof(AccountEventItem)));
+
+				// Reload also items which were loaded earlier by the LoadMoreAccountEvents
+				if (More &&
+					(OldItems is ObservableItemGroup<IUniqueItem> OldAccountEvents) &&
+					(OldAccountEvents.LastOrDefault() is AccountEventItem OldLastEvent) &&
+					(Events.LastOrDefault() is EDaler.AccountEvent NewLastEvent) &&
+					(OldLastEvent.Timestamp < NewLastEvent.Timestamp))
+				{
+					List<EDaler.AccountEvent> AllEvents = new(Events);
+					EDaler.AccountEvent[] Events2;
+					bool More2 = true;
+
+					while (More2)
+					{
+						EDaler.AccountEvent LastEvent = AllEvents.Last();
+						(Events2, More2) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize, LastEvent.Timestamp);
+
+						if (More2)
+						{
+							More = true;
+
+							for (int i = 0; i < Events2.Length; i++)
+							{
+								EDaler.AccountEvent Event = Events2[i];
+								AllEvents.Add(Event);
+
+								if (OldLastEvent.Timestamp.Equals(Event.Timestamp))
+								{
+									More2 = false;
+									break;
+								}
+							}
+						}
+						else
+						{
+							More = false;
+							AllEvents.AddRange(Events2);
+						}
+					}
+
+					Events = AllEvents.ToArray();
+				}
+
 				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.GetNotificationEvents();
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await this.AssignProperties(Balance, PendingAmount, PendingCurrency,
@@ -394,21 +438,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
-		/// See <see cref="LastEDalerEvent"/>
-		/// </summary>
-		public static readonly BindableProperty LastEDalerEventProperty =
-			BindableProperty.Create(nameof(LastEDalerEvent), typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
-
-		/// <summary>
-		/// When last eDaler event was received.
-		/// </summary>
-		public DateTime LastEDalerEvent
-		{
-			get => (DateTime)this.GetValue(LastEDalerEventProperty);
-			set => this.SetValue(LastEDalerEventProperty, value);
-		}
-
-		/// <summary>
 		/// See <see cref="EDalerFrontGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerFrontGlyphProperty =
@@ -469,66 +498,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
-		/// See <see cref="HasTotals"/>
-		/// </summary>
-		public static readonly BindableProperty HasTotalsProperty =
-			BindableProperty.Create(nameof(HasTotals), typeof(bool), typeof(MyWalletViewModel), default(bool));
-
-		/// <summary>
-		/// HasTotals of eDaler to process
-		/// </summary>
-		public bool HasTotals
-		{
-			get => (bool)this.GetValue(HasTotalsProperty);
-			set => this.SetValue(HasTotalsProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="HasTokens"/>
-		/// </summary>
-		public static readonly BindableProperty HasTokensProperty =
-			BindableProperty.Create(nameof(HasTokens), typeof(bool), typeof(MyWalletViewModel), default(bool));
-
-		/// <summary>
-		/// HasTokens of eDaler to process
-		/// </summary>
-		public bool HasTokens
-		{
-			get => (bool)this.GetValue(HasTokensProperty);
-			set => this.SetValue(HasTokensProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="HasMoreTokens"/>
-		/// </summary>
-		public static readonly BindableProperty HasMoreTokensProperty =
-			BindableProperty.Create(nameof(HasMoreTokens), typeof(bool), typeof(MyWalletViewModel), default(bool));
-
-		/// <summary>
-		/// HasMoreTokens of eDaler to process
-		/// </summary>
-		public bool HasMoreTokens
-		{
-			get => (bool)this.GetValue(HasMoreTokensProperty);
-			set => this.SetValue(HasMoreTokensProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="LastTokenEvent"/>
-		/// </summary>
-		public static readonly BindableProperty LastTokenEventProperty =
-			BindableProperty.Create(nameof(LastTokenEvent), typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
-
-		/// <summary>
-		/// When last eDaler event was received.
-		/// </summary>
-		public DateTime LastTokenEvent
-		{
-			get => (DateTime)this.GetValue(LastTokenEventProperty);
-			set => this.SetValue(LastTokenEventProperty, value);
-		}
-
-		/// <summary>
 		/// See <see cref="NrBalanceNotifications"/>
 		/// </summary>
 		public static readonly BindableProperty NrBalanceNotificationsProperty =
@@ -559,20 +528,19 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
-		/// Holds a list of pending payments and account events
+		/// Holds pending payments and account events. Both are also observable collections.
 		/// </summary>
-		//public ObservableCollection<IItemGroupCollection> PaymentItems { get; }
-		public ObservableCollection<IItemGroup> PaymentItems { get; }
-
-		/// <summary>
-		/// Holds a list of token totals
-		/// </summary>
-		public ObservableCollection<TokenTotalItem> Totals { get; }
+		public ObservableItemGroup<IUniqueItem> PaymentItems { get; } = new(nameof(PaymentItems), new());
 
 		/// <summary>
 		/// Holds a list of tokens
 		/// </summary>
-		public ObservableCollection<object> Tokens { get; }
+		public ObservableItemGroup<IUniqueItem> Tokens { get; } = new(nameof(Tokens), new());
+
+		/// <summary>
+		/// Holds a list of token totals
+		/// </summary>
+		public ObservableItemGroup<IUniqueItem> Totals { get; } = new(nameof(Totals), new());
 
 		/// <summary>
 		/// The command to bind to for returning to previous view.
@@ -639,10 +607,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 				if (ServiceProviders.Length == 0)
 				{
-					await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance)
-					{
-						ReturnCounter = 1
-					});
+					EDalerBalanceNavigationArgs Args = new(this.Balance);
+
+					await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), Args, BackMethod.ToThisPage);
 				}
 				else
 				{
@@ -655,25 +622,24 @@ namespace IdApp.Pages.Wallet.MyWallet
 						LocalizationResourceManager.Current["BuyEDaler"],
 						LocalizationResourceManager.Current["SelectServiceProviderBuyEDaler"]);
 
-					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
+					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e, BackMethod.Pop);
+
 					IBuyEDalerServiceProvider ServiceProvider = (IBuyEDalerServiceProvider)await e.ServiceProvider.Task;
 
 					if (ServiceProvider is not null)
 					{
 						if (string.IsNullOrEmpty(ServiceProvider.Id))
 						{
-							await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance)
-							{
-								ReturnCounter = 1
-							});
+							EDalerBalanceNavigationArgs Args = new(this.Balance);
+
+							await this.NavigationService.GoToAsync(nameof(RequestPaymentPage), Args, BackMethod.ToThisPage);
 						}
 						else if (string.IsNullOrEmpty(ServiceProvider.BuyEDalerTemplateContractId))
 						{
 							TaskCompletionSource<decimal?> Result = new();
-							await this.NavigationService.GoToAsync(nameof(BuyEDalerPage), new BuyEDalerNavigationArgs(this.Balance.Currency, Result)
-							{
-								CancelReturnCounter = true
-							});
+							BuyEDalerNavigationArgs Args = new(this.Balance.Currency, Result);
+
+							await this.NavigationService.GoToAsync(nameof(BuyEDalerPage), Args, BackMethod.ToThisPage);
 
 							decimal? Amount = await Result.Task;
 
@@ -697,7 +663,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 							};
 
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.BuyEDalerTemplateContractId,
-								LocalizationResourceManager.Current["BuyEDaler"], Parameters, 1);
+								LocalizationResourceManager.Current["BuyEDaler"], Parameters);
 
 							OptionsTransaction OptionsTransaction = await this.XmppService.InitiateBuyEDalerGetOptions(ServiceProvider.Id, ServiceProvider.Type);
 							IDictionary<CaseInsensitiveString, object>[] Options = await OptionsTransaction.Wait();
@@ -736,13 +702,14 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 				if (ServiceProviders.Length == 0)
 				{
-					await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-						new ContactListNavigationArgs(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
-						{
-							CanScanQrCode = true,
-							AllowAnonymous = true,
-							AnonymousText = LocalizationResourceManager.Current["Open"]
-						});
+					ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
+					{
+						CanScanQrCode = true,
+						AllowAnonymous = true,
+						AnonymousText = LocalizationResourceManager.Current["Open"]
+					};
+
+					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.ToThisPage);
 				}
 				else
 				{
@@ -755,26 +722,29 @@ namespace IdApp.Pages.Wallet.MyWallet
 						LocalizationResourceManager.Current["SellEDaler"],
 						LocalizationResourceManager.Current["SelectServiceProviderSellEDaler"]);
 
-					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e);
+					await this.NavigationService.GoToAsync(nameof(ServiceProvidersPage), e, BackMethod.Pop);
+
 					ISellEDalerServiceProvider ServiceProvider = (ISellEDalerServiceProvider)await e.ServiceProvider.Task;
 
 					if (ServiceProvider is not null)
 					{
 						if (string.IsNullOrEmpty(ServiceProvider.Id))
 						{
-							await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-								new ContactListNavigationArgs(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
-								{
-									CanScanQrCode = true,
-									AllowAnonymous = true,
-									AnonymousText = LocalizationResourceManager.Current["Open"],
-									ReturnCounter = 1
-								});
+							ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["SelectContactToPay"], SelectContactAction.MakePayment)
+							{
+								CanScanQrCode = true,
+								AllowAnonymous = true,
+								AnonymousText = LocalizationResourceManager.Current["Open"],
+							};
+
+							await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.ToThisPage);
 						}
 						else if (string.IsNullOrEmpty(ServiceProvider.SellEDalerTemplateContractId))
 						{
 							TaskCompletionSource<decimal?> Result = new();
-							await this.NavigationService.GoToAsync(nameof(SellEDalerPage), new SellEDalerNavigationArgs(this.Balance.Currency, Result));
+							SellEDalerNavigationArgs Args = new(this.Balance.Currency, Result);
+
+							await this.NavigationService.GoToAsync(nameof(SellEDalerPage), Args, BackMethod.ToThisPage);
 
 							decimal? Amount = await Result.Task;
 
@@ -798,7 +768,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 							};
 
 							await this.ContractOrchestratorService.OpenContract(ServiceProvider.SellEDalerTemplateContractId,
-								LocalizationResourceManager.Current["SellEDaler"], Parameters, 1);
+								LocalizationResourceManager.Current["SellEDaler"], Parameters);
 
 							OptionsTransaction OptionsTransaction = await this.XmppService.InitiateSellEDalerGetOptions(ServiceProvider.Id, ServiceProvider.Type);
 							IDictionary<CaseInsensitiveString, object>[] Options = await OptionsTransaction.Wait();
@@ -839,22 +809,30 @@ namespace IdApp.Pages.Wallet.MyWallet
 			if (this.HasMoreEvents)
 			{
 				this.HasMoreEvents = false; // So multiple requests are not made while scrolling.
+				bool More = true;
 
 				try
 				{
-					EDaler.AccountEvent[] Events;
-					bool More;
-					int c = this.PaymentItems.Count;
+					EDaler.AccountEvent[] Events = null;
+					IUniqueItem OldItems = this.PaymentItems.FirstOrDefault(el => el.UniqueName.Equals(nameof(AccountEventItem)));
 
-					if (c == 0 || this.PaymentItems[c - 1] is not AccountEventItem LastEvent)
+					if (OldItems is null)
+					{
 						(Events, More) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize);
+					}
 					else
-						(Events, More) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize, LastEvent.Timestamp);
+					{
+						ObservableItemGroup<IUniqueItem> OldAccountEvents = (ObservableItemGroup<IUniqueItem>)OldItems;
 
-					this.HasMoreEvents = More;
+						if (OldAccountEvents.LastOrDefault() is AccountEventItem LastEvent)
+						{
+							(Events, More) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize, LastEvent.Timestamp);
+						}
+					}
 
 					if (Events is not null)
 					{
+						List<IUniqueItem> NewAccountEvents = new();
 						Dictionary<string, string> FriendlyNames = new();
 						SortedDictionary<CaseInsensitiveString, NotificationEvent[]> NotificationEvents = this.GetNotificationEvents();
 
@@ -869,8 +847,22 @@ namespace IdApp.Pages.Wallet.MyWallet
 							if (!NotificationEvents.TryGetValue(Event.TransactionId.ToString(), out NotificationEvent[] CategoryEvents))
 								CategoryEvents = new NotificationEvent[0];
 
-							this.PaymentItems.Add(new AccountEventItem(Event, this, FriendlyName, CategoryEvents, this));
+							NewAccountEvents.Add(new AccountEventItem(Event, this, FriendlyName, CategoryEvents, this));
 						}
+
+						Device.BeginInvokeOnMainThread(() =>
+						{
+
+							if (OldItems is not null)
+							{
+								((ObservableItemGroup<IUniqueItem>)OldItems).AddRange(NewAccountEvents);
+							}
+							else
+							{
+								this.PaymentItems.Add(new ObservableItemGroup<IUniqueItem>(nameof(AccountEventItem), NewAccountEvents));
+								this.HasMoreEvents = More;
+							}
+						});
 					}
 				}
 				catch (Exception ex)
@@ -903,118 +895,120 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private async Task LoadTokens(bool Reload)
 		{
-			this.LastTokenEvent = this.XmppService.LastNeuroFeatureEvent;
+			this.lastTokenEvent = this.XmppService.LastNeuroFeatureEvent;
 
-			if (!this.HasTotals || Reload)
+			if (!this.hasTotals || Reload)
 			{
+				this.hasTotals = true; // prevent fast reentering
+
 				try
 				{
-					TokenTotalsEventArgs e = await this.XmppService.GetNeuroFeatureTotals();
+					TokenTotalsEventArgs tteArgs = await this.XmppService.GetNeuroFeatureTotals();
 
-					this.UiSerializer.BeginInvokeOnMainThread(() =>
+					if (tteArgs.Ok)
 					{
-						this.Totals.Clear();
+						ObservableItemGroup<IUniqueItem> NewTotals = new(nameof(this.Totals), new());
 
-						if (e.Ok && e.Totals is not null)
+						if (tteArgs.Totals is not null)
 						{
-							this.Totals.Clear();
-
-							foreach (TokenTotal Total in e.Totals)
-								this.Totals.Add(new TokenTotalItem(Total));
-
-							this.HasTotals = true;
+							foreach (TokenTotal Total in tteArgs.Totals)
+							{
+								NewTotals.Add(new TokenTotalItem(Total));
+							}
 						}
-						else
-							this.HasTotals = false;
-					});
+
+						Device.BeginInvokeOnMainThread(() => ObservableItemGroup<IUniqueItem>.UpdateGroupsItems(this.Totals, NewTotals));
+					}
+
+					this.hasTotals = tteArgs.Ok;
 				}
 				catch (Exception ex)
 				{
+					this.hasTotals = false;
 					this.LogService.LogException(ex);
 				}
 			}
 
-			if (!this.HasTokens || Reload)
+			if (!this.hasTokens || Reload)
 			{
+				this.hasTokens = true; // prevent fast reentering
+
 				try
 				{
 					SortedDictionary<CaseInsensitiveString, TokenNotificationEvent[]> NotificationEvents =
 						this.NotificationService.GetEventsByCategory<TokenNotificationEvent>(EventButton.Wallet);
 
-					TokensEventArgs e = await this.XmppService.GetNeuroFeatures(0, Constants.BatchSizes.TokenBatchSize);
+					TokensEventArgs teArgs = await this.XmppService.GetNeuroFeatures(0, Constants.BatchSizes.TokenBatchSize);
 					SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.GetNotificationEvents();
 
-					this.UiSerializer.BeginInvokeOnMainThread(async () =>
+					ObservableItemGroup<IUniqueItem> NewTokens = new(nameof(this.Tokens), new());
+					List<TokenNotificationEvent> ToDelete = new();
+
+					foreach (KeyValuePair<CaseInsensitiveString, TokenNotificationEvent[]> P in NotificationEvents)
 					{
-						try
+						Token Token = null;
+
+						foreach (TokenNotificationEvent TokenEvent in P.Value)
 						{
-							this.Tokens.Clear();
+							Token = TokenEvent.Token;
+							if (Token is not null)
+								break;
+						}
 
-							foreach (KeyValuePair<CaseInsensitiveString, TokenNotificationEvent[]> P in NotificationEvents)
+						if (Token is not null)
+						{
+							NewTokens.Add(new TokenItem(Token, this, P.Value));
+						}
+						else
+						{
+							foreach (TokenNotificationEvent TokenEvent in P.Value)
 							{
-								Token Token = null;
-
-								foreach (TokenNotificationEvent TokenEvent in P.Value)
+								if (TokenEvent is TokenRemovedNotificationEvent)
 								{
-									Token = TokenEvent.Token;
-									if (Token is not null)
-										break;
-								}
+									string Icon = await TokenEvent.GetCategoryIcon(this);
+									string Description = await TokenEvent.GetDescription(this);
 
-								if (Token is not null)
-									this.Tokens.Add(new TokenItem(Token, this, P.Value));
+									NewTokens.Add(new EventModel(TokenEvent.Received, Icon, Description, TokenEvent, this));
+								}
 								else
 								{
-									List<TokenNotificationEvent> ToDelete = null;
-
-									foreach (TokenNotificationEvent TokenEvent in P.Value)
-									{
-										if (TokenEvent is TokenRemovedNotificationEvent)
-										{
-											string Icon = await TokenEvent.GetCategoryIcon(this);
-											string Description = await TokenEvent.GetDescription(this);
-
-											this.Tokens.Add(new EventModel(TokenEvent.Received, Icon, Description, TokenEvent, this));
-										}
-										else
-										{
-											ToDelete ??= new List<TokenNotificationEvent>();
-											ToDelete.Add(TokenEvent);
-										}
-									}
-
-									if (ToDelete is not null)
-										await this.NotificationService.DeleteEvents(ToDelete.ToArray());
+									ToDelete.Add(TokenEvent);
 								}
 							}
-
-							if (e.Ok && e.Tokens is not null)
-							{
-								foreach (Token Token in e.Tokens)
-								{
-									if (NotificationEvents.ContainsKey(Token.TokenId))
-										continue;
-
-									if (!EventsByCateogy.TryGetValue(Token.TokenId, out NotificationEvent[] Events))
-										Events = new NotificationEvent[0];
-
-									this.Tokens.Add(new TokenItem(Token, this, Events));
-								}
-
-								this.HasTokens = true;
-								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
-							}
-							else
-								this.HasTokens = false;
 						}
-						catch (Exception ex)
+					}
+
+					if (ToDelete.Count > 0)
+					{
+						await this.NotificationService.DeleteEvents(ToDelete.ToArray());
+					}
+
+					if (teArgs.Ok)
+					{
+						if (teArgs.Tokens is not null)
 						{
-							this.LogService.LogException(ex);
+							foreach (Token Token in teArgs.Tokens)
+							{
+								if (NotificationEvents.ContainsKey(Token.TokenId))
+									continue;
+
+								if (!EventsByCateogy.TryGetValue(Token.TokenId, out NotificationEvent[] Events))
+									Events = new NotificationEvent[0];
+
+								NewTokens.Add(new TokenItem(Token, this, Events));
+							}
 						}
-					});
+
+						this.hasMoreTokens = teArgs.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
+
+						Device.BeginInvokeOnMainThread(() => ObservableItemGroup<IUniqueItem>.UpdateGroupsItems(this.Tokens, NewTokens));
+					}
+
+					this.hasTokens = teArgs.Ok;
 				}
 				catch (Exception ex)
 				{
+					this.hasTokens = false;
 					this.LogService.LogException(ex);
 				}
 			}
@@ -1030,8 +1024,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 			try
 			{
 				TaskCompletionSource<Contract> TemplateSelection = new();
-				MyContractsNavigationArgs e = new(ContractsListMode.TokenCreationTemplates, TemplateSelection);
-				await this.NavigationService.GoToAsync(nameof(MyContractsPage), e);
+				MyContractsNavigationArgs Args = new(ContractsListMode.TokenCreationTemplates, TemplateSelection);
+
+				await this.NavigationService.GoToAsync(nameof(MyContractsPage), Args, BackMethod.Pop);
 
 				Contract Template = await TemplateSelection.Task;
 				if (Template is null)
@@ -1101,11 +1096,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 						Parameters[CommissionParameter] = e2.Commission;
 				}
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage),
-					new NewContractNavigationArgs(Template, true, Parameters));
-				//{
-				//	ReturnCounter = 1
-				//});
+				NewContractNavigationArgs NewContractArgs = new(Template, true, Parameters);
+
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs, BackMethod.ToThisPage);
 			}
 			catch (Exception ex)
 			{
@@ -1115,9 +1108,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private async Task LoadMoreTokens()
 		{
-			if (this.HasMoreTokens)
+			if (this.hasMoreTokens)
 			{
-				this.HasMoreTokens = false; // So multiple requests are not made while scrolling.
+				this.hasMoreTokens = false; // So multiple requests are not made while scrolling.
 
 				try
 				{
@@ -1138,7 +1131,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 									this.Tokens.Add(new TokenItem(Token, this, Events));
 								}
 
-								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
+								this.hasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
 							}
 						}
 					});

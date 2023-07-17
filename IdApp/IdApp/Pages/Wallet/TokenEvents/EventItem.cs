@@ -1,6 +1,7 @@
 ﻿using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Wallet.TokenEvents.Events;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using NeuroFeatures.Events;
 using System;
 using System.Text;
@@ -260,13 +261,9 @@ namespace IdApp.Pages.Wallet.TokenEvents
 					else
 					{
 						ContactInfo Contact = await ContactInfo.FindByBareJid(Source);
+						ChatNavigationArgs Args = new(Contact?.LegalId, Contact?.BareJid ?? Source, Contact?.FriendlyName ?? Source);
 
-						await this.@ref.NavigationService.GoToAsync(nameof(ChatPage),
-							new ChatNavigationArgs(Contact?.LegalId, Contact?.BareJid ?? Source, Contact?.FriendlyName ?? Source)
-							{
-								UniqueId = Contact?.BareJid ?? Source
-							});
-
+						await this.@ref.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, Contact?.BareJid ?? Source);
 						return;
 					}
 				}

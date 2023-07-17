@@ -14,6 +14,7 @@ using IdApp.Converters;
 using IdApp.Pages.Main.Calculator;
 using Xamarin.CommunityToolkit.Helpers;
 using Waher.Networking.XMPP.StanzaErrors;
+using IdApp.Services.Navigation;
 
 namespace IdApp.Pages.Wallet
 {
@@ -51,79 +52,71 @@ namespace IdApp.Pages.Wallet
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out EDalerUriNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out EDalerUriNavigationArgs Args))
 			{
-				this.uriToSend = args.UriToSend;
+				this.uriToSend = Args.UriToSend;
+				this.FriendlyName = Args.FriendlyName;
 
-				if (!args.ViewInitialized)
+				if (Args.Uri is not null)
 				{
-					this.FriendlyName = args.FriendlyName;
-
-					if (args.Uri is not null)
-					{
-						this.Uri = args.Uri.UriString;
-						this.Id = args.Uri.Id;
-						this.Amount = args.Uri.Amount;
-						this.AmountExtra = args.Uri.AmountExtra;
-						this.Currency = args.Uri.Currency;
-						this.Created = args.Uri.Created;
-						this.Expires = args.Uri.Expires;
-						this.ExpiresStr = this.Expires.ToShortDateString();
-						this.From = args.Uri.From;
-						this.FromType = args.Uri.FromType;
-						this.To = args.Uri.To;
-						this.ToType = args.Uri.ToType;
-						this.ToPreset = !string.IsNullOrEmpty(args.Uri.To);
-						this.Complete = args.Uri.Complete;
-					}
-
-					this.RemoveQrCode();
-					this.NotPaid = true;
-
-					this.AmountText = this.Amount <= 0 ? string.Empty : MoneyToString.ToString(this.Amount);
-					this.AmountOk = CommonTypes.TryParse(this.AmountText, out decimal d) && d > 0;
-					this.AmountPreset = !string.IsNullOrEmpty(this.AmountText) && this.AmountOk;
-					this.AmountAndCurrency = this.AmountText + " " + this.Currency;
-
-					this.AmountExtraText = this.AmountExtra.HasValue ? MoneyToString.ToString(this.AmountExtra.Value) : string.Empty;
-					this.AmountExtraOk = !this.AmountExtra.HasValue || this.AmountExtra.Value >= 0;
-					this.AmountExtraPreset = this.AmountExtra.HasValue;
-					this.AmountExtraAndCurrency = this.AmountExtraText + " " + this.Currency;
-
-					StringBuilder Url = new();
-
-					Url.Append("https://");
-					Url.Append(this.From);
-					Url.Append("/Images/eDalerFront200.png");
-
-					this.EDalerFrontGlyph = Url.ToString();
-
-					Url.Clear();
-					Url.Append("https://");
-					Url.Append(this.TagProfile.Domain);
-					Url.Append("/Images/eDalerBack200.png");
-
-					this.EDalerBackGlyph = Url.ToString();
-
-					if (args.Uri?.EncryptedMessage is not null)
-					{
-						if (args.Uri.EncryptionPublicKey is null)
-							this.Message = Encoding.UTF8.GetString(args.Uri.EncryptedMessage);
-						else
-						{
-							this.Message = await this.XmppService.TryDecryptMessage(args.Uri.EncryptedMessage,
-								args.Uri.EncryptionPublicKey, args.Uri.Id, args.Uri.From);
-						}
-
-						this.HasMessage = !string.IsNullOrEmpty(this.Message);
-					}
-
-					this.MessagePreset = !string.IsNullOrEmpty(this.Message);
-					this.CanEncryptMessage = args.Uri?.ToType == EntityType.LegalId;
-					this.EncryptMessage = this.CanEncryptMessage;
-
-					args.ViewInitialized = true;
+					this.Uri = Args.Uri.UriString;
+					this.Id = Args.Uri.Id;
+					this.Amount = Args.Uri.Amount;
+					this.AmountExtra = Args.Uri.AmountExtra;
+					this.Currency = Args.Uri.Currency;
+					this.Created = Args.Uri.Created;
+					this.Expires = Args.Uri.Expires;
+					this.ExpiresStr = this.Expires.ToShortDateString();
+					this.From = Args.Uri.From;
+					this.FromType = Args.Uri.FromType;
+					this.To = Args.Uri.To;
+					this.ToType = Args.Uri.ToType;
+					this.ToPreset = !string.IsNullOrEmpty(Args.Uri.To);
+					this.Complete = Args.Uri.Complete;
 				}
+
+				this.RemoveQrCode();
+				this.NotPaid = true;
+
+				this.AmountText = this.Amount <= 0 ? string.Empty : MoneyToString.ToString(this.Amount);
+				this.AmountOk = CommonTypes.TryParse(this.AmountText, out decimal d) && d > 0;
+				this.AmountPreset = !string.IsNullOrEmpty(this.AmountText) && this.AmountOk;
+				this.AmountAndCurrency = this.AmountText + " " + this.Currency;
+
+				this.AmountExtraText = this.AmountExtra.HasValue ? MoneyToString.ToString(this.AmountExtra.Value) : string.Empty;
+				this.AmountExtraOk = !this.AmountExtra.HasValue || this.AmountExtra.Value >= 0;
+				this.AmountExtraPreset = this.AmountExtra.HasValue;
+				this.AmountExtraAndCurrency = this.AmountExtraText + " " + this.Currency;
+
+				StringBuilder Url = new();
+
+				Url.Append("https://");
+				Url.Append(this.From);
+				Url.Append("/Images/eDalerFront200.png");
+
+				this.EDalerFrontGlyph = Url.ToString();
+
+				Url.Clear();
+				Url.Append("https://");
+				Url.Append(this.TagProfile.Domain);
+				Url.Append("/Images/eDalerBack200.png");
+				this.EDalerBackGlyph = Url.ToString();
+
+				if (Args.Uri?.EncryptedMessage is not null)
+				{
+					if (Args.Uri.EncryptionPublicKey is null)
+						this.Message = Encoding.UTF8.GetString(Args.Uri.EncryptedMessage);
+					else
+					{
+						this.Message = await this.XmppService.TryDecryptMessage(Args.Uri.EncryptedMessage,
+						Args.Uri.EncryptionPublicKey, Args.Uri.Id, Args.Uri.From);
+					}
+					this.HasMessage = !string.IsNullOrEmpty(this.Message);
+				}
+
+				this.MessagePreset = !string.IsNullOrEmpty(this.Message);
+				this.CanEncryptMessage = Args.Uri?.ToType == EntityType.LegalId;
+				this.EncryptMessage = this.CanEncryptMessage;
 			}
 
 			this.AssignProperties();
@@ -1081,17 +1074,15 @@ namespace IdApp.Pages.Wallet
 				switch (Parameter?.ToString())
 				{
 					case "AmountText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty)
-						{
-							CancelReturnCounter = true
-						});
+						CalculatorNavigationArgs AmountArgs = new(this, AmountTextProperty);
+
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), AmountArgs, BackMethod.Pop);
 						break;
 
 					case "AmountExtraText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountExtraTextProperty)
-						{
-							CancelReturnCounter = true
-						});
+						CalculatorNavigationArgs ExtraArgs = new(this, AmountExtraTextProperty);
+
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), ExtraArgs, BackMethod.Pop);
 						break;
 				}
 			}

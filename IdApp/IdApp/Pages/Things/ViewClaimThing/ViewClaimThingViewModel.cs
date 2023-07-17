@@ -41,7 +41,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ViewClaimThingNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out ViewClaimThingNavigationArgs args))
 			{
 				this.Uri = args.Uri;
 

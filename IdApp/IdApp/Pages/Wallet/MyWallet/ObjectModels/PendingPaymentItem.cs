@@ -6,7 +6,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 	/// <summary>
 	/// Encapsulates a <see cref="PendingPayment"/> object.
 	/// </summary>
-	public class PendingPaymentItem : IItemGroup
+	public class PendingPaymentItem : IUniqueItem
 	{
 		private readonly EDaler.PendingPayment pendingPayment;
 		private readonly string friendlyName;

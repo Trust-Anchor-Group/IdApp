@@ -7,10 +7,10 @@ namespace IdApp.AR
 	/// </summary>
 	public static class AudioFunctions
 	{
-		static readonly float max8BitsSigned = byte.MaxValue;
-		static readonly float max8BitsUnsigned = 0xff;
-		static readonly float max16BitsSigned = short.MaxValue;
-		static readonly float max16BitsUnsigned = 0xffff;
+		private const float max8BitsSigned = byte.MaxValue;
+		private const float max8BitsUnsigned = 0xff;
+		private const float max16BitsSigned = short.MaxValue;
+		private const float max16BitsUnsigned = 0xffff;
 
 		/// <summary>
 		/// Writes a WAV file header using the specified details.

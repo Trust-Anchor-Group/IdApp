@@ -137,7 +137,7 @@ var recordTask = await recorder.StartRecording ();
 //await the returned Task... this will complete once recording has been stopped
 var audioFile = await recordTask;
 
-if (audioFile != null) //non-null audioFile indicates audio was successfully recorded
+if (audioFile is not null) //non-null audioFile indicates audio was successfully recorded
 {
 	//do something with the file
 }

@@ -32,7 +32,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         {
             await base.OnInitialize();
 
-            if (this.NavigationService.TryPopArgs(out ClientSignatureNavigationArgs args))
+            if (this.NavigationService.TryGetArgs(out ClientSignatureNavigationArgs args))
             {
                 this.signature = args.Signature;
                 this.identity = args.Identity;

@@ -11,6 +11,7 @@ using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Pages.Wallet.Payment;
 using IdApp.Pages.Wallet.PaymentAcceptance;
 using IdApp.Pages.Wallet.TokenDetails;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using IdApp.Services.Notification.Wallet;
 using NeuroFeatures;
@@ -180,8 +181,9 @@ namespace IdApp.Services.Wallet
 				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, TokenId, out NotificationEvent[] Events))
 					Events = new NotificationEvent[0];
 
-				await this.NavigationService.GoToAsync(nameof(TokenDetailsPage),
-					new TokenDetailsNavigationArgs(new TokenItem(Token, this, Events)) { ReturnCounter = 1 });
+				TokenDetailsNavigationArgs Args = new(new TokenItem(Token, this, Events));
+
+				await this.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.Pop);
 			}
 			catch (Exception ex)
 			{

@@ -185,7 +185,7 @@ namespace IdApp.Pages.Main.Shell
 				await this.NavigationService?.GoToAsync(route);
 		}
 
-		private async Task GoToPage<TArgs>(string route, TArgs e)
+		private async Task GoToPage<TArgs>(string route, TArgs e, BackMethod BackMethod = BackMethod.Inherited)
 			where TArgs : NavigationArgs, new()
 		{
 			// Due to a bug in Xamarin.Forms the Flyout won't hide when you click on a MenuItem (as opposed to a FlyoutItem).
@@ -197,7 +197,7 @@ namespace IdApp.Pages.Main.Shell
 			// So we do a manual check here.
 
 			if (this.GetViewModel<AppShellViewModel>().IsConnected)
-				await this.NavigationService.GoToAsync<TArgs>(route, e);
+				await this.NavigationService.GoToAsync(route, e, BackMethod);
 		}
 
 		private async void ViewIdentityMenuItem_Clicked(object Sender, EventArgs e)
@@ -215,12 +215,16 @@ namespace IdApp.Pages.Main.Shell
 
 		private async void ContractsMenuItem_Clicked(object Sender, EventArgs e)
 		{
-			await this.GoToPage(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.Contracts));
+			MyContractsNavigationArgs Args = new(ContractsListMode.Contracts);
+
+			await this.GoToPage(nameof(MyContractsPage), Args, BackMethod.Pop);
 		}
 
 		private async void NewContractMenuItem_Clicked(object Sender, EventArgs e)
 		{
-			await this.GoToPage(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.ContractTemplates));
+			MyContractsNavigationArgs Args = new(ContractsListMode.ContractTemplates);
+
+			await this.GoToPage(nameof(MyContractsPage), Args, BackMethod.Pop);
 		}
 
 		private async void Calculator_Clicked(object Sender, EventArgs e)

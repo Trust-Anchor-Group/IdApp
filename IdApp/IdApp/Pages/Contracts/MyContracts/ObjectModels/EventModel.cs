@@ -10,7 +10,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 	/// <summary>
 	/// The data model for a notification event that is not associate with a referenced contract.
 	/// </summary>
-	public class EventModel : ObservableObject, IItemGroup
+	public class EventModel : ObservableObject, IUniqueItem
 	{
 		private readonly IServiceReferences references;
 
@@ -53,9 +53,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 		/// </summary>
 		public NotificationEvent Event { get; }
 
-		/// <summary>
-		/// Unique name used to compare items.
-		/// </summary>
+		/// <inheritdoc/>
 		public string UniqueName => this.Event.ObjectId;
 
 		/// <summary>

@@ -6,6 +6,7 @@ using Waher.Persistence.Attributes;
 using System.Text;
 using System.Xml;
 using IdApp.Resx;
+using IdApp.Services.Navigation;
 
 namespace IdApp.Services.Notification.Wallet
 {
@@ -143,14 +144,14 @@ namespace IdApp.Services.Notification.Wallet
 		/// <param name="ServiceReferences">Service references</param>
 		public override async Task Open(IServiceReferences ServiceReferences)
 		{
-			if (this.Token is null)
-				this.Token = await ServiceReferences.XmppService.GetNeuroFeature(this.TokenId);
+			this.Token ??= await ServiceReferences.XmppService.GetNeuroFeature(this.TokenId);
 
 			if (!ServiceReferences.NotificationService.TryGetNotificationEvents(EventButton.Wallet, this.TokenId, out NotificationEvent[] Events))
 				Events = new NotificationEvent[0];
 
-			await ServiceReferences.NavigationService.GoToAsync(nameof(TokenDetailsPage),
-				new TokenDetailsNavigationArgs(new TokenItem(this.Token, ServiceReferences, Events)) { ReturnCounter = 1 });
+			TokenDetailsNavigationArgs Args = new(new TokenItem(this.Token, ServiceReferences, Events));
+
+			await ServiceReferences.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.Pop);
 		}
 	}
 }

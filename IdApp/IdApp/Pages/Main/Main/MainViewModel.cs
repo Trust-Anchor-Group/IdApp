@@ -4,6 +4,7 @@ using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts;
 using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Services.Data.Countries;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using IdApp.Services.UI.Photos;
 using System;
@@ -625,7 +626,9 @@ namespace IdApp.Pages.Main.Main
 
 		private async Task ViewContracts()
 		{
-			await this.NavigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.Contracts));
+			MyContractsNavigationArgs Args = new(ContractsListMode.Contracts);
+
+			await this.NavigationService.GoToAsync(nameof(MyContractsPage), Args, BackMethod.Pop);
 		}
 
 		private async Task ViewWallet()

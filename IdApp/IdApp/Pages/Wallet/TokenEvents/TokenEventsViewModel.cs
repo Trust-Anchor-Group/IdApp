@@ -31,7 +31,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out TokenEventsNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out TokenEventsNavigationArgs args))
 			{
 				this.TokenId = args.TokenId;
 

@@ -3911,6 +3911,9 @@
             <param name="Contact">Contact information.</param>
             <param name="Events">Notification events</param>
         </member>
+        <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.UniqueName">
+            <inheritdoc/>
+        </member>
         <member name="P:IdApp.Pages.Contacts.MyContacts.ContactInfoModel.Contact">
             <summary>
             Contact Information object in database.
@@ -5189,9 +5192,7 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.UniqueName">
-            <summary>
-            Unique name used to compare items.
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModels.EventModel.ClickedCommand">
             <summary>
@@ -8831,40 +8832,48 @@
             Content-Type of associated media.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.IItemGroup">
+        <member name="T:IdApp.Pages.IUniqueItem">
             <summary>
             Grouped item interface.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.IItemGroup.UniqueName">
+        <member name="P:IdApp.Pages.IUniqueItem.UniqueName">
             <summary>
             Unique name used to compare items.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.IItemGroupCollection">
+        <member name="P:IdApp.Pages.IUniqueItem.LocalisedName">
             <summary>
-            Grouped item collection interface.
+            Get the groups's localised name
             </summary>
         </member>
-        <member name="P:IdApp.Pages.IItemGroupCollection.UniqueName">
-            <summary>
-            Unique name used to compare items.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.ItemGroupCollection`1">
+        <member name="T:IdApp.Pages.ObservableItemGroup`1">
             <summary>
             Encapsulates a grouped item collection.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.ItemGroupCollection`1.UniqueName">
+        <member name="P:IdApp.Pages.ObservableItemGroup`1.UniqueName">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.ItemGroupCollection`1.#ctor(System.String,System.Collections.ObjectModel.ObservableCollection{`0})">
+        <member name="P:IdApp.Pages.ObservableItemGroup`1.LocalisedName">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.ObservableItemGroup`1.#ctor(System.String,System.Collections.Generic.List{`0})">
             <summary>
             Encapsulates a grouped item collection.
             </summary>
             <param name="Name">Group's unique name.</param>
             <param name="Items">Group's item collection.</param>
+        </member>
+        <member name="M:IdApp.Pages.ObservableItemGroup`1.ToString">
+            <summary>
+            Get the groups's name (potentially used for display)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.ObservableItemGroup`1.UpdateGroupsItems(IdApp.Pages.ObservableItemGroup{IdApp.Pages.IUniqueItem},IdApp.Pages.ObservableItemGroup{IdApp.Pages.IUniqueItem})">
+            <summary>
+            Update the current collection items using a new collection
+            </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Calculator.CalculatorNavigationArgs">
             <summary>
@@ -13179,6 +13188,9 @@
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnInitialize">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnAppearing">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.GetNotificationEvents(IdApp.Services.IServiceReferences,IdApp.Services.ContactInfo)">
             <summary>
             Gets available notification events related to a thing.
@@ -13186,9 +13198,6 @@
             <param name="References">Service references.</param>
             <param name="Thing">Thing reference</param>
             <returns>Array of events, null if none.</returns>
-        </member>
-        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnAppearing">
-            <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.OnDispose">
             <inheritdoc/>
@@ -15486,6 +15495,9 @@
         <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.OnInitialize">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.OnAppearing">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.OnDispose">
             <inheritdoc/>
         </member>
@@ -15582,16 +15594,6 @@
             When code was created.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEDalerEventProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEDalerEvent"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEDalerEvent">
-            <summary>
-            When last eDaler event was received.
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerFrontGlyphProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerFrontGlyph"/>
@@ -15632,46 +15634,6 @@
             If there are more account events available.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTotalsProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTotals"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTotals">
-            <summary>
-            HasTotals of eDaler to process
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokensProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens">
-            <summary>
-            HasTokens of eDaler to process
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokensProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokens"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreTokens">
-            <summary>
-            HasMoreTokens of eDaler to process
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastTokenEventProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastTokenEvent"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastTokenEvent">
-            <summary>
-            When last eDaler event was received.
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.NrBalanceNotificationsProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.NrBalanceNotifications"/>
@@ -15694,17 +15656,17 @@
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PaymentItems">
             <summary>
-            Holds a list of pending payments and account events
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Totals">
-            <summary>
-            Holds a list of token totals
+            Holds pending payments and account events. Both are also observable collections.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Tokens">
             <summary>
             Holds a list of tokens
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Totals">
+            <summary>
+            Holds a list of token totals
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.BackCommand">
@@ -15936,6 +15898,9 @@
             <summary>
             Token object.
             </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.UniqueName">
+            <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenItem.Created">
             <summary>
@@ -16227,6 +16192,9 @@
             Encapsulates a <see cref="T:NeuroFeatures.TokenTotal"/> object.
             </summary>
             <param name="Total">Token Total.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenTotalItem.UniqueName">
+            <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.ObjectModels.TokenTotalItem.Currency">
             <summary>
@@ -18582,6 +18550,11 @@
               Looks up a localized string similar to Below you can see information about a single account event..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.AccountEventItem">
+            <summary>
+              Looks up a localized string similar to Account Events.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.AccountNameAlreadyTaken">
             <summary>
               Looks up a localized string similar to Account name {0} is already taken. Choose another..
@@ -18755,6 +18728,11 @@
         <member name="P:IdApp.Resx.AppResources.Assessor">
             <summary>
               Looks up a localized string similar to Assessor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Back">
+            <summary>
+              Looks up a localized string similar to Back.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Balance">
@@ -20375,6 +20353,11 @@
         <member name="P:IdApp.Resx.AppResources.PendingPaymentDescription">
             <summary>
               Looks up a localized string similar to Below you can see information about a payment that has been generated, but has not been fully processed yet..
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.PendingPaymentItem">
+            <summary>
+              Looks up a localized string similar to Pending Payments.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.PepServiceNotFound">
@@ -22939,16 +22922,6 @@
             <param name="Purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
             <param name="ParameterValues">Parameter values to set in new contract.</param>
         </member>
-        <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.OpenContract(System.String,System.String,System.Collections.Generic.Dictionary{Waher.Persistence.CaseInsensitiveString,System.Object},System.Int32)">
-            <summary>
-            Downloads the specified <see cref="T:Waher.Networking.XMPP.Contracts.Contract"/> and opens the corresponding page in the app to show it.
-            </summary>
-            <param name="ContractId">The id of the contract to show.</param>
-            <param name="Purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
-            <param name="ParameterValues">Parameter values to set in new contract.</param>
-            <param name="ReturnCounter">Set it to 1 to start a counter of the number of times to pop when going back.
-            It will be incremented on every push using the <see cref="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String)"/> method.</param>
-        </member>
         <member name="M:IdApp.Services.Contracts.IContractOrchestratorService.TagSignature(System.String)">
             <summary>
             TAG Signature request scanned.
@@ -23575,23 +23548,22 @@
             Allows for easy mocking when unit testing.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String)">
-            <summary>
-            Navigates the AppShell to the specified route.
-            </summary>
-            <param name="route">The route whose matching page to navigate to.</param>
-        </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.GoToAsync``1(System.String,``0)">
+        <member name="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String,IdApp.Services.Navigation.BackMethod,System.String)">
             <summary>
             Navigates the AppShell to the specified route, with page arguments to match.
             </summary>
-            <param name="route">The route whose matching page to navigate to.</param>
-            <param name="args">The specific args to pass to the page.</param>
+            <param name="Route">The route whose matching page to navigate to.</param>
+            <param name="BackMethod">How to handle the back button.</param>
+            <param name="UniqueId">Views unique ID.</param>
         </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.GoBackAsync">
+        <member name="M:IdApp.Services.Navigation.INavigationService.GoToAsync``1(System.String,``0,IdApp.Services.Navigation.BackMethod,System.String)">
             <summary>
-            Returns to the previous page/route.
+            Navigates the AppShell to the specified route, with page arguments to match.
             </summary>
+            <param name="Route">The route whose matching page to navigate to.</param>
+            <param name="Args">The specific args to pass to the page.</param>
+            <param name="BackMethod">How to handle the back button.</param>
+            <param name="UniqueId">Views unique ID.</param>
         </member>
         <member name="M:IdApp.Services.Navigation.INavigationService.GoBackAsync(System.Boolean)">
             <summary>
@@ -23599,23 +23571,37 @@
             </summary>
             <param name="Animate">If animation should be used.</param>
         </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.TryPopArgs``1(``0@,System.String)">
+        <member name="M:IdApp.Services.Navigation.INavigationService.TryGetArgs``1(``0@,System.String)">
             <summary>
-            Tries to pop/read page arguments from the (one-level) deep navigation stack.
+            Returns the page's arguments from the (one-level) deep navigation stack.
             </summary>
-            <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="T:IdApp.Services.Navigation.NavigationArgs"/>.</typeparam>
-            <param name="args">The actual args.</param>
-            <param name="UniqueId">Views unique ID.</param>
-        </member>
-        <member name="M:IdApp.Services.Navigation.INavigationService.GetPopArgs``1(System.String)">
-            <summary>
-            Returns the pages arguments from the (one-level) deep navigation stack.
-            </summary>
-            <param name="UniqueId">Views unique ID.</param>
+            <param name="Args">View's navigation arguments.</param>
+            <param name="UniqueId">View's unique ID.</param>
         </member>
         <member name="P:IdApp.Services.Navigation.INavigationService.CurrentPage">
             <summary>
             Current page
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Navigation.BackMethod">
+            <summary>
+            Navigation Back Method
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Navigation.BackMethod.Inherited">
+            <summary>
+            Takes in consideration the parent's navigation arguments
+            By fedault it will be considered a <see cref="F:IdApp.Services.Navigation.BackMethod.Pop"/>
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Navigation.BackMethod.Pop">
+            <summary>
+            Goes back just one navigation level - the route ".."
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Navigation.BackMethod.ToThisPage">
+            <summary>
+            Pop until this page is reached
             </summary>
         </member>
         <member name="T:IdApp.Services.Navigation.NavigationArgs">
@@ -23623,38 +23609,23 @@
             An base class holding page specific navigation parameters.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Navigation.NavigationArgs.#ctor">
+        <member name="M:IdApp.Services.Navigation.NavigationArgs.SetBackArguments(IdApp.Services.Navigation.BackMethod,IdApp.Services.Navigation.NavigationArgs,System.String)">
             <summary>
-            Creates a new instance of the <see cref="T:IdApp.Services.Navigation.NavigationArgs"/> class.
+            Sets the reference to the main parent's <see cref="T:IdApp.Services.Navigation.NavigationArgs"/>.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute">
+        <member name="M:IdApp.Services.Navigation.NavigationArgs.GetBackRoute">
             <summary>
-            The route to use when going back, if any.
+            Get the route used for the <see cref="M:IdApp.Services.Navigation.INavigationService.GoBackAsync(System.Boolean)"/> method.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Navigation.NavigationArgs.ReturnCounter">
-            <summary>
-            Set it to 1 to start a counter of the number of times to pop when going back.
-            It will be incremented on every push using the <see cref="M:IdApp.Services.Navigation.INavigationService.GoToAsync(System.String)"/> method.
-            If this parameter exist, it supercedes the <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnRoute"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Navigation.NavigationArgs.CancelReturnCounter">
-            <summary>
-            Set it to true to start a new <see cref="P:IdApp.Services.Navigation.NavigationArgs.ReturnCounter"/> session.
-            If the ReturnCounter is zero, it will stop the further counting.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Navigation.NavigationArgs.UniqueId">
+        <member name="M:IdApp.Services.Navigation.NavigationArgs.GetUniqueId">
             <summary>
             An untique view identificator used to search the args of similar view types.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Navigation.NavigationArgs.ViewInitialized">
-            <summary>
-            If view has been initialized by the arguments.
-            </summary>
+        <member name="P:IdApp.Services.Navigation.NavigationService.CurrentPage">
+            <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Navigation.NavigationService.Load(System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc/>
@@ -23662,10 +23633,17 @@
         <member name="M:IdApp.Services.Navigation.NavigationService.Unload">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.Services.Navigation.NavigationService.CurrentPage">
-            <summary>
-            Current page
-            </summary>
+        <member name="M:IdApp.Services.Navigation.NavigationService.GoToAsync(System.String,IdApp.Services.Navigation.BackMethod,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Navigation.NavigationService.GoToAsync``1(System.String,``0,IdApp.Services.Navigation.BackMethod,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Navigation.NavigationService.GoBackAsync(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Navigation.NavigationService.TryGetArgs``1(``0@,System.String)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Services.Network.INetworkService">
             <summary>

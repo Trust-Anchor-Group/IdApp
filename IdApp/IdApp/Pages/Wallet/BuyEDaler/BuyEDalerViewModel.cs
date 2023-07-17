@@ -3,8 +3,10 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Pages.Main.Calculator;
+using IdApp.Services.Navigation;
 using Waher.Content;
 using Waher.Networking.XMPP;
+using Waher.Script.Functions.ComplexNumbers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.BuyEDaler
@@ -32,26 +34,15 @@ namespace IdApp.Pages.Wallet.BuyEDaler
 		{
 			await base.OnInitialize();
 
-			bool SkipInitialization = false;
-
-			if (this.NavigationService.TryPopArgs(out BuyEDalerNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out BuyEDalerNavigationArgs Args))
 			{
-				SkipInitialization = args.ViewInitialized;
-				if (!SkipInitialization)
-				{
-					this.Currency = args.Currency;
-					this.result = args.Result;
-
-					args.ViewInitialized = true;
-				}
+				this.Currency = Args.Currency;
+				this.result = Args.Result;
 			}
 
-			if (!SkipInitialization)
-			{
-				this.Amount = 0;
-				this.AmountText = string.Empty;
-				this.AmountOk = false;
-			}
+			this.Amount = 0;
+			this.AmountText = string.Empty;
+			this.AmountOk = false;
 
 			this.AssignProperties();
 			this.EvaluateAllCommands();
@@ -212,10 +203,9 @@ namespace IdApp.Pages.Wallet.BuyEDaler
 				switch (Parameter?.ToString())
 				{
 					case "AmountText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty)
-						{
-							CancelReturnCounter = true
-						});
+						CalculatorNavigationArgs Args = new(this, AmountTextProperty);
+
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), Args, BackMethod.Pop);
 						break;
 				}
 			}

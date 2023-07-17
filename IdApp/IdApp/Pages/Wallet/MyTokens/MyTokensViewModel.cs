@@ -36,7 +36,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out MyTokensNavigationArgs Args))
+			if (this.NavigationService.TryGetArgs(out MyTokensNavigationArgs Args))
 			{
 				this.navigationArgs = Args;
 			}

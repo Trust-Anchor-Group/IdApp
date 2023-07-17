@@ -1,5 +1,6 @@
 ﻿using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using NeuroFeatures;
 using NeuroFeatures.Tags;
@@ -17,7 +18,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 	/// <summary>
 	/// Encapsulates a <see cref="Token"/> object.
 	/// </summary>
-	public class TokenItem : BindableObject
+	public class TokenItem : BindableObject, IUniqueItem
 	{
 		private readonly Token token;
 		private readonly IServiceReferences model;
@@ -82,6 +83,10 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// Token object.
 		/// </summary>
 		public Token Token => this.token;
+
+		/// <inheritdoc/>
+		public string UniqueName => this.token.TokenId;
+
 
 		/// <summary>
 		/// When token was created.
@@ -421,8 +426,9 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		{
 			if (this.selected is null)
 			{
-				await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage),
-					new TokenDetailsNavigationArgs(this) { ReturnCounter = 1 });
+				TokenDetailsNavigationArgs Args = new(this);
+
+				await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.Pop);
 			}
 			else
 			{

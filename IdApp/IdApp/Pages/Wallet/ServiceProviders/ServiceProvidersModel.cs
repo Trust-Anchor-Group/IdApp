@@ -41,7 +41,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		{
 			await base.OnInitialize();
 
-			if (this.navigationArgs is null && this.NavigationService.TryPopArgs(out ServiceProvidersNavigationArgs Args))
+			if (this.navigationArgs is null && this.NavigationService.TryGetArgs(out ServiceProvidersNavigationArgs Args))
 			{
 				this.navigationArgs = Args;
 			}

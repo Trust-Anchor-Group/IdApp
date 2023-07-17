@@ -2,6 +2,7 @@
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Identity.ViewIdentity;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification.Contracts;
 using IdApp.Services.Notification.Identities;
 using System;
@@ -438,12 +439,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		public Task OpenContract(string ContractId, string Purpose, Dictionary<CaseInsensitiveString, object> ParameterValues)
-		{
-			return this.OpenContract(ContractId, Purpose, ParameterValues, 0);
-		}
-
-		public async Task OpenContract(string ContractId, string Purpose, Dictionary<CaseInsensitiveString, object> ParameterValues, int ReturnCounter)
+		public async Task OpenContract(string ContractId, string Purpose, Dictionary<CaseInsensitiveString, object> ParameterValues)
 		{
 			try
 			{
@@ -474,18 +470,14 @@ namespace IdApp.Services.Contracts
 						}
 
 						NewContractNavigationArgs e = new(Contract, ParameterValues);
-						if (ReturnCounter > 0)
-							e.ReturnCounter = ReturnCounter;
 
-						await this.NavigationService.GoToAsync(nameof(NewContractPage), e);
+						await this.NavigationService.GoToAsync(nameof(NewContractPage), e, BackMethod.ToThisPage);
 					}
 					else
 					{
 						ViewContractNavigationArgs e = new(Contract, false);
-						if (ReturnCounter > 0)
-							e.ReturnCounter = ReturnCounter;
 
-						await this.NavigationService.GoToAsync(nameof(ViewContractPage), e);
+						await this.NavigationService.GoToAsync(nameof(ViewContractPage), e, BackMethod.Pop);
 					}
 				});
 			}

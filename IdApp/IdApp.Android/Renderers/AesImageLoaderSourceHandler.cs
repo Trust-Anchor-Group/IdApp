@@ -14,17 +14,19 @@ namespace IdApp.Android.Renderers
 {
 	public class AesImageLoaderSourceHandler : IAnimationSourceHandler, IImageSourceHandler
 	{
-		public async Task<Bitmap> LoadImageAsync(ImageSource ImageSource, Context Context, CancellationToken CancelationToken = default(CancellationToken))
+		public async Task<Bitmap> LoadImageAsync(ImageSource ImageSource, Context Context, CancellationToken CancelationToken = default)
 		{
 			AesImageSource ImageLoader = ImageSource as AesImageSource;
 			Bitmap Bitmap = null;
-			if (ImageLoader?.Uri != null)
+
+			if (ImageLoader?.Uri is not null)
 			{
-				using (Stream ImageStream = await ImageLoader.GetStreamAsync(CancelationToken).ConfigureAwait(false))
-					Bitmap = await BitmapFactory.DecodeStreamAsync(ImageStream).ConfigureAwait(false);
+				using Stream ImageStream = await ImageLoader.GetStreamAsync(CancelationToken).ConfigureAwait(false);
+
+				Bitmap = await BitmapFactory.DecodeStreamAsync(ImageStream).ConfigureAwait(false);
 			}
 
-			if (Bitmap == null)
+			if (Bitmap is null)
 			{
 				Log.Warning(nameof(AesImageLoaderSourceHandler), "Could not retrieve image or image data was invalid: {0}", ImageLoader);
 			}

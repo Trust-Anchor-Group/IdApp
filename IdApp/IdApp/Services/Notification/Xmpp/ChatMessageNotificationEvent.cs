@@ -1,5 +1,6 @@
 ﻿using IdApp.Pages.Contacts.Chat;
 using IdApp.Resx;
+using IdApp.Services.Navigation;
 using System;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP;
@@ -75,12 +76,9 @@ namespace IdApp.Services.Notification.Xmpp
 			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(this.BareJid);
 			string LegalId = ContactInfo?.LegalId;
 			string FriendlyName = await this.GetDescription(ServiceReferences);
+			ChatNavigationArgs Args = new(LegalId, this.BareJid, FriendlyName);
 
-			await ServiceReferences.NavigationService.GoToAsync(nameof(ChatPage),
-				new ChatNavigationArgs(LegalId, this.BareJid, FriendlyName)
-				{
-					UniqueId = BareJid
-				});
+			await ServiceReferences.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, this.BareJid);
 		}
 	}
 }

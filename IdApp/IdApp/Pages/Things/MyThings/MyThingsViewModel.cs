@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using IdApp.Extensions;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Things.ViewThing;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using IdApp.Services.Notification;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
@@ -21,7 +21,7 @@ namespace IdApp.Pages.Things.MyThings
 	/// </summary>
 	public class MyThingsViewModel : BaseViewModel
 	{
-		private readonly Dictionary<CaseInsensitiveString, List<ContactInfoModel>> byBareJid;
+		private readonly Dictionary<CaseInsensitiveString, List<ContactInfoModel>> byBareJid = new();
 		private TaskCompletionSource<ContactInfoModel> selectedThing;
 
 		/// <summary>
@@ -29,8 +29,6 @@ namespace IdApp.Pages.Things.MyThings
 		/// </summary>
 		protected internal MyThingsViewModel()
 		{
-			this.Things = new ObservableCollection<ContactInfoModel>();
-			this.byBareJid = new();
 		}
 
 		/// <inheritdoc/>
@@ -38,11 +36,36 @@ namespace IdApp.Pages.Things.MyThings
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out MyThingsNavigationArgs Args))
+			if (this.NavigationService.TryGetArgs(out MyThingsNavigationArgs Args))
 				this.selectedThing = Args.ThingToShare;
 			else
 				this.selectedThing = null;
 
+			this.XmppService.OnPresence += this.Xmpp_OnPresence;
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
+		}
+
+		/// <inheritdoc/>
+		protected override async Task OnAppearing()
+		{
+			await base.OnAppearing();
+
+			if (this.selectedThing is not null && this.selectedThing.Task.IsCompleted)
+			{
+				await this.NavigationService.GoBackAsync();
+			}
+			else
+			{
+				this.SelectedThing = null;
+
+				await this.LoadThings();
+			}
+		}
+
+
+		private async Task LoadThings()
+		{
 			SortedDictionary<string, ContactInfo> SortedByName = new();
 			SortedDictionary<string, ContactInfo> SortedByAddress = new();
 			string Name;
@@ -134,15 +157,18 @@ namespace IdApp.Pages.Things.MyThings
 				SortedByAddress[Key] = Info;
 			}
 
-			this.Things.Clear();
+			await Database.Provider.Flush();
+
 			this.byBareJid.Clear();
+
+			ObservableItemGroup<IUniqueItem> NewThings = new(nameof(this.Things), new());
 
 			foreach (ContactInfo Info in SortedByName.Values)
 			{
 				NotificationEvent[] Events = GetNotificationEvents(this, Info);
 
 				ContactInfoModel InfoModel = new(this, Info, Events);
-				this.Things.Add(InfoModel);
+				NewThings.Add(InfoModel);
 
 				if (!this.byBareJid.TryGetValue(Info.BareJid, out List<ContactInfoModel> Contacts))
 				{
@@ -155,12 +181,9 @@ namespace IdApp.Pages.Things.MyThings
 
 			this.ShowThingsMissing = SortedByName.Count == 0;
 
-			await Database.Provider.Flush();
-
-			this.XmppService.OnPresence += this.Xmpp_OnPresence;
-			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
-			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
+			Device.BeginInvokeOnMainThread(() => ObservableItemGroup<IUniqueItem>.UpdateGroupsItems(this.Things, NewThings));
 		}
+
 
 		/// <summary>
 		/// Gets available notification events related to a thing.
@@ -182,20 +205,6 @@ namespace IdApp.Pages.Things.MyThings
 				ThingEvents = null;
 
 			return ContactEvents.Join(ThingEvents);
-		}
-
-		/// <inheritdoc/>
-		protected override async Task OnAppearing()
-		{
-			await base.OnAppearing();
-
-			if (this.selectedThing is not null && this.selectedThing.Task.IsCompleted)
-			{
-				await this.NavigationService.GoBackAsync();
-				return;
-			}
-
-			this.SelectedThing = null;
 		}
 
 		/// <inheritdoc/>
@@ -258,7 +267,7 @@ namespace IdApp.Pages.Things.MyThings
 		/// <summary>
 		/// Holds the list of contacts to display.
 		/// </summary>
-		public ObservableCollection<ContactInfoModel> Things { get; }
+		public ObservableItemGroup<IUniqueItem> Things { get; } = new(nameof(Things), new());
 
 		/// <summary>
 		/// See <see cref="SelectedThing"/>
@@ -286,7 +295,11 @@ namespace IdApp.Pages.Things.MyThings
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				if (this.selectedThing is null)
-					await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Thing.Contact, Thing.Events));
+				{
+					ViewThingNavigationArgs Args = new(Thing.Contact, Thing.Events);
+					// Inherit the back method here from the parrent
+					await this.NavigationService.GoToAsync(nameof(ViewThingPage), Args, BackMethod.Inherited);
+				}
 				else
 				{
 					this.selectedThing.TrySetResult(Thing);
@@ -315,29 +328,37 @@ namespace IdApp.Pages.Things.MyThings
 					switch (Event.Button)
 					{
 						case EventButton.Contacts:
-							foreach (ContactInfoModel Thing in this.Things)
+							foreach (IUniqueItem Item in this.Things)
 							{
-								if (!string.IsNullOrEmpty(Thing.NodeId) ||
-									!string.IsNullOrEmpty(Thing.SourceId) ||
-									!string.IsNullOrEmpty(Thing.Partition))
+								if (Item is ContactInfoModel Thing)
 								{
-									continue;
+
+									if (!string.IsNullOrEmpty(Thing.NodeId) ||
+										!string.IsNullOrEmpty(Thing.SourceId) ||
+										!string.IsNullOrEmpty(Thing.Partition))
+									{
+										continue;
+									}
+
+									if (Event.Category != Thing.BareJid)
+										continue;
+
+									Thing.RemoveEvent(Event);
 								}
-
-								if (Event.Category != Thing.BareJid)
-									continue;
-
-								Thing.RemoveEvent(Event);
 							}
 							break;
 
 						case EventButton.Things:
-							foreach (ContactInfoModel Thing in this.Things)
+							foreach (IUniqueItem Item in this.Things)
 							{
-								if (Event.Category != ContactInfo.GetThingNotificationCategoryKey(Thing.BareJid, Thing.NodeId, Thing.SourceId, Thing.Partition))
-									continue;
+								if (Item is ContactInfoModel Thing)
+								{
 
-								Thing.RemoveEvent(Event);
+									if (Event.Category != ContactInfo.GetThingNotificationCategoryKey(Thing.BareJid, Thing.NodeId, Thing.SourceId, Thing.Partition))
+										continue;
+
+									Thing.RemoveEvent(Event);
+								}
 							}
 							break;
 
@@ -357,29 +378,35 @@ namespace IdApp.Pages.Things.MyThings
 					switch (e.Event.Button)
 					{
 						case EventButton.Contacts:
-							foreach (ContactInfoModel Thing in this.Things)
+							foreach (IUniqueItem Item in this.Things)
 							{
-								if (!string.IsNullOrEmpty(Thing.NodeId) ||
+								if (Item is ContactInfoModel Thing)
+								{
+									if (!string.IsNullOrEmpty(Thing.NodeId) ||
 									!string.IsNullOrEmpty(Thing.SourceId) ||
 									!string.IsNullOrEmpty(Thing.Partition))
-								{
-									continue;
+									{
+										continue;
+									}
+
+									if (e.Event.Category != Thing.BareJid)
+										continue;
+
+									Thing.AddEvent(e.Event);
 								}
-
-								if (e.Event.Category != Thing.BareJid)
-									continue;
-
-								Thing.AddEvent(e.Event);
 							}
 							break;
 
 						case EventButton.Things:
-							foreach (ContactInfoModel Thing in this.Things)
+							foreach (IUniqueItem Item in this.Things)
 							{
-								if (e.Event.Category != ContactInfo.GetThingNotificationCategoryKey(Thing.BareJid, Thing.NodeId, Thing.SourceId, Thing.Partition))
-									continue;
+								if (Item is ContactInfoModel Thing)
+								{
+									if (e.Event.Category != ContactInfo.GetThingNotificationCategoryKey(Thing.BareJid, Thing.NodeId, Thing.SourceId, Thing.Partition))
+										continue;
 
-								Thing.AddEvent(e.Event);
+									Thing.AddEvent(e.Event);
+								}
 							}
 							break;
 

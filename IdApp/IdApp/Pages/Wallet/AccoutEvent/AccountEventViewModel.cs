@@ -27,7 +27,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		{
 			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out AccountEventNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out AccountEventNavigationArgs args))
 			{
 				this.Remote = args.Event.Remote;
 				this.FriendlyName = args.Event.FriendlyName;

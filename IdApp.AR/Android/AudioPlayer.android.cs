@@ -12,10 +12,11 @@ namespace IdApp.AR
 
 		public void Play(AudioItem AudioItem)
 		{
-			if (this.currentAudioItem != null)
+			if (this.currentAudioItem is not null)
 			{
 				if (this.currentAudioItem == AudioItem)
 				{
+					// was paused, resume
 					this.Play();
 					return;
 				}
@@ -25,7 +26,7 @@ namespace IdApp.AR
 				}
 			}
 
-			if (this.mediaPlayer == null)
+			if (this.mediaPlayer is null)
 			{
 				this.mediaPlayer = new MediaPlayer();
 				this.mediaPlayer.Prepared += this.MediaPlayer_Prepared;

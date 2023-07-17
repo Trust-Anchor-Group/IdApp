@@ -185,13 +185,23 @@
                 </Frame>
 
                 <StackLayout Grid.Row="1" Margin="{StaticResource DefaultMargin}">
-                    <loading:LoadingCollectionView VerticalOptions="StartAndExpand" SelectionMode="Single"
+					<loading:LoadingCollectionView x:Name="PaymentItemsCollection" IsGrouped="True"
+												   VerticalOptions="StartAndExpand" SelectionMode="Single"
                                                    Style="{StaticResource MyWalletView}"
                                                    ItemSizingStrategy="MeasureAllItems"
                                                    RemainingItemsThreshold="1"
 												   ItemsSource="{Binding Path=PaymentItems}"
                                                    ItemTemplate="{StaticResource AccountItemStyleSelector}"
                                                    LoadMoreCommand="{Binding LoadMoreAccountEventsCommand}">
+						<CollectionView.GroupHeaderTemplate>
+							<DataTemplate x:DataType="views:IUniqueItem">
+								<Frame BackgroundColor="{StaticResource LightGrayColor}" CornerRadius="8" Padding="5" Margin="0" HasShadow="False">
+								<Label Text="{Binding LocalisedName}" Style="{StaticResource KeyLabel}"
+									   HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
+									   LineBreakMode="TailTruncation" FontSize="18" />
+								</Frame>
+							</DataTemplate>
+						</CollectionView.GroupHeaderTemplate>
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="12"/>
                         </CollectionView.ItemsLayout>
@@ -199,17 +209,17 @@
                 </StackLayout>
 
                 <mainTabBar:MainTabBarView x:Name="WalletFrontTabBar" Grid.Row="2"
-										   
+
                                            LeftButton1Text="{x:Static resx:FontAwesome.ArrowLeft}"
                                            LeftButton1Command="{Binding Path=BackCommand}"
 
 										   LeftButton2Text="{x:Static resx:FontAwesome.Rotate}"
                                            LeftButton2Command="{Binding Path=FlipCommand}"
 										   LeftButton2Overlay="{Binding Path=NrTokenNotifications}"
-										   
+
                                            CenterButtonText="{x:Static resx:FontAwesome.ScanQr}"
                                            CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
-										   
+
                                            RightButton1Text="{x:Static resx:FontAwesome.HandHolding}"
                                            RightButton1Command="{Binding Path=RequestPaymentCommand}"
 
@@ -268,17 +278,17 @@
                 </StackLayout>
 
                 <mainTabBar:MainTabBarView x:Name="WalletBackTabBar" Grid.Row="2"
-										   
+
                                            LeftButton1Text="{x:Static resx:FontAwesome.ArrowLeft}"
                                            LeftButton1Command="{Binding Path=BackCommand}"
-										   
+
                                            LeftButton2Text="{x:Static resx:FontAwesome.Rotate}"
                                            LeftButton2Command="{Binding Path=FlipCommand}"
 										   LeftButton2Overlay="{Binding Path=NrBalanceNotifications}"
-										   
+
                                            CenterButtonText="{x:Static resx:FontAwesome.ScanQr}"
                                            CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
-										   
+
                                            RightButton1Text="{x:Static resx:FontAwesome.StarOfLife}"
                                            RightButton1Command="{Binding Path=CreateTokenCommand}"/>
             </Grid>

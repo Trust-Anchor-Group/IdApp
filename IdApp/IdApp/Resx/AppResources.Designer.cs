@@ -142,6 +142,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Events.
+        /// </summary>
+        internal static string AccountEventItem {
+            get {
+                return ResourceManager.GetString("AccountEventItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account name {0} is already taken. Choose another..
         /// </summary>
         internal static string AccountNameAlreadyTaken {
@@ -453,6 +462,15 @@ namespace IdApp.Resx {
         internal static string Assessor {
             get {
                 return ResourceManager.GetString("Assessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
             }
         }
         
@@ -3369,6 +3387,15 @@ namespace IdApp.Resx {
         internal static string PendingPaymentDescription {
             get {
                 return ResourceManager.GetString("PendingPaymentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending Payments.
+        /// </summary>
+        internal static string PendingPaymentItem {
+            get {
+                return ResourceManager.GetString("PendingPaymentItem", resourceCulture);
             }
         }
         

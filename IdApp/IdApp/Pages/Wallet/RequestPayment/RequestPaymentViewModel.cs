@@ -7,8 +7,10 @@ using IdApp.DeviceSpecific;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Main.Calculator;
+using IdApp.Services.Navigation;
 using Waher.Content;
 using Waher.Networking.XMPP;
+using Waher.Script.Functions.ComplexNumbers;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
@@ -40,31 +42,20 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		{
 			await base.OnInitialize();
 
-			bool SkipInitialization = false;
-
-			if (this.NavigationService.TryPopArgs(out EDalerBalanceNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out EDalerBalanceNavigationArgs Args))
 			{
-				SkipInitialization = args.ViewInitialized;
-				if (!SkipInitialization)
-				{
-					this.Currency = args.Balance.Currency;
-					args.ViewInitialized = true;
-				}
+				this.Currency = Args.Balance.Currency;
 			}
 
-			if (!SkipInitialization)
-			{
-				this.Amount = 0;
-				this.AmountText = string.Empty;
-				this.AmountOk = false;
+			this.Amount = 0;
+			this.AmountText = string.Empty;
+			this.AmountOk = false;
 
-				this.AmountExtra = 0;
-				this.AmountExtraText = string.Empty;
-				this.AmountExtraOk = false;
-			}
+			this.AmountExtra = 0;
+			this.AmountExtraText = string.Empty;
+			this.AmountExtraOk = false;
 
 			this.RemoveQrCode();
-
 			this.AssignProperties();
 			this.EvaluateAllCommands();
 
@@ -165,7 +156,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		public string AmountText
 		{
 			get => (string)this.GetValue(AmountTextProperty);
-			set 
+			set
 			{
 				this.SetValue(AmountTextProperty, value);
 
@@ -375,13 +366,12 @@ namespace IdApp.Pages.Wallet.RequestPayment
 			try
 			{
 				TaskCompletionSource<ContactInfoModel> Selected = new();
-				ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["SelectFromWhomToRequestPayment"], Selected)
+				ContactListNavigationArgs ContactListArgs = new(LocalizationResourceManager.Current["SelectFromWhomToRequestPayment"], Selected)
 				{
-					CanScanQrCode = true,
-					CancelReturnCounter = true
+					CanScanQrCode = true
 				};
 
-				await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
+				await this.NavigationService.GoToAsync(nameof(MyContactsPage), ContactListArgs, BackMethod.Pop);
 
 				ContactInfoModel Contact = await Selected.Task;
 				if (Contact is null)
@@ -405,10 +395,9 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 				await Task.Delay(100);  // Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
 
-				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact.Contact)
-				{
-					UniqueId = Contact.BareJid
-				});
+				ChatNavigationArgs ChatArgs = new(Contact.Contact);
+
+				await this.NavigationService.GoToAsync(nameof(ChatPage), ChatArgs, BackMethod.Inherited, Contact.BareJid);
 			}
 			catch (Exception ex)
 			{
@@ -427,7 +416,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 				if (string.IsNullOrEmpty(Message))
 					Message = LocalizationResourceManager.Current["RequestPaymentMessage"];
 
-				shareContent.ShareImage(this.QrCodeBin, string.Format(Message, this.Amount, this.Currency), 
+				shareContent.ShareImage(this.QrCodeBin, string.Format(Message, this.Amount, this.Currency),
 					LocalizationResourceManager.Current["Share"], "RequestPayment.png");
 			}
 			catch (Exception ex)
@@ -448,17 +437,15 @@ namespace IdApp.Pages.Wallet.RequestPayment
 				switch (Parameter?.ToString())
 				{
 					case "AmountText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty)
-						{
-							CancelReturnCounter = true
-						});
+						CalculatorNavigationArgs AmountArgs = new(this, AmountTextProperty);
+
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), AmountArgs, BackMethod.Pop);
 						break;
 
 					case "AmountExtraText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountExtraTextProperty)
-						{
-							CancelReturnCounter = true
-                        });
+						CalculatorNavigationArgs ExtraArgs = new(this, AmountExtraTextProperty);
+
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), ExtraArgs, BackMethod.Pop);
 						break;
 				}
 			}

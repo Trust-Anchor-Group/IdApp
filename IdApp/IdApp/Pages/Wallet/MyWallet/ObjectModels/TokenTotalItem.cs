@@ -5,7 +5,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 	/// <summary>
 	/// Encapsulates a <see cref="TokenTotal"/> object.
 	/// </summary>
-	public class TokenTotalItem
+	public class TokenTotalItem : IUniqueItem
 	{
 		private readonly TokenTotal total;
 
@@ -17,6 +17,9 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		{
 			this.total = Total;
 		}
+
+		/// <inheritdoc/>
+		public string UniqueName => this.total.Currency;
 
 		/// <summary>
 		/// Currency for sub-total

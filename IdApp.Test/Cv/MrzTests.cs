@@ -3,6 +3,7 @@ using IdApp.Cv.ColorModels;
 using IdApp.Cv.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Globalization;
 using System.IO;
 
 namespace IdApp.Test.Cv
@@ -12,14 +13,14 @@ namespace IdApp.Test.Cv
 	{
 		public void ExtractMrz(int TestNr, string FileName)
 		{
-			if (!FileName.StartsWith("C:"))
+			if (!FileName.StartsWith("C:", true, CultureInfo.InvariantCulture))
 				FileName = "Cv\\TestData\\" + FileName;
 
 			IMatrix Bmp = Bitmaps.FromBitmapFile(FileName, 600, 600);
 			Matrix<float> Grayscale = (Matrix<float>)Bmp.GrayScale();
 			IMatrix Mrz = Grayscale.ExtractMrzRegion();
 			Assert.IsNotNull(Mrz);
-			Bitmaps.ToImageFile(Mrz, "Cv\\Results\\Mrz\\" + TestNr.ToString("D2") + "." + Path.ChangeExtension(Path.GetFileName(FileName), "png"));
+			Bitmaps.ToImageFile(Mrz, "Cv\\Results\\Mrz\\" + TestNr.ToString("D2", CultureInfo.InvariantCulture) + "." + Path.ChangeExtension(Path.GetFileName(FileName), "png"));
 			Assert.IsTrue(Mrz is Matrix<float>);
 		}
 

@@ -8,6 +8,7 @@ using IdApp.Pages.Main.Calculator;
 using IdApp.Pages.Main.Main;
 using IdApp.Resx;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +21,7 @@ using Waher.Content.Xml;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Waher.Script;
+using Waher.Script.Functions.ComplexNumbers;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -62,22 +64,19 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			ContractVisibility? Visibility = null;
 
-			if (this.NavigationService.TryPopArgs(out NewContractNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out NewContractNavigationArgs Args))
 			{
-				this.template = args.Template;
-				this.suppressedProposalIds = args.SuppressedProposalLegalIds;
+				this.template = Args.Template;
+				this.suppressedProposalIds = Args.SuppressedProposalLegalIds;
 
-				if (args.ParameterValues is not null)
-					this.presetParameterValues = args.ParameterValues;
-
-				if (args.ViewInitialized)
-					Visibility = this.template?.Visibility;
-				else
+				if (Args.ParameterValues is not null)
 				{
-					if (args.SetVisibility)
-						Visibility = args.Template.Visibility;
+					this.presetParameterValues = Args.ParameterValues;
+				}
 
-					args.ViewInitialized = true;
+				if (Args.SetVisibility)
+				{
+					Visibility = Args.Template.Visibility;
 				}
 			}
 			else if (this.stateTemplateWhileScanning is not null)
@@ -652,11 +651,10 @@ namespace IdApp.Pages.Contracts.NewContract
 					TaskCompletionSource<ContactInfoModel> Selected = new();
 					ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["AddContactToContract"], Selected)
 					{
-						CanScanQrCode = true,
-						CancelReturnCounter = true
+						CanScanQrCode = true
 					};
 
-					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
+					await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.Pop);
 
 					ContactInfoModel Contact = await Selected.Task;
 					if (Contact is null)
@@ -669,6 +667,9 @@ namespace IdApp.Pages.Contracts.NewContract
 						this.partsToAdd[button.StyleId] = Contact.LegalId;
 						string settingsKey = partSettingsPrefix + button.StyleId;
 						await this.SettingsService.SaveState(settingsKey, Contact.LegalId);
+
+						foreach (KeyValuePair<CaseInsensitiveString, string> part in this.GetPartsToAdd())
+							await this.AddRole(part.Key, part.Value);
 					}
 				}
 			}
@@ -1016,8 +1017,10 @@ namespace IdApp.Pages.Contracts.NewContract
 
 				if (Created is not null)
 				{
-					await this.NavigationService.GoToAsync(nameof(ViewContractPage),
-						new ViewContractNavigationArgs(Created, false) { ReturnRoute = "///" + nameof(MainPage) });
+					ViewContractNavigationArgs Args = new(Created, false);
+
+					// Inherit the back method here. It will vary if created or viewed.
+					await this.NavigationService.GoToAsync(nameof(ViewContractPage), Args, BackMethod.Inherited);
 				}
 			}
 		}
@@ -1330,10 +1333,9 @@ namespace IdApp.Pages.Contracts.NewContract
 				if (ParameterInfo.Control is not Entry Entry)
 					return;
 
-				await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(Entry)
-				{
-					CancelReturnCounter = true
-				});
+				CalculatorNavigationArgs Args = new(Entry);
+
+				await this.NavigationService.GoToAsync(nameof(CalculatorPage), Args, BackMethod.Pop);
 			}
 			catch (Exception ex)
 			{
