@@ -125,8 +125,8 @@ namespace IdApp.AR
 			if (this.currentAudioItem is not null)
 			{
 				this.mediaPlayer?.Stop();
-				this.currentAudioItem.Position = this.GetPosition();
-				this.currentAudioItem.IsPlaying = false;
+				this.currentAudioItem.SetPosition(this.GetPosition());
+				this.currentAudioItem.SetIsPlaying(false);
 				this.currentAudioItem = null;
 			}
 		}
@@ -136,8 +136,8 @@ namespace IdApp.AR
 			if (this.currentAudioItem is not null)
 			{
 				this.mediaPlayer?.Pause();
-				this.currentAudioItem.Position = this.GetPosition();
-				this.currentAudioItem.IsPlaying = false;
+				this.currentAudioItem.SetPosition(this.GetPosition());
+				this.currentAudioItem.SetIsPlaying(false);
 			}
 		}
 
@@ -148,7 +148,7 @@ namespace IdApp.AR
 				this.updateTimer ??= new Timer(this.UpdateCallback, this, 100, 100);
 
 				this.mediaPlayer?.Play();
-				this.currentAudioItem.IsPlaying = true;
+				this.currentAudioItem.SetIsPlaying(true);
 			}
 		}
 	}

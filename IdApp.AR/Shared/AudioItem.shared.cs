@@ -6,18 +6,30 @@ namespace IdApp.AR
 	{
 		public event EventHandler? ChangeUpdate;
 
-		public bool IsPlaying { get; set; }
+		public bool IsPlaying { get; private set; }
 
 		public string FilePath { get; private set; }
 
 		public double Duration { get; private set; }
 
-		public double Position { get; set; }
+		public double Position { get; private set; }
 
 		public AudioItem()
 		{
 			this.FilePath = string.Empty;
 			this.Init(string.Empty);
+		}
+
+		public void SetIsPlaying(bool IsPlaying)
+		{
+			this.IsPlaying = IsPlaying;
+			ChangeUpdate?.Invoke(this, EventArgs.Empty);
+		}
+
+		public void SetPosition(double Position)
+		{
+			this.Position = Position;
+			ChangeUpdate?.Invoke(this, EventArgs.Empty);
 		}
 
 		public void Initialise(string FilePath)

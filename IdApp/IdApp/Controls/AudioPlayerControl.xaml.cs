@@ -171,6 +171,7 @@ namespace IdApp.Controls
 		private void AudioItem_ChangeUpdate(object Sender, EventArgs e)
 		{
 			this.OnPropertyChanged(nameof(this.IsLoaded));
+			this.OnPropertyChanged(nameof(this.AudioItem));
 		}
 
 		void OnUriChanged()

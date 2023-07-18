@@ -36,6 +36,7 @@ namespace IdApp.AR
 			this.currentAudioItem = AudioItem;
 
 			this.mediaPlayer.Reset();
+			//this.mediaPlayer.Looping = true;
 			//_mediaPlayer.SetVolume(1.0f, 1.0f);
 
 			this.mediaPlayer.SetDataSource(AudioItem.FilePath);
@@ -68,8 +69,8 @@ namespace IdApp.AR
 			if (this.currentAudioItem is not null)
 			{
 				this.mediaPlayer?.Stop();
-				this.currentAudioItem.Position = this.GetPosition();
-				this.currentAudioItem.IsPlaying = false;
+				this.currentAudioItem.SetPosition(this.GetPosition());
+				this.currentAudioItem.SetIsPlaying(false);
 				this.currentAudioItem = null;
 			}
 		}
@@ -79,8 +80,8 @@ namespace IdApp.AR
 			if (this.currentAudioItem is not null)
 			{
 				this.mediaPlayer?.Pause();
-				this.currentAudioItem.Position = this.GetPosition();
-				this.currentAudioItem.IsPlaying = false;
+				this.currentAudioItem.SetPosition(this.GetPosition());
+				this.currentAudioItem.SetIsPlaying(false);
 			}
 		}
 
@@ -91,7 +92,7 @@ namespace IdApp.AR
 				this.updateTimer ??= new Timer(this.UpdateCallback, this, 100, 100);
 
 				this.mediaPlayer?.Start();
-				this.currentAudioItem.IsPlaying = true;
+				this.currentAudioItem.SetIsPlaying(true);
 			}
 		}
 	}

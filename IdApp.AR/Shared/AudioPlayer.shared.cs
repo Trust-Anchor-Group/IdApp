@@ -11,11 +11,7 @@
 			if (P is AudioPlayer AudioPlayer)
 			{
 				AudioItem? AudioItem = AudioPlayer.currentAudioItem;
-
-				if (AudioItem is not null)
-				{
-					AudioItem.Position = AudioPlayer.GetPosition();
-				}
+				AudioItem?.SetPosition(AudioPlayer.GetPosition());
 			}
 		}
 #pragma warning restore CS0649, CS0169, IDE0051, IDE0044
