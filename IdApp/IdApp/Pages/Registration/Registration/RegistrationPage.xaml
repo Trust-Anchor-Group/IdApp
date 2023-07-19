@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+					   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Registration.Registration;assembly=IdApp"
                        x:DataType="model:RegistrationViewModel"
-                       x:Class="IdApp.Pages.Registration.Registration.RegistrationPage"
+					   x:Class="IdApp.Pages.Registration.Registration.RegistrationPage"
 					   Style="{StaticResource RegistrationPage}"
-                       Shell.FlyoutBehavior="Disabled"
+					   Shell.FlyoutBehavior="Disabled"
                        Shell.NavBarIsVisible="False">
 	<StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
+		<!--
 		<StackLayout.Resources>
 			<ResourceDictionary>
 				<DataTemplate x:Key="ValidateContactInfoTemplate">
@@ -36,6 +38,7 @@
 																   ValidateContactInfo="{StaticResource ValidateContactInfoTemplate}"/>
 			</ResourceDictionary>
 		</StackLayout.Resources>
+		-->
 		<StackLayout Orientation="Vertical">
 			<!-- HEADING -->
 			<Grid Style="{StaticResource RegistrationPageHeader}" Padding="{StaticResource DefaultMargin}" >
@@ -65,15 +68,16 @@
 			</Grid>
 		</StackLayout>
 		<!-- CONTENT -->
-		<CarouselView x:Name="CarouselView"
-					  IsSwipeEnabled="False"
-					  HorizontalOptions="FillAndExpand"
-					  VerticalOptions="FillAndExpand"
-					  Margin="0,-6,0,-6"
+		<xct:TabView x:Name="PagesContainer" IsSwipeEnabled="False" BackgroundColor="Red"
+					 HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+		</xct:TabView>
+
+		<!--
+		<CarouselView
 					  CurrentItemChangedCommand="{Binding Path=CurrentStepChangedCommand}"
 					  Position="{Binding Path=CurrentStep, Mode=TwoWay}"
 					  ItemsSource="{Binding Path=RegistrationSteps}"
 					  ItemTemplate="{StaticResource StepTemplateSelector}"
-					  />
+		-->
 	</StackLayout>
 </views:ContentBasePage>

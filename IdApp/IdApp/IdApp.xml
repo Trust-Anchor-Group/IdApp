@@ -11258,9 +11258,6 @@
             Overridden to sync the view with the view model when the page appears on screen.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.Registration.RegistrationPage.OnDisappearingAsync">
-            <inheritdoc />
-        </member>
         <member name="M:IdApp.Pages.Registration.Registration.RegistrationPage.UpdateUiStep">
             This is a hack. The issue is that the Carousel view doesn't reflect the CurrentStep binding correctly in the UI.
             The viewmodel is correct. The position property on the CarouselView is correct. But during restarts
