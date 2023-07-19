@@ -19,13 +19,6 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.InitializeComponent();
         }
 
-		///// <inheritdoc/>
-		//protected override void OnAppearing()
-		//{
-		//    base.OnAppearing();
-		//    this.ForceReRender(this.RootScrollView);
-		//}
-
 		/// <summary>
 		/// Method called (from main thread) when contract options are made available.
 		/// </summary>
