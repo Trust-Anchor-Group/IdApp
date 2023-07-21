@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-					   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+					   xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
-                       xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Registration.Registration;assembly=IdApp"
                        x:DataType="model:RegistrationViewModel"
 					   x:Class="IdApp.Pages.Registration.Registration.RegistrationPage"
@@ -12,33 +11,6 @@
 					   Shell.FlyoutBehavior="Disabled"
                        Shell.NavBarIsVisible="False">
 	<StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
-		<!--
-		<StackLayout.Resources>
-			<ResourceDictionary>
-				<DataTemplate x:Key="ValidateContactInfoTemplate">
-					<ValidateContactInfoView xmlns="clr-namespace:IdApp.Pages.Registration.ValidateContactInfo;assembly=IdApp"/>
-				</DataTemplate>
-				<DataTemplate x:Key="ChooseAccountTemplate">
-					<ChooseAccountView xmlns="clr-namespace:IdApp.Pages.Registration.ChooseAccount;assembly=IdApp"/>
-				</DataTemplate>
-				<DataTemplate x:Key="RegisterIdentityTemplate">
-					<RegisterIdentityView xmlns="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"/>
-				</DataTemplate>
-				<DataTemplate x:Key="ValidateIdentityTemplate">
-					<ValidateIdentityView xmlns="clr-namespace:IdApp.Pages.Registration.ValidateIdentity;assembly=IdApp"/>
-				</DataTemplate>
-				<DataTemplate x:Key="DefinePinTemplate">
-					<DefinePinView xmlns="clr-namespace:IdApp.Pages.Registration.DefinePin;assembly=IdApp"/>
-				</DataTemplate>
-				<registration:RegistrationStepDataTemplateSelector x:Key="StepTemplateSelector"
-																   DefinePin="{StaticResource DefinePinTemplate}"
-																   ValidateIdentity="{StaticResource ValidateIdentityTemplate}"
-																   RegisterIdentity="{StaticResource RegisterIdentityTemplate}"
-																   ChooseAccount="{StaticResource ChooseAccountTemplate}"
-																   ValidateContactInfo="{StaticResource ValidateContactInfoTemplate}"/>
-			</ResourceDictionary>
-		</StackLayout.Resources>
-		-->
 		<StackLayout Orientation="Vertical">
 			<!-- HEADING -->
 			<Grid Style="{StaticResource RegistrationPageHeader}" Padding="{StaticResource DefaultMargin}" >
@@ -70,6 +42,26 @@
 		<!-- CONTENT -->
 		<xct:TabView x:Name="PagesContainer" IsSwipeEnabled="False" BackgroundColor="Red"
 					 HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+			<xct:TabViewItem>
+				<ValidateContactInfoView xmlns="clr-namespace:IdApp.Pages.Registration.ValidateContactInfo;assembly=IdApp"/>
+			</xct:TabViewItem>
+
+			<xct:TabViewItem>
+				<ChooseAccountView xmlns="clr-namespace:IdApp.Pages.Registration.ChooseAccount;assembly=IdApp"/>
+			</xct:TabViewItem>
+
+			<xct:TabViewItem>
+				<RegisterIdentityView xmlns="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"/>
+			</xct:TabViewItem>
+
+			<xct:TabViewItem>
+				<ValidateIdentityView xmlns="clr-namespace:IdApp.Pages.Registration.ValidateIdentity;assembly=IdApp"/>
+			</xct:TabViewItem>
+
+			<xct:TabViewItem>
+				<DefinePinView xmlns="clr-namespace:IdApp.Pages.Registration.DefinePin;assembly=IdApp"/>
+			</xct:TabViewItem>
 		</xct:TabView>
 
 		<!--

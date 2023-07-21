@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Registration.ValidateContactInfo
 {
