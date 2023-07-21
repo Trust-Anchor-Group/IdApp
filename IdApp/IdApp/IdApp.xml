@@ -18236,6 +18236,9 @@
         <member name="M:IdApp.Popups.Pin.PinPopup.PinPopupPage.OnAppearing">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Popups.Pin.PinPopup.PinPopupPage.OnBackButtonPressed">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Popups.Tokens.AddTextNote.AddTextNotePage">
             <summary>
             Prompts the user for text to add as a note for a token.

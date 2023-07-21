@@ -39,7 +39,13 @@ namespace IdApp.Popups.Pin.PinPopup
             this.Pin.Focus();
         }
 
-        private async void OnEnter(object Sender, EventArgs e)
+		/// <inheritdoc/>
+		protected override bool OnBackButtonPressed()
+		{
+			return true;
+		}
+
+		private async void OnEnter(object Sender, EventArgs e)
         {
 			string Pin = await App.CheckPinAndUnblockUser(this.Pin.Text, App.Instantiate<ITagProfile>());
 			this.Pin.Text = "";
