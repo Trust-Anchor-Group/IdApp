@@ -40,9 +40,9 @@
 			</Grid>
 		</StackLayout>
 		<!-- CONTENT -->
-		<xct:TabView x:Name="PagesContainer" IsSwipeEnabled="False" BackgroundColor="Red"
-					 HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-
+		<xct:TabView x:Name="PagesContainer" BackgroundColor="Transparent"
+					 HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+					 IsSwipeEnabled="False" IsTabStripVisible="False">
 			<xct:TabViewItem>
 				<ValidateContactInfoView xmlns="clr-namespace:IdApp.Pages.Registration.ValidateContactInfo;assembly=IdApp"/>
 			</xct:TabViewItem>

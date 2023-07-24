@@ -19,7 +19,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private void RegionEntry_Focused(object Sender, FocusEventArgs e)
 		{
-			if (this.ViewModel is RegisterIdentityViewModel Model && Model.ShowOrganization)
+			if (this.ContentViewModel is RegisterIdentityViewModel Model && Model.ShowOrganization)
 				this.RegistrationLayout.ScrollToAsync(this.OrgCountryPicker, ScrollToPosition.MakeVisible, true);
 			else
 	            this.RegistrationLayout.ScrollToAsync(this.RegisterButton, ScrollToPosition.MakeVisible, true);

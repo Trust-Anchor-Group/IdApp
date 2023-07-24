@@ -4309,12 +4309,12 @@
             A convenience base class for <see cref="T:Xamarin.Forms.ContentView"/>s which provides typed access to the viewmodel it is bound to.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.ContentBaseView.ViewModel">
+        <member name="P:IdApp.Pages.ContentBaseView.ContentViewModel">
             <summary>
             Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.ContentBaseView.GetViewModel``1">
+        <member name="M:IdApp.Pages.ContentBaseView.GetContentViewModel``1">
             <summary>
             Returns the viewmodel, type cast to the proper type.
             </summary>
@@ -11117,44 +11117,6 @@
             <summary>
             Copies values from the existing TAG Profile's Legal identity.
             </summary>
-        </member>
-        <member name="T:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector">
-            <summary>
-            A data template selector for displaying various types of registration steps.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ValidateContactInfo">
-            <summary>
-            The template for validating contact information.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ChooseAccount">
-            <summary>
-            The choose account template.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.RegisterIdentity">
-            <summary>
-            The register identity template.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ValidateIdentity">
-            <summary>
-            The validate identity template.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.DefinePin">
-            <summary>
-            The define pin template.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
-            <summary>
-            Chooses the best matching data template based on the type of registration step.
-            </summary>
-            <param name="item">The step to display.</param>
-            <param name="container"></param>
-            <returns>Selected template</returns>
         </member>
         <member name="T:IdApp.Pages.Registration.RegistrationStepView">
             <summary>

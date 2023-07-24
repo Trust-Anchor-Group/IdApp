@@ -21,7 +21,7 @@ namespace IdApp.Popups.Photos.Image
         public ImageView()
         {
 			this.InitializeComponent();
-			this.ViewModel = new ImageViewModel();
+			this.ContentViewModel = new ImageViewModel();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace IdApp.Popups.Photos.Image
                 return;
 
             this.IsVisible = true;
-			this.GetViewModel<ImageViewModel>().LoadPhotos(attachments);
+			this.GetContentViewModel<ImageViewModel>().LoadPhotos(attachments);
             Device.BeginInvokeOnMainThread(async () =>
             {
                 await this.PhotoViewer.FadeTo(1d, durationInMs, Easing.SinIn);
@@ -51,7 +51,7 @@ namespace IdApp.Popups.Photos.Image
         public void HidePhotos()
         {
             this.PhotoViewer.Opacity = 0;
-			this.GetViewModel<ImageViewModel>().ClearPhotos();
+			this.GetContentViewModel<ImageViewModel>().ClearPhotos();
             this.IsVisible = false;
         }
 
