@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Registration.Registration
 {
@@ -6,14 +7,14 @@ namespace IdApp.Pages.Registration.Registration
     /// A page for guiding the user through the registration process for setting up a digital identity.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RegistrationPage : ContentBasePage
+    public partial class RegistrationPage
 	{
 		/// <summary>
 		/// Creates a new instance of the <see cref="RegistrationPage"/> class.
 		/// </summary>
 		public RegistrationPage()
         {
-			//NavigationPage.SetHasNavigationBar(this, false);
+			NavigationPage.SetHasNavigationBar(this, false);
 
 			RegistrationViewModel ViewModel = new();
 			this.BindingContext = ViewModel;

@@ -11,34 +11,21 @@
 					   Shell.FlyoutBehavior="Disabled"
                        Shell.NavBarIsVisible="False">
 	<StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}" Spacing="0">
-		<StackLayout Orientation="Vertical">
-			<!-- HEADING -->
-			<Grid Style="{StaticResource RegistrationPageHeader}" Padding="{StaticResource DefaultMargin}" >
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="36"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Label Grid.Column="0"
-					   FontSize="24"
-					   Text="{x:Static resx:FontAwesome.ArrowACircleLeft}"
-					   TextColor="{StaticResource TextColorLightTheme}"
-					   FontFamily="{StaticResource FontAwesomeSolid}"
-					   VerticalOptions="Center"
-					   Margin="0,-12,0,-6"
-					   IsVisible="{Binding Path=CanGoBack}">
-					<Label.GestureRecognizers>
-						<TapGestureRecognizer Command="{Binding Path=GoToPrevCommand}"/>
-					</Label.GestureRecognizers>
-				</Label>
-				<Label Grid.Column="1"
-					   Text="{Binding Path=CurrentStepTitle}"
-					   HorizontalOptions="StartAndExpand"
-					   VerticalOptions="CenterAndExpand"
-					   TextColor="{StaticResource TextColorLightTheme}"
-					   FontSize="24"
-					   Margin="0,-8,0,0" />
-			</Grid>
-		</StackLayout>
+		<!-- HEADING -->
+		<Grid Style="{StaticResource RegistrationPageHeader}" Padding="{StaticResource DefaultMargin}" ColumnDefinitions="36,*">
+			<Label Text="{x:Static resx:FontAwesome.ArrowACircleLeft}" TextColor="{StaticResource TextColorLightTheme}"
+				   FontFamily="{StaticResource FontAwesomeSolid}" FontSize="24"
+				   HorizontalTextAlignment="Start" VerticalOptions="Center"
+				   IsVisible="{Binding Path=CanGoBack}">
+				<Label.GestureRecognizers>
+					<TapGestureRecognizer Command="{Binding Path=GoToPrevCommand}"/>
+				</Label.GestureRecognizers>
+			</Label>
+			<Label Grid.ColumnSpan="2"
+				   Text="{Binding Path=CurrentStepTitle}" TextColor="{StaticResource TextColorLightTheme}" FontSize="24"
+				   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+		</Grid>
+
 		<!-- CONTENT -->
 		<xct:TabView x:Name="PagesContainer" BackgroundColor="Transparent"
 					 HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"

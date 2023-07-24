@@ -21,7 +21,7 @@
                     </OnPlatform>
                 </Image.Margin>
             </Image>
-            <noBounce:NoBounceScrollView x:Name="ScrollView" Margin="{StaticResource DefaultLeftRightMargin}">
+            <noBounce:NoBounceScrollView x:Name="ScrollView" Padding="{StaticResource DefaultMargin}">
 				<StackLayout x:Name="Frames" Orientation="Vertical"  Spacing="24" >
 					<Frame Style="{StaticResource OnboardingFrame}" CornerRadius="5" Padding="{StaticResource DefaultMargin}" IsVisible="{Binding PurposeRequired}" >
 						<Grid RowDefinitions="auto,auto,auto,auto" RowSpacing="12" BackgroundColor="Transparent">
