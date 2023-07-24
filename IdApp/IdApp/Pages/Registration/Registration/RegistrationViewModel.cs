@@ -3,8 +3,10 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Services.Tag;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using ZXing;
 using Command = Xamarin.Forms.Command;
 
 namespace IdApp.Pages.Registration.Registration
@@ -19,32 +21,30 @@ namespace IdApp.Pages.Registration.Registration
 		/// <summary>
 		/// Creates a new instance of the <see cref="RegistrationViewModel"/> class.
 		/// </summary>
-		private RegistrationViewModel()
+		public RegistrationViewModel()
 		{
 			this.GoToPrevCommand = new Command(() => this.GoToPrev(), () => (RegistrationStep)this.CurrentStep > RegistrationStep.ValidateContactInfo);
 			this.CurrentStepChangedCommand = new Command(() => this.DoStepChanged());
-
-			this.RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
-			{
-				this.AddChildViewModel(new ValidateContactInfo.ValidateContactInfoViewModel()),
-				this.AddChildViewModel(new ChooseAccount.ChooseAccountViewModel()),
-				this.AddChildViewModel(new RegisterIdentity.RegisterIdentityViewModel()),
-				this.AddChildViewModel(new ValidateIdentity.ValidateIdentityViewModel()),
-				this.AddChildViewModel(new DefinePin.DefinePinViewModel())
-			};
 		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="RegistrationViewModel"/> class.
 		/// </summary>
-		public static async Task<RegistrationViewModel> Create()
+		public void SetPagesContainer(ObservableCollection<TabViewItem> TabItems)
 		{
-			RegistrationViewModel Result = new();
+			this.RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>();
 
-			await Result.SyncTagProfileStep();
-			Result.UpdateStepTitle();
+			foreach (TabViewItem Item in TabItems)
+			{
+				if (Item.Content.BindingContext is RegistrationStepViewModel StepViewModel)
+				{
+					this.RegistrationSteps.Add(this.AddChildViewModel(StepViewModel));
+				}
+			};
 
-			return Result;
+			this.CurrentStep = (int)this.TagProfile.Step;
+
+			this.UpdateStepTitle();
 		}
 
 		/// <inheritdoc />
@@ -69,7 +69,7 @@ namespace IdApp.Pages.Registration.Registration
 		/// <summary>
 		/// The list of steps needed to register a digital identity.
 		/// </summary>
-		public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; }
+		public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; private set; }
 
 		/// <summary>
 		/// The command to bind to for moving backwards to the previous step in the registration process.

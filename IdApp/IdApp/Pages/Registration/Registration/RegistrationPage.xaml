@@ -10,7 +10,7 @@
 					   Style="{StaticResource RegistrationPage}"
 					   Shell.FlyoutBehavior="Disabled"
                        Shell.NavBarIsVisible="False">
-	<StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
+	<StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}" Spacing="0">
 		<StackLayout Orientation="Vertical">
 			<!-- HEADING -->
 			<Grid Style="{StaticResource RegistrationPageHeader}" Padding="{StaticResource DefaultMargin}" >

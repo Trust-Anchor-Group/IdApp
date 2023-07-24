@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Registration.Registration
 {
@@ -13,24 +11,16 @@ namespace IdApp.Pages.Registration.Registration
 		/// <summary>
 		/// Creates a new instance of the <see cref="RegistrationPage"/> class.
 		/// </summary>
-		private RegistrationPage()
+		public RegistrationPage()
         {
-            NavigationPage.SetHasNavigationBar(this, false);
-        }
+			//NavigationPage.SetHasNavigationBar(this, false);
 
-		/// <summary>
-		/// Creates a new instance of the <see cref="RegistrationPage"/> class.
-		/// </summary>
-		public static async Task<RegistrationPage> Create()
-		{
-			RegistrationPage Result = new()
-			{
-				ViewModel = await RegistrationViewModel.Create()
-			};
+			RegistrationViewModel ViewModel = new();
+			this.BindingContext = ViewModel;
 
-			Result.InitializeComponent();
+			this.InitializeComponent();
 
-			return Result;
+			ViewModel.SetPagesContainer(this.PagesContainer.TabItems);
 		}
 	}
 }

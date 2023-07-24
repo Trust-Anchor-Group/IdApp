@@ -11120,17 +11120,7 @@
         </member>
         <member name="T:IdApp.Pages.Registration.RegistrationStepView">
             <summary>
-            A base class view for all registration steps views. Inherit from this to get access to the <see cref="P:IdApp.Pages.Registration.RegistrationStepView.StepCompletedCommand"/>.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.RegistrationStepView.StepCompletedCommandProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.RegistrationStepView.StepCompletedCommand"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepView.StepCompletedCommand">
-            <summary>
-            The command to bind to for signaling to listeners that this step has completed.
+            A base class view for all registration steps views.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Registration.RegistrationStepViewModel">
@@ -11203,11 +11193,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.Registration.RegistrationPage.Create">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationPage"/> class.
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Registration.Registration.RegistrationViewModel">
             <summary>
             The view model to bind to for displaying a registration page or view to the user.
@@ -11218,7 +11203,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.Create">
+        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.SetPagesContainer(System.Collections.ObjectModel.ObservableCollection{Xamarin.CommunityToolkit.UI.Views.TabViewItem})">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationViewModel"/> class.
             </summary>

@@ -13,6 +13,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		/// </summary>
 		public ValidateContactInfoView()
         {
+			this.BindingContext = new ValidateContactInfoViewModel();
+
 			this.InitializeComponent();
         }
 	}
