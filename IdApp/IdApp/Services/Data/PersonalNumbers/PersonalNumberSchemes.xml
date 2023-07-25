@@ -65,7 +65,7 @@
 			CheckVerhoeff(N1_STR+N2_STR+N3_STR)
 			]]>
 		</Check>
-		<Normalize><![CDATA[N1_STR+N2_STR+N3_STR]]></Normalize>
+		<Normalize><![CDATA[N1_STR+" "+N2_STR+" "+N3_STR]]></Normalize>
 	</Entry>
 	<Entry country="MD" displayString="NNNNNNNNNNNNN">
 		<Pattern variable="IDNP"><![CDATA[IDNP like "\\d{13}"]]></Pattern>
