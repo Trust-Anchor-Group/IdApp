@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<registration:RegistrationStepView xmlns="http://xamarin.com/schemas/2014/forms"
-                                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                                   xmlns:noBounce="clr-namespace:IdApp.Controls.NoBounceView;assembly=IdApp"
-                                   xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
-                                   xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
-                                   xmlns:model="clr-namespace:IdApp.Pages.Registration.ChooseAccount;assembly=IdApp"
-                                   xmlns:conv="clr-namespace:IdApp.Converters;assembly=IdApp"
-                                   x:DataType="model:ChooseAccountViewModel"
-                                   x:Class="IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
+<registration:RegistrationStepView
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:noBounce="clr-namespace:IdApp.Controls.NoBounceView;assembly=IdApp"
+	xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
+	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+	xmlns:model="clr-namespace:IdApp.Pages.Registration.ChooseAccount;assembly=IdApp"
+	xmlns:conv="clr-namespace:IdApp.Converters;assembly=IdApp"
+	x:DataType="model:ChooseAccountViewModel"
+	x:Class="IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
+
 	<noBounce:NoBounceScrollView>
 		<Grid RowSpacing="12" RowDefinitions="auto,auto,auto,auto,auto,auto,auto"
               Margin="{StaticResource DefaultMargin}">

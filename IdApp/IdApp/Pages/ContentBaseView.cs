@@ -10,8 +10,8 @@ namespace IdApp.Pages
         /// <summary>
         /// Typed convenience property for accessing the <see cref="BindableObject.BindingContext"/> property as a view model.
         /// </summary>
-        protected BaseViewModel ViewModel
-        {
+        protected BaseViewModel ContentViewModel
+		{
             get => this.BindingContext as BaseViewModel;
             set => this.BindingContext = value;
         }
@@ -21,9 +21,9 @@ namespace IdApp.Pages
         /// </summary>
         /// <typeparam name="T">The viewmodel type.</typeparam>
         /// <returns>View model</returns>
-        protected T GetViewModel<T>() where T : BaseViewModel
+        protected T GetContentViewModel<T>() where T : BaseViewModel
         {
-            return (T)this.ViewModel;
+            return (T)this.ContentViewModel;
         }
     }
 }

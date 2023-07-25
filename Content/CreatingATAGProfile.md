@@ -46,7 +46,7 @@ It also has `set` and `clear` methods to set and clear each of the five steps.
 When the app is starting it detects whether this is a first-time run, or whether the **TAG Profile** has already been created 
 (see the [`LoadingViewModel`](../IdApp/IdApp/ViewModels/LoadingViewModel.cs) for details).
 If this is the first-time run, then the [`Registration Page`](../IdApp/IdApp/Views/Registration/RegistrationPage.xaml) is shown.
-The registration page has a [CarouselView](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/carouselview/) that displays the
+The registration page has a [xct:TabView](https://learn.microsoft.com/en-us/xamarin/community-toolkit/views/tabview) that displays the
 different registration steps in order. Think of it as a wizard. The user can go forward, but also back, until the registration is complete.
 
 ## Server Connection and Life Cycle Management ##

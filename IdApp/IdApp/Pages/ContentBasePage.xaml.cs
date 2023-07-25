@@ -182,23 +182,6 @@ namespace IdApp.Pages
 		}
 
 		/// <summary>
-		/// TODO: remove this, as it shouldn't be needed. It's here because ScrollView's typically don't refresh when their child content changes size.
-		/// It's a helper method for forcing a layout re-render of the specified components. It will do so asynchronously, by executing a BeginInvoke.
-		/// </summary>
-		/// <param name="layouts">The layout components to re-render.</param>
-		protected void ForceReRender(params Layout[] layouts)
-		{
-			// Important to BeginInvoke here to get the UI to update properly.
-			this.ViewModel.UiSerializer.BeginInvokeOnMainThread(() =>
-			{
-				foreach (Layout layout in layouts)
-				{
-					layout.ForceLayout();
-				}
-			});
-		}
-
-		/// <summary>
 		/// Overrides the back button behavior to handle navigation internally instead.
 		/// </summary>
 		/// <returns>Whether or not the back navigation was handled</returns>
@@ -216,9 +199,7 @@ namespace IdApp.Pages
 			}
 			else if (this.CanUseNavigationService)
 			{
-				if (this.ViewModel is not null)
-					this.ViewModel.NavigationService.GoBackAsync();
-
+				this.ViewModel?.NavigationService.GoBackAsync();
 				return true;
 			}
 			else

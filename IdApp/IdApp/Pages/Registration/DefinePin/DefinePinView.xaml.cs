@@ -13,6 +13,8 @@ namespace IdApp.Pages.Registration.DefinePin
         /// </summary>
         public DefinePinView()
         {
+			this.BindingContext = new DefinePinViewModel();
+
 			this.InitializeComponent();
         }
     }

@@ -1,5 +1,4 @@
-﻿using IdApp.Pages.Registration.ValidateContactInfo;
-using System;
+﻿using System;
 using Xamarin.Forms;
 
 namespace IdApp.Behaviors

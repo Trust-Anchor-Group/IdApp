@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Services.Tag;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using Command = Xamarin.Forms.Command;
 
 namespace IdApp.Pages.Registration.Registration
 {
@@ -14,37 +15,27 @@ namespace IdApp.Pages.Registration.Registration
 	/// </summary>
 	public class RegistrationViewModel : BaseViewModel
 	{
-		private bool muteStepSync;
-
 		/// <summary>
 		/// Creates a new instance of the <see cref="RegistrationViewModel"/> class.
 		/// </summary>
-		private RegistrationViewModel()
+		public RegistrationViewModel()
 		{
 			this.GoToPrevCommand = new Command(() => this.GoToPrev(), () => (RegistrationStep)this.CurrentStep > RegistrationStep.ValidateContactInfo);
-			this.CurrentStepChangedCommand = new Command(() => this.DoStepChanged());
-
-			this.RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
-			{
-				this.AddChildViewModel(new ValidateContactInfo.ValidateContactInfoViewModel()),
-				this.AddChildViewModel(new ChooseAccount.ChooseAccountViewModel()),
-				this.AddChildViewModel(new RegisterIdentity.RegisterIdentityViewModel()),
-				this.AddChildViewModel(new ValidateIdentity.ValidateIdentityViewModel()),
-				this.AddChildViewModel(new DefinePin.DefinePinViewModel())
-			};
 		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="RegistrationViewModel"/> class.
 		/// </summary>
-		public static async Task<RegistrationViewModel> Create()
+		public void SetPagesContainer(List<RegistrationStepView> Items)
 		{
-			RegistrationViewModel Result = new();
+			this.RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>();
 
-			await Result.SyncTagProfileStep();
-			Result.UpdateStepTitle();
+			foreach (RegistrationStepView Item in Items)
+			{
+				this.RegistrationSteps.Add(this.AddChildViewModel((RegistrationStepViewModel)Item.BindingContext));
+			};
 
-			return Result;
+			this.CurrentStep = (int)this.TagProfile.Step;
 		}
 
 		/// <inheritdoc />
@@ -67,19 +58,42 @@ namespace IdApp.Pages.Registration.Registration
 		#region Properties
 
 		/// <summary>
+		/// See <see cref="CurrentState"/>
+		/// </summary>
+		public static readonly BindableProperty CurrentStateProperty =
+			BindableProperty.Create(nameof(CurrentState), typeof(LayoutState), typeof(RegistrationViewModel), LayoutState.Custom);
+
+		/// <summary>
+		/// </summary>
+		public LayoutState CurrentState
+		{
+			get => (LayoutState)this.GetValue(CurrentStateProperty);
+			set => this.SetValue(CurrentStateProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="CustomState"/>
+		/// </summary>
+		public static readonly BindableProperty CustomStateProperty =
+			BindableProperty.Create(nameof(CustomState), typeof(string), typeof(RegistrationViewModel), string.Empty);
+
+		/// <summary>
+		/// </summary>
+		public string CustomState
+		{
+			get => (string)this.GetValue(CustomStateProperty);
+			set => this.SetValue(CustomStateProperty, value);
+		}
+
+		/// <summary>
 		/// The list of steps needed to register a digital identity.
 		/// </summary>
-		public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; }
+		public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; private set; }
 
 		/// <summary>
 		/// The command to bind to for moving backwards to the previous step in the registration process.
 		/// </summary>
 		public ICommand GoToPrevCommand { get; }
-
-		/// <summary>
-		/// An opportunity to make some initialisation on the page change.
-		/// </summary>
-		public ICommand CurrentStepChangedCommand { get; }
 
 		/// <summary>
 		/// See <see cref="CanGoBack"/>
@@ -100,12 +114,18 @@ namespace IdApp.Pages.Registration.Registration
 		/// See <see cref="CurrentStep"/>
 		/// </summary>
 		public static readonly BindableProperty CurrentStepProperty =
-			BindableProperty.Create(nameof(CurrentStep), typeof(int), typeof(RegistrationViewModel), default(int), propertyChanged: (b, oldValue, newValue) =>
-			{
-				RegistrationViewModel viewModel = (RegistrationViewModel)b;
-				viewModel.UpdateStepTitle();
-				viewModel.CanGoBack = viewModel.GoToPrevCommand.CanExecute(null);
-			});
+			BindableProperty.Create(nameof(CurrentStep), typeof(int), typeof(RegistrationViewModel), -1, propertyChanged: OnCurrentStepPropertyChanged);
+
+		static void OnCurrentStepPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+			=> ((RegistrationViewModel)bindable).OnCurrentStepPropertyChanged();
+
+		async void OnCurrentStepPropertyChanged()
+		{
+			this.UpdateStepVariables();
+
+			await this.RegistrationSteps[this.CurrentStep].DoAssignProperties();
+		}
+
 
 		/// <summary>
 		/// Gets or sets the current step from the list of <see cref="RegistrationSteps"/>.
@@ -113,13 +133,7 @@ namespace IdApp.Pages.Registration.Registration
 		public int CurrentStep
 		{
 			get => (int)this.GetValue(CurrentStepProperty);
-			set
-			{
-				if (!this.muteStepSync)
-				{
-					this.SetValue(CurrentStepProperty, value);
-				}
-			}
+			set => this.SetValue(CurrentStepProperty, value);
 		}
 
 		/// <summary>
@@ -139,27 +153,33 @@ namespace IdApp.Pages.Registration.Registration
 
 		#endregion
 
-		/// <summary>
-		/// Temporarily mutes the synchronization of the <see cref="CurrentStep"/> property.
-		/// This is a hack to workaround a bug on Android.
-		/// </summary>
-		public void MuteStepSync()
+		private void UpdateStepVariables()
 		{
-			this.muteStepSync = true;
-		}
-
-		/// <summary>
-		/// Un-mutes the synchronization of the <see cref="CurrentStep"/> property. See <see cref="MuteStepSync"/>.
-		/// This is a hack to workaround a bug on Android.
-		/// </summary>
-		public void UnMuteStepSync()
-		{
-			this.muteStepSync = false;
-		}
-
-		private void UpdateStepTitle()
-		{
+			this.CanGoBack = this.GoToPrevCommand.CanExecute(null);
 			this.CurrentStepTitle = this.RegistrationSteps[this.CurrentStep].Title;
+
+			switch ((RegistrationStep)this.CurrentStep)
+			{
+				case RegistrationStep.ValidateContactInfo:
+					this.CustomState = "ValidateContactInfo";
+					break;
+
+				case RegistrationStep.Account:
+					this.CustomState = "ChooseAccount";
+					break;
+
+				case RegistrationStep.RegisterIdentity:
+					this.CustomState = "RegisterIdentity";
+					break;
+
+				case RegistrationStep.ValidateIdentity:
+					this.CustomState = "ValidateIdentity";
+					break;
+
+				case RegistrationStep.Pin:
+					this.CustomState = "DefinePin";
+					break;
+			}
 		}
 
 		/// <summary>
@@ -171,9 +191,7 @@ namespace IdApp.Pages.Registration.Registration
 		{
 			try
 			{
-				RegistrationStep Step = ((RegistrationStepViewModel)Sender).Step;
-
-				switch (Step)
+				switch (((RegistrationStepViewModel)Sender).Step)
 				{
 					case RegistrationStep.Account:
 						// User connected to an existing account (as opposed to creating a new one). Copy values from the legal identity.
@@ -182,26 +200,10 @@ namespace IdApp.Pages.Registration.Registration
 							RegisterIdentity.RegisterIdentityViewModel vm = (RegisterIdentity.RegisterIdentityViewModel)this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
 							vm.PopulateFromTagProfile();
 						}
-
-						await this.SyncTagProfileStep();
-						break;
-
-					case RegistrationStep.RegisterIdentity:
-						await this.SyncTagProfileStep();
-						break;
-
-					case RegistrationStep.ValidateIdentity:
-						await this.SyncTagProfileStep();
-						break;
-
-					case RegistrationStep.Pin:
-						await App.Current.SetAppShellPageAsync();
-						break;
-
-					default: // RegistrationStep.ValidateContactInfo
-						await this.SyncTagProfileStep();
 						break;
 				}
+
+				await this.SyncTagProfileStep();
 			}
 			catch (Exception Exception)
 			{
@@ -209,18 +211,11 @@ namespace IdApp.Pages.Registration.Registration
 			}
 		}
 
-		private async void DoStepChanged()
-		{
-			await this.RegistrationSteps[this.CurrentStep].DoAssignProperties();
-		}
-
 		private async void GoToPrev()
 		{
 			try
 			{
-				RegistrationStep CurrentStep = (RegistrationStep)this.CurrentStep;
-
-				switch (CurrentStep)
+				switch ((RegistrationStep)this.CurrentStep)
 				{
 					case RegistrationStep.Account:
 						this.RegistrationSteps[this.CurrentStep].ClearStepState();

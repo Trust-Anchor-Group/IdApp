@@ -1,79 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
-                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
-                       xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
-                       xmlns:model="clr-namespace:IdApp.Pages.Registration.Registration;assembly=IdApp"
-                       x:DataType="model:RegistrationViewModel"
-                       x:Class="IdApp.Pages.Registration.Registration.RegistrationPage"
-					   Style="{StaticResource RegistrationPage}"
-                       Shell.FlyoutBehavior="Disabled"
-                       Shell.NavBarIsVisible="False">
-	<StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}">
-		<StackLayout.Resources>
-			<ResourceDictionary>
-				<DataTemplate x:Key="ValidateContactInfoTemplate">
-					<ValidateContactInfoView xmlns="clr-namespace:IdApp.Pages.Registration.ValidateContactInfo;assembly=IdApp"/>
-				</DataTemplate>
-				<DataTemplate x:Key="ChooseAccountTemplate">
-					<ChooseAccountView xmlns="clr-namespace:IdApp.Pages.Registration.ChooseAccount;assembly=IdApp"/>
-				</DataTemplate>
-				<DataTemplate x:Key="RegisterIdentityTemplate">
-					<RegisterIdentityView xmlns="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"/>
-				</DataTemplate>
-				<DataTemplate x:Key="ValidateIdentityTemplate">
-					<ValidateIdentityView xmlns="clr-namespace:IdApp.Pages.Registration.ValidateIdentity;assembly=IdApp"/>
-				</DataTemplate>
-				<DataTemplate x:Key="DefinePinTemplate">
-					<DefinePinView xmlns="clr-namespace:IdApp.Pages.Registration.DefinePin;assembly=IdApp"/>
-				</DataTemplate>
-				<registration:RegistrationStepDataTemplateSelector x:Key="StepTemplateSelector"
-																   DefinePin="{StaticResource DefinePinTemplate}"
-																   ValidateIdentity="{StaticResource ValidateIdentityTemplate}"
-																   RegisterIdentity="{StaticResource RegisterIdentityTemplate}"
-																   ChooseAccount="{StaticResource ChooseAccountTemplate}"
-																   ValidateContactInfo="{StaticResource ValidateContactInfoTemplate}"/>
-			</ResourceDictionary>
-		</StackLayout.Resources>
-		<StackLayout Orientation="Vertical">
-			<!-- HEADING -->
-			<Grid Style="{StaticResource RegistrationPageHeader}" Padding="{StaticResource DefaultMargin}" >
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="36"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Label Grid.Column="0"
-					   FontSize="24"
-					   Text="{x:Static resx:FontAwesome.ArrowACircleLeft}"
-					   TextColor="{StaticResource TextColorLightTheme}"
-					   FontFamily="{StaticResource FontAwesomeSolid}"
-					   VerticalOptions="Center"
-					   Margin="0,-12,0,-6"
-					   IsVisible="{Binding Path=CanGoBack}">
-					<Label.GestureRecognizers>
-						<TapGestureRecognizer Command="{Binding Path=GoToPrevCommand}"/>
-					</Label.GestureRecognizers>
-				</Label>
-				<Label Grid.Column="1"
-					   Text="{Binding Path=CurrentStepTitle}"
-					   HorizontalOptions="StartAndExpand"
-					   VerticalOptions="CenterAndExpand"
-					   TextColor="{StaticResource TextColorLightTheme}"
-					   FontSize="24"
-					   Margin="0,-8,0,0" />
-			</Grid>
-		</StackLayout>
+<views:ContentBasePage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+	xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
+	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+	xmlns:model="clr-namespace:IdApp.Pages.Registration.Registration;assembly=IdApp"
+	x:DataType="model:RegistrationViewModel"
+	x:Class="IdApp.Pages.Registration.Registration.RegistrationPage"
+	Style="{StaticResource RegistrationPage}"
+	Shell.FlyoutBehavior="Disabled"
+	Shell.NavBarIsVisible="False"
+	NavigationPage.HasNavigationBar="False">
+
+	<StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}" Spacing="0">
+		<!-- HEADING -->
+		<Grid Style="{StaticResource RegistrationPageHeader}" Padding="{StaticResource DefaultMargin}" ColumnDefinitions="36,*" RowDefinitions="auto">
+			<Label Text="{x:Static resx:FontAwesome.ArrowACircleLeft}" TextColor="{StaticResource TextColorLightTheme}"
+				   FontFamily="{StaticResource FontAwesomeSolid}" FontSize="24"
+				   HorizontalOptions="Start" VerticalOptions="Center"
+				   IsVisible="{Binding Path=CanGoBack}">
+				<Label.GestureRecognizers>
+					<TapGestureRecognizer Command="{Binding Path=GoToPrevCommand}"/>
+				</Label.GestureRecognizers>
+			</Label>
+			<Label Grid.ColumnSpan="2"
+				   Text="{Binding Path=CurrentStepTitle}" TextColor="{StaticResource TextColorLightTheme}" FontSize="24"
+				   HorizontalOptions="Center" VerticalOptions="Center" />
+		</Grid>
+
 		<!-- CONTENT -->
-		<CarouselView x:Name="CarouselView"
-					  IsSwipeEnabled="False"
-					  HorizontalOptions="FillAndExpand"
-					  VerticalOptions="FillAndExpand"
-					  Margin="0,-6,0,-6"
-					  CurrentItemChangedCommand="{Binding Path=CurrentStepChangedCommand}"
-					  Position="{Binding Path=CurrentStep, Mode=TwoWay}"
-					  ItemsSource="{Binding Path=RegistrationSteps}"
-					  ItemTemplate="{StaticResource StepTemplateSelector}"
-					  />
+		<Grid xct:StateLayout.AnimateStateChanges="True"
+			  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+			  xct:StateLayout.CurrentState="{Binding CurrentState}"
+			  xct:StateLayout.CurrentCustomStateKey="{Binding CustomState}">
+
+			<xct:StateLayout.StateViews>
+				<xct:StateView StateKey="Custom" CustomStateKey="ValidateContactInfo" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+					<ValidateContactInfoView x:Name="ValidateContactInfoView" xmlns="clr-namespace:IdApp.Pages.Registration.ValidateContactInfo;assembly=IdApp"/>
+				</xct:StateView>
+
+				<xct:StateView StateKey="Custom" CustomStateKey="ChooseAccount" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+					<ChooseAccountView x:Name="ChooseAccountView" xmlns="clr-namespace:IdApp.Pages.Registration.ChooseAccount;assembly=IdApp"/>
+				</xct:StateView>
+
+				<xct:StateView StateKey="Custom" CustomStateKey="RegisterIdentity" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+					<RegisterIdentityView x:Name="RegisterIdentityView" xmlns="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"/>
+				</xct:StateView>
+
+				<xct:StateView StateKey="Custom" CustomStateKey="ValidateIdentity" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+					<ValidateIdentityView x:Name="ValidateIdentityView" xmlns="clr-namespace:IdApp.Pages.Registration.ValidateIdentity;assembly=IdApp"/>
+				</xct:StateView>
+
+				<xct:StateView StateKey="Custom" CustomStateKey="DefinePin" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+					<DefinePinView x:Name="DefinePinView" xmlns="clr-namespace:IdApp.Pages.Registration.DefinePin;assembly=IdApp"/>
+				</xct:StateView>
+			</xct:StateLayout.StateViews>
+
+			<!-- default state -->
+			<Label Text="Something went wrong!" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+		</Grid>
 	</StackLayout>
 </views:ContentBasePage>
