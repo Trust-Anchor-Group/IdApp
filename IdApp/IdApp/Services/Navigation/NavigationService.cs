@@ -129,10 +129,14 @@ namespace IdApp.Services.Navigation
 			try
 			{
 				NavigationArgs NavigationArgs = this.GetCurrentNavigationArgs();
-				string BackRoute = NavigationArgs.GetBackRoute();
 
-				this.isNavigating = true;
-				await Shell.Current.GoToAsync(BackRoute, Animate);
+				if (NavigationArgs is not null) // the main view?
+				{
+					string BackRoute = NavigationArgs.GetBackRoute();
+
+					this.isNavigating = true;
+					await Shell.Current.GoToAsync(BackRoute, Animate);
+				}
 			}
 			catch (Exception e)
 			{

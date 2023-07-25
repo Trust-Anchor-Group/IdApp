@@ -199,9 +199,7 @@ namespace IdApp.Pages
 			}
 			else if (this.CanUseNavigationService)
 			{
-				if (this.ViewModel is not null)
-					this.ViewModel.NavigationService.GoBackAsync();
-
+				this.ViewModel?.NavigationService.GoBackAsync();
 				return true;
 			}
 			else

@@ -15,10 +15,10 @@
 
 	<StackLayout BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}" Spacing="0">
 		<!-- HEADING -->
-		<Grid Style="{StaticResource RegistrationPageHeader}" Padding="{StaticResource DefaultMargin}" ColumnDefinitions="36,*">
+		<Grid Style="{StaticResource RegistrationPageHeader}" Padding="{StaticResource DefaultMargin}" ColumnDefinitions="36,*" RowDefinitions="auto">
 			<Label Text="{x:Static resx:FontAwesome.ArrowACircleLeft}" TextColor="{StaticResource TextColorLightTheme}"
 				   FontFamily="{StaticResource FontAwesomeSolid}" FontSize="24"
-				   HorizontalTextAlignment="Start" VerticalOptions="Center"
+				   HorizontalOptions="Start" VerticalOptions="Center"
 				   IsVisible="{Binding Path=CanGoBack}">
 				<Label.GestureRecognizers>
 					<TapGestureRecognizer Command="{Binding Path=GoToPrevCommand}"/>
@@ -26,11 +26,11 @@
 			</Label>
 			<Label Grid.ColumnSpan="2"
 				   Text="{Binding Path=CurrentStepTitle}" TextColor="{StaticResource TextColorLightTheme}" FontSize="24"
-				   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+				   HorizontalOptions="Center" VerticalOptions="Center" />
 		</Grid>
 
 		<!-- CONTENT -->
-		<Grid xct:StateLayout.AnimateStateChanges="False"
+		<Grid xct:StateLayout.AnimateStateChanges="True"
 			  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
 			  xct:StateLayout.CurrentState="{Binding CurrentState}"
 			  xct:StateLayout.CurrentCustomStateKey="{Binding CustomState}">
