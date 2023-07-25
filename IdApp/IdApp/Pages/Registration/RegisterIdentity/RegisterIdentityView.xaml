@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<views:ContentBaseView
+<registration:RegistrationStepView
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-	xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
+	xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
 	xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
 	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
 	xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
@@ -11,8 +11,8 @@
 	xmlns:controls="clr-namespace:IdApp.Controls"
 	x:DataType="model:RegisterIdentityViewModel"
 	x:Class="IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityView">
-    <ContentView.Content>
-        <ScrollView x:Name="RegistrationLayout" Orientation="Vertical" Margin="{StaticResource DefaultTopOnlyMargin}">
+
+	<ScrollView x:Name="RegistrationLayout" Orientation="Vertical" Margin="{StaticResource DefaultTopOnlyMargin}">
             <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}" Spacing="12">
                 <!-- BEGIN HEADER -->
                 <Frame Style="{StaticResource OnboardingFrame}" Padding="1" CornerRadius="4" BorderColor="LightGray" HasShadow="False">
@@ -227,7 +227,7 @@
 					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
 						<Entry x:Name="OrgNumberEntry" HorizontalOptions="FillAndExpand"
                                Keyboard="Plain" ReturnType="Next"
-							   Placeholder="{x:Static resx:AppResources.OrgNumber}" 
+							   Placeholder="{x:Static resx:AppResources.OrgNumber}"
                                Text="{Binding Path=OrgNumber}"
                                IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
 							<Entry.Behaviors>
@@ -329,6 +329,5 @@
                     <Button x:Name="RegisterButton" Text="{x:Static resx:AppResources.Register}" Command="{Binding Path=RegisterCommand}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
                 </StackLayout>
             </StackLayout>
-        </ScrollView>
-    </ContentView.Content>
-</views:ContentBaseView>
+    </ScrollView>
+</registration:RegistrationStepView>

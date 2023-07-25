@@ -14,6 +14,8 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// </summary>
         public ValidateIdentityView()
         {
+			this.BindingContext = new ValidateIdentityViewModel();
+
 			this.InitializeComponent();
         }
 

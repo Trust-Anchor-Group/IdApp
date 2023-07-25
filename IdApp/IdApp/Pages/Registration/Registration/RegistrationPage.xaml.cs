@@ -1,4 +1,4 @@
-﻿using Xamarin.Forms;
+﻿using System.Collections.Generic;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Registration.Registration
@@ -14,14 +14,19 @@ namespace IdApp.Pages.Registration.Registration
 		/// </summary>
 		public RegistrationPage()
         {
-			NavigationPage.SetHasNavigationBar(this, false);
-
 			RegistrationViewModel ViewModel = new();
 			this.BindingContext = ViewModel;
 
 			this.InitializeComponent();
 
-			ViewModel.SetPagesContainer(this.PagesContainer.TabItems);
+			ViewModel.SetPagesContainer(
+				new List<RegistrationStepView>() {
+					this.ValidateContactInfoView,
+					this.ChooseAccountView,
+					this.RegisterIdentityView,
+					this.ValidateIdentityView,
+					this.DefinePinView,
+				});
 		}
 	}
 }

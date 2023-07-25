@@ -14,6 +14,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
         /// </summary>
         public RegisterIdentityView()
         {
+			this.BindingContext = new RegisterIdentityViewModel();
+
 			this.InitializeComponent();
         }
 

@@ -11203,7 +11203,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.SetPagesContainer(System.Collections.ObjectModel.ObservableCollection{Xamarin.CommunityToolkit.UI.Views.TabViewItem})">
+        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.SetPagesContainer(System.Collections.Generic.List{IdApp.Pages.Registration.RegistrationStepView})">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationViewModel"/> class.
             </summary>
@@ -11214,6 +11214,24 @@
         <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.OnDispose">
             <inheritdoc />
         </member>
+        <member name="F:IdApp.Pages.Registration.Registration.RegistrationViewModel.CurrentStateProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.CurrentState"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.CurrentState">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.Registration.RegistrationViewModel.CustomStateProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.CustomState"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.CustomState">
+            <summary>
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.RegistrationSteps">
             <summary>
             The list of steps needed to register a digital identity.
@@ -11222,11 +11240,6 @@
         <member name="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.GoToPrevCommand">
             <summary>
             The command to bind to for moving backwards to the previous step in the registration process.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.CurrentStepChangedCommand">
-            <summary>
-            An opportunity to make some initialisation on the page change.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.Registration.RegistrationViewModel.CanGoBackProperty">
@@ -11257,18 +11270,6 @@
         <member name="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.CurrentStepTitle">
             <summary>
             The title of the current step. Displayed in the UI.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.MuteStepSync">
-            <summary>
-            Temporarily mutes the synchronization of the <see cref="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.CurrentStep"/> property.
-            This is a hack to workaround a bug on Android.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.UnMuteStepSync">
-            <summary>
-            Un-mutes the synchronization of the <see cref="P:IdApp.Pages.Registration.Registration.RegistrationViewModel.CurrentStep"/> property. See <see cref="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.MuteStepSync"/>.
-            This is a hack to workaround a bug on Android.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.RegistrationStep_Completed(System.Object,System.EventArgs)">

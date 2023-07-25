@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms" 
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
-                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
-                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
-                       xmlns:photos="clr-namespace:IdApp.Services.UI.Photos;assembly=IdApp"
-                       xmlns:model="clr-namespace:IdApp.Pages.Registration.ValidateIdentity;assembly=IdApp"
-                       xmlns:image="clr-namespace:IdApp.Popups.Photos.Image;assembly=IdApp"
-                       x:DataType="model:ValidateIdentityViewModel"
-                       x:Class="IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityView">
-    <ContentView.Content>
-        <Grid>
+<registration:RegistrationStepView
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
+	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+	xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+	xmlns:photos="clr-namespace:IdApp.Services.UI.Photos;assembly=IdApp"
+	xmlns:model="clr-namespace:IdApp.Pages.Registration.ValidateIdentity;assembly=IdApp"
+	xmlns:image="clr-namespace:IdApp.Popups.Photos.Image;assembly=IdApp"
+	x:DataType="model:ValidateIdentityViewModel"
+	x:Class="IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityView">
+
+	<Grid>
             <ScrollView>
                 <StackLayout Margin="{StaticResource DefaultMargin}">
                     <Label Text="{x:Static resx:AppResources.ValidateIdentityInfo1Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" FontSize="Body" />
@@ -139,9 +140,9 @@
 						<ScrollView Grid.Row="27" Grid.Column="1" Orientation="Horizontal" HeightRequest="68" Margin="0,6,0,0">
                             <FlexLayout x:Name="PhotosLayout"
                                     AlignContent="Center"
-                                    AlignItems="Center" 
-                                    Direction="Row" 
-                                    JustifyContent="Start" 
+                                    AlignItems="Center"
+                                    Direction="Row"
+                                    JustifyContent="Start"
                                     BindableLayout.ItemsSource="{Binding Path=Photos}">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate x:DataType="photos:Photo">
@@ -164,6 +165,5 @@
                 </StackLayout>
             </ScrollView>
             <image:ImageView x:Name="PhotoViewer" IsVisible="False"/>
-        </Grid>
-    </ContentView.Content>
-</views:ContentBaseView>
+    </Grid>
+</registration:RegistrationStepView>
