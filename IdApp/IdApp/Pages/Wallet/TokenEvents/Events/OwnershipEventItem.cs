@@ -41,7 +41,7 @@ namespace IdApp.Pages.Wallet.TokenEvents.Events
 		/// Binds properties
 		/// </summary>
 		/// <param name="Ref">Service references.</param>
-		public override async Task DoBind(ServiceReferences Ref)
+		public override async Task DoBind(IServiceReferences Ref)
 		{
 			await base.DoBind(Ref);
 

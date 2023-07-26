@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+	xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+	xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+	xmlns:controls="clr-namespace:IdApp.Controls"
+	x:DataType="controls:AudioPlayerControl"
+	x:Class="IdApp.Controls.AudioPlayerControl" x:Name="ThisPage"
+	RowDefinitions="auto" ColumnDefinitions="auto,*" ColumnSpacing="5">
+
+	<Frame x:Name="MainFrame" Grid.Column="0"
+		   CornerRadius="8" VerticalOptions="Center" Padding="5" Margin="0" HasShadow="False"
+		   IsEnabled="{Binding IsLoaded, Source={x:Reference ThisPage}}"
+		   xct:TouchEffect.AnimationDuration="100"
+		   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+		   xct:TouchEffect.PressedOpacity="0.75"
+		   xct:TouchEffect.Command="{Binding PauseResumeCommand, Source={x:Reference ThisPage}}"
+		   >
+
+		<Grid WidthRequest="35" HeightRequest="35" BackgroundColor="Transparent">
+			<controls:TintedSvgCachedImage TintColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"
+										Source="{x:Static resx:Svgs.Pause}" IsVisible="{Binding AudioItem.IsPlaying, Source={x:Reference ThisPage}}" />
+			<controls:TintedSvgCachedImage TintColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"
+										Source="{x:Static resx:Svgs.Play}" IsVisible="{Binding AudioItem.IsPlaying, Source={x:Reference ThisPage}, Converter={converters:LogicalNot}}" />
+		</Grid>
+	</Frame>
+
+	<Slider Grid.Column="1" x:Name="InnerSlider"
+			Value="{Binding AudioItem.Position, Source={x:Reference ThisPage}}"
+			Maximum="{Binding AudioItem.Duration, Source={x:Reference ThisPage}}" />
+</Grid>

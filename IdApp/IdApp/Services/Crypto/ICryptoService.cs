@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Runtime.Inventory;
+using Waher.Security.JWT;
 
 namespace IdApp.Services.Crypto
 {
@@ -10,6 +11,11 @@ namespace IdApp.Services.Crypto
     [DefaultImplementation(typeof(CryptoService))]
     public interface ICryptoService
     {
+		/// <summary>
+		/// Device ID
+		/// </summary>
+		string DeviceID { get; }
+
         /// <summary>
         /// Returns a cryptographic authorization key for the given filename.
         /// </summary>
@@ -22,5 +28,25 @@ namespace IdApp.Services.Crypto
         /// </summary>
         /// <returns>Random password</returns>
         string CreateRandomPassword();
-    }
+
+		/// <summary>
+		/// Initializes the JWT factory.
+		/// </summary>
+		Task InitializeJwtFactory();
+
+		/// <summary>
+		/// Generates a JWT token the app can send to third parties. The token and its claims can be parsed and
+		/// validated using <see cref="ParseAndValidateJwtToken"/>.
+		/// </summary>
+		/// <param name="Claims">Set of claims to embed into token.</param>
+		/// <returns>JWT token.</returns>
+		string GenerateJwtToken(params KeyValuePair<string, object>[] Claims);
+
+		/// <summary>
+		/// Vaidates a JWT token, that has been issued by the same app. (Tokens from other apps will not be valid.)
+		/// </summary>
+		/// <param name="Token">String representation of JWT token.</param>
+		/// <returns>Parsed token, if valid, null if not valid.</returns>
+		JwtToken ParseAndValidateJwtToken(string Token);
+	}
 }

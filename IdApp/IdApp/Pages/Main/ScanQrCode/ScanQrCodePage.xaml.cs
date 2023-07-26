@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
-using IdApp.Resx;
-using IdApp.Services.UI.QR;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms.Xaml;
 using ZXing;
 using ZXing.Mobile;
@@ -15,7 +15,8 @@ namespace IdApp.Pages.Main.ScanQrCode
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ScanQrCodePage
 	{
-		private readonly bool useShellNavigationService;
+		private volatile int scannedQrCodesCount = 0;
+		private bool scannerRendered = false;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="ScanQrCodePage"/> class.
@@ -25,13 +26,12 @@ namespace IdApp.Pages.Main.ScanQrCode
 		/// </param>
 		public ScanQrCodePage(ScanQrCodeNavigationArgs NavigationArgs)
 		{
-			this.useShellNavigationService = NavigationArgs == null;
 			this.ViewModel = new ScanQrCodeViewModel(NavigationArgs);
 			this.InitializeComponent();
 
 			this.Scanner.Options = new MobileBarcodeScanningOptions
 			{
-				PossibleFormats = new List<ZXing.BarcodeFormat> { ZXing.BarcodeFormat.QR_CODE },
+				PossibleFormats = new List<BarcodeFormat> { BarcodeFormat.QR_CODE },
 				TryHarder = true
 			};
 		}
@@ -53,9 +53,14 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
 			await base.OnAppearingAsync();
 
-			this.GetViewModel<ScanQrCodeViewModel>().ModeChanged += this.ViewModel_ModeChanged;
-			this.Scanner.IsScanning = true;
-			this.Scanner.IsAnalyzing = true;
+			if (this.ViewModel is ScanQrCodeViewModel ScanQrCodeViewModel)
+				ScanQrCodeViewModel.ModeChanged += this.ViewModel_ModeChanged;
+
+			if (this.scannerRendered)
+			{
+				this.Scanner.IsScanning = true;
+				this.Scanner.IsAnalyzing = true;
+			}
 		}
 
 		/// <summary>
@@ -65,14 +70,16 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
 			this.Scanner.IsAnalyzing = false;
 			this.Scanner.IsScanning = false;
-			this.GetViewModel<ScanQrCodeViewModel>().ModeChanged -= this.ViewModel_ModeChanged;
+
+			if (this.ViewModel is ScanQrCodeViewModel ScanQrCodeViewModel)
+				ScanQrCodeViewModel.ModeChanged -= this.ViewModel_ModeChanged;
 
 			await base.OnDisappearingAsync();
 		}
 
-		private void ViewModel_ModeChanged(object sender, EventArgs e)
+		private void ViewModel_ModeChanged(object Sender, EventArgs e)
 		{
-			if (this.GetViewModel<ScanQrCodeViewModel>().ScanIsManual)
+			if (this.ViewModel is ScanQrCodeViewModel ScanQrCodeViewModel && ScanQrCodeViewModel.ScanIsManual)
 				this.LinkEntry.Focus();
 		}
 
@@ -80,53 +87,69 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
 			if (!string.IsNullOrWhiteSpace(result.Text))
 			{
-				this.Scanner.IsAnalyzing = false; // Stop analysis until we navigate away so we don't keep reading qr codes
+				// We want to stop analysis after the first recognized frame until we navigate away. However, on modern quick devices
+				// frames are processed so quickly that a second result might arrive before we had enough time to stop analysis here.
+				// P.S.
+				// Do not use this.Scanner.IsAnalyzing property for synchronization, use your own field instead. Locking will not help
+				// because after setting this.Scanner.IsAnalyzing to false, the value of this.Scanner.IsAnalyzing will still be true
+				// for some time, the value is not updated quickly enough (don't know why, I just tried it and it failed).
+				if (Interlocked.CompareExchange(ref this.scannedQrCodesCount, 1, 0) == 1)
+					return;
+
+				this.Scanner.IsAnalyzing = false;
+
 				string Url = result.Text?.Trim();
 
-				this.GetViewModel<ScanQrCodeViewModel>().Url = Url;
-				QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, Url, this.useShellNavigationService);
-			}
-		}
-
-		private async void OpenButton_Click(object sender, EventArgs e)
-		{
-			string Url = this.GetViewModel<ScanQrCodeViewModel>().LinkText?.Trim();
-			try
-			{
-				string Scheme = Constants.UriSchemes.GetScheme(Url);
-
-				if (string.IsNullOrWhiteSpace(Scheme))
+				if (this.ViewModel is ScanQrCodeViewModel ScanQrCodeViewModel)
 				{
-					await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnsupportedUriScheme, AppResources.Ok);
-					return;
+					ScanQrCodeViewModel.Url = Url;
+					ScanQrCodeViewModel.TrySetResultAndClosePage(Url);
 				}
 			}
-			catch (Exception ex)
-			{
-				await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
-				return;
-			}
-
-			QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, Url, this.useShellNavigationService);
 		}
 
-		/// <summary>
-		/// Overrides the back button behavior to handle navigation internally instead.
-		/// </summary>
-		/// <returns>Whether or not the back navigation was handled</returns>
-		protected override bool OnBackButtonPressed()
+		private async void OpenButton_Click(object Sender, EventArgs e)
 		{
-			QrCode.TrySetResultAndClosePage(this.ViewModel.NavigationService, this.ViewModel.UiSerializer, string.Empty, this.useShellNavigationService);
-			return true;
+			if (this.ViewModel is ScanQrCodeViewModel ScanQrCodeViewModel)
+			{
+				string Url = ScanQrCodeViewModel.LinkText?.Trim();
+				try
+				{
+					string Scheme = Constants.UriSchemes.GetScheme(Url);
+
+					if (string.IsNullOrWhiteSpace(Scheme))
+					{
+						await this.ViewModel.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnsupportedUriScheme"], LocalizationResourceManager.Current["Ok"]);
+						return;
+					}
+				}
+				catch (Exception ex)
+				{
+					await this.ViewModel.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message, LocalizationResourceManager.Current["Ok"]);
+					return;
+				}
+
+				ScanQrCodeViewModel.TrySetResultAndClosePage(Url);
+			}
 		}
 
-		private void ContentBasePage_SizeChanged(object sender, EventArgs e)
+		private void ZXingScannerView_SizeChanged(object Sender, EventArgs e)
 		{
 			// cf. https://github.com/Redth/ZXing.Net.Mobile/issues/808
 
-			this.Scanner.IsEnabled = false;
-			this.Scanner.Options.CameraResolutionSelector = this.SelectLowestResolutionMatchingDisplayAspectRatio;
-			this.Scanner.IsEnabled = true;
+			try
+			{
+				this.Scanner.Options.CameraResolutionSelector = this.SelectLowestResolutionMatchingDisplayAspectRatio;
+
+				this.Scanner.IsScanning = true;
+				this.Scanner.IsAnalyzing = true;
+
+				this.scannerRendered = true;
+			}
+			catch (Exception Exception)
+			{
+				this.ViewModel.LogService.LogException(Exception);
+			}
 		}
 
 		private CameraResolution SelectLowestResolutionMatchingDisplayAspectRatio(List<CameraResolution> AvailableResolutions)

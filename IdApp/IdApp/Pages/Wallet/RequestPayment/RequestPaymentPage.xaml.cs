@@ -21,21 +21,11 @@ namespace IdApp.Pages.Wallet.RequestPayment
         }
 
         /// <summary>
-        /// Overrides the back button behavior to handle navigation internally instead.
-        /// </summary>
-        /// <returns>Whether or not the back navigation was handled</returns>
-        protected override bool OnBackButtonPressed()
-        {
-            this.ViewModel.NavigationService.GoBackAsync();
-            return true;
-        }
-
-        /// <summary>
         /// Scrolls to display the QR-code.
         /// </summary>
         public async Task ShowQrCode()
 		{
-            await this.ScrollView.ScrollToAsync(this.ShareButton, ScrollToPosition.MakeVisible, true);
+            await this.ScrollView.ScrollToAsync(this.ShareExternalButton, ScrollToPosition.MakeVisible, true);
 		}
 	}
 }

@@ -81,7 +81,7 @@ namespace IdApp.Android.Renderers
 
 		private void SetNullableText(ExtendedDatePicker DatePicker)
         {
-            if (DatePicker.NullableDate == null)
+            if (!DatePicker.NullableDate.HasValue)
                 this.Control.Text = string.Empty;
         }
 

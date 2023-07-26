@@ -6,8 +6,9 @@ using IdApp.Extensions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using IdApp.Services.Data.Countries;
-using IdApp.Resx;
 using IdApp.Services;
+using Xamarin.CommunityToolkit.Helpers;
+using IdApp.Pages.Contracts.PetitionSignature;
 
 namespace IdApp.Pages.Contracts.ClientSignature
 {
@@ -27,11 +28,11 @@ namespace IdApp.Pages.Contracts.ClientSignature
         }
 
         /// <inheritdoc/>
-        protected override async Task DoBind()
+        protected override async Task OnInitialize()
         {
-            await base.DoBind();
+            await base.OnInitialize();
 
-            if (this.NavigationService.TryPopArgs(out ClientSignatureNavigationArgs args))
+            if (this.NavigationService.TryGetArgs(out ClientSignatureNavigationArgs args))
             {
                 this.signature = args.Signature;
                 this.identity = args.Identity;
@@ -46,7 +47,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="Created"/>
         /// </summary>
         public static readonly BindableProperty CreatedProperty =
-            BindableProperty.Create(nameof(Created), typeof(DateTime), typeof(PetitionIdentityViewModel), default(DateTime));
+            BindableProperty.Create(nameof(Created), typeof(DateTime), typeof(ClientSignatureViewModel), default(DateTime));
 
         /// <summary>
         /// The Created date of the signature
@@ -61,7 +62,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="Updated"/>
         /// </summary>
         public static readonly BindableProperty UpdatedProperty =
-            BindableProperty.Create(nameof(Updated), typeof(DateTime?), typeof(PetitionIdentityViewModel), default(DateTime?));
+            BindableProperty.Create(nameof(Updated), typeof(DateTime?), typeof(ClientSignatureViewModel), default(DateTime?));
 
         /// <summary>
         ///  The Updated timestamp of the signature
@@ -76,7 +77,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// <see cref="LegalId"/>
         /// </summary>
         public static readonly BindableProperty LegalIdProperty =
-            BindableProperty.Create(nameof(LegalId), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(LegalId), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The Legal id of the signature
@@ -91,7 +92,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="State"/>
         /// </summary>
         public static readonly BindableProperty StateProperty =
-            BindableProperty.Create(nameof(State), typeof(IdentityState), typeof(PetitionIdentityViewModel), default(IdentityState));
+            BindableProperty.Create(nameof(State), typeof(IdentityState), typeof(ClientSignatureViewModel), default(IdentityState));
 
         /// <summary>
         /// The current state of the signature
@@ -106,7 +107,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="From"/>
         /// </summary>
         public static readonly BindableProperty FromProperty =
-            BindableProperty.Create(nameof(From), typeof(DateTime?), typeof(PetitionIdentityViewModel), default(DateTime?));
+            BindableProperty.Create(nameof(From), typeof(DateTime?), typeof(ClientSignatureViewModel), default(DateTime?));
 
         /// <summary>
         /// The from date of the signature
@@ -121,7 +122,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="To"/>
         /// </summary>
         public static readonly BindableProperty ToProperty =
-            BindableProperty.Create(nameof(To), typeof(DateTime?), typeof(PetitionIdentityViewModel), default(DateTime?));
+            BindableProperty.Create(nameof(To), typeof(DateTime?), typeof(ClientSignatureViewModel), default(DateTime?));
 
         /// <summary>
         /// The to date of the signature
@@ -136,7 +137,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="FirstName"/>
         /// </summary>
         public static readonly BindableProperty FirstNameProperty =
-            BindableProperty.Create(nameof(FirstName), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(FirstName), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The legal identity's first name property
@@ -151,7 +152,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="MiddleNames"/>
         /// </summary>
         public static readonly BindableProperty MiddleNamesProperty =
-            BindableProperty.Create(nameof(MiddleNames), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(MiddleNames), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The legal identity's middle names property
@@ -166,7 +167,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="LastNames"/>
         /// </summary>
         public static readonly BindableProperty LastNamesProperty =
-            BindableProperty.Create(nameof(LastNames), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(LastNames), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The legal identity's last names property
@@ -181,7 +182,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="PersonalNumber"/>
         /// </summary>
         public static readonly BindableProperty PersonalNumberProperty =
-            BindableProperty.Create(nameof(PersonalNumber), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(PersonalNumber), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The legal identity's personal number property
@@ -196,7 +197,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="Address"/>
         /// </summary>
         public static readonly BindableProperty AddressProperty =
-            BindableProperty.Create(nameof(Address), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(Address), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The legal identity's address property
@@ -211,7 +212,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="Address2"/>
         /// </summary>
         public static readonly BindableProperty Address2Property =
-            BindableProperty.Create(nameof(Address2), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(Address2), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The legal identity's address line 2 property
@@ -226,7 +227,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="ZipCode"/>
         /// </summary>
         public static readonly BindableProperty ZipCodeProperty =
-            BindableProperty.Create(nameof(ZipCode), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(ZipCode), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The legal identity's zip code property
@@ -241,7 +242,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="Area"/>
         /// </summary>
         public static readonly BindableProperty AreaProperty =
-            BindableProperty.Create(nameof(Area), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(Area), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The legal identity's Area property
@@ -256,7 +257,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="City"/>
         /// </summary>
         public static readonly BindableProperty CityProperty =
-            BindableProperty.Create(nameof(City), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(City), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The legal identity's city property
@@ -271,7 +272,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="Region"/>
         /// </summary>
         public static readonly BindableProperty RegionProperty =
-            BindableProperty.Create(nameof(Region), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(Region), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The legal identity's region property
@@ -286,7 +287,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="CountryCode"/>
         /// </summary>
         public static readonly BindableProperty CountryCodeProperty =
-            BindableProperty.Create(nameof(CountryCode), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(CountryCode), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The legal identity's country code property
@@ -301,7 +302,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// See <see cref="Country"/>
         /// </summary>
         public static readonly BindableProperty CountryProperty =
-            BindableProperty.Create(nameof(Country), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(Country), typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// The legal identity's country property
@@ -312,11 +313,225 @@ namespace IdApp.Pages.Contracts.ClientSignature
             set => this.SetValue(CountryProperty, value);
         }
 
-        /// <summary>
-        /// See <see cref="IsApproved"/>
-        /// </summary>
-        public static readonly BindableProperty IsApprovedProperty =
-            BindableProperty.Create(nameof(IsApproved), typeof(bool), typeof(PetitionIdentityViewModel), default(bool));
+		/// <summary>
+		/// See <see cref="OrgName"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNameProperty =
+			BindableProperty.Create(nameof(OrgName), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization name property
+		/// </summary>
+		public string OrgName
+		{
+			get => (string)this.GetValue(OrgNameProperty);
+			set => this.SetValue(OrgNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgNumber"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNumberProperty =
+			BindableProperty.Create(nameof(OrgNumber), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization number property
+		/// </summary>
+		public string OrgNumber
+		{
+			get => (string)this.GetValue(OrgNumberProperty);
+			set => this.SetValue(OrgNumberProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgDepartment"/>
+		/// </summary>
+		public static readonly BindableProperty OrgDepartmentProperty =
+			BindableProperty.Create(nameof(OrgDepartment), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization department property
+		/// </summary>
+		public string OrgDepartment
+		{
+			get => (string)this.GetValue(OrgDepartmentProperty);
+			set => this.SetValue(OrgDepartmentProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRole"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRoleProperty =
+			BindableProperty.Create(nameof(OrgRole), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization role property
+		/// </summary>
+		public string OrgRole
+		{
+			get => (string)this.GetValue(OrgRoleProperty);
+			set => this.SetValue(OrgRoleProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddress"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddressProperty =
+			BindableProperty.Create(nameof(OrgAddress), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization address property
+		/// </summary>
+		public string OrgAddress
+		{
+			get => (string)this.GetValue(OrgAddressProperty);
+			set => this.SetValue(OrgAddressProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddress2"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddress2Property =
+			BindableProperty.Create(nameof(OrgAddress2), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization address line 2 property
+		/// </summary>
+		public string OrgAddress2
+		{
+			get => (string)this.GetValue(OrgAddress2Property);
+			set => this.SetValue(OrgAddress2Property, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgZipCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgZipCodeProperty =
+			BindableProperty.Create(nameof(OrgZipCode), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization zip code property
+		/// </summary>
+		public string OrgZipCode
+		{
+			get => (string)this.GetValue(OrgZipCodeProperty);
+			set => this.SetValue(OrgZipCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgArea"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAreaProperty =
+			BindableProperty.Create(nameof(OrgArea), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization area property
+		/// </summary>
+		public string OrgArea
+		{
+			get => (string)this.GetValue(OrgAreaProperty);
+			set => this.SetValue(OrgAreaProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCity"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCityProperty =
+			BindableProperty.Create(nameof(OrgCity), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization city property
+		/// </summary>
+		public string OrgCity
+		{
+			get => (string)this.GetValue(OrgCityProperty);
+			set => this.SetValue(OrgCityProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRegion"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRegionProperty =
+			BindableProperty.Create(nameof(OrgRegion), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization region property
+		/// </summary>
+		public string OrgRegion
+		{
+			get => (string)this.GetValue(OrgRegionProperty);
+			set => this.SetValue(OrgRegionProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountryCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryCodeProperty =
+			BindableProperty.Create(nameof(OrgCountryCode), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization country code property
+		/// </summary>
+		public string OrgCountryCode
+		{
+			get => (string)this.GetValue(OrgCountryCodeProperty);
+			set => this.SetValue(OrgCountryCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountry"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryProperty =
+			BindableProperty.Create(nameof(OrgCountry), typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization country property
+		/// </summary>
+		public string OrgCountry
+		{
+			get => (string)this.GetValue(OrgCountryProperty);
+			set => this.SetValue(OrgCountryProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasOrg"/>
+		/// </summary>
+		public static readonly BindableProperty HasOrgProperty =
+			BindableProperty.Create(nameof(HasOrg), typeof(bool), typeof(ClientSignatureViewModel), default(bool));
+
+		/// <summary>
+		/// If organization information is available.
+		/// </summary>
+		public bool HasOrg
+		{
+			get => (bool)this.GetValue(HasOrgProperty);
+			set
+			{
+				this.SetValue(HasOrgProperty, value);
+				this.OrgRowHeight = value ? GridLength.Auto : new GridLength(0, GridUnitType.Absolute);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRowHeight"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRowHeightProperty =
+			BindableProperty.Create(nameof(OrgRowHeight), typeof(GridLength), typeof(PetitionSignatureViewModel), default(GridLength));
+
+		/// <summary>
+		/// If organization information is available.
+		/// </summary>
+		public GridLength OrgRowHeight
+		{
+			get => (GridLength)this.GetValue(OrgRowHeightProperty);
+			set => this.SetValue(OrgRowHeightProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsApproved"/>
+		/// </summary>
+		public static readonly BindableProperty IsApprovedProperty =
+            BindableProperty.Create(nameof(IsApproved), typeof(bool), typeof(ClientSignatureViewModel), default(bool));
 
         /// <summary>
         /// Determines whether the identity is approved or not.
@@ -436,7 +651,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
 
         private void AssignProperties()
         {
-            if (!(this.identity is null))
+            if (this.identity is not null)
             {
                 this.Created = this.identity.Created;
                 this.Updated = this.identity.Updated.GetDateOrNullIfMinValue();
@@ -456,7 +671,32 @@ namespace IdApp.Pages.Contracts.ClientSignature
                 this.Region = this.identity[Constants.XmppProperties.Region];
                 this.CountryCode = this.identity[Constants.XmppProperties.Country];
                 this.Country = ISO_3166_1.ToName(this.CountryCode);
-                this.IsApproved = this.identity.State == IdentityState.Approved;
+				this.OrgName = this.identity[Constants.XmppProperties.OrgName];
+				this.OrgNumber = this.identity[Constants.XmppProperties.OrgNumber];
+				this.OrgDepartment = this.identity[Constants.XmppProperties.OrgDepartment];
+				this.OrgRole = this.identity[Constants.XmppProperties.OrgRole];
+				this.OrgAddress = this.identity[Constants.XmppProperties.OrgAddress];
+				this.OrgAddress2 = this.identity[Constants.XmppProperties.OrgAddress2];
+				this.OrgZipCode = this.identity[Constants.XmppProperties.OrgZipCode];
+				this.OrgArea = this.identity[Constants.XmppProperties.OrgArea];
+				this.OrgCity = this.identity[Constants.XmppProperties.OrgCity];
+				this.OrgRegion = this.identity[Constants.XmppProperties.OrgRegion];
+				this.OrgCountryCode = this.identity[Constants.XmppProperties.OrgCountry];
+				this.OrgCountry = ISO_3166_1.ToName(this.OrgCountryCode);
+				this.HasOrg =
+					!string.IsNullOrEmpty(this.OrgName) ||
+					!string.IsNullOrEmpty(this.OrgNumber) ||
+					!string.IsNullOrEmpty(this.OrgDepartment) ||
+					!string.IsNullOrEmpty(this.OrgRole) ||
+					!string.IsNullOrEmpty(this.OrgAddress) ||
+					!string.IsNullOrEmpty(this.OrgAddress2) ||
+					!string.IsNullOrEmpty(this.OrgZipCode) ||
+					!string.IsNullOrEmpty(this.OrgArea) ||
+					!string.IsNullOrEmpty(this.OrgCity) ||
+					!string.IsNullOrEmpty(this.OrgRegion) ||
+					!string.IsNullOrEmpty(this.OrgCountryCode) ||
+					!string.IsNullOrEmpty(this.OrgCountry);
+				this.IsApproved = this.identity.State == IdentityState.Approved;
                 this.BareJid = this.identity.GetJid(Constants.NotAvailableValue);
                 this.PhoneNr = this.identity[Constants.XmppProperties.Phone];
                 this.EMail = this.identity[Constants.XmppProperties.EMail];
@@ -481,16 +721,29 @@ namespace IdApp.Pages.Contracts.ClientSignature
                 this.Region = Constants.NotAvailableValue;
                 this.CountryCode = Constants.NotAvailableValue;
                 this.Country = Constants.NotAvailableValue;
-                this.IsApproved = false;
+				this.OrgName = Constants.NotAvailableValue;
+				this.OrgNumber = Constants.NotAvailableValue;
+				this.OrgDepartment = Constants.NotAvailableValue;
+				this.OrgRole = Constants.NotAvailableValue;
+				this.OrgAddress = Constants.NotAvailableValue;
+				this.OrgAddress2 = Constants.NotAvailableValue;
+				this.OrgZipCode = Constants.NotAvailableValue;
+				this.OrgArea = Constants.NotAvailableValue;
+				this.OrgCity = Constants.NotAvailableValue;
+				this.OrgRegion = Constants.NotAvailableValue;
+				this.OrgCountryCode = Constants.NotAvailableValue;
+				this.OrgCountry = Constants.NotAvailableValue;
+				this.HasOrg = false;
+				this.IsApproved = false;
                 this.BareJid = Constants.NotAvailableValue;
                 this.PhoneNr = Constants.NotAvailableValue;
                 this.EMail = Constants.NotAvailableValue;
 			}
-			if (!(this.signature is null))
+			if (this.signature is not null)
             {
                 this.Role = this.signature.Role;
                 this.Timestamp = this.signature.Timestamp.ToString(CultureInfo.CurrentUICulture);
-                this.IsTransferable = this.signature.Transferable ? AppResources.Yes : AppResources.No;
+                this.IsTransferable = this.signature.Transferable ? LocalizationResourceManager.Current["Yes"] : LocalizationResourceManager.Current["No"];
                 this.BareJid = this.signature.BareJid;
                 this.Signature = Convert.ToBase64String(this.signature.DigitalSignature);
             }
@@ -498,7 +751,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
             {
                 this.Role = Constants.NotAvailableValue;
                 this.Timestamp = Constants.NotAvailableValue;
-                this.IsTransferable = AppResources.No;
+                this.IsTransferable = LocalizationResourceManager.Current["No"];
                 this.Signature = Constants.NotAvailableValue;
             }
         }
@@ -511,9 +764,14 @@ namespace IdApp.Pages.Contracts.ClientSignature
 		public bool IsLinkable => true;
 
 		/// <summary>
+		/// If App links should be encoded with the link.
+		/// </summary>
+		public bool EncodeAppLinks => true;
+
+		/// <summary>
 		/// Link to the current view
 		/// </summary>
-		public string Link => Constants.UriSchemes.UriSchemeIotId + ":" + this.LegalId;
+		public string Link => Constants.UriSchemes.IotId + ":" + this.LegalId;
 
 		/// <summary>
 		/// Title of the current view

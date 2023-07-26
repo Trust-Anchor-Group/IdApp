@@ -13,6 +13,11 @@ The **ID App** (or *TAG ID App*) is a *white-label* Xamarin app written in C# pr
 It is built with .NET Standard 2.0 and Xamarin.Forms 5.0 (Shell), and relies on nugets from the [IoTGateway](https://github.com/PeterWaher/IoTGateway) 
 framework to perform tasks related to communication and functionality defined in IEEE P1451.99.
 
+The ID App is also published to [Google Play Store][] (for Android devices) and [Apple App Store][] (for iOS devices).
+
+[Google Play Store]: https://play.google.com/store/apps/details?id=com.tag.IdApp
+[Apple App Store]: https://apps.apple.com/se/app/trust-anchor-id/id1580610247
+
 ## Documentation ##
 
 The following sections presend an overview of the architecture, as well as technical guides for implementing and using the TAG Neuron SDK 
@@ -38,11 +43,11 @@ termination of this license and may result in criminal and/or civil prosecution.
 The source code and libraries provided in this repository (including references to external libraries) is provided open and without charge for the following uses:
 
 * For **Personal evaluation**. Personal evaluation means evaluating the code, its libraries and underlying technologies, including learning about underlying technologies.
-Redistribution of artefacts or source code requries attribution to the [original source code repository](https://github.com/Trust-Anchor-Group/XamarinApp), as well as a 
+Redistribution of artefacts or source code requries attribution to the [original source code repository](https://github.com/Trust-Anchor-Group/IdApp), as well as a 
 license agreement including provisions equivalent to this license agreement.
 
 * For **Academic use**. This includes research projects, student projects or classroom projects. Redistribution of artefacts or source code requries attribution to the 
-[original source code repository](https://github.com/Trust-Anchor-Group/XamarinApp), as well as a license agreement including provisions equivalent to this license agreement. 
+[original source code repository](https://github.com/Trust-Anchor-Group/IdApp), as well as a license agreement including provisions equivalent to this license agreement. 
 Attribution and reference in published articles is encouraged. If access to other technologies based on IEEE P1451.99 is desired, please [contact Trust Anchor Group AB](#contact).
 
 * For **Security analysis**. If you perform any security analysis on the code, to see what security aspects the code might have, all we request of you, is that you 
@@ -52,7 +57,7 @@ any vulnerabilities you have found. Such contributions are much appreciated and 
 such as issues here on GitHub, counts as publishing, and not private.)
 
 * For **Commercial use**. Use of the white-label TAG Digital ID App for commercial use is permitted. Replication and re-publication of source code is permitted with
-attribution to the [original source code repository](https://github.com/Trust-Anchor-Group/XamarinApp), as well as a license agreement including provisions equivalent 
+attribution to the [original source code repository](https://github.com/Trust-Anchor-Group/IdApp), as well as a license agreement including provisions equivalent 
 to this license agreement.
 
 **Note**: All rights to the source code are reserved and exclusively owned by Trust Anchor Group AB. Any contributions made to the TAG Digital ID App repository 
@@ -64,7 +69,7 @@ direct, indirect, incidental, special, exemplary, or consequential damages (incl
 of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including 
 negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.
 
-The TAG Digital ID App is © Trust Anchor Group AB 2019-2021. All rights reserved.
+The TAG Digital ID App is © Trust Anchor Group AB 2019-2023. All rights reserved.
 
 ## Contact
 

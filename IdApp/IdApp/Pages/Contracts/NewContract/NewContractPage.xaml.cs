@@ -1,4 +1,5 @@
-﻿using IdApp.Services.Navigation;
+﻿using System.Collections.Generic;
+using Waher.Persistence;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Contracts.NewContract
@@ -7,35 +8,26 @@ namespace IdApp.Pages.Contracts.NewContract
     /// A page that allows the user to create a new contract.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class NewContractPage
+	public partial class NewContractPage : IContractOptionsPage
 	{
-        private readonly INavigationService navigationService;
-
         /// <summary>
         /// Creates a new instance of the <see cref="NewContractPage"/> class.
         /// </summary>
 		public NewContractPage()
         {
-            this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new NewContractViewModel();
 			this.InitializeComponent();
         }
 
-        ///// <inheritdoc/>
-        //protected override void OnAppearing()
-        //{
-        //    base.OnAppearing();
-        //    this.ForceReRender(this.RootScrollView);
-        //}
+		/// <summary>
+		/// Method called (from main thread) when contract options are made available.
+		/// </summary>
+		/// <param name="Options">Available options, as dictionaries with contract parameters.</param>
+		public void ShowContractOptions(IDictionary<CaseInsensitiveString, object>[] Options)
+		{
+			if (this.ViewModel is NewContractViewModel ViewModel)
+				ViewModel.ShowContractOptions(this, Options);
+		}
 
-        /// <summary>
-        /// Overrides the back button behavior to handle navigation internally instead.
-        /// </summary>
-        /// <returns>Whether or not the back navigation was handled</returns>
-        protected override bool OnBackButtonPressed()
-        {
-            this.navigationService.GoBackAsync();
-            return true;
-        }
 	}
 }

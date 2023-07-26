@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
-                       xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
-                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
-                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
-                       xmlns:model="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"
-					   xmlns:svg="clr-namespace:IdApp.Helpers.Svg"
-					   x:DataType="model:RegisterIdentityViewModel"
-                       x:Class="IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityView">
-    <ContentView.Content>
-        <ScrollView x:Name="RegistrationLayout" Orientation="Vertical" Margin="{StaticResource DefaultTopOnlyMargin}">
+<registration:RegistrationStepView
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+	xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
+	xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
+	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+	xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+	xmlns:model="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"
+	xmlns:controls="clr-namespace:IdApp.Controls"
+	x:DataType="model:RegisterIdentityViewModel"
+	x:Class="IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityView">
+
+	<ScrollView x:Name="RegistrationLayout" Orientation="Vertical" Margin="{StaticResource DefaultTopOnlyMargin}">
             <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}" Spacing="12">
                 <!-- BEGIN HEADER -->
                 <Frame Style="{StaticResource OnboardingFrame}" Padding="1" CornerRadius="4" BorderColor="LightGray" HasShadow="False">
@@ -19,7 +21,7 @@
                                Margin="{StaticResource DefaultRightOnlyMargin}"
                                Text="{x:Static resx:AppResources.PersonalLegalInfoText}" />
 
-                        <Frame BorderColor="{StaticResource HeadingBackground}"
+						<Frame BorderColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"
                                HeightRequest="100" WidthRequest="120" Grid.Column="1" Grid.Row="0"
                                Padding="0" CornerRadius="4" IsClippedToBounds="True" HasShadow="False">
                             <Grid BackgroundColor="Transparent">
@@ -27,78 +29,68 @@
                                        IsVisible="{Binding Path=HasPhoto}" Rotation="{Binding Path=ImageRotation}"
                                        />
                                 <Label HorizontalOptions="Center" VerticalOptions="Center" FontSize="42"
-                                       TextColor="{StaticResource HeadingBackground}"
+                                       TextColor="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"
                                        Text="{x:Static resx:FontAwesome.User}"
                                        FontFamily="{StaticResource FontAwesomeSolid}"
                                        IsVisible="{Binding Path=HasPhoto, Converter={converters:LogicalNot}}"/>
                             </Grid>
                         </Frame>
 
-						<ImageButton x:Name="RemovePhotoButton" Grid.Column="1" HorizontalOptions="Center"
-									 Style="{StaticResource SvgIconButton}"
-									 Command="{Binding Path=RemovePhotoCommand}"
-									 IsVisible="{Binding Path=HasPhoto}">
-							<ImageButton.Source>
-								<svg:SvgImageSource Source="{x:Static resx:Svgs.Trash}" Color="White" />
-							</ImageButton.Source>
-						</ImageButton>
 
-						<!--
-						<Button x:Name="RemovePhotoButton" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center"
-                                Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeRegular}"
-                                Text="{x:Static resx:FontAwesome.TrashAlt}" Command="{Binding Path=RemovePhotoCommand}"
-                                IsVisible="{Binding Path=HasPhoto}" />
-						-->
+						<Frame Style="{StaticResource TintedSvgIconButton}"
+							   Grid.Column="1" HorizontalOptions="Center"
+							   IsVisible="{Binding Path=HasPhoto}"
+							   xct:TouchEffect.AnimationDuration="100"
+							   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+							   xct:TouchEffect.PressedOpacity="0.75"
+							   xct:TouchEffect.Command="{Binding Path=RemovePhotoCommand}">
+							<controls:TintedSvgCachedImage
+								Source="{x:Static resx:Svgs.TrashCan}" TintColor="White" />
+						</Frame>
+
 						<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"
                                      Spacing="4" Grid.Column="1" Grid.Row="1">
-							<ImageButton x:Name="AddPhotoButton"
-										 Style="{StaticResource SvgIconButton}"
-										 Command="{Binding Path=TakePhotoCommand}">
-								<ImageButton.Source>
-									<svg:SvgImageSource Source="{x:Static resx:Svgs.Camera}" Color="White" />
-								</ImageButton.Source>
-							</ImageButton>
 
-							<ImageButton x:Name="PickPhotoButton"
-										 Style="{StaticResource SvgIconButton}"
-										 Command="{Binding Path=PickPhotoCommand}">
-								<ImageButton.Source>
-									<svg:SvgImageSource Source="{x:Static resx:Svgs.Images}" Color="White" />
-								</ImageButton.Source>
-							</ImageButton>
+							<Frame Style="{StaticResource TintedSvgIconButton}"
+								   xct:TouchEffect.AnimationDuration="100"
+								   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+								   xct:TouchEffect.PressedOpacity="0.75"
+								   xct:TouchEffect.Command="{Binding Path=TakePhotoCommand}">
+								<controls:TintedSvgCachedImage
+									Source="{x:Static resx:Svgs.Camera}" TintColor="White" />
+							</Frame>
 
-							<ImageButton x:Name="EPassportButton"
-										 Style="{StaticResource SvgIconButton}"
-										 Command="{Binding Path=EPassportCommand}"
-										 IsVisible="{Binding Path=IsTest}">
-								<ImageButton.Source>
-									<svg:SvgImageSource Source="{x:Static resx:Svgs.Passport}" Color="White" />
-								</ImageButton.Source>
-							</ImageButton>
+							<Frame Style="{StaticResource TintedSvgIconButton}"
+								   xct:TouchEffect.AnimationDuration="100"
+								   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+								   xct:TouchEffect.PressedOpacity="0.75"
+								   xct:TouchEffect.Command="{Binding Path=PickPhotoCommand}">
+								<controls:TintedSvgCachedImage
+									Source="{x:Static resx:Svgs.Images}" TintColor="White" />
+							</Frame>
 
-							<!--
-							<Button x:Name="AddPhotoButton"
-                                Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeSolid}"
-                                Text="{x:Static resx:FontAwesome.Camera}" Command="{Binding Path=TakePhotoCommand}" />
-							<Button x:Name="PickPhotoButton"
-                                Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeRegular}"
-                                Text="{x:Static resx:FontAwesome.Images}" Command="{Binding Path=PickPhotoCommand}" />
-							<Button x:Name="EPassportButton"
-                                    Style="{StaticResource IconButton}" FontFamily="{StaticResource FontAwesomeSolid}"
-                                    Text="{x:Static resx:FontAwesome.Passport}" Command="{Binding Path=EPassportCommand}"
-                                    IsVisible="{Binding Path=IsTest}" />
-							-->
+							<Frame Style="{StaticResource TintedSvgIconButton}"
+								   IsVisible="{Binding Path=IsTest}"
+								   xct:TouchEffect.AnimationDuration="100"
+								   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+								   xct:TouchEffect.PressedOpacity="0.75"
+								   xct:TouchEffect.Command="{Binding Path=EPassportCommand}">
+								<controls:TintedSvgCachedImage
+									Source="{x:Static resx:Svgs.Passport}" TintColor="White" />
+							</Frame>
                         </StackLayout>
                     </Grid>
                 </Frame>
                 <!-- END HEADER -->
 
                 <StackLayout Orientation="Vertical">
-                    <StackLayout Orientation="Horizontal">
+					<Label Text="{x:Static resx:AppResources.PersonalInformation}"
+						   IsVisible="{Binding ShowOrganization}" FontSize="Large"/>
+					<StackLayout Orientation="Horizontal">
                         <Picker x:Name="CountryPicker" HorizontalOptions="FillAndExpand" Title="{x:Static resx:AppResources.Country}"
                                 ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry}"
                                 IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="FirstNameEntry" HorizontalOptions="FillAndExpand"
@@ -109,7 +101,7 @@
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="MiddleNamesEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="MiddleNamesEntry" HorizontalOptions="FillAndExpand"
@@ -131,7 +123,7 @@
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="PersonalNumberEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="PersonalNumberEntry" HorizontalOptions="FillAndExpand"
@@ -142,7 +134,7 @@
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="AddressEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="AddressEntry" HorizontalOptions="FillAndExpand"
@@ -153,7 +145,7 @@
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="Address2Entry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="Address2Entry" HorizontalOptions="FillAndExpand"
@@ -175,7 +167,7 @@
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="AreaEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="AreaEntry" HorizontalOptions="FillAndExpand"
@@ -197,7 +189,7 @@
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegionEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
-                        <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
+                        <Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="RegionEntry" HorizontalOptions="FillAndExpand"
@@ -205,16 +197,137 @@
                                Placeholder="{x:Static resx:AppResources.Region}" Text="{Binding Path=Region}"
                                IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" Focused="RegionEntry_Focused">
                             <Entry.Behaviors>
-                                <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegisterButton" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                                <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegisterButton"
+																	   SetFocusToAlternative="OrgNameEntry"
+																	   UseAlternative="{Binding ShowOrganization}"
+																	   BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
                         <Label Text="*" TextColor="Transparent" VerticalOptions="Center"/>
                     </StackLayout>
-                    <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}"/>
+					<Label Text="{x:Static resx:AppResources.OrganizationInformation}"
+						   IsVisible="{Binding ShowOrganization}" FontSize="Large"/>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Picker x:Name="OrgCountryPicker" HorizontalOptions="FillAndExpand" Title="{x:Static resx:AppResources.OrgCountry}"
+                                ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedOrgCountry}"
+                                IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgNameEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgName}" Text="{Binding Path=OrgName}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgNumberEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgNumberEntry" HorizontalOptions="FillAndExpand"
+                               Keyboard="Plain" ReturnType="Next"
+							   Placeholder="{x:Static resx:AppResources.OrgNumber}"
+                               Text="{Binding Path=OrgNumber}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgDepartmentEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgDepartmentEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgDepartment}" Text="{Binding Path=OrgDepartment}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgRoleEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgRoleEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgRole}" Text="{Binding Path=OrgRole}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgAddressEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgAddressEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgAddress}" Text="{Binding Path=OrgAddress}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgAddress2Entry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgAddress2Entry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgAddress2}" Text="{Binding Path=OrgAddress2}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgZipCodeEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" TextColor="Transparent" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgZipCodeEntry" HorizontalOptions="FillAndExpand"
+                               Keyboard="Plain" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgZipCode}" Text="{Binding Path=OrgZipCode}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgAreaEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgAreaEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgArea}" Text="{Binding Path=OrgArea}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgCityEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" TextColor="Transparent" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgCityEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
+                               Placeholder="{x:Static resx:AppResources.OrgCity}" Text="{Binding Path=OrgCity}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="OrgRegionEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" Style="{StaticResource AlertLabel}" VerticalOptions="Center"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" IsVisible="{Binding ShowOrganization}">
+						<Entry x:Name="OrgRegionEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Done"
+                               Placeholder="{x:Static resx:AppResources.OrgRegion}" Text="{Binding Path=OrgRegion}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" Focused="OrgRegionEntry_Focused">
+							<Entry.Behaviors>
+								<behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegisterButton" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+							</Entry.Behaviors>
+						</Entry>
+						<Label Text="*" TextColor="Transparent" VerticalOptions="Center"/>
+					</StackLayout>
+					<ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Style="{StaticResource AccentIndicator}"/>
                     <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
                     <Button x:Name="RegisterButton" Text="{x:Static resx:AppResources.Register}" Command="{Binding Path=RegisterCommand}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
                 </StackLayout>
             </StackLayout>
-        </ScrollView>
-    </ContentView.Content>
-</views:ContentBaseView>
+    </ScrollView>
+</registration:RegistrationStepView>

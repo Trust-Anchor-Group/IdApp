@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using EDaler;
 using IdApp.DeviceSpecific;
-using IdApp.Services.Xmpp;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Resx;
 using IdApp.Converters;
 using IdApp.Pages.Main.Calculator;
+using Xamarin.CommunityToolkit.Helpers;
+using Waher.Networking.XMPP.StanzaErrors;
+using IdApp.Services.Navigation;
 
 namespace IdApp.Pages.Wallet
 {
@@ -47,82 +48,75 @@ namespace IdApp.Pages.Wallet
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out EDalerUriNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out EDalerUriNavigationArgs Args))
 			{
-				this.uriToSend = args.UriToSend;
+				this.uriToSend = Args.UriToSend;
+				this.FriendlyName = Args.FriendlyName;
 
-				if (!args.ViewInitialized)
+				if (Args.Uri is not null)
 				{
-					this.FriendlyName = args.FriendlyName;
-
-					if (!(args.Uri is null))
-					{
-						this.Uri = args.Uri.UriString;
-						this.Id = args.Uri.Id;
-						this.Amount = args.Uri.Amount;
-						this.AmountExtra = args.Uri.AmountExtra;
-						this.Currency = args.Uri.Currency;
-						this.Created = args.Uri.Created;
-						this.Expires = args.Uri.Expires;
-						this.ExpiresStr = this.Expires.ToShortDateString();
-						this.From = args.Uri.From;
-						this.FromType = args.Uri.FromType;
-						this.To = args.Uri.To;
-						this.ToType = args.Uri.ToType;
-						this.ToPreset = !string.IsNullOrEmpty(args.Uri.To);
-						this.Complete = args.Uri.Complete;
-					}
-
-					this.RemoveQrCode();
-					this.NotPaid = true;
-
-					this.AmountText = this.Amount <= 0 ? string.Empty : MoneyToString.ToString(this.Amount);
-					this.AmountOk = CommonTypes.TryParse(this.AmountText, out decimal d) && d > 0;
-					this.AmountPreset = !string.IsNullOrEmpty(this.AmountText) && this.AmountOk;
-					this.AmountAndCurrency = this.AmountText + " " + this.Currency;
-
-					this.AmountExtraText = this.AmountExtra.HasValue ? MoneyToString.ToString(this.AmountExtra.Value) : string.Empty;
-					this.AmountExtraOk = !this.AmountExtra.HasValue || this.AmountExtra.Value >= 0;
-					this.AmountExtraPreset = this.AmountExtra.HasValue;
-					this.AmountExtraAndCurrency = this.AmountExtraText + " " + this.Currency;
-
-					StringBuilder Url = new();
-
-					Url.Append("https://");
-					Url.Append(this.From);
-					Url.Append("/Images/eDalerFront200.png");
-
-					this.EDalerFrontGlyph = Url.ToString();
-
-					Url.Clear();
-					Url.Append("https://");
-					Url.Append(this.XmppService.Xmpp.Host);
-					Url.Append("/Images/eDalerBack200.png");
-
-					this.EDalerBackGlyph = Url.ToString();
-
-					if (!(args.Uri?.EncryptedMessage is null))
-					{
-						if (args.Uri.EncryptionPublicKey is null)
-							this.Message = Encoding.UTF8.GetString(args.Uri.EncryptedMessage);
-						else
-						{
-							this.Message = await this.XmppService.Wallet.TryDecryptMessage(args.Uri.EncryptedMessage,
-								args.Uri.EncryptionPublicKey, args.Uri.Id, args.Uri.From);
-						}
-
-						this.HasMessage = !string.IsNullOrEmpty(this.Message);
-					}
-
-					this.MessagePreset = !string.IsNullOrEmpty(this.Message);
-					this.EncryptMessage = args.Uri?.ToType == EntityType.LegalId;
-
-					args.ViewInitialized = true;
+					this.Uri = Args.Uri.UriString;
+					this.Id = Args.Uri.Id;
+					this.Amount = Args.Uri.Amount;
+					this.AmountExtra = Args.Uri.AmountExtra;
+					this.Currency = Args.Uri.Currency;
+					this.Created = Args.Uri.Created;
+					this.Expires = Args.Uri.Expires;
+					this.ExpiresStr = this.Expires.ToShortDateString();
+					this.From = Args.Uri.From;
+					this.FromType = Args.Uri.FromType;
+					this.To = Args.Uri.To;
+					this.ToType = Args.Uri.ToType;
+					this.ToPreset = !string.IsNullOrEmpty(Args.Uri.To);
+					this.Complete = Args.Uri.Complete;
 				}
+
+				this.RemoveQrCode();
+				this.NotPaid = true;
+
+				this.AmountText = this.Amount <= 0 ? string.Empty : MoneyToString.ToString(this.Amount);
+				this.AmountOk = CommonTypes.TryParse(this.AmountText, out decimal d) && d > 0;
+				this.AmountPreset = !string.IsNullOrEmpty(this.AmountText) && this.AmountOk;
+				this.AmountAndCurrency = this.AmountText + " " + this.Currency;
+
+				this.AmountExtraText = this.AmountExtra.HasValue ? MoneyToString.ToString(this.AmountExtra.Value) : string.Empty;
+				this.AmountExtraOk = !this.AmountExtra.HasValue || this.AmountExtra.Value >= 0;
+				this.AmountExtraPreset = this.AmountExtra.HasValue;
+				this.AmountExtraAndCurrency = this.AmountExtraText + " " + this.Currency;
+
+				StringBuilder Url = new();
+
+				Url.Append("https://");
+				Url.Append(this.From);
+				Url.Append("/Images/eDalerFront200.png");
+
+				this.EDalerFrontGlyph = Url.ToString();
+
+				Url.Clear();
+				Url.Append("https://");
+				Url.Append(this.TagProfile.Domain);
+				Url.Append("/Images/eDalerBack200.png");
+				this.EDalerBackGlyph = Url.ToString();
+
+				if (Args.Uri?.EncryptedMessage is not null)
+				{
+					if (Args.Uri.EncryptionPublicKey is null)
+						this.Message = Encoding.UTF8.GetString(Args.Uri.EncryptedMessage);
+					else
+					{
+						this.Message = await this.XmppService.TryDecryptMessage(Args.Uri.EncryptedMessage,
+						Args.Uri.EncryptionPublicKey, Args.Uri.Id, Args.Uri.From);
+					}
+					this.HasMessage = !string.IsNullOrEmpty(this.Message);
+				}
+
+				this.MessagePreset = !string.IsNullOrEmpty(this.Message);
+				this.CanEncryptMessage = Args.Uri?.ToType == EntityType.LegalId;
+				this.EncryptMessage = this.CanEncryptMessage;
 			}
 
 			this.AssignProperties();
@@ -132,11 +126,13 @@ namespace IdApp.Pages.Wallet
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
+
 			this.uriToSend?.TrySetResult(null);
-			await base.DoUnbind();
+
+			await base.OnDispose();
 		}
 
 		private void AssignProperties()
@@ -150,16 +146,18 @@ namespace IdApp.Pages.Wallet
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.EvaluateAllCommands();
 			});
+
+			return Task.CompletedTask;
 		}
 
-		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
@@ -612,6 +610,21 @@ namespace IdApp.Pages.Wallet
 		}
 
 		/// <summary>
+		/// See <see cref="CanEncryptMessage"/>
+		/// </summary>
+		public static readonly BindableProperty CanEncryptMessageProperty =
+			BindableProperty.Create(nameof(CanEncryptMessage), typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If <see cref="Message"/> should be encrypted in payment.
+		/// </summary>
+		public bool CanEncryptMessage
+		{
+			get => (bool)this.GetValue(CanEncryptMessageProperty);
+			set => this.SetValue(CanEncryptMessageProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="HasMessage"/>
 		/// </summary>
 		public static readonly BindableProperty HasMessageProperty =
@@ -764,7 +777,7 @@ namespace IdApp.Pages.Wallet
 					return;
 
 				await Clipboard.SetTextAsync(Value);
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
 			}
 			catch (Exception ex)
 			{
@@ -780,14 +793,14 @@ namespace IdApp.Pages.Wallet
 				if (!await App.VerifyPin())
 					return;
 
-				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.Wallet.SendUri(this.Uri));
+				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.SendEDalerUri(this.Uri));
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
-					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TransactionAccepted);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TransactionAccepted"]);
 				}
 				else
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToProcessEDalerUri"]);
 			}
 			catch (Exception ex)
 			{
@@ -802,7 +815,7 @@ namespace IdApp.Pages.Wallet
 			{
 				if (!this.NotPaid)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PaymentAlreadySent);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PaymentAlreadySent"]);
 					return;
 				}
 
@@ -813,13 +826,39 @@ namespace IdApp.Pages.Wallet
 
 				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
 				{
-					LegalIdentity LegalIdentity = await this.XmppService.Contracts.GetLegalIdentity(this.To);
-					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
-						this.Currency, 3, this.Message);
+					try
+					{
+						LegalIdentity LegalIdentity = await this.XmppService.GetLegalIdentity(this.To);
+						Uri = await this.XmppService.CreateFullEDalerPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
+							this.Currency, 3, this.Message);
+					}
+					catch (ForbiddenException)
+					{
+						// This happens if you try to view someone else's legal identity.
+						// When this happens, try to send a petition to view it instead.
+						// Normal operation. Should not be logged.
+
+						this.NotPaid = true;
+						this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
+
+						this.UiSerializer.BeginInvokeOnMainThread(async () =>
+						{
+							bool Succeeded = await this.NetworkService.TryRequest(() => this.XmppService.PetitionIdentity(
+								this.To, Guid.NewGuid().ToString(), LocalizationResourceManager.Current["EncryptedPayment"]));
+
+							if (Succeeded)
+							{
+								await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PetitionSent"],
+									LocalizationResourceManager.Current["APetitionHasBeenSentForEncryption"]);
+							}
+						});
+
+						return;
+					}
 				}
 				else
 				{
-					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+					Uri = await this.XmppService.CreateFullEDalerPaymentUri(this.To, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 
@@ -829,16 +868,16 @@ namespace IdApp.Pages.Wallet
 				this.NotPaid = false;
 				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
 
-				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.Wallet.SendUri(Uri));
+				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.SendEDalerUri(Uri));
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
-					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["PaymentSuccess"]);
 				}
 				else
 				{
 					this.NotPaid = true;
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToProcessEDalerUri"]);
 					this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
 				}
 			}
@@ -855,7 +894,7 @@ namespace IdApp.Pages.Wallet
 		{
 			if (!this.NotPaid)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PaymentAlreadySent);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PaymentAlreadySent"]);
 				return;
 			}
 
@@ -868,20 +907,20 @@ namespace IdApp.Pages.Wallet
 
 				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
 				{
-					LegalIdentity LegalIdentity = await this.XmppService.Contracts.GetLegalIdentity(this.To);
-					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
+					LegalIdentity LegalIdentity = await this.XmppService.GetLegalIdentity(this.To);
+					Uri = await this.XmppService.CreateFullEDalerPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 				else
 				{
-					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+					Uri = await this.XmppService.CreateFullEDalerPaymentUri(this.To, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 
 				// TODO: Validate To is a Bare JID or proper Legal Identity
 				// TODO: Offline options: Expiry days
 
-				if (this.IsBound)
+				if (this.IsAppearing)
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					{
@@ -891,7 +930,7 @@ namespace IdApp.Pages.Wallet
 
 						this.EvaluateCommands(this.ShareCommand);
 
-						if (!(this.shareQrCode is null))
+						if (this.shareQrCode is not null)
 							await this.shareQrCode.ShowQrCode();
 					});
 				}
@@ -918,7 +957,7 @@ namespace IdApp.Pages.Wallet
 					Message = this.AmountAndCurrency;
 
 				shareContent.ShareImage(this.QrCodeBin, string.Format(Message, this.Amount, this.Currency),
-					AppResources.Share, "RequestPayment.png");
+					LocalizationResourceManager.Current["Share"], "RequestPayment.png");
 			}
 			catch (Exception ex)
 			{
@@ -934,14 +973,14 @@ namespace IdApp.Pages.Wallet
 				if (!await App.VerifyPin())
 					return;
 
-				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.Wallet.SendUri(this.Uri));
+				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.SendEDalerUri(this.Uri));
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
-					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["PaymentSuccess"]);
 				}
 				else
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToProcessEDalerUri"]);
 			}
 			catch (Exception ex)
 			{
@@ -957,7 +996,7 @@ namespace IdApp.Pages.Wallet
 
 			try
 			{
-				if (this.IsBound)
+				if (this.IsAppearing)
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					{
@@ -967,7 +1006,7 @@ namespace IdApp.Pages.Wallet
 
 						this.EvaluateCommands(this.ShareCommand);
 
-						if (!(this.shareQrCode is null))
+						if (this.shareQrCode is not null)
 							await this.shareQrCode.ShowQrCode();
 					});
 				}
@@ -981,14 +1020,14 @@ namespace IdApp.Pages.Wallet
 
 		private bool CanSendPayment()
 		{
-			return !(this.uriToSend is null) && this.AmountOk && this.AmountExtraOk && this.NotPaid;
+			return this.uriToSend is not null && this.AmountOk && this.AmountExtraOk && this.NotPaid;
 		}
 
 		private async Task SendPayment()
 		{
 			if (!this.NotPaid)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PaymentAlreadySent);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PaymentAlreadySent"]);
 				return;
 			}
 
@@ -1001,13 +1040,13 @@ namespace IdApp.Pages.Wallet
 
 				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
 				{
-					LegalIdentity LegalIdentity = await this.XmppService.Contracts.GetLegalIdentity(this.To);
-					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
+					LegalIdentity LegalIdentity = await this.XmppService.GetLegalIdentity(this.To);
+					Uri = await this.XmppService.CreateFullEDalerPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 				else
 				{
-					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+					Uri = await this.XmppService.CreateFullEDalerPaymentUri(this.To, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 
@@ -1035,11 +1074,15 @@ namespace IdApp.Pages.Wallet
 				switch (Parameter?.ToString())
 				{
 					case "AmountText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty));
+						CalculatorNavigationArgs AmountArgs = new(this, AmountTextProperty);
+
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), AmountArgs, BackMethod.Pop);
 						break;
 
 					case "AmountExtraText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountExtraTextProperty));
+						CalculatorNavigationArgs ExtraArgs = new(this, AmountExtraTextProperty);
+
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), ExtraArgs, BackMethod.Pop);
 						break;
 				}
 			}
@@ -1054,7 +1097,7 @@ namespace IdApp.Pages.Wallet
 		/// <summary>
 		/// Title of the current view
 		/// </summary>
-		public override Task<string> Title => Task.FromResult<string>(AppResources.Payment);
+		public override Task<string> Title => Task.FromResult<string>(LocalizationResourceManager.Current["Payment"]);
 
 		#endregion
 

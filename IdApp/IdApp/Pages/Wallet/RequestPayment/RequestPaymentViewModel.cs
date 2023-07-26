@@ -1,12 +1,17 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.DeviceSpecific;
+using IdApp.Pages.Contacts.Chat;
+using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Main.Calculator;
-using IdApp.Resx;
-using IdApp.Services.Xmpp;
+using IdApp.Services.Navigation;
 using Waher.Content;
+using Waher.Networking.XMPP;
+using Waher.Script.Functions.ComplexNumbers;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.RequestPayment
@@ -27,40 +32,30 @@ namespace IdApp.Pages.Wallet.RequestPayment
 			this.page = page;
 
 			this.GenerateQrCodeCommand = new Command(async _ => await this.GenerateQrCode(), _ => this.CanGenerateQrCode());
-			this.ShareCommand = new Command(async _ => await this.Share(), _ => this.CanShare());
+			this.ShareContactCommand = new Command(async _ => await this.ShareContact(), _ => this.CanShare());
+			this.ShareExternalCommand = new Command(async _ => await this.ShareExternal(), _ => this.CanShare());
 			this.OpenCalculatorCommand = new Command(async P => await this.OpenCalculator(P));
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			bool SkipInitialization = false;
-
-			if (this.NavigationService.TryPopArgs(out EDalerBalanceNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out EDalerBalanceNavigationArgs Args))
 			{
-				SkipInitialization = args.ViewInitialized;
-				if (!SkipInitialization)
-				{
-					this.Currency = args.Balance.Currency;
-					args.ViewInitialized = true;
-				}
+				this.Currency = Args.Balance.Currency;
 			}
 
-			if (!SkipInitialization)
-			{
-				this.Amount = 0;
-				this.AmountText = string.Empty;
-				this.AmountOk = false;
+			this.Amount = 0;
+			this.AmountText = string.Empty;
+			this.AmountOk = false;
 
-				this.AmountExtra = 0;
-				this.AmountExtraText = string.Empty;
-				this.AmountExtraOk = false;
-			}
+			this.AmountExtra = 0;
+			this.AmountExtraText = string.Empty;
+			this.AmountExtraOk = false;
 
 			this.RemoveQrCode();
-
 			this.AssignProperties();
 			this.EvaluateAllCommands();
 
@@ -68,10 +63,11 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
-			await base.DoUnbind();
+
+			await base.OnDispose();
 		}
 
 		private void AssignProperties()
@@ -80,20 +76,23 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.GenerateQrCodeCommand, this.ShareCommand, this.OpenCalculatorCommand);
+			this.EvaluateCommands(this.GenerateQrCodeCommand, this.ShareContactCommand, this.ShareExternalCommand,
+				this.OpenCalculatorCommand);
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.EvaluateAllCommands();
 			});
+
+			return Task.CompletedTask;
 		}
 
-		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
@@ -157,7 +156,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		public string AmountText
 		{
 			get => (string)this.GetValue(AmountTextProperty);
-			set 
+			set
 			{
 				this.SetValue(AmountTextProperty, value);
 
@@ -311,9 +310,14 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		public ICommand GenerateQrCodeCommand { get; }
 
 		/// <summary>
-		/// The command to bind to for sharing the QR code
+		/// The command to bind to for sharing the QR code with a contact
 		/// </summary>
-		public ICommand ShareCommand { get; }
+		public ICommand ShareContactCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for sharing the QR code with external applications
+		/// </summary>
+		public ICommand ShareExternalCommand { get; }
 
 		/// <summary>
 		/// The command to bind to open the calculator.
@@ -328,16 +332,16 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 			if (this.EncryptMessage)
 			{
-				Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.TagProfile.LegalIdentity, this.Amount, this.AmountExtra,
+				Uri = this.XmppService.CreateIncompleteEDalerPayMeUri(this.TagProfile.LegalIdentity, this.Amount, this.AmountExtra,
 					this.Currency, this.Message);
 			}
 			else
 			{
-				Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.XmppService.Xmpp.BareJID, this.Amount, this.AmountExtra,
+				Uri = this.XmppService.CreateIncompleteEDalerPayMeUri(this.XmppService.BareJid, this.Amount, this.AmountExtra,
 					this.Currency, this.Message);
 			}
 
-			if (this.IsBound)
+			if (this.IsAppearing)
 			{
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
@@ -345,7 +349,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 					this.QrCodeHeight = 300;
 					this.GenerateQrCode(Uri);
 
-					this.EvaluateCommands(this.ShareCommand);
+					this.EvaluateCommands(this.ShareContactCommand, this.ShareExternalCommand);
 
 					await this.page.ShowQrCode();
 				});
@@ -357,7 +361,52 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		private bool CanGenerateQrCode() => this.AmountOk;
 		private bool CanShare() => this.HasQrCode;
 
-		private async Task Share()
+		private async Task ShareContact()
+		{
+			try
+			{
+				TaskCompletionSource<ContactInfoModel> Selected = new();
+				ContactListNavigationArgs ContactListArgs = new(LocalizationResourceManager.Current["SelectFromWhomToRequestPayment"], Selected)
+				{
+					CanScanQrCode = true
+				};
+
+				await this.NavigationService.GoToAsync(nameof(MyContactsPage), ContactListArgs, BackMethod.Pop);
+
+				ContactInfoModel Contact = await Selected.Task;
+				if (Contact is null)
+					return;
+
+				if (string.IsNullOrEmpty(Contact.BareJid))
+				{
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NetworkAddressOfContactUnknown"]);
+					return;
+				}
+
+				StringBuilder Markdown = new();
+
+				Markdown.Append("![");
+				Markdown.Append(LocalizationResourceManager.Current["RequestPayment"]);
+				Markdown.Append("](");
+				Markdown.Append(this.QrCodeUri);
+				Markdown.Append(')');
+
+				await ChatViewModel.ExecuteSendMessage(string.Empty, Markdown.ToString(), Contact.BareJid, this);
+
+				await Task.Delay(100);  // Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
+
+				ChatNavigationArgs ChatArgs = new(Contact.Contact);
+
+				await this.NavigationService.GoToAsync(nameof(ChatPage), ChatArgs, BackMethod.Inherited, Contact.BareJid);
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task ShareExternal()
 		{
 			try
 			{
@@ -365,10 +414,10 @@ namespace IdApp.Pages.Wallet.RequestPayment
 				string Message = this.Message;
 
 				if (string.IsNullOrEmpty(Message))
-					Message = AppResources.RequestPaymentMessage;
+					Message = LocalizationResourceManager.Current["RequestPaymentMessage"];
 
-				shareContent.ShareImage(this.QrCodeBin, string.Format(Message, this.Amount, this.Currency), 
-					AppResources.Share, "RequestPayment.png");
+				shareContent.ShareImage(this.QrCodeBin, string.Format(Message, this.Amount, this.Currency),
+					LocalizationResourceManager.Current["Share"], "RequestPayment.png");
 			}
 			catch (Exception ex)
 			{
@@ -388,11 +437,15 @@ namespace IdApp.Pages.Wallet.RequestPayment
 				switch (Parameter?.ToString())
 				{
 					case "AmountText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountTextProperty));
+						CalculatorNavigationArgs AmountArgs = new(this, AmountTextProperty);
+
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), AmountArgs, BackMethod.Pop);
 						break;
 
 					case "AmountExtraText":
-						await this.NavigationService.GoToAsync(nameof(CalculatorPage), new CalculatorNavigationArgs(this, AmountExtraTextProperty));
+						CalculatorNavigationArgs ExtraArgs = new(this, AmountExtraTextProperty);
+
+						await this.NavigationService.GoToAsync(nameof(CalculatorPage), ExtraArgs, BackMethod.Pop);
 						break;
 				}
 			}
@@ -407,7 +460,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// <summary>
 		/// Title of the current view
 		/// </summary>
-		public override Task<string> Title => Task.FromResult<string>(AppResources.RequestPayment);
+		public override Task<string> Title => Task.FromResult<string>(LocalizationResourceManager.Current["RequestPayment"]);
 
 		#endregion
 

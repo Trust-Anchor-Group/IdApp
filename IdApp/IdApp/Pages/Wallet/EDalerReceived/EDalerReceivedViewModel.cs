@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using IdApp.Services.Xmpp;
+using Waher.Networking.XMPP;
 
 namespace IdApp.Pages.Wallet.EDalerReceived
 {
@@ -17,17 +17,17 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// Creates an instance of the <see cref="EDalerReceivedViewModel"/> class.
 		/// </summary>
 		public EDalerReceivedViewModel()
-		: base()
+			: base()
 		{
 			this.AcceptCommand = new Command(async _ => await this.Accept(), _ => this.IsConnected);
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out EDalerBalanceNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out EDalerBalanceNavigationArgs args))
 			{
 				this.Amount = args.Balance.Amount;
 				this.Currency = args.Balance.Currency;
@@ -56,14 +56,14 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 				StringBuilder Url = new();
 
 				Url.Append("https://");
-				Url.Append(this.XmppService.Xmpp.Host);
+				Url.Append(this.TagProfile.Domain);
 				Url.Append("/Images/eDalerFront200.png");
 
 				this.EDalerFrontGlyph = Url.ToString();
 
 				Url.Clear();
 				Url.Append("https://");
-				Url.Append(this.XmppService.Xmpp.Host);
+				Url.Append(this.TagProfile.Domain);
 				Url.Append("/Images/eDalerBack200.png");
 
 				this.EDalerBackGlyph = Url.ToString();
@@ -76,10 +76,10 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		private void AssignProperties()
@@ -92,16 +92,18 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.EvaluateAllCommands();
 			});
+
+			return Task.CompletedTask;
 		}
 
-		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
@@ -274,7 +276,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		}
 
 		/// <summary>
-		/// The command to bind to for claiming a thing
+		/// The command to bind to for Accepting a payment
 		/// </summary>
 		public ICommand AcceptCommand { get; }
 

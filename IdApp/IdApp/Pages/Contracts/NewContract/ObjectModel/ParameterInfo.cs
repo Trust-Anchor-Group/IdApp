@@ -1,5 +1,4 @@
-﻿using System;
-using Waher.Networking.XMPP.Contracts;
+﻿using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Contracts.NewContract.ObjectModel

@@ -5,18 +5,18 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Services;
-using IdApp.Services.EventLog;
-using IdApp.Services.Xmpp;
-using IdApp.Services.UI;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Resx;
+using System.Text.RegularExpressions;
+using IdApp.Pages.Contacts.Chat;
+using IdApp.Pages.Identity.ViewIdentity;
 
 namespace IdApp.Pages.Things.ViewClaimThing
 {
@@ -37,18 +37,28 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ViewClaimThingNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out ViewClaimThingNavigationArgs args))
 			{
 				this.Uri = args.Uri;
 
-				if (this.XmppService.ThingRegistry.TryDecodeIoTDiscoClaimURI(args.Uri, out MetaDataTag[] Tags))
+				if (this.XmppService.TryDecodeIoTDiscoClaimURI(args.Uri, out MetaDataTag[] Tags))
 				{
+					this.RegistryJid = null;
+
 					foreach (MetaDataTag Tag in Tags)
+					{
 						this.Tags.Add(new HumanReadableTag(Tag));
+
+						if (Tag.Name.ToUpper() == "R")
+							this.RegistryJid = Tag.StringValue;
+					}
+
+					if (string.IsNullOrEmpty(this.RegistryJid))
+						this.RegistryJid = this.XmppService.RegistryServiceJid;
 				}
 			}
 
@@ -59,10 +69,11 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
-			await base.DoUnbind();
+
+			await base.OnDispose();
 		}
 
 		private void AssignProperties()
@@ -75,16 +86,18 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.EvaluateAllCommands();
 			});
+
+			return Task.CompletedTask;
 		}
 
-		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
@@ -150,12 +163,29 @@ namespace IdApp.Pages.Things.ViewClaimThing
 			set => this.SetValue(MakePublicProperty, value);
 		}
 
+		/// <summary>
+		/// See <see cref="RegistryJid"/>
+		/// </summary>
+		public static readonly BindableProperty RegistryJidProperty =
+			BindableProperty.Create(nameof(RegistryJid), typeof(string), typeof(ViewClaimThingViewModel), default(string));
+
+		/// <summary>
+		/// JID of registry the thing uses.
+		/// </summary>
+		public string RegistryJid
+		{
+			get => (string)this.GetValue(RegistryJidProperty);
+			set => this.SetValue(RegistryJidProperty, value);
+		}
+
 		#endregion
 
 		private Task LabelClicked(object obj)
 		{
 			if (obj is HumanReadableTag Tag)
-				return LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.LogService);
+				return LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this);
+			else if (obj is string s)
+				return LabelClicked(string.Empty, s, s, this);
 			else
 				return Task.CompletedTask;
 		}
@@ -166,9 +196,8 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// <param name="Name">Tag name</param>
 		/// <param name="Value">Tag value</param>
 		/// <param name="LocalizedValue">Localized tag value</param>
-		/// <param name="uiSerializer">UI Dispatcher service</param>
-		/// <param name="logService">Log service</param>
-		public static async Task LabelClicked(string Name, string Value, string LocalizedValue, IUiSerializer uiSerializer, ILogService logService)
+		/// <param name="Services">Service references</param>
+		public static async Task LabelClicked(string Name, string Value, string LocalizedValue, IServiceReferences Services)
 		{ 
 			try
 			{
@@ -203,20 +232,55 @@ namespace IdApp.Pages.Things.ViewClaimThing
 					default:
 						if ((Value.StartsWith("http://", StringComparison.CurrentCultureIgnoreCase) ||
 							Value.StartsWith("https://", StringComparison.CurrentCultureIgnoreCase)) &&
-							System.Uri.TryCreate(Value, UriKind.Absolute, out Uri) && await Launcher.TryOpenAsync(Uri))
+							System.Uri.TryCreate(Value, UriKind.Absolute, out Uri) &&
+							await Launcher.TryOpenAsync(Uri))
 						{
 							return;
+						}
+						else
+						{
+							Match M = XmppClient.BareJidRegEx.Match(Value);
+
+							if (M.Success && M.Index == 0 && M.Length == Value.Length)
+							{
+								ContactInfo Info = await ContactInfo.FindByBareJid(Value);
+								if (Info is not null)
+								{
+									await Services.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Info));
+									return;
+								}
+
+								int i = Value.IndexOf('@');
+								if (i > 0 && Guid.TryParse(Value[..i], out _))
+								{
+									if (Services.NavigationService.CurrentPage is not ViewIdentityPage)
+									{
+										Info = await ContactInfo.FindByLegalId(Value);
+										if (Info?.LegalIdentity is not null)
+										{
+											await Services.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(Info.LegalIdentity));
+											return;
+										}
+									}
+								}
+								else
+								{
+									string FriendlyName = await ContactInfo.GetFriendlyName(Value, Services);
+									await Services.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(string.Empty, Value, FriendlyName));
+									return;
+								}
+							}
 						}
 						break;
 				}
 
 				await Clipboard.SetTextAsync(LocalizedValue);
-				await uiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+				await Services.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
 			}
 			catch (Exception ex)
 			{
-				logService.LogException(ex);
-				await uiSerializer.DisplayAlert(ex);
+				Services.LogService.LogException(ex);
+				await Services.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -251,16 +315,16 @@ namespace IdApp.Pages.Things.ViewClaimThing
 				if (!await App.VerifyPin())
 					return;
 
-				(bool Succeeded, NodeResultEventArgs e) = await this.NetworkService.TryRequest(() => this.XmppService.ThingRegistry.ClaimThing(this.Uri, this.MakePublic));
+				(bool Succeeded, NodeResultEventArgs e) = await this.NetworkService.TryRequest(() => this.XmppService.ClaimThing(this.Uri, this.MakePublic));
 				if (!Succeeded)
 					return;
 
 				if (e.Ok)
 				{
 					string FriendlyName = GetFriendlyName(this.Tags);
-					RosterItem Item = this.XmppService.Xmpp[e.JID];
+					RosterItem Item = this.XmppService.GetRosterItem(e.JID);
 					if (Item is null)
-						this.XmppService.Xmpp.AddRosterItem(new RosterItem(e.JID, FriendlyName));
+						this.XmppService.AddRosterItem(new RosterItem(e.JID, FriendlyName));
 
 					ContactInfo Info = await ContactInfo.FindByBareJid(e.JID, e.Node.SourceId, e.Node.Partition, e.Node.NodeId);
 					if (Info is null)
@@ -277,7 +341,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 							Partition = e.Node.Partition,
 							NodeId = e.Node.NodeId,
 							MetaData = ToProperties(this.Tags),
-							RegistryJid = e.From
+							RegistryJid = this.RegistryJid
 						};
 
 						await Database.Insert(Info);
@@ -296,9 +360,9 @@ namespace IdApp.Pages.Things.ViewClaimThing
 				{
 					string Msg = e.ErrorText;
 					if (string.IsNullOrEmpty(Msg))
-						Msg = AppResources.UnableToClaimThing;
+						Msg = LocalizationResourceManager.Current["UnableToClaimThing"];
 
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, Msg);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], Msg);
 				}
 			}
 			catch (Exception ex)

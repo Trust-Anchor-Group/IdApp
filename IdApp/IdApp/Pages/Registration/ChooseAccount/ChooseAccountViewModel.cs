@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
-using IdApp.Resx;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.QR;
 using Waher.Content;
 using Waher.Content.Xml;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration.ChooseAccount
@@ -32,32 +32,83 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		{
 			this.CreateNewCommand = new Command(async _ => await this.PerformAction(this.CreateAccount, true), _ => this.CanCreateAccount());
 			this.ScanQrCodeCommand = new Command(async _ => await this.PerformAction(this.ScanQrCode, false), _ => this.CanScanQrCode());
-			this.Title = AppResources.ChooseAccount;
+			this.Title = LocalizationResourceManager.Current["ChooseAccount"];
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
+			await this.SetDomainName();
 
-			this.DomainName = this.TagProfile.Domain;
 			this.TagProfile.Changed += this.TagProfile_Changed;
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
 
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
-		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			if (this.DomainName != this.TagProfile.Domain)
 			{
-				this.DomainName = this.TagProfile.Domain;
-			});
+				this.UiSerializer.BeginInvokeOnMainThread(async () =>
+				{
+					try
+					{
+						await this.SetDomainName();
+					}
+					catch (Exception ex)
+					{
+						this.LogService.LogException(ex);
+					}
+				});
+			}
+		}
+
+		private async Task SetDomainName()
+		{
+			this.DomainName = this.TagProfile.Domain;
+
+			try
+			{
+				Uri DomainInfo = new("https://" + this.DomainName + "/Agent/Account/DomainInfo");
+
+				string AcceptLanguage = App.SelectedLanguage;
+				if (AcceptLanguage != "en")
+					AcceptLanguage += ";q=1,en;q=0.9";
+
+				object Obj = await InternetContent.GetAsync(DomainInfo,
+					new KeyValuePair<string, string>("Accept", "application/json"),
+					new KeyValuePair<string, string>("Accept-Language", AcceptLanguage));
+
+				if (Obj is Dictionary<string, object> Response)
+				{
+					if (Response.TryGetValue("humanReadableName", out Obj) && Obj is string LocalizedName)
+						this.LocalizedName = LocalizedName;
+					else
+						this.LocalizedName = string.Empty;
+
+					if (Response.TryGetValue("humanReadableDescription", out Obj) && Obj is string LocalizedDescription)
+						this.LocalizedDescription = LocalizedDescription;
+					else
+						this.LocalizedDescription = string.Empty;
+				}
+				else
+				{
+					this.LocalizedName = string.Empty;
+					this.LocalizedDescription = string.Empty;
+				}
+			}
+			catch (Exception)
+			{
+				this.LocalizedName = string.Empty;
+				this.LocalizedDescription = string.Empty;
+			}
 		}
 
 		#region Properties
@@ -75,6 +126,74 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		{
 			get => (string)this.GetValue(DomainNameProperty);
 			set => this.SetValue(DomainNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="LocalizedName"/>
+		/// </summary>
+		public static readonly BindableProperty LocalizedNameProperty =
+			BindableProperty.Create(nameof(LocalizedName), typeof(string), typeof(ChooseAccountViewModel), default(string));
+
+		/// <summary>
+		/// The localized intro text to display to the user for explaining what 'choose account' is for.
+		/// </summary>
+		public string LocalizedName
+		{
+			get => (string)this.GetValue(LocalizedNameProperty);
+			set
+			{
+				this.SetValue(LocalizedNameProperty, value);
+				this.HasLocalizedName = !string.IsNullOrEmpty(value);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="LocalizedDescription"/>
+		/// </summary>
+		public static readonly BindableProperty LocalizedDescriptionProperty =
+			BindableProperty.Create(nameof(LocalizedDescription), typeof(string), typeof(ChooseAccountViewModel), default(string));
+
+		/// <summary>
+		/// The localized intro text to display to the user for explaining what 'choose account' is for.
+		/// </summary>
+		public string LocalizedDescription
+		{
+			get => (string)this.GetValue(LocalizedDescriptionProperty);
+			set
+			{
+				this.SetValue(LocalizedDescriptionProperty, value);
+				this.HasLocalizedDescription = !string.IsNullOrEmpty(value);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="HasLocalizedName"/>
+		/// </summary>
+		public static readonly BindableProperty HasLocalizedNameProperty =
+			BindableProperty.Create(nameof(HasLocalizedName), typeof(bool), typeof(ChooseAccountViewModel), default(bool));
+
+		/// <summary>
+		/// The localized intro text to display to the user for explaining what 'choose account' is for.
+		/// </summary>
+		public bool HasLocalizedName
+		{
+			get => (bool)this.GetValue(HasLocalizedNameProperty);
+			set => this.SetValue(HasLocalizedNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasLocalizedDescription"/>
+		/// </summary>
+		public static readonly BindableProperty HasLocalizedDescriptionProperty =
+			BindableProperty.Create(nameof(HasLocalizedDescription), typeof(bool), typeof(ChooseAccountViewModel), default(bool));
+
+		/// <summary>
+		/// The localized intro text to display to the user for explaining what 'choose account' is for.
+		/// </summary>
+		public bool HasLocalizedDescription
+		{
+			get => (bool)this.GetValue(HasLocalizedDescriptionProperty);
+			set => this.SetValue(HasLocalizedDescriptionProperty, value);
 		}
 
 		/// <summary>
@@ -124,7 +243,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		{
 			if (!this.NetworkService.IsOnline)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NetworkSeemsToBeMissing"]);
 				return;
 			}
 
@@ -183,7 +302,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					if (this.TagProfile.NeedsUpdating())
 						await this.XmppService.DiscoverServices(client);
 
-					this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
+					await this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
 				}
 
 				(bool succeeded, string errorMessage) = await this.XmppService.TryConnectAndCreateAccount(this.TagProfile.Domain,
@@ -193,14 +312,14 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				if (succeeded)
 					return true;
 
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], errorMessage, LocalizationResourceManager.Current["Ok"]);
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				string userMessage = string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain);
+				string userMessage = string.Format(LocalizationResourceManager.Current["UnableToConnectTo"], this.TagProfile.Domain);
 				string message = userMessage + Environment.NewLine + ex.Message;
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, message, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], message, LocalizationResourceManager.Current["Ok"]);
 			}
 
 			return false;
@@ -219,19 +338,22 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 		private async Task<bool> ScanQrCode()
 		{
-			string URI = await QrCode.ScanQrCode(this.NavigationService, AppResources.ClaimInvitation, UseShellNavigationService: false);
+			string URI = await QrCode.ScanQrCode(LocalizationResourceManager.Current["ClaimInvitation"], UseShellNavigationService: false);
+			if (string.IsNullOrEmpty(URI))
+				return false;
+
 			string Scheme = Constants.UriSchemes.GetScheme(URI);
 
-			if (string.Compare(Scheme, Constants.UriSchemes.UriSchemeOnboarding, true) != 0)
+			if (string.Compare(Scheme, Constants.UriSchemes.Onboarding, true) != 0)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NotAnInvitationCode, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NotAnInvitationCode"], LocalizationResourceManager.Current["Ok"]);
 				return false;
 			}
 
 			string[] Parts = URI.Split(':');
 			if (Parts.Length != 5)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["InvalidInvitationCode"], LocalizationResourceManager.Current["Ok"]);
 				return false;
 			}
 
@@ -249,7 +371,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["InvalidInvitationCode"], LocalizationResourceManager.Current["Ok"]);
 				return false;
 			}
 
@@ -268,7 +390,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				catch (Exception ex)
 				{
 					this.LogService.LogException(ex);
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToAccessInvitation, AppResources.Ok);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToAccessInvitation"], LocalizationResourceManager.Current["Ok"]);
 					return false;
 				}
 
@@ -292,7 +414,10 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 					string Xml = Encoding.UTF8.GetString(Decrypted);
 
-					XmlDocument Doc = new();
+					XmlDocument Doc = new()
+					{
+						PreserveWhitespace = true
+					};
 					Doc.LoadXml(Xml);
 
 					if (Doc.DocumentElement is null || Doc.DocumentElement.NamespaceURI != ContractsClient.NamespaceOnboarding)
@@ -305,7 +430,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					XmlElement LegalIdDefinition = null;
 					string Pin = null;
 
-					while (!(ToProcess.First is null))
+					while (ToProcess.First is not null)
 					{
 						XmlElement E = ToProcess.First.Value;
 						ToProcess.RemoveFirst();
@@ -319,8 +444,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 								await this.SelectDomain(Domain, KeyStr, Secret);
 
-								await this.UiSerializer.DisplayAlert(AppResources.InvitationAccepted,
-									string.Format(AppResources.InvitedToCreateAccountOnDomain, Domain), AppResources.Ok);
+								await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["InvitationAccepted"],
+									string.Format(LocalizationResourceManager.Current["InvitedToCreateAccountOnDomain"], Domain), LocalizationResourceManager.Current["Ok"]);
 								break;
 
 							case "Account":
@@ -338,7 +463,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 								if (!await this.ConnectToAccount(UserName, Password, PasswordMethod, string.Empty, LegalIdDefinition, Pin))
 								{
-									this.TagProfile.SetDomain(DomainBak, DefaultConnectivityBak, ApiKeyBak, ApiSecretBak);
+									await this.TagProfile.SetDomain(DomainBak, DefaultConnectivityBak, ApiKeyBak, ApiSecretBak);
 									throw new Exception("Invalid account.");
 								}
 
@@ -368,8 +493,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 						}
 					}
 
-					if (!(LegalIdDefinition is null))
-						await this.XmppService.Contracts.ContractsClient.ImportKeys(LegalIdDefinition);
+					if (LegalIdDefinition is not null)
+						await this.XmppService.ImportSigningKeys(LegalIdDefinition);
 
 					if (AccountDone)
 					{
@@ -384,7 +509,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				catch (Exception ex)
 				{
 					this.LogService.LogException(ex);
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["InvalidInvitationCode"], LocalizationResourceManager.Current["Ok"]);
 					return false;
 				}
 			}
@@ -411,7 +536,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				DefaultConnectivity = false;
 			}
 
-			this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
+			await this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 		}
 
 		private async Task<bool> ConnectToAccount(string AccountName, string Password, string PasswordMethod, string LegalIdentityJid,
@@ -445,7 +570,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 						try
 						{
-							if (!(LegalIdDefinition is null))
+							if (LegalIdDefinition is not null)
 								await ContractsClient.ImportKeys(LegalIdDefinition);
 
 							LegalIdentity[] Identities = await ContractsClient.GetLegalIdentitiesAsync();
@@ -469,8 +594,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 											break;
 										}
 
-										if (createdIdentity is null)
-											createdIdentity = Identity;
+										createdIdentity ??= Identity;
 									}
 								}
 								catch (Exception)
@@ -479,26 +603,26 @@ namespace IdApp.Pages.Registration.ChooseAccount
 								}
 							}
 
-							if (!(approvedIdentity is null))
+							if (approvedIdentity is not null)
 								this.LegalIdentity = approvedIdentity;
-							else if (!(createdIdentity is null))
+							else if (createdIdentity is not null)
 								this.LegalIdentity = createdIdentity;
 
 							string SelectedId;
 
-							if (!(this.LegalIdentity is null))
+							if (this.LegalIdentity is not null)
 							{
-								this.TagProfile.SetAccountAndLegalIdentity(AccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
+								await this.TagProfile.SetAccountAndLegalIdentity(AccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
 								SelectedId = this.LegalIdentity.Id;
 							}
 							else
 							{
-								this.TagProfile.SetAccount(AccountName, client.PasswordHash, client.PasswordHashMethod);
+								await this.TagProfile.SetAccount(AccountName, client.PasswordHash, client.PasswordHashMethod);
 								SelectedId = string.Empty;
 							}
 
 							if (!string.IsNullOrEmpty(Pin))
-								this.TagProfile.SetPin(Pin, !string.IsNullOrEmpty(Pin));
+								await this.TagProfile.CompletePinStep(Pin);
 
 							foreach (LegalIdentity Identity in Identities)
 							{
@@ -529,14 +653,14 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					typeof(App).Assembly, OnConnected);
 
 				if (!succeeded)
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], errorMessage, LocalizationResourceManager.Current["Ok"]);
 
 				return succeeded;
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["UnableToConnectTo"], this.TagProfile.Domain), LocalizationResourceManager.Current["Ok"]);
 			}
 
 			return false;

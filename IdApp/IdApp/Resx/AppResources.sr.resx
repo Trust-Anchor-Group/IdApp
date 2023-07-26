@@ -409,7 +409,7 @@
     <value>Odobravam da moji lični podaci budu povezani sa pravnim identitetom koji preispitujem, u svrhu transparentnosti.</value>
   </data>
   <data name="ID" xml:space="preserve">
-    <value>ID</value>
+    <value>Id</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
     <value>Veza sa ID-om je kopirana u ostavu.</value>
@@ -454,7 +454,7 @@
     <value>Informacije o stvarima</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Sledeće informacije su dostupne o tome. Takođe možete videti aktuelne senzorske podatke koje ste ovlašćeni da vidite. Ako je stvar aktuator, a vi imate prava da kontrolišete stvar, biće prikazani i parametri kontrole.</value>
+    <value>Sledeće informacije su lokalno dostupne o tome. Dole su predstavljene opcije interakcije sa uređajem.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Informacije nedostaju ili su nevažeće</value>
@@ -471,8 +471,8 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Nevažeće korisničko ime ili lozinka</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Pozivanje ravnopravnog uređaja na redigovanje</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Recenzija zahteva</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Ključ</value>
@@ -528,14 +528,8 @@
   <data name="Model" xml:space="preserve">
     <value>Model</value>
   </data>
-  <data name="MyContracts" xml:space="preserve">
-    <value>Moji ugovori</value>
-  </data>
-  <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Ispod je lista ugovora koje ste kreirali. Kliknite na ugovor za više informacija o njemu.</value>
-  </data>
-  <data name="MyCreatedContracts" xml:space="preserve">
-    <value>Moji kreirani ugovori</value>
+  <data name="ContractsInfoText" xml:space="preserve">
+    <value>Ispod je lista ugovora koje ste kreirali ili potpisali. Kliknite na ugovor za više informacija o njemu.</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
     <value>Moj identitet</value>
@@ -551,6 +545,12 @@
   </data>
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>Izgleda da nedostaje mreža. Proverite konfiguraciju i pokrivenost i pokušajte ponovo.</value>
+  </data>
+  <data name="SendEmailWarning" xml:space="preserve">
+    <value>Šifra je poslata u e-poruci dodavačima e-pošte. Ako je ne primite, proverite i fasciklu za bezvrednu pošte.</value>
+  </data>
+  <data name="SendPhoneNumberWarning" xml:space="preserve">
+    <value>Kôd je poslat kao tekstualna poruka vašem telefonu.</value>
   </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>
@@ -583,7 +583,7 @@
     <value>Vanmrežne</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>U REDU</value>
+    <value>U redu</value>
   </data>
   <data name="Online" xml:space="preserve">
     <value>Online</value>
@@ -915,12 +915,6 @@
   <data name="SignBefore" xml:space="preserve">
     <value>Potpiši pre</value>
   </data>
-  <data name="SignedContracts" xml:space="preserve">
-    <value>Potpisani ugovori</value>
-  </data>
-  <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Ispod je lista ugovora koje ste potpisali. Kliknite na ugovor za više informacija o njemu.</value>
-  </data>
   <data name="Skip" xml:space="preserve">
     <value>Preskoči</value>
   </data>
@@ -964,7 +958,7 @@
     <value>Ne postoji mreža</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Navedeni kôd nije pravni identitet</value>
+    <value>Potrebno je da skenirate drugi tip QR koda, onaj koji predstavlja pravni identitet</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Stvar</value>
@@ -1099,7 +1093,7 @@
     <value>Novčanik i osetljive informacije možete da zaštitite dodavanjem dodatnog PIN broja ili lozinke.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Novčanik i osetljive informacije možete da zaštitite promenom dodatnog PIN broja ili lozinke.</value>
+    <value>Postojeći PIN možete promeniti ako je potrebno. Ako preskočite ovaj korak, koristiće se stari PIN.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Sada ste odjaљnjeni. Da biste se ponovo prijavili, koristite meni u gornjem levom uglu.</value>
@@ -1155,6 +1149,9 @@
   <data name="SendCode" xml:space="preserve">
     <value>Pošalji kôd</value>
   </data>
+  <data name="DisabledFor" xml:space="preserve">
+    <value>ONEMOGUĆENO ZA {0} SEKUNDI</value>
+  </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>Šifra nije bila tačna.</value>
   </data>
@@ -1164,20 +1161,11 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Verifikuj kôd</value>
   </data>
+  <data name="VerifiedButton" xml:space="preserve">
+    <value>Proveriti</value>
+  </data>
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Takođe moramo da potvrdimo vaš broj mobilnog telefona. Unesite dole navedeni broj mobilnog telefona koristeći međunarodni format broja telefona, bez prostora.</value>
-  </data>
-  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Edukativna ili eksperimentalna upotreba.</value>
-  </data>
-  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Ova opcija vam omogućava da koristite ID oznake u edukativne, eksperimentalne ili probne svrhe. Prilikom korišćenja ove opcije nema nastalih troškova. Nalog se može ukloniti kada se više ne koristi. Ne postoji garancija da će izabrani obrazovni ili eksperimentalni pružalac usluga nastaviti sa radom duži vremenski period.</value>
-  </data>
-  <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Posao ili lična upotreba.</value>
-  </data>
-  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Ova opcija vam omogućava da koristite ID oznake u radne ili lične svrhe. Aplikaciju možete koristiti tri meseca bez troškova. Nakon ovog vremenskog perioda, određene operacije mogu naneti troškove.</value>
   </data>
   <data name="SelectPurpose" xml:space="preserve">
     <value>Izaberi svrhu</value>
@@ -1210,7 +1198,7 @@
     <value>Dobavljač usluga je izabran da bude</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Možete odabrati da kreirate nalog kod ovog dobavljača. Unesite ime naloga koji želite da kreirate i pritisnite dugme Kreiraj novi. Takođe možete odabrati da skenirate pozivnicu ili šifru za prenos da biste koristili nalog koji je već pripremljen za vas, kod drugog dobavljača usluga. Kliknite na dugme "Skeniraj pozivnicu" da biste skenirali kôd pozivnice.</value>
+    <value>Možete odabrati da kreirate nalog kod ovog dobavljača. Unesite ime naloga koji želite da kreirate i pritisnite dugme Kreiraj novi. Takođe možete odabrati da skenirate pozivni kôd da biste izabrali drugog dobavljača usluga za svoj akumulatis. Ako skenirate šifru prenosa, možete koristiti nalog koji je već pripremljen za vas. Kliknite na dugme "Skeniraj pozivnicu" da biste skenirali poziv ili šifru prenosa.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
     <value>Povezivanje viewmodel {0} za {1}</value>
@@ -1393,7 +1381,7 @@
     <value>Ne, samo ignoriši</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Drugi</value>
+    <value>Drugo __________</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Izveštaj</value>
@@ -1419,14 +1407,8 @@
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>Izgleda da server ne podržava otpremanje datoteka.</value>
   </data>
-  <data name="TesseractNotCreated" xml:space="preserve">
-    <value>OCR biblioteka Tesseract nije kreirana</value>
-  </data>
-  <data name="UnabletoInitializeTesseract" xml:space="preserve">
-    <value>Nije moguće pokrenuti OCR biblioteku Tesseract</value>
-  </data>
-  <data name="UnableToTesseractImage" xml:space="preserve">
-    <value>Nije moguće obraditi sliku pomoću Tesseract OCR biblioteke.</value>
+  <data name="UnableToOcrImage" xml:space="preserve">
+    <value>Nije moguće pronaći tekst na slici.</value>
   </data>
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Nije moguće izdvojiti tekst čitljiv na računaru sa slike.</value>
@@ -1711,7 +1693,7 @@
     <value>Prikaži M2M definiciju</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Opis</value>
+    <value>Opis: __________</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Radnje</value>
@@ -1799,5 +1781,563 @@
   </data>
   <data name="EnterValue" xml:space="preserve">
     <value>Prvo morate da unesete vrednost.</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Pitanje</value>
+  </data>
+  <data name="RemoveSubscriptionFrom" xml:space="preserve">
+    <value>Želite li da uklonite pretplatu na prisustvo iz {0}?</value>
+  </data>
+  <data name="SignaturePetitionDenied" xml:space="preserve">
+    <value>Peticija za potpis je odbijena.</value>
+  </data>
+  <data name="ContractProposal" xml:space="preserve">
+    <value>Predlog ugovora</value>
+  </data>
+  <data name="ContractResponse" xml:space="preserve">
+    <value>Odgovor na zahtev za ugovor</value>
+  </data>
+  <data name="ContractSignatureReceived" xml:space="preserve">
+    <value>Primljen potpis ugovora</value>
+  </data>
+  <data name="ContractUpdateReceived" xml:space="preserve">
+    <value>Ugovor je ažuriran</value>
+  </data>
+  <data name="IdentityResponse" xml:space="preserve">
+    <value>Odgovor na zahtev identiteta</value>
+  </data>
+  <data name="IdentityReviewRequest" xml:space="preserve">
+    <value>Zahtev za redigovanje identiteta</value>
+  </data>
+  <data name="IdentityReviewResponse" xml:space="preserve">
+    <value>Odgovor na zahtev za redigovanje identiteta</value>
+  </data>
+  <data name="RequestSignature" xml:space="preserve">
+    <value>Zahtevaj potpis</value>
+  </data>
+  <data name="RequestToAccessContract" xml:space="preserve">
+    <value>Zahtev za pristup ugovoru</value>
+  </data>
+  <data name="RequestToAccessIdentity" xml:space="preserve">
+    <value>Zahtev za pristup identitetu</value>
+  </data>
+  <data name="SignatureResponse" xml:space="preserve">
+    <value>Odgovor na zahtev za potpis</value>
+  </data>
+  <data name="UserSignedAs" xml:space="preserve">
+    <value>{0} kao {1}.</value>
+  </data>
+  <data name="PermitScreenCapture" xml:space="preserve">
+    <value>Dozvoli hvatanje ekrana</value>
+  </data>
+  <data name="ProhibitScreenCapture" xml:space="preserve">
+    <value>Zabrani hvatanje ekrana</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Bezbednosti</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Bezbednosne postavke</value>
+  </data>
+  <data name="SecuritySettingsInformationText" xml:space="preserve">
+    <value>U nastavku možete izmeniti postavke hartija od vrednosti za aplikaciju. Omogućavanjem hvatanja ekrana možete da delite ekran sa drugima, ali samo na ograničeno vreme.</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Poruka primljena.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Mrežna adresa kontakta nepoznata.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Druga aplikacija</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Izaberite od koga želite da zatražite uplatu.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>U nastavku možete pronaći dodatne opcije za deljenje QR-koda.</value>
+  </data>
+  <data name="StateChangedTo" xml:space="preserve">
+    <value>Stanje je promenjeno u {0}</value>
+  </data>
+  <data name="TokenAdded2" xml:space="preserve">
+    <value>Dodat simbol</value>
+  </data>
+  <data name="TokenRemoved2" xml:space="preserve">
+    <value>Simbol je uklonjen</value>
+  </data>
+  <data name="VariablesUpdated" xml:space="preserve">
+    <value>Promenljive su ažurirane</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Moramo da revalidiramo vašu e-mail adresu. Ažurirajte svoju e-adresu ako je potrebno i dodirnite dugme "pošalji kôd".</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Moramo da revalidiramo vaš broj mobilnog telefona. Ažurirajte broj mobilnog telefona ako je potrebno (koristite međunarodni format broja telefona, bez razmaka) i dodirnite dugme "pošalji kôd".</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Nešto je pošlo naopako prilikom slanja verifikacionog koda na ovu e-poruku.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Nešto je pošlo naopako prilikom slanja verifikacionog koda na ovaj broj telefona.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Promena broja telefona u test jedan nije dozvoljena.</value>
+  </data>
+  <data name="ServiceProviders" xml:space="preserve">
+    <value>Dobavljači usluga</value>
+  </data>
+  <data name="BuyEDaler" xml:space="preserve">
+    <value>Kupi eDaler.</value>
+  </data>
+  <data name="SelectServiceProviderBuyEDaler" xml:space="preserve">
+    <value>Izaberite dobavljača usluga kojeg želite da koristite za kupovinu eDaler-a.</value>
+  </data>
+  <data name="FromUser" xml:space="preserve">
+    <value>Od korisnika</value>
+  </data>
+  <data name="ShortId" xml:space="preserve">
+    <value>Kratak ID</value>
+  </data>
+  <data name="ConcentratorServiceNotFound" xml:space="preserve">
+    <value>Nije pronađena nijedna usluga koncentratora.</value>
+  </data>
+  <data name="ControlServiceNotFound" xml:space="preserve">
+    <value>Nije pronađena nijedna kontrolna usluga.</value>
+  </data>
+  <data name="SensorServiceNotFound" xml:space="preserve">
+    <value>Nije pronađena usluga senzora.</value>
+  </data>
+  <data name="ControlActuator" xml:space="preserve">
+    <value>Aktuator kontrole</value>
+  </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Greške</value>
+  </data>
+  <data name="ReadSensor" xml:space="preserve">
+    <value>Senzor za čitanje</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Podaci o senzoru</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>Zahtev je prihvaćen.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Očitavanje podataka senzora je otkazano.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Očitavanje podataka senzora je dovršeno.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Očitavanje podataka senzora nije uspelo.</value>
+  </data>
+  <data name="SensorDataHeaderComputed" xml:space="preserve">
+    <value>Izračunato</value>
+  </data>
+  <data name="SensorDataHeaderHistorical" xml:space="preserve">
+    <value>Istorijski</value>
+  </data>
+  <data name="SensorDataHeaderIdentity" xml:space="preserve">
+    <value>Identitet</value>
+  </data>
+  <data name="SensorDataHeaderMomentary" xml:space="preserve">
+    <value>Trenutna</value>
+  </data>
+  <data name="SensorDataHeaderOther" xml:space="preserve">
+    <value>Drugo __________</value>
+  </data>
+  <data name="SensorDataHeaderPeak" xml:space="preserve">
+    <value>Vrhunac</value>
+  </data>
+  <data name="SensorDataHeaderStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Primanje podataka senzora.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Podaci o senzorima su zatraženi.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Očitavanje podataka senzora je počelo.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Ispod su vam dostupne informacije i podaci o senzorima, u skladu sa vašim privilegijama pristupa.</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Vreme</value>
+  </data>
+  <data name="PepServiceNotFound" xml:space="preserve">
+    <value>Nije pronađena usluga ličnog događaja.</value>
+  </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Dodaj na listu</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Izbriši pravila</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Želite li da izbrišete sva pravila obezbeđivanja za tu stvar? Time će vas stvar ponovo zamoliti za sve nove događaje kako biste saznali šta je ovlašćeno da radi.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Želite li da se odreknete te stvari? Ovo će ukloniti stvar sa vaše liste stvari, i dozvoliti drugome da prisvoji uređaj kao njihov.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Ukloni sa liste</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Pravila obezbeđivanja su izbrisana.</value>
+  </data>
+  <data name="AccessRequestText" xml:space="preserve">
+    <value>{0} želi da se poveže sa uređajem {1}.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Obaveštenja</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>U nastavku možete videti listu obaveštenja koja su rezultat interakcije sa tom stvari. Pritisnite svaku od njih da biste prikazali više dostupnih informacija i opcija.</value>
+  </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>Zahtev za pristup</value>
+  </data>
+  <data name="AccessRequestText2" xml:space="preserve">
+    <value>Pozivalac je zahtevao pristup jednoj od vaših stvari. Izaberite način na koji želite da stvar odgovori na ovaj tip zahteva.</value>
+  </data>
+  <data name="Caller" xml:space="preserve">
+    <value>Pozivalac</value>
+  </data>
+  <data name="CallerAddress" xml:space="preserve">
+    <value>Adresa pozivaoca</value>
+  </data>
+  <data name="CallerOnly" xml:space="preserve">
+    <value>Samo pozivalac</value>
+  </data>
+  <data name="ControlRequestText" xml:space="preserve">
+    <value>{0} želi da kontroliše parametre na uređaju {1}.</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Uređaj</value>
+  </data>
+  <data name="EntireDomain" xml:space="preserve">
+    <value>Svi iz {0}</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Svi</value>
+  </data>
+  <data name="FriendlyName" xml:space="preserve">
+    <value>Prepoznatljivo ime</value>
+  </data>
+  <data name="InformationAboutCallerText" xml:space="preserve">
+    <value>Dostupne su sledeće informacije o pozivaoca:</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Nije dostupno</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>Opseg</value>
+  </data>
+  <data name="RangeText" xml:space="preserve">
+    <value>Primeni ovo pravilo na:</value>
+  </data>
+  <data name="ReadoutRequestText" xml:space="preserve">
+    <value>{0} želi da čita podatke sa uređaja {1}.</value>
+  </data>
+  <data name="ReadoutRequestText2" xml:space="preserve">
+    <value>Pozivalac je zahtevao podatke o senzorima iz jedne od vaših stvari. Izaberite način na koji želite da stvar odgovori na ovaj tip zahteva.</value>
+  </data>
+  <data name="ReadRequest" xml:space="preserve">
+    <value>Zahtev za čitanje</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Usluga</value>
+  </data>
+  <data name="ToDevice" xml:space="preserve">
+    <value>Na uređaj, bez obzira na izvor</value>
+  </data>
+  <data name="ToService" xml:space="preserve">
+    <value>Za servis, bez obzira na izvor</value>
+  </data>
+  <data name="ToUser" xml:space="preserve">
+    <value>Korisniku, bez obzira na izvor</value>
+  </data>
+  <data name="UnableToRespond" xml:space="preserve">
+    <value>Nije moguće odgovoriti na zahtev.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Korisnik</value>
+  </data>
+  <data name="XInY" xml:space="preserve">
+    <value>{0} u {1}</value>
+  </data>
+  <data name="XOnY" xml:space="preserve">
+    <value>{0} na {1}</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Sve</value>
+  </data>
+  <data name="ComputedValues" xml:space="preserve">
+    <value>Izračunate vrednosti</value>
+  </data>
+  <data name="FieldTypes" xml:space="preserve">
+    <value>Vrste polja</value>
+  </data>
+  <data name="HistoricalValues" xml:space="preserve">
+    <value>Istorijske vrednosti</value>
+  </data>
+  <data name="IdentityValues" xml:space="preserve">
+    <value>Vrednosti identiteta</value>
+  </data>
+  <data name="MomentaryValues" xml:space="preserve">
+    <value>Momentalne vrednosti</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Niko</value>
+  </data>
+  <data name="PeakValues" xml:space="preserve">
+    <value>Vrhunac vrednosti</value>
+  </data>
+  <data name="PermitFieldTypesText" xml:space="preserve">
+    <value>Odaberite tipove polja (široke kategorije) kojima ćete dozvoliti pristup ako je zahtev prihvaćen.</value>
+  </data>
+  <data name="StatusValues" xml:space="preserve">
+    <value>Statusne vrednosti</value>
+  </data>
+  <data name="ControlRequest" xml:space="preserve">
+    <value>Zahtev za kontrolu</value>
+  </data>
+  <data name="ControlRequestText2" xml:space="preserve">
+    <value>Pozivalac je zahtevao da kontroliše jednu od vaših stvari. Izaberite način na koji želite da stvar odgovori na ovaj tip zahteva.</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Polja</value>
+  </data>
+  <data name="PermitFieldsText" xml:space="preserve">
+    <value>Odaberite polja kojima ćete dozvoliti pristup ako je zahtev prihvaćen.</value>
+  </data>
+  <data name="PermitParametersText" xml:space="preserve">
+    <value>Odaberite parametre kojima ćete dozvoliti pristup ako je zahtev prihvaćen.</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Kupi</value>
+  </data>
+  <data name="BuyEDalerDescription" xml:space="preserve">
+    <value>Navedite količinu eDalera koju želite da kupite ispod i pritisnite dugme Kupi. Web stranica može biti otvorena tamo gde morate da popunite dodatne informacije za procesor plaćanja da biste proverili valjanost ponovnog korišćenja.</value>
+  </data>
+  <data name="PaymentCancelled" xml:space="preserve">
+    <value>Plaćanje je otkazano</value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>Plaćanje nije uspelo</value>
+  </data>
+  <data name="Anonymous" xml:space="preserve">
+    <value>Anonimni</value>
+  </data>
+  <data name="ConnectToDevice" xml:space="preserve">
+    <value>Poveži se sa uređajem</value>
+  </data>
+  <data name="DisconnectFromDevice" xml:space="preserve">
+    <value>Prekini vezu sa uređajem</value>
+  </data>
+  <data name="AndroidApp" xml:space="preserve">
+    <value>Android aplikacija</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Prilagođene</value>
+  </data>
+  <data name="IosApp" xml:space="preserve">
+    <value>iOS aplikacija</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Vezu</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Veze</value>
+  </data>
+  <data name="LinksText" xml:space="preserve">
+    <value>Otvaranjem bilo koje od dole navedenih veza otvara se programski prikaz veze. Ovu stranicu možete koristiti za kodiranje NFC oznaka ili za prenos veze sa drugima.</value>
+  </data>
+  <data name="LinkText" xml:space="preserve">
+    <value>Vezu možete skenirati iz druge aplikacije ili je zapisati u praznu NFC oznaku, tako što ćete postaviti oznaku iza telefona dok ne dobijete odgovarajući signal.</value>
+  </data>
+  <data name="TrustAnchorGroup" xml:space="preserve">
+    <value>Grupa sidra poverenja</value>
+  </data>
+  <data name="ClientMessageAuthenticationTimeout" xml:space="preserve">
+    <value>Odgovor nije vraćen u okviru konfigurisanog vremena.</value>
+  </data>
+  <data name="ClientMessageCountryCodeMismatch" xml:space="preserve">
+    <value>Pozivni broj zemlje se ne podudara.</value>
+  </data>
+  <data name="ClientMessageCountryCodeNotVerified" xml:space="preserve">
+    <value>Pozivni broj zemlje nije verifikovan.</value>
+  </data>
+  <data name="ClientMessageFirstNameNotVerified" xml:space="preserve">
+    <value>Ime nije provereno.</value>
+  </data>
+  <data name="ClientMessageLastNameNotVerified" xml:space="preserve">
+    <value>Prezime nije provereno.</value>
+  </data>
+  <data name="ClientMessageNotValid" xml:space="preserve">
+    <value>Identitet nije važeći.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberMismatch" xml:space="preserve">
+    <value>Lični broj se ne podudara.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberNotVerified" xml:space="preserve">
+    <value>Lični broj nije verifikovan.</value>
+  </data>
+  <data name="ClientMessageReferenceMismatch" xml:space="preserve">
+    <value>Vraćena referenca se ne podudara sa referencom zahteva.</value>
+  </data>
+  <data name="ClientMessageUnexpectedDocumentInformation" xml:space="preserve">
+    <value>Informacije o dokumentu nisu vraćene na očekivani način.</value>
+  </data>
+  <data name="ClientMessageUnexpectedEventResult" xml:space="preserve">
+    <value>Rezultat događaja se nije vratio na očekivani način.</value>
+  </data>
+  <data name="ClientMessageUnexpectedResult" xml:space="preserve">
+    <value>Neočekivani odgovor je vraćen.</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Informacija</value>
+  </data>
+  <data name="AppNotConnected" xml:space="preserve">
+    <value>Aplikacija nije povezana sa mrežom.</value>
+  </data>
+  <data name="InvalidTagSignatureId" xml:space="preserve">
+    <value>Nevažeći URI potpisa TAG.</value>
+  </data>
+  <data name="LegalIdNotApproved" xml:space="preserve">
+    <value>Pravna ID nije odobrena.</value>
+  </data>
+  <data name="NoLegalIdSelected" xml:space="preserve">
+    <value>Nije izabran pravni ID.</value>
+  </data>
+  <data name="SelectServiceProviderSellEDaler" xml:space="preserve">
+    <value>Izaberite dobavljača usluga kojeg želite da koristite za prodaju eDaler-a.</value>
+  </data>
+  <data name="Sell" xml:space="preserve">
+    <value>Prodati</value>
+  </data>
+  <data name="SellEDaler" xml:space="preserve">
+    <value>Prodaj eDaler.</value>
+  </data>
+  <data name="SellEDalerDescription" xml:space="preserve">
+    <value>Navedite količinu eDalera koju želite da prodate ispod i pritisnite dugme Prodaj. Web stranica može biti otvorena tamo gde morate da popunite dodatne informacije za procesor plaćanja da biste proverili valjanost ponovnog korišćenja.</value>
+  </data>
+  <data name="TokenCreationTemplates" xml:space="preserve">
+    <value>Predlošci simbola</value>
+  </data>
+  <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
+    <value>Ispod je lista predložaka simbola koje ste koristili ili koje možete da koristite za kreiranje novih tokena. Kliknite na predložak da biste kreirali novi ugovor zasnovan na tom predlošku. Kada ugovor bude potpisan i odobren, biće kreiran odgovarajući simbol ili simboli.</value>
+  </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Izaberite gde želite da pošaljete zahtev za redigovanje.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Zahtevajte od drugog korisnika da pregleda vašu aplikaciju.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Korisniku</value>
+  </data>
+  <data name="UnableToOpenLink" xml:space="preserve">
+    <value>Nije moguće otvoriti vezu:</value>
+  </data>
+  <data name="OrgAddress" xml:space="preserve">
+    <value>Adresa organizacije</value>
+  </data>
+  <data name="OrgAddress2" xml:space="preserve">
+    <value>Adresa organizacije (red 2)</value>
+  </data>
+  <data name="OrgArea" xml:space="preserve">
+    <value>Oblast organizacije</value>
+  </data>
+  <data name="OrgCity" xml:space="preserve">
+    <value>Grad organizacije</value>
+  </data>
+  <data name="OrgCountry" xml:space="preserve">
+    <value>Zemlja organizacije</value>
+  </data>
+  <data name="OrgDepartment" xml:space="preserve">
+    <value>Odeljenje</value>
+  </data>
+  <data name="OrgName" xml:space="preserve">
+    <value>Ime organizacije</value>
+  </data>
+  <data name="OrgNumber" xml:space="preserve">
+    <value>Broj organizacije</value>
+  </data>
+  <data name="OrgRegion" xml:space="preserve">
+    <value>Region organizacije</value>
+  </data>
+  <data name="OrgRole" xml:space="preserve">
+    <value>Ulogu</value>
+  </data>
+  <data name="OrgZipCode" xml:space="preserve">
+    <value>Poštanski broj organizacije</value>
+  </data>
+  <data name="PurposeEducational" xml:space="preserve">
+    <value>Obrazovna upotreba.</value>
+  </data>
+  <data name="PurposeEducationalDescription" xml:space="preserve">
+    <value>Ova opcija vam omogućava da koristite ID oznake u edukativne svrhe. Aplikaciju možete da koristite za potpisivanje ili pristup resursima kao privatno lice, bilo kao edukator ili kao student. Nalog je možda ograničen na vreme. Nalog se takođe može ukloniti kada se više ne koristi. Za više informacija obratite se dobavljaču usluga.</value>
+  </data>
+  <data name="PurposeExperimental" xml:space="preserve">
+    <value>Eksperimentalna upotreba.</value>
+  </data>
+  <data name="PurposeExperimentalDescription" xml:space="preserve">
+    <value>Ova opcija vam omogućava da koristite ID oznake u eksperimentalne svrhe. Aplikaciju možete da koristite za potpisivanje ili pristup resursima kao privatno lice, sa ciljem da naučite tehnologiju i u koje svrhe može da se koristi. Nalog je možda ograničen na vreme. Nalog se takođe može ukloniti kada se više ne koristi. Za više informacija obratite se dobavljaču usluga.</value>
+  </data>
+  <data name="PurposePersonal" xml:space="preserve">
+    <value>Lična upotreba.</value>
+  </data>
+  <data name="PurposePersonalDescription" xml:space="preserve">
+    <value>Ova opcija vam omogućava da koristite ID oznake u lične svrhe. Aplikaciju možete da koristite za potpisivanje ili pristup resursima kao privatno lice. Određene operacije mogu naneti troškove, u zavisnosti od dobavljača usluga kojeg odaberete. Za više informacija obratite se dobavljaču usluga.</value>
+  </data>
+  <data name="PurposeWork" xml:space="preserve">
+    <value>Upotreba na poslu.</value>
+  </data>
+  <data name="PurposeWorkDescription" xml:space="preserve">
+    <value>Ova opcija vam omogućava da koristite ID oznake u radne svrhe. To uključuje rad ne za profit u organizacijama. Aplikaciju možete da koristite za potpisivanje ili pristup resursima kao predstavnik organizacije. Određene operacije mogu naneti troškove, u zavisnosti od dobavljača usluga kojeg odaberete. Za više informacija obratite se dobavljaču usluga.</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgCountry" xml:space="preserve">
+    <value>Moraš da obezbediš zemlju organizacije</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgDepartment" xml:space="preserve">
+    <value>Moraš da obezbediš odeljenje</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgName" xml:space="preserve">
+    <value>Potrebno je da navedete ime organizacije</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgNumber" xml:space="preserve">
+    <value>Potrebno je da navedete broj organizacije</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
+    <value>Moraš da obezbediš ulogu</value>
+  </data>
+  <data name="APetitionHasBeenSentForEncryption" xml:space="preserve">
+    <value>Šifrovanje se može izvršiti samo ako imate pristup identitetu primalaca. Zbog toga je upućena peticija za ovaj identitet upućena primaocu. Ako primalac prihvati peticiju, dobićete identitet i moći ćete da pošaljete uplatu šifrovanom porukom kada pokušate ponovo. Takođe možete odabrati da pošaljete nešifrovanu poruku sa uplatom.</value>
+  </data>
+  <data name="EncryptedPayment" xml:space="preserve">
+    <value>Šifrovano plaćanje</value>
+  </data>
+  <data name="GettingOptionsCancelled" xml:space="preserve">
+    <value>Dobijanje dostupnih opcija je otkazano.</value>
+  </data>
+  <data name="UnableToGetOptions" xml:space="preserve">
+    <value>Nije moguće dobiti dostupne opcije.</value>
+  </data>
+  <data name="ServerDescription" xml:space="preserve">
+    <value>Opis dobavljača usluga</value>
+  </data>
+  <data name="OrganizationInformation" xml:space="preserve">
+    <value>Informacije o organizaciji</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>Lične informacije</value>
   </data>
 </root>

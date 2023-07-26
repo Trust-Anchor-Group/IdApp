@@ -1,6 +1,8 @@
 ﻿using IdApp.Services.Storage;
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
+using Waher.Networking;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
 
@@ -18,7 +20,7 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// An event that triggers during the registration/profile build process, as the profile becomes more/less complete.
 		/// </summary>
-		event EventHandler StepChanged;
+		event EventHandlerAsync StepChanged;
 
 		/// <summary>
 		/// An event that fires whenever any property on the <see cref="ITagProfile"/> changes.
@@ -39,7 +41,7 @@ namespace IdApp.Services.Tag
 		/// API Secret, for creating new account.
 		/// </summary>
 		string ApiSecret { get; }
-		
+
 		/// <summary>
 		/// Verified phone number.
 		/// </summary>
@@ -126,11 +128,6 @@ namespace IdApp.Services.Tag
 		RegistrationStep Step { get; }
 
 		/// <summary>
-		/// Returns <c>true</c> if the PIN is valid, <c>false</c> otherwise.
-		/// </summary>
-		bool PinIsValid { get; }
-
-		/// <summary>
 		/// Returns <c>true</c> if file upload is supported for the specified XMPP server, <c>false</c> otherwise.
 		/// </summary>
 		bool FileUploadIsSupported { get; }
@@ -146,14 +143,19 @@ namespace IdApp.Services.Tag
 		string PinHash { get; }
 
 		/// <summary>
-		/// Returns <c>true</c> if the <see cref="Pin"/> should be used, <c>false</c> otherwise.
+		/// Indicates if the user has a <see cref="Pin"/>.
 		/// </summary>
-		bool UsePin { get; }
+		bool HasPin { get; }
 
 		/// <summary>
 		/// Returns <c>true</c> if the user choose the educational or experimental purpose.
 		/// </summary>
 		bool IsTest { get; }
+
+		/// <summary>
+		/// Purpose for using the app.
+		/// </summary>
+		PurposeUse Purpose { get; }
 
 		/// <summary>
 		/// Returns a timestamp if the user used a Test OTP Code.
@@ -180,7 +182,7 @@ namespace IdApp.Services.Tag
 		/// Copies values from the <see cref="TagConfiguration"/> to this instance.
 		/// </summary>
 		/// <param name="configuration"></param>
-		void FromConfiguration(TagConfiguration configuration);
+		Task FromConfiguration(TagConfiguration configuration);
 
 		/// <summary>
 		/// Returns <c>true</c> if the current <see cref="ITagProfile"/> needs to have its values updated, <c>false</c> otherwise.
@@ -230,12 +232,22 @@ namespace IdApp.Services.Tag
 		/// <param name="defaultXmppConnectivity">If connecting to the domain can be done using default parameters (host=domain, default c2s port).</param>
 		/// <param name="Key">Key to use, if an account is to be created.</param>
 		/// <param name="Secret">Secret to use, if an account is to be created.</param>
-		void SetDomain(string domainName, bool defaultXmppConnectivity, string Key, string Secret);
+		Task SetDomain(string domainName, bool defaultXmppConnectivity, string Key, string Secret);
 
 		/// <summary>
 		/// Revert Step 1.
 		/// </summary>
-		void ClearDomain();
+		Task ClearDomain();
+
+		/// <summary>
+		/// An alternative Step 1, used for accounts with an obsoleted identity, - validate contact info (the same or updated) without changing account data.
+		/// </summary>
+		Task RevalidateContactInfo();
+
+		/// <summary>
+		/// Revert an alternative Step 1, used for accounts with an obsoleted identity, - invalidate contact info without erasing the legal identity or otherwise changing the account.
+		/// </summary>
+		Task InvalidateContactInfo();
 
 		/// <summary>
 		/// Step 2 - set the account name and password for a <em>new</em> account.
@@ -243,7 +255,7 @@ namespace IdApp.Services.Tag
 		/// <param name="accountName">The account/user name.</param>
 		/// <param name="clientPasswordHash">The password hash (never send the real password).</param>
 		/// <param name="clientPasswordHashMethod">The hash method used when hashing the password.</param>
-		void SetAccount(string accountName, string clientPasswordHash, string clientPasswordHashMethod);
+		Task SetAccount(string accountName, string clientPasswordHash, string clientPasswordHashMethod);
 
 		/// <summary>
 		/// Step 2 and 3 - set the account name and password for an <em>existing</em> account.
@@ -252,50 +264,54 @@ namespace IdApp.Services.Tag
 		/// <param name="clientPasswordHash">The password hash (never send the real password).</param>
 		/// <param name="clientPasswordHashMethod">The hash method used when hashing the password.</param>
 		/// <param name="identity">The new identity.</param>
-		void SetAccountAndLegalIdentity(string accountName, string clientPasswordHash, string clientPasswordHashMethod, LegalIdentity identity);
+		Task SetAccountAndLegalIdentity(string accountName, string clientPasswordHash, string clientPasswordHashMethod, LegalIdentity identity);
 
 		/// <summary>
 		/// Revert Step 2.
 		/// </summary>
-		void ClearAccount();
+		Task ClearAccount(bool GoToPrevStep = true);
 
 		/// <summary>
 		/// Step 3 - set the legal identity of a newly created account.
 		/// </summary>
 		/// <param name="legalIdentity">The legal identity to use.</param>
-		void SetLegalIdentity(LegalIdentity legalIdentity);
+		Task SetLegalIdentity(LegalIdentity legalIdentity);
 
 		/// <summary>
 		/// Revert Step 3.
 		/// </summary>
-		void ClearLegalIdentity();
+		Task ClearLegalIdentity();
 
 		/// <summary>
 		/// Step 4 - set the current legal identity as validated.
 		/// </summary>
-		void SetIsValidated();
+		Task SetIsValidated();
 
 		/// <summary>
 		/// Revert Step 4.
 		/// </summary>
-		void ClearIsValidated();
+		Task ClearIsValidated();
 
 		/// <summary>
 		///  Step 5 - Set a pin to use for protecting the account.
 		/// </summary>
-		/// <param name="pin">The pin to use.</param>
-		/// <param name="shouldUsePin"><c>true</c> to use the pin, <c>false</c> otherwise.</param>
-		void SetPin(string pin, bool shouldUsePin);
+		/// <param name="Pin">The pin to use.</param>
+		/// <param name="AddOrUpdatePin">
+		/// If we should use <paramref name="Pin"/> to set or clear pin or we should ignore <paramref name="Pin"/> and just complete th step.
+		/// </param>
+		Task CompletePinStep(string Pin, bool AddOrUpdatePin = true);
 
 		/// <summary>
 		/// Revert Step 5.
 		/// </summary>
-		void ClearPin();
+		Task RevertPinStep();
 
 		/// <summary>
 		/// Step 1 - Set if the user choose the educational or experimental purpose.
 		/// </summary>
-		void SetIsTest(bool isTest);
+		/// <param name="IsTest">If app is in test mode.</param>
+		/// <param name="Purpose">Purpose for using the app</param>
+		void SetPurpose(bool IsTest, PurposeUse Purpose);
 
 		/// <summary>
 		/// Step 1 - Set if the user used a Test OTP Code.
@@ -306,13 +322,13 @@ namespace IdApp.Services.Tag
 		/// Sets the current <see cref="LegalIdentity"/> to the revoked identity, and reverses the <see cref="Step"/> property.
 		/// </summary>
 		/// <param name="revokedIdentity">The revoked identity to use.</param>
-		void RevokeLegalIdentity(LegalIdentity revokedIdentity);
+		Task RevokeLegalIdentity(LegalIdentity revokedIdentity);
 
 		/// <summary>
 		/// Sets the current <see cref="LegalIdentity"/> to the compromised identity, and reverses the <see cref="Step"/> property.
 		/// </summary>
 		/// <param name="compromisedIdentity">The compromised identity to use.</param>
-		void CompromiseLegalIdentity(LegalIdentity compromisedIdentity);
+		Task CompromiseLegalIdentity(LegalIdentity compromisedIdentity);
 
 		/// <summary>
 		/// Used during XMPP service discovery. Sets the legal id.

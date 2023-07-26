@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Xml;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
@@ -12,43 +13,35 @@ namespace IdApp.Services.Navigation
     [DefaultImplementation(typeof(NavigationService))]
     public interface INavigationService : ILoadableService
     {
-        /// <summary>
-        /// Navigates the AppShell to the specified route.
-        /// </summary>
-        /// <param name="route">The route whose matching page to navigate to.</param>
-        Task GoToAsync(string route);
+		/// <summary>
+		/// Navigates the AppShell to the specified route, with page arguments to match.
+		/// </summary>
+		/// <param name="Route">The route whose matching page to navigate to.</param>
+		/// <param name="BackMethod">How to handle the back button.</param>
+		/// <param name="UniqueId">Views unique ID.</param>
+		Task GoToAsync(string Route, BackMethod BackMethod = BackMethod.Inherited, string UniqueId = null);
 
-        /// <summary>
-        /// Navigates the AppShell to the specified route, with page arguments to match.
-        /// </summary>
-        /// <param name="route">The route whose matching page to navigate to.</param>
-        /// <param name="args">The specific args to pass to the page.</param>
-        Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs, new();
-
-        /// <summary>
-        /// Returns to the previous page/route.
-        /// </summary>
-        Task GoBackAsync();
+		/// <summary>
+		/// Navigates the AppShell to the specified route, with page arguments to match.
+		/// </summary>
+		/// <param name="Route">The route whose matching page to navigate to.</param>
+		/// <param name="Args">The specific args to pass to the page.</param>
+		/// <param name="BackMethod">How to handle the back button.</param>
+		/// <param name="UniqueId">Views unique ID.</param>
+		Task GoToAsync<TArgs>(string Route, TArgs Args, BackMethod BackMethod = BackMethod.Inherited, string UniqueId = null) where TArgs : NavigationArgs, new();
 
         /// <summary>
         /// Returns to the previous page/route.
         /// </summary>
         /// <param name="Animate">If animation should be used.</param>
-        Task GoBackAsync(bool Animate);
+        Task GoBackAsync(bool Animate = true);
 
 		/// <summary>
-		/// Tries to pop/read page arguments from the (one-level) deep navigation stack.
+		/// Returns the page's arguments from the (one-level) deep navigation stack.
 		/// </summary>
-		/// <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="NavigationArgs"/>.</typeparam>
-		/// <param name="args">The actual args.</param>
-		/// <param name="UniqueId">Views unique ID.</param>
-		bool TryPopArgs<TArgs>(out TArgs args, string UniqueId = null) where TArgs : NavigationArgs;
-
-		/// <summary>
-		/// Returns the pages arguments from the (one-level) deep navigation stack.
-		/// </summary>
-		/// <param name="UniqueId">Views unique ID.</param>
-		TArgs GetPopArgs<TArgs>(string UniqueId = null) where TArgs : NavigationArgs;
+		/// <param name="Args">View's navigation arguments.</param>
+		/// <param name="UniqueId">View's unique ID.</param>
+		bool TryGetArgs<TArgs>(out TArgs Args, string UniqueId = null) where TArgs : NavigationArgs;
 
         /// <summary>
         /// Current page

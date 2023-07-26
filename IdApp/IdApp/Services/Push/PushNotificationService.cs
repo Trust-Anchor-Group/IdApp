@@ -1,6 +1,5 @@
 ﻿using EDaler;
 using IdApp.DeviceSpecific;
-using IdApp.Resx;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
 using System;
@@ -11,9 +10,12 @@ using Waher.Content;
 using Waher.Events;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Settings;
+using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.Services.Push
@@ -76,66 +78,63 @@ namespace IdApp.Services.Push
 			}
 		}
 
+		private async Task<bool> ForceTokenReport(TokenInformation TokenInformation)
+		{
+			string OldToken = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
+			DateTime ReportDate = await RuntimeSettings.GetAsync("PUSH.REPORT_DATE", DateTime.MinValue);
+
+			return (DateTime.UtcNow.Subtract(ReportDate).TotalDays > 7) || (TokenInformation.Token != OldToken);
+		}
+
 		/// <summary>
 		/// Checks if the Push Notification Token is current and registered properly.
 		/// </summary>
-		public async Task CheckPushNotificationToken()
+		/// <param name="TokenInformation">Non null if we got it from the OnNewToken</param>
+		public async Task CheckPushNotificationToken(TokenInformation TokenInformation)
 		{
 			try
 			{
 				DateTime Now = DateTime.Now;
-				PushNotificationClient PushNotificationClient = (this.XmppService as XmppService)?.PushNotificationClient;
 
-				if (this.XmppService.IsOnline && (PushNotificationClient is not null) && Now.Subtract(this.lastTokenCheck).TotalHours >= 1)
+				if (this.XmppService.IsOnline &&
+					this.XmppService.SupportsPushNotification &&
+					Now.Subtract(this.lastTokenCheck).TotalHours >= 1)
 				{
 					this.lastTokenCheck = Now;
 
-					DateTime TP = await RuntimeSettings.GetAsync("PUSH.TP", DateTime.MinValue);
-					DateTime LastTP = await RuntimeSettings.GetAsync("PUSH.LAST_TP", DateTime.MinValue);
-					bool Reconfig = false;
+					IGetPushNotificationToken GetToken = DependencyService.Get<IGetPushNotificationToken>();
+					if (GetToken is null)
+						return;
 
-					if (TP != LastTP || DateTime.UtcNow.Subtract(LastTP).TotalDays >= 7)    // Firebase recommends updating token, while app still works, but not more often than once a week, unless it changes.
+					if (TokenInformation is null)
 					{
-						string Token = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
-						PushMessagingService Service;
-						ClientType ClientType;
-
-						if (string.IsNullOrEmpty(Token))
-						{
-							IGetPushNotificationToken GetToken = DependencyService.Get<IGetPushNotificationToken>();
-							if (GetToken is null)
-								return;
-
-							TokenInformation TokenInformation = await GetToken.GetToken();
-
-							Token = TokenInformation.Token;
-							if (string.IsNullOrEmpty(Token))
-								return;
-
-							Service = TokenInformation.Service;
-							ClientType = TokenInformation.ClientType;
-
-							await RuntimeSettings.SetAsync("PUSH.TOKEN", Token);
-							await RuntimeSettings.SetAsync("PUSH.SERVICE", Service);
-							await RuntimeSettings.SetAsync("PUSH.CLIENT", ClientType);
-						}
-						else
-						{
-							Service = (PushMessagingService)await RuntimeSettings.GetAsync("PUSH.SERVICE", PushMessagingService.Firebase);
-							ClientType = (ClientType)await RuntimeSettings.GetAsync("PUSH.CLIENT", ClientType.Other);
-						}
-
-						await PushNotificationClient.NewTokenAsync(Token, Service, ClientType);
-						await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
-
-						Reconfig = true;
+						TokenInformation = await GetToken.GetToken();
+						if (string.IsNullOrEmpty(TokenInformation.Token))
+							return;
 					}
 
-					long ConfigNr = await RuntimeSettings.GetAsync("PUSH.CONFIG_NR", 0);
-					if (ConfigNr != currentTokenConfiguration || Reconfig)
+					bool ForceTokenReport = await this.ForceTokenReport(TokenInformation);
+
+					string Version = AppInfo.VersionString + "." + AppInfo.BuildString;
+					string PrevVersion = await RuntimeSettings.GetAsync("PUSH.CONFIG_VERSION", string.Empty);
+					bool IsVersionChanged = Version != PrevVersion;
+
+					if (IsVersionChanged || ForceTokenReport)
 					{
-						await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", 0);
-						await PushNotificationClient.ClearRulesAsync();
+						string Token = TokenInformation.Token;
+						PushMessagingService Service = TokenInformation.Service;
+						ClientType ClientType = TokenInformation.ClientType;
+						await this.XmppService.ReportNewPushNotificationToken(Token, Service, ClientType);
+
+						await RuntimeSettings.SetAsync("PUSH.TOKEN", TokenInformation.Token);
+						await RuntimeSettings.SetAsync("PUSH.REPORT_DATE", DateTime.UtcNow);
+					}
+
+					if (IsVersionChanged)
+					{
+						// it will force the rules update if somehing goes wrong.
+						await RuntimeSettings.SetAsync("PUSH.CONFIG_VERSION", string.Empty);
+						await this.XmppService.ClearPushNotificationRules();
 
 						#region Message Rules
 
@@ -148,7 +147,7 @@ namespace IdApp.Services.Push
 						Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
 						Content.Append("Content:=GetElement(Stanza,'content');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.MessageFrom));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["MessageFrom"]));
 						Content.Append(" ' + FriendlyName,");
 						Content.Append("'myBody':InnerText(GetElement(Stanza,'body')),");
 						Content.Append("'fromJid':FromJid,");
@@ -160,7 +159,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Chat, string.Empty, string.Empty,
+						await this.XmppService.AddPushNotificationRule(MessageType.Chat, string.Empty, string.Empty,
 							Constants.PushChannels.Messages, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
@@ -175,7 +174,7 @@ namespace IdApp.Services.Push
 						Content.Append("FromJid:=GetAttribute(E,'from');");
 						Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.PetitionFrom));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["PetitionFrom"]));
 						Content.Append(" ' + FriendlyName,");
 						Content.Append("'myBody':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
@@ -185,7 +184,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionIdentityMsg", ContractsClient.NamespaceLegalIdentities,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "petitionIdentityMsg", ContractsClient.NamespaceLegalIdentities,
 							Constants.PushChannels.Petitions, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Petition requests when offline.
@@ -196,7 +195,7 @@ namespace IdApp.Services.Push
 						Content.Append("FromJid:=GetAttribute(E,'from');");
 						Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.PetitionFrom));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["PetitionFrom"]));
 						Content.Append(" ' + FriendlyName,");
 						Content.Append("'myBody':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
@@ -206,7 +205,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionContractMsg", ContractsClient.NamespaceSmartContracts,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "petitionContractMsg", ContractsClient.NamespaceSmartContracts,
 							Constants.PushChannels.Petitions, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Signature Petition requests when offline.
@@ -217,7 +216,7 @@ namespace IdApp.Services.Push
 						Content.Append("FromJid:=GetAttribute(E,'from');");
 						Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.PetitionFrom));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["PetitionFrom"]));
 						Content.Append(" ' + FriendlyName,");
 						Content.Append("'myBody':GetAttribute(E,'purpose'),");
 						Content.Append("'fromJid':FromJid,");
@@ -227,7 +226,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "petitionSignatureMsg", ContractsClient.NamespaceLegalIdentities,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "petitionSignatureMsg", ContractsClient.NamespaceLegalIdentities,
 							Constants.PushChannels.Petitions, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
@@ -239,7 +238,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'identity');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.IdentityUpdated));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["IdentityUpdated"]));
 						Content.Append("',");
 						Content.Append("'legalId':GetAttribute(E,'id'),");
 						Content.Append("'channelId':'");
@@ -247,7 +246,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "identity", ContractsClient.NamespaceLegalIdentities,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "identity", ContractsClient.NamespaceLegalIdentities,
 							Constants.PushChannels.Identities, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
@@ -259,7 +258,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'contractCreated');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.ContractCreated));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ContractCreated"]));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
 						Content.Append("'channelId':'");
@@ -267,7 +266,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractCreated", ContractsClient.NamespaceSmartContracts,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "contractCreated", ContractsClient.NamespaceSmartContracts,
 							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Signature events when offline.
@@ -275,7 +274,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'contractSigned');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.ContractSigned));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ContractSigned"]));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
 						Content.Append("'legalId':GetAttribute(E,'legalId'),");
@@ -284,7 +283,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractSigned", ContractsClient.NamespaceSmartContracts,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "contractSigned", ContractsClient.NamespaceSmartContracts,
 							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Update events when offline.
@@ -292,7 +291,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'contractUpdated');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.ContractUpdated));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ContractUpdated"]));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
 						Content.Append("'channelId':'");
@@ -300,7 +299,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractUpdated", ContractsClient.NamespaceSmartContracts,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "contractUpdated", ContractsClient.NamespaceSmartContracts,
 							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Deletion events when offline.
@@ -308,7 +307,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'contractDeleted');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.ContractDeleted));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ContractDeleted"]));
 						Content.Append("',");
 						Content.Append("'contractId':GetAttribute(E,'contractId'),");
 						Content.Append("'channelId':'");
@@ -316,7 +315,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractDeleted", ContractsClient.NamespaceSmartContracts,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "contractDeleted", ContractsClient.NamespaceSmartContracts,
 							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for Contract Proposal events when offline.
@@ -324,7 +323,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'contractProposal');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.ContractProposed));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ContractProposed"]));
 						Content.Append("',");
 						Content.Append("'myBody':GetAttribute(E,'message'),");
 						Content.Append("'contractId':Num(GetAttribute(E,'contractId')),");
@@ -334,7 +333,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "contractProposal", ContractsClient.NamespaceSmartContracts,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "contractProposal", ContractsClient.NamespaceSmartContracts,
 							Constants.PushChannels.Contracts, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
@@ -346,7 +345,7 @@ namespace IdApp.Services.Push
 						Content.Clear();
 						Content.Append("E:=GetElement(Stanza,'balance');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.BalanceUpdated));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["BalanceUpdated"]));
 						Content.Append("',");
 						Content.Append("'amount':Num(GetAttribute(E,'amount')),");
 						Content.Append("'currency':GetAttribute(E,'currency'),");
@@ -356,7 +355,7 @@ namespace IdApp.Services.Push
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "balance", EDalerClient.NamespaceEDaler,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "balance", EDalerClient.NamespaceEDaler,
 							Constants.PushChannels.EDaler, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
@@ -369,17 +368,17 @@ namespace IdApp.Services.Push
 						Content.Append("E:=GetElement(Stanza,'tokenAdded');");
 						Content.Append("E2:=GetElement(E,'token');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.TokenAdded));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["TokenAdded"]));
 						Content.Append("',");
-						Content.Append("'myBody':DateTime(GetAttribute(E,'friendlyName')),");
-						Content.Append("'value':Num(GetAttribute(E,'value')),");
+						Content.Append("'myBody':GetAttribute(E2,'friendlyName'),");
+						Content.Append("'value':Num(GetAttribute(E2,'value')),");
 						Content.Append("'currency':GetAttribute(E2,'currency'),");
 						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Tokens);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "tokenAdded", NeuroFeaturesClient.NamespaceNeuroFeatures,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "tokenAdded", NeuroFeaturesClient.NamespaceNeuroFeatures,
 							Constants.PushChannels.Tokens, "Stanza", string.Empty, Content.ToString());
 
 						// Push Notification Rule, for token removals when offline.
@@ -388,22 +387,92 @@ namespace IdApp.Services.Push
 						Content.Append("E:=GetElement(Stanza,'tokenRemoved');");
 						Content.Append("E2:=GetElement(E,'token');");
 						Content.Append("{'myTitle':'");
-						Content.Append(JSON.Encode(AppResources.TokenRemoved));
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["TokenRemoved"]));
 						Content.Append("',");
-						Content.Append("'myBody':DateTime(GetAttribute(E,'friendlyName')),");
-						Content.Append("'value':Num(GetAttribute(E,'value')),");
+						Content.Append("'myBody':GetAttribute(E2,'friendlyName'),");
+						Content.Append("'value':Num(GetAttribute(E2,'value')),");
 						Content.Append("'currency':GetAttribute(E2,'currency'),");
 						Content.Append("'channelId':'");
 						Content.Append(Constants.PushChannels.Tokens);
 						Content.Append("',");
 						Content.Append("'content_available':true}");
 
-						await PushNotificationClient.AddRuleAsync(MessageType.Normal, "tokenRemoved", NeuroFeaturesClient.NamespaceNeuroFeatures,
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "tokenRemoved", NeuroFeaturesClient.NamespaceNeuroFeatures,
 							Constants.PushChannels.Tokens, "Stanza", string.Empty, Content.ToString());
 
 						#endregion
 
-						await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", currentTokenConfiguration);
+						#region Provisioning
+
+						// Push Notification Rule, for friendship requests from things when offline.
+
+						Content.Clear();
+						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
+						Content.Append("E:=GetElement(Stanza,'isFriend');");
+						Content.Append("RemoteJid:=GetAttribute(E,'remoteJid');");
+						Content.Append("{'myTitle':'");
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["AccessRequest"]));
+						Content.Append("',");
+						Content.Append("'myBody':RosterName(ToJid,RemoteJid),");
+						Content.Append("'remoteJid':RemoteJid,");
+						Content.Append("'jid':GetAttribute(E,'jid'),");
+						Content.Append("'key':GetAttribute(E,'key'),");
+						Content.Append("'q':'isFriend',");
+						Content.Append("'channelId':'");
+						Content.Append(Constants.PushChannels.Provisioning);
+						Content.Append("',");
+						Content.Append("'content_available':true}");
+
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "isFriend", ProvisioningClient.NamespaceProvisioningOwner,
+							Constants.PushChannels.Provisioning, "Stanza", string.Empty, Content.ToString());
+
+						// Push Notification Rule, for readout requests from things when offline.
+
+						Content.Clear();
+						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
+						Content.Append("E:=GetElement(Stanza,'canRead');");
+						Content.Append("RemoteJid:=GetAttribute(E,'remoteJid');");
+						Content.Append("{'myTitle':'");
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ReadRequest"]));
+						Content.Append("',");
+						Content.Append("'myBody':RosterName(ToJid,RemoteJid),");
+						Content.Append("'remoteJid':RemoteJid,");
+						Content.Append("'jid':GetAttribute(E,'jid'),");
+						Content.Append("'key':GetAttribute(E,'key'),");
+						Content.Append("'q':'canRead',");
+						Content.Append("'channelId':'");
+						Content.Append(Constants.PushChannels.Provisioning);
+						Content.Append("',");
+						Content.Append("'content_available':true}");
+
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "canRead", ProvisioningClient.NamespaceProvisioningOwner,
+							Constants.PushChannels.Provisioning, "Stanza", string.Empty, Content.ToString());
+
+						// Push Notification Rule, for control requests from things when offline.
+
+						Content.Clear();
+						Content.Append("ToJid:=GetAttribute(Stanza,'to');");
+						Content.Append("E:=GetElement(Stanza,'canControl');");
+						Content.Append("RemoteJid:=GetAttribute(E,'remoteJid');");
+						Content.Append("{'myTitle':'");
+						Content.Append(JSON.Encode(LocalizationResourceManager.Current["ControlRequest"]));
+						Content.Append("',");
+						Content.Append("'myBody':RosterName(ToJid,RemoteJid),");
+						Content.Append("'remoteJid':RemoteJid,");
+						Content.Append("'jid':GetAttribute(E,'jid'),");
+						Content.Append("'key':GetAttribute(E,'key'),");
+						Content.Append("'q':'canControl',");
+						Content.Append("'channelId':'");
+						Content.Append(Constants.PushChannels.Provisioning);
+						Content.Append("',");
+						Content.Append("'content_available':true}");
+
+						await this.XmppService.AddPushNotificationRule(MessageType.Normal, "canControl", ProvisioningClient.NamespaceProvisioningOwner,
+							Constants.PushChannels.Provisioning, "Stanza", string.Empty, Content.ToString());
+
+						#endregion
+
+						await RuntimeSettings.SetAsync("PUSH.CONFIG_VERSION", Version);
 					}
 				}
 			}
@@ -412,11 +481,5 @@ namespace IdApp.Services.Push
 				this.LogService.LogException(ex);
 			}
 		}
-
-		/// <summary>
-		/// Increment this configuration number by one, each time token configuration changes.
-		/// </summary>
-		private const int currentTokenConfiguration = 10;
-
 	}
 }

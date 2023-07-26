@@ -27,11 +27,11 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out TokenEventsNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out TokenEventsNavigationArgs args))
 			{
 				this.TokenId = args.TokenId;
 
@@ -50,11 +50,11 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.Events.Clear();
 
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		private void AssignProperties()
@@ -111,7 +111,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 
 					if (XML.IsValidXml(AddTextNotePage.TextNote))
 					{
-						await this.XmppService.Wallet.AddXmlNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
+						await this.XmppService.AddNeuroFeatureXmlNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
 
 						NewEvent = new NoteXmlItem(new NoteXml()
 						{
@@ -123,7 +123,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 					}
 					else
 					{
-						await this.XmppService.Wallet.AddTextNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
+						await this.XmppService.AddNeuroFeatureTextNote(this.TokenId, AddTextNotePage.TextNote, AddTextNotePage.Personal);
 
 						NewEvent = new NoteTextItem(new NoteText()
 						{

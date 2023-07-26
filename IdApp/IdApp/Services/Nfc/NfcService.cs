@@ -2,7 +2,6 @@
 using IdApp.Nfc.Extensions;
 using IdApp.Nfc.Records;
 using IdApp.Pages;
-using IdApp.Resx;
 using IdApp.Services.Navigation;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ using System.Threading.Tasks;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Settings;
 using Waher.Security;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Nfc
 {
@@ -55,7 +55,7 @@ namespace IdApp.Services.Nfc
 							// §4.3, §D.3, https://www.icao.int/publications/Documents/9303_p11_cons_en.pdf
 
 							byte[] Challenge = await IsoDep.GetChallenge();
-							if (!(Challenge is null))
+							if (Challenge is not null)
 							{
 								byte[] ChallengeResponse = DocInfo.CalcChallengeResponse(Challenge);
 								byte[] Response = await IsoDep.ExternalAuthenticate(ChallengeResponse);
@@ -81,13 +81,18 @@ namespace IdApp.Services.Nfc
 								string Link = LinkableView.Link;
 								string Title = await LinkableView.Title;
 
-								List<object> Items = new()
+								List<object> Items = new();
+
+								if (LinkableView.EncodeAppLinks)
+									Items.Add(Title);
+
+								Items.Add(new Uri(Link));
+
+								if (LinkableView.EncodeAppLinks)
 								{
-									Title,
-									new Uri(Link),
-									new Uri(Constants.References.AndroidApp),
-									new Uri(Constants.References.IPhoneApp)
-								};
+									Items.Add(new Uri(Constants.References.AndroidApp));
+									Items.Add(new Uri(Constants.References.IPhoneApp));
+								}
 
 								if (LinkableView.HasMedia)
 									Items.Add(new KeyValuePair<byte[], string>(LinkableView.Media, LinkableView.MediaContentType));
@@ -116,13 +121,13 @@ namespace IdApp.Services.Nfc
 
 								if (Ok)
 								{
-									await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle,
-										string.Format(AppResources.TagEngraved, Title));
+									await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"],
+										string.Format(LocalizationResourceManager.Current["TagEngraved"], Title));
 								}
 								else
 								{
-									await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle,
-										string.Format(AppResources.TagNotEngraved, Title));
+									await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"],
+										string.Format(LocalizationResourceManager.Current["TagNotEngraved"], Title));
 								}
 
 								// TODO: Make read-only if able
@@ -138,7 +143,7 @@ namespace IdApp.Services.Nfc
 								{
 									if (!string.IsNullOrEmpty(Constants.UriSchemes.GetScheme(UriRecord.Uri)))
 									{
-										if (await App.OpenUrl(UriRecord.Uri))
+										if (await App.OpenUrlAsync(UriRecord.Uri))
 											return;
 									}
 								}

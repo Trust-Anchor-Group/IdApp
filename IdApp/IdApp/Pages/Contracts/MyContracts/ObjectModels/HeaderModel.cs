@@ -7,8 +7,9 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 	/// <summary>
 	/// The data model for a contract category header containing a collection of contracts of the same category.
 	/// </summary>
-	public class HeaderModel : ObservableObject, IItemGroup
+	public class HeaderModel : ObservableObject, IUniqueItem
 	{
+		private int nrEvents;
 		private bool expanded;
 
 		/// <summary>
@@ -16,10 +17,12 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 		/// </summary>
 		/// <param name="Category">Contract category</param>
 		/// <param name="Contracts">Contracts in category.</param>
-		public HeaderModel(string Category, ICollection<ContractModel> Contracts)
+		/// <param name="NrEvents">Number of events</param>
+		public HeaderModel(string Category, ICollection<ContractModel> Contracts, int NrEvents)
 		{
 			this.Category = Category;
 			this.Contracts = Contracts;
+			this.nrEvents = NrEvents;
 		}
 
 		/// <summary>
@@ -29,6 +32,33 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
 
 		/// <inheritdoc/>
 		public string UniqueName => this.Category;
+
+		/// <summary>
+		/// Number of events.
+		/// </summary>
+		public int NrEvents
+		{
+			get => this.nrEvents;
+			set
+			{
+				if (this.nrEvents != value)
+				{
+					bool b1 = this.nrEvents > 0;
+					bool b2 = value > 0;
+
+					this.nrEvents = value;
+					this.OnPropertyChanged(nameof(this.NrEvents));
+
+					if (b1 ^ b2)
+						this.OnPropertyChanged(nameof(this.HasEvents));
+				}
+			}
+		}
+
+		/// <summary>
+		/// If the category contains contracts with events.
+		/// </summary>
+		public bool HasEvents => this.nrEvents > 0;
 
 		/// <summary>
 		/// The category's contracts.

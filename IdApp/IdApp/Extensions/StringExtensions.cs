@@ -86,10 +86,8 @@ namespace IdApp.Extensions
 		/// </summary>
 		public static int GetUnicodeLength(this string Str)
 		{
-			if (Str == null)
-			{
+			if (Str is null)
 				throw new ArgumentNullException(nameof(Str));
-			}
 
 			Str = Str.Normalize();
 

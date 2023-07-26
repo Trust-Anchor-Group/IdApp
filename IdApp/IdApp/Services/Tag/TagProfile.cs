@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using IdApp.Extensions;
+using IdApp.Services.EventLog;
+using Waher.Networking;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
 using Waher.Security;
@@ -46,6 +49,32 @@ namespace IdApp.Services.Tag
 		Complete = 5
 	}
 
+	/// <summary>
+	/// For what purpose the app will be used
+	/// </summary>
+	public enum PurposeUse
+	{
+		/// <summary>
+		/// For personal use
+		/// </summary>
+		Personal = 0,
+
+		/// <summary>
+		/// For use at work
+		/// </summary>
+		Work = 1,
+
+		/// <summary>
+		/// For educational use
+		/// </summary>
+		Educational = 2,
+
+		/// <summary>
+		/// For experimental use
+		/// </summary>
+		Experimental = 3
+	}
+
 	/// <inheritdoc/>
 	[Singleton]
 	public class TagProfile : ITagProfile
@@ -53,7 +82,8 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// An event that fires every time the <see cref="Step"/> property changes.
 		/// </summary>
-		public event EventHandler StepChanged;
+		public event EventHandlerAsync StepChanged;
+
 		/// <summary>
 		/// An event that fires every time any property changes.
 		/// </summary>
@@ -80,8 +110,8 @@ namespace IdApp.Services.Tag
 		private string pinHash;
 		private long? httpFileUploadMaxSize;
 		private bool? supportsPushNotification;
-		private bool usePin;
 		private bool isTest;
+		private PurposeUse purpose;
 		private DateTime? testOtpTimestamp;
 		private RegistrationStep step = RegistrationStep.ValidateContactInfo;
 		private bool suppressPropertyChangedEvents;
@@ -98,9 +128,19 @@ namespace IdApp.Services.Tag
 		/// Invoked whenever the current <see cref="Step"/> changes, to fire the <see cref="StepChanged"/> event.
 		/// </summary>
 		/// <param name="e"></param>
-		protected virtual void OnStepChanged(EventArgs e)
+		protected virtual async Task OnStepChanged(EventArgs e)
 		{
-			StepChanged?.Invoke(this, EventArgs.Empty);
+			try
+			{
+				Task T = StepChanged?.Invoke(this, EventArgs.Empty);
+				if (T is not null)
+					await T;
+			}
+			catch (Exception ex)
+			{
+				ILogService LogService = App.Instantiate<ILogService>();
+				LogService.LogException(ex);
+			}
 		}
 
 		/// <summary>
@@ -118,7 +158,7 @@ namespace IdApp.Services.Tag
 		/// <returns>Configuration object</returns>
 		public TagConfiguration ToConfiguration()
 		{
-			TagConfiguration clone = new()
+			TagConfiguration Clone = new()
 			{
 				ObjectId = this.objectId,
 				Domain = this.Domain,
@@ -141,21 +181,21 @@ namespace IdApp.Services.Tag
 				NeuroFeaturesJid = this.NeuroFeaturesJid,
 				SupportsPushNotification = this.SupportsPushNotification,
 				PinHash = this.PinHash,
-				UsePin = this.UsePin,
 				IsTest = this.IsTest,
+				Purpose = this.Purpose,
 				TestOtpTimestamp = this.TestOtpTimestamp,
 				LegalIdentity = this.LegalIdentity,
 				Step = this.Step
 			};
 
-			return clone;
+			return Clone;
 		}
 
 		/// <summary>
 		/// Parses an instance of a <see cref="TagConfiguration"/> object to update this instance's properties.
 		/// </summary>
 		/// <param name="configuration"></param>
-		public void FromConfiguration(TagConfiguration configuration)
+		public async Task FromConfiguration(TagConfiguration configuration)
 		{
 			try
 			{
@@ -182,13 +222,13 @@ namespace IdApp.Services.Tag
 				this.NeuroFeaturesJid = configuration.NeuroFeaturesJid;
 				this.SupportsPushNotification = configuration.SupportsPushNotification;
 				this.PinHash = configuration.PinHash;
-				this.UsePin = configuration.UsePin;
 				this.IsTest = configuration.IsTest;
+				this.Purpose = configuration.Purpose;
 				this.TestOtpTimestamp = configuration.TestOtpTimestamp;
 				this.LegalIdentity = configuration.LegalIdentity;
 
 				// Do this last, as listeners will read the other properties when the event is fired.
-				this.Step = configuration.Step;
+				await this.SetStep(configuration.Step);
 			}
 			finally
 			{
@@ -497,22 +537,17 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public RegistrationStep Step
+		public RegistrationStep Step => this.step;
+
+		private async Task SetStep(RegistrationStep NewStep)
 		{
-			get => this.step;
-			private set
+			if (this.step != NewStep)
 			{
-				if (this.step != value)
-				{
-					this.step = value;
-					this.FlagAsDirty(nameof(this.Step));
-					this.OnStepChanged(EventArgs.Empty);
-				}
+				this.step = NewStep;
+				this.FlagAsDirty(nameof(this.Step));
+				await this.OnStepChanged(EventArgs.Empty);
 			}
 		}
-
-		/// <inheritdoc/>
-		public bool PinIsValid => !this.UsePin || !string.IsNullOrEmpty(this.PinHash);
 
 		/// <inheritdoc/>
 		public bool FileUploadIsSupported => !string.IsNullOrWhiteSpace(this.HttpFileUploadJid) && this.HttpFileUploadMaxSize.HasValue;
@@ -538,17 +573,9 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public bool UsePin
+		public bool HasPin
 		{
-			get => this.usePin;
-			private set
-			{
-				if (this.usePin != value)
-				{
-					this.usePin = value;
-					this.FlagAsDirty(nameof(this.UsePin));
-				}
-			}
+			get => !string.IsNullOrEmpty(this.PinHash);
 		}
 
 		/// <inheritdoc/>
@@ -561,6 +588,22 @@ namespace IdApp.Services.Tag
 				{
 					this.isTest = value;
 					this.FlagAsDirty(nameof(this.IsTest));
+				}
+			}
+		}
+
+		/// <summary>
+		/// Purpose for using the app.
+		/// </summary>
+		public PurposeUse Purpose
+		{
+			get => this.purpose;
+			private set
+			{
+				if (this.purpose != value)
+				{
+					this.purpose = value;
+					this.FlagAsDirty(nameof(this.Purpose));
 				}
 			}
 		}
@@ -614,10 +657,10 @@ namespace IdApp.Services.Tag
 
 		#region Build Steps
 
-		private void DecrementConfigurationStep(RegistrationStep? stepToRevertTo = null)
+		private async Task DecrementConfigurationStep(RegistrationStep? stepToRevertTo = null)
 		{
 			if (stepToRevertTo.HasValue)
-				this.Step = stepToRevertTo.Value;
+				await this.SetStep(stepToRevertTo.Value);
 			else
 			{
 				switch (this.Step)
@@ -627,50 +670,50 @@ namespace IdApp.Services.Tag
 						break;
 
 					case RegistrationStep.Account:
-						this.Step = RegistrationStep.ValidateContactInfo;
+						await this.SetStep(RegistrationStep.ValidateContactInfo);
 						break;
 
 					case RegistrationStep.RegisterIdentity:
-						this.Step = RegistrationStep.Account;
+						await this.SetStep(RegistrationStep.ValidateContactInfo);
 						break;
 
 					case RegistrationStep.ValidateIdentity:
-						this.Step = RegistrationStep.RegisterIdentity;
+						await this.SetStep(RegistrationStep.RegisterIdentity);
 						break;
 
 					case RegistrationStep.Pin:
-						this.Step = RegistrationStep.ValidateIdentity;
+						await this.SetStep(RegistrationStep.ValidateIdentity);
 						break;
 				}
 			}
 		}
 
-		private void IncrementConfigurationStep(RegistrationStep? stepToGoTo = null)
+		private async Task IncrementConfigurationStep(RegistrationStep? stepToGoTo = null)
 		{
 			if (stepToGoTo.HasValue)
-				this.Step = stepToGoTo.Value;
+				await this.SetStep(stepToGoTo.Value);
 			else
 			{
 				switch (this.Step)
 				{
 					case RegistrationStep.ValidateContactInfo:
-						this.Step = RegistrationStep.Account;
+						await this.SetStep(this.LegalIdentity is null ? RegistrationStep.Account : RegistrationStep.RegisterIdentity);
 						break;
 
 					case RegistrationStep.Account:
-						this.Step = RegistrationStep.RegisterIdentity;
+						await this.SetStep(RegistrationStep.RegisterIdentity);
 						break;
 
 					case RegistrationStep.RegisterIdentity:
-						this.Step = RegistrationStep.ValidateIdentity;
+						await this.SetStep(RegistrationStep.ValidateIdentity);
 						break;
 
 					case RegistrationStep.ValidateIdentity:
-						this.Step = RegistrationStep.Pin;
+						await this.SetStep(RegistrationStep.Pin);
 						break;
 
 					case RegistrationStep.Pin:
-						this.Step = RegistrationStep.Complete;
+						await this.SetStep(RegistrationStep.Complete);
 						break;
 				}
 			}
@@ -689,7 +732,7 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public void SetDomain(string domainName, bool defaultXmppConnectivity, string Key, string Secret)
+		public async Task SetDomain(string domainName, bool defaultXmppConnectivity, string Key, string Secret)
 		{
 			this.Domain = domainName;
 			this.DefaultXmppConnectivity = defaultXmppConnectivity;
@@ -697,18 +740,31 @@ namespace IdApp.Services.Tag
 			this.ApiSecret = Secret;
 
 			if (!string.IsNullOrWhiteSpace(this.Domain) && this.Step == RegistrationStep.ValidateContactInfo)
-				this.IncrementConfigurationStep();
+				await this.IncrementConfigurationStep();
 		}
 
 		/// <inheritdoc/>
-		public void ClearDomain()
+		public async Task ClearDomain()
 		{
 			this.Domain = string.Empty;
-			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
+			await this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 		}
 
 		/// <inheritdoc/>
-		public void SetAccount(string accountName, string clientPasswordHash, string clientPasswordHashMethod)
+		public async Task RevalidateContactInfo()
+		{
+			if (!string.IsNullOrWhiteSpace(this.Domain) && this.Step == RegistrationStep.ValidateContactInfo)
+				await this.IncrementConfigurationStep();
+		}
+
+		/// <inheritdoc/>
+		public async Task InvalidateContactInfo()
+		{
+			await this.DecrementConfigurationStep();
+		}
+
+		/// <inheritdoc/>
+		public async Task SetAccount(string accountName, string clientPasswordHash, string clientPasswordHashMethod)
 		{
 			this.Account = accountName;
 			this.PasswordHash = clientPasswordHash;
@@ -717,11 +773,11 @@ namespace IdApp.Services.Tag
 			this.ApiSecret = string.Empty;
 
 			if (!string.IsNullOrWhiteSpace(this.Account) && this.Step == RegistrationStep.Account)
-				this.IncrementConfigurationStep();
+				await this.IncrementConfigurationStep();
 		}
 
 		/// <inheritdoc/>
-		public void SetAccountAndLegalIdentity(string accountName, string clientPasswordHash, string clientPasswordHashMethod, LegalIdentity identity)
+		public async Task SetAccountAndLegalIdentity(string accountName, string clientPasswordHash, string clientPasswordHashMethod, LegalIdentity identity)
 		{
 			this.Account = accountName;
 			this.PasswordHash = clientPasswordHash;
@@ -730,112 +786,112 @@ namespace IdApp.Services.Tag
 			this.ApiKey = string.Empty;
 			this.ApiSecret = string.Empty;
 
-			if (!string.IsNullOrWhiteSpace(this.Account) && this.Step == RegistrationStep.Account && !(this.LegalIdentity is null))
+			if (!string.IsNullOrWhiteSpace(this.Account) && this.Step == RegistrationStep.Account && this.LegalIdentity is not null)
 			{
 				switch (this.LegalIdentity.State)
 				{
 					case IdentityState.Created:
-						this.IncrementConfigurationStep(RegistrationStep.ValidateIdentity);
+						await this.IncrementConfigurationStep(RegistrationStep.ValidateIdentity);
 						break;
 
 					case IdentityState.Approved:
-						if (this.usePin && !string.IsNullOrWhiteSpace(this.pinHash))
-							this.IncrementConfigurationStep(RegistrationStep.Complete);
-						else
-							this.IncrementConfigurationStep(RegistrationStep.Pin);
+						await this.IncrementConfigurationStep(
+							this.HasPin ? RegistrationStep.Complete : RegistrationStep.Pin);
 						break;
 
 					default:
-						this.IncrementConfigurationStep();
+						await this.IncrementConfigurationStep();
 						break;
 				}
 			}
 		}
 
 		/// <inheritdoc/>
-		public void ClearAccount()
+		public async Task ClearAccount(bool GoToPrevStep = true)
 		{
 			this.Account = string.Empty;
 			this.PasswordHash = string.Empty;
 			this.PasswordHashMethod = string.Empty;
 			this.LegalJid = null;
 
-			this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo); // prev
-		}
-
-		/// <inheritdoc/>
-		public void SetLegalIdentity(LegalIdentity Identity)
-		{
-			this.LegalIdentity = Identity;
-
-			if (this.Step == RegistrationStep.RegisterIdentity && !(Identity is null) &&
-				(Identity.State == IdentityState.Created || Identity.State == IdentityState.Approved))
+			if (GoToPrevStep)
 			{
-				this.IncrementConfigurationStep();
+				await this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 			}
 		}
 
 		/// <inheritdoc/>
-		public void ClearLegalIdentity()
+		public async Task SetLegalIdentity(LegalIdentity Identity)
+		{
+			this.LegalIdentity = Identity;
+
+			if (this.Step == RegistrationStep.RegisterIdentity && Identity is not null &&
+				(Identity.State == IdentityState.Created || Identity.State == IdentityState.Approved))
+			{
+				await this.IncrementConfigurationStep();
+			}
+		}
+
+		/// <inheritdoc/>
+		public Task ClearLegalIdentity()
 		{
 			this.LegalIdentity = null;
 			this.LegalJid = null;
 
-			this.DecrementConfigurationStep(RegistrationStep.Account); // prev
+			return Task.CompletedTask;
 		}
 
 		/// <inheritdoc/>
-		public void RevokeLegalIdentity(LegalIdentity revokedIdentity)
+		public async Task RevokeLegalIdentity(LegalIdentity revokedIdentity)
 		{
 			this.LegalIdentity = revokedIdentity;
-			this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
+			await this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 		}
 
 		/// <inheritdoc/>
-		public void CompromiseLegalIdentity(LegalIdentity compromisedIdentity)
+		public async Task CompromiseLegalIdentity(LegalIdentity compromisedIdentity)
 		{
 			this.LegalIdentity = compromisedIdentity;
-			this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
+			await this.DecrementConfigurationStep(RegistrationStep.ValidateContactInfo);
 		}
 
 		/// <inheritdoc/>
-		public void SetIsValidated()
+		public async Task SetIsValidated()
 		{
 			if (this.Step == RegistrationStep.ValidateIdentity)
-				this.IncrementConfigurationStep();
+				await this.IncrementConfigurationStep();
 		}
 
 		/// <inheritdoc/>
-		public void ClearIsValidated()
+		public async Task ClearIsValidated()
 		{
-			this.LegalIdentity = null;
-			this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
+			await this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
 		}
 
 		/// <inheritdoc/>
-		public void SetPin(string Pin, bool ShouldUsePin)
+		public async Task CompletePinStep(string Pin, bool AddOrUpdatePin = true)
 		{
-			this.Pin = Pin;
-			this.UsePin = ShouldUsePin;
+			if (AddOrUpdatePin)
+			{
+				this.Pin = Pin;
+			}
 
 			if (this.step == RegistrationStep.Pin)
-				this.IncrementConfigurationStep();
+				await this.IncrementConfigurationStep();
 		}
 
 		/// <inheritdoc/>
-		public void ClearPin()
+		public async Task RevertPinStep()
 		{
-			this.Pin = string.Empty;
-			this.UsePin = false;
-
 			if (this.Step == RegistrationStep.Pin)
-				this.DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
+				await this.DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
 		}
 
 		/// <inheritdoc/>
-		public void SetIsTest(bool isTest)
+		public void SetPurpose(bool IsTest, PurposeUse Purpose)
 		{
-			this.IsTest = isTest;
+			this.IsTest = IsTest;
+			this.Purpose = Purpose;
 		}
 
 		/// <inheritdoc/>
@@ -951,7 +1007,6 @@ namespace IdApp.Services.Tag
 			this.supportsPushNotification = null;
 			this.pinHash = string.Empty;
 			this.httpFileUploadMaxSize = null;
-			this.usePin = false;
 			this.isTest = false;
 			this.TestOtpTimestamp = null;
 			this.step = RegistrationStep.ValidateContactInfo;
@@ -963,10 +1018,8 @@ namespace IdApp.Services.Tag
 		/// <inheritdoc/>
 		public PinStrength ValidatePinStrength(string Pin)
 		{
-			if (Pin == null)
-			{
+			if (Pin is null)
 				return PinStrength.NotEnoughDigitsLettersSigns;
-			}
 
 			Pin = Pin.Normalize();
 

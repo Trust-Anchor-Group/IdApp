@@ -1,5 +1,7 @@
 ﻿using EDaler;
 using EDaler.Uris;
+using IdApp.AR;
+using IdApp.Controls;
 using IdApp.Converters;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts;
@@ -12,9 +14,10 @@ using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Pages.Wallet.SendPayment;
 using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Popups.Xmpp.SubscribeTo;
-using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Messages;
+using IdApp.Services.Navigation;
+using IdApp.Services.Notification;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.QR;
 using IdApp.Services.Xmpp;
@@ -26,19 +29,23 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Input;
 using System.Xml;
 using Waher.Content;
 using Waher.Content.Html;
 using Waher.Content.Markdown;
 using Waher.Content.Xml;
+using Waher.Events;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -60,8 +67,10 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			this.ExpandButtons = new Command(_ => this.IsButtonExpanded = !this.IsButtonExpanded);
 			this.SendCommand = new Command(async _ => await this.ExecuteSendMessage(), _ => this.CanExecuteSendMessage());
+			this.PauseResumeCommand = new Command(async _ => await this.ExecutePauseResume(), _ => this.CanExecutePauseResume());
 			this.CancelCommand = new Command(async _ => await this.ExecuteCancelMessage(), _ => this.CanExecuteCancelMessage());
 			this.LoadMoreMessages = new Command(async _ => await this.ExecuteLoadMessagesAsync(), _ => this.CanExecuteLoadMoreMessages());
+			this.RecordAudio = new Command(async _ => await this.ExecuteRecordAudio(), _ => this.CanExecuteRecordAudio());
 			this.TakePhoto = new Command(async _ => await this.ExecuteTakePhoto(), _ => this.CanExecuteTakePhoto());
 			this.EmbedFile = new Command(async _ => await this.ExecuteEmbedFile(), _ => this.CanExecuteEmbedFile());
 			this.EmbedId = new Command(async _ => await this.ExecuteEmbedId(), _ => this.CanExecuteEmbedId());
@@ -74,11 +83,11 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ChatNavigationArgs args, this.UniqueId))
+			if (this.NavigationService.TryGetArgs(out ChatNavigationArgs args, this.UniqueId))
 			{
 				this.LegalId = args.LegalId;
 				this.BareJid = args.BareJid;
@@ -95,27 +104,31 @@ namespace IdApp.Pages.Contacts.Chat
 
 			this.EvaluateAllCommands();
 			this.waitUntilBound.TrySetResult(true);
+
+			await this.NotificationService.DeleteEvents(EventButton.Contacts, this.BareJid);
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
-			await base.DoUnbind();
+			await base.OnDispose();
 
 			this.waitUntilBound = new TaskCompletionSource<bool>();
 		}
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.SendCommand, this.CancelCommand, this.LoadMoreMessages, this.TakePhoto, this.EmbedFile,
+			this.EvaluateCommands(this.SendCommand, this.CancelCommand, this.LoadMoreMessages, this.PauseResumeCommand, this.RecordAudio, this.TakePhoto, this.EmbedFile,
 				this.EmbedId, this.EmbedContract, this.EmbedMoney, this.EmbedToken, this.EmbedThing);
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
-			base.XmppService_ConnectionStateChanged(sender, e);
+			base.XmppService_ConnectionStateChanged(Sender, NewState);
 			this.UiSerializer.BeginInvokeOnMainThread(() => this.EvaluateAllCommands());
+
+			return Task.CompletedTask;
 		}
 
 		/// <summary>
@@ -256,8 +269,67 @@ namespace IdApp.Pages.Contacts.Chat
 			get => (bool)this.GetValue(IsWritingProperty);
 			set
 			{
-				this.IsButtonExpanded = false;
 				this.SetValue(IsWritingProperty, value);
+				this.IsButtonExpanded = false;
+			}
+		}
+
+		/// <summary>
+		/// <see cref="IsRecordingAudio"/>
+		/// </summary>
+		public static readonly BindableProperty IsRecordingAudioProperty =
+			BindableProperty.Create(nameof(IsRecordingAudio), typeof(bool), typeof(ChatViewModel), default(bool));
+
+		/// <summary>
+		/// If the user is recording an audio message
+		/// </summary>
+		public bool IsRecordingAudio
+		{
+			get => (bool)this.GetValue(IsRecordingAudioProperty);
+			set
+			{
+				this.SetValue(IsRecordingAudioProperty, value);
+				this.IsRecordingPaused = audioRecorder.Value.IsPaused;
+				this.IsWriting = value;
+
+				if (audioRecorderTimer is null)
+				{
+					audioRecorderTimer = new Timer(100);
+					audioRecorderTimer.Elapsed += this.OnAudioRecorderTimer;
+					audioRecorderTimer.AutoReset = true;
+				}
+
+				audioRecorderTimer.Enabled = value;
+
+				this.OnPropertyChanged(nameof(this.RecordingTime));
+				this.EvaluateAllCommands();
+			}
+		}
+
+		/// <summary>
+		/// <see cref="IsRecordingPaused"/>
+		/// </summary>
+		public static readonly BindableProperty IsRecordingPausedProperty =
+			BindableProperty.Create(nameof(IsRecordingPaused), typeof(bool), typeof(ChatViewModel), default(bool));
+
+		/// <summary>
+		/// If the audio recording is paused
+		/// </summary>
+		public bool IsRecordingPaused
+		{
+			get => (bool)this.GetValue(IsRecordingPausedProperty);
+			set => this.SetValue(IsRecordingPausedProperty, value);
+		}
+
+		/// <summary>
+		/// If the audio recording is paused
+		/// </summary>
+		public string RecordingTime
+		{
+			get
+			{
+				double Milliseconds = audioRecorder.Value.TotalAudioTimeout.TotalMilliseconds - audioRecorder.Value.RecordingTime.TotalMilliseconds;
+				return (Milliseconds > 0) ? string.Format("{0:F0}s left", Math.Ceiling(Milliseconds / 1000.0)) : "TIMEOUT";
 			}
 		}
 
@@ -452,13 +524,37 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private bool CanExecuteSendMessage()
 		{
-			return this.IsConnected && !string.IsNullOrEmpty(this.MarkdownInput);
+			return this.IsConnected && (!string.IsNullOrEmpty(this.MarkdownInput) || this.IsRecordingAudio);
 		}
 
 		private async Task ExecuteSendMessage()
 		{
-			await this.ExecuteSendMessage(this.MessageId, this.MarkdownInput);
-			await this.ExecuteCancelMessage();
+			if (this.IsRecordingAudio)
+			{
+				try
+				{
+					await audioRecorder.Value.StopRecording();
+					string audioPath = await this.audioRecorderTask;
+
+					if (audioPath is not null)
+					{
+						await this.EmbedMedia(audioPath, true);
+					}
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+				finally
+				{
+					this.IsRecordingAudio = false;
+				}
+			}
+			else
+			{
+				await this.ExecuteSendMessage(this.MessageId, this.MarkdownInput);
+				await this.ExecuteCancelMessage();
+			}
 		}
 
 		private Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput)
@@ -473,7 +569,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <param name="MarkdownInput">Markdown input.</param>
 		/// <param name="BareJid">Bare JID of recipient.</param>
 		/// <param name="ServiceReferences">Service references.</param>
-		public static async Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput, string BareJid, ServiceReferences ServiceReferences)
+		public static async Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput, string BareJid, IServiceReferences ServiceReferences)
 		{
 			try
 			{
@@ -559,14 +655,23 @@ namespace IdApp.Pages.Contacts.Chat
 					}
 				}
 
-				ServiceReferences.XmppService.Xmpp.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId,
+				ServiceReferences.XmppService.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId,
 					BareJid, Xml.ToString(), Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty, null, null);
-				// TODO: End-to-End encryption
 			}
 			catch (Exception ex)
 			{
 				await ServiceReferences.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		/// <summary>
+		/// The command to bind for pausing/resuming the audio recording
+		/// </summary>
+		public ICommand PauseResumeCommand { get; }
+
+		private bool CanExecutePauseResume()
+		{
+			return this.IsRecordingAudio && audioRecorder.Value.IsRecording;
 		}
 
 		/// <summary>
@@ -576,13 +681,31 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private bool CanExecuteCancelMessage()
 		{
-			return this.IsConnected && !string.IsNullOrEmpty(this.MarkdownInput);
+			return this.IsConnected && (!string.IsNullOrEmpty(this.MarkdownInput) || this.IsRecordingAudio);
 		}
 
 		private Task ExecuteCancelMessage()
 		{
-			this.MarkdownInput = string.Empty;
-			this.MessageId = string.Empty;
+			if (this.IsRecordingAudio)
+			{
+				try
+				{
+					return audioRecorder.Value.StopRecording();
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+				finally
+				{
+					this.IsRecordingAudio = false;
+				}
+			}
+			else
+			{
+				this.MarkdownInput = string.Empty;
+				this.MessageId = string.Empty;
+			}
 
 			return Task.CompletedTask;
 		}
@@ -597,21 +720,89 @@ namespace IdApp.Pages.Contacts.Chat
 			return this.ExistsMoreMessages && this.Messages.Count > 0;
 		}
 
+		private static Timer audioRecorderTimer;
+
+		private static readonly Lazy<AudioRecorderService> audioRecorder = new(() => {
+			return new AudioRecorderService()
+			{
+				StopRecordingOnSilence = false,
+				StopRecordingAfterTimeout = true,
+				TotalAudioTimeout = TimeSpan.FromSeconds(60)
+			};
+		}, System.Threading.LazyThreadSafetyMode.PublicationOnly);
+
+		private Task<string> audioRecorderTask = null;
+
+		/// <summary>
+		/// Command to take and send a audio record
+		/// </summary>
+		public ICommand RecordAudio { get; }
+
+		private bool CanExecuteRecordAudio()
+		{
+			return this.IsConnected && !this.IsWriting && this.XmppService.FileUploadIsSupported;
+		}
+
 		/// <summary>
 		/// Command to take and send a photo
 		/// </summary>
 		public ICommand TakePhoto { get; }
 
+
 		private bool CanExecuteTakePhoto()
 		{
-			return this.IsConnected && !this.IsWriting && this.XmppService.Contracts.FileUploadIsSupported;
+			return this.IsConnected && !this.IsWriting && this.XmppService.FileUploadIsSupported;
+		}
+
+		private async Task ExecutePauseResume()
+		{
+			if (audioRecorder.Value.IsPaused)
+			{
+				await audioRecorder.Value.Resume();
+			}
+			else
+			{
+				await audioRecorder.Value.Pause();
+			}
+
+			this.IsRecordingPaused = audioRecorder.Value.IsPaused;
+		}
+
+		private void OnAudioRecorderTimer(Object source, System.Timers.ElapsedEventArgs e)
+		{
+			this.OnPropertyChanged(nameof(this.RecordingTime));
+			this.IsRecordingPaused = audioRecorder.Value.IsPaused;
+		}
+
+		private async Task ExecuteRecordAudio()
+		{
+			if (!this.XmppService.FileUploadIsSupported)
+			{
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["ServerDoesNotSupportFileUpload"]);
+				return;
+			}
+
+			try
+			{
+				PermissionStatus Status = await Permissions.RequestAsync<Permissions.Microphone>();
+
+				if (Status == PermissionStatus.Granted)
+				{
+					this.audioRecorderTask = await audioRecorder.Value.StartRecording();
+					this.IsRecordingAudio = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+			}
 		}
 
 		private async Task ExecuteTakePhoto()
 		{
-			if (!this.XmppService.Contracts.FileUploadIsSupported)
+			if (!this.XmppService.FileUploadIsSupported)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.ServerDoesNotSupportFileUpload);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["ServerDoesNotSupportFileUpload"]);
 				return;
 			}
 
@@ -629,7 +820,7 @@ namespace IdApp.Pages.Contacts.Chat
 				}
 				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["TakingAPhotoIsNotSupported"] + ": " + ex.Message);
 					return;
 				}
 
@@ -637,7 +828,7 @@ namespace IdApp.Pages.Contacts.Chat
 				{
 					try
 					{
-						await this.EmbedPhoto(capturedPhoto.Path, true);
+						await this.EmbedMedia(capturedPhoto.Path, true);
 					}
 					catch (Exception ex)
 					{
@@ -657,7 +848,7 @@ namespace IdApp.Pages.Contacts.Chat
 				}
 				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["TakingAPhotoIsNotSupported"] + ": " + ex.Message);
 					return;
 				}
 
@@ -665,7 +856,7 @@ namespace IdApp.Pages.Contacts.Chat
 				{
 					try
 					{
-						await this.EmbedPhoto(capturedPhoto.FullPath, true);
+						await this.EmbedMedia(capturedPhoto.FullPath, true);
 					}
 					catch (Exception ex)
 					{
@@ -675,7 +866,7 @@ namespace IdApp.Pages.Contacts.Chat
 			}
 		}
 
-		private async Task EmbedPhoto(string FilePath, bool DeleteFile)
+		private async Task EmbedMedia(string FilePath, bool DeleteFile)
 		{
 			try
 			{
@@ -685,46 +876,100 @@ namespace IdApp.Pages.Contacts.Chat
 
 				if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PhotoIsTooLarge"]);
 					return;
 				}
 
 				// Taking or picking photos switches to another app, so ID app has to reconnect again after.
 				if (!await this.XmppService.WaitForConnectedState(Constants.Timeouts.XmppConnect))
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain));
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["UnableToConnectTo"], this.TagProfile.Domain));
 					return;
 				}
 
 				string FileName = Path.GetFileName(FilePath);
-				HttpFileUploadEventArgs Slot = await this.XmppService.Contracts.FileUploadClient.RequestUploadSlotAsync(
-					FileName, ContentType, Bin.Length);
+
+				// Encrypting image
+
+				using RandomNumberGenerator Rnd = RandomNumberGenerator.Create();
+				byte[] Key = new byte[16];
+				byte[] IV = new byte[16];
+
+				Rnd.GetBytes(Key);
+				Rnd.GetBytes(IV);
+
+				Aes Aes = Aes.Create();
+				Aes.BlockSize = 128;
+				Aes.KeySize = 256;
+				Aes.Mode = CipherMode.CBC;
+				Aes.Padding = PaddingMode.PKCS7;
+
+				using ICryptoTransform Transform = Aes.CreateEncryptor(Key, IV);
+				Bin = Transform.TransformFinalBlock(Bin, 0, Bin.Length);
+
+				// Preparing File upload service that content uploaded next is encrypted, and can be stored in encrypted storage.
+
+				StringBuilder Xml = new();
+
+				Xml.Append("<prepare xmlns='http://waher.se/Schema/EncryptedStorage.xsd' filename='");
+				Xml.Append(XML.Encode(FileName));
+				Xml.Append("' size='");
+				Xml.Append(Bin.Length.ToString());
+				Xml.Append("' content-type='application/octet-stream'/>");
+
+				await this.XmppService.IqSetAsync(this.TagProfile.HttpFileUploadJid, Xml.ToString());
+				// Empty response expected. Errors cause an exception to be raised.
+
+				// Requesting upload slot
+
+				HttpFileUploadEventArgs Slot = await this.XmppService.RequestUploadSlotAsync(
+					FileName, "application/octet-stream", Bin.Length);
 
 				if (!Slot.Ok)
 					throw Slot.StanzaError ?? new Exception(Slot.ErrorText);
 
-				await Slot.PUT(Bin, ContentType, (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
+				// Uploading encrypted image
 
-				StringBuilder MarkdownBuilder = new($"![{MarkdownDocument.Encode(FileName)}]({Slot.GetUrl}");
+				await Slot.PUT(Bin, "application/octet-stream", (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
+
+				// Generating Markdown message to send to recipient
+
+				StringBuilder Markdown = new();
+
+				Markdown.Append("![");
+				Markdown.Append(MarkdownDocument.Encode(FileName));
+				Markdown.Append("](");
+				Markdown.Append(Constants.UriSchemes.Aes256);
+				Markdown.Append(':');
+				Markdown.Append(Convert.ToBase64String(Key));
+				Markdown.Append(':');
+				Markdown.Append(Convert.ToBase64String(IV));
+				Markdown.Append(':');
+				Markdown.Append(ContentType);
+				Markdown.Append(':');
+				Markdown.Append(Slot.GetUrl);
 
 				SKImageInfo ImageInfo = SKBitmap.DecodeBounds(Bin);
 				if (!ImageInfo.IsEmpty)
 				{
-					MarkdownBuilder.Append($" {ImageInfo.Width} {ImageInfo.Height}");
+					Markdown.Append(' ');
+					Markdown.Append(ImageInfo.Width.ToString());
+					Markdown.Append(' ');
+					Markdown.Append(ImageInfo.Height.ToString());
 				}
 
-				MarkdownBuilder.Append(")");
+				Markdown.Append(')');
 
-				await this.ExecuteSendMessage(string.Empty, MarkdownBuilder.ToString());
+				await this.ExecuteSendMessage(string.Empty, Markdown.ToString());
 
-				// TODO: File Transfer instead of HTTP File Upload
+				// TODO: End-to-End encryption, or using Elliptic Curves of recipient together with sender to deduce shared secret.
 
 				if (DeleteFile)
 					File.Delete(FilePath);
 			}
 			catch (Exception ex)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 				this.LogService.LogException(ex);
 				return;
 			}
@@ -737,21 +982,21 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private bool CanExecuteEmbedFile()
 		{
-			return this.IsConnected && !this.IsWriting && this.XmppService.Contracts.FileUploadIsSupported;
+			return this.IsConnected && !this.IsWriting && this.XmppService.FileUploadIsSupported;
 		}
 
 		private async Task ExecuteEmbedFile()
 		{
-			if (!this.XmppService.Contracts.FileUploadIsSupported)
+			if (!this.XmppService.FileUploadIsSupported)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PickPhoto"], LocalizationResourceManager.Current["SelectingAPhotoIsNotSupported"]);
 				return;
 			}
 
 			FileResult pickedPhoto = await MediaPicker.PickPhotoAsync();
 
 			if (pickedPhoto is not null)
-				await this.EmbedPhoto(pickedPhoto.FullPath, false);
+				await this.EmbedMedia(pickedPhoto.FullPath, false);
 		}
 
 		/// <summary>
@@ -766,15 +1011,15 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedId()
 		{
-			TaskCompletionSource<ContactInfo> SelectedContact = new();
+			TaskCompletionSource<ContactInfoModel> SelectedContact = new();
+			ContactListNavigationArgs Args = new(LocalizationResourceManager.Current["SelectContactToPay"], SelectedContact)
+			{
+				CanScanQrCode = true
+			};
 
-			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectedContact)
-				{
-					CanScanQrCode = true
-				});
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args, BackMethod.Pop);
 
-			ContactInfo Contact = await SelectedContact.Task;
+			ContactInfoModel Contact = await SelectedContact.Task;
 			if (Contact is null)
 				return;
 
@@ -785,7 +1030,7 @@ namespace IdApp.Pages.Contacts.Chat
 				StringBuilder Markdown = new();
 
 				Markdown.Append("```");
-				Markdown.AppendLine(Constants.UriSchemes.UriSchemeIotId);
+				Markdown.AppendLine(Constants.UriSchemes.IotId);
 
 				Contact.LegalIdentity.Serialize(Markdown, true, true, true, true, true, true, true);
 
@@ -822,9 +1067,9 @@ namespace IdApp.Pages.Contacts.Chat
 		private async Task ExecuteEmbedContract()
 		{
 			TaskCompletionSource<Contract> SelectedContract = new();
+			MyContractsNavigationArgs Args = new(ContractsListMode.Contracts, SelectedContract);
 
-			await this.NavigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(
-				ContractsListMode.MyContracts, SelectedContract));
+			await this.NavigationService.GoToAsync(nameof(MyContractsPage), Args, BackMethod.Pop);
 
 			Contract Contract = await SelectedContract.Task;
 			if (Contract is null)
@@ -835,7 +1080,7 @@ namespace IdApp.Pages.Contacts.Chat
 			StringBuilder Markdown = new();
 
 			Markdown.Append("```");
-			Markdown.AppendLine(Constants.UriSchemes.UriSchemeIotSc);
+			Markdown.AppendLine(Constants.UriSchemes.IotSc);
 
 			Contract.Serialize(Markdown, true, true, true, true, true, true, true);
 
@@ -874,7 +1119,7 @@ namespace IdApp.Pages.Contacts.Chat
 			else
 				return;
 
-			Balance CurrentBalance = await this.XmppService.Wallet.GetBalanceAsync();
+			Balance CurrentBalance = await this.XmppService.GetEDalerBalance();
 
 			sb.Append(";cu=");
 			sb.Append(CurrentBalance.Currency);
@@ -883,9 +1128,9 @@ namespace IdApp.Pages.Contacts.Chat
 				return;
 
 			TaskCompletionSource<string> UriToSend = new();
+			EDalerUriNavigationArgs Args = new(Parsed, this.FriendlyName, UriToSend);
 
-			await this.NavigationService.GoToAsync(nameof(SendPaymentPage), new EDalerUriNavigationArgs(Parsed,
-				this.FriendlyName, UriToSend));
+			await this.NavigationService.GoToAsync(nameof(SendPaymentPage), Args, BackMethod.Pop);
 
 			string Uri = await UriToSend.Task;
 			if (string.IsNullOrEmpty(Uri) || !EDalerUri.TryParse(Uri, out Parsed))
@@ -922,13 +1167,13 @@ namespace IdApp.Pages.Contacts.Chat
 		private async Task ExecuteEmbedToken()
 		{
 			MyTokensNavigationArgs Args = new();
-			await this.NavigationService.GoToAsync(nameof(MyTokensPage), Args);
 
-			TokenItem Selected = await Args.WaitForTokenSelection();
+			await this.NavigationService.GoToAsync(nameof(MyTokensPage), Args, BackMethod.Pop);
+
+			TokenItem Selected = await Args.TokenItemProvider.Task;
+
 			if (Selected is null)
 				return;
-
-			await this.NavigationService.GoBackAsync();
 
 			StringBuilder Markdown = new();
 
@@ -956,11 +1201,12 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedThing()
 		{
-			TaskCompletionSource<ContactInfo> ThingToShare = new();
+			TaskCompletionSource<ContactInfoModel> ThingToShare = new();
+			MyThingsNavigationArgs Args = new(ThingToShare);
 
-			await this.NavigationService.GoToAsync(nameof(MyThingsPage), new MyThingsNavigationArgs(ThingToShare));
+			await this.NavigationService.GoToAsync(nameof(MyThingsPage), Args, BackMethod.Pop);
 
-			ContactInfo Thing = await ThingToShare.Task;
+			ContactInfoModel Thing = await ThingToShare.Task;
 			if (Thing is null)
 				return;
 
@@ -1005,6 +1251,15 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			if (Parameter is ChatMessage Message)
 			{
+				if (Message.ParsedXaml is View View)
+				{
+					AudioPlayerControl AudioPlayer = View.Descendants().OfType<AudioPlayerControl>().FirstOrDefault();
+					if (AudioPlayer is not null)
+					{
+						return Task.CompletedTask;
+					}
+				}
+
 				switch (Message.MessageType)
 				{
 					case Services.Messages.MessageType.Sent:
@@ -1061,27 +1316,38 @@ namespace IdApp.Pages.Contacts.Chat
 					string s = Uri[(i + 1)..].Trim();
 					if (s.StartsWith("<") && s.EndsWith(">"))  // XML
 					{
-						XmlDocument Doc = new();
+						XmlDocument Doc = new()
+						{
+							PreserveWhitespace = true
+						};
 						Doc.LoadXml(s);
 
 						switch (Scheme)
 						{
 							case UriScheme.IotId:
 								LegalIdentity Id = LegalIdentity.Parse(Doc.DocumentElement);
-								await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(Id, null));
+								ViewIdentityNavigationArgs ViewIdentityArgs = new(Id);
+
+								await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), ViewIdentityArgs, BackMethod.Pop);
 								break;
 
 							case UriScheme.IotSc:
 								ParsedContract ParsedContract = await Contract.Parse(Doc.DocumentElement);
-								await this.NavigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(ParsedContract.Contract, false));
+								ViewContractNavigationArgs ViewContractArgs = new(ParsedContract.Contract, false);
+
+								await this.NavigationService.GoToAsync(nameof(ViewContractPage), ViewContractArgs, BackMethod.Pop);
 								break;
 
 							case UriScheme.NeuroFeature:
 								if (!Token.TryParse(Doc.DocumentElement, out Token ParsedToken))
-									throw new Exception(AppResources.InvalidNeuroFeatureToken);
+									throw new Exception(LocalizationResourceManager.Current["InvalidNeuroFeatureToken"]);
 
-								await this.NavigationService.GoToAsync(nameof(TokenDetailsPage),
-									new TokenDetailsNavigationArgs(new TokenItem(ParsedToken, this)) { ReturnCounter = 1 });
+								if (!this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, ParsedToken.TokenId, out NotificationEvent[] Events))
+									Events = new NotificationEvent[0];
+
+								TokenDetailsNavigationArgs Args = new(new TokenItem(ParsedToken, this, Events));
+
+								await this.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.Pop);
 								break;
 
 							default:
@@ -1157,7 +1423,7 @@ namespace IdApp.Pages.Contacts.Chat
 							IdXml = Xml.ToString();
 						}
 
-						XmppService.Xmpp.RequestPresenceSubscription(Jid, IdXml);
+						XmppService.RequestPresenceSubscription(Jid, IdXml);
 					}
 					return true;
 
@@ -1166,7 +1432,7 @@ namespace IdApp.Pages.Contacts.Chat
 					return false;
 
 				case "remove":
-					XmppService.Xmpp.GetRosterItem(Jid);
+					XmppService.GetRosterItem(Jid);
 					// TODO
 					return false;
 
@@ -1183,9 +1449,14 @@ namespace IdApp.Pages.Contacts.Chat
 		public bool IsLinkable => true;
 
 		/// <summary>
+		/// If App links should be encoded with the link.
+		/// </summary>
+		public bool EncodeAppLinks => true;
+
+		/// <summary>
 		/// Link to the current view
 		/// </summary>
-		public string Link => Constants.UriSchemes.UriSchemeXmpp + ":" + this.BareJid;
+		public string Link => Constants.UriSchemes.Xmpp + ":" + this.BareJid;
 
 		/// <summary>
 		/// Title of the current view

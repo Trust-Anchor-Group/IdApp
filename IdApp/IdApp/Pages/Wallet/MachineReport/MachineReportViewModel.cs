@@ -1,6 +1,5 @@
 ﻿using IdApp.Pages.Wallet.MachineReport.Reports;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -20,30 +19,30 @@ namespace IdApp.Pages.Wallet.MachineReport
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out MachineReportNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out MachineReportNavigationArgs args))
 			{
 				this.TokenReport = args.Report;
 				this.Title = await this.TokenReport.GetTitle();
 				await this.TokenReport.GenerateReport(this);
 			}
 
-			this.XmppService.Wallet.VariablesUpdated += this.Wallet_VariablesUpdated;
-			this.XmppService.Wallet.StateUpdated += this.Wallet_StateUpdated;
+			this.XmppService.NeuroFeatureVariablesUpdated += this.Wallet_VariablesUpdated;
+			this.XmppService.NeuroFeatureStateUpdated += this.Wallet_StateUpdated;
 		}
 
 		/// <inheritdoc/>
-		protected override Task DoUnbind()
+		protected override Task OnDispose()
 		{
-			this.XmppService.Wallet.VariablesUpdated -= this.Wallet_VariablesUpdated;
-			this.XmppService.Wallet.StateUpdated -= this.Wallet_StateUpdated;
+			this.XmppService.NeuroFeatureVariablesUpdated -= this.Wallet_VariablesUpdated;
+			this.XmppService.NeuroFeatureStateUpdated -= this.Wallet_StateUpdated;
 
 			this.DeleteTemporaryFiles();
 
-			return base.DoUnbind();
+			return base.OnDispose();
 		}
 
 		private Task Wallet_StateUpdated(object Sender, NeuroFeatures.NewStateEventArgs e)
@@ -111,7 +110,7 @@ namespace IdApp.Pages.Wallet.MachineReport
 		/// <summary>
 		/// <see cref="IDisposable.Dispose"/>
 		/// </summary>
-		public void Dispose()
+		void IDisposable.Dispose()
 		{
 			this.DeleteTemporaryFiles();
 		}

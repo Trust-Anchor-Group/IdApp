@@ -27,9 +27,9 @@ namespace IdApp.Services.EventLog
         /// <summary>
         /// Invoke this method to add a warning statement to the log.
         /// </summary>
-        /// <param name="format">A composite format string.</param>
-        /// <param name="args">The objects to format.</param>
-        void LogWarning(string format, params object[] args);
+        /// <param name="Message">Warning message.</param>
+        /// <param name="Tags">Tags to log together with message.</param>
+        void LogWarning(string Message, params KeyValuePair<string,object>[] Tags);
         
         /// <summary>
         /// Invoke this method to add an <see cref="Exception"/> entry to the log.
@@ -42,7 +42,7 @@ namespace IdApp.Services.EventLog
         /// </summary>
         /// <param name="e">The exception to log.</param>
         /// <param name="extraParameters">Any extra parameters that are added to the log.</param>
-        void LogException(Exception e, params KeyValuePair<string, string>[] extraParameters);
+        void LogException(Exception e, params KeyValuePair<string, object>[] extraParameters);
 
         /// <summary>
         /// Saves an exception dump to disc, completely offline. A last resort operation.
@@ -65,7 +65,8 @@ namespace IdApp.Services.EventLog
         /// <summary>
         /// Gets a list of extra parameters that are useful when logging: Platform, RuntimeVersion, AppVersion.
         /// </summary>
+		/// <param name="Tags">Extra tags</param>
         /// <returns>Parameters</returns>
-        IList<KeyValuePair<string, string>> GetParameters();
+        IList<KeyValuePair<string, object>> GetParameters(params KeyValuePair<string, object>[] Tags);
     }
 }

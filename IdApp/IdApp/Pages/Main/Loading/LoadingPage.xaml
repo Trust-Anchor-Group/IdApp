@@ -6,6 +6,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Main.Loading;assembly=IdApp"
                        x:DataType="model:LoadingViewModel"
                        x:Class="IdApp.Pages.Main.Loading.LoadingPage"
+					   Style="{StaticResource LoadingPage}"
                        Shell.FlyoutBehavior="Disabled" 
                        Shell.NavBarIsVisible="false">
     <ContentPage.Content>
@@ -23,7 +24,7 @@
                 <Label Text="OF" TextColor="{StaticResource TextColorLightTheme}"  FontSize="16" VerticalTextAlignment="Center"/>
                 <Label Text="WORLDMAKING" TextColor="{StaticResource TextColorLightTheme}"  FontSize="24"  VerticalTextAlignment="Center"/>
             </StackLayout>
-            <ActivityIndicator Grid.Row="2" IsVisible="true" IsRunning="true" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
+            <ActivityIndicator Grid.Row="2" IsVisible="true" IsRunning="true" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Style="{StaticResource AccentIndicator}"/>
             <Frame Grid.Row="3" IsVisible="{Binding Path=DisplayConnectionText}" CornerRadius="5" BackgroundColor="#99ffffff">
                 <Label Text="{Binding Path=ConnectionStateText}" HorizontalOptions="CenterAndExpand" LineBreakMode="WordWrap" Margin="{StaticResource DefaultBottomOnlyMargin}" FontSize="Medium" TextColor="Black"/>
             </Frame>

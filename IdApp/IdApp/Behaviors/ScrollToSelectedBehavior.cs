@@ -28,7 +28,7 @@ namespace IdApp.Behaviors
             base.OnDetachingFrom(Picker);
         }
 
-        private void Picker_SelectedIndexChanged(object sender, EventArgs e)
+        private void Picker_SelectedIndexChanged(object Sender, EventArgs e)
         {
             ScrollToClickedBehavior.MakeVisible(this.ScrollTo);
         }

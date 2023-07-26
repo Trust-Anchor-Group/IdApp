@@ -22,16 +22,6 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
-		/// Overrides the back button behavior to handle navigation internally instead.
-		/// </summary>
-		/// <returns>Whether or not the back navigation was handled</returns>
-		protected override bool OnBackButtonPressed()
-		{
-			this.ViewModel.NavigationService.GoBackAsync();
-			return true;
-		}
-
-		/// <summary>
 		/// Asynchronous OnAppearing-method.
 		/// </summary>
 		protected override async Task OnAppearingAsync()
@@ -51,20 +41,20 @@ namespace IdApp.Pages.Wallet.MyWallet
 			await base.OnDisappearingAsync();
 		}
 
-		internal void WalletFlipView_Tapped(object sender, EventArgs e)
+		internal void WalletFlipView_Tapped(object Sender, EventArgs e)
 		{
 			this.WalletFlipView.Flip();
 		}
 
-		private void WalletFlipView_BackViewShowing(object sender, EventArgs e)
+		private void WalletFlipView_BackViewShowing(object Sender, EventArgs e)
 		{
 			if (this.ViewModel is MyWalletViewModel Model)
 				Model.BindTokens();
 		}
 
-		private void WalletFlipView_Flipped(object sender, EventArgs e)
+		private void WalletFlipView_Flipped(object Sender, EventArgs e)
 		{
-			if (this.ViewModel is MyWalletViewModel Model && sender is FlipView FlipView)
+			if (this.ViewModel is MyWalletViewModel Model && Sender is FlipView FlipView)
 				Model.ViewsFlipped(FlipView.IsFrontViewShowing);
 		}
 	}

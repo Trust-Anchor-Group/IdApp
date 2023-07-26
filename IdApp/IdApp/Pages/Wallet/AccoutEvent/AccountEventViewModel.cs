@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Converters;
-using IdApp.Services.Xmpp;
+using Waher.Networking.XMPP;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.AccountEvent
@@ -23,11 +23,11 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out AccountEventNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out AccountEventNavigationArgs args))
 			{
 				this.Remote = args.Event.Remote;
 				this.FriendlyName = args.Event.FriendlyName;
@@ -60,10 +60,10 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.TagProfile.Changed -= this.TagProfile_Changed;
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		private void AssignProperties()
@@ -76,16 +76,18 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.EvaluateAllCommands();
 			});
+
+			return Task.CompletedTask;
 		}
 
-		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
@@ -388,7 +390,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 
 		private Task ExecuteOpenMessageLink()
 		{
-			return App.OpenUrl(this.Message);
+			return App.OpenUrlAsync(this.Message);
 		}
 
 		private bool CanExecuteOpenMessageLink()

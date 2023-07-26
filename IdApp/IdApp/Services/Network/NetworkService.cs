@@ -7,11 +7,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using IdApp.Exceptions;
 using IdApp.Extensions;
-using IdApp.Resx;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -56,7 +56,7 @@ namespace IdApp.Services.Network
 			return Task.CompletedTask;
 		}
 
-		private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+		private void Connectivity_ConnectivityChanged(object Sender, ConnectivityChangedEventArgs e)
 		{
 			this.ConnectivityChanged?.Invoke(this, e);
 		}
@@ -73,7 +73,7 @@ namespace IdApp.Services.Network
 			try
 			{
 				SRV endpoint = await DnsResolver.LookupServiceEndpoint(domainName, "xmpp-client", "tcp");
-				if (!(endpoint is null) && !string.IsNullOrWhiteSpace(endpoint.TargetHost) && endpoint.Port > 0)
+				if (endpoint is not null && !string.IsNullOrWhiteSpace(endpoint.TargetHost) && endpoint.Port > 0)
 					return (endpoint.TargetHost, endpoint.Port, false);
 			}
 			catch (Exception)
@@ -107,11 +107,11 @@ namespace IdApp.Services.Network
 			{
 				if (!this.IsOnline)
 				{
-					thrownException = new MissingNetworkException(AppResources.ThereIsNoNetwork);
+					thrownException = new MissingNetworkException(LocalizationResourceManager.Current["ThereIsNoNetwork"]);
 					this.LogService.LogException(thrownException, GetParameter(memberName));
 
 					if (displayAlert)
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.ThereIsNoNetwork, memberName));
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(LocalizationResourceManager.Current["ThereIsNoNetwork"], memberName));
 				}
 				else
 				{
@@ -128,28 +128,28 @@ namespace IdApp.Services.Network
 					this.LogService.LogException(te, GetParameter(memberName));
 
 					if (displayAlert)
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestTimedOut, memberName));
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(LocalizationResourceManager.Current["RequestTimedOut"], memberName));
 				}
 				else if (ae.InnerException is TaskCanceledException tce)
 				{
 					this.LogService.LogException(tce, GetParameter(memberName));
 
 					if (displayAlert)
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestWasCancelled, memberName));
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(LocalizationResourceManager.Current["RequestWasCancelled"], memberName));
 				}
-				else if (!(ae.InnerException is null))
+				else if (ae.InnerException is not null)
 				{
 					this.LogService.LogException(ae.InnerException, GetParameter(memberName));
 
 					if (displayAlert)
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(ae.InnerException.Message, memberName));
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(ae.InnerException.Message, memberName));
 				}
 				else
 				{
 					this.LogService.LogException(ae, GetParameter(memberName));
 
 					if (displayAlert)
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(ae.Message, memberName));
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(ae.Message, memberName));
 				}
 			}
 			catch (TimeoutException te)
@@ -158,7 +158,7 @@ namespace IdApp.Services.Network
 				this.LogService.LogException(te, GetParameter(memberName));
 
 				if (displayAlert)
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestTimedOut, memberName));
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(LocalizationResourceManager.Current["RequestTimedOut"], memberName));
 			}
 			catch (TaskCanceledException tce)
 			{
@@ -166,7 +166,7 @@ namespace IdApp.Services.Network
 				this.LogService.LogException(tce, GetParameter(memberName));
 
 				if (displayAlert)
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestWasCancelled, memberName));
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(LocalizationResourceManager.Current["RequestWasCancelled"], memberName));
 			}
 			catch (Exception e)
 			{
@@ -174,7 +174,7 @@ namespace IdApp.Services.Network
 
 				thrownException = e;
 
-				if (e is XmppException xe && !(xe.Stanza is null))
+				if (e is XmppException xe && xe.Stanza is not null)
 					message = xe.Stanza.InnerText;
 				else
 					message = e.Message;
@@ -182,7 +182,7 @@ namespace IdApp.Services.Network
 				this.LogService.LogException(e, GetParameter(memberName));
 
 				if (displayAlert)
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(message, memberName));
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], CreateMessage(message, memberName));
 			}
 
 			if (rethrowException)
@@ -201,17 +201,17 @@ namespace IdApp.Services.Network
 			return message;
 		}
 
-		private static KeyValuePair<string, string>[] GetParameter(string memberName)
+		private static KeyValuePair<string, object>[] GetParameter(string memberName)
 		{
 			if (!string.IsNullOrWhiteSpace(memberName))
 			{
 				return new[]
 				{
-					new KeyValuePair<string, string>("Caller", memberName)
+					new KeyValuePair<string, object>("Caller", memberName)
 				};
 			}
 
-			return new KeyValuePair<string, string>[0];
+			return new KeyValuePair<string, object>[0];
 		}
 	}
 }

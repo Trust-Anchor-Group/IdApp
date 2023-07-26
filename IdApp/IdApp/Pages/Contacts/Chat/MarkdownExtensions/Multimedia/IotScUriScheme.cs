@@ -7,6 +7,7 @@ using System.Xml;
 using Waher.Content.Markdown;
 using Waher.Content.Markdown.Model;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 {
@@ -25,7 +26,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		/// <inheritdoc/>
 		public override Grade Supports(MultimediaItem Item)
 		{
-			if (Item.Url.StartsWith(Constants.UriSchemes.UriSchemeIotSc + ":", StringComparison.OrdinalIgnoreCase))
+			if (Item.Url.StartsWith(Constants.UriSchemes.IotSc + ":", StringComparison.OrdinalIgnoreCase))
 				return Grade.Excellent;
 			else
 				return Grade.NotAtAll;
@@ -42,6 +43,13 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		{
 			foreach (MarkdownElement E in ChildNodes)
 				await E.GenerateHTML(Output);
+		}
+
+		/// <inheritdoc/>
+		public override async Task GenerateLaTeX(StringBuilder Output, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
+		{
+			foreach (MarkdownElement E in ChildNodes)
+				await E.GenerateLaTeX(Output);
 		}
 
 		/// <inheritdoc/>

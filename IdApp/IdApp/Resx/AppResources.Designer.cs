@@ -19,7 +19,7 @@ namespace IdApp.Resx {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppResources {
@@ -88,6 +88,33 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access Request.
+        /// </summary>
+        internal static string AccessRequest {
+            get {
+                return ResourceManager.GetString("AccessRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} wants to connect to your device {1}..
+        /// </summary>
+        internal static string AccessRequestText {
+            get {
+                return ResourceManager.GetString("AccessRequestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A caller has requested access to one of your things. Select how you wish the thing should respond to this type of request..
+        /// </summary>
+        internal static string AccessRequestText2 {
+            get {
+                return ResourceManager.GetString("AccessRequestText2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account.
         /// </summary>
         internal static string Account {
@@ -111,6 +138,15 @@ namespace IdApp.Resx {
         internal static string AccountEventDescription {
             get {
                 return ResourceManager.GetString("AccountEventDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account Events.
+        /// </summary>
+        internal static string AccountEventItem {
+            get {
+                return ResourceManager.GetString("AccountEventItem", resourceCulture);
             }
         }
         
@@ -205,6 +241,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to list.
+        /// </summary>
+        internal static string AddToList {
+            get {
+                return ResourceManager.GetString("AddToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        internal static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Altitude.
         /// </summary>
         internal static string Altitude {
@@ -228,6 +282,24 @@ namespace IdApp.Resx {
         internal static string AmountExtra {
             get {
                 return ResourceManager.GetString("AmountExtra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Android App.
+        /// </summary>
+        internal static string AndroidApp {
+            get {
+                return ResourceManager.GetString("AndroidApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anonymous.
+        /// </summary>
+        internal static string Anonymous {
+            get {
+                return ResourceManager.GetString("Anonymous", resourceCulture);
             }
         }
         
@@ -268,6 +340,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encryption can only be performed, if you have access to the recipients identity. A petition for this identity has therefore been sent to the indended recipient. If the recipient accepts the petition, you will receive the identity and be able to send the payment with an encrypted message when you try again. You can also choose to send an unencrypted message with the payment..
+        /// </summary>
+        internal static string APetitionHasBeenSentForEncryption {
+            get {
+                return ResourceManager.GetString("APetitionHasBeenSentForEncryption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A petition has been sent to the parts of the contract. If any of the parts accepts the petition, the contract information will be displayed on the screen..
         /// </summary>
         internal static string APetitionHasBeenSentToTheContract {
@@ -291,6 +372,15 @@ namespace IdApp.Resx {
         internal static string APetitionHasBeenSentToYourPeer {
             get {
                 return ResourceManager.GetString("APetitionHasBeenSentToYourPeer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App is not connected to the network..
+        /// </summary>
+        internal static string AppNotConnected {
+            get {
+                return ResourceManager.GetString("AppNotConnected", resourceCulture);
             }
         }
         
@@ -376,6 +466,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Balance:.
         /// </summary>
         internal static string Balance {
@@ -412,6 +511,33 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Buy.
+        /// </summary>
+        internal static string Buy {
+            get {
+                return ResourceManager.GetString("Buy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy eDaler..
+        /// </summary>
+        internal static string BuyEDaler {
+            get {
+                return ResourceManager.GetString("BuyEDaler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide the amount of eDaler do you want to buy below, and press the Buy button. A web page may be opened where you have to fill in further information for the payment processor to validate your requst..
+        /// </summary>
+        internal static string BuyEDalerDescription {
+            get {
+                return ResourceManager.GetString("BuyEDalerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to perform calculation..
         /// </summary>
         internal static string CalculationError {
@@ -426,6 +552,33 @@ namespace IdApp.Resx {
         internal static string Calculator {
             get {
                 return ResourceManager.GetString("Calculator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caller.
+        /// </summary>
+        internal static string Caller {
+            get {
+                return ResourceManager.GetString("Caller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caller Address.
+        /// </summary>
+        internal static string CallerAddress {
+            get {
+                return ResourceManager.GetString("CallerAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caller Only.
+        /// </summary>
+        internal static string CallerOnly {
+            get {
+                return ResourceManager.GetString("CallerOnly", resourceCulture);
             }
         }
         
@@ -574,6 +727,114 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Response not returned within configured time..
+        /// </summary>
+        internal static string ClientMessageAuthenticationTimeout {
+            get {
+                return ResourceManager.GetString("ClientMessageAuthenticationTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country Code does not match..
+        /// </summary>
+        internal static string ClientMessageCountryCodeMismatch {
+            get {
+                return ResourceManager.GetString("ClientMessageCountryCodeMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country code not verified..
+        /// </summary>
+        internal static string ClientMessageCountryCodeNotVerified {
+            get {
+                return ResourceManager.GetString("ClientMessageCountryCodeNotVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name not verified..
+        /// </summary>
+        internal static string ClientMessageFirstNameNotVerified {
+            get {
+                return ResourceManager.GetString("ClientMessageFirstNameNotVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name not verified..
+        /// </summary>
+        internal static string ClientMessageLastNameNotVerified {
+            get {
+                return ResourceManager.GetString("ClientMessageLastNameNotVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identity not valid..
+        /// </summary>
+        internal static string ClientMessageNotValid {
+            get {
+                return ResourceManager.GetString("ClientMessageNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal Number does not match..
+        /// </summary>
+        internal static string ClientMessagePersonalNumberMismatch {
+            get {
+                return ResourceManager.GetString("ClientMessagePersonalNumberMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal number not verified..
+        /// </summary>
+        internal static string ClientMessagePersonalNumberNotVerified {
+            get {
+                return ResourceManager.GetString("ClientMessagePersonalNumberNotVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Returned reference did not match request reference..
+        /// </summary>
+        internal static string ClientMessageReferenceMismatch {
+            get {
+                return ResourceManager.GetString("ClientMessageReferenceMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document information not returned as expected..
+        /// </summary>
+        internal static string ClientMessageUnexpectedDocumentInformation {
+            get {
+                return ResourceManager.GetString("ClientMessageUnexpectedDocumentInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event result not returned as expected..
+        /// </summary>
+        internal static string ClientMessageUnexpectedEventResult {
+            get {
+                return ResourceManager.GetString("ClientMessageUnexpectedEventResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected response returned..
+        /// </summary>
+        internal static string ClientMessageUnexpectedResult {
+            get {
+                return ResourceManager.GetString("ClientMessageUnexpectedResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client Signature.
         /// </summary>
         internal static string ClientSignature {
@@ -619,6 +880,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Computed Values.
+        /// </summary>
+        internal static string ComputedValues {
+            get {
+                return ResourceManager.GetString("ComputedValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No concentrator service found..
+        /// </summary>
+        internal static string ConcentratorServiceNotFound {
+            get {
+                return ResourceManager.GetString("ConcentratorServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         internal static string Confirm {
@@ -651,6 +930,24 @@ namespace IdApp.Resx {
         internal static string Connection {
             get {
                 return ResourceManager.GetString("Connection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect to Device.
+        /// </summary>
+        internal static string ConnectToDevice {
+            get {
+                return ResourceManager.GetString("ConnectToDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        internal static string Contact {
+            get {
+                return ResourceManager.GetString("Contact", resourceCulture);
             }
         }
         
@@ -745,11 +1042,29 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contract proposal.
+        /// </summary>
+        internal static string ContractProposal {
+            get {
+                return ResourceManager.GetString("ContractProposal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A contract has been proposed..
         /// </summary>
         internal static string ContractProposed {
             get {
                 return ResourceManager.GetString("ContractProposed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response to contract request.
+        /// </summary>
+        internal static string ContractResponse {
+            get {
+                return ResourceManager.GetString("ContractResponse", resourceCulture);
             }
         }
         
@@ -772,11 +1087,29 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contract signature received.
+        /// </summary>
+        internal static string ContractSignatureReceived {
+            get {
+                return ResourceManager.GetString("ContractSignatureReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A contract has been signed..
         /// </summary>
         internal static string ContractSigned {
             get {
                 return ResourceManager.GetString("ContractSigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below is a list of contracts that you have created or signed. Click on a contract for more information about it..
+        /// </summary>
+        internal static string ContractsInfoText {
+            get {
+                return ResourceManager.GetString("ContractsInfoText", resourceCulture);
             }
         }
         
@@ -813,6 +1146,15 @@ namespace IdApp.Resx {
         internal static string ContractUpdated {
             get {
                 return ResourceManager.GetString("ContractUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract updated.
+        /// </summary>
+        internal static string ContractUpdateReceived {
+            get {
+                return ResourceManager.GetString("ContractUpdateReceived", resourceCulture);
             }
         }
         
@@ -858,6 +1200,51 @@ namespace IdApp.Resx {
         internal static string ContractVisibilityMustBeSelected {
             get {
                 return ResourceManager.GetString("ContractVisibilityMustBeSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Control Actuator.
+        /// </summary>
+        internal static string ControlActuator {
+            get {
+                return ResourceManager.GetString("ControlActuator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Control Request.
+        /// </summary>
+        internal static string ControlRequest {
+            get {
+                return ResourceManager.GetString("ControlRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} wants to control parameters on your device {1}..
+        /// </summary>
+        internal static string ControlRequestText {
+            get {
+                return ResourceManager.GetString("ControlRequestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A caller has requested to control one of your things. Select how you wish the thing should respond to this type of request..
+        /// </summary>
+        internal static string ControlRequestText2 {
+            get {
+                return ResourceManager.GetString("ControlRequestText2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No control service found..
+        /// </summary>
+        internal static string ControlServiceNotFound {
+            get {
+                return ResourceManager.GetString("ControlServiceNotFound", resourceCulture);
             }
         }
         
@@ -979,6 +1366,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom.
+        /// </summary>
+        internal static string Custom {
+            get {
+                return ResourceManager.GetString("Custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It seems like the database hasn&apos;t been closed correctly, and may therefore be damaged. An attempt can be made to repair the database by first wiping it. How would you like to proceed?.
         /// </summary>
         internal static string DatabaseCorruptInfoText {
@@ -1051,6 +1447,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Rules.
+        /// </summary>
+        internal static string DeleteRules {
+            get {
+                return ResourceManager.GetString("DeleteRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete all provisioning rules for the thing? By doing so, the thing will ask you again for all new events to learn what it is authorized to do..
+        /// </summary>
+        internal static string DeleteRulesQuestion {
+            get {
+                return ResourceManager.GetString("DeleteRulesQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         internal static string Description {
@@ -1065,6 +1479,15 @@ namespace IdApp.Resx {
         internal static string Destroyed {
             get {
                 return ResourceManager.GetString("Destroyed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device.
+        /// </summary>
+        internal static string Device {
+            get {
+                return ResourceManager.GetString("Device", resourceCulture);
             }
         }
         
@@ -1087,11 +1510,38 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DISABLED FOR {0} SECONDS.
+        /// </summary>
+        internal static string DisabledFor {
+            get {
+                return ResourceManager.GetString("DisabledFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnect from Device.
+        /// </summary>
+        internal static string DisconnectFromDevice {
+            get {
+                return ResourceManager.GetString("DisconnectFromDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disown Thing.
         /// </summary>
         internal static string DisownThing {
             get {
                 return ResourceManager.GetString("DisownThing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to disown the thing? This will remove the thing from your list of things, and will permit another to claim the device as theirs..
+        /// </summary>
+        internal static string DisownThingQuestion {
+            get {
+                return ResourceManager.GetString("DisownThingQuestion", resourceCulture);
             }
         }
         
@@ -1155,6 +1605,15 @@ namespace IdApp.Resx {
         internal static string EDalerServiceNotFound {
             get {
                 return ResourceManager.GetString("EDalerServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypted Payment.
+        /// </summary>
+        internal static string EncryptedPayment {
+            get {
+                return ResourceManager.GetString("EncryptedPayment", resourceCulture);
             }
         }
         
@@ -1240,11 +1699,38 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Everyone from {0}.
+        /// </summary>
+        internal static string EntireDomain {
+            get {
+                return ResourceManager.GetString("EntireDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Errors.
+        /// </summary>
+        internal static string Errors {
+            get {
+                return ResourceManager.GetString("Errors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred.
         /// </summary>
         internal static string ErrorTitle {
             get {
                 return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Everyone.
+        /// </summary>
+        internal static string Everyone {
+            get {
+                return ResourceManager.GetString("Everyone", resourceCulture);
             }
         }
         
@@ -1348,6 +1834,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fields.
+        /// </summary>
+        internal static string Fields {
+            get {
+                return ResourceManager.GetString("Fields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Types.
+        /// </summary>
+        internal static string FieldTypes {
+            get {
+                return ResourceManager.GetString("FieldTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No file upload service found on broker..
         /// </summary>
         internal static string FileUploadServiceNotFound {
@@ -1375,11 +1879,29 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Friendly Name.
+        /// </summary>
+        internal static string FriendlyName {
+            get {
+                return ResourceManager.GetString("FriendlyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         internal static string From {
             get {
                 return ResourceManager.GetString("From", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From User.
+        /// </summary>
+        internal static string FromUser {
+            get {
+                return ResourceManager.GetString("FromUser", resourceCulture);
             }
         }
         
@@ -1465,11 +1987,29 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Getting available options was cancelled..
+        /// </summary>
+        internal static string GettingOptionsCancelled {
+            get {
+                return ResourceManager.GetString("GettingOptionsCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hash Function.
         /// </summary>
         internal static string HashFunction {
             get {
                 return ResourceManager.GetString("HashFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Historical Values.
+        /// </summary>
+        internal static string HistoricalValues {
+            get {
+                return ResourceManager.GetString("HistoricalValues", resourceCulture);
             }
         }
         
@@ -1555,6 +2095,33 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Response to identity request.
+        /// </summary>
+        internal static string IdentityResponse {
+            get {
+                return ResourceManager.GetString("IdentityResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to review identity.
+        /// </summary>
+        internal static string IdentityReviewRequest {
+            get {
+                return ResourceManager.GetString("IdentityReviewRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response to identity review request.
+        /// </summary>
+        internal static string IdentityReviewResponse {
+            get {
+                return ResourceManager.GetString("IdentityReviewResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Approved.
         /// </summary>
         internal static string IdentityState_Approved {
@@ -1609,6 +2176,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Identity Values.
+        /// </summary>
+        internal static string IdentityValues {
+            get {
+                return ResourceManager.GetString("IdentityValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ignore.
         /// </summary>
         internal static string Ignore {
@@ -1636,6 +2212,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        internal static string Information {
+            get {
+                return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following information is available about the caller:.
+        /// </summary>
+        internal static string InformationAboutCallerText {
+            get {
+                return ResourceManager.GetString("InformationAboutCallerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The following information is made available about the thing whose code you scanned. Choose if you want to attempt to claim this thing as yours, and also if you want to make it publicly searchable in the Thing Registry..
         /// </summary>
         internal static string InformationAboutClaimedThingText {
@@ -1654,7 +2248,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following information is made available about the thing. You can also see current sensor-data you are authorized to see. If the thing is an actuator, and you have rights to control the thing, control parameters will be shown also..
+        ///   Looks up a localized string similar to The following information is locally available about the thing. Options to interact with the device are presented below..
         /// </summary>
         internal static string InformationAboutThingText {
             get {
@@ -1726,6 +2320,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid TAG Signature URI..
+        /// </summary>
+        internal static string InvalidTagSignatureId {
+            get {
+                return ResourceManager.GetString("InvalidTagSignatureId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid username or password.
         /// </summary>
         internal static string InvalidUsernameOrPassword {
@@ -1762,11 +2365,11 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite peer to review.
+        ///   Looks up a localized string similar to iOS App.
         /// </summary>
-        internal static string InvitePeerToReview {
+        internal static string IosApp {
             get {
-                return ResourceManager.GetString("InvitePeerToReview", resourceCulture);
+                return ResourceManager.GetString("IosApp", resourceCulture);
             }
         }
         
@@ -1807,11 +2410,56 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Legal ID not approved..
+        /// </summary>
+        internal static string LegalIdNotApproved {
+            get {
+                return ResourceManager.GetString("LegalIdNotApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No legal service found on broker..
         /// </summary>
         internal static string LegalServiceNotFound {
             get {
                 return ResourceManager.GetString("LegalServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link.
+        /// </summary>
+        internal static string Link {
+            get {
+                return ResourceManager.GetString("Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Links.
+        /// </summary>
+        internal static string Links {
+            get {
+                return ResourceManager.GetString("Links", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By opening any of the links below, a programmable link view is opened. You can use this page to encode NFC tags, or use the QR code to transmit the link to others..
+        /// </summary>
+        internal static string LinksText {
+            get {
+                return ResourceManager.GetString("LinksText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can scan the link from another app, or write it into an empty NFC tag, by placing the tag behind the phone until you get the corresponding signal..
+        /// </summary>
+        internal static string LinkText {
+            get {
+                return ResourceManager.GetString("LinkText", resourceCulture);
             }
         }
         
@@ -1942,6 +2590,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message received..
+        /// </summary>
+        internal static string MessageReceived {
+            get {
+                return ResourceManager.GetString("MessageReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meter Location.
         /// </summary>
         internal static string MeterLocation {
@@ -1987,29 +2644,11 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Contracts.
+        ///   Looks up a localized string similar to Momentary Values.
         /// </summary>
-        internal static string MyContracts {
+        internal static string MomentaryValues {
             get {
-                return ResourceManager.GetString("MyContracts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Below is a list of contracts that you have created. Click on a contract for more information about it..
-        /// </summary>
-        internal static string MyContractsInfoText {
-            get {
-                return ResourceManager.GetString("MyContractsInfoText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to My Created Contracts.
-        /// </summary>
-        internal static string MyCreatedContracts {
-            get {
-                return ResourceManager.GetString("MyCreatedContracts", resourceCulture);
+                return ResourceManager.GetString("MomentaryValues", resourceCulture);
             }
         }
         
@@ -2055,6 +2694,15 @@ namespace IdApp.Resx {
         internal static string Network {
             get {
                 return ResourceManager.GetString("Network", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network address of contact unknown..
+        /// </summary>
+        internal static string NetworkAddressOfContactUnknown {
+            get {
+                return ResourceManager.GetString("NetworkAddressOfContactUnknown", resourceCulture);
             }
         }
         
@@ -2131,6 +2779,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Legal ID selected..
+        /// </summary>
+        internal static string NoLegalIdSelected {
+            get {
+                return ResourceManager.GetString("NoLegalIdSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not an invitation code..
         /// </summary>
         internal static string NotAnInvitationCode {
@@ -2145,6 +2811,15 @@ namespace IdApp.Resx {
         internal static string Notary {
             get {
                 return ResourceManager.GetString("Notary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Available.
+        /// </summary>
+        internal static string NotAvailable {
+            get {
+                return ResourceManager.GetString("NotAvailable", resourceCulture);
             }
         }
         
@@ -2190,6 +2865,24 @@ namespace IdApp.Resx {
         internal static string NoThingsFound {
             get {
                 return ResourceManager.GetString("NoThingsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notifications.
+        /// </summary>
+        internal static string Notifications {
+            get {
+                return ResourceManager.GetString("Notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below you can see a list of notifications resulting from interactions with the thing. Press on each one to display more information and options available..
+        /// </summary>
+        internal static string NotificationsText {
+            get {
+                return ResourceManager.GetString("NotificationsText", resourceCulture);
             }
         }
         
@@ -2329,11 +3022,128 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Organization Address.
+        /// </summary>
+        internal static string OrgAddress {
+            get {
+                return ResourceManager.GetString("OrgAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Address (row 2).
+        /// </summary>
+        internal static string OrgAddress2 {
+            get {
+                return ResourceManager.GetString("OrgAddress2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Information.
+        /// </summary>
+        internal static string OrganizationInformation {
+            get {
+                return ResourceManager.GetString("OrganizationInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Area.
+        /// </summary>
+        internal static string OrgArea {
+            get {
+                return ResourceManager.GetString("OrgArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization City.
+        /// </summary>
+        internal static string OrgCity {
+            get {
+                return ResourceManager.GetString("OrgCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Country.
+        /// </summary>
+        internal static string OrgCountry {
+            get {
+                return ResourceManager.GetString("OrgCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Department.
+        /// </summary>
+        internal static string OrgDepartment {
+            get {
+                return ResourceManager.GetString("OrgDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Name.
+        /// </summary>
+        internal static string OrgName {
+            get {
+                return ResourceManager.GetString("OrgName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Number.
+        /// </summary>
+        internal static string OrgNumber {
+            get {
+                return ResourceManager.GetString("OrgNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Region.
+        /// </summary>
+        internal static string OrgRegion {
+            get {
+                return ResourceManager.GetString("OrgRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        internal static string OrgRole {
+            get {
+                return ResourceManager.GetString("OrgRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Zip or Postal Code.
+        /// </summary>
+        internal static string OrgZipCode {
+            get {
+                return ResourceManager.GetString("OrgZipCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other.
         /// </summary>
         internal static string Other {
             get {
                 return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other App.
+        /// </summary>
+        internal static string OtherApp {
+            get {
+                return ResourceManager.GetString("OtherApp", resourceCulture);
             }
         }
         
@@ -2473,11 +3283,29 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment Cancelled.
+        /// </summary>
+        internal static string PaymentCancelled {
+            get {
+                return ResourceManager.GetString("PaymentCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the amount to pay to the recipient below. Once done, you can choose to either pay online (if connected) or offline, by clicking on the corresponding button..
         /// </summary>
         internal static string PaymentDescription {
             get {
                 return ResourceManager.GetString("PaymentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment Failed.
+        /// </summary>
+        internal static string PaymentFailed {
+            get {
+                return ResourceManager.GetString("PaymentFailed", resourceCulture);
             }
         }
         
@@ -2505,6 +3333,15 @@ namespace IdApp.Resx {
         internal static string PayOnline {
             get {
                 return ResourceManager.GetString("PayOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peak Values.
+        /// </summary>
+        internal static string PeakValues {
+            get {
+                return ResourceManager.GetString("PeakValues", resourceCulture);
             }
         }
         
@@ -2550,6 +3387,69 @@ namespace IdApp.Resx {
         internal static string PendingPaymentDescription {
             get {
                 return ResourceManager.GetString("PendingPaymentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending Payments.
+        /// </summary>
+        internal static string PendingPaymentItem {
+            get {
+                return ResourceManager.GetString("PendingPaymentItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No personal eventing service found..
+        /// </summary>
+        internal static string PepServiceNotFound {
+            get {
+                return ResourceManager.GetString("PepServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the fields to permit access to, if request is accepted..
+        /// </summary>
+        internal static string PermitFieldsText {
+            get {
+                return ResourceManager.GetString("PermitFieldsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the field types (broad categories) to permit access to, if request is accepted..
+        /// </summary>
+        internal static string PermitFieldTypesText {
+            get {
+                return ResourceManager.GetString("PermitFieldTypesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the parameters to permit access to, if request is accepted..
+        /// </summary>
+        internal static string PermitParametersText {
+            get {
+                return ResourceManager.GetString("PermitParametersText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permit Screen Capture.
+        /// </summary>
+        internal static string PermitScreenCapture {
+            get {
+                return ResourceManager.GetString("PermitScreenCapture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal Information.
+        /// </summary>
+        internal static string PersonalInformation {
+            get {
+                return ResourceManager.GetString("PersonalInformation", resourceCulture);
             }
         }
         
@@ -3049,6 +3949,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prohibit Screen Capture.
+        /// </summary>
+        internal static string ProhibitScreenCapture {
+            get {
+                return ResourceManager.GetString("ProhibitScreenCapture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Proposal.
         /// </summary>
         internal static string Proposal {
@@ -3112,11 +4021,56 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Educational or experimental use..
+        ///   Looks up a localized string similar to Educational use..
         /// </summary>
-        internal static string PurposeEducationalOrExperimental {
+        internal static string PurposeEducational {
             get {
-                return ResourceManager.GetString("PurposeEducationalOrExperimental", resourceCulture);
+                return ResourceManager.GetString("PurposeEducational", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option allows you to use Tag ID for educational purposes. You can use the app to sign or access resources as a private person, either as an educator, or as a student. The account may be limited in time. The account may also be removed when no longer used. Check with the service provider for more information..
+        /// </summary>
+        internal static string PurposeEducationalDescription {
+            get {
+                return ResourceManager.GetString("PurposeEducationalDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Experimental use..
+        /// </summary>
+        internal static string PurposeExperimental {
+            get {
+                return ResourceManager.GetString("PurposeExperimental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option allows you to use Tag ID for experimental purposes. You can use the app to sign or access resources as a private person, with the goal of learning the technology and for what purposes it can be used. The account may be limited in time. The account may also be removed when no longer used. Check with the service provider for more information..
+        /// </summary>
+        internal static string PurposeExperimentalDescription {
+            get {
+                return ResourceManager.GetString("PurposeExperimentalDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal use..
+        /// </summary>
+        internal static string PurposePersonal {
+            get {
+                return ResourceManager.GetString("PurposePersonal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option allows you to use Tag ID for personal purposes. You can use the app to sign or access resources as a private person. Certain operations may incur costs, depending on the service provider you choose. Check with the service provider for more information..
+        /// </summary>
+        internal static string PurposePersonalDescription {
+            get {
+                return ResourceManager.GetString("PurposePersonalDescription", resourceCulture);
             }
         }
         
@@ -3139,29 +4093,20 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This option allows you to use Tag ID for educational, experimental or test purposes. There are no costs incurred when using this option. The account may be removed when no longer used. There is no guarantee the educational or experimental service provider selected will continue operation for extended periods of time..
+        ///   Looks up a localized string similar to Work use..
         /// </summary>
-        internal static string PurposeWorkEducationalOrExperimental {
+        internal static string PurposeWork {
             get {
-                return ResourceManager.GetString("PurposeWorkEducationalOrExperimental", resourceCulture);
+                return ResourceManager.GetString("PurposeWork", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Work or personal use..
+        ///   Looks up a localized string similar to This option allows you to use Tag ID for work purposes. This includes work not for profit in organizations. You can use the app to sign or access resources as a representative of an organization. Certain operations may incur costs, depending on the service provider you choose. Check with the service provider for more information..
         /// </summary>
-        internal static string PurposeWorkOrPersonal {
+        internal static string PurposeWorkDescription {
             get {
-                return ResourceManager.GetString("PurposeWorkOrPersonal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This option allows you to use Tag ID for work or personal purposes. You can use the app for three months at no cost. After this time period, certain operations may incur costs..
-        /// </summary>
-        internal static string PurposeWorkOrPersonalDescription {
-            get {
-                return ResourceManager.GetString("PurposeWorkOrPersonalDescription", resourceCulture);
+                return ResourceManager.GetString("PurposeWorkDescription", resourceCulture);
             }
         }
         
@@ -3216,6 +4161,69 @@ namespace IdApp.Resx {
         internal static string QrScanUri {
             get {
                 return ResourceManager.GetString("QrScanUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        internal static string Question {
+            get {
+                return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Range.
+        /// </summary>
+        internal static string Range {
+            get {
+                return ResourceManager.GetString("Range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply this rule to:.
+        /// </summary>
+        internal static string RangeText {
+            get {
+                return ResourceManager.GetString("RangeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} wants to read data from your device {1}..
+        /// </summary>
+        internal static string ReadoutRequestText {
+            get {
+                return ResourceManager.GetString("ReadoutRequestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A caller has requested sensor data from one of your things. Select how you wish the thing should respond to this type of request..
+        /// </summary>
+        internal static string ReadoutRequestText2 {
+            get {
+                return ResourceManager.GetString("ReadoutRequestText2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Readout Request.
+        /// </summary>
+        internal static string ReadRequest {
+            get {
+                return ResourceManager.GetString("ReadRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read Sensor.
+        /// </summary>
+        internal static string ReadSensor {
+            get {
+                return ResourceManager.GetString("ReadSensor", resourceCulture);
             }
         }
         
@@ -3301,6 +4309,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove from list.
+        /// </summary>
+        internal static string RemoveFromList {
+            get {
+                return ResourceManager.GetString("RemoveFromList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove Subscription?.
         /// </summary>
         internal static string RemoveSubscription {
@@ -3324,6 +4341,15 @@ namespace IdApp.Resx {
         internal static string RemoveSubscription2 {
             get {
                 return ResourceManager.GetString("RemoveSubscription2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove the presence subscription from {0}?.
+        /// </summary>
+        internal static string RemoveSubscriptionFrom {
+            get {
+                return ResourceManager.GetString("RemoveSubscriptionFrom", resourceCulture);
             }
         }
         
@@ -3436,11 +4462,56 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request review.
+        /// </summary>
+        internal static string RequestReview {
+            get {
+                return ResourceManager.GetString("RequestReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request another user to review your application..
+        /// </summary>
+        internal static string RequestReviewFromAPeer {
+            get {
+                return ResourceManager.GetString("RequestReviewFromAPeer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request signature.
+        /// </summary>
+        internal static string RequestSignature {
+            get {
+                return ResourceManager.GetString("RequestSignature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The request timed out.
         /// </summary>
         internal static string RequestTimedOut {
             get {
                 return ResourceManager.GetString("RequestTimedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to access contract.
+        /// </summary>
+        internal static string RequestToAccessContract {
+            get {
+                return ResourceManager.GetString("RequestToAccessContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to access identity.
+        /// </summary>
+        internal static string RequestToAccessIdentity {
+            get {
+                return ResourceManager.GetString("RequestToAccessIdentity", resourceCulture);
             }
         }
         
@@ -3468,6 +4539,24 @@ namespace IdApp.Resx {
         internal static string RetypePinOrPassword {
             get {
                 return ResourceManager.GetString("RetypePinOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We need to revalidate your e-mail address. Please update your e-mail address if necessary and tap &quot;send code&quot; button..
+        /// </summary>
+        internal static string RevalidateEMail {
+            get {
+                return ResourceManager.GetString("RevalidateEMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We need to revalidate your mobile phone number. Please update your mobile phone number if necessary (use international phone number format, without spaces) and tap &quot;send code&quot; button..
+        /// </summary>
+        internal static string RevalidatePhoneNr {
+            get {
+                return ResourceManager.GetString("RevalidatePhoneNr", resourceCulture);
             }
         }
         
@@ -3526,6 +4615,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Provisioning rules have been deleted..
+        /// </summary>
+        internal static string RulesDeleted {
+            get {
+                return ResourceManager.GetString("RulesDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scan Invitation.
         /// </summary>
         internal static string ScanInvitation {
@@ -3553,6 +4651,33 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Security.
+        /// </summary>
+        internal static string Security {
+            get {
+                return ResourceManager.GetString("Security", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Security Settings.
+        /// </summary>
+        internal static string SecuritySettings {
+            get {
+                return ResourceManager.GetString("SecuritySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below you can modify securit settings for the app. By enabling screen capture you can share the screen with others, but only for a limited time..
+        /// </summary>
+        internal static string SecuritySettingsInformationText {
+            get {
+                return ResourceManager.GetString("SecuritySettingsInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Below are all contacts in your contact book. Select the contact to whom you want to make the payment..
         /// </summary>
         internal static string SelectContactToPay {
@@ -3571,6 +4696,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select from whom to request payment..
+        /// </summary>
+        internal static string SelectFromWhomToRequestPayment {
+            get {
+                return ResourceManager.GetString("SelectFromWhomToRequestPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecting a photo is not supported on this device.
         /// </summary>
         internal static string SelectingAPhotoIsNotSupported {
@@ -3585,6 +4719,33 @@ namespace IdApp.Resx {
         internal static string SelectPurpose {
             get {
                 return ResourceManager.GetString("SelectPurpose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the Service Provider you want to use to buy eDaler..
+        /// </summary>
+        internal static string SelectServiceProviderBuyEDaler {
+            get {
+                return ResourceManager.GetString("SelectServiceProviderBuyEDaler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select where to send the review request..
+        /// </summary>
+        internal static string SelectServiceProviderPeerReview {
+            get {
+                return ResourceManager.GetString("SelectServiceProviderPeerReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the Service Provider you want to use to sell eDaler..
+        /// </summary>
+        internal static string SelectServiceProviderSellEDaler {
+            get {
+                return ResourceManager.GetString("SelectServiceProviderSellEDaler", resourceCulture);
             }
         }
         
@@ -3616,6 +4777,33 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sell.
+        /// </summary>
+        internal static string Sell {
+            get {
+                return ResourceManager.GetString("Sell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sell eDaler..
+        /// </summary>
+        internal static string SellEDaler {
+            get {
+                return ResourceManager.GetString("SellEDaler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide the amount of eDaler do you want to sell below, and press the Sell button. A web page may be opened where you have to fill in further information for the payment processor to validate your requst..
+        /// </summary>
+        internal static string SellEDalerDescription {
+            get {
+                return ResourceManager.GetString("SellEDalerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seller.
         /// </summary>
         internal static string Seller {
@@ -3639,6 +4827,15 @@ namespace IdApp.Resx {
         internal static string SendCode {
             get {
                 return ResourceManager.GetString("SendCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A code has been sent in an e-mail message to your e-mail adderss. If you don&apos;t receive it, please also check your spam folder..
+        /// </summary>
+        internal static string SendEmailWarning {
+            get {
+                return ResourceManager.GetString("SendEmailWarning", resourceCulture);
             }
         }
         
@@ -3670,6 +4867,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A code has been sent as a text message to your phone..
+        /// </summary>
+        internal static string SendPhoneNumberWarning {
+            get {
+                return ResourceManager.GetString("SendPhoneNumberWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send to Contact.
         /// </summary>
         internal static string SendToContact {
@@ -3679,11 +4885,173 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sensor Data.
+        /// </summary>
+        internal static string SensorData {
+            get {
+                return ResourceManager.GetString("SensorData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request has been accepted..
+        /// </summary>
+        internal static string SensorDataAccepted {
+            get {
+                return ResourceManager.GetString("SensorDataAccepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Data readout has been cancelled..
+        /// </summary>
+        internal static string SensorDataCancelled {
+            get {
+                return ResourceManager.GetString("SensorDataCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Data readout has completed..
+        /// </summary>
+        internal static string SensorDataDone {
+            get {
+                return ResourceManager.GetString("SensorDataDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Data readout has failed..
+        /// </summary>
+        internal static string SensorDataFailure {
+            get {
+                return ResourceManager.GetString("SensorDataFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Computed.
+        /// </summary>
+        internal static string SensorDataHeaderComputed {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderComputed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Historical.
+        /// </summary>
+        internal static string SensorDataHeaderHistorical {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderHistorical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identity.
+        /// </summary>
+        internal static string SensorDataHeaderIdentity {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderIdentity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Momentary.
+        /// </summary>
+        internal static string SensorDataHeaderMomentary {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderMomentary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        internal static string SensorDataHeaderOther {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peak.
+        /// </summary>
+        internal static string SensorDataHeaderPeak {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderPeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        internal static string SensorDataHeaderStatus {
+            get {
+                return ResourceManager.GetString("SensorDataHeaderStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receiving Sensor Data..
+        /// </summary>
+        internal static string SensorDataReceiving {
+            get {
+                return ResourceManager.GetString("SensorDataReceiving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Data has been requested..
+        /// </summary>
+        internal static string SensorDataRequested {
+            get {
+                return ResourceManager.GetString("SensorDataRequested", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensor Data readout has started..
+        /// </summary>
+        internal static string SensorDataStarted {
+            get {
+                return ResourceManager.GetString("SensorDataStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below is information and sensor data available to you, in accordance with your access privileges..
+        /// </summary>
+        internal static string SensorDataText {
+            get {
+                return ResourceManager.GetString("SensorDataText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No sensor service found..
+        /// </summary>
+        internal static string SensorServiceNotFound {
+            get {
+                return ResourceManager.GetString("SensorServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Serial Number.
         /// </summary>
         internal static string SerialNumber {
             get {
                 return ResourceManager.GetString("SerialNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description by Service Provider.
+        /// </summary>
+        internal static string ServerDescription {
+            get {
+                return ResourceManager.GetString("ServerDescription", resourceCulture);
             }
         }
         
@@ -3733,11 +5101,47 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Service.
+        /// </summary>
+        internal static string Service {
+            get {
+                return ResourceManager.GetString("Service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service Providers.
+        /// </summary>
+        internal static string ServiceProviders {
+            get {
+                return ResourceManager.GetString("ServiceProviders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Share.
         /// </summary>
         internal static string Share {
             get {
                 return ResourceManager.GetString("Share", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below, you can find additional options for sharing the QR-code..
+        /// </summary>
+        internal static string ShareDescription {
+            get {
+                return ResourceManager.GetString("ShareDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Short ID.
+        /// </summary>
+        internal static string ShortId {
+            get {
+                return ResourceManager.GetString("ShortId", resourceCulture);
             }
         }
         
@@ -3805,6 +5209,24 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The signature petition was denied..
+        /// </summary>
+        internal static string SignaturePetitionDenied {
+            get {
+                return ResourceManager.GetString("SignaturePetitionDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response to signature request.
+        /// </summary>
+        internal static string SignatureResponse {
+            get {
+                return ResourceManager.GetString("SignatureResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign before.
         /// </summary>
         internal static string SignBefore {
@@ -3814,29 +5236,29 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Signed Contracts.
-        /// </summary>
-        internal static string SignedContracts {
-            get {
-                return ResourceManager.GetString("SignedContracts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Below is a list of contracts that you have signed. Click on a contract for more information about it..
-        /// </summary>
-        internal static string SignedContractsInfoText {
-            get {
-                return ResourceManager.GetString("SignedContractsInfoText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Skip.
         /// </summary>
         internal static string Skip {
             get {
                 return ResourceManager.GetString("Skip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong when sending a verification code to this email..
+        /// </summary>
+        internal static string SomethingWentWrongWhenSendingEmailCode {
+            get {
+                return ResourceManager.GetString("SomethingWentWrongWhenSendingEmailCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong when sending a verification code to this phone number..
+        /// </summary>
+        internal static string SomethingWentWrongWhenSendingPhoneCode {
+            get {
+                return ResourceManager.GetString("SomethingWentWrongWhenSendingPhoneCode", resourceCulture);
             }
         }
         
@@ -3859,6 +5281,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to State changed to {0}.
+        /// </summary>
+        internal static string StateChangedTo {
+            get {
+                return ResourceManager.GetString("StateChangedTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to State Diagram.
         /// </summary>
         internal static string StateDiagram {
@@ -3873,6 +5304,15 @@ namespace IdApp.Resx {
         internal static string States {
             get {
                 return ResourceManager.GetString("States", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status Values.
+        /// </summary>
+        internal static string StatusValues {
+            get {
+                return ResourceManager.GetString("StatusValues", resourceCulture);
             }
         }
         
@@ -3958,6 +5398,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changing the phone number to a test one is not allowed..
+        /// </summary>
+        internal static string SwitchingToTestPhoneNumberNotAllowed {
+            get {
+                return ResourceManager.GetString("SwitchingToTestPhoneNumberNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tag Engraved with link to {0}..
         /// </summary>
         internal static string TagEngraved {
@@ -4008,15 +5457,6 @@ namespace IdApp.Resx {
         internal static string TemplateId {
             get {
                 return ResourceManager.GetString("TemplateId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tesseract OCR Library not created.
-        /// </summary>
-        internal static string TesseractNotCreated {
-            get {
-                return ResourceManager.GetString("TesseractNotCreated", resourceCulture);
             }
         }
         
@@ -4075,7 +5515,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified code is not a legal identity.
+        ///   Looks up a localized string similar to You need to scan a different type of QR Code, one that represents a legal identity.
         /// </summary>
         internal static string TheSpecifiedCodeIsNotALegalIdentity {
             get {
@@ -4138,6 +5578,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Time.
+        /// </summary>
+        internal static string Time {
+            get {
+                return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time stamp.
         /// </summary>
         internal static string Timestamp {
@@ -4165,11 +5614,20 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Scan Invitation button to scan an invitation code..
+        ///   Looks up a localized string similar to You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation code, to select another service provider for your accout. If you scan a transfer code, you can use an account that has already been prepared for you. Click the Scan Invitation button to scan an invitation or transfer code..
         /// </summary>
         internal static string ToConnectToDomainYouNeedAnAccount2 {
             get {
                 return ResourceManager.GetString("ToConnectToDomainYouNeedAnAccount2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To device, regardless of source.
+        /// </summary>
+        internal static string ToDevice {
+            get {
+                return ResourceManager.GetString("ToDevice", resourceCulture);
             }
         }
         
@@ -4179,6 +5637,33 @@ namespace IdApp.Resx {
         internal static string TokenAdded {
             get {
                 return ResourceManager.GetString("TokenAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token Added.
+        /// </summary>
+        internal static string TokenAdded2 {
+            get {
+                return ResourceManager.GetString("TokenAdded2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token Templates.
+        /// </summary>
+        internal static string TokenCreationTemplates {
+            get {
+                return ResourceManager.GetString("TokenCreationTemplates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below is a list of token templates that you have used or can use to create new tokens. Click on a template to create a new contract based on that template. Once the contract has been signed and approved, the corresponding token or tokens will be created..
+        /// </summary>
+        internal static string TokenCreationTemplatesInfoText {
+            get {
+                return ResourceManager.GetString("TokenCreationTemplatesInfoText", resourceCulture);
             }
         }
         
@@ -4264,11 +5749,47 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Token Removed.
+        /// </summary>
+        internal static string TokenRemoved2 {
+            get {
+                return ResourceManager.GetString("TokenRemoved2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token Visibility.
         /// </summary>
         internal static string TokenVisibility {
             get {
                 return ResourceManager.GetString("TokenVisibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To service, regardless of source.
+        /// </summary>
+        internal static string ToService {
+            get {
+                return ResourceManager.GetString("ToService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To user, regardless of source.
+        /// </summary>
+        internal static string ToUser {
+            get {
+                return ResourceManager.GetString("ToUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To User.
+        /// </summary>
+        internal static string ToUser2 {
+            get {
+                return ResourceManager.GetString("ToUser2", resourceCulture);
             }
         }
         
@@ -4323,6 +5844,15 @@ namespace IdApp.Resx {
         internal static string Transferred {
             get {
                 return ResourceManager.GetString("Transferred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trust Anchor Group.
+        /// </summary>
+        internal static string TrustAnchorGroup {
+            get {
+                return ResourceManager.GetString("TrustAnchorGroup", resourceCulture);
             }
         }
         
@@ -4453,6 +5983,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to get available options..
+        /// </summary>
+        internal static string UnableToGetOptions {
+            get {
+                return ResourceManager.GetString("UnableToGetOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to get present report..
         /// </summary>
         internal static string UnableToGetPresent {
@@ -4480,11 +6019,20 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to initialize Tesseract OCR Library.
+        ///   Looks up a localized string similar to Unable to find any text in the image..
         /// </summary>
-        internal static string UnabletoInitializeTesseract {
+        internal static string UnableToOcrImage {
             get {
-                return ResourceManager.GetString("UnabletoInitializeTesseract", resourceCulture);
+                return ResourceManager.GetString("UnableToOcrImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to open link:.
+        /// </summary>
+        internal static string UnableToOpenLink {
+            get {
+                return ResourceManager.GetString("UnableToOpenLink", resourceCulture);
             }
         }
         
@@ -4498,11 +6046,11 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to process image with Tesseract OCR Library..
+        ///   Looks up a localized string similar to Unable to respond to request..
         /// </summary>
-        internal static string UnableToTesseractImage {
+        internal static string UnableToRespond {
             get {
-                return ResourceManager.GetString("UnableToTesseractImage", resourceCulture);
+                return ResourceManager.GetString("UnableToRespond", resourceCulture);
             }
         }
         
@@ -4566,6 +6114,24 @@ namespace IdApp.Resx {
         internal static string Updated {
             get {
                 return ResourceManager.GetString("Updated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        internal static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} signed as {1}..
+        /// </summary>
+        internal static string UserSignedAs {
+            get {
+                return ResourceManager.GetString("UserSignedAs", resourceCulture);
             }
         }
         
@@ -4642,11 +6208,29 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Variables Updated.
+        /// </summary>
+        internal static string VariablesUpdated {
+            get {
+                return ResourceManager.GetString("VariablesUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verification Code.
         /// </summary>
         internal static string VerificationCode {
             get {
                 return ResourceManager.GetString("VerificationCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verified.
+        /// </summary>
+        internal static string VerifiedButton {
+            get {
+                return ResourceManager.GetString("VerifiedButton", resourceCulture);
             }
         }
         
@@ -4795,6 +6379,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} in {1}.
+        /// </summary>
+        internal static string XInY {
+            get {
+                return ResourceManager.GetString("XInY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XML Note.
         /// </summary>
         internal static string XmlNote {
@@ -4930,6 +6523,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} on {1}.
+        /// </summary>
+        internal static string XOnY {
+            get {
+                return ResourceManager.GetString("XOnY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         internal static string Yes {
@@ -4957,7 +6559,7 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can protect your wallet and sensitive information by changing an additional PIN number or password..
+        ///   Looks up a localized string similar to You can change the existing PIN if necessary. If you skip this step, the old PIN will be used..
         /// </summary>
         internal static string YouCanProtectYourWalletPinInfoChange {
             get {
@@ -5025,6 +6627,51 @@ namespace IdApp.Resx {
         internal static string YouNeedToProvideALastName {
             get {
                 return ResourceManager.GetString("YouNeedToProvideALastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide an organization country.
+        /// </summary>
+        internal static string YouNeedToProvideAnOrgCountry {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAnOrgCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide a department.
+        /// </summary>
+        internal static string YouNeedToProvideAnOrgDepartment {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAnOrgDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide an organization name.
+        /// </summary>
+        internal static string YouNeedToProvideAnOrgName {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAnOrgName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide an organization number.
+        /// </summary>
+        internal static string YouNeedToProvideAnOrgNumber {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAnOrgNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide a role.
+        /// </summary>
+        internal static string YouNeedToProvideAnOrgRole {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAnOrgRole", resourceCulture);
             }
         }
         

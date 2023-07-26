@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using IdApp.Extensions;
-using IdApp.Resx;
+﻿using IdApp.Extensions;
+using IdApp.Pages.Contracts.PetitionSignature;
 using IdApp.Services;
 using IdApp.Services.Data.Countries;
 using IdApp.Services.UI.Photos;
+using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Identity.PetitionIdentity
@@ -41,11 +42,11 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         }
 
         /// <inheritdoc/>
-        protected override async Task DoBind()
+        protected override async Task OnInitialize()
         {
-            await base.DoBind();
+            await base.OnInitialize();
 
-            if (this.NavigationService.TryPopArgs(out PetitionIdentityNavigationArgs args))
+            if (this.NavigationService.TryGetArgs(out PetitionIdentityNavigationArgs args))
             {
                 this.RequestorIdentity = args.RequestorIdentity;
                 this.requestorFullJid = args.RequestorFullJid;
@@ -53,11 +54,18 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 this.petitionId = args.PetitionId;
                 this.purpose = args.Purpose;
 
-                string BareJid = XmppClient.GetBareJID(this.requestorFullJid);
+				string BareJid;
+
+				if (!string.IsNullOrEmpty(this.requestorFullJid))
+					BareJid = XmppClient.GetBareJID(this.requestorFullJid);
+				else if (args.RequestorIdentity is not null)
+					BareJid = args.RequestorIdentity.GetJid();
+				else
+					BareJid = string.Empty;
 
                 ContactInfo Info = await ContactInfo.FindByBareJid(BareJid);
 
-                if (!(Info is null) &&
+                if (Info is not null &&
                     (Info.LegalIdentity is null || (
                     Info.LegalId != this.RequestorIdentity.Id &&
                     Info.LegalIdentity is not null &&
@@ -72,12 +80,12 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                     await Database.Provider.Flush();
                 }
 
-                this.ThirdPartyInContacts = !(Info is null);
+                this.ThirdPartyInContacts = Info is not null;
             }
 
             this.AssignProperties();
             this.EvaluateAllCommands();
-            
+
             this.ReloadPhotos();
         }
 
@@ -104,10 +112,11 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         }
 
         /// <inheritdoc/>
-        protected override async Task DoUnbind()
+        protected override async Task OnDispose()
         {
             this.photosLoader.CancelLoadPhotos();
-            await base.DoUnbind();
+
+            await base.OnDispose();
         }
 
         private void EvaluateAllCommands()
@@ -155,14 +164,14 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             if (!await App.VerifyPin())
                 return;
 
-            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true));
+            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true));
             if (succeeded)
                 await this.NavigationService.GoBackAsync();
         }
 
         private async Task Decline()
         {
-            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false));
+            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false));
             if (succeeded)
                 await this.NavigationService.GoBackAsync();
         }
@@ -444,10 +453,224 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             set => this.SetValue(CountryProperty, value);
         }
 
-        /// <summary>
-        /// See <see cref="PhoneNr"/>
-        /// </summary>
-        public static readonly BindableProperty PhoneNrProperty =
+		/// <summary>
+		/// See <see cref="OrgName"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNameProperty =
+			BindableProperty.Create(nameof(OrgName), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization name property
+		/// </summary>
+		public string OrgName
+		{
+			get => (string)this.GetValue(OrgNameProperty);
+			set => this.SetValue(OrgNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgNumber"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNumberProperty =
+			BindableProperty.Create(nameof(OrgNumber), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization number property
+		/// </summary>
+		public string OrgNumber
+		{
+			get => (string)this.GetValue(OrgNumberProperty);
+			set => this.SetValue(OrgNumberProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgDepartment"/>
+		/// </summary>
+		public static readonly BindableProperty OrgDepartmentProperty =
+			BindableProperty.Create(nameof(OrgDepartment), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization department property
+		/// </summary>
+		public string OrgDepartment
+		{
+			get => (string)this.GetValue(OrgDepartmentProperty);
+			set => this.SetValue(OrgDepartmentProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRole"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRoleProperty =
+			BindableProperty.Create(nameof(OrgRole), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization role property
+		/// </summary>
+		public string OrgRole
+		{
+			get => (string)this.GetValue(OrgRoleProperty);
+			set => this.SetValue(OrgRoleProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddress"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddressProperty =
+			BindableProperty.Create(nameof(OrgAddress), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization address property
+		/// </summary>
+		public string OrgAddress
+		{
+			get => (string)this.GetValue(OrgAddressProperty);
+			set => this.SetValue(OrgAddressProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddress2"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddress2Property =
+			BindableProperty.Create(nameof(OrgAddress2), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization address line 2 property
+		/// </summary>
+		public string OrgAddress2
+		{
+			get => (string)this.GetValue(OrgAddress2Property);
+			set => this.SetValue(OrgAddress2Property, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgZipCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgZipCodeProperty =
+			BindableProperty.Create(nameof(OrgZipCode), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization zip code property
+		/// </summary>
+		public string OrgZipCode
+		{
+			get => (string)this.GetValue(OrgZipCodeProperty);
+			set => this.SetValue(OrgZipCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgArea"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAreaProperty =
+			BindableProperty.Create(nameof(OrgArea), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization area property
+		/// </summary>
+		public string OrgArea
+		{
+			get => (string)this.GetValue(OrgAreaProperty);
+			set => this.SetValue(OrgAreaProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCity"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCityProperty =
+			BindableProperty.Create(nameof(OrgCity), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization city property
+		/// </summary>
+		public string OrgCity
+		{
+			get => (string)this.GetValue(OrgCityProperty);
+			set => this.SetValue(OrgCityProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRegion"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRegionProperty =
+			BindableProperty.Create(nameof(OrgRegion), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization region property
+		/// </summary>
+		public string OrgRegion
+		{
+			get => (string)this.GetValue(OrgRegionProperty);
+			set => this.SetValue(OrgRegionProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountryCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryCodeProperty =
+			BindableProperty.Create(nameof(OrgCountryCode), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization country code property
+		/// </summary>
+		public string OrgCountryCode
+		{
+			get => (string)this.GetValue(OrgCountryCodeProperty);
+			set => this.SetValue(OrgCountryCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountry"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryProperty =
+			BindableProperty.Create(nameof(OrgCountry), typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization country property
+		/// </summary>
+		public string OrgCountry
+		{
+			get => (string)this.GetValue(OrgCountryProperty);
+			set => this.SetValue(OrgCountryProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasOrg"/>
+		/// </summary>
+		public static readonly BindableProperty HasOrgProperty =
+			BindableProperty.Create(nameof(HasOrg), typeof(bool), typeof(PetitionIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// If organization information is available.
+		/// </summary>
+		public bool HasOrg
+		{
+			get => (bool)this.GetValue(HasOrgProperty);
+			set
+			{
+				this.SetValue(HasOrgProperty, value);
+				this.OrgRowHeight = value ? GridLength.Auto : new GridLength(0, GridUnitType.Absolute);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRowHeight"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRowHeightProperty =
+			BindableProperty.Create(nameof(OrgRowHeight), typeof(GridLength), typeof(PetitionSignatureViewModel), default(GridLength));
+
+		/// <summary>
+		/// If organization information is available.
+		/// </summary>
+		public GridLength OrgRowHeight
+		{
+			get => (GridLength)this.GetValue(OrgRowHeightProperty);
+			set => this.SetValue(OrgRowHeightProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="PhoneNr"/>
+		/// </summary>
+		public static readonly BindableProperty PhoneNrProperty =
             BindableProperty.Create(nameof(PhoneNr), typeof(string), typeof(PetitionIdentityViewModel), default(string));
 
         /// <summary>
@@ -553,7 +776,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
 
         private void AssignProperties()
         {
-            if (!(this.RequestorIdentity is null))
+            if (this.RequestorIdentity is not null)
             {
                 this.Created = this.RequestorIdentity.Created;
                 this.Updated = this.RequestorIdentity.Updated.GetDateOrNullIfMinValue();
@@ -573,7 +796,32 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 this.Region = this.RequestorIdentity[Constants.XmppProperties.Region];
                 this.CountryCode = this.RequestorIdentity[Constants.XmppProperties.Country];
                 this.Country = ISO_3166_1.ToName(this.CountryCode);
-                this.PhoneNr = this.RequestorIdentity[Constants.XmppProperties.Phone];
+				this.OrgName = this.RequestorIdentity[Constants.XmppProperties.OrgName];
+				this.OrgNumber = this.RequestorIdentity[Constants.XmppProperties.OrgNumber];
+				this.OrgDepartment = this.RequestorIdentity[Constants.XmppProperties.OrgDepartment];
+				this.OrgRole = this.RequestorIdentity[Constants.XmppProperties.OrgRole];
+				this.OrgAddress = this.RequestorIdentity[Constants.XmppProperties.OrgAddress];
+				this.OrgAddress2 = this.RequestorIdentity[Constants.XmppProperties.OrgAddress2];
+				this.OrgZipCode = this.RequestorIdentity[Constants.XmppProperties.OrgZipCode];
+				this.OrgArea = this.RequestorIdentity[Constants.XmppProperties.OrgArea];
+				this.OrgCity = this.RequestorIdentity[Constants.XmppProperties.OrgCity];
+				this.OrgRegion = this.RequestorIdentity[Constants.XmppProperties.OrgRegion];
+				this.OrgCountryCode = this.RequestorIdentity[Constants.XmppProperties.OrgCountry];
+				this.OrgCountry = ISO_3166_1.ToName(this.OrgCountryCode);
+				this.HasOrg =
+					!string.IsNullOrEmpty(this.OrgName) ||
+					!string.IsNullOrEmpty(this.OrgNumber) ||
+					!string.IsNullOrEmpty(this.OrgDepartment) ||
+					!string.IsNullOrEmpty(this.OrgRole) ||
+					!string.IsNullOrEmpty(this.OrgAddress) ||
+					!string.IsNullOrEmpty(this.OrgAddress2) ||
+					!string.IsNullOrEmpty(this.OrgZipCode) ||
+					!string.IsNullOrEmpty(this.OrgArea) ||
+					!string.IsNullOrEmpty(this.OrgCity) ||
+					!string.IsNullOrEmpty(this.OrgRegion) ||
+					!string.IsNullOrEmpty(this.OrgCountryCode) ||
+					!string.IsNullOrEmpty(this.OrgCountry);
+				this.PhoneNr = this.RequestorIdentity[Constants.XmppProperties.Phone];
                 this.EMail = this.RequestorIdentity[Constants.XmppProperties.EMail];
                 this.IsApproved = this.RequestorIdentity.State == IdentityState.Approved;
             }
@@ -597,7 +845,20 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 this.Region = Constants.NotAvailableValue;
                 this.CountryCode = Constants.NotAvailableValue;
                 this.Country = Constants.NotAvailableValue;
-                this.PhoneNr = Constants.NotAvailableValue;
+				this.OrgName = Constants.NotAvailableValue;
+				this.OrgNumber = Constants.NotAvailableValue;
+				this.OrgDepartment = Constants.NotAvailableValue;
+				this.OrgRole = Constants.NotAvailableValue;
+				this.OrgAddress = Constants.NotAvailableValue;
+				this.OrgAddress2 = Constants.NotAvailableValue;
+				this.OrgZipCode = Constants.NotAvailableValue;
+				this.OrgArea = Constants.NotAvailableValue;
+				this.OrgCity = Constants.NotAvailableValue;
+				this.OrgRegion = Constants.NotAvailableValue;
+				this.OrgCountryCode = Constants.NotAvailableValue;
+				this.OrgCountry = Constants.NotAvailableValue;
+				this.HasOrg = false;
+				this.PhoneNr = Constants.NotAvailableValue;
                 this.EMail = Constants.NotAvailableValue;
                 this.IsApproved = false;
             }
@@ -611,9 +872,9 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 string FriendlyName = ContactInfo.GetFriendlyName(this.RequestorIdentity);
                 string BareJid = XmppClient.GetBareJID(this.requestorFullJid);
 
-                RosterItem Item = this.XmppService.Xmpp[BareJid];
+                RosterItem Item = this.XmppService.GetRosterItem(BareJid);
                 if (Item is null)
-                    this.XmppService.Xmpp.AddRosterItem(new RosterItem(BareJid, FriendlyName));
+                    this.XmppService.AddRosterItem(new RosterItem(BareJid, FriendlyName));
 
                 ContactInfo Info = await ContactInfo.FindByBareJid(BareJid);
                 if (Info is null)
@@ -655,22 +916,22 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         {
             try
             {
-                if (!await this.UiSerializer.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRemoveContact, AppResources.Yes, AppResources.Cancel))
+                if (!await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Confirm"], LocalizationResourceManager.Current["AreYouSureYouWantToRemoveContact"], LocalizationResourceManager.Current["Yes"], LocalizationResourceManager.Current["Cancel"]))
                     return;
 
                 string BareJid = XmppClient.GetBareJID(this.requestorFullJid);
 
                 ContactInfo Info = await ContactInfo.FindByBareJid(BareJid);
-                if (!(Info is null))
+                if (Info is not null)
                 {
                     await Database.Delete(Info);
                     await this.AttachmentCacheService.MakeTemporary(Info.LegalId);
                     await Database.Provider.Flush();
                 }
 
-                RosterItem Item = this.XmppService.Xmpp[BareJid];
-                if (!(Item is null))
-                    this.XmppService.Xmpp.RemoveRosterItem(BareJid);
+                RosterItem Item = this.XmppService.GetRosterItem(BareJid);
+                if (Item is not null)
+                    this.XmppService.RemoveRosterItem(BareJid);
 
                 this.ThirdPartyInContacts = false;
 

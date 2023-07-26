@@ -16,7 +16,7 @@ namespace IdApp.Converters
 		/// </summary>
 		public object Convert(object Value, Type TargetType, object Parameter, CultureInfo Culture)
 		{
-			return Value == null ? Parameter == null : Value.Equals(Parameter);
+			return Value is null ? Parameter is null : Value.Equals(Parameter);
 		}
 
 		/// <summary>

@@ -6,6 +6,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Contracts.ServerSignature;assembly=IdApp"
                        x:DataType="model:ServerSignatureViewModel"
                        x:Class="IdApp.Pages.Contracts.ServerSignature.ServerSignaturePage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.ServerSignature}">
     <ScrollView x:Name="ScrollView">
         <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}" VerticalOptions="Start">

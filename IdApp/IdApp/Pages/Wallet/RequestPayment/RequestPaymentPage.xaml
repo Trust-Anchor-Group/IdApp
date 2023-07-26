@@ -5,7 +5,8 @@
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.RequestPayment;assembly=IdApp"
                        x:DataType="model:RequestPaymentViewModel"
-                       x:Class="IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage"     
+                       x:Class="IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.RequestPayment}">
     <Grid>
         <ScrollView x:Name="ScrollView">
@@ -33,7 +34,7 @@
                 <Label Text="{x:Static resx:AppResources.Message}"/>
                 <Entry Text="{Binding Path=Message}"/>
                 <StackLayout Orientation="Horizontal" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
-                    <CheckBox IsChecked="{Binding Path=EncryptMessage, Mode=TwoWay}" VerticalOptions="Center"/>
+					<CheckBox IsChecked="{Binding Path=EncryptMessage, Mode=TwoWay}" VerticalOptions="Center"/>
                     <Label Text="{x:Static resx:AppResources.EncryptMessage}" VerticalOptions="Center" />
                 </StackLayout>
                 <!-- BUTTONS -->
@@ -42,7 +43,15 @@
                        IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth}" 
                        HeightRequest="{Binding Path=QrCodeHeight}" HorizontalOptions="Center" VerticalOptions="Start" 
                        Margin="0" />
-                <Button x:Name="ShareButton" Text="{x:Static resx:AppResources.Share}" Command="{Binding Path=ShareCommand}" 
+				<Label Text="{x:Static resx:AppResources.Share}" Style="{StaticResource Heading}"
+					   Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"
+					   IsVisible="{Binding Path=HasQrCode}" />
+				<Label Text="{x:Static resx:AppResources.ShareDescription}"
+					   Style="{StaticResource InfoText}" VerticalOptions="Start"
+					   IsVisible="{Binding Path=HasQrCode}" />
+				<Button x:Name="ShareContactButton" Text="{x:Static resx:AppResources.Contact}" Command="{Binding Path=ShareContactCommand}" 
+                        IsVisible="{Binding Path=HasQrCode}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+				<Button x:Name="ShareExternalButton" Text="{x:Static resx:AppResources.OtherApp}" Command="{Binding Path=ShareExternalCommand}" 
                         IsVisible="{Binding Path=HasQrCode}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>
         </ScrollView>

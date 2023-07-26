@@ -127,7 +127,7 @@
     <value>Konto</value>
   </data>
   <data name="AccountEvent" xml:space="preserve">
-    <value>Kontohændelse</value>
+    <value>Konto begivenhed</value>
   </data>
   <data name="AccountEventDescription" xml:space="preserve">
     <value>Nedenfor kan du se oplysninger om en enkelt kontohændelse.</value>
@@ -160,7 +160,7 @@
     <value>Beløb:</value>
   </data>
   <data name="AmountExtra" xml:space="preserve">
-    <value>Beløb ekstra: (valgfrit, forslag)</value>
+    <value>Ekstra beløb: (valgfrit, forslag)</value>
   </data>
   <data name="Apartment" xml:space="preserve">
     <value>Lejlighed</value>
@@ -247,7 +247,7 @@
     <value>Kryptografiske signaturer lavet af forskellige dele er angivet nedenfor.</value>
   </data>
   <data name="CodeNotRecognized" xml:space="preserve">
-    <value>Kode genkendes ikke.</value>
+    <value>Koden genkendes ikke.</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Bekræfte</value>
@@ -262,13 +262,13 @@
     <value>Kontakter</value>
   </data>
   <data name="ContactsDescription" xml:space="preserve">
-    <value>Nedenfor er alle kontakter i din kontaktbog. Klik på en hvilken som helst for at interagere med den pågældende kontakt.</value>
+    <value>Nedenfor er alle kontakter i din kontaktbog. Klik på en hvilken som helst for at interagere med den kontakt.</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Fortsætte</value>
   </data>
   <data name="ContractHasBeenDeleted" xml:space="preserve">
-    <value>Kontrakten er udgået.</value>
+    <value>Kontrakten er blevet slettet.</value>
   </data>
   <data name="ContractHasBeenObsoleted" xml:space="preserve">
     <value>Kontrakten er forældet.</value>
@@ -277,22 +277,22 @@
     <value>Kontrakt-id</value>
   </data>
   <data name="ContractRoleMustBeSelected" xml:space="preserve">
-    <value>Vælg kontraktrolle først, og prøv derefter igen.</value>
+    <value>Vælg først kontraktrollen, og prøv derefter igen.</value>
   </data>
   <data name="Contracts" xml:space="preserve">
     <value>Kontrakter</value>
   </data>
   <data name="ContractSuccessfullySigned" xml:space="preserve">
-    <value>Kontrakt med succes underskrevet.</value>
+    <value>Kontrakt underskrevet med succes.</value>
   </data>
   <data name="ContractTemplates" xml:space="preserve">
-    <value>Kontraktskabeloner</value>
+    <value>Kontrakt skabeloner</value>
   </data>
   <data name="ContractTemplatesInfoText" xml:space="preserve">
-    <value>Nedenfor er en liste over kontraktskabeloner, som du har brugt. Klik på en skabelon for at oprette en ny kontrakt baseret på den pågældende skabelon.</value>
+    <value>Nedenfor er en liste over kontraktskabeloner, som du har brugt. Klik på en skabelon for at oprette en ny kontrakt baseret på den skabelon.</value>
   </data>
   <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
-    <value>Vælg kontraktsynlighed først, og prøv derefter igen.</value>
+    <value>Vælg først kontraktsynlighed, og prøv derefter igen.</value>
   </data>
   <data name="ContractVisibility_CreatorAndParts" xml:space="preserve">
     <value>Skaber og dele</value>
@@ -337,7 +337,7 @@
     <value>Fordøje</value>
   </data>
   <data name="DisownThing" xml:space="preserve">
-    <value>Fornægte ting</value>
+    <value>Fornægter ting</value>
   </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} følger ikke den allestedsnærværende krypteringspolitik</value>
@@ -355,7 +355,7 @@
     <value>eDaler Bemærk</value>
   </data>
   <data name="EDalerNoteDescription" xml:space="preserve">
-    <value>Koden repræsenterer en eDaler-note. Du kan acceptere det ved at trykke på knappen Accepter nedenfor. Hvis det ikke er blevet accepteret før, modtager din tegnebog det beløb af eDaler, der er angivet på sedlen.</value>
+    <value>Koden repræsenterer en eDaler-note. Du kan acceptere det ved at trykke på knappen Accepter nedenfor. Hvis det ikke er blevet accepteret før, modtager din tegnebog det beløb, der er angivet på sedlen.</value>
   </data>
   <data name="EncryptMessage" xml:space="preserve">
     <value>Krypter besked</value>
@@ -409,7 +409,7 @@
     <value>Jeg godkender, at mine personlige oplysninger knyttes til den juridiske identitet, jeg gennemgår, med henblik på gennemsigtighed.</value>
   </data>
   <data name="ID" xml:space="preserve">
-    <value>ID</value>
+    <value>Id</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
     <value>Et link til id'et blev kopieret til udklipsholderen.</value>
@@ -418,7 +418,7 @@
     <value>Identitet</value>
   </data>
   <data name="IdentityInformation" xml:space="preserve">
-    <value>Oplysninger om identitet</value>
+    <value>Identitetsoplysninger</value>
   </data>
   <data name="IdentityInformationInfoText" xml:space="preserve">
     <value>Følgende er personlige oplysninger registreret for den part, der underskrev kontrakten.</value>
@@ -442,37 +442,37 @@
     <value>Ignorere</value>
   </data>
   <data name="IHaveCarefullyReviewedAllInformationAbove" xml:space="preserve">
-    <value>Jeg har omhyggeligt gennemgået alle ovenstående oplysninger og finder, at det er en korrekt repræsentation af den person, der anmoder om gennemgangen:</value>
+    <value>Jeg har omhyggeligt gennemgået alle ovenstående oplysninger og finder, at det er en korrekt repræsentation af den person, der anmoder om anmeldelsen:</value>
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>Ukomplet</value>
   </data>
   <data name="InformationAboutClaimedThingText" xml:space="preserve">
-    <value>Følgende oplysninger stilles til rådighed om den ting, hvis kode du scannede. Vælg, om du vil forsøge at hævde denne ting som din, og også om du vil gøre den offentligt søgbar i tingregistret.</value>
+    <value>Følgende oplysninger stilles til rådighed om den ting, hvis kode du scannede. Vælg, om du vil forsøge at gøre krav på denne ting som din, og også om du vil gøre den offentligt søgbar i Tingregistret.</value>
   </data>
   <data name="InformationAboutThing" xml:space="preserve">
     <value>Oplysninger om ting</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Følgende oplysninger stilles til rådighed om sagen. Du kan også se aktuelle sensordata, du har tilladelse til at se. Hvis sagen er en aktuator, og du har ret til at kontrollere tingen, vises kontrolparametre også.</value>
+    <value>Følgende oplysninger er lokalt tilgængelige om sagen. Indstillinger for at interagere med enheden er præsenteret nedenfor.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Oplysninger mangler eller er ugyldige</value>
   </data>
   <data name="Inspect" xml:space="preserve">
-    <value>Undersøg kommunikation</value>
+    <value>Undersøg kommunikationen</value>
   </data>
   <data name="InvalidEDalerUri" xml:space="preserve">
     <value>Ugyldig eDaler URI: {0}</value>
   </data>
   <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
-    <value>Ugyldig IoT Discovery-kode</value>
+    <value>Ugyldig IoT-registreringskode</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ugyldigt brugernavn eller adgangskode</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Inviter peer til at gennemgå</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Anmod om gennemgang</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Nøgle</value>
@@ -505,7 +505,7 @@
     <value>Mit digitale id</value>
   </data>
   <data name="MakeThingPublic" xml:space="preserve">
-    <value>Gør tingene offentlige</value>
+    <value>Gør ting offentlige</value>
   </data>
   <data name="Manufacturer" xml:space="preserve">
     <value>Fabrikant</value>
@@ -528,14 +528,8 @@
   <data name="Model" xml:space="preserve">
     <value>Model</value>
   </data>
-  <data name="MyContracts" xml:space="preserve">
-    <value>Mine kontrakter</value>
-  </data>
-  <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Nedenfor er en liste over kontrakter, du har oprettet. Klik på en kontrakt for at få flere oplysninger om den.</value>
-  </data>
-  <data name="MyCreatedContracts" xml:space="preserve">
-    <value>Mine oprettede kontrakter</value>
+  <data name="ContractsInfoText" xml:space="preserve">
+    <value>Nedenfor er en liste over kontrakter, som du har oprettet eller underskrevet. Klik på en kontrakt for mere information om den.</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
     <value>Min identitet</value>
@@ -551,6 +545,12 @@
   </data>
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>Netværk ser ud til at mangle. Kontroller din konfiguration og dækning, og prøv igen.</value>
+  </data>
+  <data name="SendEmailWarning" xml:space="preserve">
+    <value>Der er sendt en kode i en e-mail til dine e-mail-addere. Hvis du ikke modtager den, skal du også tjekke din spammappe.</value>
+  </data>
+  <data name="SendPhoneNumberWarning" xml:space="preserve">
+    <value>Der er sendt en kode som en sms til din telefon.</value>
   </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>
@@ -583,7 +583,7 @@
     <value>Offline</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>OK</value>
+    <value>Ok</value>
   </data>
   <data name="Online" xml:space="preserve">
     <value>Online</value>
@@ -595,10 +595,10 @@
     <value>Operatøren understøtter ikke juridiske identiteter og smarte kontrakter</value>
   </data>
   <data name="OperatorDoesNotSupportProvisioningAndDecisionSupportForThings" xml:space="preserve">
-    <value>Operatoren understøtter ikke klargøring og beslutningsstøtte til ting</value>
+    <value>Operator understøtter ikke klargøring og beslutningsstøtte til ting</value>
   </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
-    <value>Operatøren understøtter {0} ikke registrering af nye konti</value>
+    <value>Operatøren {0} understøtter ikke registrering af nye konti</value>
   </data>
   <data name="OperatorDoesNotSupportThingRegistries" xml:space="preserve">
     <value>Operatøren understøtter ikke tingregistre</value>
@@ -619,7 +619,7 @@
     <value>Dele</value>
   </data>
   <data name="PartsInfoText" xml:space="preserve">
-    <value>De (forventede) dele, der er defineret for kontrakten, er anført nedenfor.</value>
+    <value>De (forventede) dele, der er defineret for kontrakten, er angivet nedenfor.</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Kodeord</value>
@@ -637,16 +637,16 @@
     <value>Accept af betaling</value>
   </data>
   <data name="PaymentAcceptanceDescription" xml:space="preserve">
-    <value>Nedenfor kan du se detaljerne om offline betalingen. Hvis det er acceptabelt, kan du vælge at acceptere at sende betalingen til Neuron til behandling.</value>
+    <value>Nedenfor kan du se detaljerne om offlinebetalingen. Hvis det er acceptabelt, kan du vælge at acceptere at sende betalingen til Neuron til behandling.</value>
   </data>
   <data name="PaymentAlreadySent" xml:space="preserve">
-    <value>Betalingsinstruktion er allerede sendt. Du kan sende afventende betalinger igen fra visningen afventende betaling.</value>
+    <value>Betalingsinstruks er allerede sendt. Du kan sende ventende betalinger igen fra visningen afventende betaling.</value>
   </data>
   <data name="PaymentDescription" xml:space="preserve">
-    <value>Indtast det beløb, der skal betales til modtageren nedenfor. Når det er gjort, kan du vælge enten at betale online (hvis tilsluttet) eller offline ved at klikke på den tilsvarende knap.</value>
+    <value>Indtast det beløb, der skal betales til modtageren nedenfor. Når du er færdig, kan du vælge enten at betale online (hvis du er tilsluttet) eller offline ved at klikke på den tilsvarende knap.</value>
   </data>
   <data name="PaymentSuccess" xml:space="preserve">
-    <value>Betaling med succes realiseret.</value>
+    <value>Betaling realiseret med succes.</value>
   </data>
   <data name="PayOffline" xml:space="preserve">
     <value>Betal offline</value>
@@ -655,34 +655,34 @@
     <value>Betal online</value>
   </data>
   <data name="PeerReview" xml:space="preserve">
-    <value>Peer reviewer/fagfællebedømmer</value>
+    <value>Fagfællebedømmelse</value>
   </data>
   <data name="PeerReviewAccepted" xml:space="preserve">
-    <value>Peer review accepteret</value>
+    <value>Fagfællebedømmelse accepteret</value>
   </data>
   <data name="PeerReviewRejected" xml:space="preserve">
-    <value>Peer review afvist</value>
+    <value>Fagfællebedømmelse afvist</value>
   </data>
   <data name="PendingPayment" xml:space="preserve">
     <value>Afventer betaling</value>
   </data>
   <data name="PendingPaymentDescription" xml:space="preserve">
-    <value>Nedenfor kan du se oplysninger om en betaling, der er blevet genereret, men som ikke er blevet behandlet fuldt ud endnu.</value>
+    <value>Nedenfor kan du se oplysninger om en betaling, der er genereret, men som endnu ikke er færdigbehandlet.</value>
   </data>
   <data name="PersonalLegalInformation" xml:space="preserve">
     <value>Personlige/juridiske oplysninger</value>
   </data>
   <data name="PersonalLegalInfoText" xml:space="preserve">
-    <value>For at kunne få en tegnebog, udføre transaktioner og underskrive smarte kontrakter har du brug for en attesteret personlig eller juridisk identitet, der er tildelt din konto.</value>
+    <value>For at kunne få en tegnebog, udføre transaktioner og underskrive smarte kontrakter, har du brug for en attesteret personlig eller juridisk identitet tildelt din konto.</value>
   </data>
   <data name="PersonalNumber" xml:space="preserve">
-    <value>Personligt nummer</value>
+    <value>Personnummer</value>
   </data>
   <data name="PersonalNumberDoesNotMatchCountry" xml:space="preserve">
-    <value>Personnummeret stemmer ikke overens med de nationale regler for personnummer</value>
+    <value>Personnummeret stemmer ikke overens med nationale regler for personnumre</value>
   </data>
   <data name="PersonalNumberDoesNotMatchCountry_ExpectedFormat" xml:space="preserve">
-    <value>Personnummeret stemmer ikke overens med de nationale personnummerregler. Forventet format: </value>
+    <value>Personnummeret stemmer ikke overens med de nationale regler for personnumre. Forventet format: </value>
   </data>
   <data name="PersonalNumberPlaceholder" xml:space="preserve">
     <value>Personnummer ({0})</value>
@@ -694,13 +694,13 @@
     <value>Adgang til kontrakt</value>
   </data>
   <data name="PetitionContractInformationText" xml:space="preserve">
-    <value>Der er modtaget et andragende om personoplysningerne i en af dine kontrakter. Gennemgå nedenstående oplysninger, og vælg, hvordan du vil svare.</value>
+    <value>Der er modtaget et andragende om personoplysningerne i en af dine kontrakter. Gennemgå oplysningerne nedenfor, og vælg, hvordan du vil svare.</value>
   </data>
   <data name="PetitionIdentity" xml:space="preserve">
     <value>Adgang til identitet</value>
   </data>
   <data name="PetitionIdentityInformationText" xml:space="preserve">
-    <value>Der er modtaget et andragende om personoplysninger om din juridiske identitet. Gennemgå nedenstående oplysninger, og vælg, hvordan du vil svare.</value>
+    <value>Der er modtaget et andragende om personoplysninger om din juridiske identitet. Gennemgå oplysningerne nedenfor, og vælg, hvordan du vil svare.</value>
   </data>
   <data name="PetitionSent" xml:space="preserve">
     <value>Andragende sendt</value>
@@ -724,40 +724,40 @@
     <value>Billeder</value>
   </data>
   <data name="PickPhoto" xml:space="preserve">
-    <value>Vælg foto</value>
+    <value>Vælg billede</value>
   </data>
   <data name="PinIsInvalid" xml:space="preserve">
-    <value>PIN-koden er ugyldig. Du har {0} resterende forsøg.</value>
+    <value>Pinkoden er ugyldig. Du har {0} resterende forsøg.</value>
   </data>
   <data name="PinIsInvalidAplicationBlockedForever" xml:space="preserve">
-    <value>PIN-forsøg, der indtastes, overskrides. Din ansøgning er blevet blokeret for evigt</value>
+    <value>Pin-forsøg på indtastning er undtaget. Din ansøgning er blevet blokeret for evigt</value>
   </data>
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
-    <value>PIN-forsøg, der indtastes, overskrides. Din ansøgning er blevet blokeret indtil {0}.</value>
+    <value>Pin-forsøg på indtastning er undtaget. Din ansøgning er blevet blokeret indtil {0}.</value>
   </data>
   <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
-    <value>PIN-forsøg, der indtastes, overskrides. Din ansøgning er blevet blokeret indtil i morgen kl. {0}.</value>
+    <value>Pin-forsøg på indtastning er undtaget. Din ansøgning er blevet blokeret indtil i morgen kl. {0}.</value>
   </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
-    <value>PIN-forsøg, der indtastes, overskrides. Din ansøgning har været blokeret i en uge</value>
+    <value>Pin-forsøg på indtastning er undtaget. Din ansøgning har været blokeret i en uge</value>
   </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
-    <value>PIN-koden må ikke indeholde foranstillet eller efterfølgende mellemrum.</value>
+    <value>PIN-nummeret må ikke indeholde foranstillede eller efterfølgende mellemrum.</value>
   </data>
   <data name="PinOrPassword" xml:space="preserve">
-    <value>PIN-kode eller adgangskode</value>
+    <value>Pinkode eller adgangskode</value>
   </data>
   <data name="PinsDoNotMatch" xml:space="preserve">
-    <value>PIN-tænd / pin'er stemmer ikke overens</value>
+    <value>Pinkoder stemmer ikke overens</value>
   </data>
   <data name="PinTooShort" xml:space="preserve">
-    <value>PIN-kodens længde skal være mindst {0} tegn.</value>
+    <value>PIN-længden skal være mindst {0} tegn.</value>
   </data>
   <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
     <value>Gennemgå alle ovenstående oplysninger, og markér de tilsvarende afkrydsningsfelter, hvis oplysningerne er korrekte. Dette skal gøres, før du kan godkende oplysningerne.</value>
   </data>
   <data name="ProductInformation" xml:space="preserve">
-    <value>Oplysninger om produktet</value>
+    <value>Produkt Information</value>
   </data>
   <data name="Proposal" xml:space="preserve">
     <value>Forslag</value>
@@ -826,19 +826,19 @@
     <value>Anmod om betaling</value>
   </data>
   <data name="RequestPaymentDescription" xml:space="preserve">
-    <value>Hvis du vil anmode om betaling fra en person, skal du udfylde oplysningerne om betalingen nedenfor og klikke på knappen Generer QR-kode. Den genererede kode kan bruges af den anden part til at generere en betaling til din konto.</value>
+    <value>For at anmode om betaling fra nogen skal du udfylde oplysningerne om betalingen nedenfor og klikke på knappen Generer QR-kode. Den genererede kode kan bruges af den anden part til at generere en betaling til din konto.</value>
   </data>
   <data name="RequestPaymentMessage" xml:space="preserve">
     <value>Anmodning om betaling af {0} {1}.</value>
   </data>
   <data name="RequestTimedOut" xml:space="preserve">
-    <value>Anmodningen fik timet out</value>
+    <value>Anmodningen fik timeout</value>
   </data>
   <data name="RequestWasCancelled" xml:space="preserve">
     <value>Anmodningen blev annulleret</value>
   </data>
   <data name="RetypePinOrPassword" xml:space="preserve">
-    <value>Genindtast pinkode eller adgangskode</value>
+    <value>Skriv pinkode eller adgangskode igen</value>
   </data>
   <data name="ReviewIdentityInformationText" xml:space="preserve">
     <value>Du er blevet bedt om at gennemgå følgende personlige oplysninger. Hvis det er korrekt, skal du markere de tilsvarende felter og trykke på knappen Godkend nederst. Du kan også trykke på knappen Afvis, hvis du finder noget, der er forkert.</value>
@@ -853,7 +853,7 @@
     <value>Roller</value>
   </data>
   <data name="RolesInfoText" xml:space="preserve">
-    <value>Nedenfor kan du se de forskellige roller, der er defineret for kontrakten. Hvis der antages at være mere end én del for en rolle, vises dette tal i beskrivelsen af rollen.</value>
+    <value>Nedenfor kan du se de forskellige roller, der er defineret for kontrakten. Hvis mere end en del antages for en rolle, vises dette nummer i beskrivelsen af rollen.</value>
   </data>
   <data name="Room" xml:space="preserve">
     <value>Værelse</value>
@@ -865,7 +865,7 @@
     <value>Scan QR-kode</value>
   </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
-    <value>Valg af et foto understøttes ikke på denne enhed</value>
+    <value>Valg af et billede understøttes ikke på denne enhed</value>
   </data>
   <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
     <value>Vælg, hvem der skal have adgang til denne kontrakt.</value>
@@ -889,7 +889,7 @@
     <value>Følgende er oplysninger relateret til en serversignatur.</value>
   </data>
   <data name="ServerSignatures" xml:space="preserve">
-    <value>Serversignaturer</value>
+    <value>Server signaturer</value>
   </data>
   <data name="ServerSignaturesInfoText" xml:space="preserve">
     <value>Kontraktens integritet er beskyttet af serversignaturen vist nedenfor.</value>
@@ -901,7 +901,7 @@
     <value>Vis kode</value>
   </data>
   <data name="SignAfter" xml:space="preserve">
-    <value>Log efter</value>
+    <value>Underskriv efter</value>
   </data>
   <data name="SignAsRole" xml:space="preserve">
     <value>Underskriv som {0}</value>
@@ -914,12 +914,6 @@
   </data>
   <data name="SignBefore" xml:space="preserve">
     <value>Underskriv før</value>
-  </data>
-  <data name="SignedContracts" xml:space="preserve">
-    <value>Underskrevne kontrakter</value>
-  </data>
-  <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Nedenfor er en liste over kontrakter, som du har underskrevet. Klik på en kontrakt for at få flere oplysninger om den.</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Overspringe</value>
@@ -940,22 +934,22 @@
     <value>Succes</value>
   </data>
   <data name="TagValueCopiedToClipboard" xml:space="preserve">
-    <value>Mærkværdi kopieret til udklipsholder</value>
+    <value>Mærkeværdi kopieret til Udklipsholder</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Tag billede</value>
   </data>
   <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
-    <value>Det understøttes ikke at tage et billede på denne enhed</value>
+    <value>At tage et billede understøttes ikke på denne enhed</value>
   </data>
   <data name="TemplateId" xml:space="preserve">
     <value>Skabelon-id</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
-    <value>Kontrakten kræver mindst {0} del(e) af rolle {1}. Føj flere dele til kontrakten, og prøv igen.</value>
+    <value>Kontrakten kræver mindst {0} del(e) af {1}. Føj flere dele til kontrakten, og prøv igen.</value>
   </data>
   <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
-    <value>Kontrakten kræver højst {0} del(e) af rolle {1}. Fjern nogle af delene fra kontrakten, og prøv igen.</value>
+    <value>Kontrakten kræver højst {0} del(e) af {1}. Fjern nogle af delene fra kontrakten, og prøv igen.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
     <value>Adgangskoden til forbindelsen er {0}. Dette er blevet kopieret til udklipsholderen.</value>
@@ -964,7 +958,7 @@
     <value>Der er ikke noget netværk</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Den angivne kode er ikke en juridisk identitet</value>
+    <value>Du skal scanne en anden type QR-kode, en der repræsenterer en juridisk identitet</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Ting</value>
@@ -994,7 +988,7 @@
     <value>Overførbar</value>
   </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
-    <value>Kan ikke godkendes med {0}</value>
+    <value>Kan ikke godkende med {0}</value>
   </data>
   <data name="UnableToClaimThing" xml:space="preserve">
     <value>Kan ikke gøre krav på ting</value>
@@ -1009,7 +1003,7 @@
     <value>Ukendt eDaler URI.</value>
   </data>
   <data name="UnsupportedUriScheme" xml:space="preserve">
-    <value>Teksten er ikke i overensstemmelse med nogen af de støttede URI-ordninger.</value>
+    <value>Teksten er ikke i overensstemmelse med nogen af de understøttede URI-skemaer.</value>
   </data>
   <data name="Updated" xml:space="preserve">
     <value>Opdateret</value>
@@ -1018,10 +1012,10 @@
     <value>Dine identitetsoplysninger skal valideres, før de kan godkendes. Dette kan gøres manuelt af din operatør. Det kan også gøres af jævnaldrende.</value>
   </data>
   <data name="ValidateIdentityInfo2Text" xml:space="preserve">
-    <value>For at invitere en peer til at gennemgå din ansøgning skal du scanne ID-koden for den peer, du vil invitere. De vil kunne se og gennemgå din ansøgning. Når tilstrækkeligt mange fagfæller har gennemgået dine oplysninger og bekræftet, at de er korrekte, vil operatøren automatisk godkende din ansøgning. Oplysningerne om, hvem der har gennemgået din identitet, kodes ind i selve den gennemgåede identitet.</value>
+    <value>For at invitere en peer til at gennemgå din ansøgning skal du scanne ID-koden for den peer, du ønsker at invitere. De vil kunne se og gennemgå din ansøgning. Når tilstrækkeligt mange fagfæller har gennemgået dine oplysninger og bekræftet, at de er korrekte, vil operatøren automatisk godkende din ansøgning. Oplysningerne om, hvem der har gennemgået din identitet, vil blive kodet ind i selve den anmeldte identitet.</value>
   </data>
   <data name="ValidateIdentityInfo3Text" xml:space="preserve">
-    <value>Du kan se den aktuelle status for applikationen nedenfor.</value>
+    <value>Du kan se den aktuelle status for ansøgningen nedenfor.</value>
   </data>
   <data name="ValidatingInformation" xml:space="preserve">
     <value>Validering af oplysninger</value>
@@ -1045,10 +1039,10 @@
     <value>Velkommen til TAG Digital ID App!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
-    <value>Før vi opretter forbindelse til TAG ID-netværket, skal vi vælge en tjenesteudbyder til dig. For at gøre dette skal vi kende formålet med at bruge appen. Vælg den mest passende indstilling nedenfor.</value>
+    <value>Før vi opretter forbindelse til TAG ID-netværket, skal vi vælge en tjenesteudbyder til dig. For at gøre dette skal vi kende formålet med at bruge appen. Vælg den mest passende mulighed nedenfor.</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
-    <value>Godkendelse af netværksidentitet</value>
+    <value>Autentificering af netværksidentitet</value>
   </data>
   <data name="XmppState_Binding" xml:space="preserve">
     <value>Bindende forbindelse</value>
@@ -1057,7 +1051,7 @@
     <value>Sammenhængende</value>
   </data>
   <data name="XmppState_ConnectedTo" xml:space="preserve">
-    <value>Forbundet til {0}</value>
+    <value>Tilsluttet {0}</value>
   </data>
   <data name="XmppState_Connecting" xml:space="preserve">
     <value>Etablering af forbindelse</value>
@@ -1066,7 +1060,7 @@
     <value>Forbindelsesfejl</value>
   </data>
   <data name="XmppState_FetchingRoster" xml:space="preserve">
-    <value>Hentning af vagtplan</value>
+    <value>Henter vagtplan</value>
   </data>
   <data name="XmppState_Offline" xml:space="preserve">
     <value>Afbrudt</value>
@@ -1087,7 +1081,7 @@
     <value>Forhandlingsstrøm</value>
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
-    <value>Stream etableret</value>
+    <value>Vandløb etableret</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
@@ -1096,22 +1090,22 @@
     <value>I går</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
-    <value>Du kan beskytte din tegnebog og følsomme oplysninger ved at tilføje en ekstra pinkode eller adgangskode.</value>
+    <value>Du kan beskytte din tegnebog og følsomme oplysninger ved at tilføje et ekstra PIN-nummer eller en adgangskode.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Du kan beskytte din tegnebog og følsomme oplysninger ved at ændre en ekstra pinkode eller adgangskode.</value>
+    <value>Du kan ændre den eksisterende pinkode, hvis det er nødvendigt. Hvis du springer dette trin over, bruges den gamle pinkode.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
-    <value>Du er nu logget ud. Hvis du vil logge ind igen, skal du bruge menuen i øverste venstre hjørne.</value>
+    <value>Du er nu blevet logget ud. For at logge ind igen skal du bruge menuen i øverste venstre hjørne.</value>
   </data>
   <data name="YouHaveReceivedAProposal" xml:space="preserve">
-    <value>Du har modtaget et forslag.</value>
+    <value>De har modtaget et forslag.</value>
   </data>
   <data name="YouNeedToApproveToAssociate" xml:space="preserve">
-    <value>Du skal godkende for at knytte dine personlige oplysninger til den identitet, du gennemgår. Når tredjeparter gennemgår oplysningerne i identiteten, vil de have adgang til kontrollanternes identitet af hensyn til gennemsigtigheden.</value>
+    <value>Du skal godkende for at knytte dine personlige oplysninger til den identitet, du gennemgår. Når tredjeparter gennemgår oplysningerne i identiteten, vil de have adgang til korrekturlæsernes identitet for gennemsigtighed.</value>
   </data>
   <data name="YouNeedToCheckCarefullyReviewed" xml:space="preserve">
-    <value>Du skal markere afkrydsningsfeltet, du har nøje gennemgået alle tilsvarende oplysninger ovenfor.</value>
+    <value>Du skal markere afkrydsningsfeltet, du har omhyggeligt gennemgået alle tilsvarende oplysninger ovenfor.</value>
   </data>
   <data name="YouNeedToProvideACountry" xml:space="preserve">
     <value>Du skal vælge et land</value>
@@ -1120,16 +1114,16 @@
     <value>Du skal angive et fornavn</value>
   </data>
   <data name="YouNeedToProvideALastName" xml:space="preserve">
-    <value>Du skal angive mindst et efternavn</value>
+    <value>Du skal angive mindst ét efternavn</value>
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
-    <value>Du skal angive et person- eller personnummer</value>
+    <value>Du skal oplyse et person- eller personnummer</value>
   </data>
   <data name="YouNeedToProvideAPhoto" xml:space="preserve">
-    <value>Du skal give et foto</value>
+    <value>Du skal angive et billede</value>
   </data>
   <data name="YourContractContainsErrors" xml:space="preserve">
-    <value>Din kontrakt indeholder fejl. Løs disse fejl, og prøv igen.</value>
+    <value>Din kontrakt indeholder fejl. Ret disse fejl, og prøv igen.</value>
   </data>
   <data name="YourLegalIdentity" xml:space="preserve">
     <value>Din juridiske identitet</value>
@@ -1138,7 +1132,7 @@
     <value>Din juridiske identitet er blevet markeret som kompromitteret. Du er derfor blevet omdirigeret til at oprette en ny konto.</value>
   </data>
   <data name="YourLegalIdentityHasBeenObsoleted" xml:space="preserve">
-    <value>Din juridiske identitet er blevet markeret som forældet. Du er derfor blevet omdirigeret til at oprette en ny konto.</value>
+    <value>Din juridiske identitet er blevet markeret forældet. Du er derfor blevet omdirigeret til at oprette en ny konto.</value>
   </data>
   <data name="YourLegalIdentityHasInvalidOrMissingKeys" xml:space="preserve">
     <value>Din juridiske identitets signeringsnøgler er ugyldige. Du er derfor blevet omdirigeret til at oprette en ny konto.</value>
@@ -1155,6 +1149,9 @@
   <data name="SendCode" xml:space="preserve">
     <value>Send kode</value>
   </data>
+  <data name="DisabledFor" xml:space="preserve">
+    <value>DEAKTIVERET I {0} SEKUNDER</value>
+  </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>Koden var ikke korrekt.</value>
   </data>
@@ -1164,29 +1161,20 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Bekræft kode</value>
   </data>
+  <data name="VerifiedButton" xml:space="preserve">
+    <value>Bekræftet</value>
+  </data>
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
     <value>Vi skal også validere dit mobiltelefonnummer. Indtast dit mobiltelefonnummer nedenfor ved hjælp af internationalt telefonnummerformat uden mellemrum.</value>
   </data>
-  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Uddannelsesmæssig eller eksperimentel brug.</value>
-  </data>
-  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Denne indstilling giver dig mulighed for at bruge Tag ID til uddannelsesmæssige, eksperimentelle eller testmæssige formål. Der er ingen omkostninger ved brug af denne mulighed. Kontoen kan fjernes, når den ikke længere bruges. Der er ingen garanti for, at den valgte uddannelses- eller eksperimentelle tjenesteudbyder vil fortsætte driften i længere perioder.</value>
-  </data>
-  <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Arbejde eller personlig brug.</value>
-  </data>
-  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Denne indstilling giver dig mulighed for at bruge Tag ID til arbejdsmæssige eller personlige formål. Du kan bruge appen i tre måneder uden omkostninger. Efter denne tidsperiode kan visse operationer medføre omkostninger.</value>
-  </data>
   <data name="SelectPurpose" xml:space="preserve">
-    <value>Vælg Formål</value>
+    <value>Vælg formål</value>
   </data>
   <data name="WelcomeToTagPhoneNrCodeSent" xml:space="preserve">
     <value>Der er sendt en kode til det nummer, der er angivet ovenfor. Når du modtager den, skal du indtaste bekræftelseskoden nedenfor for at fortsætte.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
-    <value>Gør krav på invitation</value>
+    <value>Invitation til at gøre krav på</value>
   </data>
   <data name="Invitation" xml:space="preserve">
     <value>Indbydelse</value>
@@ -1195,7 +1183,7 @@
     <value>Ikke en invitationskode.</value>
   </data>
   <data name="ThisCodeCannotBeClaimedAtThisTime" xml:space="preserve">
-    <value>Denne kode repræsenterer en Tag ID-invitation og kan ikke gøres krav på nuværende tidspunkt.</value>
+    <value>Denne kode repræsenterer en Tag ID-invitation og kan ikke gøres krav på på nuværende tidspunkt.</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Opret konto</value>
@@ -1210,31 +1198,31 @@
     <value>Din tjenesteudbyder er blevet udvalgt til at være</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Du kan vælge at oprette en konto hos denne udbyder. Indtast navnet på den konto, du vil oprette, og tryk på knappen Opret ny. Du kan også vælge at scanne en invitation eller overførselskode for at bruge en konto, der allerede er forberedt til dig, hos en anden tjenesteudbyder. Klik på knappen Scan invitation for at scanne en invitationskode.</value>
+    <value>Du kan vælge at oprette en konto hos denne udbyder. Indtast navnet på den konto, du vil oprette, og tryk på knappen Opret ny. Du kan også vælge at scanne en invitationskode for at vælge en anden tjenesteudbyder til din konto. Hvis du scanner en overførselskode, kan du bruge en konto, der allerede er forberedt til dig. Klik på knappen Scan invitation for at scanne en invitation eller overførselskode.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
-    <value>Kunne ikke binde visningsmodel {0} for side {1}</value>
+    <value>Der kunne ikke knyttes {0} til side {1}</value>
   </data>
   <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
-    <value>Kunne ikke gendanne tilstanden for viewmodel {0} for side {1}</value>
+    <value>Tilstanden kunne ikke gendannes for visningsmodeller {0} for side {1}</value>
   </data>
   <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
-    <value>Kunne ikke gemme tilstand for viewmodel {0} for side {1}</value>
+    <value>Tilstanden kunne ikke gemmes for visningsmodel {0} for side {1}</value>
   </data>
   <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
-    <value>Kunne ikke frigøre visningsmodel {0} for side {1}</value>
+    <value>Det lykkedes ikke at fjerne {0} for {1}</value>
   </data>
   <data name="ContinueAnyway" xml:space="preserve">
     <value>Fortsæt alligevel</value>
   </data>
   <data name="DatabaseCorruptInfoText" xml:space="preserve">
-    <value>Det ser ud til, at databasen ikke er blevet lukket korrekt og derfor kan blive beskadiget. Der kan gøres et forsøg på at reparere databasen ved først at udslette den. Hvordan vil du gerne fortsætte?</value>
+    <value>Det ser ud til, at databasen ikke er blevet lukket korrekt og derfor kan blive beskadiget. Der kan gøres et forsøg på at reparere databasen ved først at slette den. Hvordan vil du gerne fortsætte?</value>
   </data>
   <data name="DatabaseIssue" xml:space="preserve">
     <value>Database problem</value>
   </data>
   <data name="DatabaseRepairFailedInfoText" xml:space="preserve">
-    <value>Databasereparation mislykkedes. Vi er ude af muligheder nu, så fortsæt på egen risiko.</value>
+    <value>Database reparation mislykkedes. Vi er løbet tør for muligheder nu, så fortsæt på eget ansvar.</value>
   </data>
   <data name="EDalerServiceNotFound" xml:space="preserve">
     <value>Ingen eDaler-tjeneste fundet på mægler.</value>
@@ -1246,7 +1234,7 @@
     <value>Kunne ikke navigere til side {0} {1}</value>
   </data>
   <data name="FileUploadServiceNotFound" xml:space="preserve">
-    <value>Ingen filoverførselstjeneste fundet på mægler.</value>
+    <value>Ingen fil upload service fundet på mægler.</value>
   </data>
   <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
     <value>Ikke en gyldig iotdisco krav URI.</value>
@@ -1255,7 +1243,7 @@
     <value>Ingen juridisk tjeneste fundet på mægler.</value>
   </data>
   <data name="ProvisioningServiceNotFound" xml:space="preserve">
-    <value>Ingen leveringstjeneste fundet på mægler.</value>
+    <value>Ingen provisioneringstjeneste fundet på mægler.</value>
   </data>
   <data name="RepairAndContinue" xml:space="preserve">
     <value>Reparer og fortsæt</value>
@@ -1279,7 +1267,7 @@
     <value>Du er blevet inviteret til at oprette en konto på {0}. Tryk på OK, og indtast navnet på den konto, du vil oprette.</value>
   </data>
   <data name="AreYouSureYouWantToTransferYourLegalIdentity" xml:space="preserve">
-    <value>Er du sikker på, at du vil overføre din juridiske identitet fra ansøgningen til en anden? Identiteten fjernes fra denne enhed, når den er afsluttet. Sørg også for, at ingen andre kan se din skærm under processen.</value>
+    <value>Er du sikker på, at du vil overføre din juridiske identitet fra ansøgningen til en anden? Identiteten fjernes fra denne enhed, når den er færdig. Sørg også for, at ingen andre kan se din skærm under processen.</value>
   </data>
   <data name="TransferId" xml:space="preserve">
     <value>Overførsels-id</value>
@@ -1288,10 +1276,10 @@
     <value>Scan QR-invitationskoden nedenfor fra en enhed, der initialiseres, for at overføre den digitale identitet på denne enhed til den anden enhed. Når koden er scannet og identiteten overført, fjernes den fra denne enhed.</value>
   </data>
   <data name="ConfirmByEnteringYourPin" xml:space="preserve">
-    <value>Bekræft ved at indtaste din pinkode.</value>
+    <value>Bekræft ved at indtaste din PINKODE.</value>
   </data>
   <data name="UnexpectedResponse" xml:space="preserve">
-    <value>Et uventet svar blev modtaget.</value>
+    <value>Der blev modtaget et uventet svar.</value>
   </data>
   <data name="EnterPin" xml:space="preserve">
     <value>Indtast pinkode</value>
@@ -1309,10 +1297,10 @@
     <value>Indtaste</value>
   </data>
   <data name="PinChanged" xml:space="preserve">
-    <value>PIN-koden er blevet ændret med succes.</value>
+    <value>Pinkoden er blevet ændret.</value>
   </data>
   <data name="UnableToChangePassword" xml:space="preserve">
-    <value>Kan ikke ændre netværksadgangskode.</value>
+    <value>Kan ikke ændre netværksadgangskoden.</value>
   </data>
   <data name="PresenceSubscriptionReceived1" xml:space="preserve">
     <value>Du har modtaget et tilstedeværelsesabonnement fra:</value>
@@ -1321,25 +1309,25 @@
     <value>Hvis du accepterer denne anmodning, kan de se din online tilstedeværelse.</value>
   </data>
   <data name="PresenceSubscriptionReceived3" xml:space="preserve">
-    <value>Hvis du afviser denne anmodning, vil de blive underrettet om, at du ikke giver dit samtykke til denne anmodning.</value>
+    <value>Hvis du afviser denne anmodning, vil de blive underrettet om, at du ikke giver samtykke til denne anmodning.</value>
   </data>
   <data name="PresenceSubscriptionReceived4" xml:space="preserve">
-    <value>Du kan også ignorere anmodningen ved at lukke dialogboksen uden at returnere et svar.</value>
+    <value>Du kan også ignorere anmodningen ved at lukke dialogen uden at returnere et svar.</value>
   </data>
   <data name="PresenceSubscriptionReceived5" xml:space="preserve">
     <value>Hvad vil du gøre?</value>
   </data>
   <data name="PresenceSubscriptionRequest" xml:space="preserve">
-    <value>Anmodning om abonnement på tilstedeværelse</value>
+    <value>Anmodning om tilstedeværelsesabonnement</value>
   </data>
   <data name="Reject" xml:space="preserve">
     <value>Afvise</value>
   </data>
   <data name="SubscribeToPresence1" xml:space="preserve">
-    <value>Ønsker du at abonnere på tilstedeværelsen af:</value>
+    <value>Vil du abonnere på tilstedeværelsen af:</value>
   </data>
   <data name="SubscribeToPresence2" xml:space="preserve">
-    <value>Ved at abonnere på tilstedeværelsen af nogen, og hvis de accepterer, vil du blive underrettet om deres online tilstedeværelse.</value>
+    <value>Ved at abonnere på tilstedeværelsen af nogen, og hvis de accepterer, får du besked om deres online tilstedeværelse.</value>
   </data>
   <data name="SubscribeToPresence3" xml:space="preserve">
     <value>Hvad vil du gøre?</value>
@@ -1357,16 +1345,16 @@
     <value>Sende</value>
   </data>
   <data name="PresenceSubscriptionRequestSent" xml:space="preserve">
-    <value>Der er sendt en anmodning om tilstedeværelsesabonnement. Når modtageren accepterer anmodningen, opdateres kontaktstatussen.</value>
+    <value>Der er sendt en anmodning om tilstedeværelsesabonnement. Når modtageren accepterer anmodningen, opdateres kontaktstatus.</value>
   </data>
   <data name="PresenceUnsubscriptionRequestSent" xml:space="preserve">
-    <value>Der er sendt en anmodning om at afmelde tilstedeværelse.</value>
+    <value>Der er sendt en anmodning om at afmelde sig tilstedeværelsesmeddelelsen.</value>
   </data>
   <data name="SubscribeTo" xml:space="preserve">
     <value>Abonner på</value>
   </data>
   <data name="UnsubscribeFrom" xml:space="preserve">
-    <value>Afmeld dig fra</value>
+    <value>Afmeld abonnement</value>
   </data>
   <data name="Abuse" xml:space="preserve">
     <value>Misbrug</value>
@@ -1375,10 +1363,10 @@
     <value>Blok</value>
   </data>
   <data name="FurtherAction" xml:space="preserve">
-    <value>Yderligere tiltag?</value>
+    <value>Yderligere handling?</value>
   </data>
   <data name="FurtherAction1" xml:space="preserve">
-    <value>Vil du tage yderligere skridt mod:</value>
+    <value>Ønsker du at foretage dig yderligere mod:</value>
   </data>
   <data name="FurtherAction2" xml:space="preserve">
     <value>Du kan vælge at blokere adressen.</value>
@@ -1387,13 +1375,13 @@
     <value>Dette vil sikre, at du ikke modtager flere abonnementsanmodninger fra afsenderen.</value>
   </data>
   <data name="FurtherAction4" xml:space="preserve">
-    <value>Du kan også vælge at rapportere afsenderen til dit mobilselskab.</value>
+    <value>Du kan også vælge at rapportere afsenderen til din operatør.</value>
   </data>
   <data name="NoJustIgnore" xml:space="preserve">
     <value>Nej, bare ignorer</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Anden</value>
+    <value>Andet__________</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Rapport</value>
@@ -1405,7 +1393,7 @@
     <value>TypeOfReport</value>
   </data>
   <data name="TypeOfReport1" xml:space="preserve">
-    <value>Vælg den type rapport, du vil indgive en rapport for:</value>
+    <value>Vælg den type rapport, du vil arkivere for:</value>
   </data>
   <data name="RemoveSubscription" xml:space="preserve">
     <value>Fjern abonnement?</value>
@@ -1417,22 +1405,16 @@
     <value>Vil du også tilbagekalde denne tilladelse?</value>
   </data>
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
-    <value>Serveren ser ikke ud til at understøtte filupload.</value>
+    <value>Serveren ser ikke ud til at understøtte filoverførsel.</value>
   </data>
-  <data name="TesseractNotCreated" xml:space="preserve">
-    <value>Tesseract OCR-bibliotek ikke oprettet</value>
-  </data>
-  <data name="UnabletoInitializeTesseract" xml:space="preserve">
-    <value>Tesseract OCR Library kunne ikke initialiseres</value>
-  </data>
-  <data name="UnableToTesseractImage" xml:space="preserve">
-    <value>Kan ikke behandle billede med Tesseract OCR Library.</value>
+  <data name="UnableToOcrImage" xml:space="preserve">
+    <value>Kan ikke finde nogen tekst i billedet.</value>
   </data>
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Kan ikke udtrække maskinlæsbar tekst fra billedet.</value>
   </data>
   <data name="TestOtpUsed" xml:space="preserve">
-    <value>Der er brugt en midlertidig OTP-kode. Ansøgningen stopper med at arbejde om cirka en uge. Du bliver nødt til at geninstallere programmet for at bruge det igen.</value>
+    <value>Der er anvendt en midlertidig OTP-kode. Ansøgningen holder op med at arbejde om cirka en uge. Du bliver nødt til at geninstallere programmet for at bruge det igen.</value>
   </data>
   <data name="WarningTitle" xml:space="preserve">
     <value>Advarsel</value>
@@ -1444,7 +1426,7 @@
     <value>Meddelelse fra:</value>
   </data>
   <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
-    <value>Ingen Neuro-Features service fundet på mægler.</value>
+    <value>Ingen Neuro-Features-tjeneste fundet på mægler.</value>
   </data>
   <data name="Expires" xml:space="preserve">
     <value>Udløber</value>
@@ -1456,16 +1438,16 @@
     <value>Oplysninger om token</value>
   </data>
   <data name="TokenDetailsDescription" xml:space="preserve">
-    <value>Følgende er detaljer kodet ind i tokenet. Klik på eventuelle links for mere information.</value>
+    <value>Følgende er detaljer kodet ind i tokenet. Klik på et link for mere information.</value>
   </data>
   <data name="TokenId" xml:space="preserve">
-    <value>Token ID</value>
+    <value>Token-id</value>
   </data>
   <data name="TokenIdMethod" xml:space="preserve">
-    <value>Token ID-metode</value>
+    <value>Metode til token-id</value>
   </data>
   <data name="TokenVisibility" xml:space="preserve">
-    <value>Synlighed af token</value>
+    <value>Token synlighed</value>
   </data>
   <data name="Valuation" xml:space="preserve">
     <value>Vurdering</value>
@@ -1474,7 +1456,7 @@
     <value>Skaber</value>
   </data>
   <data name="CreatorJid" xml:space="preserve">
-    <value>Skaberadresse</value>
+    <value>Skaberens adresse</value>
   </data>
   <data name="Me" xml:space="preserve">
     <value>(mig)</value>
@@ -1483,25 +1465,25 @@
     <value>Ejer</value>
   </data>
   <data name="OwnerJid" xml:space="preserve">
-    <value>Ejer adresse</value>
+    <value>Ejerens adresse</value>
   </data>
   <data name="TokenPartsInfoText" xml:space="preserve">
     <value>Følgende er en liste over parter relateret til dette token.</value>
   </data>
   <data name="TrustProvider" xml:space="preserve">
-    <value>Tillid udbyder</value>
+    <value>Tillidsudbyder</value>
   </data>
   <data name="TrustProviderJid" xml:space="preserve">
-    <value>Tillid til udbyderadresse</value>
+    <value>Tillidsudbyderens adresse</value>
   </data>
   <data name="CreationContract" xml:space="preserve">
-    <value>Oprettelseskontrakt</value>
+    <value>Kontrakt om oprettelse</value>
   </data>
   <data name="ForInclusionInContract" xml:space="preserve">
     <value>Til optagelse som en del af en kontrakt.</value>
   </data>
   <data name="OwnershipContract" xml:space="preserve">
-    <value>Ejerskabskontrakt</value>
+    <value>Ejerkontrakt</value>
   </data>
   <data name="PurposeReviewContract" xml:space="preserve">
     <value>Gennemgang af kontrakt, hvor du er en del.</value>
@@ -1513,19 +1495,19 @@
     <value>Vurderingsmand</value>
   </data>
   <data name="Certifier" xml:space="preserve">
-    <value>Certificeringsorgan</value>
+    <value>Certificering</value>
   </data>
   <data name="CertifierCanDestroy" xml:space="preserve">
-    <value>Certifikator kan ødelægge token</value>
+    <value>Certifier kan ødelægge token</value>
   </data>
   <data name="CertifierJid" xml:space="preserve">
-    <value>Certifikator adresse</value>
+    <value>Certifier-adresse</value>
   </data>
   <data name="CreatorCanDestroy" xml:space="preserve">
-    <value>Skaber kan ødelægge token</value>
+    <value>Skaberen kan ødelægge token</value>
   </data>
   <data name="OwnerCanDestroyBatch" xml:space="preserve">
-    <value>Ejer kan ødelægge tokenbatch</value>
+    <value>Ejer kan ødelægge token-batch</value>
   </data>
   <data name="OwnerCanDestroyIndividual" xml:space="preserve">
     <value>Ejer kan ødelægge individuelt token</value>
@@ -1540,7 +1522,7 @@
     <value>Følgende er privilegier indgraveret i tokenet.</value>
   </data>
   <data name="Valuator" xml:space="preserve">
-    <value>Valuator</value>
+    <value>Evaluator</value>
   </data>
   <data name="Witness" xml:space="preserve">
     <value>Vidne</value>
@@ -1552,22 +1534,22 @@
     <value>Definition navneområde</value>
   </data>
   <data name="DefinitionSchemaDigest" xml:space="preserve">
-    <value>Definition skema digest</value>
+    <value>Definition skema oversigt</value>
   </data>
   <data name="InvalidNeuroFeatureToken" xml:space="preserve">
-    <value>Ugyldigt Neuro-Feature token.</value>
+    <value>Ugyldigt token til neurofunktioner.</value>
   </data>
   <data name="MachineReadableInfoTextToken" xml:space="preserve">
-    <value>En oversigt over de maskinlæsbare data, der er integreret i tokenet, er vist nedenfor.</value>
+    <value>En oversigt over de maskinlæsbare data, der er indlejret i tokenet, er vist nedenfor.</value>
   </data>
   <data name="MyTokens" xml:space="preserve">
     <value>Mine poletter</value>
   </data>
   <data name="OfferToBuy" xml:space="preserve">
-    <value>Tilbyd at købe</value>
+    <value>Tilbud om at købe</value>
   </data>
   <data name="OfferToSell" xml:space="preserve">
-    <value>Tilbyd at sælge</value>
+    <value>Tilbud om at sælge</value>
   </data>
   <data name="OpenMessageLink" xml:space="preserve">
     <value>Åbn meddelelseslink</value>
@@ -1576,7 +1558,7 @@
     <value>Den valgte kontakt kan ikke tilføjes. Det har ikke et juridisk id registreret.</value>
   </data>
   <data name="SendInformationTo" xml:space="preserve">
-    <value>Send oplysninger til?</value>
+    <value>Sende oplysninger til?</value>
   </data>
   <data name="SendToContact" xml:space="preserve">
     <value>Send til kontakt</value>
@@ -1588,25 +1570,25 @@
     <value>Se begivenheder</value>
   </data>
   <data name="TokenEvents" xml:space="preserve">
-    <value>Token-begivenheder</value>
+    <value>Token begivenheder</value>
   </data>
   <data name="TokenEventsDescription" xml:space="preserve">
-    <value>Følgende er offentlige begivenheder, der er registreret for tokenet. Dine private arrangementer er også inkluderet.</value>
+    <value>Følgende er offentlige begivenheder registreret for tokenet. Dine private arrangementer er også inkluderet.</value>
   </data>
   <data name="UnrecognizedEventType" xml:space="preserve">
-    <value>Ukendt hændelsestype:</value>
+    <value>Ikke-genkendt hændelsestype:</value>
   </data>
   <data name="Value" xml:space="preserve">
     <value>Værdi</value>
   </data>
   <data name="AddNote" xml:space="preserve">
-    <value>Tilføj bemærkning</value>
+    <value>Tilføj note</value>
   </data>
   <data name="Destroyed" xml:space="preserve">
     <value>Ødelagt</value>
   </data>
   <data name="NoteCopiedToClipboard" xml:space="preserve">
-    <value>Bemærk kopieret til udklipsholderen.</value>
+    <value>Note kopieret til udklipsholder.</value>
   </data>
   <data name="NoteIsPersonal" xml:space="preserve">
     <value>Bemærk er personlig</value>
@@ -1618,7 +1600,7 @@
     <value>Sælger</value>
   </data>
   <data name="TextNote" xml:space="preserve">
-    <value>Tekst Bemærk</value>
+    <value>Tekst Note</value>
   </data>
   <data name="Transferred" xml:space="preserve">
     <value>Overført</value>
@@ -1630,16 +1612,16 @@
     <value>XML-bemærkning</value>
   </data>
   <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
-    <value>Applikationen kunne ikke få adgang til de private nøgler til identiteten. Det betyder typisk, at identiteten er blevet ændret uden for appens anvendelsesområde. Det kan også være et resultat af en korruption af data. Du kan prøve en af to ting. Tryk på knappen Fortsæt for at fortsætte uden de private taster. Du får adgang til appen, men kan ikke underskrive noget. Du kan derefter vælge at ansøge om en ny identitet igen fra hovedmenuen med nye private nøgler. Du kan også prøve at reparere databasen ved at trykke på knappen Reparer. I sidstnævnte tilfælde lukkes appen, og næste gang appen åbnes, forsøges der først en reparationsprocedure.</value>
+    <value>Applikationen kunne ikke få adgang til de private nøgler til identiteten. Dette betyder typisk, at identiteten er blevet ændret uden for appens anvendelsesområde. Det kan også være et resultat af en korruption af data. Du kan prøve en af to ting. Tryk på knappen Fortsæt for at fortsætte uden de private taster. Du får adgang til appen, men kan ikke underskrive noget. Du kan derefter vælge at ansøge om en ny identitet igen fra hovedmenuen med nye private nøgler. Du kan også prøve at reparere databasen ved at trykke på knappen Reparer. I sidstnævnte tilfælde lukkes appen, og næste gang appen åbnes, forsøges først en reparationsprocedure.</value>
   </data>
   <data name="Repair" xml:space="preserve">
     <value>Reparere</value>
   </data>
   <data name="EnterProposal" xml:space="preserve">
-    <value>Indtast den tekst, der skal medtages i forslaget til {0}, eller lad den være tom, hvis et forslag ikke skal sendes.</value>
+    <value>Indtast den tekst, der skal medtages i forslaget til {0}, eller lad den stå tom, hvis et forslag ikke skal sendes.</value>
   </data>
   <data name="BalanceUpdated" xml:space="preserve">
-    <value>Balance opdateret.</value>
+    <value>Saldo opdateret.</value>
   </data>
   <data name="ContractCreated" xml:space="preserve">
     <value>Der er oprettet en kontrakt.</value>
@@ -1663,7 +1645,7 @@
     <value>Andragende fra:</value>
   </data>
   <data name="TokenAdded" xml:space="preserve">
-    <value>Der er føjet et token til din tegnebog.</value>
+    <value>Der er tilføjet et token til din tegnebog.</value>
   </data>
   <data name="TokenRemoved" xml:space="preserve">
     <value>Et token er blevet fjernet fra din tegnebog.</value>
@@ -1675,7 +1657,7 @@
     <value>En pinkode må ikke indeholde ord fra identitetsnavnene.</value>
   </data>
   <data name="PinContainsPersonalNumber" xml:space="preserve">
-    <value>En pinkode må ikke indeholde identitetens personnummer.</value>
+    <value>En pinkode må ikke indeholde identitetspersonnummeret.</value>
   </data>
   <data name="PinContainsPhoneNumber" xml:space="preserve">
     <value>En pinkode må ikke indeholde identitetstelefonnummeret.</value>
@@ -1711,7 +1693,7 @@
     <value>Vis M2M-definition</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Beskrivelse</value>
+    <value>Beskrivelse: __________</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Handlinger</value>
@@ -1726,7 +1708,7 @@
     <value>Historie</value>
   </data>
   <data name="MachineHasEnded" xml:space="preserve">
-    <value>State-Machine er slut.</value>
+    <value>Statsmaskinen er slut.</value>
   </data>
   <data name="Present" xml:space="preserve">
     <value>Gave</value>
@@ -1744,22 +1726,22 @@
     <value>Variabler</value>
   </data>
   <data name="PublishMarketplace" xml:space="preserve">
-    <value>Udgiv på Marketplace</value>
+    <value>Publicer på Marketplace</value>
   </data>
   <data name="TagEngraved" xml:space="preserve">
-    <value>Tag Indgraveret med link til {0}.</value>
+    <value>Tag indgraveret med link til {0}.</value>
   </data>
   <data name="TagNotEngraved" xml:space="preserve">
     <value>Kan ikke gravere tag med link til {0}.</value>
   </data>
   <data name="PinContainsEMail" xml:space="preserve">
-    <value>En pinkode må ikke indeholde identitets-e-mailadressen.</value>
+    <value>En pinkode må ikke indeholde identitets-e-mail-adressen.</value>
   </data>
   <data name="EnterEMail" xml:space="preserve">
     <value>e-mail</value>
   </data>
   <data name="WelcomeToTagValidateEMail" xml:space="preserve">
-    <value>Vi skal også validere din e-mailadresse. Indtast venligst din e-mail-adresse nedenfor uden mellemrum.</value>
+    <value>Vi skal også validere din e-mail-adresse. Indtast din e-mail-adresse nedenfor uden mellemrum.</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>Kontaktoplysninger</value>
@@ -1771,13 +1753,13 @@
     <value>Reserveret:</value>
   </data>
   <data name="StateDiagram" xml:space="preserve">
-    <value>Tilstand Diagram</value>
+    <value>Tilstandsdiagram</value>
   </data>
   <data name="UnableToGetHistory" xml:space="preserve">
     <value>Kan ikke få historikrapport.</value>
   </data>
   <data name="UnableToGetPresent" xml:space="preserve">
-    <value>Kan ikke få den nuværende rapport.</value>
+    <value>Kan ikke få nærværende rapport.</value>
   </data>
   <data name="UnableToGetProfiling" xml:space="preserve">
     <value>Kan ikke få profileringsrapport.</value>
@@ -1786,7 +1768,7 @@
     <value>Kan ikke hente tilstandsdiagramrapport.</value>
   </data>
   <data name="RepairRestart" xml:space="preserve">
-    <value>Der er konstateret en inkonsekvens i den interne database. Dette kan ske, hvis appen ikke lukkes korrekt. Appen lukker derfor. Næste gang du starter appen, repareres databasen.</value>
+    <value>Der er konstateret en uoverensstemmelse i den interne database. Dette kan ske, hvis appen ikke lukkes korrekt. Appen lukker derfor. Næste gang du starter appen, repareres databasen.</value>
   </data>
   <data name="Calculator" xml:space="preserve">
     <value>Regnemaskine</value>
@@ -1799,5 +1781,563 @@
   </data>
   <data name="EnterValue" xml:space="preserve">
     <value>Du skal først indtaste en værdi.</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Spørgsmål</value>
+  </data>
+  <data name="RemoveSubscriptionFrom" xml:space="preserve">
+    <value>Vil du fjerne tilstedeværelsesabonnementet fra {0}?</value>
+  </data>
+  <data name="SignaturePetitionDenied" xml:space="preserve">
+    <value>Underskriftsindsamlingen blev afvist.</value>
+  </data>
+  <data name="ContractProposal" xml:space="preserve">
+    <value>Forslag til kontrakt</value>
+  </data>
+  <data name="ContractResponse" xml:space="preserve">
+    <value>Svar på kontraktanmodning</value>
+  </data>
+  <data name="ContractSignatureReceived" xml:space="preserve">
+    <value>Kontraktunderskrift modtaget</value>
+  </data>
+  <data name="ContractUpdateReceived" xml:space="preserve">
+    <value>Kontrakt opdateret</value>
+  </data>
+  <data name="IdentityResponse" xml:space="preserve">
+    <value>Svar på identitetsanmodning</value>
+  </data>
+  <data name="IdentityReviewRequest" xml:space="preserve">
+    <value>Anmodning om at gennemse identitet</value>
+  </data>
+  <data name="IdentityReviewResponse" xml:space="preserve">
+    <value>Svar på anmodning om identitetsgennemgang</value>
+  </data>
+  <data name="RequestSignature" xml:space="preserve">
+    <value>Anmod om underskrift</value>
+  </data>
+  <data name="RequestToAccessContract" xml:space="preserve">
+    <value>Anmodning om adgang til kontrakt</value>
+  </data>
+  <data name="RequestToAccessIdentity" xml:space="preserve">
+    <value>Anmodning om adgang til identitet</value>
+  </data>
+  <data name="SignatureResponse" xml:space="preserve">
+    <value>Svar på anmodning om underskrift</value>
+  </data>
+  <data name="UserSignedAs" xml:space="preserve">
+    <value>{0} underskrevet som {1}.</value>
+  </data>
+  <data name="PermitScreenCapture" xml:space="preserve">
+    <value>Tillad skærmoptagelse</value>
+  </data>
+  <data name="ProhibitScreenCapture" xml:space="preserve">
+    <value>Forbyd skærmoptagelse</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Sikkerhed</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Sikkerhedsindstillinger</value>
+  </data>
+  <data name="SecuritySettingsInformationText" xml:space="preserve">
+    <value>Nedenfor kan du ændre sikkerhedsindstillinger for appen. Ved at aktivere skærmoptagelse kan du dele skærmen med andre, men kun i en begrænset periode.</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Meddelelse modtaget.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Netværksadresse på kontakt ukendt.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Anden app</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Vælg, hvem du vil anmode om betaling fra.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>Nedenfor kan du finde yderligere muligheder for at dele QR-koden.</value>
+  </data>
+  <data name="StateChangedTo" xml:space="preserve">
+    <value>Stat ændret til {0}</value>
+  </data>
+  <data name="TokenAdded2" xml:space="preserve">
+    <value>Token tilføjet</value>
+  </data>
+  <data name="TokenRemoved2" xml:space="preserve">
+    <value>Token fjernet</value>
+  </data>
+  <data name="VariablesUpdated" xml:space="preserve">
+    <value>Variabler opdateret</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Vi er nødt til at forlænge din e-mail-adresse. Opdater din e-mail-adresse, hvis det er nødvendigt, og tryk på knappen "send kode".</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Vi er nødt til at forlænge dit mobiltelefonnummer. Opdater dit mobiltelefonnummer, hvis det er nødvendigt (brug internationalt telefonnummerformat uden mellemrum), og tryk på knappen "send kode".</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Noget gik galt, da du sendte en bekræftelseskode til denne e-mail.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Noget gik galt, da du sendte en bekræftelseskode til dette telefonnummer.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Det er ikke tilladt at ændre telefonnummeret til en test.</value>
+  </data>
+  <data name="ServiceProviders" xml:space="preserve">
+    <value>Tjenesteudbydere</value>
+  </data>
+  <data name="BuyEDaler" xml:space="preserve">
+    <value>Køb eDaler.</value>
+  </data>
+  <data name="SelectServiceProviderBuyEDaler" xml:space="preserve">
+    <value>Vælg den tjenesteudbyder, du vil bruge til at købe eDaler.</value>
+  </data>
+  <data name="FromUser" xml:space="preserve">
+    <value>Fra bruger</value>
+  </data>
+  <data name="ShortId" xml:space="preserve">
+    <value>Kort ID</value>
+  </data>
+  <data name="ConcentratorServiceNotFound" xml:space="preserve">
+    <value>Ingen koncentrator service fundet.</value>
+  </data>
+  <data name="ControlServiceNotFound" xml:space="preserve">
+    <value>Der blev ikke fundet nogen kontroltjeneste.</value>
+  </data>
+  <data name="SensorServiceNotFound" xml:space="preserve">
+    <value>Der blev ikke fundet nogen sensorservice.</value>
+  </data>
+  <data name="ControlActuator" xml:space="preserve">
+    <value>Betjeningsaktuator</value>
+  </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Fejl</value>
+  </data>
+  <data name="ReadSensor" xml:space="preserve">
+    <value>Læs sensor</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Sensor Data</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>Anmodningen er blevet accepteret.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Udlæsning af sensordata er blevet annulleret.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Udlæsningen af sensordata er fuldført.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Udlæsning af sensordata mislykkedes.</value>
+  </data>
+  <data name="SensorDataHeaderComputed" xml:space="preserve">
+    <value>Beregnet</value>
+  </data>
+  <data name="SensorDataHeaderHistorical" xml:space="preserve">
+    <value>Historisk</value>
+  </data>
+  <data name="SensorDataHeaderIdentity" xml:space="preserve">
+    <value>Identitet</value>
+  </data>
+  <data name="SensorDataHeaderMomentary" xml:space="preserve">
+    <value>Momentan</value>
+  </data>
+  <data name="SensorDataHeaderOther" xml:space="preserve">
+    <value>Andet__________</value>
+  </data>
+  <data name="SensorDataHeaderPeak" xml:space="preserve">
+    <value>Top</value>
+  </data>
+  <data name="SensorDataHeaderStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Modtagelse af sensordata.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Sensordata er blevet anmodet om.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Udlæsningen af sensordata er startet.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Nedenfor er information og sensordata tilgængelige for dig i overensstemmelse med dine adgangsrettigheder.</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Tidspunkt</value>
+  </data>
+  <data name="PepServiceNotFound" xml:space="preserve">
+    <value>Ingen personlig begivenhedstjeneste fundet.</value>
+  </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Føj til liste</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Slet regler</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Vil du slette alle klargøringsregler for tingen? Ved at gøre det vil tingen igen bede dig om alle nye begivenheder for at lære, hvad den er autoriseret til at gøre.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Vil du fornægte sagen? Dette fjerner tingen fra din liste over ting og tillader en anden at kræve enheden som deres.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Fjern fra listen</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Reglerne om hensættelser er blevet slettet.</value>
+  </data>
+  <data name="AccessRequestText" xml:space="preserve">
+    <value>{0} vil oprette forbindelse til din enheds {1}.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Meddelelser</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>Nedenfor kan du se en liste over meddelelser som følge af interaktioner med tingen. Tryk på hver enkelt for at få vist flere tilgængelige oplysninger og muligheder.</value>
+  </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>Anmodning om adgang</value>
+  </data>
+  <data name="AccessRequestText2" xml:space="preserve">
+    <value>En person, der ringer op, har anmodet om adgang til en af dine ting. Vælg, hvordan du ønsker, at tingen skal svare på denne type anmodning.</value>
+  </data>
+  <data name="Caller" xml:space="preserve">
+    <value>Opkalds</value>
+  </data>
+  <data name="CallerAddress" xml:space="preserve">
+    <value>Opkalder adresse</value>
+  </data>
+  <data name="CallerOnly" xml:space="preserve">
+    <value>Kun opkalder</value>
+  </data>
+  <data name="ControlRequestText" xml:space="preserve">
+    <value>{0} ønsker at kontrollere parametre på din enheds {1}.</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Apparat</value>
+  </data>
+  <data name="EntireDomain" xml:space="preserve">
+    <value>Alle fra {0}</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="FriendlyName" xml:space="preserve">
+    <value>Venligt navn</value>
+  </data>
+  <data name="InformationAboutCallerText" xml:space="preserve">
+    <value>Følgende oplysninger er tilgængelige om den, der ringer op:</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Ikke tilgængelig</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="RangeText" xml:space="preserve">
+    <value>Anvend denne regel på:</value>
+  </data>
+  <data name="ReadoutRequestText" xml:space="preserve">
+    <value>{0} vil læse data fra din enheds {1}.</value>
+  </data>
+  <data name="ReadoutRequestText2" xml:space="preserve">
+    <value>En opkalder har anmodet om sensordata fra en af dine ting. Vælg, hvordan du ønsker, at tingen skal svare på denne type anmodning.</value>
+  </data>
+  <data name="ReadRequest" xml:space="preserve">
+    <value>Anmodning om oplæsning</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Tjeneste</value>
+  </data>
+  <data name="ToDevice" xml:space="preserve">
+    <value>Til enhed, uanset kilde</value>
+  </data>
+  <data name="ToService" xml:space="preserve">
+    <value>At servicere, uanset kilde</value>
+  </data>
+  <data name="ToUser" xml:space="preserve">
+    <value>Til bruger, uanset kilde</value>
+  </data>
+  <data name="UnableToRespond" xml:space="preserve">
+    <value>Kan ikke svare på anmodningen.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Bruger</value>
+  </data>
+  <data name="XInY" xml:space="preserve">
+    <value>{0} i {1}</value>
+  </data>
+  <data name="XOnY" xml:space="preserve">
+    <value>{0} på {1}</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Al</value>
+  </data>
+  <data name="ComputedValues" xml:space="preserve">
+    <value>Beregnede værdier</value>
+  </data>
+  <data name="FieldTypes" xml:space="preserve">
+    <value>Felttyper</value>
+  </data>
+  <data name="HistoricalValues" xml:space="preserve">
+    <value>Historiske værdier</value>
+  </data>
+  <data name="IdentityValues" xml:space="preserve">
+    <value>Identitetsværdier</value>
+  </data>
+  <data name="MomentaryValues" xml:space="preserve">
+    <value>Øjeblikkelige værdier</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="PeakValues" xml:space="preserve">
+    <value>Højeste værdier</value>
+  </data>
+  <data name="PermitFieldTypesText" xml:space="preserve">
+    <value>Vælg de felttyper (brede kategorier), der skal gives adgang til, hvis anmodningen accepteres.</value>
+  </data>
+  <data name="StatusValues" xml:space="preserve">
+    <value>Status værdier</value>
+  </data>
+  <data name="ControlRequest" xml:space="preserve">
+    <value>Anmodning om kontrol</value>
+  </data>
+  <data name="ControlRequestText2" xml:space="preserve">
+    <value>En opkalder har anmodet om at kontrollere en af dine ting. Vælg, hvordan du ønsker, at tingen skal svare på denne type anmodning.</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Felter</value>
+  </data>
+  <data name="PermitFieldsText" xml:space="preserve">
+    <value>Vælg de felter, der skal tillades adgang til, hvis anmodningen accepteres.</value>
+  </data>
+  <data name="PermitParametersText" xml:space="preserve">
+    <value>Vælg de parametre, der skal tillades adgang til, hvis anmodningen accepteres.</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Købe</value>
+  </data>
+  <data name="BuyEDalerDescription" xml:space="preserve">
+    <value>Angiv mængden af eDaler, du vil købe nedenfor, og tryk på knappen Køb. Der kan åbnes en webside, hvor du skal udfylde yderligere oplysninger for betalingsprocessoren for at validere din anmodning.</value>
+  </data>
+  <data name="PaymentCancelled" xml:space="preserve">
+    <value>Betaling annulleret</value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>Betaling mislykkedes</value>
+  </data>
+  <data name="Anonymous" xml:space="preserve">
+    <value>Anonym</value>
+  </data>
+  <data name="ConnectToDevice" xml:space="preserve">
+    <value>Opret forbindelse til enhed</value>
+  </data>
+  <data name="DisconnectFromDevice" xml:space="preserve">
+    <value>Afbryd forbindelsen til enheden</value>
+  </data>
+  <data name="AndroidApp" xml:space="preserve">
+    <value>Android-app</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Sædvane</value>
+  </data>
+  <data name="IosApp" xml:space="preserve">
+    <value>iOS-app</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Sammenkæde</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="LinksText" xml:space="preserve">
+    <value>Ved at åbne et af nedenstående links åbnes en programmerbar linkvisning. Du kan bruge denne side til at kode NFC-tags eller bruge QR-koden til at overføre linket til andre.</value>
+  </data>
+  <data name="LinkText" xml:space="preserve">
+    <value>Du kan scanne linket fra en anden app eller skrive det ind i et tomt NFC-tag ved at placere tagget bag telefonen, indtil du får det tilsvarende signal.</value>
+  </data>
+  <data name="TrustAnchorGroup" xml:space="preserve">
+    <value>Tillid anker gruppe</value>
+  </data>
+  <data name="ClientMessageAuthenticationTimeout" xml:space="preserve">
+    <value>Svaret returneres ikke inden for den konfigurerede tid.</value>
+  </data>
+  <data name="ClientMessageCountryCodeMismatch" xml:space="preserve">
+    <value>Landekoden stemmer ikke overens.</value>
+  </data>
+  <data name="ClientMessageCountryCodeNotVerified" xml:space="preserve">
+    <value>Landekode ikke bekræftet.</value>
+  </data>
+  <data name="ClientMessageFirstNameNotVerified" xml:space="preserve">
+    <value>Fornavn ikke verificeret.</value>
+  </data>
+  <data name="ClientMessageLastNameNotVerified" xml:space="preserve">
+    <value>Efternavn ikke bekræftet.</value>
+  </data>
+  <data name="ClientMessageNotValid" xml:space="preserve">
+    <value>Identiteten er ikke gyldig.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberMismatch" xml:space="preserve">
+    <value>Personnummer stemmer ikke overens.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberNotVerified" xml:space="preserve">
+    <value>Personnummer ikke bekræftet.</value>
+  </data>
+  <data name="ClientMessageReferenceMismatch" xml:space="preserve">
+    <value>Returneret reference stemte ikke overens med anmodningsreference.</value>
+  </data>
+  <data name="ClientMessageUnexpectedDocumentInformation" xml:space="preserve">
+    <value>Dokumentoplysninger returneres ikke som forventet.</value>
+  </data>
+  <data name="ClientMessageUnexpectedEventResult" xml:space="preserve">
+    <value>Hændelsesresultatet returneres ikke som forventet.</value>
+  </data>
+  <data name="ClientMessageUnexpectedResult" xml:space="preserve">
+    <value>Uventet svar vendte tilbage.</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="AppNotConnected" xml:space="preserve">
+    <value>Appen har ikke forbindelse til netværket.</value>
+  </data>
+  <data name="InvalidTagSignatureId" xml:space="preserve">
+    <value>Ugyldig TAG-signatur URI.</value>
+  </data>
+  <data name="LegalIdNotApproved" xml:space="preserve">
+    <value>Juridisk ID ikke godkendt.</value>
+  </data>
+  <data name="NoLegalIdSelected" xml:space="preserve">
+    <value>Intet juridisk id er valgt.</value>
+  </data>
+  <data name="SelectServiceProviderSellEDaler" xml:space="preserve">
+    <value>Vælg den tjenesteudbyder, du vil bruge til at sælge eDaler.</value>
+  </data>
+  <data name="Sell" xml:space="preserve">
+    <value>Sælge</value>
+  </data>
+  <data name="SellEDaler" xml:space="preserve">
+    <value>Sælg eDaler.</value>
+  </data>
+  <data name="SellEDalerDescription" xml:space="preserve">
+    <value>Angiv mængden af eDaler, du vil sælge nedenfor, og tryk på knappen Sælg. Der kan åbnes en webside, hvor du skal udfylde yderligere oplysninger for betalingsprocessoren for at validere din anmodning.</value>
+  </data>
+  <data name="TokenCreationTemplates" xml:space="preserve">
+    <value>Token skabeloner</value>
+  </data>
+  <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
+    <value>Nedenfor er en liste over tokenskabeloner, som du har brugt eller kan bruge til at oprette nye tokens. Klik på en skabelon for at oprette en ny kontrakt baseret på skabelonen. Når kontrakten er underskrevet og godkendt, oprettes det eller de tilsvarende tokens.</value>
+  </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Vælg, hvor anmodningen om gennemgang skal sendes hen.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Anmod en anden bruger om at gennemgå din ansøgning.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>Til bruger</value>
+  </data>
+  <data name="UnableToOpenLink" xml:space="preserve">
+    <value>Link kan ikke åbnes:</value>
+  </data>
+  <data name="OrgAddress" xml:space="preserve">
+    <value>Organisationens adresse</value>
+  </data>
+  <data name="OrgAddress2" xml:space="preserve">
+    <value>Organisationens adresse (række 2)</value>
+  </data>
+  <data name="OrgArea" xml:space="preserve">
+    <value>Organisationsområde</value>
+  </data>
+  <data name="OrgCity" xml:space="preserve">
+    <value>Organisation By</value>
+  </data>
+  <data name="OrgCountry" xml:space="preserve">
+    <value>Organisationens land</value>
+  </data>
+  <data name="OrgDepartment" xml:space="preserve">
+    <value>Afdeling</value>
+  </data>
+  <data name="OrgName" xml:space="preserve">
+    <value>Organisationens navn</value>
+  </data>
+  <data name="OrgNumber" xml:space="preserve">
+    <value>Organisationsnummer</value>
+  </data>
+  <data name="OrgRegion" xml:space="preserve">
+    <value>Organisation Region</value>
+  </data>
+  <data name="OrgRole" xml:space="preserve">
+    <value>Rolle</value>
+  </data>
+  <data name="OrgZipCode" xml:space="preserve">
+    <value>Organisationens postnummer</value>
+  </data>
+  <data name="PurposeEducational" xml:space="preserve">
+    <value>Uddannelsesmæssig brug.</value>
+  </data>
+  <data name="PurposeEducationalDescription" xml:space="preserve">
+    <value>Denne mulighed giver dig mulighed for at bruge tag-id til uddannelsesmæssige formål. Du kan bruge appen til at underskrive eller få adgang til ressourcer som privatperson, enten som underviser eller som studerende. Kontoen kan være tidsbegrænset. Kontoen kan også blive fjernet, når den ikke længere bruges. Kontakt tjenesteudbyderen for at få flere oplysninger.</value>
+  </data>
+  <data name="PurposeExperimental" xml:space="preserve">
+    <value>Eksperimentel brug.</value>
+  </data>
+  <data name="PurposeExperimentalDescription" xml:space="preserve">
+    <value>Denne mulighed giver dig mulighed for at bruge tag-id til eksperimentelle formål. Du kan bruge appen til at underskrive eller få adgang til ressourcer som privatperson med det formål at lære teknologien og til hvilke formål den kan bruges. Kontoen kan være tidsbegrænset. Kontoen kan også blive fjernet, når den ikke længere bruges. Kontakt tjenesteudbyderen for at få flere oplysninger.</value>
+  </data>
+  <data name="PurposePersonal" xml:space="preserve">
+    <value>Personlig brug.</value>
+  </data>
+  <data name="PurposePersonalDescription" xml:space="preserve">
+    <value>Denne mulighed giver dig mulighed for at bruge tag-id til personlige formål. Du kan bruge appen til at underskrive eller få adgang til ressourcer som privatperson. Visse operationer kan medføre omkostninger, afhængigt af den tjenesteudbyder, du vælger. Kontakt tjenesteudbyderen for at få flere oplysninger.</value>
+  </data>
+  <data name="PurposeWork" xml:space="preserve">
+    <value>Brug af arbejde.</value>
+  </data>
+  <data name="PurposeWorkDescription" xml:space="preserve">
+    <value>Denne mulighed giver dig mulighed for at bruge tag-id til arbejdsformål. Dette omfatter arbejde ikke for profit i organisationer. Du kan bruge appen til at signere eller få adgang til ressourcer som repræsentant for en organisation. Visse operationer kan medføre omkostninger, afhængigt af den tjenesteudbyder, du vælger. Kontakt tjenesteudbyderen for at få flere oplysninger.</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgCountry" xml:space="preserve">
+    <value>Du skal angive et organisationsland</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgDepartment" xml:space="preserve">
+    <value>Du skal give en afdeling</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgName" xml:space="preserve">
+    <value>Du skal angive et organisationsnavn</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgNumber" xml:space="preserve">
+    <value>Du skal angive et organisationsnummer</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
+    <value>Du skal angive en rolle</value>
+  </data>
+  <data name="APetitionHasBeenSentForEncryption" xml:space="preserve">
+    <value>Kryptering kan kun udføres, hvis du har adgang til modtagerens identitet. Der er derfor sendt et andragende om denne identitet til den indstillede modtager. Hvis modtageren accepterer andragendet, modtager du identiteten og kan sende betalingen med en krypteret besked, når du prøver igen. Du kan også vælge at sende en ukrypteret besked med betalingen.</value>
+  </data>
+  <data name="EncryptedPayment" xml:space="preserve">
+    <value>Krypteret betaling</value>
+  </data>
+  <data name="GettingOptionsCancelled" xml:space="preserve">
+    <value>At få tilgængelige muligheder blev annulleret.</value>
+  </data>
+  <data name="UnableToGetOptions" xml:space="preserve">
+    <value>Kan ikke få tilgængelige indstillinger.</value>
+  </data>
+  <data name="ServerDescription" xml:space="preserve">
+    <value>Beskrivelse efter tjenesteudbyder</value>
+  </data>
+  <data name="OrganizationInformation" xml:space="preserve">
+    <value>Oplysninger om organisation</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>Personlige oplysninger</value>
   </data>
 </root>

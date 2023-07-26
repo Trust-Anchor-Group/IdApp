@@ -44,6 +44,7 @@
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidSupportedAbis>armeabi-v7a;x86;x86_64;arm64-v8a</AndroidSupportedAbis>
+    <MandroidI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -83,16 +84,19 @@
       <Version>2.1.0</Version>
     </PackageReference>
     <PackageReference Include="SkiaSharp">
-      <Version>2.88.0</Version>
+      <Version>2.88.3</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.Media">
       <Version>5.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Build.Download">
+      <Version>0.11.4</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.CommunityToolkit">
-      <Version>2.0.2</Version>
+      <Version>2.0.5</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.CommunityToolkit.Markup">
-      <Version>2.0.2</Version>
+      <Version>2.0.5</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading">
       <Version>2.4.11.982</Version>
@@ -101,15 +105,12 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Messaging">
-      <Version>122.0.0.6</Version>
+      <Version>123.0.8</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2478" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
     <PackageReference Include="Xamarin.GooglePlayServices.Base">
-      <Version>118.0.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Tesseract">
-      <Version>0.3.4</Version>
+      <Version>118.1.0</Version>
     </PackageReference>
     <PackageReference Include="ZXing.Net.Mobile">
       <Version>3.1.0-beta2</Version>
@@ -119,10 +120,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Links\BankIdLinks.cs" />
+    <Compile Include="SecureDisplay.cs" />
     <Compile Include="CloseApplication.cs" />
     <Compile Include="Effects\PasswordMaskTogglerEffect.cs" />
-    <Compile Include="Helpers\Svg\SvgImage.cs" />
-    <Compile Include="Helpers\Svg\SvgImageSourceHandler.cs" />
     <Compile Include="Nfc\NdefFormatableInterface.cs" />
     <Compile Include="Nfc\NdefInterface.cs" />
     <Compile Include="Nfc\MifareClassicInterface.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Renderers\CustomEditorRenderer.cs" />
     <Compile Include="Renderers\CustomEntryRenderer.cs" />
     <Compile Include="Renderers\CustomPickerRenderer.cs" />
+    <Compile Include="Renderers\IdAppNavigationPageRenderer.cs" />
     <Compile Include="ShareContent.cs" />
     <Compile Include="DeviceInformation.cs" />
     <Compile Include="MainActivity.cs" />
@@ -150,11 +152,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\Version\Version.cs" />
     <Compile Include="Renderers\ExtendedDatePickerDroidRenderer.cs" />
+    <Compile Include="Renderers\AesImageLoaderSourceHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\FontAwesome5Free-Regular-400.otf" />
     <AndroidAsset Include="Assets\FontAwesome5Free-Solid-900.otf" />
-    <AndroidAsset Include="Assets\tessdata\eng.traineddata" />
     <GoogleServicesJson Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -179,6 +181,10 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\IdApp.AR\IdApp.AR.csproj">
+      <Project>{1EAF1656-8C64-4546-89D7-14918E3F8AEA}</Project>
+      <Name>IdApp.AR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\IdApp.Cv\IdApp.Cv.csproj">
       <Project>{609ac463-43f4-4caf-a778-9e48a46ec7f1}</Project>
       <Name>IdApp.Cv</Name>
@@ -209,6 +215,7 @@
     <AndroidResource Include="Resources\drawable\NotificationIdentitieIcon.png" />
     <AndroidResource Include="Resources\drawable\NotificationPetitionIcon.png" />
     <AndroidResource Include="Resources\drawable\NotificationTokenIcon.png" />
+    <AndroidResource Include="Resources\drawable\splash_screen.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

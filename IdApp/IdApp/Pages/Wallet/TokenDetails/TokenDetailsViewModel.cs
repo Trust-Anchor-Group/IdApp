@@ -8,7 +8,6 @@ using System.Windows.Input;
 using System.Xml;
 using IdApp.DeviceSpecific;
 using IdApp.Extensions;
-using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.NewContract;
@@ -16,15 +15,17 @@ using IdApp.Pages.Wallet.MachineReport;
 using IdApp.Pages.Wallet.MachineReport.Reports;
 using IdApp.Pages.Wallet.MachineVariables;
 using IdApp.Pages.Wallet.TokenEvents;
-using IdApp.Resx;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using NeuroFeatures;
 using NeuroFeatures.Events;
 using NeuroFeatures.Tags;
 using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Waher.Persistence;
 using Waher.Security;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -72,11 +73,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out TokenDetailsNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out TokenDetailsNavigationArgs args))
 			{
 				this.Created = args.Token.Created;
 				this.Updated = args.Token.Updated;
@@ -99,6 +100,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				this.Value = args.Token.Value;
 				this.TokenIdMethod = args.Token.TokenIdMethod;
 				this.TokenId = args.Token.TokenId;
+				this.ShortTokenId = args.Token.ShortTokenId;
 				this.Visibility = args.Token.Visibility;
 				this.Creator = args.Token.Creator;
 				this.CreatorFriendlyName = await ContactInfo.GetFriendlyName(args.Token.Creator, this);
@@ -130,7 +132,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 						RefUri.Scheme.ToLower() is string s &&
 						(s == "http" || s == "https"))
 					{
-						this.page.AddLink(this, AppResources.Reference, s);   // TODO: Replace with grouped collection, when this works in Xamarin.
+						this.page.AddLink(this, LocalizationResourceManager.Current["Reference"], s);   // TODO: Replace with grouped collection, when this works in Xamarin.
 					}
 				}
 
@@ -142,10 +144,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 				this.GenerateQrCode(Constants.UriSchemes.CreateTokenUri(this.TokenId));
 
-				await this.Populate(AppResources.Witness, string.Empty, args.Token.Witness, null, this.Witnesses);
-				await this.Populate(AppResources.Certifier, AppResources.CertifierJid, args.Token.Certifier, args.Token.CertifierJids, this.Certifiers);
-				await this.Populate(AppResources.Valuator, string.Empty, args.Token.Valuator, null, this.Valuators);
-				await this.Populate(AppResources.Assessor, string.Empty, args.Token.Assessor, null, this.Assessors);
+				await this.Populate(LocalizationResourceManager.Current["Witness"], string.Empty, args.Token.Witness, null, this.Witnesses);
+				await this.Populate(LocalizationResourceManager.Current["Certifier"], LocalizationResourceManager.Current["CertifierJid"], args.Token.Certifier, args.Token.CertifierJids, this.Certifiers);
+				await this.Populate(LocalizationResourceManager.Current["Valuator"], string.Empty, args.Token.Valuator, null, this.Valuators);
+				await this.Populate(LocalizationResourceManager.Current["Assessor"], string.Empty, args.Token.Assessor, null, this.Assessors);
 
 				this.Tags.Clear();
 
@@ -549,6 +551,40 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			get => (string)this.GetValue(TokenIdProperty);
 			set => this.SetValue(TokenIdProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="ShortTokenId"/>
+		/// </summary>
+		public static readonly BindableProperty ShortTokenIdProperty =
+			BindableProperty.Create(nameof(ShortTokenId), typeof(string), typeof(TokenDetailsViewModel), default);
+
+		/// <summary>
+		/// ShortToken ID
+		/// </summary>
+		public string ShortTokenId
+		{
+			get => (string)this.GetValue(ShortTokenIdProperty);
+			set
+			{
+				this.SetValue(ShortTokenIdProperty, value);
+				this.HasShortTokenId = !string.IsNullOrEmpty(value);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="HasShortTokenId"/>
+		/// </summary>
+		public static readonly BindableProperty HasShortTokenIdProperty =
+			BindableProperty.Create(nameof(HasShortTokenId), typeof(bool), typeof(TokenDetailsViewModel), default);
+
+		/// <summary>
+		/// If the token has a Short ID
+		/// </summary>
+		public bool HasShortTokenId
+		{
+			get => (bool)this.GetValue(HasShortTokenIdProperty);
+			set => this.SetValue(HasShortTokenIdProperty, value);
 		}
 
 		/// <summary>
@@ -1009,13 +1045,13 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 				if (i > 0 && Guid.TryParse(s[..i], out _))
 				{
-					await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeNeuroFeature + ":" + s);
-					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
+					await Clipboard.SetTextAsync(Constants.UriSchemes.NeuroFeature + ":" + s);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["IdCopiedSuccessfully"]);
 				}
 				else
 				{
 					await Clipboard.SetTextAsync(s);
-					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
 				}
 			}
 			catch (Exception ex)
@@ -1029,7 +1065,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				await this.ContractOrchestratorService.OpenLegalIdentity(Parameter.ToString(), AppResources.PurposeReviewToken);
+				await this.ContractOrchestratorService.OpenLegalIdentity(Parameter.ToString(), LocalizationResourceManager.Current["PurposeReviewToken"]);
 			}
 			catch (Exception ex)
 			{
@@ -1041,7 +1077,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				await this.ContractOrchestratorService.OpenContract(Parameter.ToString(), AppResources.PurposeReviewToken, null);
+				await this.ContractOrchestratorService.OpenContract(Parameter.ToString(), LocalizationResourceManager.Current["PurposeReviewToken"], null);
 			}
 			catch (Exception ex)
 			{
@@ -1089,7 +1125,9 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 			try
 			{
-				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName) { UniqueId = BareJid });
+				ChatNavigationArgs Args = new(LegalId, BareJid, FriendlyName);
+
+				await this.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, BareJid);
 			}
 			catch (Exception ex)
 			{
@@ -1099,7 +1137,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 		private Task OpenLink(object Parameter)
 		{
-			return App.OpenUrl(Parameter.ToString());
+			return App.OpenUrlAsync(Parameter.ToString());
 		}
 
 		private async Task ShowM2mInfo()
@@ -1107,12 +1145,12 @@ namespace IdApp.Pages.Wallet.TokenDetails
 			try
 			{
 				byte[] Bin = Encoding.UTF8.GetBytes(this.Definition);
-				HttpFileUploadEventArgs e = await this.XmppService.FileUploadClient.RequestUploadSlotAsync(this.TokenId + ".xml", "text/xml; charset=utf-8", Bin.Length);
+				HttpFileUploadEventArgs e = await this.XmppService.RequestUploadSlotAsync(this.TokenId + ".xml", "text/xml; charset=utf-8", Bin.Length);
 
 				if (e.Ok)
 				{
 					await e.PUT(Bin, "text/xml", (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
-					await App.OpenUrl(e.GetUrl);
+					await App.OpenUrlAsync(e.GetUrl);
 				}
 				else
 					await this.UiSerializer.DisplayAlert(e.StanzaError ?? new Exception(e.ErrorText));
@@ -1125,31 +1163,31 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 		private async Task SendToContact()
 		{
-			TaskCompletionSource<ContactInfo> Selected = new();
-			ContactListNavigationArgs Args = new(AppResources.SendInformationTo, Selected)
+			TaskCompletionSource<ContactInfoModel> Selected = new();
+			ContactListNavigationArgs ContactListArgs = new(LocalizationResourceManager.Current["SendInformationTo"], Selected)
 			{
 				CanScanQrCode = true,
-				CancelReturnCounter = true
 			};
 
-			await this.NavigationService.GoToAsync(nameof(MyContactsPage), Args);
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage), ContactListArgs, BackMethod.Pop);
 
-			ContactInfo Contact = await Args.Selection.Task;
+			ContactInfoModel Contact = await ContactListArgs.Selection.Task;
 			if (Contact is null)
 				return;
 
 			StringBuilder Markdown = new();
 
 			Markdown.Append("```");
-			Markdown.AppendLine(Constants.UriSchemes.UriSchemeNeuroFeature);
+			Markdown.AppendLine(Constants.UriSchemes.NeuroFeature);
 			Markdown.AppendLine(this.TokenXml);
 			Markdown.AppendLine("```");
 
 			await ChatViewModel.ExecuteSendMessage(string.Empty, Markdown.ToString(), Contact.BareJid, this);
-
 			await Task.Delay(100);  // Otherwise, page doesn't show properly. (Underlying timing issue. TODO: Find better solution.)
 
-			await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(Contact) { UniqueId = Contact.BareJid });
+			ChatNavigationArgs ChatArgs = new(Contact.Contact);
+
+			await this.NavigationService.GoToAsync(nameof(ChatPage), ChatArgs, BackMethod.Inherited, Contact.BareJid);
 		}
 
 		private async Task Share()
@@ -1162,7 +1200,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				IShareContent shareContent = DependencyService.Get<IShareContent>();
 				string FileName = "Token.QR." + InternetContent.GetFileExtension(this.QrCodeContentType);
 
-				shareContent.ShareImage(this.QrCodeBin, this.FriendlyName, AppResources.Share, FileName);
+				shareContent.ShareImage(this.QrCodeBin, this.FriendlyName, LocalizationResourceManager.Current["Share"], FileName);
 			}
 			catch (Exception ex)
 			{
@@ -1175,11 +1213,11 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
-				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TokenConsignmentTemplate);
+				CreationAttributesEventArgs e = await this.XmppService.GetNeuroFeatureCreationAttributes();
+				Contract Template = await this.XmppService.GetContract(Constants.ContractTemplates.TokenConsignmentTemplate);
 				Template.Visibility = ContractVisibility.Public;
 				NewContractNavigationArgs NewContractArgs = new(Template, true,
-					new Dictionary<string, object>()
+					new Dictionary<CaseInsensitiveString, object>()
 					{
 						{ "TokenID", this.TokenId },
 						{ "Category", this.Category },
@@ -1204,7 +1242,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 				NewContractArgs.SuppressProposal(e.TrustProviderId);
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs);
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs, BackMethod.ToThisPage);
 			}
 			catch (Exception ex)
 			{
@@ -1216,15 +1254,18 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				Dictionary<string, object> Parameters = new();
+				Dictionary<CaseInsensitiveString, object> Parameters = new();
 				string TrustProviderId = null;
-				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
+				Contract Template = await this.XmppService.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
 
 				if (Template.ForMachinesLocalName == "Transfer" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
-					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
-					XmlDocument Doc = new();
+					CreationAttributesEventArgs e = await this.XmppService.GetNeuroFeatureCreationAttributes();
+					XmlDocument Doc = new()
+					{
+						PreserveWhitespace = true
+					};
 					Doc.LoadXml(Template.ForMachines.OuterXml);
 
 					TrustProviderId = e.TrustProviderId;
@@ -1293,7 +1334,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				if (!string.IsNullOrEmpty(TrustProviderId))
 					NewContractArgs.SuppressProposal(TrustProviderId);
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs);
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs, BackMethod.ToThisPage);
 			}
 			catch (Exception ex)
 			{
@@ -1305,15 +1346,18 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				Dictionary<string, object> Parameters = new();
+				Dictionary<CaseInsensitiveString, object> Parameters = new();
 				string TrustProviderId = null;
-				Contract Template = await this.XmppService.Contracts.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
+				Contract Template = await this.XmppService.GetContract(Constants.ContractTemplates.TransferTokenTemplate);
 				Template.Visibility = ContractVisibility.Public;
 
 				if (Template.ForMachinesLocalName == "Transfer" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
 				{
-					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
-					XmlDocument Doc = new();
+					CreationAttributesEventArgs e = await this.XmppService.GetNeuroFeatureCreationAttributes();
+					XmlDocument Doc = new()
+					{
+						PreserveWhitespace = true
+					};
 					Doc.LoadXml(Template.ForMachines.OuterXml);
 
 					TrustProviderId = e.TrustProviderId;
@@ -1394,7 +1438,7 @@ namespace IdApp.Pages.Wallet.TokenDetails
 				if (!string.IsNullOrEmpty(TrustProviderId))
 					NewContractArgs.SuppressProposal(TrustProviderId);
 
-				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs);
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), NewContractArgs, BackMethod.ToThisPage);
 			}
 			catch (Exception ex)
 			{
@@ -1406,10 +1450,10 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				TokenEvent[] Events = await this.XmppService.Wallet.NeuroFeaturesClient.GetEventsAsync(this.TokenId);
+				TokenEvent[] Events = await this.XmppService.GetNeuroFeatureEvents(this.TokenId);
+				TokenEventsNavigationArgs Args = new(this.TokenId, Events);
 
-				await this.NavigationService.GoToAsync(nameof(TokenEventsPage),
-					new TokenEventsNavigationArgs(this.TokenId, Events) { CancelReturnCounter = true });
+				await this.NavigationService.GoToAsync(nameof(TokenEventsPage), Args, BackMethod.Pop);
 			}
 			catch (Exception ex)
 			{
@@ -1419,36 +1463,37 @@ namespace IdApp.Pages.Wallet.TokenDetails
 
 		private async Task PresentReport()
 		{
-			await this.ShowReport(new TokenPresentReport(this.XmppService.Wallet.NeuroFeaturesClient, this.TokenId));
+			await this.ShowReport(new TokenPresentReport(this.XmppService, this.TokenId));
 		}
 
 		private async Task HistoryReport()
 		{
-			await this.ShowReport(new TokenHistoryReport(this.XmppService.Wallet.NeuroFeaturesClient, this.TokenId));
+			await this.ShowReport(new TokenHistoryReport(this.XmppService, this.TokenId));
 		}
 
 		private async Task StatesReport()
 		{
-			await this.ShowReport(new TokenStateDiagramReport(this.XmppService.Wallet.NeuroFeaturesClient, this.TokenId));
+			await this.ShowReport(new TokenStateDiagramReport(this.XmppService, this.TokenId));
 		}
 
 		private async Task ProfilingReport()
 		{
-			await this.ShowReport(new TokenProfilingReport(this.XmppService.Wallet.NeuroFeaturesClient, this.TokenId));
+			await this.ShowReport(new TokenProfilingReport(this.XmppService, this.TokenId));
 		}
 
 		private async Task VariablesReport()
 		{
 			try
 			{
-				CurrentStateEventArgs e = await this.XmppService.Wallet.NeuroFeaturesClient.GetCurrentStateAsync(this.TokenId);
+				CurrentStateEventArgs e = await this.XmppService.GetNeuroFeatureCurrentState(this.TokenId);
 				if (e.Ok)
 				{
-					await this.NavigationService.GoToAsync(nameof(MachineVariablesPage),
-						new MachineVariablesNavigationArgs(e.Running, e.Ended, e.CurrentState, e.Variables) { CancelReturnCounter = true });
+					MachineVariablesNavigationArgs Args = new(e.Running, e.Ended, e.CurrentState, e.Variables);
+
+					await this.NavigationService.GoToAsync(nameof(MachineVariablesPage), Args, BackMethod.Pop);
 				}
 				else
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, e.ErrorText);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], e.ErrorText);
 			}
 			catch (Exception ex)
 			{
@@ -1460,12 +1505,13 @@ namespace IdApp.Pages.Wallet.TokenDetails
 		{
 			try
 			{
-				await this.NavigationService.GoToAsync(nameof(MachineReportPage),
-					new MachineReportNavigationArgs(Report) { CancelReturnCounter = true });
+				MachineReportNavigationArgs Args = new(Report);
+
+				await this.NavigationService.GoToAsync(nameof(MachineReportPage), Args, BackMethod.Pop);
 			}
 			catch (Exception ex)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex.Message);
 			}
 		}
 

@@ -14,12 +14,14 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// </summary>
         public ValidateIdentityView()
         {
+			this.BindingContext = new ValidateIdentityViewModel();
+
 			this.InitializeComponent();
         }
 
-		private void Image_Tapped(object sender, System.EventArgs e)
+		private void Image_Tapped(object Sender, System.EventArgs e)
 		{
-            Attachment[] attachments = this.GetViewModel<ValidateIdentityViewModel>().LegalIdentity?.Attachments;
+            Attachment[] attachments = this.GetContentViewModel<ValidateIdentityViewModel>().LegalIdentity?.Attachments;
             this.PhotoViewer.ShowPhotos(attachments);
         }
     }

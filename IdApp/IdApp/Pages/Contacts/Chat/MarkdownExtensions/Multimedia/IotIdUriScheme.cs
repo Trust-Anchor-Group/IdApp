@@ -25,7 +25,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		/// <inheritdoc/>
 		public override Grade Supports(MultimediaItem Item)
 		{
-			if (Item.Url.StartsWith(Constants.UriSchemes.UriSchemeIotId + ":", StringComparison.OrdinalIgnoreCase))
+			if (Item.Url.StartsWith(Constants.UriSchemes.IotId + ":", StringComparison.OrdinalIgnoreCase))
 				return Grade.Excellent;
 			else
 				return Grade.NotAtAll;
@@ -42,6 +42,13 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		{
 			foreach (MarkdownElement E in ChildNodes)
 				await E.GenerateHTML(Output);
+		}
+
+		/// <inheritdoc/>
+		public override async Task GenerateLaTeX(StringBuilder Output, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
+		{
+			foreach (MarkdownElement E in ChildNodes)
+				await E.GenerateLaTeX(Output);
 		}
 
 		/// <inheritdoc/>

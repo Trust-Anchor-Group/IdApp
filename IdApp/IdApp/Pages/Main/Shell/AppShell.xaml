@@ -33,13 +33,13 @@
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource HeadingForegroundLightTheme}, Dark={StaticResource HeadingForegroundDarkTheme}}" />
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}" />
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{AppThemeBinding Light={StaticResource HeadingForegroundLightTheme}, Dark={StaticResource HeadingForegroundDarkTheme}}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{AppThemeBinding Light={StaticResource HeadingForegroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -50,12 +50,12 @@
     </Shell.Resources>
 
     <Shell.FlyoutHeader>
-        <Frame BorderColor="{AppThemeBinding Light={StaticResource ForegroundColorLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}" Padding="1" CornerRadius="0">
+        <Frame Style="{StaticResource ShellFrame}" Padding="1" CornerRadius="0">
             <Grid HeightRequest="200">
                 <Image Aspect="AspectFill" Source="city.jpg" />
                 <Grid HorizontalOptions="End" HeightRequest="48" WidthRequest="150" VerticalOptions="Center">
-                    <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource HeadingBackgroundTranslucentLightTheme}, Dark={StaticResource HeadingBackgroundTranslucentDarkTheme}}" />
-                    <Label Text="T A G" TextColor="{AppThemeBinding Light={StaticResource TextColorLightTheme}, Dark={StaticResource TextColorDarkTheme}}" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="End" VerticalTextAlignment="Center" Margin="0,0,48,0" />
+                    <BoxView Style="{StaticResource ShellBoxView}" />
+                    <Label Text="T A G" Style="{StaticResource ShellLabel}"  HorizontalTextAlignment="End" VerticalTextAlignment="Center" Margin="0,0,48,0" />
                 </Grid>
             </Grid>
         </Frame>
@@ -89,15 +89,9 @@
                              Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
-    <MenuItem Text="{x:Static resx:AppResources.MyContracts}" Clicked="MyContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
+    <MenuItem Text="{x:Static resx:AppResources.Contracts}" Clicked="ContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
             <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Contract}"
-                             Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
-        </MenuItem.IconImageSource>
-    </MenuItem>
-    <MenuItem Text="{x:Static resx:AppResources.SignedContracts}" Clicked="SignedContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
-        <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.SignedContract}"
                              Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
@@ -110,6 +104,18 @@
 	<MenuItem Text="{x:Static resx:AppResources.Calculator}" Clicked="Calculator_Clicked">
 		<MenuItem.IconImageSource>
 			<FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Calculator}"
+                             Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+		</MenuItem.IconImageSource>
+	</MenuItem>
+	<MenuItem Text="{x:Static resx:AppResources.Security}" Clicked="Security_Clicked">
+		<MenuItem.IconImageSource>
+			<FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.UserShield}"
+                             Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
+		</MenuItem.IconImageSource>
+	</MenuItem>
+	<MenuItem Text="{x:Static resx:AppResources.Links}" Clicked="Links_Clicked">
+		<MenuItem.IconImageSource>
+			<FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static resx:FontAwesome.Link}"
                              Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource ForegroundColorDarkTheme}}"/>
 		</MenuItem.IconImageSource>
 	</MenuItem>

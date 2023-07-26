@@ -1,22 +1,29 @@
-﻿using IdApp.Resx;
+﻿using IdApp.Services.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
+using Waher.Content;
+using Waher.Content.Xml;
 using Waher.Events;
 using Waher.Persistence;
 using Waher.Persistence.Files;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
+using Waher.Script.Objects;
 
 namespace IdApp.Services.Storage
 {
 	[Singleton]
 	internal sealed class StorageService : ServiceReferences, IStorageService
 	{
+		private const string objectNamespace = "http://waher.se/Schema/ObjectSerialization.xsd";
+
 		private readonly LinkedList<TaskCompletionSource<bool>> tasksWaiting = new();
 		private readonly string dataFolder;
 		private FilesProvider databaseProvider;
@@ -70,7 +77,7 @@ namespace IdApp.Services.Storage
 
 				Thread?.NewState("Register");
 
-				if (!(this.databaseProvider is null))
+				if (this.databaseProvider is not null)
 				{
 					Database.Register(this.databaseProvider, false);
 					this.InitDone(true);
@@ -89,7 +96,7 @@ namespace IdApp.Services.Storage
 			{
 				/* On iOS the UI is not initialised at this point, need to fuind another solution
 				Thread?.NewState("UI");
-				if (await this.UiSerializer.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseCorruptInfoText, AppResources.RepairAndContinue, AppResources.ContinueAnyway))
+				if (await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["DatabaseIssue"], LocalizationResourceManager.Current["DatabaseCorruptInfoText"], LocalizationResourceManager.Current["RepairAndContinue"], LocalizationResourceManager.Current["ContinueAnyway"]))
 				*/
 				//TODO: when UI is ready, show an alert that the database was reset due to unrecoverable error
 				//TODO: say to close the application in a controlled manner
@@ -125,7 +132,7 @@ namespace IdApp.Services.Storage
 						await App.Stop();
 						/*
 						Thread?.NewState("UI");
-						await this.UiSerializer.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseRepairFailedInfoText, AppResources.Ok);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["DatabaseIssue"], LocalizationResourceManager.Current["DatabaseRepairFailedInfoText"], LocalizationResourceManager.Current["Ok"]);
 						*/
 					}
 				}
@@ -177,7 +184,7 @@ namespace IdApp.Services.Storage
 
 			try
 			{
-				if (!(this.databaseProvider is null))
+				if (this.databaseProvider is not null)
 				{
 					Database.Register(new NullDatabaseProvider(), false);
 					await this.databaseProvider.Flush();
@@ -249,6 +256,503 @@ namespace IdApp.Services.Storage
 			catch (Exception)
 			{
 				// Ignore, to avoid infinite loops if event log has an inconsistency.
+			}
+		}
+
+		/// <summary>
+		/// Serializes an object to an XML string.
+		/// </summary>
+		/// <param name="Object">Object to serialize.</param>
+		/// <returns>XML Serialization.</returns>
+		public async Task<string> Serialize(object Object)
+		{
+			ObjectSerializer Serializer = await this.databaseProvider.GetObjectSerializerEx(Object.GetType());
+			GenericObject GenObject = await Database.Generalize(Object);
+			StringBuilder Xml = new();
+
+			Xml.Append("<Object xmlns='");
+			Xml.Append(objectNamespace);
+
+			Xml.Append("' type='");
+			Xml.Append(XML.Encode(GenObject.TypeName));
+			Xml.Append("' collection='");
+			Xml.Append(XML.Encode(GenObject.CollectionName));
+			Xml.Append("' id='");
+			Xml.Append(XML.Encode(GenObject.ObjectId.ToString()));
+			Xml.Append("'>");
+
+			foreach (KeyValuePair<string, object> Property in GenObject.Properties)
+			{
+				// Generalized object values have enums converted to strings
+				// and arrays converted to object[]. So we need to get original
+				// types, as we want to preserve these.
+
+				object Value = await Serializer.TryGetFieldValue(Property.Key, Object);
+
+				await this.SerializeProperty(Property.Key, Value, Xml);
+			}
+
+			Xml.Append("</Object>");
+
+			return Xml.ToString();
+		}
+
+		private async Task SerializeProperty(string Name, object Value, StringBuilder Xml)
+		{
+			string Tag;
+			string ValueStr;
+
+			if (Value is sbyte)
+			{
+				Tag = "i8";
+				ValueStr = Value.ToString();
+			}
+			else if (Value is short)
+			{
+				Tag = "i16";
+				ValueStr = Value.ToString();
+			}
+			else if (Value is int)
+			{
+				Tag = "i32";
+				ValueStr = Value.ToString();
+			}
+			else if (Value is long)
+			{
+				Tag = "i64";
+				ValueStr = Value.ToString();
+			}
+			else if (Value is byte)
+			{
+				Tag = "ui8";
+				ValueStr = Value.ToString();
+			}
+			else if (Value is ushort)
+			{
+				Tag = "ui16";
+				ValueStr = Value.ToString();
+			}
+			else if (Value is uint)
+			{
+				Tag = "ui32";
+				ValueStr = Value.ToString();
+			}
+			else if (Value is ulong)
+			{
+				Tag = "ui64";
+				ValueStr = Value.ToString();
+			}
+			else if (Value is bool b)
+			{
+				Tag = "b";
+				ValueStr = CommonTypes.Encode(b);
+			}
+			else if (Value is float Single)
+			{
+				Tag = "fl";
+				ValueStr = CommonTypes.Encode(Single);
+			}
+			else if (Value is double Double)
+			{
+				Tag = "db";
+				ValueStr = CommonTypes.Encode(Double);
+			}
+			else if (Value is decimal Decimal)
+			{
+				Tag = "dc";
+				ValueStr = CommonTypes.Encode(Decimal);
+			}
+			else if (Value is Enum e)
+			{
+				Xml.Append("<e");
+
+				if (!string.IsNullOrEmpty(Name))
+				{
+					Xml.Append(" name='");
+					Xml.Append(XML.Encode(Name));
+					Xml.Append('\'');
+				}
+
+				Xml.Append(" value='");
+				Xml.Append(XML.Encode(e.ToString()));
+				Xml.Append("' type='");
+				Xml.Append(XML.Encode(e.GetType().FullName));
+				Xml.Append("'/>");
+
+				return;
+			}
+			else if (Value is string s)
+			{
+				Tag = "s";
+				ValueStr = s;
+			}
+			else if (Value is CaseInsensitiveString cis)
+			{
+				Tag = "cis";
+				ValueStr = cis.Value;
+			}
+			else if (Value is char ch)
+			{
+				Tag = "ch";
+				ValueStr = new string(ch, 1);
+			}
+			else if (Value is byte[] Bin)
+			{
+				Tag = "b64";
+				ValueStr = Convert.ToBase64String(Bin);
+			}
+			else if (Value is Guid Id)
+			{
+				Tag = "id";
+				ValueStr = Id.ToString();
+			}
+			else if (Value is DateTime TP)
+			{
+				Tag = "dt";
+				ValueStr = XML.Encode(TP);
+			}
+			else if (Value is DateTimeOffset TPO)
+			{
+				Tag = "dto";
+				ValueStr = XML.Encode(TPO);
+			}
+			else if (Value is TimeSpan TS)
+			{
+				Tag = "t";
+				ValueStr = TS.ToString();
+			}
+			else if (Value is Duration D)
+			{
+				Tag = "d";
+				ValueStr = D.ToString();
+			}
+			else if (Value is null)
+			{
+				Xml.Append("<n");
+
+				if (!string.IsNullOrEmpty(Name))
+				{
+					Xml.Append(" name='");
+					Xml.Append(XML.Encode(Name));
+					Xml.Append('\'');
+				}
+
+				Xml.Append("/>");
+
+				return;
+			}
+			else if (Value is Array A)
+			{
+				Xml.Append("<a");
+
+				if (!string.IsNullOrEmpty(Name))
+				{
+					Xml.Append(" name='");
+					Xml.Append(XML.Encode(Name));
+					Xml.Append('\'');
+				}
+
+				Xml.Append(" type='");
+				Xml.Append(XML.Encode(A.GetType().GetElementType().FullName));
+				Xml.Append("'>");
+
+				foreach (object Item in A)
+					await this.SerializeProperty(string.Empty, Item, Xml);
+
+				Xml.Append("</a>");
+
+				return;
+			}
+			else
+			{
+				ObjectSerializer Serializer = await this.databaseProvider.GetObjectSerializerEx(Value.GetType());
+				GenericObject GenObject = await Database.Generalize(Value);
+
+				Xml.Append("<o");
+
+				if (!string.IsNullOrEmpty(Name))
+				{
+					Xml.Append(" name='");
+					Xml.Append(XML.Encode(Name));
+					Xml.Append('\'');
+				}
+
+				Xml.Append(" type='");
+				Xml.Append(XML.Encode(GenObject.TypeName));
+				Xml.Append("'>");
+
+				foreach (KeyValuePair<string, object> Property in GenObject.Properties)
+				{
+					// Generalized object values have enums converted to strings
+					// and arrays converted to object[]. So we need to get original
+					// types, as we want to preserve these.
+
+					object Value2 = await Serializer.TryGetFieldValue(Property.Key, Value);
+
+					await this.SerializeProperty(Property.Key, Value2, Xml);
+				}
+
+				Xml.Append("</o>");
+
+				return;
+			}
+
+			Xml.Append('<');
+			Xml.Append(Tag);
+
+			if (!string.IsNullOrEmpty(Name))
+			{
+				Xml.Append(" name='");
+				Xml.Append(XML.Encode(Name));
+				Xml.Append('\'');
+			}
+
+			Xml.Append(" value='");
+			Xml.Append(XML.Encode(ValueStr));
+			Xml.Append("'/>");
+		}
+
+		/// <summary>
+		/// Deserializes an object from XML
+		/// </summary>
+		/// <param name="Xml">XML String</param>
+		/// <returns>Generic object representation</returns>
+		public Task<GenericObject> Deserialize(string Xml)
+		{
+			XmlDocument Doc = new();
+			Doc.LoadXml(Xml);
+			return this.Deserialize(Doc);
+		}
+
+		/// <summary>
+		/// Deserializes an object from XML
+		/// </summary>
+		/// <param name="Xml">XML</param>
+		/// <returns>Generic object representation</returns>
+		public Task<GenericObject> Deserialize(XmlDocument Xml)
+		{
+			return this.Deserialize(Xml.DocumentElement);
+		}
+
+		/// <summary>
+		/// Deserializes an object from XML
+		/// </summary>
+		/// <param name="Xml">XML</param>
+		/// <returns>Generic object representation</returns>
+		public async Task<GenericObject> Deserialize(XmlElement Xml)
+		{
+			if (Xml.LocalName != "Object" || Xml.NamespaceURI != objectNamespace)
+				throw new Exception("Invalid Object XML.");
+
+			string TypeName = XML.Attribute(Xml, "type");
+			string CollectionName = XML.Attribute(Xml, "collection");
+			Guid Id = Guid.Parse(XML.Attribute(Xml, "id"));
+			IEnumerable<KeyValuePair<string, object>> Properties = await this.DeserializeProperties(Xml);
+
+			GenericObject Result = new(CollectionName, TypeName, Id, Properties);
+
+			return Result;
+		}
+
+		private async Task<IEnumerable<KeyValuePair<string, object>>> DeserializeProperties(XmlElement Xml)
+		{
+			LinkedList<KeyValuePair<string, object>> Properties = new();
+
+			foreach (XmlNode N in Xml.ChildNodes)
+			{
+				if (N is XmlElement E)
+				{
+					string Name = XML.Attribute(E, "name");
+					object Value = await this.ParseValue(E);
+
+					Properties.AddLast(new KeyValuePair<string, object>(Name, Value));
+				}
+			}
+
+			return Properties;
+		}
+
+		private async Task<object> ParseValue(XmlElement E)
+		{
+			string ValueStr = XML.Attribute(E, "value");
+
+			switch (E.LocalName)
+			{
+				case "i8": return sbyte.Parse(ValueStr);
+				case "i16": return short.Parse(ValueStr);
+				case "i32": return int.Parse(ValueStr);
+				case "i64": return long.Parse(ValueStr);
+				case "ui8": return byte.Parse(ValueStr);
+				case "ui16": return ushort.Parse(ValueStr);
+				case "ui32": return uint.Parse(ValueStr);
+				case "ui64": return ulong.Parse(ValueStr);
+				case "s": return ValueStr;
+				case "cis": return new CaseInsensitiveString(ValueStr);
+				case "ch": return ValueStr[0];
+				case "b64": return Convert.FromBase64String(ValueStr);
+				case "id": return Guid.Parse(ValueStr);
+				case "t": return TimeSpan.Parse(ValueStr);
+				case "d": return Duration.Parse(ValueStr);
+				case "n": return null;
+
+				case "b":
+					if (!CommonTypes.TryParse(ValueStr, out bool b))
+						throw new FormatException("Invalid boolean property.");
+
+					return b;
+
+				case "fl":
+					if (!CommonTypes.TryParse(ValueStr, out float fl))
+						throw new FormatException("Invalid Single property.");
+
+					return fl;
+
+				case "db":
+					if (!CommonTypes.TryParse(ValueStr, out double db))
+						throw new FormatException("Invalid Double property.");
+
+					return db;
+
+				case "dc":
+					if (!CommonTypes.TryParse(ValueStr, out decimal dc))
+						throw new FormatException("Invalid Decimal property.");
+
+					return dc;
+
+				case "e":
+					string Type = XML.Attribute(E, "type");
+					Type T = Types.GetType(Type)
+						?? throw new Exception("Type not found:" + Type);
+
+					return Enum.Parse(T, ValueStr);
+
+				case "dt":
+					if (!XML.TryParse(ValueStr, out DateTime TP))
+						throw new FormatException("Invalid DateTime property.");
+
+					return TP;
+
+				case "dto":
+					if (!XML.TryParse(ValueStr, out DateTimeOffset TPO))
+						throw new FormatException("Invalid DateTimeOffset property.");
+
+					return TPO;
+
+				case "a":
+					Type = XML.Attribute(E, "type");
+					T = Types.GetType(Type)
+						?? throw new Exception("Type not found:" + Type);
+
+					Type ListType = typeof(List<>);
+					Type GenericListType = ListType.MakeGenericType(T);
+					System.Collections.IList List = (System.Collections.IList)Types.Instantiate(GenericListType);
+
+					foreach (XmlNode N in E.ChildNodes)
+					{
+						if (N is XmlElement E2)
+							List.Add(await this.ParseValue(E2));
+					}
+
+					MethodInfo ToArray = GenericListType.GetMethod("ToArray");
+					return ToArray.Invoke(List, Types.NoParameters);
+
+				case "o":
+					Type = XML.Attribute(E, "type");
+					_ = Types.GetType(Type)
+						?? throw new Exception("Type not found:" + Type);
+
+					return new GenericObject(string.Empty, Type, Guid.Empty, await this.DeserializeProperties(E));
+
+				default:
+					throw new Exception("Unrecognized type element: " + E.NamespaceURI + "#" + E.LocalName);
+			}
+		}
+
+		/// <summary>
+		/// Deserializes a serialized object in XML, into an object instance.
+		/// </summary>
+		/// <typeparam name="T">Type of object to deserialize.</typeparam>
+		/// <param name="Xml">XML String</param>
+		/// <returns>Object instance.</returns>
+		public Task<T> Deserialize<T>(string Xml)
+		{
+			XmlDocument Doc = new();
+			Doc.LoadXml(Xml);
+			return this.Deserialize<T>(Doc);
+		}
+
+		/// <summary>
+		/// Deserializes a serialized object in XML, into an object instance.
+		/// </summary>
+		/// <typeparam name="T">Type of object to deserialize.</typeparam>
+		/// <param name="Xml">XML</param>
+		/// <returns>Object instance.</returns>
+		public Task<T> Deserialize<T>(XmlDocument Xml)
+		{
+			return this.Deserialize<T>(Xml.DocumentElement);
+		}
+
+		/// <summary>
+		/// Deserializes a serialized object in XML, into an object instance.
+		/// </summary>
+		/// <typeparam name="T">Type of object to deserialize.</typeparam>
+		/// <param name="Xml">XML</param>
+		/// <returns>Object instance.</returns>
+		public async Task<T> Deserialize<T>(XmlElement Xml)
+		{
+			GenericObject Obj = await this.Deserialize(Xml);
+			T Result = (T)await this.Ungeneralize(Obj);
+
+			return Result;
+		}
+
+		private async Task<object> Ungeneralize(GenericObject Obj)
+		{
+			Type T2 = Types.GetType(Obj.TypeName) ?? throw new Exception("Type not found: " + Obj.TypeName);
+			object Result = Types.Instantiate(false, T2);
+
+			ObjectSerializer Serializer = await this.databaseProvider.GetObjectSerializerEx(T2);
+
+			if (!string.IsNullOrEmpty(Serializer.ObjectIdMemberName))
+				await Serializer.TrySetObjectId(Result, Obj.ObjectId);
+
+			await this.SetProperties(Result, Obj);
+
+			return Result;
+		}
+
+		private async Task SetProperties(object Object, GenericObject GenObj)
+		{
+			Type ObjectType = Object.GetType();
+
+			foreach (KeyValuePair<string, object> P in GenObj.Properties)
+			{
+				object Value = P.Value;
+
+				if (Value is GenericObject ChildGenObj)
+					Value = await this.Ungeneralize(ChildGenObj);
+
+				PropertyInfo PI = ObjectType.GetRuntimeProperty(P.Key);
+				if (PI is not null)
+				{
+					if (PI.PropertyType.IsEnum && Value is string s)
+						Value = Enum.Parse(PI.PropertyType, s);
+
+					PI.SetValue(Object, Value);
+					continue;
+				}
+
+				FieldInfo FI = ObjectType.GetRuntimeField(P.Key);
+				if (FI is not null)
+				{
+					if (FI.FieldType.IsEnum && Value is string s)
+						Value = Enum.Parse(FI.FieldType, s);
+
+					FI.SetValue(Object, Value);
+					continue;
+				}
+
+				throw new Exception("Property not found: " + P.Key);
 			}
 		}
 

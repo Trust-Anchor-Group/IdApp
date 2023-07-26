@@ -1,5 +1,4 @@
 ﻿using IdApp.DeviceSpecific;
-using IdApp.Resx;
 using IdApp.Services.Storage;
 using IdApp.Services.UI;
 using System;
@@ -11,6 +10,7 @@ using Waher.Events;
 using Waher.Events.XMPP;
 using Waher.Persistence.Exceptions;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -39,16 +39,13 @@ namespace IdApp.Services.EventLog
 
 		public void RemoveListener(IEventSink eventSink)
 		{
-			if (!(eventSink is null))
+			if (eventSink is not null)
 				Log.Unregister(eventSink);
 		}
 
-		public void LogWarning(string format, params object[] args)
+		public void LogWarning(string Message, params KeyValuePair<string, object>[] Tags)
 		{
-			string message = string.Format(format, args);
-			IList<KeyValuePair<string, string>> parameters = this.GetParameters();
-
-			Log.Warning(message, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
+			Log.Warning(Message, string.Empty, this.bareJid, this.GetParameters(Tags).ToArray());
 		}
 
 		public void LogException(Exception ex)
@@ -56,19 +53,11 @@ namespace IdApp.Services.EventLog
 			this.LogException(ex, null);
 		}
 
-		public void LogException(Exception ex, params KeyValuePair<string, string>[] extraParameters)
+		public void LogException(Exception ex, params KeyValuePair<string, object>[] extraParameters)
 		{
 			ex = Log.UnnestException(ex);
 
-			IList<KeyValuePair<string, string>> parameters = this.GetParameters();
-
-			if (!(extraParameters is null) && extraParameters.Length > 0)
-			{
-				foreach (KeyValuePair<string, string> extraParameter in extraParameters)
-					parameters.Add(new KeyValuePair<string, string>(extraParameter.Key, extraParameter.Value));
-			}
-
-			Log.Critical(ex, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
+			Log.Critical(ex, string.Empty, this.bareJid, this.GetParameters(extraParameters).ToArray());
 
 			if (ex is InconsistencyException && !this.repairRequested)
 			{
@@ -83,9 +72,9 @@ namespace IdApp.Services.EventLog
 			StorageService.FlagForRepair();
 
 			IUiSerializer UiSerializer = App.Instantiate<IUiSerializer>();
-			await UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.RepairRestart, AppResources.Ok);
+			await UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["RepairRestart"], LocalizationResourceManager.Current["Ok"]);
 
-			ICloseApplication CloseApplication = App.Instantiate<ICloseApplication>();
+			ICloseApplication CloseApplication = DependencyService.Get<ICloseApplication>();
 			await CloseApplication.Close();
 		}
 
@@ -126,20 +115,25 @@ namespace IdApp.Services.EventLog
 		}
 
 		///<inheritdoc/>
-		public IList<KeyValuePair<string, string>> GetParameters()
+		public IList<KeyValuePair<string, object>> GetParameters(params KeyValuePair<string, object>[] Tags)
 		{
-			return new List<KeyValuePair<string, string>>
+			List<KeyValuePair<string, object>> Result = new()
 			{
-				new KeyValuePair<string, string>("Platform", Device.RuntimePlatform),
-				new KeyValuePair<string, string>("RuntimeVersion", typeof(LogService).Assembly.ImageRuntimeVersion),
-				new KeyValuePair<string, string>("AppVersion", AppInfo.VersionString),
-				new KeyValuePair<string, string>("Manufacturer", DeviceInfo.Manufacturer),
-				new KeyValuePair<string, string>("Device Model", DeviceInfo.Model),
-				new KeyValuePair<string, string>("Device Name", DeviceInfo.Name),
-				new KeyValuePair<string, string>("OS", DeviceInfo.VersionString),
-				new KeyValuePair<string, string>("Platform", DeviceInfo.Platform.ToString()),
-				new KeyValuePair<string, string>("Device Type", DeviceInfo.DeviceType.ToString()),
+				new KeyValuePair<string, object>("Platform", Device.RuntimePlatform),
+				new KeyValuePair<string, object>("RuntimeVersion", typeof(LogService).Assembly.ImageRuntimeVersion),
+				new KeyValuePair<string, object>("AppVersion", AppInfo.VersionString),
+				new KeyValuePair<string, object>("Manufacturer", DeviceInfo.Manufacturer),
+				new KeyValuePair<string, object>("Device Model", DeviceInfo.Model),
+				new KeyValuePair<string, object>("Device Name", DeviceInfo.Name),
+				new KeyValuePair<string, object>("OS", DeviceInfo.VersionString),
+				new KeyValuePair<string, object>("Platform", DeviceInfo.Platform.ToString()),
+				new KeyValuePair<string, object>("Device Type", DeviceInfo.DeviceType.ToString()),
 			};
+
+			if (Tags is not null)
+				Result.AddRange(Tags);
+
+			return Result;
 		}
 	}
 }

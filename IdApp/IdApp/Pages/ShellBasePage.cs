@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Waher.Events;
+using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
@@ -43,29 +45,43 @@ namespace IdApp.Pages
         /// <inheritdoc/>
         protected override async void OnAppearing()
         {
-            base.OnAppearing();
-            if (!(this.ViewModel is null))
-            {
-                if (!this.ViewModel.IsBound)
-                {
-                    await this.ViewModel.Bind();
-                }
-                await this.ViewModel.RestoreState();
-            }
+			try
+			{
+				base.OnAppearing();
+
+				if (this.ViewModel is not null)
+				{
+					if (!this.ViewModel.IsAppearing)
+						await this.ViewModel.Appearing();
+
+					await this.ViewModel.RestoreState();
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
         }
 
         /// <inheritdoc/>
         protected override async void OnDisappearing()
         {
-            if (!(this.ViewModel is null))
-            {
-                if (this.ViewModel.IsBound)
-                {
-                    await this.ViewModel.SaveState();
-                }
-                await this.ViewModel.Unbind();
-            }
-            base.OnDisappearing();
+			try
+			{
+				if (this.ViewModel is not null)
+				{
+					if (this.ViewModel.IsAppearing)
+						await this.ViewModel.SaveState();
+
+					await this.ViewModel.Disappearing();
+				}
+
+				base.OnDisappearing();
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
         }
     }
 }

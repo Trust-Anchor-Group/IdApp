@@ -1,55 +1,77 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.Gms.Common;
 using Android.Nfc;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Firebase;
 using IdApp.Android.Nfc;
+using IdApp.Helpers;
 using IdApp.Nfc;
 using IdApp.Services.Nfc;
-using IdApp.Services.Ocr;
 using System;
 using System.Collections.Generic;
-using Tesseract.Droid;
-using Waher.Runtime.Inventory;
 
 namespace IdApp.Android
 {
-	[Activity(Label = "@string/app_name", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true,
-		ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.Locale, ScreenOrientation = ScreenOrientation.Portrait, LaunchMode = LaunchMode.SingleTop)]
-	[IntentFilter(new string[] { NfcAdapter.ActionNdefDiscovered }, Categories = new string[] { Intent.CategoryDefault }, DataMimeType = "*/*")]
+	[Activity(Label = "@string/app_name", Icon = "@mipmap/icon", Theme = "@style/LaunchTheme", MainLauncher = true,
+		ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.Locale,
+		ScreenOrientation = ScreenOrientation.Portrait, LaunchMode = LaunchMode.SingleTop)]
+	[IntentFilter(new string[] { NfcAdapter.ActionNdefDiscovered },
+		Categories = new string[] { Intent.CategoryDefault }, DataMimeType = "*/*")]
+	[IntentFilter(new string[] { Intent.ActionView },
+		Categories = new string[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
+		DataSchemes = new string[] { "iotid", "iotdisco", "iotsc", "tagsign", "edaler", "nfeat", "obinfo", "xmpp", "tagidapp" })]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
 	{
 		private static NfcAdapter nfcAdapter = null;
+		private static Context configurationContext = null;
 
 		protected override void OnCreate(Bundle SavedInstanceState)
 		{
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
 
+			base.SetTheme(Resource.Style.MainTheme);
+
 			base.OnCreate(SavedInstanceState);
 
 			this.Init(SavedInstanceState);
 		}
 
+		public override Resources Resources
+		{
+			get
+			{
+				if (configurationContext is null)
+				{
+					Configuration config = new();
+					config.SetToDefaults();
+					configurationContext = this.CreateConfigurationContext(config);
+				}
+
+				return configurationContext.Resources;
+			}
+		}
+
 		private void Init(Bundle SavedInstanceState)
 		{
+			SecureDisplay.SetMainWindow(this.Window, true);
+
 			this.Window.SetFlags(
 				WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure,
 				WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure);
 
 			nfcAdapter = NfcAdapter.GetDefaultAdapter(this);
 
+			FirebaseApp.InitializeApp(this);
 			Xamarin.Essentials.Platform.Init(this, SavedInstanceState);
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 			Rg.Plugins.Popup.Popup.Init(this);
-			Helpers.Svg.SvgImage.Init(this);
 			FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
-
-			IOcrService OcrService = Types.InstantiateDefault<IOcrService>(false);
-			OcrService.RegisterApi(new TesseractApi(this.Application, AssetsDeployment.OncePerVersion));
 
 			int Result = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
 			if (Result == ConnectionResult.Success)
@@ -105,34 +127,25 @@ namespace IdApp.Android
 
 			global::Xamarin.Forms.Forms.Init(this, SavedInstanceState);
 
-			// This must be called after Xamarin.Forms.Forms.Init.
-			FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageViewHandler();
-
-			FFImageLoading.Config.Configuration Configuration = FFImageLoading.Config.Configuration.Default;
-			Configuration.DiskCacheDuration = TimeSpan.FromDays(1);
-			FFImageLoading.ImageService.Instance.Initialize(Configuration);
-
-			// Uncomment this to debug loading images from neuron (ensures that they are not loaded from cache).
-			// FFImageLoading.ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Disk);
-
-			this.LoadApplication(new App());
-		}
-
-		public override async void OnCreate(Bundle SavedInstanceState, PersistableBundle PersistentState)
-		{
 			try
 			{
-				base.OnCreate(SavedInstanceState, PersistentState);
+				// This must be called after Xamarin.Forms.Forms.Init.
+				FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageViewHandler();
 
-				this.Init(SavedInstanceState);
+				FFImageLoading.Config.Configuration Configuration = FFImageLoading.Config.Configuration.Default;
+				Configuration.DiskCacheDuration = TimeSpan.FromDays(7);
+				Configuration.DownloadCache = new AesDownloadCache(Configuration);
+				FFImageLoading.ImageService.Instance.Initialize(Configuration);
 
-				string Url = this.Intent?.Data?.EncodedAuthority;
-				await App.OpenUrl(Url);
+				// Uncomment this to debug loading images from neuron (ensures that they are not loaded from cache).
+				// FFImageLoading.ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Disk);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Waher.Events.Log.Critical(ex);
+				// TODO
 			}
+
+			this.LoadApplication(new App(this.GetType().Assembly));
 		}
 
 		public override void OnRequestPermissionsResult(int RequestCode, string[] Permissions, [GeneratedEnum] Permission[] GrantResults)
@@ -168,6 +181,11 @@ namespace IdApp.Android
 			{
 				switch (Intent.Action)
 				{
+					case Intent.ActionView:
+						string Url = Intent?.Data?.ToString();
+						App.OpenUrlSync(Url);
+						break;
+
 					case NfcAdapter.ActionTagDiscovered:
 					case NfcAdapter.ActionNdefDiscovered:
 					case NfcAdapter.ActionTechDiscovered:

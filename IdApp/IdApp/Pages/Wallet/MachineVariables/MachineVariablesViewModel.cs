@@ -20,11 +20,11 @@ namespace IdApp.Pages.Wallet.MachineVariables
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out MachineVariablesNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out MachineVariablesNavigationArgs args))
 			{
 				this.Running = args.Running;
 				this.Ended = args.Ended;
@@ -37,17 +37,17 @@ namespace IdApp.Pages.Wallet.MachineVariables
 				}
 			}
 
-			this.XmppService.Wallet.VariablesUpdated += this.Wallet_VariablesUpdated;
-			this.XmppService.Wallet.StateUpdated += this.Wallet_StateUpdated;
+			this.XmppService.NeuroFeatureVariablesUpdated += this.Wallet_VariablesUpdated;
+			this.XmppService.NeuroFeatureStateUpdated += this.Wallet_StateUpdated;
 		}
 
 		/// <inheritdoc/>
-		protected override Task DoUnbind()
+		protected override Task OnDispose()
 		{
-			this.XmppService.Wallet.VariablesUpdated -= this.Wallet_VariablesUpdated;
-			this.XmppService.Wallet.StateUpdated -= this.Wallet_StateUpdated;
+			this.XmppService.NeuroFeatureVariablesUpdated -= this.Wallet_VariablesUpdated;
+			this.XmppService.NeuroFeatureStateUpdated -= this.Wallet_StateUpdated;
 
-			return base.DoUnbind();
+			return base.OnDispose();
 		}
 
 		private Task Wallet_StateUpdated(object Sender, NeuroFeatures.NewStateEventArgs e)

@@ -30,6 +30,8 @@
 	<string>TAG ID needs access to the photo gallery for you to be able to select a profile photo for your ID, get QR codes from other apps, or share images with contacts in chats.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>TAG ID needs to be able to add photos to your galleries, if you want to save photos you take for later use.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>TAG ID needs access to the microphone to record and send audio messages to your contacts.</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>
@@ -53,9 +55,9 @@
 		<string>FontAwesome5Free-Solid-900.otf</string>
 	</array>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1</string>
+	<string>1.8</string>
 	<key>CFBundleVersion</key>
-	<string>22</string>
+	<string>78</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcons.appiconset</string>
 	<key>CFBundleURLTypes</key>
@@ -73,6 +75,7 @@
 				<string>nfeat</string>
 				<string>obinfo</string>
 				<string>xmpp</string>
+				<string>tagidapp</string>
 			</array>
 		</dict>
 	</array>

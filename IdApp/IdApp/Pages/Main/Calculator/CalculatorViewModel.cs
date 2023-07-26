@@ -1,5 +1,4 @@
-﻿using IdApp.Resx;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -8,7 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Script;
 using Waher.Script.Abstraction.Elements;
+using Waher.Script.Functions.ComplexNumbers;
 using Waher.Script.Operators.Vectors;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Main.Calculator
@@ -34,27 +35,23 @@ namespace IdApp.Pages.Main.Calculator
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out CalculatorNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out CalculatorNavigationArgs Args))
 			{
-				if (!args.ViewInitialized)
-				{
-					this.Entry = args.Entry;
-					this.ViewModel = args.ViewModel;
-					this.Property = args.Property;
+				this.Entry = Args.Entry;
+				this.ViewModel = Args.ViewModel;
+				this.Property = Args.Property;
 
-					if (this.Entry is not null)
-						this.Value = this.Entry.Text;
-					else if (this.ViewModel is not null && this.Property is not null)
-						this.Value = (string)this.ViewModel.GetValue(this.Property);
-					else
-						this.Value = string.Empty;
+				if (this.Entry is not null)
+					this.Value = this.Entry.Text;
+				else if (this.ViewModel is not null && this.Property is not null)
+					this.Value = (string)this.ViewModel.GetValue(this.Property);
+				else
+					this.Value = string.Empty;
 
-					args.ViewInitialized = true;
-				}
 			}
 
 			this.DecimalSeparator = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
@@ -70,6 +67,14 @@ namespace IdApp.Pages.Main.Calculator
 			this.NrParentheses = 0;
 			this.HasValue = !string.IsNullOrEmpty(this.Value);
 			this.HasStatistics = false;
+		}
+
+		/// <inheritdoc/>
+		protected override async Task OnDispose()
+		{
+			await this.EvaluateStack(true);
+
+			await base.OnDispose();
 		}
 
 		#region Properties
@@ -90,6 +95,12 @@ namespace IdApp.Pages.Main.Calculator
 			{
 				this.SetValue(ValueProperty, value);
 				this.HasValue = !string.IsNullOrEmpty(value);
+
+				if (this.Entry is not null)
+					this.Entry.Text = this.Value;
+
+				if (this.ViewModel is not null && this.Property is not null)
+					this.ViewModel.SetValue(this.Property, this.Value);
 			}
 		}
 
@@ -692,9 +703,9 @@ namespace IdApp.Pages.Main.Calculator
 
 					case "avg":
 					case "stddev":
-					case "sum": 
+					case "sum":
 					case "prod":
-					case "min": 
+					case "min":
 					case "max":
 						await this.EvaluateStatistics(Key + "(x)");
 						break;
@@ -709,7 +720,7 @@ namespace IdApp.Pages.Main.Calculator
 		private async Task<object> Evaluate()
 		{
 			if (string.IsNullOrEmpty(this.Value))
-				throw new Exception(AppResources.EnterValue);
+				throw new Exception(LocalizationResourceManager.Current["EnterValue"]);
 
 			try
 			{
@@ -717,7 +728,7 @@ namespace IdApp.Pages.Main.Calculator
 			}
 			catch (Exception)
 			{
-				throw new Exception(AppResources.EnterValidValue);
+				throw new Exception(LocalizationResourceManager.Current["EnterValidValue"]);
 			}
 		}
 
@@ -738,7 +749,7 @@ namespace IdApp.Pages.Main.Calculator
 			}
 			catch (Exception)
 			{
-				throw new Exception(AppResources.CalculationError);
+				throw new Exception(LocalizationResourceManager.Current["CalculationError"]);
 			}
 		}
 
@@ -772,7 +783,7 @@ namespace IdApp.Pages.Main.Calculator
 				}
 				catch (Exception)
 				{
-					throw new Exception(AppResources.CalculationError);
+					throw new Exception(LocalizationResourceManager.Current["CalculationError"]);
 				}
 
 				c--;
@@ -817,7 +828,7 @@ namespace IdApp.Pages.Main.Calculator
 			}
 			catch (Exception)
 			{
-				throw new Exception(AppResources.CalculationError);
+				throw new Exception(LocalizationResourceManager.Current["CalculationError"]);
 			}
 		}
 
@@ -876,15 +887,32 @@ namespace IdApp.Pages.Main.Calculator
 		/// <summary>
 		/// Evaluates the current stack.
 		/// </summary>
-		public async Task EvaluateStack()
+		public Task EvaluateStack()
 		{
-			await this.Evaluate(string.Empty, "=", OperatorPriority.Equals, false);
+			return this.EvaluateStack(false);
+		}
 
-			if (this.Entry is not null)
-				this.Entry.Text = this.Value;
+		/// <summary>
+		/// Evaluates the current stack.
+		/// </summary>
+		public async Task EvaluateStack(bool IgnoreError)
+		{
+			if (this.Stack.Count == 0 && string.IsNullOrEmpty(this.Value))
+				return;
 
-			if (this.ViewModel is not null && this.Property is not null)
-				this.ViewModel.SetValue(this.Property, this.Value);
+			if (IgnoreError)
+			{
+				try
+				{
+					await this.Evaluate(string.Empty, "=", OperatorPriority.Equals, false);
+				}
+				catch (Exception)
+				{
+					// Ignore
+				}
+			}
+			else
+				await this.Evaluate(string.Empty, "=", OperatorPriority.Equals, false);
 		}
 
 		/// <summary>

@@ -13,12 +13,12 @@ namespace IdApp.Pages.Contacts.Chat
 		private readonly string friendlyName;
 
 		/// <summary>
-		/// Creates an instance of the <see cref="ContactListNavigationArgs"/> class.
+		/// Creates an instance of the <see cref="ChatNavigationArgs"/> class.
 		/// </summary>
 		public ChatNavigationArgs() { }
 
 		/// <summary>
-		/// Creates an instance of the <see cref="ContactListNavigationArgs"/> class.
+		/// Creates an instance of the <see cref="ChatNavigationArgs"/> class.
 		/// </summary>
 		/// <param name="Contact">Contact information.</param>
 		public ChatNavigationArgs(ContactInfo Contact)
@@ -27,7 +27,7 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <summary>
-		/// Creates an instance of the <see cref="ContactListNavigationArgs"/> class.
+		/// Creates an instance of the <see cref="ChatNavigationArgs"/> class.
 		/// </summary>
 		/// <param name="LegalId">Legal ID, if available.</param>
 		/// <param name="BareJid">Bare JID of remote chat party</param>

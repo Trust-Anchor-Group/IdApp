@@ -9,7 +9,7 @@ namespace IdApp.Behaviors
     public class TextChangedBehavior : Behavior<Entry>
     {
         /// <summary>
-        /// 
+        /// Makes <see cref="TextChangedCommand"/> bindable.
         /// </summary>
         public static readonly BindableProperty TextChangedCommandProperty =
             BindableProperty.Create(nameof(TextChangedCommand), typeof(ICommand), typeof(TextChangedBehavior), default(ICommand));
@@ -23,10 +23,10 @@ namespace IdApp.Behaviors
             set => this.SetValue(TextChangedCommandProperty, value);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public static readonly BindableProperty TextChangedCommandParameterProperty =
+		/// <summary>
+		/// Makes <see cref="TextChangedCommandParameter"/> bindable.
+		/// </summary>
+		public static readonly BindableProperty TextChangedCommandParameterProperty =
             BindableProperty.Create(nameof(TextChangedCommandParameter), typeof(object), typeof(TextChangedBehavior), default);
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace IdApp.Behaviors
             base.OnDetachingFrom(entry);
         }
 
-        void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        void Entry_TextChanged(object Sender, TextChangedEventArgs e)
         {
-            if (!(this.TextChangedCommand is null) && this.TextChangedCommand.CanExecute(null))
+            if (this.TextChangedCommand is not null && this.TextChangedCommand.CanExecute(null))
             {
 				this.TextChangedCommand.Execute(this.TextChangedCommandParameter);
             }

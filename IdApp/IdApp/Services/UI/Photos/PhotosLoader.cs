@@ -51,13 +51,13 @@ namespace IdApp.Services.UI.Photos
 		/// <summary>
 		/// Loads photos from the specified list of attachments.
 		/// </summary>
-		/// <param name="attachments">The attachments whose files to download.</param>
-		/// <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
-		/// <param name="whenDoneAction">A callback that is called when the photo load operation is done.</param>
+		/// <param name="Attachments">The attachments whose files to download.</param>
+		/// <param name="SignWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
+		/// <param name="WhenDoneAction">A callback that is called when the photo load operation is done.</param>
 		/// <returns>Returns the first photo, if available, null if no photos available.</returns>
-		public Task<Photo> LoadPhotos(Attachment[] attachments, SignWith signWith, Action whenDoneAction = null)
+		public Task<Photo> LoadPhotos(Attachment[] Attachments, SignWith SignWith, Action WhenDoneAction = null)
 		{
-			return this.LoadPhotos(attachments, signWith, DateTime.UtcNow, whenDoneAction);
+			return this.LoadPhotos(Attachments, SignWith, DateTime.UtcNow, WhenDoneAction);
 		}
 
 		/// <summary>
@@ -81,14 +81,14 @@ namespace IdApp.Services.UI.Photos
 		/// <summary>
 		/// Downloads one photo and stores in cache.
 		/// </summary>
-		/// <param name="attachment">The attachment to download.</param>
-		/// <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
+		/// <param name="Attachment">The attachment to download.</param>
+		/// <param name="SignWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
 		/// <returns>Binary content (or null), Content-Type, Rotation</returns>
-		public async Task<(byte[], string, int)> LoadOnePhoto(Attachment attachment, SignWith signWith)
+		public async Task<(byte[], string, int)> LoadOnePhoto(Attachment Attachment, SignWith SignWith)
 		{
 			try
 			{
-				return await this.GetPhoto(attachment, signWith, DateTime.UtcNow);
+				return await this.GetPhoto(Attachment, SignWith, DateTime.UtcNow);
 			}
 			catch (Exception ex)
 			{
@@ -98,20 +98,20 @@ namespace IdApp.Services.UI.Photos
 			return (null, string.Empty, 0);
 		}
 
-		private async Task<Photo> LoadPhotos(Attachment[] attachments, SignWith signWith, DateTime now, Action whenDoneAction)
+		private async Task<Photo> LoadPhotos(Attachment[] Attachments, SignWith SignWith, DateTime Now, Action WhenDoneAction)
 		{
-			if (attachments is null || attachments.Length <= 0)
+			if (Attachments is null || Attachments.Length <= 0)
 			{
-				whenDoneAction?.Invoke();
+				WhenDoneAction?.Invoke();
 				return null;
 			}
 
-			List<Attachment> attachmentsList = attachments.GetImageAttachments().ToList();
+			List<Attachment> attachmentsList = Attachments.GetImageAttachments().ToList();
 			List<string> newAttachmentIds = attachmentsList.Select(x => x.Id).ToList();
 
 			if (this.attachmentIds.HasSameContentAs(newAttachmentIds))
 			{
-				whenDoneAction?.Invoke();
+				WhenDoneAction?.Invoke();
 
 				foreach (Photo Photo in this.photos)
 					return Photo;
@@ -126,9 +126,9 @@ namespace IdApp.Services.UI.Photos
 
 			foreach (Attachment attachment in attachmentsList)
 			{
-				if (this.loadPhotosTimestamp > now)
+				if (this.loadPhotosTimestamp > Now)
 				{
-					whenDoneAction?.Invoke();
+					WhenDoneAction?.Invoke();
 
 					foreach (Photo Photo in this.photos)
 						return Photo;
@@ -138,22 +138,21 @@ namespace IdApp.Services.UI.Photos
 
 				try
 				{
-					(byte[] Bin, string ContentType, int Rotation) = await this.GetPhoto(attachment, signWith, now);
+					(byte[] Bin, string ContentType, int Rotation) = await this.GetPhoto(attachment, SignWith, Now);
 					if (Bin is null)
 						continue;
 
 					Photo Photo = new(Bin, Rotation);
-					if (First is null)
-						First = Photo;
+					First ??= Photo;
 
-					if (!(Bin is null))
+					if (Bin is not null)
 					{
 						TaskCompletionSource<bool> PhotoAddedTaskSource = new();
 
 						this.UiSerializer.BeginInvokeOnMainThread(() =>
 						{
 							this.photos.Add(Photo);
-							PhotoAddedTaskSource.SetResult(true);
+							PhotoAddedTaskSource.TrySetResult(true);
 						});
 
 						await PhotoAddedTaskSource.Task;
@@ -165,27 +164,27 @@ namespace IdApp.Services.UI.Photos
 				}
 			}
 
-			whenDoneAction?.Invoke();
+			WhenDoneAction?.Invoke();
 
 			return First;
 		}
 
-		private async Task<(byte[], string, int)> GetPhoto(Attachment attachment, SignWith signWith, DateTime now)
+		private async Task<(byte[], string, int)> GetPhoto(Attachment Attachment, SignWith SignWith, DateTime Now)
 		{
-			if (attachment is null)
+			if (Attachment is null)
 				return (null, string.Empty, 0);
 
-			(byte[] Bin, string ContentType) = await this.AttachmentCacheService.TryGet(attachment.Url);
-			if (!(Bin is null))
+			(byte[] Bin, string ContentType) = await this.AttachmentCacheService.TryGet(Attachment.Url);
+			if (Bin is not null)
 				return (Bin, ContentType, GetImageRotation(Bin));
 
 			if (!this.NetworkService.IsOnline || !this.XmppService.IsOnline)
 				return (null, string.Empty, 0);
 
-			KeyValuePair<string, TemporaryFile> pair = await this.XmppService.Contracts.GetAttachment(attachment.Url, signWith, Constants.Timeouts.DownloadFile);
+			KeyValuePair<string, TemporaryFile> pair = await this.XmppService.GetAttachment(Attachment.Url, SignWith, Constants.Timeouts.DownloadFile);
 
 			using TemporaryFile file = pair.Value;
-			if (this.loadPhotosTimestamp > now)     // If download has been cancelled any time _during_ download, stop here.
+			if (this.loadPhotosTimestamp > Now)     // If download has been cancelled any time _during_ download, stop here.
 				return (null, string.Empty, 0);
 
 			if (pair.Value.Length > int.MaxValue)   // Too large
@@ -198,9 +197,9 @@ namespace IdApp.Services.UI.Photos
 			if (file.Length != file.Read(Bin, 0, (int)file.Length))
 				return (null, string.Empty, 0);
 
-			bool IsContact = await this.XmppService.Contracts.IsContact(attachment.LegalId);
+			bool IsContact = await this.XmppService.IsContact(Attachment.LegalId);
 
-			await this.AttachmentCacheService.Add(attachment.Url, attachment.LegalId, IsContact, Bin, ContentType);
+			await this.AttachmentCacheService.Add(Attachment.Url, Attachment.LegalId, IsContact, Bin, ContentType);
 
 			return (Bin, ContentType, GetImageRotation(Bin));
 		}
@@ -282,18 +281,15 @@ namespace IdApp.Services.UI.Photos
 		{
 			Attachment Photo = null;
 
-			foreach (Attachment Attachment in Attachments)
+			foreach (Attachment Attachment in Attachments.GetImageAttachments())
 			{
-				if (Attachment.ContentType.StartsWith("image/"))
+				if (Attachment.ContentType == Constants.MimeTypes.Png)
 				{
-					if (Attachment.ContentType == Constants.MimeTypes.Png)
-					{
-						Photo = Attachment;
-						break;
-					}
-					else if (Photo is null)
-						Photo = Attachment;
+					Photo = Attachment;
+					break;
 				}
+				else
+					Photo ??= Attachment;
 			}
 
 			if (Photo is null)
@@ -312,8 +308,8 @@ namespace IdApp.Services.UI.Photos
 		public static async Task<(string, int, int)> LoadPhotoAsTemporaryFile(Attachment Attachment, int MaxWith, int MaxHeight)
 		{
 			(byte[] Data, string _, int _) = await LoadPhoto(Attachment);
-			
-			if (!(Data is null))
+
+			if (Data is not null)
 			{
 				string FileName = await ImageContent.GetTemporaryFile(Data);
 				int Width;
@@ -337,7 +333,7 @@ namespace IdApp.Services.UI.Photos
 
 				return (FileName, Width, Height);
 			}
-			else 
+			else
 				return (null, 0, 0);
 		}
 

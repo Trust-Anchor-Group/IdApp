@@ -15,12 +15,12 @@ namespace IdApp.Extensions
         /// <param name="methodInfo">The current method instance.</param>
         /// <param name="method">An optional method name. If not specified, the method name is extracted from the <c>methodInfo</c> parameter.</param>
         /// <returns>Class and Method</returns>
-        public static KeyValuePair<string, string>[] GetClassAndMethod(this object obj, MethodBase methodInfo, string method = null)
+        public static KeyValuePair<string, object>[] GetClassAndMethod(this object obj, MethodBase methodInfo, string method = null)
         {
             return new[]
             {
-                new KeyValuePair<string, string>("Class", obj.GetType().Name),
-                new KeyValuePair<string, string>("Method", !string.IsNullOrWhiteSpace(method) ? method : methodInfo.Name)
+                new KeyValuePair<string, object>("Class", obj.GetType().Name),
+                new KeyValuePair<string, object>("Method", !string.IsNullOrWhiteSpace(method) ? method : methodInfo.Name)
             };
         }
     }

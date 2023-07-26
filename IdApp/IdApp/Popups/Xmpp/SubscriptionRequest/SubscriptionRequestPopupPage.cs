@@ -121,7 +121,7 @@ namespace IdApp.Popups.Xmpp.SubscriptionRequest
         /// </summary>
         public int PhotoHeight => this.photoHeight;
 
-        private void OnCloseButtonTapped(object sender, EventArgs e)
+        private void OnCloseButtonTapped(object Sender, EventArgs e)
         {
 			this.Close();
         }
@@ -139,13 +139,13 @@ namespace IdApp.Popups.Xmpp.SubscriptionRequest
             this.result.TrySetResult(PresenceRequestAction.Ignore);
         }
 
-        private async void OnAccept(object sender, EventArgs e)
+        private async void OnAccept(object Sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(PresenceRequestAction.Accept);
         }
 
-        private async void OnReject(object sender, EventArgs e)
+        private async void OnReject(object Sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(PresenceRequestAction.Reject);

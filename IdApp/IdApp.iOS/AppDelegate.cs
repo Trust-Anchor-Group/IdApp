@@ -3,16 +3,17 @@ using CoreNFC;
 using Firebase.CloudMessaging;
 using Foundation;
 using IdApp.Helpers;
-using IdApp.Services.Ocr;
+using IdApp.Services;
 using IdApp.Services.Push;
+using IdApp.Services.Xmpp;
 using System;
 using System.Threading.Tasks;
-using Tesseract.iOS;
 using UIKit;
 using UserNotifications;
 using Waher.Events;
 using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.iOS
@@ -40,7 +41,6 @@ namespace IdApp.iOS
 			Firebase.Core.App.Configure();
 			Rg.Plugins.Popup.Popup.Init();
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
-			Helpers.Svg.SvgImage.Init();
 			FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 			Xamarin.Forms.Forms.Init();
 
@@ -48,16 +48,14 @@ namespace IdApp.iOS
 			FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageSourceHandler();
 
 			FFImageLoading.Config.Configuration Configuration = FFImageLoading.Config.Configuration.Default;
-			Configuration.DiskCacheDuration = TimeSpan.FromDays(1);
+			Configuration.DiskCacheDuration = TimeSpan.FromDays(7);
+			Configuration.DownloadCache = new AesDownloadCache(Configuration);
 			FFImageLoading.ImageService.Instance.Initialize(Configuration);
 
 			// Uncomment this to debug loading images from neuron (ensures that they are not loaded from cache).
 			// FFImageLoading.ImageService.Instance.InvalidateCacheAsync(FFImageLoading.Cache.CacheType.Disk);
 
-			this.LoadApplication(new App());
-
-			IOcrService OcrService = Types.InstantiateDefault<IOcrService>(false);
-			OcrService.RegisterApi(new TesseractApi());
+			this.LoadApplication(new App(this.GetType().Assembly));
 
 			this.RegisterKeyBoardObserver();
 			this.RegisterRemoteNotifications();
@@ -67,13 +65,13 @@ namespace IdApp.iOS
 
 		public override void WillTerminate(UIApplication application)
 		{
-			if (this.onKeyboardShowObserver == null)
+			if (this.onKeyboardShowObserver is null)
 			{
 				this.onKeyboardShowObserver.Dispose();
 				this.onKeyboardShowObserver = null;
 			}
 
-			if (this.onKeyboardHideObserver == null)
+			if (this.onKeyboardHideObserver is null)
 			{
 				this.onKeyboardHideObserver.Dispose();
 				this.onKeyboardHideObserver = null;
@@ -101,49 +99,31 @@ namespace IdApp.iOS
 		public override bool OpenUrl(UIApplication Application, NSUrl Url, NSDictionary Options)
 		{
 			string AbsoluteUrlString = Url.AbsoluteString;
-			bool CanOpenUrl = App.CanOpenUrl(AbsoluteUrlString);
 
-			if (CanOpenUrl)
+			if (App.CanOpenUrl(AbsoluteUrlString))
 			{
-				this.OpenUrlLogExceptions(AbsoluteUrlString);
+				App.OpenUrlSync(AbsoluteUrlString);
+				return true;
 			}
 
-			return CanOpenUrl;
-		}
-
-		private async void OpenUrlLogExceptions(string AbsoluteUrlString)
-		{
-			try
-			{
-				await App.OpenUrl(AbsoluteUrlString).ConfigureAwait(false);
-			}
-			catch (Exception Exception)
-			{
-				Log.Critical(Exception);
-			}
+			return false;
 		}
 
 		private void RegisterKeyBoardObserver()
 		{
-			if (this.onKeyboardShowObserver == null)
+			this.onKeyboardShowObserver ??= UIKeyboard.Notifications.ObserveWillShow((object Sender, UIKeyboardEventArgs args) =>
 			{
-				this.onKeyboardShowObserver = UIKeyboard.Notifications.ObserveWillShow((object sender, UIKeyboardEventArgs args) =>
-				{
-					NSValue Result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
-					CGSize keyboardSize = Result.RectangleFValue.Size;
+				NSValue Result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
+				CGSize keyboardSize = Result.RectangleFValue.Size;
 
-					MessagingCenter.Send<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears,
-						new KeyboardAppearEventArgs { KeyboardSize = (float)keyboardSize.Height });
-				});
-			}
+				MessagingCenter.Send<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears,
+					new KeyboardAppearEventArgs { KeyboardSize = (float)keyboardSize.Height });
+			});
 
-			if (this.onKeyboardHideObserver == null)
+			this.onKeyboardHideObserver ??= UIKeyboard.Notifications.ObserveWillHide((object Sender, UIKeyboardEventArgs args) =>
 			{
-				this.onKeyboardHideObserver = UIKeyboard.Notifications.ObserveWillHide((object sender, UIKeyboardEventArgs args) =>
-				{
-					MessagingCenter.Send<object>(this, Constants.MessagingCenter.KeyboardDisappears);
-				});
-			}
+				MessagingCenter.Send<object>(this, Constants.MessagingCenter.KeyboardDisappears);
+			});
 		}
 
 		private void RegisterRemoteNotifications()
@@ -164,77 +144,92 @@ namespace IdApp.iOS
 		}
 
 		[Export("application:didReceiveRemoteNotification:fetchCompletionHandler:")]
-		public override void DidReceiveRemoteNotification(UIApplication Application, NSDictionary UserInfo, Action<UIBackgroundFetchResult> CompletionHandler)
+		public override async void DidReceiveRemoteNotification(UIApplication Application, NSDictionary UserInfo, Action<UIBackgroundFetchResult> CompletionHandler)
 		{
-			string MessageId = UserInfo.ObjectForKey(new NSString("gcm.message_id")).ToString();
-			string ChannelId = UserInfo.ObjectForKey(new NSString("channelId"))?.ToString() ?? string.Empty;
-			string Title = UserInfo.ObjectForKey(new NSString("myTitle"))?.ToString() ?? string.Empty;
-			string Body = UserInfo.ObjectForKey(new NSString("myBody"))?.ToString() ?? string.Empty;
-			string AttachmentIcon = null;
-
-			switch (ChannelId)
+			try
 			{
-				case Constants.PushChannels.Messages:
-					AttachmentIcon = "NotificationChatIcon";
-					Body = this.GetChatNotificationBody(Body, UserInfo);
-					break;
+				if (!App.IsOnboarded)
+					return;
 
-				case Constants.PushChannels.Petitions:
-					AttachmentIcon = "NotificationPetitionIcon";
-					Body = this.GetPetitionNotificationBody(Body, UserInfo);
-					break;
+				string MessageId = UserInfo.ObjectForKey(new NSString("gcm.message_id")).ToString();
+				string ChannelId = UserInfo.ObjectForKey(new NSString("channelId"))?.ToString() ?? string.Empty;
+				string Title = UserInfo.ObjectForKey(new NSString("myTitle"))?.ToString() ?? string.Empty;
+				string Body = UserInfo.ObjectForKey(new NSString("myBody"))?.ToString() ?? string.Empty;
+				string AttachmentIcon = null;
 
-				case Constants.PushChannels.Identities:
-					AttachmentIcon = "NotificationIdentitieIcon";
-					Body = this.GetIdentitieNotificationBody(Body, UserInfo);
-					break;
-
-				case Constants.PushChannels.Contracts:
-					AttachmentIcon = "NotificationContractIcon";
-					Body = this.GetContractNotificationBody(Body, UserInfo);
-					break;
-
-				case Constants.PushChannels.EDaler:
-					AttachmentIcon = "NotificationEDalerIcon";
-					Body = this.GetEDalerNotificationBody(Body, UserInfo);
-					break;
-
-				case Constants.PushChannels.Tokens:
-					AttachmentIcon = "NotificationTokenIcon";
-					Body = this.GetTokenNotificationBody(Body, UserInfo);
-					break;
-
-				default:
-					break;
-			}
-
-			// Create request
-			UNMutableNotificationContent Content = new()
-			{
-				Title = Title,
-				Body = Body,
-			};
-
-			if (AttachmentIcon is not null)
-			{
-				UNNotificationAttachmentOptions Options = new();
-				NSUrl AttachmentUrl = NSBundle.MainBundle.GetUrlForResource(AttachmentIcon, "png");
-
-				if (AttachmentUrl is not null)
+				switch (ChannelId)
 				{
-					UNNotificationAttachment Attachment = UNNotificationAttachment.FromIdentifier("image" + MessageId, AttachmentUrl, Options, out _);
+					case Constants.PushChannels.Messages:
+						AttachmentIcon = "NotificationChatIcon";
+						Body = this.GetChatNotificationBody(Body, UserInfo);
+						break;
 
-					if (Attachment is not null)
+					case Constants.PushChannels.Petitions:
+						AttachmentIcon = "NotificationPetitionIcon";
+						Body = this.GetPetitionNotificationBody(Body, UserInfo);
+						break;
+
+					case Constants.PushChannels.Identities:
+						AttachmentIcon = "NotificationIdentitieIcon";
+						Body = this.GetIdentitieNotificationBody(Body, UserInfo);
+						break;
+
+					case Constants.PushChannels.Contracts:
+						AttachmentIcon = "NotificationContractIcon";
+						Body = this.GetContractNotificationBody(Body, UserInfo);
+						break;
+
+					case Constants.PushChannels.EDaler:
+						AttachmentIcon = "NotificationEDalerIcon";
+						Body = this.GetEDalerNotificationBody(Body, UserInfo);
+						break;
+
+					case Constants.PushChannels.Tokens:
+						AttachmentIcon = "NotificationTokenIcon";
+						Body = this.GetTokenNotificationBody(Body, UserInfo);
+						break;
+
+					case Constants.PushChannels.Provisioning:
+						AttachmentIcon = "NotificationPetitionIcon";
+						Body = await this.GetProvisioningNotificationBody(Body, UserInfo);
+						break;
+
+					default:
+						break;
+				}
+
+				// Create request
+				UNMutableNotificationContent Content = new()
+				{
+					Title = Title,
+					Body = Body,
+				};
+
+				if (AttachmentIcon is not null)
+				{
+					UNNotificationAttachmentOptions Options = new();
+					NSUrl AttachmentUrl = NSBundle.MainBundle.GetUrlForResource(AttachmentIcon, "png");
+
+					if (AttachmentUrl is not null)
 					{
-						Content.Attachments = new UNNotificationAttachment[] { Attachment };
+						UNNotificationAttachment Attachment = UNNotificationAttachment.FromIdentifier("image" + MessageId, AttachmentUrl, Options, out _);
+
+						if (Attachment is not null)
+						{
+							Content.Attachments = new UNNotificationAttachment[] { Attachment };
+						}
 					}
 				}
+
+				UNNotificationRequest Request = UNNotificationRequest.FromIdentifier(MessageId, Content, null);
+				UNUserNotificationCenter.Current.AddNotificationRequest(Request, null);
+
+				CompletionHandler(UIBackgroundFetchResult.NewData);
 			}
-
-			UNNotificationRequest Request = UNNotificationRequest.FromIdentifier(MessageId, Content, null);
-			UNUserNotificationCenter.Current.AddNotificationRequest(Request, null);
-
-			CompletionHandler(UIBackgroundFetchResult.NewData);
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
 		}
 
 		private string GetChatNotificationBody(string MessageBody, NSDictionary UserInfo)
@@ -242,9 +237,7 @@ namespace IdApp.iOS
 			string IsObject = UserInfo.ObjectForKey(new NSString("isObject"))?.ToString() ?? string.Empty;
 
 			if (!string.IsNullOrEmpty(IsObject) && bool.Parse(IsObject))
-			{
-				MessageBody = "[Sent you an object]";
-			}
+				MessageBody = LocalizationResourceManager.Current["MessageReceived"];
 
 			return MessageBody;
 		}
@@ -337,24 +330,51 @@ namespace IdApp.iOS
 			return MessageBody;
 		}
 
-		[Export("messaging:didReceiveRegistrationToken:")]
-        public async void DidReceiveRegistrationToken(Messaging _, string FcmToken)
-        {
-            try
-            {
-                IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
+		private async Task<string> GetProvisioningNotificationBody(string MessageBody, NSDictionary UserInfo)
+		{
+			string RemoteJid = UserInfo.ObjectForKey(new NSString("remoteJid"))?.ToString() ?? string.Empty;
+			string Jid = UserInfo.ObjectForKey(new NSString("jid"))?.ToString() ?? string.Empty;
+			//string Key = UserInfo.ObjectForKey(new NSString("key"))?.ToString() ?? string.Empty;
+			string Query = UserInfo.ObjectForKey(new NSString("q"))?.ToString() ?? string.Empty;
 
-                await (PushService?.NewToken(new TokenInformation()
-                {
-                    Service = PushMessagingService.Firebase,
-                    Token = FcmToken,
-                    ClientType = ClientType.iOS
-                }) ?? Task.CompletedTask);
-            }
-            catch (Exception ex)
-            {
-                Log.Critical(ex);
-            }
+			IServiceReferences ServiceReferences = App.Instantiate<IXmppService>();
+
+			string ThingName = await ContactInfo.GetFriendlyName(Jid, ServiceReferences);
+
+			if (string.IsNullOrWhiteSpace(MessageBody))
+				MessageBody = await ContactInfo.GetFriendlyName(RemoteJid, ServiceReferences);
+
+			return Query switch
+			{
+				"canRead" => string.Format(LocalizationResourceManager.Current["ReadoutRequestText"], MessageBody, ThingName),
+				"canControl" => string.Format(LocalizationResourceManager.Current["ControlRequestText"], MessageBody, ThingName),
+				_ => string.Format(LocalizationResourceManager.Current["AccessRequestText"], MessageBody, ThingName),
+			};
+		}
+
+		[Export("messaging:didReceiveRegistrationToken:")]
+        public async void DidReceiveRegistrationToken(Messaging _, string NewToken)
+        {
+			try
+			{
+				IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
+
+				if (PushService is not null)
+				{
+					TokenInformation TokenInformation = new()
+					{
+						Token = NewToken,
+						ClientType = ClientType.iOS,
+						Service = PushMessagingService.Firebase
+					};
+
+					await PushService.CheckPushNotificationToken(TokenInformation);
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
         }
 
         private void RemoveAllNotifications()

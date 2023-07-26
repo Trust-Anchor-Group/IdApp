@@ -1,12 +1,12 @@
-﻿using IdApp.Resx;
-using System;
+﻿using System;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 {
 	/// <summary>
 	/// Encapsulates a <see cref="PendingPayment"/> object.
 	/// </summary>
-	public class PendingPaymentItem : IItemGroup
+	public class PendingPaymentItem : IUniqueItem
 	{
 		private readonly EDaler.PendingPayment pendingPayment;
 		private readonly string friendlyName;
@@ -38,7 +38,7 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// <summary>
 		/// String representation of <see cref="Expires"/>
 		/// </summary>
-		public string ExpiresStr => string.Format(AppResources.ExpiresAt, this.Expires.ToShortDateString());
+		public string ExpiresStr => string.Format(LocalizationResourceManager.Current["ExpiresAt"], this.Expires.ToShortDateString());
 
 		/// <summary>
 		/// Currency of pending payment

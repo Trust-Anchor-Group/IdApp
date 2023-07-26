@@ -28,7 +28,7 @@ namespace IdApp.Behaviors
             base.OnDetachingFrom(entry);
         }
 
-        private void Entry_Completed(object sender, EventArgs e)
+        private void Entry_Completed(object Sender, EventArgs e)
         {
             ScrollToClickedBehavior.MakeVisible(this.ScrollTo);
         }

@@ -10,18 +10,19 @@ namespace IdApp.Pages.Contracts.NewContract.ObjectModel
         /// <summary>
         /// Create an instance of the <see cref="ContractVisibilityModel"/> class.
         /// </summary>
-        /// <param name="visibility">The contract visibility.</param>
-        /// <param name="name">The contract name.</param>
-        public ContractVisibilityModel(ContractVisibility visibility, string name)
+        /// <param name="Visibility">The contract visibility.</param>
+        /// <param name="Name">The contract name.</param>
+        public ContractVisibilityModel(ContractVisibility Visibility, string Name)
         {
-            this.Visibility = visibility;
-            this.Name = name;
+            this.Visibility = Visibility;
+            this.Name = Name;
         }
 
         /// <summary>
         /// The contract visibility.
         /// </summary>
         public ContractVisibility Visibility { get; }
+
         /// <summary>
         /// The contract name.
         /// </summary>

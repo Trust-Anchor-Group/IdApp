@@ -4,7 +4,9 @@ using Android.Gms.Extensions;
 using Android.Graphics;
 using Firebase.Messaging;
 using IdApp.DeviceSpecific;
+using IdApp.Services;
 using IdApp.Services.Push;
+using IdApp.Services.Xmpp;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 using Waher.Events;
 using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 [assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.Push.MessagingService))]
 namespace IdApp.Android.Push
@@ -28,6 +31,9 @@ namespace IdApp.Android.Push
 		{
 			try
 			{
+				if (!App.IsOnboarded)
+					return;
+
 				string Body = Message.Data["myBody"];
 				string Title = Message.Data["myTitle"];
 				string ChannelId = Message.Data["channelId"];
@@ -58,13 +64,17 @@ namespace IdApp.Android.Push
 						this.ShowTokenNotification(Title, Body, Message.Data);
 						break;
 
+					case Constants.PushChannels.Provisioning:
+						this.ShowProvisioningNotification(Title, Body, Message.Data);
+						break;
+
 					default:
 						break;
 				}
 			}
-			catch (Exception Exc)
+			catch (Exception ex)
 			{
-				Log.Critical(Exc);
+				Log.Critical(ex);
 			}
 		}
 
@@ -83,9 +93,7 @@ namespace IdApp.Android.Push
 			}
 
 			if (!string.IsNullOrEmpty(IsObject) && bool.Parse(IsObject))
-			{
-				Title = "[Sent you an object]";
-			}
+				Title = LocalizationResourceManager.Current["MessageReceived"];
 
 			Intent Intent = new(this, typeof(MainActivity));
 			Intent.AddFlags(ActivityFlags.ClearTop);
@@ -93,7 +101,7 @@ namespace IdApp.Android.Push
 			foreach (string Key in Data.Keys)
 				Intent.PutExtra(Key, Data[Key]);
 
-			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
+			PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot|PendingIntentFlags.Immutable);
 			Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationChatIcon);
 
 			Notification.Builder notificationBuilder = new Notification.Builder(this, Constants.PushChannels.Messages)
@@ -388,17 +396,94 @@ namespace IdApp.Android.Push
 			NotificationManager.Notify(100, notificationBuilder.Build());
 		}
 
-		public override async void OnNewToken(string p0)
+		public async void ShowProvisioningNotification(string Title, string MessageBody, IDictionary<string, string> Data)
+		{
+			try
+			{
+				string RemoteJid = string.Empty;
+				string Jid = string.Empty;
+				string Key = string.Empty;
+				string Query = string.Empty;
+
+				foreach (KeyValuePair<string, string> P in Data)
+				{
+					switch (P.Key)
+					{
+						case "remoteJid":
+							RemoteJid = P.Value;
+							break;
+
+						case "jid":
+							Jid = P.Value;
+							break;
+
+						case "key":
+							Key = P.Value;
+							break;
+
+						case "q":
+							Query = P.Value;
+							break;
+					}
+				}
+
+				Intent Intent = new(this, typeof(MainActivity));
+				Intent.AddFlags(ActivityFlags.ClearTop);
+
+				foreach (string Key2 in Data.Keys)
+					Intent.PutExtra(Key2, Data[Key2]);
+
+				IServiceReferences ServiceReferences = App.Instantiate<IXmppService>();
+
+				string ThingName = await ContactInfo.GetFriendlyName(Jid, ServiceReferences);
+
+				if (string.IsNullOrWhiteSpace(MessageBody))
+					MessageBody = await ContactInfo.GetFriendlyName(RemoteJid, ServiceReferences);
+
+				MessageBody = Query switch
+				{
+					"canRead" => string.Format(LocalizationResourceManager.Current["ReadoutRequestText"], MessageBody, ThingName),
+					"canControl" => string.Format(LocalizationResourceManager.Current["ControlRequestText"], MessageBody, ThingName),
+					_ => string.Format(LocalizationResourceManager.Current["AccessRequestText"], MessageBody, ThingName),
+				};
+
+				PendingIntent PendingIntent = global::Android.App.PendingIntent.GetActivity(this, 100, Intent, PendingIntentFlags.OneShot);
+				Bitmap LargeImage = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.NotificationPetitionIcon);
+
+				Notification.Builder notificationBuilder = new Notification.Builder(this, Constants.PushChannels.Tokens)
+					.SetSmallIcon(Resource.Drawable.NotificationPetitionIcon)
+					.SetLargeIcon(LargeImage)
+					.SetContentTitle(Title)
+					.SetContentText(MessageBody)
+					.SetAutoCancel(true)
+					.SetContentIntent(PendingIntent);
+
+				NotificationManager NotificationManager = NotificationManager.FromContext(this);
+				NotificationManager.Notify(100, notificationBuilder.Build());
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
+		}
+
+		public override async void OnNewToken(string NewToken)
 		{
 			try
 			{
 				IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
-				await (PushService?.NewToken(new TokenInformation()
+
+				if (PushService is not null)
 				{
-					Service = PushMessagingService.Firebase,
-					Token = p0,
-					ClientType = ClientType.Android
-				}) ?? Task.CompletedTask);
+					TokenInformation TokenInformation = new()
+					{
+						Token = NewToken,
+						ClientType = ClientType.Android,
+						Service = PushMessagingService.Firebase
+					};
+
+					await PushService.CheckPushNotificationToken(TokenInformation);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -412,15 +497,25 @@ namespace IdApp.Android.Push
 		/// <returns>Token, Service used, and type of client.</returns>
 		public async Task<TokenInformation> GetToken()
 		{
-			Java.Lang.Object Token = await FirebaseMessaging.Instance.GetToken().AsAsync<Java.Lang.Object>();
+			Java.Lang.Object Token = string.Empty;
 
-			return new TokenInformation()
+			try
+			{
+				Token = await FirebaseMessaging.Instance.GetToken().AsAsync<Java.Lang.Object>();
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
+
+			TokenInformation TokenInformation = new()
 			{
 				Token = Token.ToString(),
 				ClientType = ClientType.Android,
 				Service = PushMessagingService.Firebase
 			};
-		}
 
+			return TokenInformation;
+		}
 	}
 }

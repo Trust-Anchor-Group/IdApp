@@ -49,7 +49,7 @@ namespace IdApp.Controls.LoadingListView
 			this.ItemSelected += this.LoadingListView_ItemSelected;
         }
 
-		private void LoadingListView_ItemAppearing(object sender, ItemVisibilityEventArgs e)
+		private void LoadingListView_ItemAppearing(object Sender, ItemVisibilityEventArgs e)
         {
             if (this.ItemsSource is IList List && e.Item == List[List.Count - 1])
             {
@@ -58,7 +58,7 @@ namespace IdApp.Controls.LoadingListView
             }
         }
 
-        private void LoadingListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void LoadingListView_ItemSelected(object Sender, SelectedItemChangedEventArgs e)
         {
             if (this.ItemSelectedCommand?.CanExecute(null) ?? false)
                 this.ItemSelectedCommand.Execute(this.SelectedItem);

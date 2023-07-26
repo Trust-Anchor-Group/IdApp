@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Pages.Wallet.MyWallet.ObjectModels;
-using IdApp.Services.Xmpp;
+using IdApp.Services.Notification;
 using NeuroFeatures;
+using Waher.Networking.XMPP;
+using Waher.Persistence;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MyTokens
@@ -14,7 +17,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 	/// </summary>
 	public class MyTokensViewModel : XmppViewModel
 	{
-		private TaskCompletionSource<TokenItem> selected;
+		private MyTokensNavigationArgs navigationArgs;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="MyTokensViewModel"/> class.
@@ -29,16 +32,19 @@ namespace IdApp.Pages.Wallet.MyTokens
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out MyTokensNavigationArgs args))
-				this.selected = args.Selected;
+			if (this.NavigationService.TryGetArgs(out MyTokensNavigationArgs Args))
+			{
+				this.navigationArgs = Args;
+			}
 
 			try
 			{
-				TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, Constants.BatchSizes.TokenBatchSize);
+				TokensEventArgs e = await this.XmppService.GetNeuroFeatures(0, Constants.BatchSizes.TokenBatchSize);
+				SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
 
 				this.UiSerializer.BeginInvokeOnMainThread(() =>
 				{
@@ -46,10 +52,15 @@ namespace IdApp.Pages.Wallet.MyTokens
 					{
 						this.Tokens.Clear();
 
-						if (!(e.Tokens is null))
+						if (e.Tokens is not null)
 						{
 							foreach (Token Token in e.Tokens)
-								this.Tokens.Add(new TokenItem(Token, this, this.selected));
+							{
+								if (!EventsByCateogy.TryGetValue(Token.TokenId, out NotificationEvent[] Events))
+									Events = new NotificationEvent[0];
+
+								this.Tokens.Add(new TokenItem(Token, this, this.navigationArgs.TokenItemProvider, Events));
+							}
 
 							this.HasTokens = true;
 							this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
@@ -61,8 +72,8 @@ namespace IdApp.Pages.Wallet.MyTokens
 						this.HasTokens = false;
 				});
 
-				this.XmppService.Wallet.TokenAdded += this.Wallet_TokenAdded;
-				this.XmppService.Wallet.TokenRemoved += this.Wallet_TokenRemoved;
+				this.XmppService.NeuroFeatureAdded += this.Wallet_TokenAdded;
+				this.XmppService.NeuroFeatureRemoved += this.Wallet_TokenRemoved;
 			}
 			catch (Exception ex)
 			{
@@ -71,22 +82,32 @@ namespace IdApp.Pages.Wallet.MyTokens
 		}
 
 		/// <inheritdoc/>
-		protected override Task DoUnbind()
+		protected override Task OnDispose()
 		{
-			this.XmppService.Wallet.TokenAdded -= this.Wallet_TokenAdded;
-			this.XmppService.Wallet.TokenRemoved -= this.Wallet_TokenRemoved;
+			this.XmppService.NeuroFeatureAdded -= this.Wallet_TokenAdded;
+			this.XmppService.NeuroFeatureRemoved -= this.Wallet_TokenRemoved;
 
-			return base.DoUnbind();
+			if (this.navigationArgs?.TokenItemProvider is TaskCompletionSource<TokenItem> TaskSource)
+			{
+				TaskSource.TrySetResult(null);
+			}
+
+			return base.OnDispose();
 		}
 
 		private Task Wallet_TokenAdded(object Sender, TokenEventArgs e)
 		{
+			if (!this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, e.Token.TokenId, out NotificationEvent[] Events))
+				Events = new NotificationEvent[0];
+
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
+				TokenItem Item = new(e.Token, this, this.navigationArgs.TokenItemProvider, Events);
+
 				if (this.Tokens.Count == 0)
-					this.Tokens.Add(new TokenItem(e.Token, this, this.selected));
+					this.Tokens.Add(Item);
 				else
-					this.Tokens.Insert(0, new TokenItem(e.Token, this, this.selected));
+					this.Tokens.Insert(0, Item);
 			});
 
 			return Task.CompletedTask;
@@ -114,12 +135,14 @@ namespace IdApp.Pages.Wallet.MyTokens
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 			});
+
+			return Task.CompletedTask;
 		}
 
 		#region Properties
@@ -173,7 +196,7 @@ namespace IdApp.Pages.Wallet.MyTokens
 
 		private async Task GoBack()
 		{
-			this.selected.TrySetResult(null);
+			this.navigationArgs.TokenItemProvider.TrySetResult(null);
 			await this.NavigationService.GoBackAsync();
 		}
 
@@ -185,16 +208,22 @@ namespace IdApp.Pages.Wallet.MyTokens
 
 				try
 				{
-					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(this.Tokens.Count, Constants.BatchSizes.TokenBatchSize);
+					TokensEventArgs e = await this.XmppService.GetNeuroFeatures(this.Tokens.Count, Constants.BatchSizes.TokenBatchSize);
+					SortedDictionary<CaseInsensitiveString, NotificationEvent[]> EventsByCateogy = this.NotificationService.GetEventsByCategory(EventButton.Wallet);
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
 						if (e.Ok)
 						{
-							if (!(e.Tokens is null))
+							if (e.Tokens is not null)
 							{
 								foreach (Token Token in e.Tokens)
-									this.Tokens.Add(new TokenItem(Token, this));
+								{
+									if (!EventsByCateogy.TryGetValue(Token.TokenId, out NotificationEvent[] Events))
+										Events = new NotificationEvent[0];
+
+									this.Tokens.Add(new TokenItem(Token, this, Events));
+								}
 
 								this.HasMoreTokens = e.Tokens.Length == Constants.BatchSizes.TokenBatchSize;
 							}

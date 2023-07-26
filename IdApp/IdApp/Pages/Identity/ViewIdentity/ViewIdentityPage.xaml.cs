@@ -28,20 +28,13 @@ namespace IdApp.Pages.Identity.ViewIdentity
             return base.OnDisappearingAsync();
         }
 
-        /// <summary>
-        /// Overrides the back button behavior to handle navigation internally instead.
-        /// </summary>
-        /// <returns>Whether or not the back navigation was handled</returns>
-        protected override bool OnBackButtonPressed()
+        private void Image_Tapped(object Sender, EventArgs e)
         {
-            this.ViewModel.NavigationService.GoBackAsync();
-            return true;
-        }
-
-        private void Image_Tapped(object sender, EventArgs e)
-        {
-            Attachment[] attachments = this.GetViewModel<ViewIdentityViewModel>().LegalIdentity?.Attachments;
-            this.PhotoViewer.ShowPhotos(attachments);
+			if (this.ViewModel is ViewIdentityViewModel ViewIdentityViewModel)
+			{
+				Attachment[] attachments = ViewIdentityViewModel.LegalIdentity?.Attachments;
+				this.PhotoViewer.ShowPhotos(attachments);
+			}
         }
     }
 }

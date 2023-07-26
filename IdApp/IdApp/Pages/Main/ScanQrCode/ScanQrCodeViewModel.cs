@@ -1,7 +1,7 @@
-﻿using IdApp.Resx;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Main.ScanQrCode
@@ -11,7 +11,8 @@ namespace IdApp.Pages.Main.ScanQrCode
     /// </summary>
     public class ScanQrCodeViewModel : BaseViewModel
     {
-		private readonly ScanQrCodeNavigationArgs navigationArgs;
+		private bool useShellNavigationService;
+		private ScanQrCodeNavigationArgs navigationArgs;
 
 		/// <summary>
 		/// An event that is fired when the scanning mode changes from automatic scan to manual entry.
@@ -23,29 +24,87 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// </summary>
         public ScanQrCodeViewModel(ScanQrCodeNavigationArgs NavigationArgs)
         {
+			this.useShellNavigationService = NavigationArgs is null;
 			this.navigationArgs = NavigationArgs;
 			this.SwitchModeCommand = new Command(this.SwitchMode);
-			this.OpenCommandText = AppResources.Open;
+			this.OpenCommandText = LocalizationResourceManager.Current["Open"];
 			this.SetModeText();
         }
 
-        /// <inheritdoc />
-        protected override async Task DoBind()
+		/// <inheritdoc />
+		protected override async Task OnInitialize()
         {
-            await base.DoBind();
+            await base.OnInitialize();
 
-			ScanQrCodeNavigationArgs NavigationArgs = this.navigationArgs
-				?? (this.NavigationService.TryPopArgs(out ScanQrCodeNavigationArgs Args) ? Args : null);
+			if (this.navigationArgs is null && this.NavigationService.TryGetArgs(out ScanQrCodeNavigationArgs Args))
+			{
+				this.navigationArgs = Args;
+				this.useShellNavigationService = Args is not null;
+			}
 
-			this.OpenCommandText = !string.IsNullOrWhiteSpace(NavigationArgs?.CommandName)
-				? NavigationArgs.CommandName
-				: AppResources.Open;
+			this.OpenCommandText = !string.IsNullOrWhiteSpace(this.navigationArgs?.CommandName)
+				? this.navigationArgs.CommandName
+				: LocalizationResourceManager.Current["Open"];
         }
 
-        /// <inheritdoc />
-		protected override Task DoUnbind()
+		/// <summary>
+		/// Tries to set the Scan QR Code result and close the scan page.
+		/// </summary>
+		/// <param name="Url">The URL to set.</param>
+		internal async void TrySetResultAndClosePage(string Url)
 		{
-            return base.DoUnbind();
+			if (this.navigationArgs is null)
+			{
+				try
+				{
+					if (this.useShellNavigationService)
+						await this.NavigationService.GoBackAsync();
+					else
+						await App.Current.MainPage.Navigation.PopAsync();
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
+			else
+			{
+				TaskCompletionSource<string> TaskSource = this.navigationArgs.QrCodeScanned;
+				this.navigationArgs.QrCodeScanned = null;
+
+				this.UiSerializer.BeginInvokeOnMainThread(async () =>
+				{
+					try
+					{
+						Url = Url?.Trim();
+
+						if (this.useShellNavigationService)
+							await this.NavigationService.GoBackAsync();
+						else
+							await App.Current.MainPage.Navigation.PopAsync();
+
+						if (TaskSource is not null)
+						{
+							TaskSource?.TrySetResult(Url);
+						}
+					}
+					catch (Exception ex)
+					{
+						this.LogService.LogException(ex);
+					}
+				});
+			}
+		}
+
+		/// <inheritdoc />
+		protected override async Task OnDispose()
+		{
+			if (this.navigationArgs?.QrCodeScanned is TaskCompletionSource<string> TaskSource)
+			{
+				TaskSource.TrySetResult(string.Empty);
+			}
+
+			await base.OnDispose();
 		}
 
 		#region Properties
@@ -173,7 +232,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 
         private void SetModeText()
         {
-			this.ModeText = this.ScanIsAutomatic ? AppResources.QrEnterManually : AppResources.QrScanCode;
+			this.ModeText = this.ScanIsAutomatic ? LocalizationResourceManager.Current["QrEnterManually"] : LocalizationResourceManager.Current["QrScanCode"];
         }
 
         private void SwitchMode()

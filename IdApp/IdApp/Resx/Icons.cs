@@ -21,10 +21,15 @@
         /// </summary>
         public const string ArrowACircleLeft = "\uf0a8";
 
-        /// <summary>
-        /// The camer icon
-        /// </summary>
-        public const string Camera = "\uf030";
+		/// <summary>
+		/// The microphone icon
+		/// </summary>
+		public const string Microphone = "\uf130";
+
+		/// <summary>
+		/// The camer icon
+		/// </summary>
+		public const string Camera = "\uf030";
 
         /// <summary>
         /// The user icon
@@ -180,6 +185,16 @@
 		/// calculator
 		/// </summary>
 		public const string Calculator = "\uf1ec";
+
+		/// <summary>
+		/// user-shield
+		/// </summary>
+		public const string UserShield = "\uf505";
+
+		/// <summary>
+		/// link
+		/// </summary>
+		public const string Link = "\uf0c1";
 
 	}
 }

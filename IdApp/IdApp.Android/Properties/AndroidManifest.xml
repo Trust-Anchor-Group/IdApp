@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="22" android:versionName="1.1" package="com.tag.IdApp" android:installLocation="preferExternal">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="78" android:versionName="1.8" package="com.tag.IdApp" android:installLocation="preferExternal">
+	<queries>
+		<intent>
+			<action android:name="android.media.action.IMAGE_CAPTURE" />
+		</intent>
+	</queries>
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="31" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -16,25 +21,16 @@
 	<uses-permission android:name="android.permission.NFC" />
 	<uses-permission android:name="android.permission.NFC_TRANSACTION_EVENT" />
 	<uses-permission android:name="android.permission.NFC_PREFERRED_PAYMENT_INFO" />
+	<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
 	<uses-feature android:name="android.hardware.nfc" android:required="false" />
-	<application android:label="TAG ID" android:icon="@mipmap/icon">
+	<queries>
+		<package android:name="com.bankid.bus" />
+	</queries>
+	<application android:label="@string/app_name" android:icon="@mipmap/icon">
 		<provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true" android:requestLegacyExternalStorage="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
 		</provider>
-		<activity android:icon="@mipmap/icon" android:label="TAG ID" android:name="mobile" android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="iotid" />
-				<data android:scheme="iotdisco" />
-				<data android:scheme="iotsc" />
-				<data android:scheme="tagsign" />
-				<data android:scheme="edaler" />
-				<data android:scheme="nfeat" />
-				<data android:scheme="obinfo" />
-				<data android:scheme="xmpp" />
-			</intent-filter>
-		</activity>
 	</application>
 </manifest>

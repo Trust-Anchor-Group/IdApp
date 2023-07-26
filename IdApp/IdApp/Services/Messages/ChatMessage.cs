@@ -41,7 +41,7 @@ namespace IdApp.Services.Messages
 	[TypeName(TypeNameSerialization.None)]
 	[Index("RemoteBareJid", "Created")]
 	[Index("RemoteBareJid", "RemoteObjectId")]
-	public class ChatMessage : IItemGroup
+	public class ChatMessage : IUniqueItem
 	{
 		/// <summary>
 		/// A chat message which is always the latest one and is of type <see cref="MessageType.Empty"/>.
@@ -278,7 +278,7 @@ namespace IdApp.Services.Messages
 
 		private Task ExecuteUriClicked(object Parameter, UriScheme Scheme)
 		{
-			if (Parameter is string Uri && !(this.chatView is null))
+			if (Parameter is string Uri && this.chatView is not null)
 				return this.chatView.ExecuteUriClicked(this, Uri, Scheme);
 			else
 				return Task.CompletedTask;
@@ -289,7 +289,7 @@ namespace IdApp.Services.Messages
 			if (Parameter is not string Url)
 				return;
 
-			await App.OpenUrl(Url);
+			await App.OpenUrlAsync(Url);
 		}
 
 	}

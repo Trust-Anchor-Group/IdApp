@@ -18,18 +18,6 @@ namespace IdApp.Pages
         {
         }
 
-        /// <inheritdoc/>
-        protected override async Task DoBind()
-        {
-            await base.DoBind();
-        }
-
-        /// <inheritdoc/>
-        protected override async Task DoUnbind()
-        {
-            await base.DoUnbind();
-        }
-
 		/// <summary>
 		/// Generates a QR-code
 		/// </summary>
@@ -171,6 +159,11 @@ namespace IdApp.Pages
 		/// If the current view is linkable.
 		/// </summary>
 		public virtual bool IsLinkable => this.HasQrCode;
+
+		/// <summary>
+		/// If App links should be encoded with the link.
+		/// </summary>
+		public virtual bool EncodeAppLinks => true;
 
 		/// <summary>
 		/// Link to the current view

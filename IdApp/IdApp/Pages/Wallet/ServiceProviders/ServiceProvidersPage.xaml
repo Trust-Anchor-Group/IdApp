@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Wallet.ServiceProviders;assembly=IdApp"
+                       xmlns:noBounce="clr-namespace:IdApp.Controls.NoBounceView;assembly=IdApp"
+                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+                       xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                       x:DataType="model:ServiceProvidersViewModel"
+                       x:Class="IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersPage"
+                       Style="{StaticResource BaseBackgroundPage}"
+                       Title="{Binding Path=Title}">
+
+	<views:ContentBasePage.Resources>
+		<DataTemplate x:Key="ShowImageAndText" x:DataType="model:ServiceProviderModel">
+			<Grid Padding="5,5">
+				<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10">
+					<Grid ColumnDefinitions="auto,*" RowDefinitions="auto">
+						<ffimage:CachedImage Grid.Column="0" Grid.Row="0" Aspect="AspectFit"
+											 WidthRequest="150" MinimumWidthRequest="150"
+											 HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+											 Source="{Binding IconUrlSource}" HeightRequest="150" MinimumHeightRequest="150" />
+						<Label Grid.Column="1" Grid.Row="0"
+							   HorizontalOptions="Center" VerticalOptions="Center" LineBreakMode="CharacterWrap"
+							   TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
+					</Grid>
+				</Frame>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="ShowImage" x:DataType="model:ServiceProviderModel">
+			<Grid Padding="5,5">
+				<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10">
+					<Grid ColumnDefinitions="*" RowDefinitions="auto">
+						<Label Grid.Column="0" Grid.Row="0" IsVisible="{Binding HasIcon, Converter={converters:LogicalNot}}"
+									   HorizontalOptions="Center" VerticalOptions="Center" LineBreakMode="CharacterWrap"
+									   TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
+						<ffimage:CachedImage Grid.Column="0" Grid.Row="0" IsVisible="{Binding HasIcon}" Aspect="AspectFit"
+											 WidthRequest="150" MinimumWidthRequest="150"
+											 HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+											 Source="{Binding IconUrlSource}" HeightRequest="150" MinimumHeightRequest="150" />
+					</Grid>
+				</Frame>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="ShowText" x:DataType="model:ServiceProviderModel">
+			<Grid Padding="5,5">
+				<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10">
+					<Label HorizontalOptions="Center" VerticalOptions="Center" LineBreakMode="CharacterWrap"
+							TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
+				</Frame>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="ShowNothing" x:DataType="model:ServiceProviderModel">
+			<Grid Padding="5,5">
+				<Frame HasShadow="False" BorderColor="LightGray" Margin="0" Padding="10"/>
+			</Grid>
+		</DataTemplate>
+		<model:ServiceTemplateSelector x:Key="ServiceStyleSelector"
+									   ImageAndTextTemplate="{StaticResource ShowImageAndText}"
+									   ImageOnlyTemplate="{StaticResource ShowImage}"
+									   TextOnlyTemplate="{StaticResource ShowText}"
+									   DefaultTemplate="{StaticResource ShowNothing}"/>
+	</views:ContentBasePage.Resources>
+	<Grid Margin="{StaticResource DefaultMargin}" ColumnDefinitions="*" RowDefinitions="auto,auto,*"
+          HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
+		<Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Title}" Style="{StaticResource Heading}"/>
+		<Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=Description}" HorizontalOptions="Center" VerticalOptions="Start"/>
+
+		<noBounce:NoBounceCollectionView Grid.Column="0" Grid.Row="2" x:Name="ServiceProviders" VerticalOptions="StartAndExpand"
+                                         ItemSizingStrategy="MeasureAllItems" SelectionMode="Single"
+										 ItemsSource="{Binding Path=ServiceProviders}"
+										 ItemTemplate="{StaticResource ServiceStyleSelector}"
+                                         SelectedItem="{Binding Path=SelectedServiceProvider, Mode=TwoWay}">
+			<CollectionView.ItemsLayout>
+				<GridItemsLayout Orientation="Vertical" VerticalItemSpacing="0" />
+			</CollectionView.ItemsLayout>
+		</noBounce:NoBounceCollectionView>
+	</Grid>
+</views:ContentBasePage>

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using IdApp.Extensions;
 using IdApp.Services;
 using IdApp.Services.Tag;
-using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
 
@@ -23,19 +22,21 @@ namespace IdApp.Pages.Main.Loading
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoBind()
+		protected override async Task OnAppearing()
 		{
-			await base.DoBind();
+			await base.OnAppearing();
+
 			this.IsBusy = true;
 			this.DisplayConnectionText = this.TagProfile.Step > RegistrationStep.Account;
 			this.XmppService.Loaded += this.XmppService_Loaded;
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoUnbind()
+		protected override async Task OnDisappearing()
 		{
 			this.XmppService.Loaded -= this.XmppService_Loaded;
-			await base.DoUnbind();
+
+			await base.OnDisappearing();
 		}
 
 		#region Properties
@@ -58,9 +59,11 @@ namespace IdApp.Pages.Main.Loading
 		#endregion
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(NewState));
+
+			return Task.CompletedTask;
 		}
 
 		/// <inheritdoc/>
@@ -72,7 +75,7 @@ namespace IdApp.Pages.Main.Loading
 			this.StateSummaryText = (this.TagProfile.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
 		}
 
-		private void XmppService_Loaded(object sender, LoadedEventArgs e)
+		private void XmppService_Loaded(object Sender, LoadedEventArgs e)
 		{
 			try
 			{
@@ -88,13 +91,9 @@ namespace IdApp.Pages.Main.Loading
 						try
 						{
 							if (this.TagProfile.IsComplete())
-							{
 								await App.Current.SetAppShellPageAsync();
-							}
 							else
-							{
 								await App.Current.SetRegistrationPageAsync();
-							}
 						}
 						catch (Exception Exception)
 						{

@@ -78,7 +78,7 @@ namespace IdApp.Services.Nfc
 		{
 			get
 			{
-				if (!(this.metaData is null))
+				if (this.metaData is not null)
 				{
 					foreach (Property P in this.metaData)
 					{

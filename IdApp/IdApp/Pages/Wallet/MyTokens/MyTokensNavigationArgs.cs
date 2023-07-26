@@ -9,28 +9,17 @@ namespace IdApp.Pages.Wallet.MyTokens
 	/// </summary>
 	public class MyTokensNavigationArgs : NavigationArgs
     {
-        private readonly TaskCompletionSource<TokenItem> selected;
-
         /// <summary>
         /// Creates a new instance of the <see cref="MyTokensNavigationArgs"/> class.
         /// </summary>
         public MyTokensNavigationArgs()
         {
-            this.selected = new();
+            this.TokenItemProvider = new();
         }
 
-        /// <summary>
-        /// Task completion source, waiting for a response from the user.
-        /// </summary>
-        public TaskCompletionSource<TokenItem> Selected => this.selected;
-
-        /// <summary>
-        /// Waits for the token to be selected; null is returned if the user goes back.
-        /// </summary>
-        /// <returns>Selected token, or null if user cancels, by going back.</returns>
-        public Task<TokenItem> WaitForTokenSelection()
-        {
-            return this.selected?.Task ?? Task.FromResult<TokenItem>(null);
-        }
-    }
+		/// <summary>
+		/// Task completion source; can be used to wait for a result.
+		/// </summary>
+		public TaskCompletionSource<TokenItem> TokenItemProvider { get; internal set; }
+	}
 }

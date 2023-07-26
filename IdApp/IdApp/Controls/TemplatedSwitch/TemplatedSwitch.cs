@@ -32,7 +32,7 @@ namespace IdApp.Controls.TemplatedSwitch
 			set => this.SetValue(IsToggledProperty, value);
 		}
 
-		private void OnTapped(object sender, System.EventArgs e)
+		private void OnTapped(object Sender, System.EventArgs e)
 		{
 			this.IsToggled ^= true;
 		}

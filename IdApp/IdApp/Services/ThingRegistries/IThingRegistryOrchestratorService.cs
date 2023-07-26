@@ -1,6 +1,4 @@
 ﻿using System.Threading.Tasks;
-using IdApp.Services;
-using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.ThingRegistries

@@ -26,7 +26,8 @@ namespace IdApp.Popups.Pin.PinPopup
             this.CloseWhenBackgroundIsClicked = false;
         }
 
-        protected override void LayoutChildren(double x, double y, double width, double height)
+		/// <inheritdoc/>
+		protected override void LayoutChildren(double x, double y, double width, double height)
         {
             base.LayoutChildren(x, y, width, height + 1);
         }
@@ -38,12 +39,22 @@ namespace IdApp.Popups.Pin.PinPopup
             this.Pin.Focus();
         }
 
-        private async void OnEnter(object sender, EventArgs e)
-        {
+		/// <inheritdoc/>
+		protected override bool OnBackButtonPressed()
+		{
+			return true;
+		}
 
-            //this.result.TrySetResult(this.Pin.Text);
-            await App.CheckPinAndUnblockUser(this.Pin.Text, App.Instantiate<ITagProfile>());
-            this.Pin.Text = "";
-        }
-    }
+		private async void OnEnter(object Sender, EventArgs e)
+        {
+			string Pin = await App.CheckPinAndUnblockUser(this.Pin.Text, App.Instantiate<ITagProfile>());
+			this.Pin.Text = "";
+			this.result.TrySetResult(Pin);
+		}
+
+		private void Pin_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			this.EnterButton.IsEnabled = !string.IsNullOrEmpty(this.Pin.Text);
+		}
+	}
 }

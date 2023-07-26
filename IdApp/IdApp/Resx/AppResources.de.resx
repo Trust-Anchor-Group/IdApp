@@ -133,7 +133,7 @@
     <value>Unten sehen Sie Informationen zu einem einzelnen Kontoereignis.</value>
   </data>
   <data name="AccountNameAlreadyTaken" xml:space="preserve">
-    <value>Kontoname {0} ist bereits vergeben. Wählen Sie eine andere.</value>
+    <value>Kontoname {0} ist bereits vergeben. Wählen Sie eine andere aus.</value>
   </data>
   <data name="AccountNameIsInvalid" xml:space="preserve">
     <value>Kontoname ist ungültig</value>
@@ -166,19 +166,19 @@
     <value>Wohnung</value>
   </data>
   <data name="APeerReviewYouhaveRequestedHasBeenAccepted" xml:space="preserve">
-    <value>Ein von Ihnen angefordertes Peer Review wurde akzeptiert.</value>
+    <value>Ein von Ihnen beantragtes Peer Review wurde akzeptiert.</value>
   </data>
   <data name="APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError" xml:space="preserve">
-    <value>Ein von Ihnen angefordertes Peer Review wurde aufgrund eines Signaturfehlers abgelehnt.</value>
+    <value>Ein von Ihnen beantragtes Peer Review wurde aufgrund eines Signaturfehlers abgelehnt.</value>
   </data>
   <data name="APeerYouRequestedToReviewHasRejected" xml:space="preserve">
-    <value>Ein Peer, den Sie gebeten haben, Ihren Antrag zu überprüfen, hat die Genehmigung abgelehnt.</value>
+    <value>Ein Peer, den Sie zur Überprüfung Ihres Antrags aufgefordert haben, hat die Genehmigung abgelehnt.</value>
   </data>
   <data name="APetitionHasBeenSentToTheContract" xml:space="preserve">
-    <value>Eine Petition wurde an die Teile des Vertrags gesendet. Wenn einer der Teile die Petition annimmt, werden die Vertragsinformationen auf dem Bildschirm angezeigt.</value>
+    <value>Eine Petition wurde an die Teile des Vertrags geschickt. Wenn einer der Teile die Petition akzeptiert, werden die Vertragsinformationen auf dem Bildschirm angezeigt.</value>
   </data>
   <data name="APetitionHasBeenSentToTheOwner" xml:space="preserve">
-    <value>Eine Petition wurde an den Inhaber der Identität gesendet. Wenn der Eigentümer die Petition annimmt, werden die Identitätsinformationen auf dem Bildschirm angezeigt.</value>
+    <value>Eine Petition wurde an den Inhaber der Identität geschickt. Wenn der Eigentümer die Petition akzeptiert, werden die Identitätsinformationen auf dem Bildschirm angezeigt.</value>
   </data>
   <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
     <value>Eine Petition wurde an Ihren Kollegen gesendet</value>
@@ -211,7 +211,7 @@
     <value>Gebäude</value>
   </data>
   <data name="CanActAsTemplate" xml:space="preserve">
-    <value>Kann als Vorlage fungieren</value>
+    <value>Kann als Vorlage dienen</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
@@ -229,19 +229,19 @@
     <value>Stadt</value>
   </data>
   <data name="ClaimThing" xml:space="preserve">
-    <value>Sache beanspruchen</value>
+    <value>Claim Thing</value>
   </data>
   <data name="Class" xml:space="preserve">
     <value>Klasse</value>
   </data>
   <data name="ClientSignature" xml:space="preserve">
-    <value>Kundensignatur</value>
+    <value>Client-Signatur</value>
   </data>
   <data name="ClientSignatureInformationInfoText" xml:space="preserve">
     <value>Im Folgenden finden Sie Informationen zu einer Clientsignatur.</value>
   </data>
   <data name="ClientSignatures" xml:space="preserve">
-    <value>Client-Signaturen</value>
+    <value>Clientsignaturen</value>
   </data>
   <data name="ClientSignaturesInfoText" xml:space="preserve">
     <value>Kryptografische Signaturen, die von verschiedenen Teilen erstellt wurden, sind unten aufgeführt.</value>
@@ -262,22 +262,22 @@
     <value>Kontakte</value>
   </data>
   <data name="ContactsDescription" xml:space="preserve">
-    <value>Nachfolgend finden Sie alle Kontakte in Ihrem Kontaktbuch. Klicken Sie auf eine beliebige, um mit diesem Kontakt zu interagieren.</value>
+    <value>Unten finden Sie alle Kontakte in Ihrem Kontaktbuch. Klicken Sie auf Any, um mit diesem Kontakt zu interagieren.</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Fortsetzen</value>
   </data>
   <data name="ContractHasBeenDeleted" xml:space="preserve">
-    <value>Der Vertrag wurde gelöscht.</value>
+    <value>Vertrag wurde gelöscht.</value>
   </data>
   <data name="ContractHasBeenObsoleted" xml:space="preserve">
-    <value>Vertrag ist obsolet.</value>
+    <value>Vertrag wurde obsolet.</value>
   </data>
   <data name="ContractId" xml:space="preserve">
     <value>Vertrags-ID</value>
   </data>
   <data name="ContractRoleMustBeSelected" xml:space="preserve">
-    <value>Wählen Sie zuerst die Vertragsrolle aus, und versuchen Sie es dann erneut.</value>
+    <value>Wählen Sie zuerst die Vertragsrolle aus, und versuchen Sie es erneut.</value>
   </data>
   <data name="Contracts" xml:space="preserve">
     <value>Verträge</value>
@@ -319,7 +319,7 @@
     <value>Erstellt</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
-    <value>Neues erstellen</value>
+    <value>Neue erstellen</value>
   </data>
   <data name="Decline" xml:space="preserve">
     <value>Ablehnen</value>
@@ -337,7 +337,7 @@
     <value>Verdauen</value>
   </data>
   <data name="DisownThing" xml:space="preserve">
-    <value>Ding verleugnen</value>
+    <value>Verleugnen Sie die Sache</value>
   </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} folgt nicht der allgegenwärtigen Verschlüsselungsrichtlinie</value>
@@ -346,13 +346,13 @@
     <value>{0} ist kein gültiger Operator</value>
   </data>
   <data name="DomainNameIsInvalid" xml:space="preserve">
-    <value>Domainname ist ungültig</value>
+    <value>Domänenname ist ungültig</value>
   </data>
   <data name="Duration" xml:space="preserve">
     <value>Dauer</value>
   </data>
   <data name="EDalerNote" xml:space="preserve">
-    <value>eDaler-Hinweis</value>
+    <value>eDaler Hinweis</value>
   </data>
   <data name="EDalerNoteDescription" xml:space="preserve">
     <value>Der Code stellt eine eDaler-Notiz dar. Sie können es akzeptieren, indem Sie unten auf die Schaltfläche Akzeptieren klicken. Wenn es noch nicht akzeptiert wurde, erhält Ihre Brieftasche die auf der Notiz angegebene Menge an eDaler.</value>
@@ -388,7 +388,7 @@
     <value>Allgemein</value>
   </data>
   <data name="GeneralInformation" xml:space="preserve">
-    <value>Allgemeines</value>
+    <value>Allgemeine Informationen</value>
   </data>
   <data name="GeneralInformationInfoText" xml:space="preserve">
     <value>Im Folgenden finden Sie einige allgemeine Informationen zum Vertrag.</value>
@@ -403,13 +403,13 @@
     <value>Heim</value>
   </data>
   <data name="HumanReadableText" xml:space="preserve">
-    <value>Lesbarer Text</value>
+    <value>Von Menschen lesbarer Text</value>
   </data>
   <data name="IApproveOfMyPersonalInformationToBeAssociated" xml:space="preserve">
-    <value>Ich stimme zu, dass meine personenbezogenen Daten aus Gründen der Transparenz mit der von mir überprüften Rechtsidentität in Verbindung gebracht werden.</value>
+    <value>Ich bin damit einverstanden, dass meine personenbezogenen Daten aus Gründen der Transparenz mit der rechtlichen Identität verknüpft werden, die ich überprüfe.</value>
   </data>
   <data name="ID" xml:space="preserve">
-    <value>ID</value>
+    <value>Id</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
     <value>Ein Link zur ID wurde in die Zwischenablage kopiert.</value>
@@ -421,13 +421,13 @@
     <value>Identitätsinformationen</value>
   </data>
   <data name="IdentityInformationInfoText" xml:space="preserve">
-    <value>Im Folgenden sind personenbezogene Daten aufgeführt, die für die Partei registriert wurden, die den Vertrag unterzeichnet hat.</value>
+    <value>Im Folgenden finden Sie personenbezogene Daten, die für die Partei registriert sind, die den Vertrag unterzeichnet hat.</value>
   </data>
   <data name="IdentityState_Approved" xml:space="preserve">
     <value>Gebilligt</value>
   </data>
   <data name="IdentityState_Compromized" xml:space="preserve">
-    <value>Kompromittiert</value>
+    <value>Komprimiert</value>
   </data>
   <data name="IdentityState_Created" xml:space="preserve">
     <value>Erstellt</value>
@@ -442,19 +442,19 @@
     <value>Ignorieren</value>
   </data>
   <data name="IHaveCarefullyReviewedAllInformationAbove" xml:space="preserve">
-    <value>Ich habe alle oben genannten Informationen sorgfältig überprüft und finde, dass es sich um eine korrekte Darstellung der Person handelt, die die Überprüfung anfordert:</value>
+    <value>Ich habe alle oben genannten Informationen sorgfältig überprüft und finde, dass es sich um eine korrekte Darstellung der Person handelt, die die Überprüfung beantragt:</value>
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>Unvollständig</value>
   </data>
   <data name="InformationAboutClaimedThingText" xml:space="preserve">
-    <value>Die folgenden Informationen werden über das Ding zur Verfügung gestellt, dessen Code Sie gescannt haben. Wählen Sie aus, ob Sie versuchen möchten, dieses Ding als Ihr eigenes zu beanspruchen, und auch, ob Sie es in der Thing-Registrierung öffentlich durchsuchbar machen möchten.</value>
+    <value>Die folgenden Informationen werden über das Objekt zur Verfügung gestellt, dessen Code Sie gescannt haben. Wählen Sie, ob Sie versuchen möchten, dieses Objekt als Ihr eigenes zu beanspruchen, und auch, ob Sie es in der Objektregistrierung öffentlich durchsuchbar machen möchten.</value>
   </data>
   <data name="InformationAboutThing" xml:space="preserve">
     <value>Informationen über die Sache</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Die folgenden Informationen werden über das Ding zur Verfügung gestellt. Sie können auch aktuelle Sensordaten sehen, zu deren Anzeige Sie berechtigt sind. Wenn es sich bei dem Ding um einen Aktuator handelt und Sie Rechte haben, das Ding zu steuern, werden auch Steuerparameter angezeigt.</value>
+    <value>Die folgenden Informationen sind lokal über die Sache verfügbar. Optionen zur Interaktion mit dem Gerät sind unten aufgeführt.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Informationen fehlen oder sind ungültig</value>
@@ -466,13 +466,13 @@
     <value>Ungültiger eDaler-URI: {0}</value>
   </data>
   <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
-    <value>Ungültiger IoT-Erkennungscode</value>
+    <value>Ungültiger IoT-Ermittlungscode</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ungültiger Benutzername oder ungültiges Kennwort</value>
   </data>
-  <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Peer zur Überprüfung einladen</value>
+  <data name="RequestReview" xml:space="preserve">
+    <value>Überprüfung anfordern</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Schlüssel</value>
@@ -484,7 +484,7 @@
     <value>Breite</value>
   </data>
   <data name="LegalId" xml:space="preserve">
-    <value>Rechtliche ID</value>
+    <value>Juristische ID</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Laden...</value>
@@ -496,7 +496,7 @@
     <value>Länge</value>
   </data>
   <data name="MachineReadableInfoText" xml:space="preserve">
-    <value>Nachfolgend finden Sie eine Übersicht über die im Vertrag eingebetteten maschinenlesbaren Daten.</value>
+    <value>Eine Übersicht über die im Vertrag eingebetteten maschinenlesbaren Daten finden Sie unten.</value>
   </data>
   <data name="MachineReadableText" xml:space="preserve">
     <value>Maschinenlesbare Informationen</value>
@@ -505,7 +505,7 @@
     <value>Meine digitale ID</value>
   </data>
   <data name="MakeThingPublic" xml:space="preserve">
-    <value>Machen Sie die Sache öffentlich</value>
+    <value>Öffentlich machen</value>
   </data>
   <data name="Manufacturer" xml:space="preserve">
     <value>Hersteller</value>
@@ -517,7 +517,7 @@
     <value>Standort des Zählers</value>
   </data>
   <data name="MeterNumber" xml:space="preserve">
-    <value>Meterzahl</value>
+    <value>Zählerzahl</value>
   </data>
   <data name="MiddleNames" xml:space="preserve">
     <value>Zweiter Vorname(n)</value>
@@ -528,14 +528,8 @@
   <data name="Model" xml:space="preserve">
     <value>Modell</value>
   </data>
-  <data name="MyContracts" xml:space="preserve">
-    <value>Meine Verträge</value>
-  </data>
-  <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Nachfolgend finden Sie eine Liste der Verträge, die Sie erstellt haben. Klicken Sie auf einen Vertrag, um weitere Informationen darüber zu erhalten.</value>
-  </data>
-  <data name="MyCreatedContracts" xml:space="preserve">
-    <value>Meine erstellten Verträge</value>
+  <data name="ContractsInfoText" xml:space="preserve">
+    <value>Nachfolgend finden Sie eine Liste der Verträge, die Sie erstellt oder unterzeichnet haben. Klicken Sie auf einen Vertrag, um weitere Informationen darüber zu erhalten.</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
     <value>Meine Identität</value>
@@ -551,6 +545,12 @@
   </data>
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>Netzwerk scheint zu fehlen. Bitte überprüfen Sie Ihre Konfiguration und Abdeckung und versuchen Sie es erneut.</value>
+  </data>
+  <data name="SendEmailWarning" xml:space="preserve">
+    <value>Ein Code wurde in einer E-Mail-Nachricht an Ihre E-Mail-Addierer gesendet. Wenn Sie es nicht erhalten, überprüfen Sie bitte auch Ihren Spam-Ordner.</value>
+  </data>
+  <data name="SendPhoneNumberWarning" xml:space="preserve">
+    <value>Ein Code wurde als SMS an Ihr Telefon gesendet.</value>
   </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>
@@ -583,7 +583,7 @@
     <value>Offline</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>OKAY</value>
+    <value>Okay</value>
   </data>
   <data name="Online" xml:space="preserve">
     <value>Online</value>
@@ -592,16 +592,16 @@
     <value>Offen</value>
   </data>
   <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
-    <value>Betreiber unterstützt keine rechtlichen Identitäten und Smart Contracts</value>
+    <value>Der Betreiber unterstützt keine rechtlichen Identitäten und Smart Contracts</value>
   </data>
   <data name="OperatorDoesNotSupportProvisioningAndDecisionSupportForThings" xml:space="preserve">
-    <value>Der Betreiber unterstützt keine Bereitstellung und Entscheidungsunterstützung für Dinge</value>
+    <value>Operator unterstützt keine Bereitstellung und Entscheidungsunterstützung für Dinge</value>
   </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
-    <value>Der Betreiber unterstützt {0} die Registrierung neuer Konten nicht</value>
+    <value>Der Betreiber unterstützt {0} keine Registrierung neuer Konten</value>
   </data>
   <data name="OperatorDoesNotSupportThingRegistries" xml:space="preserve">
-    <value>Der Betreiber unterstützt keine Thing-Register</value>
+    <value>Operator unterstützt keine Thing-Registrierungen</value>
   </data>
   <data name="OperatorDomainOther" xml:space="preserve">
     <value>&lt;Other&gt;</value>
@@ -613,7 +613,7 @@
     <value>Parameter</value>
   </data>
   <data name="ParametersInfoText" xml:space="preserve">
-    <value>Die Vertragsparameter sind unten zusammen mit den entsprechenden Werten dargestellt.</value>
+    <value>Die Vertragsparameter sind unten zusammen mit den entsprechenden Werten aufgeführt.</value>
   </data>
   <data name="Parts" xml:space="preserve">
     <value>Teile</value>
@@ -625,7 +625,7 @@
     <value>Passwort</value>
   </data>
   <data name="PasswordIsInvalid" xml:space="preserve">
-    <value>Kennwort ist ungültig</value>
+    <value>Passwort ist ungültig</value>
   </data>
   <data name="MakePayment" xml:space="preserve">
     <value>Zahlung vornehmen</value>
@@ -637,13 +637,13 @@
     <value>Zahlungsannahme</value>
   </data>
   <data name="PaymentAcceptanceDescription" xml:space="preserve">
-    <value>Unten sehen Sie die Details der Offline-Zahlung. Falls akzeptabel, können Sie akzeptieren, dass die Zahlung zur Verarbeitung an das Neuron gesendet wird.</value>
+    <value>Unten sehen Sie die Details der Offline-Zahlung. Wenn Sie damit einverstanden sind, können Sie die Zahlung zur Verarbeitung an das Neuron senden.</value>
   </data>
   <data name="PaymentAlreadySent" xml:space="preserve">
-    <value>Die Zahlungsanweisung wurde bereits gesendet. Sie können ausstehende Zahlungen aus der Ansicht "Ausstehende Zahlungen" erneut senden.</value>
+    <value>Zahlungsanweisung wurde bereits gesendet. Sie können ausstehende Zahlungen aus der Ansicht "Ausstehende Zahlungen" erneut senden.</value>
   </data>
   <data name="PaymentDescription" xml:space="preserve">
-    <value>Geben Sie unten den Betrag ein, der an den Empfänger zu zahlen ist. Sobald Sie fertig sind, können Sie wählen, ob Sie entweder online (falls verbunden) oder offline bezahlen möchten, indem Sie auf die entsprechende Schaltfläche klicken.</value>
+    <value>Geben Sie unten den Betrag ein, der an den Empfänger gezahlt werden soll. Sobald Sie fertig sind, können Sie wählen, ob Sie online (falls verbunden) oder offline bezahlen möchten, indem Sie auf die entsprechende Schaltfläche klicken.</value>
   </data>
   <data name="PaymentSuccess" xml:space="preserve">
     <value>Zahlung erfolgreich realisiert.</value>
@@ -667,22 +667,22 @@
     <value>Ausstehende Zahlung</value>
   </data>
   <data name="PendingPaymentDescription" xml:space="preserve">
-    <value>Nachfolgend sehen Sie Informationen zu einer Zahlung, die generiert, aber noch nicht vollständig verarbeitet wurde.</value>
+    <value>Unten sehen Sie Informationen über eine Zahlung, die generiert, aber noch nicht vollständig verarbeitet wurde.</value>
   </data>
   <data name="PersonalLegalInformation" xml:space="preserve">
-    <value>Persönliche/rechtliche Hinweise</value>
+    <value>Persönliche/rechtliche Informationen</value>
   </data>
   <data name="PersonalLegalInfoText" xml:space="preserve">
-    <value>Um eine Brieftasche zu erhalten, Transaktionen durchzuführen und intelligente Verträge zu unterzeichnen, benötigen Sie eine beglaubigte persönliche oder rechtliche Identität, die Ihrem Konto zugewiesen ist.</value>
+    <value>Um eine Brieftasche zu erhalten, Transaktionen durchzuführen und Smart Contracts zu unterzeichnen, benötigen Sie eine beglaubigte persönliche oder rechtliche Identität, die Ihrem Konto zugewiesen ist.</value>
   </data>
   <data name="PersonalNumber" xml:space="preserve">
     <value>Persönliche Nummer</value>
   </data>
   <data name="PersonalNumberDoesNotMatchCountry" xml:space="preserve">
-    <value>Die persönliche Nummer entspricht nicht den nationalen persönlichen Nummernvorschriften</value>
+    <value>Die persönliche Nummer stimmt nicht mit den nationalen Vorschriften für persönliche Nummern überein</value>
   </data>
   <data name="PersonalNumberDoesNotMatchCountry_ExpectedFormat" xml:space="preserve">
-    <value>Die persönliche Nummer entspricht nicht den nationalen persönlichen Nummernbestimmungen. Erwartetes Format: </value>
+    <value>Die persönliche Nummer entspricht nicht den nationalen Vorschriften für persönliche Nummern. Erwartetes Format: </value>
   </data>
   <data name="PersonalNumberPlaceholder" xml:space="preserve">
     <value>Persönliche Nummer ({0})</value>
@@ -694,13 +694,13 @@
     <value>Zugang zum Vertrag</value>
   </data>
   <data name="PetitionContractInformationText" xml:space="preserve">
-    <value>Eine Petition für die personenbezogenen Daten in einem Ihrer Verträge ist eingegangen. Überprüfen Sie die folgenden Informationen und wählen Sie aus, wie Sie antworten möchten.</value>
+    <value>Eine Petition für die personenbezogenen Daten in einem Ihrer Verträge ist eingegangen. Lesen Sie die folgenden Informationen und wählen Sie aus, wie Sie antworten möchten.</value>
   </data>
   <data name="PetitionIdentity" xml:space="preserve">
-    <value>Zugriff auf Identität</value>
+    <value>Zugriff auf die Identität</value>
   </data>
   <data name="PetitionIdentityInformationText" xml:space="preserve">
-    <value>Eine Petition für die persönlichen Daten Ihrer rechtlichen Identität ist eingegangen. Überprüfen Sie die folgenden Informationen und wählen Sie aus, wie Sie antworten möchten.</value>
+    <value>Eine Petition für die personenbezogenen Daten Ihrer rechtlichen Identität ist eingegangen. Lesen Sie die folgenden Informationen und wählen Sie aus, wie Sie antworten möchten.</value>
   </data>
   <data name="PetitionSent" xml:space="preserve">
     <value>Petition gesendet</value>
@@ -709,13 +709,13 @@
     <value>Unterschrift erbeten</value>
   </data>
   <data name="PetitionSignatureInformationText" xml:space="preserve">
-    <value>Eine Aufforderung zur Unterschrift ist eingegangen. Überprüfen Sie den Grund unten und die Informationen darüber, wer die Anfrage gesendet hat, und wählen Sie dann aus, wie Sie antworten möchten.</value>
+    <value>Eine Bitte um Ihre Unterschrift ist eingegangen. Überprüfen Sie den Grund unten und die Informationen darüber, wer die Anfrage gesendet hat, und wählen Sie dann aus, wie Sie antworten möchten.</value>
   </data>
   <data name="PetitionToViewContractWasDenied" xml:space="preserve">
     <value>Der Antrag auf Einsichtnahme in den Vertrag wurde abgelehnt.</value>
   </data>
   <data name="PetitionToViewLegalIdentityWasDenied" xml:space="preserve">
-    <value>Der Antrag auf Einsicht in die rechtliche Identität wurde abgelehnt.</value>
+    <value>Der Antrag auf Einsichtnahme in die Rechtspersönlichkeit wurde abgelehnt.</value>
   </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
     <value>Foto ist zu groß</value>
@@ -730,19 +730,19 @@
     <value>PIN ist ungültig. Sie haben {0} verbleibenden Versuche.</value>
   </data>
   <data name="PinIsInvalidAplicationBlockedForever" xml:space="preserve">
-    <value>PIN-Versuche, die eingegeben werden, werden überschritten. Ihre Bewerbung wurde für immer blockiert</value>
+    <value>PIN-Eingabeversuche sind überschritten. Ihre Bewerbung wurde für immer blockiert</value>
   </data>
   <data name="PinIsInvalidAplicationBlocked" xml:space="preserve">
-    <value>PIN-Versuche, die eingegeben werden, werden überschritten. Ihre Bewerbung wurde bis {0} gesperrt.</value>
+    <value>PIN-Eingabeversuche sind überschritten. Ihre Bewerbung wurde bis {0} blockiert.</value>
   </data>
   <data name="PinIsInvalidAplicationBlockedTillTomorrow" xml:space="preserve">
-    <value>PIN-Versuche, die eingegeben werden, werden überschritten. Ihre Bewerbung wurde bis morgen um {0} gesperrt.</value>
+    <value>PIN-Eingabeversuche sind überschritten. Ihre Bewerbung wurde bis morgen um {0} gesperrt.</value>
   </data>
   <data name="PinIsInvalidAplicationBlockedForOneWeek" xml:space="preserve">
-    <value>PIN-Versuche, die eingegeben werden, werden überschritten. Ihre Bewerbung wurde für eine Woche gesperrt</value>
+    <value>PIN-Eingabeversuche sind überschritten. Ihre Bewerbung wurde für eine Woche gesperrt</value>
   </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
-    <value>Die PIN-Nummer darf keine führenden oder nachgestellten Leerzeichen enthalten.</value>
+    <value>Die PIN-Nummer darf keine führenden oder nachfolgenden Leerzeichen enthalten.</value>
   </data>
   <data name="PinOrPassword" xml:space="preserve">
     <value>PIN oder Passwort</value>
@@ -754,7 +754,7 @@
     <value>Die PIN-Länge muss mindestens {0} Zeichen betragen.</value>
   </data>
   <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
-    <value>Bitte überprüfen Sie alle obigen Informationen und aktivieren Sie die entsprechenden Kontrollkästchen, wenn die Informationen korrekt sind. Dies muss geschehen, bevor Sie die Informationen genehmigen können.</value>
+    <value>Bitte überprüfen Sie alle oben genannten Informationen und aktivieren Sie die entsprechenden Kontrollkästchen, wenn die Informationen korrekt sind. Dies muss getan werden, bevor Sie die Informationen genehmigen können.</value>
   </data>
   <data name="ProductInformation" xml:space="preserve">
     <value>Produktinformation</value>
@@ -793,7 +793,7 @@
     <value>URI:</value>
   </data>
   <data name="ReceiveEDaler" xml:space="preserve">
-    <value>eDaler empfangen</value>
+    <value>eDaler erhalten</value>
   </data>
   <data name="Region" xml:space="preserve">
     <value>Region oder Bundesland</value>
@@ -820,7 +820,7 @@
     <value>Bitten</value>
   </data>
   <data name="RequestingEntity" xml:space="preserve">
-    <value>Anfragende Entität</value>
+    <value>Anfordernde Entität</value>
   </data>
   <data name="RequestPayment" xml:space="preserve">
     <value>Zahlung anfordern</value>
@@ -829,10 +829,10 @@
     <value>Um die Zahlung von jemandem anzufordern, geben Sie die Details zur Zahlung unten ein und klicken Sie auf die Schaltfläche QR-Code generieren. Der generierte Code kann von der anderen Partei verwendet werden, um eine Zahlung auf Ihr Konto zu generieren.</value>
   </data>
   <data name="RequestPaymentMessage" xml:space="preserve">
-    <value>Anfordern der Zahlung von {0} {1}.</value>
+    <value>Aufforderung zur Zahlung von {0} {1}.</value>
   </data>
   <data name="RequestTimedOut" xml:space="preserve">
-    <value>Zeitüberschreitung bei der Anforderung</value>
+    <value>Zeitüberschreitung der Anforderung</value>
   </data>
   <data name="RequestWasCancelled" xml:space="preserve">
     <value>Die Anfrage wurde storniert</value>
@@ -841,7 +841,7 @@
     <value>PIN oder Kennwort erneut eingeben</value>
   </data>
   <data name="ReviewIdentityInformationText" xml:space="preserve">
-    <value>Sie wurden aufgefordert, die folgenden personenbezogenen Daten zu überprüfen. Wenn dies korrekt ist, aktivieren Sie die entsprechenden Kontrollkästchen und klicken Sie unten auf die Schaltfläche Genehmigen. Sie können auch auf die Schaltfläche Ablehnen klicken, wenn Sie etwas Falsches finden.</value>
+    <value>Sie wurden aufgefordert, die folgenden personenbezogenen Daten zu überprüfen. Wenn dies der Fall ist, aktivieren Sie die entsprechenden Kontrollkästchen und klicken Sie unten auf die Schaltfläche Genehmigen. Sie können auch die Taste Ablehnen drücken, wenn Sie etwas finden, das falsch ist.</value>
   </data>
   <data name="RevokeInformation" xml:space="preserve">
     <value>Widerrufen</value>
@@ -853,7 +853,7 @@
     <value>Rollen</value>
   </data>
   <data name="RolesInfoText" xml:space="preserve">
-    <value>Unten sehen Sie die verschiedenen Rollen, die für den Vertrag definiert wurden. Wenn für eine Rolle mehr als ein Teil angenommen wird, wird diese Nummer in der Beschreibung der Rolle angezeigt.</value>
+    <value>Unten sehen Sie die verschiedenen Rollen, die für den Vertrag definiert sind. Wenn für eine Rolle mehr als ein Teil angenommen wird, wird diese Nummer in der Beschreibung der Rolle angezeigt.</value>
   </data>
   <data name="Room" xml:space="preserve">
     <value>Zimmer</value>
@@ -865,7 +865,7 @@
     <value>QR-Code scannen</value>
   </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
-    <value>Das Auswählen eines Fotos wird auf diesem Gerät nicht unterstützt.</value>
+    <value>Die Auswahl eines Fotos wird auf diesem Gerät nicht unterstützt</value>
   </data>
   <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
     <value>Wählen Sie aus, wer Zugriff auf diesen Vertrag haben soll.</value>
@@ -883,13 +883,13 @@
     <value>Seriennummer</value>
   </data>
   <data name="ServerSignature" xml:space="preserve">
-    <value>Server-Signatur</value>
+    <value>Serversignatur</value>
   </data>
   <data name="ServerSignatureInformationInfoText" xml:space="preserve">
     <value>Im Folgenden finden Sie Informationen zu einer Serversignatur.</value>
   </data>
   <data name="ServerSignatures" xml:space="preserve">
-    <value>Server-Signaturen</value>
+    <value>Serversignaturen</value>
   </data>
   <data name="ServerSignaturesInfoText" xml:space="preserve">
     <value>Die Integrität des Vertrags wird durch die unten gezeigte Serversignatur geschützt.</value>
@@ -910,16 +910,10 @@
     <value>Unterschrift</value>
   </data>
   <data name="SignatureInformation" xml:space="preserve">
-    <value>Informationen zur Unterschrift</value>
+    <value>Unterschriftsinformationen</value>
   </data>
   <data name="SignBefore" xml:space="preserve">
-    <value>Vorher unterschreiben</value>
-  </data>
-  <data name="SignedContracts" xml:space="preserve">
-    <value>Unterzeichnete Verträge</value>
-  </data>
-  <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Nachfolgend finden Sie eine Liste der Verträge, die Sie unterzeichnet haben. Klicken Sie auf einen Vertrag, um weitere Informationen darüber zu erhalten.</value>
+    <value>Unterschreiben Sie vorher</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Hüpfen</value>
@@ -940,7 +934,7 @@
     <value>Erfolg</value>
   </data>
   <data name="TagValueCopiedToClipboard" xml:space="preserve">
-    <value>In die Zwischenablage kopierter Tag-Wert</value>
+    <value>In Zwischenablage kopierter Tag-Wert</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Foto machen</value>
@@ -952,31 +946,31 @@
     <value>Vorlagen-ID</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
-    <value>Der Vertrag erfordert mindestens {0} Teil(e) der Rolle {1}. Fügen Sie dem Vertrag weitere Teile hinzu und versuchen Sie es erneut.</value>
+    <value>Der Vertrag erfordert mindestens {0} Teil der Rolle {1}. Fügen Sie dem Vertrag weitere Teile hinzu und versuchen Sie es erneut.</value>
   </data>
   <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
-    <value>Der Vertrag erfordert höchstens {0} Teil(e) der Rolle {1}. Entfernen Sie einige Teile aus dem Vertrag und versuchen Sie es erneut.</value>
+    <value>Der Vertrag erfordert höchstens {0} Teil der Rolle {1}. Entfernen Sie einige Teile aus dem Vertrag und versuchen Sie es erneut.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
-    <value>Das Kennwort für die Verbindung ist {0}. Dies wurde in die Zwischenablage kopiert.</value>
+    <value>Das Kennwort für die Verbindung lautet {0}. Diese wurde in die Zwischenablage kopiert.</value>
   </data>
   <data name="ThereIsNoNetwork" xml:space="preserve">
     <value>Es gibt kein Netzwerk</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>Der angegebene Code ist keine rechtliche Identität</value>
+    <value>Sie müssen eine andere Art von QR-Code scannen, der eine rechtliche Identität darstellt</value>
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Ding</value>
   </data>
   <data name="ThingDisowned" xml:space="preserve">
-    <value>Dies wurde erfolgreich verworfen. Es kann jetzt von einem neuen Besitzer beansprucht werden.</value>
+    <value>Dies wurde erfolgreich verleugnet. Es kann nun von einem neuen Besitzer beansprucht werden.</value>
   </data>
   <data name="Things" xml:space="preserve">
     <value>Dinge</value>
   </data>
   <data name="ThingsDescription" xml:space="preserve">
-    <value>Im Folgenden finden Sie alle Ihre Dinge und Dinge in Ihrem Kontaktbuch. Klicken Sie auf eine beliebige, um mit diesem Ding zu interagieren.</value>
+    <value>Unten sind alle Ihre Sachen und Dinge in Ihrem Kontaktbuch. Klicken Sie auf irgendeinen, um mit diesem Ding zu interagieren.</value>
   </data>
   <data name="Timestamp" xml:space="preserve">
     <value>Zeitstempel</value>
@@ -997,10 +991,10 @@
     <value>Authentifizierung mit {0} nicht möglich</value>
   </data>
   <data name="UnableToClaimThing" xml:space="preserve">
-    <value>Nicht in der Lage, etwas zu beanspruchen</value>
+    <value>Objekt kann nicht beansprucht werden</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
-    <value>Es konnte keine Verbindung zu {0} hergestellt werden</value>
+    <value>Verbindung zu {0} nicht möglich</value>
   </data>
   <data name="UnableToProcessEDalerUri" xml:space="preserve">
     <value>eDaler-Code kann nicht verarbeitet werden.</value>
@@ -1009,22 +1003,22 @@
     <value>Nicht erkannter eDaler-URI.</value>
   </data>
   <data name="UnsupportedUriScheme" xml:space="preserve">
-    <value>Der Text entspricht keinem der unterstützten URI-Schemata.</value>
+    <value>Der Text entspricht keinem der unterstützten URI-Schemas.</value>
   </data>
   <data name="Updated" xml:space="preserve">
     <value>Aktualisierte</value>
   </data>
   <data name="ValidateIdentityInfo1Text" xml:space="preserve">
-    <value>Ihre Identitätsinformationen müssen validiert werden, bevor sie genehmigt werden können. Dies kann manuell von Ihrem Bediener durchgeführt werden. Es kann auch von Gleichaltrigen getan werden.</value>
+    <value>Ihre Identitätsinformationen müssen validiert werden, bevor sie genehmigt werden können. Dies kann manuell von Ihrem Bediener durchgeführt werden. Es kann auch von Gleichaltrigen durchgeführt werden.</value>
   </data>
   <data name="ValidateIdentityInfo2Text" xml:space="preserve">
-    <value>Um einen Peer zur Überprüfung Ihrer Anwendung einzuladen, müssen Sie den ID-Code des Peers scannen, den Sie einladen möchten. Sie können Ihre Bewerbung sehen und überprüfen. Wenn genügend Fachkollegen Ihre Informationen überprüft und bestätigt haben, dass sie korrekt sind, wird der Betreiber Ihren Antrag automatisch genehmigen. Die Informationen darüber, wer Ihre Identität überprüft hat, werden in die überprüfte Identität selbst codiert.</value>
+    <value>Um einen Peer zur Überprüfung Ihrer Bewerbung einzuladen, müssen Sie den ID-Code des Peers scannen, den Sie einladen möchten. Sie können Ihre Bewerbung sehen und überprüfen. Wenn genügend Kollegen Ihre Informationen überprüft und bestätigt haben, dass sie korrekt sind, wird der Betreiber Ihren Antrag automatisch genehmigen. Die Informationen darüber, wer Ihre Identität überprüft hat, werden in die überprüfte Identität selbst kodiert.</value>
   </data>
   <data name="ValidateIdentityInfo3Text" xml:space="preserve">
-    <value>Sie können den aktuellen Status der Anwendung unten sehen.</value>
+    <value>Den aktuellen Status der Bewerbung sehen Sie unten.</value>
   </data>
   <data name="ValidatingInformation" xml:space="preserve">
-    <value>Validieren von Informationen</value>
+    <value>Überprüfen von Informationen</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
@@ -1033,7 +1027,7 @@
     <value>Vertrag anzeigen</value>
   </data>
   <data name="ViewIdentityInformationText" xml:space="preserve">
-    <value>Im Folgenden finden Sie personenbezogene Daten, die bei der juristischen Identität registriert sind. Unterschriften und Zahlungen werden mit diesen Informationen signiert.</value>
+    <value>Im Folgenden finden Sie persönliche Informationen, die mit der rechtlichen Identität registriert sind. Unterschriften und Zahlungen werden mit diesen Informationen signiert.</value>
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Sichtbarkeit</value>
@@ -1045,7 +1039,7 @@
     <value>Willkommen bei der TAG Digital ID App!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
-    <value>Bevor wir uns mit dem TAG-ID-Netzwerk verbinden, müssen wir einen Dienstanbieter für Sie auswählen. Um dies zu tun, müssen wir den Zweck für die Verwendung der App kennen. Wählen Sie unten die am besten geeignete Option aus.</value>
+    <value>Bevor wir uns mit dem TAG ID-Netzwerk verbinden, müssen wir einen Dienstanbieter für Sie auswählen. Um dies zu tun, müssen wir den Zweck für die Verwendung der App kennen. Wählen Sie unten die am besten geeignete Option aus.</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
     <value>Authentifizieren der Netzwerkidentität</value>
@@ -1057,7 +1051,7 @@
     <value>Verbunden</value>
   </data>
   <data name="XmppState_ConnectedTo" xml:space="preserve">
-    <value>Mit {0} verbunden</value>
+    <value>Verbunden mit {0}</value>
   </data>
   <data name="XmppState_Connecting" xml:space="preserve">
     <value>Verbindung herstellen</value>
@@ -1066,7 +1060,7 @@
     <value>Verbindungsfehler</value>
   </data>
   <data name="XmppState_FetchingRoster" xml:space="preserve">
-    <value>Abruf des Dienstplans</value>
+    <value>Dienstplan abrufen</value>
   </data>
   <data name="XmppState_Offline" xml:space="preserve">
     <value>Entfernt</value>
@@ -1081,10 +1075,10 @@
     <value>Festlegen der Anwesenheit</value>
   </data>
   <data name="XmppState_StartingEncryption" xml:space="preserve">
-    <value>Verschlüsselnde Verbindung</value>
+    <value>Verbindung verschlüsseln</value>
   </data>
   <data name="XmppState_StreamNegotiation" xml:space="preserve">
-    <value>Verhandlungs-Stream</value>
+    <value>Verhandlungsdatenstrom</value>
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
     <value>Stream etabliert</value>
@@ -1099,19 +1093,19 @@
     <value>Sie können Ihre Brieftasche und vertrauliche Informationen schützen, indem Sie eine zusätzliche PIN-Nummer oder ein Passwort hinzufügen.</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfoChange" xml:space="preserve">
-    <value>Sie können Ihre Brieftasche und vertrauliche Informationen schützen, indem Sie eine zusätzliche PIN-Nummer oder ein Passwort ändern.</value>
+    <value>Sie können die vorhandene PIN bei Bedarf ändern. Wenn Sie diesen Schritt überspringen, wird die alte PIN verwendet.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
-    <value>Sie wurden jetzt abgemeldet. Um sich erneut anzumelden, verwenden Sie das Menü in der oberen linken Ecke.</value>
+    <value>Sie wurden nun abgemeldet. Um sich erneut anzumelden, verwenden Sie das Menü in der oberen linken Ecke.</value>
   </data>
   <data name="YouHaveReceivedAProposal" xml:space="preserve">
     <value>Sie haben einen Vorschlag erhalten.</value>
   </data>
   <data name="YouNeedToApproveToAssociate" xml:space="preserve">
-    <value>Sie müssen zustimmen, um Ihre persönlichen Daten mit der von Ihnen überprüften Identität zu verknüpfen. Wenn Dritte die Informationen in der Identität überprüfen, haben sie aus Gründen der Transparenz Zugriff auf die Identität der Prüfer.</value>
+    <value>Sie müssen zustimmen, Ihre persönlichen Daten mit der von Ihnen überprüften Identität zu verknüpfen. Wenn Dritte die Informationen in der Identität überprüfen, haben sie aus Gründen der Transparenz Zugriff auf die Identität der Prüfer.</value>
   </data>
   <data name="YouNeedToCheckCarefullyReviewed" xml:space="preserve">
-    <value>Sie müssen das Kästchen aktivieren, in dem Sie alle entsprechenden Informationen oben sorgfältig überprüft haben.</value>
+    <value>Sie müssen das Kästchen ankreuzen, in dem Sie alle entsprechenden Informationen oben sorgfältig überprüft haben.</value>
   </data>
   <data name="YouNeedToProvideACountry" xml:space="preserve">
     <value>Sie müssen ein Land auswählen</value>
@@ -1123,25 +1117,25 @@
     <value>Sie müssen mindestens einen Nachnamen angeben</value>
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
-    <value>Sie müssen eine persönliche oder soziale Versicherungsnummer angeben</value>
+    <value>Sie müssen eine persönliche oder Sozialversicherungsnummer angeben</value>
   </data>
   <data name="YouNeedToProvideAPhoto" xml:space="preserve">
-    <value>Sie müssen ein Foto zur Verfügung stellen</value>
+    <value>Sie müssen ein Foto bereitstellen</value>
   </data>
   <data name="YourContractContainsErrors" xml:space="preserve">
-    <value>Ihr Vertrag enthält Fehler. Beheben Sie diese Fehler, und versuchen Sie es erneut.</value>
+    <value>Ihr Vertrag enthält Fehler. Beheben Sie diese Fehler und versuchen Sie es erneut.</value>
   </data>
   <data name="YourLegalIdentity" xml:space="preserve">
     <value>Ihre rechtliche Identität</value>
   </data>
   <data name="YourLegalIdentityHasBeenCompromised" xml:space="preserve">
-    <value>Ihre rechtliche Identität wurde als gefährdet markiert. Sie wurden daher weitergeleitet, um ein neues Konto zu erstellen.</value>
+    <value>Ihre rechtliche Identität wurde als kompromittiert markiert. Sie wurden daher umgeleitet, um ein neues Konto zu erstellen.</value>
   </data>
   <data name="YourLegalIdentityHasBeenObsoleted" xml:space="preserve">
-    <value>Ihre rechtliche Identität wurde als veraltet markiert. Sie wurden daher weitergeleitet, um ein neues Konto zu erstellen.</value>
+    <value>Ihre rechtliche Identität wurde als obsolet markiert. Sie wurden daher umgeleitet, um ein neues Konto zu erstellen.</value>
   </data>
   <data name="YourLegalIdentityHasInvalidOrMissingKeys" xml:space="preserve">
-    <value>Die Signaturschlüssel Ihrer rechtlichen Identität sind ungültig. Sie wurden daher weitergeleitet, um ein neues Konto zu erstellen.</value>
+    <value>Die Signaturschlüssel Ihrer rechtlichen Identität sind ungültig. Sie wurden daher umgeleitet, um ein neues Konto zu erstellen.</value>
   </data>
   <data name="YourRole" xml:space="preserve">
     <value>Ihre Rolle</value>
@@ -1150,10 +1144,13 @@
     <value>Postleitzahl</value>
   </data>
   <data name="SelectContactToPay" xml:space="preserve">
-    <value>Nachfolgend finden Sie alle Kontakte in Ihrem Kontaktbuch. Wählen Sie den Kontakt aus, an den Sie die Zahlung vornehmen möchten.</value>
+    <value>Unten finden Sie alle Kontakte in Ihrem Kontaktbuch. Wählen Sie den Kontakt aus, an den Sie die Zahlung vornehmen möchten.</value>
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Code senden</value>
+  </data>
+  <data name="DisabledFor" xml:space="preserve">
+    <value>DEAKTIVIERT FÜR {0} SEKUNDEN</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>Der Code war nicht korrekt.</value>
@@ -1164,20 +1161,11 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>Code überprüfen</value>
   </data>
+  <data name="VerifiedButton" xml:space="preserve">
+    <value>Verifiziert</value>
+  </data>
   <data name="WelcomeToTagValidatePhoneNr" xml:space="preserve">
-    <value>Wir müssen auch Ihre Mobiltelefonnummer validieren. Bitte geben Sie unten Ihre Mobiltelefonnummer im internationalen Telefonnummernformat ohne Leerzeichen ein.</value>
-  </data>
-  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Pädagogische oder experimentelle Verwendung.</value>
-  </data>
-  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Mit dieser Option können Sie die Tag-ID für Bildungs-, Versuchs- oder Testzwecke verwenden. Bei der Nutzung dieser Option fallen keine Kosten an. Das Konto kann entfernt werden, wenn es nicht mehr verwendet wird. Es gibt keine Garantie dafür, dass der ausgewählte Bildungs- oder Versuchsdienstleister den Betrieb für längere Zeit fortsetzt.</value>
-  </data>
-  <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Arbeit oder persönlicher Gebrauch.</value>
-  </data>
-  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Mit dieser Option können Sie die Tag-ID für geschäftliche oder private Zwecke verwenden. Sie können die App drei Monate lang kostenlos nutzen. Nach Ablauf dieses Zeitraums können für bestimmte Vorgänge Kosten anfallen.</value>
+    <value>Wir müssen auch Ihre Mobiltelefonnummer validieren. Bitte geben Sie unten Ihre Mobiltelefonnummer im internationalen Rufnummernformat ohne Leerzeichen ein.</value>
   </data>
   <data name="SelectPurpose" xml:space="preserve">
     <value>Zweck auswählen</value>
@@ -1186,7 +1174,7 @@
     <value>Ein Code wurde an die oben angegebene Nummer gesendet. Wenn Sie es erhalten, geben Sie bitte den Bestätigungscode unten ein, um fortzufahren.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
-    <value>Fordern Sie die Einladung an</value>
+    <value>Einladung beanspruchen</value>
   </data>
   <data name="Invitation" xml:space="preserve">
     <value>Einladung</value>
@@ -1204,40 +1192,40 @@
     <value>Ungültiger Einladungscode.</value>
   </data>
   <data name="ScanInvitation" xml:space="preserve">
-    <value>Scan-Einladung</value>
+    <value>Einladung zum Scannen</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount1" xml:space="preserve">
-    <value>Ihr Dienstanbieter wurde ausgewählt, um</value>
+    <value>Ihr Dienstanbieter wurde als</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Sie können ein Konto bei diesem Anbieter erstellen. Geben Sie den Namen des Kontos ein, das Sie erstellen möchten, und klicken Sie auf die Schaltfläche Neu erstellen. Sie können auch eine Einladung oder einen Überweisungscode scannen, um ein Konto zu verwenden, das bereits für Sie vorbereitet wurde, bei einem anderen Dienstanbieter. Klicken Sie auf die Schaltfläche Einladung scannen, um einen Einladungscode zu scannen.</value>
+    <value>Sie können ein Konto bei diesem Anbieter erstellen. Geben Sie den Namen des Kontos ein, das Sie erstellen möchten, und klicken Sie auf die Schaltfläche Neu erstellen. Sie können auch einen Einladungscode scannen, um einen anderen Dienstanbieter für Ihr Konto auszuwählen. Wenn Sie einen Überweisungscode scannen, können Sie ein Konto verwenden, das bereits für Sie vorbereitet wurde. Klicken Sie auf die Schaltfläche Einladung scannen, um eine Einladung oder einen Überweisungscode zu scannen.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
-    <value>Viewmodel-{0} konnte nicht für Seite {1} gebunden werden</value>
+    <value>Viewmodel-{0} für Seite {1} konnte nicht gebunden werden</value>
   </data>
   <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
-    <value>Fehler beim Wiederherstellen des Zustands für viewmodel {0} für Seite {1}</value>
+    <value>Fehler beim Wiederherstellen des Status für Ansichtsmodell {0} für Seite {1}</value>
   </data>
   <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
-    <value>Fehler beim Speichern des Zustands für viewmodel {0} für Seite {1}</value>
+    <value>Fehler beim Speichern des Status für Ansichtsmodell {0} für Seite {1}</value>
   </data>
   <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
-    <value>Fehler beim Aufheben der Bindung von viewmodel-{0} für Seite {1}</value>
+    <value>Fehler beim Aufheben der Bindung der Ansichtmodell-{0} für Seite {1}</value>
   </data>
   <data name="ContinueAnyway" xml:space="preserve">
-    <value>Trotzdem fortfahren</value>
+    <value>Trotzdem weitermachen</value>
   </data>
   <data name="DatabaseCorruptInfoText" xml:space="preserve">
-    <value>Es scheint, als ob die Datenbank nicht korrekt geschlossen wurde und daher beschädigt werden kann. Es kann versucht werden, die Datenbank zu reparieren, indem Sie sie zuerst löschen. Wie möchten Sie vorgehen?</value>
+    <value>Es scheint, als ob die Datenbank nicht korrekt geschlossen wurde und daher beschädigt sein könnte. Es kann versucht werden, die Datenbank zu reparieren, indem sie zuerst gelöscht wird. Wie möchten Sie vorgehen?</value>
   </data>
   <data name="DatabaseIssue" xml:space="preserve">
     <value>Datenbankproblem</value>
   </data>
   <data name="DatabaseRepairFailedInfoText" xml:space="preserve">
-    <value>Datenbankreparatur fehlgeschlagen. Wir haben jetzt keine Optionen mehr, also fahren Sie auf eigenes Risiko fort.</value>
+    <value>Datenbankreparatur fehlgeschlagen. Wir haben jetzt keine Optionen mehr, also fahren Sie auf eigene Gefahr fort.</value>
   </data>
   <data name="EDalerServiceNotFound" xml:space="preserve">
-    <value>Kein eDaler-Service auf dem Broker gefunden.</value>
+    <value>Kein eDaler-Service auf Broker gefunden.</value>
   </data>
   <data name="FailedToClosePage" xml:space="preserve">
     <value>Seite konnte nicht geschlossen werden</value>
@@ -1246,31 +1234,31 @@
     <value>Fehler beim Navigieren zu Seite {0} {1}</value>
   </data>
   <data name="FileUploadServiceNotFound" xml:space="preserve">
-    <value>Auf dem Broker wurde kein Datei-Upload-Dienst gefunden.</value>
+    <value>Kein Datei-Upload-Service auf dem Broker gefunden.</value>
   </data>
   <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
     <value>Kein gültiger iotdisco-Anspruchs-URI.</value>
   </data>
   <data name="LegalServiceNotFound" xml:space="preserve">
-    <value>Keine Rechtsberatung auf Broker gefunden.</value>
+    <value>Kein Rechtsdienst auf Broker gefunden.</value>
   </data>
   <data name="ProvisioningServiceNotFound" xml:space="preserve">
-    <value>Auf dem Broker wurde kein Bereitstellungsdienst gefunden.</value>
+    <value>Kein Bereitstellungsdienst auf dem Broker gefunden.</value>
   </data>
   <data name="RepairAndContinue" xml:space="preserve">
     <value>Reparieren und fortfahren</value>
   </data>
   <data name="ThingRegistryServiceNotFound" xml:space="preserve">
-    <value>Nichts, was der Registrierungsdienst auf dem Broker gefunden hat.</value>
+    <value>Nichts Registry-Service auf Broker gefunden.</value>
   </data>
   <data name="UnableToGetListOfMyDevices" xml:space="preserve">
-    <value>Die Liste meiner Geräte konnte nicht abgerufen werden.</value>
+    <value>Die Liste meiner Geräte kann nicht abgerufen werden.</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Telefon</value>
   </data>
   <data name="UnableToAccessInvitation" xml:space="preserve">
-    <value>Zugriff auf Einladungsinformationen nicht möglich.</value>
+    <value>Auf Einladungsinformationen kann nicht zugegriffen werden.</value>
   </data>
   <data name="InvitationAccepted" xml:space="preserve">
     <value>Einladung angenommen</value>
@@ -1279,16 +1267,16 @@
     <value>Sie wurden eingeladen, ein Konto auf {0} zu erstellen. Drücken Sie OK und geben Sie den Namen des Kontos ein, das Sie erstellen möchten.</value>
   </data>
   <data name="AreYouSureYouWantToTransferYourLegalIdentity" xml:space="preserve">
-    <value>Sind Sie sicher, dass Sie Ihre rechtliche Identität von der Anwendung auf eine andere übertragen möchten? Die Identität wird von diesem Gerät entfernt, sobald sie abgeschlossen ist. Stellen Sie außerdem sicher, dass niemand anderes Ihren Bildschirm während des Vorgangs sehen kann.</value>
+    <value>Sind Sie sicher, dass Sie Ihre rechtliche Identität von der Anmeldung auf eine andere übertragen möchten? Die Identität wird von diesem Gerät entfernt, sobald der Vorgang abgeschlossen ist. Stellen Sie außerdem sicher, dass niemand sonst Ihren Bildschirm während des Vorgangs sehen kann.</value>
   </data>
   <data name="TransferId" xml:space="preserve">
-    <value>Transfer-ID</value>
+    <value>ID übertragen</value>
   </data>
   <data name="TransferIdentityInformationText" xml:space="preserve">
     <value>Scannen Sie den QR-Einladungscode unten von einem Gerät, das initialisiert wird, um die digitale Identität auf diesem Gerät auf das zweite Gerät zu übertragen. Sobald der Code gescannt und die Identität übertragen wurde, wird er von diesem Gerät entfernt.</value>
   </data>
   <data name="ConfirmByEnteringYourPin" xml:space="preserve">
-    <value>Bestätigen Sie durch Eingabe Ihrer PIN-Nummer.</value>
+    <value>Bestätigen Sie mit Eingabe Ihrer PIN-Nummer.</value>
   </data>
   <data name="UnexpectedResponse" xml:space="preserve">
     <value>Eine unerwartete Antwort ging ein.</value>
@@ -1309,10 +1297,10 @@
     <value>Eintreten</value>
   </data>
   <data name="PinChanged" xml:space="preserve">
-    <value>Die PIN wurde erfolgreich geändert.</value>
+    <value>PIN wurde erfolgreich geändert.</value>
   </data>
   <data name="UnableToChangePassword" xml:space="preserve">
-    <value>Das Netzwerkkennwort konnte nicht geändert werden.</value>
+    <value>Das Netzwerkkennwort kann nicht geändert werden.</value>
   </data>
   <data name="PresenceSubscriptionReceived1" xml:space="preserve">
     <value>Sie haben ein Präsenzabonnement erhalten von:</value>
@@ -1330,7 +1318,7 @@
     <value>Was möchten Sie tun?</value>
   </data>
   <data name="PresenceSubscriptionRequest" xml:space="preserve">
-    <value>Abonnementanfrage für Anwesenheitsinformationen</value>
+    <value>Anfrage für ein Anwesenheitsabonnement</value>
   </data>
   <data name="Reject" xml:space="preserve">
     <value>Ablehnen</value>
@@ -1339,7 +1327,7 @@
     <value>Möchten Sie die Anwesenheit von:</value>
   </data>
   <data name="SubscribeToPresence2" xml:space="preserve">
-    <value>Wenn Sie die Anwesenheit einer Person abonnieren und diese akzeptiert, werden Sie über ihre Online-Präsenz informiert.</value>
+    <value>Wenn Sie die Anwesenheit einer Person abonnieren, und wenn sie akzeptiert, werden Sie über ihre Online-Präsenz informiert.</value>
   </data>
   <data name="SubscribeToPresence3" xml:space="preserve">
     <value>Was möchten Sie tun?</value>
@@ -1360,13 +1348,13 @@
     <value>Eine Anwesenheitsabonnementanforderung wurde gesendet. Wenn der Empfänger die Anfrage annimmt, wird der Kontaktstatus aktualisiert.</value>
   </data>
   <data name="PresenceUnsubscriptionRequestSent" xml:space="preserve">
-    <value>Es wurde eine Anfrage zur Aufhebung der Anwesenheitsbenachrichtigung gesendet.</value>
+    <value>Eine Aufforderung zur Aufhebung der Anwesenheitsbenachrichtigung wurde gesendet.</value>
   </data>
   <data name="SubscribeTo" xml:space="preserve">
     <value>Abonnieren</value>
   </data>
   <data name="UnsubscribeFrom" xml:space="preserve">
-    <value>Abmelden von</value>
+    <value>Abmeldung von</value>
   </data>
   <data name="Abuse" xml:space="preserve">
     <value>Missbrauch</value>
@@ -1387,13 +1375,13 @@
     <value>Dadurch wird sichergestellt, dass Sie keine weiteren Abonnementanfragen vom Absender erhalten.</value>
   </data>
   <data name="FurtherAction4" xml:space="preserve">
-    <value>Sie können den Absender auch an Ihren Operator melden.</value>
+    <value>Sie können den Absender auch Ihrem Netzbetreiber melden.</value>
   </data>
   <data name="NoJustIgnore" xml:space="preserve">
     <value>Nein, einfach ignorieren</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Andere</value>
+    <value>Andere __________</value>
   </data>
   <data name="Report" xml:space="preserve">
     <value>Bericht</value>
@@ -1405,46 +1393,40 @@
     <value>TypeOfReport</value>
   </data>
   <data name="TypeOfReport1" xml:space="preserve">
-    <value>Wählen Sie den Berichtstyp aus, für den Sie eine Datei erstellen möchten:</value>
+    <value>Wählen Sie den Berichtstyp aus, den Sie einreichen möchten:</value>
   </data>
   <data name="RemoveSubscription" xml:space="preserve">
     <value>Abonnement entfernen?</value>
   </data>
   <data name="RemoveSubscription1" xml:space="preserve">
-    <value>Sie haben noch eine genehmigte Abonnementanfrage von:</value>
+    <value>Sie haben noch eine genehmigte Abonnementanforderung von:</value>
   </data>
   <data name="RemoveSubscription2" xml:space="preserve">
-    <value>Möchten Sie auch diese Berechtigung widerrufen?</value>
+    <value>Möchten Sie diese Erlaubnis auch widerrufen?</value>
   </data>
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>Der Server scheint das Hochladen von Dateien nicht zu unterstützen.</value>
   </data>
-  <data name="TesseractNotCreated" xml:space="preserve">
-    <value>Tesseract OCR Library nicht erstellt</value>
-  </data>
-  <data name="UnabletoInitializeTesseract" xml:space="preserve">
-    <value>Tesseract OCR-Bibliothek kann nicht initialisiert werden</value>
-  </data>
-  <data name="UnableToTesseractImage" xml:space="preserve">
-    <value>Bild kann nicht mit Tesseract OCR Library verarbeitet werden.</value>
+  <data name="UnableToOcrImage" xml:space="preserve">
+    <value>Es konnte kein Text im Bild gefunden werden.</value>
   </data>
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Maschinenlesbarer Text kann nicht aus dem Bild extrahiert werden.</value>
   </data>
   <data name="TestOtpUsed" xml:space="preserve">
-    <value>Es wurde ein temporärer OTP-Code verwendet. Die Anwendung wird in etwa einer Woche aufhören zu arbeiten. Sie müssen die Anwendung neu installieren, um sie erneut verwenden zu können.</value>
+    <value>Ein temporärer OTP-Code wurde verwendet. Die Anwendung wird in etwa einer Woche nicht mehr funktionieren. Sie müssen die Anwendung neu installieren, um sie erneut verwenden zu können.</value>
   </data>
   <data name="WarningTitle" xml:space="preserve">
     <value>Warnung</value>
   </data>
   <data name="ChatMessageReceived" xml:space="preserve">
-    <value>Chatnachricht empfangen</value>
+    <value>Chat-Nachricht empfangen</value>
   </data>
   <data name="MessageFrom" xml:space="preserve">
     <value>Nachricht von:</value>
   </data>
   <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
-    <value>Kein Neuro-Features-Service auf dem Broker gefunden.</value>
+    <value>Kein Neuro-Features-Service auf Broker gefunden.</value>
   </data>
   <data name="Expires" xml:space="preserve">
     <value>Abläuft</value>
@@ -1456,13 +1438,13 @@
     <value>Token-Details</value>
   </data>
   <data name="TokenDetailsDescription" xml:space="preserve">
-    <value>Im Folgenden finden Sie Details, die in das Token codiert sind. Klicken Sie auf alle Links, um weitere Informationen zu erhalten.</value>
+    <value>Im Folgenden sind Details im Token codiert. Klicken Sie auf einen der Links, um weitere Informationen zu erhalten.</value>
   </data>
   <data name="TokenId" xml:space="preserve">
     <value>Token-ID</value>
   </data>
   <data name="TokenIdMethod" xml:space="preserve">
-    <value>Token-ID-Methode</value>
+    <value>Token ID-Methode</value>
   </data>
   <data name="TokenVisibility" xml:space="preserve">
     <value>Token-Sichtbarkeit</value>
@@ -1477,7 +1459,7 @@
     <value>Adresse des Erstellers</value>
   </data>
   <data name="Me" xml:space="preserve">
-    <value>(mich)</value>
+    <value>(ich)</value>
   </data>
   <data name="Owner" xml:space="preserve">
     <value>Eigentümer</value>
@@ -1486,13 +1468,13 @@
     <value>Adresse des Eigentümers</value>
   </data>
   <data name="TokenPartsInfoText" xml:space="preserve">
-    <value>Im Folgenden finden Sie eine Liste der Parteien, die mit diesem Token in Verbindung stehen.</value>
+    <value>Im Folgenden finden Sie eine Liste der Parteien, die sich auf dieses Token beziehen.</value>
   </data>
   <data name="TrustProvider" xml:space="preserve">
     <value>Vertrauensanbieter</value>
   </data>
   <data name="TrustProviderJid" xml:space="preserve">
-    <value>Adresse des Vertrauensanbieters</value>
+    <value>Adresse des vertrauenswürdigen Anbieters</value>
   </data>
   <data name="CreationContract" xml:space="preserve">
     <value>Erstellungsvertrag</value>
@@ -1522,7 +1504,7 @@
     <value>Adresse des Zertifizierers</value>
   </data>
   <data name="CreatorCanDestroy" xml:space="preserve">
-    <value>Ersteller kann Token zerstören</value>
+    <value>Der Ersteller kann Token zerstören</value>
   </data>
   <data name="OwnerCanDestroyBatch" xml:space="preserve">
     <value>Besitzer kann Token-Batch zerstören</value>
@@ -1537,7 +1519,7 @@
     <value>Referenz</value>
   </data>
   <data name="TokenPrivilegesInfoText" xml:space="preserve">
-    <value>Im Folgenden sind die in das Token eingravierten Berechtigungen aufgeführt.</value>
+    <value>Im Folgenden sind die Berechtigungen aufgeführt, die in das Token eingraviert sind.</value>
   </data>
   <data name="Valuator" xml:space="preserve">
     <value>Gutachter</value>
@@ -1552,13 +1534,13 @@
     <value>Definitionsnamespace</value>
   </data>
   <data name="DefinitionSchemaDigest" xml:space="preserve">
-    <value>Zusammenfassung des Definitionsschemas</value>
+    <value>Definitionsschemadigest</value>
   </data>
   <data name="InvalidNeuroFeatureToken" xml:space="preserve">
     <value>Ungültiges Neuro-Feature-Token.</value>
   </data>
   <data name="MachineReadableInfoTextToken" xml:space="preserve">
-    <value>Eine Übersicht über die im Token eingebetteten maschinenlesbaren Daten finden Sie unten.</value>
+    <value>Eine Übersicht über die maschinenlesbaren Daten, die in den Token eingebettet sind, ist unten dargestellt.</value>
   </data>
   <data name="MyTokens" xml:space="preserve">
     <value>Meine Token</value>
@@ -1570,10 +1552,10 @@
     <value>Angebot zum Verkauf</value>
   </data>
   <data name="OpenMessageLink" xml:space="preserve">
-    <value>Nachrichtenlink öffnen</value>
+    <value>Link "Nachricht öffnen"</value>
   </data>
   <data name="SelectedContactCannotBeAdded" xml:space="preserve">
-    <value>Der ausgewählte Kontakt kann nicht hinzugefügt werden. Es hat keine legale ID registriert.</value>
+    <value>Der ausgewählte Kontakt kann nicht hinzugefügt werden. Es ist keine Legal ID registriert.</value>
   </data>
   <data name="SendInformationTo" xml:space="preserve">
     <value>Informationen senden an?</value>
@@ -1609,37 +1591,37 @@
     <value>Notiz in die Zwischenablage kopiert.</value>
   </data>
   <data name="NoteIsPersonal" xml:space="preserve">
-    <value>Notiz ist persönlich</value>
+    <value>Hinweis ist persönlich</value>
   </data>
   <data name="NoteToAdd" xml:space="preserve">
-    <value>Hinzuzufügender Hinweis:</value>
+    <value>Hinweis zum Hinzufügen:</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Verkäufer</value>
   </data>
   <data name="TextNote" xml:space="preserve">
-    <value>Textnotiz</value>
+    <value>Texthinweis</value>
   </data>
   <data name="Transferred" xml:space="preserve">
     <value>Überführt</value>
   </data>
   <data name="ViewXmlInBrowser" xml:space="preserve">
-    <value>Klicken Sie hier, um die XML-Notiz in einem Browser anzuzeigen.</value>
+    <value>Klicken Sie hier, um den XML-Hinweis in einem Browser anzuzeigen.</value>
   </data>
   <data name="XmlNote" xml:space="preserve">
     <value>XML-Hinweis</value>
   </data>
   <data name="UnableToGetAccessToYourPrivateKeys" xml:space="preserve">
-    <value>Die Anwendung konnte nicht auf die privaten Schlüssel der Identität zugreifen. Dies bedeutet in der Regel, dass die Identität außerhalb des Anwendungsbereichs geändert wurde. Es kann auch das Ergebnis einer Beschädigung von Daten sein. Sie können eines von zwei Dingen ausprobieren. Drücken Sie die Weiter-Taste, um fortzufahren, ohne die privaten Tasten. Sie erhalten Zugriff auf die App, können aber nichts unterschreiben. Sie können dann im Hauptmenü erneut eine neue Identität mit neuen privaten Schlüsseln beantragen. Sie können auch versuchen, die Datenbank zu reparieren, indem Sie auf die Schaltfläche Reparieren klicken. Im letzteren Fall wird die App geschlossen, und beim nächsten Öffnen der App wird zuerst ein Reparaturvorgang versucht.</value>
+    <value>Die Anwendung konnte nicht auf die privaten Schlüssel der Identität zugreifen. Dies bedeutet normalerweise, dass die Identität außerhalb des Bereichs der App geändert wurde. Es kann auch das Ergebnis einer Beschädigung von Daten sein. Sie können eines von zwei Dingen ausprobieren. Drücken Sie die Taste Weiter, um fortzufahren, ohne die privaten Schlüssel. Sie erhalten Zugriff auf die App, können aber nichts signieren. Sie können dann eine neue Identität aus dem Hauptmenü mit neuen privaten Schlüsseln erneut beantragen. Sie können auch versuchen, die Datenbank zu reparieren, indem Sie auf die Schaltfläche Reparieren klicken. Im letzteren Fall wird die App geschlossen, und beim nächsten Öffnen der App wird zunächst ein Reparaturvorgang versucht.</value>
   </data>
   <data name="Repair" xml:space="preserve">
     <value>Reparieren</value>
   </data>
   <data name="EnterProposal" xml:space="preserve">
-    <value>Geben Sie den Text ein, der in den zu {0} Vorschlag aufgenommen werden soll, oder lassen Sie ihn leer, wenn ein Vorschlag nicht gesendet werden soll.</value>
+    <value>Geben Sie den Text ein, der in den {0} Vorschlag aufgenommen werden soll, oder lassen Sie das Feld leer, wenn kein Vorschlag gesendet werden soll.</value>
   </data>
   <data name="BalanceUpdated" xml:space="preserve">
-    <value>Balance aktualisiert.</value>
+    <value>Saldo aktualisiert.</value>
   </data>
   <data name="ContractCreated" xml:space="preserve">
     <value>Ein Vertrag wurde erstellt.</value>
@@ -1663,22 +1645,22 @@
     <value>Petition von:</value>
   </data>
   <data name="TokenAdded" xml:space="preserve">
-    <value>Ein Token wurde zu Ihrer Brieftasche hinzugefügt.</value>
+    <value>Ihrem Wallet wurde ein Token hinzugefügt.</value>
   </data>
   <data name="TokenRemoved" xml:space="preserve">
     <value>Ein Token wurde aus Ihrer Brieftasche entfernt.</value>
   </data>
   <data name="PinContainsAddress" xml:space="preserve">
-    <value>Eine PIN darf kein Wort aus den Identitätsadresszeilen enthalten.</value>
+    <value>Eine PIN darf kein Wort aus den Adresszeilen der Identität enthalten.</value>
   </data>
   <data name="PinContainsName" xml:space="preserve">
     <value>Eine PIN darf kein Wort aus den Identitätsnamen enthalten.</value>
   </data>
   <data name="PinContainsPersonalNumber" xml:space="preserve">
-    <value>Eine PIN darf nicht die persönliche Identitätsnummer enthalten.</value>
+    <value>Eine PIN darf nicht die persönliche Identifikationsnummer enthalten.</value>
   </data>
   <data name="PinContainsPhoneNumber" xml:space="preserve">
-    <value>Eine PIN darf nicht die Identitätstelefonnummer enthalten.</value>
+    <value>Eine PIN darf nicht die Telefonnummer der Identität enthalten.</value>
   </data>
   <data name="PinWithNotEnoughDigitsLettersSigns" xml:space="preserve">
     <value>Es müssen mindestens {0} Buchstaben, Ziffern oder Symbole verwendet werden.</value>
@@ -1687,7 +1669,7 @@
     <value>Eine PIN darf nicht mehr als {0} identische Symbole enthalten.</value>
   </data>
   <data name="PinWithTooManySequencedSymbols" xml:space="preserve">
-    <value>Eine PIN darf nicht mehr als {0} aufeinander folgenden Symbole enthalten, z.B. "12" oder "ab".</value>
+    <value>Eine PIN darf nicht mehr als {0} sequenzierte Symbole enthalten, z.B. "12" oder "ab".</value>
   </data>
   <data name="PinWithNotEnoughDigitsOrSigns" xml:space="preserve">
     <value>Außerdem müssen Sie mindestens {0} Ziffern oder Symbole verwenden.</value>
@@ -1699,7 +1681,7 @@
     <value>Sie müssen auch mindestens {0} Buchstaben oder Symbole verwenden.</value>
   </data>
   <data name="UnableToConnect" xml:space="preserve">
-    <value>Es konnte keine Verbindung hergestellt werden.</value>
+    <value>Verbindung kann nicht hergestellt werden.</value>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
     <value>In Zwischenablage kopieren</value>
@@ -1711,13 +1693,13 @@
     <value>M2M-Definition anzeigen</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Beschreibung</value>
+    <value>Beschreibung:__________</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Aktionen</value>
   </data>
   <data name="CurrentState" xml:space="preserve">
-    <value>Aktueller Stand</value>
+    <value>Aktueller Zustand</value>
   </data>
   <data name="CurrentVariables" xml:space="preserve">
     <value>Aktuelle Variablen</value>
@@ -1726,7 +1708,7 @@
     <value>Geschichte</value>
   </data>
   <data name="MachineHasEnded" xml:space="preserve">
-    <value>State-Machine ist zu Ende.</value>
+    <value>State-Machine ist beendet.</value>
   </data>
   <data name="Present" xml:space="preserve">
     <value>Gegenwart</value>
@@ -1744,10 +1726,10 @@
     <value>Variablen</value>
   </data>
   <data name="PublishMarketplace" xml:space="preserve">
-    <value>Auf dem Marketplace veröffentlichen</value>
+    <value>Im Marketplace veröffentlichen</value>
   </data>
   <data name="TagEngraved" xml:space="preserve">
-    <value>Tag Graviert mit Link zu {0}.</value>
+    <value>Tag graviert mit Link zu {0}.</value>
   </data>
   <data name="TagNotEngraved" xml:space="preserve">
     <value>Tag mit Link zu {0} kann nicht graviert werden.</value>
@@ -1774,30 +1756,588 @@
     <value>Zustandsdiagramm</value>
   </data>
   <data name="UnableToGetHistory" xml:space="preserve">
-    <value>Der Verlaufsbericht konnte nicht abgerufen werden.</value>
+    <value>Der Verlaufsbericht kann nicht abgerufen werden.</value>
   </data>
   <data name="UnableToGetPresent" xml:space="preserve">
-    <value>Der aktuelle Bericht konnte nicht abgerufen werden.</value>
+    <value>Der aktuelle Bericht kann nicht abgerufen werden.</value>
   </data>
   <data name="UnableToGetProfiling" xml:space="preserve">
     <value>Profilerstellungsbericht kann nicht abgerufen werden.</value>
   </data>
   <data name="UnableToGetStateDiagram" xml:space="preserve">
-    <value>Statusdiagrammbericht konnte nicht abgerufen werden.</value>
+    <value>Zustandsdiagrammbericht kann nicht abgerufen werden.</value>
   </data>
   <data name="RepairRestart" xml:space="preserve">
-    <value>Eine Inkonsistenz in der internen Datenbank wurde festgestellt. Dies kann passieren, wenn die App nicht ordnungsgemäß geschlossen wird. Die App wird daher geschlossen. Wenn Sie die App das nächste Mal starten, wird die Datenbank repariert.</value>
+    <value>Es wurde eine Inkonsistenz in der internen Datenbank festgestellt. Dies kann passieren, wenn die App nicht ordnungsgemäß geschlossen wird. Die App wird daher geschlossen. Wenn Sie die App das nächste Mal starten, wird die Datenbank repariert.</value>
   </data>
   <data name="Calculator" xml:space="preserve">
     <value>Rechner</value>
   </data>
   <data name="CalculationError" xml:space="preserve">
-    <value>Die Berechnung kann nicht durchgeführt werden.</value>
+    <value>Berechnung kann nicht durchgeführt werden.</value>
   </data>
   <data name="EnterValidValue" xml:space="preserve">
     <value>Geben Sie zuerst einen gültigen Wert ein.</value>
   </data>
   <data name="EnterValue" xml:space="preserve">
     <value>Sie müssen zuerst einen Wert eingeben.</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Frage</value>
+  </data>
+  <data name="RemoveSubscriptionFrom" xml:space="preserve">
+    <value>Möchten Sie das Anwesenheitsabonnement aus {0} entfernen?</value>
+  </data>
+  <data name="SignaturePetitionDenied" xml:space="preserve">
+    <value>Die Unterschriftenpetition wurde abgelehnt.</value>
+  </data>
+  <data name="ContractProposal" xml:space="preserve">
+    <value>Vertragsvorschlag</value>
+  </data>
+  <data name="ContractResponse" xml:space="preserve">
+    <value>Antwort auf Vertragsanfrage</value>
+  </data>
+  <data name="ContractSignatureReceived" xml:space="preserve">
+    <value>Vertragsunterzeichnung eingegangen</value>
+  </data>
+  <data name="ContractUpdateReceived" xml:space="preserve">
+    <value>Vertrag aktualisiert</value>
+  </data>
+  <data name="IdentityResponse" xml:space="preserve">
+    <value>Antwort auf Identitätsanforderung</value>
+  </data>
+  <data name="IdentityReviewRequest" xml:space="preserve">
+    <value>Antrag auf Identitätsprüfung</value>
+  </data>
+  <data name="IdentityReviewResponse" xml:space="preserve">
+    <value>Antwort auf Antrag auf Identitätsüberprüfung</value>
+  </data>
+  <data name="RequestSignature" xml:space="preserve">
+    <value>Unterschrift anfordern</value>
+  </data>
+  <data name="RequestToAccessContract" xml:space="preserve">
+    <value>Antrag auf Zugang zum Vertrag</value>
+  </data>
+  <data name="RequestToAccessIdentity" xml:space="preserve">
+    <value>Antrag auf Zugriff auf Identität</value>
+  </data>
+  <data name="SignatureResponse" xml:space="preserve">
+    <value>Antwort auf Unterschriftenanforderung</value>
+  </data>
+  <data name="UserSignedAs" xml:space="preserve">
+    <value>{0} als {1} unterschrieben.</value>
+  </data>
+  <data name="PermitScreenCapture" xml:space="preserve">
+    <value>Bildschirmaufnahme zulassen</value>
+  </data>
+  <data name="ProhibitScreenCapture" xml:space="preserve">
+    <value>Bildschirmaufnahme verbieten</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Sicherheit</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Sicherheitseinstellungen</value>
+  </data>
+  <data name="SecuritySettingsInformationText" xml:space="preserve">
+    <value>Unten können Sie die securit-Einstellungen für die App ändern. Wenn Sie die Bildschirmaufnahme aktivieren, können Sie den Bildschirm mit anderen teilen, jedoch nur für eine begrenzte Zeit.</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Nachricht empfangen.</value>
+  </data>
+  <data name="NetworkAddressOfContactUnknown" xml:space="preserve">
+    <value>Netzwerkadresse des Kontakts unbekannt.</value>
+  </data>
+  <data name="OtherApp" xml:space="preserve">
+    <value>Andere App</value>
+  </data>
+  <data name="SelectFromWhomToRequestPayment" xml:space="preserve">
+    <value>Wählen Sie aus, von wem die Zahlung angefordert werden soll.</value>
+  </data>
+  <data name="ShareDescription" xml:space="preserve">
+    <value>Nachfolgend finden Sie zusätzliche Optionen zum Teilen des QR-Codes.</value>
+  </data>
+  <data name="StateChangedTo" xml:space="preserve">
+    <value>Status geändert in {0}</value>
+  </data>
+  <data name="TokenAdded2" xml:space="preserve">
+    <value>Token hinzugefügt</value>
+  </data>
+  <data name="TokenRemoved2" xml:space="preserve">
+    <value>Token entfernt</value>
+  </data>
+  <data name="VariablesUpdated" xml:space="preserve">
+    <value>Variablen aktualisiert</value>
+  </data>
+  <data name="RevalidateEMail" xml:space="preserve">
+    <value>Wir müssen Ihre E-Mail-Adresse erneut validieren. Bitte aktualisieren Sie bei Bedarf Ihre E-Mail-Adresse und tippen Sie auf die Schaltfläche "Code senden".</value>
+  </data>
+  <data name="RevalidatePhoneNr" xml:space="preserve">
+    <value>Wir müssen Ihre Mobiltelefonnummer erneut validieren. Bitte aktualisieren Sie bei Bedarf Ihre Mobiltelefonnummer (verwenden Sie das internationale Rufnummernformat ohne Leerzeichen) und tippen Sie auf die Schaltfläche "Code senden".</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingEmailCode" xml:space="preserve">
+    <value>Beim Senden eines Bestätigungscodes an diese E-Mail ist ein Fehler aufgetreten.</value>
+  </data>
+  <data name="SomethingWentWrongWhenSendingPhoneCode" xml:space="preserve">
+    <value>Beim Senden eines Bestätigungscodes an diese Telefonnummer ist ein Fehler aufgetreten.</value>
+  </data>
+  <data name="SwitchingToTestPhoneNumberNotAllowed" xml:space="preserve">
+    <value>Das Ändern der Telefonnummer in eine Testnummer ist nicht erlaubt.</value>
+  </data>
+  <data name="ServiceProviders" xml:space="preserve">
+    <value>Dienstleister</value>
+  </data>
+  <data name="BuyEDaler" xml:space="preserve">
+    <value>eDaler kaufen.</value>
+  </data>
+  <data name="SelectServiceProviderBuyEDaler" xml:space="preserve">
+    <value>Wählen Sie den Dienstanbieter aus, den Sie für den Kauf von eDaler verwenden möchten.</value>
+  </data>
+  <data name="FromUser" xml:space="preserve">
+    <value>Vom Benutzer</value>
+  </data>
+  <data name="ShortId" xml:space="preserve">
+    <value>Kurzausweis</value>
+  </data>
+  <data name="ConcentratorServiceNotFound" xml:space="preserve">
+    <value>Kein Konzentratordienst gefunden.</value>
+  </data>
+  <data name="ControlServiceNotFound" xml:space="preserve">
+    <value>Kein Kontrolldienst gefunden.</value>
+  </data>
+  <data name="SensorServiceNotFound" xml:space="preserve">
+    <value>Kein Sensordienst gefunden.</value>
+  </data>
+  <data name="ControlActuator" xml:space="preserve">
+    <value>Steueraktor</value>
+  </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Irrtümer</value>
+  </data>
+  <data name="ReadSensor" xml:space="preserve">
+    <value>Sensor lesen</value>
+  </data>
+  <data name="SensorData" xml:space="preserve">
+    <value>Sensordaten</value>
+  </data>
+  <data name="SensorDataAccepted" xml:space="preserve">
+    <value>Anfrage wurde angenommen.</value>
+  </data>
+  <data name="SensorDataCancelled" xml:space="preserve">
+    <value>Das Auslesen der Sensordaten wurde abgebrochen.</value>
+  </data>
+  <data name="SensorDataDone" xml:space="preserve">
+    <value>Das Auslesen der Sensordaten ist abgeschlossen.</value>
+  </data>
+  <data name="SensorDataFailure" xml:space="preserve">
+    <value>Das Auslesen der Sensordaten ist fehlgeschlagen.</value>
+  </data>
+  <data name="SensorDataHeaderComputed" xml:space="preserve">
+    <value>Gerechnet</value>
+  </data>
+  <data name="SensorDataHeaderHistorical" xml:space="preserve">
+    <value>Historisch</value>
+  </data>
+  <data name="SensorDataHeaderIdentity" xml:space="preserve">
+    <value>Identität</value>
+  </data>
+  <data name="SensorDataHeaderMomentary" xml:space="preserve">
+    <value>Vorübergehend</value>
+  </data>
+  <data name="SensorDataHeaderOther" xml:space="preserve">
+    <value>Andere __________</value>
+  </data>
+  <data name="SensorDataHeaderPeak" xml:space="preserve">
+    <value>Höhepunkt</value>
+  </data>
+  <data name="SensorDataHeaderStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SensorDataReceiving" xml:space="preserve">
+    <value>Empfangen von Sensordaten.</value>
+  </data>
+  <data name="SensorDataRequested" xml:space="preserve">
+    <value>Sensordaten wurden angefordert.</value>
+  </data>
+  <data name="SensorDataStarted" xml:space="preserve">
+    <value>Die Auslesung der Sensordaten wurde gestartet.</value>
+  </data>
+  <data name="SensorDataText" xml:space="preserve">
+    <value>Nachfolgend finden Sie Informationen und Sensordaten, die Ihnen gemäß Ihren Zugriffsrechten zur Verfügung stehen.</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Zeit</value>
+  </data>
+  <data name="PepServiceNotFound" xml:space="preserve">
+    <value>Kein persönlicher Eventservice gefunden.</value>
+  </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Zur Liste hinzufügen</value>
+  </data>
+  <data name="DeleteRules" xml:space="preserve">
+    <value>Regeln löschen</value>
+  </data>
+  <data name="DeleteRulesQuestion" xml:space="preserve">
+    <value>Möchten Sie alle Bereitstellungsregeln für das Ding löschen? Auf diese Weise wird das Ding Sie erneut nach allen neuen Ereignissen fragen, um zu erfahren, wozu es berechtigt ist.</value>
+  </data>
+  <data name="DisownThingQuestion" xml:space="preserve">
+    <value>Willst du das Ding verleugnen? Dadurch wird das Ding von Ihrer Liste der Dinge entfernt und es einem anderen ermöglicht, das Gerät als sein eigenes zu beanspruchen.</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Aus Liste entfernen</value>
+  </data>
+  <data name="RulesDeleted" xml:space="preserve">
+    <value>Bereitstellungsregeln wurden gelöscht.</value>
+  </data>
+  <data name="AccessRequestText" xml:space="preserve">
+    <value>{0} möchte {1} eine Verbindung zu Ihrem Gerät herstellen.</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Benachrichtigungen</value>
+  </data>
+  <data name="NotificationsText" xml:space="preserve">
+    <value>Unten sehen Sie eine Liste von Benachrichtigungen, die sich aus Interaktionen mit dem Ding ergeben. Drücken Sie auf jedes Element, um weitere Informationen und verfügbare Optionen anzuzeigen.</value>
+  </data>
+  <data name="AccessRequest" xml:space="preserve">
+    <value>Zugriffsanfrage</value>
+  </data>
+  <data name="AccessRequestText2" xml:space="preserve">
+    <value>Ein Anrufer hat Zugriff auf eines Ihrer Objekte angefordert. Wählen Sie aus, wie das Objekt auf diese Art von Anfrage reagieren soll.</value>
+  </data>
+  <data name="Caller" xml:space="preserve">
+    <value>Anrufer</value>
+  </data>
+  <data name="CallerAddress" xml:space="preserve">
+    <value>Anruferadresse</value>
+  </data>
+  <data name="CallerOnly" xml:space="preserve">
+    <value>Nur Anrufer</value>
+  </data>
+  <data name="ControlRequestText" xml:space="preserve">
+    <value>{0} möchte die Parameter auf Ihrem Gerät {1} steuern.</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Gerät</value>
+  </data>
+  <data name="EntireDomain" xml:space="preserve">
+    <value>Alle aus {0}</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Jeder</value>
+  </data>
+  <data name="FriendlyName" xml:space="preserve">
+    <value>Anzeigename</value>
+  </data>
+  <data name="InformationAboutCallerText" xml:space="preserve">
+    <value>Die folgenden Informationen sind über den Anrufer verfügbar:</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Nicht verfügbar</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>Bereich</value>
+  </data>
+  <data name="RangeText" xml:space="preserve">
+    <value>Wenden Sie diese Regel auf Folgendes an:</value>
+  </data>
+  <data name="ReadoutRequestText" xml:space="preserve">
+    <value>{0} möchte Daten von Ihrem Gerät {1} lesen.</value>
+  </data>
+  <data name="ReadoutRequestText2" xml:space="preserve">
+    <value>Ein Anrufer hat Sensordaten von einem Ihrer Dinge angefordert. Wählen Sie aus, wie das Objekt auf diese Art von Anfrage reagieren soll.</value>
+  </data>
+  <data name="ReadRequest" xml:space="preserve">
+    <value>Ausleseanforderung</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Dienst</value>
+  </data>
+  <data name="ToDevice" xml:space="preserve">
+    <value>Zum Gerät, unabhängig von der Quelle</value>
+  </data>
+  <data name="ToService" xml:space="preserve">
+    <value>Service, unabhängig von der Quelle</value>
+  </data>
+  <data name="ToUser" xml:space="preserve">
+    <value>An den Benutzer, unabhängig von der Quelle</value>
+  </data>
+  <data name="UnableToRespond" xml:space="preserve">
+    <value>Auf Anfrage kann nicht geantwortet werden.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Benutzer</value>
+  </data>
+  <data name="XInY" xml:space="preserve">
+    <value>{0} in {1}</value>
+  </data>
+  <data name="XOnY" xml:space="preserve">
+    <value>{0} auf {1}</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="ComputedValues" xml:space="preserve">
+    <value>Berechnete Werte</value>
+  </data>
+  <data name="FieldTypes" xml:space="preserve">
+    <value>Feldtypen</value>
+  </data>
+  <data name="HistoricalValues" xml:space="preserve">
+    <value>Historische Werte</value>
+  </data>
+  <data name="IdentityValues" xml:space="preserve">
+    <value>Identitätswerte</value>
+  </data>
+  <data name="MomentaryValues" xml:space="preserve">
+    <value>Momentane Werte</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nichts</value>
+  </data>
+  <data name="PeakValues" xml:space="preserve">
+    <value>Spitzenwerte</value>
+  </data>
+  <data name="PermitFieldTypesText" xml:space="preserve">
+    <value>Wählen Sie die Feldtypen (breite Kategorien) aus, auf die Sie zugreifen möchten, wenn die Anforderung akzeptiert wird.</value>
+  </data>
+  <data name="StatusValues" xml:space="preserve">
+    <value>Statuswerte</value>
+  </data>
+  <data name="ControlRequest" xml:space="preserve">
+    <value>Kontrollanforderung</value>
+  </data>
+  <data name="ControlRequestText2" xml:space="preserve">
+    <value>Ein Anrufer hat angefordert, eines Ihrer Dinge zu kontrollieren. Wählen Sie aus, wie das Objekt auf diese Art von Anfrage reagieren soll.</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Felder</value>
+  </data>
+  <data name="PermitFieldsText" xml:space="preserve">
+    <value>Wählen Sie die Felder aus, auf die Sie zugreifen möchten, wenn die Anforderung akzeptiert wird.</value>
+  </data>
+  <data name="PermitParametersText" xml:space="preserve">
+    <value>Wählen Sie die Parameter aus, auf die Sie zugreifen möchten, wenn die Anforderung akzeptiert wird.</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Kaufen</value>
+  </data>
+  <data name="BuyEDalerDescription" xml:space="preserve">
+    <value>Geben Sie unten die Menge an eDaler an, die Sie kaufen möchten, und klicken Sie auf die Schaltfläche Kaufen. Es kann eine Webseite geöffnet werden, auf der Sie weitere Informationen eingeben müssen, damit der Zahlungsabwickler Ihre Anfrage validieren kann.</value>
+  </data>
+  <data name="PaymentCancelled" xml:space="preserve">
+    <value>Zahlung storniert</value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>Zahlung fehlgeschlagen</value>
+  </data>
+  <data name="Anonymous" xml:space="preserve">
+    <value>Anonym</value>
+  </data>
+  <data name="ConnectToDevice" xml:space="preserve">
+    <value>Mit Gerät verbinden</value>
+  </data>
+  <data name="DisconnectFromDevice" xml:space="preserve">
+    <value>Verbindung zum Gerät trennen</value>
+  </data>
+  <data name="AndroidApp" xml:space="preserve">
+    <value>Android-App</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Gewohnheit</value>
+  </data>
+  <data name="IosApp" xml:space="preserve">
+    <value>iOS-App</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Verbinden</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Verknüpfungen</value>
+  </data>
+  <data name="LinksText" xml:space="preserve">
+    <value>Durch Öffnen eines der folgenden Links wird eine programmierbare Linkansicht geöffnet. Sie können diese Seite verwenden, um NFC-Tags zu codieren, oder den QR-Code verwenden, um den Link an andere zu übertragen.</value>
+  </data>
+  <data name="LinkText" xml:space="preserve">
+    <value>Sie können den Link von einer anderen App scannen oder in ein leeres NFC-Tag schreiben, indem Sie das Tag hinter dem Telefon platzieren, bis Sie das entsprechende Signal erhalten.</value>
+  </data>
+  <data name="TrustAnchorGroup" xml:space="preserve">
+    <value>Ankergruppe vertrauen</value>
+  </data>
+  <data name="ClientMessageAuthenticationTimeout" xml:space="preserve">
+    <value>Die Antwort wurde nicht innerhalb der konfigurierten Zeit zurückgegeben.</value>
+  </data>
+  <data name="ClientMessageCountryCodeMismatch" xml:space="preserve">
+    <value>Ländercode stimmt nicht überein.</value>
+  </data>
+  <data name="ClientMessageCountryCodeNotVerified" xml:space="preserve">
+    <value>Ländercode nicht überprüft.</value>
+  </data>
+  <data name="ClientMessageFirstNameNotVerified" xml:space="preserve">
+    <value>Vorname nicht verifiziert.</value>
+  </data>
+  <data name="ClientMessageLastNameNotVerified" xml:space="preserve">
+    <value>Nachname nicht verifiziert.</value>
+  </data>
+  <data name="ClientMessageNotValid" xml:space="preserve">
+    <value>Identität ungültig.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberMismatch" xml:space="preserve">
+    <value>Die persönliche Nummer stimmt nicht überein.</value>
+  </data>
+  <data name="ClientMessagePersonalNumberNotVerified" xml:space="preserve">
+    <value>Persönliche Nummer nicht verifiziert.</value>
+  </data>
+  <data name="ClientMessageReferenceMismatch" xml:space="preserve">
+    <value>Der zurückgegebene Verweis stimmte nicht mit dem Anforderungsverweis überein.</value>
+  </data>
+  <data name="ClientMessageUnexpectedDocumentInformation" xml:space="preserve">
+    <value>Dokumentinformationen werden nicht wie erwartet zurückgegeben.</value>
+  </data>
+  <data name="ClientMessageUnexpectedEventResult" xml:space="preserve">
+    <value>Das Ereignisergebnis wird nicht wie erwartet zurückgegeben.</value>
+  </data>
+  <data name="ClientMessageUnexpectedResult" xml:space="preserve">
+    <value>Unerwartete Antwort zurückgegeben.</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="AppNotConnected" xml:space="preserve">
+    <value>Die App ist nicht mit dem Netzwerk verbunden.</value>
+  </data>
+  <data name="InvalidTagSignatureId" xml:space="preserve">
+    <value>Ungültiger TAG-Signatur-URI.</value>
+  </data>
+  <data name="LegalIdNotApproved" xml:space="preserve">
+    <value>Legale ID nicht genehmigt.</value>
+  </data>
+  <data name="NoLegalIdSelected" xml:space="preserve">
+    <value>Keine legale ID ausgewählt.</value>
+  </data>
+  <data name="SelectServiceProviderSellEDaler" xml:space="preserve">
+    <value>Wählen Sie den Dienstanbieter aus, den Sie für den Verkauf von eDaler verwenden möchten.</value>
+  </data>
+  <data name="Sell" xml:space="preserve">
+    <value>Verkaufen</value>
+  </data>
+  <data name="SellEDaler" xml:space="preserve">
+    <value>Verkaufen Sie eDaler.</value>
+  </data>
+  <data name="SellEDalerDescription" xml:space="preserve">
+    <value>Geben Sie unten die Menge an eDaler an, die Sie verkaufen möchten, und klicken Sie auf die Schaltfläche Verkaufen. Es kann eine Webseite geöffnet werden, auf der Sie weitere Informationen eingeben müssen, damit der Zahlungsabwickler Ihre Anfrage validieren kann.</value>
+  </data>
+  <data name="TokenCreationTemplates" xml:space="preserve">
+    <value>Token-Vorlagen</value>
+  </data>
+  <data name="TokenCreationTemplatesInfoText" xml:space="preserve">
+    <value>Im Folgenden finden Sie eine Liste der Tokenvorlagen, die Sie verwendet haben oder verwenden können, um neue Token zu erstellen. Klicken Sie auf eine Vorlage, um einen neuen Vertrag basierend auf dieser Vorlage zu erstellen. Sobald der Vertrag unterzeichnet und genehmigt wurde, werden die entsprechenden Token erstellt.</value>
+  </data>
+  <data name="SelectServiceProviderPeerReview" xml:space="preserve">
+    <value>Wählen Sie aus, wohin die Überprüfungsanfrage gesendet werden soll.</value>
+  </data>
+  <data name="RequestReviewFromAPeer" xml:space="preserve">
+    <value>Bitten Sie einen anderen Benutzer, Ihre Bewerbung zu überprüfen.</value>
+  </data>
+  <data name="ToUser2" xml:space="preserve">
+    <value>An den Benutzer</value>
+  </data>
+  <data name="UnableToOpenLink" xml:space="preserve">
+    <value>Link kann nicht geöffnet werden:</value>
+  </data>
+  <data name="OrgAddress" xml:space="preserve">
+    <value>Adresse der Organisation</value>
+  </data>
+  <data name="OrgAddress2" xml:space="preserve">
+    <value>Adresse der Organisation (Zeile 2)</value>
+  </data>
+  <data name="OrgArea" xml:space="preserve">
+    <value>Organisationsbereich</value>
+  </data>
+  <data name="OrgCity" xml:space="preserve">
+    <value>Organisation Stadt</value>
+  </data>
+  <data name="OrgCountry" xml:space="preserve">
+    <value>Organisation Land</value>
+  </data>
+  <data name="OrgDepartment" xml:space="preserve">
+    <value>Abteilung</value>
+  </data>
+  <data name="OrgName" xml:space="preserve">
+    <value>Name der Organisation</value>
+  </data>
+  <data name="OrgNumber" xml:space="preserve">
+    <value>Nummer der Organisation</value>
+  </data>
+  <data name="OrgRegion" xml:space="preserve">
+    <value>Organisationsregion</value>
+  </data>
+  <data name="OrgRole" xml:space="preserve">
+    <value>Rolle</value>
+  </data>
+  <data name="OrgZipCode" xml:space="preserve">
+    <value>Organisation Postleitzahl oder Postleitzahl</value>
+  </data>
+  <data name="PurposeEducational" xml:space="preserve">
+    <value>Pädagogische Nutzung.</value>
+  </data>
+  <data name="PurposeEducationalDescription" xml:space="preserve">
+    <value>Mit dieser Option können Sie die Tag-ID für Bildungszwecke verwenden. Sie können die App verwenden, um als Privatperson zu signieren oder auf Ressourcen zuzugreifen, entweder als Lehrkraft oder als Student. Das Konto kann zeitlich begrenzt sein. Das Konto kann auch entfernt werden, wenn es nicht mehr verwendet wird. Wenden Sie sich an den Dienstanbieter, um weitere Informationen zu erhalten.</value>
+  </data>
+  <data name="PurposeExperimental" xml:space="preserve">
+    <value>Experimentelle Verwendung.</value>
+  </data>
+  <data name="PurposeExperimentalDescription" xml:space="preserve">
+    <value>Mit dieser Option können Sie die Tag-ID für experimentelle Zwecke verwenden. Sie können die App verwenden, um als Privatperson zu signieren oder auf Ressourcen zuzugreifen, mit dem Ziel, die Technologie zu erlernen und für welche Zwecke sie verwendet werden kann. Das Konto kann zeitlich begrenzt sein. Das Konto kann auch entfernt werden, wenn es nicht mehr verwendet wird. Wenden Sie sich an den Dienstanbieter, um weitere Informationen zu erhalten.</value>
+  </data>
+  <data name="PurposePersonal" xml:space="preserve">
+    <value>Persönlicher Gebrauch.</value>
+  </data>
+  <data name="PurposePersonalDescription" xml:space="preserve">
+    <value>Mit dieser Option können Sie die Tag-ID für persönliche Zwecke verwenden. Sie können die App verwenden, um als Privatperson zu signieren oder auf Ressourcen zuzugreifen. Bestimmte Vorgänge können je nach gewähltem Dienstanbieter mit Kosten verbunden sein. Wenden Sie sich an den Dienstanbieter, um weitere Informationen zu erhalten.</value>
+  </data>
+  <data name="PurposeWork" xml:space="preserve">
+    <value>Nutzung am Arbeitsplatz.</value>
+  </data>
+  <data name="PurposeWorkDescription" xml:space="preserve">
+    <value>Mit dieser Option können Sie die Tag-ID für Arbeitszwecke verwenden. Dazu gehört auch die gemeinnützige Arbeit in Organisationen. Sie können die App verwenden, um Ressourcen als Vertreter einer Organisation zu signieren oder darauf zuzugreifen. Bestimmte Vorgänge können je nach gewähltem Dienstanbieter mit Kosten verbunden sein. Wenden Sie sich an den Dienstanbieter, um weitere Informationen zu erhalten.</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgCountry" xml:space="preserve">
+    <value>Sie müssen ein Organisationsland angeben</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgDepartment" xml:space="preserve">
+    <value>Sie müssen eine Abteilung angeben</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgName" xml:space="preserve">
+    <value>Sie müssen einen Organisationsnamen angeben</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgNumber" xml:space="preserve">
+    <value>Sie müssen eine Organisationsnummer angeben</value>
+  </data>
+  <data name="YouNeedToProvideAnOrgRole" xml:space="preserve">
+    <value>Sie müssen eine Rolle angeben</value>
+  </data>
+  <data name="APetitionHasBeenSentForEncryption" xml:space="preserve">
+    <value>Die Verschlüsselung kann nur durchgeführt werden, wenn Sie Zugriff auf die Identität des Empfängers haben. Eine Petition für diese Identität wurde daher an den Empfänger gesendet. Wenn der Empfänger die Petition annimmt, erhalten Sie die Identität und können die Zahlung mit einer verschlüsselten Nachricht senden, wenn Sie es erneut versuchen. Sie können sich auch dafür entscheiden, eine unverschlüsselte Nachricht mit der Zahlung zu senden.</value>
+  </data>
+  <data name="EncryptedPayment" xml:space="preserve">
+    <value>Verschlüsselte Zahlung</value>
+  </data>
+  <data name="GettingOptionsCancelled" xml:space="preserve">
+    <value>Das Abrufen verfügbarer Optionen wurde abgebrochen.</value>
+  </data>
+  <data name="UnableToGetOptions" xml:space="preserve">
+    <value>Verfügbare Optionen können nicht abgerufen werden.</value>
+  </data>
+  <data name="ServerDescription" xml:space="preserve">
+    <value>Beschreibung des Dienstleisters</value>
+  </data>
+  <data name="OrganizationInformation" xml:space="preserve">
+    <value>Informationen zur Organisation</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>Persönliche Informationen</value>
   </data>
 </root>

@@ -21,11 +21,11 @@ namespace IdApp.Pages.Contracts.ServerSignature
         }
 
         /// <inheritdoc/>
-        protected override async Task DoBind()
+        protected override async Task OnInitialize()
         {
-            await base.DoBind();
+            await base.OnInitialize();
             
-            if (this.NavigationService.TryPopArgs(out ServerSignatureNavigationArgs args))
+            if (this.NavigationService.TryGetArgs(out ServerSignatureNavigationArgs args))
                 this.contract = args.Contract;
 
 			this.AssignProperties();
@@ -82,7 +82,7 @@ namespace IdApp.Pages.Contracts.ServerSignature
 
         private void AssignProperties()
         {
-            if (!(this.contract is null))
+            if (this.contract is not null)
             {
                 this.Provider = this.contract.Provider;
                 this.Timestamp = this.contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture);

@@ -3,7 +3,7 @@
 namespace IdApp.Pages
 {
 	/// <summary>
-	/// Interfaces for linkable views.
+	/// Interface for linkable views.
 	/// </summary>
 	public interface ILinkableView
 	{
@@ -11,6 +11,11 @@ namespace IdApp.Pages
 		/// If the current view is linkable.
 		/// </summary>
 		bool IsLinkable { get; }
+
+		/// <summary>
+		/// If App links should be encoded with the link.
+		/// </summary>
+		bool EncodeAppLinks { get; }
 
 		/// <summary>
 		/// Link to the current view

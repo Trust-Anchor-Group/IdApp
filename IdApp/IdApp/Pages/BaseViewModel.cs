@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Extensions;
@@ -10,14 +11,15 @@ namespace IdApp.Pages
 {
 	/// <summary>
 	/// A base class for all view models, inheriting from the <see cref="BindableObject"/>.
-	/// This class provides default implementations for the <see cref="DoBind"/> and <see cref="DoUnbind"/> methods.
-	/// Override those to implement setup/teardown when a page/view is appearing and disappearing to/from the screen respectively.
 	/// <br/>
 	/// NOTE: using this class requires your page/view to inherit from <see cref="ContentBasePage"/>.
 	/// </summary>
-	public abstract class BaseViewModel : ServiceReferences
+	public abstract class BaseViewModel : ServiceReferences, ILifeCycleView
 	{
 		private readonly List<BaseViewModel> childViewModels;
+
+		private bool isOverlayVisible;
+		private DateTime overlayLastActivationTime;
 
 		/// <summary>
 		/// Create an instance of a <see cref="BaseViewModel"/>.
@@ -28,43 +30,14 @@ namespace IdApp.Pages
 		}
 
 		/// <summary>
-		/// Returns <c>true</c> if the viewmodel is bound, i.e. its parent page has appeared on screen.
+		/// Returns <c>true</c> if the viewmodel is initialized.
 		/// </summary>
-		public bool IsBound { get; private set; }
+		public bool IsInitialized { get; private set; }
 
 		/// <summary>
-		/// Called by the parent page when it appears on screen.
+		/// Returns <c>true</c> if the viewmodel is shown.
 		/// </summary>
-		public async Task Bind()
-		{
-			if (!this.IsBound)
-			{
-				DeviceDisplay.KeepScreenOn = true;
-
-				await this.DoBind();
-
-				foreach (BaseViewModel childViewModel in this.childViewModels)
-					await childViewModel.Bind();
-
-				this.IsBound = true;
-			}
-		}
-
-		/// <summary>
-		/// Called by the parent page when it disappears from screen.
-		/// </summary>
-		public async Task Unbind()
-		{
-			if (this.IsBound)
-			{
-				foreach (BaseViewModel childViewModel in this.childViewModels)
-				{
-					await childViewModel.Unbind();
-				}
-				await this.DoUnbind();
-				this.IsBound = false;
-			}
-		}
+		public bool IsAppearing { get; private set; }
 
 		/// <summary>
 		/// Gets the child view models.
@@ -96,23 +69,7 @@ namespace IdApp.Pages
 		}
 
 		/// <summary>
-		/// Override this method to do view model specific setup when it's parent page/view appears on screen.
-		/// </summary>
-		protected virtual Task DoBind()
-		{
-			return Task.CompletedTask;
-		}
-
-		/// <summary>
-		/// Override this method to do view model specific teardown when it's parent page/view disappears from screen.
-		/// </summary>
-		protected virtual Task DoUnbind()
-		{
-			return Task.CompletedTask;
-		}
-
-		/// <summary>
-		/// Called by the parent page when it appears on screen, <em>after</em> the <see cref="Bind"/> method is called.
+		/// Called by the parent page when it appears on screen, <em>after</em> the <see cref="Appearing"/> method is called.
 		/// </summary>
 		public async Task RestoreState()
 		{
@@ -123,7 +80,7 @@ namespace IdApp.Pages
 		}
 
 		/// <summary>
-		/// Called by the parent page when it disappears on screen, <em>before</em> the <see cref="Unbind"/> method is called.
+		/// Called by the parent page when it disappears on screen, <em>before</em> the <see cref="Disappearing"/> method is called.
 		/// </summary>
 		public async Task SaveState()
 		{
@@ -134,12 +91,12 @@ namespace IdApp.Pages
 		}
 
 		/// <summary>
-		/// Convenience method that calls <see cref="SaveState"/> and then <see cref="Unbind"/>.
+		/// Convenience method that calls <see cref="SaveState"/> and then <see cref="Disappearing"/>.
 		/// </summary>
 		public async Task Shutdown()
 		{
 			await this.SaveState();
-			await this.Unbind();
+			await this.Disappearing();
 		}
 
 		/// <summary>
@@ -176,9 +133,7 @@ namespace IdApp.Pages
 		protected void EvaluateCommands(params ICommand[] commands)
 		{
 			foreach (ICommand command in commands)
-			{
 				command.ChangeCanExecute();
-			}
 		}
 
 		/// <summary>
@@ -220,6 +175,43 @@ namespace IdApp.Pages
 		}
 
 		/// <summary>
+		/// Gets or sets a value which indicates if the protective overlay with a spinner is visible.
+		/// </summary>
+		public bool IsOverlayVisible
+		{
+			get => this.isOverlayVisible;
+			set
+			{
+				if (this.isOverlayVisible == value)
+					return;
+
+				if (value)
+				{
+					this.isOverlayVisible = true;
+					this.overlayLastActivationTime = DateTime.Now;
+					this.OnPropertyChanged();
+				}
+				else
+				{
+					TimeSpan MinimumOverlayTime = TimeSpan.FromMilliseconds(500);
+					TimeSpan EllapsedTime = DateTime.Now.Subtract(this.overlayLastActivationTime);
+
+					if (EllapsedTime >= MinimumOverlayTime)
+					{
+						this.isOverlayVisible = false;
+						this.OnPropertyChanged();
+					}
+					else
+					{
+						// It is important to use the property here, not the field, because last activation time might be updated while we are waiting,
+						// we need to recheck it and possibly reschedule.
+						Task.Delay(MinimumOverlayTime - EllapsedTime).GetAwaiter().OnCompleted(() => this.IsOverlayVisible = false);
+					}
+				}
+			}
+		}
+
+		/// <summary>
 		/// A helper method for synchronously setting this registration step to Done, and also calling
 		/// <see cref="Command.ChangeCanExecute"/> on the list of commands passed in.
 		/// </summary>
@@ -239,6 +231,107 @@ namespace IdApp.Pages
 		{
 			this.IsBusy = true;
 			this.EvaluateCommands(commands);
+		}
+
+		/// <summary>
+		/// Method called when view is initialized for the first time. Use this method to implement registration
+		/// of event handlers, processing navigation arguments, etc.
+		/// </summary>
+		public Task Initialize()
+		{
+			if (!this.IsInitialized)
+			{
+				this.IsInitialized = true;
+
+				return this.OnInitialize();
+			}
+			else
+				return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Method called when view is initialized for the first time. Use this method to implement registration
+		/// of event handlers, processing navigation arguments, etc.
+		/// </summary>
+		protected virtual Task OnInitialize()
+		{
+			return Task.CompletedTask;  // Do nothing by default.
+		}
+
+		/// <summary>
+		/// Method called when the view is disposed, and will not be used more. Use this method to unregister
+		/// event handlers, etc.
+		/// </summary>
+		public async Task Dispose()
+		{
+			if (this.IsAppearing)
+				await this.Disappearing();
+
+			if (this.IsInitialized)
+			{
+				this.IsInitialized = false;
+				await this.OnDispose();
+			}
+		}
+
+		/// <summary>
+		/// Method called when the view is disposed, and will not be used more. Use this method to unregister
+		/// event handlers, etc.
+		/// </summary>
+		protected virtual Task OnDispose()
+		{
+			return Task.CompletedTask;  // Do nothing by default.
+		}
+
+		/// <summary>
+		/// Method called when view is appearing on the screen.
+		/// </summary>
+		public async Task Appearing()
+		{
+			if (!this.IsInitialized)
+				await this.Initialize();
+
+			if (!this.IsAppearing)
+			{
+				DeviceDisplay.KeepScreenOn = true;
+
+				await this.OnAppearing();
+
+				foreach (BaseViewModel childViewModel in this.childViewModels)
+					await childViewModel.Appearing();
+
+				this.IsAppearing = true;
+			}
+		}
+
+		/// <summary>
+		/// Method called when view is appearing on the screen.
+		/// </summary>
+		protected virtual Task OnAppearing()
+		{
+			return Task.CompletedTask;  // Do nothing by default.
+		}
+		/// <summary>
+		/// Method called when view is disappearing from the screen.
+		/// </summary>
+		public async Task Disappearing()
+		{
+			if (this.IsAppearing)
+			{
+				foreach (BaseViewModel childViewModel in this.childViewModels)
+					await childViewModel.Disappearing();
+
+				await this.OnDisappearing();
+				this.IsAppearing = false;
+			}
+		}
+
+		/// <summary>
+		/// Method called when view is disappearing from the screen.
+		/// </summary>
+		protected virtual Task OnDisappearing()
+		{
+			return Task.CompletedTask;  // Do nothing by default.
 		}
 	}
 }

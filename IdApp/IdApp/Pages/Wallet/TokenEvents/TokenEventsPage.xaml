@@ -9,6 +9,7 @@
 					   xmlns:system="clr-namespace:System;assembly=netstandard"
                        x:DataType="model:TokenEventsViewModel"
                        x:Class="IdApp.Pages.Wallet.TokenEvents.TokenEventsPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.TokenEvents}">
     <views:ContentBasePage.Resources>
         <DataTemplate x:Key="CreatedEvent" x:DataType="events:CreatedItem">

@@ -5,7 +5,7 @@ namespace UpdateVersionInfo
 {
     public class CommandLineArguments
     {
-        private readonly OptionSet _options;
+        private readonly OptionSet options;
         public bool ShowHelp { get; private set; }
         public int Major { get; private set; }
         public int Minor { get; private set; }
@@ -22,16 +22,16 @@ namespace UpdateVersionInfo
             OptionSet options = new()
             {
                 {
-                    "?", "Shows help/usage information.", h => ShowHelp = true
+                    "?", "Shows help/usage information.", h => this.ShowHelp = true
                 },
                 {
-                    "v|major=", "A numeric major version number greater than zero.", (int v) => Major = v
+                    "v|major=", "A numeric major version number greater than zero.", (int v) => this.Major = v
                 },
                 {
-                    "m|minor=", "A numeric minor number greater than zero.", (int v) => Minor = v
+                    "m|minor=", "A numeric minor number greater than zero.", (int v) => this.Minor = v
                 },
                 {
-                    "b|build=", "A numeric build number greater than zero.", (int v) => Build = v
+                    "b|build=", "A numeric build number greater than zero.", (int v) => this.Build = v
                 },
                 /*!!!
                 {
@@ -39,13 +39,13 @@ namespace UpdateVersionInfo
                 },
                 */
                 {
-                    "p|path=", "The path to a C# file to update with version information.", p => VersionCsPath = p
+                    "p|path=", "The path to a C# file to update with version information.", p => this.VersionCsPath = p
                 },
                 {
-                    "a|androidManifest=", "The path to an android manifest file to update with version information.", p => AndroidManifestPath = p
+                    "a|androidManifest=", "The path to an android manifest file to update with version information.", p => this.AndroidManifestPath = p
                 },
                 {
-                    "t|touchPlist=", "The path to an iOS plist file to update with version information.", p => TouchPListPath = p
+                    "t|touchPlist=", "The path to an iOS plist file to update with version information.", p => this.TouchPListPath = p
                 }
             };
 
@@ -54,16 +54,16 @@ namespace UpdateVersionInfo
 
         public CommandLineArguments(IEnumerable<String> args)
         {
-            Major = 1;
-            Minor = 0;
-            _options = Initialize();
-            _options.Parse(args);
+			this.Major = 1;
+            this.Minor = 0;
+			this.options = this.Initialize();
+			this.options.Parse(args);
 
         }
 
         public void WriteHelp(System.IO.TextWriter writer)
         {
-            _options.WriteOptionDescriptions(writer);
+			this.options.WriteOptionDescriptions(writer);
         }
     }
 }

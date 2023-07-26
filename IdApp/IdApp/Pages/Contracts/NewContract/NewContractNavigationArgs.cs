@@ -24,7 +24,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// Creates an instance of the <see cref="NewContractNavigationArgs"/> class.
 		/// </summary>
 		/// <param name="ParameterValues">Parameter values to set in new contract.</param>
-		public NewContractNavigationArgs(Dictionary<string, object> ParameterValues)
+		public NewContractNavigationArgs(Dictionary<CaseInsensitiveString, object> ParameterValues)
 			: this(null, false, ParameterValues)
 		{
 		}
@@ -34,7 +34,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		/// <param name="Template">The contract to use as template.</param>
 		/// <param name="ParameterValues">Parameter values to set in new contract.</param>
-		public NewContractNavigationArgs(Contract Template, Dictionary<string, object> ParameterValues)
+		public NewContractNavigationArgs(Contract Template, Dictionary<CaseInsensitiveString, object> ParameterValues)
 			: this(Template, false, ParameterValues)
 		{
 		}
@@ -45,7 +45,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// <param name="Template">The contract to use as template.</param>
 		/// <param name="SetVisibility">If visibility should be set by default.</param>
 		/// <param name="ParameterValues">Parameter values to set in new contract.</param>
-		public NewContractNavigationArgs(Contract Template, bool SetVisibility, Dictionary<string, object> ParameterValues)
+		public NewContractNavigationArgs(Contract Template, bool SetVisibility, Dictionary<CaseInsensitiveString, object> ParameterValues)
 		{
 			this.Template = Template;
 			this.SetVisibility = SetVisibility;
@@ -65,7 +65,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// <summary>
 		/// Parameter values to set in new contract.
 		/// </summary>
-		public Dictionary<string, object> ParameterValues { get; }
+		public Dictionary<CaseInsensitiveString, object> ParameterValues { get; }
 
 		/// <summary>
 		/// Any legal IDs to whom proposals should not be sent. May be null if no proposals should be suppressed.

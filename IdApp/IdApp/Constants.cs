@@ -55,60 +55,59 @@ namespace IdApp
         }
 
         /// <summary>
-        /// Key prefix constants
-        /// </summary>
-        public static class KeyPrefixes
-		{
-            /// <summary>
-            /// Contract.Template.
-            /// </summary>
-            public const string ContractTemplatePrefix = "Contract.Template.";
-        }
-
-        /// <summary>
         /// IoT Schemes
         /// </summary>
         public static class UriSchemes
         {
-            /// <summary>
-            /// The IoT ID URI Scheme (iotid)
-            /// </summary>
-            public const string UriSchemeIotId = "iotid";
+			/// <summary>
+			/// The App's URI Scheme (tagidapp)
+			/// </summary>
+			public const string TagIdApp = "tagidapp";
+
+			/// <summary>
+			/// The IoT ID URI Scheme (iotid)
+			/// </summary>
+			public const string IotId = "iotid";
 
             /// <summary>
             /// The IoT Discovery URI Scheme (iotdisco)
             /// </summary>
-            public const string UriSchemeIotDisco = "iotdisco";
+            public const string IotDisco = "iotdisco";
 
             /// <summary>
             /// The IoT Smart Contract URI Scheme (iotsc)
             /// </summary>
-            public const string UriSchemeIotSc = "iotsc";
+            public const string IotSc = "iotsc";
 
             /// <summary>
             /// TAG Signature (Quick-Login) URI Scheme (tagsign)
             /// </summary>
-            public const string UriSchemeTagSign = "tagsign";
+            public const string TagSign = "tagsign";
 
             /// <summary>
             /// eDaler URI Scheme (edaler)
             /// </summary>
-            public const string UriSchemeEDaler = "edaler";
+            public const string EDaler = "edaler";
 
             /// <summary>
             /// eDaler URI Scheme (edaler)
             /// </summary>
-            public const string UriSchemeNeuroFeature = "nfeat";
+            public const string NeuroFeature = "nfeat";
 
             /// <summary>
-            /// Tag ID URI Scheme (tagid)
+            /// Onboarding URI Scheme (obinfo)
             /// </summary>
-            public const string UriSchemeOnboarding = "obinfo";
+            public const string Onboarding = "obinfo";
 
             /// <summary>
             /// XMPP URI Scheme (xmpp)
             /// </summary>
-            public const string UriSchemeXmpp = "xmpp";
+            public const string Xmpp = "xmpp";
+
+			/// <summary>
+			/// AES-256-encrypted data.
+			/// </summary>
+			public const string Aes256 = "aes256";
 
             /// <summary>
             /// Gets the predefined scheme from an IoT Code
@@ -128,14 +127,15 @@ namespace IdApp
 
 				return Url switch
 				{
-					UriSchemeIotId or
-                    UriSchemeIotDisco or
-                    UriSchemeIotSc or
-                    UriSchemeTagSign or
-                    UriSchemeEDaler or
-                    UriSchemeNeuroFeature or
-                    UriSchemeOnboarding or
-                    UriSchemeXmpp => Url,
+					IotId or
+                    IotDisco or
+                    IotSc or
+                    TagSign or
+                    EDaler or
+                    NeuroFeature or
+                    Onboarding or
+                    Xmpp or
+					TagIdApp => Url,
 
 					_ => null,
 				};
@@ -149,7 +149,7 @@ namespace IdApp
             public static bool StartsWithIdScheme(string Url)
             {
                 return !string.IsNullOrWhiteSpace(Url) &&
-                       Url.StartsWith(UriSchemeIotId + ":", StringComparison.InvariantCultureIgnoreCase);
+                       Url.StartsWith(IotId + ":", StringComparison.InvariantCultureIgnoreCase);
             }
 
             /// <summary>
@@ -159,7 +159,7 @@ namespace IdApp
             /// <returns>Smart Contract URI</returns>
             public static string CreateSmartContractUri(string id)
             {
-                return UriSchemeIotSc + ":" + id;
+                return IotSc + ":" + id;
             }
 
             /// <summary>
@@ -169,7 +169,7 @@ namespace IdApp
             /// <returns>Identity URI</returns>
             public static string CreateIdUri(string id)
             {
-                return UriSchemeIotId + ":" + id;
+                return IotId + ":" + id;
             }
 
             /// <summary>
@@ -179,7 +179,7 @@ namespace IdApp
             /// <returns>Neuro-Feature URI</returns>
             public static string CreateTokenUri(string id)
             {
-                return UriSchemeNeuroFeature + ":" + id;
+                return NeuroFeature + ":" + id;
             }
 
             /// <summary>
@@ -250,7 +250,7 @@ namespace IdApp
             public const string LastName = "LAST";
 
             /// <summary>
-            /// /Personal number
+            /// Personal number
             /// </summary>
             public const string PersonalNumber = "PNR";
 
@@ -280,7 +280,7 @@ namespace IdApp
             public const string ZipCode = "ZIP";
 
             /// <summary>
-            ///  Region
+            /// Region
             /// </summary>
             public const string Region = "REGION";
 
@@ -289,10 +289,65 @@ namespace IdApp
             /// </summary>
             public const string Country = "COUNTRY";
 
-            /// <summary>
-            /// Device ID
-            /// </summary>
-            public const string DeviceId = "DEVICE_ID";
+			/// <summary>
+			/// Organization name
+			/// </summary>
+			public const string OrgName = "ORGNAME";
+
+			/// <summary>
+			/// Organization number
+			/// </summary>
+			public const string OrgNumber = "ORGNR";
+
+			/// <summary>
+			/// Organization Address line 1
+			/// </summary>
+			public const string OrgAddress = "ORGADDR";
+
+			/// <summary>
+			/// Organization Address line 2
+			/// </summary>
+			public const string OrgAddress2 = "ORGADDR2";
+
+			/// <summary>
+			/// Organization Area
+			/// </summary>
+			public const string OrgArea = "ORGAREA";
+
+			/// <summary>
+			/// Organization City
+			/// </summary>
+			public const string OrgCity = "ORGCITY";
+
+			/// <summary>
+			/// Organization Zip Code
+			/// </summary>
+			public const string OrgZipCode = "ORGZIP";
+
+			/// <summary>
+			/// Organization Region
+			/// </summary>
+			public const string OrgRegion = "ORGREGION";
+
+			/// <summary>
+			/// Organization Country
+			/// </summary>
+			public const string OrgCountry = "ORGCOUNTRY";
+
+			/// <summary>
+			/// Organization Department
+			/// </summary>
+			public const string OrgDepartment = "ORGDEPT";
+
+			/// <summary>
+			/// Organization Role
+			/// </summary>
+			public const string OrgRole = "ORGROLE";
+
+			/// <summary>
+			/// Device ID
+			/// </summary>
+			public const string DeviceId = "DEVICE_ID";
 
             /// <summary>
             /// Jabber ID
@@ -308,6 +363,116 @@ namespace IdApp
 			/// e-Mail address
 			/// </summary>
 			public const string EMail = "EMAIL";
+
+			/// <summary>
+			/// Apartment
+			/// </summary>
+			public const string Apartment = "APT";
+
+			/// <summary>
+			/// Room
+			/// </summary>
+			public const string Room = "ROOM";
+
+			/// <summary>
+			/// Building
+			/// </summary>
+			public const string Building = "BLD";
+
+			/// <summary>
+			/// Altitude
+			/// </summary>
+			public const string Altitude = "ALT";
+
+			/// <summary>
+			/// Longitude
+			/// </summary>
+			public const string Longitude = "LON";
+
+			/// <summary>
+			/// Latitude
+			/// </summary>
+			public const string Latitude = "LAT";
+
+			/// <summary>
+			/// Class
+			/// </summary>
+			public const string Class = "CLASS";
+
+			/// <summary>
+			/// Key
+			/// </summary>
+			public const string Key = "KEY";
+
+			/// <summary>
+			/// Manufacturer
+			/// </summary>
+			public const string Manufacturer = "MAN";
+
+			/// <summary>
+			/// Meter Location
+			/// </summary>
+			public const string MeterLocation = "MLOC";
+
+			/// <summary>
+			/// MeterNumber
+			/// </summary>
+			public const string MeterNumber = "MNR";
+
+			/// <summary>
+			/// Model
+			/// </summary>
+			public const string Model = "MODEL";
+
+			/// <summary>
+			/// Name
+			/// </summary>
+			public const string Name = "NAME";
+
+			/// <summary>
+			/// Product Information
+			/// </summary>
+			public const string ProductInformation = "PURL";
+
+			/// <summary>
+			/// Registry
+			/// </summary>
+			public const string Registry = "R";
+
+			/// <summary>
+			/// Serial Number
+			/// </summary>
+			public const string SerialNumber = "SN";
+
+			/// <summary>
+			/// Street Name
+			/// </summary>
+			public const string StreetName = "STREET";
+
+			/// <summary>
+			/// Street Number
+			/// </summary>
+			public const string StreetNumber = "STREETNR";
+
+			/// <summary>
+			/// Version
+			/// </summary>
+			public const string Version = "V";
+
+			/// <summary>
+			/// Source ID
+			/// </summary>
+			public const string SourceId = "SID";
+
+			/// <summary>
+			/// Partition
+			/// </summary>
+			public const string Partition = "PT";
+
+			/// <summary>
+			/// Node ID
+			/// </summary>
+			public const string NodeId = "NID";
 		}
 
 		/// <summary>
@@ -414,20 +579,55 @@ namespace IdApp
             public const int DeviceBatchSize = 100;
 		}
 
-        /// <summary>
-        /// Contract templates
-        /// </summary>
-        public static class ContractTemplates
+		/// <summary>
+		/// Machine-readable names in contracts.
+		/// </summary>
+		public static class ContractMachineNames
+		{
+			/// <summary>
+			/// Namespace for payment instructions
+			/// </summary>
+			public const string PaymentInstructionsNamespace = "https://paiwise.tagroot.io/Schema/PaymentInstructions.xsd";
+
+			/// <summary>
+			/// Local name for contracts for buying eDaler.
+			/// </summary>
+			public const string BuyEDaler = "BuyEDaler";
+
+			/// <summary>
+			/// Local name for contracts for selling eDaler.
+			/// </summary>
+			public const string SellEDaler = "SellEDaler";
+		}
+
+		/// <summary>
+		/// Contract templates
+		/// </summary>
+		public static class ContractTemplates
         {
             /// <summary>
             /// Contract template for creating a demo token
             /// </summary>
-            public const string CreateDemoTokenTemplate = "2a6d69dc-cae9-bb6e-4015-a272cdb645ec@legal.lab.tagroot.io";
+            public const string CreateDemoTokenTemplate = "2bb9fff1-8716-cb1b-5807-9fdb05b2207b@legal.lab.tagroot.io";
 
-            /// <summary>
-            /// Contract template for transferring a token from a seller to a buyer
-            /// </summary>
-            public const string TransferTokenTemplate = "2a6d6b09-cae9-bb7e-4015-a272cd9cd5b9@legal.lab.tagroot.io";
+			/// <summary>
+			/// Contract template for creating five demo tokens
+			/// </summary>
+			public const string CreateDemoTokens5Template = "2bba00ac-8716-cb3e-5807-9fdb055370c4@legal.lab.tagroot.io";
+
+			/// <summary>
+			/// Array of contract templates for creating tokens.
+			/// </summary>
+			public readonly static string[] TokenCreationTemplates = new string[]
+			{
+				CreateDemoTokenTemplate,
+				CreateDemoTokens5Template
+			};
+
+			/// <summary>
+			/// Contract template for transferring a token from a seller to a buyer
+			/// </summary>
+			public const string TransferTokenTemplate = "2a6d6b09-cae9-bb7e-4015-a272cd9cd5b9@legal.lab.tagroot.io";
 
 			/// <summary>
 			/// Contract template for consigning the token to an auctioneer with the purpose of selling it.
@@ -469,6 +669,11 @@ namespace IdApp
 			/// Tokens channel
 			/// </summary>
 			public const string Tokens = "Tokens";
+
+			/// <summary>
+			/// Provisioning channel
+			/// </summary>
+			public const string Provisioning = "Provisioning";
 		}
 
 		/// <summary>
@@ -504,12 +709,12 @@ namespace IdApp
 			public const int MaxPinAttempts = 3;
 
             /// <summary>
-			/// First Block in days after 3 attempts 
+			/// First Block in days after 3 attempts
 			/// </summary>
 			public const int FirstBlockInDays = 1;
 
             /// <summary>
-            /// Second Block in days after 3 attempts 
+            /// Second Block in days after 3 attempts
             /// </summary>
             public const int SecondBlockInDays = 7;
 

@@ -1,7 +1,6 @@
 ﻿using EDaler;
 using IdApp.DeviceSpecific;
 using IdApp.Extensions;
-using IdApp.Helpers.Svg;
 using IdApp.Pages;
 using IdApp.Resx;
 using IdApp.Services;
@@ -12,6 +11,8 @@ using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Network;
 using IdApp.Services.Nfc;
+using IdApp.Services.Notification;
+using IdApp.Services.Push;
 using IdApp.Services.Settings;
 using IdApp.Services.Storage;
 using IdApp.Services.Tag;
@@ -44,8 +45,10 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Concentrator;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Control;
+using Waher.Networking.XMPP.HTTPX;
 using Waher.Networking.XMPP.P2P;
 using Waher.Networking.XMPP.P2P.E2E;
+using Waher.Networking.XMPP.PEP;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.Push;
 using Waher.Networking.XMPP.Sensor;
@@ -57,7 +60,12 @@ using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
 using Waher.Runtime.Text;
 using Waher.Script;
+using Waher.Script.Content;
+using Waher.Script.Graphs;
+using Waher.Security.JWS;
+using Waher.Security.JWT;
 using Waher.Security.LoginMonitor;
+using Waher.Things;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -71,15 +79,17 @@ namespace IdApp
 	public partial class App
 	{
 		private static readonly TaskCompletionSource<bool> servicesSetup = new();
-		private static readonly TaskCompletionSource<bool> configLoaded = new();
 		private static readonly TaskCompletionSource<bool> defaultInstantiatedSource = new();
+		private static bool configLoaded = false;
+		private static ISecureDisplay secureDisplay;
 		private static bool defaultInstantiated = false;
-		private static App instance;
 		private static DateTime savedStartTime = DateTime.MinValue;
 		private static bool displayedPinPopup = false;
+		private static int startupCounter = 0;
+		private static bool? isTest = null;
 		private readonly LoginAuditor loginAuditor;
 		private Timer autoSaveTimer;
-		private ServiceReferences services;
+		private IServiceReferences services;
 		private Profiler startupProfiler;
 		private readonly Task<bool> initCompleted;
 		private readonly SemaphoreSlim startupWorker = new(1, 1);
@@ -93,16 +103,27 @@ namespace IdApp
 		private bool onStartResumesApplication = false;
 
 		/// <summary>
+		/// Gets the last application instance.
+		/// </summary>
+		public static App Instance;
+
+		/// <summary>
 		/// Gets the current application, type casted to <see cref="App"/>.
 		/// </summary>
 		public static new App Current => (App)Application.Current;
 
 		///<inheritdoc/>
-		public App()
+		public App(Assembly DeviceAssembly) : this(false, DeviceAssembly)
 		{
-			App PreviousInstance = instance;
+		}
+
+		///<inheritdoc/>
+		public App(bool BackgroundStart, Assembly DeviceAssembly)
+		{
+			App PreviousInstance = Instance;
+			Instance = this;
+
 			this.onStartResumesApplication = PreviousInstance is not null;
-			instance = this;
 
 			// If the previous instance is null, create the app state from scratch. If not, just copy the state from the previous instance.
 			if (PreviousInstance is null)
@@ -112,8 +133,6 @@ namespace IdApp
 				this.startupProfiler = new Profiler("App.ctor", ProfilerThreadType.Sequential);  // Comment out to remove startup profiling.
 				this.startupProfiler?.Start();
 				this.startupProfiler?.NewState("Init");
-
-				SvgImageSource.RegisterAssembly();
 
 				AppDomain.CurrentDomain.FirstChanceException += this.CurrentDomain_FirstChanceException;
 				AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
@@ -125,7 +144,7 @@ namespace IdApp
 
 				this.loginAuditor = new LoginAuditor(Constants.Pin.LogAuditorObjectID, LoginIntervals);
 				this.startupCancellation = new CancellationTokenSource();
-				this.initCompleted = this.Init();
+				this.initCompleted = this.Init(BackgroundStart, DeviceAssembly);
 			}
 			else
 			{
@@ -138,81 +157,91 @@ namespace IdApp
 				this.startupCancellation = PreviousInstance.startupCancellation;
 			}
 
-			this.InitializeComponent();
-
-			// Start page
-			try
+			if (!BackgroundStart)
 			{
-				this.startupProfiler?.NewState("MainPage");
+				this.InitializeComponent();
+				Current.UserAppTheme = OSAppTheme.Unspecified;
 
-				this.MainPage = new Pages.Main.Loading.LoadingPage();
-			}
-			catch (Exception ex)
-			{
-				this.HandleStartupException(ex);
+				// Start page
+				try
+				{
+					this.startupProfiler?.NewState("MainPage");
+
+					this.MainPage = new Pages.Main.Loading.LoadingPage();
+				}
+				catch (Exception ex)
+				{
+					this.HandleStartupException(ex);
+				}
 			}
 
 			this.startupProfiler?.MainThread?.Idle();
 		}
 
+		/// <summary>
+		/// Gets a value indicating if the application has completed on-boarding.
+		/// </summary>
+		/// <remarks>
+		/// This is not the same as <see cref="TagProfile.IsComplete"/>. <see cref="TagProfile.IsComplete"/> is required but not
+		/// sufficient for the application to be "on-boarded". An application is on-boarded when its legal identity is on-boarded
+		/// and when its internal systems are ready. For example, the loading stage of the app must complete.
+		/// </remarks>
+		public static bool IsOnboarded => Shell.Current is not null;
+
+		/// <summary>
+		/// Selected language.
+		/// </summary>
+		public static string SelectedLanguage
+		{
+			get
+			{
+				string Language = Preferences.Get("user_selected_language", null);
+
+				if (Language is null)
+				{
+					List<string> SupportedLanguages = new() { "en", "sv", "es", "fr", "de", "da", "no", "fi", "sr", "pt", "ro", "ru" };
+					string LanguageName = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+					string SupportedLanguage = SupportedLanguages.FirstOrDefault(el => el == LanguageName);
+					Language = string.IsNullOrEmpty(SupportedLanguage) ? "en" : LanguageName;
+
+					Preferences.Set("user_selected_language", Language);
+				}
+
+				return Language;
+			}
+		}
+
 		private void InitLocalizationResource()
 		{
-			List<string> SupportedLanguages = new() { "en", "sv", "es", "fr", "de", "da", "no", "fi", "sr", "pt", "ro", "ru" };
-
-			string SelectedLanguage = Preferences.Get("user_selected_language", null);
-
-			if (SelectedLanguage is null)
-			{
-				string LanguageName = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-				string SupportedLanguage = SupportedLanguages.FirstOrDefault(el => el == LanguageName);
-				SelectedLanguage = string.IsNullOrEmpty(SupportedLanguage) ? "en" : LanguageName;
-
-				Preferences.Set("user_selected_language", SelectedLanguage);
-			}
+			string Language = SelectedLanguage;
 
 			CultureInfo[] Infos = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
-			CultureInfo SelectedInfo = Infos.First(el => el.Name == SelectedLanguage);
+			CultureInfo SelectedInfo = Infos.First(el => el.Name == Language);
 
 			LocalizationResourceManager.Current.Init(AppResources.ResourceManager, SelectedInfo);
 		}
 
-		private Task<bool> Init()
+		private Task<bool> Init(bool BackgroundStart, Assembly DeviceAssembly)
 		{
 			ProfilerThread Thread = this.startupProfiler?.CreateThread("Init", ProfilerThreadType.Sequential);
 			Thread?.Start();
 
 			TaskCompletionSource<bool> Result = new();
-			Task.Run(async () => await this.InitInParallel(Thread, Result));
+			Task.Run(async () => await this.InitInParallel(Thread, Result, BackgroundStart, DeviceAssembly));
 			return Result.Task;
 		}
 
-		private async Task InitInParallel(ProfilerThread Thread, TaskCompletionSource<bool> Result)
+		private async Task InitInParallel(ProfilerThread Thread, TaskCompletionSource<bool> Result, bool BackgroundStart,
+			Assembly DeviceAssembly)
 		{
 			try
 			{
-				this.InitInstances(Thread);
+				this.InitInstances(Thread, DeviceAssembly);
 
-				// Get the db started right away to save startup time.
+				Thread?.NewState("JWT");
+				await this.services.CryptoService.InitializeJwtFactory();
 
-				Thread?.NewState("DB");
-				ProfilerThread SubThread = Thread?.CreateSubThread("Database", ProfilerThreadType.Sequential);
-
-				await this.startupWorker.WaitAsync();
-
-				try
-				{
-					await this.services.StorageService.Init(SubThread, null);
-
-					Thread?.NewState("Config");
-					await this.CreateOrRestoreConfiguration();
-					configLoaded.TrySetResult(true);
-				}
-				finally
-				{
-					this.startupWorker.Release();
-				}
-
-				await this.PerformStartup(false, Thread);
+				await this.PerformStartup(false, Thread, BackgroundStart);
 
 				Result.TrySetResult(true);
 			}
@@ -229,7 +258,7 @@ namespace IdApp
 			Thread?.Stop();
 		}
 
-		private void InitInstances(ProfilerThread Thread)
+		private void InitInstances(ProfilerThread Thread, Assembly DeviceAssembly)
 		{
 			Thread?.NewState("Types");
 
@@ -240,6 +269,7 @@ namespace IdApp
 				// Define the scope and reach of Runtime.Inventory (Script, Serialization, Persistence, IoC, etc.):
 				Types.Initialize(
 					appAssembly,                                // Allows for objects defined in this assembly, to be instantiated and persisted.
+					DeviceAssembly,								// Device-specific assembly.
 					typeof(Database).Assembly,                  // Indexes default attributes
 					typeof(ObjectSerializer).Assembly,          // Indexes general serializers
 					typeof(FilesProvider).Assembly,             // Indexes special serializers
@@ -255,11 +285,18 @@ namespace IdApp
 					typeof(SensorClient).Assembly,              // Serialization of XMPP objects related to sensors
 					typeof(ControlClient).Assembly,             // Serialization of XMPP objects related to actuators
 					typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
+					typeof(PepClient).Assembly,                 // Serialization of XMPP objects related to personal eventing
 					typeof(Expression).Assembly,                // Indexes basic script functions
+					typeof(Graph).Assembly,                     // Indexes graph script functions
+					typeof(GraphEncoder).Assembly,              // Indexes content script functions
 					typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
 					typeof(NeuroFeaturesClient).Assembly,       // Indexes Neuro-Features client framework
 					typeof(PushNotificationClient).Assembly,    // Indexes Push Notification client framework
-					typeof(XmppServerlessMessaging).Assembly);  // Indexes End-to-End encryption mechanisms
+					typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
+					typeof(HttpxClient).Assembly,               // Support for HTTP over XMPP (httpx) URI Schme.
+					typeof(JwtFactory).Assembly,                // Generation of JWT tokens.
+					typeof(JwsAlgorithm).Assembly,              // Available JWS algorithms.
+					typeof(IThingReference).Assembly);          // Thing & sensor data library.
 			}
 
 			EndpointSecurity.SetCiphers(new Type[]
@@ -284,6 +321,8 @@ namespace IdApp
 			Types.InstantiateDefault<IContractOrchestratorService>(false);
 			Types.InstantiateDefault<IThingRegistryOrchestratorService>(false);
 			Types.InstantiateDefault<INeuroWalletOrchestratorService>(false);
+			Types.InstantiateDefault<INotificationService>(false);
+			Types.InstantiateDefault<IPushNotificationService>(false);
 			Types.InstantiateDefault<INfcService>(false);
 
 			this.services = new ServiceReferences();
@@ -298,8 +337,21 @@ namespace IdApp
 				if (Types.GetType(type.FullName) is null)
 					return null;    // Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
 
-				return Types.Instantiate(true, type);
+				if (type.Assembly == DeviceAssembly && Types.GetDefaultConstructor(type) is null)
+					return null;
+
+				try
+				{
+					return Types.Instantiate(true, type);
+				}
+				catch (Exception ex)
+				{
+					this.services.LogService.LogException(ex);
+					return null;
+				}
 			});
+
+			secureDisplay = DependencyService.Get<ISecureDisplay>();
 
 			servicesSetup.TrySetResult(true);
 		}
@@ -315,16 +367,40 @@ namespace IdApp
 
 		/// <summary>
 		/// Instantiates an object of type <typeparamref name="T"/>, after assuring default instances have been created first.
-		/// ASsures singleton classes are only instantiated once, and that the reference to the singleton instance is returned.
+		/// Assures singleton classes are only instantiated once, and that the reference to the singleton instance is returned.
 		/// </summary>
 		/// <typeparam name="T">Type of object to instantiate.</typeparam>
 		/// <returns>Instance</returns>
 		public static T Instantiate<T>()
 		{
 			if (!defaultInstantiated)
-				defaultInstantiated = defaultInstantiatedSource.Task.Result;
+			{
+				if (IsTest)
+					defaultInstantiated = true;
+				else
+					defaultInstantiated = defaultInstantiatedSource.Task.Result;
+			}
 
 			return Types.Instantiate<T>(false);
+		}
+
+		/// <summary>
+		/// If the environment is run from a unit test.
+		/// </summary>
+		internal static bool IsTest
+		{
+			get
+			{
+				if (!isTest.HasValue)
+				{
+					string Namespace = typeof(App).Namespace;
+					string[] SubNamespaces = Types.GetSubNamespaces(Namespace);
+
+					isTest = Array.IndexOf(SubNamespaces, Namespace + ".Test") >= 0;
+				}
+
+				return isTest.Value;
+			}
 		}
 
 		internal static async Task WaitForServiceSetup()
@@ -332,12 +408,25 @@ namespace IdApp
 			await servicesSetup.Task;
 		}
 
-		internal static async Task WaitForConfigLoaded()
-		{
-			await configLoaded.Task;
-		}
+		#region Startup/Shutdown
 
-#region Startup/Shutdown
+		/// <summary>
+		/// Awaiting the services start in the background.
+		/// </summary>
+		public async Task OnBackgroundStart()
+		{
+			if (this.onStartResumesApplication)
+			{
+				this.onStartResumesApplication = false;
+				await this.DoResume(true);
+				return;
+			}
+
+			if (!this.initCompleted.Wait(60000))
+				throw new Exception("Initialization did not complete in time.");
+
+			this.StartupCompleted("StartupProfile.uml", false);
+		}
 
 		///<inheritdoc/>
 		protected override async void OnStart()
@@ -358,52 +447,77 @@ namespace IdApp
 				await App.Stop();
 		}
 
+		/// <summary>
+		/// Resume the services start in the background.
+		/// </summary>
+		public async Task DoResume(bool BackgroundStart)
+		{
+			Instance = this;
+			this.startupCancellation = new CancellationTokenSource();
+
+			await this.PerformStartup(true, null, BackgroundStart);
+		}
+
 		///<inheritdoc/>
 		protected override async void OnResume()
 		{
-			instance = this;
-			this.startupCancellation = new CancellationTokenSource();
-
-			await this.PerformStartup(true, null);
+			await this.DoResume(false);
 
 			if (!await App.VerifyPin())
 				await App.Stop();
 		}
 
-
-		private async Task PerformStartup(bool isResuming, ProfilerThread Thread)
+		private async Task PerformStartup(bool isResuming, ProfilerThread Thread, bool BackgroundStart)
 		{
 			await this.startupWorker.WaitAsync();
 
 			try
 			{
+				// do nothing if the services are already started
+				if (++App.startupCounter > 1)
+				{
+					return;
+				}
+
 				// cancel the startup if the application is closed
 				CancellationToken Token = this.startupCancellation.Token;
 				Token.ThrowIfCancellationRequested();
 
-				Thread?.NewState("Report");
-				await this.SendErrorReportFromPreviousRun();
+				if (!BackgroundStart)
+				{
+					Thread?.NewState("Report");
+					await this.SendErrorReportFromPreviousRun();
 
-				Thread?.NewState("Startup");
-				this.services.UiSerializer.IsRunningInTheBackground = false;
+					Thread?.NewState("Startup");
+					this.services.UiSerializer.IsRunningInTheBackground = false;
 
-				Token.ThrowIfCancellationRequested();
-
-				// Start the db.
-				// This is for soft restarts.
-				// If this is a cold start, this call is made already in the App ctor, and this is then a no-op.
+					Token.ThrowIfCancellationRequested();
+				}
 
 				Thread?.NewState("DB");
-				await this.services.StorageService.Init(Thread, Token);
+				ProfilerThread SubThread = Thread?.CreateSubThread("Database", ProfilerThreadType.Sequential);
 
-				if (!isResuming)
-					await WaitForConfigLoaded();
+				await this.services.StorageService.Init(SubThread, Token);
+
+				if (!App.configLoaded)
+				{
+					Thread?.NewState("Config");
+					await this.CreateOrRestoreConfiguration();
+
+					App.configLoaded = true;
+				}
+
+				Token.ThrowIfCancellationRequested();
 
 				Thread?.NewState("Network");
 				await this.services.NetworkService.Load(isResuming, Token);
 
+				Token.ThrowIfCancellationRequested();
+
 				Thread?.NewState("XMPP");
 				await this.services.XmppService.Load(isResuming, Token);
+
+				Token.ThrowIfCancellationRequested();
 
 				Thread?.NewState("Timer");
 				TimeSpan initialAutoSaveDelay = Constants.Intervals.AutoSave.Multiply(4);
@@ -418,6 +532,10 @@ namespace IdApp
 				Thread?.NewState("Orchestrators");
 				await this.services.ContractOrchestratorService.Load(isResuming, Token);
 				await this.services.ThingRegistryOrchestratorService.Load(isResuming, Token);
+				await this.services.NeuroWalletOrchestratorService.Load(isResuming, Token);
+
+				Thread?.NewState("Notifications");
+				await this.services.NotificationService.Load(isResuming, Token);
 			}
 			catch (OperationCanceledException)
 			{
@@ -437,6 +555,14 @@ namespace IdApp
 			}
 		}
 
+		/// <summary>
+		/// Awaiting the services stop in the background.
+		/// </summary>
+		public async Task OnBackgroundSleep()
+		{
+			await this.Shutdown(false, true);
+		}
+
 		///<inheritdoc/>
 		protected override async void OnSleep()
 		{
@@ -446,17 +572,17 @@ namespace IdApp
 			if (this.MainPage?.BindingContext is BaseViewModel vm)
 				await vm.Shutdown();
 
-			await this.Shutdown(false);
+			await this.Shutdown(false, false);
 
 			this.SetStartInactivityTime();
 		}
 
 		internal static async Task Stop()
 		{
-			if (instance is not null)
+			if (Instance is not null)
 			{
-				await instance.Shutdown(false);
-				instance = null;
+				await Instance.Shutdown(false, false);
+				Instance = null;
 			}
 
 			ICloseApplication closeApp = DependencyService.Get<ICloseApplication>();
@@ -466,7 +592,7 @@ namespace IdApp
 				Environment.Exit(0);
 		}
 
-		private async Task Shutdown(bool inPanic)
+		private async Task Shutdown(bool inPanic, bool BackgroundStart)
 		{
 			// if the PerformStartup is not finished, cancel it first
 			this.startupCancellation.Cancel();
@@ -474,42 +600,61 @@ namespace IdApp
 
 			try
 			{
+				// do nothing if the services are already stopped
+				// or if the startup counter is greater than one
+				if ((App.startupCounter < 1) || (--App.startupCounter > 0))
+				{
+					return;
+				}
+
 				this.StopAutoSaveTimer();
 
-				if (this.services?.UiSerializer is not null)
-					this.services.UiSerializer.IsRunningInTheBackground = !inPanic;
-
-				if (inPanic)
+				if (this.services is not null)
 				{
-					if (this.services?.XmppService is not null)
-						await this.services.XmppService.UnloadFast();
+					if (!BackgroundStart)
+					{
+						if (this.services.UiSerializer is not null)
+							this.services.UiSerializer.IsRunningInTheBackground = !inPanic;
+					}
+
+					if (inPanic)
+					{
+						if (this.services.XmppService is not null)
+							await this.services.XmppService.UnloadFast();
+					}
+					else
+					{
+						if (this.services.NavigationService is not null)
+							await this.services.NavigationService.Unload();
+
+						if (this.services.ContractOrchestratorService is not null)
+							await this.services.ContractOrchestratorService.Unload();
+
+						if (this.services.ThingRegistryOrchestratorService is not null)
+							await this.services.ThingRegistryOrchestratorService.Unload();
+
+						if (this.services.NeuroWalletOrchestratorService is not null)
+							await this.services.NeuroWalletOrchestratorService.Unload();
+
+						if (this.services.XmppService is not null)
+							await this.services.XmppService.Unload();
+
+						if (this.services.NetworkService is not null)
+							await this.services.NetworkService.Unload();
+
+						if (this.services.AttachmentCacheService is not null)
+							await this.services.AttachmentCacheService.Unload();
+
+						if (this.services.NavigationService is not null)
+							await this.services.NavigationService.Unload();
+					}
+
+					foreach (IEventSink Sink in Waher.Events.Log.Sinks)
+						Waher.Events.Log.Unregister(Sink);
+
+					if (this.services.StorageService is not null)
+						await this.services.StorageService.Shutdown();
 				}
-				else
-				{
-					if (this.services?.NavigationService is not null)
-						await this.services.NavigationService.Unload();
-
-					if (this.services.ContractOrchestratorService is not null)
-						await this.services.ContractOrchestratorService.Unload();
-
-					if (this.services.ThingRegistryOrchestratorService is not null)
-						await this.services.ThingRegistryOrchestratorService.Unload();
-
-					if (this.services?.XmppService is not null)
-						await this.services.XmppService.Unload();
-
-					if (this.services?.NetworkService is not null)
-						await this.services.NetworkService.Unload();
-
-					if (this.services.AttachmentCacheService is not null)
-						await this.services.AttachmentCacheService.Unload();
-				}
-
-				foreach (IEventSink Sink in Waher.Events.Log.Sinks)
-					Waher.Events.Log.Unregister(Sink);
-
-				if (this.services?.StorageService is not null)
-					await this.services.StorageService.Shutdown();
 
 				// Causes list of singleton instances to be cleared.
 				Waher.Events.Log.Terminate();
@@ -520,7 +665,7 @@ namespace IdApp
 			}
 		}
 
-#endregion
+		#endregion
 
 		private void StopAutoSaveTimer()
 		{
@@ -588,7 +733,7 @@ namespace IdApp
 				}
 			}
 
-			this.services.TagProfile.FromConfiguration(configuration);
+			await this.services.TagProfile.FromConfiguration(configuration);
 		}
 
 		/// <summary>
@@ -599,7 +744,7 @@ namespace IdApp
 			// NavigationPage is used to allow non modal navigation. Scan QR code page is pushed not modally to allow the user to dismiss it
 			// on iOS (on iOS this page doesn't have any other means of going back without actually entering valid data).
 
-			Pages.Registration.Registration.RegistrationPage Page = await Pages.Registration.Registration.RegistrationPage.Create();
+			Pages.Registration.Registration.RegistrationPage Page = new Pages.Registration.Registration.RegistrationPage();
 
 			await this.SetMainPageAsync(new NavigationBasePage(Page));
 		}
@@ -609,6 +754,9 @@ namespace IdApp
 		/// </summary>
 		public Task SetAppShellPageAsync()
 		{
+			if (CanProhibitScreenCapture)
+				ProhibitScreenCapture = true;
+
 			return this.SetMainPageAsync(new Pages.Main.Shell.AppShell());
 		}
 
@@ -616,47 +764,37 @@ namespace IdApp
 		{
 			Page CurrentPage = this.MainPage is Shell Shell ? Shell.CurrentPage : this.MainPage;
 			if (CurrentPage is NavigationPage NavigationPage)
-			{
 				CurrentPage = NavigationPage.CurrentPage;
-			}
 
-			// LoadingPage already looks like a loading page, so it would look strange to push another loading page on top of it.
-			if (CurrentPage is Pages.Main.Loading.LoadingPage LoadingPage)
+			if (CurrentPage is not Pages.Main.Loading.LoadingPage)
 			{
-				// When we change the main page, OnDisappearing is called but not awaited (it returns void). This leads to a race
-				// condition between asynchronous continuation of the old page's OnDisappearing and the new page's OnAppearing.
-				// Thus, it is safer to explicitly await Unbind() before actually switching the main page. We could do it for all pages,
-				// but it would look confusing because we would have to block the user from interacting with the page while unbinding.
-				await LoadingPage.ViewModel.Unbind();
-
-				this.MainPage = Page;
-				return;
+				await CurrentPage.Navigation.PushModalAsync(new BetweenMainPage(), animated: false);
 			}
 
-			TaskCompletionSource<bool> OnDisappearingCompletedTaskSource = new();
-			((ContentBasePage)CurrentPage).OnDisappearingCompleted += (_, _) => OnDisappearingCompletedTaskSource.SetResult(true);
-
-			await CurrentPage.Navigation.PushModalAsync(new BetweenMainPage(), animated: false);
-			await OnDisappearingCompletedTaskSource.Task;
+			if (CurrentPage is ContentBasePage ContentBasePage)
+			{
+				await ContentBasePage.ViewModel.Disappearing();
+				await ContentBasePage.ViewModel.Dispose();
+			}
 
 			this.MainPage = Page;
 		}
 
-#region Error Handling
+		#region Error Handling
 
-		private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+		private void TaskScheduler_UnobservedTaskException(object Sender, UnobservedTaskExceptionEventArgs e)
 		{
 			Exception ex = e.Exception;
 			e.SetObserved();
 
 			ex = Waher.Events.Log.UnnestException(ex);
 
-			await this.Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false);
+			this.Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false).Wait();
 		}
 
-		private async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		private void CurrentDomain_UnhandledException(object Sender, UnhandledExceptionEventArgs e)
 		{
-			await this.Handle_UnhandledException(e.ExceptionObject as Exception, nameof(CurrentDomain_UnhandledException), true);
+			this.Handle_UnhandledException(e.ExceptionObject as Exception, nameof(CurrentDomain_UnhandledException), true).Wait();
 		}
 
 		private async Task Handle_UnhandledException(Exception ex, string title, bool shutdown)
@@ -668,20 +806,20 @@ namespace IdApp
 			}
 
 			if (shutdown)
-				await this.Shutdown(false);
+				await this.Shutdown(false, false);
 
 #if DEBUG
 			if (!shutdown)
 			{
 				if (Device.IsInvokeRequired && (this.MainPage is not null))
-					Device.BeginInvokeOnMainThread(async () => await this.MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok));
+					Device.BeginInvokeOnMainThread(async () => await this.MainPage.DisplayAlert(title, ex?.ToString(), LocalizationResourceManager.Current["Ok"]));
 				else if (this.MainPage is not null)
-					await this.MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok);
+					await this.MainPage.DisplayAlert(title, ex?.ToString(), LocalizationResourceManager.Current["Ok"]);
 			}
 #endif
 		}
 
-		private void CurrentDomain_FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
+		private void CurrentDomain_FirstChanceException(object Sender, FirstChanceExceptionEventArgs e)
 		{
 			this.startupProfiler?.Exception(e.Exception);
 		}
@@ -705,12 +843,32 @@ namespace IdApp
 		{
 			if (this.services?.LogService is not null)
 			{
-				string stackTrace = this.services.LogService.LoadExceptionDump();
-				if (!string.IsNullOrWhiteSpace(stackTrace))
+				string StackTrace = this.services.LogService.LoadExceptionDump();
+				if (!string.IsNullOrWhiteSpace(StackTrace))
 				{
+					List<KeyValuePair<string, object>> Tags = new()
+					{
+						new KeyValuePair<string, object>(Constants.XmppProperties.Jid, this.services?.XmppService?.BareJid)
+					};
+
+					KeyValuePair<string, object>[] Tags2 = this.services?.TagProfile?.LegalIdentity?.GetTags();
+					if (Tags2 is not null)
+						Tags.AddRange(Tags2);
+
+					StringBuilder Msg = new();
+
+					Msg.Append("Unhandled exception caused app to crash. ");
+					Msg.AppendLine("Below you can find the stack trace of the corresponding exception.");
+					Msg.AppendLine();
+					Msg.AppendLine("```");
+					Msg.AppendLine(StackTrace);
+					Msg.AppendLine("```");
+
+					Waher.Events.Log.Alert(Msg.ToString(), Tags.ToArray());
+
 					try
 					{
-						await SendAlert(stackTrace, "text/plain");
+						await SendAlert(StackTrace, "text/plain");
 					}
 					finally
 					{
@@ -857,14 +1015,27 @@ namespace IdApp
 			File.WriteAllText(FileName + ".diff.md", DiffMsg);
 		}
 
-#endregion
+		#endregion
 
 		/// <summary>
 		/// Opens an URL in the application.
 		/// </summary>
 		/// <param name="Url">URL</param>
 		/// <returns>If URL is processed or not.</returns>
-		public static Task<bool> OpenUrl(string Url)
+		public static void OpenUrlSync(string Url)
+		{
+			Current.services.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				await QrCode.OpenUrl(Url);
+			});
+		}
+
+		/// <summary>
+		/// Opens an URL in the application.
+		/// </summary>
+		/// <param name="Url">URL</param>
+		/// <returns>If URL is processed or not.</returns>
+		public static Task<bool> OpenUrlAsync(string Url)
 		{
 			return QrCode.OpenUrl(Url);
 		}
@@ -888,7 +1059,7 @@ namespace IdApp
 		public static async Task<string> InputPin()
 		{
 			ITagProfile Profile = App.Instantiate<ITagProfile>();
-			if (!Profile.UsePin)
+			if (!Profile.HasPin)
 				return string.Empty;
 
 			return await InputPin(Profile);
@@ -898,84 +1069,91 @@ namespace IdApp
 		/// Asks the user to verify with its PIN.
 		/// </summary>
 		/// <returns>If the user has provided the correct PIN</returns>
-		public static async Task<bool> VerifyPin()
+		public static async Task<bool> VerifyPin(bool Force = false)
 		{
-#if !DEBUG
-			ITagProfile Profile = App.Instantiate<ITagProfile>();
-			if (!Profile.UsePin)
-				return true;
-
-			bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
-
-			if (!displayedPinPopup && NeedToVerifyPin)
-				return await InputPin(Profile) is not null;
+#if DEBUG
+			// Skip the PIN verification during the debug. Set the IsDebug to false to work normal
+			bool IsDebug = true;
+#else
+			bool IsDebug = false;
 #endif
+			if (!IsDebug)
+			{
+				ITagProfile Profile = Instantiate<ITagProfile>();
+				if (!Profile.HasPin)
+					return true;
+
+				bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
+
+				if (!displayedPinPopup && (Force || NeedToVerifyPin))
+					return await InputPin(Profile) is not null;
+			}
+
 			return true;
 		}
 
+		/// <summary>
+		/// Verify if the user is blocked and show an allert
+		/// </summary>
 		public static async Task CheckUserBlocking()
 		{
-			IUiSerializer Ui = null;
-			if (Ui is null)
-				Ui = Instantiate<IUiSerializer>();
+			DateTime? DateTimeForLogin = await Instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint, Constants.Pin.Protocol);
+
+			if (DateTimeForLogin.HasValue)
 			{
-				DateTime? DateTimeForLogin = await instance.loginAuditor.GetEarliestLoginOpportunity(Constants.Pin.RemoteEndpoint, Constants.Pin.Protocol);
-				DateTime localDateTime;
+				IUiSerializer Ui = Instantiate<IUiSerializer>();
+				string MessageAlert;
 
-				if (DateTimeForLogin.HasValue)
+				if (DateTimeForLogin == DateTime.MaxValue)
 				{
-					string MessageAlert, dateString;
-
-					if (DateTimeForLogin == DateTime.MaxValue)
+					MessageAlert = LocalizationResourceManager.Current["PinIsInvalidAplicationBlockedForever"];
+				}
+				else
+				{
+					DateTime LocalDateTime = DateTimeForLogin.Value.ToLocalTime();
+					if (DateTimeForLogin.Value.ToShortDateString() == DateTime.Today.ToShortDateString())
 					{
-						MessageAlert = AppResources.PinIsInvalidAplicationBlockedForever;
-						await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
-						await Stop();
+						string DateString = LocalDateTime.ToShortTimeString();
+						MessageAlert = string.Format(LocalizationResourceManager.Current["PinIsInvalidAplicationBlocked"], DateString);
+					}
+					else if (DateTimeForLogin.Value.ToShortDateString() == DateTime.Today.AddDays(1).ToShortDateString())
+					{
+						string DateString = LocalDateTime.ToShortTimeString();
+						MessageAlert = string.Format(LocalizationResourceManager.Current["PinIsInvalidAplicationBlockedTillTomorrow"], DateString);
 					}
 					else
 					{
-						localDateTime = DateTimeForLogin.Value.ToLocalTime();
-						if (DateTimeForLogin.Value.ToShortDateString() == DateTime.Today.ToShortDateString())
-						{
-							dateString = localDateTime.ToShortTimeString();
-							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, dateString);
-						}
-						else if (DateTimeForLogin.Value.ToShortDateString() == DateTime.Today.AddDays(1).ToShortDateString())
-						{
-							dateString = localDateTime.ToShortTimeString();
-							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlockedTillTomorrow, dateString);
-						}
-						else
-						{
-							dateString = localDateTime.ToString("yyyy-MM-dd, 'at' HH:mm");
-							MessageAlert = string.Format(AppResources.PinIsInvalidAplicationBlocked, dateString);
-						}
-						await Ui.DisplayAlert(AppResources.ErrorTitle, MessageAlert);
-						await Stop();
+						string DateString = LocalDateTime.ToString("yyyy-MM-dd, 'at' HH:mm");
+						MessageAlert = string.Format(LocalizationResourceManager.Current["PinIsInvalidAplicationBlocked"], DateString);
 					}
 				}
+
+				await Ui.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], MessageAlert);
+				await Stop();
 			}
 		}
 
+		/// <summary>
+		/// Check the PIN and reset the blocking counters if it matches
+		/// </summary>
 		public static async Task<string> CheckPinAndUnblockUser(string Pin, ITagProfile Profile)
 		{
 			if (Pin is null)
 				return null;
+
 			long PinAttemptCounter = await GetCurrentPinCounter();
-			IUiSerializer Ui = null;
-			if (Ui is null)
-				Ui = Instantiate<IUiSerializer>();
+
 			if (Profile.ComputePinHash(Pin) == Profile.PinHash)
 			{
 				ClearStartInactivityTime();
 				SetCurrentPinCounter(0);
-				await instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
+				await Instance.loginAuditor.UnblockAndReset(Constants.Pin.RemoteEndpoint);
 				await PopupNavigation.Instance.PopAsync();
 				return Pin;
 			}
 			else
 			{
-				await instance.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
+				await Instance.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
 						Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
 
 				PinAttemptCounter++;
@@ -983,8 +1161,9 @@ namespace IdApp
 			}
 
 			long RemainingAttempts = Constants.Pin.MaxPinAttempts - PinAttemptCounter;
+			IUiSerializer Ui = Instantiate<IUiSerializer>();
 
-			await Ui.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinIsInvalid, RemainingAttempts));
+			await Ui.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["PinIsInvalid"], RemainingAttempts));
 			await CheckUserBlocking();
 			return Pin;
 		}
@@ -995,14 +1174,17 @@ namespace IdApp
 
 			try
 			{
-				if (!Profile.UsePin)
+				if (!Profile.HasPin)
 					return string.Empty;
 
 				Popups.Pin.PinPopup.PinPopupPage Page = new();
 				await PopupNavigation.Instance.PushAsync(Page);
 				await CheckUserBlocking();
-				string Pin = await Page.Result;
-				return await CheckPinAndUnblockUser(Pin, Profile);
+				return await Page.Result;
+			}
+			catch (Exception)
+			{
+				return null;
 			}
 			finally
 			{
@@ -1041,7 +1223,7 @@ namespace IdApp
 		/// </summary>
 		private static async Task<long> GetCurrentPinCounter()
 		{
-			return await instance.services.SettingsService.RestoreLongState(Constants.Pin.CurrentPinAttemptCounter);
+			return await Instance.services.SettingsService.RestoreLongState(Constants.Pin.CurrentPinAttemptCounter);
 		}
 
 		/// <summary>
@@ -1049,7 +1231,25 @@ namespace IdApp
 		/// </summary>
 		private static async void SetCurrentPinCounter(long CurrentPinAttemptCounter)
 		{
-			await instance.services.SettingsService.SaveState(Constants.Pin.CurrentPinAttemptCounter, CurrentPinAttemptCounter);
+			await Instance.services.SettingsService.SaveState(Constants.Pin.CurrentPinAttemptCounter, CurrentPinAttemptCounter);
+		}
+
+		/// <summary>
+		/// If Screen Capture can be prohibited.
+		/// </summary>
+		public static bool CanProhibitScreenCapture => secureDisplay is not null;
+
+		/// <summary>
+		/// Controls of screen-capture is prohibited.
+		/// </summary>
+		public static bool ProhibitScreenCapture
+		{
+			get => secureDisplay?.ProhibitScreenCapture ?? false;
+			set
+			{
+				if (secureDisplay is not null)
+					secureDisplay.ProhibitScreenCapture = value;
+			}
 		}
 	}
 }

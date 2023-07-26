@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Registration.ChooseAccount
@@ -19,10 +18,12 @@ namespace IdApp.Pages.Registration.ChooseAccount
         /// </summary>
         public ChooseAccountView()
         {
+			this.BindingContext = new ChooseAccountViewModel();
+
 			this.InitializeComponent();
         }
 
-        private void AccountNameTextChanged(object sender, TextChangedEventArgs e)
+        private void AccountNameTextChanged(object Sender, TextChangedEventArgs e)
         {
             string NewTextValue = e.NewTextValue;
 
@@ -44,7 +45,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
                 }
             }
 
-            ((Entry)sender).Text = NewTextValue;
+            ((Entry)Sender).Text = NewTextValue;
         }
     }
 }

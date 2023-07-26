@@ -52,7 +52,7 @@ namespace IdApp.Popups.Xmpp.ReportOrBlock
         /// </summary>
         public string BareJid => this.bareJid;
 
-        private void OnCloseButtonTapped(object sender, EventArgs e)
+        private void OnCloseButtonTapped(object Sender, EventArgs e)
         {
 			this.Close();
         }
@@ -70,19 +70,19 @@ namespace IdApp.Popups.Xmpp.ReportOrBlock
             this.result.TrySetResult(ReportOrBlockAction.Ignore);
         }
 
-        private async void OnBlock(object sender, EventArgs e)
+        private async void OnBlock(object Sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(ReportOrBlockAction.Block);
         }
 
-        private async void OnReport(object sender, EventArgs e)
+        private async void OnReport(object Sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(ReportOrBlockAction.Report);
         }
 
-        private async void OnIgnore(object sender, EventArgs e)
+        private async void OnIgnore(object Sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(ReportOrBlockAction.Ignore);

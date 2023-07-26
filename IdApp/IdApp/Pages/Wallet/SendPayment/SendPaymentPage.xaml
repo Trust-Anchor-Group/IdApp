@@ -6,6 +6,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet;assembly=IdApp"
                        x:DataType="model:EDalerUriViewModel"
                        x:Class="IdApp.Pages.Wallet.SendPayment.SendPaymentPage"
+                       Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.SendPayment}">
     <Grid>
         <ScrollView x:Name="ScrollView">
@@ -36,7 +37,7 @@
                 <Label Text="{x:Static resx:AppResources.Message}"/>
                 <Entry Text="{Binding Path=Message}" IsReadOnly="{Binding Path=MessagePreset}"/>
                 <StackLayout Orientation="Horizontal" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
-                    <CheckBox IsChecked="{Binding Path=EncryptMessage, Mode=TwoWay}" VerticalOptions="Center" IsEnabled="False"/>
+					<CheckBox IsChecked="{Binding Path=EncryptMessage, Mode=TwoWay}" VerticalOptions="Center" IsEnabled="{Binding CanEncryptMessage}"/>
                     <Label Text="{x:Static resx:AppResources.EncryptMessage}" VerticalOptions="Center" />
                 </StackLayout>
                 <!-- BUTTONS -->

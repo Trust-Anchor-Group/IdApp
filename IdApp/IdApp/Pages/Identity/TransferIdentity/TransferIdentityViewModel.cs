@@ -1,9 +1,9 @@
-﻿using System;
+﻿using IdApp.Services;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Resx;
-using IdApp.Services;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -26,11 +26,11 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out TransferIdentityNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out TransferIdentityNavigationArgs args))
 				this.Uri = args.Uri;
 
 			this.QrCodeWidth = 400;
@@ -59,12 +59,12 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override Task DoUnbind()
+		protected override Task OnDispose()
 		{
 			this.timer?.Dispose();
 			this.timer = null;
 
-			return base.DoUnbind();
+			return base.OnDispose();
 		}
 
 		#region Properties
@@ -97,7 +97,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		private async Task CopyUriToClipboardClicked()
 		{
 			await Clipboard.SetTextAsync(this.Uri);
-			await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+			await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
 		}
 
 		#region ILinkableView

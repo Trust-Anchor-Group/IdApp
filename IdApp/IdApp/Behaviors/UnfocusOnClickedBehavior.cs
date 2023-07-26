@@ -28,7 +28,7 @@ namespace IdApp.Behaviors
             base.OnDetachingFrom(Button);
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private void Button_Clicked(object Sender, EventArgs e)
         {
             Unfocus(this.UnfocusControl);
         }
@@ -39,7 +39,7 @@ namespace IdApp.Behaviors
         /// <param name="Element">Element to focus on.</param>
         public static void Unfocus(View Element)
 		{
-            if (!(Element is null) && Element.IsVisible)
+            if (Element is not null && Element.IsVisible)
                 Element.Unfocus();
         }
     }

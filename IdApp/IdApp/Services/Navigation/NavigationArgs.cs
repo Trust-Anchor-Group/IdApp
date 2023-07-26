@@ -1,41 +1,134 @@
-﻿namespace IdApp.Services.Navigation
+﻿using IdApp.Pages.Main.Main;
+using System;
+
+namespace IdApp.Services.Navigation
 {
-    /// <summary>
-    /// An base class holding page specific navigation parameters.
-    /// </summary>
-    public class NavigationArgs
+	/// <summary>
+	/// Navigation Back Method
+	/// </summary>
+	public enum BackMethod
+	{
+		/// <summary>
+		/// Takes in consideration the parent's navigation arguments
+		/// By fedault it will be considered a <see cref="Pop"/>
+		/// </summary>
+		Inherited = 0,
+
+		/// <summary>
+		/// Goes back just one navigation level - the route ".."
+		/// </summary>
+		Pop = 1,
+
+		/// <summary>
+		/// Pop until this page is reached
+		/// </summary>
+		ToThisPage = 2,
+
+		/*
+		/// <summary>
+		/// Pop until this page's parent is reached
+		/// </summary>
+		ToParentPage = 3,
+
+		/// <summary>
+		/// Goes back to the main page - the route "///" + nameof(MainPage)
+		/// </summary>
+		ToMainPage = 4,
+		*/
+	}
+
+	/// <summary>
+	/// An base class holding page specific navigation parameters.
+	/// </summary>
+	public class NavigationArgs
     {
-        /// <summary>
-        /// Creates a new instance of the <see cref="NavigationArgs"/> class.
-        /// </summary>
-        public NavigationArgs() { }
+		private NavigationArgs parentArgs = null;
+		private BackMethod backMethod = BackMethod.Inherited;
+		private string uniqueId = null;
 
-        /// <summary>
-        /// The route to use when going back, if any.
-        /// </summary>
-        public string ReturnRoute { get; set; }
+		/// <summary>
+		/// Sets the reference to the main parent's <see cref="NavigationArgs"/>.
+		/// </summary>
+		public void SetBackArguments(BackMethod BackMethod, NavigationArgs ParentArgs, string UniqueId)
+		{
+			this.backMethod = BackMethod;
+			this.parentArgs = ParentArgs;
+			this.uniqueId = UniqueId;
+		}
 
-        /// <summary>
-        /// Set it to 1 to start a counter of the number of times to pop when going back.
-        /// It will be incremented on every push using the <see cref="INavigationService.GoToAsync"/> method.
-        /// If this parrameter exist, it supercedes the <see cref="ReturnRoute"/>
-        /// </summary>
-        public int ReturnCounter { get; set; }
+		/// <summary>
+		/// Get the route used for the <see cref="INavigationService.GoBackAsync"/> method.
+		/// </summary>
+		public string GetBackRoute()
+		{
+			BackMethod BackMethod = this.backMethod;
 
-        /// <summary>
-        /// Set it to true to start a new <see cref="ReturnCounter"/> session.
-        /// If the ReturnCounter is zero, it will stop the further counting.
-        /// </summary>
-        public bool CancelReturnCounter { get; set; }
+			if (BackMethod == BackMethod.Inherited)
+			{
+				string BackRoute = "..";
+				NavigationArgs ParentArgs = this.parentArgs;
+
+				while ((ParentArgs is not null) && (ParentArgs.backMethod == BackMethod.Inherited))
+				{
+					ParentArgs = ParentArgs.parentArgs;
+					BackRoute += "/..";
+				}
+
+				if (ParentArgs is null)
+				{
+					return ".."; // Pop is inherited by default
+				}
+
+				BackMethod ParentBackMethod = ParentArgs.backMethod;
+
+				if (ParentBackMethod == BackMethod.Pop)
+				{
+					return "..";
+				}
+				else if (ParentBackMethod == BackMethod.ToThisPage)
+				{
+					return BackRoute + "/..";
+				}
+				/*
+				else if (ParentBackMethod == BackMethod.ToParentPage)
+				{
+					return BackRoute + "/../..";
+				}
+				else if (ParentBackMethod == BackMethod.ToMainPage)
+				{
+					return "///" + nameof(MainPage);
+				}
+				*/
+			}
+			else
+			{
+				if (BackMethod == BackMethod.Pop)
+				{
+					return "..";
+				}
+				else if (BackMethod == BackMethod.ToThisPage)
+				{
+					return "..";
+				}
+				/*
+				else if (BackMethod == BackMethod.ToParentPage)
+				{
+					return "../..";
+				}
+				if (this.backMethod == BackMethod.ToMainPage)
+				{
+					return "///" + nameof(MainPage);
+				}
+				*/
+			}
+
+			// all variants should be returned by now
+			throw new NotImplementedException();
+		}
 
 		/// <summary>
 		/// An untique view identificator used to search the args of similar view types.
 		/// </summary>
-		public string UniqueId { get; set; }
-
-		/// <summary>
-		/// If view has been initialized by the arguments.
-		/// </summary>
-		public bool ViewInitialized { get; set; }
+		public string GetUniqueId() => this.uniqueId;
 	}
 }

@@ -1,13 +1,12 @@
 ﻿using IdApp.DeviceSpecific;
 using IdApp.Extensions;
-using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts;
 using IdApp.Pages.Identity.ViewIdentity;
-using IdApp.Resx;
 using IdApp.Services.Data.Countries;
+using IdApp.Services.Navigation;
+using IdApp.Services.Notification;
 using IdApp.Services.UI.Photos;
-using IdApp.Services.Xmpp;
 using System;
 using System.IO;
 using System.Reflection;
@@ -16,6 +15,7 @@ using System.Windows.Input;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -44,35 +44,46 @@ namespace IdApp.Pages.Main.Main
 			this.ViewMyContactsCommand = new Command(async () => await this.ViewMyContacts(), () => this.IsConnected);
 			this.ViewMyThingsCommand = new Command(async () => await this.ViewMyThings(), () => this.IsConnected);
 			this.ScanQrCodeCommand = new Command(async () => await this.ScanQrCode());
-			this.ViewSignedContractsCommand = new Command(async () => await this.ViewSignedContracts(), () => this.IsConnected);
+			this.ViewContractsCommand = new Command(async () => await this.ViewContracts(), () => this.IsConnected);
 			this.ViewWalletCommand = new Command(async () => await this.ViewWallet(), () => this.IsConnected);
 			this.SharePhotoCommand = new Command(async () => await this.SharePhoto());
 			this.ShareQRCommand = new Command(async () => await this.ShareQR());
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			this.AssignProperties();
 			this.SetConnectionStateAndText(this.XmppService.State);
 			this.XmppService.ConnectionStateChanged += this.Contracts_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged += this.NetworkService_ConnectivityChanged;
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
 		}
 
 		/// <inheritdoc />
-		protected override Task DoUnbind()
+		protected override Task OnDispose()
 		{
 			this.photosLoader.CancelLoadPhotos();
 			this.XmppService.ConnectionStateChanged -= this.Contracts_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged -= this.NetworkService_ConnectivityChanged;
+			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
 
-			return base.DoUnbind();
+			return base.OnDispose();
+		}
+
+		/// <inheritdoc />
+		protected override Task OnAppearing()
+		{
+			this.AssignOverlays();
+			return base.OnAppearing();
 		}
 
 		private void AssignProperties()
 		{
+			this.AssignOverlays();
+
 			if (this.TagProfile?.LegalIdentity is not null)
 			{
 				string FirstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
@@ -124,6 +135,14 @@ namespace IdApp.Pages.Main.Main
 			}
 		}
 
+		private void AssignOverlays()
+		{
+			this.Left1Overlay = this.NotificationService.NrNotificationsContacts;
+			this.Left2Overlay = this.NotificationService.NrNotificationsThings;
+			this.Right1Overlay = this.NotificationService.NrNotificationsContracts;
+			this.Right2Overlay = this.NotificationService.NrNotificationsWallet;
+		}
+
 		private async Task LoadProfilePhoto(Attachment FirstAttachment)
 		{
 			try
@@ -141,7 +160,7 @@ namespace IdApp.Pages.Main.Main
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
-						if (this.IsBound)
+						if (this.IsAppearing)
 						{
 							this.ImageRotation = Rotation;
 							this.Image = ImageSource.FromStream(() => new MemoryStream(Bin));
@@ -153,6 +172,31 @@ namespace IdApp.Pages.Main.Main
 			{
 				this.LogService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 			}
+		}
+
+		private void NotificationService_OnNewNotification(object Sender, NotificationEventArgs e)
+		{
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
+			{
+				switch (e.Event.Button)
+				{
+					case EventButton.Contacts:
+						this.Left1Overlay++;
+						break;
+
+					case EventButton.Things:
+						this.Left2Overlay++;
+						break;
+
+					case EventButton.Contracts:
+						this.Right1Overlay++;
+						break;
+
+					case EventButton.Wallet:
+						this.Right2Overlay++;
+						break;
+				}
+			});	
 		}
 
 		#region Properties
@@ -218,18 +262,18 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		/// <summary>
-		/// See <see cref="ViewSignedContractsCommand"/>
+		/// See <see cref="ViewContractsCommand"/>
 		/// </summary>
-		public static readonly BindableProperty ViewSignedContractsCommandProperty =
-			BindableProperty.Create(nameof(ViewSignedContractsCommand), typeof(ICommand), typeof(MainViewModel), default(ICommand));
+		public static readonly BindableProperty ViewContractsCommandProperty =
+			BindableProperty.Create(nameof(ViewContractsCommand), typeof(ICommand), typeof(MainViewModel), default(ICommand));
 
 		/// <summary>
-		/// The command to bind to for viewing a user's wallet.
+		/// The command to bind to for viewing a user's contracts.
 		/// </summary>
-		public ICommand ViewSignedContractsCommand
+		public ICommand ViewContractsCommand
 		{
-			get => (ICommand)this.GetValue(ViewSignedContractsCommandProperty);
-			set => this.SetValue(ViewSignedContractsCommandProperty, value);
+			get => (ICommand)this.GetValue(ViewContractsCommandProperty);
+			set => this.SetValue(ViewContractsCommandProperty, value);
 		}
 
 		/// <summary>
@@ -499,6 +543,66 @@ namespace IdApp.Pages.Main.Main
 			set => this.SetValue(ConnectionErrorsTextProperty, value);
 		}
 
+		/// <summary>
+		/// See <see cref="Left1Overlay"/>
+		/// </summary>
+		public static readonly BindableProperty Left1OverlayProperty =
+			BindableProperty.Create(nameof(Left1Overlay), typeof(int), typeof(MainViewModel), default(int));
+
+		/// <summary>
+		/// Integer overlay of button Left1
+		/// </summary>
+		public int Left1Overlay
+		{
+			get => (int)this.GetValue(Left1OverlayProperty);
+			set => this.SetValue(Left1OverlayProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Left2Overlay"/>
+		/// </summary>
+		public static readonly BindableProperty Left2OverlayProperty =
+			BindableProperty.Create(nameof(Left2Overlay), typeof(int), typeof(MainViewModel), default(int));
+
+		/// <summary>
+		/// Integer overlay of button Left2
+		/// </summary>
+		public int Left2Overlay
+		{
+			get => (int)this.GetValue(Left2OverlayProperty);
+			set => this.SetValue(Left2OverlayProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Right1Overlay"/>
+		/// </summary>
+		public static readonly BindableProperty Right1OverlayProperty =
+			BindableProperty.Create(nameof(Right1Overlay), typeof(int), typeof(MainViewModel), default(int));
+
+		/// <summary>
+		/// Integer overlay of button Right1
+		/// </summary>
+		public int Right1Overlay
+		{
+			get => (int)this.GetValue(Right1OverlayProperty);
+			set => this.SetValue(Right1OverlayProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="Right2Overlay"/>
+		/// </summary>
+		public static readonly BindableProperty Right2OverlayProperty =
+			BindableProperty.Create(nameof(Right2Overlay), typeof(int), typeof(MainViewModel), default(int));
+
+		/// <summary>
+		/// Integer overlay of button Right2
+		/// </summary>
+		public int Right2Overlay
+		{
+			get => (int)this.GetValue(Right2OverlayProperty);
+			set => this.SetValue(Right2OverlayProperty, value);
+		}
+
 		#endregion
 
 		private async Task ViewMyIdentity()
@@ -512,7 +616,7 @@ namespace IdApp.Pages.Main.Main
 		private async Task ViewMyContacts()
 		{
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
-				new ContactListNavigationArgs(AppResources.ContactsDescription, SelectContactAction.ViewIdentity));
+				new ContactListNavigationArgs(LocalizationResourceManager.Current["ContactsDescription"], SelectContactAction.ViewIdentity));
 		}
 
 		private async Task ViewMyThings()
@@ -520,9 +624,11 @@ namespace IdApp.Pages.Main.Main
 			await this.NavigationService.GoToAsync(nameof(Things.MyThings.MyThingsPage));
 		}
 
-		private async Task ViewSignedContracts()
+		private async Task ViewContracts()
 		{
-			await this.NavigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.SignedContracts));
+			MyContractsNavigationArgs Args = new(ContractsListMode.Contracts);
+
+			await this.NavigationService.GoToAsync(nameof(MyContractsPage), Args, BackMethod.Pop);
 		}
 
 		private async Task ViewWallet()
@@ -546,23 +652,27 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		/// <inheritdoc />
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 			});
+
+			return Task.CompletedTask;
 		}
 
-		private void Contracts_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		private Task Contracts_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(this.XmppService.State);
+				this.SetConnectionStateAndText(NewState);
 			});
+
+			return Task.CompletedTask;
 		}
 
-		private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+		private void NetworkService_ConnectivityChanged(object Sender, ConnectivityChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(this.XmppService.State));
 		}
@@ -574,7 +684,7 @@ namespace IdApp.Pages.Main.Main
 			{
 				// Network
 				this.IsOnline = this.NetworkService?.IsOnline ?? false;
-				this.NetworkStateText = this.IsOnline ? AppResources.Online : AppResources.Offline;
+				this.NetworkStateText = this.IsOnline ? LocalizationResourceManager.Current["Online"] : LocalizationResourceManager.Current["Offline"];
 				this.IdentityStateText = this.TagProfile?.LegalIdentity?.State.ToDisplayText() ?? string.Empty;
 
 				// XMPP server
@@ -603,7 +713,7 @@ namespace IdApp.Pages.Main.Main
 
 				this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
 				this.EvaluateCommands(this.ViewMyIdentityCommand, this.ViewMyContactsCommand, this.ViewMyThingsCommand,
-					this.ScanQrCodeCommand, this.ViewSignedContractsCommand, this.ViewWalletCommand);
+					this.ScanQrCodeCommand, this.ViewContractsCommand, this.ViewWalletCommand);
 			}
 			catch (Exception ex)
 			{
@@ -621,7 +731,7 @@ namespace IdApp.Pages.Main.Main
 				IShareContent ShareContent = DependencyService.Get<IShareContent>();
 				string FileName = "Photo." + InternetContent.GetFileExtension(this.ImageContentType);
 
-				ShareContent.ShareImage(this.ImageBin, this.FullName, AppResources.Share, FileName);
+				ShareContent.ShareImage(this.ImageBin, this.FullName, LocalizationResourceManager.Current["Share"], FileName);
 			}
 			catch (Exception ex)
 			{
@@ -640,7 +750,7 @@ namespace IdApp.Pages.Main.Main
 				IShareContent ShareContent = DependencyService.Get<IShareContent>();
 				string FileName = "QR." + InternetContent.GetFileExtension(this.QrCodeContentType);
 
-				ShareContent.ShareImage(this.QrCodeBin, this.FullName, AppResources.Share, FileName);
+				ShareContent.ShareImage(this.QrCodeBin, this.FullName, LocalizationResourceManager.Current["Share"], FileName);
 			}
 			catch (Exception ex)
 			{
@@ -659,11 +769,11 @@ namespace IdApp.Pages.Main.Main
 				{
 					try
 					{
-						(bool Succeeded, LegalIdentity RevokedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.ObsoleteLegalIdentity(this.TagProfile.LegalIdentity.Id));
+						(bool Succeeded, LegalIdentity RevokedIdentity) = await this.NetworkService.TryRequest(() =>
+							this.XmppService.ObsoleteLegalIdentity(this.TagProfile.LegalIdentity.Id));
+
 						if (Succeeded)
-						{
-							this.TagProfile.RevokeLegalIdentity(RevokedIdentity);
-						}
+							await this.TagProfile.RevokeLegalIdentity(RevokedIdentity);
 					}
 					catch (Exception ex)
 					{

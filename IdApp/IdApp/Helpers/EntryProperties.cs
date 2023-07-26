@@ -72,5 +72,27 @@ namespace IdApp.Helpers
 		{
 			Bindable.SetValue(CornerRadiusProperty, Value);
 		}
+
+		/// <summary>
+		/// Implements the attached property that defines the width of the left/right side padding of an <see cref="Entry"/>.
+		/// </summary>
+		public static readonly BindableProperty PaddingHorizontalProperty
+			= BindableProperty.CreateAttached("PaddingHorizontal", typeof(double), typeof(EntryProperties), (double)5);
+
+		/// <summary>
+		/// Gets the width of the padding of an <see cref="Entry"/>.
+		/// </summary>
+		public static double GetPaddingHorizontal(BindableObject Bindable)
+		{
+			return (double)Bindable.GetValue(PaddingHorizontalProperty);
+		}
+
+		/// <summary>
+		/// Sets the width of the padding of an <see cref="Entry"/>.
+		/// </summary>
+		public static void SetPaddingHorizontal(BindableObject Bindable, double Value)
+		{
+			Bindable.SetValue(PaddingHorizontalProperty, Value);
+		}
 	}
 }

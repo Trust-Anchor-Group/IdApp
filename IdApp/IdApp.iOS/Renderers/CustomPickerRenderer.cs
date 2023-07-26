@@ -31,13 +31,14 @@ namespace IdApp.iOS.Renderers
 		{
 			if (this.Control is not null)
 			{
-				this.Control.Layer.BorderWidth = (System.nfloat)(this.Element != null ? EntryProperties.GetBorderWidth(this.Element) : 0);
-				this.Control.Layer.CornerRadius = (System.nfloat)(this.Element != null ? EntryProperties.GetCornerRadius(this.Element) : 0);
+				this.Control.Layer.BorderWidth = (System.nfloat)(this.Element is not null ? EntryProperties.GetBorderWidth(this.Element) : 0);
+				this.Control.Layer.CornerRadius = (System.nfloat)(this.Element is not null ? EntryProperties.GetCornerRadius(this.Element) : 0);
 				this.Control.BorderStyle = UITextBorderStyle.Line;
-				this.Control.Layer.BorderColor = this.Element != null ? EntryProperties.GetBorderColor(this.Element).ToCGColor() : UIColor.Clear.CGColor;
+				this.Control.Layer.BorderColor = this.Element is not null ? EntryProperties.GetBorderColor(this.Element).ToCGColor() : UIColor.Clear.CGColor;
 
-				this.Control.LeftView = new UIView(new CGRect(0, 0, 5, 5));
-				this.Control.LeftViewMode = UITextFieldViewMode.Always;
+				//!!!System.nfloat Padding = (System.nfloat)(this.Element is not null ? EntryProperties.GetPaddingHorizontal(this.Element) : 5);
+				//!!!this.Control.LeftView = new UIView(new CGRect(0, 0, Padding, Padding));
+				//!!!this.Control.LeftViewMode = UITextFieldViewMode.Always;
 			}
 		}
 	}

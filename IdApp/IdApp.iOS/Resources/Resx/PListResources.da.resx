@@ -124,6 +124,6 @@
     <value>TAG ID skal kunne føje billeder til dine gallerier, hvis du vil gemme billeder, du tager, til senere brug.</value>
   </data>
   <data name="NSPhotoLibraryUsageDescription" xml:space="preserve">
-    <value>TAG ID har brug for adgang til fotogalleriet, for at du kan vælge et profilbillede til dit id, hente QR-koder fra andre apps eller dele billeder med kontakter i chats.</value>
+    <value>TAG ID skal have adgang til fotogalleriet, for at du kan vælge et profilbillede til dit id, få QR-koder fra andre apps eller dele billeder med kontakter i chats.</value>
   </data>
 </root>

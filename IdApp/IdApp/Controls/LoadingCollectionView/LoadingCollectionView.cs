@@ -49,13 +49,13 @@ namespace IdApp.Controls.LoadingCollectionView
 			this.SelectionChanged += this.LoadingCollectionView_SelectionChanged;
         }
 
-		private void LoadingCollectionView_ThresholdReached(object sender, EventArgs e)
+		private void LoadingCollectionView_ThresholdReached(object Sender, EventArgs e)
         {
             if (this.LoadMoreCommand?.CanExecute(null) ?? false)
                 this.LoadMoreCommand.Execute(null);
         }
 
-        private void LoadingCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LoadingCollectionView_SelectionChanged(object Sender, SelectionChangedEventArgs e)
         {
             if (this.ItemSelectedCommand?.CanExecute(null) ?? false)
                 this.ItemSelectedCommand.Execute(this.SelectedItem);

@@ -14,21 +14,21 @@ namespace IdApp.iOS.Renderers
         {
             base.OnElementChanged(e);
 
-            if (Element is not null)
+            if (this.Element is not null)
             {
-                Control.AlwaysBounceVertical = Element.IsPullToRefreshEnabled;
-                Control.Bounces = Element.IsPullToRefreshEnabled;
+                this.Control.AlwaysBounceVertical = this.Element.IsPullToRefreshEnabled;
+				this.Control.Bounces = this.Element.IsPullToRefreshEnabled;
             }
         }
 
-        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected override void OnElementPropertyChanged(object Sender, PropertyChangedEventArgs e)
         {
-            base.OnElementPropertyChanged(sender, e);
+            base.OnElementPropertyChanged(Sender, e);
 
-            if (e.PropertyName == nameof(Element.IsPullToRefreshEnabled))
+            if (e.PropertyName == nameof(this.Element.IsPullToRefreshEnabled))
             {
-                Control.AlwaysBounceVertical = Element.IsPullToRefreshEnabled;
-                Control.Bounces = Element.IsPullToRefreshEnabled;
+                this.Control.AlwaysBounceVertical = this.Element.IsPullToRefreshEnabled;
+				this.Control.Bounces = this.Element.IsPullToRefreshEnabled;
             }
         }
     }

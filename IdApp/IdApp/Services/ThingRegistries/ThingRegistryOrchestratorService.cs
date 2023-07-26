@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using IdApp.Pages.Things.MyThings;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Pages.Things.ViewThing;
-using IdApp.Resx;
+using IdApp.Services.Navigation;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
+using Waher.Persistence;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.ThingRegistries
 {
@@ -51,12 +55,12 @@ namespace IdApp.Services.ThingRegistries
 		{
 			try
 			{
-				(SearchResultThing[] Things, string RegistryJid) = await this.XmppService.ThingRegistry.SearchAll(Uri);
+				(SearchResultThing[] Things, string RegistryJid) = await this.XmppService.SearchAll(Uri);
 
 				switch (Things.Length)
 				{
 					case 0:
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NoThingsFound);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NoThingsFound"]);
 						break;
 
 					case 1:
@@ -67,27 +71,25 @@ namespace IdApp.Services.ThingRegistries
 							Property[] Properties = ViewClaimThingViewModel.ToProperties(Thing.Tags);
 
 							ContactInfo ContactInfo = await ContactInfo.FindByBareJid(Thing.Jid, Thing.Node.SourceId, Thing.Node.Partition, Thing.Node.NodeId);
-							if (ContactInfo is null)
+							ContactInfo ??= new ContactInfo()
 							{
-								ContactInfo = new ContactInfo()
-								{
-									AllowSubscriptionFrom = false,
-									BareJid = Thing.Jid,
-									IsThing = true,
-									LegalId = string.Empty,
-									LegalIdentity = null,
-									FriendlyName = ViewClaimThingViewModel.GetFriendlyName(Properties),
-									MetaData = Properties,
-									SourceId = Thing.Node.SourceId,
-									Partition = Thing.Node.Partition,
-									NodeId = Thing.Node.NodeId,
-									Owner = false,
-									RegistryJid = RegistryJid,
-									SubcribeTo = null
-								};
-							}
+								AllowSubscriptionFrom = false,
+								BareJid = Thing.Jid,
+								IsThing = true,
+								LegalId = string.Empty,
+								LegalIdentity = null,
+								FriendlyName = ViewClaimThingViewModel.GetFriendlyName(Properties),
+								MetaData = Properties,
+								SourceId = Thing.Node.SourceId,
+								Partition = Thing.Node.Partition,
+								NodeId = Thing.Node.NodeId,
+								Owner = false,
+								RegistryJid = RegistryJid,
+								SubcribeTo = null
+							};
 
-							await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(ContactInfo));
+							await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(ContactInfo,
+								MyThingsViewModel.GetNotificationEvents(this, ContactInfo)));
 						});
 						break;
 
@@ -106,19 +108,18 @@ namespace IdApp.Services.ThingRegistries
 		{
 			try
 			{
-				if (!this.XmppService.ThingRegistry.TryDecodeIoTDiscoDirectURI(Uri, out string Jid, out string SourceId,
+				if (!this.XmppService.TryDecodeIoTDiscoDirectURI(Uri, out string Jid, out string SourceId,
 					out string NodeId, out string PartitionId, out MetaDataTag[] Tags))
 				{
 					throw new InvalidOperationException("Not a direct reference URI.");
 				}
 
-				ContactInfo Info = await ContactInfo.FindByBareJid(Jid, SourceId ?? string.Empty, 
+				Property[] Properties = ViewClaimThingViewModel.ToProperties(Tags);
+				ContactInfo Info = await ContactInfo.FindByBareJid(Jid, SourceId ?? string.Empty,
 					PartitionId ?? string.Empty, NodeId ?? string.Empty);
 
 				if (Info is null)
 				{
-					Property[] Properties = ViewClaimThingViewModel.ToProperties(Tags);
-
 					Info = new ContactInfo()
 					{
 						AllowSubscriptionFrom = false,
@@ -132,18 +133,64 @@ namespace IdApp.Services.ThingRegistries
 						Partition = PartitionId,
 						NodeId = NodeId,
 						Owner = false,
-						RegistryJid = string.Empty,
+						RegistryJid = this.XmppService.RegistryServiceJid,
 						SubcribeTo = null
 					};
+
+					foreach (MetaDataTag Tag in Tags)
+					{
+						if (Tag.Name.ToUpper() == "R")
+							Info.RegistryJid = Tag.StringValue;
+					}
+				}
+				else if (!(Info.IsThing ?? false))
+				{
+					Info.MetaData = Merge(Info.MetaData, Properties);
+					Info.IsThing = true;
+
+					await Database.Update(Info);
 				}
 
-				this.UiSerializer.BeginInvokeOnMainThread(async () =>
-					await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Info)));
+				ViewThingNavigationArgs Args = new(Info, MyThingsViewModel.GetNotificationEvents(this, Info));
+
+				await this.NavigationService.GoToAsync(nameof(ViewThingPage), Args, BackMethod.ToThisPage);
 			}
 			catch (Exception ex)
 			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		private static Property[] Merge(Property[] Stored, Property[] FromUri)
+		{
+			Dictionary<string, Property> Merged = new();
+			bool Changed = false;
+
+			if (Stored is not null)
+			{
+				foreach (Property P in Stored)
+					Merged[P.Name] = P;
+			}
+
+			if (FromUri is not null)
+			{
+				foreach (Property P in FromUri)
+				{
+					if (!Merged.TryGetValue(P.Name, out Property P2) || P2.Value != P.Value)
+					{
+						Merged[P.Name] = P;
+						Changed = true;
+					}
+				}
+			}
+
+			if (!Changed)
+				return Stored;
+
+			Property[] Result = new Property[Merged.Count];
+			Merged.Values.CopyTo(Result, 0);
+
+			return Result;
 		}
 
 	}

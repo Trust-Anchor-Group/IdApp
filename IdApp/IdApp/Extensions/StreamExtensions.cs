@@ -13,11 +13,11 @@ namespace IdApp.Extensions
         /// <param name="stream">The stream to reset.</param>
         public static void Reset(this Stream stream)
         {
-            if (!(stream is null) && stream.CanSeek)
+            if (stream is not null && stream.CanSeek)
             {
                 stream.Seek(0, SeekOrigin.Begin);
             }
-            else if (!(stream is null))
+            else if (stream is not null)
             {
                 stream.Position = 0;
             }

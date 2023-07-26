@@ -6,8 +6,8 @@ using Waher.Networking.XMPP;
 using Xamarin.Forms;
 using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
-using IdApp.Resx;
 using System.Runtime.CompilerServices;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Registration.DefinePin
 {
@@ -24,22 +24,24 @@ namespace IdApp.Pages.Registration.DefinePin
 		{
 			this.ContinueCommand = new Command(_ => this.Continue(), _ => this.CanContinue());
 			this.SkipCommand = new Command(_ => this.Skip(), _ => this.CanSkip());
-			this.Title = AppResources.DefinePin;
+			this.Title = LocalizationResourceManager.Current["DefinePin"];
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
+
 			this.AssignProperties(this.XmppService.State);
 			this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
-			await base.DoUnbind();
+
+			await base.OnDispose();
 		}
 
 		/// <inheritdoc />
@@ -134,21 +136,6 @@ namespace IdApp.Pages.Registration.DefinePin
 		public bool PinsMatch => string.IsNullOrEmpty(this.Pin) ? string.IsNullOrEmpty(this.RetypedPin) : this.Pin.Equals(this.RetypedPin, StringComparison.Ordinal);
 
 		/// <summary>
-		/// The <see cref="UsePin"/>
-		/// </summary>
-		public static readonly BindableProperty UsePinProperty =
-			BindableProperty.Create(nameof(UsePin), typeof(bool), typeof(DefinePinViewModel), default(bool));
-
-		/// <summary>
-		/// Gets or sets whether a PIn should be used for validation.
-		/// </summary>
-		public bool UsePin
-		{
-			get => (bool)this.GetValue(UsePinProperty);
-			set => this.SetValue(UsePinProperty, value);
-		}
-
-		/// <summary>
 		/// The <see cref="IsConnected"/>
 		/// </summary>
 		public static readonly BindableProperty IsConnectedProperty =
@@ -218,12 +205,14 @@ namespace IdApp.Pages.Registration.DefinePin
 			}
 		}
 
-		private void XmppService_ConnectionStateChanged(object Sender, ConnectionStateChangedEventArgs Args)
+		private Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.AssignProperties(Args.State);
+				this.AssignProperties(NewState);
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private void AssignProperties(XmppState State)
@@ -237,16 +226,14 @@ namespace IdApp.Pages.Registration.DefinePin
 		{
 			this.IsConnected = State == XmppState.Connected;
 			this.ConnectionStateText = State.ToDisplayText();
-			this.YouCanProtectYourWalletPinInfo =
-				(this.TagProfile.UsePin && !string.IsNullOrEmpty(this.TagProfile.PinHash))
-				? AppResources.YouCanProtectYourWalletPinInfoChange : AppResources.YouCanProtectYourWalletPinInfo;
+			this.YouCanProtectYourWalletPinInfo = this.TagProfile.HasPin
+				? LocalizationResourceManager.Current["YouCanProtectYourWalletPinInfoChange"]
+				: LocalizationResourceManager.Current["YouCanProtectYourWalletPinInfo"];
 		}
 
 		private void Skip()
 		{
-			this.UsePin = false;
-
-			this.Complete();
+			this.Complete(AddOrUpdatePin: false);
 		}
 
 		private bool CanSkip()
@@ -256,36 +243,30 @@ namespace IdApp.Pages.Registration.DefinePin
 
 		private void Continue()
 		{
-			this.UsePin = true;
-
 			string PinToCheck = this.Pin ?? string.Empty;
 
 			if (PinToCheck.Length < Constants.Authentication.MinPinLength)
 			{
-				this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength));
+				this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["PinTooShort"], Constants.Authentication.MinPinLength));
 				return;
 			}
 			if (PinToCheck.Trim() != PinToCheck)
 			{
-				this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace);
+				this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PinMustNotIncludeWhitespace"]);
 				return;
 			}
 
-			this.Complete();
+			this.Complete(AddOrUpdatePin: true);
 		}
 
-
-		private void Complete()
+		private void Complete(bool AddOrUpdatePin)
 		{
-
-			this.TagProfile.SetPin(this.Pin, this.UsePin);
+			this.TagProfile.CompletePinStep(this.Pin, AddOrUpdatePin);
 
 			this.OnStepCompleted(EventArgs.Empty);
 
 			if (this.TagProfile.TestOtpTimestamp is not null)
-			{
-				this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.TestOtpUsed, AppResources.Ok);
-			}
+				this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["WarningTitle"], LocalizationResourceManager.Current["TestOtpUsed"], LocalizationResourceManager.Current["Ok"]);
 		}
 
 		private bool CanContinue()

@@ -1,30 +1,30 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Xml;
-using EDaler;
-using IdApp.Extensions;
-using IdApp.Pages.Registration.Registration;
+﻿using IdApp.Extensions;
 using IdApp.Services;
-using Waher.Content.Xml;
-using Waher.Networking.XMPP;
-using Waher.Networking.XMPP.Contracts;
-using Waher.Persistence;
-using Xamarin.Essentials;
-using Xamarin.Forms;
 using IdApp.Pages.Identity.TransferIdentity;
-using IdApp.Popups.Pin.ChangePin;
-using IdApp.Services.Contracts;
-using IdApp.Services.Xmpp;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Popups.Xmpp.RemoveSubscription;
-using IdApp.Resx;
+using IdApp.Services.Notification;
+using IdApp.Pages.Main.Security;
+using System.Threading.Tasks;
+using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP;
+using System.ComponentModel;
+using System;
+using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Forms;
+using Waher.Persistence;
+using Xamarin.Essentials;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using System.Security.Cryptography;
+using System.Text;
+using Waher.Content.Xml;
+using System.Xml;
+using EDaler;
+using IdApp.Pages.Contracts.PetitionSignature;
+using IdApp.Services.Navigation;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
@@ -33,8 +33,13 @@ namespace IdApp.Pages.Identity.ViewIdentity
 	/// </summary>
 	public class ViewIdentityViewModel : QrXmppViewModel
 	{
-		private SignaturePetitionEventArgs identityToReview;
 		private readonly PhotosLoader photosLoader;
+		private LegalIdentity requestorIdentity;
+		private string requestorFullJid;
+		private string signatoryIdentityId;
+		private string petitionId;
+		private string purpose;
+		private byte[] contentToSign;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ViewIdentityViewModel"/> class.
@@ -61,20 +66,30 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out ViewIdentityNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out ViewIdentityNavigationArgs args))
 			{
 				this.LegalIdentity = args.Identity ?? this.TagProfile.LegalIdentity;
-				this.identityToReview = args.IdentityToReview;
+				this.requestorIdentity = args.RequestorIdentity;
+				this.requestorFullJid = args.RequestorFullJid;
+				this.signatoryIdentityId = args.SignatoryIdentityId;
+				this.petitionId = args.PetitionId;
+				this.purpose = args.Purpose;
+				this.contentToSign = args.ContentToSign;
 			}
 
 			if (this.LegalIdentity is null)
 			{
 				this.LegalIdentity = this.TagProfile.LegalIdentity;
-				this.identityToReview = null;
+				this.requestorIdentity = null;
+				this.requestorFullJid = null;
+				this.signatoryIdentityId = null;
+				this.petitionId = null;
+				this.purpose = null;
+				this.contentToSign = null;
 				this.IsPersonal = true;
 			}
 			else
@@ -102,36 +117,75 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 				this.ThirdPartyNotInContacts = Info is null;
 				this.ThirdPartyInContacts = !this.ThirdPartyNotInContacts;
+
+				if (this.NotificationService.TryGetNotificationEvents(EventButton.Contacts, this.BareJid, out NotificationEvent[] Events))
+				{
+					this.NrPendingChatMessages = Events.Length;
+					this.HasPendingChatMessages = this.NrPendingChatMessages > 0;
+				}
+				else
+				{
+					this.HasPendingChatMessages = false;
+					this.NrPendingChatMessages = 0;
+				}
 			}
 			else
 			{
 				this.ThirdPartyNotInContacts = false;
 				this.ThirdPartyInContacts = false;
+				this.HasPendingChatMessages = false;
+				this.NrPendingChatMessages = 0;
 			}
 
 			this.EvaluateAllCommands();
 
 			this.TagProfile.Changed += this.TagProfile_Changed;
-			this.XmppService.Contracts.LegalIdentityChanged += this.SmartContracts_LegalIdentityChanged;
-			this.XmppService.Xmpp.OnRosterItemAdded += this.CheckRosterItem;
-			this.XmppService.Xmpp.OnRosterItemRemoved += this.CheckRosterItem;
-			this.XmppService.Xmpp.OnRosterItemUpdated += this.CheckRosterItem;
+			this.XmppService.LegalIdentityChanged += this.SmartContracts_LegalIdentityChanged;
+			this.XmppService.OnRosterItemAdded += this.CheckRosterItem;
+			this.XmppService.OnRosterItemRemoved += this.CheckRosterItem;
+			this.XmppService.OnRosterItemUpdated += this.CheckRosterItem;
+			this.NotificationService.OnNewNotification += this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted += this.NotificationService_OnNotificationsDeleted;
+		}
+
+		private void NotificationService_OnNewNotification(object Sender, NotificationEventArgs e)
+		{
+			if (e.Event.Button == EventButton.Contacts && e.Event.Category == this.BareJid)
+			{
+				this.NrPendingChatMessages++;
+				this.HasPendingChatMessages = true;
+			}
+		}
+
+		private void NotificationService_OnNotificationsDeleted(object Sender, NotificationEventsArgs e)
+		{
+			foreach (NotificationEvent Event in e.Events)
+			{
+				if (Event.Button == EventButton.Contacts && Event.Category == this.BareJid)
+					this.NrPendingChatMessages--;
+			}
+
+			this.HasPendingChatMessages = this.NrPendingChatMessages > 0;
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.photosLoader.CancelLoadPhotos();
 
 			this.TagProfile.Changed -= this.TagProfile_Changed;
-			this.XmppService.Contracts.LegalIdentityChanged -= this.SmartContracts_LegalIdentityChanged;
-			this.XmppService.Xmpp.OnRosterItemAdded -= this.CheckRosterItem;
-			this.XmppService.Xmpp.OnRosterItemRemoved -= this.CheckRosterItem;
-			this.XmppService.Xmpp.OnRosterItemUpdated -= this.CheckRosterItem;
+			this.XmppService.LegalIdentityChanged -= this.SmartContracts_LegalIdentityChanged;
+
+			this.XmppService.OnRosterItemAdded -= this.CheckRosterItem;
+			this.XmppService.OnRosterItemRemoved -= this.CheckRosterItem;
+			this.XmppService.OnRosterItemUpdated -= this.CheckRosterItem;
+
+			this.NotificationService.OnNewNotification -= this.NotificationService_OnNewNotification;
+			this.NotificationService.OnNotificationsDeleted -= this.NotificationService_OnNotificationsDeleted;
 
 			this.LegalIdentity = null;
 
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		#region Properties
@@ -214,8 +268,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.Updated = this.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
 			this.LegalId = this.LegalIdentity?.Id;
 
-			if (this.identityToReview?.RequestorIdentity is not null)
-				this.BareJid = this.identityToReview.RequestorIdentity.GetJid(Constants.NotAvailableValue);
+			if (this.requestorIdentity is not null)
+				this.BareJid = this.requestorIdentity.GetJid(Constants.NotAvailableValue);
 			else if (this.LegalIdentity is not null)
 				this.BareJid = this.LegalIdentity.GetJid(Constants.NotAvailableValue);
 			else
@@ -243,6 +297,32 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.City = this.LegalIdentity[Constants.XmppProperties.City];
 				this.Region = this.LegalIdentity[Constants.XmppProperties.Region];
 				this.CountryCode = this.LegalIdentity[Constants.XmppProperties.Country];
+				this.Country = ISO_3166_1.ToName(this.CountryCode);
+				this.OrgName = this.LegalIdentity[Constants.XmppProperties.OrgName];
+				this.OrgNumber = this.LegalIdentity[Constants.XmppProperties.OrgNumber];
+				this.OrgDepartment = this.LegalIdentity[Constants.XmppProperties.OrgDepartment];
+				this.OrgRole = this.LegalIdentity[Constants.XmppProperties.OrgRole];
+				this.OrgAddress = this.LegalIdentity[Constants.XmppProperties.OrgAddress];
+				this.OrgAddress2 = this.LegalIdentity[Constants.XmppProperties.OrgAddress2];
+				this.OrgZipCode = this.LegalIdentity[Constants.XmppProperties.OrgZipCode];
+				this.OrgArea = this.LegalIdentity[Constants.XmppProperties.OrgArea];
+				this.OrgCity = this.LegalIdentity[Constants.XmppProperties.OrgCity];
+				this.OrgRegion = this.LegalIdentity[Constants.XmppProperties.OrgRegion];
+				this.OrgCountryCode = this.LegalIdentity[Constants.XmppProperties.OrgCountry];
+				this.OrgCountry = ISO_3166_1.ToName(this.OrgCountryCode);
+				this.HasOrg =
+					!string.IsNullOrEmpty(this.OrgName) ||
+					!string.IsNullOrEmpty(this.OrgNumber) ||
+					!string.IsNullOrEmpty(this.OrgDepartment) ||
+					!string.IsNullOrEmpty(this.OrgRole) ||
+					!string.IsNullOrEmpty(this.OrgAddress) ||
+					!string.IsNullOrEmpty(this.OrgAddress2) ||
+					!string.IsNullOrEmpty(this.OrgZipCode) ||
+					!string.IsNullOrEmpty(this.OrgArea) ||
+					!string.IsNullOrEmpty(this.OrgCity) ||
+					!string.IsNullOrEmpty(this.OrgRegion) ||
+					!string.IsNullOrEmpty(this.OrgCountryCode) ||
+					!string.IsNullOrEmpty(this.OrgCountry);
 				this.PhoneNr = this.LegalIdentity[Constants.XmppProperties.Phone];
 				this.EMail = this.LegalIdentity[Constants.XmppProperties.EMail];
 			}
@@ -259,15 +339,28 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.City = string.Empty;
 				this.Region = string.Empty;
 				this.CountryCode = string.Empty;
+				this.Country = string.Empty;
+				this.OrgName = Constants.NotAvailableValue;
+				this.OrgNumber = Constants.NotAvailableValue;
+				this.OrgDepartment = Constants.NotAvailableValue;
+				this.OrgRole = Constants.NotAvailableValue;
+				this.OrgAddress = Constants.NotAvailableValue;
+				this.OrgAddress2 = Constants.NotAvailableValue;
+				this.OrgZipCode = Constants.NotAvailableValue;
+				this.OrgArea = Constants.NotAvailableValue;
+				this.OrgCity = Constants.NotAvailableValue;
+				this.OrgRegion = Constants.NotAvailableValue;
+				this.OrgCountryCode = Constants.NotAvailableValue;
+				this.OrgCountry = Constants.NotAvailableValue;
+				this.HasOrg = false;
 				this.PhoneNr = string.Empty;
 				this.EMail = string.Empty;
 			}
 
-			this.Country = ISO_3166_1.ToName(this.CountryCode);
 			this.IsApproved = this.LegalIdentity?.State == IdentityState.Approved;
 			this.IsCreated = this.LegalIdentity?.State == IdentityState.Created;
 
-			this.IsForReview = this.identityToReview is not null;
+			this.IsForReview = this.requestorIdentity is not null;
 			this.IsNotForReview = !this.IsForReview;
 			this.ThirdParty = (this.LegalIdentity is not null) && !this.IsPersonal;
 
@@ -284,6 +377,18 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.IsForReviewArea = !string.IsNullOrWhiteSpace(this.Area) && this.IsForReview;
 			this.IsForReviewRegion = !string.IsNullOrWhiteSpace(this.Region) && this.IsForReview;
 			this.IsForReviewCountry = !string.IsNullOrWhiteSpace(this.Country) && this.IsForReview;
+
+			this.IsForReviewOrgName = !string.IsNullOrWhiteSpace(this.OrgName) && this.IsForReview;
+			this.IsForReviewOrgNumber = !string.IsNullOrWhiteSpace(this.OrgNumber) && this.IsForReview;
+			this.IsForReviewOrgDepartment = !string.IsNullOrWhiteSpace(this.OrgDepartment) && this.IsForReview;
+			this.IsForReviewOrgRole = !string.IsNullOrWhiteSpace(this.OrgRole) && this.IsForReview;
+			this.IsForReviewOrgAddress = !string.IsNullOrWhiteSpace(this.OrgAddress) && this.IsForReview;
+			this.IsForReviewOrgAddress2 = !string.IsNullOrWhiteSpace(this.OrgAddress2) && this.IsForReview;
+			this.IsForReviewOrgCity = !string.IsNullOrWhiteSpace(this.OrgCity) && this.IsForReview;
+			this.IsForReviewOrgZipCode = !string.IsNullOrWhiteSpace(this.OrgZipCode) && this.IsForReview;
+			this.IsForReviewOrgArea = !string.IsNullOrWhiteSpace(this.OrgArea) && this.IsForReview;
+			this.IsForReviewOrgRegion = !string.IsNullOrWhiteSpace(this.OrgRegion) && this.IsForReview;
+			this.IsForReviewOrgCountry = !string.IsNullOrWhiteSpace(this.OrgCountry) && this.IsForReview;
 
 			// QR
 			if (this.LegalIdentity is null)
@@ -306,13 +411,13 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				{
 					if (Label == this.LegalId)
 					{
-						await Clipboard.SetTextAsync(Constants.UriSchemes.UriSchemeIotId + ":" + this.LegalId);
-						await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
+						await Clipboard.SetTextAsync(Constants.UriSchemes.IotId + ":" + this.LegalId);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["IdCopiedSuccessfully"]);
 					}
 					else
 					{
 						await Clipboard.SetTextAsync(Label);
-						await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+						await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["TagValueCopiedToClipboard"]);
 					}
 				}
 			}
@@ -331,11 +436,11 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override Task XmppService_ConnectionStateChanged(object Sender, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.EvaluateAllCommands();
 				if (this.IsConnected)
 				{
@@ -343,6 +448,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					this.ReloadPhotos();
 				}
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private async void ReloadPhotos()
@@ -353,8 +460,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 				Attachment[] Attachments;
 
-				if (this.identityToReview?.RequestorIdentity?.Attachments is not null)
-					Attachments = this.identityToReview.RequestorIdentity.Attachments;
+				if (this.requestorIdentity?.Attachments is not null)
+					Attachments = this.requestorIdentity.Attachments;
 				else
 					Attachments = this.LegalIdentity?.Attachments;
 
@@ -366,18 +473,18 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					this.FirstPhotoRotation = First?.Rotation ?? 0;
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
 			}
 		}
 
-		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+		private void TagProfile_Changed(object Sender, PropertyChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(this.AssignProperties);
 		}
 
-		private void SmartContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
+		private Task SmartContracts_LegalIdentityChanged(object Sender, LegalIdentityEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -387,6 +494,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					this.AssignProperties();
 				}
 			});
+
+			return Task.CompletedTask;
 		}
 
 		#region Properties
@@ -697,6 +806,220 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <summary>
+		/// See <see cref="OrgName"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNameProperty =
+			BindableProperty.Create(nameof(OrgName), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization name property
+		/// </summary>
+		public string OrgName
+		{
+			get => (string)this.GetValue(OrgNameProperty);
+			set => this.SetValue(OrgNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgNumber"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNumberProperty =
+			BindableProperty.Create(nameof(OrgNumber), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization number property
+		/// </summary>
+		public string OrgNumber
+		{
+			get => (string)this.GetValue(OrgNumberProperty);
+			set => this.SetValue(OrgNumberProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgDepartment"/>
+		/// </summary>
+		public static readonly BindableProperty OrgDepartmentProperty =
+			BindableProperty.Create(nameof(OrgDepartment), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization department property
+		/// </summary>
+		public string OrgDepartment
+		{
+			get => (string)this.GetValue(OrgDepartmentProperty);
+			set => this.SetValue(OrgDepartmentProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRole"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRoleProperty =
+			BindableProperty.Create(nameof(OrgRole), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization role property
+		/// </summary>
+		public string OrgRole
+		{
+			get => (string)this.GetValue(OrgRoleProperty);
+			set => this.SetValue(OrgRoleProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddress"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddressProperty =
+			BindableProperty.Create(nameof(OrgAddress), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization address property
+		/// </summary>
+		public string OrgAddress
+		{
+			get => (string)this.GetValue(OrgAddressProperty);
+			set => this.SetValue(OrgAddressProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddress2"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddress2Property =
+			BindableProperty.Create(nameof(OrgAddress2), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization address line 2 property
+		/// </summary>
+		public string OrgAddress2
+		{
+			get => (string)this.GetValue(OrgAddress2Property);
+			set => this.SetValue(OrgAddress2Property, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgZipCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgZipCodeProperty =
+			BindableProperty.Create(nameof(OrgZipCode), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization zip code property
+		/// </summary>
+		public string OrgZipCode
+		{
+			get => (string)this.GetValue(OrgZipCodeProperty);
+			set => this.SetValue(OrgZipCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgArea"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAreaProperty =
+			BindableProperty.Create(nameof(OrgArea), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization area property
+		/// </summary>
+		public string OrgArea
+		{
+			get => (string)this.GetValue(OrgAreaProperty);
+			set => this.SetValue(OrgAreaProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCity"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCityProperty =
+			BindableProperty.Create(nameof(OrgCity), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization city property
+		/// </summary>
+		public string OrgCity
+		{
+			get => (string)this.GetValue(OrgCityProperty);
+			set => this.SetValue(OrgCityProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRegion"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRegionProperty =
+			BindableProperty.Create(nameof(OrgRegion), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization region property
+		/// </summary>
+		public string OrgRegion
+		{
+			get => (string)this.GetValue(OrgRegionProperty);
+			set => this.SetValue(OrgRegionProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountryCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryCodeProperty =
+			BindableProperty.Create(nameof(OrgCountryCode), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization country code property
+		/// </summary>
+		public string OrgCountryCode
+		{
+			get => (string)this.GetValue(OrgCountryCodeProperty);
+			set => this.SetValue(OrgCountryCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountry"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryProperty =
+			BindableProperty.Create(nameof(OrgCountry), typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization country property
+		/// </summary>
+		public string OrgCountry
+		{
+			get => (string)this.GetValue(OrgCountryProperty);
+			set => this.SetValue(OrgCountryProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasOrg"/>
+		/// </summary>
+		public static readonly BindableProperty HasOrgProperty =
+			BindableProperty.Create(nameof(HasOrg), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// If organization information is available.
+		/// </summary>
+		public bool HasOrg
+		{
+			get => (bool)this.GetValue(HasOrgProperty);
+			set
+			{
+				this.SetValue(HasOrgProperty, value);
+				this.OrgRowHeight = value ? GridLength.Auto : new GridLength(0, GridUnitType.Absolute);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRowHeight"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRowHeightProperty =
+			BindableProperty.Create(nameof(OrgRowHeight), typeof(GridLength), typeof(PetitionSignatureViewModel), default(GridLength));
+
+		/// <summary>
+		/// If organization information is available.
+		/// </summary>
+		public GridLength OrgRowHeight
+		{
+			get => (GridLength)this.GetValue(OrgRowHeightProperty);
+			set => this.SetValue(OrgRowHeightProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="PhoneNr"/>
 		/// </summary>
 		public static readonly BindableProperty PhoneNrProperty =
@@ -808,7 +1131,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			BindableProperty.Create(nameof(ThirdPartyInContacts), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
-		/// Gets or sets whether the identity is in the contact.
+		/// Gets or sets whether the identity is in the contact list.
 		/// </summary>
 		public bool ThirdPartyInContacts
 		{
@@ -1042,6 +1365,171 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <summary>
+		/// See <see cref="OrgNameIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNameIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgNameIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgName"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgNameIsChecked
+		{
+			get => (bool)this.GetValue(OrgNameIsCheckedProperty);
+			set => this.SetValue(OrgNameIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgDepartmentIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgDepartmentIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgDepartmentIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgDepartment"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgDepartmentIsChecked
+		{
+			get => (bool)this.GetValue(OrgDepartmentIsCheckedProperty);
+			set => this.SetValue(OrgDepartmentIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRoleIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRoleIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgRoleIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgRole"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgRoleIsChecked
+		{
+			get => (bool)this.GetValue(OrgRoleIsCheckedProperty);
+			set => this.SetValue(OrgRoleIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgNumberIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNumberIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgNumberIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgNumber"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgNumberIsChecked
+		{
+			get => (bool)this.GetValue(OrgNumberIsCheckedProperty);
+			set => this.SetValue(OrgNumberIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddressIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddressIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgAddressIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgAddress"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgAddressIsChecked
+		{
+			get => (bool)this.GetValue(OrgAddressIsCheckedProperty);
+			set => this.SetValue(OrgAddressIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddressIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddress2IsCheckedProperty =
+			BindableProperty.Create(nameof(OrgAddress2IsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgAddress2"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgAddress2IsChecked
+		{
+			get => (bool)this.GetValue(OrgAddress2IsCheckedProperty);
+			set => this.SetValue(OrgAddress2IsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgZipCodeIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgZipCodeIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgZipCodeIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgZipCode"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgZipCodeIsChecked
+		{
+			get => (bool)this.GetValue(OrgZipCodeIsCheckedProperty);
+			set => this.SetValue(OrgZipCodeIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAreaIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAreaIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgAreaIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgArea"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgAreaIsChecked
+		{
+			get => (bool)this.GetValue(OrgAreaIsCheckedProperty);
+			set => this.SetValue(OrgAreaIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCityIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCityIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgCityIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgCity"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgCityIsChecked
+		{
+			get => (bool)this.GetValue(OrgCityIsCheckedProperty);
+			set => this.SetValue(OrgCityIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRegionIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRegionIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgRegionIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgRegion"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgRegionIsChecked
+		{
+			get => (bool)this.GetValue(OrgRegionIsCheckedProperty);
+			set => this.SetValue(OrgRegionIsCheckedProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountryCodeIsChecked"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryCodeIsCheckedProperty =
+			BindableProperty.Create(nameof(OrgCountryCodeIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgCountryCode"/> property is checked (when being reviewed)
+		/// </summary>
+		public bool OrgCountryCodeIsChecked
+		{
+			get => (bool)this.GetValue(OrgCountryCodeIsCheckedProperty);
+			set => this.SetValue(OrgCountryCodeIsCheckedProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="CarefulReviewIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty CarefulReviewIsCheckedProperty =
@@ -1237,6 +1725,171 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <summary>
+		/// See <see cref="IsForReviewOrgName"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgNameProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgName), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgName"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgName
+		{
+			get => (bool)this.GetValue(IsForReviewOrgNameProperty);
+			set => this.SetValue(IsForReviewOrgNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgDepartment"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgDepartmentProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgDepartment), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgDepartment"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgDepartment
+		{
+			get => (bool)this.GetValue(IsForReviewOrgDepartmentProperty);
+			set => this.SetValue(IsForReviewOrgDepartmentProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgRole"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgRoleProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgRole), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgRole"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgRole
+		{
+			get => (bool)this.GetValue(IsForReviewOrgRoleProperty);
+			set => this.SetValue(IsForReviewOrgRoleProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgNumber"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgNumberProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgNumber), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgNumber"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgNumber
+		{
+			get => (bool)this.GetValue(IsForReviewOrgNumberProperty);
+			set => this.SetValue(IsForReviewOrgNumberProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgAddress"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgAddressProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgAddress), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgAddress"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgAddress
+		{
+			get => (bool)this.GetValue(IsForReviewOrgAddressProperty);
+			set => this.SetValue(IsForReviewOrgAddressProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgAddress2"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgAddress2Property =
+			BindableProperty.Create(nameof(IsForReviewOrgAddress2), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgAddress2"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgAddress2
+		{
+			get => (bool)this.GetValue(IsForReviewOrgAddress2Property);
+			set => this.SetValue(IsForReviewOrgAddress2Property, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgCity"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgCityProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgCity), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgCity"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgCity
+		{
+			get => (bool)this.GetValue(IsForReviewOrgCityProperty);
+			set => this.SetValue(IsForReviewOrgCityProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgZipCode"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgZipCodeProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgZipCode), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgZipCode"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgZipCode
+		{
+			get => (bool)this.GetValue(IsForReviewOrgZipCodeProperty);
+			set => this.SetValue(IsForReviewOrgZipCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgArea"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgAreaProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgArea), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgArea"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgArea
+		{
+			get => (bool)this.GetValue(IsForReviewOrgAreaProperty);
+			set => this.SetValue(IsForReviewOrgAreaProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgRegion"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgRegionProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgRegion), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgRegion"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgRegion
+		{
+			get => (bool)this.GetValue(IsForReviewOrgRegionProperty);
+			set => this.SetValue(IsForReviewOrgRegionProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="IsForReviewOrgCountry"/>
+		/// </summary>
+		public static readonly BindableProperty IsForReviewOrgCountryProperty =
+			BindableProperty.Create(nameof(IsForReviewOrgCountry), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the <see cref="OrgCountry"/> property is for review.
+		/// </summary>
+		public bool IsForReviewOrgCountry
+		{
+			get => (bool)this.GetValue(IsForReviewOrgCountryProperty);
+			set => this.SetValue(IsForReviewOrgCountryProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="FirstPhotoSource"/>
 		/// </summary>
 		public static readonly BindableProperty FirstPhotoSourceProperty =
@@ -1266,11 +1919,41 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			set => this.SetValue(FirstPhotoRotationProperty, value);
 		}
 
+		/// <summary>
+		/// See <see cref="HasPendingChatMessages"/>
+		/// </summary>
+		public static readonly BindableProperty HasPendingChatMessagesProperty =
+			BindableProperty.Create(nameof(HasPendingChatMessages), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the identity is in the contact.
+		/// </summary>
+		public bool HasPendingChatMessages
+		{
+			get => (bool)this.GetValue(HasPendingChatMessagesProperty);
+			set => this.SetValue(HasPendingChatMessagesProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="NrPendingChatMessages"/>
+		/// </summary>
+		public static readonly BindableProperty NrPendingChatMessagesProperty =
+			BindableProperty.Create(nameof(NrPendingChatMessages), typeof(int), typeof(ViewIdentityViewModel), default(int));
+
+		/// <summary>
+		/// Gets or sets whether the identity is in the contact.
+		/// </summary>
+		public int NrPendingChatMessages
+		{
+			get => (int)this.GetValue(NrPendingChatMessagesProperty);
+			set => this.SetValue(NrPendingChatMessagesProperty, value);
+		}
+
 		#endregion
 
 		private async Task Approve()
 		{
-			if (this.identityToReview is null)
+			if (this.requestorIdentity is null)
 				return;
 
 			try
@@ -1285,40 +1968,52 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					(!string.IsNullOrEmpty(this.Area) && !this.AreaIsChecked) ||
 					(!string.IsNullOrEmpty(this.City) && !this.CityIsChecked) ||
 					(!string.IsNullOrEmpty(this.Region) && !this.RegionIsChecked) ||
-					(!string.IsNullOrEmpty(this.CountryCode) && !this.CountryCodeIsChecked))
+					(!string.IsNullOrEmpty(this.CountryCode) && !this.CountryCodeIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgName) && !this.OrgNameIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgDepartment) && !this.OrgDepartmentIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgRole) && !this.OrgRoleIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgNumber) && !this.OrgNumberIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgAddress) && !this.OrgAddressIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgAddress2) && !this.OrgAddress2IsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgZipCode) && !this.OrgZipCodeIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgArea) && !this.OrgAreaIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgCity) && !this.OrgCityIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgRegion) && !this.OrgRegionIsChecked) ||
+					(!string.IsNullOrEmpty(this.OrgCountryCode) && !this.OrgCountryCodeIsChecked))
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.Incomplete, AppResources.PleaseReviewAndCheckAllCheckboxes);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Incomplete"], LocalizationResourceManager.Current["PleaseReviewAndCheckAllCheckboxes"]);
 					return;
 				}
 
 				if (!this.CarefulReviewIsChecked)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToCheckCarefullyReviewed);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Incomplete"], LocalizationResourceManager.Current["YouNeedToCheckCarefullyReviewed"]);
 					return;
 				}
 
 				if (!this.ApprovePiiIsChecked)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToApproveToAssociate);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Incomplete"], LocalizationResourceManager.Current["YouNeedToApproveToAssociate"]);
 					return;
 				}
 
 				if (!await App.VerifyPin())
 					return;
 
-				(bool succeeded1, byte[] signature) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.Sign(this.identityToReview.ContentToSign, SignWith.LatestApprovedId));
+				(bool Succeeded1, byte[] Signature) = await this.NetworkService.TryRequest(() =>
+					this.XmppService.Sign(this.contentToSign, SignWith.LatestApprovedId));
 
-				if (!succeeded1)
-				{
+				if (!Succeeded1)
 					return;
-				}
 
-				bool succeeded2 = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, signature, this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, true));
-
-				if (succeeded2)
+				bool Succeeded2 = await this.NetworkService.TryRequest(() =>
 				{
+					return this.XmppService.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign,
+						Signature, this.petitionId, this.requestorFullJid, true);
+				});
+
+				if (Succeeded2)
 					await this.NavigationService.GoBackAsync();
-				}
 			}
 			catch (Exception ex)
 			{
@@ -1329,16 +2024,19 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private async Task Reject()
 		{
-			if (this.identityToReview is null)
+			if (this.requestorIdentity is null)
 				return;
 
 			try
 			{
-				bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false));
-				if (succeeded)
+				bool Succeeded = await this.NetworkService.TryRequest(() =>
 				{
+					return this.XmppService.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign,
+						new byte[0], this.petitionId, this.requestorFullJid, false);
+				});
+
+				if (Succeeded)
 					await this.NavigationService.GoBackAsync();
-				}
 			}
 			catch (Exception ex)
 			{
@@ -1354,14 +2052,14 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			try
 			{
-				if (!await this.AreYouSure(AppResources.AreYouSureYouWantToRevokeYourLegalIdentity))
+				if (!await this.AreYouSure(LocalizationResourceManager.Current["AreYouSureYouWantToRevokeYourLegalIdentity"]))
 					return;
 
-				(bool succeeded, LegalIdentity revokedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.ObsoleteLegalIdentity(this.LegalIdentity.Id));
+				(bool succeeded, LegalIdentity revokedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.ObsoleteLegalIdentity(this.LegalIdentity.Id));
 				if (succeeded)
 				{
 					this.LegalIdentity = revokedIdentity;
-					this.TagProfile.RevokeLegalIdentity(revokedIdentity);
+					await this.TagProfile.RevokeLegalIdentity(revokedIdentity);
 
 					await App.Current.SetRegistrationPageAsync();
 				}
@@ -1378,7 +2076,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			if (!await App.VerifyPin())
 				return false;
 
-			return await this.UiSerializer.DisplayAlert(AppResources.Confirm, Message, AppResources.Yes, AppResources.No);
+			return await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Confirm"], Message, LocalizationResourceManager.Current["Yes"], LocalizationResourceManager.Current["No"]);
 		}
 
 		private async Task Compromise()
@@ -1388,15 +2086,15 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			try
 			{
-				if (!await this.AreYouSure(AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized))
+				if (!await this.AreYouSure(LocalizationResourceManager.Current["AreYouSureYouWantToReportYourLegalIdentityAsCompromized"]))
 					return;
 
-				(bool succeeded, LegalIdentity compromisedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.CompromiseLegalIdentity(this.LegalIdentity.Id));
+				(bool succeeded, LegalIdentity compromisedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.CompromiseLegalIdentity(this.LegalIdentity.Id));
 
 				if (succeeded)
 				{
 					this.LegalIdentity = compromisedIdentity;
-					this.TagProfile.RevokeLegalIdentity(compromisedIdentity);
+					await this.TagProfile.RevokeLegalIdentity(compromisedIdentity);
 
 					await App.Current.SetRegistrationPageAsync();
 				}
@@ -1414,9 +2112,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			{
 				string FriendlyName = ContactInfo.GetFriendlyName(this.LegalIdentity);
 
-				RosterItem Item = this.XmppService.Xmpp[this.BareJid];
+				RosterItem Item = this.XmppService.GetRosterItem(this.BareJid);
 				if (Item is null)
-					this.XmppService.Xmpp.AddRosterItem(new RosterItem(this.BareJid, FriendlyName));
+					this.XmppService.AddRosterItem(new RosterItem(this.BareJid, FriendlyName));
 
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 				if (Info is null)
@@ -1459,7 +2157,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				if (!await this.UiSerializer.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRemoveContact, AppResources.Yes, AppResources.Cancel))
+				if (!await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Confirm"], LocalizationResourceManager.Current["AreYouSureYouWantToRemoveContact"], LocalizationResourceManager.Current["Yes"], LocalizationResourceManager.Current["Cancel"]))
 					return;
 
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
@@ -1470,9 +2168,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					await Database.Provider.Flush();
 				}
 
-				RosterItem Item = this.XmppService.Xmpp[this.BareJid];
+				RosterItem Item = this.XmppService.GetRosterItem(this.BareJid);
 				if (Item is not null)
-					this.XmppService.Xmpp.RemoveRosterItem(this.BareJid);
+					this.XmppService.RemoveRosterItem(this.BareJid);
 
 				this.ThirdPartyInContacts = false;
 				this.ThirdPartyNotInContacts = true;
@@ -1489,13 +2187,13 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				Balance Balance = await this.XmppService.Wallet.GetBalanceAsync();
+				Balance Balance = await this.XmppService.GetEDalerBalance();
 				string Uri;
 
 				if (this.LegalIdentity is null)
-					Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.BareJid, null, null, Balance.Currency, string.Empty);
+					Uri = this.XmppService.CreateIncompleteEDalerPayMeUri(this.BareJid, null, null, Balance.Currency, string.Empty);
 				else
-					Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.LegalIdentity, null, null, Balance.Currency, string.Empty);
+					Uri = this.XmppService.CreateIncompleteEDalerPayMeUri(this.LegalIdentity, null, null, Balance.Currency, string.Empty);
 
 				await this.NeuroWalletOrchestratorService.OpenEDalerUri(Uri);
 			}
@@ -1516,7 +2214,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (Pin is null)
 					return;
 
-				if (!await this.UiSerializer.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToTransferYourLegalIdentity, AppResources.Yes, AppResources.No))
+				if (!await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["Confirm"], LocalizationResourceManager.Current["AreYouSureYouWantToTransferYourLegalIdentity"], LocalizationResourceManager.Current["Yes"], LocalizationResourceManager.Current["No"]))
 					return;
 
 				this.IsBusy = true;
@@ -1530,7 +2228,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					{
 						Output.WriteStartElement("Transfer", ContractsClient.NamespaceOnboarding);
 
-						await this.XmppService.Contracts.ContractsClient.ExportKeys(Output);
+						await this.XmppService.ExportSigningKeys(Output);
 
 						Output.WriteStartElement("Pin");
 						Output.WriteAttributeString("pin", Pin);
@@ -1576,7 +2274,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 						Output.WriteEndElement();
 					}
 
-					XmlElement Response = await this.XmppService.Xmpp.IqSetAsync(Constants.Domains.OnboardingDomain, Xml.ToString());
+					XmlElement Response = await this.XmppService.IqSetAsync(Constants.Domains.OnboardingDomain, Xml.ToString());
 
 					foreach (XmlNode N in Response.ChildNodes)
 					{
@@ -1592,7 +2290,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 						}
 					}
 
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnexpectedResponse);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnexpectedResponse"]);
 				}
 				finally
 				{
@@ -1612,60 +2310,16 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			if (!this.IsPersonal)
 				return;
 
-			try
-			{
-				while (true)
-				{
-					ChangePinPopupPage Page = new();
-
-					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
-					(string OldPin, string NewPin) = await Page.Result;
-
-					if (OldPin is null || OldPin == NewPin)
-						return;
-
-					if (this.TagProfile.ComputePinHash(OldPin) == this.TagProfile.PinHash)
-					{
-						TaskCompletionSource<bool> PasswordChanged = new();
-						string NewPassword = this.CryptoService.CreateRandomPassword();
-
-						this.XmppService.Xmpp.ChangePassword(NewPassword, (sender, e) =>
-						{
-							PasswordChanged.TrySetResult(e.Ok);
-							return Task.CompletedTask;
-						}, null);
-
-						if (!await PasswordChanged.Task)
-						{
-							await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToChangePassword);
-							return;
-						}
-
-						this.TagProfile.Pin = NewPin;
-						this.TagProfile.SetAccount(this.TagProfile.Account, NewPassword, string.Empty);
-
-						await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PinChanged);
-						return;
-					}
-
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
-
-					// TODO: Limit number of attempts.
-				}
-			}
-			catch (Exception ex)
-			{
-				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(ex);
-			}
+			await SecurityViewModel.ChangePin(this);
 		}
 
 		private async Task OpenChat()
 		{
 			try
 			{
-				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(this.LegalId, this.BareJid,
-					ContactInfo.GetFriendlyName(this.LegalIdentity)) { UniqueId = this.BareJid });
+				ChatNavigationArgs Args = new(this.LegalId, this.BareJid, ContactInfo.GetFriendlyName(this.LegalIdentity));
+
+				await this.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, this.BareJid);
 			}
 			catch (Exception ex)
 			{
@@ -1691,8 +2345,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					IdXml = Xml.ToString();
 				}
 
-				this.XmppService.Xmpp.RequestPresenceSubscription(this.BareJid, IdXml);
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PresenceSubscriptionRequestSent);
+				this.XmppService.RequestPresenceSubscription(this.BareJid, IdXml);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["PresenceSubscriptionRequestSent"]);
 			}
 			catch (Exception ex)
 			{
@@ -1704,9 +2358,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				this.XmppService.Xmpp.RequestPresenceUnsubscription(this.BareJid);
+				this.XmppService.RequestPresenceUnsubscription(this.BareJid);
 
-				RosterItem Item = this.XmppService.Xmpp[this.BareJid];
+				RosterItem Item = this.XmppService.GetRosterItem(this.BareJid);
 				if (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.From)
 				{
 					RemoveSubscriptionPopupPage Page = new(this.BareJid);
@@ -1716,7 +2370,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 					if (Remove.HasValue && Remove.Value)
 					{
-						this.XmppService.Xmpp.RequestRevokePresenceSubscription(this.BareJid);
+						this.XmppService.RequestRevokePresenceSubscription(this.BareJid);
 
 						ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 						if ((Info is not null) && Info.AllowSubscriptionFrom.HasValue && Info.AllowSubscriptionFrom.Value)
@@ -1727,7 +2381,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					}
 				}
 
-				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PresenceUnsubscriptionRequestSent);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["PresenceUnsubscriptionRequestSent"]);
 			}
 			catch (Exception ex)
 			{
@@ -1745,7 +2399,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private void UpdateSubscriptionStatus()
 		{
-			RosterItem Item = this.XmppService.Xmpp[this.BareJid];
+			RosterItem Item = this.XmppService.GetRosterItem(this.BareJid);
 
 			this.Subscribed = this.ThirdParty && (Item is not null) && (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.To);
 			this.NotSubscribed = this.ThirdParty && (Item is null || (Item.State != SubscriptionState.Both && Item.State != SubscriptionState.To));

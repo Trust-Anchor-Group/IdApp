@@ -124,7 +124,7 @@ public class MyViewModel : BaseViewModel
         await base.DoUnind();
     }
 
-    private void NeuronService_ConnectionStateChanged(object sender, ConnectivityChangedEventArgs e)
+    private void NeuronService_ConnectionStateChanged(object Sender, ConnectivityChangedEventArgs e)
     {
         // Do stuff
     }

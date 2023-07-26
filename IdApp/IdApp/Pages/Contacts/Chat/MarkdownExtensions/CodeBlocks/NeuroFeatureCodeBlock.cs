@@ -7,6 +7,7 @@ using System.Xml;
 using Waher.Content.Markdown;
 using Waher.Content.Markdown.Model;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 {
@@ -30,6 +31,11 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		public bool HandlesHTML => false;
 
 		/// <summary>
+		/// If generation of LaTeX is supported
+		/// </summary>
+		public bool HandlesLaTeX => false;
+
+		/// <summary>
 		/// If generation of plain text is supported.
 		/// </summary>
 		public bool HandlesPlainText => false;
@@ -48,6 +54,14 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// Generates HTML (not supported)
 		/// </summary>
 		public Task<bool> GenerateHTML(StringBuilder Output, string[] Rows, string Language, int Indent, MarkdownDocument Document)
+		{
+			return Task.FromResult<bool>(false);
+		}
+
+		/// <summary>
+		/// Generates LaTeX (not supported)
+		/// </summary>
+		public Task<bool> GenerateLaTeX(StringBuilder Output, string[] Rows, string Language, int Indent, MarkdownDocument Document)
 		{
 			return Task.FromResult<bool>(false);
 		}
@@ -82,11 +96,14 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 				foreach (string Row in Rows)
 					sb.AppendLine(Row);
 
-				XmlDocument Doc = new();
+				XmlDocument Doc = new()
+				{
+					PreserveWhitespace = true
+				};
 				Doc.LoadXml(sb.ToString());
 
 				if (!NeuroFeatures.Token.TryParse(Doc.DocumentElement, out Token))
-					throw new Exception(AppResources.InvalidNeuroFeatureToken);
+					throw new Exception(LocalizationResourceManager.Current["InvalidNeuroFeatureToken"]);
 			}
 			catch (Exception ex)
 			{
@@ -121,7 +138,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			Output.WriteStartElement("TapGestureRecognizer");
 			Output.WriteAttributeString("Command", "{Binding Path=NeuroFeatureUriClicked}");
-			Output.WriteAttributeString("CommandParameter", Constants.UriSchemes.UriSchemeNeuroFeature + ":" + Token.ToXml());
+			Output.WriteAttributeString("CommandParameter", Constants.UriSchemes.NeuroFeature + ":" + Token.ToXml());
 			Output.WriteEndElement();
 
 			Output.WriteEndElement();
@@ -146,7 +163,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// <returns>Grade of support.</returns>
 		public Grade Supports(string Language)
 		{
-			return string.Compare(Language, Constants.UriSchemes.UriSchemeNeuroFeature, true) == 0 ? Grade.Excellent : Grade.NotAtAll;
+			return string.Compare(Language, Constants.UriSchemes.NeuroFeature, true) == 0 ? Grade.Excellent : Grade.NotAtAll;
 		}
 	}
 }

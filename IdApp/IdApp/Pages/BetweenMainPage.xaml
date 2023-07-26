@@ -31,7 +31,7 @@
 			</Style>
 			
 			<Style TargetType="ActivityIndicator" Class="Spinner">
-				<Setter Property="Color" Value="{StaticResource AccentColor}" />
+				<Setter Property="Color" Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColorDarkTheme}}" />
 			</Style>
 			<Style TargetType="ActivityIndicator" Class="SpinnerAlwaysRunning">
 				<Setter Property="IsRunning" Value="True" />

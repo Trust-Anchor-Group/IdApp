@@ -1,6 +1,7 @@
-﻿using IdApp.Extensions;
-using IdApp.Pages.Wallet.TokenDetails;
+﻿using IdApp.Pages.Wallet.TokenDetails;
 using IdApp.Services;
+using IdApp.Services.Navigation;
+using IdApp.Services.Notification;
 using NeuroFeatures;
 using NeuroFeatures.Tags;
 using System;
@@ -17,19 +18,23 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 	/// <summary>
 	/// Encapsulates a <see cref="Token"/> object.
 	/// </summary>
-	public class TokenItem : BindableObject
+	public class TokenItem : BindableObject, IUniqueItem
 	{
 		private readonly Token token;
-		private readonly ServiceReferences model;
+		private readonly IServiceReferences model;
 		private readonly TaskCompletionSource<TokenItem> selected;
+		private bool? @new;
+		private int nrEvents;
+		private NotificationEvent[] notificationEvents;
 
 		/// <summary>
 		/// Encapsulates a <see cref="Token"/> object.
 		/// </summary>
 		/// <param name="Token">Token</param>
 		/// <param name="Model">View model</param>
-		public TokenItem(Token Token, ServiceReferences Model)
-			: this(Token, Model, null)
+		/// <param name="NotificationEvents">Notification events.</param>
+		public TokenItem(Token Token, IServiceReferences Model, NotificationEvent[] NotificationEvents)
+			: this(Token, Model, null, NotificationEvents)
 		{
 		}
 
@@ -39,13 +44,15 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// <param name="Token">Token</param>
 		/// <param name="Model">View model</param>
 		/// <param name="Selected">Asynchronous task completion source, waiting for the user to select a token.</param>
-		public TokenItem(Token Token, ServiceReferences Model, TaskCompletionSource<TokenItem> Selected)
+		/// <param name="NotificationEvents">Notification events.</param>
+		public TokenItem(Token Token, IServiceReferences Model, TaskCompletionSource<TokenItem> Selected, NotificationEvent[] NotificationEvents)
 		{
 			this.token = Token;
 			this.model = Model;
 			this.selected = Selected;
+			this.notificationEvents = NotificationEvents;
 
-			if (!(this.Glyph is null) && this.GlyphContentType.StartsWith("image/"))
+			if (this.Glyph is not null && this.GlyphContentType.StartsWith("image/"))
 			{
 				this.GlyphImage = ImageSource.FromStream(() => new MemoryStream(this.Glyph));
 				this.HasGlyphImage = true;
@@ -76,6 +83,10 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// Token object.
 		/// </summary>
 		public Token Token => this.token;
+
+		/// <inheritdoc/>
+		public string UniqueName => this.token.TokenId;
+
 
 		/// <summary>
 		/// When token was created.
@@ -201,6 +212,11 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		/// Token ID
 		/// </summary>
 		public string TokenId => this.token.TokenId;
+
+		/// <summary>
+		/// ShortToken ID
+		/// </summary>
+		public string ShortTokenId => this.token.ShortId;
 
 		/// <summary>
 		/// Visibility of token
@@ -353,6 +369,55 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		}
 
 		/// <summary>
+		/// Associated notification events
+		/// </summary>
+		public NotificationEvent[] NotificationEvents => this.notificationEvents;
+
+		/// <summary>
+		/// Number of notification events recorded for the item.
+		/// </summary>
+		public int NrEvents
+		{
+			get
+			{
+				this.CheckEvents();
+
+				return this.nrEvents;
+			}
+		}
+
+		/// <summary>
+		/// If the event item is new or not.
+		/// </summary>
+		public bool New
+		{
+			get
+			{
+				this.CheckEvents();
+
+				return this.@new.Value;
+			}
+		}
+
+		private void CheckEvents()
+		{
+			if (!this.@new.HasValue)
+			{
+				this.nrEvents = this.notificationEvents.Length;
+				this.@new = this.nrEvents > 0;
+
+				if (this.@new.Value)
+				{
+					NotificationEvent[] ToDelete = this.notificationEvents;
+
+					this.notificationEvents = new NotificationEvent[0];
+
+					Task.Run(() => this.model.NotificationService.DeleteEvents(ToDelete));
+				}
+			}
+		}
+
+		/// <summary>
 		/// Command executed when the token has been clicked or tapped.
 		/// </summary>
 		public ICommand ClickedCommand { get; }
@@ -360,10 +425,16 @@ namespace IdApp.Pages.Wallet.MyWallet.ObjectModels
 		private async Task TokenClicked()
 		{
 			if (this.selected is null)
-				await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage),
-					new TokenDetailsNavigationArgs(this) { ReturnCounter = 1 });
+			{
+				TokenDetailsNavigationArgs Args = new(this);
+
+				await this.model.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.Pop);
+			}
 			else
+			{
 				this.selected.TrySetResult(this);
+				await this.model.NavigationService.GoBackAsync();
+			}
 		}
 	}
 }

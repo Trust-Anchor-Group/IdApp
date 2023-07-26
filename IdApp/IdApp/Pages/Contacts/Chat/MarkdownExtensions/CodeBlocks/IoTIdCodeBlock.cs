@@ -32,6 +32,11 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		public bool HandlesHTML => false;
 
 		/// <summary>
+		/// If generation of LaTeX is supported
+		/// </summary>
+		public bool HandlesLaTeX => false;
+
+		/// <summary>
 		/// If generation of plain text is supported.
 		/// </summary>
 		public bool HandlesPlainText => false;
@@ -50,6 +55,14 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// Generates HTML (not supported)
 		/// </summary>
 		public Task<bool> GenerateHTML(StringBuilder Output, string[] Rows, string Language, int Indent, MarkdownDocument Document)
+		{
+			return Task.FromResult<bool>(false);
+		}
+
+		/// <summary>
+		/// Generates LaTeX (not supported)
+		/// </summary>
+		public Task<bool> GenerateLaTeX(StringBuilder Output, string[] Rows, string Language, int Indent, MarkdownDocument Document)
 		{
 			return Task.FromResult<bool>(false);
 		}
@@ -84,7 +97,10 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 				foreach (string Row in Rows)
 					sb.AppendLine(Row);
 
-				XmlDocument Doc = new();
+				XmlDocument Doc = new()
+				{
+					PreserveWhitespace = true
+				};
 				Doc.LoadXml(sb.ToString());
 
 				Identity = LegalIdentity.Parse(Doc.DocumentElement);
@@ -106,7 +122,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			bool ImageShown = false;
 
-			if (!(Identity.Attachments is null))
+			if (Identity.Attachments is not null)
 			{
 				(string FileName, int Width, int Height) = await PhotosLoader.LoadPhotoAsTemporaryFile(Identity.Attachments, 300, 300);
 
@@ -146,7 +162,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			Output.WriteStartElement("TapGestureRecognizer");
 			Output.WriteAttributeString("Command", "{Binding Path=IotIdUriClicked}");
-			Output.WriteAttributeString("CommandParameter", Constants.UriSchemes.UriSchemeIotId + ":" + Xml.ToString());
+			Output.WriteAttributeString("CommandParameter", Constants.UriSchemes.IotId + ":" + Xml.ToString());
 			Output.WriteEndElement();
 
 			Output.WriteEndElement();
@@ -171,7 +187,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// <returns>Grade of support.</returns>
 		public Grade Supports(string Language)
 		{
-			return string.Compare(Language, Constants.UriSchemes.UriSchemeIotId, true) == 0 ? Grade.Excellent : Grade.NotAtAll;
+			return string.Compare(Language, Constants.UriSchemes.IotId, true) == 0 ? Grade.Excellent : Grade.NotAtAll;
 		}
 	}
 }

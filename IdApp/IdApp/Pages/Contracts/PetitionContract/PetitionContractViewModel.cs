@@ -7,6 +7,7 @@ using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
+using IdApp.Pages.Contracts.PetitionSignature;
 
 namespace IdApp.Pages.Contracts.PetitionContract
 {
@@ -34,11 +35,11 @@ namespace IdApp.Pages.Contracts.PetitionContract
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
-			if (this.NavigationService.TryPopArgs(out PetitionContractNavigationArgs args))
+			if (this.NavigationService.TryGetArgs(out PetitionContractNavigationArgs args))
 			{
 				this.RequestorIdentity = args.RequestorIdentity;
 				this.requestorFullJid = args.RequestorFullJid;
@@ -46,8 +47,10 @@ namespace IdApp.Pages.Contracts.PetitionContract
 				this.petitionId = args.PetitionId;
 				this.purpose = args.Purpose;
 			}
+
 			this.AssignProperties();
-			if (!(this.RequestorIdentity?.Attachments is null))
+
+			if (this.RequestorIdentity?.Attachments is not null)
 				this.LoadPhotos();
 		}
 
@@ -67,10 +70,11 @@ namespace IdApp.Pages.Contracts.PetitionContract
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.photosLoader.CancelLoadPhotos();
-			await base.DoUnbind();
+
+			await base.OnDispose();
 		}
 
 		/// <summary>
@@ -108,14 +112,14 @@ namespace IdApp.Pages.Contracts.PetitionContract
 			if (!await App.VerifyPin())
 				return;
 
-			bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionContractResponse(this.RequestedContract.ContractId, this.petitionId, this.requestorFullJid, true));
+			bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.SendPetitionContractResponse(this.RequestedContract.ContractId, this.petitionId, this.requestorFullJid, true));
 			if (succeeded)
 				await this.NavigationService.GoBackAsync();
 		}
 
 		private async Task Decline()
 		{
-			bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionContractResponse(this.RequestedContract.ContractId, this.petitionId, this.requestorFullJid, false));
+			bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.SendPetitionContractResponse(this.RequestedContract.ContractId, this.petitionId, this.requestorFullJid, false));
 			if (succeeded)
 				await this.NavigationService.GoBackAsync();
 		}
@@ -398,6 +402,220 @@ namespace IdApp.Pages.Contracts.PetitionContract
 		}
 
 		/// <summary>
+		/// See <see cref="OrgName"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNameProperty =
+			BindableProperty.Create(nameof(OrgName), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization name property
+		/// </summary>
+		public string OrgName
+		{
+			get => (string)this.GetValue(OrgNameProperty);
+			set => this.SetValue(OrgNameProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgNumber"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNumberProperty =
+			BindableProperty.Create(nameof(OrgNumber), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization number property
+		/// </summary>
+		public string OrgNumber
+		{
+			get => (string)this.GetValue(OrgNumberProperty);
+			set => this.SetValue(OrgNumberProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgDepartment"/>
+		/// </summary>
+		public static readonly BindableProperty OrgDepartmentProperty =
+			BindableProperty.Create(nameof(OrgDepartment), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization department property
+		/// </summary>
+		public string OrgDepartment
+		{
+			get => (string)this.GetValue(OrgDepartmentProperty);
+			set => this.SetValue(OrgDepartmentProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRole"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRoleProperty =
+			BindableProperty.Create(nameof(OrgRole), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization role property
+		/// </summary>
+		public string OrgRole
+		{
+			get => (string)this.GetValue(OrgRoleProperty);
+			set => this.SetValue(OrgRoleProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddress"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddressProperty =
+			BindableProperty.Create(nameof(OrgAddress), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization address property
+		/// </summary>
+		public string OrgAddress
+		{
+			get => (string)this.GetValue(OrgAddressProperty);
+			set => this.SetValue(OrgAddressProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgAddress2"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddress2Property =
+			BindableProperty.Create(nameof(OrgAddress2), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization address line 2 property
+		/// </summary>
+		public string OrgAddress2
+		{
+			get => (string)this.GetValue(OrgAddress2Property);
+			set => this.SetValue(OrgAddress2Property, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgZipCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgZipCodeProperty =
+			BindableProperty.Create(nameof(OrgZipCode), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization zip code property
+		/// </summary>
+		public string OrgZipCode
+		{
+			get => (string)this.GetValue(OrgZipCodeProperty);
+			set => this.SetValue(OrgZipCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgArea"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAreaProperty =
+			BindableProperty.Create(nameof(OrgArea), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization area property
+		/// </summary>
+		public string OrgArea
+		{
+			get => (string)this.GetValue(OrgAreaProperty);
+			set => this.SetValue(OrgAreaProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCity"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCityProperty =
+			BindableProperty.Create(nameof(OrgCity), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization city property
+		/// </summary>
+		public string OrgCity
+		{
+			get => (string)this.GetValue(OrgCityProperty);
+			set => this.SetValue(OrgCityProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRegion"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRegionProperty =
+			BindableProperty.Create(nameof(OrgRegion), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization region property
+		/// </summary>
+		public string OrgRegion
+		{
+			get => (string)this.GetValue(OrgRegionProperty);
+			set => this.SetValue(OrgRegionProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountryCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryCodeProperty =
+			BindableProperty.Create(nameof(OrgCountryCode), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization country code property
+		/// </summary>
+		public string OrgCountryCode
+		{
+			get => (string)this.GetValue(OrgCountryCodeProperty);
+			set => this.SetValue(OrgCountryCodeProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="OrgCountry"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCountryProperty =
+			BindableProperty.Create(nameof(OrgCountry), typeof(string), typeof(PetitionContractViewModel), default(string));
+
+		/// <summary>
+		/// The legal identity's organization country property
+		/// </summary>
+		public string OrgCountry
+		{
+			get => (string)this.GetValue(OrgCountryProperty);
+			set => this.SetValue(OrgCountryProperty, value);
+		}
+
+		/// <summary>
+		/// See <see cref="HasOrg"/>
+		/// </summary>
+		public static readonly BindableProperty HasOrgProperty =
+			BindableProperty.Create(nameof(HasOrg), typeof(bool), typeof(PetitionContractViewModel), default(bool));
+
+		/// <summary>
+		/// If organization information is available.
+		/// </summary>
+		public bool HasOrg
+		{
+			get => (bool)this.GetValue(HasOrgProperty);
+			set
+			{
+				this.SetValue(HasOrgProperty, value);
+				this.OrgRowHeight = value ? GridLength.Auto : new GridLength(0, GridUnitType.Absolute);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="OrgRowHeight"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRowHeightProperty =
+			BindableProperty.Create(nameof(OrgRowHeight), typeof(GridLength), typeof(PetitionContractViewModel), default(GridLength));
+
+		/// <summary>
+		/// If organization information is available.
+		/// </summary>
+		public GridLength OrgRowHeight
+		{
+			get => (GridLength)this.GetValue(OrgRowHeightProperty);
+			set => this.SetValue(OrgRowHeightProperty, value);
+		}
+
+		/// <summary>
 		/// See <see cref="PhoneNr"/>
 		/// </summary>
 		public static readonly BindableProperty PhoneNrProperty =
@@ -491,7 +709,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
 
 		private void AssignProperties()
 		{
-			if (!(this.RequestorIdentity is null))
+			if (this.RequestorIdentity is not null)
 			{
 				this.Created = this.RequestorIdentity.Created;
 				this.Updated = this.RequestorIdentity.Updated.GetDateOrNullIfMinValue();
@@ -511,6 +729,31 @@ namespace IdApp.Pages.Contracts.PetitionContract
 				this.Region = this.RequestorIdentity[Constants.XmppProperties.Region];
 				this.CountryCode = this.RequestorIdentity[Constants.XmppProperties.Country];
 				this.Country = ISO_3166_1.ToName(this.CountryCode);
+				this.OrgName = this.RequestorIdentity[Constants.XmppProperties.OrgName];
+				this.OrgNumber = this.RequestorIdentity[Constants.XmppProperties.OrgNumber];
+				this.OrgDepartment = this.RequestorIdentity[Constants.XmppProperties.OrgDepartment];
+				this.OrgRole = this.RequestorIdentity[Constants.XmppProperties.OrgRole];
+				this.OrgAddress = this.RequestorIdentity[Constants.XmppProperties.OrgAddress];
+				this.OrgAddress2 = this.RequestorIdentity[Constants.XmppProperties.OrgAddress2];
+				this.OrgZipCode = this.RequestorIdentity[Constants.XmppProperties.OrgZipCode];
+				this.OrgArea = this.RequestorIdentity[Constants.XmppProperties.OrgArea];
+				this.OrgCity = this.RequestorIdentity[Constants.XmppProperties.OrgCity];
+				this.OrgRegion = this.RequestorIdentity[Constants.XmppProperties.OrgRegion];
+				this.OrgCountryCode = this.RequestorIdentity[Constants.XmppProperties.OrgCountry];
+				this.OrgCountry = ISO_3166_1.ToName(this.OrgCountryCode);
+				this.HasOrg =
+					!string.IsNullOrEmpty(this.OrgName) ||
+					!string.IsNullOrEmpty(this.OrgNumber) ||
+					!string.IsNullOrEmpty(this.OrgDepartment) ||
+					!string.IsNullOrEmpty(this.OrgRole) ||
+					!string.IsNullOrEmpty(this.OrgAddress) ||
+					!string.IsNullOrEmpty(this.OrgAddress2) ||
+					!string.IsNullOrEmpty(this.OrgZipCode) ||
+					!string.IsNullOrEmpty(this.OrgArea) ||
+					!string.IsNullOrEmpty(this.OrgCity) ||
+					!string.IsNullOrEmpty(this.OrgRegion) ||
+					!string.IsNullOrEmpty(this.OrgCountryCode) ||
+					!string.IsNullOrEmpty(this.OrgCountry);
 				this.PhoneNr = this.RequestorIdentity[Constants.XmppProperties.Phone];
 				this.EMail = this.RequestorIdentity[Constants.XmppProperties.EMail];
 				this.IsApproved = this.RequestorIdentity.State == IdentityState.Approved;
@@ -535,6 +778,19 @@ namespace IdApp.Pages.Contracts.PetitionContract
 				this.Region = Constants.NotAvailableValue;
 				this.CountryCode = Constants.NotAvailableValue;
 				this.Country = Constants.NotAvailableValue;
+				this.OrgName = Constants.NotAvailableValue;
+				this.OrgNumber = Constants.NotAvailableValue;
+				this.OrgDepartment = Constants.NotAvailableValue;
+				this.OrgRole = Constants.NotAvailableValue;
+				this.OrgAddress = Constants.NotAvailableValue;
+				this.OrgAddress2 = Constants.NotAvailableValue;
+				this.OrgZipCode = Constants.NotAvailableValue;
+				this.OrgArea = Constants.NotAvailableValue;
+				this.OrgCity = Constants.NotAvailableValue;
+				this.OrgRegion = Constants.NotAvailableValue;
+				this.OrgCountryCode = Constants.NotAvailableValue;
+				this.OrgCountry = Constants.NotAvailableValue;
+				this.HasOrg = false;
 				this.PhoneNr = Constants.NotAvailableValue;
 				this.EMail = Constants.NotAvailableValue;
 				this.IsApproved = false;

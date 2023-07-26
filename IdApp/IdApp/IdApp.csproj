@@ -6,7 +6,7 @@
     <Authors>Peter Waher</Authors>
     <Company>Trust Anchor Group</Company>
     <Description>TAG white-label Digital ID App. Provides authentication of legal identity, and features for wallets, smart contracts and interaction with smart devices.</Description>
-    <Copyright>Copyright © Trust Anchor Group 2019-2021. All rights reserved.</Copyright>
+    <Copyright>Copyright © Trust Anchor Group 2019-2023. All rights reserved.</Copyright>
     <RepositoryUrl>https://github.com/Trust-Anchor-Group/IdApp</RepositoryUrl>
   </PropertyGroup>
 
@@ -24,9 +24,17 @@
     <None Remove="Resx\Pngs\broken_image.png" />
     <None Remove="Resx\Pngs\image.png" />
     <None Remove="Resx\Svgs\camera.svg" />
+    <None Remove="Resx\Svgs\check.svg" />
+    <None Remove="Resx\Svgs\circle-pause.svg" />
+    <None Remove="Resx\Svgs\circle-play.svg" />
+    <None Remove="Resx\Svgs\circle-stop.svg" />
     <None Remove="Resx\Svgs\images.svg" />
+    <None Remove="Resx\Svgs\microphone.svg" />
     <None Remove="Resx\Svgs\passport.svg" />
+    <None Remove="Resx\Svgs\QrPerson.svg" />
+    <None Remove="Resx\Svgs\trash-can.svg" />
     <None Remove="Resx\Svgs\trash.svg" />
+    <None Remove="Resx\Svgs\xmark.svg" />
     <None Remove="Services\Data\PersonalNumbers\PersonalNumberSchemes.xml" />
     <None Remove="Helpers\" />
     <None Remove="Controls\Extended\" />
@@ -36,60 +44,74 @@
     <EmbeddedResource Include="Resx\Pngs\broken_image.png" />
     <EmbeddedResource Include="Resx\Pngs\image.png" />
     <EmbeddedResource Include="Resx\Svgs\camera.svg" />
+    <EmbeddedResource Include="Resx\Svgs\check.svg" />
+    <EmbeddedResource Include="Resx\Svgs\circle-pause.svg" />
+    <EmbeddedResource Include="Resx\Svgs\circle-play.svg" />
+    <EmbeddedResource Include="Resx\Svgs\circle-stop.svg" />
     <EmbeddedResource Include="Resx\Svgs\images.svg" />
+    <EmbeddedResource Include="Resx\Svgs\microphone.svg" />
     <EmbeddedResource Include="Resx\Svgs\passport.svg" />
+    <EmbeddedResource Include="Resx\Svgs\QrPerson.svg" />
+    <EmbeddedResource Include="Resx\Svgs\trash-can.svg" />
     <EmbeddedResource Include="Resx\Svgs\trash.svg" />
+    <EmbeddedResource Include="Resx\Svgs\xmark.svg" />
     <EmbeddedResource Include="Services\Data\PersonalNumbers\PersonalNumberSchemes.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EDaler" Version="2.1.1" />
-    <PackageReference Include="NeuroFeatures" Version="1.1.7" />
+    <PackageReference Include="EDaler" Version="2.5.1" />
+    <PackageReference Include="NeuroFeatures" Version="1.1.9" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
-    <PackageReference Include="SkiaSharp" Version="2.88.0" />
-    <PackageReference Include="Svg.Skia" Version="0.5.10" />
-    <PackageReference Include="Waher.Content" Version="2.4.0" />
+    <PackageReference Include="SkiaSharp" Version="2.88.3" />
+    <PackageReference Include="Waher.Content" Version="2.6.2" />
     <PackageReference Include="Waher.Content.Emoji" Version="2.0.0" />
-    <PackageReference Include="Waher.Content.Images" Version="2.1.1" />
-    <PackageReference Include="Waher.Content.Markdown" Version="2.1.9" />
-    <PackageReference Include="Waher.Content.QR" Version="2.0.0" />
-    <PackageReference Include="Waher.Content.Xml" Version="2.0.3" />
-    <PackageReference Include="Waher.Events.XMPP" Version="1.2.2" />
-    <PackageReference Include="Waher.Networking" Version="2.0.4" />
-    <PackageReference Include="Waher.Networking.DNS" Version="2.0.2" />
+    <PackageReference Include="Waher.Content.Images" Version="2.1.4" />
+    <PackageReference Include="Waher.Content.Markdown" Version="2.6.0" />
+    <PackageReference Include="Waher.Content.QR" Version="2.1.0" />
+    <PackageReference Include="Waher.Content.Xml" Version="2.2.0" />
+    <PackageReference Include="Waher.Events.XMPP" Version="1.2.3" />
+    <PackageReference Include="Waher.Networking" Version="2.2.1" />
+    <PackageReference Include="Waher.Networking.DNS" Version="2.0.3" />
     <PackageReference Include="Waher.Networking.PeerToPeer" Version="2.0.0" />
     <PackageReference Include="Waher.Networking.UPnP" Version="2.0.0" />
-    <PackageReference Include="Waher.Networking.XMPP" Version="2.0.4" />
-    <PackageReference Include="Waher.Networking.XMPP.Concentrator" Version="2.0.5" />
-    <PackageReference Include="Waher.Networking.XMPP.Contracts" Version="2.3.3" />
-    <PackageReference Include="Waher.Networking.XMPP.Control" Version="2.0.2" />
-    <PackageReference Include="Waher.Networking.XMPP.MUC" Version="2.0.1" />
-    <PackageReference Include="Waher.Networking.XMPP.P2P" Version="2.0.1" />
-    <PackageReference Include="Waher.Networking.XMPP.PEP" Version="2.0.2" />
-    <PackageReference Include="Waher.Networking.XMPP.Provisioning" Version="2.0.4" />
-    <PackageReference Include="Waher.Networking.XMPP.PubSub" Version="2.0.3" />
+    <PackageReference Include="Waher.Networking.XMPP" Version="2.1.2" />
+    <PackageReference Include="Waher.Networking.XMPP.Concentrator" Version="2.1.1" />
+    <PackageReference Include="Waher.Networking.XMPP.Contracts" Version="2.5.2" />
+    <PackageReference Include="Waher.Networking.XMPP.Control" Version="2.0.3" />
+    <PackageReference Include="Waher.Networking.XMPP.HTTPX" Version="2.2.0" />
+    <PackageReference Include="Waher.Networking.XMPP.MUC" Version="2.0.4" />
+    <PackageReference Include="Waher.Networking.XMPP.P2P" Version="2.0.3" />
+    <PackageReference Include="Waher.Networking.XMPP.PEP" Version="2.0.4" />
+    <PackageReference Include="Waher.Networking.XMPP.Provisioning" Version="2.0.6" />
+    <PackageReference Include="Waher.Networking.XMPP.PubSub" Version="2.0.5" />
     <PackageReference Include="Waher.Networking.XMPP.Push" Version="2.0.0" />
-    <PackageReference Include="Waher.Networking.XMPP.Sensor" Version="2.1.0" />
-    <PackageReference Include="Waher.Persistence" Version="1.8.1" />
-    <PackageReference Include="Waher.Persistence.FilesLW" Version="1.9.1" />
-    <PackageReference Include="Waher.Runtime.Inventory" Version="1.1.0" />
-    <PackageReference Include="Waher.Runtime.Language" Version="1.1.1" />
+    <PackageReference Include="Waher.Networking.XMPP.Sensor" Version="2.1.1" />
+    <PackageReference Include="Waher.Persistence" Version="1.9.1" />
+    <PackageReference Include="Waher.Persistence.FilesLW" Version="1.10.4" />
+    <PackageReference Include="Waher.Runtime.Inventory" Version="1.1.4" />
+    <PackageReference Include="Waher.Runtime.Language" Version="1.1.3" />
     <PackageReference Include="Waher.Runtime.Profiling" Version="1.0.5" />
     <PackageReference Include="Waher.Runtime.Queue" Version="1.0.1" />
     <PackageReference Include="Waher.Runtime.Settings" Version="1.0.10" />
     <PackageReference Include="Waher.Runtime.Temporary" Version="1.0.0" />
     <PackageReference Include="Waher.Runtime.Text" Version="1.0.1" />
     <PackageReference Include="Waher.Runtime.Timing" Version="1.0.5" />
-    <PackageReference Include="Waher.Script" Version="2.4.6" />
+    <PackageReference Include="Waher.Script" Version="2.5.0" />
+    <PackageReference Include="Waher.Script.Content" Version="2.1.0" />
     <PackageReference Include="Waher.Security" Version="1.0.8" />
+    <PackageReference Include="Waher.Security.JWS" Version="1.0.8" />
+    <PackageReference Include="Waher.Security.JWT" Version="1.3.7" />
+    <PackageReference Include="Waher.Things" Version="1.3.2" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
-    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.2" />
-    <PackageReference Include="Xamarin.CommunityToolkit.Markup" Version="2.0.2" />
+    <PackageReference Include="Xamarin.Build.Download" Version="0.11.4" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.5" />
+    <PackageReference Include="Xamarin.CommunityToolkit.Markup" Version="2.0.5" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
-    <PackageReference Include="Xamarin.Tesseract" Version="0.3.4" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="3.1.0-beta2" />
   </ItemGroup>
 
@@ -101,6 +123,9 @@
     <EmbeddedResource Update="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Controls\AudioPlayerControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\BetweenMainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -108,6 +133,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Contacts\Chat\ChatPageIos.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\ContentBasePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Main\Calculator\CalculatorPage.xaml">
@@ -152,11 +180,44 @@
     <Compile Update="Pages\Main\Calculator\CalculatorPage.xaml.cs">
       <DependentUpon>CalculatorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\Main\Link\LinkPage.xaml.cs">
+      <DependentUpon>LinkPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Main\Links\LinksPage.xaml.cs">
+      <DependentUpon>LinksPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Main\Security\SecurityPage.xaml.cs">
+      <DependentUpon>SecurityPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Main\XmppForm\XmppFormPage.xaml.cs">
+      <DependentUpon>XmppFormPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Things\CanControl\CanControlPage.xaml.cs">
+      <DependentUpon>CanControlPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Things\CanRead\CanReadPage.xaml.cs">
+      <DependentUpon>CanReadPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Things\IsFriend\IsFriendPage.xaml.cs">
+      <DependentUpon>IsFriendPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Things\ReadSensor\ReadSensorPage.xaml.cs">
+      <DependentUpon>ReadSensorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Wallet\SellEDaler\SellEDalerPage.xaml.cs">
+      <DependentUpon>SellEDalerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Wallet\BuyEDaler\BuyEDalerPage.xaml.cs">
+      <DependentUpon>BuyEDalerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\Wallet\MachineReport\MachineReportPage.xaml.cs">
       <DependentUpon>MachineReportPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\Wallet\MachineVariables\MachineVariablesPage.xaml.cs">
       <DependentUpon>MachineVariablesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Wallet\ServiceProviders\ServiceProvidersPage.xaml.cs">
+      <DependentUpon>ServiceProvidersPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -288,11 +349,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Popups\VerifyCode\" />
     <Folder Include="Popups\Pin\PinPopup\" />
     <Folder Include="Controls\Extended\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\IdApp.AR\IdApp.AR.csproj" />
     <ProjectReference Include="..\..\IdApp.Cv\IdApp.Cv.csproj" />
     <ProjectReference Include="..\..\IdApp.Nfc\IdApp.Nfc.csproj" />
   </ItemGroup>

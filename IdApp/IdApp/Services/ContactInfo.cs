@@ -1,6 +1,5 @@
-﻿using IdApp.Resx;
-using IdApp.Services.Contracts;
-using IdApp.Services.Tag;
+﻿using IdApp.Services.Tag;
+using IdApp.Services.Xmpp;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +9,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Waher.Persistence.Attributes;
 using Waher.Persistence.Filters;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services
 {
@@ -36,6 +36,10 @@ namespace IdApp.Services
 		private bool? subcribeTo = null;
 		private bool? allowSubscriptionFrom = null;
 		private bool? isThing = null;
+		private bool? isSensor = null;
+		private bool? isActuator = null;
+		private bool? isConcentrator = null;
+		private bool? supportsSensorEvents = null;
 		private bool? owner = null;
 
 		/// <summary>
@@ -157,6 +161,42 @@ namespace IdApp.Services
 		}
 
 		/// <summary>
+		/// The contact is a sensor
+		/// </summary>
+		public bool? IsSensor
+		{
+			get => this.isSensor;
+			set => this.isSensor = value;
+		}
+
+		/// <summary>
+		/// The contact supports sensor events
+		/// </summary>
+		public bool? SupportsSensorEvents
+		{
+			get => this.supportsSensorEvents;
+			set => this.supportsSensorEvents = value;
+		}
+
+		/// <summary>
+		/// The contact is a actuator
+		/// </summary>
+		public bool? IsActuator
+		{
+			get => this.isActuator;
+			set => this.isActuator = value;
+		}
+
+		/// <summary>
+		/// The contact is a concentrator
+		/// </summary>
+		public bool? IsConcentrator
+		{
+			get => this.isConcentrator;
+			set => this.isConcentrator = value;
+		}
+
+		/// <summary>
 		/// If the account is registered as the owner of the thing.
 		/// </summary>
 		[DefaultValueNull]
@@ -219,28 +259,26 @@ namespace IdApp.Services
 		/// <param name="RemoteId">Remote Identity</param>
 		/// <param name="Ref">Service references</param>
 		/// <returns>Friendly name.</returns>
-		public static Task<string> GetFriendlyName(CaseInsensitiveString RemoteId, ServiceReferences Ref)
+		public static Task<string> GetFriendlyName(CaseInsensitiveString RemoteId, IServiceReferences Ref)
 		{
-			return GetFriendlyName(RemoteId, Ref.XmppService.Xmpp, Ref.TagProfile, Ref.SmartContracts);
+			return GetFriendlyName(RemoteId, Ref.XmppService, Ref.TagProfile);
 		}
 
 		/// <summary>
 		/// Gets the friendly name of a remote identity (Legal ID or Bare JID).
 		/// </summary>
 		/// <param name="RemoteId">Remote Identity</param>
-		/// <param name="Client">XMPP Client</param>
+		/// <param name="XmppService">XMPP Service</param>
 		/// <param name="TagProfile">TAG Profile</param>
-		/// <param name="SmartContracts">Smart Contracts interface.</param>
 		/// <returns>Friendly name.</returns>
-		public static async Task<string> GetFriendlyName(CaseInsensitiveString RemoteId, XmppClient Client, ITagProfile TagProfile,
-			ISmartContracts SmartContracts)
+		public static async Task<string> GetFriendlyName(CaseInsensitiveString RemoteId, IXmppService XmppService, ITagProfile TagProfile)
 		{
 			int i = RemoteId.IndexOf('@');
 			if (i < 0)
 				return RemoteId;
 
 			if (RemoteId == TagProfile.LegalIdentity?.Id)
-				return AppResources.Me;
+				return LocalizationResourceManager.Current["Me"];
 
 			string Account = RemoteId.Substring(0, i);
 			ContactInfo Info;
@@ -259,7 +297,7 @@ namespace IdApp.Services
 			Info = await FindByBareJid(RemoteId);
 			if (Info is not null)
 			{
-				if (!string.IsNullOrEmpty(Info?.FriendlyName))
+				if (!string.IsNullOrEmpty(Info.FriendlyName))
 					return Info.FriendlyName;
 
 				if (Info.LegalIdentity is not null)
@@ -273,7 +311,7 @@ namespace IdApp.Services
 				}
 			}
 
-			RosterItem Item = Client?.GetRosterItem(RemoteId);
+			RosterItem Item = XmppService.GetRosterItem(RemoteId);
 			if (Item is not null)
 				return Item.NameOrBareJid;
 
@@ -290,25 +328,27 @@ namespace IdApp.Services
 
 			if (AccountIsGuid)
 			{
-				try
+				lock (identityCache)
 				{
-					LegalIdentity Id = await SmartContracts.ContractsClient.GetLegalIdentityAsync(RemoteId);    // Go directly to client, to avoid to replicate database search for stored identity.
-
-					lock (identityCache)
-					{
-						identityCache[RemoteId] = Id;
-					}
-
-					if (Id is not null)
-						return GetFriendlyName(Id);
+					identityCache[RemoteId] = null;
 				}
-				catch (Exception)
+
+				Task _ = Task.Run(async () =>
 				{
-					lock (identityCache)
+					try
 					{
-						identityCache[RemoteId] = null;
+						LegalIdentity Id = await XmppService.GetLegalIdentity(RemoteId);
+
+						lock (identityCache)
+						{
+							identityCache[RemoteId] = Id;
+						}
 					}
-				}
+					catch (Exception)
+					{
+						// Ignore
+					}
+				});
 			}
 
 			return RemoteId;
@@ -322,7 +362,7 @@ namespace IdApp.Services
 		/// <param name="RemoteId">Remote Identity</param>
 		/// <param name="Ref">Service references</param>
 		/// <returns>Friendly name.</returns>
-		public static async Task<string[]> GetFriendlyName(string[] RemoteId, ServiceReferences Ref)
+		public static async Task<string[]> GetFriendlyName(string[] RemoteId, IServiceReferences Ref)
 		{
 			if (RemoteId is null)
 				return null;
@@ -366,75 +406,75 @@ namespace IdApp.Services
 			{
 				switch (P.Name.ToUpper())
 				{
-					case "APT":
+					case Constants.XmppProperties.Apartment:
 						Apartment = P.Value;
 						break;
 
-					case "AREA":
+					case Constants.XmppProperties.Area:
 						Area = P.Value;
 						break;
 
-					case "BLD":
+					case Constants.XmppProperties.Building:
 						Building = P.Value;
 						break;
 
-					case "CITY":
+					case Constants.XmppProperties.City:
 						City = P.Value;
 						break;
 
-					case "COUNTRY":
+					case Constants.XmppProperties.Country:
 						Country = P.Value;
 						break;
 
-					case "REGION":
+					case Constants.XmppProperties.Region:
 						Region = P.Value;
 						break;
 
-					case "ROOM":
+					case Constants.XmppProperties.Room:
 						Room = P.Value;
 						break;
 
-					case "STREET":
+					case Constants.XmppProperties.StreetName:
 						Street = P.Value;
 						break;
 
-					case "STREETNR":
+					case Constants.XmppProperties.StreetNumber:
 						StreetNumber = P.Value;
 						break;
 
-					case "CLASS":
+					case Constants.XmppProperties.Class:
 						Class = P.Value;
 						break;
 
-					case "MAN":
+					case Constants.XmppProperties.Manufacturer:
 						Manufacturer = P.Value;
 						break;
 
-					case "MLOC":
+					case Constants.XmppProperties.MeterLocation:
 						MeterLocation = P.Value;
 						break;
 
-					case "MNR":
+					case Constants.XmppProperties.MeterNumber:
 						MeterNumber = P.Value;
 						break;
 
-					case "MODEL":
+					case Constants.XmppProperties.Model:
 						Model = P.Value;
 						break;
 
-					case "NAME":
+					case Constants.XmppProperties.Name:
 						Name = P.Value;
 						break;
 
-					case "SN":
+					case Constants.XmppProperties.SerialNumber:
 						SerialNumber = P.Value;
 						break;
 
-					case "V":
+					case Constants.XmppProperties.Version:
 						Version = P.Value;
 						break;
 
-					case "PHONE":
+					case Constants.XmppProperties.Phone:
 						Phone = P.Value;
 						break;
 				}
@@ -475,44 +515,70 @@ namespace IdApp.Services
 			string MiddleName = null;
 			string LastName = null;
 			string PersonalNumber = null;
+			string OrgDepartment = null;
+			string OrgRole = null;
+			string OrgName = null;
 			bool HasName = false;
+			bool HasOrg = false;
 
 			foreach (Property P in Identity.Properties)
 			{
 				switch (P.Name.ToUpper())
 				{
-					case "FIRST":
+					case Constants.XmppProperties.FirstName:
 						FirstName = P.Value;
 						HasName = true;
 						break;
 
-					case "MIDDLE":
+					case Constants.XmppProperties.MiddleName:
 						MiddleName = P.Value;
 						HasName = true;
 						break;
 
-					case "LAST":
+					case Constants.XmppProperties.LastName:
 						LastName = P.Value;
 						HasName = true;
 						break;
 
-					case "PNR":
+					case Constants.XmppProperties.PersonalNumber:
 						PersonalNumber = P.Value;
+						break;
+
+					case Constants.XmppProperties.OrgName:
+						OrgName = P.Value;
+						HasOrg = true;
+						break;
+
+					case Constants.XmppProperties.OrgDepartment:
+						OrgDepartment = P.Value;
+						HasOrg = true;
+						break;
+
+					case Constants.XmppProperties.OrgRole:
+						OrgRole = P.Value;
+						HasOrg = true;
 						break;
 				}
 			}
 
+			StringBuilder sb = null;
+
 			if (HasName)
 			{
-				StringBuilder sb = null;
-
 				AppendName(ref sb, FirstName);
 				AppendName(ref sb, MiddleName);
 				AppendName(ref sb, LastName);
-
-				if (sb is not null)
-					return sb.ToString();
 			}
+
+			if (HasOrg)
+			{
+				AppendName(ref sb, OrgRole);
+				AppendName(ref sb, OrgDepartment);
+				AppendName(ref sb, OrgName);
+			}
+
+			if (sb is not null)
+				return sb.ToString();
 
 			if (!string.IsNullOrEmpty(PersonalNumber))
 				return PersonalNumber;
@@ -531,6 +597,46 @@ namespace IdApp.Services
 
 				sb.Append(Value);
 			}
+		}
+
+		/// <summary>
+		/// Gets the friendly name of a thing.
+		/// </summary>
+		/// <param name="BareJid">Bare JID of device</param>
+		/// <param name="SourceId">Source ID of device.</param>
+		/// <param name="PartitionId">Partition of device.</param>
+		/// <param name="NodeId">Node ID of device.</param>
+		/// <param name="Ref">Service References.</param>
+		/// <returns>Friendly name.</returns>
+		public static async Task<string> GetFriendlyName(CaseInsensitiveString BareJid, string SourceId, string PartitionId, string NodeId,
+			IServiceReferences Ref)
+		{
+			if (string.IsNullOrEmpty(NodeId) && string.IsNullOrEmpty(PartitionId) && string.IsNullOrEmpty(SourceId))
+				return await GetFriendlyName(BareJid, Ref);
+
+			ContactInfo Thing = await ContactInfo.FindByBareJid(BareJid, SourceId, PartitionId, NodeId);
+			if (Thing is not null)
+				return Thing.FriendlyName;
+
+			string s = NodeId;
+
+			if (!string.IsNullOrEmpty(PartitionId))
+			{
+				if (string.IsNullOrEmpty(s))
+					s = PartitionId;
+				else
+					s = string.Format(LocalizationResourceManager.Current["XInY"], s, PartitionId);
+			}
+
+			if (!string.IsNullOrEmpty(SourceId))
+			{
+				if (string.IsNullOrEmpty(s))
+					s = SourceId;
+				else
+					s = string.Format(LocalizationResourceManager.Current["XInY"], s, SourceId);
+			}
+
+			return string.Format(LocalizationResourceManager.Current["XOnY"], s, BareJid);
 		}
 
 		/// <summary>
@@ -553,6 +659,40 @@ namespace IdApp.Services
 
 				return string.Empty;
 			}
+		}
+
+		/// <summary>
+		/// Category key used for thing notifications.
+		/// </summary>
+		public string ThingNotificationCategoryKey
+		{
+			get
+			{
+				return GetThingNotificationCategoryKey(this.bareJid, this.nodeId, this.sourceId, this.partition);
+			}
+		}
+
+		/// <summary>
+		/// Category key used for thing notifications.
+		/// </summary>
+		/// <param name="BareJid">Bare JID of device</param>
+		/// <param name="NodeId">Node ID of device.</param>
+		/// <param name="SourceId">Source ID of device.</param>
+		/// <param name="Partition">Partition of device.</param>
+		/// <returns>Key</returns>
+		public static string GetThingNotificationCategoryKey(string BareJid, string NodeId, string SourceId, string Partition)
+		{
+			StringBuilder sb = new();
+
+			sb.Append(BareJid);
+			sb.Append('|');
+			sb.Append(SourceId);
+			sb.Append('|');
+			sb.Append(Partition);
+			sb.Append('|');
+			sb.Append(NodeId);
+
+			return sb.ToString();
 		}
 
 	}

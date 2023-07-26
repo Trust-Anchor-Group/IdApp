@@ -6,7 +6,6 @@ using IdApp.Cv.Utilities;
 using IdApp.DeviceSpecific;
 using IdApp.Extensions;
 using IdApp.Services.Data.PersonalNumbers;
-using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
@@ -27,9 +26,9 @@ using Xamarin.Forms;
 using IdApp.Services.Ocr;
 using IdApp.Nfc.Extensions;
 using IdApp.Cv.Arithmetics;
-using IdApp.Resx;
 using SkiaSharp;
 using IdApp.Services;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Registration.RegisterIdentity
 {
@@ -63,27 +62,37 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			this.EPassportCommand = new Command(async _ => await this.ScanPassport(), _ => !this.IsBusy);
 			this.RemovePhotoCommand = new Command(_ => this.RemovePhoto(true));
 
-			this.Title = AppResources.PersonalLegalInformation;
-			this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
+			this.Title = LocalizationResourceManager.Current["PersonalLegalInformation"];
+			this.PersonalNumberPlaceholder = LocalizationResourceManager.Current["PersonalNumber"];
 
 			this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), profilePhotoFileName);
 			this.photosLoader = new PhotosLoader();
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
+
 			this.RegisterCommand.ChangeCanExecute();
 			this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
 		}
 
 		/// <inheritdoc />
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.photosLoader.CancelLoadPhotos();
 			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
-			await base.DoUnbind();
+
+			await base.OnDispose();
+		}
+
+		/// <inheritdoc />
+		public override Task DoAssignProperties()
+		{
+			this.ShowOrganization = this.TagProfile.Purpose == PurposeUse.Work;
+
+			return base.DoAssignProperties();
 		}
 
 		#region Properties
@@ -92,6 +101,11 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// True if the user choose the educational or experimental purpose.
 		/// </summary>
 		public bool IsTest => this.TagProfile.IsTest;
+
+		/// <summary>
+		/// Purpose for using the app.
+		/// </summary>
+		public PurposeUse Purpose => this.TagProfile.Purpose;
 
 		/// <summary>
 		/// The command to bind to for performing the 'register' action.
@@ -119,6 +133,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public ICommand RemovePhotoCommand { get; }
 
 		/// <summary>
+		/// The <see cref="ShowOrganization"/>
+		/// </summary>
+		public static readonly BindableProperty ShowOrganizationProperty =
+			BindableProperty.Create(nameof(ShowOrganization), typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the user has selected a photo for their account or not.
+		/// </summary>
+		public bool ShowOrganization
+		{
+			get => (bool)this.GetValue(ShowOrganizationProperty);
+			set => this.SetValue(ShowOrganizationProperty, value);
+		}
+
+		/// <summary>
 		/// The <see cref="HasPhoto"/>
 		/// </summary>
 		public static readonly BindableProperty HasPhotoProperty =
@@ -139,8 +168,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public static readonly BindableProperty ImageProperty =
 			BindableProperty.Create(nameof(Image), typeof(ImageSource), typeof(RegisterIdentityViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
 			{
-				RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
-				viewModel.HasPhoto = (newValue is not null);
+				if (b is RegisterIdentityViewModel ViewModel)
+					ViewModel.HasPhoto = (newValue is not null);
 			});
 
 		/// <summary>
@@ -173,25 +202,27 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public ObservableCollection<string> Countries { get; }
 
 		/// <summary>
-		/// The <see cref="HasPhoto"/>
+		/// The <see cref="SelectedCountry"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedCountryProperty =
 			BindableProperty.Create(nameof(SelectedCountry), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
 			{
-				RegisterIdentityViewModel ViewModel = (RegisterIdentityViewModel)b;
-				ViewModel.RegisterCommand.ChangeCanExecute();
-
-				if (!string.IsNullOrWhiteSpace(ViewModel.SelectedCountry) &&
-					ISO_3166_1.TryGetCode(ViewModel.SelectedCountry, out string CountryCode))
+				if (b is RegisterIdentityViewModel ViewModel)
 				{
-					string format = PersonalNumberSchemes.DisplayStringForCountry(CountryCode);
-					if (!string.IsNullOrWhiteSpace(format))
-						ViewModel.PersonalNumberPlaceholder = string.Format(AppResources.PersonalNumberPlaceholder, format);
+					ViewModel.RegisterCommand.ChangeCanExecute();
+
+					if (!string.IsNullOrWhiteSpace(ViewModel.SelectedCountry) &&
+						ISO_3166_1.TryGetCode(ViewModel.SelectedCountry, out string CountryCode))
+					{
+						string format = PersonalNumberSchemes.DisplayStringForCountry(CountryCode);
+						if (!string.IsNullOrWhiteSpace(format))
+							ViewModel.PersonalNumberPlaceholder = string.Format(LocalizationResourceManager.Current["PersonalNumberPlaceholder"], format);
+						else
+							ViewModel.PersonalNumberPlaceholder = LocalizationResourceManager.Current["PersonalNumber"];
+					}
 					else
-						ViewModel.PersonalNumberPlaceholder = AppResources.PersonalNumber;
+						ViewModel.PersonalNumberPlaceholder = LocalizationResourceManager.Current["PersonalNumber"];
 				}
-				else
-					ViewModel.PersonalNumberPlaceholder = AppResources.PersonalNumber;
 			});
 
 		/// <summary>
@@ -200,7 +231,31 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string SelectedCountry
 		{
 			get => (string)this.GetValue(SelectedCountryProperty);
-			set => this.SetValue(SelectedCountryProperty, value);
+			set
+			{
+				string Prev = this.SelectedCountry;
+				if (Prev != value)
+				{
+					this.SetValue(SelectedCountryProperty, value);
+					if (Prev == this.SelectedOrgCountry)
+						this.SelectedOrgCountry = value;
+				}
+			}
+		}
+
+		/// <summary>
+		/// The <see cref="SelectedOrgCountry"/>
+		/// </summary>
+		public static readonly BindableProperty SelectedOrgCountryProperty =
+			BindableProperty.Create(nameof(SelectedOrgCountry), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The user selected organization country from the list of <see cref="Countries"/>.
+		/// </summary>
+		public string SelectedOrgCountry
+		{
+			get => (string)this.GetValue(SelectedOrgCountryProperty);
+			set => this.SetValue(SelectedOrgCountryProperty, value);
 		}
 
 		/// <summary>
@@ -249,6 +304,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		}
 
 		/// <summary>
+		/// The <see cref="OrgName"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNameProperty =
+			BindableProperty.Create(nameof(OrgName), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The organization name
+		/// </summary>
+		public string OrgName
+		{
+			get => (string)this.GetValue(OrgNameProperty);
+			set => this.SetValue(OrgNameProperty, value);
+		}
+
+		/// <summary>
 		/// The <see cref="PersonalNumber"/>
 		/// </summary>
 		public static readonly BindableProperty PersonalNumberProperty =
@@ -279,6 +349,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		}
 
 		/// <summary>
+		/// The <see cref="OrgNumber"/>
+		/// </summary>
+		public static readonly BindableProperty OrgNumberProperty =
+			BindableProperty.Create(nameof(OrgNumber), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The organization number
+		/// </summary>
+		public string OrgNumber
+		{
+			get => (string)this.GetValue(OrgNumberProperty);
+			set => this.SetValue(OrgNumberProperty, value);
+		}
+
+		/// <summary>
 		/// The <see cref="Address"/>
 		/// </summary>
 		public static readonly BindableProperty AddressProperty =
@@ -290,7 +375,16 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string Address
 		{
 			get => (string)this.GetValue(AddressProperty);
-			set => this.SetValue(AddressProperty, value);
+			set
+			{
+				string Prev = this.Address;
+				if (Prev != value)
+				{
+					this.SetValue(AddressProperty, value);
+					if (Prev == this.OrgAddress)
+						this.OrgAddress = value;
+				}
+			}
 		}
 
 		/// <summary>
@@ -305,7 +399,46 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string Address2
 		{
 			get => (string)this.GetValue(Address2Property);
-			set => this.SetValue(Address2Property, value);
+			set
+			{
+				string Prev = this.Address2;
+				if (Prev != value)
+				{
+					this.SetValue(Address2Property, value);
+					if (Prev == this.OrgAddress2)
+						this.OrgAddress2 = value;
+				}
+			}
+		}
+
+		/// <summary>
+		/// The <see cref="OrgAddress"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddressProperty =
+			BindableProperty.Create(nameof(OrgAddress), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The organization address, line 1.
+		/// </summary>
+		public string OrgAddress
+		{
+			get => (string)this.GetValue(OrgAddressProperty);
+			set => this.SetValue(OrgAddressProperty, value);
+		}
+
+		/// <summary>
+		/// The <see cref="OrgAddress2"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAddress2Property =
+			BindableProperty.Create(nameof(OrgAddress2), typeof(string), typeof(RegisterIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The organization address, line 2.
+		/// </summary>
+		public string OrgAddress2
+		{
+			get => (string)this.GetValue(OrgAddress2Property);
+			set => this.SetValue(OrgAddress2Property, value);
 		}
 
 		/// <summary>
@@ -320,7 +453,31 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string ZipCode
 		{
 			get => (string)this.GetValue(ZipCodeProperty);
-			set => this.SetValue(ZipCodeProperty, value);
+			set
+			{
+				string Prev = this.ZipCode;
+				if (Prev != value)
+				{
+					this.SetValue(ZipCodeProperty, value);
+					if (Prev == this.OrgZipCode)
+						this.OrgZipCode = value;
+				}
+			}
+		}
+
+		/// <summary>
+		/// The <see cref="OrgZipCode"/>
+		/// </summary>
+		public static readonly BindableProperty OrgZipCodeProperty =
+			BindableProperty.Create(nameof(OrgZipCode), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The organization zip code
+		/// </summary>
+		public string OrgZipCode
+		{
+			get => (string)this.GetValue(OrgZipCodeProperty);
+			set => this.SetValue(OrgZipCodeProperty, value);
 		}
 
 		/// <summary>
@@ -335,7 +492,31 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string Area
 		{
 			get => (string)this.GetValue(AreaProperty);
-			set => this.SetValue(AreaProperty, value);
+			set
+			{
+				string Prev = this.Area;
+				if (Prev != value)
+				{
+					this.SetValue(AreaProperty, value);
+					if (Prev == this.OrgArea)
+						this.OrgArea = value;
+				}
+			}
+		}
+
+		/// <summary>
+		/// The <see cref="OrgArea"/>
+		/// </summary>
+		public static readonly BindableProperty OrgAreaProperty =
+			BindableProperty.Create(nameof(OrgArea), typeof(string), typeof(RegisterIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The organization area
+		/// </summary>
+		public string OrgArea
+		{
+			get => (string)this.GetValue(OrgAreaProperty);
+			set => this.SetValue(OrgAreaProperty, value);
 		}
 
 		/// <summary>
@@ -350,7 +531,31 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string City
 		{
 			get => (string)this.GetValue(CityProperty);
-			set => this.SetValue(CityProperty, value);
+			set
+			{
+				string Prev = this.City;
+				if (Prev != value)
+				{
+					this.SetValue(CityProperty, value);
+					if (Prev == this.OrgCity)
+						this.OrgCity = value;
+				}
+			}
+		}
+
+		/// <summary>
+		/// The <see cref="OrgCity"/>
+		/// </summary>
+		public static readonly BindableProperty OrgCityProperty =
+			BindableProperty.Create(nameof(OrgCity), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The organization city
+		/// </summary>
+		public string OrgCity
+		{
+			get => (string)this.GetValue(OrgCityProperty);
+			set => this.SetValue(OrgCityProperty, value);
 		}
 
 		/// <summary>
@@ -365,7 +570,61 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		public string Region
 		{
 			get => (string)this.GetValue(RegionProperty);
-			set => this.SetValue(RegionProperty, value);
+			set
+			{
+				string Prev = this.Region;
+				if (Prev != value)
+				{
+					this.SetValue(RegionProperty, value);
+					if (Prev == this.OrgRegion)
+						this.OrgRegion = value;
+				}
+			}
+		}
+
+		/// <summary>
+		/// The <see cref="OrgRegion"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRegionProperty =
+			BindableProperty.Create(nameof(OrgRegion), typeof(string), typeof(RegisterIdentityViewModel), default(string));
+
+		/// <summary>
+		/// The organization region
+		/// </summary>
+		public string OrgRegion
+		{
+			get => (string)this.GetValue(OrgRegionProperty);
+			set => this.SetValue(OrgRegionProperty, value);
+		}
+
+		/// <summary>
+		/// The <see cref="OrgDepartment"/>
+		/// </summary>
+		public static readonly BindableProperty OrgDepartmentProperty =
+			BindableProperty.Create(nameof(OrgDepartment), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The organization department
+		/// </summary>
+		public string OrgDepartment
+		{
+			get => (string)this.GetValue(OrgDepartmentProperty);
+			set => this.SetValue(OrgDepartmentProperty, value);
+		}
+
+		/// <summary>
+		/// The <see cref="OrgRole"/>
+		/// </summary>
+		public static readonly BindableProperty OrgRoleProperty =
+			BindableProperty.Create(nameof(OrgRole), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+
+		/// <summary>
+		/// The organization role
+		/// </summary>
+		public string OrgRole
+		{
+			get => (string)this.GetValue(OrgRoleProperty);
+			set => this.SetValue(OrgRoleProperty, value);
 		}
 
 		/// <summary>
@@ -420,19 +679,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		#endregion
 
-		private void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		private Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(e.State);
+				this.SetConnectionStateAndText(NewState);
 				this.RegisterCommand.ChangeCanExecute();
 			});
+
+			return Task.CompletedTask;
 		}
 
 		private static void OnPropertyChanged(BindableObject b, object oldValue, object newValue)
 		{
-			RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
-			viewModel.RegisterCommand.ChangeCanExecute();
+			if (b is RegisterIdentityViewModel ViewModel)
+				ViewModel.RegisterCommand.ChangeCanExecute();
 		}
 
 		private void SetConnectionStateAndText(XmppState state)
@@ -443,9 +704,9 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private async Task TakePhoto()
 		{
-			if (!this.XmppService.Contracts.FileUploadIsSupported)
+			if (!this.XmppService.FileUploadIsSupported)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.ServerDoesNotSupportFileUpload);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["ServerDoesNotSupportFileUpload"]);
 				return;
 			}
 
@@ -463,7 +724,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				}
 				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["TakingAPhotoIsNotSupported"] + ": " + ex.Message);
 					return;
 				}
 
@@ -491,7 +752,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				}
 				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["TakingAPhotoIsNotSupported"] + ": " + ex.Message);
 					return;
 				}
 
@@ -511,9 +772,9 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private async Task PickPhoto()
 		{
-			if (!this.XmppService.Contracts.FileUploadIsSupported)
+			if (!this.XmppService.FileUploadIsSupported)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["PickPhoto"], LocalizationResourceManager.Current["SelectingAPhotoIsNotSupported"]);
 				return;
 			}
 
@@ -543,7 +804,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				}
 				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["TakingAPhotoIsNotSupported"] + ": " + ex.Message);
 					return;
 				}
 
@@ -564,7 +825,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				}
 				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["TakePhoto"], LocalizationResourceManager.Current["TakingAPhotoIsNotSupported"] + ": " + ex.Message);
 					return;
 				}
 
@@ -600,29 +861,14 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 					return;
 
 				IOcrService OcrService = App.Instantiate<IOcrService>();
-				if (!OcrService.Created)
-				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TesseractNotCreated);
-					return;
-				}
-
-				if (!OcrService.Initialized)
-				{
-					if (!await OcrService.Initialize())
-					{
-						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnabletoInitializeTesseract);
-						return;
-					}
-				}
 
 				Mrz.Negate();
 				Mrz.Contrast();
-				string s = Convert.ToBase64String(Bitmaps.EncodeAsPng(Mrz));  // TODO: Remove
-				string[] Rows = await OcrService.ProcessImage(Mrz);
+				string[] Rows = await OcrService.ProcessImage(Mrz, "mrz", PageSegmentationMode.SingleUniformBlockOfText);
 
 				if (Rows.Length == 0)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToTesseractImage);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToOcrImage"]);
 					return;
 				}
 
@@ -643,7 +889,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 				if (DocInfo is null)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToExtractMachineReadableString);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnableToExtractMachineReadableString"]);
 					return;
 				}
 			}
@@ -670,7 +916,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
 			{
 				if (showAlert)
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PhotoIsTooLarge"]);
 
 				return;
 			}
@@ -731,7 +977,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			}
 			catch (Exception ex)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToLoadPhoto);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["FailedToLoadPhoto"]);
 				this.LogService.LogException(ex);
 				return;
 			}
@@ -753,17 +999,17 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				int Height = SkBitmap.Height;
 				int Width = SkBitmap.Width;
 
-				// resize if more than 4K
-				if ((Width >= Height) && (Width > 3840))
+				// downdsample to FHD
+				if ((Width >= Height) && (Width > 1920))
 				{
-					Height = (int)(Height * (3840.0 / Width) + 0.5);
-					Width = 3840;
+					Height = (int)(Height * (1920.0 / Width) + 0.5);
+					Width = 1920;
 					Resize = true;
 				}
-				else if ((Height > Width) && (Height > 3840))
+				else if ((Height > Width) && (Height > 1920))
 				{
-					Width = (int)(Width * (3840.0 / Height) + 0.5);
-					Height = 3840;
+					Width = (int)(Width * (1920.0 / Height) + 0.5);
+					Height = 1920;
 					Resize = true;
 				}
 
@@ -847,7 +1093,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private async Task Register()
 		{
-			if (!(await this.ValidateInput(true)))
+			if (!(await this.ValidateInputUI()))
 				return;
 
 			string CountryCode = ISO_3166_1.ToCode(this.SelectedCountry);
@@ -857,9 +1103,9 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (NumberInfo.IsValid.HasValue && !NumberInfo.IsValid.Value)
 			{
 				if (string.IsNullOrWhiteSpace(NumberInfo.DisplayString))
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PersonalNumberDoesNotMatchCountry"]);
 				else
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + NumberInfo.DisplayString);
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PersonalNumberDoesNotMatchCountry_ExpectedFormat"] + NumberInfo.DisplayString);
 
 				return;
 			}
@@ -869,25 +1115,25 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportLegalIdentitiesAndSmartContracts);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["OperatorDoesNotSupportLegalIdentitiesAndSmartContracts"]);
 				return;
 			}
 
 			if (string.IsNullOrWhiteSpace(this.TagProfile.RegistryJid))
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportThingRegistries);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["OperatorDoesNotSupportThingRegistries"]);
 				return;
 			}
 
 			if (string.IsNullOrWhiteSpace(this.TagProfile.ProvisioningJid))
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportProvisioningAndDecisionSupportForThings);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["OperatorDoesNotSupportProvisioningAndDecisionSupportForThings"]);
 				return;
 			}
 
 			if (!this.XmppService.IsOnline)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NotConnectedToTheOperator);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["NotConnectedToTheOperator"]);
 				return;
 			}
 
@@ -898,12 +1144,13 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				RegisterIdentityModel IdentityModel = this.CreateRegisterModel();
 				LegalIdentityAttachment[] Photos = { this.photo };
 
-				(bool Succeeded, LegalIdentity AddedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.AddLegalIdentity(IdentityModel, Photos));
+				(bool Succeeded, LegalIdentity AddedIdentity) = await this.NetworkService.TryRequest(() =>
+					this.XmppService.AddLegalIdentity(IdentityModel, Photos));
 
 				if (Succeeded)
 				{
 					this.LegalIdentity = AddedIdentity;
-					this.TagProfile.SetLegalIdentity(this.LegalIdentity);
+					await this.TagProfile.SetLegalIdentity(this.LegalIdentity);
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
 						this.SetIsDone(this.RegisterCommand, this.TakePhotoCommand, this.PickPhotoCommand, this.EPassportCommand);
@@ -924,8 +1171,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private bool CanRegister()
 		{
-			// Ok to 'wait' on, since we're not actually waiting on anything.
-			return this.ValidateInput(false).GetAwaiter().GetResult() && this.XmppService.IsOnline;
+			return this.XmppService.IsOnline && this.ValidateInput().Valid;
 		}
 
 		private RegisterIdentityModel CreateRegisterModel()
@@ -966,9 +1212,45 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (!string.IsNullOrWhiteSpace(s = this.SelectedCountry?.Trim()))
 				IdentityModel.Country = s;
 
+			if (this.ShowOrganization)
+			{
+				if (!string.IsNullOrWhiteSpace(s = this.OrgName?.Trim()))
+					IdentityModel.OrgName = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgNumber?.Trim()))
+					IdentityModel.OrgNumber = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgDepartment?.Trim()))
+					IdentityModel.OrgDepartment = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgRole?.Trim()))
+					IdentityModel.OrgRole = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgAddress?.Trim()))
+					IdentityModel.OrgAddress = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgAddress2?.Trim()))
+					IdentityModel.OrgAddress2 = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgZipCode?.Trim()))
+					IdentityModel.OrgZipCode = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgArea?.Trim()))
+					IdentityModel.OrgArea = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgCity?.Trim()))
+					IdentityModel.OrgCity = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.OrgRegion?.Trim()))
+					IdentityModel.OrgRegion = s;
+
+				if (!string.IsNullOrWhiteSpace(s = this.SelectedOrgCountry?.Trim()))
+					IdentityModel.OrgCountry = s;
+			}
+
 			if (!string.IsNullOrWhiteSpace(s = this.TagProfile?.PhoneNumber?.Trim()))
 			{
-				if (string.IsNullOrWhiteSpace(s) && !(this.TagProfile.LegalIdentity is null))
+				if (string.IsNullOrWhiteSpace(s) && this.TagProfile.LegalIdentity is not null)
 					s = this.TagProfile.LegalIdentity[Constants.XmppProperties.Phone];
 
 				IdentityModel.PhoneNr = s;
@@ -976,7 +1258,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 			if (!string.IsNullOrWhiteSpace(s = this.TagProfile?.EMail?.Trim()))
 			{
-				if (string.IsNullOrWhiteSpace(s) && !(this.TagProfile.LegalIdentity is null))
+				if (string.IsNullOrWhiteSpace(s) && this.TagProfile.LegalIdentity is not null)
 					s = this.TagProfile.LegalIdentity[Constants.XmppProperties.EMail];
 
 				IdentityModel.EMail = s;
@@ -985,55 +1267,116 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			return IdentityModel;
 		}
 
-		private async Task<bool> ValidateInput(bool AlertUser)
+		private class InfoValidation
+		{
+			public bool Valid { get; set; }
+			public string Title { get; set; }
+			public string Message { get; set; }
+
+			public static InfoValidation Ok()
+			{
+				return new InfoValidation()
+				{
+					Valid = true,
+					Title = null,
+					Message = null
+				};
+			}
+
+			public static InfoValidation Error(string Title, string Message)
+			{
+				return new InfoValidation()
+				{
+					Valid = false,
+					Title = Title,
+					Message = Message
+				};
+			}
+		}
+
+		private async Task<bool> ValidateInputUI()
+		{
+			InfoValidation Result = this.ValidateInput();
+
+			if (!Result.Valid)
+				await this.UiSerializer.DisplayAlert(Result.Title, Result.Message);
+
+			return Result.Valid;
+		}
+
+		private InfoValidation ValidateInput()
 		{
 			if (string.IsNullOrWhiteSpace(this.FirstName?.Trim()))
 			{
-				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAFirstName);
-
-				return false;
+				return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+					LocalizationResourceManager.Current["YouNeedToProvideAFirstName"]);
 			}
 
 			if (string.IsNullOrWhiteSpace(this.LastNames?.Trim()))
 			{
-				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideALastName);
-
-				return false;
+				return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+					LocalizationResourceManager.Current["YouNeedToProvideALastName"]);
 			}
 
 			if (string.IsNullOrWhiteSpace(this.PersonalNumber?.Trim()))
 			{
-				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPersonalNumber);
-
-				return false;
+				return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+					LocalizationResourceManager.Current["YouNeedToProvideAPersonalNumber"]);
 			}
 
 			if (string.IsNullOrWhiteSpace(this.SelectedCountry))
 			{
-				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideACountry);
-
-				return false;
+				return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+					LocalizationResourceManager.Current["YouNeedToProvideACountry"]);
 			}
 
 			if (this.photo is null)
 			{
-				if (AlertUser)
-					await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPhoto);
-
-				return false;
+				return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+					LocalizationResourceManager.Current["YouNeedToProvideAPhoto"]);
 			}
 
-			return true;
+			if (this.Purpose == PurposeUse.Work)
+			{
+				if (string.IsNullOrWhiteSpace(this.OrgName?.Trim()))
+				{
+					return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAnOrgName"]);
+				}
+
+				if (string.IsNullOrWhiteSpace(this.OrgNumber?.Trim()))
+				{
+					return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAnOrgNumber"]);
+				}
+
+				if (string.IsNullOrWhiteSpace(this.OrgDepartment?.Trim()))
+				{
+					return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAnOrgDepartment"]);
+				}
+
+				if (string.IsNullOrWhiteSpace(this.OrgRole?.Trim()))
+				{
+					return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAnOrgRole"]);
+				}
+
+				if (string.IsNullOrWhiteSpace(this.SelectedOrgCountry))
+				{
+					return InfoValidation.Error(LocalizationResourceManager.Current["InformationIsMissingOrInvalid"],
+						LocalizationResourceManager.Current["YouNeedToProvideAnOrgCountry"]);
+				}
+			}
+
+			return InfoValidation.Ok();
 		}
 
 		/// <inheritdoc />
 		protected override async Task DoSaveState()
 		{
 			await base.DoSaveState();
+
 			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.SelectedCountry)), this.SelectedCountry);
 			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.FirstName)), this.FirstName);
 			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.MiddleNames)), this.MiddleNames);
@@ -1045,6 +1388,18 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.City)), this.City);
 			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.ZipCode)), this.ZipCode);
 			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.Region)), this.Region);
+
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.SelectedOrgCountry)), this.SelectedOrgCountry);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgName)), this.OrgName);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgDepartment)), this.OrgDepartment);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgRole)), this.OrgRole);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgNumber)), this.OrgNumber);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgAddress)), this.OrgAddress);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgAddress2)), this.OrgAddress2);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgArea)), this.OrgArea);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgCity)), this.OrgCity);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgZipCode)), this.OrgZipCode);
+			await this.SettingsService.SaveState(this.GetSettingsKey(nameof(this.OrgRegion)), this.OrgRegion);
 		}
 
 		/// <inheritdoc />
@@ -1061,6 +1416,18 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			this.City = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.City)));
 			this.ZipCode = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.ZipCode)));
 			this.Region = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.Region)));
+
+			this.SelectedOrgCountry = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.SelectedOrgCountry)));
+			this.OrgName = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgName)));
+			this.OrgNumber = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgNumber)));
+			this.OrgDepartment = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgDepartment)));
+			this.OrgRole = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgRole)));
+			this.OrgAddress = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgAddress)));
+			this.OrgAddress2 = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgAddress2)));
+			this.OrgArea = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgArea)));
+			this.OrgCity = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgCity)));
+			this.OrgZipCode = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgZipCode)));
+			this.OrgRegion = await this.SettingsService.RestoreStringState(this.GetSettingsKey(nameof(this.OrgRegion)));
 
 			try
 			{
@@ -1092,6 +1459,18 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			this.ZipCode = string.Empty;
 			this.Region = string.Empty;
 
+			this.SelectedOrgCountry = null;
+			this.OrgName = string.Empty;
+			this.OrgNumber = string.Empty;
+			this.OrgDepartment = string.Empty;
+			this.OrgRole = string.Empty;
+			this.OrgAddress = string.Empty;
+			this.OrgAddress2 = string.Empty;
+			this.OrgArea = string.Empty;
+			this.OrgCity = string.Empty;
+			this.OrgZipCode = string.Empty;
+			this.OrgRegion = string.Empty;
+
 			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedCountry)));
 			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.FirstName)));
 			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.MiddleNames)));
@@ -1103,6 +1482,18 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.City)));
 			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.ZipCode)));
 			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.Region)));
+
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.SelectedOrgCountry)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgName)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgNumber)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgDepartment)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgRole)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgAddress)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgAddress2)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgArea)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgCity)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgZipCode)));
+			this.SettingsService.RemoveState(this.GetSettingsKey(nameof(this.OrgRegion)));
 		}
 
 		/// <summary>
@@ -1129,6 +1520,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				if (!string.IsNullOrWhiteSpace(CountryCode) && ISO_3166_1.TryGetCountry(CountryCode, out string Country))
 					this.SelectedCountry = Country;
 
+				this.OrgName = Identity[Constants.XmppProperties.OrgName];
+				this.OrgNumber = Identity[Constants.XmppProperties.OrgNumber];
+				this.OrgDepartment = Identity[Constants.XmppProperties.OrgDepartment];
+				this.OrgRole = Identity[Constants.XmppProperties.OrgRole];
+				this.OrgAddress = Identity[Constants.XmppProperties.OrgAddress];
+				this.OrgAddress2 = Identity[Constants.XmppProperties.OrgAddress2];
+				this.OrgZipCode = Identity[Constants.XmppProperties.OrgZipCode];
+				this.OrgArea = Identity[Constants.XmppProperties.OrgArea];
+				this.OrgCity = Identity[Constants.XmppProperties.OrgCity];
+				this.OrgRegion = Identity[Constants.XmppProperties.OrgRegion];
+				string OrgCountryCode = Identity[Constants.XmppProperties.OrgCountry];
+
+				if (!string.IsNullOrWhiteSpace(OrgCountryCode) && ISO_3166_1.TryGetCountry(OrgCountryCode, out string OrgCountry))
+					this.SelectedOrgCountry = OrgCountry;
+
 				Attachment FirstAttachment = Identity.Attachments?.GetFirstImageAttachment();
 				if (FirstAttachment is not null)
 				{
@@ -1140,7 +1546,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 							(byte[] Bin, string ContentType, int Rotation) = task.Result;
 							if (Bin is not null)
 							{
-								if (!this.IsBound) // Page no longer on screen when download is done?
+								if (!this.IsAppearing) // Page no longer on screen when download is done?
 									return;
 
 								this.UiSerializer.BeginInvokeOnMainThread(async () =>

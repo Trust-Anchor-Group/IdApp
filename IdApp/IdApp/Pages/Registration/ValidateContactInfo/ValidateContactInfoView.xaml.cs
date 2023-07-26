@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Registration.ValidateContactInfo
 {
@@ -15,6 +13,8 @@ namespace IdApp.Pages.Registration.ValidateContactInfo
 		/// </summary>
 		public ValidateContactInfoView()
         {
+			this.BindingContext = new ValidateContactInfoViewModel();
+
 			this.InitializeComponent();
         }
 	}

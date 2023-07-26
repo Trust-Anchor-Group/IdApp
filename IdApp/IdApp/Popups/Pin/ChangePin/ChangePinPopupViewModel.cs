@@ -128,7 +128,7 @@ namespace IdApp.Popups.Pin.ChangePin
 
 		private void TryChangePin()
 		{
-			if (this.tagProfile.ComputePinHash(this.OldPin) != this.tagProfile.PinHash)
+			if (this.tagProfile.HasPin && (this.tagProfile.ComputePinHash(this.OldPin) != this.tagProfile.PinHash))
 			{
 				this.IncorrectPinAlertShown = true;
 			}

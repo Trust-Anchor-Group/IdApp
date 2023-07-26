@@ -1,7 +1,6 @@
-﻿using IdApp.Resx;
-using NeuroFeatures;
-using System;
+﻿using IdApp.Services.Xmpp;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Wallet.MachineReport.Reports
 {
@@ -13,10 +12,10 @@ namespace IdApp.Pages.Wallet.MachineReport.Reports
 		/// <summary>
 		/// Represent a report of the historical states of a token and the underlying state-machine.
 		/// </summary>
-		/// <param name="Client">Neuro-Features client.</param>
+		/// <param name="XmppService">XMPP Service reference.</param>
 		/// <param name="TokenId">ID of token being viewed.</param>
-		public TokenHistoryReport(NeuroFeaturesClient Client, string TokenId)
-			: base(Client, TokenId)
+		public TokenHistoryReport(IXmppService XmppService, string TokenId)
+			: base(XmppService, TokenId)
 		{
 		}
 
@@ -24,19 +23,15 @@ namespace IdApp.Pages.Wallet.MachineReport.Reports
 		/// Gets the title of report.
 		/// </summary>
 		/// <returns>Title</returns>
-		public override Task<string> GetTitle() => Task.FromResult<string>(AppResources.History);
+		public override Task<string> GetTitle() => Task.FromResult<string>(LocalizationResourceManager.Current["History"]);
 
 		/// <summary>
 		/// Gets the XAML for the report.
 		/// </summary>
 		/// <returns>String-representation of XAML of report.</returns>
-		public override async Task<string> GetReportXaml()
+		public override Task<string> GetReportXaml()
 		{
-			ReportEventArgs e = await this.client.GenerateHistoryReportAsync(this.TokenId, ReportFormat.XamarinXaml);
-			if (!e.Ok)
-				throw e.StanzaError ?? new Exception(AppResources.UnableToGetHistory);
-
-			return e.ReportText;
+			return this.xmppService.GenerateNeuroFeatureHistoryReport(this.TokenId);
 		}
 	}
 }

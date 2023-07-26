@@ -52,7 +52,7 @@
 								<Setter Property="Padding" Value="16,12,8,12" />
 							</Style>
 							<Style TargetType="Label" x:Key="ErrorMessage">
-								<Setter Property="TextColor" Value="{StaticResource AlertColor}" />
+								<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource AlertColor}, Dark={StaticResource AlertColorDarkTheme}}" />
 								<Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}" />
 								<Setter Property="IsVisible" Value="False" />
 							</Style>
@@ -149,8 +149,7 @@
                         <SolidColorBrush Color="{AppThemeBinding Light={StaticResource HeadingBackgroundLightTheme}, Dark={StaticResource HeadingBackgroundDarkTheme}}"/>
                     </Ellipse.Stroke>
                 </Ellipse>
-                <Label
-					Style="{StaticResource PopupCloseButton}"/>
+                <Label Style="{StaticResource PopupCloseButton}" />
             </Grid>
 			
         </AbsoluteLayout>

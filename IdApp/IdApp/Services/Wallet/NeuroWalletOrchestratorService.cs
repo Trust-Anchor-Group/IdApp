@@ -5,16 +5,18 @@ using EDaler;
 using EDaler.Uris;
 using EDaler.Uris.Incomplete;
 using IdApp.Pages.Wallet;
-using IdApp.Pages.Wallet.EDalerReceived;
 using IdApp.Pages.Wallet.IssueEDaler;
 using IdApp.Pages.Wallet.MyWallet;
 using IdApp.Pages.Wallet.MyWallet.ObjectModels;
 using IdApp.Pages.Wallet.Payment;
 using IdApp.Pages.Wallet.PaymentAcceptance;
 using IdApp.Pages.Wallet.TokenDetails;
-using IdApp.Resx;
+using IdApp.Services.Navigation;
+using IdApp.Services.Notification;
+using IdApp.Services.Notification.Wallet;
 using NeuroFeatures;
 using Waher.Runtime.Inventory;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Wallet
 {
@@ -29,7 +31,12 @@ namespace IdApp.Services.Wallet
 		{
 			if (this.BeginLoad(cancellationToken))
 			{
-				this.XmppService.Wallet.BalanceUpdated += this.Wallet_BalanceUpdated;
+				this.XmppService.EDalerBalanceUpdated += this.Wallet_BalanceUpdated;
+				this.XmppService.NeuroFeatureAdded += this.Wallet_TokenAdded;
+				this.XmppService.NeuroFeatureRemoved += this.Wallet_TokenRemoved;
+				this.XmppService.NeuroFeatureStateUpdated += this.Wallet_StateUpdated;
+				this.XmppService.NeuroFeatureVariablesUpdated += this.Wallet_VariablesUpdated;
+
 				this.EndLoad(true);
 			}
 
@@ -40,7 +47,12 @@ namespace IdApp.Services.Wallet
 		{
 			if (this.BeginUnload())
 			{
-				this.XmppService.Wallet.BalanceUpdated -= this.Wallet_BalanceUpdated;
+				this.XmppService.EDalerBalanceUpdated -= this.Wallet_BalanceUpdated;
+				this.XmppService.NeuroFeatureAdded -= this.Wallet_TokenAdded;
+				this.XmppService.NeuroFeatureRemoved -= this.Wallet_TokenRemoved;
+				this.XmppService.NeuroFeatureStateUpdated -= this.Wallet_StateUpdated;
+				this.XmppService.NeuroFeatureVariablesUpdated -= this.Wallet_VariablesUpdated;
+
 				this.EndUnload();
 			}
 
@@ -49,17 +61,32 @@ namespace IdApp.Services.Wallet
 
 		#region Event Handlers
 
-		private Task Wallet_BalanceUpdated(object Sender, EDaler.BalanceEventArgs e)
+		private async Task Wallet_BalanceUpdated(object Sender, BalanceEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(async () =>
-			{
-				if ((e.Balance.Event?.Change ?? 0) > 0)
-					await this.NavigationService.GoToAsync(nameof(EDalerReceivedPage), new EDalerBalanceNavigationArgs(e.Balance));
-				else
-					await this.OpenWallet();
-			});
+			await this.NotificationService.NewEvent(new BalanceNotificationEvent(e));
+		}
 
-			return Task.CompletedTask;
+		private async Task Wallet_TokenAdded(object Sender, TokenEventArgs e)
+		{
+			await this.NotificationService.NewEvent(new TokenAddedNotificationEvent(e));
+		}
+
+		private async Task Wallet_TokenRemoved(object Sender, TokenEventArgs e)
+		{
+			if (this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, e.Token.TokenId, out NotificationEvent[] Events))
+				await this.NotificationService.DeleteEvents(Events);
+
+			await this.NotificationService.NewEvent(new TokenRemovedNotificationEvent(e));
+		}
+
+		private async Task Wallet_StateUpdated(object Sender, NewStateEventArgs e)
+		{
+			await this.NotificationService.NewEvent(new StateMachineNewStateNotificationEvent(e));
+		}
+
+		private async Task Wallet_VariablesUpdated(object Sender, VariablesUpdatedEventArgs e)
+		{
+			await this.NotificationService.NewEvent(new StateMachineVariablesUpdatedNotificationEvent(e));
 		}
 
 		#endregion
@@ -71,9 +98,9 @@ namespace IdApp.Services.Wallet
 		{
 			try
 			{
-				Balance Balance = await this.XmppService.Wallet.GetBalanceAsync();
-				(decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
-				(AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(Constants.BatchSizes.AccountEventBatchSize);
+				Balance Balance = await this.XmppService.GetEDalerBalance();
+				(decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments) = await this.XmppService.GetPendingEDalerPayments();
+				(AccountEvent[] Events, bool More) = await this.XmppService.GetEDalerAccountEvents(Constants.BatchSizes.AccountEventBatchSize);
 
 				WalletNavigationArgs e = new(Balance, PendingAmount, PendingCurrency, PendingPayments, Events, More);
 
@@ -91,15 +118,15 @@ namespace IdApp.Services.Wallet
 		/// <param name="Uri">eDaler URI.</param>
 		public async Task OpenEDalerUri(string Uri)
 		{
-			if (!this.XmppService.Wallet.TryParseEDalerUri(Uri, out EDalerUri Parsed, out string Reason))
+			if (!this.XmppService.TryParseEDalerUri(Uri, out EDalerUri Parsed, out string Reason))
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.InvalidEDalerUri, Reason));
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["InvalidEDalerUri"], Reason));
 				return;
 			}
 
 			if (Parsed.Expires.AddDays(1) < DateTime.UtcNow)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ExpiredEDalerUri);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["ExpiredEDalerUri"]);
 				return;
 			}
 
@@ -130,7 +157,7 @@ namespace IdApp.Services.Wallet
 			}
 			else
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnrecognizedEDalerURI);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["UnrecognizedEDalerURI"]);
 				return;
 			}
 		}
@@ -149,14 +176,19 @@ namespace IdApp.Services.Wallet
 
 			try
 			{
-				Token Token = await this.XmppService.Wallet.NeuroFeaturesClient.GetTokenAsync(TokenId);
-				await this.NavigationService.GoToAsync(nameof(TokenDetailsPage),
-					new TokenDetailsNavigationArgs(new TokenItem(Token, this)) { ReturnCounter = 1 });
+				Token Token = await this.XmppService.GetNeuroFeature(TokenId);
+
+				if (!this.NotificationService.TryGetNotificationEvents(EventButton.Wallet, TokenId, out NotificationEvent[] Events))
+					Events = new NotificationEvent[0];
+
+				TokenDetailsNavigationArgs Args = new(new TokenItem(Token, this, Events));
+
+				await this.NavigationService.GoToAsync(nameof(TokenDetailsPage), Args, BackMethod.Pop);
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex);
+				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], ex);
 			}
 		}
 

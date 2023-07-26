@@ -44,7 +44,7 @@ namespace IdApp.Converters
 		}
 
 		/// <inheritdoc/>
-		public object ProvideValue(IServiceProvider serviceProvider)
+		public object ProvideValue(System.IServiceProvider serviceProvider)
 		{
 			return this;
 		}

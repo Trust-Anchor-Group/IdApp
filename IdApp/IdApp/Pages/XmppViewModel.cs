@@ -2,8 +2,7 @@
 using System.Threading.Tasks;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
-using IdApp.Services.Xmpp;
-using IdApp.Resx;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages
 {
@@ -17,26 +16,26 @@ namespace IdApp.Pages
         /// </summary>
         protected XmppViewModel()
         {
-            this.StateSummaryText = AppResources.XmppState_Offline;
-            this.ConnectionStateText = AppResources.XmppState_Offline;
+            this.StateSummaryText = LocalizationResourceManager.Current["XmppState_Offline"];
+            this.ConnectionStateText = LocalizationResourceManager.Current["XmppState_Offline"];
             this.ConnectionStateColor = new SolidColorBrush(Color.Red);
             this.StateSummaryText = string.Empty;
         }
 
         /// <inheritdoc/>
-        protected override async Task DoBind()
+        protected override async Task OnInitialize()
         {
-            await base.DoBind();
+            await base.OnInitialize();
 
             this.SetConnectionStateAndText(this.XmppService.State);
             this.XmppService.ConnectionStateChanged += this.XmppService_ConnectionStateChanged;
         }
 
         /// <inheritdoc/>
-        protected override async Task DoUnbind()
+        protected override async Task OnDispose()
         {
             this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
-            await base.DoUnbind();
+            await base.OnDispose();
         }
 
         #region Properties
@@ -118,11 +117,12 @@ namespace IdApp.Pages
         /// <summary>
         /// Listens to connection state changes from the XMPP server.
         /// </summary>
-        /// <param name="sender">The XMPP service instance.</param>
-        /// <param name="e">The event args.</param>
-        protected virtual void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        /// <param name="_">The XMPP service instance.</param>
+        /// <param name="NewState">New XMPP State.</param>
+        protected virtual Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
         {
-            this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
+            this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(NewState));
+			return Task.CompletedTask;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content;
+using IdApp.Services.AttachmentCache;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +26,15 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		public override Grade Supports(MultimediaItem Item)
 		{
 			if (Item.ContentType?.StartsWith("image/", StringComparison.OrdinalIgnoreCase) == true)
-			{
 				return Grade.Excellent;
+
+			if (Item.Url?.StartsWith(Constants.UriSchemes.Aes256, StringComparison.OrdinalIgnoreCase) == true)
+			{
+				if (Aes256Getter.TryParse(new Uri(Item.Url), out _, out _, out string ContentType, out _))
+				{
+					if (ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase) == true)
+						return Grade.Excellent;
+				}
 			}
 
 			return this.imageContent.Supports(Item);
@@ -57,53 +66,94 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 					if (MultimediaItem.Height.HasValue)
 					{
 						if (MultimediaItem.Width >= MultimediaItem.Height && MultimediaItem.Width > Constants.MaxRenderedImageDimensionInPixels)
-						{
 							DownsampleWidth = Constants.MaxRenderedImageDimensionInPixels;
-						}
 
 						if (MultimediaItem.Height >= MultimediaItem.Width && MultimediaItem.Height > Constants.MaxRenderedImageDimensionInPixels)
-						{
 							DownsampleHeight = Constants.MaxRenderedImageDimensionInPixels;
-						}
 					}
 					else
 					{
 						if (MultimediaItem.Width > Constants.MaxRenderedImageDimensionInPixels)
-						{
 							DownsampleWidth = Constants.MaxRenderedImageDimensionInPixels;
-						}
 					}
 				}
 
-				Output.WriteStartElement("ffimageloading", "CachedImage", "clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms");
-				Output.WriteAttributeString("Source", MultimediaItem.Url);
+				string Url = MultimediaItem.Url;
 
-				if (DownsampleWidth.HasValue)
+				if (Url.StartsWith(Constants.UriSchemes.Aes256))
 				{
-					Output.WriteAttributeString("DownsampleWidth", DownsampleWidth.Value.ToString());
-				}
+					Output.WriteStartElement("ImageHelpers", "MyCachedImage", "clr-namespace:IdApp.Helpers;assembly=IdApp");
+					Output.WriteAttributeString("Source", Url);
 
-				if (DownsampleHeight.HasValue)
+					if (DownsampleWidth.HasValue)
+						Output.WriteAttributeString("DownsampleWidth", DownsampleWidth.Value.ToString());
+
+					if (DownsampleHeight.HasValue)
+						Output.WriteAttributeString("DownsampleHeight", DownsampleHeight.Value.ToString());
+
+					// For some reason, specifying an SVG image source doesn't work, no idea why.
+					Output.WriteAttributeString("LoadingPlaceholder", $"resource://{Resx.Pngs.Image}");
+					Output.WriteAttributeString("ErrorPlaceholder", $"resource://{Resx.Pngs.BrokenImage}");
+
+					Output.WriteEndElement();
+
+					/*
+					Output.WriteStartElement("Image", "http://xamarin.com/schemas/2014/forms");
+					Output.WriteStartElement("Image.Source", "http://xamarin.com/schemas/2014/forms");
+					Output.WriteStartElement("imagehelpers", "AesImageSource", "clr-namespace:IdApp.Helpers;assembly=IdApp");
+					Output.WriteAttributeString("Uri", Url);
+					Output.WriteEndElement();
+					Output.WriteEndElement();
+					Output.WriteEndElement();
+					*/
+				}
+				else
 				{
-					Output.WriteAttributeString("DownsampleHeight", DownsampleHeight.Value.ToString());
+					Output.WriteStartElement("ffimageloading", "CachedImage", "clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms");
+					Output.WriteAttributeString("Source", Url);
+
+					if (DownsampleWidth.HasValue)
+						Output.WriteAttributeString("DownsampleWidth", DownsampleWidth.Value.ToString());
+
+					if (DownsampleHeight.HasValue)
+						Output.WriteAttributeString("DownsampleHeight", DownsampleHeight.Value.ToString());
+
+					// For some reason, specifying an SVG image source doesn't work, no idea why.
+					Output.WriteAttributeString("LoadingPlaceholder", $"resource://{Resx.Pngs.Image}");
+					Output.WriteAttributeString("ErrorPlaceholder", $"resource://{Resx.Pngs.BrokenImage}");
+
+					Output.WriteEndElement();
 				}
-
-				// For some reason, specifying an SVG image source doesn't work, no idea why.
-				Output.WriteAttributeString("LoadingPlaceholder", $"resource://{Resx.Pngs.Image}");
-				Output.WriteAttributeString("ErrorPlaceholder", $"resource://{Resx.Pngs.BrokenImage}");
-
-				Output.WriteEndElement();
-
-				return Task.CompletedTask;
 			}
 
-			throw new NotImplementedException();
+			return Task.CompletedTask;
+		}
+
+		private IAttachmentCacheService attachmentCacheService;
+
+		/// <summary>
+		/// Provides a reference to the attachment cache service.
+		/// </summary>
+		public IAttachmentCacheService AttachmentCacheService
+		{
+			get
+			{
+				this.attachmentCacheService ??= App.Instantiate<IAttachmentCacheService>();
+
+				return this.attachmentCacheService;
+			}
 		}
 
 		/// <inheritdoc/>
 		public override Task GenerateXAML(XmlWriter Output, TextAlignment TextAlignment, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
 		{
 			return this.imageContent.GenerateXAML(Output, TextAlignment, Items, ChildNodes, AloneInParagraph, Document);
+		}
+
+		/// <inheritdoc/>
+		public override Task GenerateLaTeX(StringBuilder Output, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
+		{
+			return this.imageContent.GenerateLaTeX(Output, Items, ChildNodes, AloneInParagraph, Document);
 		}
 	}
 }

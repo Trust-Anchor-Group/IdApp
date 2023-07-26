@@ -32,7 +32,7 @@ namespace IdApp.Popups.Xmpp.ReportType
         /// </summary>
         public string BareJid => this.bareJid;
 
-        private void OnCloseButtonTapped(object sender, EventArgs e)
+        private void OnCloseButtonTapped(object Sender, EventArgs e)
         {
 			this.Close();
         }
@@ -50,19 +50,19 @@ namespace IdApp.Popups.Xmpp.ReportType
             this.result.TrySetResult(null);
         }
 
-        private async void OnSpam(object sender, EventArgs e)
+        private async void OnSpam(object Sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(ReportingReason.Spam);
         }
 
-        private async void OnAbuse(object sender, EventArgs e)
+        private async void OnAbuse(object Sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(ReportingReason.Abuse);
         }
 
-        private async void OnOther(object sender, EventArgs e)
+        private async void OnOther(object Sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(ReportingReason.Other);

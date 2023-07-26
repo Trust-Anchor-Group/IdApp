@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:helpers="clr-namespace:IdApp.Helpers;assembly=IdApp"
-                       xmlns:templatedSwitch="clr-namespace:IdApp.Controls.TemplatedSwitch;assembly=IdApp"
-                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
-					   xmlns:tag="clr-namespace:IdApp.Services.Tag;assembly=IdApp"
-                       xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
-                       xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
-                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
-                       xmlns:model="clr-namespace:IdApp.Pages.Registration.DefinePin;assembly=IdApp"
-                       x:DataType="model:DefinePinViewModel"
-                       x:Class="IdApp.Pages.Registration.DefinePin.DefinePinView">
-	<ContentView.Content >
-		<StackLayout Margin="{StaticResource DefaultMargin}" x:Name="PinContent">
+<registration:RegistrationStepView
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:helpers="clr-namespace:IdApp.Helpers;assembly=IdApp"
+	xmlns:templatedSwitch="clr-namespace:IdApp.Controls.TemplatedSwitch;assembly=IdApp"
+	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+	xmlns:tag="clr-namespace:IdApp.Services.Tag;assembly=IdApp"
+	xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
+	xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
+	xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+	xmlns:model="clr-namespace:IdApp.Pages.Registration.DefinePin;assembly=IdApp"
+	x:DataType="model:DefinePinViewModel"
+	x:Class="IdApp.Pages.Registration.DefinePin.DefinePinView">
+
+	<StackLayout Margin="{StaticResource DefaultMargin}" x:Name="PinContent">
 			<StackLayout.Resources>
 				<ResourceDictionary>
 					<Style TargetType="Entry" x:Key="PinEntry">
@@ -51,7 +52,7 @@
 			<Label
                 Text="{Binding Path=PinStrength, Converter={converters:PinStrengthToErrorMessage}}"
                 IsVisible="False"
-                TextColor="{StaticResource AlertColor}"
+                Style="{StaticResource AlertLabel}"
                 Margin="{StaticResource DefaultBottomOnlyMargin}">
 				<Label.Triggers>
 					<MultiTrigger TargetType="Label">
@@ -82,7 +83,7 @@
 			<Label
                 Text="{x:Static resx:AppResources.PinsDoNotMatch}"
                 IsVisible="False"
-                TextColor="{StaticResource AlertColor}"
+                Style="{StaticResource AlertLabel}"
                 Margin="{StaticResource DefaultBottomOnlyMargin}">
 				<Label.Triggers>
 					<MultiTrigger TargetType="Label">
@@ -94,11 +95,10 @@
 					</MultiTrigger>
 				</Label.Triggers>
 			</Label>
-			
+
 			<Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
 
 			<Button x:Name="OkButton" Text="{x:Static resx:AppResources.Ok}" Command="{Binding Path=ContinueCommand}" Margin="{StaticResource DefaultTopOnlyMargin}" />
 			<Button x:Name="SkipButton" Text="{x:Static resx:AppResources.Skip}" Command="{Binding Path=SkipCommand}" />
-		</StackLayout>
-	</ContentView.Content>
-</views:ContentBaseView>
+	</StackLayout>
+</registration:RegistrationStepView>

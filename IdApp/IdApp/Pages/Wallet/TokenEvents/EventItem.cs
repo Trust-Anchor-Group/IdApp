@@ -1,7 +1,7 @@
 ﻿using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Wallet.TokenEvents.Events;
-using IdApp.Resx;
 using IdApp.Services;
+using IdApp.Services.Navigation;
 using NeuroFeatures.Events;
 using System;
 using System.Text;
@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Content;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -61,7 +62,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 	public abstract class EventItem
 	{
 		private readonly TokenEvent @event;
-		private ServiceReferences @ref;
+		private IServiceReferences @ref;
 
 		/// <summary>
 		/// Represents a token event.
@@ -169,7 +170,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 					Personal = Event.Personal,
 					Timestamp = Event.Timestamp,
 					TokenId = Event.TokenId,
-					Note = AppResources.UnrecognizedEventType + " " + Event.GetType().FullName
+					Note = LocalizationResourceManager.Current["UnrecognizedEventType"] + " " + Event.GetType().FullName
 				});
 			}
 		}
@@ -178,7 +179,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		/// Binds properties
 		/// </summary>
 		/// <param name="Ref">Service references.</param>
-		public virtual Task DoBind(ServiceReferences Ref)
+		public virtual Task DoBind(IServiceReferences Ref)
 		{
 			this.@ref = Ref;
 			return Task.CompletedTask;
@@ -190,7 +191,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		/// <param name="IdentityId">Identity ID</param>
 		public Task ViewId(string IdentityId)
 		{
-			return this.@ref.ContractOrchestratorService.OpenLegalIdentity(IdentityId, AppResources.PurposeReviewToken);
+			return this.@ref.ContractOrchestratorService.OpenLegalIdentity(IdentityId, LocalizationResourceManager.Current["PurposeReviewToken"]);
 		}
 
 		/// <summary>
@@ -199,7 +200,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		/// <param name="ContractId">Contract ID</param>
 		public Task ViewContract(string ContractId)
 		{
-			return this.@ref.ContractOrchestratorService.OpenContract(ContractId, AppResources.PurposeReviewToken, null);
+			return this.@ref.ContractOrchestratorService.OpenContract(ContractId, LocalizationResourceManager.Current["PurposeReviewToken"], null);
 		}
 
 		/// <summary>
@@ -209,7 +210,7 @@ namespace IdApp.Pages.Wallet.TokenEvents
 		public async Task CopyToClipboard(string Text)
 		{
 			await Clipboard.SetTextAsync(Text);
-			await this.@ref.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.NoteCopiedToClipboard);
+			await this.@ref.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["SuccessTitle"], LocalizationResourceManager.Current["NoteCopiedToClipboard"]);
 		}
 
 		/// <summary>
@@ -221,12 +222,12 @@ namespace IdApp.Pages.Wallet.TokenEvents
 			try
 			{
 				byte[] Bin = Encoding.UTF8.GetBytes(Xml);
-				HttpFileUploadEventArgs e = await this.@ref.XmppService.FileUploadClient.RequestUploadSlotAsync("Note.xml", "text/xml; charset=utf-8", Bin.Length);
+				HttpFileUploadEventArgs e = await this.@ref.XmppService.RequestUploadSlotAsync("Note.xml", "text/xml; charset=utf-8", Bin.Length);
 
 				if (e.Ok)
 				{
 					await e.PUT(Bin, "text/xml", (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
-					await App.OpenUrl(e.GetUrl);
+					await App.OpenUrlAsync(e.GetUrl);
 				}
 				else
 					await this.@ref.UiSerializer.DisplayAlert(e.StanzaError ?? new Exception(e.ErrorText));
@@ -253,25 +254,21 @@ namespace IdApp.Pages.Wallet.TokenEvents
 				}
 				else
 				{
-					string Account = Source.Substring(0, i);
+					string Account = Source[..i];
 
 					if (Guid.TryParse(Account, out _))
-						Source = Constants.UriSchemes.UriSchemeIotId + ":" + Source;
+						Source = Constants.UriSchemes.IotId + ":" + Source;
 					else
 					{
 						ContactInfo Contact = await ContactInfo.FindByBareJid(Source);
+						ChatNavigationArgs Args = new(Contact?.LegalId, Contact?.BareJid ?? Source, Contact?.FriendlyName ?? Source);
 
-						await this.@ref.NavigationService.GoToAsync(nameof(ChatPage),
-							new ChatNavigationArgs(Contact?.LegalId, Contact?.BareJid ?? Source, Contact?.FriendlyName ?? Source)
-							{
-								UniqueId = Contact?.BareJid ?? Source
-							});
-
+						await this.@ref.NavigationService.GoToAsync(nameof(ChatPage), Args, BackMethod.Inherited, Contact?.BareJid ?? Source);
 						return;
 					}
 				}
 
-				await App.OpenUrl(Source);
+				await App.OpenUrlAsync(Source);
 			}
 			catch (Exception ex)
 			{

@@ -3,8 +3,7 @@ using IdApp.Extensions;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Services.Xmpp;
-using IdApp.Resx;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Main.Shell
 {
@@ -19,13 +18,13 @@ namespace IdApp.Pages.Main.Shell
 		/// </summary>
 		protected internal AppShellViewModel()
 		{
-			this.ConnectionStateText = AppResources.XmppState_Offline;
+			this.ConnectionStateText = LocalizationResourceManager.Current["XmppState_Offline"];
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoBind()
+		protected override async Task OnInitialize()
 		{
-			await base.DoBind();
+			await base.OnInitialize();
 
 			await App.WaitForServiceSetup();
 
@@ -36,12 +35,12 @@ namespace IdApp.Pages.Main.Shell
 		}
 
 		/// <inheritdoc/>
-		protected override async Task DoUnbind()
+		protected override async Task OnDispose()
 		{
 			this.XmppService.ConnectionStateChanged -= this.XmppService_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged -= this.NetworkService_ConnectivityChanged;
 
-			await base.DoUnbind();
+			await base.OnDispose();
 		}
 
 		#region Properties
@@ -93,16 +92,18 @@ namespace IdApp.Pages.Main.Shell
 
 		#endregion
 
-		private void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		private Task XmppService_ConnectionStateChanged(object _, XmppState NewState)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.ConnectionStateText = e.State.ToDisplayText();
-				this.IsConnected = e.State == XmppState.Connected;
+				this.ConnectionStateText = NewState.ToDisplayText();
+				this.IsConnected = NewState == XmppState.Connected;
 			});
+
+			return Task.CompletedTask;
 		}
 
-		private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+		private void NetworkService_ConnectivityChanged(object Sender, ConnectivityChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() => this.IsOnline = this.NetworkService.IsOnline);
 		}
