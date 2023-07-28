@@ -708,20 +708,25 @@ namespace IdApp
 			/// </summary>
 			public const int MaxPinAttempts = 3;
 
-            /// <summary>
-			/// First Block in days after 3 attempts
+			/// <summary>
+			/// First Block in hours after 3 attempts
 			/// </summary>
-			public const int FirstBlockInDays = 1;
+			public const int FirstBlockInHours = 1;
 
-            /// <summary>
-            /// Second Block in days after 3 attempts
-            /// </summary>
-            public const int SecondBlockInDays = 7;
+			/// <summary>
+			/// Second Block in hours after 3 attempts
+			/// </summary>
+			public const int SecondBlockInHours = 24;
 
-            /// <summary>
-            /// Key for pin attempt counter
-            /// </summary>
-            public const string CurrentPinAttemptCounter = "CurrentPinAttemptCounter";
+			/// <summary>
+			/// Third Block in hours after 3 attempts
+			/// </summary>
+			public const int ThirdBlockInHours = 7*24;
+
+			/// <summary>
+			/// Key for pin attempt counter
+			/// </summary>
+			public const string CurrentPinAttemptCounter = "CurrentPinAttemptCounter";
 
             /// <summary>
             /// Log Object ID

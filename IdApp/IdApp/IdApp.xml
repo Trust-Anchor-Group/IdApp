@@ -1066,14 +1066,19 @@
             Maximum pin enetring attempts
             </summary>
         </member>
-        <member name="F:IdApp.Constants.Pin.FirstBlockInDays">
+        <member name="F:IdApp.Constants.Pin.FirstBlockInHours">
             <summary>
-            First Block in days after 3 attempts
+            First Block in hours after 3 attempts
             </summary>
         </member>
-        <member name="F:IdApp.Constants.Pin.SecondBlockInDays">
+        <member name="F:IdApp.Constants.Pin.SecondBlockInHours">
             <summary>
-            Second Block in days after 3 attempts
+            Second Block in hours after 3 attempts
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Pin.ThirdBlockInHours">
+            <summary>
+            Third Block in hours after 3 attempts
             </summary>
         </member>
         <member name="F:IdApp.Constants.Pin.CurrentPinAttemptCounter">

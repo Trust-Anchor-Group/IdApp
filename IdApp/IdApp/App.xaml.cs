@@ -139,8 +139,9 @@ namespace IdApp
 				TaskScheduler.UnobservedTaskException += this.TaskScheduler_UnobservedTaskException;
 
 				LoginInterval[] LoginIntervals = new[] {
-					new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.FirstBlockInDays)),
-					new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.SecondBlockInDays))};
+					new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromHours(Constants.Pin.FirstBlockInHours)),
+					new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromHours(Constants.Pin.SecondBlockInHours)),
+					new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromHours(Constants.Pin.ThirdBlockInHours))};
 
 				this.loginAuditor = new LoginAuditor(Constants.Pin.LogAuditorObjectID, LoginIntervals);
 				this.startupCancellation = new CancellationTokenSource();
