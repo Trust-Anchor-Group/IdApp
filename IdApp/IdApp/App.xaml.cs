@@ -219,6 +219,7 @@ namespace IdApp
 			CultureInfo[] Infos = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
 			CultureInfo SelectedInfo = Infos.First(el => el.Name == Language);
 
+			LocalizationResourceManager.Current.PropertyChanged += (_, _) => AppResources.Culture = LocalizationResourceManager.Current.CurrentCulture;
 			LocalizationResourceManager.Current.Init(AppResources.ResourceManager, SelectedInfo);
 		}
 
