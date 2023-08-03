@@ -27,7 +27,7 @@
 		</Check>
 	</Entry>
 	<Entry country="IN" displayString="NNNN NNNN NNNN">
-		<Pattern variable="Aadhaar"><![CDATA[Aadhaar like "(?'N1'\\d{4})\s*(?'N2'\\d{4})\s*(?'N3'\\d{4})"]]></Pattern>
+		<Pattern variable="Aadhaar"><![CDATA[Aadhaar like "(?'N1'\\d{4})\\s*(?'N2'\\d{4})\\s*(?'N3'\\d{4})"]]></Pattern>
 		<Check>
 			<![CDATA[
 			d:=[[0,1,2,3,4,5,6,7,8,9],

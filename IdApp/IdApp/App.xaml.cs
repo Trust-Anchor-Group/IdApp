@@ -139,8 +139,9 @@ namespace IdApp
 				TaskScheduler.UnobservedTaskException += this.TaskScheduler_UnobservedTaskException;
 
 				LoginInterval[] LoginIntervals = new[] {
-					new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.FirstBlockInDays)),
-					new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromDays(Constants.Pin.SecondBlockInDays))};
+					new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromHours(Constants.Pin.FirstBlockInHours)),
+					new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromHours(Constants.Pin.SecondBlockInHours)),
+					new LoginInterval(Constants.Pin.MaxPinAttempts, TimeSpan.FromHours(Constants.Pin.ThirdBlockInHours))};
 
 				this.loginAuditor = new LoginAuditor(Constants.Pin.LogAuditorObjectID, LoginIntervals);
 				this.startupCancellation = new CancellationTokenSource();
@@ -218,6 +219,7 @@ namespace IdApp
 			CultureInfo[] Infos = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
 			CultureInfo SelectedInfo = Infos.First(el => el.Name == Language);
 
+			LocalizationResourceManager.Current.PropertyChanged += (_, _) => AppResources.Culture = LocalizationResourceManager.Current.CurrentCulture;
 			LocalizationResourceManager.Current.Init(AppResources.ResourceManager, SelectedInfo);
 		}
 
@@ -744,7 +746,7 @@ namespace IdApp
 			// NavigationPage is used to allow non modal navigation. Scan QR code page is pushed not modally to allow the user to dismiss it
 			// on iOS (on iOS this page doesn't have any other means of going back without actually entering valid data).
 
-			Pages.Registration.Registration.RegistrationPage Page = new Pages.Registration.Registration.RegistrationPage();
+			Pages.Registration.Registration.RegistrationPage Page = new();
 
 			await this.SetMainPageAsync(new NavigationBasePage(Page));
 		}

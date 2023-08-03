@@ -18,18 +18,19 @@
 			<Style TargetType="View" Class="TopLevelChild" ApplyToDerivedTypes="True">
 				<Setter Property="HorizontalOptions" Value="Center" />
 			</Style>
-			
+
 			<Style TargetType="Label" Class="MainLabel">
 				<Setter Property="TextColor" Value="{StaticResource TextColorLightTheme}" />
 				<Setter Property="VerticalTextAlignment" Value="Center" />
+				<Setter Property="LineBreakMode" Value="NoWrap" />
 			</Style>
 			<Style TargetType="Label" Class="MainLabelSmall">
 				<Setter Property="FontSize" Value="16" />
 			</Style>
 			<Style TargetType="Label" Class="MainLabelBig">
-				<Setter Property="FontSize" Value="24" />
+				<Setter Property="FontSize" Value="22" />
 			</Style>
-			
+
 			<Style TargetType="ActivityIndicator" Class="Spinner">
 				<Setter Property="Color" Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColorDarkTheme}}" />
 			</Style>
