@@ -1124,7 +1124,7 @@ namespace IdApp.Pages.Contracts.NewContract
 							CheckBox.IsChecked = b;
 					}
 				}
-				else if (Parameter is CalcParameter)
+				else if (Parameter is CalcParameter || Parameter is RoleParameter)
 				{
 					ParameterInfo PI = new(Parameter, null);
 					this.parametersByName[Parameter.Name] = PI;
