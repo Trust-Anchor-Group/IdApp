@@ -26859,6 +26859,12 @@
             </summary>
             <param name="action">The action to execute asynchronously.</param>
         </member>
+        <member name="M:IdApp.Services.UI.IUiSerializer.InvokeOnMainThreadAsync(System.Action)">
+            <summary>
+            Does a awaitable begin-invoke on the main thread of the specified action.
+            </summary>
+            <param name="action">The action to execute asynchronously.</param>
+        </member>
         <member name="P:IdApp.Services.UI.IUiSerializer.IsRunningInTheBackground">
             <summary>
             Determines whether the app is running in the background.
@@ -27274,6 +27280,9 @@
             </summary>
         </member>
         <member name="M:IdApp.Services.UI.UiSerializer.BeginInvokeOnMainThread(System.Action)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.UI.UiSerializer.InvokeOnMainThreadAsync(System.Action)">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Services.UI.UiSerializer.IsRunningInTheBackground">

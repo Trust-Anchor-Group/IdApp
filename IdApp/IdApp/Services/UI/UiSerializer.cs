@@ -34,8 +34,14 @@ namespace IdApp.Services.UI
             Device.BeginInvokeOnMainThread(action);
         }
 
-        /// <inheritdoc/>
-        public bool IsRunningInTheBackground { get; set; }
+		/// <inheritdoc/>
+		public Task InvokeOnMainThreadAsync(Action action)
+		{
+			return Device.InvokeOnMainThreadAsync(action);
+		}
+
+		/// <inheritdoc/>
+		public bool IsRunningInTheBackground { get; set; }
 
         private void AddTask(UiTask Task)
 		{

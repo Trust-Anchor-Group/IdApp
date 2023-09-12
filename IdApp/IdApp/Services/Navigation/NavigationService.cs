@@ -88,36 +88,39 @@ namespace IdApp.Services.Navigation
 			if (!this.CanUseNavigationService)
 				return;
 
-			// Get the parent's navigation arguments
-			NavigationArgs ParentArgs = this.GetCurrentNavigationArgs();
-
-			// Create a default navigation arguments if Args are null
-			NavigationArgs NavigationArgs = Args ?? new();
-
-			NavigationArgs.SetBackArguments(BackMethod, ParentArgs, UniqueId);
-			this.PushArgs(Route, NavigationArgs);
-
-			try
+			await this.UiSerializer.InvokeOnMainThreadAsync(async () =>
 			{
+				// Get the parent's navigation arguments
+				NavigationArgs ParentArgs = this.GetCurrentNavigationArgs();
+
+				// Create a default navigation arguments if Args are null
+				NavigationArgs NavigationArgs = Args ?? new();
+
+				NavigationArgs.SetBackArguments(BackMethod, ParentArgs, UniqueId);
+				this.PushArgs(Route, NavigationArgs);
+
 				if (!string.IsNullOrEmpty(UniqueId))
 				{
 					Route += "?UniqueId=" + UniqueId;
 				}
 
-				this.isNavigating = true;
-				await Shell.Current.GoToAsync(Route, true);
-			}
-			catch (Exception e)
-			{
-				e = Log.UnnestException(e);
-				this.LogService.LogException(e);
-				string ExtraInfo = Environment.NewLine + e.Message;
-				await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["FailedToNavigateToPage"], Route, ExtraInfo));
-			}
-			finally
-			{
-				this.isNavigating = false;
-			}
+				try
+				{
+					this.isNavigating = true;
+					await Shell.Current.GoToAsync(Route, true);
+				}
+				catch (Exception e)
+				{
+					e = Log.UnnestException(e);
+					this.LogService.LogException(e);
+					string ExtraInfo = Environment.NewLine + e.Message;
+					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["FailedToNavigateToPage"], Route, ExtraInfo));
+				}
+				finally
+				{
+					this.isNavigating = false;
+				}
+			});
 		}
 
 		///<inheritdoc/>
