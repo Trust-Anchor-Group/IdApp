@@ -27,6 +27,11 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		}
 
 		/// <summary>
+		/// If generation of (transportable) Markdown is supported
+		/// </summary>
+		public bool HandlesMarkdown => false;
+
+		/// <summary>
 		/// If generation of HTML is supported
 		/// </summary>
 		public bool HandlesHTML => false;
@@ -50,6 +55,14 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// Markdown document.
 		/// </summary>
 		public MarkdownDocument Document => this.document;
+
+		/// <summary>
+		/// Generates (transportable) Markdown (not supported)
+		/// </summary>
+		public Task<bool> GenerateMarkdown(StringBuilder Output, string[] Rows, string Language, int Indent, MarkdownDocument Document)
+		{
+			return Task.FromResult<bool>(false);
+		}
 
 		/// <summary>
 		/// Generates HTML (not supported)

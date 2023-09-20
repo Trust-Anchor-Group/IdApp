@@ -3397,6 +3397,11 @@
             Handles embedded Legal IDs.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.HandlesMarkdown">
+            <summary>
+            If generation of (transportable) Markdown is supported
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.HandlesHTML">
             <summary>
             If generation of HTML is supported
@@ -3420,6 +3425,11 @@
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.Document">
             <summary>
             Markdown document.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GenerateMarkdown(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates (transportable) Markdown (not supported)
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GenerateHTML(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
@@ -3470,6 +3480,11 @@
             Handles embedded Smart Contracts.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.HandlesMarkdown">
+            <summary>
+            If generation of (transportable) Markdown is supported
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.HandlesHTML">
             <summary>
             If generation of HTML is supported
@@ -3493,6 +3508,11 @@
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.Document">
             <summary>
             Markdown document.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GenerateMarkdown(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates (transportable) Markdown (not supported)
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GenerateHTML(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
@@ -3543,6 +3563,11 @@
             Handles embedded tokens.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.HandlesMarkdown">
+            <summary>
+            If generation of (transportable) Markdown is supported
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.HandlesHTML">
             <summary>
             If generation of HTML is supported
@@ -3566,6 +3591,11 @@
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.Document">
             <summary>
             Markdown document.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.GenerateMarkdown(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates (transportable) Markdown (not supported)
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.GenerateHTML(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
