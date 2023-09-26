@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using IdApp.Services.Navigation;
 using Waher.Networking.XMPP.Contracts;
 
-namespace IdApp.Pages.Identity.PetitionIdentity
+namespace IdApp.Pages.Petitions.PetitionIdentity
 {
     /// <summary>
     /// A page to display when the user is asked to petition an identity.

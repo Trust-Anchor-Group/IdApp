@@ -5580,505 +5580,6 @@
             Title of the current view
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs">
-            <summary>
-            Holds navigation parameters specific to views displaying a petition of a legal identity.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs.#ctor">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String,System.String,System.String)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs"/> class.
-            </summary>
-            <param name="requestorIdentity">The identity of the requestor.</param>
-            <param name="requestorFullJid">The full Jid of the requestor.</param>
-            <param name="requestedIdentityId">The requested identity id.</param>
-            <param name="petitionId">The petition id.</param>
-            <param name="purpose">The purpose of the petition.</param>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs.RequestorIdentity">
-            <summary>
-            The identity of the requestor.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs.RequestorFullJid">
-            <summary>
-            The full Jid of the requestor.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs.RequestedIdentityId">
-            <summary>
-            The requested identity id.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs.PetitionId">
-            <summary>
-            The petition id.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityNavigationArgs.Purpose">
-            <summary>
-            The purpose of the petition.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityPage">
-            <summary>
-            A page to display when the user is asked to petition an identity.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityPage.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityPage"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityPage.OnDisappearingAsync">
-            <inheritdoc/>
-        </member>
-        <member name="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel">
-            <summary>
-            The view model to bind to when displaying petitioning of an identity in a view or page.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OnInitialize">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OnDispose">
-            <inheritdoc/>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.AcceptCommand">
-            <summary>
-            The command to bind to for accepting the petition
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.DeclineCommand">
-            <summary>
-            The command to bind to for declining the petition
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.IgnoreCommand">
-            <summary>
-            The command to bind to for ignoring the petition
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.AddContactCommand">
-            <summary>
-            The command for adding the identity to the list of contacts.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.RemoveContactCommand">
-            <summary>
-            The command for removing the identity from the list of contacts.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Photos">
-            <summary>
-            The list of photos related to the identity being petitioned.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.RequestorIdentity">
-            <summary>
-            The identity of the requestor.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.CreatedProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Created"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Created">
-            <summary>
-            Created date of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.UpdatedProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Updated"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Updated">
-            <summary>
-            Updated date of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.LegalIdProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.LegalId"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.LegalId">
-            <summary>
-            Legal id of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.StateProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.State"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.State">
-            <summary>
-            Current state of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FromProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.From"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.From">
-            <summary>
-            From date (validity range) of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.ToProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.To"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.To">
-            <summary>
-            To date (validity range) of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstNameProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstName"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstName">
-            <summary>
-            First name of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.MiddleNamesProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.MiddleNames"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.MiddleNames">
-            <summary>
-            Middle name(s) of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.LastNamesProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.LastNames"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.LastNames">
-            <summary>
-            Last name(s) of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PersonalNumberProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PersonalNumber"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PersonalNumber">
-            <summary>
-            Personal number of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.AddressProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Address"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Address">
-            <summary>
-            Address of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Address2Property">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Address2"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Address2">
-            <summary>
-            Address (line 2) of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.ZipCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.ZipCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.ZipCode">
-            <summary>
-            Zip code of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.AreaProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Area"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Area">
-            <summary>
-            Area of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.CityProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.City"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.City">
-            <summary>
-            City of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.RegionProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Region"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Region">
-            <summary>
-            Region of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.CountryCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.CountryCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.CountryCode">
-            <summary>
-            Country code of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.CountryProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Country"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Country">
-            <summary>
-            Country of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgNameProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgName"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgName">
-            <summary>
-            The legal identity's organization name property
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgNumberProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgNumber"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgNumber">
-            <summary>
-            The legal identity's organization number property
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgDepartmentProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgDepartment"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgDepartment">
-            <summary>
-            The legal identity's organization department property
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRoleProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRole"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRole">
-            <summary>
-            The legal identity's organization role property
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAddressProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAddress"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAddress">
-            <summary>
-            The legal identity's organization address property
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAddress2Property">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAddress2"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAddress2">
-            <summary>
-            The legal identity's organization address line 2 property
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgZipCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgZipCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgZipCode">
-            <summary>
-            The legal identity's organization zip code property
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgAreaProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgArea"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgArea">
-            <summary>
-            The legal identity's organization area property
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCityProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCity"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCity">
-            <summary>
-            The legal identity's organization city property
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRegionProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRegion"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRegion">
-            <summary>
-            The legal identity's organization region property
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCountryCodeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCountryCode"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCountryCode">
-            <summary>
-            The legal identity's organization country code property
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCountryProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCountry"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgCountry">
-            <summary>
-            The legal identity's organization country property
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.HasOrgProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.HasOrg"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.HasOrg">
-            <summary>
-            If organization information is available.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRowHeightProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRowHeight"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.OrgRowHeight">
-            <summary>
-            If organization information is available.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PhoneNrProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PhoneNr"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PhoneNr">
-            <summary>
-            PhoneNr of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.EMailProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.EMail"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.EMail">
-            <summary>
-            EMail of the identity
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.IsApprovedProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.IsApproved"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.IsApproved">
-            <summary>
-            Is the contract approved?
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PurposeProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Purpose"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.Purpose">
-            <summary>
-            What's the purpose of the petition?
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.ThirdPartyInContactsProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.ThirdPartyInContacts"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.ThirdPartyInContacts">
-            <summary>
-            Gets or sets whether the identity is in the contact list or not.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoSourceProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoSource"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoSource">
-            <summary>
-            Image source of the first photo in the identity of the requestor.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoRotationProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoRotation"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoRotation">
-            <summary>
-            Rotation of the first photo in the identity of the requestor.
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Identity.TransferIdentity.TransferIdentityNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying an identity transfer code.
@@ -9220,6 +8721,505 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Petitions.PetitionContract.PetitionContractViewModel.FirstPhotoRotation">
+            <summary>
+            Rotation of the first photo in the identity of the requestor.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a petition of a legal identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityNavigationArgs.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityNavigationArgs"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityNavigationArgs"/> class.
+            </summary>
+            <param name="requestorIdentity">The identity of the requestor.</param>
+            <param name="requestorFullJid">The full Jid of the requestor.</param>
+            <param name="requestedIdentityId">The requested identity id.</param>
+            <param name="petitionId">The petition id.</param>
+            <param name="purpose">The purpose of the petition.</param>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityNavigationArgs.RequestorIdentity">
+            <summary>
+            The identity of the requestor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityNavigationArgs.RequestorFullJid">
+            <summary>
+            The full Jid of the requestor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityNavigationArgs.RequestedIdentityId">
+            <summary>
+            The requested identity id.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityNavigationArgs.PetitionId">
+            <summary>
+            The petition id.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityNavigationArgs.Purpose">
+            <summary>
+            The purpose of the petition.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityPage">
+            <summary>
+            A page to display when the user is asked to petition an identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityPage.OnDisappearingAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel">
+            <summary>
+            The view model to bind to when displaying petitioning of an identity in a view or page.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OnDispose">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.AcceptCommand">
+            <summary>
+            The command to bind to for accepting the petition
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.DeclineCommand">
+            <summary>
+            The command to bind to for declining the petition
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.IgnoreCommand">
+            <summary>
+            The command to bind to for ignoring the petition
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.AddContactCommand">
+            <summary>
+            The command for adding the identity to the list of contacts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.RemoveContactCommand">
+            <summary>
+            The command for removing the identity from the list of contacts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Photos">
+            <summary>
+            The list of photos related to the identity being petitioned.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.RequestorIdentity">
+            <summary>
+            The identity of the requestor.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.CreatedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Created"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Created">
+            <summary>
+            Created date of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.UpdatedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Updated"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Updated">
+            <summary>
+            Updated date of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.LegalIdProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.LegalId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.LegalId">
+            <summary>
+            Legal id of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.StateProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.State"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.State">
+            <summary>
+            Current state of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.FromProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.From"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.From">
+            <summary>
+            From date (validity range) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.ToProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.To"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.To">
+            <summary>
+            To date (validity range) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.FirstNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.FirstName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.FirstName">
+            <summary>
+            First name of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.MiddleNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.MiddleNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.MiddleNames">
+            <summary>
+            Middle name(s) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.LastNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.LastNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.LastNames">
+            <summary>
+            Last name(s) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.PersonalNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.PersonalNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.PersonalNumber">
+            <summary>
+            Personal number of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.AddressProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Address"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Address">
+            <summary>
+            Address of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Address2Property">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Address2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Address2">
+            <summary>
+            Address (line 2) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.ZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.ZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.ZipCode">
+            <summary>
+            Zip code of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.AreaProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Area"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Area">
+            <summary>
+            Area of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.CityProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.City"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.City">
+            <summary>
+            City of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.RegionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Region"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Region">
+            <summary>
+            Region of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.CountryCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.CountryCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.CountryCode">
+            <summary>
+            Country code of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.CountryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Country"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Country">
+            <summary>
+            Country of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgName">
+            <summary>
+            The legal identity's organization name property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgNumber">
+            <summary>
+            The legal identity's organization number property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgDepartmentProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgDepartment"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgDepartment">
+            <summary>
+            The legal identity's organization department property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgRoleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgRole"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgRole">
+            <summary>
+            The legal identity's organization role property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgAddressProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgAddress"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgAddress">
+            <summary>
+            The legal identity's organization address property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgAddress2Property">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgAddress2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgAddress2">
+            <summary>
+            The legal identity's organization address line 2 property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgZipCode">
+            <summary>
+            The legal identity's organization zip code property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgAreaProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgArea"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgArea">
+            <summary>
+            The legal identity's organization area property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgCityProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgCity"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgCity">
+            <summary>
+            The legal identity's organization city property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgRegionProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgRegion"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgRegion">
+            <summary>
+            The legal identity's organization region property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgCountryCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgCountryCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgCountryCode">
+            <summary>
+            The legal identity's organization country code property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgCountryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgCountry"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgCountry">
+            <summary>
+            The legal identity's organization country property
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.HasOrgProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.HasOrg"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.HasOrg">
+            <summary>
+            If organization information is available.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgRowHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgRowHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.OrgRowHeight">
+            <summary>
+            If organization information is available.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.PhoneNrProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.PhoneNr"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.PhoneNr">
+            <summary>
+            PhoneNr of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.EMailProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.EMail"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.EMail">
+            <summary>
+            EMail of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.IsApprovedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.IsApproved"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.IsApproved">
+            <summary>
+            Is the contract approved?
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.PurposeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Purpose"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.Purpose">
+            <summary>
+            What's the purpose of the petition?
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.ThirdPartyInContactsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.ThirdPartyInContacts"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.ThirdPartyInContacts">
+            <summary>
+            Gets or sets whether the identity is in the contact list or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoSourceProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoSource"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoSource">
+            <summary>
+            Image source of the first photo in the identity of the requestor.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoRotationProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoRotation"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityViewModel.FirstPhotoRotation">
             <summary>
             Rotation of the first photo in the identity of the requestor.
             </summary>

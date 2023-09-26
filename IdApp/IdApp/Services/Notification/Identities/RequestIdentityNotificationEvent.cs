@@ -1,4 +1,4 @@
-﻿using IdApp.Pages.Identity.PetitionIdentity;
+﻿using IdApp.Pages.Petitions.PetitionIdentity;
 using System.Text;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;

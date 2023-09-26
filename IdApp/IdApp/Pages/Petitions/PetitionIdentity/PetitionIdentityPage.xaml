@@ -6,9 +6,9 @@
                        xmlns:image="clr-namespace:IdApp.Popups.Photos.Image;assembly=IdApp"
                        xmlns:photos="clr-namespace:IdApp.Services.UI.Photos;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
-                       xmlns:model="clr-namespace:IdApp.Pages.Identity.PetitionIdentity;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Petitions.PetitionIdentity;assembly=IdApp"
                        x:DataType="model:PetitionIdentityViewModel"
-                       x:Class="IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityPage"
+                       x:Class="IdApp.Pages.Petitions.PetitionIdentity.PetitionIdentityPage"
                        Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.PetitionIdentity}">
     <Grid>
