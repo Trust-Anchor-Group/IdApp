@@ -1,7 +1,7 @@
 ﻿using IdApp.Services.Navigation;
 using Waher.Networking.XMPP.Contracts;
 
-namespace IdApp.Pages.Contracts.PetitionSignature
+namespace IdApp.Pages.Petitions.PetitionSignature
 {
 	/// <summary>
 	/// Holds navigation parameters specific to views displaying a petition of a signature.

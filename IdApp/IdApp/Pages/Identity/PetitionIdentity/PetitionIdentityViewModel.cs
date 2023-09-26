@@ -1,5 +1,5 @@
 ﻿using IdApp.Extensions;
-using IdApp.Pages.Contracts.PetitionSignature;
+using IdApp.Pages.Petitions.PetitionSignature;
 using IdApp.Services;
 using IdApp.Services.Data.Countries;
 using IdApp.Services.UI.Photos;
@@ -15,10 +15,10 @@ using Xamarin.Forms;
 
 namespace IdApp.Pages.Identity.PetitionIdentity
 {
-    /// <summary>
-    /// The view model to bind to when displaying petitioning of an identity in a view or page.
-    /// </summary>
-    public class PetitionIdentityViewModel : BaseViewModel
+	/// <summary>
+	/// The view model to bind to when displaying petitioning of an identity in a view or page.
+	/// </summary>
+	public class PetitionIdentityViewModel : BaseViewModel
     {
         private string requestorFullJid;
         private string requestedIdentityId;

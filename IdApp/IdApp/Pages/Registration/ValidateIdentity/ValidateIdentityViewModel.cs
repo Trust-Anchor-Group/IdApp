@@ -1,5 +1,5 @@
 ﻿using IdApp.Extensions;
-using IdApp.Pages.Contracts.PetitionSignature;
+using IdApp.Pages.Petitions.PetitionSignature;
 using IdApp.Pages.Wallet.ServiceProviders;
 using IdApp.Services.Data.Countries;
 using IdApp.Services.Tag;
@@ -9,11 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Waher.Events;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.CommunityToolkit.Helpers;

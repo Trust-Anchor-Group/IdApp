@@ -1,15 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using IdApp.Services.Navigation;
 using Waher.Networking.XMPP.Contracts;
 
-namespace IdApp.Pages.Contracts.PetitionSignature
+namespace IdApp.Pages.Petitions.PetitionSignature
 {
-    /// <summary>
-    /// A page to display when the user is asked to sign data.
-    /// </summary>
-    [DesignTimeVisible(true)]
+	/// <summary>
+	/// A page to display when the user is asked to sign data.
+	/// </summary>
+	[DesignTimeVisible(true)]
     public partial class PetitionSignaturePage
     {
         /// <summary>

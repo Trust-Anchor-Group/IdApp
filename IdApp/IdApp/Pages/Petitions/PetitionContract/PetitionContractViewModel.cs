@@ -7,9 +7,8 @@ using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
-using IdApp.Pages.Contracts.PetitionSignature;
 
-namespace IdApp.Pages.Contracts.PetitionContract
+namespace IdApp.Pages.Petitions.PetitionContract
 {
 	/// <summary>
 	/// The view model to bind to when displaying petitioning of a contract in a view or page.

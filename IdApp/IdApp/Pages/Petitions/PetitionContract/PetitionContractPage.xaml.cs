@@ -1,15 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using IdApp.Services.Navigation;
 using Waher.Networking.XMPP.Contracts;
 
-namespace IdApp.Pages.Contracts.PetitionContract
+namespace IdApp.Pages.Petitions.PetitionContract
 {
-    /// <summary>
-    /// A page to display when the user is asked to petition a contract.
-    /// </summary>
-    [DesignTimeVisible(true)]
+	/// <summary>
+	/// A page to display when the user is asked to petition a contract.
+	/// </summary>
+	[DesignTimeVisible(true)]
 	public partial class PetitionContractPage
 	{
         /// <summary>

@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Converters;
 using IdApp.Extensions;
-using IdApp.Pages.Contracts.ClientSignature;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
-using IdApp.Pages.Contracts.ServerSignature;
 using IdApp.Pages.Contracts.ViewContract.ObjectModel;
+using IdApp.Pages.Signatures.ClientSignature;
+using IdApp.Pages.Signatures.ServerSignature;
 using IdApp.Services.UI.Photos;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
@@ -915,7 +915,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 						string legalId = signature.LegalId;
 						LegalIdentity identity = await this.XmppService.GetLegalIdentity(legalId);
 
-						await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ClientSignature.ClientSignaturePage),
+						await this.NavigationService.GoToAsync(nameof(ClientSignaturePage),
 							new ClientSignatureNavigationArgs(signature, identity));
 					}
 				}
@@ -933,7 +933,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			{
 				if (Sender is StackLayout layout && !string.IsNullOrEmpty(layout.StyleId))
 				{
-					await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ServerSignature.ServerSignaturePage),
+					await this.NavigationService.GoToAsync(nameof(ServerSignaturePage),
 						  new ServerSignatureNavigationArgs(this.Contract));
 				}
 			}

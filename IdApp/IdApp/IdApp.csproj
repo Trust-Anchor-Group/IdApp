@@ -292,7 +292,7 @@
     <Compile Update="Pages\Contacts\MyContacts\MyContactsPage.xaml.cs">
       <DependentUpon>MyContactsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\Contracts\PetitionSignature\PetitionSignaturePage.xaml.cs">
+    <Compile Update="Pages\Petitions\PetitionSignature\PetitionSignaturePage.xaml.cs">
       <DependentUpon>PetitionSignaturePage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\Identity\TransferIdentity\TransferIdentityPage.xaml.cs">

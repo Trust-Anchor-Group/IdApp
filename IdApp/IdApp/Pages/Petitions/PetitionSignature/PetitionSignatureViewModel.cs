@@ -8,7 +8,7 @@ using Xamarin.Forms;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
 
-namespace IdApp.Pages.Contracts.PetitionSignature
+namespace IdApp.Pages.Petitions.PetitionSignature
 {
 	/// <summary>
 	/// The view model to bind to when displaying petitioning of a signature in a view or page.

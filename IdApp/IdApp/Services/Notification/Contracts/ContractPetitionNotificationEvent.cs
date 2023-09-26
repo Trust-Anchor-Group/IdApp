@@ -1,6 +1,6 @@
 ﻿using IdApp.Extensions;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
-using IdApp.Pages.Contracts.PetitionContract;
+using IdApp.Pages.Petitions.PetitionContract;
 using IdApp.Services.UI.Photos;
 using System;
 using System.Text;

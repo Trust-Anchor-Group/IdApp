@@ -3,10 +3,10 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
-                       xmlns:model="clr-namespace:IdApp.Pages.Contracts.ClientSignature;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Signatures.ClientSignature;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:ClientSignatureViewModel"
-                       x:Class="IdApp.Pages.Contracts.ClientSignature.ClientSignaturePage"
+                       x:Class="IdApp.Pages.Signatures.ClientSignature.ClientSignaturePage"
                        Style="{StaticResource BaseBackgroundPage}"
                        Title="{x:Static resx:AppResources.ClientSignature}">
     <ScrollView>
@@ -60,7 +60,7 @@
                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=Updated}" Style="{StaticResource ValueLabel}" Margin="0,6,0,0"/>
                 <!-- -->
                 <Label Grid.Row="2" Grid.Column="0" Text="{x:Static resx:AppResources.State}" Style="{StaticResource KeyLabel}" Margin="0,6,0,0"/>
-                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Path=State}" Style="{StaticResource ValueLabelWithBackground}" 
+                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Path=State}" Style="{StaticResource ValueLabelWithBackground}"
                        BackgroundColor="{Binding Path=State, Converter={converters:IdentityStateToColor}}" Margin="0,6,0,0"/>
                 <!-- -->
                 <Label Grid.Row="3" Grid.Column="0" Text="{x:Static resx:AppResources.FirstName}" Style="{StaticResource KeyLabel}" Margin="0,6,0,0"/>

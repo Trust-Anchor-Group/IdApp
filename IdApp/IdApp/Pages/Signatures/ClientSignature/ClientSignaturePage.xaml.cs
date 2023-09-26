@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
-using IdApp.Services.Navigation;
 
-namespace IdApp.Pages.Contracts.ClientSignature
+namespace IdApp.Pages.Signatures.ClientSignature
 {
     /// <summary>
     /// A page that displays a client signature.

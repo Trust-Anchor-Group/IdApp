@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace IdApp.Pages.Contracts.ServerSignature
+namespace IdApp.Pages.Signatures.ServerSignature
 {
     /// <summary>
     /// A page that displays a server signature.

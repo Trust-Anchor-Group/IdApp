@@ -23,8 +23,8 @@ using System.Text;
 using Waher.Content.Xml;
 using System.Xml;
 using EDaler;
-using IdApp.Pages.Contracts.PetitionSignature;
 using IdApp.Services.Navigation;
+using IdApp.Pages.Petitions.PetitionSignature;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
