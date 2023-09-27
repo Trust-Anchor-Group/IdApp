@@ -126,4 +126,7 @@
   <data name="NSPhotoLibraryUsageDescription" xml:space="preserve">
     <value>TAG ID trenger tilgang til fotogalleriet for at du skal kunne velge et profilbilde for ID-en din, få QR-koder fra andre apper eller dele bilder med kontakter i chatter.</value>
   </data>
+  <data name="NSMicrophoneUsageDescription" xml:space="preserve">
+    <value>TAG ID trenger tilgang til mikrofonen for å ta opp og sende lydmeldinger til kontaktene dine.</value>
+  </data>
 </root>

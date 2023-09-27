@@ -126,4 +126,7 @@
   <data name="NSPhotoLibraryUsageDescription" xml:space="preserve">
     <value>TAG ID a besoin d’accéder à la galerie de photos pour pouvoir sélectionner une photo de profil pour votre pièce d’identité, obtenir des codes QR d’autres applications ou partager des images avec des contacts dans les chats.</value>
   </data>
+  <data name="NSMicrophoneUsageDescription" xml:space="preserve">
+    <value>TAG ID a besoin d’accéder au microphone pour enregistrer et envoyer des messages audio à vos contacts.</value>
+  </data>
 </root>

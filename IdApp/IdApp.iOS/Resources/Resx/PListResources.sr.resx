@@ -126,4 +126,7 @@
   <data name="NSPhotoLibraryUsageDescription" xml:space="preserve">
     <value>TAG ID-u je potreban pristup foto-galeriji da biste mogli da izaberete fotografiju profila za svoj ID, nabavite QR kodove iz drugih aplikacija ili da delite slike sa kontaktima u ćaskanjima.</value>
   </data>
+  <data name="NSMicrophoneUsageDescription" xml:space="preserve">
+    <value>TAG ID-u je potreban pristup mikrofonu da bi snimio i poslao audio poruke vašim kontaktima.</value>
+  </data>
 </root>

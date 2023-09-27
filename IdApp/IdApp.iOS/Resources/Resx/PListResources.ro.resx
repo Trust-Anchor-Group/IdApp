@@ -126,4 +126,7 @@
   <data name="NSPhotoLibraryUsageDescription" xml:space="preserve">
     <value>TAG ID are nevoie de acces la galeria foto pentru a putea selecta o fotografie de profil pentru id-ul dvs., pentru a obține coduri QR din alte aplicații sau pentru a partaja imagini cu persoanele de contact din chaturi.</value>
   </data>
+  <data name="NSMicrophoneUsageDescription" xml:space="preserve">
+    <value>ID-ul TAG are nevoie de acces la microfon pentru a înregistra și a trimite mesaje audio persoanelor de contact.</value>
+  </data>
 </root>

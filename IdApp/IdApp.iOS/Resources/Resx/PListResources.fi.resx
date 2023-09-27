@@ -126,4 +126,7 @@
   <data name="NSPhotoLibraryUsageDescription" xml:space="preserve">
     <value>TAG ID tarvitsee pääsyn valokuvagalleriaan, jotta voit valita profiilikuvan tunnuksellesi, saada QR-koodeja muista sovelluksista tai jakaa kuvia yhteystietojen kanssa keskusteluissa.</value>
   </data>
+  <data name="NSMicrophoneUsageDescription" xml:space="preserve">
+    <value>TAG ID tarvitsee pääsyn mikrofoniin, jotta se voi tallentaa ja lähettää ääniviestejä yhteystiedoillesi.</value>
+  </data>
 </root>

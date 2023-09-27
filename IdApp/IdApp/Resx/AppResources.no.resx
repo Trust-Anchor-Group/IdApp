@@ -2340,4 +2340,13 @@
   <data name="PersonalInformation" xml:space="preserve">
     <value>Personlig informasjon</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Tilbake</value>
+  </data>
+  <data name="AccountEventItem" xml:space="preserve">
+    <value>Hendelser på kontoen</value>
+  </data>
+  <data name="PendingPaymentItem" xml:space="preserve">
+    <value>Ventende betalinger</value>
+  </data>
 </root>

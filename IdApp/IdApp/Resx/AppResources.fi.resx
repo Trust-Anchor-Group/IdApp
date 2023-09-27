@@ -2340,4 +2340,13 @@
   <data name="PersonalInformation" xml:space="preserve">
     <value>Henkilökohtaiset tiedot</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Selkä</value>
+  </data>
+  <data name="AccountEventItem" xml:space="preserve">
+    <value>Tilin tapahtumat</value>
+  </data>
+  <data name="PendingPaymentItem" xml:space="preserve">
+    <value>Odottavat maksut</value>
+  </data>
 </root>

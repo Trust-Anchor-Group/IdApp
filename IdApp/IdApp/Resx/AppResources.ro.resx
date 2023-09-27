@@ -2340,4 +2340,13 @@
   <data name="PersonalInformation" xml:space="preserve">
     <value>Informații cu caracter personal</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Spate</value>
+  </data>
+  <data name="AccountEventItem" xml:space="preserve">
+    <value>Evenimente cont</value>
+  </data>
+  <data name="PendingPaymentItem" xml:space="preserve">
+    <value>Plăți în așteptare</value>
+  </data>
 </root>
