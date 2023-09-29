@@ -177,7 +177,7 @@
     </PackageReference>
     <PackageReference Include="OpenTK" Version="4.7.7" />
     <PackageReference Include="OpenTK.GLControl" Version="3.3.3" />
-    <PackageReference Include="SkiaSharp" Version="2.88.5" />
+    <PackageReference Include="SkiaSharp" Version="2.88.6" />
   </ItemGroup>
 
   <ItemGroup>
