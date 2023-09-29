@@ -913,7 +913,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// <param name="showAlert">Set to <c>true</c> to show an alert if photo is too large; <c>false</c> otherwise.</param>
 		protected internal async Task AddPhoto(byte[] Bin, string ContentType, int Rotation, bool saveLocalCopy, bool showAlert)
 		{
-			if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
+			if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize)
 			{
 				if (showAlert)
 					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PhotoIsTooLarge"]);

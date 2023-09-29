@@ -3,7 +3,7 @@ using System;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence.Attributes;
 
-// !!! keep the namespace as is. It's impotant for the database
+// !!! keep the namespace as is. It's important for the database
 namespace IdApp.Services
 {
 	/// <summary>
@@ -99,8 +99,8 @@ namespace IdApp.Services
 		/// <summary>
 		/// Http File Upload max file size
 		/// </summary>
-		[DefaultValueNull]
-		public long? HttpFileUploadMaxSize { get; set; }
+		[DefaultValue(0)]
+		public long HttpFileUploadMaxSize { get; set; }
 
 		/// <summary>
 		/// Log Jabber JID
@@ -129,8 +129,8 @@ namespace IdApp.Services
 		/// <summary>
 		/// If Push Notification is supported by server.
 		/// </summary>
-		[DefaultValueNull]
-		public bool? SupportsPushNotification { get; set; }
+		[DefaultValue(false)]
+		public bool SupportsPushNotification { get; set; }
 
 		/// <summary>
 		/// The hash of the user's pin.

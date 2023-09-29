@@ -95,7 +95,7 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// The XMPP server's max size for file uploads.
 		/// </summary>
-		long? HttpFileUploadMaxSize { get; }
+		long HttpFileUploadMaxSize { get; }
 
 		/// <summary>
 		/// The XMPP server's log Jid.
@@ -120,7 +120,7 @@ namespace IdApp.Services.Tag
 		/// <summary>
 		/// If Push Notification is supported by server.
 		/// </summary>
-		bool? SupportsPushNotification { get; }
+		bool SupportsPushNotification { get; }
 
 		/// <summary>
 		/// This profile's current registration step.
@@ -353,7 +353,7 @@ namespace IdApp.Services.Tag
 		/// </summary>
 		/// <param name="httpFileUploadJid">The http file upload id.</param>
 		/// <param name="maxSize">The max size allowed.</param>
-		void SetFileUploadParameters(string httpFileUploadJid, long? maxSize);
+		void SetFileUploadParameters(string httpFileUploadJid, long maxSize);
 
 		/// <summary>
 		/// Used during XMPP service discovery. Sets the log id.
@@ -383,7 +383,7 @@ namespace IdApp.Services.Tag
 		/// Used during XMPP service discovery. Sets the support for push notifications.
 		/// </summary>
 		/// <param name="supportsPushNotification">If broker supports push notification.</param>
-		void SetSupportsPushNotification(bool? supportsPushNotification);
+		void SetSupportsPushNotification(bool supportsPushNotification);
 
 		/// <summary>
 		/// Computes a hash of the specified PIN.

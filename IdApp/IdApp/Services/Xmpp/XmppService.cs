@@ -219,7 +219,7 @@ namespace IdApp.Services.Xmpp
 						}
 					}
 
-					if (!string.IsNullOrWhiteSpace(this.TagProfile.HttpFileUploadJid) && this.TagProfile.HttpFileUploadMaxSize.HasValue)
+					if (!string.IsNullOrWhiteSpace(this.TagProfile.HttpFileUploadJid) && this.TagProfile.HttpFileUploadMaxSize > 0)
 					{
 						Thread?.NewState("Upload");
 						this.fileUploadClient = new HttpFileUploadClient(this.xmppClient, this.TagProfile.HttpFileUploadJid, this.TagProfile.HttpFileUploadMaxSize);
@@ -264,7 +264,7 @@ namespace IdApp.Services.Xmpp
 						this.RegisterNeuroFeatureEventHandlers(this.neuroFeaturesClient);
 					}
 
-					if (this.TagProfile.SupportsPushNotification.HasValue && this.TagProfile.SupportsPushNotification.Value)
+					if (this.TagProfile.SupportsPushNotification)
 					{
 						Thread?.NewState("Push");
 						this.pushNotificationClient = new PushNotificationClient(this.xmppClient);
@@ -415,7 +415,7 @@ namespace IdApp.Services.Xmpp
 			if (this.neuroFeaturesClient?.ComponentAddress != this.TagProfile.NeuroFeaturesJid)
 				return false;
 
-			if ((this.pushNotificationClient is null) ^ !(this.TagProfile.SupportsPushNotification.HasValue && this.TagProfile.SupportsPushNotification.Value))
+			if ((this.pushNotificationClient is null) ^ !this.TagProfile.SupportsPushNotification)
 				return false;
 
 			return true;
@@ -635,7 +635,7 @@ namespace IdApp.Services.Xmpp
 							}
 						}
 
-						if (this.fileUploadClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.HttpFileUploadJid) && this.TagProfile.HttpFileUploadMaxSize.HasValue)
+						if (this.fileUploadClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.HttpFileUploadJid) && this.TagProfile.HttpFileUploadMaxSize > 0)
 							this.fileUploadClient = new HttpFileUploadClient(this.xmppClient, this.TagProfile.HttpFileUploadJid, this.TagProfile.HttpFileUploadMaxSize);
 
 						if (this.mucClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.MucJid))
@@ -668,7 +668,7 @@ namespace IdApp.Services.Xmpp
 							this.RegisterNeuroFeatureEventHandlers(this.neuroFeaturesClient);
 						}
 
-						if (this.pushNotificationClient is null && this.TagProfile.SupportsPushNotification.HasValue && this.TagProfile.SupportsPushNotification.Value)
+						if (this.pushNotificationClient is null && this.TagProfile.SupportsPushNotification)
 							this.pushNotificationClient = new PushNotificationClient(this.xmppClient);
 					}
 
@@ -1021,7 +1021,7 @@ namespace IdApp.Services.Xmpp
 			if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
 				return false;
 
-			if (string.IsNullOrWhiteSpace(this.TagProfile.HttpFileUploadJid) || !this.TagProfile.HttpFileUploadMaxSize.HasValue)
+			if (string.IsNullOrWhiteSpace(this.TagProfile.HttpFileUploadJid) || (this.TagProfile.HttpFileUploadMaxSize <= 0))
 				return false;
 
 			if (string.IsNullOrWhiteSpace(this.TagProfile.LogJid))
@@ -1036,7 +1036,7 @@ namespace IdApp.Services.Xmpp
 			if (string.IsNullOrWhiteSpace(this.TagProfile.NeuroFeaturesJid))
 				return false;
 
-			if (!(this.TagProfile.SupportsPushNotification.HasValue && this.TagProfile.SupportsPushNotification.Value))
+			if (!this.TagProfile.SupportsPushNotification)
 				return false;
 
 			return true;
@@ -1073,7 +1073,7 @@ namespace IdApp.Services.Xmpp
 
 				if (itemResponse.HasFeature(HttpFileUploadClient.Namespace))
 				{
-					long? maxSize = HttpFileUploadClient.FindMaxFileSize(Client, itemResponse);
+					long maxSize = HttpFileUploadClient.FindMaxFileSize(Client, itemResponse) ?? 0;
 					this.TagProfile.SetFileUploadParameters(Item.JID, maxSize);
 				}
 

@@ -26243,7 +26243,7 @@
             </summary>
             <param name="registryJid"></param>
         </member>
-        <member name="M:IdApp.Services.Tag.ITagProfile.SetFileUploadParameters(System.String,System.Nullable{System.Int64})">
+        <member name="M:IdApp.Services.Tag.ITagProfile.SetFileUploadParameters(System.String,System.Int64)">
             <summary>
             Used during XMPP service discovery. Sets the file upload parameters.
             </summary>
@@ -26274,7 +26274,7 @@
             </summary>
             <param name="neuroFeaturesJid">The Neuro-Features service JID.</param>
         </member>
-        <member name="M:IdApp.Services.Tag.ITagProfile.SetSupportsPushNotification(System.Nullable{System.Boolean})">
+        <member name="M:IdApp.Services.Tag.ITagProfile.SetSupportsPushNotification(System.Boolean)">
             <summary>
             Used during XMPP service discovery. Sets the support for push notifications.
             </summary>
@@ -26645,7 +26645,7 @@
         <member name="M:IdApp.Services.Tag.TagProfile.SetRegistryJid(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.Tag.TagProfile.SetFileUploadParameters(System.String,System.Nullable{System.Int64})">
+        <member name="M:IdApp.Services.Tag.TagProfile.SetFileUploadParameters(System.String,System.Int64)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetLogJid(System.String)">
@@ -26660,7 +26660,7 @@
         <member name="M:IdApp.Services.Tag.TagProfile.SetNeuroFeaturesJid(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.Tag.TagProfile.SetSupportsPushNotification(System.Nullable{System.Boolean})">
+        <member name="M:IdApp.Services.Tag.TagProfile.SetSupportsPushNotification(System.Boolean)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.ComputePinHash(System.String)">

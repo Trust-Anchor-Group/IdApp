@@ -108,8 +108,8 @@ namespace IdApp.Services.Tag
 		private string eDalerJid;
 		private string neuroFeaturesJid;
 		private string pinHash;
-		private long? httpFileUploadMaxSize;
-		private bool? supportsPushNotification;
+		private long httpFileUploadMaxSize;
+		private bool supportsPushNotification;
 		private bool isTest;
 		private PurposeUse purpose;
 		private DateTime? testOtpTimestamp;
@@ -246,8 +246,7 @@ namespace IdApp.Services.Tag
 				   string.IsNullOrWhiteSpace(this.logJid) ||
 				   string.IsNullOrWhiteSpace(this.mucJid) ||
 				   string.IsNullOrWhiteSpace(this.eDalerJid) ||
-				   string.IsNullOrWhiteSpace(this.neuroFeaturesJid) ||
-				   !this.supportsPushNotification.HasValue;
+				   string.IsNullOrWhiteSpace(this.neuroFeaturesJid);
 		}
 
 		/// <inheritdoc/>
@@ -453,7 +452,7 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public long? HttpFileUploadMaxSize
+		public long HttpFileUploadMaxSize
 		{
 			get => this.httpFileUploadMaxSize;
 			private set
@@ -523,7 +522,7 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public bool? SupportsPushNotification
+		public bool SupportsPushNotification
 		{
 			get => this.supportsPushNotification;
 			private set
@@ -550,7 +549,10 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public bool FileUploadIsSupported => !string.IsNullOrWhiteSpace(this.HttpFileUploadJid) && this.HttpFileUploadMaxSize.HasValue;
+		public bool FileUploadIsSupported
+		{
+			get => !string.IsNullOrWhiteSpace(this.HttpFileUploadJid) && this.HttpFileUploadMaxSize > 0;
+		}
 
 		/// <inheritdoc/>
 		public string Pin
@@ -919,7 +921,7 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public void SetFileUploadParameters(string httpFileUploadJid, long? maxSize)
+		public void SetFileUploadParameters(string httpFileUploadJid, long maxSize)
 		{
 			this.HttpFileUploadJid = httpFileUploadJid;
 			this.HttpFileUploadMaxSize = maxSize;
@@ -950,7 +952,7 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public void SetSupportsPushNotification(bool? supportsPushNotification)
+		public void SetSupportsPushNotification(bool supportsPushNotification)
 		{
 			this.SupportsPushNotification = supportsPushNotification;
 		}
@@ -1004,9 +1006,9 @@ namespace IdApp.Services.Tag
 			this.mucJid = string.Empty;
 			this.eDalerJid = string.Empty;
 			this.neuroFeaturesJid = string.Empty;
-			this.supportsPushNotification = null;
+			this.supportsPushNotification = false;
 			this.pinHash = string.Empty;
-			this.httpFileUploadMaxSize = null;
+			this.httpFileUploadMaxSize = 0;
 			this.isTest = false;
 			this.TestOtpTimestamp = null;
 			this.step = RegistrationStep.ValidateContactInfo;

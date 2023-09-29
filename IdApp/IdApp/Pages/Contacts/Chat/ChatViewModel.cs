@@ -874,7 +874,7 @@ namespace IdApp.Pages.Contacts.Chat
 				if (!InternetContent.TryGetContentType(Path.GetExtension(FilePath), out string ContentType))
 					ContentType = "application/octet-stream";
 
-				if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
+				if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize)
 				{
 					await this.UiSerializer.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], LocalizationResourceManager.Current["PhotoIsTooLarge"]);
 					return;
