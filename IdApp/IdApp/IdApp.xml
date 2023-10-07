@@ -3412,6 +3412,11 @@
             If generation of LaTeX is supported
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.HandlesSmartContract">
+            <summary>
+            If generation of Smart Contract XML is supported
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.HandlesPlainText">
             <summary>
             If generation of plain text is supported.
@@ -3440,6 +3445,11 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GenerateLaTeX(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
             <summary>
             Generates LaTeX (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GenerateSmartContractXml(System.Xml.XmlWriter,Waher.Content.Markdown.Model.SmartContractRenderState,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates Smart Contract XML (not supported)
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GeneratePlainText(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
@@ -3495,6 +3505,11 @@
             If generation of LaTeX is supported
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.HandlesSmartContract">
+            <summary>
+            If generation of Smart Contract XML is supported
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.HandlesPlainText">
             <summary>
             If generation of plain text is supported.
@@ -3523,6 +3538,11 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GenerateLaTeX(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
             <summary>
             Generates LaTeX (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GenerateSmartContractXml(System.Xml.XmlWriter,Waher.Content.Markdown.Model.SmartContractRenderState,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates Smart Contract XML (not supported)
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GeneratePlainText(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
@@ -3578,6 +3598,11 @@
             If generation of LaTeX is supported
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.HandlesSmartContract">
+            <summary>
+            If generation of Smart Contract XML is supported
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.HandlesPlainText">
             <summary>
             If generation of plain text is supported.
@@ -3606,6 +3631,11 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.GenerateLaTeX(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
             <summary>
             Generates LaTeX (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.GenerateSmartContractXml(System.Xml.XmlWriter,Waher.Content.Markdown.Model.SmartContractRenderState,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates Smart Contract XML (not supported)
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.NeuroFeatureCodeBlock.GeneratePlainText(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
@@ -3734,6 +3764,9 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent.GenerateLaTeX(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.AudioMultimediaContent.GenerateSmartContractXml(System.Xml.XmlWriter,Waher.Content.Markdown.Model.SmartContractRenderState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme">
             <summary>
             Implements the edaler URI Scheme
@@ -3760,6 +3793,9 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateSmartContractXml(System.Xml.XmlWriter,Waher.Content.Markdown.Model.SmartContractRenderState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent">
@@ -3793,6 +3829,9 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent.GenerateLaTeX(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.FFImageMultimediaContent.GenerateSmartContractXml(System.Xml.XmlWriter,Waher.Content.Markdown.Model.SmartContractRenderState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme">
             <summary>
             Implements the iotdisco URI Scheme
@@ -3819,6 +3858,9 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.GenerateSmartContractXml(System.Xml.XmlWriter,Waher.Content.Markdown.Model.SmartContractRenderState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme">
@@ -3849,6 +3891,9 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.GenerateSmartContractXml(System.Xml.XmlWriter,Waher.Content.Markdown.Model.SmartContractRenderState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme">
             <summary>
             Implements the iotsc URI Scheme
@@ -3875,6 +3920,9 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.GenerateSmartContractXml(System.Xml.XmlWriter,Waher.Content.Markdown.Model.SmartContractRenderState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme">
@@ -3905,6 +3953,9 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.NeuroFeatureUriScheme.GenerateSmartContractXml(System.Xml.XmlWriter,Waher.Content.Markdown.Model.SmartContractRenderState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme">
             <summary>
             Implements the XMPP URI Scheme, as defined in XEP-0147: https://xmpp.org/extensions/xep-0147.html
@@ -3931,6 +3982,9 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateSmartContractXml(System.Xml.XmlWriter,Waher.Content.Markdown.Model.SmartContractRenderState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.MyContacts.ContactInfoModel">

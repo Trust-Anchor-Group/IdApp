@@ -42,6 +42,11 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		public bool HandlesLaTeX => false;
 
 		/// <summary>
+		/// If generation of Smart Contract XML is supported
+		/// </summary>
+		public bool HandlesSmartContract => false;
+
+		/// <summary>
 		/// If generation of plain text is supported.
 		/// </summary>
 		public bool HandlesPlainText => false;
@@ -61,7 +66,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// </summary>
 		public Task<bool> GenerateMarkdown(StringBuilder Output, string[] Rows, string Language, int Indent, MarkdownDocument Document)
 		{
-			return Task.FromResult<bool>(false);
+			return Task.FromResult(false);
 		}
 
 		/// <summary>
@@ -69,7 +74,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// </summary>
 		public Task<bool> GenerateHTML(StringBuilder Output, string[] Rows, string Language, int Indent, MarkdownDocument Document)
 		{
-			return Task.FromResult<bool>(false);
+			return Task.FromResult(false);
 		}
 
 		/// <summary>
@@ -77,7 +82,15 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// </summary>
 		public Task<bool> GenerateLaTeX(StringBuilder Output, string[] Rows, string Language, int Indent, MarkdownDocument Document)
 		{
-			return Task.FromResult<bool>(false);
+			return Task.FromResult(false);
+		}
+
+		/// <summary>
+		/// Generates Smart Contract XML (not supported)
+		/// </summary>
+		public Task<bool> GenerateSmartContractXml(XmlWriter Output, SmartContractRenderState State, string[] Rows, string Language, int Indent, MarkdownDocument Document)
+		{
+			return Task.FromResult(false);
 		}
 
 		/// <summary>
@@ -85,7 +98,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// </summary>
 		public Task<bool> GeneratePlainText(StringBuilder Output, string[] Rows, string Language, int Indent, MarkdownDocument Document)
 		{
-			return Task.FromResult<bool>(false);
+			return Task.FromResult(false);
 		}
 
 		/// <summary>
@@ -93,7 +106,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// </summary>
 		public Task<bool> GenerateXAML(XmlWriter Output, TextAlignment TextAlignment, string[] Rows, string Language, int Indent, MarkdownDocument Document)
 		{
-			return Task.FromResult<bool>(false);
+			return Task.FromResult(false);
 		}
 
 		/// <summary>

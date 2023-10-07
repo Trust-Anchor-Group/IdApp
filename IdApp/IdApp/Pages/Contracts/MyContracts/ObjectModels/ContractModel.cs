@@ -121,10 +121,10 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModels
                 {
                     if (Block is Section Section)
                     {
-                        StringBuilder Markdown = new();
+                        MarkdownOutput Markdown = new();
 
                         foreach (InlineElement Item in Section.Header)
-                            Item.GenerateMarkdown(Markdown, 1, new Waher.Networking.XMPP.Contracts.HumanReadable.MarkdownSettings(Contract, MarkdownType.ForRendering));
+                            Item.GenerateMarkdown(Markdown, 1, 0, new Waher.Networking.XMPP.Contracts.HumanReadable.MarkdownSettings(Contract, MarkdownType.ForRendering));
 
                         MarkdownDocument Doc = await MarkdownDocument.CreateAsync(Markdown.ToString());
 

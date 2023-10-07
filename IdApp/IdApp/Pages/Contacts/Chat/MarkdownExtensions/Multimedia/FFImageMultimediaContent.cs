@@ -155,5 +155,11 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		{
 			return this.imageContent.GenerateLaTeX(Output, Items, ChildNodes, AloneInParagraph, Document);
 		}
+
+		/// <inheritdoc/>
+		public override Task GenerateSmartContractXml(XmlWriter Output, SmartContractRenderState State, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
+		{
+			return this.imageContent.GenerateSmartContractXml(Output, State, Items, ChildNodes, AloneInParagraph, Document);
+		}
 	}
 }

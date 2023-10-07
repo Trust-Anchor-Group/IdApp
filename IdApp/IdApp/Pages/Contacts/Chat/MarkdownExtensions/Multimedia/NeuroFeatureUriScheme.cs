@@ -105,5 +105,12 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 				break;
 			}
 		}
+
+		/// <inheritdoc/>
+		public override async Task GenerateSmartContractXml(XmlWriter Output, SmartContractRenderState State, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
+		{
+			foreach (MarkdownElement E in ChildNodes)
+				await E.GenerateSmartContractXml(Output, State);
+		}
 	}
 }
