@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Waher.Persistence;
 using Xamarin.Forms.Xaml;
 
@@ -23,10 +24,10 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// Method called (from main thread) when contract options are made available.
 		/// </summary>
 		/// <param name="Options">Available options, as dictionaries with contract parameters.</param>
-		public void ShowContractOptions(IDictionary<CaseInsensitiveString, object>[] Options)
+		public async Task ShowContractOptions(IDictionary<CaseInsensitiveString, object>[] Options)
 		{
 			if (this.ViewModel is NewContractViewModel ViewModel)
-				ViewModel.ShowContractOptions(this, Options);
+				await ViewModel.ShowContractOptions(this, Options);
 		}
 
 	}

@@ -1430,7 +1430,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		/// <param name="Page">Page currently being viewed</param>
 		/// <param name="Options">Available options, as dictionaries with contract parameters.</param>
-		public void ShowContractOptions(NewContractPage Page, IDictionary<CaseInsensitiveString, object>[] Options)
+		public async Task ShowContractOptions(NewContractPage Page, IDictionary<CaseInsensitiveString, object>[] Options)
 		{
 			if (Options.Length == 0)
 				return;
@@ -1439,54 +1439,73 @@ namespace IdApp.Pages.Contracts.NewContract
 			{
 				foreach (KeyValuePair<CaseInsensitiveString, object> Parameter in Options[0])
 				{
-					if (!this.parametersByName.TryGetValue(Parameter.Key, out ParameterInfo Info))
-						continue;
+					string ParameterName = Parameter.Key;
 
 					try
 					{
-						Info.Parameter.SetValue(Parameter.Value);
+						if (ParameterName.StartsWith("Max(", StringComparison.CurrentCultureIgnoreCase) && ParameterName.EndsWith(")"))
+						{
+							if (!this.parametersByName.TryGetValue(ParameterName[4..^1].Trim(), out ParameterInfo Info))
+								continue;
 
-						if (Info.Control is Entry Entry)
-							Entry.Text = Parameter.Value?.ToString() ?? string.Empty;
-						else if (Info.Control is CheckBox CheckBox)
-						{
-							if (Parameter.Value is bool b)
-								CheckBox.IsChecked = b;
-							else if (Parameter.Value is int i)
-								CheckBox.IsChecked = i != 0;
-							else if (Parameter.Value is double d)
-								CheckBox.IsChecked = d != 0;
-							else if (Parameter.Value is decimal d2)
-								CheckBox.IsChecked = d2 != 0;
-							else if (Parameter.Value is string s && CommonTypes.TryParse(s, out b))
-								CheckBox.IsChecked = b;
-							else
-							{
-								this.LogService.LogWarning("Invalid option value.",
-									new KeyValuePair<string, object>("Parameter", Parameter.Key),
-									new KeyValuePair<string, object>("Value", Parameter.Value),
-									new KeyValuePair<string, object>("Type", Parameter.Value?.GetType().FullName ?? string.Empty));
-							}
+							Info.Parameter.SetMaxValue(Parameter.Value, true);
 						}
-						else if (Info.Control is ExtendedDatePicker Picker)
+						else if (ParameterName.StartsWith("Min(", StringComparison.CurrentCultureIgnoreCase) && ParameterName.EndsWith(")"))
 						{
-							if (Parameter.Value is DateTime TP)
-								Picker.NullableDate = TP;
-							else if (Parameter.Value is string s && (DateTime.TryParse(s, out TP) || XML.TryParse(s, out TP)))
-								Picker.NullableDate = TP;
-							else
+							if (!this.parametersByName.TryGetValue(ParameterName[4..^1].Trim(), out ParameterInfo Info))
+								continue;
+
+							Info.Parameter.SetMinValue(Parameter.Value, true);
+						}
+						else
+						{
+							if (!this.parametersByName.TryGetValue(ParameterName, out ParameterInfo Info))
+								continue;
+
+							Info.Parameter.SetValue(Parameter.Value);
+
+							if (Info.Control is Entry Entry)
+								Entry.Text = Parameter.Value?.ToString() ?? string.Empty;
+							else if (Info.Control is CheckBox CheckBox)
 							{
-								this.LogService.LogWarning("Invalid option value.",
-									new KeyValuePair<string, object>("Parameter", Parameter.Key),
-									new KeyValuePair<string, object>("Value", Parameter.Value),
-									new KeyValuePair<string, object>("Type", Parameter.Value?.GetType().FullName ?? string.Empty));
+								if (Parameter.Value is bool b)
+									CheckBox.IsChecked = b;
+								else if (Parameter.Value is int i)
+									CheckBox.IsChecked = i != 0;
+								else if (Parameter.Value is double d)
+									CheckBox.IsChecked = d != 0;
+								else if (Parameter.Value is decimal d2)
+									CheckBox.IsChecked = d2 != 0;
+								else if (Parameter.Value is string s && CommonTypes.TryParse(s, out b))
+									CheckBox.IsChecked = b;
+								else
+								{
+									this.LogService.LogWarning("Invalid option value.",
+										new KeyValuePair<string, object>("Parameter", ParameterName),
+										new KeyValuePair<string, object>("Value", Parameter.Value),
+										new KeyValuePair<string, object>("Type", Parameter.Value?.GetType().FullName ?? string.Empty));
+								}
+							}
+							else if (Info.Control is ExtendedDatePicker Picker)
+							{
+								if (Parameter.Value is DateTime TP)
+									Picker.NullableDate = TP;
+								else if (Parameter.Value is string s && (DateTime.TryParse(s, out TP) || XML.TryParse(s, out TP)))
+									Picker.NullableDate = TP;
+								else
+								{
+									this.LogService.LogWarning("Invalid option value.",
+										new KeyValuePair<string, object>("Parameter", ParameterName),
+										new KeyValuePair<string, object>("Value", Parameter.Value),
+										new KeyValuePair<string, object>("Type", Parameter.Value?.GetType().FullName ?? string.Empty));
+								}
 							}
 						}
 					}
 					catch (Exception ex)
 					{
 						this.LogService.LogWarning("Invalid option value. Exception: " + ex.Message,
-							new KeyValuePair<string, object>("Parameter", Parameter.Key),
+							new KeyValuePair<string, object>("Parameter", ParameterName),
 							new KeyValuePair<string, object>("Value", Parameter.Value),
 							new KeyValuePair<string, object>("Type", Parameter.Value?.GetType().FullName ?? string.Empty));
 
@@ -1555,6 +1574,8 @@ namespace IdApp.Pages.Contracts.NewContract
 				if (SelectedOption is not null)
 					Picker.SelectedItem = SelectedOption;
 			}
+
+			await this.ValidateParameters();
 		}
 
 		private async void Parameter_OptionSelectionChanged(object Sender, EventArgs e)
@@ -1569,117 +1590,136 @@ namespace IdApp.Pages.Contracts.NewContract
 			{
 				foreach (KeyValuePair<CaseInsensitiveString, object> P in Option.Option)
 				{
+					string ParameterName = P.Key;
+
 					try
 					{
-						if (!this.parametersByName.TryGetValue(P.Key, out ParameterInfo ParameterInfo))
-							continue;
-
-						Entry Entry = ParameterInfo.Control as Entry;
-
-						if (ParameterInfo.Parameter is StringParameter SP)
+						if (ParameterName.StartsWith("Max(", StringComparison.CurrentCultureIgnoreCase) && ParameterName.EndsWith(")"))
 						{
-							string s = P.Value?.ToString() ?? string.Empty;
+							if (!this.parametersByName.TryGetValue(ParameterName[4..^1].Trim(), out ParameterInfo Info))
+								continue;
 
-							SP.Value = s;
-
-							if (Entry is not null)
-							{
-								Entry.Text = s;
-								Entry.BackgroundColor = Color.Default;
-							}
+							Info.Parameter.SetMaxValue(P.Value, true);
 						}
-						else if (ParameterInfo.Parameter is NumericalParameter NP)
+						else if (ParameterName.StartsWith("Min(", StringComparison.CurrentCultureIgnoreCase) && ParameterName.EndsWith(")"))
 						{
-							try
+							if (!this.parametersByName.TryGetValue(ParameterName[4..^1].Trim(), out ParameterInfo Info))
+								continue;
+
+							Info.Parameter.SetMinValue(P.Value, true);
+						}
+						else
+						{
+							if (!this.parametersByName.TryGetValue(ParameterName, out ParameterInfo Info))
+								continue;
+
+							Entry Entry = Info.Control as Entry;
+
+							if (Info.Parameter is StringParameter SP)
 							{
-								NP.Value = Expression.ToDecimal(P.Value);
+								string s = P.Value?.ToString() ?? string.Empty;
+
+								SP.Value = s;
 
 								if (Entry is not null)
+								{
+									Entry.Text = s;
 									Entry.BackgroundColor = Color.Default;
+								}
 							}
-							catch (Exception)
+							else if (Info.Parameter is NumericalParameter NP)
 							{
-								if (Entry is not null)
-									Entry.BackgroundColor = Color.Salmon;
-							}
-						}
-						else if (ParameterInfo.Parameter is BooleanParameter BP)
-						{
-							CheckBox CheckBox = ParameterInfo.Control as CheckBox;
+								try
+								{
+									NP.Value = Expression.ToDecimal(P.Value);
 
-							try
+									if (Entry is not null)
+										Entry.BackgroundColor = Color.Default;
+								}
+								catch (Exception)
+								{
+									if (Entry is not null)
+										Entry.BackgroundColor = Color.Salmon;
+								}
+							}
+							else if (Info.Parameter is BooleanParameter BP)
 							{
-								if (P.Value is bool b2)
-									BP.Value = b2;
-								else if (P.Value is string s && CommonTypes.TryParse(s, out b2))
-									BP.Value = b2;
-								else
+								CheckBox CheckBox = Info.Control as CheckBox;
+
+								try
+								{
+									if (P.Value is bool b2)
+										BP.Value = b2;
+									else if (P.Value is string s && CommonTypes.TryParse(s, out b2))
+										BP.Value = b2;
+									else
+									{
+										if (CheckBox is not null)
+											CheckBox.BackgroundColor = Color.Salmon;
+
+										continue;
+									}
+
+									if (CheckBox is not null)
+										CheckBox.BackgroundColor = Color.Default;
+								}
+								catch (Exception)
 								{
 									if (CheckBox is not null)
 										CheckBox.BackgroundColor = Color.Salmon;
-
-									continue;
 								}
+							}
+							else if (Info.Parameter is DateTimeParameter DTP)
+							{
+								Picker Picker2 = Info.Control as Picker;
 
-								if (CheckBox is not null)
-									CheckBox.BackgroundColor = Color.Default;
-							}
-							catch (Exception)
-							{
-								if (CheckBox is not null)
-									CheckBox.BackgroundColor = Color.Salmon;
-							}
-						}
-						else if (ParameterInfo.Parameter is DateTimeParameter DTP)
-						{
-							Picker Picker2 = ParameterInfo.Control as Picker;
+								if (P.Value is DateTime TP ||
+									(P.Value is string s && (DateTime.TryParse(s, out TP) || XML.TryParse(s, out TP))))
+								{
+									DTP.Value = TP;
 
-							if (P.Value is DateTime TP ||
-								(P.Value is string s && (DateTime.TryParse(s, out TP) || XML.TryParse(s, out TP))))
+									if (Picker2 is not null)
+										Picker2.BackgroundColor = Color.Default;
+								}
+								else
+								{
+									if (Picker2 is not null)
+										Picker2.BackgroundColor = Color.Salmon;
+								}
+							}
+							else if (Info.Parameter is TimeParameter TSP)
 							{
-								DTP.Value = TP;
+								if (P.Value is TimeSpan TS ||
+									(P.Value is string s && TimeSpan.TryParse(s, out TS)))
+								{
+									TSP.Value = TS;
 
-								if (Picker2 is not null)
-									Picker2.BackgroundColor = Color.Default;
+									if (Entry is not null)
+										Entry.BackgroundColor = Color.Default;
+								}
+								else
+								{
+									if (Entry is not null)
+										Entry.BackgroundColor = Color.Salmon;
+								}
 							}
-							else
+							else if (Info.Parameter is DurationParameter DP)
 							{
-								if (Picker2 is not null)
-									Picker2.BackgroundColor = Color.Salmon;
-							}
-						}
-						else if (ParameterInfo.Parameter is TimeParameter TSP)
-						{
-							if (P.Value is TimeSpan TS ||
-								(P.Value is string s && TimeSpan.TryParse(s, out TS)))
-							{
-								TSP.Value = TS;
+								if (P.Value is Duration D ||
+									(P.Value is string s && Duration.TryParse(s, out D)))
+								{
+									DP.Value = D;
 
-								if (Entry is not null)
-									Entry.BackgroundColor = Color.Default;
-							}
-							else
-							{
-								if (Entry is not null)
-									Entry.BackgroundColor = Color.Salmon;
-							}
-						}
-						else if (ParameterInfo.Parameter is DurationParameter DP)
-						{
-							if (P.Value is Duration D ||
-								(P.Value is string s && Duration.TryParse(s, out D)))
-							{
-								DP.Value = D;
+									if (Entry is not null)
+										Entry.BackgroundColor = Color.Default;
+								}
+								else
+								{
+									if (Entry is not null)
+										Entry.BackgroundColor = Color.Salmon;
 
-								if (Entry is not null)
-									Entry.BackgroundColor = Color.Default;
-							}
-							else
-							{
-								if (Entry is not null)
-									Entry.BackgroundColor = Color.Salmon;
-
-								return;
+									return;
+								}
 							}
 						}
 					}

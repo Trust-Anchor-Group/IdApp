@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Waher.Persistence;
 
 namespace IdApp.Pages.Contracts
@@ -12,6 +13,6 @@ namespace IdApp.Pages.Contracts
 		/// Method called (from main thread) when contract options are made available.
 		/// </summary>
 		/// <param name="Options">Available options, as dictionaries with contract parameters.</param>
-		void ShowContractOptions(IDictionary<CaseInsensitiveString, object>[] Options);
+		Task ShowContractOptions(IDictionary<CaseInsensitiveString, object>[] Options);
 	}
 }

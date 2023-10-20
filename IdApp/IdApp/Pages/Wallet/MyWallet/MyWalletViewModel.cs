@@ -669,7 +669,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 							IDictionary<CaseInsensitiveString, object>[] Options = await OptionsTransaction.Wait();
 
 							if (this.NavigationService.CurrentPage is IContractOptionsPage ContractOptionsPage)
-								this.UiSerializer.BeginInvokeOnMainThread(() => ContractOptionsPage.ShowContractOptions(Options));
+								this.UiSerializer.BeginInvokeOnMainThread(async () => await ContractOptionsPage.ShowContractOptions(Options));
 						}
 					}
 				}
@@ -774,7 +774,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 							IDictionary<CaseInsensitiveString, object>[] Options = await OptionsTransaction.Wait();
 
 							if (this.NavigationService.CurrentPage is IContractOptionsPage ContractOptionsPage)
-								this.UiSerializer.BeginInvokeOnMainThread(() => ContractOptionsPage.ShowContractOptions(Options));
+								this.UiSerializer.BeginInvokeOnMainThread(async () => await ContractOptionsPage.ShowContractOptions(Options));
 						}
 					}
 				}
