@@ -27,7 +27,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		public async Task ShowContractOptions(IDictionary<CaseInsensitiveString, object>[] Options)
 		{
 			if (this.ViewModel is NewContractViewModel ViewModel)
-				await ViewModel.ShowContractOptions(this, Options);
+				await ViewModel.ShowContractOptions(Options);
 		}
 
 	}
