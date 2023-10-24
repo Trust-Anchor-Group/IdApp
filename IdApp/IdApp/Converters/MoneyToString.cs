@@ -17,6 +17,13 @@ namespace IdApp.Converters
 				return ToString(Money);
 			else if (value is double d)
 				return ToString((decimal)d);
+			else if (value is DateTime TP)
+			{
+				if (TP.TimeOfDay == TimeSpan.Zero && TP.Kind != DateTimeKind.Utc)
+					return TP.ToShortDateString();
+				else
+					return TP.ToString();
+			}
 			else
 				return value?.ToString();
 		}
