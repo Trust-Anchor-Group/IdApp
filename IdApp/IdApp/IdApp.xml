@@ -7457,14 +7457,79 @@
             Property, if available.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.KeyPressCommand">
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.IsPositiveDurationProperty">
             <summary>
-            Command executed when user presses a key button.
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.IsPositiveDuration"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.DurationString">
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.IsPositiveDuration">
             <summary>
-            String representation of contents on the duration.
+            IsPositiveDuration
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.YearsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Years"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Years">
+            <summary>
+            Years
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.MonthsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Months"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Months">
+            <summary>
+            Months
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.DaysProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Days"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Days">
+            <summary>
+            Days
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.HoursProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Hours"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Hours">
+            <summary>
+            Hours
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.MinutesProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Minutes"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Minutes">
+            <summary>
+            Minutes
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.SecondsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Seconds"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Seconds">
+            <summary>
+            Seconds
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.PlusMinusCommand">
+            <summary>
+            Command executed when user presses a key button.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Main.Duration.DurationViewModel.EvaluateDuration">
@@ -22418,6 +22483,11 @@
             https://fontawesome.com/v5/cheatsheet/free/solid
             </summary>
         </member>
+        <member name="F:IdApp.Resx.FontAwesome.PlusMinus">
+            <summary>
+            The plus-minus icon
+            </summary>
+        </member>
         <member name="F:IdApp.Resx.FontAwesome.Images">
             <summary>
             The images icon
@@ -22631,6 +22701,11 @@
         <member name="T:IdApp.Resx.Svgs">
             <summary>
             A list of svg resources
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.Svgs.PlusMinus">
+            <summary>
+            The passport icon
             </summary>
         </member>
         <member name="F:IdApp.Resx.Svgs.Passport">

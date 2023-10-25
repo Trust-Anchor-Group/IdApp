@@ -31,6 +31,7 @@
     <None Remove="Resx\Svgs\images.svg" />
     <None Remove="Resx\Svgs\microphone.svg" />
     <None Remove="Resx\Svgs\passport.svg" />
+    <None Remove="Resx\Svgs\plus-minus.svg" />
     <None Remove="Resx\Svgs\QrPerson.svg" />
     <None Remove="Resx\Svgs\trash-can.svg" />
     <None Remove="Resx\Svgs\trash.svg" />
@@ -51,6 +52,7 @@
     <EmbeddedResource Include="Resx\Svgs\images.svg" />
     <EmbeddedResource Include="Resx\Svgs\microphone.svg" />
     <EmbeddedResource Include="Resx\Svgs\passport.svg" />
+    <EmbeddedResource Include="Resx\Svgs\plus-minus.svg" />
     <EmbeddedResource Include="Resx\Svgs\QrPerson.svg" />
     <EmbeddedResource Include="Resx\Svgs\trash-can.svg" />
     <EmbeddedResource Include="Resx\Svgs\trash.svg" />

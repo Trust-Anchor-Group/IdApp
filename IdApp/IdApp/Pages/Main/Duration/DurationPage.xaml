@@ -2,10 +2,12 @@
 <views:ContentBasePage
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
 	xmlns:noBounce="clr-namespace:IdApp.Controls.NoBounceView;assembly=IdApp"
 	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
 	xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
 	xmlns:model="clr-namespace:IdApp.Pages.Main.Duration;assembly=IdApp"
+	xmlns:controls="clr-namespace:IdApp.Controls"
 	x:DataType="model:DurationViewModel"
 	x:Class="IdApp.Pages.Main.Duration.DurationPage"
 	Style="{StaticResource BaseBackgroundPage}"
@@ -16,8 +18,20 @@
 		<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto" ColumnDefinitions="auto,*"
 			  RowSpacing="12" ColumnSpacing="12"
 			  Padding="{StaticResource DefaultMargin}">
-			<Frame Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Fill" VerticalOptions="Fill"
-				   BorderColor="Black" Margin="5" CornerRadius="8" BackgroundColor="Transparent" Padding="20,5,20,5">
+
+			<Frame Grid.Column="0" Grid.Row="0"
+				   VerticalOptions="Center" HorizontalOptions="Center"
+				   Style="{StaticResource TintedSvgIconButton}"
+				   xct:TouchEffect.AnimationDuration="100"
+				   xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+				   xct:TouchEffect.PressedOpacity="0.75"
+				   xct:TouchEffect.Command="{Binding Path=PlusMinusCommand}">
+				<controls:TintedSvgCachedImage
+					Source="{x:Static resx:Svgs.PlusMinus}" TintColor="White" />
+			</Frame>
+
+			<Frame Grid.Column="1" Grid.Row="0" HorizontalOptions="Fill" VerticalOptions="Fill"
+				   BorderColor="Black" CornerRadius="8" BackgroundColor="Transparent" Padding="20,5,20,5">
 				<Label HorizontalOptions="Fill" VerticalOptions="Fill"
 					   HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
 					   FontSize="30" Text="{Binding Value}">

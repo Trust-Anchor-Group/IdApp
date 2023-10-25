@@ -11,16 +11,16 @@
         <OnPlatform x:TypeArguments="x:String"
                     x:Key="FontAwesomeRegular">
             <On Platform="Android"
-                Value="FontAwesome5Free-Regular-400.otf#Regular" />
+                Value="FontAwesome6Free-Regular-400.otf#Regular" />
             <On Platform="iOS"
-                Value="FontAwesome5Free-Regular" />
+                Value="FontAwesome6Free-Regular" />
         </OnPlatform>
         <OnPlatform x:TypeArguments="x:String"
                     x:Key="FontAwesomeSolid">
             <On Platform="Android"
-                Value="FontAwesome5Free-Solid-900.otf#Regular" />
+                Value="FontAwesome6Free-Solid-900.otf#Regular" />
             <On Platform="iOS"
-                Value="FontAwesome5Free-Solid" />
+                Value="FontAwesome6Free-Solid" />
         </OnPlatform>
         <Color x:Key="HeadingForeground">White</Color>
         <Color x:Key="Primary">#202E40</Color>

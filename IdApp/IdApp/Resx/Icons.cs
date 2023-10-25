@@ -6,10 +6,15 @@
     /// </summary>
     public static class FontAwesome
     {
-        /// <summary>
-        /// The images icon
-        /// </summary>
-        public const string Images = "\uf302";
+		/// <summary>
+		/// The plus-minus icon
+		/// </summary>
+		public const string PlusMinus = "\ue43c";
+
+		/// <summary>
+		/// The images icon
+		/// </summary>
+		public const string Images = "\uf302";
 
         /// <summary>
         /// The trash can icon

@@ -11,6 +11,11 @@ namespace IdApp.Resx
 		/// <summary>
 		/// The passport icon
 		/// </summary>
+		public const string PlusMinus = "resource://IdApp.Resx.Svgs.plus-minus.svg";
+
+		/// <summary>
+		/// The passport icon
+		/// </summary>
 		public const string Passport = "resource://IdApp.Resx.Svgs.passport.svg";
 
 		/// <summary>

@@ -51,8 +51,8 @@
 	<string>en</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>FontAwesome5Free-Regular-400.otf</string>
-		<string>FontAwesome5Free-Solid-900.otf</string>
+		<string>FontAwesome6Free-Regular-400.otf</string>
+		<string>FontAwesome6Free-Solid-900.otf</string>
 	</array>
 	<key>CFBundleShortVersionString</key>
 	<string>1.9</string>

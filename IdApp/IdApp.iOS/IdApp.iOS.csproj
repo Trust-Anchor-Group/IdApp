@@ -256,8 +256,8 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <BundleResource Include="GoogleService-Info.plist" />
-    <BundleResource Include="Resources\FontAwesome5Free-Regular-400.otf" />
-    <BundleResource Include="Resources\FontAwesome5Free-Solid-900.otf" />
+    <BundleResource Include="Resources\FontAwesome6Free-Regular-400.otf" />
+    <BundleResource Include="Resources\FontAwesome6Free-Solid-900.otf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Resx\PListResources.resx" />
