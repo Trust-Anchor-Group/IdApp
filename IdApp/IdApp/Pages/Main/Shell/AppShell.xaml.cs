@@ -9,6 +9,7 @@ using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Identity.TransferIdentity;
 using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Pages.Main.Calculator;
+using IdApp.Pages.Main.Duration;
 using IdApp.Pages.Main.Link;
 using IdApp.Pages.Main.Links;
 using IdApp.Pages.Main.ScanQrCode;
@@ -119,6 +120,7 @@ namespace IdApp.Pages.Main.Shell
 			// General:
 			Routing.RegisterRoute(nameof(ScanQrCodePage), typeof(ScanQrCodePage));
 			Routing.RegisterRoute(nameof(CalculatorPage), typeof(CalculatorPage));
+			Routing.RegisterRoute(nameof(DurationPage), typeof(DurationPage));
 			Routing.RegisterRoute(nameof(SecurityPage), typeof(SecurityPage));
 			Routing.RegisterRoute(nameof(XmppFormPage), typeof(XmppFormPage));
 			Routing.RegisterRoute(nameof(LinksPage), typeof(LinksPage));

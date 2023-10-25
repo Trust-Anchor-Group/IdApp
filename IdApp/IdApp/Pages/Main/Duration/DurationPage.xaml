@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:noBounce="clr-namespace:IdApp.Controls.NoBounceView;assembly=IdApp"
+	xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
+	xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
+	xmlns:model="clr-namespace:IdApp.Pages.Main.Duration;assembly=IdApp"
+	x:DataType="model:DurationViewModel"
+	x:Class="IdApp.Pages.Main.Duration.DurationPage"
+	Style="{StaticResource BaseBackgroundPage}"
+	Title="{x:Static resx:AppResources.Duration}"
+	Shell.FlyoutBehavior="Disabled">
+
+	<noBounce:NoBounceScrollView>
+		<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto" ColumnDefinitions="auto,*"
+			  RowSpacing="12" ColumnSpacing="12"
+			  Padding="{StaticResource DefaultMargin}">
+			<Frame Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Fill" VerticalOptions="Fill"
+				   BorderColor="Black" Margin="5" CornerRadius="8" BackgroundColor="Transparent" Padding="20,5,20,5">
+				<Label HorizontalOptions="Fill" VerticalOptions="Fill"
+					   HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+					   FontSize="30" Text="{Binding Value}">
+				</Label>
+			</Frame>
+
+			<Label Text="{x:Static resx:AppResources.DurationYears}" Grid.Column="0" Grid.Row="1" VerticalOptions="Center" />
+			<Label Text="{x:Static resx:AppResources.DurationMonths}" Grid.Column="0" Grid.Row="2" VerticalOptions="Center" />
+			<Label Text="{x:Static resx:AppResources.DurationDays}" Grid.Column="0" Grid.Row="3" VerticalOptions="Center" />
+			<Label Text="{x:Static resx:AppResources.DurationHours}" Grid.Column="0" Grid.Row="4" VerticalOptions="Center" />
+			<Label Text="{x:Static resx:AppResources.DurationMinutes}" Grid.Column="0" Grid.Row="5" VerticalOptions="Center" />
+			<Label Text="{x:Static resx:AppResources.DurationSeconds}" Grid.Column="0" Grid.Row="6" VerticalOptions="Center" />
+
+			<Entry x:Name="EntryYears" Grid.Column="1" Grid.Row="1" Keyboard="Numeric"
+				   Text="{Binding Years}" TextChanged="EntryYears_TextChanged" />
+			<Entry x:Name="EntryMonths" Grid.Column="1" Grid.Row="2" Keyboard="Numeric"
+				   Text="{Binding Months}" TextChanged="EntryMonths_TextChanged" />
+			<Entry x:Name="EntryDays" Grid.Column="1" Grid.Row="3" Keyboard="Numeric"
+				   Text="{Binding Days}" TextChanged="EntryDays_TextChanged" />
+			<Entry x:Name="EntryHours" Grid.Column="1" Grid.Row="4" Keyboard="Numeric"
+				   Text="{Binding Hours}" TextChanged="EntryHours_TextChanged" />
+			<Entry x:Name="EntryMinutes" Grid.Column="1" Grid.Row="5" Keyboard="Numeric"
+				   Text="{Binding Minutes}" TextChanged="EntryMinutes_TextChanged" />
+			<Entry x:Name="EntrySeconds" Grid.Column="1" Grid.Row="6" Keyboard="Numeric"
+				   Text="{Binding Seconds}" TextChanged="EntrySeconds_TextChanged" />
+		</Grid>
+	</noBounce:NoBounceScrollView>
+</views:ContentBasePage>

@@ -7333,6 +7333,145 @@
             If parenthesis was started
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Main.Duration.DurationNavigationArgs">
+            <summary>
+            Holds navigation parameters for the duration.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Duration.DurationNavigationArgs.#ctor">
+            <summary>
+            Holds navigation parameters for the duration.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Duration.DurationNavigationArgs.#ctor(Xamarin.Forms.Entry)">
+            <summary>
+            Holds navigation parameters for the duration.
+            </summary>
+            <param name="Entry">Entry whose value is being calculated.</param>
+        </member>
+        <member name="M:IdApp.Pages.Main.Duration.DurationNavigationArgs.#ctor(IdApp.Pages.BaseViewModel,Xamarin.Forms.BindableProperty)">
+            <summary>
+            Holds navigation parameters for the duration.
+            </summary>
+            <param name="ViewModel">View model containing a bindable property with the value to calculate.</param>
+            <param name="Property">Property containing the value to calculate.</param>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationNavigationArgs.Entry">
+            <summary>
+            Entry whose value is being calculated.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationNavigationArgs.ViewModel">
+            <summary>
+            View model containing a bindable property with the value to calculate.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationNavigationArgs.Property">
+            <summary>
+            Property containing the value to calculate.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Duration.DurationPage">
+            <summary>
+            A page that allows the user to duration the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Duration.DurationPage.#ctor">
+            <summary>
+            A page that allows the user to duration the value of a numerical input field.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.Duration.DurationViewModel">
+            <summary>
+            The view model to bind to for when displaying the duration.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Duration.DurationViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Main.Duration.DurationViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Duration.DurationViewModel.OnInitialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Main.Duration.DurationViewModel.OnDispose">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.ValueProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Value"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Value">
+            <summary>
+            Current entry
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.StatusProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Status"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Status">
+            <summary>
+            Current entry
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.HasValueProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.HasValue"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.HasValue">
+            <summary>
+            If there's a value in the input field
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.EntryProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Entry"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Entry">
+            <summary>
+            Entry control, if available
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.ViewModelProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.ViewModel"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.ViewModel">
+            <summary>
+            View model, if available
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.PropertyProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Property"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Property">
+            <summary>
+            Property, if available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.KeyPressCommand">
+            <summary>
+            Command executed when user presses a key button.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.DurationString">
+            <summary>
+            String representation of contents on the duration.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Duration.DurationViewModel.EvaluateDuration">
+            <summary>
+            Evaluates the current duration.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Main.Links.LinksPage">
             <summary>
             A page that allows the user to calculate the value of a numerical input field.
@@ -19368,6 +19507,36 @@
               Looks up a localized string similar to Duration.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.DurationDays">
+            <summary>
+              Looks up a localized string similar to Days.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.DurationHours">
+            <summary>
+              Looks up a localized string similar to Hours.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.DurationMinutes">
+            <summary>
+              Looks up a localized string similar to Minutes.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.DurationMonths">
+            <summary>
+              Looks up a localized string similar to Months.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.DurationSeconds">
+            <summary>
+              Looks up a localized string similar to Seconds.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.DurationYears">
+            <summary>
+              Looks up a localized string similar to Years.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.EDalerNote">
             <summary>
               Looks up a localized string similar to eDaler Note.
@@ -22282,6 +22451,11 @@
         <member name="F:IdApp.Resx.FontAwesome.Home">
             <summary>
             The home (house) icon
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.FontAwesome.Clock">
+            <summary>
+            The clock icon
             </summary>
         </member>
         <member name="F:IdApp.Resx.FontAwesome.ScanQr">

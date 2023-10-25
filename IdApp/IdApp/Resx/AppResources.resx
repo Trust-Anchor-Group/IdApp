@@ -348,9 +348,6 @@
   <data name="DomainNameIsInvalid" xml:space="preserve">
     <value>Domain name is invalid</value>
   </data>
-  <data name="Duration" xml:space="preserve">
-    <value>Duration</value>
-  </data>
   <data name="EDalerNote" xml:space="preserve">
     <value>eDaler Note</value>
   </data>
@@ -1773,6 +1770,9 @@
   <data name="Calculator" xml:space="preserve">
     <value>Calculator</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
   <data name="CalculationError" xml:space="preserve">
     <value>Unable to perform calculation.</value>
   </data>
@@ -2348,5 +2348,23 @@
   </data>
   <data name="PendingPaymentItem" xml:space="preserve">
     <value>Pending Payments</value>
+  </data>
+  <data name="DurationYears" xml:space="preserve">
+    <value>Years</value>
+  </data>
+  <data name="DurationMonths" xml:space="preserve">
+    <value>Months</value>
+  </data>
+  <data name="DurationDays" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="DurationHours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="DurationMinutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="DurationSeconds" xml:space="preserve">
+    <value>Seconds</value>
   </data>
 </root>

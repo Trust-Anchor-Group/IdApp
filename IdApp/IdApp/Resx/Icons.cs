@@ -41,10 +41,15 @@
         /// </summary>
         public const string Home = "\uf015";
 
-        /// <summary>
-        /// The Scan QR icon
-        /// </summary>
-        public const string ScanQr = "\uf029";
+		/// <summary>
+		/// The clock icon
+		/// </summary>
+		public const string Clock = "\uf017";
+
+		/// <summary>
+		/// The Scan QR icon
+		/// </summary>
+		public const string ScanQr = "\uf029";
 
         /// <summary>
         /// The contract icon

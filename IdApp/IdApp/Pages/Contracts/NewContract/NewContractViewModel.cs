@@ -5,6 +5,7 @@ using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Pages.Contracts.NewContract.ObjectModel;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Main.Calculator;
+using IdApp.Pages.Main.Duration;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Navigation;
@@ -1170,7 +1171,19 @@ namespace IdApp.Pages.Contracts.NewContract
 						HorizontalOptions = LayoutOptions.FillAndExpand,
 					};
 
-					if (Parameter is NumericalParameter NP)
+					string CalculatorButtonType = null;
+
+					if (Parameter is NumericalParameter NumericalParameter)
+					{
+						CalculatorButtonType = FontAwesome.Calculator;
+					}
+
+					if (Parameter is DurationParameter DurationParameter)
+					{
+						CalculatorButtonType = FontAwesome.Clock;
+					}
+
+					if (CalculatorButtonType is not null)
 					{
 						Grid Grid = new()
 						{
@@ -1193,7 +1206,7 @@ namespace IdApp.Pages.Contracts.NewContract
 								}
 							},
 							RowSpacing = 0,
-							ColumnSpacing = 0,
+							ColumnSpacing = 8,
 							Padding = new Thickness(0),
 							Margin = new Thickness(0)
 						};
@@ -1206,7 +1219,7 @@ namespace IdApp.Pages.Contracts.NewContract
 						{
 							FontFamily = (OnPlatform<string>)Application.Current.Resources["FontAwesomeSolid"],
 							TextColor = (Color)Application.Current.Resources["TextColorLightTheme"],
-							Text = FontAwesome.Calculator,
+							Text = CalculatorButtonType,
 							HorizontalOptions = LayoutOptions.End,
 							WidthRequest = 40,
 							HeightRequest = 40,
@@ -1223,7 +1236,9 @@ namespace IdApp.Pages.Contracts.NewContract
 						ParametersLayout.Children.Add(Grid);
 					}
 					else
+					{
 						ParametersLayout.Children.Add(Entry);
+					}
 
 					Entry.TextChanged += this.Parameter_TextChanged;
 
@@ -1331,9 +1346,16 @@ namespace IdApp.Pages.Contracts.NewContract
 				if (ParameterInfo.Control is not Entry Entry)
 					return;
 
-				CalculatorNavigationArgs Args = new(Entry);
-
-				await this.NavigationService.GoToAsync(nameof(CalculatorPage), Args, BackMethod.Pop);
+				if (CalcButton.Text == FontAwesome.Clock)
+				{
+					DurationNavigationArgs Args = new(Entry);
+					await this.NavigationService.GoToAsync(nameof(DurationPage), Args, BackMethod.Pop);
+				}
+				else
+				{
+					CalculatorNavigationArgs Args = new(Entry);
+					await this.NavigationService.GoToAsync(nameof(CalculatorPage), Args, BackMethod.Pop);
+				}
 			}
 			catch (Exception ex)
 			{
