@@ -2319,4 +2319,61 @@
   <data name="PersonalInformation" xml:space="preserve">
     <value>Personlig information</value>
   </data>
+  <data name="Day" xml:space="preserve">
+    <value>dygn</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>dygn</value>
+  </data>
+  <data name="DurationDays" xml:space="preserve">
+    <value>Dagar</value>
+  </data>
+  <data name="DurationHours" xml:space="preserve">
+    <value>Timmar</value>
+  </data>
+  <data name="DurationMinutes" xml:space="preserve">
+    <value>Minuter</value>
+  </data>
+  <data name="DurationMonths" xml:space="preserve">
+    <value>Månader</value>
+  </data>
+  <data name="DurationSeconds" xml:space="preserve">
+    <value>Sekunder</value>
+  </data>
+  <data name="DurationYears" xml:space="preserve">
+    <value>År</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>timme</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>timmar</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>minut</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minuter</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>månad</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>månader</value>
+  </data>
+  <data name="Second" xml:space="preserve">
+    <value>sekund</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>sekunder</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>år</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>år</value>
+  </data>
+  <data name="Negative" xml:space="preserve">
+    <value>Negativ</value>
+  </data>
 </root>
