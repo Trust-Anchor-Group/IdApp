@@ -37,7 +37,7 @@ namespace IdApp.Converters
 		/// <returns>Human-readable text.</returns>
 		public static string ToString(Duration Duration)
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 			bool First = true;
 
 			if (Duration.Negation)
