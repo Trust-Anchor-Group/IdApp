@@ -1,4 +1,5 @@
 ﻿using IdApp.Controls.Extended;
+using IdApp.Converters;
 using IdApp.Extensions;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts.ObjectModels;
@@ -19,6 +20,7 @@ using System.Windows.Input;
 using Waher.Content;
 using Waher.Content.Xml;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.Contracts.EventArguments;
 using Waher.Persistence;
 using Waher.Script;
 using Xamarin.CommunityToolkit.Helpers;
@@ -69,19 +71,19 @@ namespace IdApp.Pages.Contracts.NewContract
 				this.suppressedProposalIds = Args.SuppressedProposalLegalIds;
 
 				if (Args.ParameterValues is not null)
-				{
 					this.presetParameterValues = Args.ParameterValues;
-				}
 
 				if (Args.SetVisibility)
-				{
 					Visibility = Args.Template.Visibility;
-				}
+
+				this.template.FormatParameterDisplay += this.Template_FormatParameterDisplay;
 			}
 			else if (this.stateTemplateWhileScanning is not null)
 			{
 				this.template = this.stateTemplateWhileScanning;
 				this.stateTemplateWhileScanning = null;
+
+				this.template.FormatParameterDisplay += this.Template_FormatParameterDisplay;
 			}
 
 			this.templateId = this.template?.ContractId ?? string.Empty;
@@ -98,6 +100,9 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// <inheritdoc/>
 		protected override async Task OnDispose()
 		{
+			if (this.template is not null)
+				this.template.FormatParameterDisplay -= this.Template_FormatParameterDisplay;
+
 			this.ContractVisibilityItems.Clear();
 
 			this.ClearTemplate(false);
@@ -110,6 +115,12 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 
 			await base.OnDispose();
+		}
+
+		private void Template_FormatParameterDisplay(object Sender, ParameterValueFormattingEventArgs e)
+		{
+			if (e.Value is Duration Duration)
+				e.Value = DurationToString.ToString(Duration);
 		}
 
 		/// <inheritdoc/>

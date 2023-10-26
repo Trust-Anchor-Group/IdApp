@@ -14,6 +14,7 @@ using IdApp.Pages.Contracts.ViewContract.ObjectModel;
 using IdApp.Pages.Signatures.ClientSignature;
 using IdApp.Pages.Signatures.ServerSignature;
 using IdApp.Services.UI.Photos;
+using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Xamarin.CommunityToolkit.Helpers;
@@ -77,6 +78,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (DateTime.Now.Subtract(TP).TotalSeconds < 5)
 					this.Contract = await this.XmppService.GetContract(this.Contract.ContractId);
 
+				this.Contract.FormatParameterDisplay += this.Contract_FormatParameterDisplay;
+
 				await this.DisplayContract();
 			}
 		}
@@ -84,12 +87,21 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// <inheritdoc/>
 		protected override async Task OnDispose()
 		{
+			if (this.Contract is not null)
+				this.Contract.FormatParameterDisplay -= this.Contract_FormatParameterDisplay;
+
 			this.XmppService.ContractUpdated -= this.ContractsClient_ContractUpdatedOrSigned;
 			this.XmppService.ContractSigned -= this.ContractsClient_ContractUpdatedOrSigned;
 
 			this.ClearContract();
 
 			await base.OnDispose();
+		}
+
+		private void Contract_FormatParameterDisplay(object Sender, Waher.Networking.XMPP.Contracts.EventArguments.ParameterValueFormattingEventArgs e)
+		{
+			if (e.Value is Duration Duration)
+				e.Value = DurationToString.ToString(Duration);
 		}
 
 		private Task ContractsClient_ContractUpdatedOrSigned(object Sender, ContractReferenceEventArgs e)
