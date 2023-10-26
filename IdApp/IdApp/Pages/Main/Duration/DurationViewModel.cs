@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -153,20 +154,20 @@ namespace IdApp.Pages.Main.Duration
 		}
 
 		/// <summary>
-		/// See <see cref="IsPositiveDuration"/>
+		/// See <see cref="IsNegativeDuration"/>
 		/// </summary>
-		public static readonly BindableProperty IsPositiveDurationProperty =
-			BindableProperty.Create(nameof(IsPositiveDuration), typeof(bool), typeof(DurationViewModel), true);
+		public static readonly BindableProperty IsNegativeDurationProperty =
+			BindableProperty.Create(nameof(IsNegativeDuration), typeof(bool), typeof(DurationViewModel), false);
 
 		/// <summary>
-		/// IsPositiveDuration
+		/// IsNegativeDuration
 		/// </summary>
-		public bool IsPositiveDuration
+		public bool IsNegativeDuration
 		{
-			get => (bool)this.GetValue(IsPositiveDurationProperty);
+			get => (bool)this.GetValue(IsNegativeDurationProperty);
 			set
 			{
-				this.SetValue(IsPositiveDurationProperty, value);
+				this.SetValue(IsNegativeDurationProperty, value);
 				this.EvaluateDuration();
 			}
 		}
@@ -296,7 +297,7 @@ namespace IdApp.Pages.Main.Duration
 
 		private void PlusMinusPressed()
 		{
-			this.IsPositiveDuration = !this.IsPositiveDuration;
+			this.IsNegativeDuration = !this.IsNegativeDuration;
 			this.EvaluateDuration();
 		}
 
@@ -305,6 +306,67 @@ namespace IdApp.Pages.Main.Duration
 		/// </summary>
 		public void EvaluateDuration()
 		{
+			bool IsZero = true;
+			StringBuilder sb = new();
+
+			sb.Append(this.IsNegativeDuration ? "-P" : "P");
+
+			if (!string.IsNullOrEmpty(this.Years))
+			{
+				IsZero = false;
+				sb.Append(this.Years);
+				sb.Append("Y");
+			}
+
+			if (!string.IsNullOrEmpty(this.Months))
+			{
+				IsZero = false;
+				sb.Append(this.Months);
+				sb.Append("M");
+			}
+
+			if (!string.IsNullOrEmpty(this.Days))
+			{
+				IsZero = false;
+				sb.Append(this.Days);
+				sb.Append("D");
+			}
+
+			bool IsHours = !string.IsNullOrEmpty(this.Hours);
+			bool IsMinutes = !string.IsNullOrEmpty(this.Minutes);
+			bool IsSeconds = !string.IsNullOrEmpty(this.Seconds);
+
+			if (IsHours || IsMinutes || IsSeconds)
+			{
+				IsZero = false;
+				sb.Append("T");
+
+				if (IsHours)
+				{
+					sb.Append(this.Hours);
+					sb.Append("H");
+				}
+
+				if (IsMinutes)
+				{
+					sb.Append(this.Minutes);
+					sb.Append("M");
+				}
+
+				if (IsSeconds)
+				{
+					sb.Append(this.Seconds);
+					sb.Append("S");
+				}
+			}
+
+			if (IsZero)
+			{
+				sb.Append("0D");
+			}
+
+			this.Value = sb.ToString();
+
 			return;
 		}
 

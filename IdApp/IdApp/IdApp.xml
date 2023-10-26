@@ -7457,14 +7457,14 @@
             Property, if available.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.IsPositiveDurationProperty">
+        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.IsNegativeDurationProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.IsPositiveDuration"/>
+            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.IsNegativeDuration"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.IsPositiveDuration">
+        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.IsNegativeDuration">
             <summary>
-            IsPositiveDuration
+            IsNegativeDuration
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.YearsProperty">
