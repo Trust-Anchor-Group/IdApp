@@ -1242,9 +1242,18 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					Entry.TextChanged += this.Parameter_TextChanged;
 
-					ParameterInfo PI = new(Parameter, Entry);
-					this.parametersByName[Parameter.Name] = PI;
-					this.parametersInOrder.AddLast(PI);
+					ParameterInfo ParameterInfo = new(Parameter, Entry);
+
+					if (Parameter is DurationParameter)
+					{
+						CalculatorButtonType = FontAwesome.Clock;
+						Entry.IsReadOnly = true;
+						Entry.SetBinding(Entry.TextProperty, new Binding("DurationValue", BindingMode.OneWay));
+						Entry.BindingContext = ParameterInfo;
+					}
+
+					this.parametersByName[Parameter.Name] = ParameterInfo;
+					this.parametersInOrder.AddLast(ParameterInfo);
 
 					if (this.presetParameterValues.TryGetValue(Parameter.Name, out object PresetValue))
 					{

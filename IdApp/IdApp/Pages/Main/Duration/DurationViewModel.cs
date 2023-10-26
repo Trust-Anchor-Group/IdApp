@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using IdApp.Pages.Contracts.NewContract.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -31,14 +34,21 @@ namespace IdApp.Pages.Main.Duration
 				this.Property = Args.Property;
 
 				if (this.Entry is not null)
+				{
 					this.Value = this.Entry.Text;
+				}
 				else if (this.ViewModel is not null && this.Property is not null)
+				{
 					this.Value = (string)this.ViewModel.GetValue(this.Property);
+				}
 				else
+				{
 					this.Value = string.Empty;
+				}
 
 			}
 
+			this.SplitDuration();
 			this.EvaluateDuration();
 		}
 
@@ -69,10 +79,20 @@ namespace IdApp.Pages.Main.Duration
 				this.SetValue(ValueProperty, value);
 
 				if (this.Entry is not null)
-					this.Entry.Text = this.Value;
-
-				if (this.ViewModel is not null && this.Property is not null)
+				{
+					if (this.Entry.BindingContext is ParameterInfo ParameterInfo)
+					{
+						ParameterInfo.DurationValue = Waher.Content.Duration.FromDays(1);
+					}
+					else
+					{
+						this.Entry.Text = this.Value;
+					}
+				}
+				else if (this.ViewModel is not null && this.Property is not null)
+				{
 					this.ViewModel.SetValue(this.Property, this.Value);
+				}
 			}
 		}
 
@@ -267,6 +287,163 @@ namespace IdApp.Pages.Main.Duration
 		{
 			this.IsNegativeDuration = !this.IsNegativeDuration;
 			this.EvaluateDuration();
+		}
+
+		private bool TryGetValue(string Duration, [NotNullWhen(true)] out string ValueString, [NotNullWhen(true)] out string ValueUnit)
+		{
+			ValueString = string.Empty;
+			ValueUnit = string.Empty;
+
+			for (int i = 0; i < Duration.Length; i++)
+			{
+				char ch = Duration[i];
+
+				if ("0123456789.".Contains(ch))
+				{
+					ValueString += ch;
+				}
+				else if ("YMDHS".Contains(ch))
+				{
+					ValueUnit += ch;
+					break;
+				}
+			}
+
+			return (ValueString.Length > 0) && (ValueUnit.Length > 0);
+		}
+
+		private bool ParseAnInt(string Text)
+		{
+			try
+			{
+				int Parsed = int.Parse(Text);
+			}
+			catch
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		private bool ParseAnFloat(string Text)
+		{
+			try
+			{
+				float Parsed = float.Parse(Text, NumberStyles.AllowDecimalPoint);
+			}
+			catch
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		/// <summary>
+		/// Split the current duration value into components.
+		/// </summary>
+		public void SplitDuration()
+		{
+			if (string.IsNullOrEmpty(this.Value))
+			{
+				return;
+			}
+
+			bool IsNegative = false;
+			string Duration = this.Value.ToUpperInvariant();
+
+			if (Duration.StartsWith("-P"))
+			{
+				IsNegative = true;
+				Duration = Duration[2..];
+			}
+			else if (Duration.StartsWith("+P"))
+			{
+				Duration = Duration[2..];
+			}
+			else if (Duration.StartsWith("P"))
+			{
+				Duration = Duration[1..];
+			}
+			else
+			{
+				// Wrong duration format, ignore it!
+				return;
+			}
+
+			bool IsTime = false;
+			string Years = string.Empty;
+			string Months = string.Empty;
+			string Days = string.Empty;
+			string Hours = string.Empty;
+			string Minutes = string.Empty;
+			string Seconds = string.Empty;
+
+			while (Duration.Length > 0)
+			{
+				if (Duration.StartsWith("T"))
+				{
+					IsTime = true;
+					Duration = Duration[1..];
+					continue;
+				}
+
+				if (!this.TryGetValue(Duration, out string ValueString, out string ValueUnit))
+				{
+					// Wrong duration format, ignore it!
+					return;
+				}
+
+				bool NoParseError = false;
+
+				if (IsTime)
+				{
+					if (ValueUnit == "H")
+					{
+						NoParseError = this.ParseAnInt(Hours = ValueString);
+					}
+					else if (ValueUnit == "M")
+					{
+						NoParseError = this.ParseAnInt(Minutes = ValueString);
+					}
+					else if (ValueUnit == "S")
+					{
+						NoParseError = this.ParseAnFloat(Seconds = ValueString);
+					}
+				}
+				else
+				{
+					if (ValueUnit == "Y")
+					{
+						NoParseError = this.ParseAnInt(Years = ValueString);
+					}
+					else if (ValueUnit == "M")
+					{
+						NoParseError = this.ParseAnInt(Months = ValueString);
+					}
+					else if (ValueUnit == "D")
+					{
+						NoParseError = this.ParseAnInt(Days = ValueString);
+					}
+				}
+
+				if (NoParseError)
+				{
+					// Wrong duration format, ignore it!
+					return;
+				}
+
+				Duration = Duration[(ValueString.Length + ValueUnit.Length)..];
+			}
+
+			this.IsNegativeDuration = IsNegative;
+			this.Years = Years;
+			this.Months = Months;
+			this.Days = Days;
+			this.Hours = Hours;
+			this.Minutes = Minutes;
+			this.Seconds = Seconds;
 		}
 
 		/// <summary>

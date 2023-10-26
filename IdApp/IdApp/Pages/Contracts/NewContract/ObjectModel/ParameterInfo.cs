@@ -1,4 +1,6 @@
-﻿using Waher.Networking.XMPP.Contracts;
+﻿using Waher.Content;
+using Waher.Networking.XMPP.Contracts;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Contracts.NewContract.ObjectModel
@@ -6,7 +8,7 @@ namespace IdApp.Pages.Contracts.NewContract.ObjectModel
     /// <summary>
     /// Contains information about a parameter.
     /// </summary>
-    public class ParameterInfo
+    public class ParameterInfo : ObservableObject
     {
         /// <summary>
         /// Contains information about a parameter.
@@ -28,5 +30,21 @@ namespace IdApp.Pages.Contracts.NewContract.ObjectModel
         /// Generated control.
         /// </summary>
         public View Control { get; internal set; }
-    }
+
+		/// <summary>
+		/// Duration object
+		/// </summary>
+		public Duration DurationValue
+		{
+			set
+			{ 
+				this.Parameter.SetValue(value);
+				this.OnPropertyChanged();
+			}
+			get
+			{
+				return (Duration)(this.Parameter.ObjectValue ?? Duration.Zero);
+			}
+		}
+	}
 }

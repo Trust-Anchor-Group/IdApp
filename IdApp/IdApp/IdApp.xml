@@ -5216,6 +5216,11 @@
             Generated control.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.ObjectModel.ParameterInfo.DurationValue">
+            <summary>
+            Duration object
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel">
             <summary>
             The data model for a contract part.
@@ -7510,6 +7515,11 @@
         <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.PlusMinusCommand">
             <summary>
             Command executed when user presses a key button.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.Duration.DurationViewModel.SplitDuration">
+            <summary>
+            Split the current duration value into components.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Main.Duration.DurationViewModel.EvaluateDuration">
