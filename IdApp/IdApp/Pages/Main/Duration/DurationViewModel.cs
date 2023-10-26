@@ -39,8 +39,7 @@ namespace IdApp.Pages.Main.Duration
 
 			}
 
-			this.Status = string.Empty;
-			this.HasValue = !string.IsNullOrEmpty(this.Value);
+			this.EvaluateDuration();
 		}
 
 		/// <inheritdoc/>
@@ -68,7 +67,6 @@ namespace IdApp.Pages.Main.Duration
 			set
 			{
 				this.SetValue(ValueProperty, value);
-				this.HasValue = !string.IsNullOrEmpty(value);
 
 				if (this.Entry is not null)
 					this.Entry.Text = this.Value;
@@ -76,36 +74,6 @@ namespace IdApp.Pages.Main.Duration
 				if (this.ViewModel is not null && this.Property is not null)
 					this.ViewModel.SetValue(this.Property, this.Value);
 			}
-		}
-
-		/// <summary>
-		/// See <see cref="Status"/>
-		/// </summary>
-		public static readonly BindableProperty StatusProperty =
-			BindableProperty.Create(nameof(Status), typeof(string), typeof(DurationViewModel), default(string));
-
-		/// <summary>
-		/// Current entry
-		/// </summary>
-		public string Status
-		{
-			get => (string)this.GetValue(StatusProperty);
-			set => this.SetValue(StatusProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="HasValue"/>
-		/// </summary>
-		public static readonly BindableProperty HasValueProperty =
-			BindableProperty.Create(nameof(HasValue), typeof(bool), typeof(DurationViewModel), default(bool));
-
-		/// <summary>
-		/// If there's a value in the input field
-		/// </summary>
-		public bool HasValue
-		{
-			get => (bool)this.GetValue(HasValueProperty);
-			set => this.SetValue(HasValueProperty, value);
 		}
 
 		/// <summary>

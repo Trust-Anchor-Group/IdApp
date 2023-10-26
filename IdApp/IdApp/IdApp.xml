@@ -7407,26 +7407,6 @@
             Current entry
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.StatusProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Status"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Status">
-            <summary>
-            Current entry
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.HasValueProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.HasValue"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.HasValue">
-            <summary>
-            If there's a value in the input field
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.EntryProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Entry"/>
