@@ -1,6 +1,9 @@
 ﻿using System.Linq;
+using Waher.Content.Html.Elements;
+using Waher.Content;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System;
 
 namespace IdApp.Pages.Main.Duration
 {
@@ -105,6 +108,14 @@ namespace IdApp.Pages.Main.Duration
 			bool IsValid = NewText.ToCharArray().All(ch => "0123456789.".Contains(ch));
 
 			if (!IsValid)
+			{
+				this.EntrySeconds.Text = e.OldTextValue ?? string.Empty;
+				return;
+			}
+
+			string[] Parts = NewText.Split('.');
+
+			if ((Parts.Length > 1) && (Parts[1].Length > 3))
 			{
 				this.EntrySeconds.Text = e.OldTextValue ?? string.Empty;
 				return;

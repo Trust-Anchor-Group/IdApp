@@ -1,4 +1,5 @@
 ﻿using IdApp.Pages.Contracts.NewContract.ObjectModel;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
@@ -290,7 +291,7 @@ namespace IdApp.Pages.Main.Duration
 		/// <summary>
 		/// Split the current duration value into components.
 		/// </summary>
-		private void SplitDuration()
+		public void SplitDuration()
 		{
 			this.skipEvaluations = true;
 
@@ -312,7 +313,7 @@ namespace IdApp.Pages.Main.Duration
 		/// <summary>
 		/// Evaluates the current duration.
 		/// </summary>
-		private void EvaluateDuration()
+		public void EvaluateDuration()
 		{
 			if (this.skipEvaluations)
 			{
