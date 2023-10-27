@@ -110,7 +110,13 @@ namespace IdApp.Pages.Main.Duration
 				return;
 			}
 
-			//!!! this.TrimZeros(this.EntrySeconds, e, true);
+			// trim leading zeros
+			while ((NewText.Length > 1) && (NewText[0] == '0') && (NewText[1] != '.'))
+			{
+				NewText = NewText[1..];
+			}
+
+			this.EntrySeconds.Text = NewText;
 		}
 	}
 }
