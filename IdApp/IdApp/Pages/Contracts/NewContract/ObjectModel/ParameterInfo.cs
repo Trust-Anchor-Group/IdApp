@@ -10,12 +10,14 @@ namespace IdApp.Pages.Contracts.NewContract.ObjectModel
     /// </summary>
     public class ParameterInfo : ObservableObject
     {
-        /// <summary>
-        /// Contains information about a parameter.
-        /// </summary>
-        /// <param name="Parameter">Contract parameter.</param>
-        /// <param name="Control">Generated control.</param>
-        public ParameterInfo(Parameter Parameter, View Control)
+		private Duration durationValue = Duration.Zero;
+
+		/// <summary>
+		/// Contains information about a parameter.
+		/// </summary>
+		/// <param name="Parameter">Contract parameter.</param>
+		/// <param name="Control">Generated control.</param>
+		public ParameterInfo(Parameter Parameter, View Control)
 		{
             this.Parameter = Parameter;
             this.Control = Control;
@@ -36,14 +38,11 @@ namespace IdApp.Pages.Contracts.NewContract.ObjectModel
 		/// </summary>
 		public Duration DurationValue
 		{
+			get => this.durationValue;
 			set
-			{ 
-				this.Parameter.SetValue(value);
-				this.OnPropertyChanged();
-			}
-			get
 			{
-				return (Duration)(this.Parameter.ObjectValue ?? Duration.Zero);
+				this.durationValue = value;
+				this.OnPropertyChanged();
 			}
 		}
 	}

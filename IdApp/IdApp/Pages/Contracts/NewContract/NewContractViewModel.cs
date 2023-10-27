@@ -786,6 +786,18 @@ namespace IdApp.Pages.Contracts.NewContract
 				}
 				else if (ParameterInfo.Parameter is DurationParameter DP)
 				{
+					if (ParameterInfo.DurationValue != Duration.Zero)
+					{
+						DP.Value = ParameterInfo.DurationValue;
+						Entry.BackgroundColor = Color.Default;
+					}
+					else
+					{
+						Entry.BackgroundColor = Color.Salmon;
+						return;
+					}
+
+					/*
 					if (Duration.TryParse(e.NewTextValue, out Duration D))
 					{
 						DP.Value = D;
@@ -796,6 +808,7 @@ namespace IdApp.Pages.Contracts.NewContract
 						Entry.BackgroundColor = Color.Salmon;
 						return;
 					}
+					*/
 				}
 
 				await this.ValidateParameters();
