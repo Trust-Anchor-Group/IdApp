@@ -7354,26 +7354,9 @@
             </summary>
             <param name="Entry">Entry whose value is being calculated.</param>
         </member>
-        <member name="M:IdApp.Pages.Main.Duration.DurationNavigationArgs.#ctor(IdApp.Pages.BaseViewModel,Xamarin.Forms.BindableProperty)">
-            <summary>
-            Holds navigation parameters for the duration.
-            </summary>
-            <param name="ViewModel">View model containing a bindable property with the value to calculate.</param>
-            <param name="Property">Property containing the value to calculate.</param>
-        </member>
         <member name="P:IdApp.Pages.Main.Duration.DurationNavigationArgs.Entry">
             <summary>
             Entry whose value is being calculated.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Duration.DurationNavigationArgs.ViewModel">
-            <summary>
-            View model containing a bindable property with the value to calculate.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Duration.DurationNavigationArgs.Property">
-            <summary>
-            Property containing the value to calculate.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Duration.DurationPage">
@@ -7402,11 +7385,6 @@
         <member name="M:IdApp.Pages.Main.Duration.DurationViewModel.OnDispose">
             <inheritdoc/>
         </member>
-        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.ValueProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Value"/>
-            </summary>
-        </member>
         <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Value">
             <summary>
             Current entry
@@ -7420,26 +7398,6 @@
         <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Entry">
             <summary>
             Entry control, if available
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.ViewModelProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.ViewModel"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.ViewModel">
-            <summary>
-            View model, if available
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.PropertyProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.Duration.DurationViewModel.Property"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Duration.DurationViewModel.Property">
-            <summary>
-            Property, if available.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Duration.DurationViewModel.IsNegativeDurationProperty">

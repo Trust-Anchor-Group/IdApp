@@ -18,13 +18,6 @@ namespace IdApp.Pages.Main.Duration
 			this.ViewModel = new DurationViewModel();
 
 			this.InitializeComponent();
-
-			this.EntryYears.Text = string.Empty;
-			this.EntryMonths.Text = string.Empty;
-			this.EntryDays.Text = string.Empty;
-			this.EntryHours.Text = string.Empty;
-			this.EntryMinutes.Text = string.Empty;
-			this.EntrySeconds.Text = string.Empty;
 		}
 
 		void TrimZeros(Entry Entry, TextChangedEventArgs e)
@@ -42,7 +35,7 @@ namespace IdApp.Pages.Main.Duration
 
 				if (Parsed == 0)
 				{
-					Entry.Text = e.OldTextValue;
+					Entry.Text = e.OldTextValue ?? string.Empty;
 				}
 				else
 				{
@@ -51,18 +44,24 @@ namespace IdApp.Pages.Main.Duration
 			}
 			catch
 			{
-				Entry.Text = e.OldTextValue;
+				Entry.Text = e.OldTextValue ?? string.Empty;
 			}
 		}
 
 		private void DefaultTextChanged(Entry Entry, TextChangedEventArgs e)
 		{
 			string NewText = e.NewTextValue;
+
+			if (string.IsNullOrEmpty(NewText))
+			{
+				return;
+			}
+
 			bool IsValid = NewText.ToCharArray().All(ch => "0123456789".Contains(ch));
 
 			if (!IsValid)
 			{
-				Entry.Text = e.OldTextValue;
+				Entry.Text = e.OldTextValue ?? string.Empty;
 				return;
 			}
 
@@ -97,11 +96,17 @@ namespace IdApp.Pages.Main.Duration
 		private void EntrySeconds_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string NewText = e.NewTextValue;
+
+			if (string.IsNullOrEmpty(NewText))
+			{
+				return;
+			}
+
 			bool IsValid = NewText.ToCharArray().All(ch => "0123456789.".Contains(ch));
 
 			if (!IsValid)
 			{
-				this.EntrySeconds.Text = e.OldTextValue;
+				this.EntrySeconds.Text = e.OldTextValue ?? string.Empty;
 				return;
 			}
 

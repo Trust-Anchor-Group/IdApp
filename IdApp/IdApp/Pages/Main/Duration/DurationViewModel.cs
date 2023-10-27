@@ -13,6 +13,8 @@ namespace IdApp.Pages.Main.Duration
 	/// </summary>
 	public class DurationViewModel : XmppViewModel
 	{
+		private bool skipEvaluations = false;
+
 		/// <summary>
 		/// Creates an instance of the <see cref="DurationViewModel"/> class.
 		/// </summary>
@@ -30,26 +32,10 @@ namespace IdApp.Pages.Main.Duration
 			if (this.NavigationService.TryGetArgs(out DurationNavigationArgs Args))
 			{
 				this.Entry = Args.Entry;
-				this.ViewModel = Args.ViewModel;
-				this.Property = Args.Property;
-
-				if (this.Entry is not null)
-				{
-					this.Value = this.Entry.Text;
-				}
-				else if (this.ViewModel is not null && this.Property is not null)
-				{
-					this.Value = (string)this.ViewModel.GetValue(this.Property);
-				}
-				else
-				{
-					this.Value = string.Empty;
-				}
-
+				this.OnPropertyChanged(nameof(this.Value));
 			}
 
 			this.SplitDuration();
-			this.EvaluateDuration();
 		}
 
 		/// <inheritdoc/>
@@ -63,35 +49,26 @@ namespace IdApp.Pages.Main.Duration
 		#region Properties
 
 		/// <summary>
-		/// See <see cref="Value"/>
-		/// </summary>
-		public static readonly BindableProperty ValueProperty =
-			BindableProperty.Create(nameof(Value), typeof(string), typeof(DurationViewModel), default(string));
-
-		/// <summary>
 		/// Current entry
 		/// </summary>
-		public string Value
+		public Waher.Content.Duration Value
 		{
-			get => (string)this.GetValue(ValueProperty);
+			get
+			{
+				if ((this.Entry is not null) && (this.Entry.BindingContext is ParameterInfo ParameterInfo))
+				{
+					return ParameterInfo.DurationValue;
+				}
+
+				return Waher.Content.Duration.Zero;
+			}
+
 			set
 			{
-				this.SetValue(ValueProperty, value);
-
-				if (this.Entry is not null)
+				if ((this.Entry is not null) && (this.Entry.BindingContext is ParameterInfo ParameterInfo))
 				{
-					if (this.Entry.BindingContext is ParameterInfo ParameterInfo)
-					{
-						ParameterInfo.DurationValue = Waher.Content.Duration.FromDays(1);
-					}
-					else
-					{
-						this.Entry.Text = this.Value;
-					}
-				}
-				else if (this.ViewModel is not null && this.Property is not null)
-				{
-					this.ViewModel.SetValue(this.Property, this.Value);
+					ParameterInfo.DurationValue = value;
+					this.OnPropertyChanged();
 				}
 			}
 		}
@@ -109,36 +86,6 @@ namespace IdApp.Pages.Main.Duration
 		{
 			get => (Entry)this.GetValue(EntryProperty);
 			set => this.SetValue(EntryProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="ViewModel"/>
-		/// </summary>
-		public static readonly BindableProperty ViewModelProperty =
-			BindableProperty.Create(nameof(ViewModel), typeof(BaseViewModel), typeof(DurationViewModel), default(BaseViewModel));
-
-		/// <summary>
-		/// View model, if available
-		/// </summary>
-		public BaseViewModel ViewModel
-		{
-			get => (BaseViewModel)this.GetValue(ViewModelProperty);
-			set => this.SetValue(ViewModelProperty, value);
-		}
-
-		/// <summary>
-		/// See <see cref="Property"/>
-		/// </summary>
-		public static readonly BindableProperty PropertyProperty =
-			BindableProperty.Create(nameof(Property), typeof(BindableProperty), typeof(DurationViewModel), default(BindableProperty));
-
-		/// <summary>
-		/// Property, if available.
-		/// </summary>
-		public BindableProperty Property
-		{
-			get => (BindableProperty)this.GetValue(PropertyProperty);
-			set => this.SetValue(PropertyProperty, value);
 		}
 
 		/// <summary>
@@ -343,114 +290,35 @@ namespace IdApp.Pages.Main.Duration
 		/// <summary>
 		/// Split the current duration value into components.
 		/// </summary>
-		public void SplitDuration()
+		private void SplitDuration()
 		{
-			if (string.IsNullOrEmpty(this.Value))
+			this.skipEvaluations = true;
+
+			this.IsNegativeDuration = this.Value.Negation;
+			this.Years = this.Value.Years.ToString(CultureInfo.InvariantCulture);
+			this.Months = this.Value.Months.ToString(CultureInfo.InvariantCulture);
+			this.Days = this.Value.Days.ToString(CultureInfo.InvariantCulture);
+			this.Hours = this.Value.Hours.ToString(CultureInfo.InvariantCulture);
+			this.Minutes = this.Value.Minutes.ToString(CultureInfo.InvariantCulture);
+
+			if (this.Value.Seconds > 0)
 			{
-				return;
+				this.Seconds = this.Value.Seconds.ToString(CultureInfo.InvariantCulture);
 			}
 
-			bool IsNegative = false;
-			string Duration = this.Value.ToUpperInvariant();
-
-			if (Duration.StartsWith("-P"))
-			{
-				IsNegative = true;
-				Duration = Duration[2..];
-			}
-			else if (Duration.StartsWith("+P"))
-			{
-				Duration = Duration[2..];
-			}
-			else if (Duration.StartsWith("P"))
-			{
-				Duration = Duration[1..];
-			}
-			else
-			{
-				// Wrong duration format, ignore it!
-				return;
-			}
-
-			bool IsTime = false;
-			string Years = string.Empty;
-			string Months = string.Empty;
-			string Days = string.Empty;
-			string Hours = string.Empty;
-			string Minutes = string.Empty;
-			string Seconds = string.Empty;
-
-			while (Duration.Length > 0)
-			{
-				if (Duration.StartsWith("T"))
-				{
-					IsTime = true;
-					Duration = Duration[1..];
-					continue;
-				}
-
-				if (!this.TryGetValue(Duration, out string ValueString, out string ValueUnit))
-				{
-					// Wrong duration format, ignore it!
-					return;
-				}
-
-				bool NoParseError = false;
-
-				if (IsTime)
-				{
-					if (ValueUnit == "H")
-					{
-						NoParseError = this.ParseAnInt(Hours = ValueString);
-					}
-					else if (ValueUnit == "M")
-					{
-						NoParseError = this.ParseAnInt(Minutes = ValueString);
-					}
-					else if (ValueUnit == "S")
-					{
-						NoParseError = this.ParseAnFloat(Seconds = ValueString);
-					}
-				}
-				else
-				{
-					if (ValueUnit == "Y")
-					{
-						NoParseError = this.ParseAnInt(Years = ValueString);
-					}
-					else if (ValueUnit == "M")
-					{
-						NoParseError = this.ParseAnInt(Months = ValueString);
-					}
-					else if (ValueUnit == "D")
-					{
-						NoParseError = this.ParseAnInt(Days = ValueString);
-					}
-				}
-
-				if (NoParseError)
-				{
-					// Wrong duration format, ignore it!
-					return;
-				}
-
-				Duration = Duration[(ValueString.Length + ValueUnit.Length)..];
-			}
-
-			this.IsNegativeDuration = IsNegative;
-			this.Years = Years;
-			this.Months = Months;
-			this.Days = Days;
-			this.Hours = Hours;
-			this.Minutes = Minutes;
-			this.Seconds = Seconds;
+			this.skipEvaluations = false;
 		}
 
 		/// <summary>
 		/// Evaluates the current duration.
 		/// </summary>
-		public void EvaluateDuration()
+		private void EvaluateDuration()
 		{
+			if (this.skipEvaluations)
+			{
+				return;
+			}
+
 			bool IsZero = true;
 			StringBuilder sb = new();
 
@@ -510,9 +378,10 @@ namespace IdApp.Pages.Main.Duration
 				sb.Append("0D");
 			}
 
-			this.Value = sb.ToString();
-
-			return;
+			if (Waher.Content.Duration.TryParse(sb.ToString(), out Waher.Content.Duration Result))
+			{
+				this.Value = Result;
+			}
 		}
 
 		#endregion

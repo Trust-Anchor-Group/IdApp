@@ -1246,7 +1246,6 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					if (Parameter is DurationParameter)
 					{
-						CalculatorButtonType = FontAwesome.Clock;
 						Entry.IsReadOnly = true;
 						Entry.SetBinding(Entry.TextProperty, new Binding("DurationValue", BindingMode.OneWay));
 						Entry.BindingContext = ParameterInfo;
