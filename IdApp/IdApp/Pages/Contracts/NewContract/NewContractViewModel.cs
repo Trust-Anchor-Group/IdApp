@@ -1258,7 +1258,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					if (Parameter is DurationParameter)
 					{
 						Entry.IsReadOnly = true;
-						Entry.SetBinding(Entry.TextProperty, new Binding("DurationValue", BindingMode.OneWay));
+						Entry.SetBinding(Entry.TextProperty, new Binding("DurationValue", BindingMode.OneWay, new DurationToString()));
 						Entry.BindingContext = ParameterInfo;
 					}
 
