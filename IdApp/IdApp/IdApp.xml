@@ -1852,6 +1852,27 @@
         <member name="M:IdApp.Converters.DateToString.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Converters.DurationToString">
+            <summary>
+            Converts a <see cref="T:Waher.Content.Duration"/> value to a <see cref="T:System.String"/> value.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.DurationToString.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.DurationToString.ToString(Waher.Content.Duration)">
+            <summary>
+            Converts a Duration to a human-readable text.
+            </summary>
+            <param name="Duration">Duration to convert.</param>
+            <returns>Human-readable text.</returns>
+        </member>
+        <member name="M:IdApp.Converters.DurationToString.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.DurationToString.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Converters.EqualsParameter">
             <summary>
             EqualsParameter is an <see cref="T:Xamarin.Forms.IValueConverter"/> which converts a given value to a boolean indicating if the value
@@ -19420,6 +19441,16 @@
               Looks up a localized string similar to Database repair failed. We&apos;re out of options now, so continue at your own risk..
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Day">
+            <summary>
+              Looks up a localized string similar to day.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Days">
+            <summary>
+              Looks up a localized string similar to days.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Decline">
             <summary>
               Looks up a localized string similar to Decline.
@@ -19800,6 +19831,16 @@
               Looks up a localized string similar to Home.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Hour">
+            <summary>
+              Looks up a localized string similar to hour.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Hours">
+            <summary>
+              Looks up a localized string similar to hours.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.HumanReadableText">
             <summary>
               Looks up a localized string similar to Human readable text.
@@ -20130,6 +20171,16 @@
               Looks up a localized string similar to Middle name(s).
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Minute">
+            <summary>
+              Looks up a localized string similar to minute.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Minutes">
+            <summary>
+              Looks up a localized string similar to minutes.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Mode">
             <summary>
               Looks up a localized string similar to Mode.
@@ -20143,6 +20194,16 @@
         <member name="P:IdApp.Resx.AppResources.MomentaryValues">
             <summary>
               Looks up a localized string similar to Momentary Values.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Month">
+            <summary>
+              Looks up a localized string similar to month.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Months">
+            <summary>
+              Looks up a localized string similar to months.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.MyIdentity">
@@ -20163,6 +20224,11 @@
         <member name="P:IdApp.Resx.AppResources.Namespace">
             <summary>
               Looks up a localized string similar to Namespace.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Negative">
+            <summary>
+              Looks up a localized string similar to Negative.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Network">
@@ -21255,6 +21321,16 @@
               Looks up a localized string similar to Scan QR Code.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.Second">
+            <summary>
+              Looks up a localized string similar to second.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Seconds">
+            <summary>
+              Looks up a localized string similar to seconds.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.Security">
             <summary>
               Looks up a localized string similar to Security.
@@ -22298,6 +22374,16 @@
         <member name="P:IdApp.Resx.AppResources.XOnY">
             <summary>
               Looks up a localized string similar to {0} on {1}.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Year">
+            <summary>
+              Looks up a localized string similar to year.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.Years">
+            <summary>
+              Looks up a localized string similar to years.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.Yes">

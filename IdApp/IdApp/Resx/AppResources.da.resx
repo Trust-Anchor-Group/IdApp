@@ -348,9 +348,6 @@
   <data name="DomainNameIsInvalid" xml:space="preserve">
     <value>Domænenavnet er ugyldigt</value>
   </data>
-  <data name="Duration" xml:space="preserve">
-    <value>Varighed</value>
-  </data>
   <data name="EDalerNote" xml:space="preserve">
     <value>eDaler Bemærk</value>
   </data>
@@ -1773,6 +1770,9 @@
   <data name="Calculator" xml:space="preserve">
     <value>Regnemaskine</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Varighed</value>
+  </data>
   <data name="CalculationError" xml:space="preserve">
     <value>Kan ikke udføre beregning.</value>
   </data>
@@ -2348,5 +2348,62 @@
   </data>
   <data name="PendingPaymentItem" xml:space="preserve">
     <value>Afventende betalinger</value>
+  </data>
+  <data name="DurationYears" xml:space="preserve">
+    <value>År</value>
+  </data>
+  <data name="DurationMonths" xml:space="preserve">
+    <value>Måneder</value>
+  </data>
+  <data name="DurationDays" xml:space="preserve">
+    <value>Dage</value>
+  </data>
+  <data name="DurationHours" xml:space="preserve">
+    <value>Timer</value>
+  </data>
+  <data name="DurationMinutes" xml:space="preserve">
+    <value>Minutter</value>
+  </data>
+  <data name="DurationSeconds" xml:space="preserve">
+    <value>Sekunder</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>dag</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Dage</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>time</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Timer</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>minut</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minutter</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>måned</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>Måneder</value>
+  </data>
+  <data name="Second" xml:space="preserve">
+    <value>anden</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Sekunder</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>år</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>År</value>
+  </data>
+  <data name="Negative" xml:space="preserve">
+    <value>Negativ</value>
   </data>
 </root>

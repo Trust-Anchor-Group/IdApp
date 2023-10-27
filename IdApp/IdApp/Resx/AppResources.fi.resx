@@ -348,9 +348,6 @@
   <data name="DomainNameIsInvalid" xml:space="preserve">
     <value>Verkkotunnus on virheellinen</value>
   </data>
-  <data name="Duration" xml:space="preserve">
-    <value>Kesto</value>
-  </data>
   <data name="EDalerNote" xml:space="preserve">
     <value>eDaler-huomautus</value>
   </data>
@@ -1773,6 +1770,9 @@
   <data name="Calculator" xml:space="preserve">
     <value>Laskin</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Kesto</value>
+  </data>
   <data name="CalculationError" xml:space="preserve">
     <value>Laskentaa ei voi suorittaa.</value>
   </data>
@@ -2348,5 +2348,62 @@
   </data>
   <data name="PendingPaymentItem" xml:space="preserve">
     <value>Odottavat maksut</value>
+  </data>
+  <data name="DurationYears" xml:space="preserve">
+    <value>Vuosia</value>
+  </data>
+  <data name="DurationMonths" xml:space="preserve">
+    <value>Kuukautta</value>
+  </data>
+  <data name="DurationDays" xml:space="preserve">
+    <value>Päivää</value>
+  </data>
+  <data name="DurationHours" xml:space="preserve">
+    <value>Työaika</value>
+  </data>
+  <data name="DurationMinutes" xml:space="preserve">
+    <value>Pöytäkirja</value>
+  </data>
+  <data name="DurationSeconds" xml:space="preserve">
+    <value>Sekuntia</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>päivä</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Päivää</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>tunti</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>työaika</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>minuutti</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>pöytäkirja</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>kuukausi</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>Kuukautta</value>
+  </data>
+  <data name="Second" xml:space="preserve">
+    <value>toinen</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Sekuntia</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>vuosi</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>vuosia</value>
+  </data>
+  <data name="Negative" xml:space="preserve">
+    <value>Negatiivinen</value>
   </data>
 </root>

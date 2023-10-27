@@ -40,10 +40,10 @@ namespace IdApp.Converters
 			while (c > 0 && s[c - 1] == '0')
 				c--;
 
-			s = s.Substring(0, c);
+			s = s[..c];
 
 			if (s.EndsWith(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator))
-				s = s.Substring(0, c - NumberFormatInfo.CurrentInfo.NumberDecimalSeparator.Length);
+				s = s[..(c - NumberFormatInfo.CurrentInfo.NumberDecimalSeparator.Length)];
 
 			return s;
 		}

@@ -348,9 +348,6 @@
   <data name="DomainNameIsInvalid" xml:space="preserve">
     <value>Недопустимое доменное имя</value>
   </data>
-  <data name="Duration" xml:space="preserve">
-    <value>Длительность</value>
-  </data>
   <data name="EDalerNote" xml:space="preserve">
     <value>Примечание eDaler</value>
   </data>
@@ -1773,6 +1770,9 @@
   <data name="Calculator" xml:space="preserve">
     <value>Калькулятор</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Длительность</value>
+  </data>
   <data name="CalculationError" xml:space="preserve">
     <value>Не удается выполнить расчет.</value>
   </data>
@@ -2348,5 +2348,62 @@
   </data>
   <data name="PendingPaymentItem" xml:space="preserve">
     <value>Ожидающие платежи</value>
+  </data>
+  <data name="DurationYears" xml:space="preserve">
+    <value>Годы</value>
+  </data>
+  <data name="DurationMonths" xml:space="preserve">
+    <value>Месяцы</value>
+  </data>
+  <data name="DurationDays" xml:space="preserve">
+    <value>Дни недели</value>
+  </data>
+  <data name="DurationHours" xml:space="preserve">
+    <value>Часов</value>
+  </data>
+  <data name="DurationMinutes" xml:space="preserve">
+    <value>Протокол</value>
+  </data>
+  <data name="DurationSeconds" xml:space="preserve">
+    <value>Товары второго сорта</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>день</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Дни недели</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>час</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Часов</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>минута</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>протокол</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>месяц</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>Месяцы</value>
+  </data>
+  <data name="Second" xml:space="preserve">
+    <value>секунда</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>товары второго сорта</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>год</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>годы</value>
+  </data>
+  <data name="Negative" xml:space="preserve">
+    <value>Отрицательная</value>
   </data>
 </root>
