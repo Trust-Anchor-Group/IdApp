@@ -14,6 +14,14 @@
 	Title="{x:Static resx:AppResources.Duration}"
 	Shell.FlyoutBehavior="Disabled">
 
+	<VisualElement.Resources>
+		<ResourceDictionary>
+			<Style TargetType="Entry" >
+				<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLightTheme}, Dark={StaticResource PageBackgroundColorDarkTheme}}" />
+			</Style>
+		</ResourceDictionary>
+	</VisualElement.Resources>
+	
 	<noBounce:NoBounceScrollView>
 		<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto" ColumnDefinitions="auto,*"
 			  RowSpacing="12" ColumnSpacing="12"
@@ -34,8 +42,7 @@
 				   BorderColor="Black" CornerRadius="8" BackgroundColor="Transparent" Padding="20,5,20,5">
 				<Label HorizontalOptions="Fill" VerticalOptions="Fill"
 					   HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
-					   FontSize="30" Text="{Binding Value}">
-				</Label>
+					   FontSize="30" Text="{Binding Value}"/>
 			</Frame>
 
 			<Label Text="{x:Static resx:AppResources.DurationYears}" Grid.Column="0" Grid.Row="1" VerticalOptions="Center" />
