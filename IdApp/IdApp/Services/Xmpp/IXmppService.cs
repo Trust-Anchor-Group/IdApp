@@ -624,6 +624,11 @@ namespace IdApp.Services.Xmpp
 		#region Smart Contracts
 
 		/// <summary>
+		/// Refrence to the underlying contracts client.
+		/// </summary>
+		ContractsClient ContractsClient { get; }
+
+		/// <summary>
 		/// Gets the contract with the specified id.
 		/// </summary>
 		/// <param name="ContractId">The contract id.</param>

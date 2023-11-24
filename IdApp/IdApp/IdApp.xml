@@ -28384,6 +28384,11 @@
             <param name="Identity">Legal Identity</param>
             <returns>The validity of the identity.</returns>
         </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.ContractsClient">
+            <summary>
+            Refrence to the underlying contracts client.
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Xmpp.IXmppService.GetContract(Waher.Persistence.CaseInsensitiveString)">
             <summary>
             Gets the contract with the specified id.

@@ -2625,7 +2625,7 @@ namespace IdApp.Services.Xmpp
 		/// Reference to contracts client, with a check that one is created.
 		/// Note: Do not make public. Reference only from inside the XmppService class.
 		/// </summary>
-		private ContractsClient ContractsClient
+		public ContractsClient ContractsClient
 		{
 			get
 			{

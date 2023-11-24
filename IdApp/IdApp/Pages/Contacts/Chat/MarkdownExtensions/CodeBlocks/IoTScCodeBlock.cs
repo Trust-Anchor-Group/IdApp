@@ -1,5 +1,6 @@
 ﻿using IdApp.Pages.Contracts.MyContracts.ObjectModels;
 using IdApp.Resx;
+using IdApp.Services;
 using IdApp.Services.UI.Photos;
 using System;
 using System.Text;
@@ -129,7 +130,8 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 				};
 				Doc.LoadXml(sb.ToString());
 
-				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement);
+				ServiceReferences Services = new();
+				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement, Services.XmppService.ContractsClient);
 				if (Parsed is null)
 					return false;
 

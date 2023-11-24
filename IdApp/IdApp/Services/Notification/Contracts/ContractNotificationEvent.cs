@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Waher.Networking.XMPP.Contracts;
-using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Services.Notification.Contracts
 {
@@ -108,7 +107,8 @@ namespace IdApp.Services.Notification.Contracts
 				};
 				Doc.LoadXml(this.ContractXml);
 
-				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement);
+				ServiceReferences Services = new();
+				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement, Services.XmppService.ContractsClient);
 
 				this.contract = Parsed?.Contract;
 			}

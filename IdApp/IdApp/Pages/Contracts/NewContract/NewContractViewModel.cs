@@ -858,7 +858,9 @@ namespace IdApp.Pages.Contracts.NewContract
 				{
 					// Calculation parameters might only execute on the server. So, if they fail in the client, allow user to propose contract anyway.
 
-					Valid = await P.Parameter.IsParameterValid(Variables) || P.Control is null;
+					ServiceReferences Services = new();
+
+					Valid = await P.Parameter.IsParameterValid(Variables, Services.XmppService.ContractsClient) || P.Control is null;
 				}
 				catch (Exception)
 				{

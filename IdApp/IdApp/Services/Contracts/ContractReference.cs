@@ -7,7 +7,6 @@ using System.Xml;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Waher.Persistence.Attributes;
-using Waher.Script.Functions.ComplexNumbers;
 
 namespace IdApp.Services.Contracts
 {
@@ -105,7 +104,8 @@ namespace IdApp.Services.Contracts
 				};
 				Doc.LoadXml(this.ContractXml);
 
-				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement);
+				ServiceReferences Services = new();
+				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement, Services.XmppService.ContractsClient);
 
 				this.contract = Parsed?.Contract;
 			}

@@ -1332,7 +1332,7 @@ namespace IdApp.Pages.Contacts.Chat
 								break;
 
 							case UriScheme.IotSc:
-								ParsedContract ParsedContract = await Contract.Parse(Doc.DocumentElement);
+								ParsedContract ParsedContract = await Contract.Parse(Doc.DocumentElement, this.XmppService.ContractsClient);
 								ViewContractNavigationArgs ViewContractArgs = new(ParsedContract.Contract, false);
 
 								await this.NavigationService.GoToAsync(nameof(ViewContractPage), ViewContractArgs, BackMethod.Pop);
