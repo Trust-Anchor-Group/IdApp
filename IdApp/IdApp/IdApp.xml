@@ -136,11 +136,6 @@
             Set start time of inactivity
             </summary>
         </member>
-        <member name="M:IdApp.App.ClearStartInactivityTime">
-            <summary>
-            Clears the conditions of checking inactivity
-            </summary>
-        </member>
         <member name="M:IdApp.App.IsInactivitySafeIntervalPassed">
             <summary>
             Performs a check whether 5 minutes of inactivity interval has been passed
