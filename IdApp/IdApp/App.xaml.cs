@@ -1147,16 +1147,18 @@ namespace IdApp
 			else
 			{
 				await Instance.loginAuditor.ProcessLoginFailure(Constants.Pin.RemoteEndpoint,
-						Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
+					Constants.Pin.Protocol, DateTime.Now, Constants.Pin.Reason);
 
 				PinAttemptCounter++;
 				SetCurrentPinCounter(PinAttemptCounter);
 			}
 
-			long RemainingAttempts = Constants.Pin.MaxPinAttempts - PinAttemptCounter;
+			long RemainingAttempts = Math.Max(0, Constants.Pin.MaxPinAttempts - PinAttemptCounter);
 			IUiSerializer Ui = Instantiate<IUiSerializer>();
 
-			await Ui.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"], string.Format(LocalizationResourceManager.Current["PinIsInvalid"], RemainingAttempts));
+			await Ui.DisplayAlert(LocalizationResourceManager.Current["ErrorTitle"],
+				string.Format(LocalizationResourceManager.Current["PinIsInvalid"], RemainingAttempts));
+
 			await CheckUserBlocking();
 			return Pin;
 		}
