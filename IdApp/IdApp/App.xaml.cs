@@ -1067,7 +1067,7 @@ namespace IdApp
 #else
 			bool IsDebug = false;
 #endif
-			if (!IsDebug)
+			if (!IsDebug || Force)
 			{
 				ITagProfile Profile = Instantiate<ITagProfile>();
 				if (!Profile.HasPin)
@@ -1075,7 +1075,10 @@ namespace IdApp
 
 				bool NeedToVerifyPin = IsInactivitySafeIntervalPassed();
 
-				if (!displayedPinPopup && (Force || NeedToVerifyPin))
+				if (displayedPinPopup)
+					return false;
+
+				if (Force || NeedToVerifyPin)
 					return await InputPin(Profile) is not null;
 			}
 
