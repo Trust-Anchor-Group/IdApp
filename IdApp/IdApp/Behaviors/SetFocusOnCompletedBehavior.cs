@@ -45,7 +45,7 @@ namespace IdApp.Behaviors
         /// <inheritdoc/>
         protected override void OnDetachingFrom(Entry entry)
         {
-            entry.TextChanged -= this.Entry_Completed;
+            entry.Completed -= this.Entry_Completed;
             base.OnDetachingFrom(entry);
         }
 
