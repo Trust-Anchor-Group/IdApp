@@ -8197,7 +8197,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Security.SecurityViewModel.CanEnableScreenCapture">
             <summary>
-            Gets or sets whether the identity is approved or not.
+            If Screen Capture can be enabled.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.Security.SecurityViewModel.CanDisableScreenCaptureProperty">
@@ -8207,7 +8207,7 @@
         </member>
         <member name="P:IdApp.Pages.Main.Security.SecurityViewModel.CanDisableScreenCapture">
             <summary>
-            Gets or sets whether the identity is approved or not.
+            If Screen Capture can be disabled.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Main.Security.SecurityViewModel.ChangePinCommand">

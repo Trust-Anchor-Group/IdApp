@@ -58,7 +58,7 @@ namespace IdApp.Pages.Main.Security
 			BindableProperty.Create(nameof(CanEnableScreenCapture), typeof(bool), typeof(SecurityViewModel), default(bool));
 
 		/// <summary>
-		/// Gets or sets whether the identity is approved or not.
+		/// If Screen Capture can be enabled.
 		/// </summary>
 		public bool CanEnableScreenCapture
 		{
@@ -73,7 +73,7 @@ namespace IdApp.Pages.Main.Security
 			BindableProperty.Create(nameof(CanDisableScreenCapture), typeof(bool), typeof(SecurityViewModel), default(bool));
 
 		/// <summary>
-		/// Gets or sets whether the identity is approved or not.
+		/// If Screen Capture can be disabled.
 		/// </summary>
 		public bool CanDisableScreenCapture
 		{
