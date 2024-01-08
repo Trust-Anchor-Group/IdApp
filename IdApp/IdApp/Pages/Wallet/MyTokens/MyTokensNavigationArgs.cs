@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace IdApp.Pages.Wallet.MyTokens
 {
 	/// <summary>
-	/// Holds navigation parameters specific to the eDaler wallet.
+	/// Holds navigation parameters for viewing tokens.
 	/// </summary>
 	public class MyTokensNavigationArgs : NavigationArgs
     {

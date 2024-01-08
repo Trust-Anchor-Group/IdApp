@@ -5,7 +5,7 @@ using Waher.Networking.XMPP.Contracts;
 namespace IdApp.Pages.Wallet.ServiceProviders
 {
 	/// <summary>
-	/// Holds navigation parameters specific to the eDaler wallet.
+	/// Holds navigation parameters for selecting a service provider.
 	/// </summary>
 	public class ServiceProvidersNavigationArgs : NavigationArgs
 	{

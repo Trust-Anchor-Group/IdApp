@@ -1,6 +1,5 @@
 ﻿using EDaler;
 using IdApp.Services.Navigation;
-using IdApp.Services.Notification;
 
 namespace IdApp.Pages.Wallet.MyWallet
 {

@@ -15545,7 +15545,7 @@
         </member>
         <member name="T:IdApp.Pages.Wallet.MyTokens.MyTokensNavigationArgs">
             <summary>
-            Holds navigation parameters specific to the eDaler wallet.
+            Holds navigation parameters for viewing tokens.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.MyTokens.MyTokensNavigationArgs.#ctor">
@@ -16832,7 +16832,7 @@
         </member>
         <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProviderModel.#ctor(Waher.Networking.XMPP.Contracts.IServiceProvider)">
             <summary>
-            Contact Information model, including related notification information.
+            Service Provider information model, including related notification information.
             </summary>
             <param name="ServiceProvider">Contact information.</param>
         </member>
@@ -16950,7 +16950,7 @@
         </member>
         <member name="T:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs">
             <summary>
-            Holds navigation parameters specific to the eDaler wallet.
+            Holds navigation parameters for selecting a service provider.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.ServiceProviders.ServiceProvidersNavigationArgs.#ctor">
