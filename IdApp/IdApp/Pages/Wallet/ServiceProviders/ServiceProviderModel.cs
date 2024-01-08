@@ -13,7 +13,7 @@ namespace IdApp.Pages.Wallet.ServiceProviders
 		private readonly IServiceProvider serviceProvider;
 
 		/// <summary>
-		/// Contact Information model, including related notification information.
+		/// Service Provider information model, including related notification information.
 		/// </summary>
 		/// <param name="ServiceProvider">Contact information.</param>
 		public ServiceProviderModel(IServiceProvider ServiceProvider)
