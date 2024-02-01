@@ -136,7 +136,7 @@ namespace IdApp.Services
 		/// <summary>
 		/// Subscribe to this contact
 		/// </summary>
-		public bool? SubcribeTo
+		public bool? SubcribeTo		// TODO: Misspelled
 		{
 			get => this.subcribeTo;
 			set => this.subcribeTo = value;

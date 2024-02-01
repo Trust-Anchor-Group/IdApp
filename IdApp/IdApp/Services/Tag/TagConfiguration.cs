@@ -172,6 +172,6 @@ namespace IdApp.Services
 		/// Current step in the registration process.
 		/// </summary>
 		[DefaultValue(Tag.RegistrationStep.ValidateContactInfo)]
-		public Tag.RegistrationStep Step { get; set; }
+		public RegistrationStep Step { get; set; }
 	}
 }

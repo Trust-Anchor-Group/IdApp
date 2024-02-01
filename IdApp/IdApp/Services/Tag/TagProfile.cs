@@ -815,6 +815,11 @@ namespace IdApp.Services.Tag
 			this.PasswordHash = string.Empty;
 			this.PasswordHashMethod = string.Empty;
 			this.LegalJid = null;
+			this.RegistryJid = null;
+			this.ProvisioningJid = null;
+			this.EDalerJid = null;
+			this.NeuroFeaturesJid = null;
+			this.SupportsPushNotification = false;
 
 			if (GoToPrevStep)
 			{
@@ -839,6 +844,11 @@ namespace IdApp.Services.Tag
 		{
 			this.LegalIdentity = null;
 			this.LegalJid = null;
+			this.RegistryJid = null;
+			this.ProvisioningJid = null;
+			this.EDalerJid = null;
+			this.NeuroFeaturesJid = null;
+			this.SupportsPushNotification = false;
 
 			return Task.CompletedTask;
 		}
@@ -1013,6 +1023,7 @@ namespace IdApp.Services.Tag
 			this.TestOtpTimestamp = null;
 			this.step = RegistrationStep.ValidateContactInfo;
 			this.defaultXmppConnectivity = false;
+			this.supportsPushNotification = false;
 
 			this.IsDirty = true;
 		}
