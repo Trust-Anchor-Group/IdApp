@@ -25,7 +25,7 @@ namespace IdApp.Services.UI.QR
 		/// </summary>
 		public static async Task ScanQrCodeAndHandleResult(bool UseShellNavigationService = true)
 		{
-			string Url = await QrCode.ScanQrCode(LocalizationResourceManager.Current["Open"], UseShellNavigationService: UseShellNavigationService);
+			string Url = await ScanQrCode(LocalizationResourceManager.Current["Open"], UseShellNavigationService: UseShellNavigationService);
 			if (string.IsNullOrWhiteSpace(Url))
 				return;
 

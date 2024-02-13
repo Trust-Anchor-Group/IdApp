@@ -62,7 +62,7 @@ namespace IdApp.Extensions
 			if (i < 0)
 				return s;
 			else
-				return s.Substring(0, i);
+				return s[..i];
 		}
 
 		/// <summary>

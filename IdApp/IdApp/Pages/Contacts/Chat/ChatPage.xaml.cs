@@ -1,5 +1,4 @@
 ﻿using IdApp.Helpers;
-using IdApp.Services.Navigation;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
