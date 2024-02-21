@@ -1,7 +1,6 @@
 ﻿using IdApp.Resx;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Waher.Content.Markdown;
