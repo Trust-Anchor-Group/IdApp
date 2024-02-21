@@ -1,26 +1,20 @@
 ﻿using IdApp.Pages.Contacts.Chat.MarkdownExtensions.Content;
-using IdApp.Services.AttachmentCache;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Waher.Content.Markdown;
 using Waher.Content.Markdown.Model;
 using Waher.Content.Markdown.Model.Multimedia;
+using Waher.Content.Markdown.Xamarin;
 using Waher.Runtime.Inventory;
-using Xamarin.CommunityToolkit.Converters;
-using Xamarin.CommunityToolkit.Helpers;
 
 namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 {
 	/// <summary>
-	/// A <see cref="MultimediaContent"/> implementation which renders markdown images in Xamarin.Forms using FFImageLoading library.
+	/// A <see cref="MultimediaContent"/> implementation which plays audio using a AudioPlayerControl.
 	/// </summary>
-	/// <remarks>
-	/// Rendering for destinations other than Xamarin.Forms is performed using the default <see cref="ImageContent"/>.
-	/// </remarks>
-	public class AudioMultimediaContent : MultimediaContent
+	public class AudioMultimediaContent : MultimediaContent, IMultimediaXamarinFormsXamlRenderer
 	{
 		private readonly AudioContent audioContent = new();
 
@@ -49,16 +43,11 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		}
 
 		/// <inheritdoc/>
-		public override Task GenerateHTML(StringBuilder Output, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
-		{
-			return this.audioContent.GenerateHTML(Output, Items, ChildNodes, AloneInParagraph, Document);
-		}
-
-		/// <inheritdoc/>
-		public override Task GenerateXamarinForms(XmlWriter Output, XamarinRenderingState State, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
+		public Task RenderXamarinFormsXaml(XamarinFormsXamlRenderer Renderer, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
 		{
 			if (Items?.Length > 0 && Items[0] is MultimediaItem MultimediaItem)
 			{
+				XmlWriter Output = Renderer.XmlOutput;
 				string Url = MultimediaItem.Url;
 
 				if (Url.StartsWith(Constants.UriSchemes.Aes256))
@@ -76,24 +65,6 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 			}
 
 			return Task.CompletedTask;
-		}
-
-		/// <inheritdoc/>
-		public override Task GenerateXAML(XmlWriter Output, TextAlignment TextAlignment, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
-		{
-			return this.audioContent.GenerateXAML(Output, TextAlignment, Items, ChildNodes, AloneInParagraph, Document);
-		}
-
-		/// <inheritdoc/>
-		public override Task GenerateLaTeX(StringBuilder Output, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
-		{
-			return this.audioContent.GenerateLaTeX(Output, Items, ChildNodes, AloneInParagraph, Document);
-		}
-
-		/// <inheritdoc/>
-		public override Task GenerateSmartContractXml(XmlWriter Output, SmartContractRenderState State, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
-		{
-			return this.audioContent.GenerateSmartContractXml(Output, State, Items, ChildNodes, AloneInParagraph, Document);
 		}
 	}
 }

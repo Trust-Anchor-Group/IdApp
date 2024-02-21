@@ -2,12 +2,12 @@
 using IdApp.Services.AttachmentCache;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Waher.Content.Markdown;
 using Waher.Content.Markdown.Model;
 using Waher.Content.Markdown.Model.Multimedia;
+using Waher.Content.Markdown.Xamarin;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
@@ -18,7 +18,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 	/// <remarks>
 	/// Rendering for destinations other than Xamarin.Forms is performed using the default <see cref="ImageContent"/>.
 	/// </remarks>
-	public class FFImageMultimediaContent : MultimediaContent
+	public class FFImageMultimediaContent : MultimediaContent, IMultimediaXamarinFormsXamlRenderer
 	{
 		private readonly ImageContent imageContent = new();
 
@@ -47,16 +47,11 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		}
 
 		/// <inheritdoc/>
-		public override Task GenerateHTML(StringBuilder Output, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
-		{
-			return this.imageContent.GenerateHTML(Output, Items, ChildNodes, AloneInParagraph, Document);
-		}
-
-		/// <inheritdoc/>
-		public override Task GenerateXamarinForms(XmlWriter Output, XamarinRenderingState State, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
+		public Task RenderXamarinFormsXaml(XamarinFormsXamlRenderer Renderer, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
 		{
 			if (Items?.Length > 0 && Items[0] is MultimediaItem MultimediaItem)
 			{
+				XmlWriter Output = Renderer.XmlOutput;
 				double? DownsampleWidth = null;
 				double? DownsampleHeight = null;
 
@@ -142,24 +137,6 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 
 				return this.attachmentCacheService;
 			}
-		}
-
-		/// <inheritdoc/>
-		public override Task GenerateXAML(XmlWriter Output, TextAlignment TextAlignment, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
-		{
-			return this.imageContent.GenerateXAML(Output, TextAlignment, Items, ChildNodes, AloneInParagraph, Document);
-		}
-
-		/// <inheritdoc/>
-		public override Task GenerateLaTeX(StringBuilder Output, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
-		{
-			return this.imageContent.GenerateLaTeX(Output, Items, ChildNodes, AloneInParagraph, Document);
-		}
-
-		/// <inheritdoc/>
-		public override Task GenerateSmartContractXml(XmlWriter Output, SmartContractRenderState State, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
-		{
-			return this.imageContent.GenerateSmartContractXml(Output, State, Items, ChildNodes, AloneInParagraph, Document);
 		}
 	}
 }
