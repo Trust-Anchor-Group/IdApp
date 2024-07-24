@@ -105,7 +105,7 @@ namespace IdApp.Services.Contracts
 				Doc.LoadXml(this.ContractXml);
 
 				ServiceReferences Services = new();
-				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement, Services.XmppService.ContractsClient);
+				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement, Services.XmppService.ContractsClient, false);
 
 				this.contract = Parsed?.Contract;
 			}

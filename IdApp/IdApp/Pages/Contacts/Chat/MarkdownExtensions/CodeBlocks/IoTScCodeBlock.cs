@@ -55,7 +55,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 				Doc.LoadXml(sb.ToString());
 
 				ServiceReferences Services = new();
-				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement, Services.XmppService.ContractsClient);
+				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement, Services.XmppService.ContractsClient, false);
 				if (Parsed is null)
 					return false;
 
