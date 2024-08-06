@@ -1,7 +1,7 @@
 # ID App
 
 The **ID App** (or *TAG ID App*) is a *white-label* Xamarin app written in C# provided by [Trust Anchor Group](https://trustanchorgroup.com/) 
-(**TAG** for short). It can be used to create custom apps based on [IEEE P1451.99](https://gitlab.com/IEEE-SA/XMPPI/IoT). This includes:
+(**TAG** for short). It can be used to create custom apps based on [Neuro-Foundation interfaces](https://neuro-foundation.io). This includes:
 
 * Federated & distributed Digital IDs. (Globally scalable, interoperable.)
 * Smart Contracts
@@ -11,7 +11,7 @@ The **ID App** (or *TAG ID App*) is a *white-label* Xamarin app written in C# pr
 * Peer-to-peer communication.
 
 It is built with .NET Standard 2.0 and Xamarin.Forms 5.0 (Shell), and relies on nugets from the [IoTGateway](https://github.com/PeterWaher/IoTGateway) 
-framework to perform tasks related to communication and functionality defined in IEEE P1451.99.
+framework to perform tasks related to communication and functionality defined by [Neuro-Foundation](https://neuro-foundation.io).
 
 The ID App is also published to [Google Play Store][] (for Android devices) and [Apple App Store][] (for iOS devices).
 
@@ -48,7 +48,8 @@ license agreement including provisions equivalent to this license agreement.
 
 * For **Academic use**. This includes research projects, student projects or classroom projects. Redistribution of artefacts or source code requries attribution to the 
 [original source code repository](https://github.com/Trust-Anchor-Group/IdApp), as well as a license agreement including provisions equivalent to this license agreement. 
-Attribution and reference in published articles is encouraged. If access to other technologies based on IEEE P1451.99 is desired, please [contact Trust Anchor Group AB](#contact).
+Attribution and reference in published articles is encouraged. If access to other technologies based on Neuro-Foundation interfaces is desired, please contact
+[Trust Anchor Group AB](#contact).
 
 * For **Security analysis**. If you perform any security analysis on the code, to see what security aspects the code might have, all we request of you, is that you 
 maintain the information in a confidential manner, inform us of any findings privately, with sufficient anticipation, before publishing your findings, in accordance 
